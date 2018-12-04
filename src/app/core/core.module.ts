@@ -6,6 +6,7 @@ import { of as observableOf } from 'rxjs';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AbService } from './utils/ab.service';
+import { APIModule } from './api';
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
   getRole() {
@@ -61,6 +62,7 @@ export const NB_CORE_PROVIDERS = [
   ],
   exports: [
     NbAuthModule,
+    APIModule,
   ],
   declarations: [],
 })
