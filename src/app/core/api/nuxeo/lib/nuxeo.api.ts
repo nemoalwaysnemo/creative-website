@@ -1,24 +1,37 @@
 import { NuxeoOptions, NuxeoResponse } from './base.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of as observableOf } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Credentials } from './base.interface';
+import { map } from 'rxjs/operators';
 import { Base } from './base.api';
 import { BaseAuthentication } from './base.authentication';
 import { Operation } from './nuxeo.operation';
 import { Directory } from './nuxeo.directory';
 import { Request } from './nuxeo.request';
 import { Users } from './nuxeo.users';
+import { Repository } from './nuxeo.repository';
 
-
+import { Unmarshallers, documentUnmarshaller, documentsUnmarshaller, userUnmarshaller } from './nuxeo.unmarshallers';
 
 export class Nuxeo extends Base {
 
+  private _promiseLibrary: any;
+  private _authenticationRefreshedListeners: Array<any>;
+  private _activeRequests: 0;
   private auth: Credentials;
+  private _connected: false;
+  documentUnmarshaller: any;
 
   constructor(httpClient: HttpClient, opts: NuxeoOptions = { baseUrl: '' }) {
     super(opts);
     this.auth = opts.auth;
     this.httpClient = httpClient;
+    // register default unmarshallers
+    this._initUnmarshaller();
+  }
+
+  get connected(): boolean {
+    return this._connected;
   }
 
   setCredentials(credentials: Credentials): this {
@@ -34,6 +47,20 @@ export class Nuxeo extends Base {
   }
 
   connect(opts?: any): Observable<any> {
+
+    // this.cmis().subscribe(
+    //   response => {
+    //     this.login();
+    //     // console.log(response);
+    //     // this.users({ enrichers: { user: ['userprofile'] } }).fetch(response.username);
+    //     console.log('POST call successful value returned in body', response);
+    //   },
+    //   error => {
+    //     if (error.status === 401) {
+    //       this.login();
+    //       console.log('POST call in error', error);
+    //     }
+    //   });
     return this.cmis();
   }
 
@@ -49,16 +76,21 @@ export class Nuxeo extends Base {
     return new Users(finalOptions);
   }
 
+  authenticate(data?: any): Observable<NuxeoResponse> {
+    return;
+  }
+
   operation(id: string, opts?: {}): Operation {
     let finalOptions = {
       id,
       url: this.automationUrl,
+      httpService: this,
     };
     finalOptions = this._computeOptions(Object.assign(finalOptions, opts));
     return new Operation(finalOptions);
   }
 
-  request(path: string, opts: any) {
+  request(path: string, opts?: {}) {
     let finalOptions = {
       path,
       nuxeo: this,
@@ -77,6 +109,28 @@ export class Nuxeo extends Base {
     return new Directory(finalOptions);
   }
 
+  repository(name: string = null, opts: any = {}) {
+    let repositoryName = name;
+    let options = opts;
+    if (typeof repositoryName === 'object') {
+      options = repositoryName;
+      repositoryName = null;
+    }
+
+    let finalOptions = {
+      nuxeo: this,
+      repositoryName,
+    };
+    if (repositoryName) {
+      finalOptions.repositoryName = repositoryName;
+    }
+    // finalOptions = Object.assign(finalOptions, options);
+    finalOptions = Object.assign(options, finalOptions);
+    finalOptions = this._computeOptions(finalOptions);
+
+    return new Repository(finalOptions);
+  }
+
   requestAuthenticationToken(applicationName: string,
     deviceId: string, deviceDescription: string, permission: string, opts?: any): Observable<any> {
     let finalOptions = {
@@ -93,8 +147,14 @@ export class Nuxeo extends Base {
       headers: options.headers,
       body: options.body,
       params: options.queryParams,
-    });
+    }).pipe(
+      map((json) => {
+        options.nuxeo = this;
+        return Unmarshallers.unmarshall(json, options);
+      }),
+    );
   }
+
 
   _computeFetchOptions(opts?: any) {
     let options: any = {
@@ -174,4 +234,13 @@ export class Nuxeo extends Base {
     return { httpTimeout, transactionTimeout };
   }
 
+  _initUnmarshaller(): void {
+    this._registerUnmarshaller('user', userUnmarshaller);
+    this._registerUnmarshaller('document', documentUnmarshaller);
+    this._registerUnmarshaller('documents', documentsUnmarshaller);
+  }
+
+  _registerUnmarshaller(entityType: any, unmarshaller: any): void {
+    Unmarshallers.registerUnmarshaller(entityType, unmarshaller);
+  }
 }

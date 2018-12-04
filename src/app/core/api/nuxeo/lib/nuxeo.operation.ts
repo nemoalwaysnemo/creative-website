@@ -1,9 +1,9 @@
 import { join, encodePath } from './nuxeo.helpers';
-import { NuxeoOptions, NuxeoResponse } from './base.interface';
+import { NuxeoResponse } from './base.interface';
+import { Observable } from 'rxjs';
 import { Base } from './base.api';
 import { Blob } from './model.blob';
 import { isDocument, isBatch, isBatchUpload, isBatchBlob } from './nuxeo.utils';
-import { Observable, of as observableOf } from 'rxjs';
 
 export class Operation extends Base {
 
@@ -45,7 +45,7 @@ export class Operation extends Base {
     return this;
   }
 
-  execute(opts?: any): Observable<NuxeoResponse> {
+  execute(opts: any = {}): Observable<NuxeoResponse> {
     opts.headers = opts.headers || {};
     opts.headers['Content-Type'] = this._computeContentTypeHeader(this._automationParams.input);
     const options = this._computeOptions(opts);
@@ -54,7 +54,7 @@ export class Operation extends Base {
       url: this._computeRequestURL(),
       body: this._computeRequestBody(),
     };
-    finalOptions = Object.assign(finalOptions, options);
+    finalOptions = Object.assign(options, finalOptions);
     return this._httpService.http(finalOptions);
   }
 
@@ -86,7 +86,6 @@ export class Operation extends Base {
       body.input = undefined;
       return body;
     }
-
     if (input instanceof Array) {
       if (input.length > 0) {
         const first = input[0];

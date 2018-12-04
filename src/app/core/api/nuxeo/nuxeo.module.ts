@@ -20,7 +20,7 @@ export class NuxeoModule {
         NuxeoApiService,
         NuxeoAuthService,
         { provide: NUXEO_ENV, useValue: env },
-      ],
+      ]
     };
   }
 }

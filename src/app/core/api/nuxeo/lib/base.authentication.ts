@@ -1,5 +1,5 @@
-import { Authentication, Credentials, NuxeoOptions, AuthenticationToken } from './base.interface';
-import { Observable, of as observableOf, empty } from 'rxjs';
+import { Authentication, Credentials, AuthenticationToken } from './base.interface';
+import { Observable, empty } from 'rxjs';
 import { BaseAuth } from './auth.base';
 import { TokeAuth } from './auth.token';
 import { PortalAuth } from './auth.portal';

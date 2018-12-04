@@ -27,7 +27,6 @@ export abstract class AbstractCore implements Core {
     this.apiPath = API_PATH;
     this.restUrl = join(this.baseUrl, this.apiPath);
     this.automationUrl = join(this.restUrl, 'automation/');
-    console.log(this.automationUrl);
   }
 
   getConfigs(): any {

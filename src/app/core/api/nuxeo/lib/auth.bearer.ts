@@ -1,5 +1,5 @@
 import { Credentials, AuthenticationToken } from './base.interface';
-import { Observable, of as observableOf, empty } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 
 export const BearerAuth: any = {
 
@@ -23,9 +23,9 @@ export const BearerAuth: any = {
   canRefreshAuthentication: () => true,
 
   refreshAuthentication: (baseUrl: string, auth: Credentials): Observable<AuthenticationToken> => {
-      if (!auth.token.refresh_token || !auth.clientId) {
-        return empty();
-      }
+    if (!auth.token.refresh_token || !auth.clientId) {
+      return empty();
+    }
     //   return oauth2.refreshAccessToken(baseURL, auth.clientId, auth.token.refresh_token)
     //     .then((token) => {
     //       const refreshedAuth = extend(true, {}, auth, { token });
@@ -33,5 +33,5 @@ export const BearerAuth: any = {
     //     })
     //     .catch((e) => reject(e));
     // })
-  },
+  }
 };
