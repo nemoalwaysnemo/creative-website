@@ -33,5 +33,5 @@ export const BearerAuth: any = {
     //     })
     //     .catch((e) => reject(e));
     // })
-  }
+  },
 };
