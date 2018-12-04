@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import { NbThemeService, NbPopoverDirective } from '@nebular/theme';
-import { NbJSThemeOptions } from '@nebular/theme/services/js-themes/theme.options';
+import { NbThemeService, NbPopoverDirective } from '@core/nebular/theme';
+import { NbJSThemeOptions } from '@core/nebular/theme/services/js-themes/theme.options';
 
 @Component({
   selector: 'ngx-theme-switcher-list',

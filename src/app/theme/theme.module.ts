@@ -26,11 +26,10 @@ import {
   NbAlertModule,
   NbSpinnerModule,
   NbRadioModule,
-  NbSelectModule,
   NbTooltipModule,
-} from '@nebular/theme';
+} from '@core/nebular/theme';
 
-import { NbSecurityModule } from '@nebular/security';
+import { NbSecurityModule } from '@core/nebular/security';
 
 import {
   FooterComponent,
@@ -81,7 +80,6 @@ const NB_MODULES = [
   NbAlertModule,
   NbSpinnerModule,
   NbRadioModule,
-  NbSelectModule,
   NbTooltipModule,
 ];
 

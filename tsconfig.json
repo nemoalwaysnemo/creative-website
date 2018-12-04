@@ -23,9 +23,6 @@
       "@angular/*": [
         "../node_modules/@angular/*"
       ],
-      "@nebular/*": [
-        "../node_modules/@nebular/*"
-      ],
       "@core/*": [
         "app/core/*"
       ],

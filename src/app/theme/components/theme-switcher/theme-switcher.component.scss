@@ -1,6 +1,6 @@
 @import '../../styles/themes';
-@import '~@nebular/theme/styles/core/mixins';
-@import '~@nebular/theme/styles/core/functions';
+@import '../../../core/nebular/theme/styles/core/mixins';
+@import '../../../core/nebular/theme/styles/core/functions';
 
 @include nb-install-component() {
   .themes-switcher {
@@ -46,5 +46,3 @@
     }
   }
 }
-
-

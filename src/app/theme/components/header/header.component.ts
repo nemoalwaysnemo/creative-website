@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { NbMenuService, NbSidebarService } from '@nebular/theme';
+import { NbMenuService, NbSidebarService } from '@core/nebular/theme';
 import { UserService } from '@core/utils/users.service';
 import { LayoutService } from '@core/utils/layout.service';
 

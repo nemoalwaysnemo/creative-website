@@ -5,7 +5,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NbThemeService } from '@nebular/theme';
+import { NbThemeService } from '@core/nebular/theme';
 
 import { AnalyticsService } from '@core/utils/analytics.service';
 import { AbService } from '@core/utils/ab.service';

@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 
+
 @Component({
   selector: 'tbwa-home',
   styleUrls: ['./home.component.scss'],
@@ -15,5 +16,9 @@ export class HomeComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  nuxeoLogin() {
+
   }
 }

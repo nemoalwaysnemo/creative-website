@@ -1,4 +1,4 @@
-import { NbMenuService } from '@nebular/theme';
+import { NbMenuService } from '@core/nebular/theme';
 import { Component } from '@angular/core';
 
 @Component({

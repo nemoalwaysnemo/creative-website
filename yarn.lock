@@ -287,28 +287,6 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@nebular/auth@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@nebular/auth/-/auth-3.0.0.tgz#1955be9feb87b851c2e25be2d335da7cb4b3d396"
-  integrity sha512-kZYFvmlwVcAWFqUMXX09mcNL9KI3psrffNbTFvaC+eH7Qa5WuZZFfobf7hkUeBLKy14bDIXFHInNH+iCnbnDUA==
-
-"@nebular/bootstrap@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@nebular/bootstrap/-/bootstrap-3.0.0.tgz#8216ea8195d39a9f87360d99efd7c8dcb6aa53b1"
-  integrity sha512-O2NIVP7cfJ6ioQdKfGroxDpnP2T0p7jrmj1R1PX4z5m9LTbUJq366vtqg2pE26F3q2zlKpqAvXGd1P1yv7dpkw==
-
-"@nebular/security@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@nebular/security/-/security-3.0.0.tgz#bc2c690316233e3d21b7f39ec473cde1e023f806"
-  integrity sha512-lAbXh9VqMTU362O0h/4/gRHvLklv2ni7jXzDH/+bvA+J3GDz3w5X/UgfPupaJNd1Pe3QZ7XynxqO/fhmpyBLgQ==
-
-"@nebular/theme@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@nebular/theme/-/theme-3.0.0.tgz#efb7ea15fb09db55b8a5dc94f583d017f8a47cd1"
-  integrity sha512-+Sjc6xmKmzi+/FkMMjh9Ohf5s9s0gTRU+uIkN+xEEPzbq4kyUn3vPxVtdYTQ/3AojdidSdfyObFyskgTW6YYJg==
-  dependencies:
-    intersection-observer "0.5.0"
-
 "@ng-bootstrap/ng-bootstrap@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.0.0.tgz#e56aafc8e3ae900b88d528303a5962cc363088ed"
@@ -6651,17 +6629,17 @@ parse5@4.0.0:
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
   integrity sha512-VrZ7eOd3T1Fk4XWNXMgiGBK/z0MG48BWG2uQNU4I72fkQuKUTZpl+u9k+CxEG0twMVzSmXEEz12z5Fnw1jIQFA==
 
+parse5@5.1.0, parse5@^5.0.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.0.tgz#c59341c9723f414c452975564c7c00a68d58acd2"
+  integrity sha512-fxNG2sQjHvlVAYmzBZS9YlDp6PTSSDwa98vkD4QgVDDCAo84z5X1t5XyJQ62ImdLXx5NdIIfihey6xpum9/gRQ==
+
 parse5@^3.0.1:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-3.0.3.tgz#042f792ffdd36851551cf4e9e066b3874ab45b5c"
   integrity sha512-rgO9Zg5LLLkfJF9E6CCmXlSE4UVceloys8JrFqCcHloC3usd/kJCyPDwH2SOlzix2j3xaP9sUX3e8+kvkuleAA==
   dependencies:
     "@types/node" "*"
-
-parse5@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.0.tgz#c59341c9723f414c452975564c7c00a68d58acd2"
-  integrity sha512-fxNG2sQjHvlVAYmzBZS9YlDp6PTSSDwa98vkD4QgVDDCAo84z5X1t5XyJQ62ImdLXx5NdIIfihey6xpum9/gRQ==
 
 parsejson@0.0.3:
   version "0.0.3"

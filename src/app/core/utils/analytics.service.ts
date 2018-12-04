@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
-import { NB_WINDOW } from '@nebular/theme';
+import { NB_WINDOW } from '@core/nebular/theme';
 
 @Injectable()
 export class AnalyticsService {

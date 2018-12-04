@@ -7,7 +7,7 @@ import {
   NbMenuService,
   NbSidebarService,
   NbThemeService,
-} from '@nebular/theme';
+} from '@core/nebular/theme';
 
 import { StateService } from '@core/utils/state.service';
 
