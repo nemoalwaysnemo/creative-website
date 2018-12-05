@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StateService } from '@core/utils/state.service';
+import { StateService } from '@core/services/state.service';
 
 @Component({
   selector: 'ngx-theme-settings',

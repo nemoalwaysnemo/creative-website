@@ -1,20 +1,10 @@
 import { join } from './nuxeo.helpers';
 
-export interface Core {
-  baseUrl: string;
-  apiPath: string;
-  restUrl: string;
-  automationUrl: string;
-  baseOptions: any;
-}
-
 const API_PATH = 'api/v1/';
-const BASE_URL = 'http://localhost:8080/nuxeo/';
 
-export abstract class AbstractCore implements Core {
-
+export abstract class AbstractCore {
   opts: any;
-  baseUrl: string;
+  baseUrl: string = '';
   apiPath: string;
   restUrl: string;
   operationUrl: string;
@@ -22,14 +12,14 @@ export abstract class AbstractCore implements Core {
   baseOptions: any = {};
   httpClient: any;
 
-  constructor(opts: NuxeoOptions = { baseUrl: BASE_URL }) {
-    this.baseUrl = opts.baseUrl;
+  constructor(opts: NuxeoOptions) {
     this.apiPath = API_PATH;
+    this.baseUrl = opts.baseUrl;
     this.restUrl = join(this.baseUrl, this.apiPath);
     this.automationUrl = join(this.restUrl, 'automation/');
   }
 
-  getConfigs(): any {
+  getConfigs(): object {
     return {
       baseUrl: this.baseUrl,
       restUrl: this.restUrl,
@@ -40,48 +30,51 @@ export abstract class AbstractCore implements Core {
   }
 }
 
-export interface Credentials {
+export class LoginContext {
+  username: string;
+  password: string;
+}
+
+export class Credentials {
   clientId?: string;
   secret?: string;
   token?: any;
-  username: string;
+  username?: string;
   password?: string;
   method: string;
 }
 
-export interface User {
+export class User {
   username: string;
 }
 
-export interface AuthenticationToken {
+export class AuthenticationToken {
   access_token: any;
 }
 
-export interface NuxeoOptions {
-  baseUrl?: string;
-  auth?: any;
-}
-
-export interface NuxeoConfigs {
+export class NuxeoOptions {
+  baseUrl: string = '';
+  auth: Credentials;
   production: boolean;
-  serverUrl: string;
+  deviceUID: string;
+  deviceName: string;
   appName: string;
 }
 
-export interface Authentication {
+export class Authentication {
   opts?: any;
 }
 
-export interface NuxeoOperation {
+export class NuxeoOperation {
   opts?: any;
   http: any;
 }
 
-export interface NuxeoResponse {
+export class NuxeoResponse {
   data: any;
 }
 
-export interface Document {
+export class Document {
   id: string;
   xPath: string;
   properties: any;

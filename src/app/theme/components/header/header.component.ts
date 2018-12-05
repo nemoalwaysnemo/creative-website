@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { NbMenuService, NbSidebarService } from '@core/nebular/theme';
-import { UserService } from '@core/utils/users.service';
-import { LayoutService } from '@core/utils/layout.service';
+import { UserService } from '@core/services/users.service';
+import { LayoutService } from '@core/services/layout.service';
 
 @Component({
   selector: 'ngx-header',

@@ -9,7 +9,7 @@ import {
   NbThemeService,
 } from '@core/nebular/theme';
 
-import { StateService } from '@core/utils/state.service';
+import { StateService } from '@core/services/state.service';
 
 // TODO: move layouts into the framework
 @Component({

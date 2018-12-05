@@ -10,6 +10,7 @@ import { getDeepFromObject } from '../../helpers';
 
 import { NbAuthService } from '../../services/auth.service';
 import { NbAuthResult } from '../../services/auth-result';
+import { Environment } from '@environment/environment';
 
 @Component({
   selector: 'nb-login',
@@ -28,11 +29,12 @@ export class NbLoginComponent {
   submitted: boolean = false;
   socialLinks: NbAuthSocialLink[] = [];
   rememberMe = false;
+  forgotPasswordLink = Environment.forgotPassword;
 
   constructor(protected service: NbAuthService,
-              @Inject(NB_AUTH_OPTIONS) protected options = {},
-              protected cd: ChangeDetectorRef,
-              protected router: Router) {
+    @Inject(NB_AUTH_OPTIONS) protected options = {},
+    protected cd: ChangeDetectorRef,
+    protected router: Router) {
 
     this.redirectDelay = this.getConfigValue('forms.login.redirectDelay');
     this.showMessages = this.getConfigValue('forms.login.showMessages');
