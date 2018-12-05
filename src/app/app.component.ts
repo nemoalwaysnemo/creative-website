@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbThemeService } from '@core/nebular/theme';
 
-import { AnalyticsService } from '@core/utils/analytics.service';
-import { AbService } from '@core/utils/ab.service';
+import { AnalyticsService } from '@core/services/analytics.service';
+import { AbService } from '@core/services/ab.service';
 import { withLatestFrom, filter } from 'rxjs/operators';
 
 @Component({

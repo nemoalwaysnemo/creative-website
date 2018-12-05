@@ -6,4 +6,4 @@
 
 // TODO: export all components
 
-export * from './components/ng2-smart-table';
+export * from './ng2-smart-table';

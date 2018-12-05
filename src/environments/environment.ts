@@ -8,6 +8,9 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-export const environment = {
+export const Environment = {
+  appName: 'Creative Library Dev',
+  nuxeoUrl: 'http://localhost:8080/nuxeo/',
+  forgotPassword: 'https://register.adauth.me/nam/help',
   production: false,
 };

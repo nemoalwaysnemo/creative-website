@@ -1,11 +1,10 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy } from '@core/nebular/auth';
+import { NbAuthModule, NbPasswordAuthStrategy } from '@core/nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@core/nebular/security';
 import { of as observableOf } from 'rxjs';
-
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import { AbService } from './utils/ab.service';
+import { AbService } from './services/ab.service';
 import { APIModule } from './api';
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
@@ -20,14 +19,13 @@ import {
   StateService,
   LayoutService,
   AnalyticsService,
-} from './utils';
+} from './services';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
     strategies: [
-      NbDummyAuthStrategy.setup({
+      NbPasswordAuthStrategy.setup({
         name: 'email',
-        delay: 3000,
       }),
     ],
   }).providers,
