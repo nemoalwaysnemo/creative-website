@@ -3,14 +3,12 @@ import { join } from './nuxeo.helpers';
 const API_PATH = 'api/v1/';
 
 export abstract class AbstractCore {
-  opts: any;
-  baseUrl: string = '';
-  apiPath: string;
-  restUrl: string;
-  operationUrl: string;
-  automationUrl: string;
-  baseOptions: any = {};
-  httpClient: any;
+  protected opts: any;
+  protected baseUrl: string = '';
+  protected apiPath: string;
+  protected restUrl: string;
+  protected automationUrl: string;
+  protected baseOptions: any = {};
 
   constructor(opts: NuxeoOptions) {
     this.apiPath = API_PATH;
@@ -23,7 +21,6 @@ export abstract class AbstractCore {
     return {
       baseUrl: this.baseUrl,
       restUrl: this.restUrl,
-      httpClient: this.httpClient,
       baseOptions: this.baseOptions,
       automationUrl: this.automationUrl,
     };
@@ -41,10 +38,10 @@ export class Credentials {
   token?: any;
   username?: string;
   password?: string;
-  method: string;
+  method?: string;
 }
 
-export class User {
+export class UserModel {
   username: string;
 }
 
@@ -61,12 +58,8 @@ export class NuxeoOptions {
   appName: string;
 }
 
-export class Authentication {
-  opts?: any;
-}
-
 export class NuxeoOperation {
-  opts?: any;
+  opts: any = {};
   http: any;
 }
 
@@ -74,7 +67,7 @@ export class NuxeoResponse {
   data: any;
 }
 
-export class Document {
+export class DocumentModel {
   id: string;
   xPath: string;
   properties: any;

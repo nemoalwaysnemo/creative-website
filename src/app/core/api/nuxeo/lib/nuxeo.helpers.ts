@@ -1,7 +1,6 @@
 
 export const join = function (...args: string[]): string {
-  const joined = args.join('/');
-  return joined.replace(/(^\/+)|([^:])\/\/+/g, '$2/');
+  return args.join('/').replace(/(^\/+)|([^:])\/\/+/g, '$2/');
 };
 
 export const flatten = function (list: string[]): string[] {

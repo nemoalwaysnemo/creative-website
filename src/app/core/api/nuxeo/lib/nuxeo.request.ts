@@ -4,18 +4,17 @@ import { Observable } from 'rxjs';
 import { NuxeoResponse } from './base.interface';
 
 export class Request extends Base {
-  private _nuxeo: any;
+
   private _path: string;
   private _queryParams: any;
   private _url: string;
 
-  constructor(opts?: any) {
-    const options = Object.assign({}, opts);
-    super(options);
-    this._nuxeo = options.nuxeo;
-    this._path = options.path;
-    this._queryParams = options.queryParams;
-    this._url = options.url;
+  constructor(opts: any = {}) {
+    super(opts);
+    this._nuxeo = opts.nuxeo;
+    this._path = opts.path;
+    this._queryParams = opts.queryParams;
+    this._url = opts.url;
   }
 
   path(path: string): this {
@@ -48,7 +47,7 @@ export class Request extends Base {
   //   return this.execute(opts);
   // }
 
-  execute(opts?: any): Observable<NuxeoResponse> {
+  execute(opts: any = {}): Observable<NuxeoResponse> {
     const options = this._computeOptions(opts);
 
     let path = this._path;

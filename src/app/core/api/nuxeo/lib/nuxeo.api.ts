@@ -1,28 +1,37 @@
-import { NuxeoOptions, NuxeoResponse } from './base.interface';
 import { HttpClient } from '@angular/common/http';
+import {
+  Base,
+  AuthenticationManager,
+  Credentials,
+  Repository,
+  Operation,
+  Directory,
+  Request,
+  Users,
+  ServerVersion,
+  NuxeoOptions,
+  NuxeoResponse,
+} from './';
+import {
+  Unmarshallers,
+  DocumentUnmarshaller,
+  DocumentsUnmarshaller,
+  UserUnmarshaller,
+  DirectoryEntryUnmarshaller,
+  DirectoryEntriesUnmarshaller,
+} from './nuxeo.unmarshallers';
 import { Observable } from 'rxjs';
-import { Credentials } from './base.interface';
-import { map } from 'rxjs/operators';
-import { Base } from './base.api';
-import { BaseAuthentication } from './base.authentication';
-import { Operation } from './nuxeo.operation';
-import { Directory } from './nuxeo.directory';
-import { Request } from './nuxeo.request';
-import { Users } from './nuxeo.users';
-import { Repository } from './nuxeo.repository';
+import { tap, map, mergeMap } from 'rxjs/operators';
 
-import { Unmarshallers, documentUnmarshaller, documentsUnmarshaller, userUnmarshaller } from './nuxeo.unmarshallers';
 
 export class Nuxeo extends Base {
 
-  private _promiseLibrary: any;
-  private _authenticationRefreshedListeners: Array<any>;
-  private _activeRequests: 0;
   private auth: Credentials;
-  private _connected: false;
-  documentUnmarshaller: any;
+  private _connected: boolean = false;
+  private _serverVersion: ServerVersion;
+  private _nuxeoVersion: string;
 
-  constructor(httpClient: HttpClient, opts: NuxeoOptions = { baseUrl: '' }) {
+  constructor(protected httpClient: HttpClient, protected opts: NuxeoOptions) {
     super(opts);
     this.auth = opts.auth;
     this.httpClient = httpClient;
@@ -34,37 +43,41 @@ export class Nuxeo extends Base {
     return this._connected;
   }
 
+  get serverVersion(): ServerVersion {
+    return this._serverVersion;
+  }
+
+  get nuxeoVersion(): string {
+    return this._nuxeoVersion;
+  }
+
   setCredentials(credentials: Credentials): this {
     this.auth = credentials;
     return this;
   }
 
-  cmis(opts?: any): Observable<any> {
+  cmis(opts: any = {}): Observable<any> {
     let finalOptions = { method: 'GET', url: this.baseUrl + 'json/cmis' };
     finalOptions = Object.assign(finalOptions, opts);
     finalOptions = this._computeOptions(finalOptions);
     return this.http(finalOptions);
   }
 
-  connect(opts?: any): Observable<any> {
-
-    // this.cmis().subscribe(
-    //   response => {
-    //     this.login();
-    //     // console.log(response);
-    //     // this.users({ enrichers: { user: ['userprofile'] } }).fetch(response.username);
-    //     console.log('POST call successful value returned in body', response);
-    //   },
-    //   error => {
-    //     if (error.status === 401) {
-    //       this.login();
-    //       console.log('POST call in error', error);
-    //     }
-    //   });
-    return this.cmis();
+  connect(opts: any = {}): Observable<any> {
+    return this.cmis(opts).pipe(
+      tap(res => {
+        if (res && res.default && res.default.productVersion) {
+          this._serverVersion = new ServerVersion(res.default.productVersion);
+          this._nuxeoVersion = res.default.productVersion;
+        }
+      }),
+      mergeMap(res => this.login(opts)),
+      // mergeMap(res => this.users({ enrichers: { user: ['userprofile'] } }).fetch(res.username)),
+      tap(res => { this._connected = true; }),
+    );
   }
 
-  login(opts?: any): Observable<any> {
+  login(opts: any = {}): Observable<any> {
     let finalOptions = { method: 'POST', url: this.automationUrl + 'login' };
     finalOptions = Object.assign(finalOptions, opts);
     finalOptions = this._computeOptions(finalOptions);
@@ -72,7 +85,7 @@ export class Nuxeo extends Base {
   }
 
   users(opts: any = {}): Users {
-    const finalOptions = this._computeOptions(Object.assign(this.getConfigs(), opts));
+    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this }, opts));
     return new Users(finalOptions);
   }
 
@@ -80,32 +93,19 @@ export class Nuxeo extends Base {
     return;
   }
 
-  operation(id: string, opts?: {}): Operation {
-    let finalOptions = {
-      id,
-      url: this.automationUrl,
-      httpService: this,
-    };
-    finalOptions = this._computeOptions(Object.assign(finalOptions, opts));
+  operation(id: string, opts: any = {}): Operation {
+    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, id }, opts));
     return new Operation(finalOptions);
   }
 
-  request(path: string, opts?: {}) {
-    let finalOptions = {
-      path,
-      nuxeo: this,
-      url: this.restUrl,
-    };
-    finalOptions = this._computeOptions(Object.assign(finalOptions, opts));
+  request(path: string, opts: any = {}) {
+    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, path, url: this.restUrl }, opts));
+    console.log(8888, finalOptions);
     return new Request(finalOptions);
   }
 
   directory(name: string, opts: any) {
-    let finalOptions = {
-      directoryName: name,
-      nuxeo: this,
-    };
-    finalOptions = this._computeOptions(Object.assign(finalOptions, opts));
+    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, directoryName: name }, opts));
     return new Directory(finalOptions);
   }
 
@@ -131,8 +131,7 @@ export class Nuxeo extends Base {
     return new Repository(finalOptions);
   }
 
-  requestAuthenticationToken(applicationName: string,
-    deviceId: string, deviceDescription: string, permission: string, opts?: any): Observable<any> {
+  requestAuthenticationToken(applicationName: string, deviceId: string, deviceDescription: string, permission: string, opts: any = {}): Observable<any> {
     let finalOptions = {
       url: this.baseUrl + 'authentication/token',
       queryParams: { applicationName, deviceId, deviceDescription, permission },
@@ -141,22 +140,22 @@ export class Nuxeo extends Base {
     return this.http(finalOptions);
   }
 
-  http(opts?: any): Observable<any> {
+  http(opts: any = {}): Observable<any> {
     const options = this._computeFetchOptions(opts);
     return this.httpClient.request(options.method, options.url, {
       headers: options.headers,
       body: options.body,
       params: options.queryParams,
+      responseType: options.json ? 'json' : 'text',
     }).pipe(
-      map((json) => {
+      map((response) => {
         options.nuxeo = this;
-        return Unmarshallers.unmarshall(json, options);
+        return Unmarshallers.unmarshall(response, options);
       }),
     );
   }
 
-
-  _computeFetchOptions(opts?: any) {
+  private _computeFetchOptions(opts: any = {}) {
     let options: any = {
       method: 'GET',
       headers: {},
@@ -166,8 +165,8 @@ export class Nuxeo extends Base {
       resolveWithFullResponse: false,
     };
     options = Object.assign({}, options, opts);
-    const authenticationHeaders = BaseAuthentication.computeAuthenticationHeaders(this.auth);
-    options.headers = Object.assign(options.headers, authenticationHeaders);
+    const authenticationHeaders = AuthenticationManager.computeAuthenticationHeaders(this.auth);
+    options.headers = Object.assign({}, options.headers, authenticationHeaders);
 
     if (options.schemas && options.schemas.length > 0) {
       options.headers.properties = options.schemas.join(',');
@@ -211,20 +210,23 @@ export class Nuxeo extends Base {
       if (typeof options.body === 'object' && !(options.body instanceof FormData)) {
         options.body = JSON.stringify(options.body);
       }
+    } else {
+      options.headers.Accept = 'text/plain';
+      options.headers['Content-Type'] = 'text/plain';
     }
 
     if (options.method === 'GET') {
       delete options.headers['Content-Type'];
     }
 
-    // if (options.queryParams && Object.keys(options.queryParams).length > 0) {
-    //   options.url += options.url.indexOf('?') === -1 ? '?' : '';
-    //   options.url += JSON.stringify(options.queryParams);
-    // }
+    if (options.queryParams && Object.keys(options.queryParams).length > 0) {
+      options.url += options.url.indexOf('?') === -1 ? '?' : '';
+      options.url += JSON.stringify(options.queryParams);
+    }
     return options;
   }
 
-  _computeTimeouts(options?: any): any {
+  private _computeTimeouts(options?: any): any {
     const transactionTimeout = options.transactionTimeout || options.timeout;
     let httpTimeout = options.httpTimeout;
     if (!httpTimeout && transactionTimeout) {
@@ -234,13 +236,15 @@ export class Nuxeo extends Base {
     return { httpTimeout, transactionTimeout };
   }
 
-  _initUnmarshaller(): void {
-    this._registerUnmarshaller('user', userUnmarshaller);
-    this._registerUnmarshaller('document', documentUnmarshaller);
-    this._registerUnmarshaller('documents', documentsUnmarshaller);
+  private _initUnmarshaller(): void {
+    this._registerUnmarshaller('user', UserUnmarshaller);
+    this._registerUnmarshaller('document', DocumentUnmarshaller);
+    this._registerUnmarshaller('documents', DocumentsUnmarshaller);
+    this._registerUnmarshaller('directoryEntry', DirectoryEntryUnmarshaller);
+    this._registerUnmarshaller('directoryEntries', DirectoryEntriesUnmarshaller);
   }
 
-  _registerUnmarshaller(entityType: any, unmarshaller: any): void {
+  private _registerUnmarshaller(entityType: any, unmarshaller: any): void {
     Unmarshallers.registerUnmarshaller(entityType, unmarshaller);
   }
 }

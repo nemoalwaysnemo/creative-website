@@ -6,7 +6,7 @@ export class User extends Base {
   private _dirtyProperties: any;
   private _queryParams: any;
 
-  constructor(user: any, opts?: any) {
+  constructor(user: any, opts: any = {}) {
     super(opts);
     this._users = opts.users;
     this._properties = {};

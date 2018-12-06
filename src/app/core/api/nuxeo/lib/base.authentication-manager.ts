@@ -1,4 +1,4 @@
-import { Authentication, Credentials, AuthenticationToken } from './base.interface';
+import { Credentials, AuthenticationToken } from './base.interface';
 import { Observable, empty } from 'rxjs';
 import { BaseAuth } from './auth.base';
 import { TokeAuth } from './auth.token';
@@ -13,19 +13,19 @@ export const DEFAULT_AUTHENTICATOR = {
 };
 
 
-export abstract class BaseAuthentication implements Authentication {
+export class AuthenticationManager {
 
   static authenticators: any = {};
-  opts?: any;
+  opts: any = {};
 
   static registerAuthenticator(method: string, authenticator: any): any {
-    BaseAuthentication.authenticators[method] = Object.assign({}, DEFAULT_AUTHENTICATOR, authenticator);
-    return BaseAuthentication.authenticators;
+    AuthenticationManager.authenticators[method] = Object.assign({}, DEFAULT_AUTHENTICATOR, authenticator);
+    return AuthenticationManager.authenticators;
   }
 
   static computeAuthenticationHeaders(auth: Credentials): any {
     if (auth) {
-      const authenticator = BaseAuthentication.authenticators[auth.method];
+      const authenticator = AuthenticationManager.authenticators[auth.method];
       if (authenticator) {
         return authenticator.computeAuthenticationHeaders(auth);
       }
@@ -35,7 +35,7 @@ export abstract class BaseAuthentication implements Authentication {
 
   static authenticateURL(url: string, auth: Credentials): string {
     if (auth) {
-      const authenticator = BaseAuthentication.authenticators[auth.method];
+      const authenticator = AuthenticationManager.authenticators[auth.method];
       if (authenticator) {
         return authenticator.authenticateURL(url, auth);
       }
@@ -45,7 +45,7 @@ export abstract class BaseAuthentication implements Authentication {
 
   static canRefreshAuthentication(auth: Credentials): boolean {
     if (auth) {
-      const authenticator = BaseAuthentication.authenticators[auth.method];
+      const authenticator = AuthenticationManager.authenticators[auth.method];
       if (authenticator) {
         return authenticator.canRefreshAuthentication();
       }
@@ -55,7 +55,7 @@ export abstract class BaseAuthentication implements Authentication {
 
   static refreshAuthentication(baseUrl: string, auth: Credentials): Observable<AuthenticationToken> {
     if (auth) {
-      const authenticator = BaseAuthentication.authenticators[auth.method];
+      const authenticator = AuthenticationManager.authenticators[auth.method];
       if (authenticator) {
         return authenticator.refreshAuthentication(baseUrl, auth);
       }
@@ -65,7 +65,7 @@ export abstract class BaseAuthentication implements Authentication {
 
 }
 
-BaseAuthentication.registerAuthenticator('basic', BaseAuth);
-BaseAuthentication.registerAuthenticator('token', TokeAuth);
-BaseAuthentication.registerAuthenticator('portal', PortalAuth);
-BaseAuthentication.registerAuthenticator('bearerToken', BearerAuth);
+AuthenticationManager.registerAuthenticator('basic', BaseAuth);
+AuthenticationManager.registerAuthenticator('token', TokeAuth);
+AuthenticationManager.registerAuthenticator('portal', PortalAuth);
+AuthenticationManager.registerAuthenticator('bearerToken', BearerAuth);

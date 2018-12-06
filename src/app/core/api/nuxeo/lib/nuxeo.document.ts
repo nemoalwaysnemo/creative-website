@@ -15,7 +15,7 @@ const enricher = {
 };
 
 export class Document extends Base {
-  private _nuxeo: any;
+
   private _repository: any;
   private _properties: any;
   private _dirtyProperties: any;

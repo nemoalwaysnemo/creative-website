@@ -6,7 +6,7 @@ export class Blob {
   mimeType: string;
   size: number;
 
-  constructor(opts?: any) {
+  constructor(opts: any = {}) {
     this.content = opts.content;
     this.name = opts.name || this.content.name;
     this.mimeType = opts.mimeType || this.content.type;

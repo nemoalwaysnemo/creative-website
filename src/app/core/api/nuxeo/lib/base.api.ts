@@ -2,15 +2,17 @@ import { AbstractCore, NuxeoOptions } from './base.interface';
 
 export abstract class Base extends AbstractCore {
 
-  baseOptions: any = {
-    repositoryName: 'default',
-    schemas: ['*'],
+  protected baseOptions: any = {
+    repositoryName: undefined,
+    schemas: [],
     enrichers: {},
     fetchProperties: {},
     translateProperties: {},
     headers: {},
     httpTimeout: 30000,
   };
+
+  protected _nuxeo: any = {};
 
   constructor(opts: NuxeoOptions) {
     super(opts);
@@ -134,8 +136,7 @@ export abstract class Base extends AbstractCore {
     return this;
   }
 
-  _computeOptions(opts?: any): any {
-
+  _computeOptions(opts: any = {}): any {
     const options = Object.assign({}, this.baseOptions, opts);
     // force some options that we don't merge
     if (opts.schemas) {

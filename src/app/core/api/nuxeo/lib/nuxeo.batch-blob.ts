@@ -1,7 +1,7 @@
 
 export class BatchBlob {
 
-  constructor(opts?: any) {
+  constructor(opts: any = {}) {
     this['upload-batch'] = opts.batchId;
     this['upload-fileId'] = `${opts.index}`;
     delete opts.batchId;

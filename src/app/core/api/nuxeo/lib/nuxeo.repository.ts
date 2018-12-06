@@ -4,7 +4,6 @@ import { NuxeoResponse } from './base.interface';
 import { Observable } from 'rxjs';
 
 export class Repository extends Base {
-  private _nuxeo: any;
 
   constructor(opts: any) {
     super(opts);

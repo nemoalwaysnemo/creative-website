@@ -2,7 +2,7 @@ import { join, encodePath } from './nuxeo.helpers';
 import { NuxeoResponse } from './base.interface';
 import { Observable } from 'rxjs';
 import { Base } from './base.api';
-import { Blob } from './model.blob';
+import { Blob } from './nuxeo.blob';
 import { isDocument, isBatch, isBatchUpload, isBatchBlob } from './nuxeo.utils';
 
 export class Operation extends Base {
@@ -10,14 +10,13 @@ export class Operation extends Base {
   private _id: string;
   private _url: string;
   private _automationParams: any;
-  private _httpService: any;
 
-  constructor(opts?: any) {
+  constructor(opts: any = {}) {
     const options = Object.assign({}, opts);
     super(options);
     this._id = options.id;
-    this._url = options.url;
-    this._httpService = options.httpService;
+    this._url = this.automationUrl;
+    this._nuxeo = options.nuxeo;
     this._automationParams = {
       params: {},
       context: {},
@@ -55,7 +54,7 @@ export class Operation extends Base {
       body: this._computeRequestBody(),
     };
     finalOptions = Object.assign(options, finalOptions);
-    return this._httpService.http(finalOptions);
+    return this._nuxeo.http(finalOptions);
   }
 
   _computeContentTypeHeader(input: any) {

@@ -5,11 +5,10 @@ import { NuxeoResponse } from './base.interface';
 
 export class Directory extends Base {
 
-  private _nuxeo: any;
   private _directoryName: string;
   private _path: string;
 
-  constructor(opts?: any) {
+  constructor(opts: any = {}) {
     super(opts);
     this._nuxeo = opts.nuxeo;
     this._directoryName = opts.directoryName;
