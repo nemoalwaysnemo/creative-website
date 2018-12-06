@@ -24,7 +24,7 @@ export abstract class Base extends AbstractCore {
     return this;
   }
 
-  schemas(schemas: string[]): this {
+  schemas(schemas: Array<string>): this {
     this.baseOptions.schemas = [...schemas];
     return this;
   }

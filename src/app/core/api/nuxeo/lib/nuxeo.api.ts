@@ -22,7 +22,6 @@ import {
 } from './nuxeo.unmarshallers';
 import { Observable } from 'rxjs';
 import { tap, map, mergeMap } from 'rxjs/operators';
-import { deepExtend } from './nuxeo.helpers';
 
 
 export class Nuxeo extends Base {
@@ -215,11 +214,6 @@ export class Nuxeo extends Base {
 
     if (options.method === 'GET') {
       delete options.headers['Content-Type'];
-    }
-
-    if (options.queryParams && Object.keys(options.queryParams).length > 0) {
-      options.url += options.url.indexOf('?') === -1 ? '?' : '';
-      options.url += JSON.stringify(options.queryParams);
     }
     return options;
   }

@@ -53,7 +53,7 @@ export class Operation extends Base {
       url: this._computeRequestURL(),
       body: this._computeRequestBody(),
     };
-    finalOptions = Object.assign(options, finalOptions);
+    finalOptions = Object.assign({}, options, finalOptions);
     return this._nuxeo.http(finalOptions);
   }
 

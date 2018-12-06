@@ -6,14 +6,14 @@ import { NuxeoResponse } from './base.interface';
 export class Request extends Base {
 
   private _path: string;
-  private _queryParams: any;
   private _url: string;
+  private _queryParams: any;
 
   constructor(opts: any = {}) {
     super(opts);
+    this._queryParams = opts.queryParams || {};
     this._nuxeo = opts.nuxeo;
     this._path = opts.path;
-    this._queryParams = opts.queryParams;
     this._url = opts.url;
   }
 
@@ -22,8 +22,8 @@ export class Request extends Base {
     return this;
   }
 
-  queryParams(queryParams: {}): this {
-    this._queryParams = Object.assign(this._queryParams, queryParams);
+  queryParams(queryParams: any = {}): this {
+    this._queryParams = Object.assign({}, this._queryParams, queryParams);
     return this;
   }
 
@@ -60,7 +60,7 @@ export class Request extends Base {
       url,
       queryParams: this._queryParams,
     };
-    finalOptions = Object.assign(options, finalOptions);
+    finalOptions = Object.assign({}, options, finalOptions);
     return this._nuxeo.http(finalOptions);
   }
 }

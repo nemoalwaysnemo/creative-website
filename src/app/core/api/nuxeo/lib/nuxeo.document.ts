@@ -23,7 +23,7 @@ export class Document extends Base {
   private _uid: any;
   private _contextParameters: any;
 
-  constructor(doc: any, opts: any) {
+  constructor(doc: any = {}, opts: any = {}) {
     super(opts);
     this._nuxeo = opts.nuxeo;
     this._repository = opts.repository || this._nuxeo.repository(doc.repository, opts);

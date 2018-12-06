@@ -1,42 +1,66 @@
-import { Injectable } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { NuxeoAuthService } from './nuxeo.auth.service';
-import { Operation } from './lib/nuxeo.operation';
-import { Request } from './lib/nuxeo.request';
-import { Directory } from './lib/nuxeo.directory';
-import { Credentials } from './lib/base.interface';
-import { mergeMap } from 'rxjs/operators';
+import { Inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { NuxeoOptions, Credentials, Operation, Repository, Request, Directory } from './lib';
+import { NUXEO_ENV } from './nuxeo.options';
+import { Nuxeo } from './lib/nuxeo.api';
+import { Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Injectable()
 export class NuxeoApiService {
 
-  constructor(private nuxeoAuth: NuxeoAuthService) {
+  private _nuxeo: Nuxeo;
+  private credentials: Credentials = {};
 
+  constructor(private httpClient: HttpClient, @Inject(NUXEO_ENV) private env: NuxeoOptions) {
+    this._nuxeo = new Nuxeo(httpClient, env);
+  }
+
+  get nuxeo(): Nuxeo {
+    return this._nuxeo;
   }
 
   login(username: string, password: string): Observable<Credentials> {
-    return this.nuxeoAuth.login(username, password).pipe(
-      mergeMap(response => this.nuxeoAuth.requestAuthenticationToken()),
+    this.credentials['username'] = username;
+    return this.nuxeo.setCredentials({ method: 'basic', username: username, password: password }).connect().pipe(
+      mergeMap(response => this.requestAuthenticationToken()),
     );
   }
 
   loginWithToken(token: string): Observable<any> {
-    return this.nuxeoAuth.loginWithToken(token);
+    this.credentials['token'] = token;
+    return this.nuxeo.setCredentials({ method: 'token', token: token }).login();
+  }
+
+  authenticate(credentials: Credentials): Observable<Credentials> {
+    return this.nuxeo.setCredentials(credentials).connect();
+  }
+
+  isAuthenticated(): boolean {
+    return this.nuxeo.connected;
+  }
+
+  requestAuthenticationToken(): Observable<Credentials> {
+    return this.nuxeo.requestAuthenticationToken(this.env.appName, this.env.deviceUID, this.env.deviceName, 'r', { json: false }).pipe(
+      map(token => {
+        this.credentials['toke'] = token;
+        return this.credentials;
+      }));
   }
 
   operation(id: string, opts: any = {}): Operation {
-    return this.nuxeoAuth.nuxeo.operation(id, opts);
+    return this.nuxeo.operation(id, opts);
   }
 
   request(path: string, opts: any = {}): Request {
-    return this.nuxeoAuth.nuxeo.request(path, opts);
+    return this.nuxeo.request(path, opts);
   }
 
-  repository(name?: string, opts: any = {}) {
-    return this.nuxeoAuth.nuxeo.repository(name, opts);
+  repository(name?: string, opts: any = {}): Repository {
+    return this.nuxeo.repository(name, opts);
   }
 
   directory(path: string, opts: any = {}): Directory {
-    return this.nuxeoAuth.nuxeo.directory(path, opts);
+    return this.nuxeo.directory(path, opts);
   }
 }
