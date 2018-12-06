@@ -14,8 +14,8 @@ export class Users extends Base {
 
   fetch(username: string, opts: any = {}): Observable<NuxeoResponse> {
     const options = this._computeOptions(opts);
-    options.users = this;
     const path = join(this.operationUrl, username);
+    options.users = this;
     return this._nuxeo.request(path).get(options);
   }
 }

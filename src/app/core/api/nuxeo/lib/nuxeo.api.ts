@@ -22,6 +22,7 @@ import {
 } from './nuxeo.unmarshallers';
 import { Observable } from 'rxjs';
 import { tap, map, mergeMap } from 'rxjs/operators';
+import { deepExtend } from './nuxeo.helpers';
 
 
 export class Nuxeo extends Base {
@@ -100,7 +101,6 @@ export class Nuxeo extends Base {
 
   request(path: string, opts: any = {}) {
     const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, path, url: this.restUrl }, opts));
-    console.log(8888, finalOptions);
     return new Request(finalOptions);
   }
 
@@ -124,10 +124,8 @@ export class Nuxeo extends Base {
     if (repositoryName) {
       finalOptions.repositoryName = repositoryName;
     }
-    // finalOptions = Object.assign(finalOptions, options);
-    finalOptions = Object.assign(options, finalOptions);
+    finalOptions = Object.assign({}, finalOptions, options);
     finalOptions = this._computeOptions(finalOptions);
-
     return new Repository(finalOptions);
   }
 
@@ -171,7 +169,7 @@ export class Nuxeo extends Base {
     if (options.schemas && options.schemas.length > 0) {
       options.headers.properties = options.schemas.join(',');
     }
-    if (opts.repositoryName !== undefined) {
+    if (opts.repositoryName !== undefined && opts.repositoryName !== null) {
       options.headers['X-NXRepository'] = options.repositoryName;
     }
 

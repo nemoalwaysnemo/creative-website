@@ -20,12 +20,20 @@ export class NuxeoApiService {
     );
   }
 
+  loginWithToken(token: string): Observable<any> {
+    return this.nuxeoAuth.loginWithToken(token);
+  }
+
   operation(id: string, opts: any = {}): Operation {
     return this.nuxeoAuth.nuxeo.operation(id, opts);
   }
 
   request(path: string, opts: any = {}): Request {
     return this.nuxeoAuth.nuxeo.request(path, opts);
+  }
+
+  repository(name?: string, opts: any = {}) {
+    return this.nuxeoAuth.nuxeo.repository(name, opts);
   }
 
   directory(path: string, opts: any = {}): Directory {

@@ -73,5 +73,3 @@ export class DirectoryEntry extends Base {
     }, options);
   }
 }
-
-module.exports = DirectoryEntry;

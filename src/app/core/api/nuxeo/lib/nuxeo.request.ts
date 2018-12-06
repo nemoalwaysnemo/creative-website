@@ -52,7 +52,7 @@ export class Request extends Base {
 
     let path = this._path;
     const repositoryName = options.repositoryName;
-    if (repositoryName !== undefined) {
+    if (repositoryName !== undefined && repositoryName !== null) {
       path = join('repo', repositoryName, path);
     }
     const url = join(this._url, encodePath(path));
