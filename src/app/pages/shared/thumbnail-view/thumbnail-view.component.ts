@@ -1,17 +1,13 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { DocumentModel } from '@core/api/';
+import { Component, Input, OnInit } from '@angular/core';
+import { Document } from '@core/api/';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: '[document]',
+  selector: 'tbwa-thumbnail-view-item',
   templateUrl: './thumbnail-view-item.component.html',
 })
 export class ThumbnailViewItemComponent implements OnInit {
-  @Input() document: DocumentModel;
+  @Input() document: Document;
 
   ngOnInit() {
   }
@@ -22,18 +18,20 @@ export class ThumbnailViewItemComponent implements OnInit {
   styleUrls: ['./thumbnail-view.component.scss'],
   template: `
   <ul>
-    <li gridItem *ngFor="let document of documents" [document]="document" class="thumbnail-view">
-     </li>
+    <li *ngFor="let document of documents" class="thumbnail-view">
+      <tbwa-thumbnail-view-item [document]="document"></tbwa-thumbnail-view-item>
+    </li>
   </ul>
   `,
 })
 export class ThumbnailViewComponent implements OnInit {
 
   @Input() layout: string;
-  @Input() documents: Observable<DocumentModel>[];
+  @Input() documents: Observable<Document[]>;
 
-  constructor(
-  ) { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

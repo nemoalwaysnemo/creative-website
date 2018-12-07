@@ -36,10 +36,6 @@ export class Credentials {
   method?: string;
 }
 
-export class UserModel {
-  username: string;
-}
-
 export class AuthenticationToken {
   access_token: any;
 }
@@ -49,12 +45,6 @@ export class NuxeoOptions {
   auth?: Credentials;
   production: boolean;
   appName: string;
-}
-
-export class DocumentModel {
-  id: string;
-  xPath: string;
-  properties: any;
 }
 
 export class NuxeoResponse {

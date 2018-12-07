@@ -33,17 +33,17 @@ export class HomeComponent implements OnDestroy {
         currentPageIndex: 1,
         pageSize: 10,
         active_article: true,
-        quickFilters: 'allEdgePages',
+        // quickFilters: 'allEdgePages',
         void: true,
-        the_loupe_main_prodcredits_production_date: '["thisMonth"]',
-        tags_edges: '["Rise of the Machines"]',
-        ecm_fulltext: 'dean',
-        ecm_uuid: '["9af8a1cb-075e-4c93-89e3-9a85fa24d1d8"]',
-        ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]',
+        // the_loupe_main_prodcredits_production_date: '["thisMonth"]',
+        // tags_edges: '["Rise of the Machines"]',
+        // ecm_fulltext: 'dean',
+        // ecm_uuid: '["9af8a1cb-075e-4c93-89e3-9a85fa24d1d8"]',
+        // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]',
       };
 
       this.nuxeoApi.pageProvider(restAPI, params).subscribe(res => {
-        console.log(res);
+        console.log(res.entities);
       });
     }, error => {
       console.log(error);
