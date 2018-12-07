@@ -59,6 +59,12 @@ export class NuxeoApiService {
       }));
   }
 
+  pageProvider(url: string, queryParams: any = {}): Observable<NuxeoPagination> {
+    return this.request(url).queryParams(queryParams).schemas(['*']).execute().pipe(
+      map(res => new NuxeoPagination(res)),
+    );
+  }
+
   operation(id: string, opts: any = {}): Operation {
     return this.nuxeo.operation(id, opts);
   }
