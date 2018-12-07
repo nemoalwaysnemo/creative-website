@@ -58,7 +58,7 @@
     "leaflet": "1.3.4",
     "nebular-icons": "1.1.0",
     "ng2-completer": "2.0.8",
-    "ng2-smart-table": "1.3.5",
+    "ngx-device-detector": "1.3.3",
     "normalize.css": "8.0.1",
     "pace-js": "1.0.2",
     "parse5": "5.1.0",

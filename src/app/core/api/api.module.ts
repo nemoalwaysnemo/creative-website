@@ -6,10 +6,7 @@ import { Environment } from '@environment/environment';
 const SERVICES = [
   ...NuxeoModule.forRoot({
     baseUrl: Environment.nuxeoUrl,
-    auth: { method: 'basic' },
     production: Environment.production,
-    deviceUID: 'deviceUID',
-    deviceName: 'deviceName',
     appName: Environment.appName,
   }).providers,
 ];

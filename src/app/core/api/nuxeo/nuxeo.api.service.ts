@@ -1,10 +1,21 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NuxeoOptions, Credentials, Operation, Repository, Request, Directory } from './lib';
 import { NUXEO_ENV } from './nuxeo.options';
 import { Nuxeo } from './lib/nuxeo.api';
 import { Observable } from 'rxjs';
+import { Md5 } from 'ts-md5/dist/md5';
 import { map, mergeMap } from 'rxjs/operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
+import {
+  NuxeoOptions,
+  Credentials,
+  Operation,
+  Repository,
+  Request,
+  Directory,
+  NuxeoPagination,
+} from './lib';
 
 @Injectable()
 export class NuxeoApiService {
@@ -12,7 +23,7 @@ export class NuxeoApiService {
   private _nuxeo: Nuxeo;
   private credentials: Credentials = {};
 
-  constructor(private httpClient: HttpClient, @Inject(NUXEO_ENV) private env: NuxeoOptions) {
+  constructor(private httpClient: HttpClient, @Inject(NUXEO_ENV) private env: NuxeoOptions, private deviceService: DeviceDetectorService) {
     this._nuxeo = new Nuxeo(httpClient, env);
   }
 
@@ -41,7 +52,7 @@ export class NuxeoApiService {
   }
 
   requestAuthenticationToken(): Observable<Credentials> {
-    return this.nuxeo.requestAuthenticationToken(this.env.appName, this.env.deviceUID, this.env.deviceName, 'r', { json: false }).pipe(
+    return this.nuxeo.requestAuthenticationToken(this.env.appName, this.getDeviceId(), this.deviceService.device, 'r', { json: false }).pipe(
       map(token => {
         this.credentials['toke'] = token;
         return this.credentials;
@@ -62,5 +73,10 @@ export class NuxeoApiService {
 
   directory(path: string, opts: any = {}): Directory {
     return this.nuxeo.directory(path, opts);
+  }
+
+  private getDeviceId(): string {
+    const deviceInfo = this.deviceService.getDeviceInfo();
+    return btoa(Md5.hashStr(JSON.stringify(deviceInfo)).toString());
   }
 }

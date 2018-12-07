@@ -12,8 +12,6 @@ export class HomeComponent implements OnDestroy {
 
   constructor(private nuxeoApi: NuxeoApiService) {
     const token = 'a636850d-1dbc-4d03-9e85-99fb7a7d36db';
-    const username = 'Administrator';
-    const password = 'Administrator';
     this.nuxeoApi.loginWithToken(token).subscribe(response => {
       console.log(response);
       // this.nuxeoApi.repository().schemas(['*']).fetch('/Creative').subscribe(res => {
@@ -43,12 +41,10 @@ export class HomeComponent implements OnDestroy {
         ecm_uuid: '["9af8a1cb-075e-4c93-89e3-9a85fa24d1d8"]',
         ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]',
       };
-      this.nuxeoApi.request(restAPI)
-        .queryParams(params)
-        .schemas(['*'])
-        .execute().subscribe(res => {
-          console.log(res);
-        });
+
+      this.nuxeoApi.pageProvider(restAPI, params).subscribe(res => {
+        console.log(res);
+      });
     }, error => {
       console.log(error);
     });
