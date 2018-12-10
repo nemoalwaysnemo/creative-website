@@ -8,8 +8,8 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     overflow: hidden;
 }
 
@@ -19,7 +19,7 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    top: 0px;
+    top: 0;
 
     &.ngx-gallery-active {
         z-index: 1000;
@@ -36,7 +36,7 @@
 
 .ngx-gallery-animation-fade {
     .ngx-gallery-image {
-        left: 0px;
+        left: 0;
         opacity: 0;
         transition: 0.5s ease-in-out;
 
@@ -51,7 +51,7 @@
         transition: 0.5s ease-in-out;
 
         &.ngx-gallery-active {
-            left: 0px;
+            left: 0;
         }
 
         &.ngx-gallery-inactive-left {
@@ -68,7 +68,7 @@
     .ngx-gallery-image {
         transition: 1s ease;
         transform: scale(3.5, 3.5) rotate(90deg);
-        left: 0px;
+        left: 0;
         opacity: 0;
 
         &.ngx-gallery-active {
@@ -82,7 +82,7 @@
     .ngx-gallery-image {
         transition: 1s ease;
         transform: scale(2.5, 2.5);
-        left: 0px;
+        left: 0;
         opacity: 0;
 
         &.ngx-gallery-active {
@@ -100,6 +100,6 @@
     color: white;
     font-size: 16px;
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     z-index: 10;
 }
