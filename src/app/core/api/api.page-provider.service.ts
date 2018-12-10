@@ -19,18 +19,18 @@ export abstract class BasePageProvider {
     return join(this.nuxeoApi.getConfigs().restUrl, this.endPoint, 'pp', this.provider, 'execute');
   }
 
-  protected search(queryParams: any = {}, opts: any = { schemas: ['*'] }): void {
+  search(queryParams: any = {}, opts: any = { schemas: ['*'] }): void {
     this.execute(this.getRequestUrl(), queryParams, opts).subscribe((pagination: NuxeoPagination) => {
       this.entities$.next(pagination);
       this.queryParams$.next({ queryParams: queryParams, opts: opts });
     });
   }
 
-  protected onSearch(): Observable<NuxeoPagination> {
+  onSearch(): Observable<NuxeoPagination> {
     return this.entities$.pipe(share());
   }
 
-  protected onParamChanged(): Observable<{ queryParams: {}, opts: {} }> {
+  onParamChanged(): Observable<{ queryParams: {}, opts: {} }> {
     return this.queryParams$.pipe(share());
   }
 

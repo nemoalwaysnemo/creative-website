@@ -4,9 +4,7 @@ import { NgxGalleryOptions, NgxGalleryImage } from '@core/custom/ngx-gallery';
 @Component({
   selector: 'tbwa-image-gallery',
   styleUrls: ['./image-gallery.component.scss'],
-  template: `
-  <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-`,
+  template: `<ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>`,
 })
 export class ImageGalleryComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
