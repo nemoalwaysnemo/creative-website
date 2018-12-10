@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgxGalleryOptions, NgxGalleryImage } from '@core/custom/ngx-gallery';
 
 @Component({
-  selector: 'tbwa-img-gallery',
-  styleUrls: ['./img-gallery.component.scss'],
+  selector: 'tbwa-image-gallery',
+  styleUrls: ['./image-gallery.component.scss'],
   template: `
   <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
 `,
 })
-export class ImgGalleryComponent  implements  OnInit {
+export class ImageGalleryComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   constructor() {
