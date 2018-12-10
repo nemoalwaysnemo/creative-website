@@ -102,7 +102,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
 
         if (this.remainingCount) {
             return this.images.slice(0, this.rows * this.columns);
-        }else if (this.lazyLoading && this.order !== NgxGalleryOrder.Row) {
+        } else if (this.lazyLoading && this.order !== NgxGalleryOrder.Row) {
             let stopIndex = 0;
 
             if (this.order === NgxGalleryOrder.Column) {
@@ -177,7 +177,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
             calculatedIndex = Math.floor(index / this.rows);
         } else if (this.order === NgxGalleryOrder.Page) {
             calculatedIndex = (index % this.columns) + (Math.floor(index / (this.rows * this.columns)) * this.columns);
-        } else if (this.order == NgxGalleryOrder.Row && this.remainingCount) {
+        } else if (this.order === NgxGalleryOrder.Row && this.remainingCount) {
             calculatedIndex = index % this.columns;
         } else {
             calculatedIndex = index % Math.ceil(this.images.length / this.rows);
@@ -191,14 +191,11 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
 
         if (this.order === NgxGalleryOrder.Column) {
             calculatedIndex = index % this.rows;
-        }
-        else if (this.order === NgxGalleryOrder.Page) {
+        } else if (this.order === NgxGalleryOrder.Page) {
             calculatedIndex = Math.floor(index / this.columns) - (Math.floor(index / (this.rows * this.columns)) * this.rows);
-        }
-        else if (this.order == NgxGalleryOrder.Row && this.remainingCount) {
+        } else if (this.order === NgxGalleryOrder.Row && this.remainingCount) {
             calculatedIndex = Math.floor(index / this.columns);
-        }
-        else {
+        } else {
             calculatedIndex = Math.floor(index / Math.ceil(this.images.length / this.rows));
         }
 
@@ -278,19 +275,17 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     }
 
     private getMaxIndex(): number {
-        if (this.order == NgxGalleryOrder.Page) {
+        if (this.order === NgxGalleryOrder.Page) {
             let maxIndex = (Math.floor(this.images.length / this.getVisibleCount()) * this.columns);
 
             if (this.images.length % this.getVisibleCount() > this.columns) {
                 maxIndex += this.columns;
-            }
-            else {
+            } else {
                 maxIndex += this.images.length % this.getVisibleCount();
             }
 
             return maxIndex;
-        }
-        else {
+        } else {
             return Math.ceil(this.images.length / this.rows);
         }
     }
