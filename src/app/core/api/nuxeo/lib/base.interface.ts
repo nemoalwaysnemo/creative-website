@@ -2,7 +2,15 @@ import { join } from './nuxeo.helpers';
 
 const API_PATH = 'api/v1/';
 
+export class NuxeoAPIProps {
+  baseUrl: string;
+  restUrl: string;
+  baseOptions: {};
+  automationUrl: string;
+}
+
 export abstract class AbstractCore {
+
   protected opts: any;
   protected baseUrl: string = '';
   protected apiPath: string;
@@ -17,13 +25,13 @@ export abstract class AbstractCore {
     this.automationUrl = join(this.restUrl, 'automation/');
   }
 
-  getConfigs(): object {
-    return {
-      baseUrl: this.baseUrl,
-      restUrl: this.restUrl,
-      baseOptions: this.baseOptions,
-      automationUrl: this.automationUrl,
-    };
+  getConfigs(): NuxeoAPIProps {
+    const props = new NuxeoAPIProps();
+    props.baseUrl = this.baseUrl;
+    props.restUrl = this.restUrl;
+    props.baseOptions = this.baseOptions;
+    props.automationUrl = this.automationUrl;
+    return props;
   }
 }
 
@@ -123,7 +131,7 @@ export class NuxeoPagination {
     return this._maxPageSize;
   }
 
-  get aggregations(): object {
+  get aggregations(): {} {
     return this._aggregations;
   }
 
