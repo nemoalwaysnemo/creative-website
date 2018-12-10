@@ -10,7 +10,10 @@ import { NgxGalleryAction } from './ngx-gallery-action.model';
     template: `
     <div class="ngx-gallery-thumbnails-wrapper ngx-gallery-thumbnail-size-{{size}}">
         <div class="ngx-gallery-thumbnails" [style.transform]="'translateX(' + thumbnailsLeft + ')'" [style.marginLeft]="thumbnailsMarginLeft">
-            <a [href]="hasLink(i) ? links[i] : '#'" [target]="linkTarget" class="ngx-gallery-thumbnail" *ngFor="let image of getImages(); let i = index;" [style.background-image]="getSafeUrl(image)" (click)="handleClick($event, i)" [style.width]="getThumbnailWidth()" [style.height]="getThumbnailHeight()" [style.left]="getThumbnailLeft(i)" [style.top]="getThumbnailTop(i)" [ngClass]="{ 'ngx-gallery-active': i == selectedIndex, 'ngx-gallery-clickable': clickable }" [attr.aria-label]="labels[i]">
+            <a [href]="hasLink(i) ? links[i] : '#'" [target]="linkTarget" class="ngx-gallery-thumbnail" *ngFor="let image of getImages();
+            let i = index;" [style.background-image]="getSafeUrl(image)" (click)="handleClick($event, i)" [style.width]="getThumbnailWidth()"
+            [style.height]="getThumbnailHeight()" [style.left]="getThumbnailLeft(i)" [style.top]="getThumbnailTop(i)"
+            [ngClass]="{ 'ngx-gallery-active': i == selectedIndex, 'ngx-gallery-clickable': clickable }" [attr.aria-label]="labels[i]">
                 <div class="ngx-gallery-icons-wrapper">
                     <ngx-gallery-action *ngFor="let action of actions" [icon]="action.icon" [disabled]="action.disabled" [titleText]="action.titleText" (onClick)="action.onClick($event, i)"></ngx-gallery-action>
                 </div>
@@ -22,7 +25,7 @@ import { NgxGalleryAction } from './ngx-gallery-action.model';
     </div>
     <ngx-gallery-arrows *ngIf="canShowArrows()" (onPrevClick)="moveLeft()" (onNextClick)="moveRight()" [prevDisabled]="!canMoveLeft()" [nextDisabled]="!canMoveRight()" [arrowPrevIcon]="arrowPrevIcon" [arrowNextIcon]="arrowNextIcon"></ngx-gallery-arrows>
     `,
-    styleUrls: ['./ngx-gallery-thumbnails.component.scss']
+    styleUrls: ['./ngx-gallery-thumbnails.component.scss'],
 })
 export class NgxGalleryThumbnailsComponent implements OnChanges {
 
@@ -99,7 +102,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
 
         if (this.remainingCount) {
             return this.images.slice(0, this.rows * this.columns);
-        } 
+        }
         else if (this.lazyLoading && this.order != NgxGalleryOrder.Row) {
             let stopIndex = 0;
 
@@ -117,7 +120,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
             }
 
             return this.images.slice(0, stopIndex);
-        } 
+        }
         else {
             return this.images;
         }

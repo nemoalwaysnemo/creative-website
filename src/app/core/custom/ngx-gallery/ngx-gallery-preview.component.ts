@@ -27,13 +27,17 @@ import { NgxGalleryHelperService } from './ngx-gallery-helper.service';
         </div>
         <div class="ngx-gallery-preview-wrapper" (click)="closeOnClick && close()" (mouseup)="mouseUpHandler($event)" (mousemove)="mouseMoveHandler($event)" (touchend)="mouseUpHandler($event)" (touchmove)="mouseMoveHandler($event)">
             <div class="ngx-gallery-preview-img-wrapper">
-                <img *ngIf="src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" [src]="src" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
+                <img *ngIf="src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center"
+                [src]="src" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()"
+                 (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)"
+                 [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()"
+                 [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
                 <ngx-gallery-bullets *ngIf="bullets" [count]="images.length" [active]="index" (onChange)="showAtIndex($event)"></ngx-gallery-bullets>
             </div>
             <div class="ngx-gallery-preview-text" *ngIf="showDescription && description" [innerHTML]="description" (click)="$event.stopPropagation()"></div>
         </div>
     `,
-    styleUrls: ['./ngx-gallery-preview.component.scss']
+    styleUrls: ['./ngx-gallery-preview.component.scss'],
 })
 export class NgxGalleryPreviewComponent implements OnChanges {
 
@@ -140,7 +144,7 @@ export class NgxGalleryPreviewComponent implements OnChanges {
             this.manageFullscreen();
         }
 
-        this.keyDownListener = this.renderer.listenGlobal("window", "keydown", (e) => this.onKeyDown(e));
+        this.keyDownListener = this.renderer.listenGlobal('window', 'keydown', (e) => this.onKeyDown(e));
     }
 
     close(): void {
@@ -275,7 +279,7 @@ export class NgxGalleryPreviewComponent implements OnChanges {
             }
 
             if (this.zoomValue <= 1) {
-                this.resetPosition()
+                this.resetPosition();
             }
         }
     }
@@ -417,7 +421,7 @@ export class NgxGalleryPreviewComponent implements OnChanges {
                         this.showSpinner = true;
                         this.changeDetectorRef.markForCheck();
                     }
-                })
+                });
 
                 this.previewImage.nativeElement.onload = () => {
                     this.loading = false;
@@ -427,7 +431,7 @@ export class NgxGalleryPreviewComponent implements OnChanges {
                     this.changeDetectorRef.markForCheck();
                 }
             }
-        })
+        });
     }
 
     private isLoaded(img): boolean {

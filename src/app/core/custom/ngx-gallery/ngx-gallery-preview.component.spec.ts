@@ -7,24 +7,24 @@ import { NgxGalleryActionComponent, NgxGalleryPreviewComponent, NgxGalleryArrows
 describe('NgxGalleryPreviewComponent', () => {
     let fixture: ComponentFixture<NgxGalleryPreviewComponent>;
     let comp: NgxGalleryPreviewComponent;
-    let el, prevArrow, nextArrow, image;
+    const el, prevArrow, nextArrow, image;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [ NgxGalleryPreviewComponent, NgxGalleryArrowsComponent, NgxGalleryBulletsComponent, NgxGalleryActionComponent ],
-          providers: [ NgxGalleryHelperService, Renderer ]
+          providers: [ NgxGalleryHelperService, Renderer ],
         })
         .overrideComponent(NgxGalleryPreviewComponent, {
             set: {
                 styleUrls: [],
-            }
-        })
+            },
+        });
 
         fixture = TestBed.createComponent(NgxGalleryPreviewComponent);
         comp = fixture.componentInstance;
         comp.images = ['image-1.jpg', 'image-2.jpg', 'image-3.jpg'];
         comp.descriptions = ['1', '2', '3'];
-        comp.src = "#";
+        comp.src = '#';
         fixture.detectChanges();
         el = fixture.debugElement.nativeElement;
         image = el.querySelector('.ngx-gallery-preview-img');
@@ -44,7 +44,7 @@ describe('NgxGalleryPreviewComponent', () => {
             fixture.detectChanges();
             expect(image.getAttribute('src')).toEqual('image-2.jpg');
             done();
-        }, 1000)
+        }, 1000);
     });
 
     it('should not show next image if there is no more images', (done) => {
@@ -57,7 +57,7 @@ describe('NgxGalleryPreviewComponent', () => {
             fixture.detectChanges();
             expect(image.getAttribute('src')).toEqual('image-3.jpg');
             done();
-        }, 1000)
+        }, 1000);
     });
 
     it('should start from the beggining if there is no more images and infinity move is true', (done) => {
@@ -71,7 +71,7 @@ describe('NgxGalleryPreviewComponent', () => {
             fixture.detectChanges();
             expect(image.getAttribute('src')).toEqual('image-1.jpg');
             done();
-        }, 1000)
+        }, 1000);
     });
 
     it('should show prev image', (done) => {
@@ -84,7 +84,7 @@ describe('NgxGalleryPreviewComponent', () => {
             fixture.detectChanges();
             expect(image.getAttribute('src')).toEqual('image-1.jpg');
             done();
-        }, 1000)
+        }, 1000);
     });
 
     it('should not show prev image if there is no more images', (done) => {
@@ -97,7 +97,7 @@ describe('NgxGalleryPreviewComponent', () => {
             fixture.detectChanges();
             expect(image.getAttribute('src')).toEqual('image-1.jpg');
             done();
-        }, 1000)
+        }, 1000);
     });
 
     it('should start from the end if there is no more images and infinity move is true', (done) => {
@@ -111,12 +111,12 @@ describe('NgxGalleryPreviewComponent', () => {
             fixture.detectChanges();
             expect(image.getAttribute('src')).toEqual('image-3.jpg');
             done();
-        }, 1000)
+        }, 1000);
     });
 
     it('should trigger event onOpen', (done) => {
         comp.onOpen.subscribe(() => {
-            done()
+            done();
         });
 
         fixture.detectChanges();
@@ -125,7 +125,7 @@ describe('NgxGalleryPreviewComponent', () => {
 
     it('should trigger event onClose', (done) => {
         comp.onClose.subscribe(() => {
-            done()
+            done();
         });
 
         fixture.detectChanges();
@@ -153,7 +153,7 @@ describe('NgxGalleryPreviewComponent', () => {
             fixture.detectChanges();
             expect(image.getAttribute('src')).toEqual('image-1.jpg');
             done();
-        }, 1000)
+        }, 1000);
     });
 
     it('should start auto play on mouseleave if autoPlayPauseOnHover is true', (done) => {
@@ -170,7 +170,7 @@ describe('NgxGalleryPreviewComponent', () => {
             fixture.detectChanges();
             expect(image.getAttribute('src')).toEqual('image-2.jpg');
             done();
-        }, 1000)
+        }, 1000);
     });
 
     it('should trigger change event on show next', () => {
@@ -221,4 +221,4 @@ describe('NgxGalleryPreviewComponent', () => {
 
     //     window.dispatchEvent(event);
     // });
-})
+});

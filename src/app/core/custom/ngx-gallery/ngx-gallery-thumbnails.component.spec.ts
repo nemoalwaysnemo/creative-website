@@ -11,13 +11,13 @@ describe('NgxGalleryThumbnailsComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
           declarations: [ NgxGalleryThumbnailsComponent, NgxGalleryArrowsComponent, NgxGalleryActionComponent ],
-          providers: [ NgxGalleryHelperService, Renderer ]
+          providers: [ NgxGalleryHelperService, Renderer ],
         })
         .overrideComponent(NgxGalleryThumbnailsComponent, {
             set: {
                 styleUrls: [],
-            }
-        })
+            },
+        });
 
         fixture = TestBed.createComponent(NgxGalleryThumbnailsComponent);
         comp = fixture.componentInstance;
@@ -26,7 +26,7 @@ describe('NgxGalleryThumbnailsComponent', () => {
         comp.rows = 1;
         comp.margin = 10;
         comp.moveSize = 1;
-        comp.labels = [null,null,null];
+        comp.labels = [null, null, null];
         el = fixture.debugElement.nativeElement;
         thumbnails = el.querySelector('.ngx-gallery-thumbnails');
     });
@@ -57,7 +57,7 @@ describe('NgxGalleryThumbnailsComponent', () => {
         comp.selectedIndex = 5;
 
         comp.ngOnChanges({
-            selectedIndex: new SimpleChange(null, comp.selectedIndex, true)
+            selectedIndex: new SimpleChange(null, comp.selectedIndex, true),
         });
 
         fixture.detectChanges();
@@ -68,7 +68,7 @@ describe('NgxGalleryThumbnailsComponent', () => {
     it('should emit event onActiveChange after click on image', (done) => {
         comp.onActiveChange.subscribe((index) => {
             expect(index).toEqual(1);
-            done()
+            done();
         });
 
         fixture.detectChanges();
@@ -81,4 +81,4 @@ describe('NgxGalleryThumbnailsComponent', () => {
 
         expect(comp.canShowArrows()).toBeTruthy();
     });
-})
+});
