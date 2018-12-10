@@ -211,7 +211,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     }
 
     setThumbnailsPosition(): void {
-        this.thumbnailsLeft = - ((100 / this.columns) * this.index) + '%'
+        this.thumbnailsLeft = - ((100 / this.columns) * this.index) + '%';
 
         this.thumbnailsMarginLeft = - ((this.margin - (((this.columns - 1)
         * this.margin) / this.columns)) * this.index) + 'px';
