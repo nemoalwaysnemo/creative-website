@@ -102,14 +102,12 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
 
         if (this.remainingCount) {
             return this.images.slice(0, this.rows * this.columns);
-        }
-        else if (this.lazyLoading && this.order != NgxGalleryOrder.Row) {
+        }else if (this.lazyLoading && this.order !== NgxGalleryOrder.Row) {
             let stopIndex = 0;
 
             if (this.order === NgxGalleryOrder.Column) {
                 stopIndex = (this.index + this.columns + this.moveSize) * this.rows;
-            }
-            else if (this.order === NgxGalleryOrder.Page) {
+            } else if (this.order === NgxGalleryOrder.Page) {
                 stopIndex = this.index + ((this.columns * this.rows) * 2);
             }
 
@@ -120,8 +118,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
             }
 
             return this.images.slice(0, stopIndex);
-        }
-        else {
+        } else {
             return this.images;
         }
     }
@@ -143,7 +140,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     moveRight(): void {
         if (this.canMoveRight()) {
             this.index += this.moveSize;
-            let maxIndex = this.getMaxIndex() - this.columns;
+            const maxIndex = this.getMaxIndex() - this.columns;
 
             if (this.index > maxIndex) {
                 this.index = maxIndex;
@@ -178,14 +175,11 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
 
         if (this.order === NgxGalleryOrder.Column) {
             calculatedIndex = Math.floor(index / this.rows);
-        }
-        else if (this.order === NgxGalleryOrder.Page) {
+        } else if (this.order === NgxGalleryOrder.Page) {
             calculatedIndex = (index % this.columns) + (Math.floor(index / (this.rows * this.columns)) * this.columns);
-        }
-        else if (this.order == NgxGalleryOrder.Row && this.remainingCount) {
+        } else if (this.order == NgxGalleryOrder.Row && this.remainingCount) {
             calculatedIndex = index % this.columns;
-        }
-        else {
+        } else {
             calculatedIndex = index % Math.ceil(this.images.length / this.rows);
         }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, HostListener, ViewChild, Renderer } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, Output, EventEmitter, OnChanges, OnDestroy, SimpleChanges, ElementRef, HostListener, ViewChild, Renderer } from '@angular/core';
 import { SafeResourceUrl, DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
 
 import { NgxGalleryAction } from './ngx-gallery-action.model';
@@ -39,7 +39,7 @@ import { NgxGalleryHelperService } from './ngx-gallery-helper.service';
     `,
     styleUrls: ['./ngx-gallery-preview.component.scss'],
 })
-export class NgxGalleryPreviewComponent implements OnChanges {
+export class NgxGalleryPreviewComponent implements OnChanges, OnDestroy {
 
     src: SafeUrl;
     srcIndex: number;
@@ -429,7 +429,7 @@ export class NgxGalleryPreviewComponent implements OnChanges {
                     this.previewImage.nativeElement.onload = null;
                     this.startAutoPlay();
                     this.changeDetectorRef.markForCheck();
-                }
+                };
             }
         });
     }
