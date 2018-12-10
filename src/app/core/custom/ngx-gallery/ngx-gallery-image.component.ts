@@ -10,7 +10,9 @@ import { NgxGalleryAction } from './ngx-gallery-action.model';
     selector: 'ngx-gallery-image',
     template: `
         <div class="ngx-gallery-image-wrapper ngx-gallery-animation-{{animation}} ngx-gallery-image-size-{{size}}">
-            <div class="ngx-gallery-image" *ngFor="let image of getImages(); let i = index;" [ngClass]="{ 'ngx-gallery-active': selectedIndex == image.index, 'ngx-gallery-inactive-left': selectedIndex > image.index, 'ngx-gallery-inactive-right': selectedIndex < image.index, 'ngx-gallery-clickable': clickable }" [style.background-image]="getSafeUrl(image.src)" (click)="handleClick($event, image.index)">
+            <div class="ngx-gallery-image" *ngFor="let image of getImages(); let i = index;"
+            [ngClass]="{ 'ngx-gallery-active': selectedIndex == image.index, 'ngx-gallery-inactive-left': selectedIndex > image.index, 'ngx-gallery-inactive-right': selectedIndex < image.index, 'ngx-gallery-clickable': clickable }"
+            [style.background-image]="getSafeUrl(image.src)" (click)="handleClick($event, image.index)">
                 <div class="ngx-gallery-icons-wrapper">
                     <ngx-gallery-action *ngFor="let action of actions" [icon]="action.icon" [disabled]="action.disabled" [titleText]="action.titleText" (onClick)="action.onClick($event, image.index)"></ngx-gallery-action>
                 </div>
@@ -18,9 +20,10 @@ import { NgxGalleryAction } from './ngx-gallery-action.model';
             </div>
         </div>
         <ngx-gallery-bullets *ngIf="bullets" [count]="images.length" [active]="selectedIndex" (onChange)="show($event)"></ngx-gallery-bullets>
-        <ngx-gallery-arrows class="ngx-gallery-image-size-{{size}}" *ngIf="arrows" (onPrevClick)="showPrev()" (onNextClick)="showNext()" [prevDisabled]="!canShowPrev()" [nextDisabled]="!canShowNext()" [arrowPrevIcon]="arrowPrevIcon" [arrowNextIcon]="arrowNextIcon"></ngx-gallery-arrows>
+        <ngx-gallery-arrows class="ngx-gallery-image-size-{{size}}" *ngIf="arrows" (onPrevClick)="showPrev()" (onNextClick)="showNext()"
+        [prevDisabled]="!canShowPrev()" [nextDisabled]="!canShowNext()" [arrowPrevIcon]="arrowPrevIcon" [arrowNextIcon]="arrowNextIcon"></ngx-gallery-arrows>
     `,
-    styleUrls: ['./ngx-gallery-image.component.scss']
+    styleUrls: ['./ngx-gallery-image.component.scss'],
 })
 export class NgxGalleryImageComponent implements OnInit, OnChanges {
     @Input() images: NgxGalleryOrderedImage[];
@@ -99,24 +102,24 @@ export class NgxGalleryImageComponent implements OnInit, OnChanges {
         }
 
         if (this.lazyLoading) {
-            let indexes = [this.selectedIndex];
-            let prevIndex = this.selectedIndex - 1;
+            const indexes = [this.selectedIndex];
+            const prevIndex = this.selectedIndex - 1;
 
             if (prevIndex === -1 && this.infinityMove) {
-                indexes.push(this.images.length - 1)
+                indexes.push(this.images.length - 1);
             } else if (prevIndex >= 0) {
                 indexes.push(prevIndex);
             }
 
-            let nextIndex = this.selectedIndex + 1;
+            const nextIndex = this.selectedIndex + 1;
 
-            if (nextIndex == this.images.length && this.infinityMove) {
+            if (nextIndex === this.images.length && this.infinityMove) {
                 indexes.push(0);
             } else if (nextIndex < this.images.length) {
                 indexes.push(nextIndex);
             }
 
-            return this.images.filter((img, i) => indexes.indexOf(i) != -1);
+            return this.images.filter((img, i) => indexes.indexOf(i) !== -1);
         } else {
             return this.images;
         }

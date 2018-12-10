@@ -15,8 +15,8 @@ describe('NgxGalleryArrowsComponent', () => {
         .overrideComponent(NgxGalleryArrowsComponent, {
             set: {
                 styleUrls: [],
-            }
-        })
+            },
+        });
 
         fixture = TestBed.createComponent(NgxGalleryArrowsComponent);
         comp = fixture.componentInstance;
@@ -60,4 +60,4 @@ describe('NgxGalleryArrowsComponent', () => {
         expect(nextArrowContent.getAttribute('class'))
             .toEqual('ngx-gallery-icon-content my-next-icon');
     });
-})
+});

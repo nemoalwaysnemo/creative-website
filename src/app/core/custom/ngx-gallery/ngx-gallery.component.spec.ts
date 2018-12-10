@@ -5,25 +5,25 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import {
     NgxGalleryComponent, NgxGalleryActionComponent, NgxGalleryImageComponent, NgxGalleryThumbnailsComponent,
     NgxGalleryPreviewComponent, NgxGalleryArrowsComponent, NgxGalleryBulletsComponent, NgxGalleryHelperService,
-    NgxGalleryOptions
+    NgxGalleryOptions,
 } from './';
 
 describe('NgxGalleryComponent', () => {
     let fixture: ComponentFixture<NgxGalleryComponent>;
     let comp: NgxGalleryComponent;
-    let el, prevArrow, nextArrow, image;
+    const el, prevArrow, nextArrow, image;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [ NgxGalleryComponent, NgxGalleryActionComponent, NgxGalleryThumbnailsComponent,
                 NgxGalleryImageComponent, NgxGalleryPreviewComponent, NgxGalleryArrowsComponent, NgxGalleryBulletsComponent ],
-            providers: [ NgxGalleryHelperService, Renderer ]
+            providers: [ NgxGalleryHelperService, Renderer ],
         })
             .overrideComponent(NgxGalleryComponent, {
                 set: {
                     styleUrls: [],
-                }
-            })
+                },
+            });
 
         fixture = TestBed.createComponent(NgxGalleryComponent);
         comp = fixture.componentInstance;
@@ -32,18 +32,18 @@ describe('NgxGalleryComponent', () => {
             new NgxGalleryImage({
                 small: 'assets/1-small.jpg',
                 medium: 'assets/1-medium.jpg',
-                big: 'assets/1-big.jpg'
+                big: 'assets/1-big.jpg',
             }),
             new NgxGalleryImage({
                 small: 'assets/2-small.jpg',
                 medium: 'assets/2-medium.jpg',
-                big: 'assets/2-big.jpg'
+                big: 'assets/2-big.jpg',
             }),
             new NgxGalleryImage({
                 small: 'assets/3-small.jpg',
                 medium: 'assets/3-medium.jpg',
-                big: 'assets/3-big.jpg'
-            })
+                big: 'assets/3-big.jpg',
+            }),
         ];
         comp.options = [ new NgxGalleryOptions({}) ];
         fixture.detectChanges();
@@ -74,4 +74,4 @@ describe('NgxGalleryComponent', () => {
         comp.images = undefined;
         expect(comp.canShowPrev()).toBeFalsy();
     });
-})
+});

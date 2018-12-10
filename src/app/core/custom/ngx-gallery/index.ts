@@ -30,13 +30,13 @@ export * from './ngx-gallery-action.model';
 export class CustomHammerConfig extends HammerGestureConfig  {
     overrides = <any>{
         'pinch': { enable: false },
-        'rotate': { enable: false }
+        'rotate': { enable: false },
     };
 }
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
     ],
     declarations: [
         NgxGalleryActionComponent,
@@ -45,13 +45,13 @@ export class CustomHammerConfig extends HammerGestureConfig  {
         NgxGalleryImageComponent,
         NgxGalleryThumbnailsComponent,
         NgxGalleryPreviewComponent,
-        NgxGalleryComponent
+        NgxGalleryComponent,
     ],
     exports: [
-        NgxGalleryComponent
+        NgxGalleryComponent,
     ],
     providers: [
-        { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
-    ]
+        { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
+    ],
 })
 export class NgxGalleryModule {}

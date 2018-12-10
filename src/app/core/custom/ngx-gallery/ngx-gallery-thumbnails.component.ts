@@ -10,7 +10,10 @@ import { NgxGalleryAction } from './ngx-gallery-action.model';
     template: `
     <div class="ngx-gallery-thumbnails-wrapper ngx-gallery-thumbnail-size-{{size}}">
         <div class="ngx-gallery-thumbnails" [style.transform]="'translateX(' + thumbnailsLeft + ')'" [style.marginLeft]="thumbnailsMarginLeft">
-            <a [href]="hasLink(i) ? links[i] : '#'" [target]="linkTarget" class="ngx-gallery-thumbnail" *ngFor="let image of getImages(); let i = index;" [style.background-image]="getSafeUrl(image)" (click)="handleClick($event, i)" [style.width]="getThumbnailWidth()" [style.height]="getThumbnailHeight()" [style.left]="getThumbnailLeft(i)" [style.top]="getThumbnailTop(i)" [ngClass]="{ 'ngx-gallery-active': i == selectedIndex, 'ngx-gallery-clickable': clickable }" [attr.aria-label]="labels[i]">
+            <a [href]="hasLink(i) ? links[i] : '#'" [target]="linkTarget" class="ngx-gallery-thumbnail" *ngFor="let image of getImages();
+            let i = index;" [style.background-image]="getSafeUrl(image)" (click)="handleClick($event, i)" [style.width]="getThumbnailWidth()"
+            [style.height]="getThumbnailHeight()" [style.left]="getThumbnailLeft(i)" [style.top]="getThumbnailTop(i)"
+            [ngClass]="{ 'ngx-gallery-active': i == selectedIndex, 'ngx-gallery-clickable': clickable }" [attr.aria-label]="labels[i]">
                 <div class="ngx-gallery-icons-wrapper">
                     <ngx-gallery-action *ngFor="let action of actions" [icon]="action.icon" [disabled]="action.disabled" [titleText]="action.titleText" (onClick)="action.onClick($event, i)"></ngx-gallery-action>
                 </div>
@@ -22,7 +25,7 @@ import { NgxGalleryAction } from './ngx-gallery-action.model';
     </div>
     <ngx-gallery-arrows *ngIf="canShowArrows()" (onPrevClick)="moveLeft()" (onNextClick)="moveRight()" [prevDisabled]="!canMoveLeft()" [nextDisabled]="!canMoveRight()" [arrowPrevIcon]="arrowPrevIcon" [arrowNextIcon]="arrowNextIcon"></ngx-gallery-arrows>
     `,
-    styleUrls: ['./ngx-gallery-thumbnails.component.scss']
+    styleUrls: ['./ngx-gallery-thumbnails.component.scss'],
 })
 export class NgxGalleryThumbnailsComponent implements OnChanges {
 
@@ -99,14 +102,12 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
 
         if (this.remainingCount) {
             return this.images.slice(0, this.rows * this.columns);
-        } 
-        else if (this.lazyLoading && this.order != NgxGalleryOrder.Row) {
+        } else if (this.lazyLoading && this.order !== NgxGalleryOrder.Row) {
             let stopIndex = 0;
 
             if (this.order === NgxGalleryOrder.Column) {
                 stopIndex = (this.index + this.columns + this.moveSize) * this.rows;
-            }
-            else if (this.order === NgxGalleryOrder.Page) {
+            } else if (this.order === NgxGalleryOrder.Page) {
                 stopIndex = this.index + ((this.columns * this.rows) * 2);
             }
 
@@ -117,8 +118,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
             }
 
             return this.images.slice(0, stopIndex);
-        } 
-        else {
+        } else {
             return this.images;
         }
     }
@@ -140,7 +140,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     moveRight(): void {
         if (this.canMoveRight()) {
             this.index += this.moveSize;
-            let maxIndex = this.getMaxIndex() - this.columns;
+            const maxIndex = this.getMaxIndex() - this.columns;
 
             if (this.index > maxIndex) {
                 this.index = maxIndex;
@@ -175,14 +175,11 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
 
         if (this.order === NgxGalleryOrder.Column) {
             calculatedIndex = Math.floor(index / this.rows);
-        }
-        else if (this.order === NgxGalleryOrder.Page) {
+        } else if (this.order === NgxGalleryOrder.Page) {
             calculatedIndex = (index % this.columns) + (Math.floor(index / (this.rows * this.columns)) * this.columns);
-        }
-        else if (this.order == NgxGalleryOrder.Row && this.remainingCount) {
+        } else if (this.order === NgxGalleryOrder.Row && this.remainingCount) {
             calculatedIndex = index % this.columns;
-        }
-        else {
+        } else {
             calculatedIndex = index % Math.ceil(this.images.length / this.rows);
         }
 
@@ -194,14 +191,11 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
 
         if (this.order === NgxGalleryOrder.Column) {
             calculatedIndex = index % this.rows;
-        }
-        else if (this.order === NgxGalleryOrder.Page) {
+        } else if (this.order === NgxGalleryOrder.Page) {
             calculatedIndex = Math.floor(index / this.columns) - (Math.floor(index / (this.rows * this.columns)) * this.rows);
-        }
-        else if (this.order == NgxGalleryOrder.Row && this.remainingCount) {
+        } else if (this.order === NgxGalleryOrder.Row && this.remainingCount) {
             calculatedIndex = Math.floor(index / this.columns);
-        }
-        else {
+        } else {
             calculatedIndex = Math.floor(index / Math.ceil(this.images.length / this.rows));
         }
 
@@ -217,7 +211,7 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     }
 
     setThumbnailsPosition(): void {
-        this.thumbnailsLeft = - ((100 / this.columns) * this.index) + '%'
+        this.thumbnailsLeft = - ((100 / this.columns) * this.index) + '%';
 
         this.thumbnailsMarginLeft = - ((this.margin - (((this.columns - 1)
         * this.margin) / this.columns)) * this.index) + 'px';
@@ -281,19 +275,17 @@ export class NgxGalleryThumbnailsComponent implements OnChanges {
     }
 
     private getMaxIndex(): number {
-        if (this.order == NgxGalleryOrder.Page) {
+        if (this.order === NgxGalleryOrder.Page) {
             let maxIndex = (Math.floor(this.images.length / this.getVisibleCount()) * this.columns);
 
             if (this.images.length % this.getVisibleCount() > this.columns) {
                 maxIndex += this.columns;
-            }
-            else {
+            } else {
                 maxIndex += this.images.length % this.getVisibleCount();
             }
 
             return maxIndex;
-        }
-        else {
+        } else {
             return Math.ceil(this.images.length / this.rows);
         }
     }

@@ -10,7 +10,7 @@ describe('NgxGalleryActionComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [ NgxGalleryActionComponent ],
-        })
+        }),
 
         fixture = TestBed.createComponent(NgxGalleryActionComponent);
         comp = fixture.componentInstance;

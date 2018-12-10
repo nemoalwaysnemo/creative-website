@@ -8,26 +8,26 @@ import { NgxGalleryActionComponent, NgxGalleryImageComponent, NgxGalleryArrowsCo
 export class CustomHammerConfig extends HammerGestureConfig  {
     overrides = <any>{
         'pinch': { enable: false },
-        'rotate': { enable: false }
+        'rotate': { enable: false },
     };
   }
 
 describe('NgxGalleryArrowsComponent', () => {
     let fixture: ComponentFixture<NgxGalleryImageComponent>;
     let comp: NgxGalleryImageComponent;
-    let el, prevArrow, nextArrow;
+    const el, prevArrow, nextArrow;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
           declarations: [ NgxGalleryImageComponent, NgxGalleryArrowsComponent, NgxGalleryBulletsComponent, NgxGalleryActionComponent ],
           providers: [ NgxGalleryHelperService, Renderer,
-            { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig } ]
+            { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig } ],
         })
         .overrideComponent(NgxGalleryImageComponent, {
             set: {
                 styleUrls: [],
-            }
-        })
+            },
+        });
 
         fixture = TestBed.createComponent(NgxGalleryImageComponent);
         comp = fixture.componentInstance;
@@ -43,7 +43,7 @@ describe('NgxGalleryArrowsComponent', () => {
 
     it('should show next image', () => {
         comp.selectedIndex = 0;
-        let status = comp.showNext();
+        const status = comp.showNext();
 
         expect(status).toBeTruthy();
         expect(comp.selectedIndex).toEqual(1);
@@ -51,7 +51,7 @@ describe('NgxGalleryArrowsComponent', () => {
 
     it('should not show next image if there is no more images', () => {
         comp.selectedIndex = 2;
-        let status = comp.showNext();
+       const status = comp.showNext();
 
         expect(status).toBeFalsy();
         expect(comp.selectedIndex).toEqual(2);
@@ -60,7 +60,7 @@ describe('NgxGalleryArrowsComponent', () => {
     it('should start from the beggining if there is no more images and infinity move is true', () => {
         comp.selectedIndex = 2;
         comp.infinityMove = true;
-        let status = comp.showNext();
+       const status = comp.showNext();
 
         expect(status).toBeTruthy();
         expect(comp.selectedIndex).toEqual(0);
@@ -98,7 +98,7 @@ describe('NgxGalleryArrowsComponent', () => {
     it('should emit event onClick after click on image', (done) => {
         comp.onClick.subscribe((index) => {
             expect(index).toEqual(1);
-            done()
+            done();
         });
 
         comp.clickable = true;
@@ -143,7 +143,7 @@ describe('NgxGalleryArrowsComponent', () => {
         setTimeout(() => {
             expect(comp.selectedIndex).toEqual(1);
             done();
-        }, 150)
+        }, 150);
     });
 
     it('should stop auto play on moveenter if autoPlayPauseOnHover is true', (done) => {
@@ -158,7 +158,7 @@ describe('NgxGalleryArrowsComponent', () => {
         setTimeout(() => {
             expect(comp.selectedIndex).toEqual(0);
             done();
-        }, 150)
+        }, 150);
     });
 
     it('should start auto play on mouseleave if autoPlayPauseOnHover is true', (done) => {
@@ -174,6 +174,6 @@ describe('NgxGalleryArrowsComponent', () => {
         setTimeout(() => {
             expect(comp.selectedIndex).toEqual(1);
             done();
-        }, 150)
+        }, 150);
     });
-})
+});

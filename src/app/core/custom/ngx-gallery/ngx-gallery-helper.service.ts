@@ -16,7 +16,7 @@ export class NgxGalleryHelperService {
             if (status && !handlers) {
                 this.swipeHandlers.set(id, [
                     this.renderer.listen(element.nativeElement, 'swipeleft', () => nextHandler()),
-                    this.renderer.listen(element.nativeElement, 'swiperight', () => prevHandler())
+                    this.renderer.listen(element.nativeElement, 'swiperight', () => prevHandler()),
                 ]);
             } else if (!status && handlers) {
                 handlers.map((handler) => handler());
