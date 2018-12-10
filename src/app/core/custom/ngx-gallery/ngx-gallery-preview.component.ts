@@ -376,7 +376,7 @@ export class NgxGalleryPreviewComponent implements OnChanges, OnDestroy {
 
         const doc = <any>document;
 
-        if (doc.exitFullscreen) {
+        if (doc.fullscreen && doc.exitFullscreen) {
             doc.exitFullscreen();
         } else if (doc.msExitFullscreen) {
             doc.msExitFullscreen();
