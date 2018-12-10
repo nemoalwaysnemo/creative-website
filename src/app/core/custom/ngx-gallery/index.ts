@@ -45,7 +45,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
         NgxGalleryImageComponent,
         NgxGalleryThumbnailsComponent,
         NgxGalleryPreviewComponent,
-        NgxGalleryComponent
+        NgxGalleryComponent,
     ],
     exports: [
         NgxGalleryComponent
