@@ -62,7 +62,7 @@ export class NuxeoResponse {
 export class NuxeoPagination {
 
   private _entityType: string;
-  private _entities: any = Array<{}>();
+  private _entries: any = Array<{}>();
   private _currentPageSize: number;
   private _currentPageIndex: number = 1;
   private _aggregations: any = {};
@@ -81,7 +81,7 @@ export class NuxeoPagination {
 
   constructor(response: any = {}) {
     this._entityType = response['entity-type'];
-    this._entities = response.entities || [];
+    this._entries = response.entries || [];
     this._currentPageSize = response.currentPageSize || 0;
     this._currentPageIndex = response.currentPageIndex || 1;
     this._aggregations = response.aggregations || {};
@@ -103,8 +103,8 @@ export class NuxeoPagination {
     return this._entityType;
   }
 
-  get entities(): any {
-    return this._entities;
+  get entries(): any {
+    return this._entries;
   }
 
   get resultsCount(): number {
