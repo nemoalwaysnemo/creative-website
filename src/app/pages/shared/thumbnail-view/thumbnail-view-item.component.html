@@ -1,7 +1,5 @@
 <div class="thumbnail-view-item">
-  <img src="assets/images/dean.png" witdh="30" height="30" />
-  <h2>test-tile</h2>
-  <p>2018 <b>·</b> Test</p>
-  <hr />
-  <p>test-agency</p>
+  <img src="{{document.thumbnailUrl}}" alt="" width="50" height="50" class="thumbnail-img">
+  <p class="artist-name">{{document.title}}</p>
+  <span class="tags" *ngFor='let genre of [this.document.get("dc:description")] | slice:0:6'>{{genre}}</span>
 </div>
