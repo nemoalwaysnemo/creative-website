@@ -3,6 +3,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { HomeComponent } from './home.component';
 import { ThumbnailViewModule } from '@pages/shared/thumbnail-view/thumbnail-view.module';
 import { ImageGalleryModule } from '@pages/shared/image-gallery/image-gallery.module';
+import { AgencyThumbnailComponent } from './agency-thumbnail/agency-thumbnail.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { ImageGalleryModule } from '@pages/shared/image-gallery/image-gallery.mo
   ],
   declarations: [
     HomeComponent,
+    AgencyThumbnailComponent,
   ],
 })
 export class HomeModule { }
