@@ -3,7 +3,7 @@
 *::before {
   margin: 0;
   padding: 0;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .filter-wrapper,
@@ -23,31 +23,31 @@
   position: relative;
 }
 
-#keyword {
+.keyword {
   border: 1px solid #ccc;
   padding: 10px;
   font: 1.5em 'Arimo', sans-serif;
   width: 50%;
   outline: none;
-  transition: border 0.5s ease-in-out
+  transition: border 0.5s ease-in-out;
 }
 
-#keyword:focus {
+.keyword:focus {
   border-color: rgba(81, 203, 238, 1);
   ;
 }
 
-#keyword-button {
+.keyword-button {
   position: absolute;
   right: 26%;
   top: 50%;
   transform: translateY(-50%);
   font-size: 1.7em;
-  color: #8DB9ED
+  color: #8db9ed;
 }
 
-#keyword-button:hover {
-  color: #ccc
+.keyword-button:hover {
+  color: #ccc;
 }
 
 .filter-select {
@@ -60,9 +60,15 @@
   /*so things don't jump around*/
   position: absolute;
   left: 25%;
-  /*Since we know the wrapper will always be 100% height, we can use half of 100% + half the height of the input*/
+  /*
+    Since we know the wrapper will always be 100% height,
+    we can use half of 100% + half the height of the input
+  */
   top: calc(50% + 22px);
-  /*for a better calculation use JS.  I'm calculating half of the body height - half the height of the input - li padding*/
+  /*
+    for a better calculation use JS.
+    I'm calculating half of the body height - half the height of the input - li padding
+  */
   max-height: calc(750% - 15px);
   overflow-y: auto;
   background: #fff;
@@ -96,12 +102,12 @@
 }
 
 .filter-select-list:hover {
-  background: #C0C0C0;
-  color: #fff
+  background: #c0c0c0;
+  color: #fff;
 }
 
 .list-highlight,
 .list-highlight:hover {
   background: rgb(55, 55, 55);
-  color: #fff
+  color: #fff;
 }

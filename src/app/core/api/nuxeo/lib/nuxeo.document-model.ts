@@ -2,6 +2,7 @@ import { Base } from './base.api';
 import { join } from './nuxeo.helpers';
 import { Observable } from 'rxjs';
 import { NuxeoResponse } from './base.interface';
+import { isThisTypeNode } from 'typescript';
 
 const enricher = {
   document: {
@@ -48,11 +49,11 @@ export class DocumentModel extends Base {
     this._facets = facets;
   }
 
-  get uid(): any {
+  get uid(): string {
     return this._uid;
   }
 
-  set uid(uid: any) {
+  set uid(uid: string) {
     this._uid = uid;
   }
 

@@ -11,6 +11,6 @@ export class HomeSearchDataSource extends BasePageProvider {
 
   searchForText(param: string): Observable<NuxeoPagination> {
     const text: string = '*' + param;
-    return super.execute(this.getRequestUrl(), this.getRequestParams({ ecm_fulltext: text, pageSize: 10 }), this.getRequestOptions());
+    return super.request({ ecm_fulltext: text, pageSize: 10 });
   }
 }
