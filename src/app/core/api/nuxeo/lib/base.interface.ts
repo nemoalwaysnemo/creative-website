@@ -2,13 +2,6 @@ import { join } from './nuxeo.helpers';
 
 const API_PATH = 'api/v1/';
 
-export class NuxeoAPIProps {
-  baseUrl: string;
-  restUrl: string;
-  baseOptions: {};
-  automationUrl: string;
-}
-
 export abstract class AbstractCore {
 
   protected opts: any;
@@ -25,13 +18,13 @@ export abstract class AbstractCore {
     this.automationUrl = join(this.restUrl, 'automation/');
   }
 
-  getConfigs(): NuxeoAPIProps {
-    const props = new NuxeoAPIProps();
-    props.baseUrl = this.baseUrl;
-    props.restUrl = this.restUrl;
-    props.baseOptions = this.baseOptions;
-    props.automationUrl = this.automationUrl;
-    return props;
+  getConfigs(): {} {
+    return {
+      baseUrl: this.baseUrl,
+      restUrl: this.restUrl,
+      baseOptions: this.baseOptions,
+      automationUrl: this.automationUrl,
+    };
   }
 }
 
@@ -57,6 +50,11 @@ export class NuxeoOptions {
 
 export class NuxeoResponse {
   data: any;
+}
+
+export class NuxeoRequestOptions {
+  schemas: string[] = ['*'];
+  enrichers: {} = { document: ['thumbnail'] };
 }
 
 export class NuxeoPagination {

@@ -4,6 +4,7 @@ import { HomeModule } from './home/home.module';
 import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import { ThumbnailViewModule, ImageGalleryModule } from './shared';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -15,6 +16,8 @@ const PAGES_COMPONENTS = [
     ThemeModule,
     HomeModule,
     MiscellaneousModule,
+    ThumbnailViewModule.forRoot(),
+    ImageGalleryModule,
   ],
   declarations: [
     ...PAGES_COMPONENTS,

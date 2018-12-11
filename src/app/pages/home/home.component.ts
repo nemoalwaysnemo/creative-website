@@ -16,26 +16,9 @@ export class HomeComponent implements OnDestroy {
     // const password = 'Administrator';
     this.nuxeoApi.loginWithToken(token).subscribe(response => {
       console.log(response);
-
-      const restAPI = 'backslash/pp/backslash_search/execute';
-      const params = {
-        currentPageIndex: 1,
-        pageSize: 20,
-      };
-
-      this.nuxeoApi.pageProvider(restAPI, params).subscribe(res => {
-        console.log(res.entities);
-      });
     }, error => {
       console.log(error);
     });
-
-
-    // this.nuxeoApi.login(username, password).subscribe(response => {
-    //   console.log(response);
-    // }, error => {
-    //   console.log(error);
-    // });
   }
 
   ngOnDestroy() {

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Document } from '@core/api/';
 import { Observable } from 'rxjs';
+import { ThumbnailViewDataSource } from './thumbnail-view-data-source.service';
 
 @Component({
   selector: 'tbwa-thumbnail-view-item',
@@ -29,8 +30,12 @@ export class ThumbnailViewComponent implements OnInit {
   @Input() layout: string;
   @Input() documents: Observable<Document[]>;
 
-  constructor() {
-
+  constructor(private thumbnailDataSource: ThumbnailViewDataSource) {
+    this.thumbnailDataSource.search({
+      currentPageIndex: 1,
+      pageSize: 20,
+      ecm_fulltext: '*dean',
+    });
   }
 
   ngOnInit() {

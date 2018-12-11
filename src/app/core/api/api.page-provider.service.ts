@@ -1,5 +1,5 @@
 import { Observable, Subject, ReplaySubject } from 'rxjs';
-import { NuxeoPagination, NuxeoApiService, join } from './nuxeo';
+import { NuxeoPagination, NuxeoApiService, NuxeoRequestOptions, join, deepExtend } from './nuxeo';
 import { share } from 'rxjs/operators';
 
 export abstract class BasePageProvider {
@@ -9,20 +9,26 @@ export abstract class BasePageProvider {
   protected provider: string = 'creative_website_search';
 
   protected entities$ = new Subject<NuxeoPagination>();
+
   protected queryParams$ = new ReplaySubject<{ queryParams: {}, opts: {} }>();
 
   constructor(protected nuxeoApi: NuxeoApiService) {
 
   }
 
-  protected getRequestUrl(): string {
-    return join(this.nuxeoApi.getConfigs().restUrl, this.endPoint, 'pp', this.provider, 'execute');
+  protected getRequestOptions(): NuxeoRequestOptions {
+    return new NuxeoRequestOptions();
   }
 
-  search(queryParams: any = {}, opts: any = { schemas: ['*'] }): void {
-    this.execute(this.getRequestUrl(), queryParams, opts).subscribe((pagination: NuxeoPagination) => {
+  protected getRequestUrl(): string {
+    return join(this.endPoint, 'pp', this.provider, 'execute');
+  }
+
+  search(queryParams: any = {}, opts?: NuxeoRequestOptions): void {
+    const options = deepExtend(this.getRequestOptions(), opts || this.getRequestOptions());
+    this.execute(this.getRequestUrl(), queryParams, options).subscribe((pagination: NuxeoPagination) => {
       this.entities$.next(pagination);
-      this.queryParams$.next({ queryParams: queryParams, opts: opts });
+      this.queryParams$.next({ queryParams: queryParams, opts: options });
     });
   }
 
@@ -34,7 +40,7 @@ export abstract class BasePageProvider {
     return this.queryParams$.pipe(share());
   }
 
-  protected execute(url: string, queryParams: any = {}, opts: any = { schemas: ['*'] }): Observable<NuxeoPagination> {
+  protected execute(url: string, queryParams: any = {}, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
     return this.nuxeoApi.pageProvider(url, queryParams, opts);
   }
 

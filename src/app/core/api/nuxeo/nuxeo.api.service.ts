@@ -8,7 +8,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 import {
-  NuxeoAPIProps,
+  NuxeoRequestOptions,
   NuxeoOptions,
   Credentials,
   Operation,
@@ -30,10 +30,6 @@ export class NuxeoApiService {
 
   get nuxeo(): Nuxeo {
     return this._nuxeo;
-  }
-
-  getConfigs(): NuxeoAPIProps {
-    return this.nuxeo.getConfigs();
   }
 
   login(username: string, password: string): Observable<Credentials> {
@@ -64,8 +60,8 @@ export class NuxeoApiService {
       }));
   }
 
-  pageProvider(url: string, queryParams: any = {}, opts: any = { schemas: ['*'] }): Observable<NuxeoPagination> {
-    return this.request(url).queryParams(queryParams).schemas(opts.schemas).execute().pipe(
+  pageProvider(url: string, queryParams: any = {}, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
+    return this.request(url, opts).queryParams(queryParams).schemas(opts.schemas).execute().pipe(
       map(res => new NuxeoPagination(res)),
     );
   }
@@ -74,7 +70,7 @@ export class NuxeoApiService {
     return this.nuxeo.operation(id, opts);
   }
 
-  request(path: string, opts: any = {}): Request {
+  request(path: string, opts: NuxeoRequestOptions): Request {
     return this.nuxeo.request(path, opts);
   }
 
