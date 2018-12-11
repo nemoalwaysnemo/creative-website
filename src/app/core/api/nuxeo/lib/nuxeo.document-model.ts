@@ -14,7 +14,7 @@ const enricher = {
   },
 };
 
-export class Document extends Base {
+export class DocumentModel extends Base {
 
   private _repository: any;
   private _properties: any;
@@ -54,6 +54,10 @@ export class Document extends Base {
 
   set uid(uid: any) {
     this._uid = uid;
+  }
+
+  get thumbnailUrl(): string {
+    return this.contextParameters.thumbnail.url;
   }
 
   get contextParameters(): any {
@@ -96,14 +100,6 @@ export class Document extends Base {
     return this._nuxeo.request(path).get(options);
   }
 
-  fetchWorkflows(opts: any = {}): Observable<NuxeoResponse> {
-    const options = this._computeOptions(opts);
-    const path = join('id', this.uid, '@workflow');
-    options.documentId = this.uid;
-    return this._nuxeo.request(path)
-      .get(options);
-  }
-
   fetchRenditions(opts: any = {}): Observable<NuxeoResponse> {
     const Promise = this._nuxeo.Promise;
     if (this.contextParameters && this.contextParameters.renditions) {
@@ -114,7 +110,7 @@ export class Document extends Base {
     options.enrichers = { document: ['renditions'] };
     return this._repository
       .fetch(this.uid, options)
-      .then((doc: any) => {
+      .subscribe((doc: any) => {
         if (!this.contextParameters) {
           this.contextParameters = {};
         }
@@ -126,66 +122,6 @@ export class Document extends Base {
   fetchRendition(name: string, opts: any = {}): Observable<NuxeoResponse> {
     const options = this._computeOptions(opts);
     const path = join('id', this.uid, '@rendition', name);
-    return this._nuxeo.request(path)
-      .get(options);
-  }
-
-  fetchACLs(opts: any = {}): Observable<NuxeoResponse> {
-    const Promise = this._nuxeo.Promise;
-    if (this.contextParameters && this.contextParameters.acls) {
-      return Promise.resolve(this.contextParameters.acls);
-    }
-
-    const options = this._computeOptions(opts);
-    options.enrichers = { document: [enricher.document.ACLS] };
-    return this._repository
-      .fetch(this.uid, options)
-      .then((doc: any) => {
-        if (!this.contextParameters) {
-          this.contextParameters = {};
-        }
-        this.contextParameters.acls = doc.contextParameters.acls;
-        return this.contextParameters.acls;
-      });
-  }
-
-  hasPermission(name: string, opts: any = {}): Observable<NuxeoResponse> {
-    const Promise = this._nuxeo.Promise;
-    if (this.contextParameters && this.contextParameters.permissions) {
-      return Promise.resolve(this.contextParameters.permissions.indexOf(name) !== -1);
-    }
-
-    const options = this._computeOptions(opts);
-    options.enrichers = { document: [enricher.document.PERMISSIONS] };
-    return this._repository
-      .fetch(this.uid, options)
-      .then((doc: any) => {
-        if (!this.contextParameters) {
-          this.contextParameters = {};
-        }
-        this.contextParameters.permissions = doc.contextParameters.permissions;
-        return this.contextParameters.permissions.indexOf(name) !== -1;
-      });
-  }
-
-  fetchLockStatus(opts: any = {}): Observable<NuxeoResponse> {
-    const options = this._computeOptions(opts);
-    options.fetchProperties = { document: ['lock'] };
-    return this._repository
-      .fetch(this.uid, options)
-      .then((doc: any) => {
-        return {
-          lockOwner: doc.lockOwner,
-          lockCreated: doc.lockCreated,
-        };
-      });
-  }
-
-  fetchAudit(queryOpts: any = {}, opts: any = {}): Observable<NuxeoResponse> {
-    const options = this._computeOptions(opts);
-    const path = join('id', this.uid, '@audit');
-    return this._nuxeo.request(path)
-      .queryParams(queryOpts)
-      .get(options);
+    return this._nuxeo.request(path).get(options);
   }
 }

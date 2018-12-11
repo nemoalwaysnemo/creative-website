@@ -1,4 +1,5 @@
 import { join } from './nuxeo.helpers';
+import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';
 
@@ -68,11 +69,11 @@ export class NuxeoRequestOptions {
 export class NuxeoPagination {
 
   private _entityType: string;
-  private _entries: any = Array<{}>();
+  private _entries: DocumentModel[];
   private _currentPageSize: number;
-  private _currentPageIndex: number = 1;
-  private _aggregations: any = {};
-  private _quickFilters: any = Array<{}>();
+  private _currentPageIndex: number;
+  private _aggregations: any;
+  private _quickFilters: any[];
   private _isLastPageAvailable: boolean;
   private _isNextPageAvailable: boolean;
   private _isPaginable: boolean;
@@ -109,7 +110,7 @@ export class NuxeoPagination {
     return this._entityType;
   }
 
-  get entries(): any {
+  get entries(): DocumentModel[] {
     return this._entries;
   }
 
@@ -141,7 +142,7 @@ export class NuxeoPagination {
     return this._aggregations;
   }
 
-  get quickFilters(): [] {
+  get quickFilters(): any[] {
     return this._quickFilters;
   }
 
