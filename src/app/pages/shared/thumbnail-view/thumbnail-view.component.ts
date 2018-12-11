@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Document } from '@core/api/';
 import { Observable } from 'rxjs';
 import { ThumbnailViewDataSource } from './thumbnail-view-data-source.service';
 
@@ -31,7 +30,7 @@ export class ThumbnailViewComponent implements OnInit {
   @Input() documents: Observable<Document[]>;
 
   constructor(private thumbnailDataSource: ThumbnailViewDataSource) {
-    this.thumbnailDataSource.search({
+    this.thumbnailDataSource.request({
       ecm_fulltext: '*dean',
     });
   }
