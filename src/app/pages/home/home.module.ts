@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { ThumbnailViewModule } from '@pages/shared/thumbnail-view/thumbnail-view.module';
 import { ImageGalleryModule } from '@pages/shared/image-gallery/image-gallery.module';
 import { AgencyThumbnailComponent } from './agency-thumbnail/agency-thumbnail.component';
+import { BrandThumbnailComponent } from './brand-thumbnail/brand-thumbnail.component';
 import { HomeSearchModule } from '@pages/shared/home-search/home-search.module';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { HomeSearchModule } from '@pages/shared/home-search/home-search.module';
   declarations: [
     HomeComponent,
     AgencyThumbnailComponent,
+    BrandThumbnailComponent,
   ],
 })
 export class HomeModule { }
