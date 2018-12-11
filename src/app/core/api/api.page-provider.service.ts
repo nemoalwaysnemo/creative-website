@@ -1,5 +1,5 @@
 import { Observable, Subject, ReplaySubject } from 'rxjs';
-import { NuxeoPagination, NuxeoApiService, NuxeoRequestOptions, join, deepExtend } from './nuxeo';
+import { NuxeoPagination, NuxeoApiService, NuxeoRequestParams, NuxeoRequestOptions, join, deepExtend } from './nuxeo';
 import { share } from 'rxjs/operators';
 
 export abstract class BasePageProvider {
@@ -16,19 +16,24 @@ export abstract class BasePageProvider {
 
   }
 
-  protected getRequestOptions(): NuxeoRequestOptions {
-    return new NuxeoRequestOptions();
+  protected getRequestParams(opts: any = {}): NuxeoRequestParams {
+    return deepExtend(new NuxeoRequestParams(), opts || new NuxeoRequestParams());
+  }
+
+  protected getRequestOptions(opts: any = {}): NuxeoRequestOptions {
+    return deepExtend(new NuxeoRequestOptions(), opts || new NuxeoRequestOptions());
   }
 
   protected getRequestUrl(): string {
     return join(this.endPoint, 'pp', this.provider, 'execute');
   }
 
-  search(queryParams: any = {}, opts?: NuxeoRequestOptions): void {
-    const options = deepExtend(this.getRequestOptions(), opts || this.getRequestOptions());
-    this.execute(this.getRequestUrl(), queryParams, options).subscribe((pagination: NuxeoPagination) => {
+  search(queryParams?: NuxeoRequestParams, opts?: NuxeoRequestOptions): void {
+    const params = this.getRequestParams(queryParams);
+    const options = this.getRequestOptions(opts);
+    this.execute(this.getRequestUrl(), params, options).subscribe((pagination: NuxeoPagination) => {
       this.entities$.next(pagination);
-      this.queryParams$.next({ queryParams: queryParams, opts: options });
+      this.queryParams$.next({ queryParams: params, opts: options });
     });
   }
 

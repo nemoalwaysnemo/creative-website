@@ -32,8 +32,6 @@ export class ThumbnailViewComponent implements OnInit {
 
   constructor(private thumbnailDataSource: ThumbnailViewDataSource) {
     this.thumbnailDataSource.search({
-      currentPageIndex: 1,
-      pageSize: 20,
       ecm_fulltext: '*dean',
     });
   }

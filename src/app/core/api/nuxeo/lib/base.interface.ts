@@ -52,6 +52,14 @@ export class NuxeoResponse {
   data: any;
 }
 
+export class NuxeoRequestParams {
+  [key: string]: any;
+  currentPageIndex?: number = 1;
+  pageSize?: number = 20;
+  ecm_fulltext?: string;
+  ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
+}
+
 export class NuxeoRequestOptions {
   schemas: string[] = ['*'];
   enrichers: {} = { document: ['thumbnail'] };
