@@ -28,19 +28,13 @@ export class ImageGalleryComponent {
   }
 
 
-  private getImages(entiries: any = {}){
-    var imgArray = new Array;
+  private getImages(entiries: any = {}) {
+    const imgArray = new Array;
     Object.keys(entiries).forEach(function (key) {
-      var thumbnailUrl = entiries[key]._contextParameters.thumbnail.url
-       var imgSetting =
-       {
-         small: thumbnailUrl,
-         medium: thumbnailUrl,
-         big: thumbnailUrl,
-       }
+      const thumbnailUrl = entiries[key]._contextParameters.thumbnail.url;
+      const imgSetting = { small: thumbnailUrl, medium: thumbnailUrl, big: thumbnailUrl };
       imgArray.push(imgSetting) ;
       });
     return imgArray;
-  };
-
+  }
 }
