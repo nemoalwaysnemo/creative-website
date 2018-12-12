@@ -21,7 +21,11 @@ export class ImageGalleryComponent {
       {
         width: '600px',
         height: '400px',
-        thumbnailsColumns: 4,
+        thumbnails:false,
+        preview: false,
+        imageDescription: true,
+        imageAutoPlay: true,
+        imageAutoPlayInterval: 3000,
       },
     ];
     this.imageGalleryDataSource.request(params).subscribe((res: NuxeoPagination) => {
