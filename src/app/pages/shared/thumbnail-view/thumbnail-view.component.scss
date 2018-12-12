@@ -1,0 +1,29 @@
+.small {
+  li {
+    float: left;
+    width: 25%;
+    max-width: 25%;
+  }
+}
+
+.two-columns {
+  li {
+    float: left;
+    width: 50%;
+    max-width: 50%;
+  }
+}
+
+.middle {
+  li {
+    float: left;
+    width: 25%;
+    max-width: 25%;
+  }
+}
+
+.search-list {
+  li {
+    width: 100%;
+  }
+}

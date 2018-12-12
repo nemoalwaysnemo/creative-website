@@ -11,7 +11,7 @@ export class AgencyThumbnailComponent implements OnInit {
 
   constructor(private thumbnailViewDataSource: ThumbnailViewDataSource) { }
 
-  layout = 'standard';
+  layout = 'agency';
   agencyDocuments: DocumentModel[];
 
   ngOnInit() {

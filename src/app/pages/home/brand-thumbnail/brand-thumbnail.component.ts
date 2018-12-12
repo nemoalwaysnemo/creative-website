@@ -11,7 +11,7 @@ export class BrandThumbnailComponent implements OnInit {
 
   constructor(private thumbnailViewDataSource: ThumbnailViewDataSource) { }
 
-  layout = 'standard';
+  layout = 'brand';
   brandDocuments: DocumentModel[];
 
   ngOnInit() {

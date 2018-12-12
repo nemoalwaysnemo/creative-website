@@ -1,5 +1,5 @@
-<div class="thumbnail-view-item">
-  <img src="{{document.thumbnailUrl}}" alt="" width="50" height="50" class="thumbnail-img">
+<div class="thumbnail-view-item {{styleClass}}" >
+  <img src="{{document.thumbnailUrl}}" alt="" class="thumbnail-img">
   <p class="artist-name">{{document.title}}</p>
   <span class="tags" *ngFor='let genre of [this.document.get("dc:description")] | slice:0:6'>{{genre}}</span>
 </div>
