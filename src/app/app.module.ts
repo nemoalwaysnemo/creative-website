@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from '@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { GALLERY_CONFIG } from '@ngx-gallery/core';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -23,7 +23,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
@@ -32,6 +31,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
+    {
+      provide: GALLERY_CONFIG,
+      useValue: {
+        autoPlay: true,
+        dots: true,
+        imageSize: 'cover'
+      }
+    }
   ],
 })
 export class AppModule {

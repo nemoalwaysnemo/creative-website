@@ -1,0 +1,11 @@
+<gallery  id="mixedExample"  [thumbTemplate]="thumbTemplate" [itemTemplate]="itemTemplate"></gallery>
+<ng-template #thumbTemplate let-type="type">
+  <span *ngIf="type === 'video'" class="item-type">
+    <i class="fas fa-play"></i>
+  </span>
+</ng-template>
+<ng-template #itemTemplate let-index="index" let-type="type" let-data="data" let-currIndex="currIndex">
+  <span *ngIf="type === 'image' && index === currIndex" class="item-text">
+    {{data?.title}}
+  </span>
+</ng-template>
