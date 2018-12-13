@@ -17,7 +17,7 @@ export class PictureGalleryComponent {
     galleryRef.addImage({
       src: 'https://preview.ibb.co/jrsA6R/img12.jpg',
       thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg',
-      title: 'edited title lalala ddddd blablablablablablablablablablablablablablablablablablablablablablablabla'
+      title: 'edited title lalala ddddd blablablablablablablablablablablablablablablablablablablablablablablabla',
     });
 
     galleryRef.addVideo({
@@ -29,7 +29,7 @@ export class PictureGalleryComponent {
     galleryRef.addImage({
       src: 'https://preview.ibb.co/mwsA6R/img7.jpg',
       thumb: 'https://preview.ibb.co/mwsA6R/img7.jpg',
-      title: 'pic 3 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla'
+      title: 'pic 3 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla',
     });
 
   }

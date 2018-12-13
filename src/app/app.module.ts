@@ -36,9 +36,9 @@ import { GALLERY_CONFIG } from '@ngx-gallery/core';
       useValue: {
         autoPlay: true,
         dots: true,
-        imageSize: 'cover'
-      }
-    }
+        imageSize: 'cover',
+      },
+    },
   ],
 })
 export class AppModule {
