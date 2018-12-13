@@ -23,7 +23,35 @@
 }
 
 .search-list {
+  width: 50%;
+  list-style: none;
+  font-size: 1.1em;
+  color: rgb(105, 105, 105);
+  border: 1px solid #ccc;
+  border-top: none;
+  /*so things don't jump around*/
+  position: absolute;
+  left: 25%;
+  /*
+    Since we know the wrapper will always be 100% height,
+    we can use half of 100% + half the height of the input
+  */
+  top: calc(50% + 25px);
+  /*
+    for a better calculation use JS.
+    I'm calculating half of the body height - half the height of the input - li padding
+  */
+  max-height: calc(750% - 15px);
+  overflow-y: auto;
+  background: #fff;
+  z-index: 9999;
+
   li {
-    width: 100%;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  li:hover {
+    background: #c0c0c0;
+    color: #fff;
   }
 }

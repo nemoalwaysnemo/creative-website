@@ -21,7 +21,7 @@ export class ImageGalleryComponent {
       {
         width: '600px',
         height: '400px',
-        thumbnails:false,
+        thumbnails: false,
         preview: false,
         imageDescription: true,
         imageAutoPlay: true,

@@ -11,8 +11,9 @@ import { NuxeoPagination, DocumentModel } from '@core/api';
 })
 
 export class HomeSearchComponent implements OnInit {
-  results: any[] = [];
+  results: DocumentModel[];
   queryField: FormControl = new FormControl();
+  layout = 'search-list';
   constructor(private dataSource: HomeSearchDataSource) {}
 
   ngOnInit() {
@@ -23,10 +24,7 @@ export class HomeSearchComponent implements OnInit {
         switchMap((query: string) => this.dataSource.searchForText(query)),
       )
       .subscribe((result: NuxeoPagination) => {
-        this.results = [];
-        result.entries.forEach((entry: DocumentModel) => {
-          this.results.push({ name: entry.get('dc:title'), url: entry.thumbnailUrl , genres: [entry.get('dc:description')]});
-        });
+        this.results = result.entries;
       });
   }
 }

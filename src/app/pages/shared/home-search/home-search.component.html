@@ -1,12 +1,6 @@
 <section class="filter-wrapper">
   <div class="keyword-wrapper">
     <input [formControl]="queryField" type="text" class="keyword" placeholder="search for artists..." autofocus />
+    <tbwa-thumbnail-view [layout]="layout" [documents]="results"></tbwa-thumbnail-view>
   </div>
-  <ul class="filter-select">
-    <li *ngFor="let result of results" class="filter-select-list">
-      <img src="{{result.url}}" alt="" width="50" height="50">
-      <p class="artist-name">{{result.name}}</p>
-      <span class="tags" *ngFor='let genre of result?.genres  | slice:0:6'>{{genre}}</span>
-    </li>
-  </ul>
 </section>

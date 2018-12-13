@@ -50,6 +50,6 @@ export class ThumbnailViewComponent implements OnInit {
   }
 
   private setStyleClass(layout) {
-    this.styleClass = this.styleList['layout'] || 'small';
+    this.styleClass = this.styleList[layout] || 'small';
   }
 }
