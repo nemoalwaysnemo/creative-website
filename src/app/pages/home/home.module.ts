@@ -11,8 +11,7 @@ import { HomeSearchModule } from '@pages/shared/home-search/home-search.module';
 @NgModule({
   imports: [
     ThemeModule,
-    ThumbnailViewModule,
-    ImageGalleryModule,
+    ThumbnailViewModule.forRoot(),
     HomeSearchModule,
     PictureGalleryModule,
   ],
@@ -22,4 +21,4 @@ import { HomeSearchModule } from '@pages/shared/home-search/home-search.module';
     BrandThumbnailComponent,
   ],
 })
-export class HomeModule { }
+export class HomePageModule { }

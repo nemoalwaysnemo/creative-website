@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { NuxeoApiService } from '@core/api';
 
 @Component({
-  selector: 'tbwa-home',
+  selector: 'tbwa-home-page',
   styleUrls: ['./home.component.scss'],
   templateUrl: './home.component.html',
 })
