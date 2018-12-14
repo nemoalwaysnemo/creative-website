@@ -1,6 +1,6 @@
 {
   "name": "tbwa-creative-website",
-  "version": "3.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,22 +16,32 @@
   ],
   "scripts": {
     "ng": "ng",
-    "conventional-changelog": "conventional-changelog",
+    "commit": "git-cz",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "yarn run build -- --prod --aot",
+    "build:prod": "yarn build -- --prod --aot",
     "test": "ng test",
-    "test:coverage": "rimraf coverage && yarn run test -- --code-coverage",
+    "test:coverage": "rimraf coverage && yarn test -- --code-coverage",
     "lint": "ng lint",
     "lint:fix": "ng lint ngx-admin-demo --fix",
     "lint:styles": "stylelint ./src/**/*.scss",
-    "lint:ci": "yarn run lint && yarn run lint:styles",
+    "lint:ci": "yarn lint && yarn lint:styles",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "ng e2e",
     "docs": "compodoc -p src/tsconfig.app.json -d docs",
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
-    "prepush": "yarn run lint:ci",
-    "release:changelog": "yarn run conventional-changelog -- -p angular -i CHANGELOG.md -s"
+    "release": "standard-version"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "standard-version": {
+    "skip": {
+      "commit": true,
+      "tag": true
+    }
   },
   "dependencies": {
     "@angular/animations": "^7.1.3",
@@ -45,15 +55,19 @@
     "@angular/platform-browser-dynamic": "^7.1.3",
     "@angular/router": "^7.1.3",
     "@asymmetrik/ngx-leaflet": "3.0.1",
+    "@commitlint/cli": "^7.2.1",
+    "@commitlint/config-conventional": "^7.1.2",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "@ngx-gallery/core": "^4.0.1",
     "angular-tree-component": "7.2.0",
     "angular2-toaster": "^6.1.0",
     "bootstrap": "4.1.3",
     "classlist.js": "1.1.20150312",
+    "commitizen": "^3.0.5",
     "concurrently": "^3.4.0",
     "core-js": "2.5.1",
     "coveralls": "^3.0.0",
+    "cz-conventional-changelog": "2.1.0",
     "del": "^3.0.0",
     "eva-icons": "^1.1.1",
     "gulp": "^3.9.1",
@@ -85,6 +99,7 @@
     "rxjs": "6.3.3",
     "rxjs-compat": "6.3.3",
     "socicon": "3.0.5",
+    "standard-version": "^4.4.0",
     "systemjs": "^0.20.12",
     "typeface-exo": "0.0.22",
     "typescript": "3.1.6",
@@ -93,20 +108,19 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.11.1",
-    "@angular/compiler-cli": "^7.1.3",
     "@angular/cli": "^7.1.3",
+    "@angular/compiler-cli": "^7.1.3",
     "@angular/language-service": "7.1.3",
     "@compodoc/compodoc": "1.1.7",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@types/d3-color": "1.0.5",
-    "@types/googlemaps": "^3.30.4",
     "@types/jasmine": "2.5.54",
     "@types/jasminewd2": "2.0.3",
     "@types/leaflet": "1.2.3",
     "@types/node": "^8.10.19",
     "codelyzer": "^4.5.0",
     "conventional-changelog-cli": "1.3.4",
-    "husky": "1.2.1",
+    "husky": "^1.2.1",
     "jasmine-core": "2.6.4",
     "jasmine-spec-reporter": "4.1.1",
     "karma": "1.7.1",
