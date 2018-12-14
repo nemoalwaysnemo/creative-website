@@ -58,7 +58,7 @@ export class DocumentModel extends Base {
   }
 
   get thumbnailUrl(): string {
-    return this.contextParameters.thumbnail.url;
+    return this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : 'assets/images/default.jpg';
   }
 
   get contextParameters(): any {
@@ -73,8 +73,32 @@ export class DocumentModel extends Base {
     return this._dirtyProperties[propertyName] || this.properties[propertyName];
   }
 
+  getVideoPoster(): string {
+    const pictures = this.get('picture:views');
+    const poster = pictures.filter(item => item.title == 'StaticPlayerView').map(function (picture) { return picture.content.data; }).shift();
+    return poster || this.thumbnailUrl;
+  }
+
+  getVideoSources(typeList: string[] = []) {
+    const sources = this.get('vid:transcodedVideos') || [];
+    return sources.filter(item => typeList.includes(item.name)).map(function (conversion) {
+      return {
+        src: conversion.content.data,
+        type: conversion.content['mime-type'],
+      };
+    });
+  }
+
   hasFacet(facet: string): boolean {
     return this.facets.indexOf(facet) !== -1;
+  }
+
+  isVideo(): boolean {
+    return this.hasFacet('Video');
+  }
+
+  isPicture(): boolean {
+    return !this.isVideo() && this.hasFacet('Picture');
   }
 
   isFolder(): boolean {

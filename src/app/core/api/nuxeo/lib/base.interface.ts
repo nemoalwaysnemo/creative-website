@@ -90,7 +90,7 @@ export class NuxeoPagination {
     this._entityType = response['entity-type'];
     this._entries = response.entries || [];
     this._currentPageSize = response.currentPageSize || 0;
-    this._currentPageIndex = response.currentPageIndex || 1;
+    this._currentPageIndex = response.currentPageIndex || 0;
     this._aggregations = response.aggregations || {};
     this._quickFilters = response.quickFilters || [];
     this._isLastPageAvailable = response.isLastPageAvailable || false;
