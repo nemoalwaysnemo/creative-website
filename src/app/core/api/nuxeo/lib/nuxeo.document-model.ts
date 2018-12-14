@@ -75,7 +75,7 @@ export class DocumentModel extends Base {
 
   getVideoPoster(): string {
     const pictures = this.get('picture:views');
-    const poster = pictures.filter(item => item.title == 'StaticPlayerView').map(function (picture) { return picture.content.data; }).shift();
+    const poster = pictures.filter(item => item.title === 'StaticPlayerView').map(function (picture) { return picture.content.data; }).shift();
     return poster || this.thumbnailUrl;
   }
 
