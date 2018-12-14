@@ -18,4 +18,4 @@ import { ThumbnailViewModule } from '@pages/shared/thumbnail-view/thumbnail-view
     HomeSearchComponent,
   ],
 })
-export class HomeSearchModule {}
+export class HomeSearchModule { }

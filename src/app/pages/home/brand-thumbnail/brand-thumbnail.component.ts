@@ -18,6 +18,6 @@ export class BrandThumbnailComponent implements OnInit {
     this.thumbnailViewDataSource.request({ pageSize: 2 })
       .subscribe((res: NuxeoPagination) => {
         this.brandDocuments = res.entries;
-    });
+      });
   }
 }

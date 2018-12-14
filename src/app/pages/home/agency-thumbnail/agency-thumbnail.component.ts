@@ -18,6 +18,6 @@ export class AgencyThumbnailComponent implements OnInit {
     this.thumbnailViewDataSource.request({ pageSize: 8 })
       .subscribe((res: NuxeoPagination) => {
         this.agencyDocuments = res.entries;
-    });
+      });
   }
 }
