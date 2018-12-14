@@ -107,7 +107,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
     return this.getOption('clientAuthMethod');
   }
 
-  protected redirectResultHandlers = {
+  protected redirectResultHandlers: { [key: string]: Function } = {
     [NbOAuth2ResponseType.CODE]: () => {
       return observableOf(this.route.snapshot.queryParams).pipe(
         switchMap((params: any) => {
@@ -168,7 +168,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
     },
   };
 
-  protected redirectResults = {
+  protected redirectResults: { [key: string]: Function } = {
     [NbOAuth2ResponseType.CODE]: () => {
       return observableOf(this.route.snapshot.queryParams).pipe(
         map((params: any) => !!(params && (params.code || params.error))),
@@ -185,8 +185,8 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
   protected defaultOptions: NbOAuth2AuthStrategyOptions = auth2StrategyOptions;
 
   constructor(protected http: HttpClient,
-              private route: ActivatedRoute,
-              @Inject(NB_WINDOW) private window: any) {
+    protected route: ActivatedRoute,
+    @Inject(NB_WINDOW) protected window: any) {
     super();
   }
 
@@ -243,7 +243,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
     const url = this.getActionEndpoint(module);
     const requireValidToken = this.getOption(`${module}.requireValidToken`);
 
-    let headers = this.buildAuthHeader() || new HttpHeaders() ;
+    let headers = this.buildAuthHeader() || new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
     return this.http.post(url, this.buildPasswordRequestData(username, password), { headers: headers })
@@ -309,7 +309,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
     return this.cleanParams(this.addCredentialsToParams(params));
   }
 
-  protected buildPasswordRequestData(username: string, password: string ): string {
+  protected buildPasswordRequestData(username: string, password: string): string {
     const params = {
       grant_type: this.getOption('token.grantType'),
       username: username,
@@ -323,11 +323,11 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
     if (this.clientAuthMethod === NbOAuth2ClientAuthMethod.BASIC) {
       if (this.getOption('clientId') && this.getOption('clientSecret')) {
         return new HttpHeaders(
-            {
-              'Authorization': 'Basic ' + btoa(
-                this.getOption('clientId') + ':' + this.getOption('clientSecret')),
-            },
-          );
+          {
+            'Authorization': 'Basic ' + btoa(
+              this.getOption('clientId') + ':' + this.getOption('clientSecret')),
+          },
+        );
       } else {
         throw Error('For basic client authentication method, please provide both clientId & clientSecret.');
       }
@@ -344,7 +344,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
     if (this.clientAuthMethod === NbOAuth2ClientAuthMethod.REQUEST_BODY) {
       if (this.getOption('clientId') && this.getOption('clientSecret')) {
         return {
-          ... params,
+          ...params,
           client_id: this.getOption('clientId'),
           client_secret: this.getOption('clientSecret'),
         };
@@ -364,10 +364,10 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
       } else {
         errors = this.getOption('defaultErrors');
       }
-    }  else if (res instanceof NbAuthIllegalTokenError ) {
+    } else if (res instanceof NbAuthIllegalTokenError) {
       errors.push(res.message);
     } else {
-        errors.push('Something went wrong.');
+      errors.push('Something went wrong.');
     }
 
     return observableOf(
