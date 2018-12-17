@@ -1,0 +1,12 @@
+<div class="search-results">
+  <h1>
+    Results for "{{title}}" ({{total_results}})
+    <span><a href="javasciprt:void()" (click)="changToGridView()">Grid</a> <a href="javasciprt:void()" (click)="changToListView()">List</a></span>
+  </h1>
+  <div *ngIf="grid_view">
+    <tbwa-thumbnail-view [layout]="layout" [documents]="brandDocuments"></tbwa-thumbnail-view>
+  </div>
+  <div *ngIf="!grid_view">
+    list view
+  </div>
+</div>
