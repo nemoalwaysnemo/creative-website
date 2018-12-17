@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PictureGalleryDataSource } from '@pages/shared/picture-gallery/picture-gallery-data-source.service';
 import { NuxeoPagination, DocumentModel } from '@core/api';
 
 @Component({
@@ -12,7 +11,7 @@ export class HomeGalleryComponent implements OnInit {
   private galleryItems: any;
   private gallerySettings: {};
 
-  constructor(private pictureGalleryDataSource: PictureGalleryDataSource) {
+  constructor() {
   }
   agencyDocuments: DocumentModel[];
   ngOnInit() {

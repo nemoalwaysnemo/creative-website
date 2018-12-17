@@ -1,6 +1,4 @@
 import { Component, Inject, AfterViewInit, Input, OnInit } from '@angular/core';
-import { PictureGalleryDataSource } from './picture-gallery-data-source.service';
-import { NuxeoPagination, DocumentModel } from '@core/api';
 import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
 import { deepExtend } from '@core/api';
 @Component({
@@ -9,10 +7,10 @@ import { deepExtend } from '@core/api';
   templateUrl: './picture-gallery.component.html',
 })
 export class PictureGalleryComponent implements OnInit, AfterViewInit {
-  @Input() galleryRef: GalleryRef;
   @Input() galleryItems: [];
   @Input() gallerySettings: GalleryConfig;
 
+  private galleryRef: GalleryRef;
   private galleryId = 'pictureGallery';
 
   constructor(private gallery: Gallery, @Inject(GALLERY_CONFIG) private options) {
