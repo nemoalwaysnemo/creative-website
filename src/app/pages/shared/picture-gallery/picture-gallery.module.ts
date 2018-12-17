@@ -18,7 +18,7 @@ import { GALLERY_CONFIG } from '@ngx-gallery/core';
   ],
   providers: [
     PictureGalleryDataSource,
-     {
+    {
       provide: GALLERY_CONFIG,
       useValue: {
         autoPlay: false,

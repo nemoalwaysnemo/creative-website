@@ -7,7 +7,7 @@ import { NuxeoPagination, DocumentModel } from '@core/api';
   styleUrls: ['./home-gallery.component.scss'],
   templateUrl: './home-gallery.component.html',
 })
-export class TbwaHomeGalleryComponent implements OnInit {
+export class HomeGalleryComponent implements OnInit {
 
   private galleryItems: any;
   private gallerySettings: {};

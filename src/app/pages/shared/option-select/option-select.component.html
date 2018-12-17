@@ -1,0 +1,20 @@
+<ng-select
+  [items]="options$ | async"
+  [placeholder]="placeholder"
+  [selectOnTab]="true"
+  [multiple]="true"
+  [hideSelected]="true"
+  bindLabel="label"
+  bindValue="value"
+  clearAllText="Clear"
+  [loading]="loading"
+  [virtualScroll]="true"
+  [closeOnSelect]="false"
+  (change)="onChange($event)"
+  (close)="onClose($event)"
+  [(ngModel)]="selectedItems"
+>
+  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.label}}
+  </ng-template>
+</ng-select>

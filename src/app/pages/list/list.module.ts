@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedModule } from '@pages/shared/shared.module';
 import { ListComponent } from './list.component';
-import { ListResultsComponent } from './list-results/list-results.component';
+import { SearchFilterComponent } from './search-filter/search-filter.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { ListResultsComponent } from './list-results/list-results.component';
   ],
   declarations: [
     ListComponent,
-    ListResultsComponent,
+    SearchFilterComponent,
+    SearchResultComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,
