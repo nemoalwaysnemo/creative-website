@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeSearchComponent } from './home-search.component';
+import { AdvanceSearchComponent } from './advance-search.component';
 import { ThumbnailViewModule } from '@pages/shared/thumbnail-view/thumbnail-view.module';
 
 @NgModule({
@@ -12,10 +12,10 @@ import { ThumbnailViewModule } from '@pages/shared/thumbnail-view/thumbnail-view
     ThumbnailViewModule,
   ],
   exports: [
-    HomeSearchComponent,
+    AdvanceSearchComponent,
   ],
   declarations: [
-    HomeSearchComponent,
+    AdvanceSearchComponent,
   ],
 })
-export class HomeSearchModule { }
+export class AdvanceSearchModule { }

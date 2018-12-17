@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { NuxeoApiService, BasePageProvider, NuxeoPagination } from '@core/api';
-import { Observable, Subject, ReplaySubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class HomeSearchDataSource extends BasePageProvider {
+export class AdvanceSearchDataSource extends BasePageProvider {
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);

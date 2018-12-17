@@ -1,20 +1,20 @@
 import { OnInit, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { HomeSearchDataSource } from './home-search-data-source.service';
+import { AdvanceSearchDataSource } from './advance-search-data-source.service';
 import { NuxeoPagination, DocumentModel } from '@core/api';
 
 @Component({
-  selector: 'tbwa-home-search',
-  templateUrl: './home-search.component.html',
-  styleUrls: ['./home-search.component.scss'],
+  selector: 'tbwa-advance-search',
+  templateUrl: './advance-search.component.html',
+  styleUrls: ['./advance-search.component.scss'],
 })
 
-export class HomeSearchComponent implements OnInit {
+export class AdvanceSearchComponent implements OnInit {
   results: DocumentModel[];
   queryField: FormControl = new FormControl();
   layout = 'search-list';
-  constructor(private dataSource: HomeSearchDataSource) { }
+  constructor(private dataSource: AdvanceSearchDataSource) { }
 
   ngOnInit() {
     this.queryField.valueChanges
