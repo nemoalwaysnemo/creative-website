@@ -5,7 +5,7 @@ import { ListPageModule } from './list/list.module';
 import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
-import { HomeSearchDataSource } from '@pages/shared/home-search/home-search-data-source.service';
+import { AdvanceSearchDataSource } from '@pages/shared/advance-search/advance-search-data-source.service';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -23,7 +23,7 @@ const PAGES_COMPONENTS = [
     ...PAGES_COMPONENTS,
   ],
   providers: [
-    HomeSearchDataSource,
+    AdvanceSearchDataSource,
   ],
 })
 export class PagesModule {
