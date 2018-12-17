@@ -1,7 +1,11 @@
-import { Component, Inject, AfterViewInit} from '@angular/core';
-import { PictureGalleryDataSource } from './picture-gallery-data-source.service';
-import { NuxeoPagination, DocumentModel } from '@core/api';
-import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Component, AfterViewInit } from '@angular/core';
+import {
+  Gallery,
+  GalleryConfig,
+  GalleryRef,
+  GalleryItem,
+} from '@ngx-gallery/core';
+
 @Component({
   selector: 'tbwa-picture-gallery',
   styleUrls: ['./picture-gallery.component.scss'],
@@ -15,6 +19,7 @@ export class PictureGalleryComponent implements AfterViewInit {
     dots: true,
     autoPlay: true,
   };
+
   constructor(private gallery: Gallery) {
     this.galleryRef = this.gallery.ref(this.galleryId);
     this.galleryRef.addImage({
