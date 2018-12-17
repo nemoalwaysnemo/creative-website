@@ -5,13 +5,13 @@ import { ThumbnailViewDataSource } from './thumbnail-view-data-source.service';
 
 const PROVIDERS = [ThumbnailViewDataSource];
 
-const thumbnailViewComponent = [ThumbnailViewComponent, ThumbnailViewItemComponent];
+const COMPONENTS = [ThumbnailViewComponent, ThumbnailViewItemComponent];
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [...thumbnailViewComponent],
+  declarations: [...COMPONENTS],
   exports: [
-    ...thumbnailViewComponent,
+    ...COMPONENTS,
   ],
 })
 export class ThumbnailViewModule {

@@ -5,7 +5,6 @@ import { ListPageModule } from './list/list.module';
 import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
-import { AdvanceSearchDataSource } from '@pages/shared/advance-search/advance-search-data-source.service';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -21,9 +20,6 @@ const PAGES_COMPONENTS = [
   ],
   declarations: [
     ...PAGES_COMPONENTS,
-  ],
-  providers: [
-    AdvanceSearchDataSource,
   ],
 })
 export class PagesModule {
