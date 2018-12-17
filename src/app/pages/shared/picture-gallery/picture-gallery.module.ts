@@ -21,8 +21,9 @@ import { GALLERY_CONFIG } from '@ngx-gallery/core';
      {
       provide: GALLERY_CONFIG,
       useValue: {
-        autoPlay: true,
+        autoPlay: false,
         dots: false,
+        nav: false,
       },
     },
   ],
