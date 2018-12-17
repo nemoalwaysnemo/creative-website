@@ -7,10 +7,6 @@ import {
   PictureGalleryModule,
   AdvanceSearchModule,
   ThumbnailViewModule,
-  OptionSelectComponent,
-  PictureGalleryComponent,
-  AdvanceSearchComponent,
-  ThumbnailViewItemComponent,
 } from './';
 
 const MODULES = [
