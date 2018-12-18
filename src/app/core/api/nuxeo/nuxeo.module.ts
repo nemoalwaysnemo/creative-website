@@ -9,7 +9,6 @@ import { NuxeoApiService } from './nuxeo.api.service';
     CommonModule,
     HttpClientModule,
   ],
-  declarations: [],
 })
 export class NuxeoModule {
   static forRoot(env: NuxeoOptions): ModuleWithProviders {

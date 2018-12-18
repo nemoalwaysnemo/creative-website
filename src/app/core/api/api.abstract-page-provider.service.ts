@@ -1,15 +1,16 @@
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { share } from 'rxjs/operators';
+import { AbstractBaseService } from './api.abstract-base.service';
+
 import {
   NuxeoPagination,
-  NuxeoApiService,
-  NuxeoRequestParams,
+  NuxeoPageProviderParams,
   NuxeoRequestOptions,
   deepExtend,
   join,
 } from './nuxeo';
 
-export abstract class AbstractPageProvider {
+export abstract class AbstractPageProvider extends AbstractBaseService {
 
   protected endPoint: string = 'search';
 
@@ -19,23 +20,15 @@ export abstract class AbstractPageProvider {
 
   protected queryParams$ = new ReplaySubject<{ queryParams: {}, opts: {} }>();
 
-  constructor(protected nuxeoApi: NuxeoApiService) {
-
-  }
-
-  protected getRequestParams(opts: any = {}): NuxeoRequestParams {
-    return deepExtend(new NuxeoRequestParams(), opts || {});
-  }
-
-  protected getRequestOptions(opts: any = {}): NuxeoRequestOptions {
-    return deepExtend(new NuxeoRequestOptions(), opts || {});
+  protected getRequestParams(opts: any = {}): NuxeoPageProviderParams {
+    return deepExtend(new NuxeoPageProviderParams(), opts || {});
   }
 
   protected getRequestUrl(): string {
     return join(this.endPoint, 'pp', this.provider, 'execute');
   }
 
-  search(queryParams?: NuxeoRequestParams, opts?: NuxeoRequestOptions): void {
+  search(queryParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions): void {
     const params = this.getRequestParams(queryParams);
     const options = this.getRequestOptions(opts);
     this.request(params, options).subscribe((pagination: NuxeoPagination) => {
@@ -44,7 +37,7 @@ export abstract class AbstractPageProvider {
     });
   }
 
-  request(queryParams?: NuxeoRequestParams, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {
+  request(queryParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {
     const params = this.getRequestParams(queryParams);
     const options = this.getRequestOptions(opts);
     return this.execute(this.getRequestUrl(), params, options);

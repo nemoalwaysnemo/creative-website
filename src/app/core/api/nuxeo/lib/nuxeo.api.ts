@@ -108,7 +108,7 @@ export class Nuxeo extends Base {
     return new Directory(finalOptions);
   }
 
-  repository(name: string = null, opts: any = {}) {
+  repository(name: string = null, opts: any = {}): Repository {
     let repositoryName = name;
     let options = opts;
     if (typeof repositoryName === 'object') {
@@ -137,7 +137,7 @@ export class Nuxeo extends Base {
     return this.http(finalOptions);
   }
 
-  http(opts: any = {}): Observable<any> {
+  http(opts: any = {}): Observable<NuxeoResponse> {
     const options = this._computeFetchOptions(opts);
     return this.httpClient.request(options.method, options.url, {
       headers: options.headers,

@@ -66,10 +66,10 @@ export class NuxeoOptions {
 }
 
 export class NuxeoResponse {
-  data: any;
+  [key: string]: any;
 }
 
-export class NuxeoRequestParams {
+export class NuxeoPageProviderParams {
   [key: string]: any;
   currentPageIndex?: number = 0;
   pageSize?: number = 20;

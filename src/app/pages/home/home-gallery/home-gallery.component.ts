@@ -10,6 +10,7 @@ export class HomeGalleryComponent implements OnInit {
 
   private galleryItems: any;
   private gallerySettings: {};
+  private defaultVideoFormats: string[] = ['MP4 480p'];
 
   agencyDocuments: DocumentModel[];
 
@@ -38,7 +39,7 @@ export class HomeGalleryComponent implements OnInit {
       if (entry.isVideo()) {
         imgArray.push({ src: entry.getVideoSources['src'], thumb: entry.thumbnailUrl, poster: entry.getVideoPoster });
       } else if (entry.isPicture()) {
-        imgArray.push({ src: entry.thumbnailUrl, thumb: entry.thumbnailUrl, title: '12345'});
+        imgArray.push({ src: entry.thumbnailUrl, thumb: entry.thumbnailUrl, title: '12345' });
       } else {
       }
     }
