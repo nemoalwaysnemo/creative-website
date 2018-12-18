@@ -33,8 +33,9 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
 
   @Input('items')
   set setItems(items: OptionModel[]) {
-    this.validateItems(items);
-    this.options$ = new BehaviorSubject(items);
+    if (items) {
+      this.options$ = new BehaviorSubject(items);
+    }
   }
 
   @Input() placeholder: string;
@@ -53,8 +54,10 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   onChange(event: OptionModel[]) {
-    this._onChange(event.map(x => x.value));
-    this.selected.emit(event);
+    if (event.constructor.name === 'Array') {
+      this._onChange(event.map(x => x.value));
+      this.selected.emit(event);
+    }
   }
 
   onClose(event: OptionModel[]) {
@@ -74,12 +77,6 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-  }
-
-  private validateItems(items: OptionModel[]) {
-    if (!items || !items.length) {
-      throw Error(`List of option items expected, but given: ${items}`);
-    }
   }
 
 }

@@ -9,6 +9,7 @@ export const Environment = {
 };
 
 export const NUXEO_META_INFO = {
+  BASE_FOLDER_PATH: '/Creative',
   AWARD_FOLDER_PATH: '/Creative/AWARDS',
   LIBRARY_DOC_TYPES: '["App-Library-Video", "App-Library-Image"]',
   LIBRARY_FOLDER_TYPE: '["App-Library-Folder"]',

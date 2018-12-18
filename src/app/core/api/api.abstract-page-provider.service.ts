@@ -9,7 +9,7 @@ import {
   join,
 } from './nuxeo';
 
-export abstract class AbstractPageProvider<T> {
+export abstract class AbstractPageProvider {
 
   protected endPoint: string = 'search';
 
@@ -24,11 +24,11 @@ export abstract class AbstractPageProvider<T> {
   }
 
   protected getRequestParams(opts: any = {}): NuxeoRequestParams {
-    return deepExtend(new NuxeoRequestParams(), opts || new NuxeoRequestParams());
+    return deepExtend(new NuxeoRequestParams(), opts || {});
   }
 
   protected getRequestOptions(opts: any = {}): NuxeoRequestOptions {
-    return deepExtend(new NuxeoRequestOptions(), opts || new NuxeoRequestOptions());
+    return deepExtend(new NuxeoRequestOptions(), opts || {});
   }
 
   protected getRequestUrl(): string {
