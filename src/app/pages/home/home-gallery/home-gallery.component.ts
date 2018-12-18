@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NuxeoPagination, DocumentModel } from '@core/api';
+import { NuxeoPagination, DocumentModel, BasePageProvider } from '@core/api';
 
 @Component({
   selector: 'tbwa-home-gallery',
@@ -11,31 +11,38 @@ export class HomeGalleryComponent implements OnInit {
   private galleryItems: any;
   private gallerySettings: {};
 
-  constructor() {
-  }
   agencyDocuments: DocumentModel[];
+
+  constructor(private basePageProvider: BasePageProvider) {
+  }
+
   ngOnInit() {
-    this.galleryItems = [
-      {
-        src: 'https://preview.ibb.co/jrsA6R/img12.jpg',
-        thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg',
-        title: 'edited title lalala ddddd blablablablablablablablablablablablablablablablablablablablablablablabla',
-      },
-      {
-        src: 'https://library-na-dev.factory.tools/nuxeo/nxfile/default/33e9d23c-5e01-4d70-8431-3de41b461065/vid:transcodedVideos/0/content/dergeneral84.mp4',
-        thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg',
-        poster: 'https://library-na-dev.factory.tools/nuxeo/nxpicsfile/default/33e9d23c-5e01-4d70-8431-3de41b461065/StaticPlayerView:content/1539967507000',
-      },
-      {
-        src: 'https://preview.ibb.co/mwsA6R/img7.jpg',
-        thumb: 'https://preview.ibb.co/mwsA6R/img7.jpg',
-        title: 'pic 3 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla',
-      },
-    ];
+    const param = {
+      pageSize: 10,
+      currentPageIndex: 2,
+    };
+    this.basePageProvider.request(param).subscribe((res: NuxeoPagination) => {
+      this.galleryItems = this.getItems(res.entries);
+    });
+
     this.gallerySettings = {
       autoPlay: true,
       dots: true,
       loop: true,
     };
   }
+
+  private getItems(entiries: DocumentModel[]) {
+    const imgArray = new Array();
+    for (const entry of entiries) {
+      if (entry.isVideo()) {
+        imgArray.push({ src: entry.getVideoSources['src'], thumb: entry.thumbnailUrl, poster: entry.getVideoPoster });
+      } else if (entry.isPicture()) {
+        imgArray.push({ src: entry.thumbnailUrl, thumb: entry.thumbnailUrl, title: '12345'});
+      } else {
+      }
+    }
+    return imgArray;
+  }
+
 }
