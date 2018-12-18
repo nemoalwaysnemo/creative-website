@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { BasePageProvider } from './api.page-provider.service';
 import { NuxeoModule } from './nuxeo';
 import { Environment } from '@environment/environment';
 
@@ -9,16 +9,10 @@ const SERVICES = [
     production: Environment.production,
     appName: Environment.appName,
   }).providers,
+  BasePageProvider,
 ];
 
-@NgModule({
-  imports: [
-    CommonModule,
-  ],
-  providers: [
-    ...SERVICES,
-  ],
-})
+@NgModule()
 export class APIModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{

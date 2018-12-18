@@ -20,7 +20,6 @@ const MODULES = [
 
 const PROVIDERS = [
   ...AdvanceSearchModule.forRoot().providers,
-  ...ThumbnailViewModule.forRoot().providers,
 ];
 
 @NgModule({

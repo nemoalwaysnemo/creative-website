@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { NuxeoApiService, BasePageProvider, NuxeoRequestParams, NuxeoPagination } from '@core/api';
+import { NuxeoApiService, AbstractPageProvider, NuxeoRequestParams, NuxeoPagination } from '@core/api';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class AdvanceSearchDataSource extends BasePageProvider {
+export class AdvanceSearchDataSource extends AbstractPageProvider<NuxeoPagination> {
 
   private defaultParams: NuxeoRequestParams;
 

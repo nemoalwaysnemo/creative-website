@@ -21,7 +21,7 @@ import {
   AnalyticsService,
 } from './services';
 
-export const NB_CORE_PROVIDERS = [
+export const PROVIDERS = [
   ...NbAuthModule.forRoot({
     strategies: [
       NbPasswordAuthStrategy.setup({
@@ -29,7 +29,6 @@ export const NB_CORE_PROVIDERS = [
       }),
     ],
   }).providers,
-
   NbSecurityModule.forRoot({
     accessControl: {
       guest: {
@@ -52,17 +51,18 @@ export const NB_CORE_PROVIDERS = [
   StateService,
   LayoutService,
   AnalyticsService,
+  APIModule.forRoot().providers,
 ];
 
 @NgModule({
   imports: [
+    APIModule,
     CommonModule,
   ],
   exports: [
     NbAuthModule,
     APIModule,
   ],
-  declarations: [],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
@@ -73,7 +73,7 @@ export class CoreModule {
     return <ModuleWithProviders>{
       ngModule: CoreModule,
       providers: [
-        ...NB_CORE_PROVIDERS,
+        ...PROVIDERS,
       ],
     };
   }

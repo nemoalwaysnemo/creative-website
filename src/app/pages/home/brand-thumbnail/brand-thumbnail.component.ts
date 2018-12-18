@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThumbnailViewDataSource } from '@pages/shared/thumbnail-view/thumbnail-view-data-source.service';
+import { BasePageProvider } from '@core/api';
 import { NuxeoPagination, DocumentModel } from '@core/api';
 
 @Component({
@@ -9,13 +9,13 @@ import { NuxeoPagination, DocumentModel } from '@core/api';
 })
 export class BrandThumbnailComponent implements OnInit {
 
-  constructor(private thumbnailViewDataSource: ThumbnailViewDataSource) { }
+  constructor(private basePageProvider: BasePageProvider) { }
 
   layout = 'brand';
   brandDocuments: DocumentModel[];
 
   ngOnInit() {
-    this.thumbnailViewDataSource.request({ pageSize: 2 })
+    this.basePageProvider.request({ pageSize: 2 })
       .subscribe((res: NuxeoPagination) => {
         this.brandDocuments = res.entries;
       });

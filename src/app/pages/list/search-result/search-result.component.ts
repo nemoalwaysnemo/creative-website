@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ThumbnailViewDataSource } from '@pages/shared/thumbnail-view/thumbnail-view-data-source.service';
 import { NuxeoPagination, DocumentModel } from '@core/api';
 import { Location } from '@angular/common';
 
@@ -10,7 +9,7 @@ import { Location } from '@angular/common';
 })
 export class SearchResultComponent implements OnInit {
 
-  constructor(private thumbnailViewDataSource: ThumbnailViewDataSource, private location: Location) { }
+  constructor(private location: Location) { }
 
   layout = 'search-results';
   brandDocuments: DocumentModel[];
@@ -19,10 +18,7 @@ export class SearchResultComponent implements OnInit {
   grid_view = true;
 
   ngOnInit() {
-    this.thumbnailViewDataSource.request({ pageSize: 12 })
-      .subscribe((res: NuxeoPagination) => {
-        this.brandDocuments = res.entries;
-      });
+
   }
 
   changToGridView() {
