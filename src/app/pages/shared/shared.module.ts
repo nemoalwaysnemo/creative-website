@@ -7,6 +7,7 @@ import {
   PictureGalleryModule,
   AdvanceSearchModule,
   ThumbnailViewModule,
+  PaginationModule,
 } from './';
 
 const MODULES = [
@@ -16,6 +17,7 @@ const MODULES = [
   PictureGalleryModule,
   AdvanceSearchModule,
   ThumbnailViewModule,
+  PaginationModule,
 ];
 
 const PROVIDERS = [
