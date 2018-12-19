@@ -1,48 +1,49 @@
 <div>
   <h1>Unboxing</h1>
-  <h3>document.title</h3>
+  <h3>{{document.title}}</h3>
 </div>
 <div>
   <h2>About</h2>
-  <p>document.description</p>
+  <p>{{document.get("dc:description")}}</p>
 </div>
 <div class="row">
   <div class="col-6">
     <h2>Asset Type</h2>
-    <p>document.asset type</p>
+    <p>{{document.get('The_Loupe_Main:assettype')}}</p>
   </div>
   <div class="col-6">
     <h2>Country</h2>
-    <p>document.country</p>
+    <p>{{document.get('The_Loupe_Main:country')}}</p>
   </div>
 </div>
 <div>
   <h2>Agency</h2>
-  <p>document.agency</p>
+  <p>{{document.get("The_Loupe_Main:agency")}}</p>
 </div>
 <div>
   <nb-accordion>
     <nb-accordion-item>
       <nb-accordion-item-header>Job</nb-accordion-item-header>
       <nb-accordion-item-body>
-        document.job
+        {{document.get('The_Loupe_Main:jobtitle')}}
       </nb-accordion-item-body>
     </nb-accordion-item>
     <nb-accordion-item [collapsed]="false">
       <nb-accordion-item-header>Usage Rights</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <div class="row">
+        <div class="
+      row">
           <div class="col-6">
-            <h3>L Days</h3>
+            <h3>Legit Days</h3>
             <p>document.l days</p>
           </div>
           <div class="col-6">
             <h3>Expires on</h3>
             <p>August 30,2028</p>
           </div>
-          <a href="#">Download</a>
         </div>
       </nb-accordion-item-body>
     </nb-accordion-item>
   </nb-accordion>
+  <a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}">Download</a>
 </div>

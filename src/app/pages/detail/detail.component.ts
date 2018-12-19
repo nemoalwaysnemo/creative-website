@@ -10,7 +10,7 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class DetailComponent implements OnInit, OnDestroy {
 
-  product_id: string = '24f08e3f-02d9-49a0-b07a-a8672957c7f2';
+  product_id: string = 'ca275035-0d50-49f3-9e86-8d325bf5efea';
   private alive: boolean = true;
   document: DocumentModel;
 
