@@ -5,7 +5,7 @@ import { NuxeoPagination, DocumentModel } from '@core/api';
 @Component({
   selector: 'tbwa-agency-thumbnail',
   styleUrls: ['./agency-thumbnail.component.scss'],
-  templateUrl: './agency-thumbnail.html',
+  templateUrl: './agency-thumbnail.component.html',
 })
 export class AgencyThumbnailComponent implements OnInit {
 

@@ -4,7 +4,7 @@ import { NuxeoPagination, DocumentModel, BasePageProvider } from '@core/api';
 @Component({
   selector: 'tbwa-brand-thumbnail',
   styleUrls: ['./brand-thumbnail.component.scss'],
-  templateUrl: './brand-thumbnail.html',
+  templateUrl: './brand-thumbnail.component.html',
 })
 export class BrandThumbnailComponent implements OnInit {
 
