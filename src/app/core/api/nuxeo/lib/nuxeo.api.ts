@@ -111,14 +111,12 @@ export class Nuxeo extends Base {
   repository(name: string = null, opts: any = {}): Repository {
     let repositoryName = name;
     let options = opts;
-    if (typeof repositoryName === 'object') {
+    if (name !== null && typeof repositoryName === 'object') {
       options = repositoryName;
       repositoryName = null;
     }
-
-    let finalOptions = {
+    let finalOptions: any = {
       nuxeo: this,
-      repositoryName,
     };
     if (repositoryName) {
       finalOptions.repositoryName = repositoryName;
