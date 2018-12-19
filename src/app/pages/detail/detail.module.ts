@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
+import { NbAccordionModule } from '@core/nebular/theme';
 import { SharedModule } from '@pages/shared/shared.module';
 import { DetailComponent } from './detail.component';
 import { DocumentMetadataInfoComponent } from './document-metadata-info/document-metadata-info.component';
-import { NbAccordionModule } from '@core/nebular/theme';
+import { DocumentAdditionalInfoComponent } from './document-additional-info/document-additional-info.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { NbAccordionModule } from '@core/nebular/theme';
   declarations: [
     DetailComponent,
     DocumentMetadataInfoComponent,
+    DocumentAdditionalInfoComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,
