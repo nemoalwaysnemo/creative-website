@@ -30,20 +30,27 @@ export class HomeGalleryComponent implements OnInit {
       autoPlay: true,
       dots: true,
       loop: true,
+      thumb: false,
     };
   }
 
   private getItems(entiries: DocumentModel[]) {
     const imgArray = new Array();
     for (const entry of entiries) {
-      if (entry.isVideo()) {
-        imgArray.push({ src: entry.getVideoSources['src'], thumb: entry.thumbnailUrl, poster: entry.getVideoPoster });
+      if (entry.isVideo() && this.hasVideoContent(entry)) {
+        imgArray.push({ src: entry.getVideoSources(this.defaultVideoFormats)[0]['src'], thumb: entry.thumbnailUrl, poster: entry.getVideoPoster });
       } else if (entry.isPicture()) {
-        imgArray.push({ src: entry.thumbnailUrl, thumb: entry.thumbnailUrl, title: '12345' });
+        const url = entry.thumbnailUrl;
+        imgArray.push({ src: url, thumb: url, title: '12345' });
       } else {
       }
     }
     return imgArray;
   }
 
+  hasVideoContent( entry: DocumentModel ) {
+     if ( entry.getVideoSources(this.defaultVideoFormats).length > 0 ) {
+       return true;
+     }
+   }
 }
