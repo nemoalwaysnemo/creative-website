@@ -2,7 +2,7 @@ import { OnInit, Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { SearchDataSource } from '../shared-service/search-data-source.service';
+import { SearchDataSource } from '../services/search-data-source.service';
 import { NuxeoPagination, DocumentModel } from '@core/api';
 
 @Component({
