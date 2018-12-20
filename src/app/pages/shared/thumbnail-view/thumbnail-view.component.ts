@@ -18,12 +18,10 @@ export class ThumbnailViewItemComponent implements OnInit {
   selector: 'tbwa-thumbnail-view',
   styleUrls: ['./thumbnail-view.component.scss'],
   template: `
-  <div class="results">
-    <ul class="{{styleClass}}">
-      <li *ngFor="let document of documents" class="thumbnail-view">
-        <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass"></tbwa-thumbnail-view-item>
-      </li>
-    </ul>
+  <div class="{{styleClass}}">
+    <div *ngFor="let document of documents" class="thumbnail-view">
+      <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass"></tbwa-thumbnail-view-item>
+    </div>
   </div>
   `,
 })
@@ -34,9 +32,9 @@ export class ThumbnailViewComponent implements OnInit {
 
   styleClass: string = 'small';
   styleList = {
-    'agency': 'small',
-    'brand': 'two-columns',
-    'search-list': 'search-list',
+    'agency': 'quarter flex',
+    'brand': 'half flex',
+    'search-list': 'results',
     'search-results': 'middle',
   };
 
