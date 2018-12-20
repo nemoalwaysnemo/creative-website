@@ -1,23 +1,8 @@
 <nb-card>
   <nb-card-body>
     <nb-tabset fullWidth>
-      <nb-tab tabTitle="Backslash" tabIcon="nb-person" responsive>
-        Backslash
-      </nb-tab>
-      <nb-tab tabTitle="Distruption" tabIcon="nb-person" responsive>
-        Distruption
-      </nb-tab>
-      <nb-tab tabTitle="Knowledge" tabIcon="nb-person" responsive>
-        Knowledge
-      </nb-tab>
-      <nb-tab tabTitle="Awards" tabIcon="nb-person" responsive>
-        Awards
-      </nb-tab>
-      <nb-tab tabTitle="Intellgence" tabIcon="nb-person" responsive>
-        Intellgence
-      </nb-tab>
-      <nb-tab tabTitle="Lorern Ipsum" tabIcon="nb-person" responsive>
-        Lorern Ipsum
+      <nb-tab *ngFor="let item of tabItems" tabTitle="{{item.name}}" tabIcon="{{item.icon}}" responsive>
+        <tbwa-document-related-info-view [title]="item.name"></tbwa-document-related-info-view>
       </nb-tab>
     </nb-tabset>
   </nb-card-body>
