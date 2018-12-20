@@ -13,11 +13,11 @@
 
     nb-action {
       height: nb-theme(actions-size-small);
-      padding: 0 nb-theme(actions-padding);
+      // padding: 0 nb-theme(actions-padding);
 
       &:first-child {
-        @include nb-ltr(border-left, none!important);
-        @include nb-rtl(border-right, none!important);
+        // @include nb-ltr(border-left, none!important);
+        // @include nb-rtl(border-right, none!important);
       }
 
       a.icon-container {
@@ -31,8 +31,8 @@
         font-size: nb-theme(actions-size-small);
       }
 
-      @include nb-ltr(border-left, 1px solid nb-theme(actions-separator));
-      @include nb-rtl(border-right, 1px solid nb-theme(actions-separator));
+      // @include nb-ltr(border-left, 1px solid nb-theme(actions-separator));
+      // @include nb-rtl(border-right, 1px solid nb-theme(actions-separator));
 
       background: transparent;
     }
@@ -50,7 +50,7 @@
 
     &.small {
       nb-action {
-        height: nb-theme(actions-size-small);
+        // height: nb-theme(actions-size-small);
         i.control-icon {
           font-size: nb-theme(actions-size-small);
         }
@@ -58,7 +58,7 @@
     }
     &.medium {
       nb-action {
-        height: nb-theme(actions-size-medium);
+        // height: nb-theme(actions-size-medium);
         i.control-icon {
           font-size: nb-theme(actions-size-medium);
         }
@@ -66,7 +66,7 @@
     }
     &.large {
       nb-action {
-        height: nb-theme(actions-size-large);
+        // height: nb-theme(actions-size-large);
         i.control-icon {
           font-size: nb-theme(actions-size-large);
         }

@@ -35,6 +35,7 @@ $theme: (
   color-bg: #ffffff,
   color-bg-active: #e9edf2,
   color-fg: #a4abb3,
+  menu-color-fg: #cccccc,
   color-fg-heading: #2a2a2a,
   color-fg-text: #4b4b4b,
   color-fg-highlight: #40dc7e,
@@ -121,8 +122,8 @@ $theme: (
   header-line-height: line-height,
   header-fg: color-fg-heading,
   header-bg: color-bg,
-  header-height: 4.75rem,
-  header-padding: 1.25rem,
+  header-height: 79px,
+  header-padding: 0,
   header-shadow: shadow,
 
   footer-height: 4.725rem,
@@ -155,7 +156,7 @@ $theme: (
   sidebar-bg: color-bg,
   sidebar-height: 100vh,
   sidebar-width: 16rem,
-  sidebar-width-compact: 3.5rem,
+  sidebar-width-compact: 77px,
   sidebar-padding: padding,
   sidebar-header-height: 3.5rem,
   sidebar-footer-height: 3.5rem,
@@ -190,10 +191,10 @@ $theme: (
   menu-group-padding: 1rem 1.25rem,
   menu-item-padding: 0.675rem 0.75rem,
   menu-item-separator: separator,
-  menu-icon-font-size: 2.5rem,
+  menu-icon-font-size: 4rem,
   menu-icon-margin: 0 0.25rem 0,
-  menu-icon-color: color-fg,
-  menu-icon-active-color: color-fg-heading,
+  menu-icon-color: menu-color-fg,
+  menu-icon-active-color: main-yellow,
 
   tabs-font-family: font-secondary,
   tabs-font-size: font-size-lg,
@@ -677,7 +678,18 @@ $theme: (
   radio-disabled-border-size: 2px,
   radio-disabled-border-color: radio-border-color,
   radio-disabled-checkmark: radio-checkmark,
+  
+  //Custom styles
+  main-yellow: #fecc00,
+  
+  border-bottom: solid 3px #fecc00,
+  border-right: solid 3px #fecc00,
+  
+  sidebar-border-right: border-right,
+  logo-border-right: border-right,
+  header-border-bottom: border-bottom
 );
 
 // register the theme
 $nb-themes: nb-register-theme($theme, default);
+

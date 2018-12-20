@@ -6,14 +6,18 @@
 
 :host {
 
-  display: flex;
-  align-items: center;
+  display: block;
+  position: absolute;
+  top: 22px;
+  right: 41px;
+  width: 35px;
+  height: 35px;
 
   /deep/ nb-action {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    position: relative;
+    // display: flex;
+    // flex-wrap: wrap;
+    // align-items: center;
+    // position: relative;
 
     i.control-icon {
       &:hover {

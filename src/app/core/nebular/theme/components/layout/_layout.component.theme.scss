@@ -124,7 +124,8 @@
       line-height: nb-theme(header-line-height);
 
       nav {
-        box-shadow: nb-theme(header-shadow);
+        // box-shadow: nb-theme(header-shadow);
+        border-bottom: nb-theme(header-border-bottom);
         height: nb-theme(header-height);
         padding: nb-theme(header-padding);
         background: nb-theme(header-bg);
