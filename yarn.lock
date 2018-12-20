@@ -7427,11 +7427,6 @@ natives@^1.1.0:
   resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.6.tgz#a603b4a498ab77173612b9ea1acdec4d980f00bb"
   integrity sha512-6+TDFewD4yxY14ptjKaS63GVdtKiES1pTPyxn9Jb0rBqPMZ7VcCiooEhPNsr+mqHtMGxa/5c/HhcC4uPEUw/nA==
 
-nebular-icons@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/nebular-icons/-/nebular-icons-1.1.0.tgz#83a725822f963a60636e54be6c7145eff2306d3f"
-  integrity sha512-4TkJgDrjXw8qsOsc2NN6OBlRJYAJJpvqtjV+gpv+NV6amPgMPQNNuEvbenYXAMFmjs3uShgKOvmpnCX8Ua1oWQ==
-
 needle@^2.2.1:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.4.tgz#51931bff82533b1928b7d1d69e01f1b00ffd2a4e"
