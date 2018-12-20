@@ -83,6 +83,10 @@ export class NbMenuItem {
    * @type {boolean}
    */
   group?: boolean;
+  /** Whether the item skipLocationChange is true or false
+   *@type {boolean}
+   */
+  skipLocationChange?: boolean;
   /** Map of query parameters
    *@type {Params}
    */
@@ -311,7 +315,7 @@ export class NbMenuInternalService {
       }
 
       if (item.expanded) {
-        collapsedItems.push(item);
+        collapsedItems.push(item)
       }
       item.expanded = false;
 
