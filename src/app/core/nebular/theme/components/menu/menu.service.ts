@@ -315,7 +315,7 @@ export class NbMenuInternalService {
       }
 
       if (item.expanded) {
-        collapsedItems.push(item)
+        collapsedItems.push(item);
       }
       item.expanded = false;
 
