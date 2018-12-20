@@ -41,6 +41,7 @@ export class Credentials {
 export class AuthenticationToken {
   access_token: any;
 }
+
 export class AggregateModel {
   readonly id: string;
   readonly entityType: string;
