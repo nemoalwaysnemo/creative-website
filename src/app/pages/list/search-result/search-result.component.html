@@ -1,12 +1,12 @@
 <div class="search-results">
   <h1>
-    Results for "{{title}}" ({{total_results}})
+    Results for "{{title}}" ({{totalResults}})
     <span><a href="javasciprt:void(0);" (click)="changToGridView()">Grid</a> <a href="javasciprt:void(0);" (click)="changToListView()">List</a></span>
   </h1>
-  <div *ngIf="grid_view">
+  <div *ngIf="gridView">
     <tbwa-thumbnail-view [layout]="layout" [documents]="brandDocuments"></tbwa-thumbnail-view>
   </div>
-  <div *ngIf="!grid_view">
+  <div *ngIf="!gridView">
     list view
   </div>
 </div>

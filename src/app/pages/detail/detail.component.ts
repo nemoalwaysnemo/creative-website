@@ -10,7 +10,7 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class DetailComponent implements OnInit, OnDestroy {
 
-  product_id: string = 'ca275035-0d50-49f3-9e86-8d325bf5efea';
+  productId: string = 'ca275035-0d50-49f3-9e86-8d325bf5efea';
   private alive: boolean = true;
   document: DocumentModel;
 
@@ -43,7 +43,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   private getDocument() {
-    this.documentRepository.get(this.product_id)
+    this.documentRepository.get(this.productId)
       .subscribe((res: DocumentModel) => {
         this.document = res;
       });

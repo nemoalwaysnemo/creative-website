@@ -6,6 +6,7 @@ import { DetailComponent } from './detail.component';
 import { DocumentMetadataInfoComponent } from './document-metadata-info/document-metadata-info.component';
 import { DocumentAdditionalInfoComponent } from './document-additional-info/document-additional-info.component';
 import { DocumentRelatedInfoComponent } from './document-related-info/document-related-info.component';
+import { DocumentRelatedInfoViewComponent } from './document-related-info/document-related-info-view/document-related-info-view.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { DocumentRelatedInfoComponent } from './document-related-info/document-r
     DocumentMetadataInfoComponent,
     DocumentAdditionalInfoComponent,
     DocumentRelatedInfoComponent,
+    DocumentRelatedInfoViewComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,

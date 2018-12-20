@@ -14,20 +14,20 @@ export class SearchResultComponent implements OnInit {
   layout = 'search-results';
   brandDocuments: DocumentModel[];
   title = 'Thomson Reuters';
-  total_results = 100;
-  grid_view = true;
+  totalResults = 100;
+  gridView = true;
 
   ngOnInit() {
 
   }
 
   changToGridView() {
-    this.grid_view = true;
+    this.gridView = true;
     location.reload();
   }
 
   changToListView() {
-    this.grid_view = false;
+    this.gridView = false;
     location.reload();
   }
 }
