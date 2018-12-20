@@ -113,7 +113,13 @@
 .nb-arrow-down,
 .nb-angle-double-right,
 .nb-angle-double-left,
-.nb-alert {
+.nb-alert,
+.nb-awards,
+.nb-backslash,
+.nb-creative,
+.nb-disruption,
+.nb-intelligence,
+.nb-new-biz-ninjas {
   /* use !important to prevent issues with browser extensions that change #{$nebular-icons-font-path} */
   font-family: #{$nebular-icons-font-family};
   speak: none;
@@ -429,4 +435,22 @@
 }
 .nb-alert::before {
   content: '\e963';
+}
+.nb-awards::before {
+  content: '\e964';
+}
+.nb-backslash::before {
+  content: '\e965';
+}
+.nb-creative::before {
+  content: '\e966';
+}
+.nb-disruption::before {
+  content: '\e967';
+}
+.nb-intelligence::before {
+  content: '\e968';
+}
+.nb-new-biz-ninjas::before {
+  content: '\e969';
 }
