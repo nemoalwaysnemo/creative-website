@@ -21,6 +21,7 @@ import { GALLERY_CONFIG } from '@ngx-gallery/core';
       useValue: {
         autoPlay: false,
         dots: false,
+        loadingMode: 'indeterminate',
       },
     },
   ],
