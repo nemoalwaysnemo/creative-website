@@ -1,6 +1,12 @@
 <section class="filter-wrapper">
   <div class="keyword-wrapper">
-    <input [formControl]="queryField" type="text" class="keyword" placeholder="search for artists..." autofocus />
+    <span style="width: 50%">Discover and find inspiring TBWA work</span>
+  </div>
+  <div class="keyword-wrapper">
+    <span style="width: 50%">Over hundreds of curated work created by the TBWA network, all in one place.</span>
+  </div>
+  <div class="keyword-wrapper">
+    <input [formControl]="queryField" type="text" class="keyword" placeholder="Search for campaigns by title, agency, brand, client..." autofocus />
     <tbwa-thumbnail-view [layout]="layout" [documents]="results"></tbwa-thumbnail-view>
   </div>
 </section>
