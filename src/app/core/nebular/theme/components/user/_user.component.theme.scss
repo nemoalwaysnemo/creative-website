@@ -13,8 +13,11 @@
     .user-picture {
       height: nb-theme(user-size-medium);
       width: nb-theme(user-size-medium);
-      background: nb-theme(user-bg);
-      border: solid 2px nb-theme(user-fg-highlight);
+      background-color: nb-theme(user-bg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 35px;
+      border: none;
 
       &.background {
         color: nb-theme(user-fg);

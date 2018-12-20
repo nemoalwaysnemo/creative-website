@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   private users = {
-    dean: { name: 'Dean Wang', picture: 'assets/images/dean.png' },
+    dean: { name: 'Dean Wang', picture: 'assets/images/user_icon.png' },
   };
 
   getUsers(): Observable<any> {

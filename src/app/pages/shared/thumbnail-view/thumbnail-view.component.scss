@@ -1,16 +1,16 @@
 
 .results {
   position: absolute;
-  // display: none;
   width: 1209px;
-  padding: 26px 43px;
+  max-height: 700px;
   left: 40px;
   box-sizing: border-box;
   background: #ffffff;
   box-shadow: 6px 11px 32px rgba(0, 0, 0, 0.72);
   z-index: 10000;
+  overflow: auto;
   > div {
-    padding: 11px 0;
+    padding: 37px 43px;
     box-sizing: border-box;
     &:hover { background-color: #eeeeee; }
   }
