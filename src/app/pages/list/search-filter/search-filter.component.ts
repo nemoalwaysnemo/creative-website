@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AdvanceSearchDataSource } from '@pages/shared';
+import { SearchDataSource } from '@pages/shared';
 import { AggregateModel } from '@core/api';
 import { OptionModel } from '@pages/shared/';
 
@@ -14,7 +14,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
 
   aggregates: {}[] = [];
 
-  constructor(private searchDataSource: AdvanceSearchDataSource) {
+  constructor(private searchDataSource: SearchDataSource) {
 
   }
 

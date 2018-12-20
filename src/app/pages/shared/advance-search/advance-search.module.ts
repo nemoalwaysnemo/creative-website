@@ -2,11 +2,11 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdvanceSearchComponent } from './advance-search.component';
-import { AdvanceSearchDataSource } from './advance-search-data-source.service';
+import { SearchDataSource } from '../shared-service/search-data-source.service';
 import { ThumbnailViewModule } from '@pages/shared/thumbnail-view/thumbnail-view.module';
 
 const PROVIDERS = [
-  AdvanceSearchDataSource,
+  SearchDataSource,
 ];
 
 @NgModule({
