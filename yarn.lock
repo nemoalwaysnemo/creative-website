@@ -7451,6 +7451,11 @@ ng2-completer@2.0.8:
   resolved "https://registry.yarnpkg.com/ng2-completer/-/ng2-completer-2.0.8.tgz#36101eb5a796f966897e7894fc437effd88ebdfb"
   integrity sha512-WzxJ4u3vAHsfBUaFCloEBoirPZrnDabtWEKyDok7dtjhS1ZvcbwQ4asdXuDO0hZ0T1QC66U/PwLhKfkG501hVg==
 
+ngx-cookie-service@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-2.1.0.tgz#8023f9edfcd8bd4f0b299b1f0c263112dbb0e261"
+  integrity sha512-7g7NEo7dYp6ap0j5qZ4Nf6nrU4WVdx8ycRQbWyLPps6mrR/+5vKU73ie0CMuKzl625bDTBjjJ60AmqTsp4l+AQ==
+
 ngx-device-detector@1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/ngx-device-detector/-/ngx-device-detector-1.3.3.tgz#87371c03abe08a6bf1b96ab5ca891e6356b63913"

@@ -1,5 +1,5 @@
 <h1 id="title" class="title">Login</h1>
-<p class="sub-title">Hello! Log in with your email.</p>
+<p class="sub-title">Log in with your TBWA email.</p>
 
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
   <p class="alert-title"><b>Oh snap!</b></p>
@@ -25,9 +25,9 @@
            #email="ngModel"
            name="email"
            id="input-email"
-           pattern=".+@.+\..+"
            placeholder="Email address"
            autofocus
+           autocomplete="off"
            [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
            [required]="getConfigValue('forms.validation.email.required')"
            [attr.aria-invalid]="email.invalid && email.touched ? true : null">

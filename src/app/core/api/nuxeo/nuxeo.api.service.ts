@@ -33,7 +33,6 @@ export class NuxeoApiService {
   }
 
   login(username: string, password: string): Observable<Credentials> {
-    this.credentials['username'] = username;
     return this.nuxeo.setCredentials({ method: 'basic', username: username, password: password }).connect().pipe(
       mergeMap(response => this.requestAuthenticationToken()),
     );

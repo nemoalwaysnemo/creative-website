@@ -1,18 +1,9 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbPasswordAuthStrategy } from '@core/nebular/auth';
-import { NbSecurityModule, NbRoleProvider } from '@core/nebular/security';
-import { of as observableOf } from 'rxjs';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AbService } from './services/ab.service';
+import { NuxeoAuthModule } from './auth';
 import { APIModule } from './api';
-
-export class NbSimpleRoleProvider extends NbRoleProvider {
-  getRole() {
-    // here you could provide any role based on any auth flow
-    return observableOf('guest');
-  }
-}
 
 import {
   UserService,
@@ -21,30 +12,7 @@ import {
   AnalyticsService,
 } from './services';
 
-export const PROVIDERS = [
-  ...NbAuthModule.forRoot({
-    strategies: [
-      NbPasswordAuthStrategy.setup({
-        name: 'email',
-      }),
-    ],
-  }).providers,
-  NbSecurityModule.forRoot({
-    accessControl: {
-      guest: {
-        view: '*',
-      },
-      user: {
-        parent: 'guest',
-        create: '*',
-        edit: '*',
-        remove: '*',
-      },
-    },
-  }).providers,
-  {
-    provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
-  },
+const PROVIDERS = [
   AnalyticsService,
   AbService,
   UserService,
@@ -52,16 +20,14 @@ export const PROVIDERS = [
   LayoutService,
   AnalyticsService,
   APIModule.forRoot().providers,
+  NuxeoAuthModule.forRoot().providers,
 ];
 
 @NgModule({
   imports: [
     APIModule,
+    NuxeoAuthModule,
     CommonModule,
-  ],
-  exports: [
-    NbAuthModule,
-    APIModule,
   ],
 })
 export class CoreModule {
