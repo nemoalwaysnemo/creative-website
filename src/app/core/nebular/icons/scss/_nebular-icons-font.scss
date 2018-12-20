@@ -5,11 +5,11 @@
  */
 @font-face {
   font-family: #{$nebular-icons-font-family};
-  src:  url('#{$nebular-icons-font-path}/nebular.eot?4ozerq');
-  src:  url('#{$nebular-icons-font-path}/nebular.eot?4ozerq#iefix') format('embedded-opentype'),
-    url('#{$nebular-icons-font-path}/nebular.ttf?4ozerq') format('truetype'),
-    url('#{$nebular-icons-font-path}/nebular.woff?4ozerq') format('woff'),
-    url('#{$nebular-icons-font-path}/nebular.svg?4ozerq#nebular') format('svg');
+  src:  url('#{$nebular-icons-font-path}/icomoon.eot?4ozerq');
+  src:  url('#{$nebular-icons-font-path}/icomoon.eot?4ozerq#iefix') format('embedded-opentype'),
+        url('#{$nebular-icons-font-path}/icomoon.ttf?4ozerq') format('truetype'),
+        url('#{$nebular-icons-font-path}/icomoon.woff?4ozerq') format('woff'),
+        url('#{$nebular-icons-font-path}/icomoon.svg?4ozerq#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }

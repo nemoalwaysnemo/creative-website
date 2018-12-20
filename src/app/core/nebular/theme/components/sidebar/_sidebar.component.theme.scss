@@ -74,14 +74,14 @@
           position: relative;
 
           &::before {
-            // position: absolute;
-            // content: '';
-            // @include nb-ltr(left, 0);
-            // @include nb-rtl(right, 0);
-            // top: 0;
-            // height: 100%;
-            // width: 4px;
-            // background: nb-theme(color-fg-highlight);
+            position: absolute;
+            content: '';
+            @include nb-ltr(left, 0);
+            @include nb-rtl(right, 0);
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: nb-theme(main-yellow);
           }
         }
 
@@ -184,7 +184,7 @@
     }
 
     nb-menu {
-      margin: 0 -#{nb-theme(sidebar-padding)} -#{nb-theme(sidebar-padding)};
+      margin: 0 -#{nb-theme(sidebar-margin)} -#{nb-theme(sidebar-margin)};
     }
   }
 }

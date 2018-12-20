@@ -18,11 +18,13 @@ export class ThumbnailViewItemComponent implements OnInit {
   selector: 'tbwa-thumbnail-view',
   styleUrls: ['./thumbnail-view.component.scss'],
   template: `
-  <ul class="{{styleClass}}">
-    <li *ngFor="let document of documents" class="thumbnail-view">
-      <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass"></tbwa-thumbnail-view-item>
-    </li>
-  </ul>
+  <div class="results">
+    <ul class="{{styleClass}}">
+      <li *ngFor="let document of documents" class="thumbnail-view">
+        <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass"></tbwa-thumbnail-view-item>
+      </li>
+    </ul>
+  </div>
   `,
 })
 export class ThumbnailViewComponent implements OnInit {

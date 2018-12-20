@@ -187,7 +187,7 @@
         }
 
         .columns nb-layout-column {
-          padding: nb-theme(layout-padding);
+          // padding: nb-theme(layout-padding);
 
           @include media-breakpoint-down(md) {
             padding: nb-theme(layout-medium-padding);

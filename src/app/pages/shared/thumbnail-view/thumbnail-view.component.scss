@@ -22,37 +22,22 @@
   }
 }
 
-.search-list {
-  width: 50%;
-  list-style: none;
-  font-size: 1.1em;
-  color: rgb(105, 105, 105);
-  border: 1px solid #ccc;
-  border-top: none;
-  /*so things don't jump around*/
+.results {
   position: absolute;
-  left: 25%;
-  /*
-    Since we know the wrapper will always be 100% height,
-    we can use half of 100% + half the height of the input
-  */
-  top: calc(50% + 25px);
-  /*
-    for a better calculation use JS.
-    I'm calculating half of the body height - half the height of the input - li padding
-  */
-  max-height: calc(750% - 15px);
-  overflow-y: auto;
-  background: #fff;
-  z-index: 9999;
-
-  li {
-    cursor: pointer;
-    padding: 5px 10px;
-  }
-
-  li:hover {
-    background: #c0c0c0;
-    color: #fff;
+  // display: none;
+  width: 1209px;
+  padding: 26px 43px;
+  left: 40px;
+  box-sizing: border-box;
+  background: #ffffff;
+  box-shadow: 6px 11px 32px rgba(0, 0, 0, 0.72);
+  z-index: 10000;
+  > ul.search-list {
+    padding: 0;
+    li {
+      padding: 11px 0;
+      box-sizing: border-box;
+      &:hover { background-color: #eeeeee; }
+    }
   }
 }

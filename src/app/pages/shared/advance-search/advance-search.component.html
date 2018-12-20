@@ -1,6 +1,9 @@
 <section class="filter-wrapper">
+	<h1>Discover and find inspiring TBWA work</h1>
+	<h4>Over hundreds of curated work created by the TBWA network, all in one place.</h4>
   <div class="keyword-wrapper">
-    <input [formControl]="queryField" type="text" class="keyword" placeholder="search for artists..." autofocus />
-    <tbwa-thumbnail-view [layout]="layout" [documents]="results"></tbwa-thumbnail-view>
+    <input [formControl]="queryField" type="text" class="keyword" placeholder="Search for campaigns by title, agency, brand, client..." autofocus />
   </div>
+  <tbwa-thumbnail-view [layout]="layout" [documents]="results"></tbwa-thumbnail-view>
 </section>
+<div class="clear"></div>
