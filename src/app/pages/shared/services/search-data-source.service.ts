@@ -8,11 +8,10 @@ import { deepExtend } from '@core/services';
 @Injectable()
 export class SearchDataSource extends AbstractPageProvider {
 
-  private defaultParams: NuxeoPageProviderParams;
+  private defaultParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
-    this.defaultParams = new NuxeoPageProviderParams();
     this.defaultParams.ecm_path = NUXEO_META_INFO.BASE_FOLDER_PATH;
   }
 
@@ -33,8 +32,8 @@ export class SearchDataSource extends AbstractPageProvider {
     );
   }
 
-  searchForText(param: string): Observable<NuxeoPagination> {
-    const text: string = '*' + param;
-    return this.request(this.getRequestParams({ ecm_fulltext: text, pageSize: 10 }));
+  searchForText(searchTerm: string, opts: any = {}): Observable<NuxeoPagination> {
+    const param = { ecm_fulltext: '*' + searchTerm };
+    return this.request(this.getRequestParams(Object.assign({}, param, opts)));
   }
 }

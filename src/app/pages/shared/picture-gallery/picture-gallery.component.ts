@@ -8,19 +8,21 @@ import { deepExtend } from '@core/api';
   templateUrl: './picture-gallery.component.html',
 })
 export class PictureGalleryComponent implements OnInit, AfterViewInit {
+
   @Input() gallerySettings: GalleryConfig;
 
-  options$: BehaviorSubject<GalleryItem[]> = new BehaviorSubject([]);
-
   @Input('galleryItems')
-  set setItems(galleryItems: []) {
+  set setItems(galleryItems: GalleryItem[]) {
     if (galleryItems) {
       this.options$.next(galleryItems);
     }
   }
 
-  private galleryRef: GalleryRef;
   private galleryId = 'pictureGallery';
+
+  private galleryRef: GalleryRef;
+
+  private options$: BehaviorSubject<GalleryItem[]> = new BehaviorSubject([]);
 
   constructor(private gallery: Gallery, @Inject(GALLERY_CONFIG) private options) {
     this.galleryRef = this.gallery.ref(this.galleryId);
@@ -34,8 +36,8 @@ export class PictureGalleryComponent implements OnInit, AfterViewInit {
         } else {
           this.galleryRef.addImage(galleryItem);
         }
+      });
     });
-  });
   }
 
   ngAfterViewInit() {

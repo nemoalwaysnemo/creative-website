@@ -13,20 +13,26 @@ import { ClickOutsideModule } from 'ng-click-outside';
 })
 
 export class AdvanceSearchComponent implements OnInit, OnDestroy {
+
   results: DocumentModel[];
   documents: DocumentModel[] = [];
   queryField: FormControl = new FormControl();
   layout = 'search-list';
-  valueSubscription: Subscription;
+  private valueSubscription: Subscription;
+
+  private params: any = {
+    pageSize: 10,
+    ecm_primaryType: '["App-Library-Video", "App-Library-Image"]',
+  };
 
   constructor(private dataSource: SearchDataSource) { }
 
   ngOnInit() {
     this.valueSubscription = this.queryField.valueChanges
       .pipe(
-        debounceTime(200),
+        debounceTime(300),
         distinctUntilChanged(),
-        switchMap((query: string) => this.dataSource.searchForText(query)),
+        switchMap((query: string) => this.dataSource.searchForText(query, this.params)),
       )
       .subscribe((result: NuxeoPagination) => {
         this.results = result.entries;

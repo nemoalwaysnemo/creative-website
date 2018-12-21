@@ -24,6 +24,8 @@ export class DocumentModel extends Base {
   private _uid: any;
   private _contextParameters: any;
 
+  title: string;
+
   constructor(doc: any = {}, opts: any = {}) {
     super(opts);
     this._nuxeo = opts.nuxeo;

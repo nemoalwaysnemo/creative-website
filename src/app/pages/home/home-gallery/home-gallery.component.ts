@@ -9,10 +9,11 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 export class HomeGalleryComponent implements OnInit {
 
-  private galleryItems: any;
-  private gallerySettings: any = {
+  galleryItems: any = [];
+  gallerySettings: any = {
     autoPlay: true,
     dots: true,
+    dotsSize: 20,
     loop: true,
     thumb: false,
   };
@@ -42,7 +43,7 @@ export class HomeGalleryComponent implements OnInit {
         imgArray.push({ src: entry.getVideoSources(this.defaultVideoFormats)[0]['src'], thumb: entry.thumbnailUrl, poster: entry.getVideoPoster });
       } else if (entry.isPicture()) {
         const url = entry.thumbnailUrl;
-        imgArray.push({ src: url, thumb: url, title: '12345' });
+        imgArray.push({ src: url, thumb: url });
       } else {
       }
     }

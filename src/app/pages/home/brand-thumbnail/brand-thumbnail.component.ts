@@ -13,8 +13,14 @@ export class BrandThumbnailComponent implements OnInit {
   layout = 'brand';
   brandDocuments: DocumentModel[];
 
+  private params: any = {
+    pageSize: 2,
+    ecm_path: '/Creative/TBWA-/',
+    ecm_primaryType: '["App-Library-Video"]',
+  };
+
   ngOnInit() {
-    this.basePageProvider.request({ pageSize: 2 })
+    this.basePageProvider.request(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.brandDocuments = res.entries;
       });
