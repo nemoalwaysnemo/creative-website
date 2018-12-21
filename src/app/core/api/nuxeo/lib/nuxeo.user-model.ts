@@ -11,8 +11,16 @@ export class UserModel extends Base {
     Object.assign(this, user);
   }
 
+  get username(): string {
+    return this.get('username');
+  }
+
   get properties(): any {
     return this._properties;
+  }
+
+  set properties(properties: any) {
+    this._properties = properties;
   }
 
   get(propertyName: string): any {

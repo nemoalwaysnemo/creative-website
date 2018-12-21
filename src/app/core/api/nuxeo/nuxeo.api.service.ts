@@ -33,7 +33,7 @@ export class NuxeoApiService {
     return this._nuxeo;
   }
 
-  getUser(username: string): Observable<any> {
+  getUser(username: string): Observable<UserModel> {
     return this.nuxeo.users({ enrichers: { user: ['userprofile'] } }).fetch(username);
   }
 

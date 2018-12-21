@@ -1,5 +1,5 @@
 import { join } from './nuxeo.helpers';
-import { NuxeoResponse } from './base.interface';
+import { UserModel } from './nuxeo.user-model';
 import { Observable } from 'rxjs';
 import { Base } from './base.api';
 
@@ -12,7 +12,7 @@ export class Users extends Base {
     this._nuxeo = opts.nuxeo;
   }
 
-  fetch(username: string, opts: any = {}): Observable<NuxeoResponse> {
+  fetch(username: string, opts: any = {}): Observable<UserModel> {
     const options = this._computeOptions(opts);
     const path = join(this.operationUrl, username);
     options.users = this;
