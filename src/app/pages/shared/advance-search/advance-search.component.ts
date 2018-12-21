@@ -4,6 +4,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SearchDataSource } from '../services/search-data-source.service';
 import { NuxeoPagination, DocumentModel } from '@core/api';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @Component({
   selector: 'tbwa-advance-search',
@@ -13,6 +14,7 @@ import { NuxeoPagination, DocumentModel } from '@core/api';
 
 export class AdvanceSearchComponent implements OnInit, OnDestroy {
   results: DocumentModel[];
+  documents: DocumentModel[] = [];
   queryField: FormControl = new FormControl();
   layout = 'search-list';
   valueSubscription: Subscription;
@@ -28,7 +30,16 @@ export class AdvanceSearchComponent implements OnInit, OnDestroy {
       )
       .subscribe((result: NuxeoPagination) => {
         this.results = result.entries;
+        this.show();
       });
+  }
+
+  show(): void {
+    this.documents = this.results;
+  }
+
+  hide(): void {
+    this.documents = [];
   }
 
   ngOnDestroy() {

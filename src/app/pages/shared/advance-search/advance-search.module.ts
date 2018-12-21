@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdvanceSearchComponent } from './advance-search.component';
 import { SearchDataSource } from '../services/search-data-source.service';
 import { ThumbnailViewModule } from '@pages/shared/thumbnail-view/thumbnail-view.module';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 const PROVIDERS = [
   SearchDataSource,
@@ -15,6 +16,7 @@ const PROVIDERS = [
     FormsModule,
     ReactiveFormsModule,
     ThumbnailViewModule,
+    ClickOutsideModule,
   ],
   exports: [
     AdvanceSearchComponent,
