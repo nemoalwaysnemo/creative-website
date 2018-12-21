@@ -23,7 +23,7 @@ export class AuthenticationManager {
     return AuthenticationManager.authenticators;
   }
 
-  static computeAuthenticationHeaders(auth: Credentials): any {
+  static computeAuthenticationHeaders(auth: Credentials): {} {
     if (auth) {
       const authenticator = AuthenticationManager.authenticators[auth.method];
       if (authenticator) {

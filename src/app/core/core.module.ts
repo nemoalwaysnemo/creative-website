@@ -6,7 +6,6 @@ import { NuxeoAuthModule } from './auth';
 import { APIModule } from './api';
 
 import {
-  UserService,
   StateService,
   LayoutService,
   AnalyticsService,
@@ -15,7 +14,6 @@ import {
 const PROVIDERS = [
   AnalyticsService,
   AbService,
-  UserService,
   StateService,
   LayoutService,
   AnalyticsService,

@@ -1,6 +1,6 @@
 import { DirectoryEntry } from './nuxeo.directory-entry';
 import { DocumentModel } from './nuxeo.document-model';
-import { User } from './nuxeo.user';
+import { UserModel } from './nuxeo.user-model';
 
 const unmarshallers: any = {};
 
@@ -25,7 +25,7 @@ export const DocumentsUnmarshaller = (json: any = {}, options: any = {}) => {
   return json;
 };
 
-export const UserUnmarshaller = (json: any = {}, options: any = {}) => new User(json, options);
+export const UserUnmarshaller = (json: any = {}, options: any = {}) => new UserModel(json, options);
 
 export const DirectoryEntryUnmarshaller = (json: any = {}, options: any = {}) => new DirectoryEntry(json, options);
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractBaseService } from './api.abstract-base.service';
-import { NuxeoApiService, NuxeoRequestOptions, deepExtend } from '@core/api/nuxeo';
+import { NuxeoApiService, NuxeoRequestOptions } from '@core/api/nuxeo';
 import { DocumentModel } from './nuxeo/lib';
 import { Observable } from 'rxjs';
 

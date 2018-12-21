@@ -1,8 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-
-import { NbMenuService, NbSidebarService } from '@core/nebular/theme';
-import { UserService } from '@core/services/users.service';
-import { LayoutService } from '@core/services/layout.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { map, filter } from 'rxjs/operators';
+import { NbMenuService } from '@core/nebular/theme';
+import { UserService } from '@core/api';
 
 @Component({
   selector: 'ngx-header',
@@ -11,36 +10,30 @@ import { LayoutService } from '@core/services/layout.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  user: any;
+  user: any = {};
 
   private alive: boolean = true;
 
-  constructor(private sidebarService: NbSidebarService,
-    private menuService: NbMenuService,
-    private userService: UserService,
-    private layoutService: LayoutService) {
+  constructor(private menuService: NbMenuService, private userService: UserService) {
   }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((users: any) => this.user = users.dean);
+    this.getUser();
   }
 
-  toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar');
-    this.layoutService.changeLayoutSize();
-    return false;
-  }
-
-  toggleSettings(): boolean {
-    this.sidebarService.toggle(false, 'settings-sidebar');
-    return false;
-  }
-
-  goToHome() {
+  goHome() {
     this.menuService.navigateHome();
   }
 
   ngOnDestroy() {
     this.alive = false;
   }
+
+  private getUser(): void {
+    this.userService.getCurrentUser().subscribe((user: any) => {
+      this.user = user;
+      this.user['avatar'] = '/assets/images/user_icon.png';
+    });
+  }
+
 }

@@ -1,10 +1,9 @@
 <div class="header-container">
-  <a (click)="toggleSidebar()" href="#" class="logo"></a>
+  <a (click)="goHome()" href="#" class="logo"></a>
   <h1>Creative Library</h1>
   <nb-actions size="medium">
     <nb-action>
-      <nb-user [name]="user?.name" [picture]="user?.picture"></nb-user>
+      <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username"></nb-user>
     </nb-action>
-    <!-- <nb-action icon="nb-gear" class="toggle-layout" (click)="toggleSettings()"></nb-action> -->
   </nb-actions>
 </div>
