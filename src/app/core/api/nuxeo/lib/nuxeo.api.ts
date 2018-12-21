@@ -150,6 +150,10 @@ export class Nuxeo extends Base {
     );
   }
 
+  getAuthenticationHeaders(auth: Credentials): {} {
+    return AuthenticationManager.computeAuthenticationHeaders(auth);
+  }
+
   private _computeFetchOptions(opts: any = {}) {
     let options: any = {
       method: 'GET',
@@ -160,8 +164,7 @@ export class Nuxeo extends Base {
       resolveWithFullResponse: false,
     };
     options = Object.assign({}, options, opts);
-    const authenticationHeaders = AuthenticationManager.computeAuthenticationHeaders(this.auth);
-    options.headers = Object.assign({}, options.headers, authenticationHeaders);
+    options.headers = Object.assign({}, options.headers, this.getAuthenticationHeaders(this.auth));
 
     if (options.schemas && options.schemas.length > 0) {
       options.headers.properties = options.schemas.join(',');

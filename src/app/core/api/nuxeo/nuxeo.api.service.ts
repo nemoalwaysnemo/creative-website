@@ -15,6 +15,7 @@ import {
   Repository,
   Request,
   Directory,
+  UserModel,
   NuxeoPagination,
 } from './lib';
 
@@ -32,19 +33,28 @@ export class NuxeoApiService {
     return this._nuxeo;
   }
 
+  getUser(username: string): Observable<any> {
+    return this.nuxeo.users({ enrichers: { user: ['userprofile'] } }).fetch(username);
+  }
+
+  setCredentials(credentials: Credentials): Nuxeo {
+    return this.nuxeo.setCredentials(credentials);
+  }
+
   login(username: string, password: string): Observable<Credentials> {
-    return this.nuxeo.setCredentials({ method: 'basic', username: username, password: password }).connect().pipe(
+    this.credentials['username'] = username;
+    return this.setCredentials({ method: 'basic', username: username, password: password }).connect().pipe(
       mergeMap(response => this.requestAuthenticationToken()),
     );
   }
 
   loginWithToken(token: string): Observable<any> {
     this.credentials['token'] = token;
-    return this.nuxeo.setCredentials({ method: 'token', token: token }).login();
+    return this.setCredentials({ method: 'token', token: token }).login();
   }
 
   authenticate(credentials: Credentials): Observable<Credentials> {
-    return this.nuxeo.setCredentials(credentials).connect();
+    return this.setCredentials(credentials).connect();
   }
 
   isAuthenticated(): boolean {
@@ -54,7 +64,7 @@ export class NuxeoApiService {
   requestAuthenticationToken(): Observable<Credentials> {
     return this.nuxeo.requestAuthenticationToken(this.env.appName, this.getDeviceId(), this.deviceService.device, 'r', { json: false }).pipe(
       map(token => {
-        this.credentials['toke'] = token;
+        this.credentials['token'] = token;
         return this.credentials;
       }));
   }

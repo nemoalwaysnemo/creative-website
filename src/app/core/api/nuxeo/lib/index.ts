@@ -16,7 +16,7 @@ export * from './nuxeo.operation';
 export * from './nuxeo.repository';
 export * from './nuxeo.request';
 export * from './nuxeo.unmarshallers';
-export * from './nuxeo.user';
+export * from './nuxeo.user-model';
 export * from './nuxeo.users';
 export * from './nuxeo.utils';
 export * from './nuxeo.server-version';

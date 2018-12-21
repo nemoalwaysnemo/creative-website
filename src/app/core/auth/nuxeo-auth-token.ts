@@ -1,6 +1,5 @@
 import { NbAuthToken, NbAuthTokenNotFoundError } from '../nebular/auth';
 
-
 export class NuxeoAuthToken extends NbAuthToken {
 
   static NAME = 'gcl:auth:nuxeo:token';
@@ -21,7 +20,7 @@ export class NuxeoAuthToken extends NbAuthToken {
     return this.createdAt;
   }
 
-  getValue(): string {
+  getValue(): any {
     return this.token;
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NuxeoApiService, DocumentRepository, DocumentModel } from '@core/api';
+import { DocumentRepository, DocumentModel } from '@core/api';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
 
@@ -15,18 +15,10 @@ export class DetailComponent implements OnInit, OnDestroy {
   document: DocumentModel;
 
   constructor(
-    private nuxeoApi: NuxeoApiService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private documentRepository: DocumentRepository) {
-    const token = '5ee79339-b07c-408b-90cd-30484ef02688';
-    // const username = 'Administrator';
-    // const password = 'Administrator';
-    this.nuxeoApi.loginWithToken(token).subscribe(response => {
-      console.log(response);
-    }, error => {
-      console.log(error);
-    });
+
   }
 
   ngOnInit() {

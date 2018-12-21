@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { NbMenuService, NbSidebarService } from '@core/nebular/theme';
-import { UserService } from '@core/services/users.service';
 import { LayoutService } from '@core/services/layout.service';
 
 @Component({
@@ -17,12 +16,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
-    private userService: UserService,
     private layoutService: LayoutService) {
   }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((users: any) => this.user = users.dean);
   }
 
   toggleSidebar(): boolean {
