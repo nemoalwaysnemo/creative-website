@@ -1,3 +1,5 @@
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+
 $main-yellow: #fecc00;
 
 .clear { clear: both; }
@@ -39,7 +41,15 @@ $main-yellow: #fecc00;
 
 .keyword {
   display: block;
-  width: 1209px;
+  @include media-breakpoint-down(lg) { //992px
+    width: 700px;
+  }
+  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+    width: 1000px;
+  }
+  @include media-breakpoint-up(xxl) { //1400px
+    width: 1209px;
+  }
   height: 95px;
   margin-top: 50px;
   padding-left: 109px;

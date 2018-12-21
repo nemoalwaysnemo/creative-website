@@ -190,11 +190,11 @@
           // padding: nb-theme(layout-padding);
 
           @include media-breakpoint-down(md) {
-            padding: nb-theme(layout-medium-padding);
+            // padding: nb-theme(layout-medium-padding);
           }
 
           @include media-breakpoint-down(sm) {
-            padding: nb-theme(layout-small-padding);
+            // padding: nb-theme(layout-small-padding);
           }
         }
       }

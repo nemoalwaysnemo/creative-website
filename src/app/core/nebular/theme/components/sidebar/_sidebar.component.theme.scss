@@ -171,6 +171,29 @@
       > .scrollable {
         width: nb-theme(sidebar-width);
       }
+      nb-menu {
+        width: nb-theme(sidebar-width);
+        
+        .menu-item {
+          a.active {
+            position: relative;
+
+            &::before {
+              position: absolute;
+              content: '';
+              @include nb-ltr(left, 0);
+              @include nb-rtl(right, 0);
+              top: 0;
+              height: 100%;
+              width: 3px;
+              background: nb-theme(main-yellow);
+            }
+          }
+          .menu-icon {
+            margin-left: 10.5px;
+          }
+        }
+      }
     }
 
     nb-sidebar-header {
