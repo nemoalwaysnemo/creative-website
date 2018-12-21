@@ -1,19 +1,18 @@
-import { NbAuthToken, NbAuthTokenNotFoundError } from '../nebular/auth';
+import { NbAuthToken } from '../nebular/auth';
 
 export class NuxeoAuthToken extends NbAuthToken {
 
   static NAME = 'gcl:auth:nuxeo:token';
-
   private createdAt: Date;
   private ownerStrategyName: string = 'nuxeo';
 
   constructor(private readonly token: any) {
     super();
-    this.createdAt = this.prepareCreatedAt();
+    this.createdAt = this.prepareCreatedAt(token.createdAt);
   }
 
   protected prepareCreatedAt(date?: Date) {
-    return date ? date : new Date();
+    return date ? new Date(date) : new Date();
   }
 
   getCreatedAt(): Date {
@@ -36,8 +35,8 @@ export class NuxeoAuthToken extends NbAuthToken {
     if (!this.token.hasOwnProperty('expiresIn')) {
       return null;
     }
-    console.log('getTokenExpDate => ' + new Date(this.createdAt.getTime() + Number(this.token.expiresIn) * 1000));
-    return new Date(this.createdAt.getTime() + Number(this.token.expiresIn) * 1000);
+    const expiredTime = new Date(this.createdAt.getTime() + Number(this.token.expiresIn) * 1000);
+    return new Date(expiredTime);
   }
 
   toString(): string {
