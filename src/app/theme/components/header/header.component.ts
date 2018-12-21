@@ -14,26 +14,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
 
-  constructor(private sidebarService: NbSidebarService,
-    private menuService: NbMenuService,
-    private layoutService: LayoutService) {
+  constructor(private menuService: NbMenuService) {
   }
 
   ngOnInit() {
   }
 
-  toggleSidebar(): boolean {
-    // this.sidebarService.toggle(true, 'menu-sidebar');
-    this.layoutService.changeLayoutSize();
-    return false;
-  }
-
-  toggleSettings(): boolean {
-    this.sidebarService.toggle(false, 'settings-sidebar');
-    return false;
-  }
-
-  goToHome() {
+  goHome() {
     this.menuService.navigateHome();
   }
 

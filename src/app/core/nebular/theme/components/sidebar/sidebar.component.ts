@@ -283,7 +283,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
 
   toggleResponsive(enabled: boolean) {
     if (enabled) {
-      // this.mediaQuerySubscription = this.onMediaQueryChanges();
+      this.mediaQuerySubscription = this.onMediaQueryChanges();
     } else if (this.mediaQuerySubscription) {
       this.mediaQuerySubscription.unsubscribe();
     }
