@@ -44,10 +44,8 @@ export class NuxeoAuthStrategy extends NbAuthStrategy {
     return observableOf(new NbAuthResult(false));
   }
 
-  refreshToken(data?: any): Observable<NbAuthResult> {
-    return this.nuxeoApi.loginWithToken(data.token).pipe(
-      map((res: Credentials) => this.getNbAuthResult(res)),
-    );
+  refreshToken(credentials?: any): Observable<NbAuthResult> {
+    return observableOf(this.getNbAuthResult(credentials));
   }
 
   private getNbAuthResult(credentials: Credentials): NbAuthResult {

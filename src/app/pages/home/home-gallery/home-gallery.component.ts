@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NuxeoPagination, DocumentModel, BasePageProvider } from '@core/api';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-home-gallery',
@@ -9,7 +10,18 @@ import { NuxeoPagination, DocumentModel, BasePageProvider } from '@core/api';
 export class HomeGalleryComponent implements OnInit {
 
   private galleryItems: any;
-  private gallerySettings: {};
+  private gallerySettings: any = {
+    autoPlay: true,
+    dots: true,
+    loop: true,
+    thumb: false,
+  };
+
+  private params: any = {
+    pageSize: 10,
+    ecm_path: NUXEO_META_INFO.AWARD_FOLDER_PATH,
+  };
+
   private defaultVideoFormats: string[] = ['MP4 480p'];
 
   agencyDocuments: DocumentModel[];
@@ -18,20 +30,9 @@ export class HomeGalleryComponent implements OnInit {
   }
 
   ngOnInit() {
-    const param = {
-      pageSize: 10,
-      currentPageIndex: 2,
-    };
-    this.basePageProvider.request(param).subscribe((res: NuxeoPagination) => {
+    this.basePageProvider.request(this.params).subscribe((res: NuxeoPagination) => {
       this.galleryItems = this.getItems(res.entries);
     });
-
-    this.gallerySettings = {
-      autoPlay: true,
-      dots: true,
-      loop: true,
-      thumb: false,
-    };
   }
 
   private getItems(entiries: DocumentModel[]) {
@@ -48,9 +49,9 @@ export class HomeGalleryComponent implements OnInit {
     return imgArray;
   }
 
-  hasVideoContent( entry: DocumentModel ) {
-     if ( entry.getVideoSources(this.defaultVideoFormats).length > 0 ) {
-       return true;
-     }
-   }
+  hasVideoContent(entry: DocumentModel) {
+    if (entry.getVideoSources(this.defaultVideoFormats).length > 0) {
+      return true;
+    }
+  }
 }

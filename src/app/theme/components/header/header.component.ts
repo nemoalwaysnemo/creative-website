@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userService.getCurrentUser().subscribe((user: any) => {
       this.user = user;
       this.user['avatar'] = '/assets/images/user_icon.png';
-      console.log(3333, this.user.username);
     });
   }
 
