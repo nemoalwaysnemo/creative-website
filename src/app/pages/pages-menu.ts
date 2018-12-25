@@ -1,4 +1,5 @@
 import { NbMenuItem } from '@core/nebular/theme';
+import { Environment } from '@environment/environment';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -10,6 +11,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Backslash',
     icon: 'nb-backslash',
-    link: '/pages/home',
+    target: '_blank',
+    url: Environment.backslashAPPUrl,
   },
 ];

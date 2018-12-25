@@ -4,6 +4,7 @@ export const Environment = {
   appName: 'Creative Library',
   nuxeoUrl: 'https://library-na.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
+  backslashAPPUrl: 'https://backslash.tbwa.com',
   production: true,
   autoLogin: true,
 };

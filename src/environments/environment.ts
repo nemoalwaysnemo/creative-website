@@ -5,6 +5,7 @@ export const Environment = {
   // nuxeoUrl: 'http://localhost:8080/nuxeo/',
   nuxeoUrl: 'https://library-na-dev.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
+  backslashAPPUrl: 'https://library-na-dev.factory.tools/nuxeo/backslash',
   production: false,
   autoLogin: true,
 };
