@@ -6,6 +6,7 @@ export const Environment = {
   nuxeoUrl: 'https://library-na-dev.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
   production: false,
+  autoLogin: true,
 };
 
 export const NUXEO_META_INFO = {

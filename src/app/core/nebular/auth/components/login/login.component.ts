@@ -3,7 +3,7 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthSocialLink } from '../../auth.options';
 import { getDeepFromObject } from '../../helpers';
@@ -17,7 +17,7 @@ import { Environment } from '@environment/environment';
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NbLoginComponent {
+export class NbLoginComponent implements OnInit {
 
   redirectDelay: number = 0;
   showMessages: any = {};
@@ -43,6 +43,12 @@ export class NbLoginComponent {
     this.rememberMe = this.getConfigValue('forms.login.rememberMe');
   }
 
+  ngOnInit() {
+    if (Environment.autoLogin) {
+      this.autoLogin();
+    }
+  }
+
   login(): void {
 
     this.errors = [];
@@ -51,24 +57,32 @@ export class NbLoginComponent {
 
     this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
-      if (result.isSuccess()) {
-        this.messages = result.getMessages();
-      } else {
-        this.errors = result.getErrors();
-      }
-      const redirect = result.getRedirect();
-      setTimeout(() => {
-        if (redirect && typeof redirect === 'string') {
-          return this.router.navigateByUrl(redirect);
-        } else {
-          return this.router.navigate(['/']);
-        }
-      }, this.redirectDelay);
-      this.cd.detectChanges();
+      this.redirect(result);
     });
   }
 
   getConfigValue(key: string): any {
     return getDeepFromObject(this.options, key, null);
+  }
+
+  private autoLogin(): void {
+    this.service.authenticate(this.strategy, { autoLogin: true }).subscribe((result: NbAuthResult) => {
+      this.redirect(result);
+    });
+  }
+
+  private redirect(result: NbAuthResult): void {
+    if (result.isSuccess()) {
+      this.messages = result.getMessages();
+    } else {
+      this.errors = result.getErrors();
+    }
+    const redirect = result.getRedirect();
+    if (redirect) {
+      setTimeout(() => {
+        return this.router.navigateByUrl(redirect);
+      }, this.redirectDelay);
+    }
+    this.cd.detectChanges();
   }
 }

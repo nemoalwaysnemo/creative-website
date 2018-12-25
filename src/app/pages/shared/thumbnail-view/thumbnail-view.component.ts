@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DocumentModel } from '@core/api/nuxeo/lib';
 
 @Component({
   selector: 'tbwa-thumbnail-view-item',
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ThumbnailViewItemComponent implements OnInit {
   @Input() styleClass: string;
-  @Input() document: Document;
+  @Input() document: DocumentModel;
 
   ngOnInit() {
   }
@@ -28,7 +29,7 @@ export class ThumbnailViewItemComponent implements OnInit {
 export class ThumbnailViewComponent implements OnInit {
 
   @Input() layout: string;
-  @Input() documents: Observable<Document[]>;
+  @Input() documents: Observable<DocumentModel[]>;
 
   styleClass: string = 'small';
   styleList = {

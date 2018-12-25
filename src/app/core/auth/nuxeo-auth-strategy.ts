@@ -22,10 +22,16 @@ export class NuxeoAuthStrategy extends NbAuthStrategy {
     return [NuxeoAuthStrategy, options];
   }
 
-  authenticate(credentials: any): Observable<NbAuthResult> {
-    return this.nuxeoApi.login(credentials.email, credentials.password).pipe(
-      map((res: Credentials) => this.getNbAuthResult(res)),
-    );
+  authenticate(credentials: any = {}): Observable<NbAuthResult> {
+    if (credentials.autoLogin) {
+      return this.nuxeoApi.loginAutomatically().pipe(
+        map((res: Credentials) => this.getNbAuthResult(res)),
+      );
+    } else {
+      return this.nuxeoApi.login(credentials.email, credentials.password).pipe(
+        map((res: Credentials) => this.getNbAuthResult(res)),
+      );
+    }
   }
 
   register(data?: any): Observable<NbAuthResult> {
@@ -50,7 +56,7 @@ export class NuxeoAuthStrategy extends NbAuthStrategy {
 
   private getNbAuthResult(credentials: Credentials): NbAuthResult {
     const token = new NuxeoAuthToken(Object.assign({}, credentials, { expiresIn: 3600 * 2 }));
-    return new NbAuthResult(true, {}, null, [], [], token);
+    return new NbAuthResult(true, {}, ['/'], [], [], token);
   }
 
 }

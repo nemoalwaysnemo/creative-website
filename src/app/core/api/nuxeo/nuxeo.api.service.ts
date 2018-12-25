@@ -48,6 +48,10 @@ export class NuxeoApiService {
     );
   }
 
+  loginAutomatically(): Observable<Credentials> {
+    return this.setCredentials({ method: 'basic' }).connect();
+  }
+
   loginWithToken(token: string): Observable<any> {
     this.credentials['token'] = token;
     return this.setCredentials({ method: 'token', token: token }).login();

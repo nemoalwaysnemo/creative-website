@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { map, filter } from 'rxjs/operators';
 import { NbMenuService } from '@core/nebular/theme';
 import { UserService } from '@core/api';
 
@@ -32,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private getUser(): void {
     this.userService.getCurrentUser().subscribe((user: any) => {
       this.user = user;
-      this.user['avatar'] = '/assets/images/user_icon.png';
+      this.user['avatar'] = 'assets/images/user_icon.png';
     });
   }
 

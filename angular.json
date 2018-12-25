@@ -12,7 +12,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "preserveSymlinks": true,
-            "outputPath": "nuxeo",
+            "outputPath": "dist/creative_library",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -34,12 +34,11 @@
               "node_modules/ionicons/scss/ionicons.scss",
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/socicon/css/socicon.css",
-              "node_modules/angular-tree-component/dist/angular-tree-component.css",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "node_modules/leaflet/dist/leaflet.css",
               "src/app/core/nebular/icons/scss/nebular-icons.scss",
-              "src/app/core/nebular/fonts/custom-fonts.scss",
+              "src/app/theme/fonts/custom-fonts.scss",
               "src/app/theme/styles/styles.scss"
             ],
             "scripts": [
@@ -169,11 +168,11 @@
   "defaultProject": "tbwa-creative-website",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "ngx",
+      "prefix": "tbwa",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "ngx"
+      "prefix": "tbwa"
     }
   }
 }

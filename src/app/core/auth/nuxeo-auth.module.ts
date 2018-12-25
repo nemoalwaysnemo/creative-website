@@ -18,11 +18,11 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
   }
 }
 
-function filterInterceptorRequest(req: HttpRequest<any>): boolean {
+export function filterInterceptorRequest(req: HttpRequest<any>): boolean {
   return ['/nuxeo/api'].some(url => req.url.includes(url));
 }
 
-const SERVICES = [
+export const NUXEO_AUTH_SERVICES = [
   ...NbAuthModule.forRoot({
     forms: {
       login: {
@@ -72,7 +72,7 @@ export class NuxeoAuthModule {
     return <ModuleWithProviders>{
       ngModule: NuxeoAuthModule,
       providers: [
-        ...SERVICES,
+        ...NUXEO_AUTH_SERVICES,
       ],
     };
   }

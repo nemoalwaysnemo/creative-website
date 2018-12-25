@@ -89,10 +89,6 @@ export class Nuxeo extends Base {
     return new Users(finalOptions);
   }
 
-  authenticate(data?: any): Observable<NuxeoResponse> {
-    return;
-  }
-
   operation(id: string, opts: any = {}): Operation {
     const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, id }, opts));
     return new Operation(finalOptions);
