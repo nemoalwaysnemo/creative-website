@@ -21,13 +21,17 @@ $main-yellow: #fecc00;
   background: url('/assets/images/search_bg.png') no-repeat center center;
   background-size: cover;
   > h1 {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
     font-size: 50px;
+    line-height: 50px;
     margin-top: 138px;
     margin-left: 40px;
     color: $main-yellow;
   }
   > h4 {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
     font-size: 20px;
+    line-height: 20px;
     margin-top: 16px;
     margin-left: 40px;
     color: #ffffff;
@@ -40,6 +44,7 @@ $main-yellow: #fecc00;
 }
 
 .keyword {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   display: block;
   @include media-breakpoint-down(lg) { //992px
     width: 700px;
@@ -63,4 +68,16 @@ $main-yellow: #fecc00;
 .keyword:focus {
   border-color: rgba(81, 203, 238, 1);
   ;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #b1b1b1;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #b1b1b1;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #b1b1b1;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #b1b1b1;
 }

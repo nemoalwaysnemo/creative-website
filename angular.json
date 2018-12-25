@@ -39,6 +39,7 @@
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "node_modules/leaflet/dist/leaflet.css",
               "src/app/core/nebular/icons/scss/nebular-icons.scss",
+              "src/app/core/nebular/fonts/custom-fonts.scss",
               "src/app/theme/styles/styles.scss"
             ],
             "scripts": [
