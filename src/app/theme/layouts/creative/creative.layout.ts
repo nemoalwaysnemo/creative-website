@@ -13,8 +13,8 @@ import { StateService } from '@core/services/state.service';
 
 // TODO: move layouts into the framework
 @Component({
-  selector: 'ngx-sample-layout',
-  styleUrls: ['./sample.layout.scss'],
+  selector: 'tbwa-creative-layout',
+  styleUrls: ['./creative.layout.scss'],
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
       <nb-layout-header fixed>
@@ -46,7 +46,7 @@ import { StateService } from '@core/services/state.service';
     </nb-layout>
   `,
 })
-export class SampleLayoutComponent implements OnDestroy {
+export class CreativeLayoutComponent implements OnDestroy {
 
   subMenu: NbMenuItem[] = [
     {

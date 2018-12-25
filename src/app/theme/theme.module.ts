@@ -48,7 +48,7 @@ import {
   EvaIconsPipe,
 } from './pipes';
 import {
-  SampleLayoutComponent,
+  CreativeLayoutComponent,
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
@@ -90,7 +90,7 @@ const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
   ThemeSettingsComponent,
-  SampleLayoutComponent,
+  CreativeLayoutComponent,
 ];
 
 const ENTRY_COMPONENTS = [

@@ -1,1 +1,1 @@
-export * from './sample/sample.layout';
+export * from './creative/creative.layout';
