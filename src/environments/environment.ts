@@ -5,9 +5,9 @@ export const Environment = {
   // nuxeoUrl: 'http://localhost:8080/nuxeo/',
   nuxeoUrl: 'https://library-na-dev.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
-  backslashAPPUrl: 'https://library-na-dev.factory.tools/nuxeo/backslash',
+  backslashAPPUrl: 'https://library-na-dev.factory.tools/nuxeo/edges',
   production: false,
-  autoLogin: true,
+  autoLogin: false,
 };
 
 export const NUXEO_META_INFO = {

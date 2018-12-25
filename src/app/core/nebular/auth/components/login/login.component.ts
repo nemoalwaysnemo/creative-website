@@ -19,6 +19,7 @@ import { Environment } from '@environment/environment';
 })
 export class NbLoginComponent implements OnInit {
 
+  isAutoLogin: boolean = Environment.autoLogin;
   redirectDelay: number = 0;
   showMessages: any = {};
   strategy: string = '';
@@ -44,7 +45,7 @@ export class NbLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (Environment.autoLogin) {
+    if (this.isAutoLogin) {
       this.autoLogin();
     }
   }
