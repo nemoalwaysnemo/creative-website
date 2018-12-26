@@ -46,7 +46,7 @@
             ]
           },
           "configurations": {
-            "production": {
+            "na-prod": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -58,10 +58,10 @@
               "buildOptimizer": true,
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
+                "with": "src/environments/environment.na-prod.ts"
               }]
             },
-            "development": {
+            "na-dev": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -73,7 +73,22 @@
               "buildOptimizer": true,
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.dev.ts"
+                "with": "src/environments/environment.na-dev.ts"
+              }]
+            },
+            "rails-dev": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.rails-dev.ts"
               }]
             }
           }
@@ -103,7 +118,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
-              "node_modules/pace-js/pace.min.js",
+              "node_modules/pace-js/pace.min.js"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
