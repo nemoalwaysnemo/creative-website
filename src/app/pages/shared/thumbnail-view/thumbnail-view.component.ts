@@ -19,10 +19,10 @@ export class ThumbnailViewItemComponent implements OnInit {
   selector: 'tbwa-thumbnail-view',
   styleUrls: ['./thumbnail-view.component.scss'],
   template: `
-  <div class="{{styleClass}}">
+  <div class="{{styleClass}}" tabIndex="-1">
     <div *ngFor="let document of documents" class="thumbnail-view">
-      <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass"></tbwa-thumbnail-view-item>
-    </div>
+          <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
+     </div>
   </div>
   `,
 })
@@ -30,6 +30,7 @@ export class ThumbnailViewComponent implements OnInit {
 
   @Input() layout: string;
   @Input() documents: Observable<DocumentModel[]>;
+  @Input() tabIndex: number =  -1;
 
   styleClass: string = 'small';
   styleList = {
