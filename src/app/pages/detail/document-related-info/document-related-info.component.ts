@@ -13,22 +13,27 @@ export class DocumentRelatedInfoComponent implements OnInit {
     {
       name: 'Backslash',
       icon: 'nb-person',
+      loading: false,
     },
     {
       name: 'Distruption',
       icon: 'nb-person',
+      loading: false,
     },
     {
       name: 'Knowledge',
       icon: 'nb-person',
+      loading: false,
     },
     {
       name: 'Awards',
       icon: 'nb-person',
+      loading: false,
     },
     {
       name: 'Lorern Ipsum',
       icon: 'nb-person',
+      loading: false,
     },
   ];
 
@@ -39,9 +44,10 @@ export class DocumentRelatedInfoComponent implements OnInit {
 
   onChangTab(tab: any): void {
     for (const tabItem of this.tabItems) {
-      if (tabItem.name === tab.tabTitle) {
+      if (!tabItem.loading && tabItem.name === tab.tabTitle) {
         this.documentRelatedInfoService.get(tab.tabTitle)
           .subscribe((res: NuxeoPagination) => {
+            tabItem.loading = true;
             this.documentRelatedInfoService.changeTab({ tag: tab.tabTitle, documents: res.entries });
           });
       }
