@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { NbAccordionModule, NbTabsetModule } from '@core/nebular/theme';
+import { NbAccordionModule, NbTabsetModule, NbSpinnerModule } from '@core/nebular/theme';
 import { SharedModule } from '@pages/shared/shared.module';
 import { DetailComponent } from './detail.component';
 import { DocumentMetadataInfoComponent } from './document-metadata-info/document-metadata-info.component';
@@ -15,6 +15,7 @@ import { DocumentRelatedInfoService } from './document-related-info/document-rel
     SharedModule,
     NbAccordionModule,
     NbTabsetModule,
+    NbSpinnerModule,
   ],
   declarations: [
     DetailComponent,

@@ -13,6 +13,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() documents: DocumentModel[];
   private alive = true;
+  private loading = true;
 
   constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
 
@@ -23,6 +24,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         filter(({ tag }) => tag === this.title),
       )
       .subscribe((res: DocumentsBag) => {
+        this.loading = false;
         this.documents = res.documents;
       });
   }
