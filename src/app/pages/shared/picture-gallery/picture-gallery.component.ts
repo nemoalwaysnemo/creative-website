@@ -1,5 +1,5 @@
 import { Component, Inject, AfterViewInit, Input, OnInit } from '@angular/core';
-import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, ImageItem, ThumbnailsPosition, ImageSize } from '@core/custom/ngx-gallery/core/public_api';
 import { Observable, Observer, Subject, BehaviorSubject } from 'rxjs';
 import { deepExtend } from '@core/api';
 @Component({
