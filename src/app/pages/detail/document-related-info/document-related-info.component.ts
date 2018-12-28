@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DocumentRelatedInfoService } from './document-related-info.service';
+import { NuxeoPagination } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-related-info',
@@ -30,8 +32,19 @@ export class DocumentRelatedInfoComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
 
   ngOnInit() {
+  }
+
+  onChangTab(tab: any): void {
+    for (const tabItem of this.tabItems) {
+      if (tabItem.name === tab.tabTitle) {
+        this.documentRelatedInfoService.get(tab.tabTitle)
+          .subscribe((res: NuxeoPagination) => {
+            this.documentRelatedInfoService.changeTab({ tag: tab.tabTitle, documents: res.entries });
+          });
+      }
+    }
   }
 }
