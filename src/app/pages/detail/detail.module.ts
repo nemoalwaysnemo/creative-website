@@ -7,6 +7,7 @@ import { DocumentMetadataInfoComponent } from './document-metadata-info/document
 import { DocumentAdditionalInfoComponent } from './document-additional-info/document-additional-info.component';
 import { DocumentRelatedInfoComponent } from './document-related-info/document-related-info.component';
 import { DocumentRelatedInfoViewComponent } from './document-related-info/document-related-info-view/document-related-info-view.component';
+import { DocumentRelatedInfoService } from './document-related-info/document-related-info.service';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { DocumentRelatedInfoViewComponent } from './document-related-info/docume
   ],
   providers: [
     SharedModule.forRoot().providers,
+    DocumentRelatedInfoService,
   ],
 })
 export class DetailPageModule { }
