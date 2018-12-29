@@ -7,7 +7,7 @@ import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-s
   styleUrls: ['./pagination.component.scss'],
   templateUrl: './pagination.component.html',
 })
-export class PaginationComponent implements OnChanges {
+export class PaginationComponent implements OnChanges, OnInit {
 
   @Input() dataSource: PaginationDataSource;
   @Output() changePage = new EventEmitter<any>();
@@ -22,17 +22,20 @@ export class PaginationComponent implements OnChanges {
 
   private dataChangedSub: Subscription;
 
+  ngOnInit() {
+    this.dataChangedSub = this.dataSource.onChanged().subscribe((dataChanges) => {
+      this.currentPage = this.dataSource.getPaging().page;
+      this.pageSize = this.dataSource.getPaging().perPage;
+      this.totalPage = this.dataSource.getPaging().numberOfPages;
+      this.initPages();
+    });
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.source) {
       if (!changes.source.firstChange) {
         this.dataChangedSub.unsubscribe();
       }
-      this.dataChangedSub = this.dataSource.onChanged().subscribe((dataChanges) => {
-        this.currentPage = this.dataSource.getPaging().page;
-        this.pageSize = this.dataSource.getPaging().perPage;
-        this.totalPage = this.dataSource.getPaging().numberOfPages;
-        this.initPages();
-      });
     }
   }
 
