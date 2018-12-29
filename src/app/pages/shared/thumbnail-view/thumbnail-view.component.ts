@@ -30,9 +30,9 @@ export class ThumbnailViewComponent implements OnInit {
 
   @Input() layout: string;
   @Input() documents: Observable<DocumentModel[]>;
-  @Input() tabIndex: number =  -1;
+  @Input() tabIndex: number = -1;
 
-  styleClass: string = 'small';
+  styleClass: string = 'quarter flex';
   styleList = {
     'agency': 'quarter flex',
     'brand': 'half flex',
@@ -49,6 +49,6 @@ export class ThumbnailViewComponent implements OnInit {
   }
 
   private setStyleClass(layout) {
-    this.styleClass = this.styleList[layout] || 'small';
+    this.styleClass = this.styleList[layout] || 'quarter flex';
   }
 }

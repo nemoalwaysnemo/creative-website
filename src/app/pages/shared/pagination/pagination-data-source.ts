@@ -1,5 +1,4 @@
-import { Subject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { NuxeoPagination } from '@core/api';
 
 export class PaginationDataSource {
@@ -17,7 +16,7 @@ export class PaginationDataSource {
   }
 
   getPaging(): any {
-    return { page: this.pagination.currentPageIndex, perPage: this.pagination.pageSize, currentPageSize: this.pagination.currentPageSize, numberOfPages: this.pagination.numberOfPages};
+    return { page: this.pagination.currentPageIndex, perPage: this.pagination.pageSize, currentPageSize: this.pagination.currentPageSize, numberOfPages: this.pagination.numberOfPages };
   }
 
   setPage(page: number, doEmit?: boolean) {
@@ -26,7 +25,7 @@ export class PaginationDataSource {
     }
   }
 
-   private emitOnChanged(action: string) {
+  private emitOnChanged(action: string) {
     this.onChangedSource.next({ action: action });
   }
 }

@@ -1,9 +1,9 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from './pagination.component';
 
 
-const COMPONENTS = [ PaginationComponent ];
+const COMPONENTS = [PaginationComponent];
 
 @NgModule({
   imports: [CommonModule],

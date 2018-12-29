@@ -4,7 +4,6 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SearchDataSource } from '../services/search-data-source.service';
 import { NuxeoPagination, DocumentModel } from '@core/api';
-import { ClickOutsideModule } from 'ng-click-outside';
 
 @Component({
   selector: 'tbwa-advance-search',

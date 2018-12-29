@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BasePageProvider } from '@core/api';
-import { NuxeoPagination, DocumentModel } from '@core/api';
+import { BasePageProvider, NuxeoPagination, DocumentModel } from '@core/api';
 
 @Component({
   selector: 'tbwa-agency-thumbnail',
