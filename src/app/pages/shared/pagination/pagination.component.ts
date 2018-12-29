@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
 
