@@ -1,17 +1,15 @@
 import { Subject, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { NuxeoPagination } from '@core/api';
 
 export class PaginationDataSource {
+
   private onChangedSource = new Subject<any>();
-  pagination: NuxeoPagination = new NuxeoPagination();
-  protected data: Array<any> = [];
+  private pagination: NuxeoPagination = new NuxeoPagination();
 
-  constructor() {}
-
-  from(pagination: NuxeoPagination): Promise<any> {
+  from(pagination: NuxeoPagination): void {
     this.pagination = pagination;
-    this.data = pagination.entries;
-    return this.load(this.data);
+    this.emitOnChanged('load');
   }
 
   count(): number {
@@ -22,31 +20,28 @@ export class PaginationDataSource {
     return this.onChangedSource.asObservable();
   }
 
-  getAll(): Promise<any> {
-    const data = this.data.slice(0);
-    return Promise.resolve(data);
+  onPageChanged(): Observable<any> {
+    return this.onChangedSource
+    .pipe(
+      filter(data => data.action === 'page'),
+      map(data => {
+        delete data.action; return data;
+      }),
+    );
   }
 
-  getPaging(): any {
+  get pagingInfo(): any {
     return { page: this.pagination.currentPageIndex + 1, perPage: this.pagination.pageSize, currentPageSize: this.pagination.currentPageSize, numberOfPages: this.pagination.numberOfPages};
   }
 
-  setPage(page: number, doEmit?: boolean) {
-    if (doEmit) {
-      this.emitOnChanged('page');
-    }
+  setPage(page: number) {
+    this.emitOnChanged('page', page);
   }
 
-   private emitOnChanged(action: string) {
-     this.getAll().then((elements) => this.onChangedSource.next({
-       action: action,
-       elements: elements,
-       paging: this.getPaging(),
-     }));
-  }
-
-  load(data: Array<any>): Promise<any> {
-    this.emitOnChanged('load');
-    return Promise.resolve();
+  private emitOnChanged(action: string, page: number = 0): void {
+    this.onChangedSource.next({
+      action: action,
+      currentPageIndex: page,
+    });
   }
 }

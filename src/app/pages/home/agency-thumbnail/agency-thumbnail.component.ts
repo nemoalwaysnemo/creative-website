@@ -13,7 +13,7 @@ export class AgencyThumbnailComponent implements OnInit {
 
   layout = 'agency';
   agencyDocuments: DocumentModel[];
-  dataSource: PaginationDataSource = new PaginationDataSource();
+  paginationService: PaginationDataSource = new PaginationDataSource();
 
   private params: any = {
     pageSize: 8,
@@ -22,14 +22,17 @@ export class AgencyThumbnailComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.basePageProvider.request(this.params)
-      .subscribe((res: NuxeoPagination) => {
-        this.agencyDocuments = res.entries;
-        this.dataSource.from(res);
-      });
+    this.search(this.params);
+    this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
+      this.search(Object.assign({}, this.params, pageInfo));
+    });
   }
 
-  changePage($event: any) {
-    console.log($event, 'AgencyThumbnail');
+  private search(params: {}): void {
+    this.basePageProvider.request(params)
+      .subscribe((res: NuxeoPagination) => {
+        this.agencyDocuments = res.entries;
+        this.paginationService.from(res);
+      });
   }
 }

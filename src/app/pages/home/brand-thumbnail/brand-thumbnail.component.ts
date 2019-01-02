@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NuxeoPagination, DocumentModel, BasePageProvider } from '@core/api';
-import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
 
 @Component({
   selector: 'tbwa-brand-thumbnail',
@@ -13,7 +12,6 @@ export class BrandThumbnailComponent implements OnInit {
 
   layout = 'brand';
   brandDocuments: DocumentModel[];
-  dataSource: PaginationDataSource = new PaginationDataSource();
 
   private params: any = {
     pageSize: 2,
@@ -25,11 +23,6 @@ export class BrandThumbnailComponent implements OnInit {
     this.basePageProvider.request(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.brandDocuments = res.entries;
-        this.dataSource.from(res);
       });
-  }
-
-  changePage($event: any) {
-    console.log($event, 'BrandThumbnail');
   }
 }

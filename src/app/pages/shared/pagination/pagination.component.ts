@@ -12,21 +12,18 @@ export class PaginationComponent implements OnChanges, OnInit {
   @Input() dataSource: PaginationDataSource;
   @Output() changePage = new EventEmitter<any>();
 
-  constructor() {
-  }
-
   private pages: any[] = [];
   private currentPage: number = 1;
   private totalPage: number = 0;
   private pageSize: number;
 
-  private dataChangedSub: Subscription;
+  private dataChangedRef: Subscription;
 
   ngOnInit() {
-    this.dataChangedSub = this.dataSource.onChanged().subscribe((dataChanges) => {
-      this.currentPage = this.dataSource.getPaging().page;
-      this.pageSize = this.dataSource.getPaging().perPage;
-      this.totalPage = this.dataSource.getPaging().numberOfPages;
+    this.dataChangedRef = this.dataSource.onChanged().subscribe(_ => {
+      this.currentPage = this.dataSource.pagingInfo.page;
+      this.pageSize = this.dataSource.pagingInfo.perPage;
+      this.totalPage = this.dataSource.pagingInfo.numberOfPages;
       this.initPages();
     });
   }
@@ -34,7 +31,7 @@ export class PaginationComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.source) {
       if (!changes.source.firstChange) {
-        this.dataChangedSub.unsubscribe();
+        this.dataChangedRef.unsubscribe();
       }
     }
   }
@@ -44,9 +41,9 @@ export class PaginationComponent implements OnChanges, OnInit {
   }
 
   paginate(page: number): boolean {
-    this.dataSource.setPage(page);
     this.currentPage = page;
-    this.changePage.emit({ page });
+    this.dataSource.setPage(page - 1);
+    this.changePage.emit({ currentPageIndex: page - 1 });
     return false;
   }
 
@@ -71,7 +68,7 @@ export class PaginationComponent implements OnChanges, OnInit {
   }
 
   getLast(): number {
-    return this.dataSource.getPaging().numberOfPages;
+    return this.dataSource.pagingInfo.numberOfPages;
   }
 
   initPages() {
@@ -97,7 +94,7 @@ export class PaginationComponent implements OnChanges, OnInit {
     return this.range(start, end);
   }
 
-  private range(start: number, end: number, step: number = 0, offset: number = 0): Array<any> {
+  private range(start: number, end: number, step: number = 0, offset: number = 0): Array<number> {
     const len = (Math.abs(end - start) + ((offset || 0) * 2)) / (step || 1) + 1;
     const direction = start < end ? 1 : -1;
     const startingPoint = start - (direction * (offset || 0));
