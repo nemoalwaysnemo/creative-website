@@ -56,7 +56,7 @@ export class CreativeLayoutComponent implements OnDestroy {
     {
       title: 'Buttons',
       icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/buttons',
+      link: '/p/ui-features/buttons',
     },
   ];
   layout: any = {};

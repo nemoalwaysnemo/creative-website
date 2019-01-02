@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { SearchDataSource } from '@pages/shared';
+import { AdvanceSearch } from '@pages/shared';
 
 @Component({
   selector: 'tbwa-search-form',
@@ -19,7 +19,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private searchDataSource: SearchDataSource,
+    private advanceSearch: AdvanceSearch,
   ) {
 
   }

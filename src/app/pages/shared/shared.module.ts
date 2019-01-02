@@ -1,11 +1,11 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
+import { AdvanceSearch } from './services/advance-search.service';
 
 import {
   OptionSelectModule,
   PictureGalleryModule,
-  AdvanceSearchModule,
   ThumbnailViewModule,
   PaginationModule,
 } from './';
@@ -15,13 +15,12 @@ const MODULES = [
   ThemeModule,
   OptionSelectModule,
   PictureGalleryModule,
-  AdvanceSearchModule,
   ThumbnailViewModule,
   PaginationModule,
 ];
 
 const PROVIDERS = [
-  ...AdvanceSearchModule.forRoot().providers,
+  AdvanceSearch,
 ];
 
 @NgModule({

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { deepExtend } from '@core/services';
 
 @Injectable()
-export class SearchDataSource extends AbstractPageProvider {
+export class AdvanceSearch extends AbstractPageProvider {
 
   private defaultParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
 

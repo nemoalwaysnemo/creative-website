@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SearchDataSource } from '@pages/shared';
+import { AdvanceSearch } from '@pages/shared';
 import { AggregateModel } from '@core/api';
 import { OptionModel } from '@pages/shared/';
 
@@ -14,7 +14,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
 
   aggregates: {}[] = [];
 
-  constructor(private searchDataSource: SearchDataSource) {
+  constructor(private advanceSearch: AdvanceSearch) {
 
   }
 
@@ -27,7 +27,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
   }
 
   private getAggregates(): void {
-    this.searchDataSource.requestSearchFilters().subscribe((aggregates: AggregateModel[]) => {
+    this.advanceSearch.requestSearchFilters().subscribe((aggregates: AggregateModel[]) => {
       for (const agg of aggregates) {
         this.aggregates[agg.id] = [];
         for (const bucket of agg.extendedBuckets) {
