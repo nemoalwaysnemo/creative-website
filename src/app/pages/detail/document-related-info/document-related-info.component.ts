@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentRelatedInfoService } from './document-related-info.service';
-import { NuxeoPagination } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-related-info',
@@ -14,26 +13,51 @@ export class DocumentRelatedInfoComponent implements OnInit {
       name: 'Backslash',
       icon: 'nb-person',
       loading: false,
+      params: {
+        pageSize: 8,
+        ecm_path: '/Creative/TBWA-/',
+        ecm_primaryType: '["App-Library-Image"]',
+      },
     },
     {
       name: 'Distruption',
       icon: 'nb-person',
       loading: false,
+      params: {
+        pageSize: 8,
+        ecm_path: '/Creative/TBWA-/',
+        ecm_primaryType: '["App-Library-Image"]',
+      },
     },
     {
       name: 'Knowledge',
       icon: 'nb-person',
       loading: false,
+      params: {
+        pageSize: 8,
+        ecm_path: '/Creative/TBWA-/',
+        ecm_primaryType: '["App-Library-Image"]',
+      },
     },
     {
       name: 'Awards',
       icon: 'nb-person',
       loading: false,
+      params: {
+        pageSize: 8,
+        ecm_path: '/Creative/TBWA-/',
+        ecm_primaryType: '["App-Library-Image"]',
+      },
     },
     {
       name: 'Lorern Ipsum',
       icon: 'nb-person',
       loading: false,
+      params: {
+        pageSize: 8,
+        ecm_path: '/Creative/TBWA-/',
+        ecm_primaryType: '["App-Library-Image"]',
+      },
     },
   ];
 
@@ -45,12 +69,12 @@ export class DocumentRelatedInfoComponent implements OnInit {
   onChangTab(tab: any): void {
     for (const tabItem of this.tabItems) {
       if (!tabItem.loading && tabItem.name === tab.tabTitle) {
-        this.documentRelatedInfoService.get(tab.tabTitle)
-          .subscribe((res: NuxeoPagination) => {
-            tabItem.loading = true;
-            this.documentRelatedInfoService.changeTab({ tag: tab.tabTitle, documents: res.entries });
-          });
+        this.search('', tabItem.name);
       }
     }
+  }
+
+  private search(searchTerm: string, tabName: string): void {
+    this.documentRelatedInfoService.search('', this.tabItems.filter(item => item.name === tabName));
   }
 }
