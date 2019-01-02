@@ -190,6 +190,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/flex-layout@^7.0.0-beta.19":
+  version "7.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-7.0.0-beta.22.tgz#6b48e21ffdf0c3004b606f6dd1e79b578429bbba"
+  integrity sha512-UVsnkfRVqlHeZuOJhhl0DtX7sma68g7iu0ELKk21xrLp4twrzLtf0VHh4i2jE9oYWcRJEi3zK2qYtyTRA5NIGw==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/forms@^7.1.4":
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-7.1.4.tgz#f3491264c27968d8da017fdc5b1178c46f4a4b83"
@@ -208,6 +215,13 @@
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-7.1.4.tgz#59303e719937f774d9266a5e5f498ba254e0fe7b"
   integrity sha512-Pvrk3W3+6XfrmpCRcTumfyplv6AQJXKfDdPFSbhdpHJlpdcQRo6TckA85Yln5/CXZSAiPaZeiejQt2OogrIRLg==
+
+"@angular/material@^7.1.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-7.2.0.tgz#35088eacf27645c9f01f054caf4011318db6e0f4"
+  integrity sha512-ZLgpZ6hVJABMu6lk+97esN9TmLvBjeAgTbszLBJHOeSKocUGaWeKsdiUweMCdNgWrYNMowIAVKGqwavmaj7XTQ==
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/platform-browser-dynamic@^7.1.4":
   version "7.1.4"
@@ -432,10 +446,43 @@
     is-absolute "^1.0.0"
     is-negated-glob "^1.0.0"
 
+"@fortawesome/angular-fontawesome@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.3.0.tgz#380492f186469ce03d6fdbb3ec719810f771bf62"
+  integrity sha512-wXvyPI7GidoNiqeMz2re9iemUMFH4zBmuv94CfXlaanQ8+kMP/fYs/k69PLVN1KsebQY4kRA9GHmc1U1ndBkJg==
+  dependencies:
+    tslib "^1.9.0"
+
+"@fortawesome/fontawesome-common-types@^0.2.12":
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.12.tgz#42baa71f97ca06faeb0b6718fa5ed20c5eefdf07"
+  integrity sha512-ISLNpEx6fhJTYYkvBeo/4DHeL5EIA+VybJoOOnH67m6uXt6V6VFizdEN4qchHagNIeZfzI0LnA22gk0wbVPv/g==
+
 "@fortawesome/fontawesome-free@^5.2.0":
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.5.0.tgz#0c6c53823d04457ae669cd19567b8a21dbb4fcfd"
   integrity sha512-p4lu0jfj5QN013ddArh99r3OXZ/fp9rbovs62LfaO70OMBsAXxtNd0lAq/97fitrscR0fqfd+/a5KNcp6Sh/0A==
+
+"@fortawesome/fontawesome-svg-core@^1.2.4":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.12.tgz#9732617b1e484435f6946645d7f9ad248f12c437"
+  integrity sha512-cqTfa3vZ+Z9UYQnmLfCOwyLnf0Xcoxkmm/BSaI29Yikzu9zIeD4es7lBZMDqLOXYSEQC+rCr8caxFlGJcJVA+w==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.12"
+
+"@fortawesome/free-brands-svg-icons@^5.3.1":
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-5.6.3.tgz#f4ac2abab83822b341b3b7257c38b9da12ca7395"
+  integrity sha512-VCPYnISsTQwYXavO6ajFuYvedqMXk9njEaNrHcvUWhal1XTQNLrwIBjyM/IMGkn06XbGL6ApPg78vh1tIfA5GA==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.12"
+
+"@fortawesome/free-solid-svg-icons@^5.3.1":
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.6.3.tgz#1d7f6669ccd6a1ea673699e41f7e32c81401a260"
+  integrity sha512-ld8Gfp1KrncOpFRheThUDlD6/Ro9ZJGqfCEMXlO/x1Cg7ltLc5iYDG7yxDowLcmFY2BGSmxIIU3ZMW5FVTrfwQ==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.12"
 
 "@marionebl/sander@^0.6.0":
   version "0.6.1"
@@ -479,10 +526,24 @@
     tree-kill "1.2.0"
     webpack-sources "1.2.0"
 
-"@ngx-gallery/core@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@ngx-gallery/core/-/core-4.0.1.tgz#a1c44576d70774642fe2decc03d2876d3ec2a3cf"
-  integrity sha512-Gjz2UMJHovbhFteSeFtpBU8nEpekU1JLHcmfrPNzLgvnqwmS0+OJ0HtpIMERTtWVeGiBstQsfnWHKZ+oxudazg==
+"@ngx-progressbar/core@^5.2.0":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@ngx-progressbar/core/-/core-5.3.1.tgz#ddbc6e1f0f4c5bcf3077d1c82cbb9a7e088600b5"
+  integrity sha512-IAbpPbv0RHwnLTqr8JpEOR2mDbia8jTyZdG0yWmyiGoVfIisSs/NkzMDph43pLvWl2aaJ+Bd2BJTdM2olYK4MQ==
+  dependencies:
+    tslib "^1.9.0"
+
+"@ngx-progressbar/http@^5.2.0":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@ngx-progressbar/http/-/http-5.3.1.tgz#8a4e49eff4bdc6f6e0f09922e8d8bc10f3a598cb"
+  integrity sha512-aX2Frk5zKboX68VHB/oxvr9GXVgCA+eIwPc/z3m3rhlNgB2H2dThAReQb1NGFZY3lBtcrXhesWR27VYSb7g2Cg==
+  dependencies:
+    tslib "^1.9.0"
+
+"@ngx-progressbar/router@^5.2.0":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@ngx-progressbar/router/-/router-5.3.1.tgz#c9d8454ca1f36966633a7471530d486d5986be8b"
+  integrity sha512-P8n1/Lmu1+fzY0ZNH/c3OW3/xoBB4dGfdTfoqteQpF+ahFn2I/WLWJKd4cw734t0LolMrzTyaLQ40EulKesW5g==
   dependencies:
     tslib "^1.9.0"
 
@@ -5086,6 +5147,11 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+highlight.js@^9.13.1:
+  version "9.13.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.13.1.tgz#054586d53a6863311168488a0f58d6c505ce641e"
+  integrity sha512-Sc28JNQNDzaH6PORtRLMvif9RSn1mYuOoX3omVjnb0+HbpPygU2ALBI0R/wsiqCb4/fcp07Gdo8g+fhtFrQl6A==
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -7465,6 +7531,27 @@ ngx-device-detector@1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/ngx-device-detector/-/ngx-device-detector-1.3.3.tgz#87371c03abe08a6bf1b96ab5ca891e6356b63913"
   integrity sha512-f/+fblAfe+1qLq98trseZCQgkzF1tnvtoKjxpjw18bnEaUlr4fhZcmh6nrQ72+HZDxNwGDupcG0v0as84C31NQ==
+
+ngx-highlightjs@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-highlightjs/-/ngx-highlightjs-3.0.0.tgz#ae3a7fbfff368dc0d9939517c5c1704b6691b991"
+  integrity sha512-boOVkukq8sExaCbZWjJhIxF07vwzPVwCCSHGs1IJvTu4aVa06VJo3tv/MmRf5jS4HZR7MphEZ7vbQljmCWcMrA==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-pipes@^2.3.6:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-2.3.6.tgz#3c7ba04844f0191262165d89d3aecf1a45b9d410"
+  integrity sha512-BLbZyqa7UjSp+qOmj5elPyMXedvgC5lI6W9kIDXaxE+4TIAPsbmLK3axo8NW22Bu73DgRYy8Ftepv3XV2dMqDg==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-scrollbar@^3.2.1:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/ngx-scrollbar/-/ngx-scrollbar-3.3.4.tgz#7e10e4449fd349a5e27bbf5ec8195ad8e9772ac8"
+  integrity sha512-aj3vsLYVoTrMwOyu7jVa0O4SYYzQDs24tbNccdDRzH5x/8W6Xs7eSD02W1Pe/huBRiQCsqRP4JbYDgv0lla3iw==
+  dependencies:
+    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
