@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { AdvanceSearch } from './services/advance-search.service';
+import { SharedDirectiveModule } from './directives/shared-directive.module';
 
 import {
   OptionSelectModule,
@@ -10,13 +11,14 @@ import {
   PaginationModule,
 } from './';
 
-const MODULES = [
+const EXPORTS = [
   CommonModule,
   ThemeModule,
   OptionSelectModule,
   PictureGalleryModule,
   ThumbnailViewModule,
   PaginationModule,
+  SharedDirectiveModule,
 ];
 
 const PROVIDERS = [
@@ -25,7 +27,7 @@ const PROVIDERS = [
 
 @NgModule({
   exports: [
-    ...MODULES,
+    ...EXPORTS,
   ],
 })
 export class SharedModule {

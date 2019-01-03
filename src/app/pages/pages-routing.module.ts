@@ -13,10 +13,10 @@ const routes: Routes = [{
     path: 'home',
     component: HomeComponent,
   }, {
-    path: 'list',
+    path: 'search',
     component: ListComponent,
   }, {
-    path: 'detail',
+    path: 'document',
     component: DetailComponent,
   }, {
     path: 'miscellaneous',
