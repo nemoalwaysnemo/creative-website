@@ -19,26 +19,26 @@ export class DocumentRelatedInfoComponent implements OnInit {
         ecm_primaryType: '["App-Library-Image"]',
       },
     },
-    {
-      name: 'Distruption',
-      icon: 'nb-person',
-      loading: false,
-      params: {
-        pageSize: 8,
-        ecm_path: '/Creative/TBWA-/',
-        ecm_primaryType: '["App-Library-Image"]',
-      },
-    },
-    {
-      name: 'Knowledge',
-      icon: 'nb-person',
-      loading: false,
-      params: {
-        pageSize: 8,
-        ecm_path: '/Creative/TBWA-/',
-        ecm_primaryType: '["App-Library-Image"]',
-      },
-    },
+    // {
+    //   name: 'Distruption',
+    //   icon: 'nb-person',
+    //   loading: false,
+    //   params: {
+    //     pageSize: 8,
+    //     ecm_path: '/Creative/TBWA-/',
+    //     ecm_primaryType: '["App-Library-Image"]',
+    //   },
+    // },
+    // {
+    //   name: 'Knowledge',
+    //   icon: 'nb-person',
+    //   loading: false,
+    //   params: {
+    //     pageSize: 8,
+    //     ecm_path: '/Creative/TBWA-/',
+    //     ecm_primaryType: '["App-Library-Image"]',
+    //   },
+    // },
     {
       name: 'Awards',
       icon: 'nb-person',
@@ -49,16 +49,16 @@ export class DocumentRelatedInfoComponent implements OnInit {
         ecm_primaryType: '["App-Library-Image"]',
       },
     },
-    {
-      name: 'Lorern Ipsum',
-      icon: 'nb-person',
-      loading: false,
-      params: {
-        pageSize: 8,
-        ecm_path: '/Creative/TBWA-/',
-        ecm_primaryType: '["App-Library-Image"]',
-      },
-    },
+    // {
+    //   name: 'Lorern Ipsum',
+    //   icon: 'nb-person',
+    //   loading: false,
+    //   params: {
+    //     pageSize: 8,
+    //     ecm_path: '/Creative/TBWA-/',
+    //     ecm_primaryType: '["App-Library-Image"]',
+    //   },
+    // },
   ];
 
   constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
@@ -69,12 +69,12 @@ export class DocumentRelatedInfoComponent implements OnInit {
   onChangTab(tab: any): void {
     for (const tabItem of this.tabItems) {
       if (!tabItem.loading && tabItem.name === tab.tabTitle) {
-        this.search('', tabItem.name);
+        this.search(tabItem.name, tabItem.name);
       }
     }
   }
 
   private search(searchTerm: string, tabName: string): void {
-    this.documentRelatedInfoService.search('', this.tabItems.filter(item => item.name === tabName));
+    this.documentRelatedInfoService.search(searchTerm, this.tabItems.filter(item => item.name === tabName)[0]);
   }
 }
