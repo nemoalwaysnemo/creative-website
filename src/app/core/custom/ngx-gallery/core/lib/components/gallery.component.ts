@@ -26,6 +26,8 @@ import { IframeItem, ImageItem, VideoItem, YoutubeItem } from './templates/items
                   (action)="onAction($event)"
                   (itemClick)="onItemClick($event)"
                   (thumbClick)="onThumbClick($event)"
+                  (playButton)="onPlayButton($event)"
+                  (playing)="onPlayingVideo($event)"
                   (error)="onError($event)"></gallery-core>
     <ng-content></ng-content>
   `,
@@ -74,7 +76,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   @Output() indexChange = new EventEmitter<GalleryState>();
   @Output() itemsChange = new EventEmitter<GalleryState>();
   @Output() error = new EventEmitter<GalleryError>();
-
+  @Output() playing = new EventEmitter<any>();
   private _itemClick$: SubscriptionLike = Subscription.EMPTY;
   private _thumbClick$: SubscriptionLike = Subscription.EMPTY;
   private _itemChange$: SubscriptionLike = Subscription.EMPTY;
@@ -177,6 +179,21 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     this._playerListener$.unsubscribe();
     if (this.destroyRef) {
       this.galleryRef.destroy();
+    }
+  }
+
+  onPlayButton( action: number ) {
+    if ( action === 1) {
+      this.galleryRef.next();
+      this.galleryRef.play();
+    } else if ( action === 2 ) {
+      this.galleryRef.stop();
+    }
+  }
+
+  onPlayingVideo(action: string) {
+    if (action === 'playing') {
+      this.galleryRef.stop();
     }
   }
 

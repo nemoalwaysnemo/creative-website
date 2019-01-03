@@ -1,5 +1,5 @@
 import { Component, Inject, AfterViewInit, Input, OnInit } from '@angular/core';
-import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/public_api';
+import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject } from 'rxjs';
 import { deepExtend } from '@core/api';
 @Component({
@@ -37,6 +37,7 @@ export class PictureGalleryComponent implements OnInit, AfterViewInit {
           this.galleryRef.addImage(galleryItem);
         }
       });
+      this.galleryRef.play();
     });
   }
 

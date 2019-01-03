@@ -36,6 +36,9 @@ import { GalleryConfig } from '../models/config.model';
       <gallery-counter *ngIf="config.counter"
                        [state]="state">
       </gallery-counter>
+
+      <gallery-play  (playButton)="playButton.emit($event)">
+      </gallery-play>
     </div>
   `,
 })
@@ -47,6 +50,7 @@ export class GalleryCoreComponent {
   @Output() itemClick = new EventEmitter<number>();
   @Output() thumbClick = new EventEmitter<number>();
   @Output() error = new EventEmitter<GalleryError>();
+  @Output() playButton = new EventEmitter<number>();
 
   /** Set thumbnails position */
   @HostBinding('attr.thumbPosition') get thumbPosition(): 'top' | 'left' | 'right' | 'bottom' {
