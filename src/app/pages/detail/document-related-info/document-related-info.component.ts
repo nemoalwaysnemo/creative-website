@@ -75,6 +75,6 @@ export class DocumentRelatedInfoComponent implements OnInit {
   }
 
   private search(searchTerm: string, tabName: string): void {
-    this.documentRelatedInfoService.search(searchTerm, this.tabItems.filter(item => item.name === tabName)[0]);
+    this.documentRelatedInfoService.search(searchTerm, this.tabItems.filter(item => item.name === tabName));
   }
 }

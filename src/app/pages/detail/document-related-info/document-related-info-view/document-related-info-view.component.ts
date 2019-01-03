@@ -15,6 +15,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   private alive = true;
   loading = true;
+  layout = 'related';
 
   constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
 

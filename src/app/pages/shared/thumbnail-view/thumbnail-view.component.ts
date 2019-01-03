@@ -11,6 +11,10 @@ export class ThumbnailViewItemComponent implements OnInit {
   @Input() styleClass: string;
   @Input() document: DocumentModel;
 
+  get isRelated(): boolean {
+    return this.styleClass === 'related';
+  }
+
   ngOnInit() {
   }
 }
@@ -21,8 +25,8 @@ export class ThumbnailViewItemComponent implements OnInit {
   template: `
   <div class="{{styleClass}}" tabIndex="-1">
     <div *ngFor="let document of documents" class="thumbnail-view">
-          <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
-     </div>
+      <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
+    </div>
   </div>
   `,
 })
@@ -38,6 +42,7 @@ export class ThumbnailViewComponent implements OnInit {
     'brand': 'half flex',
     'search-list': 'results',
     'search-results': 'middle',
+    'related': 'related',
   };
 
   constructor() {
