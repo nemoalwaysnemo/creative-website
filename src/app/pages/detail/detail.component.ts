@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DocumentRepository, DocumentModel } from '@core/api';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeWhile } from 'rxjs/operators';
+import { DocumentRepository, DocumentModel, BasePageProvider, NuxeoPagination } from '@core/api';
+import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-detail-page',
@@ -10,47 +12,70 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class DetailComponent implements OnInit, OnDestroy {
 
-  productId: string = 'ca275035-0d50-49f3-9e86-8d325bf5efea';
-  private alive: boolean = true;
   document: DocumentModel;
 
+  private alive: boolean = true;
+
+  private params: any = {
+    pageSize: 1,
+    ecm_path: NUXEO_META_INFO.BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.LIBRARY_DOC_TYPES,
+  };
+
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private basePageProvider: BasePageProvider,
     private documentRepository: DocumentRepository) {
 
   }
 
   ngOnInit() {
-    // this.checkParams();
-    this.getDocument();
+    this.checkParams();
   }
 
   ngOnDestroy() {
     this.alive = false;
   }
 
-  nuxeoLogin() {
-
+  private getCurrentDocument(uid: string): Observable<NuxeoPagination> {
+    const queryParams = Object.assign({}, this.params, { ecm_uuid: `["${uid}"]` });
+    return this.basePageProvider.request(queryParams);
   }
 
-  private getDocument() {
-    this.documentRepository.get(this.productId)
-      .subscribe((res: DocumentModel) => {
-        this.document = res;
-      });
+  private getDocumentModel(uid: string): Observable<DocumentModel> {
+    return this.documentRepository.get(uid);
   }
-
 
   private checkParams(): void {
     this.activatedRoute.queryParams
       .pipe(
         takeWhile(() => this.alive),
+        tap(queryParams => {
+          if (!this.verifyUID(queryParams.id)) {
+            this.redirectTo404();
+          }
+        }),
+        takeWhile(queryParams => this.verifyUID(queryParams.id)),
+        distinctUntilChanged(),
+        map(queryParams => queryParams.id),
+        switchMap((uid: string) => this.getCurrentDocument(uid)),
+        map((res: NuxeoPagination) => res.entries.shift()),
       )
-      .subscribe(queryParams => {
-        if (!queryParams['id']) {
-          this.router.navigate(['/404']);
+      .subscribe((doc: DocumentModel) => {
+        if (doc) {
+          this.document = doc;
+        } else {
+          this.redirectTo404();
         }
       });
+  }
+
+  private verifyUID(uid: string): boolean {
+    return uid && uid.length === 36;
+  }
+
+  private redirectTo404(): void {
+    this.router.navigate(['/404']);
   }
 }

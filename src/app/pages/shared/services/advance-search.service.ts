@@ -33,7 +33,7 @@ export class AdvanceSearch extends AbstractPageProvider {
   }
 
   searchForText(searchTerm: string, opts: any = {}): Observable<NuxeoPagination> {
-    const param = { ecm_fulltext: '*' + searchTerm };
+    const param = searchTerm ? { ecm_fulltext: '*' + searchTerm } : {};
     return this.request(this.getRequestParams(Object.assign({}, param, opts)));
   }
 }
