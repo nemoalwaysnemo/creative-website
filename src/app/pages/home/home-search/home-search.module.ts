@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdvanceSearch } from '@core/api';
 import { HomeSearchComponent } from './home-search.component';
-import { AdvanceSearch } from '@pages/shared/services/advance-search.service';
 import { ThumbnailViewModule } from '@pages/shared/thumbnail-view/thumbnail-view.module';
 import { ClickOutsideModule } from 'ng-click-outside';
 

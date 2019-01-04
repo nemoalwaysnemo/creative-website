@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { DocumentModel } from '@core/api';
-import { AdvanceSearch } from '@pages/shared';
+import { DocumentModel, AdvanceSearch } from '@core/api';
 
 export interface DocumentsBag { name: string; documents: DocumentModel[] }
 

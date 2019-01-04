@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NuxeoApiService, AbstractPageProvider, NuxeoPageProviderParams, NuxeoPagination, AggregateModel } from '@core/api';
+import { NuxeoApiService, NuxeoPageProviderParams, NuxeoPagination, AggregateModel } from './nuxeo';
+import { AbstractPageProvider } from './api.abstract-page-provider.service';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

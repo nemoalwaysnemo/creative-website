@@ -1,7 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { AdvanceSearch } from './services/advance-search.service';
 import { SharedDirectiveModule } from './directives/shared-directive.module';
 
 import {
@@ -22,7 +21,6 @@ const EXPORTS = [
 ];
 
 const PROVIDERS = [
-  AdvanceSearch,
 ];
 
 @NgModule({

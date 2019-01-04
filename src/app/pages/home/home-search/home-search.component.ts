@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { AdvanceSearch } from '@pages/shared/services/advance-search.service';
-import { NuxeoPagination, DocumentModel } from '@core/api';
+import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 
 @Component({
   selector: 'tbwa-home-search',

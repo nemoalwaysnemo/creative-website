@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NuxeoPagination, DocumentModel, BasePageProvider } from '@core/api';
+import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 
 @Component({
   selector: 'tbwa-brand-thumbnail',
@@ -8,7 +8,7 @@ import { NuxeoPagination, DocumentModel, BasePageProvider } from '@core/api';
 })
 export class BrandThumbnailComponent implements OnInit {
 
-  constructor(private basePageProvider: BasePageProvider) { }
+  constructor(private advanceSearch: AdvanceSearch) { }
 
   layout = 'brand';
   brandDocuments: DocumentModel[];
@@ -20,7 +20,7 @@ export class BrandThumbnailComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.basePageProvider.request(this.params)
+    this.advanceSearch.request(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.brandDocuments = res.entries;
       });

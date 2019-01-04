@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AdvanceSearch } from '@pages/shared';
+import { AdvanceSearch } from '@core/api';
 
 @Component({
   selector: 'tbwa-search-form',

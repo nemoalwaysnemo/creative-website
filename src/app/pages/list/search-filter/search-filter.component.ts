@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AdvanceSearch } from '@pages/shared';
-import { AggregateModel } from '@core/api';
+import { AggregateModel, AdvanceSearch } from '@core/api';
 import { OptionModel } from '@pages/shared/';
 
 @Component({

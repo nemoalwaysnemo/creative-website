@@ -4,6 +4,6 @@ export * from './api.user.service';
 export * from './api.abstract-base.service';
 export * from './api.abstract-page-provider.service';
 export * from './api.document-repository.service';
-export * from './api.page-provider.service';
+export * from './api.advance-search.service';
 export * from './nuxeo/lib/base.interface';
 export * from './nuxeo/nuxeo.api.service';

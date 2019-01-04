@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BasePageProvider, NuxeoPagination, DocumentModel } from '@core/api';
+import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
 
 @Component({
@@ -9,7 +9,7 @@ import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-s
 })
 export class AgencyThumbnailComponent implements OnInit {
 
-  constructor(private basePageProvider: BasePageProvider) { }
+  constructor(private advanceSearch: AdvanceSearch) { }
 
   layout = 'agency';
   agencyDocuments: DocumentModel[];
@@ -29,7 +29,7 @@ export class AgencyThumbnailComponent implements OnInit {
   }
 
   private search(params: {}): void {
-    this.basePageProvider.request(params)
+    this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.agencyDocuments = res.entries;
         this.paginationService.from(res);

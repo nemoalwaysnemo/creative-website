@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NuxeoPagination, DocumentModel, BasePageProvider } from '@core/api';
+import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -27,11 +27,11 @@ export class HomeGalleryComponent implements OnInit {
 
   agencyDocuments: DocumentModel[];
 
-  constructor(private basePageProvider: BasePageProvider) {
+  constructor(private advanceSearch: AdvanceSearch) {
   }
 
   ngOnInit() {
-    this.basePageProvider.request(this.params).subscribe((res: NuxeoPagination) => {
+    this.advanceSearch.request(this.params).subscribe((res: NuxeoPagination) => {
       this.galleryItems = this.getItems(res.entries);
     });
   }

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DocumentRepository, DocumentModel, BasePageProvider, NuxeoPagination } from '@core/api';
+import { DocumentRepository, DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -25,7 +25,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private basePageProvider: BasePageProvider,
+    private advanceSearch: AdvanceSearch,
     private documentRepository: DocumentRepository) {
 
   }
@@ -40,7 +40,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   private getCurrentDocument(uid: string): Observable<NuxeoPagination> {
     const queryParams = Object.assign({}, this.params, { ecm_uuid: `["${uid}"]` });
-    return this.basePageProvider.request(queryParams);
+    return this.advanceSearch.request(queryParams);
   }
 
   private getDocumentModel(uid: string): Observable<DocumentModel> {
