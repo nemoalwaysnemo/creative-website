@@ -19,7 +19,7 @@ export class DocumentRelatedInfoService {
 
   search(searchTerm: string, opts: any) {
     this.advanceSearch.searchForText(searchTerm, opts.params).subscribe(res => {
-      this.documentsBag$.next({ name: opts[0].name, documents: res.entries });
+      this.documentsBag$.next({ name: opts.name, documents: res.entries });
     });
   }
 }

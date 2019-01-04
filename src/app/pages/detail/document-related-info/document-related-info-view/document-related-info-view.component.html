@@ -3,7 +3,7 @@
     <h1>{{title}}</h1>
   </div>
   <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-    <input type="text" />
+    <input [formControl]="queryField" (keyup.enter)="onKeyup($event)" type="text" class="keyword" placeholder="Search for..">
   </div>
 </div>
 <div style="min-height:30px;">

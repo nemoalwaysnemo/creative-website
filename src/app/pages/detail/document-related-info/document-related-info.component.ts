@@ -69,12 +69,12 @@ export class DocumentRelatedInfoComponent implements OnInit {
   onChangTab(tab: any): void {
     for (const tabItem of this.tabItems) {
       if (!tabItem.loading && tabItem.name === tab.tabTitle) {
-        this.search(tabItem.name, tabItem.name);
+        this.search('', tabItem.name);
       }
     }
   }
 
   private search(searchTerm: string, tabName: string): void {
-    this.documentRelatedInfoService.search(searchTerm, this.tabItems.filter(item => item.name === tabName));
+    this.documentRelatedInfoService.search(searchTerm, this.tabItems.filter(item => item.name === tabName).shift());
   }
 }

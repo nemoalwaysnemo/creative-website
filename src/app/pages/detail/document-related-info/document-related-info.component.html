@@ -2,7 +2,7 @@
   <nb-card-body>
     <nb-tabset fullWidth (changeTab)="onChangTab($event)">
       <nb-tab *ngFor="let item of tabItems" tabTitle="{{item.name}}" tabIcon="{{item.icon}}" responsive>
-        <tbwa-document-related-info-view [title]="item.name"></tbwa-document-related-info-view>
+        <tbwa-document-related-info-view [title]="item.name" [params]="item.params"></tbwa-document-related-info-view>
       </nb-tab>
     </nb-tabset>
   </nb-card-body>

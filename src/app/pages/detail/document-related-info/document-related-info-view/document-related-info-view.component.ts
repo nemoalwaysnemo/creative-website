@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { takeWhile, filter } from 'rxjs/operators';
 import { DocumentRelatedInfoService, DocumentsBag } from '../document-related-info.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'tbwa-document-related-info-view',
@@ -12,10 +13,12 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   @Input() title: string;
   @Input() documents: DocumentModel[];
+  @Input() params: {};
 
   private alive = true;
   loading = true;
   layout = 'related';
+  queryField: FormControl = new FormControl();
 
   constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
 
@@ -33,5 +36,13 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  onKeyup(event: KeyboardEvent) {
+    if (this.alive) {
+      this.documentRelatedInfoService.search(this.queryField.value, { name: this.title, params: this.params });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
   }
 }
