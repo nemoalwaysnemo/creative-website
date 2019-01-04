@@ -3,11 +3,11 @@ import { DocumentModel } from '@core/api';
 import { SimplePdfViewerComponent, SimplePDFBookmark } from 'simple-pdf-viewer';
 
 @Component({
-  selector: 'tbwa-document-image-viewer',
-  styleUrls: ['./docment-image-viewer.component.scss'],
-  templateUrl: './docment-image-viewer.component.html',
+  selector: 'tbwa-document-pdf-viewer',
+  styleUrls: ['./docment-pdf-viewer.component.scss'],
+  templateUrl: './docment-pdf-viewer.component.html',
 })
-export class DocumentImageViewerComponent implements OnInit {
+export class DocumentPdfViewerComponent implements OnInit {
   src: string;
   @Input() document: DocumentModel;
   @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
