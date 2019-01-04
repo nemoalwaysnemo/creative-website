@@ -3,11 +3,13 @@ import { ThemeModule } from '@theme/theme.module';
 import { NbAccordionModule, NbTabsetModule, NbSpinnerModule } from '@core/nebular/theme';
 import { SharedModule } from '@pages/shared/shared.module';
 import { DetailComponent } from './detail.component';
+import { SimplePdfViewerModule } from 'simple-pdf-viewer';
 import { DocumentMetadataInfoComponent } from './document-metadata-info/document-metadata-info.component';
 import { DocumentAdditionalInfoComponent } from './document-additional-info/document-additional-info.component';
 import { DocumentRelatedInfoComponent } from './document-related-info/document-related-info.component';
 import { DocumentRelatedInfoViewComponent } from './document-related-info/document-related-info-view/document-related-info-view.component';
 import { DocumentRelatedInfoService } from './document-related-info/document-related-info.service';
+import { DocumentImageViewerComponent } from './docment-image-viewer/docment-image-viewer.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import { DocumentRelatedInfoService } from './document-related-info/document-rel
     NbAccordionModule,
     NbTabsetModule,
     NbSpinnerModule,
+    SimplePdfViewerModule,
   ],
   declarations: [
     DetailComponent,
@@ -23,6 +26,7 @@ import { DocumentRelatedInfoService } from './document-related-info/document-rel
     DocumentAdditionalInfoComponent,
     DocumentRelatedInfoComponent,
     DocumentRelatedInfoViewComponent,
+    DocumentImageViewerComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,
