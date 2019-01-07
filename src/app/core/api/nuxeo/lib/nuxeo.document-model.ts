@@ -75,14 +75,14 @@ export class DocumentModel extends Base {
     this._contextParameters = contextParameters;
   }
 
-  get(propertyName: string): any {
-    return this._dirtyProperties[propertyName] || this.properties[propertyName];
-  }
-
-  getVideoPoster(): string {
+  get videoPoster(): string {
     const pictures = this.get('picture:views');
     const poster = pictures.filter(item => item.title === 'StaticPlayerView').map(function (picture) { return picture.content.data; }).shift();
     return poster || this.thumbnailUrl;
+  }
+
+  get(propertyName: string): any {
+    return this._dirtyProperties[propertyName] || this.properties[propertyName];
   }
 
   getVideoSources(typeList: string[] = []) {
