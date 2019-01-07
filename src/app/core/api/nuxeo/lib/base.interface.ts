@@ -82,8 +82,9 @@ export class NuxeoPageProviderParams {
 }
 
 export class NuxeoRequestOptions {
-  schemas: string[] = ['*'];
-  enrichers: {} = { document: ['thumbnail'] };
+  [key: string]: any;
+  schemas?: string[] = ['*'];
+  enrichers?: {} = { document: ['thumbnail'] };
 }
 
 export class NuxeoPagination {

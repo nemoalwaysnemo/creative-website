@@ -16,24 +16,15 @@ export abstract class AbstractPageProvider extends AbstractBaseService {
 
   protected provider: string = 'creative_website_search';
 
-  protected entries$ = new Subject<NuxeoPagination>();
-
-  protected queryParams$ = new ReplaySubject<{ queryParams: {}, opts: {} }>();
-
-  protected getRequestParams(opts: any = {}): NuxeoPageProviderParams {
-    return deepExtend(new NuxeoPageProviderParams(), opts || {});
-  }
+  protected entries$ = new Subject<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions }>();
 
   protected getRequestUrl(): string {
     return join(this.endPoint, 'pp', this.provider, 'execute');
   }
 
-  search(queryParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions): void {
-    const params = this.getRequestParams(queryParams);
-    const options = this.getRequestOptions(opts);
-    this.execute(this.getRequestUrl(), params, options).subscribe((pagination: NuxeoPagination) => {
-      this.entries$.next(pagination);
-      this.queryParams$.next({ queryParams: params, opts: options });
+  search(queryParams: NuxeoPageProviderParams = {}, opts: NuxeoRequestOptions = {}): void {
+    this.request(queryParams, opts).subscribe((response: NuxeoPagination) => {
+      this.entries$.next({ response, queryParams, opts });
     });
   }
 
@@ -43,12 +34,8 @@ export abstract class AbstractPageProvider extends AbstractBaseService {
     return this.execute(this.getRequestUrl(), params, options);
   }
 
-  onSearch(): Observable<NuxeoPagination> {
-    return this.entries$;
-  }
-
-  onSearchParamChanged(): Observable<{ queryParams: {}, opts: {} }> {
-    return this.queryParams$;
+  onSearch(): Observable<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions }> {
+    return this.entries$.pipe(share());
   }
 
   protected execute(url: string, queryParams: any = {}, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {

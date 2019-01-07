@@ -16,12 +16,12 @@ export class AdvanceSearch extends AbstractPageProvider {
     this.defaultParams.ecm_path = NUXEO_META_INFO.BASE_FOLDER_PATH;
   }
 
-  protected getRequestParams(opts: any = {}): NuxeoPageProviderParams {
+  private getDefaultRequestParams(opts: any = {}): NuxeoPageProviderParams {
     return deepExtend({}, this.defaultParams, opts);
   }
 
-  requestSearchFilters(): Observable<AggregateModel[]> {
-    return this.request(this.getRequestParams({ pageSize: 1 })).pipe(
+  requestSearchFilters(queryParams: NuxeoPageProviderParams = {}): Observable<AggregateModel[]> {
+    return this.request(this.getRequestParams(Object.assign({}, queryParams, { pageSize: 1 }))).pipe(
       map((res: NuxeoPagination) => {
         const aggregations: AggregateModel[] = [];
         const aggs = Object.values(res.aggregations);
@@ -34,7 +34,6 @@ export class AdvanceSearch extends AbstractPageProvider {
   }
 
   searchForText(searchTerm: string, opts: any = {}): Observable<NuxeoPagination> {
-    const param = searchTerm ? { ecm_fulltext: '*' + searchTerm } : {};
-    return this.request(this.getRequestParams(Object.assign({}, param, opts)));
+    return this.request(this.getDefaultRequestParams({ ecm_fulltext: searchTerm }), opts);
   }
 }

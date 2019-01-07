@@ -1,10 +1,8 @@
 <div class="search-results">
-  <h1>
-    Results for "{{title}}" ({{totalResults}})
-    <span><a href="javasciprt:void(0);" (click)="changToGridView()">Grid</a> <a href="javasciprt:void(0);" (click)="changToListView()">List</a></span>
-  </h1>
+  <h1 *ngIf="!!searchTerm">Results for "{{searchTerm}}" ({{totalResults}})</h1>
+  <div><a href="javasciprt:void(0);" (click)="changeToGridView()">Grid</a> <a href="javasciprt:void(0);" (click)="changeToListView()">List</a></div>
   <div *ngIf="gridView">
-    <tbwa-thumbnail-view [layout]="layout" [documents]="brandDocuments"></tbwa-thumbnail-view>
+    <tbwa-thumbnail-view [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
   </div>
   <div *ngIf="!gridView">
     list view

@@ -31,7 +31,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.checkParams();
+    this.onQueryParamsChanged();
   }
 
   ngOnDestroy() {
@@ -47,7 +47,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     return this.documentRepository.get(uid);
   }
 
-  private checkParams(): void {
+  private onQueryParamsChanged(): void {
     this.activatedRoute.queryParams
       .pipe(
         takeWhile(() => this.alive),

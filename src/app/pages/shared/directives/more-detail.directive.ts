@@ -30,7 +30,7 @@ export class MoreDetailDirective implements OnInit, OnDestroy {
   onClick() {
     if (this.alive) {
       const queryParams = { id: this.uuid };
-      this.router.navigate(['/p/document'], { queryParamsHandling: 'merge', queryParams });
+      this.router.navigate(['/p/document'], { queryParams });
     }
   }
 

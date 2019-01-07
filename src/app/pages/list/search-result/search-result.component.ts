@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NuxeoPagination, DocumentModel } from '@core/api';
-import { Location } from '@angular/common';
+import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 
 @Component({
   selector: 'tbwa-search-result',
@@ -9,25 +8,34 @@ import { Location } from '@angular/common';
 })
 export class SearchResultComponent implements OnInit {
 
-  constructor(private location: Location) { }
+  constructor(private advanceSearch: AdvanceSearch) { }
 
   layout = 'search-results';
-  brandDocuments: DocumentModel[];
-  title = 'Thomson Reuters';
+  documents: DocumentModel[];
+  searchTerm: string;
   totalResults = 100;
   gridView = true;
 
   ngOnInit() {
-
+    this.onSearch();
   }
 
-  changToGridView() {
+  changeToGridView() {
     this.gridView = true;
     location.reload();
   }
 
-  changToListView() {
+  changeToListView() {
     this.gridView = false;
     location.reload();
+  }
+
+  private onSearch(): void {
+    this.advanceSearch.onSearch().subscribe(({ response, queryParams, opts }) => {
+      this.searchTerm = queryParams.ecm_fulltext;
+      this.totalResults = response.resultsCount;
+      this.documents = response.entries;
+      console.log(2222, response, queryParams, opts);
+    });
   }
 }
