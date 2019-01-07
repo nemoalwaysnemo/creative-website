@@ -11,6 +11,7 @@ import { DocumentRelatedInfoViewComponent } from './document-related-info/docume
 import { DocumentRelatedInfoService } from './document-related-info/document-related-info.service';
 import { DocumentPdfViewerComponent } from './docment-image-viewer/docment-pdf-viewer.component';
 import { DocumentRelatedProjectComponent } from './document-related-project/document-related-project.component';
+import { DocumentRelatedAgencyComponent } from './document-related-agency/document-related-agency.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { DocumentRelatedProjectComponent } from './document-related-project/docu
     DocumentRelatedInfoViewComponent,
     DocumentPdfViewerComponent,
     DocumentRelatedProjectComponent,
+    DocumentRelatedAgencyComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,
