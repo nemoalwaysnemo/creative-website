@@ -11,6 +11,7 @@ import { GalleryDotsComponent } from './components/gallery-dots.component';
 import { GalleryThumbsComponent } from './components/gallery-thumbs.component';
 import { GallerySliderComponent } from './components/gallery-slider.component';
 import { GalleryCounterComponent } from './components/gallery-counter.component';
+import { GalleryPlayComponent } from './components/gallery-play.component';
 
 import { GalleryItemComponent } from './components/gallery-item.component';
 import { GalleryThumbComponent } from './components/gallery-thumb.component';
@@ -24,10 +25,19 @@ import { TapClickDirective } from './directives/tap-click';
 import { CachingInterceptor } from './services/cache.interceptor';
 import { RequestCache, RequestCacheWithMap } from './services/cache.service';
 
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
+
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
   ],
   providers: [
     {provide: RequestCache, useClass: RequestCacheWithMap},
@@ -42,6 +52,7 @@ import { RequestCache, RequestCacheWithMap } from './services/cache.service';
     GalleryCounterComponent,
     GalleryThumbsComponent,
     GalleryThumbComponent,
+    GalleryPlayComponent,
     GalleryItemComponent,
     GalleryImageComponent,
     GalleryVideoComponent,

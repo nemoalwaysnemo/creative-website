@@ -28,7 +28,8 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
                      [src]="data.src"
                      [poster]="data.poster"
                      [pause]="currIndex !== index"
-                     (error)="error.emit($event)"></gallery-video>
+                     (error)="error.emit($event)"
+                     (playing)="playing.emit($event)"></gallery-video>
 
       <gallery-iframe *ngSwitchCase="Types.Youtube"
                       [src]="data.src"
@@ -71,6 +72,10 @@ export class GalleryItemComponent {
 
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<Error>();
+
+  @Output() action = new EventEmitter<string | number>();
+
+  @Output() playing = new EventEmitter<string | number>();
 
   @HostBinding('class.g-active-item') get isActive() {
     return this.index === this.currIndex;
