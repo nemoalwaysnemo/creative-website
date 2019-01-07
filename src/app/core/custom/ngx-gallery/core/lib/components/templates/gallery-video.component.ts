@@ -4,8 +4,8 @@ import { VgAPI } from 'videogular2/core';
   selector: 'gallery-video',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <vg-player (onPlayerReady)="onPlayerReady($event)" (playing)="playing.emit($event)">
-        <video [vgMedia]="video" #video id="singleVideo" preload="auto" controls  poster="{{poster}}" (error)="error.emit($event)"  >
+    <vg-player (onPlayerReady)="onPlayerReady($event)">
+        <video [vgMedia]="video" #video id="singleVideo" preload="auto" controls poster="{{poster}}" (error)="error.emit($event)">
             <source *ngFor="let src of videoSources" src="{{src?.url}}" type="{{src?.type}}">
         </video>
     </vg-player>

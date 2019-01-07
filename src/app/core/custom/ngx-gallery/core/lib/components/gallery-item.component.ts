@@ -28,7 +28,7 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
                      [src]="data.src"
                      [poster]="data.poster"
                      [pause]="currIndex !== index"
-                     (error)="error.emit($event)">
+                     (error)="error.emit($event)"
                      (playing)="playing.emit($event)"></gallery-video>
 
       <gallery-iframe *ngSwitchCase="Types.Youtube"

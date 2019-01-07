@@ -40,7 +40,7 @@ export class HomeGalleryComponent implements OnInit {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getVideoSources(this.defaultVideoFormats)[0]['src'], thumb: entry.thumbnailUrl, poster: entry.getVideoPoster });
+        imgArray.push({ src: entry.getVideoSources(this.defaultVideoFormats)[0]['src'], thumb: entry.thumbnailUrl, poster: entry.getVideoPoster() });
       } else if (entry.isPicture()) {
         const url = entry.thumbnailUrl;
         imgArray.push({ src: url, thumb: url });
