@@ -22,14 +22,7 @@ export class AdvanceSearch extends AbstractPageProvider {
 
   requestSearchFilters(queryParams: NuxeoPageProviderParams = {}): Observable<AggregateModel[]> {
     return this.request(this.getRequestParams(Object.assign({}, queryParams, { pageSize: 1 }))).pipe(
-      map((res: NuxeoPagination) => {
-        const aggregations: AggregateModel[] = [];
-        const aggs = Object.values(res.aggregations);
-        for (const agg of aggs) {
-          aggregations.push(new AggregateModel(agg));
-        }
-        return aggregations;
-      }),
+      map((response: NuxeoPagination) => this.buildAggregateModels(response)),
     );
   }
 

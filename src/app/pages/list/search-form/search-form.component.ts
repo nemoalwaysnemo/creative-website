@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AdvanceSearch, AggregateModel } from '@core/api';
+import { AdvanceSearch, AggregateModel, NuxeoPagination } from '@core/api';
 import { filterParams } from '@core/services';
 import { OptionModel } from '@pages/shared';
-import { takeWhile, tap, distinctUntilChanged } from 'rxjs/operators';
+import { takeWhile, tap, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'tbwa-search-form',
@@ -51,8 +51,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getAggregates();
     this.createForm();
+    this.onPageChanged();
+    this.onSearchResponse();
     this.onQueryParamsChanged();
   }
 
@@ -65,7 +66,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private createForm() {
-    this.buildFormAggregates();
     const params = Object.assign({}, this.params, this.buildFormAggregates());
     this.searchForm = this.formBuilder.group(params);
   }
@@ -84,6 +84,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return formValue;
   }
 
+  private hasQueryParams(queryParams: {}): boolean {
+    return Object.keys(filterParams(queryParams)).length > 0;
+  }
+
+  private onPageChanged(): void {
+    if (!this.hasQueryParams(this.activatedRoute.snapshot.queryParams)) {
+      this.getSearchAggregates();
+    }
+  }
+
   private onQueryParamsChanged(): void {
     this.activatedRoute.queryParams
       .pipe(
@@ -91,7 +101,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
       )
       .subscribe(queryParams => {
-        if (Object.keys(filterParams(queryParams)).length > 0) {
+        if (this.hasQueryParams(queryParams)) {
           this.setFormValues(queryParams);
           this.onReset();
         }
@@ -111,6 +121,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private onClear(): void {
+    const params = Object.assign({}, this.params, this.buildFormAggregates());
+    this.setFormValues(params);
   }
 
   private onReset(): void {
@@ -123,6 +135,21 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.advanceSearch.search(this.getFormValue());
   }
 
+  private onSearchResponse(): void {
+    this.advanceSearch.onSearch().pipe(
+      map(({ response }) => this.advanceSearch.buildAggregateModels(response)),
+    ).subscribe((aggregateModels: AggregateModel[]) => {
+      this.submitted = false;
+      this.aggregates = this.buildSearchAggregates(aggregateModels);
+    });
+  }
+
+  private getSearchAggregates(): void {
+    this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
+      this.aggregates = this.buildSearchAggregates(aggregateModels);
+    });
+  }
+
   private buildFormAggregates(): any {
     const formAggs = {};
     const aggs = Object.keys(this.aggList);
@@ -132,23 +159,23 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return formAggs;
   }
 
-  private getAggregates(): void {
-    this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregates: AggregateModel[]) => {
-      for (const agg of aggregates) {
-        if (this.aggList[agg.id]) {
-          const options = [];
-          const id = agg.id;
-          const name = this.aggList[agg.id];
-          for (const bucket of agg.extendedBuckets) {
-            options.push(this.newOptionModel(bucket));
-          }
-          this.aggregates.push({ id, name, options });
+  private buildSearchAggregates(models: AggregateModel[] = []): any[] {
+    const aggregates: any[] = [];
+    for (const model of models) {
+      if (this.aggList[model.id]) {
+        const options = [];
+        const id = model.id;
+        const name = this.aggList[model.id];
+        for (const bucket of model.extendedBuckets) {
+          options.push(this.buildSelectOptionModel(bucket));
         }
+        aggregates.push({ id, name, options });
       }
-    });
+    }
+    return aggregates;
   }
 
-  private newOptionModel(agg: any = {}) {
+  private buildSelectOptionModel(agg: any = {}) {
     const label = `${agg.key} (${agg.docCount})`;
     const value = agg.key;
     const disabled = false;
