@@ -43,6 +43,10 @@ export class DocumentModel extends Base {
     return this._properties['file:content'].data;
   }
 
+  get fileType(): string {
+    return this._properties['file:content']['mime-type'];
+  }
+
   set properties(properties: any) {
     this._properties = properties;
   }
