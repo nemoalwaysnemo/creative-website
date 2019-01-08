@@ -23,15 +23,15 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   private aggList: { [key: string]: string } =
     {
-      'assettype_agg': 'Asset Type',
-      'agency_agg': 'Agency',
-      'country_agg': 'County',
-      'brand_agg': 'Brand',
-      'clientname_agg': 'Client',
-      'industry_agg': 'Industry',
-      'campaign_agg': 'Campaign',
-      'backslash_category_agg': 'Category',
-      'tags_edges_agg': 'Edges',
+      'the_loupe_main_assettype_agg': 'Asset Type',
+      'the_loupe_main_agency_agg': 'Agency',
+      'the_loupe_main_country_agg': 'County',
+      'the_loupe_main_brand_agg': 'Brand',
+      'the_loupe_main_clientName_agg': 'Client',
+      'app_edges_industry_agg': 'Industry',
+      'the_loupe_main_campaign_agg': 'Campaign',
+      'app_edges_backslash_category_agg': 'Category',
+      'app_edges_tags_edges_agg': 'Edges',
     };
 
   private params: any = {
