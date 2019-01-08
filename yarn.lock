@@ -446,7 +446,7 @@
     is-absolute "^1.0.0"
     is-negated-glob "^1.0.0"
 
-"@fortawesome/angular-fontawesome@0.3.0":
+"@fortawesome/angular-fontawesome@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.3.0.tgz#380492f186469ce03d6fdbb3ec719810f771bf62"
   integrity sha512-wXvyPI7GidoNiqeMz2re9iemUMFH4zBmuv94CfXlaanQ8+kMP/fYs/k69PLVN1KsebQY4kRA9GHmc1U1ndBkJg==
@@ -463,7 +463,7 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.5.0.tgz#0c6c53823d04457ae669cd19567b8a21dbb4fcfd"
   integrity sha512-p4lu0jfj5QN013ddArh99r3OXZ/fp9rbovs62LfaO70OMBsAXxtNd0lAq/97fitrscR0fqfd+/a5KNcp6Sh/0A==
 
-"@fortawesome/fontawesome-svg-core@^1.2.4":
+"@fortawesome/fontawesome-svg-core@^1.2.12":
   version "1.2.12"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.12.tgz#9732617b1e484435f6946645d7f9ad248f12c437"
   integrity sha512-cqTfa3vZ+Z9UYQnmLfCOwyLnf0Xcoxkmm/BSaI29Yikzu9zIeD4es7lBZMDqLOXYSEQC+rCr8caxFlGJcJVA+w==
@@ -477,7 +477,7 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.12"
 
-"@fortawesome/free-solid-svg-icons@^5.3.1":
+"@fortawesome/free-solid-svg-icons@^5.6.3":
   version "5.6.3"
   resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.6.3.tgz#1d7f6669ccd6a1ea673699e41f7e32c81401a260"
   integrity sha512-ld8Gfp1KrncOpFRheThUDlD6/Ro9ZJGqfCEMXlO/x1Cg7ltLc5iYDG7yxDowLcmFY2BGSmxIIU3ZMW5FVTrfwQ==
@@ -7565,6 +7565,13 @@ ngx-highlightjs@^3.0.0:
   dependencies:
     tslib "^1.9.0"
 
+ngx-image-viewer@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/ngx-image-viewer/-/ngx-image-viewer-1.0.13.tgz#b2c79ae108c7c5f3182eca70f01d72bc5353aee1"
+  integrity sha512-y5SdAIO6RihThFF61ZVR4ty523DHF9BgR0oyWNf5IGcVxmb9Nk3SbRDrP7VOeZ5pT8WU7qXWwA2fZ8/ynnX1gA==
+  dependencies:
+    screenfull "^3.3.2"
+
 ngx-pipes@^2.3.6:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-2.3.6.tgz#3c7ba04844f0191262165d89d3aecf1a45b9d410"
@@ -9598,6 +9605,11 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
+screenfull@^3.3.2:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/screenfull/-/screenfull-3.3.3.tgz#8cf7e706aceac2e75131aadcb81b622acfe11d39"
+  integrity sha512-DzYUuXr+OV2BDvYXaYzlYgJd4WXZZ2CW5NFC7Kw6TUCpzXJAx4MwlVD6CH+Mu6fi8rfAQIQfqdFZ4jtDsEkWig==
+
 scss-tokenizer@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/scss-tokenizer/-/scss-tokenizer-0.2.3.tgz#8eb06db9a9723333824d3f5530641149847ce5d1"
@@ -11325,6 +11337,11 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+videogular2@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/videogular2/-/videogular2-6.3.0.tgz#0658b4f05269d767a3e8db7ba059b99084f40e94"
+  integrity sha1-Bli08FJp12ej6Nt7oFm5kIT0DpQ=
 
 vinyl-fs@^0.3.0:
   version "0.3.14"
