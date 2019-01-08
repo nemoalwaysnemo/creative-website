@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
+import { NuxeoPagination, DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
+import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
 
 @Component({
   selector: 'tbwa-search-result',
@@ -11,31 +12,43 @@ export class SearchResultComponent implements OnInit {
   constructor(private advanceSearch: AdvanceSearch) { }
 
   layout = 'search-results';
+
+  currentView = 'thumbnailView';
+
   documents: DocumentModel[];
-  searchTerm: string;
-  totalResults = 100;
-  gridView = true;
+
+  totalResults = 0;
+
+  paginationService: PaginationDataSource = new PaginationDataSource();
+
+  private queryParams: NuxeoPageProviderParams = {};
 
   ngOnInit() {
     this.onSearch();
+    this.onPageChanged();
   }
 
   changeToGridView() {
-    this.gridView = true;
-    location.reload();
+    this.currentView = 'thumbnailView';
   }
 
   changeToListView() {
-    this.gridView = false;
-    location.reload();
+    this.currentView = 'listView';
   }
 
   private onSearch(): void {
     this.advanceSearch.onSearch().subscribe(({ response, queryParams, opts }) => {
-      this.searchTerm = queryParams.ecm_fulltext;
+      this.paginationService.from(response);
+      this.queryParams = queryParams;
       this.totalResults = response.resultsCount;
       this.documents = response.entries;
-      console.log(2222, response, queryParams, opts);
+    });
+  }
+
+  private onPageChanged() {
+    this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
+      this.queryParams.currentPageIndex = pageInfo.currentPageIndex;
+      this.advanceSearch.search(this.queryParams);
     });
   }
 }

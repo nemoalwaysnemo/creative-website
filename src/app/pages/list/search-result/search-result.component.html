@@ -1,10 +1,14 @@
 <div class="search-results">
-  <h1 *ngIf="!!searchTerm">Results for "{{searchTerm}}" ({{totalResults}})</h1>
+  <h1 *ngIf="!!queryParams.ecm_fulltext">Results for "{{queryParams.ecm_fulltext}}" ({{totalResults}})</h1>
   <div><a href="javasciprt:void(0);" (click)="changeToGridView()">Grid</a> <a href="javasciprt:void(0);" (click)="changeToListView()">List</a></div>
-  <div *ngIf="gridView">
+  <div *ngIf="currentView === 'thumbnailView'">
     <tbwa-thumbnail-view [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
   </div>
-  <div *ngIf="!gridView">
+  <div *ngIf="currentView === 'listView'">
     list view
   </div>
 </div>
+<div class="search-pagination">
+  <tbwa-table-pagination [dataSource]="paginationService" [ngClass]="pagination"></tbwa-table-pagination>
+</div>
+<div class="clear"></div>

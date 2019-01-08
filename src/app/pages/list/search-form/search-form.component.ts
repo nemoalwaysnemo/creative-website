@@ -91,7 +91,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
       )
       .subscribe(queryParams => {
-        if (Object.keys(queryParams).length > 0) {
+        if (Object.keys(filterParams(queryParams)).length > 0) {
           this.setFormValues(queryParams);
           this.onReset();
         }
