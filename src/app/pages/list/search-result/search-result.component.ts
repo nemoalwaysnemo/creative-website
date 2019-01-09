@@ -16,7 +16,7 @@ export class SearchResultComponent implements OnInit {
 
   currentView = 'thumbnailView';
 
-  documents: DocumentModel[];
+  documents: DocumentModel[] = [];
 
   listDocuments: ListViewItem[];
 
@@ -46,7 +46,6 @@ export class SearchResultComponent implements OnInit {
 
   changeToListView() {
     this.currentView = 'listView';
-    this.listDocuments = this.buildListViewItem(this.documents);
   }
 
   private onSearch(): void {
@@ -55,6 +54,7 @@ export class SearchResultComponent implements OnInit {
       this.queryParams = queryParams;
       this.totalResults = response.resultsCount;
       this.documents = response.entries;
+      this.listDocuments = this.buildListViewItem(this.documents);
     });
   }
 

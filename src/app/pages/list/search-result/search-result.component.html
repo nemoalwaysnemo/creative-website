@@ -4,11 +4,12 @@
     <button (click)="changeToGridView()">Grid</button>
     <button (click)="changeToListView()">List</button>
   </div>
-  <div class="search-result-view" *ngIf="currentView === 'thumbnailView'; else listView">
+  <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
+  <ng-template #thumbnailView>
     <tbwa-thumbnail-view [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
-  </div>
+  </ng-template>
   <ng-template #listView>
-    <tbwa-list-view [settings]="listViewSettings" [documents]="documents"></tbwa-list-view>
+    <tbwa-list-view [settings]="listViewSettings" [documents]="listDocuments"></tbwa-list-view>
   </ng-template>
 </div>
 <div class="search-pagination">
