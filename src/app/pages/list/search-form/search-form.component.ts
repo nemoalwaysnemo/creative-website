@@ -23,7 +23,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
 
   private params: any = {
-    pageSize: 16,
+    pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_path: '/Creative/TBWA-/',

@@ -9,6 +9,7 @@ import {
   ThumbnailViewModule,
   SearchFilterModule,
   PaginationModule,
+  ListViewModule,
 } from './';
 
 const EXPORTS = [
@@ -19,6 +20,7 @@ const EXPORTS = [
   ThumbnailViewModule,
   SearchFilterModule,
   PaginationModule,
+  ListViewModule,
   SharedDirectiveModule,
 ];
 

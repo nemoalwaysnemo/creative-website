@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
+import { ListViewItem } from '@pages/shared';
 
 @Component({
   selector: 'tbwa-search-result',
@@ -16,11 +17,21 @@ export class SearchResultComponent implements OnInit {
   currentView = 'thumbnailView';
 
   documents: DocumentModel[];
-  listDocuments: any;
+
+  listDocuments: ListViewItem[];
 
   totalResults = 0;
 
   paginationService: PaginationDataSource = new PaginationDataSource();
+
+  listViewSettings: any = {
+    columns: {
+      title: {
+        title: 'Title',
+        sort: false,
+      },
+    },
+  };
 
   private queryParams: NuxeoPageProviderParams = {};
 
@@ -35,6 +46,7 @@ export class SearchResultComponent implements OnInit {
 
   changeToListView() {
     this.currentView = 'listView';
+    this.listDocuments = this.buildListViewItem(this.documents);
   }
 
   private onSearch(): void {
@@ -43,7 +55,6 @@ export class SearchResultComponent implements OnInit {
       this.queryParams = queryParams;
       this.totalResults = response.resultsCount;
       this.documents = response.entries;
-      this.listDocuments = this.setListDocuments(response.entries);
     });
   }
 
@@ -54,11 +65,12 @@ export class SearchResultComponent implements OnInit {
     });
   }
 
-  private setListDocuments(entries: DocumentModel[]) {
-    const data = [];
-    for (const entry of entries) {
-      data.push({ img: entry.thumbnailUrl, title: entry.title, date: 2018, description: 'McDonald\'s', agency: 'TBWA\\Chiat\\Day' });
+  private buildListViewItem(docs: DocumentModel[]): ListViewItem[] {
+    const items = [];
+    for (const doc of docs) {
+      items.push(new ListViewItem({ uid: doc.uid, title: doc.title }));
     }
-    return data;
+    return items;
   }
+
 }
