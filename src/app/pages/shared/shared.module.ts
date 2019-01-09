@@ -7,6 +7,7 @@ import {
   OptionSelectModule,
   PictureGalleryModule,
   ThumbnailViewModule,
+  SearchFilterModule,
   PaginationModule,
 } from './';
 
@@ -16,6 +17,7 @@ const EXPORTS = [
   OptionSelectModule,
   PictureGalleryModule,
   ThumbnailViewModule,
+  SearchFilterModule,
   PaginationModule,
   SharedDirectiveModule,
 ];

@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AdvanceSearch, AggregateModel, NuxeoPagination } from '@core/api';
+import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { filterParams } from '@core/services';
-import { OptionModel } from '@pages/shared';
-import { takeWhile, tap, distinctUntilChanged, map } from 'rxjs/operators';
+import { takeWhile, distinctUntilChanged, map } from 'rxjs/operators';
+import { DEFAULT_SEARCH_FILTER_ITEM } from '@pages/shared';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'tbwa-search-form',
@@ -15,24 +16,11 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
 
-  aggregates: any[] = [];
-
   searchForm: FormGroup;
 
   submitted: boolean = false;
 
-  private aggList: { [key: string]: string } =
-    {
-      'the_loupe_main_assettype_agg': 'Asset Type',
-      'the_loupe_main_agency_agg': 'Agency',
-      'the_loupe_main_country_agg': 'County',
-      'the_loupe_main_brand_agg': 'Brand',
-      'the_loupe_main_clientName_agg': 'Client',
-      'app_edges_industry_agg': 'Industry',
-      'the_loupe_main_campaign_agg': 'Campaign',
-      'app_edges_backslash_category_agg': 'Category',
-      'app_edges_tags_edges_agg': 'Edges',
-    };
+  aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
 
   private params: any = {
     pageSize: 16,
@@ -66,22 +54,20 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private createForm() {
-    const params = Object.assign({}, this.params, this.buildFormAggregates());
+    const params = Object.assign({ aggregates: '' }, this.params);
     this.searchForm = this.formBuilder.group(params);
   }
 
   private getFormValue(): object {
-    const formValue = {};
-    const value = filterParams(this.searchForm.value);
-    const keys = Object.keys(value);
-    for (const key of keys) {
-      if (key.includes('_agg')) {
-        formValue[key] = `["${value[key].join('", "')}"]`;
-      } else {
-        formValue[key] = value[key];
+    const values = filterParams(this.searchForm.value);
+    if (values.aggregates) {
+      const keys = Object.keys(values.aggregates);
+      for (const key of keys) {
+        values[key] = `["${values.aggregates[key].join('", "')}"]`;
       }
+      delete values.aggregates;
     }
-    return formValue;
+    return values;
   }
 
   private hasQueryParams(queryParams: {}): boolean {
@@ -114,6 +100,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       params.ecm_fulltext = queryParams.q;
     }
     this.searchForm.patchValue(params, { emitEvent: false });
+    // TODO: set query filters
     // const keys = Object.keys(queryParams);
     // for (const key of keys) {
 
@@ -121,8 +108,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private onClear(): void {
-    const params = Object.assign({}, this.params, this.buildFormAggregates());
-    this.setFormValues(params);
+    this.setFormValues(this.params);
   }
 
   private onReset(): void {
@@ -140,45 +126,18 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       map(({ response }) => this.advanceSearch.buildAggregateModels(response)),
     ).subscribe((aggregateModels: AggregateModel[]) => {
       this.submitted = false;
-      this.aggregates = this.buildSearchAggregates(aggregateModels);
+      this.changeSearchFilter(aggregateModels);
     });
   }
 
   private getSearchAggregates(): void {
     this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
-      this.aggregates = this.buildSearchAggregates(aggregateModels);
+      this.changeSearchFilter(aggregateModels);
     });
   }
 
-  private buildFormAggregates(): any {
-    const formAggs = {};
-    const aggs = Object.keys(this.aggList);
-    for (const agg of aggs) {
-      formAggs[agg] = null;
-    }
-    return formAggs;
+  private changeSearchFilter(aggregateModels: AggregateModel[]): void {
+    this.aggregateModels$.next(filterAggregates(DEFAULT_SEARCH_FILTER_ITEM, aggregateModels));
   }
 
-  private buildSearchAggregates(models: AggregateModel[] = []): any[] {
-    const aggregates: any[] = [];
-    for (const model of models) {
-      if (this.aggList[model.id]) {
-        const options = [];
-        const id = model.id;
-        const name = this.aggList[model.id];
-        for (const bucket of model.extendedBuckets) {
-          options.push(this.buildSelectOptionModel(bucket));
-        }
-        aggregates.push({ id, name, options });
-      }
-    }
-    return aggregates;
-  }
-
-  private buildSelectOptionModel(agg: any = {}) {
-    const label = `${agg.key} (${agg.docCount})`;
-    const value = agg.key;
-    const disabled = false;
-    return new OptionModel(label, value, disabled);
-  }
 }
