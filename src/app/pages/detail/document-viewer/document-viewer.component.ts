@@ -17,7 +17,32 @@ export class DocumentViewerComponent implements OnInit {
     this.fileType = this.document.fileType;
   }
 
-  isPdf(): boolean {
+  documentTypeIs(type: string): boolean {
+    switch (type) {
+      case 'pdf': {
+        return this.isPdf();
+      }
+      case 'image': {
+        return this.isImage();
+      }
+      case 'video': {
+        return this.isVideo();
+      }
+      default: {
+      }
+    }
+  }
+
+  private isPdf(): boolean {
     return this.fileType === 'application/pdf';
   }
+
+  private isImage(): boolean {
+    return this.document.isPicture() && !this.isPdf();
+  }
+
+  private isVideo(): boolean {
+    return this.document.isVideo();
+  }
+
 }
