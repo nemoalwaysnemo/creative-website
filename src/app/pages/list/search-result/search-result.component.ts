@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
 
 @Component({
@@ -16,6 +16,7 @@ export class SearchResultComponent implements OnInit {
   currentView = 'thumbnailView';
 
   documents: DocumentModel[];
+  listDocuments: any;
 
   totalResults = 0;
 
@@ -42,6 +43,7 @@ export class SearchResultComponent implements OnInit {
       this.queryParams = queryParams;
       this.totalResults = response.resultsCount;
       this.documents = response.entries;
+      this.listDocuments = this.setListDocuments(response.entries);
     });
   }
 
@@ -50,5 +52,13 @@ export class SearchResultComponent implements OnInit {
       this.queryParams.currentPageIndex = pageInfo.currentPageIndex;
       this.advanceSearch.search(this.queryParams);
     });
+  }
+
+  private setListDocuments(entries: DocumentModel[]) {
+    const data = [];
+    for (const entry of entries) {
+      data.push({ img: entry.thumbnailUrl, title: entry.title, date: 2018, description: 'McDonald\'s', agency: 'TBWA\\Chiat\\Day' });
+    }
+    return data;
   }
 }
