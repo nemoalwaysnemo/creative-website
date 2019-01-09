@@ -5,7 +5,7 @@
     <tbwa-thumbnail-view [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
   </div>
   <div *ngIf="currentView === 'listView'">
-    <tbwa-search-result-list></tbwa-search-result-list>
+    <tbwa-search-result-list [listDocuments]="listDocuments"></tbwa-search-result-list>
   </div>
 </div>
 <div class="search-pagination">
