@@ -1,6 +1,5 @@
-import { Directive, ElementRef, Renderer2, HostBinding, HostListener, Input, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Renderer2, HostListener, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { DocumentModel } from '@core/api';
 
 @Directive({
   selector: '[tbwaMoreDetail]',
