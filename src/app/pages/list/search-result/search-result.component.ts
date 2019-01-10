@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
-import { ListViewItem } from '@pages/shared';
+import { ListViewItem, SearchQueryParamsService } from '@pages/shared';
 
 @Component({
   selector: 'tbwa-search-result',
@@ -10,7 +10,7 @@ import { ListViewItem } from '@pages/shared';
 })
 export class SearchResultComponent implements OnInit {
 
-  constructor(private advanceSearch: AdvanceSearch) { }
+  constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService) { }
 
   layout = 'search-results';
 
@@ -60,8 +60,8 @@ export class SearchResultComponent implements OnInit {
 
   private onPageChanged() {
     this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
-      this.queryParams.currentPageIndex = pageInfo.currentPageIndex;
-      this.advanceSearch.search(this.queryParams);
+      const currentPageIndex = pageInfo.currentPageIndex;
+      this.queryParamsService.changeQueryParams([], { currentPageIndex }, 'merge');
     });
   }
 

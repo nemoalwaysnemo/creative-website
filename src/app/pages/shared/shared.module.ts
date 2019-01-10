@@ -10,6 +10,7 @@ import {
   SearchFilterModule,
   PaginationModule,
   ListViewModule,
+  SearchQueryParamsService,
 } from './';
 
 const EXPORTS = [
@@ -25,6 +26,7 @@ const EXPORTS = [
 ];
 
 const PROVIDERS = [
+  SearchQueryParamsService,
 ];
 
 @NgModule({

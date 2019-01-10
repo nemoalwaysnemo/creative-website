@@ -11,7 +11,6 @@ import { DocumentRelatedInfoService } from './document-related-info/document-rel
 import { DocumentRelatedProjectComponent } from './document-related-project/document-related-project.component';
 import { DocumentRelatedAgencyComponent } from './document-related-agency/document-related-agency.component';
 import { DocumentViewerModule } from '@pages/detail/document-viewer/document-viewer.module';
-import { DocumentViewerComponent } from '@pages/detail/document-viewer/document-viewer.component';
 
 @NgModule({
   imports: [

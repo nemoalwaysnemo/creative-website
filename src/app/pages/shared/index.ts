@@ -1,3 +1,4 @@
+export * from './services/search-params.service';
 export * from './thumbnail-view/thumbnail-view.module';
 export * from './picture-gallery/picture-gallery.module';
 export * from './search-filter/search-filter.module';
