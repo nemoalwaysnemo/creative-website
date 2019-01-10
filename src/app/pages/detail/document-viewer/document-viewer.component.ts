@@ -11,10 +11,16 @@ export class DocumentViewerComponent implements OnInit {
   @Input() document: DocumentModel;
   fileType: string;
   filePath: string;
-
+  storyboards: object;
+  poster: string;
   ngOnInit() {
     this.filePath = this.document.filePath;
     this.fileType = this.document.fileType;
+    const storyData = this.document.properties['vid:storyboard'];
+    this.storyboards = Object.keys(storyData).map(function (key) {
+      return storyData[key].content.data;
+    });
+    this.poster = this.document.videoPoster;
   }
 
   documentTypeIs(type: string): boolean {
