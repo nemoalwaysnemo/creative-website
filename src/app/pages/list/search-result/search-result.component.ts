@@ -49,12 +49,12 @@ export class SearchResultComponent implements OnInit {
   }
 
   private onSearch(): void {
-    this.advanceSearch.onSearch().subscribe(({ response, queryParams, opts }) => {
+    this.advanceSearch.onSearch().subscribe(({ response, queryParams }) => {
       this.paginationService.from(response);
       this.queryParams = queryParams;
       this.totalResults = response.resultsCount;
       this.documents = response.entries;
-      this.listDocuments = this.buildListViewItem(this.documents);
+      this.listDocuments = this.buildListViewItem(response.entries);
     });
   }
 

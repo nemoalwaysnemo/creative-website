@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ListViewSettings, ListViewItem } from './list-view.interface';
-import { deepExtend } from '@core/services';
 
 @Component({
   selector: 'tbwa-list-view',

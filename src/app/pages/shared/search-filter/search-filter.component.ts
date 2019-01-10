@@ -44,7 +44,9 @@ export class SearchFilterComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   writeValue(value: any): void {
-    // TODO: apply aggregates from outside form
+    if (value) {
+      this.aggregateModel = value;
+    }
   }
 
   registerOnChange(fn: any): void {
