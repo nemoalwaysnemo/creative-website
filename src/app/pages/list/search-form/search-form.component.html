@@ -1,8 +1,8 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
   <div class="form-group search-input">
-    <input class="form-control" formControlName="ecm_fulltext" placeholder="Search for..." />
+    <input class="form-control" formControlName="ecm_fulltext" placeholder="Search for..." (keyup.enter)="onSubmit()" />
   </div>
-  <a class="btn btn-xs" status="success" (click)="toggleFilter()">Filter</a>
+  <a (click)="toggleFilter()">Filter</a>
   <ng-container *ngIf="showFilter">
     <div class="form-group search-filter">
       <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted"></tbwa-search-filter>
