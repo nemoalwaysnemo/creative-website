@@ -21,6 +21,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   submitted: boolean = false;
 
+  showFilter: boolean = false;
+
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
 
   private params: any = {
@@ -44,6 +46,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.onPageChanged();
     this.onSearchResponse();
     this.onQueryParamsChanged();
+    this.showFilter = this.hasFilterQueryParams(this.queryParamsService.getCurrentQueryParams());
   }
 
   ngOnDestroy() {
@@ -57,6 +60,10 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   onReset(): void {
     this.searchForm.patchValue(Object.assign({ aggregates: {} }, this.params), { emitEvent: false });
     this.changeQueryParams();
+  }
+
+  toggleFilter(): void {
+    this.showFilter = !this.showFilter;
   }
 
   private createForm() {
@@ -91,6 +98,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   private hasQueryParams(queryParams: {}): boolean {
     return Object.keys(queryParams).length > 0;
+  }
+
+  private hasFilterQueryParams(queryParams: {}): boolean {
+    const keys = Object.keys(queryParams);
+    for (const key of keys) {
+      if (key.includes('_agg')) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private onPageChanged(): void {
