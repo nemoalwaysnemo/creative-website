@@ -1,18 +1,18 @@
 <div *ngIf="!isRelated" class="thumbnail-view-item {{styleClass}}">
   <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
   <div class="description">
-    <h1 [tbwaMoreDetail]="document.uid" moreDetailCss="nav-title-link" [title]="document.title">{{document.title}}</h1>
-    <h4 [tbwaMoreDetail]="document.uid" moreDetailCss="nav-title-year" class="year">2011</h4>
+    <h1 [moreDetail]="document.uid" moreDetailCss="nav-title-link" [title]="document.title">{{document.title}}</h1>
+    <h4 [moreDetail]="document.uid" moreDetailCss="nav-title-year" class="year">2011</h4>
     <span class="dot"></span>
-    <h4 [tbwaMoreDetail]="document.uid" moreDetailCss="nav-title-client" class="client">McDonald's</h4>
+    <h4 [moreDetail]="document.uid" moreDetailCss="nav-title-client" class="client">McDonald's</h4>
     <div class="line"></div>
-    <h4 [tbwaMoreDetail]="document.uid" moreDetailCss="nav-title-agency" class="agency" title="TBWA\Chiat\Day NY">TBWA\Chiat\Day
+    <h4 [moreDetail]="document.uid" moreDetailCss="nav-title-agency" class="agency" title="TBWA\Chiat\Day NY">TBWA\Chiat\Day
       NY</h4>
   </div>
 </div>
 <div *ngIf="isRelated" class="thumbnail-view-item {{styleClass}}">
   <div>
-    <h1 [tbwaMoreDetail]="document.uid" [title]="document.title">{{document.title}}</h1>
+    <h1 [moreDetail]="document.uid" [title]="document.title">{{document.title}}</h1>
   </div>
   <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
 </div>

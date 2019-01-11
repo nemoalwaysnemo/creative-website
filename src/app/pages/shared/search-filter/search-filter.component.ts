@@ -21,7 +21,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy, ControlValueAcc
 
   aggregates: AggregateModel[] = [];
 
-  private disabled: boolean = false;
+  disabled: boolean = false;
 
   private _onChange = (_) => { };
 

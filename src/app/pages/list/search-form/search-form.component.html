@@ -3,7 +3,7 @@
     <input class="form-control" formControlName="ecm_fulltext" placeholder="Search for..." />
   </div>
   <div class="form-group search-filter">
-    <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async"></tbwa-search-filter>
+    <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted"></tbwa-search-filter>
   </div>
   <div class="form-group search-actions">
     <div class="col-sm-offset-2 col-sm-10">

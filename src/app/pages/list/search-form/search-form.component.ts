@@ -77,7 +77,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
         params[key] = queryParams[key];
       }
     }
-    params = selectObjectByKeys(params, ['q', 'pageSize', 'currentPageIndex', 'aggregates']);
+    params = selectObjectByKeys(params, ['q', 'ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
     this.searchForm.patchValue(params, { emitEvent: false });
   }
 

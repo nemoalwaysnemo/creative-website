@@ -15,6 +15,10 @@ import { OptionModel } from './option-select.interface';
 })
 export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  private alive: boolean = true;
+
+  disabled: boolean = false;
+
   loading: boolean = false;
 
   options$: Observable<OptionModel[]>;
@@ -23,16 +27,12 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
 
   selectedItems: OptionModel[] = [];
 
-  private alive: boolean = true;
-
-  private disabled: boolean = false;
-
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
 
-  @Input('items')
-  set setItems(items: OptionModel[]) {
+  @Input()
+  set items(items: OptionModel[]) {
     if (items) {
       this.options$ = new BehaviorSubject(items);
     }
