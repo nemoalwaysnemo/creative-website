@@ -11,16 +11,9 @@ export class DocumentViewerComponent implements OnInit {
   @Input() document: DocumentModel;
   fileMimeType: string;
   filePath: string;
-  storyboards: object;
-  poster: string;
   ngOnInit() {
     this.filePath = this.document.get('file:content').data;
     this.fileMimeType = this.document.fileMimeType;
-    const storyData = this.document.properties['vid:storyboard'];
-    this.storyboards = Object.keys(storyData).map(function (key) {
-      return storyData[key].content.data;
-    });
-    this.poster = this.document.videoPoster;
   }
 
   documentTypeIs(type: string): boolean {

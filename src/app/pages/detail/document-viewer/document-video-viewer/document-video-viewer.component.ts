@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-video-viewer',
@@ -7,9 +8,20 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 })
 export class DocumentVideoViewerComponent implements OnInit {
   @Input() filePath: string;
-  @Input() poster: string;
-  @Input() storyboards: object;
+  @Input() document: DocumentModel;
+  videoSources: object;
+  poster: string;
+  storyboards: object;
   ngOnInit() {
-    console.info(this.filePath);
+    const sources = this.document.get('vid:transcodedVideos');
+    this.videoSources = Object.keys(sources).map(function (key) {
+      return { 'source' : sources[key].content.data , 'type' : sources[key].content['mime-type'] };
+    });
+    this.poster = this.document.videoPoster;
+    const storyData = this.document.properties['vid:storyboard'];
+    console.info(storyData);
+    this.storyboards = Object.keys(storyData).map(function (key) {
+      return { 'source': storyData[key].content.data, 'time': storyData[key].timecode };
+    });
   }
 }
