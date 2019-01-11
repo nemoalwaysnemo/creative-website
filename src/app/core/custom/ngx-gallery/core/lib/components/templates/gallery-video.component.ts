@@ -5,9 +5,30 @@ import { VgAPI } from 'videogular2/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <vg-player (onPlayerReady)="onPlayerReady($event)">
-        <video [vgMedia]="video" #video id="singleVideo" preload="auto" controls poster="{{poster}}" (error)="error.emit($event)">
-            <source *ngFor="let src of videoSources" src="{{src?.url}}" type="{{src?.type}}">
-        </video>
+      <vg-controls>
+          <vg-play-pause></vg-play-pause>
+          <vg-playback-button></vg-playback-button>
+
+          <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+          <vg-scrub-bar>
+              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+              <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+          </vg-scrub-bar>
+
+          <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+          <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+          <vg-track-selector></vg-track-selector>
+          <vg-mute></vg-mute>
+          <vg-volume></vg-volume>
+
+          <vg-fullscreen></vg-fullscreen>
+      </vg-controls>
+
+      <video [vgMedia]="video" #video id="singleVideo" preload="auto" poster="{{poster}}" (error)="error.emit($event)">
+          <source *ngFor="let src of videoSources" src="{{src?.url}}" type="{{src?.type}}">
+      </video>
     </vg-player>
   `,
 })

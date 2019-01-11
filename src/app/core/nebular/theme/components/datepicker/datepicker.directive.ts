@@ -177,13 +177,13 @@ export const NB_DATE_ADAPTER = new InjectionToken<NbDatepickerAdapter<any>>('Dat
  * And native `Date.parse(...)` for dates parsing. But native `Date.parse` function doesn't support formats.
  * To provide custom formatting you have to use one of the following packages:
  *
- * - `@core/nebular/moment` - provides moment date adapter that uses moment for date objects. This means datepicker than
- * will operate only moment date objects. If you want to use it you have to install it: `npm i @core/nebular/moment`, and
+ * - `@nebular/moment` - provides moment date adapter that uses moment for date objects. This means datepicker than
+ * will operate only moment date objects. If you want to use it you have to install it: `npm i @nebular/moment`, and
  * import `NbMomentDateModule` from this package.
  *
- * - `@core/nebular/date-fns` - adapter for popular date-fns library. This way is preferred if you need only date formatting.
+ * - `@nebular/date-fns` - adapter for popular date-fns library. This way is preferred if you need only date formatting.
  * Because date-fns is treeshakable, tiny and operates native date objects. If you want to use it you have to
- * install it: `npm i @core/nebular/date-fns`, and import `NbDateFnsDateModule` from this package.
+ * install it: `npm i @nebular/date-fns`, and import `NbDateFnsDateModule` from this package.
  *
  * @styles
  *

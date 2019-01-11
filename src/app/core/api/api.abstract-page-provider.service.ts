@@ -1,4 +1,4 @@
-import { Observable, Subject, ReplaySubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { AbstractBaseService } from './api.abstract-base.service';
 
@@ -6,7 +6,6 @@ import {
   NuxeoPagination,
   NuxeoPageProviderParams,
   NuxeoRequestOptions,
-  deepExtend,
   join,
 } from './nuxeo';
 

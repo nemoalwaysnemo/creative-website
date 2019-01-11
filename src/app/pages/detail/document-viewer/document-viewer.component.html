@@ -1,2 +1,3 @@
-<tbwa-document-pdf-viewer *ngIf="documentTypeIs('pdf')" [filePath]="filePath"></tbwa-document-pdf-viewer>
-<tbwa-document-image-viewer *ngIf="documentTypeIs('image')" [filePath]="filePath"></tbwa-document-image-viewer>
+<tbwa-document-pdf-viewer *ngIf="documentTypeIs('pdf')" [document]="document"></tbwa-document-pdf-viewer>
+<tbwa-document-image-viewer *ngIf="documentTypeIs('image')" [document]="document"></tbwa-document-image-viewer>
+<tbwa-document-video-viewer  *ngIf="documentTypeIs('video')" [filePath]="filePath" [storyboards]="storyboards" [poster]="poster"></tbwa-document-video-viewer>

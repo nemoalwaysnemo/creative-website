@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { AdvanceSearch, AggregateModel, NuxeoPagination } from '@core/api';
-import { filterParams } from '@core/services';
-import { OptionModel } from '@pages/shared';
-import { takeWhile, tap, distinctUntilChanged, map } from 'rxjs/operators';
+import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
+import { takeWhile, map } from 'rxjs/operators';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
+import { BehaviorSubject } from 'rxjs';
+import { selectObjectByKeys } from '@core/services';
 
 @Component({
   selector: 'tbwa-search-form',
@@ -15,27 +15,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
 
-  aggregates: any[] = [];
+  private previouSearchTerm: string;
 
   searchForm: FormGroup;
 
   submitted: boolean = false;
 
-  private aggList: { [key: string]: string } =
-    {
-      'the_loupe_main_assettype_agg': 'Asset Type',
-      'the_loupe_main_agency_agg': 'Agency',
-      'the_loupe_main_country_agg': 'County',
-      'the_loupe_main_brand_agg': 'Brand',
-      'the_loupe_main_clientName_agg': 'Client',
-      'app_edges_industry_agg': 'Industry',
-      'the_loupe_main_campaign_agg': 'Campaign',
-      'app_edges_backslash_category_agg': 'Category',
-      'app_edges_tags_edges_agg': 'Edges',
-    };
+  aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
 
   private params: any = {
-    pageSize: 16,
+    pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_path: '/Creative/TBWA-/',
@@ -43,9 +32,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private advanceSearch: AdvanceSearch,
+    private queryParamsService: SearchQueryParamsService,
   ) {
 
   }
@@ -62,123 +51,102 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.onReset();
+    this.changeQueryParams();
+  }
+
+  onReset(): void {
+    this.searchForm.patchValue(Object.assign({ aggregates: {} }, this.params), { emitEvent: false });
+    this.changeQueryParams();
   }
 
   private createForm() {
-    const params = Object.assign({}, this.params, this.buildFormAggregates());
+    const params = Object.assign({ aggregates: {} }, this.params);
     this.searchForm = this.formBuilder.group(params);
   }
 
-  private getFormValue(): object {
-    const formValue = {};
-    const value = filterParams(this.searchForm.value);
-    const keys = Object.keys(value);
+  private setFormValues(queryParams: any): void {
+    let params = Object.assign({ aggregates: {} }, this.params);
+    if (queryParams.q) {
+      params.ecm_fulltext = queryParams.q;
+    }
+    const keys = Object.keys(queryParams);
     for (const key of keys) {
       if (key.includes('_agg')) {
-        formValue[key] = `["${value[key].join('", "')}"]`;
+        params.aggregates[key] = typeof queryParams[key] === 'string' ? [queryParams[key]] : queryParams[key];
       } else {
-        formValue[key] = value[key];
+        params[key] = queryParams[key];
       }
     }
-    return formValue;
+    params = selectObjectByKeys(params, ['q', 'ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
+    this.searchForm.patchValue(params, { emitEvent: false });
+  }
+
+  private buildQueryParams(): any {
+    return this.queryParamsService.buildQueryParams(this.searchForm.value);
+  }
+
+  private buildSearchParams(): object {
+    return this.queryParamsService.buildSearchParams(this.searchForm.value);
   }
 
   private hasQueryParams(queryParams: {}): boolean {
-    return Object.keys(filterParams(queryParams)).length > 0;
+    return Object.keys(queryParams).length > 0;
   }
 
   private onPageChanged(): void {
-    if (!this.hasQueryParams(this.activatedRoute.snapshot.queryParams)) {
+    if (!this.hasQueryParams(this.queryParamsService.getCurrentQueryParams())) {
       this.getSearchAggregates();
     }
   }
 
   private onQueryParamsChanged(): void {
-    this.activatedRoute.queryParams
+    this.queryParamsService.onQueryParamsChanged()
       .pipe(
         takeWhile(() => this.alive),
-        distinctUntilChanged(),
       )
       .subscribe(queryParams => {
         if (this.hasQueryParams(queryParams)) {
           this.setFormValues(queryParams);
-          this.onReset();
+          this.onSearch();
         }
       });
   }
 
-  private setFormValues(queryParams: any): void {
-    const params: any = {};
-    if (queryParams.q) {
-      params.ecm_fulltext = queryParams.q;
-    }
-    this.searchForm.patchValue(params, { emitEvent: false });
-    // const keys = Object.keys(queryParams);
-    // for (const key of keys) {
-
-    // }
+  private changeQueryParams(): void {
+    this.queryParamsService.changeQueryParams([], this.buildQueryParams());
   }
 
   private onClear(): void {
-    const params = Object.assign({}, this.params, this.buildFormAggregates());
-    this.setFormValues(params);
-  }
-
-  private onReset(): void {
-    this.searchForm.patchValue({ currentPageIndex: 0 }, { emitEvent: false });
-    this.onSearch();
+    this.setFormValues(this.params);
   }
 
   private onSearch(): void {
     this.submitted = true;
-    this.advanceSearch.search(this.getFormValue());
+    this.advanceSearch.search(this.buildSearchParams());
   }
 
   private onSearchResponse(): void {
     this.advanceSearch.onSearch().pipe(
-      map(({ response }) => this.advanceSearch.buildAggregateModels(response)),
-    ).subscribe((aggregateModels: AggregateModel[]) => {
+      map(({ response, queryParams }) => {
+        return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams };
+      }),
+    ).subscribe(({ aggregateModels, queryParams }) => {
+      if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
+        this.previouSearchTerm = queryParams.ecm_fulltext;
+        this.changeSearchFilter(aggregateModels);
+      }
       this.submitted = false;
-      this.aggregates = this.buildSearchAggregates(aggregateModels);
     });
   }
 
   private getSearchAggregates(): void {
     this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
-      this.aggregates = this.buildSearchAggregates(aggregateModels);
+      this.changeSearchFilter(aggregateModels);
     });
   }
 
-  private buildFormAggregates(): any {
-    const formAggs = {};
-    const aggs = Object.keys(this.aggList);
-    for (const agg of aggs) {
-      formAggs[agg] = null;
-    }
-    return formAggs;
+  private changeSearchFilter(aggregateModels: AggregateModel[]): void {
+    this.aggregateModels$.next(filterAggregates(DEFAULT_SEARCH_FILTER_ITEM, aggregateModels));
   }
 
-  private buildSearchAggregates(models: AggregateModel[] = []): any[] {
-    const aggregates: any[] = [];
-    for (const model of models) {
-      if (this.aggList[model.id]) {
-        const options = [];
-        const id = model.id;
-        const name = this.aggList[model.id];
-        for (const bucket of model.extendedBuckets) {
-          options.push(this.buildSelectOptionModel(bucket));
-        }
-        aggregates.push({ id, name, options });
-      }
-    }
-    return aggregates;
-  }
-
-  private buildSelectOptionModel(agg: any = {}) {
-    const label = `${agg.key} (${agg.docCount})`;
-    const value = agg.key;
-    const disabled = false;
-    return new OptionModel(label, value, disabled);
-  }
 }

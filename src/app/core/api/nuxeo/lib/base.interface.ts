@@ -52,11 +52,25 @@ export class AggregateModel {
   readonly properties: {};
   readonly field: string;
   readonly type: string;
+  label: string;
+  placeholder: string;
 
   constructor(data: any = {}) {
     this.entityType = data['entity-type'];
     Object.assign(this, data);
   }
+}
+
+export function filterAggregates(mapping: { [key: string]: { label?: string, placeholder?: string } }, models: AggregateModel[] = []): AggregateModel[] {
+  const aggregates: AggregateModel[] = [];
+  for (const model of models) {
+    if (mapping[model.id]) {
+      model.label = mapping[model.id].label;
+      model.placeholder = mapping[model.id].placeholder;
+      aggregates.push(model);
+    }
+  }
+  return aggregates;
 }
 
 export class NuxeoOptions {

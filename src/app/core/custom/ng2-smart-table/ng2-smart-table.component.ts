@@ -42,7 +42,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     mode: 'inline', // inline|external|click-to-edit
     selectMode: 'single', // single|multi
     hideHeader: false,
-    hideSubHeader: false,
+    hideSubHeader: true,
     actions: {
       columnTitle: 'Actions',
       add: true,
@@ -80,7 +80,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     columns: {},
     pager: {
       display: true,
-      perPage: 10,
+      perPage: 1000,
     },
     rowClassFunction: () => '',
   };

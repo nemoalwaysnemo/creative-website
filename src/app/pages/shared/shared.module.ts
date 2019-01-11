@@ -7,7 +7,10 @@ import {
   OptionSelectModule,
   PictureGalleryModule,
   ThumbnailViewModule,
+  SearchFilterModule,
   PaginationModule,
+  ListViewModule,
+  SearchQueryParamsService,
 } from './';
 
 const EXPORTS = [
@@ -16,11 +19,14 @@ const EXPORTS = [
   OptionSelectModule,
   PictureGalleryModule,
   ThumbnailViewModule,
+  SearchFilterModule,
   PaginationModule,
+  ListViewModule,
   SharedDirectiveModule,
 ];
 
 const PROVIDERS = [
+  SearchQueryParamsService,
 ];
 
 @NgModule({

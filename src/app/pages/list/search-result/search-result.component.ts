@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
+import { ListViewItem, SearchQueryParamsService } from '@pages/shared';
 
 @Component({
   selector: 'tbwa-search-result',
@@ -9,17 +10,28 @@ import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-s
 })
 export class SearchResultComponent implements OnInit {
 
-  constructor(private advanceSearch: AdvanceSearch) { }
+  constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService) { }
 
   layout = 'search-results';
 
   currentView = 'thumbnailView';
 
-  documents: DocumentModel[];
+  documents: DocumentModel[] = [];
+
+  listDocuments: ListViewItem[];
 
   totalResults = 0;
 
   paginationService: PaginationDataSource = new PaginationDataSource();
+
+  listViewSettings: any = {
+    columns: {
+      title: {
+        title: 'Title',
+        sort: false,
+      },
+    },
+  };
 
   private queryParams: NuxeoPageProviderParams = {};
 
@@ -37,18 +49,28 @@ export class SearchResultComponent implements OnInit {
   }
 
   private onSearch(): void {
-    this.advanceSearch.onSearch().subscribe(({ response, queryParams, opts }) => {
+    this.advanceSearch.onSearch().subscribe(({ response, queryParams }) => {
       this.paginationService.from(response);
       this.queryParams = queryParams;
       this.totalResults = response.resultsCount;
       this.documents = response.entries;
+      this.listDocuments = this.buildListViewItem(response.entries);
     });
   }
 
   private onPageChanged() {
     this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
-      this.queryParams.currentPageIndex = pageInfo.currentPageIndex;
-      this.advanceSearch.search(this.queryParams);
+      const currentPageIndex = pageInfo.currentPageIndex;
+      this.queryParamsService.changeQueryParams([], { currentPageIndex }, 'merge');
     });
   }
+
+  private buildListViewItem(docs: DocumentModel[]): ListViewItem[] {
+    const items = [];
+    for (const doc of docs) {
+      items.push(new ListViewItem({ uid: doc.uid, title: doc.title }));
+    }
+    return items;
+  }
+
 }

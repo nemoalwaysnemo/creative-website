@@ -9,12 +9,18 @@ import { DocumentModel } from '@core/api';
 })
 export class DocumentViewerComponent implements OnInit {
   @Input() document: DocumentModel;
-  fileType: string;
+  fileMimeType: string;
   filePath: string;
-
+  storyboards: object;
+  poster: string;
   ngOnInit() {
-    this.filePath = this.document.filePath;
-    this.fileType = this.document.fileType;
+    this.filePath = this.document.get('file:content').data;
+    this.fileMimeType = this.document.fileMimeType;
+    const storyData = this.document.properties['vid:storyboard'];
+    this.storyboards = Object.keys(storyData).map(function (key) {
+      return storyData[key].content.data;
+    });
+    this.poster = this.document.videoPoster;
   }
 
   documentTypeIs(type: string): boolean {
@@ -34,7 +40,7 @@ export class DocumentViewerComponent implements OnInit {
   }
 
   private isPdf(): boolean {
-    return this.fileType === 'application/pdf';
+    return this.fileMimeType === 'application/pdf';
   }
 
   private isImage(): boolean {

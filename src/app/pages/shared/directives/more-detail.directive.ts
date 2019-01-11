@@ -1,9 +1,8 @@
-import { Directive, ElementRef, Renderer2, HostBinding, HostListener, Input, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Renderer2, HostListener, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { DocumentModel } from '@core/api';
 
 @Directive({
-  selector: '[tbwaMoreDetail]',
+  selector: '[moreDetail]',
 })
 export class MoreDetailDirective implements OnInit, OnDestroy {
 
@@ -14,7 +13,7 @@ export class MoreDetailDirective implements OnInit, OnDestroy {
   private klass: string = 'nav-title-link';
 
   @Input()
-  set tbwaMoreDetail(uid: string) {
+  set moreDetail(uid: string) {
     this.uuid = uid;
   }
 

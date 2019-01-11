@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-image-viewer',
@@ -6,10 +7,10 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
   templateUrl: './document-image-viewer.component.html',
 })
 export class DocumentImageViewerComponent implements OnInit {
-  @Input() filePath: string;
+  @Input() document: DocumentModel;
   src: string[];
 
   ngOnInit() {
-    this.src = [this.filePath];
+    this.src = [this.document.get('file:content').data];
   }
 }

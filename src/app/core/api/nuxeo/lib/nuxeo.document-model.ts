@@ -1,25 +1,8 @@
 import { Base } from './base.api';
-import { join } from './nuxeo.helpers';
-import { Observable } from 'rxjs';
-import { NuxeoResponse } from './base.interface';
-import { isThisTypeNode } from 'typescript';
-
-const enricher = {
-  document: {
-    ACLS: 'acls',
-    BREADCRUMB: 'breadcrumb',
-    CHILDREN: 'children',
-    DOCUMENT_URL: 'documentURL',
-    PERMISSIONS: 'permissions',
-    PREVIEW: 'preview',
-  },
-};
 
 export class DocumentModel extends Base {
 
-  private _repository: any;
   private _properties: any;
-  private _dirtyProperties: any;
   private _facets: string;
   private _uid: any;
   private _contextParameters: any;
@@ -28,10 +11,7 @@ export class DocumentModel extends Base {
 
   constructor(doc: any = {}, opts: any = {}) {
     super(opts);
-    this._nuxeo = opts.nuxeo;
-    this._repository = opts.repository || this._nuxeo.repository(doc.repository, opts);
     this._properties = {};
-    this._dirtyProperties = {};
     Object.assign(this, doc);
   }
 
@@ -39,11 +19,7 @@ export class DocumentModel extends Base {
     return this._properties;
   }
 
-  get filePath(): string {
-    return this._properties['file:content'].data;
-  }
-
-  get fileType(): string {
+  get fileMimeType(): string {
     return this._properties['file:content']['mime-type'];
   }
 
@@ -86,7 +62,7 @@ export class DocumentModel extends Base {
   }
 
   get(propertyName: string): any {
-    return this._dirtyProperties[propertyName] || this.properties[propertyName];
+    return this.properties[propertyName];
   }
 
   getVideoSources(typeList: string[] = []) {
@@ -123,40 +99,4 @@ export class DocumentModel extends Base {
     return !this.hasFacet('NotCollectionMember');
   }
 
-  fetchBlob(xpath: string = 'blobholder:0', opts: any = {}): Observable<NuxeoResponse> {
-    let options = opts;
-    let blobXPath = xpath;
-    if (typeof xpath === 'object') {
-      options = xpath;
-      blobXPath = 'blobholder:0';
-    }
-    options = this._computeOptions(options);
-    const path = join('id', this.uid, '@blob', blobXPath);
-    return this._nuxeo.request(path).get(options);
-  }
-
-  fetchRenditions(opts: any = {}): Observable<NuxeoResponse> {
-    const Promise = this._nuxeo.Promise;
-    if (this.contextParameters && this.contextParameters.renditions) {
-      return Promise.resolve(this.contextParameters.renditions);
-    }
-
-    const options = this._computeOptions(opts);
-    options.enrichers = { document: ['renditions'] };
-    return this._repository
-      .fetch(this.uid, options)
-      .subscribe((doc: any) => {
-        if (!this.contextParameters) {
-          this.contextParameters = {};
-        }
-        this.contextParameters.renditions = doc.contextParameters.renditions;
-        return this.contextParameters.renditions;
-      });
-  }
-
-  fetchRendition(name: string, opts: any = {}): Observable<NuxeoResponse> {
-    const options = this._computeOptions(opts);
-    const path = join('id', this.uid, '@rendition', name);
-    return this._nuxeo.request(path).get(options);
-  }
 }
