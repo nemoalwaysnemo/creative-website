@@ -45,3 +45,14 @@
     padding: 10px 41px 28px 0;
   }
 }
+.s-results {
+  width: calc(100% - 76px);
+  height: 100px;
+  margin: 7px auto 0;
+  > div {
+    width: 25%;
+    padding: 18px 39px 18px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+}

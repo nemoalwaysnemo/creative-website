@@ -1,6 +1,8 @@
 <div class="search-results">
-  <h1 *ngIf="!!queryParams.ecm_fulltext">Results for "{{queryParams.ecm_fulltext}}" ({{totalResults}})</h1>
-  <div><a href="javasciprt:void(0);" (click)="changeToGridView()">Grid</a> <a href="javasciprt:void(0);" (click)="changeToListView()">List</a></div>
+  <h1 *ngIf="!!queryParams.ecm_fulltext" class="left">Results for "{{queryParams.ecm_fulltext}}" ({{totalResults}})</h1>
+	<a href="javasciprt:void(0);" (click)="changeToListView()" class="list_view_trigger icon_btn right">List</a>
+	<a href="javasciprt:void(0);" (click)="changeToGridView()" class="grid_view_trigger icon_btn right">Grid</a>
+	<div class="clear"></div>
   <div *ngIf="currentView === 'thumbnailView'">
     <tbwa-thumbnail-view [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
   </div>

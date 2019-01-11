@@ -41,7 +41,7 @@ export class ThumbnailViewComponent implements OnInit {
     'agency': 'quarter flex',
     'brand': 'half flex',
     'search-list': 'results',
-    'search-results': 'middle',
+    'search-results': 's-results flex',
     'related': 'related',
   };
 

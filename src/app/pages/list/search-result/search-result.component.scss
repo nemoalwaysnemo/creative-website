@@ -2,4 +2,37 @@
   span {
     float: right;
   }
+  .left { float: left; }
+  .right { float: right; }
+  .clear { clear: both; }
+  
+  > h1,
+	.list_view_trigger,
+	.grid_view_trigger {
+		height: 46px;
+		line-height: 46px;
+		margin-top: 32px;
+	}
+	> h1 {
+		font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+		margin-left: 38px;
+	}
+	.icon_btn {
+		font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+		display: block;
+		height: 55px;
+		line-height: 55px;
+		padding: 0 13px 0 45px;
+		font-size: 18px;
+		color: #000000;
+		border: solid 1px #e1e1e1;
+	}
+	.list_view_trigger {
+		margin-right: 38px;
+		background: url('/assets/images/list_icon.png') no-repeat 13px center;
+	}
+	.grid_view_trigger {
+		margin-right: 42px;
+		background: url('/assets/images/grid_icon.png') no-repeat 13px center;
+	}
 }
