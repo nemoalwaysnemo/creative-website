@@ -19,8 +19,12 @@ export class DocumentModel extends Base {
     return this._properties;
   }
 
+  get filePath(): string {
+    return this._properties['file:content'] === null ? '' : this._properties['file:content'].data;
+  }
+
   get fileMimeType(): string {
-    return this._properties['file:content']['mime-type'];
+    return this._properties['file:content'] === null ? '' : this._properties['file:content']['mime-type'];
   }
 
   set properties(properties: any) {

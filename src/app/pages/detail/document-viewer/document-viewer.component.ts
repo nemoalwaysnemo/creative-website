@@ -12,7 +12,7 @@ export class DocumentViewerComponent implements OnInit {
   fileMimeType: string;
   filePath: string;
   ngOnInit() {
-    this.filePath = this.document.get('file:content').data;
+    this.filePath = this.document.filePath;
     this.fileMimeType = this.document.fileMimeType;
   }
 
@@ -28,6 +28,7 @@ export class DocumentViewerComponent implements OnInit {
         return this.isVideo();
       }
       default: {
+        return false;
       }
     }
   }
