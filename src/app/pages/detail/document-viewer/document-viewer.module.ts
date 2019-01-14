@@ -9,7 +9,7 @@ import { SimplePdfViewerModule } from 'simple-pdf-viewer';
 import { ImageViewerModule } from 'ngx-image-viewer';
 import { ThemeModule } from '@theme/theme.module';
 import { DocumentViewerComponent } from '@pages/detail/document-viewer/document-viewer.component';
-
+import { DocumentVideoViewerService } from '@pages/detail/document-viewer/document-video-viewer/document-video-viewer.service';
 import { VgCoreModule } from 'videogular2/core';
 import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
@@ -36,6 +36,9 @@ import { VgBufferingModule } from 'videogular2/buffering';
   ],
   exports: [
     DocumentViewerComponent,
+  ],
+  providers: [
+    DocumentVideoViewerService,
   ],
 })
 export class DocumentViewerModule {

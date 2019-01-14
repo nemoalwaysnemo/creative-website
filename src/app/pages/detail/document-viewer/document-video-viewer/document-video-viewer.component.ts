@@ -19,7 +19,6 @@ export class DocumentVideoViewerComponent implements OnInit {
     });
     this.poster = this.document.videoPoster;
     const storyData = this.document.properties['vid:storyboard'];
-    console.info(storyData);
     this.storyboards = Object.keys(storyData).map(function (key) {
       return { 'source': storyData[key].content.data, 'time': storyData[key].timecode };
     });
