@@ -47,7 +47,7 @@
 }
 .s-results {
   width: calc(100% - 76px);
-  height: 100px;
+  min-height: 100px;
   margin: 7px auto 0;
   > div {
     width: 25%;

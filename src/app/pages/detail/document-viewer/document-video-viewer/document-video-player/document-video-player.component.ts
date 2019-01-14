@@ -8,6 +8,9 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 export class DocumentVideoPlayerComponent implements OnInit {
   @Input() filePath: string;
   @Input() poster: string;
+  @Input() videoSources: object;
+
+
   ngOnInit() {
   }
 }
