@@ -1,7 +1,7 @@
 <div class="search-results">
   <h1 *ngIf="!!queryParams.ecm_fulltext" class="left">Results for "{{queryParams.ecm_fulltext}}" ({{totalResults}})</h1>
-  <button (click)="changeToListView()" class="list_view_trigger icon_btn right">List</button>
-  <button (click)="changeToGridView()" class="grid_view_trigger icon_btn right">Grid</button>
+  <button (click)="changeToListView()" class="list_view_trigger icon_btn right" [ngClass]="{'btn-disabled': currentView != 'thumbnailView'}">List</button>
+  <button (click)="changeToGridView()" class="grid_view_trigger icon_btn right" [ngClass]="{'btn-disabled': currentView === 'thumbnailView'}">Grid</button>
   <div class="clear"></div>
   <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
   <ng-template #thumbnailView>
