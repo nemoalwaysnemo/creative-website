@@ -1,17 +1,23 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
-  <div class="form-group search-input">
+  <div class="search-input">
     <input class="form-control" formControlName="ecm_fulltext" placeholder="Search for..." (keyup.enter)="onSubmit()" />
   </div>
-  <a (click)="toggleFilter()">Filter</a>
-  <ng-container *ngIf="showFilter">
-    <div class="form-group search-filter">
-      <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted"></tbwa-search-filter>
+  <div class="filters">
+    <a href="javascript:;" (click)="toggleFilter()" class="advanced_filters_trigger icon_btn">Filter</a>
+    <div class="dropdown_container">
+      <a href="javascript:;" class="dropdown-trigger"><span>Asset type</span><i class="caret down"></i></a>
     </div>
+    <div class="dropdown_container">
+      <a href="javascript:;" class="dropdown-trigger"><span>Year</span><i class="caret down"></i></a>
+    </div>
+    <div class="clear"></div>
+  </div>
+  
+  <ng-container *ngIf="showFilter">
+    <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted"></tbwa-search-filter>
     <div class="form-group search-actions">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button nbButton class="btn btn-xs" status="success" [disabled]="submitted || !form.form.valid" (click)="onSubmit()">Search</button>
-        <button nbButton class="btn btn-xs" status="primary" [disabled]="submitted || !form.form.valid" (click)="onReset()">Reset</button>
-      </div>
+      <button nbButton class="btn btn-xs" status="success" [disabled]="submitted || !form.form.valid" (click)="onSubmit()">Search</button>
+      <button nbButton class="btn btn-xs" status="primary" [disabled]="submitted || !form.form.valid" (click)="onReset()">Reset</button>
     </div>
   </ng-container>
 </form>
