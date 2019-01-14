@@ -1,4 +1,16 @@
-<div *ngFor="let item of aggregates" class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-  <tbwa-option-select [(ngModel)]="aggregateModel[item.id]" (ngModelChange)="onChange()" [items]="item.options"
-    [placeholder]="item.placeholder" [className]="item.id" [disabled]="disabled" class="form-control"></tbwa-option-select>
+<div class="filters">
+	<a href="javascript:;" class="advanced_filters_trigger icon_btn">Filters</a>
+	<div class="dropdown_container">
+		<a href="javascript:;" class="dropdown-trigger"><span>Asset type</span><i class="caret down"></i></a>
+	</div>
+	<div class="dropdown_container">
+		<a href="javascript:;" class="dropdown-trigger"><span>Year</span><i class="caret down"></i></a>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="advanced_filters flex">
+	<div *ngFor="let item of aggregates" class="dropdown_container">
+	  <tbwa-option-select [(ngModel)]="aggregateModel[item.id]" (ngModelChange)="onChange()" [items]="item.options"
+	    [placeholder]="item.placeholder" [className]="item.id" [disabled]="disabled" class="form-control"></tbwa-option-select>
+	</div>
 </div>

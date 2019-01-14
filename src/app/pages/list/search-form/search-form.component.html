@@ -1,14 +1,10 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
-  <div class="form-group search-input">
+  <div class="search-input">
     <input class="form-control" formControlName="ecm_fulltext" placeholder="Search for..." />
   </div>
-  <div class="form-group search-filter">
-    <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted"></tbwa-search-filter>
-  </div>
+  <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted"></tbwa-search-filter>
   <div class="form-group search-actions">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button nbButton class="btn btn-xs" status="success" [disabled]="submitted || !form.form.valid" (click)="onSubmit()">Search</button>
-      <button nbButton class="btn btn-xs" status="primary" [disabled]="submitted || !form.form.valid" (click)="onReset()">Reset</button>
-    </div>
+    <button nbButton class="btn btn-xs" status="success" [disabled]="submitted || !form.form.valid" (click)="onSubmit()">Search</button>
+    <button nbButton class="btn btn-xs" status="primary" [disabled]="submitted || !form.form.valid" (click)="onReset()">Reset</button>
   </div>
 </form>

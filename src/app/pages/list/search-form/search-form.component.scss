@@ -1,0 +1,19 @@
+.search-input {
+	margin: 20px 0;
+  padding: 10px 38px;
+  box-sizing: border-box;
+  .form-control {
+  	border: solid 1px #e1e1e1;
+  	height: 50px;
+  	padding-left: 50px;
+  	box-sizing: border-box;
+  	background: url('/assets/images/search_icon_small.png') no-repeat 20px center;
+  }
+}
+.search-actions {
+	box-sizing: border-box;
+	background: #ebebeb;
+	padding: 0 38px 30px;
+	text-align: right;
+	button { margin: 0 4px; }
+}
