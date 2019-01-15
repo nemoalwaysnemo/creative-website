@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { DocumentModel, Automation, NuxeoPagination } from '@core/api';
 
 @Component({
@@ -6,7 +6,7 @@ import { DocumentModel, Automation, NuxeoPagination } from '@core/api';
   styleUrls: ['./document-metadata-info.component.scss'],
   templateUrl: './document-metadata-info.component.html',
 })
-export class DocumentMetadataInfoComponent implements OnInit {
+export class DocumentMetadataInfoComponent implements OnChanges {
 
   usageRights: any = {};
 
@@ -14,7 +14,7 @@ export class DocumentMetadataInfoComponent implements OnInit {
 
   constructor(private automation: Automation) { }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
     this.getUsageRightsStatus();
   }
 

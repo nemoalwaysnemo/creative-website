@@ -1,5 +1,4 @@
-import { Component, OnInit, Input  } from '@angular/core';
-import { SimplePdfViewerComponent, SimplePDFBookmark } from 'simple-pdf-viewer';
+import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
@@ -7,14 +6,9 @@ import { DocumentModel } from '@core/api';
   styleUrls: ['./document-viewer.component.scss'],
   templateUrl: './document-viewer.component.html',
 })
-export class DocumentViewerComponent implements OnInit {
+export class DocumentViewerComponent {
+
   @Input() document: DocumentModel;
-  fileMimeType: string;
-  filePath: string;
-  ngOnInit() {
-    this.filePath = this.document.filePath;
-    this.fileMimeType = this.document.fileMimeType;
-  }
 
   documentTypeIs(type: string): boolean {
     switch (type) {
@@ -34,7 +28,7 @@ export class DocumentViewerComponent implements OnInit {
   }
 
   private isPdf(): boolean {
-    return this.fileMimeType === 'application/pdf';
+    return this.document.fileMimeType === 'application/pdf';
   }
 
   private isImage(): boolean {

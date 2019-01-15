@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnChanges, Input, ViewChild, SimpleChanges } from '@angular/core';
 import { SimplePdfViewerComponent } from 'simple-pdf-viewer';
 import { DocumentModel } from '@core/api';
 
@@ -7,13 +7,15 @@ import { DocumentModel } from '@core/api';
   styleUrls: ['./document-pdf-viewer.component.scss'],
   templateUrl: './document-pdf-viewer.component.html',
 })
-export class DocumentPdfViewerComponent implements OnInit {
+export class DocumentPdfViewerComponent implements OnChanges {
 
   filePath: string;
+
   @Input() document: DocumentModel;
+
   @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
     this.filePath = this.document.get('file:content').data;
     this.pdfViewer.zoomFullPage();
   }
