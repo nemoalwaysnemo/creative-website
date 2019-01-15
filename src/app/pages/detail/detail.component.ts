@@ -26,8 +26,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private advanceSearch: AdvanceSearch,
-    private documentRepository: DocumentRepository) {
+    private advanceSearch: AdvanceSearch) {
 
   }
 
@@ -42,10 +41,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   private getCurrentDocument(uid: string): Observable<NuxeoPagination> {
     const queryParams = Object.assign({}, this.params, { ecm_uuid: `["${uid}"]` });
     return this.advanceSearch.request(queryParams);
-  }
-
-  private getDocumentModel(uid: string): Observable<DocumentModel> {
-    return this.documentRepository.get(uid);
   }
 
   private onQueryParamsChanged(): void {

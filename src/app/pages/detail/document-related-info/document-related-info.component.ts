@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DocumentRelatedInfoService } from './document-related-info.service';
+import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-related-info',
   styleUrls: ['./document-related-info.component.scss'],
   templateUrl: './document-related-info.component.html',
 })
-export class DocumentRelatedInfoComponent implements OnInit {
+export class DocumentRelatedInfoComponent implements OnChanges {
 
   tabItems = [
     {
@@ -61,9 +62,11 @@ export class DocumentRelatedInfoComponent implements OnInit {
     // },
   ];
 
+  @Input() document: DocumentModel;
+
   constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
   }
 
   onChangTab(tab: any): void {

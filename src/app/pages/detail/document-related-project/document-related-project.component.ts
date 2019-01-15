@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
 
@@ -7,7 +7,9 @@ import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-s
   styleUrls: ['./document-related-project.component.scss'],
   templateUrl: './document-related-project.component.html',
 })
-export class DocumentRelatedProjectComponent implements OnInit {
+export class DocumentRelatedProjectComponent implements OnChanges {
+
+  @Input() document: DocumentModel;
 
   constructor(private advanceSearch: AdvanceSearch) { }
 
@@ -21,7 +23,7 @@ export class DocumentRelatedProjectComponent implements OnInit {
     ecm_primaryType: '["App-Library-Image"]',
   };
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
     this.search(this.params);
     this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       this.search(Object.assign({}, this.params, pageInfo));

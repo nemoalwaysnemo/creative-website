@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
@@ -6,11 +6,13 @@ import { DocumentModel } from '@core/api';
   styleUrls: ['./document-image-viewer.component.scss'],
   templateUrl: './document-image-viewer.component.html',
 })
-export class DocumentImageViewerComponent implements OnInit {
-  @Input() document: DocumentModel;
+export class DocumentImageViewerComponent implements OnChanges {
+
   src: string[];
 
-  ngOnInit() {
+  @Input() document: DocumentModel;
+
+  ngOnChanges(changes: SimpleChanges) {
     this.src = [this.document.get('file:content').data];
   }
 }

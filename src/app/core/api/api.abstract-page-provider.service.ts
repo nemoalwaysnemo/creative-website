@@ -6,6 +6,7 @@ import {
   NuxeoPagination,
   NuxeoPageProviderParams,
   NuxeoRequestOptions,
+  AggregateModel,
   join,
 } from './nuxeo';
 
@@ -35,6 +36,16 @@ export abstract class AbstractPageProvider extends AbstractBaseService {
 
   onSearch(): Observable<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions }> {
     return this.entries$.pipe(share());
+  }
+
+
+  buildAggregateModels(response: NuxeoPagination): AggregateModel[] {
+    const aggregations: AggregateModel[] = [];
+    const aggs = Object.values(response.aggregations);
+    for (const agg of aggs) {
+      aggregations.push(new AggregateModel(agg));
+    }
+    return aggregations;
   }
 
   protected execute(url: string, queryParams: any = {}, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
