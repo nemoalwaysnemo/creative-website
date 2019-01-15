@@ -30,9 +30,19 @@
       @include nb-accordion-item-header();
 
       i {
-        position: absolute;
-        @include nb-ltr(right, 1rem);
-        @include nb-rtl(left, 1rem);
+        float: right;
+        width: 18px;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url('/assets/images/caret_down.png');
+        &::before { content: ''; }
+        // &.up { background-image: url('/assets/images/caret_up.png'); }
+        // &.down {  }
+        
+        // position: absolute;
+        // @include nb-ltr(right, 1rem);
+        // @include nb-rtl(left, 1rem);
       }
     }
 
@@ -67,11 +77,12 @@
     }
 
     nb-accordion-item-body .item-body {
-      flex: 1;
-      -ms-flex: 1 1 auto;
-      overflow: auto;
-      padding: nb-theme(card-padding);
-      position: relative;
+      min-height: 49px;
+      // flex: 1;
+      // -ms-flex: 1 1 auto;
+      // overflow: auto;
+      // padding: nb-theme(card-padding);
+      // position: relative;
     }
   }
 }

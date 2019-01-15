@@ -1,49 +1,51 @@
-<div>
-  <h1>Unboxing</h1>
-  <h3>{{document.title}}</h3>
-</div>
-<div>
-  <h2>About</h2>
-  <p>{{document.get("dc:description")}}</p>
-</div>
-<div class="row">
-  <div class="col-6">
-    <h2>Asset Type</h2>
-    <p>{{document.get('The_Loupe_Main:assettype')}}</p>
-  </div>
-  <div class="col-6">
-    <h2>Country</h2>
-    <p>{{document.get('The_Loupe_Main:country')}}</p>
-  </div>
-</div>
-<div>
-  <h2>Agency</h2>
-  <p>{{document.get("The_Loupe_Main:agency")}}</p>
-</div>
-<div>
-  <nb-accordion>
-    <nb-accordion-item>
-      <nb-accordion-item-header>Job</nb-accordion-item-header>
-      <nb-accordion-item-body>
-        {{document.get('The_Loupe_Main:jobtitle')}}
-      </nb-accordion-item-body>
-    </nb-accordion-item>
-    <nb-accordion-item [collapsed]="false">
-      <nb-accordion-item-header>Usage Rights</nb-accordion-item-header>
-      <nb-accordion-item-body>
-        <div class="
-      row">
-          <div class="col-6">
-            <h3>Legit Days</h3>
-            <p>document.l days</p>
-          </div>
-          <div class="col-6">
-            <h3>Expires on</h3>
-            <p>August 30,2028</p>
-          </div>
-        </div>
-      </nb-accordion-item-body>
-    </nb-accordion-item>
-  </nb-accordion>
-  <a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}">Download</a>
-</div>
+<h1>Unboxing</h1>
+<h2>{{document.title}}</h2>
+<h4>About</h4>
+<p>{{document.get("dc:description")}}</p>
+<table>
+  <tbody>
+    <tr>
+      <th>Asset Type</th>
+      <th>{{document.get('The_Loupe_Main:assettype')}}</th>
+    </tr>
+    <tr>
+      <td>Country</td>
+      <td>{{document.get('The_Loupe_Main:country')}}</td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <tbody>
+    <tr>
+      <th colspan="2">Agency</th>
+    </tr>
+    <tr>
+      <td colspan="2">{{document.get("The_Loupe_Main:agency")}}</td>
+    </tr>
+  </tbody>
+</table>
+<nb-accordion class="accordion">
+  <nb-accordion-item class="accordion-item">
+    <nb-accordion-item-header class="accordion-item-header"><span>Job</span></nb-accordion-item-header>
+    <nb-accordion-item-body class="accordion-item-body">
+      {{document.get('The_Loupe_Main:jobtitle')}}
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+  <nb-accordion-item [collapsed]="false" class="accordion-item">
+    <nb-accordion-item-header class="accordion-item-header">Usage Rights</nb-accordion-item-header>
+    <nb-accordion-item-body class="accordion-item-body">
+      <ul class="state">
+        <li>
+          <h4>Legit Days</h4>
+          <span>document.l days</span>
+        </li>
+        <li>
+          <h4>Expires on</h4>
+          <span>August 30,2028</span>
+        </li>
+      </ul>
+      <a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}" class="download right">Download</a>
+      <div class="clear"></div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

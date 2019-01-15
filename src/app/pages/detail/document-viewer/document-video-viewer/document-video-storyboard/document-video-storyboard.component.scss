@@ -1,4 +1,5 @@
 .left { float: left; }
+.right { float: right; }
 .clear { clear: both; }
 .prev a,
 .next a {
@@ -34,4 +35,11 @@ ul {
     }
   }
   li + li { margin-left: 22px; }
+}
+.see_all {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  font-size: 15px;
+  margin-top: 29px;
+  color: #000000;
+  &:hover { text-decoration: none; }
 }
