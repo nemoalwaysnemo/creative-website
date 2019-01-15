@@ -1,4 +1,4 @@
-<div *ngIf="!isRelated" class="thumbnail-view-item {{styleClass}}">
+<div *ngIf="layout === 'default'" class="thumbnail-view-item {{styleClass}}">
   <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
   <div class="description">
     <h1 [moreDetail]="document.uid" moreDetailCss="nav-title-link" [title]="document.title">{{document.title}}</h1>
@@ -10,7 +10,7 @@
       NY</h4>
   </div>
 </div>
-<div *ngIf="isRelated" class="thumbnail-view-item {{styleClass}}">
+<div *ngIf="layout === 'simple'" class="thumbnail-view-item {{styleClass}}">
   <div>
     <h1 [moreDetail]="document.uid" [title]="document.title">{{document.title}}</h1>
   </div>

@@ -26,7 +26,8 @@ export class AdvanceSearch extends AbstractPageProvider {
     );
   }
 
-  searchForText(searchTerm: string, opts: any = {}): Observable<NuxeoPagination> {
-    return this.request(this.getDefaultRequestParams({ ecm_fulltext: searchTerm }), opts);
+  searchForText(searchTerm: string, queryParams: NuxeoPageProviderParams = {}): Observable<NuxeoPagination> {
+    queryParams.ecm_fulltext = searchTerm;
+    return this.request(this.getDefaultRequestParams(queryParams));
   }
 }
