@@ -11,13 +11,13 @@
 
 
   &.full-width .tabset {
-    justify-content: space-around;
+    // justify-content: space-around;
   }
 
   /deep/ nb-tab {
-    flex: 1;
-    -ms-flex: 1 1 auto;
-    overflow: auto;
+    // flex: 1;
+    // -ms-flex: 1 1 auto;
+    // overflow: auto;
     display: none;
     &.content-active {
       display: block;
@@ -25,46 +25,69 @@
   }
 
   .tabset {
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
+    // display: flex;
+    // flex-direction: row;
+    // list-style-type: none;
+    // margin: 0;
+    width: 100%;
+    height: 49px;
+    padding: 0;
     margin: 0;
+    border-bottom: solid 2px #a1a1a1;
+    box-sizing: border-box;
 
     .tab {
+      float: left;
       cursor: pointer;
-      margin-bottom: -1px;
-      text-align: center;
-      position: relative;
+      // margin-bottom: -1px;
+      // text-align: center;
+      // position: relative;
 
-      &.active a::before {
-        display: block;
+      // &.active a::before {
+      //   display: block;
+      // }
+      
+      &.active a {
+        font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+        font-size: 18px;
+        background-color: #fecc00;
+        border-bottom: solid 2px #a1a1a1;
       }
-
+      
       a {
-        display: flex;
-        position: relative;
-        text-decoration: none;
+        font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+        display: block;
+        height: 49px;
+        line-height: 49px;
+        padding: 0 19px;
+        font-size: 20px;
+        color: #000000;
+        box-sizing: border-box;
+        // display: flex;
+        // position: relative;
+        // text-decoration: none;
 
-        &::before {
-          display: none;
-          position: absolute;
-          content: '';
-          width: 100%;
-          height: 6px;
-          border-radius: 3px;
-          bottom: -2px;
-          left: 0;
-        }
+        // &::before {
+        //   display: none;
+        //   position: absolute;
+        //   content: '';
+        //   width: 100%;
+        //   height: 6px;
+        //   border-radius: 3px;
+        //   bottom: -2px;
+        //   left: 0;
+        // }
 
         i {
-          font-size: 1.5rem;
-          vertical-align: middle;
+          display: none;
+          // font-size: 1.5rem;
+          // vertical-align: middle;
         }
 
-        i + span {
-          @include nb-ltr(margin-left, 0.5rem);
-          @include nb-rtl(margin-right, 0.5rem);
-        }
+        // i + span {
+        //   @include nb-ltr(margin-left, 0.5rem);
+        //   @include nb-rtl(margin-right, 0.5rem);
+        // }
       }
     }
   }

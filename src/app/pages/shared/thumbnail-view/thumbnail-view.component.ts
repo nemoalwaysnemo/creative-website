@@ -42,7 +42,7 @@ export class ThumbnailViewComponent implements OnInit {
     'brand': 'half flex',
     'search-list': 'results',
     'search-results': 's-results flex',
-    'related': 'related',
+    'related': 'dates flex',
   };
 
   constructor() {

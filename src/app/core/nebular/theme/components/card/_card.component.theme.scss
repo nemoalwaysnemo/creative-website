@@ -138,15 +138,15 @@
   }
 
   nb-card-body {
-    flex: 1;
-    -ms-flex: 1 1 auto;
-    overflow: auto;
-    padding: nb-theme(card-padding);
-    position: relative;
-    @include nb-scrollbars(
-        nb-theme(scrollbar-fg),
-        nb-theme(scrollbar-bg),
-        nb-theme(scrollbar-width));
+    // flex: 1;
+    // -ms-flex: 1 1 auto;
+    // overflow: auto;
+    // padding: nb-theme(card-padding);
+    // position: relative;
+    // @include nb-scrollbars(
+    //     nb-theme(scrollbar-fg),
+    //     nb-theme(scrollbar-bg),
+    //     nb-theme(scrollbar-width));
   }
 
   nb-card-footer {

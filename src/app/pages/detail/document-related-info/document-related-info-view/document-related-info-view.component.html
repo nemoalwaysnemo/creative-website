@@ -1,32 +1,24 @@
-<div class="row">
-  <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-    <h1>{{title}}</h1>
-  </div>
-  <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-    <input [formControl]="queryField" (keyup.enter)="onKeyup($event)" type="text" class="keyword" placeholder="Search for..">
-  </div>
+<h2 class="left">{{title}}</h2>
+<div class="search_area right">
+  <input [formControl]="queryField" (keyup.enter)="onKeyup($event)" type="text" class="keyword" placeholder="Search for..">
 </div>
-<div style="min-height:30px;">
-  <div class="row">
-    <h2 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Lorem Ipsum</h2>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-      Authen
-    </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-      New Mas
-    </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-      Augmented
-    </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-      Lorem Ipsum
-    </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-      Lorem Ipsum
-    </div>
-  </div>
-  <div class="row">
-    <h2 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Lorem Ipsum</h2>
-    <tbwa-thumbnail-view [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
-  </div>
-</div>
+<div class="clear"></div>
+<h3>Lorem Ipsum</h3>
+<div class="line"></div>
+<ul>
+	<li>
+	  <a href="javascript:;"><img src="/assets/images/Polygon 6185.png" alt="">Authenticity</a>
+	</li>
+	<li>
+		<a href="javascript:;"><img src="/assets/images/Polygon 6185 copy.png" alt="">New Masculinity</a>
+	</li>
+	<li>
+		<a href="javascript:;"><img src="/assets/images/Polygon 6185 copy 2.png" alt="">Augmented Self</a>
+	</li>
+	<li>
+		<a href="javascript:;"><img src="/assets/images/Polygon 6185 copy 3.png" alt="">Lorem Ipsum</a>
+	</li>
+</ul>
+<div class="clear"></div>
+<h3>Lorem Ipsum</h3>
+<tbwa-thumbnail-view [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
