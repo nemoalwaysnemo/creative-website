@@ -19,7 +19,6 @@ import { VgAPI } from 'videogular2/core';
           <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
           <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
 
-          <vg-track-selector></vg-track-selector>
           <vg-mute></vg-mute>
           <vg-volume></vg-volume>
 

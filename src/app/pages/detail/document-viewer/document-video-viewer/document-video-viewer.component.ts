@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
@@ -7,20 +7,28 @@ import { DocumentModel } from '@core/api';
   templateUrl: './document-video-viewer.component.html',
 })
 export class DocumentVideoViewerComponent implements OnInit {
-  @Input() filePath: string;
-  @Input() document: DocumentModel;
-  videoSources: object;
+
   poster: string;
-  storyboards: object;
+
+  videoSources: { source: any, type: string }[];
+
+  storyboards: { source: any, time: number }[];
+
+  @Input() document: DocumentModel;
+
   ngOnInit() {
-    const sources = this.document.get('vid:transcodedVideos');
-    this.videoSources = Object.keys(sources).map(function (key) {
-      return { 'source' : sources[key].content.data , 'type' : sources[key].content['mime-type'] };
-    });
+    this.buildVideoInfo();
+  }
+
+  private buildVideoInfo(): void {
     this.poster = this.document.videoPoster;
+    const sources = this.document.get('vid:transcodedVideos');
+    this.videoSources = sources.map((source) => {
+      return { source: source.content.data, type: source.content['mime-type'] };
+    });
     const storyData = this.document.properties['vid:storyboard'];
-    this.storyboards = Object.keys(storyData).map(function (key) {
-      return { 'source': storyData[key].content.data, 'time': storyData[key].timecode };
+    this.storyboards = storyData.map((source) => {
+      return { source: source.content.data, time: source.timecode };
     });
   }
 }
