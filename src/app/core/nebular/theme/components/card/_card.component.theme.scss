@@ -28,11 +28,11 @@
     background: nb-theme(card-bg);
     color: nb-theme(card-fg-text);
     // TODO: move card margin style to layout
-    margin-bottom: nb-theme(card-margin);
-    border-radius: nb-theme(card-border-radius);
-    box-shadow: nb-theme(card-shadow);
+    // margin-bottom: nb-theme(card-margin);
+    // border-radius: nb-theme(card-border-radius);
+    // box-shadow: nb-theme(card-shadow);
     font-weight: nb-theme(card-font-weight);
-    border: nb-theme(card-border-width) nb-theme(card-border-type) nb-theme(card-border-color);
+    // border: nb-theme(card-border-width) nb-theme(card-border-type) nb-theme(card-border-color);
 
     @include nb-scrollbars(
         nb-theme(scrollbar-fg),

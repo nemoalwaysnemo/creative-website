@@ -56,3 +56,12 @@
     cursor: pointer;
   }
 }
+.dates {
+  width: 100%;
+  > div {
+    width: 25%;
+    box-sizing: border-box;
+    padding: 0 41px 49px 0;
+    cursor: pointer;
+  }
+}
