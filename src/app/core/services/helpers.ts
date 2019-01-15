@@ -204,3 +204,7 @@ export function selectObjectByKeys(p: object = {}, keys: any = []): any {
   Object.keys(p).filter(key => keys.includes(key)).forEach(key => { _[key] = p[key]; });
   return _;
 }
+
+export function isDocumentUID(uid: string): boolean {
+  return uid && /[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/ig.test(uid);
+}
