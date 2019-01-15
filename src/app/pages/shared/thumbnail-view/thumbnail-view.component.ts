@@ -8,11 +8,18 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
   styleUrls: ['./thumbnail-view-item.component.scss'],
 })
 export class ThumbnailViewItemComponent implements OnInit {
+
+  layout: string = 'default';
+
   @Input() styleClass: string;
+
   @Input() document: DocumentModel;
 
-  get isRelated(): boolean {
-    return this.styleClass === 'related';
+  @Input('layout')
+  set _layout(name: string) {
+    if (name) {
+      this.layout = name;
+    }
   }
 
   ngOnInit() {
@@ -25,7 +32,7 @@ export class ThumbnailViewItemComponent implements OnInit {
   template: `
   <div class="{{styleClass}}" tabIndex="-1">
     <div *ngFor="let document of documents" class="thumbnail-view">
-      <tbwa-thumbnail-view-item [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
+      <tbwa-thumbnail-view-item [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
     </div>
   </div>
   `,
@@ -33,7 +40,11 @@ export class ThumbnailViewItemComponent implements OnInit {
 export class ThumbnailViewComponent implements OnInit {
 
   @Input() layout: string;
+
+  @Input() itemLayout: string;
+
   @Input() documents: Observable<DocumentModel[]>;
+
   @Input() tabIndex: number = -1;
 
   styleClass: string = 'quarter flex';
