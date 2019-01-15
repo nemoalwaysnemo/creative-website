@@ -5,6 +5,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
+import { deepExtend } from '@core/services';
 
 @Component({
   selector: 'tbwa-home-search',
@@ -59,7 +60,7 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
         debounceTime(300),
         distinctUntilChanged(),
     ).subscribe((query: string) => {
-      this.advanceSearch.searchForText(query, this.buildSearchParams());
+      this.advanceSearch.search(deepExtend({}, { ecm_fulltext: query }, this.buildSearchParams()));
     });
   }
 
