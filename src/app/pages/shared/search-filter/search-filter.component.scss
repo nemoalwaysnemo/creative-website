@@ -42,3 +42,17 @@
 		}
 	}
 }
+.home_flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.home_advanced_filters{
+	background: #ffffff;
+	margin-top: 28px;
+	padding: 11px 19px;
+	justify-content: flex-start;
+}
