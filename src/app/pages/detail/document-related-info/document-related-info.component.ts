@@ -16,7 +16,7 @@ export class DocumentRelatedInfoComponent implements OnInit {
       params: {
         pageSize: 8,
         ecm_path: '/Creative/TBWA-/',
-        ecm_primaryType: '["App-Library-Image"]',
+        ecm_primaryType: '["App-Library-Video"]',
       },
     },
     // {
