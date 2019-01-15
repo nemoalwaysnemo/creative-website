@@ -1,0 +1,55 @@
+.right { float: right; }
+.clear { clear: both; }
+.tools {
+  position: relative;
+  margin: 9px 0;
+  > a {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    float: left;
+    height: 23px;
+    line-height: 23px;
+    padding: 0 5px 0 35px;
+    font-size: 15px;
+    color: #000000;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    @each $type in 'share', 'like', 'save', 'expand' {
+      &.#{$type} {
+        background-image: url('/assets/images/#{$type}.png');
+      }
+    }
+    &:hover { text-decoration: none; }
+  }
+  // .review {
+  //   position: absolute;
+  //   display: block;
+  //   display: none;
+  //   width: 228px;
+  //   bottom: 33px;
+  //   right: 100px;
+  //   box-sizing: border-box;
+  //   padding: 6px 7px;
+  //   background-color: rgba(255,255,255,0.8);
+  //   > a {
+  //     display: block;
+  //     float: left;
+  //     width: 38px;
+  //     height: 38px;
+  //   }
+  //   > a + a { margin-left: 6px; }
+  //   &:after {
+  //     content: "";
+  //     position: absolute;
+  //     display: block;
+  //     width: 11px;
+  //     height: 10px;
+  //     bottom: -10px;
+  //     top: auto;
+  //     left: 0;
+  //     right: 0;
+  //     margin: auto;
+  //     background: url('/assets/images/Polygon_5964.png') no-repeat left top;
+  //   }
+  // }
+}
