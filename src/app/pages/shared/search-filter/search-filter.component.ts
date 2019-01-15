@@ -23,6 +23,10 @@ export class SearchFilterComponent implements OnInit, OnDestroy, ControlValueAcc
 
   disabled: boolean = false;
 
+  @Input() styleClass: string;
+
+  styleClasses = { 'homePage': '', 'searchPage': 'advanced_filters flex'};
+
   private _onChange = (_) => { };
 
   private _onTouched = () => { };

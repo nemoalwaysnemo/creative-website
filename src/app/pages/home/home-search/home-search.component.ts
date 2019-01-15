@@ -1,9 +1,10 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Subscription, BehaviorSubject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
 
 @Component({
   selector: 'tbwa-home-search',
@@ -17,18 +18,39 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   documents: DocumentModel[] = [];
   queryField: FormControl = new FormControl();
   layout = 'search-list';
+
   private alive: boolean = true;
   private queryRef: Subscription;
+
+  aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
+  searchForm: FormGroup;
+  submitted: boolean = false;
+  showFilter: boolean = false;
+  private previouSearchTerm: string;
 
   private params: any = {
     pageSize: 10,
     ecm_primaryType: '["App-Library-Video", "App-Library-Image"]',
   };
 
-  constructor(private advanceSearch: AdvanceSearch, private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private advanceSearch: AdvanceSearch,
+    private queryParamsService: SearchQueryParamsService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+    this.createForm();
+    this.getSearchAggregates();
     this.search();
+    this.onSearch();
+    this.onSearchResponse();
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
+    this.queryRef.unsubscribe();
   }
 
   search(): void {
@@ -36,12 +58,38 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((query: string) => this.advanceSearch.searchForText(query, this.params)),
+    ).subscribe((query: string) => {
+      this.advanceSearch.searchForText(query, this.buildSearchParams());
+    });
+  }
+
+  private onSearch(): void {
+    this.advanceSearch.onSearch()
+      .pipe(
+        map((result: any) => result.response),
       )
-      .subscribe((result: NuxeoPagination) => {
-        this.results = result.entries;
-        this.show();
-      });
+    .subscribe((response: NuxeoPagination) => {
+      this.results = response.entries;
+      this.show();
+    });
+  }
+
+  private onSearchResponse(): void {
+    this.advanceSearch.onSearch().pipe(
+      map(({ response, queryParams }) => {
+        return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams };
+      }),
+    ).subscribe(({ aggregateModels, queryParams }) => {
+      if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
+        this.previouSearchTerm = queryParams.ecm_fulltext;
+        this.changeSearchFilter(aggregateModels);
+      }
+      this.submitted = false;
+    });
+  }
+
+  toggleFilter(): void {
+    this.showFilter = !this.showFilter;
   }
 
   show(): void {
@@ -65,12 +113,27 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     return { q: this.queryField.value };
   }
 
+  private createForm() {
+    const params = Object.assign({ aggregates: {} }, this.params);
+    this.searchForm = this.formBuilder.group(params);
+  }
+
+  private buildSearchParams(): object {
+    return this.queryParamsService.buildSearchParams(this.searchForm.value);
+  }
+
   private redirectToListPage(queryParams: {}) {
     this.router.navigate(['/p/search'], { queryParamsHandling: 'merge', queryParams });
   }
 
-  ngOnDestroy() {
-    this.alive = false;
-    this.queryRef.unsubscribe();
+
+  private getSearchAggregates(): void {
+    this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
+      this.changeSearchFilter(aggregateModels);
+    });
+  }
+
+  private changeSearchFilter(aggregateModels: AggregateModel[]): void {
+    this.aggregateModels$.next(filterAggregates(DEFAULT_SEARCH_FILTER_ITEM, aggregateModels));
   }
 }

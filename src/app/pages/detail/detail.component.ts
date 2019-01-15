@@ -4,6 +4,7 @@ import { DocumentRepository, DocumentModel, NuxeoPagination, AdvanceSearch } fro
 import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
+import { isDocumentUID } from '@core/services';
 
 @Component({
   selector: 'tbwa-detail-page',
@@ -52,11 +53,11 @@ export class DetailComponent implements OnInit, OnDestroy {
       .pipe(
         takeWhile(() => this.alive),
         tap(queryParams => {
-          if (!this.verifyUID(queryParams.id)) {
+          if (!isDocumentUID(queryParams.id)) {
             this.redirectTo404();
           }
         }),
-        takeWhile(queryParams => this.verifyUID(queryParams.id)),
+        takeWhile(queryParams => isDocumentUID(queryParams.id)),
         distinctUntilChanged(),
         map(queryParams => queryParams.id),
         switchMap((uid: string) => this.getCurrentDocument(uid)),
@@ -69,10 +70,6 @@ export class DetailComponent implements OnInit, OnDestroy {
           this.redirectTo404();
         }
       });
-  }
-
-  private verifyUID(uid: string): boolean {
-    return uid && uid.length === 36;
   }
 
   private redirectTo404(): void {
