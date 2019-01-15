@@ -1,0 +1,27 @@
+h1 {
+	font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+	margin-bottom: 28px;
+	font-size: 25px;
+}
+.accordion {
+	margin-bottom: 25px;
+	box-shadow: none;
+  border-radius: 0;
+	.accordion-item {
+		border-top: solid 1px #cccccc;
+		&:last-child {
+			border-bottom: solid 1px #cccccc;
+		}
+		.accordion-item-header {
+			font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+			display: block;
+			height: 50px;
+			line-height: 50px;
+			padding: 0 4px;
+			font-size: 15px;
+			color: #000000;
+			border-bottom: none;
+			box-sizing: border-box;
+		}
+	}
+}

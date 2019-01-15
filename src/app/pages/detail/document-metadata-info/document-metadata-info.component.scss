@@ -75,12 +75,14 @@ table {
 					h4 {
 						font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
 						height: 28px;
+            line-height: 15px;
 						font-size: 15px;
 						margin-bottom: 0;
 					}
 					span {
 						font-family: 'Averta for TBWA W01 Black', helvetica, arial;
 						display: inline-block;
+            line-height: 15px;
 						padding: 23px 15px;
 						font-size: 15px;
 						text-align: center;
@@ -105,4 +107,5 @@ table {
   margin-bottom: 12px;
   color: #000000;
   background: url('/assets/images/download_icon.png') no-repeat left center;
+  &:hover { text-decoration: none; }
 }
