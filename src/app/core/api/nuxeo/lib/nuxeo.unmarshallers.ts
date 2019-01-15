@@ -1,6 +1,7 @@
 import { DirectoryEntry } from './nuxeo.directory-entry';
 import { DocumentModel } from './nuxeo.document-model';
 import { UserModel } from './nuxeo.user-model';
+import { NuxeoPagination } from './base.interface';
 
 const unmarshallers: any = {};
 
@@ -34,4 +35,12 @@ export const DirectoryEntriesUnmarshaller = (json: any = {}, options: any = {}) 
   const directoryEntries = entries.map((directoryEntry) => new DirectoryEntry(directoryEntry, options));
   json.entries = directoryEntries;
   return json;
+};
+
+export const StringUnmarshaller = (json: any = {}, options: any = {}) => {
+  let value = JSON.parse(json.value);
+  if (value['entity_type']) {
+    value = new NuxeoPagination({ 'entity-type': value.entity_type, entries: value.entities });
+  }
+  return value;
 };

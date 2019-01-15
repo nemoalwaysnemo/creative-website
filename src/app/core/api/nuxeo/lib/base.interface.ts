@@ -136,7 +136,7 @@ export class NuxeoPagination {
     this.numberOfPages = response.numberOfPages || 0;
     this.pageSize = response.pageSize || 0;
     this.resultsCount = response.resultsCount || 0;
-    this.errorMessage = response.errorMessage;
+    this.errorMessage = response.errorMessage || '';
     this.hasError = response.hasError || false;
   }
 

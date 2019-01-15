@@ -3,8 +3,6 @@ import {
   NuxeoRequestOptions,
   deepExtend,
   NuxeoPageProviderParams,
-  NuxeoPagination,
-  AggregateModel,
 } from './nuxeo';
 
 export abstract class AbstractBaseService {
@@ -19,15 +17,5 @@ export abstract class AbstractBaseService {
   protected getRequestOptions(opts: any = {}): NuxeoRequestOptions {
     return deepExtend(new NuxeoRequestOptions(), opts || {});
   }
-
-  public buildAggregateModels(response: NuxeoPagination): AggregateModel[] {
-    const aggregations: AggregateModel[] = [];
-    const aggs = Object.values(response.aggregations);
-    for (const agg of aggs) {
-      aggregations.push(new AggregateModel(agg));
-    }
-    return aggregations;
-  }
-
 
 }

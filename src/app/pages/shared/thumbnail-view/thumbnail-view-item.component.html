@@ -11,10 +11,10 @@
   </div>
 </div>
 <div *ngIf="layout === 'simple'" class="thumbnail-view-item {{styleClass}}">
-  <h4>Wednesday</h4>
+  <h4 [moreDetail]="document.uid" moreDetailCss="nav-title-link">Wednesday</h4>
   <div class="line"></div>
-  <h4 class="right">September 12</h4>
-  <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
+  <h4 class="right" [moreDetail]="document.uid" moreDetailCss="nav-title-link">September 12</h4>
+  <img [moreDetail]="document.uid" src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
   <!-- <div>
     <h1 [moreDetail]="document.uid" [title]="document.title">{{document.title}}</h1>
   </div> -->
