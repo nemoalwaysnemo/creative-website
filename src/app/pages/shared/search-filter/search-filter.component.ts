@@ -25,7 +25,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy, ControlValueAcc
 
   @Input() styleClass: string;
 
-  styleClasses = { 'homePage': 'home_advanced_filters home_flex', 'searchPage': 'advanced_filters flex'};
+  styleClasses = { 'homePage': 'home_advanced_filters flex', 'searchPage': 'advanced_filters flex'};
 
   private _onChange = (_) => { };
 
