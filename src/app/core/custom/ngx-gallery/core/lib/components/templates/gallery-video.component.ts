@@ -5,6 +5,9 @@ import { VgAPI } from 'videogular2/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <vg-player (onPlayerReady)="onPlayerReady($event)">
+
+      <vg-overlay-play vgFor="video"></vg-overlay-play>
+
       <vg-controls>
           <vg-play-pause></vg-play-pause>
 
@@ -23,7 +26,7 @@ import { VgAPI } from 'videogular2/core';
           <vg-fullscreen></vg-fullscreen>
       </vg-controls>
 
-      <video [vgMedia]="video" #video id="singleVideo" preload="auto" poster="{{poster}}" (error)="error.emit($event)">
+      <video [vgMedia]="video" #video id="video" preload="auto" poster="{{poster}}" (error)="error.emit($event)">
           <source *ngFor="let src of videoSources" src="{{src?.url}}" type="{{src?.type}}">
       </video>
     </vg-player>
@@ -34,9 +37,9 @@ export class GalleryVideoComponent implements OnInit {
   preload: string = 'auto';
   api: VgAPI;
 
-  videoSources: {url: string, type?: string}[];
+  videoSources: { url: string, type?: string }[];
 
-  @Input() src: string | {url: string, type?: string}[];
+  @Input() src: string | { url: string, type?: string }[];
   @Input() poster: string;
 
   @Input('pause') set pauseVideo(shouldPause: boolean) {
@@ -64,12 +67,11 @@ export class GalleryVideoComponent implements OnInit {
   onPlayerReady(api: VgAPI) {
     this.api = api;
 
-    this.api.getDefaultMedia().subscriptions.playing.subscribe(
-      () => {
-        if ( this.api.getDefaultMedia().state === 'playing' ) {
-            this.playing.emit( 'playing' );
-        }
-      },
+    this.api.getDefaultMedia().subscriptions.playing.subscribe(() => {
+      if (this.api.getDefaultMedia().state === 'playing') {
+        this.playing.emit('playing');
+      }
+    },
     );
   }
 
