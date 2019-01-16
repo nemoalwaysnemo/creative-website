@@ -1,4 +1,4 @@
-import { join } from './nuxeo.helpers';
+import { join } from '../../../services';
 import { UserModel } from './nuxeo.user-model';
 import { Observable } from 'rxjs';
 import { Base } from './base.api';

@@ -1,7 +1,7 @@
+import { deepExtend } from '../services';
 import {
   NuxeoApiService,
   NuxeoRequestOptions,
-  deepExtend,
   NuxeoPageProviderParams,
 } from './nuxeo';
 

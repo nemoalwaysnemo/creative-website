@@ -1,13 +1,12 @@
 import { Observable, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { AbstractBaseService } from './api.abstract-base.service';
-
+import { join } from '../services';
 import {
   NuxeoPagination,
   NuxeoPageProviderParams,
   NuxeoRequestOptions,
   AggregateModel,
-  join,
 } from './nuxeo';
 
 export abstract class AbstractPageProvider extends AbstractBaseService {

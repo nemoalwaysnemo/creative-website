@@ -150,7 +150,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     ).subscribe(({ aggregateModels, queryParams }) => {
       if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
         this.previouSearchTerm = queryParams.ecm_fulltext;
-        this.changeSearchFilter(aggregateModels);
+        this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
+          this.changeSearchFilter(models);
+        });
       }
       this.submitted = false;
     });

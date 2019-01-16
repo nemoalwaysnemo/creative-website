@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NuxeoApiService } from './nuxeo';
 import { UserModel } from './nuxeo/lib';

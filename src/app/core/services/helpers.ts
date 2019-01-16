@@ -1,3 +1,20 @@
+
+export function join(...args: string[]): string {
+  return args.join('/').replace(/(^\/+)|([^:])\/\/+/g, '$2/');
+}
+
+export function flatten(list: string[]): string[] {
+  return list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
+}
+
+export function encodePath(path: string): string {
+  let encodedPath = encodeURIComponent(path);
+  // put back '/' character
+  encodedPath = encodedPath.replace(/%2F/g, '/');
+  // put back '@' character, needed for web adapters for instance...
+  encodedPath = encodedPath.replace(/%40/g, '@');
+  return encodedPath;
+}
 /**
  * Extending object that entered in first argument.
  *
@@ -76,7 +93,7 @@ export const deepExtend = function (...objects: any[]): any {
   return target;
 };
 
-function isSpecificValue(val: any) {
+function isSpecificValue(val: any): boolean {
   return (
     val instanceof Date
     || val instanceof RegExp
@@ -172,7 +189,7 @@ export function b64decode(str: string): string {
 }
 
 // https://developer.mozilla.org/en/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem
-export function b64DecodeUnicode(str: any) {
+export function b64DecodeUnicode(str: any): string {
   return decodeURIComponent(Array.prototype.map.call(b64decode(str), (c: any) => {
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));

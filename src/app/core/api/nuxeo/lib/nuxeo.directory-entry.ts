@@ -1,4 +1,4 @@
-import { deepExtend } from './nuxeo.helpers';
+import { deepExtend } from '../../../services';
 import { ServerVersion } from './nuxeo.server-version';
 import { Base } from './base.api';
 

@@ -11,7 +11,6 @@ export * from './nuxeo.batch-upload';
 export * from './nuxeo.directory-entry';
 export * from './nuxeo.directory';
 export * from './nuxeo.document-model';
-export * from './nuxeo.helpers';
 export * from './nuxeo.operation';
 export * from './nuxeo.repository';
 export * from './nuxeo.request';

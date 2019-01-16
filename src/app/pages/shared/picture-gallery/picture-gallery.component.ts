@@ -1,7 +1,8 @@
 import { Component, Inject, AfterViewInit, Input, OnInit } from '@angular/core';
 import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject } from 'rxjs';
-import { deepExtend } from '@core/api';
+import { deepExtend } from '@core/services';
+
 @Component({
   selector: 'tbwa-picture-gallery',
   styleUrls: ['./picture-gallery.component.scss'],
