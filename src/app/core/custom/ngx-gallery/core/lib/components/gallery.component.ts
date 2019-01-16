@@ -184,8 +184,8 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onPlayingVideo(action: string) {
-    if (action === 'playing') {
+  onPlayingVideo(action: {}) {
+    if (action['message'] === 'playing') {
       this.galleryRef.stop();
     }
   }

@@ -51,7 +51,7 @@ export class GalleryVideoComponent implements OnInit {
 
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<Error>();
-  @Output() playing = new EventEmitter<string | number>();
+  @Output() playing = new EventEmitter<{ message: string}>();
 
   @ViewChild('video') video: ElementRef;
 
@@ -69,7 +69,7 @@ export class GalleryVideoComponent implements OnInit {
 
     this.api.getDefaultMedia().subscriptions.playing.subscribe(() => {
       if (this.api.getDefaultMedia().state === 'playing') {
-        this.playing.emit('playing');
+        this.playing.emit({message: 'playing'});
       }
     },
     );

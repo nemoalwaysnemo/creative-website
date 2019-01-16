@@ -75,7 +75,7 @@ export class GalleryItemComponent {
 
   @Output() action = new EventEmitter<string | number>();
 
-  @Output() playing = new EventEmitter<string | number>();
+  @Output() playing = new EventEmitter<{ message: string }>();
 
   @HostBinding('class.g-active-item') get isActive() {
     return this.index === this.currIndex;

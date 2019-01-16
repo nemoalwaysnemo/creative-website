@@ -37,6 +37,10 @@ export class DocumentVideoStoryboardComponent implements OnChanges {
     const transformTime = parseInt(time.toString(), 10);
     const minutes = Math.floor(transformTime / 60);
     const seconds = transformTime - minutes * 60;
-    return minutes + ' : ' + seconds;
+    return this.prefixInteger(minutes) + ' : ' + this.prefixInteger(seconds);
+  }
+
+  prefixInteger(num) {
+  return (Array(2).join('0') + num).slice(-2);
   }
 }
