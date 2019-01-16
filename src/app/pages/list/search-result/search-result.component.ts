@@ -33,7 +33,7 @@ export class SearchResultComponent implements OnInit {
     },
   };
 
-  private queryParams: NuxeoPageProviderParams = {};
+  queryParams: NuxeoPageProviderParams = {};
 
   ngOnInit() {
     this.onSearch();

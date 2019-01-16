@@ -15,6 +15,7 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 import { DragScrollModule } from 'ngx-drag-scroll';
+
 @NgModule({
   imports: [
     ThemeModule,
