@@ -28,7 +28,13 @@
   <nb-accordion-item class="accordion-item" (click)="toggleJob()">
     <nb-accordion-item-header class="accordion-item-header"><span>Job</span></nb-accordion-item-header>
     <nb-accordion-item-body class="accordion-item-body" [nbSpinner]="jobLoading" nbSpinnerStatus="disabled">
-      {{jobTitle}}
+      <table>
+        <tbody>
+          <tr>
+            <td>{{jobTitle}}</td>
+          </tr>
+        </tbody>
+      </table>
     </nb-accordion-item-body>
   </nb-accordion-item>
   <nb-accordion-item [collapsed]="false" class="accordion-item">
@@ -44,8 +50,8 @@
           <span>{{usageRights.end_date | date}}</span>
         </li>
       </ul>
-      <a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}" class="download right" title="Download">Download</a>
       <div class="clear"></div>
     </nb-accordion-item-body>
   </nb-accordion-item>
 </nb-accordion>
+<a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}" class="download right" title="Download">Download</a>

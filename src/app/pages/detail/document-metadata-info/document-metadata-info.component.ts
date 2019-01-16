@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DocumentModel, Automation, AdvanceSearch, NuxeoPagination } from '@core/api';
+import { DocumentModel, Automation, AdvanceSearch, NuxeoPagination, Automations } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-metadata-info',
@@ -10,12 +10,13 @@ export class DocumentMetadataInfoComponent implements OnInit {
 
   usageRights: any = {};
 
-  @Input() document: DocumentModel;
-
-  jobTitle: any = undefined;
-  jobParams: any = undefined;
   usageLoading = true;
+
+  jobTitle: string;
+
   jobLoading = true;
+
+  @Input() document: DocumentModel;
 
   constructor(
     private advanceSearch: AdvanceSearch,
@@ -23,15 +24,14 @@ export class DocumentMetadataInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getJobParams();
     this.getUsageRightsStatus();
   }
 
   toggleJob() {
-    if (this.jobTitle === undefined && this.jobParams) {
-      this.advanceSearch.request(this.jobParams)
+    if (this.jobTitle === undefined && this.hasJobValue()) {
+      this.advanceSearch.request(this.getRequestParams())
         .subscribe((res: NuxeoPagination) => {
-          this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(',');
+          this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
           this.jobLoading = false;
         });
     } else {
@@ -40,17 +40,19 @@ export class DocumentMetadataInfoComponent implements OnInit {
   }
 
   private getUsageRightsStatus(): void {
-    this.automation.execute('Creative.GetDocumentURStatus', { 'uids': this.document.uid }).subscribe((res: NuxeoPagination) => {
+    this.automation.execute(Automations.GetDocumentURStatus, { 'uids': this.document.uid }).subscribe((res: NuxeoPagination) => {
       this.usageRights = res.entries.shift();
       this.usageLoading = false;
     });
   }
 
-  private getJobParams() {
+  private hasJobValue(): boolean {
+    return this.document.get('The_Loupe_Main:jobtitle').length > 0;
+  }
+
+  private getRequestParams(): {} {
     const jobTitle = this.document.get('The_Loupe_Main:jobtitle');
-    if (jobTitle.length >= 1) {
-      this.jobParams = { ecm_uuid: `["${jobTitle.join('", "')}"]` };
-    }
+    return { ecm_uuid: `["${jobTitle.join('", "')}"]` };
   }
 
 }

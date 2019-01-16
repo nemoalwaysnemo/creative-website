@@ -1,5 +1,6 @@
 export * from './nuxeo/lib';
 export * from './api.module';
+export * from './api.interface';
 export * from './api.user.service';
 export * from './api.abstract-base.service';
 export * from './api.abstract-page-provider.service';
