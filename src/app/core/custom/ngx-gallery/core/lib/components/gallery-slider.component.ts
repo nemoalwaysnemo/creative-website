@@ -41,7 +41,7 @@ declare const Hammer: any;
                       [currIndex]="state.currIndex"
                       [index]="i"
                       (ngxTapClick)="itemClick.emit(i)"
-                      (playing)="playing.emit($event)"
+                      (videoState)="videoState.emit($event)"
                       (error)="error.emit({itemIndex: i, error: $event})">
         </gallery-item>
 
@@ -79,7 +79,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<GalleryError>();
 
-  @Output() playing = new EventEmitter<{ message: string }>();
+  @Output() videoState = new EventEmitter<{ state: string }>();
 
   /** Item zoom */
   get zoom() {

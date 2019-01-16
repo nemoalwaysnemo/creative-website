@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { VgAPI } from 'videogular2/core';
+
 @Component({
   selector: 'gallery-video',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,7 +52,7 @@ export class GalleryVideoComponent implements OnInit {
 
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<Error>();
-  @Output() playing = new EventEmitter<{ message: string}>();
+  @Output() videoState = new EventEmitter<{ state: string }>();
 
   @ViewChild('video') video: ElementRef;
 
@@ -67,12 +68,17 @@ export class GalleryVideoComponent implements OnInit {
   onPlayerReady(api: VgAPI) {
     this.api = api;
 
-    this.api.getDefaultMedia().subscriptions.playing.subscribe(() => {
-      if (this.api.getDefaultMedia().state === 'playing') {
-        this.playing.emit({message: 'playing'});
-      }
-    },
-    );
+    const defaultMedia = this.api.getDefaultMedia();
+    const events = defaultMedia.subscriptions;
+
+    events.playing.subscribe(() => {
+      this.videoState.emit({ state: defaultMedia.state });
+    });
+
+    events.pause.subscribe(() => {
+      this.videoState.emit({ state: defaultMedia.state });
+    });
+
   }
 
 }

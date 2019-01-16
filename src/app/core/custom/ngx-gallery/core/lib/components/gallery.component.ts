@@ -26,7 +26,7 @@ import { IframeItem, ImageItem, VideoItem, YoutubeItem } from './templates/items
                   (action)="onAction($event)"
                   (itemClick)="onItemClick($event)"
                   (thumbClick)="onThumbClick($event)"
-                  (playing)="onPlayingVideo($event)"
+                  (videoState)="onVideoStateChange($event)"
                   (error)="onError($event)"></gallery-core>
     <ng-content></ng-content>
   `,
@@ -184,8 +184,8 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onPlayingVideo(action: {}) {
-    if (action['message'] === 'playing') {
+  onVideoStateChange(action: any = {}) {
+    if (action.state === 'playing') {
       this.galleryRef.stop();
     }
   }
