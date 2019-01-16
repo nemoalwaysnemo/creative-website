@@ -1,26 +1,42 @@
-import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
-import { DocumentModel, Automation, NuxeoPagination } from '@core/api';
+import { Component, Input, OnInit } from '@angular/core';
+import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-metadata-info',
   styleUrls: ['./document-metadata-info.component.scss'],
   templateUrl: './document-metadata-info.component.html',
 })
-export class DocumentMetadataInfoComponent implements OnChanges {
+export class DocumentMetadataInfoComponent implements OnInit {
 
   usageRights: any = {};
 
   @Input() document: DocumentModel;
 
-  constructor(private automation: Automation) { }
+  jobTitle: any = undefined;
+  jobParams: any = undefined;
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.getUsageRightsStatus();
+  constructor(
+    private advanceSearch: AdvanceSearch,
+  ) { }
+
+  ngOnInit() {
+    this.getJobParams();
   }
 
-  private getUsageRightsStatus(): void {
-    this.automation.execute('Creative.GetDocumentURStatus', { 'uids': this.document.uid }).subscribe((res: NuxeoPagination) => {
-      this.usageRights = res.entries.shift();
-    });
+  toggleJob() {
+    if (this.jobTitle === undefined && this.jobParams) {
+      this.advanceSearch.request(this.jobParams)
+        .subscribe((res: NuxeoPagination) => {
+          this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(',');
+        });
+    }
   }
+
+  private getJobParams() {
+    const jobTitle = this.document.get('The_Loupe_Main:jobtitle');
+    if (jobTitle.length >= 1) {
+      this.jobParams = { ecm_uuid: `["${jobTitle.join('", "')}"]` };
+    }
+  }
+
 }

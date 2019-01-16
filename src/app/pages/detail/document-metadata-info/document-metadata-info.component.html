@@ -25,10 +25,10 @@
   </tbody>
 </table>
 <nb-accordion class="accordion">
-  <nb-accordion-item class="accordion-item">
+  <nb-accordion-item class="accordion-item" (click)="toggleJob()">
     <nb-accordion-item-header class="accordion-item-header"><span>Job</span></nb-accordion-item-header>
     <nb-accordion-item-body class="accordion-item-body">
-      {{document.get('The_Loupe_Main:jobtitle')}}
+      {{jobTitle}}
     </nb-accordion-item-body>
   </nb-accordion-item>
   <nb-accordion-item [collapsed]="false" class="accordion-item">
