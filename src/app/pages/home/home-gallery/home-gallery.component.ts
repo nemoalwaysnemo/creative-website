@@ -11,6 +11,7 @@ export class HomeGalleryComponent implements OnInit {
 
   galleryItems: any = [];
   gallerySettings: any = {
+    playerInterval: 5000,
     autoPlay: true,
     dots: true,
     dotsSize: 20,
