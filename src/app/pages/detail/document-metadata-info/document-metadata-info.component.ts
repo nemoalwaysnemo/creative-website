@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
+import { DocumentModel, Automation, AdvanceSearch, NuxeoPagination } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-metadata-info',
@@ -17,10 +17,12 @@ export class DocumentMetadataInfoComponent implements OnInit {
 
   constructor(
     private advanceSearch: AdvanceSearch,
+    private automation: Automation,
   ) { }
 
   ngOnInit() {
     this.getJobParams();
+    this.getUsageRightsStatus();
   }
 
   toggleJob() {
@@ -30,6 +32,12 @@ export class DocumentMetadataInfoComponent implements OnInit {
           this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(',');
         });
     }
+  }
+
+  private getUsageRightsStatus(): void {
+    this.automation.execute('Creative.GetDocumentURStatus', { 'uids': this.document.uid }).subscribe((res: NuxeoPagination) => {
+      this.usageRights = res.entries.shift();
+    });
   }
 
   private getJobParams() {
