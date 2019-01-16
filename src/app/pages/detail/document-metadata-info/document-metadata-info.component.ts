@@ -14,6 +14,8 @@ export class DocumentMetadataInfoComponent implements OnInit {
 
   jobTitle: any = undefined;
   jobParams: any = undefined;
+  usageLoading = true;
+  jobLoading = true;
 
   constructor(
     private advanceSearch: AdvanceSearch,
@@ -30,13 +32,17 @@ export class DocumentMetadataInfoComponent implements OnInit {
       this.advanceSearch.request(this.jobParams)
         .subscribe((res: NuxeoPagination) => {
           this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(',');
+          this.jobLoading = false;
         });
+    } else {
+      this.jobLoading = false;
     }
   }
 
   private getUsageRightsStatus(): void {
     this.automation.execute('Creative.GetDocumentURStatus', { 'uids': this.document.uid }).subscribe((res: NuxeoPagination) => {
       this.usageRights = res.entries.shift();
+      this.usageLoading = false;
     });
   }
 

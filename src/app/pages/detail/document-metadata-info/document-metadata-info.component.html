@@ -27,13 +27,13 @@
 <nb-accordion class="accordion">
   <nb-accordion-item class="accordion-item" (click)="toggleJob()">
     <nb-accordion-item-header class="accordion-item-header"><span>Job</span></nb-accordion-item-header>
-    <nb-accordion-item-body class="accordion-item-body">
+    <nb-accordion-item-body class="accordion-item-body" [nbSpinner]="jobLoading" nbSpinnerStatus="disabled">
       {{jobTitle}}
     </nb-accordion-item-body>
   </nb-accordion-item>
   <nb-accordion-item [collapsed]="false" class="accordion-item">
     <nb-accordion-item-header class="accordion-item-header">Usage Rights</nb-accordion-item-header>
-    <nb-accordion-item-body class="accordion-item-body">
+    <nb-accordion-item-body class="accordion-item-body" [nbSpinner]="usageLoading" nbSpinnerStatus="disabled">
       <ul class="state">
         <li>
           <h4>Legit Days</h4>
