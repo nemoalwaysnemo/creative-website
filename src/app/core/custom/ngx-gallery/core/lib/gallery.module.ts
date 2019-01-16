@@ -11,7 +11,6 @@ import { GalleryDotsComponent } from './components/gallery-dots.component';
 import { GalleryThumbsComponent } from './components/gallery-thumbs.component';
 import { GallerySliderComponent } from './components/gallery-slider.component';
 import { GalleryCounterComponent } from './components/gallery-counter.component';
-import { GalleryPlayComponent } from './components/gallery-play.component';
 
 import { GalleryItemComponent } from './components/gallery-item.component';
 import { GalleryThumbComponent } from './components/gallery-thumb.component';
@@ -52,7 +51,6 @@ import { VgBufferingModule } from 'videogular2/buffering';
     GalleryCounterComponent,
     GalleryThumbsComponent,
     GalleryThumbComponent,
-    GalleryPlayComponent,
     GalleryItemComponent,
     GalleryImageComponent,
     GalleryVideoComponent,

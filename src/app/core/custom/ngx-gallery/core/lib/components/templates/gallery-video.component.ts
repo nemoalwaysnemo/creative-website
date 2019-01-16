@@ -7,7 +7,6 @@ import { VgAPI } from 'videogular2/core';
     <vg-player (onPlayerReady)="onPlayerReady($event)">
       <vg-controls>
           <vg-play-pause></vg-play-pause>
-          <vg-playback-button></vg-playback-button>
 
           <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
 
@@ -16,7 +15,6 @@ import { VgAPI } from 'videogular2/core';
               <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
           </vg-scrub-bar>
 
-          <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
           <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
 
           <vg-mute></vg-mute>

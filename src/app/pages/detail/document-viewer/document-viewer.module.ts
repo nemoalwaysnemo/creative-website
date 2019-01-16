@@ -14,7 +14,7 @@ import { VgCoreModule } from 'videogular2/core';
 import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
-
+import { DragScrollModule } from 'ngx-drag-scroll';
 @NgModule({
   imports: [
     ThemeModule,
@@ -25,6 +25,7 @@ import { VgBufferingModule } from 'videogular2/buffering';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    DragScrollModule,
   ],
   declarations: [
     DocumentPdfViewerComponent,
@@ -40,6 +41,7 @@ import { VgBufferingModule } from 'videogular2/buffering';
   providers: [
     DocumentVideoViewerService,
   ],
+  bootstrap: [DocumentViewerComponent],
 })
 export class DocumentViewerModule {
 }

@@ -1,9 +1,6 @@
-<div class="prev left"><a href="javascript"></a></div>
-<ul class="left">
-	<li *ngFor="let storyboard of storyboards" [id]="storyboard.time" (click)="jumpToTimeline(storyboard.time)">
-	  <a href="javascript"><img [src]="storyboard.source" [title]="storyboard.time"></a>
-	</li>
-</ul>
-<div class="next left"><a href="javascript"></a></div>
-<div class="clear"></div>
+<div class="prev left" (click)="moveLeft()"></div>
+<drag-scroll class="demo-one" drag-scroll-y-disabled="true" scrollbar-hidden="true"  #nav>
+	<img drag-scroll-item *ngFor="let storyboard of storyboards" (click)="jumpToTimeline(storyboard.time)" [src]="storyboard.source" [title]="storyboard.minutes" />
+</drag-scroll>
+<div class="next left" (click)="moveRight()"></div>
 <a href="javascript:;" class="right see_all">See all campaign</a>
