@@ -1,7 +1,7 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { Subscription, BehaviorSubject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Subscription, BehaviorSubject, merge, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, skip } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
 import { Router } from '@angular/router';
@@ -23,6 +23,8 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
   private queryRef: Subscription;
+  private inputObs: Observable<any>;
+  private filterObs: Observable<any>;
 
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
   searchForm: FormGroup;
@@ -56,20 +58,21 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
-    this.queryRef = this.queryField.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-      ).subscribe((query: string) => {
-        this.advanceSearch.search(deepExtend({}, { ecm_fulltext: query }, this.buildSearchParams()));
-      });
+    this.inputObs = this.queryField.valueChanges.pipe(debounceTime(300));
+    this.filterObs = this.searchForm.valueChanges.pipe(skip(1));
+    this.queryRef = merge(
+      this.inputObs,
+      this.filterObs,
+    ).subscribe(_ => {
+      this.advanceSearch.search(deepExtend({ ecm_fulltext: this.queryField.value || '' }, this.buildSearchParams()));
+    });
   }
 
   private onSearch(): void {
     this.advanceSearch.onSearch()
       .pipe(
         map((result: any) => result.response),
-      )
+    )
       .subscribe((response: NuxeoPagination) => {
         this.results = response.entries;
         this.show();
