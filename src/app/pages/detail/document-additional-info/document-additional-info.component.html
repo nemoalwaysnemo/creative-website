@@ -3,19 +3,42 @@
   <nb-accordion-item class="accordion-item">
     <nb-accordion-item-header class="accordion-item-header"><span>Credits</span></nb-accordion-item-header>
     <nb-accordion-item-body class="accordion-item-body">
-      document.Credits
-    </nb-accordion-item-body>
-  </nb-accordion-item>
-  <nb-accordion-item class="accordion-item">
-    <nb-accordion-item-header class="accordion-item-header"><span>Press Kit</span></nb-accordion-item-header>
-    <nb-accordion-item-body class="accordion-item-body">
-      document press kit
-    </nb-accordion-item-body>
-  </nb-accordion-item>
-  <nb-accordion-item class="accordion-item">
-    <nb-accordion-item-header class="accordion-item-header"><span>Data & A</span></nb-accordion-item-header>
-    <nb-accordion-item-body class="accordion-item-body">
-      document. data
+      <table>
+        <tbody>
+          <tr>
+            <td>Account Director</td>
+            <td>{{document.get('The_Loupe_Credits:accountDirector')}}</td>
+          </tr>
+          <tr>
+            <td>Creative Director</td>
+            <td>{{document.get('The_Loupe_Credits:creativeDirector')}}</td>
+          </tr>
+          <tr>
+            <td>Art Director</td>
+            <td>{{document.get('The_Loupe_Credits:artProducer')}}</td>
+          </tr>
+          <tr>
+            <td>Copy Writer</td>
+            <td>{{document.get('The_Loupe_Credits:copyWriter')}}</td>
+          </tr>
+          <tr>
+            <td>Broadcast Producer</td>
+            <td>{{document.get('The_Loupe_Credits:broadcastProducer')}}</td>
+          </tr>
+          <tr>
+            <td>Print Producer</td>
+            <td>{{document.get('The_Loupe_Credits:printProducer')}}</td>
+          </tr>
+          <tr>
+            <td>Digital Producer</td>
+            <td>{{document.get('The_Loupe_Credits:digitalProducer')}}</td>
+          </tr>
+          <tr>
+            <td>Project Manager</td>
+            <td>{{document.get('The_Loupe_Credits:projectManager')}}</td>
+          </tr>
+        </tbody>
+      </table>
     </nb-accordion-item-body>
   </nb-accordion-item>
 </nb-accordion>

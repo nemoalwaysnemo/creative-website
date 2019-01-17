@@ -147,7 +147,7 @@ export class Nuxeo extends Base {
     );
   }
 
-  getAuthenticationHeaders(auth: Credentials): {} {
+  getAuthenticationHeaders(auth: Credentials): any {
     return AuthenticationManager.computeAuthenticationHeaders(auth);
   }
 

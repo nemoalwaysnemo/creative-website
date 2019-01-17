@@ -19,14 +19,6 @@ export abstract class AbstractCore {
     this.automationUrl = join(this.restUrl, 'automation/');
   }
 
-  getConfigs(): {} {
-    return {
-      baseUrl: this.baseUrl,
-      restUrl: this.restUrl,
-      baseOptions: this.baseOptions,
-      automationUrl: this.automationUrl,
-    };
-  }
 }
 
 export class Credentials {

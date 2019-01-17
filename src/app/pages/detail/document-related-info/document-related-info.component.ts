@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DocumentRelatedInfoService } from './document-related-info.service';
 import { DocumentModel } from '@core/api';
 
@@ -7,7 +7,7 @@ import { DocumentModel } from '@core/api';
   styleUrls: ['./document-related-info.component.scss'],
   templateUrl: './document-related-info.component.html',
 })
-export class DocumentRelatedInfoComponent implements OnChanges {
+export class DocumentRelatedInfoComponent {
 
   tabItems = [
     {
@@ -65,9 +65,6 @@ export class DocumentRelatedInfoComponent implements OnChanges {
   @Input() document: DocumentModel;
 
   constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
-
-  ngOnChanges(changes: SimpleChanges) {
-  }
 
   onChangTab(tab: any): void {
     for (const tabItem of this.tabItems) {

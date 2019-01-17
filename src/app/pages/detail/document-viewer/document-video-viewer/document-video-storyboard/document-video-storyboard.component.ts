@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { DocumentVideoViewerService } from '../document-video-viewer.service';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 
@@ -7,13 +7,13 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
   styleUrls: ['./document-video-storyboard.component.scss'],
   templateUrl: './document-video-storyboard.component.html',
 })
-export class DocumentVideoStoryboardComponent implements OnChanges {
+export class DocumentVideoStoryboardComponent implements OnInit {
 
   @Input() storyboards: { source: any, time: number }[];
 
   constructor(private seekTime: DocumentVideoViewerService) { }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnInit() {
     this.storyboards = this.storyboards.map((storyboard) => {
       return { source: storyboard.source, time: storyboard.time, minutes: this.timeToMinute(storyboard.time) };
     });
@@ -41,6 +41,6 @@ export class DocumentVideoStoryboardComponent implements OnChanges {
   }
 
   prefixInteger(num) {
-  return (Array(2).join('0') + num).slice(-2);
+    return (Array(2).join('0') + num).slice(-2);
   }
 }

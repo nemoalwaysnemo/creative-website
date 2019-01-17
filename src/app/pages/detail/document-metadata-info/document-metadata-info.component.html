@@ -10,7 +10,7 @@
     </tr>
     <tr>
       <td>{{document.get('The_Loupe_Main:assettype')}}</td>
-      <td>{{document.get('The_Loupe_Main:country')}}</td>
+      <td>{{parseCountry(document.get('The_Loupe_Main:country'))}}</td>
     </tr>
   </tbody>
 </table>
@@ -43,7 +43,7 @@
       <ul class="state">
         <li>
           <h4>Legit Days</h4>
-          <span>{{usageRights.days_left >= 0 ? usageRights.days_left : 0}}</span>
+          <span>{{usageRights.days_left >= 0 ? usageRights.days_left : 0}} days</span>
         </li>
         <li>
           <h4>Expires on</h4>

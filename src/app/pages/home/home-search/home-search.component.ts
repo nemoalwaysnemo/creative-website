@@ -110,7 +110,7 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  private buildQueryParams(): {} {
+  private buildQueryParams(): any {
     return { q: this.queryField.value };
   }
 

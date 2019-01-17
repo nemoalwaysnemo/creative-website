@@ -39,6 +39,10 @@ export class DocumentMetadataInfoComponent implements OnInit {
     }
   }
 
+  parseCountry(list: string[]) {
+    return list.map((x) => x.split('/').pop()).join(', ');
+  }
+
   private getUsageRightsStatus(): void {
     this.automation.execute(Automations.GetDocumentURStatus, { 'uids': this.document.uid }).subscribe((res: NuxeoPagination) => {
       this.usageRights = res.entries.shift();
@@ -50,7 +54,7 @@ export class DocumentMetadataInfoComponent implements OnInit {
     return this.document.get('The_Loupe_Main:jobtitle').length > 0;
   }
 
-  private getRequestParams(): {} {
+  private getRequestParams(): any {
     const jobTitle = this.document.get('The_Loupe_Main:jobtitle');
     return { ecm_uuid: `["${jobTitle.join('", "')}"]` };
   }

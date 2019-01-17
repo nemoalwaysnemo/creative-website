@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
@@ -6,7 +6,7 @@ import { DocumentModel } from '@core/api';
   styleUrls: ['./document-video-viewer.component.scss'],
   templateUrl: './document-video-viewer.component.html',
 })
-export class DocumentVideoViewerComponent implements OnChanges {
+export class DocumentVideoViewerComponent implements OnInit {
 
   poster: string;
 
@@ -16,7 +16,7 @@ export class DocumentVideoViewerComponent implements OnChanges {
 
   @Input() document: DocumentModel;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnInit() {
     this.buildVideoInfo();
   }
 
