@@ -43,6 +43,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   onKeyup(event: KeyboardEvent) {
     if (this.alive) {
+      this.loading = true;
       this.search$.next(this.getSearchParams());
       event.preventDefault();
       event.stopImmediatePropagation();

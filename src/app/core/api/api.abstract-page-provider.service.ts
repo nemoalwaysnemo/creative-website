@@ -15,15 +15,16 @@ export abstract class AbstractPageProvider extends AbstractBaseService {
 
   protected provider: string = 'creative_website_search';
 
-  protected entries$ = new Subject<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions }>();
+  protected entries$ = new Subject<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, action: string }>();
 
   protected getRequestUrl(): string {
     return join(this.endPoint, 'pp', this.provider, 'execute');
   }
 
   search(queryParams: NuxeoPageProviderParams = {}, opts: NuxeoRequestOptions = {}): void {
+    this.entries$.next({ response: new NuxeoPagination, queryParams, opts, action: 'beforeSearch' });
     this.request(queryParams, opts).subscribe((response: NuxeoPagination) => {
-      this.entries$.next({ response, queryParams, opts });
+      this.entries$.next({ response, queryParams, opts, action: 'afterSearch' });
     });
   }
 
@@ -33,7 +34,7 @@ export abstract class AbstractPageProvider extends AbstractBaseService {
     return this.execute(this.getRequestUrl(), params, options);
   }
 
-  onSearch(): Observable<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions }> {
+  onSearch(): Observable<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, action: string }> {
     return this.entries$.pipe(share());
   }
 
