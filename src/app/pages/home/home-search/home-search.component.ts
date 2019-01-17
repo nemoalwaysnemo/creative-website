@@ -83,7 +83,9 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     ).subscribe(({ aggregateModels, queryParams }) => {
       if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
         this.previouSearchTerm = queryParams.ecm_fulltext;
-        this.changeSearchFilter(aggregateModels);
+        this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
+          this.changeSearchFilter(models);
+        });
       }
       this.submitted = false;
     });
@@ -111,7 +113,7 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   }
 
   private buildQueryParams(): any {
-    return { q: this.queryField.value };
+    return deepExtend({ q: this.queryField.value }, this.queryParamsService.buildQueryParams(this.searchForm.value));
   }
 
   private createForm() {
