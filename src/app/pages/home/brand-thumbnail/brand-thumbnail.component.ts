@@ -12,8 +12,10 @@ export class BrandThumbnailComponent implements OnInit {
   constructor(private advanceSearch: AdvanceSearch) { }
 
   layout = 'brand';
+
+  loading: boolean = true;
+
   brandDocuments: DocumentModel[];
-  loading = true;
 
   private params: any = {
     pageSize: 2,

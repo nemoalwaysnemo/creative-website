@@ -30,7 +30,7 @@ export class ThumbnailViewItemComponent implements OnInit {
   selector: 'tbwa-thumbnail-view',
   styleUrls: ['./thumbnail-view.component.scss'],
   template: `
-  <div class="{{styleClass}}" tabIndex="-1">
+  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="{{styleClass}}" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
     <div *ngFor="let document of documents" class="thumbnail-view">
       <tbwa-thumbnail-view-item [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
     </div>
@@ -41,11 +41,18 @@ export class ThumbnailViewComponent implements OnInit {
 
   @Input() layout: string;
 
+  @Input('loading')
+  set _loading(loading: boolean) {
+    this.loading = loading;
+  }
+
   @Input() itemLayout: string;
 
   @Input() documents: Observable<DocumentModel[]>;
 
   @Input() tabIndex: number = -1;
+
+  loading: boolean;
 
   styleClass: string = 'quarter flex';
   styleList = {

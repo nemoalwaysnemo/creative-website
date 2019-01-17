@@ -13,9 +13,12 @@ export class AgencyThumbnailComponent implements OnInit {
   constructor(private advanceSearch: AdvanceSearch) { }
 
   layout = 'agency';
+
+  loading: boolean = true;
+
   agencyDocuments: DocumentModel[];
+
   paginationService: PaginationDataSource = new PaginationDataSource();
-  loading = true;
 
   private params: any = {
     pageSize: 8,

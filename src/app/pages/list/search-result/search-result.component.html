@@ -1,13 +1,11 @@
 <div class="search-results">
   <h1 *ngIf="!!queryParams.ecm_fulltext" class="left">Results for "{{queryParams.ecm_fulltext}}" ({{totalResults}})</h1>
-  <button (click)="changeToListView()" class="list_view_trigger icon_btn right" [ngClass]="{'btn-disabled': currentView != 'thumbnailView'}"
-    title="List View">List</button>
-  <button (click)="changeToGridView()" class="grid_view_trigger icon_btn right" [ngClass]="{'btn-disabled': currentView === 'thumbnailView'}"
-    title="Grid View">Grid</button>
+  <button (click)="changeToListView()" class="list_view_trigger icon_btn right" [ngClass]="{'btn-disabled': currentView != 'thumbnailView'}" title="List View">List</button>
+  <button (click)="changeToGridView()" class="grid_view_trigger icon_btn right" [ngClass]="{'btn-disabled': currentView === 'thumbnailView'}" title="Grid View">Grid</button>
   <div class="clear"></div>
   <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
   <ng-template #thumbnailView>
-    <tbwa-thumbnail-view [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
+    <tbwa-thumbnail-view [loading]="loading" [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
   </ng-template>
   <ng-template #listView>
     <tbwa-list-view [settings]="listViewSettings" [documents]="listDocuments"></tbwa-list-view>

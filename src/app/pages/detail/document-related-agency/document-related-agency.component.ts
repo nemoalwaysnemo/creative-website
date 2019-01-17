@@ -15,7 +15,11 @@ export class DocumentRelatedAgencyComponent implements OnInit {
   constructor(private advanceSearch: AdvanceSearch) { }
 
   layout = 'agency';
+
+  loading: boolean = true;
+
   relatedAgencyDocuments: DocumentModel[];
+
   paginationService: PaginationDataSource = new PaginationDataSource();
 
   private params: any = {
@@ -33,6 +37,7 @@ export class DocumentRelatedAgencyComponent implements OnInit {
   private search(params: {}): void {
     this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
+        this.loading = false;
         this.relatedAgencyDocuments = res.entries;
         this.paginationService.from(res);
       });

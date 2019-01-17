@@ -14,6 +14,8 @@ export class SearchResultComponent implements OnInit {
 
   layout = 'search-results';
 
+  loading: boolean = true;
+
   currentView = 'thumbnailView';
 
   documents: DocumentModel[] = [];
@@ -50,6 +52,7 @@ export class SearchResultComponent implements OnInit {
 
   private onSearch(): void {
     this.advanceSearch.onSearch().subscribe(({ response, queryParams }) => {
+      this.loading = false;
       this.paginationService.from(response);
       this.queryParams = queryParams;
       this.totalResults = response.resultsCount;

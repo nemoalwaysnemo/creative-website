@@ -4,7 +4,6 @@ import { AbstractPageProvider } from './api.abstract-page-provider.service';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { of as observableOf, Observable } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
-import { deepExtend } from '@core/services';
 import { DocumentModel } from './nuxeo/lib';
 
 @Injectable()
