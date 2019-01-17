@@ -10,7 +10,7 @@ export class DocumentVideoViewerComponent implements OnChanges {
 
   poster: string;
 
-  videoSources: { source: any, type: string }[];
+  videoSources: { url: any, type: string }[];
 
   storyboards: { source: any, time: number }[];
 
@@ -22,10 +22,7 @@ export class DocumentVideoViewerComponent implements OnChanges {
 
   private buildVideoInfo(): void {
     this.poster = this.document.videoPoster;
-    const sources = this.document.get('vid:transcodedVideos');
-    this.videoSources = sources.map((source) => {
-      return { source: source.content.data, type: source.content['mime-type'] };
-    });
+    this.videoSources = this.document.getVideoSources();
     const storyData = this.document.properties['vid:storyboard'];
     this.storyboards = storyData.map((source) => {
       return { source: source.content.data, time: source.timecode };

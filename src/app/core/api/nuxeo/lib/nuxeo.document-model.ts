@@ -69,11 +69,11 @@ export class DocumentModel extends Base {
     return this.properties[propertyName];
   }
 
-  getVideoSources(typeList: string[] = []) {
+  getVideoSources(): { url: string, type: string }[] {
     const sources = this.get('vid:transcodedVideos') || [];
-    return sources.filter(item => typeList.includes(item.name)).map(function (conversion) {
+    return sources.map((conversion: any) => {
       return {
-        src: conversion.content.data,
+        url: conversion.content.data,
         type: conversion.content['mime-type'],
       };
     });

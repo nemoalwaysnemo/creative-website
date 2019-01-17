@@ -24,8 +24,6 @@ export class HomeGalleryComponent implements OnInit {
     ecm_path: NUXEO_META_INFO.AWARD_FOLDER_PATH,
   };
 
-  private defaultVideoFormats: string[] = ['MP4 480p'];
-
   agencyDocuments: DocumentModel[];
 
   constructor(private advanceSearch: AdvanceSearch) {
@@ -41,7 +39,7 @@ export class HomeGalleryComponent implements OnInit {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getVideoSources(this.defaultVideoFormats)[0]['src'], thumb: entry.thumbnailUrl, poster: entry.videoPoster });
+        imgArray.push({ src: entry.getVideoSources(), thumb: entry.thumbnailUrl, poster: entry.videoPoster });
       } else if (entry.isPicture()) {
         const url = entry.thumbnailUrl;
         imgArray.push({ src: url, thumb: url });
@@ -52,7 +50,7 @@ export class HomeGalleryComponent implements OnInit {
   }
 
   hasVideoContent(entry: DocumentModel) {
-    if (entry.getVideoSources(this.defaultVideoFormats).length > 0) {
+    if (entry.getVideoSources().length > 0) {
       return true;
     }
   }
