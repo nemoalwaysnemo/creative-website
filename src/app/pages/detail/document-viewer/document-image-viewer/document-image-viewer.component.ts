@@ -13,6 +13,6 @@ export class DocumentImageViewerComponent implements OnChanges {
   @Input() document: DocumentModel;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.src = [this.document.get('file:content').data];
+    this.src =  this.document.filePath === '' ? ['../assets/default/no_image.png'] : [this.document.filePath];
   }
 }
