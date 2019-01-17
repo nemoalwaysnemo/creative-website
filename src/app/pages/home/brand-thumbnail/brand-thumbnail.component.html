@@ -1,5 +1,7 @@
 <div class="brand-thumbnail">
   <h1>Brands</h1>
-  <tbwa-thumbnail-view [layout]="layout" [documents]="brandDocuments"></tbwa-thumbnail-view>
+  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" style="min-height:100px;">
+    <tbwa-thumbnail-view [layout]="layout" [documents]="brandDocuments"></tbwa-thumbnail-view>
+  </div>
 </div>
 <div class="clear"></div>

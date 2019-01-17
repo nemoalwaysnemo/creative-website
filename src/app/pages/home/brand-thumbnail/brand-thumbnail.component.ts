@@ -13,6 +13,7 @@ export class BrandThumbnailComponent implements OnInit {
 
   layout = 'brand';
   brandDocuments: DocumentModel[];
+  loading = true;
 
   private params: any = {
     pageSize: 2,
@@ -23,6 +24,7 @@ export class BrandThumbnailComponent implements OnInit {
     this.advanceSearch.request(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.brandDocuments = res.entries;
+        this.loading = false;
       });
   }
 }

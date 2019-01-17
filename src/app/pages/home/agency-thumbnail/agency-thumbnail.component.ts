@@ -15,6 +15,7 @@ export class AgencyThumbnailComponent implements OnInit {
   layout = 'agency';
   agencyDocuments: DocumentModel[];
   paginationService: PaginationDataSource = new PaginationDataSource();
+  loading = true;
 
   private params: any = {
     pageSize: 8,
@@ -32,6 +33,7 @@ export class AgencyThumbnailComponent implements OnInit {
     this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.agencyDocuments = res.entries;
+        this.loading = false;
         this.paginationService.from(res);
       });
   }
