@@ -10,15 +10,9 @@ import { DocumentModel } from './nuxeo/lib';
 @Injectable()
 export class AdvanceSearch extends AbstractPageProvider {
 
-  private defaultParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
-
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
     this.defaultParams.ecm_path = NUXEO_META_INFO.BASE_FOLDER_PATH;
-  }
-
-  private getDefaultRequestParams(opts: any = {}): NuxeoPageProviderParams {
-    return deepExtend({}, this.defaultParams, opts);
   }
 
   requestSearchFilters(queryParams: NuxeoPageProviderParams = {}): Observable<AggregateModel[]> {
@@ -48,6 +42,6 @@ export class AdvanceSearch extends AbstractPageProvider {
 
   searchForText(searchTerm: string, queryParams: NuxeoPageProviderParams = {}): Observable<NuxeoPagination> {
     queryParams.ecm_fulltext = searchTerm;
-    return this.request(this.getDefaultRequestParams(queryParams));
+    return this.request(queryParams);
   }
 }

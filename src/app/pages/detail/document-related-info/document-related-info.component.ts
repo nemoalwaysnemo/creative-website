@@ -13,6 +13,8 @@ export class DocumentRelatedInfoComponent {
   tabItems = [
     {
       name: 'Backslash',
+      layout: 'backslash',
+      itemLayout: 'backslash',
       icon: 'nb-person',
       loading: false,
       params: {
@@ -20,46 +22,18 @@ export class DocumentRelatedInfoComponent {
         ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
       },
     },
-    // {
-    //   name: 'Distruption',
-    //   icon: 'nb-person',
-    //   loading: false,
-    //   params: {
-    //     pageSize: 8,
-    //     ecm_path: '/Creative/TBWA-/',
-    //     ecm_primaryType: '["App-Library-Image"]',
-    //   },
-    // },
-    // {
-    //   name: 'Knowledge',
-    //   icon: 'nb-person',
-    //   loading: false,
-    //   params: {
-    //     pageSize: 8,
-    //     ecm_path: '/Creative/TBWA-/',
-    //     ecm_primaryType: '["App-Library-Image"]',
-    //   },
-    // },
     {
-      name: 'Awards',
+      name: 'Distruption',
+      layout: 'distruption',
+      itemLayout: 'default',
       icon: 'nb-person',
       loading: false,
       params: {
         pageSize: 8,
-        ecm_path: NUXEO_META_INFO.BASE_FOLDER_PATH,
         ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
       },
     },
-    // {
-    //   name: 'Lorern Ipsum',
-    //   icon: 'nb-person',
-    //   loading: false,
-    //   params: {
-    //     pageSize: 8,
-    //     ecm_path: '/Creative/TBWA-/',
-    //     ecm_primaryType: '["App-Library-Image"]',
-    //   },
-    // },
+
   ];
 
   @Input() document: DocumentModel;

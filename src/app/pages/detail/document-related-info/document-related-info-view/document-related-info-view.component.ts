@@ -12,12 +12,13 @@ import { FormControl } from '@angular/forms';
 export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   @Input() title: string;
+  @Input() layout: string;
+  @Input() itemLayout: string;
   @Input() documents: DocumentModel[];
   @Input() params: {};
 
   private alive = true;
   loading = true;
-  layout = 'related';
   queryField: FormControl = new FormControl();
 
   constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
