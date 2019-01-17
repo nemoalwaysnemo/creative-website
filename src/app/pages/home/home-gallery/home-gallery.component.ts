@@ -22,6 +22,7 @@ export class HomeGalleryComponent implements OnInit {
   private params: any = {
     pageSize: 10,
     ecm_path: NUXEO_META_INFO.AWARD_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_TYPES,
   };
 
   agencyDocuments: DocumentModel[];

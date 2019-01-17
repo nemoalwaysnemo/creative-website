@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DocumentRepository, DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
+import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -19,8 +19,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 1,
-    ecm_path: NUXEO_META_INFO.BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.LIBRARY_DOC_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   constructor(

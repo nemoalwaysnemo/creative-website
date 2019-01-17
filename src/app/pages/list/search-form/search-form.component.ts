@@ -5,6 +5,7 @@ import { takeWhile, map } from 'rxjs/operators';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
 import { BehaviorSubject } from 'rxjs';
 import { selectObjectByKeys } from '@core/services';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-search-form',
@@ -29,8 +30,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: '/Creative/TBWA-/',
-    ecm_primaryType: '["App-Library-Video", "App-Library-Image"]',
+    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   constructor(

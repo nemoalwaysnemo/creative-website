@@ -10,9 +10,10 @@ export const Environment = {
 };
 
 export const NUXEO_META_INFO = {
-  BASE_FOLDER_PATH: '/Creative',
+  BASE_FOLDER_PATH: '/Creative/TBWA-',
   AWARD_FOLDER_PATH: '/Creative/AWARDS',
-  LIBRARY_DOC_TYPES: '["App-Library-Video", "App-Library-Image"]',
+  LIBRARY_IMAGE_VIDEO_TYPES: '["App-Library-Image", "App-Library-Video"]',
+  LIBRARY_IMAGE_VIDEO_AUDIO_TYPES: '["App-Library-Image", "App-Library-Video", "App-Library-Audio"]',
   LIBRARY_FOLDER_TYPE: '["App-Library-Folder"]',
   LIBRARY_PROJECT_TYPE: '["App-Library-Project"]',
 };

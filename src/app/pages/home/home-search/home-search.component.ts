@@ -1,11 +1,12 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription, BehaviorSubject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
+import { Router } from '@angular/router';
 import { deepExtend } from '@core/services';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-home-search',
@@ -31,7 +32,7 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 10,
-    ecm_primaryType: '["App-Library-Video", "App-Library-Image"]',
+    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   constructor(
@@ -59,9 +60,9 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-    ).subscribe((query: string) => {
-      this.advanceSearch.search(deepExtend({}, { ecm_fulltext: query }, this.buildSearchParams()));
-    });
+      ).subscribe((query: string) => {
+        this.advanceSearch.search(deepExtend({}, { ecm_fulltext: query }, this.buildSearchParams()));
+      });
   }
 
   private onSearch(): void {
@@ -69,10 +70,10 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
       .pipe(
         map((result: any) => result.response),
       )
-    .subscribe((response: NuxeoPagination) => {
-      this.results = response.entries;
-      this.show();
-    });
+      .subscribe((response: NuxeoPagination) => {
+        this.results = response.entries;
+        this.show();
+      });
   }
 
   private onSearchResponse(): void {

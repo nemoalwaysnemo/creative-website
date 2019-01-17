@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMenuService } from '@core/nebular/theme';
 import { UserService } from '@core/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private alive: boolean = true;
 
-  constructor(private menuService: NbMenuService, private userService: UserService) {
+  constructor(private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goHome() {
-    this.menuService.navigateHome();
+    this.router.navigate(['/p/home']);
   }
 
   ngOnDestroy() {

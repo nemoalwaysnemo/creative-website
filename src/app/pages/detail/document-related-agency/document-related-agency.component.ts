@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-document-related-agency',
@@ -19,8 +20,7 @@ export class DocumentRelatedAgencyComponent implements OnInit {
 
   private params: any = {
     pageSize: 4,
-    ecm_path: '/Creative/TBWA-/',
-    ecm_primaryType: '["App-Library-Image"]',
+    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   ngOnInit() {

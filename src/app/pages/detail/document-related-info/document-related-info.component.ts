@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentRelatedInfoService } from './document-related-info.service';
 import { DocumentModel } from '@core/api';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-document-related-info',
@@ -16,8 +17,7 @@ export class DocumentRelatedInfoComponent {
       loading: false,
       params: {
         pageSize: 8,
-        ecm_path: '/Creative/TBWA-/',
-        ecm_primaryType: '["App-Library-Video"]',
+        ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
       },
     },
     // {
@@ -46,8 +46,8 @@ export class DocumentRelatedInfoComponent {
       loading: false,
       params: {
         pageSize: 8,
-        ecm_path: '/Creative/TBWA-/',
-        ecm_primaryType: '["App-Library-Image"]',
+        ecm_path: NUXEO_META_INFO.BASE_FOLDER_PATH,
+        ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
       },
     },
     // {

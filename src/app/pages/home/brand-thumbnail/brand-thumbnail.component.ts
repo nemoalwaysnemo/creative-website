@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-brand-thumbnail',
@@ -15,8 +16,7 @@ export class BrandThumbnailComponent implements OnInit {
 
   private params: any = {
     pageSize: 2,
-    ecm_path: '/Creative/TBWA-/',
-    ecm_primaryType: '["App-Library-Video"]',
+    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   ngOnInit() {
