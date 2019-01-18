@@ -23,8 +23,9 @@ export class SearchQueryParamsService {
 
   buildSearchParams(formValue: any = {}): any {
     const values = filterParams(formValue);
-    if (values.aggregates) {
-      Object.keys(values.aggregates).filter((key) => values.aggregates[key].length > 0).forEach((key) => { values[key] = `["${values.aggregates[key].join('", "')}"]`; });
+    const keys = Object.keys(values.aggregates);
+    if (values.aggregates && keys.length !== 0) {
+      keys.filter((key) => values.aggregates[key].length > 0).forEach((key) => { values[key] = `["${values.aggregates[key].join('", "')}"]`; });
       delete values.aggregates;
     }
     return values;

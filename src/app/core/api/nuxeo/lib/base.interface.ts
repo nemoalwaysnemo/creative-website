@@ -37,8 +37,8 @@ export class AuthenticationToken {
 export class AggregateModel {
   readonly id: string;
   readonly entityType: string;
-  readonly buckets: {}[];
-  readonly extendedBuckets: {}[];
+  readonly buckets: {}[] = [];
+  readonly extendedBuckets: {}[] = [];
   readonly ranges: {}[];
   readonly selection: [];
   readonly properties: {};
@@ -75,12 +75,19 @@ export class AggregateModel {
 }
 
 export function filterAggregates(mapping: { [key: string]: { label?: string, placeholder?: string } }, models: AggregateModel[] = []): AggregateModel[] {
+  const numberOfModels: number = models.length;
   const aggregates: AggregateModel[] = [];
-  for (const model of models) {
-    if (mapping[model.id]) {
-      model.label = mapping[model.id].label;
-      model.placeholder = mapping[model.id].placeholder;
-      aggregates.push(model);
+  const keys = Object.keys(mapping);
+  for (const key of keys) {
+    if (numberOfModels === 0) {
+      aggregates.push(new AggregateModel({ label: mapping[key].label, placeholder: mapping[key].placeholder }));
+    } else {
+      const model = models.filter((x) => x.id === key).shift();
+      if (model) {
+        model.label = mapping[model.id].label;
+        model.placeholder = mapping[model.id].placeholder;
+        aggregates.push(model);
+      }
     }
   }
   return aggregates;

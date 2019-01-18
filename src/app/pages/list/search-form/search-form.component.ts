@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { map } from 'rxjs/operators';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { selectObjectByKeys } from '@core/services';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -13,6 +13,8 @@ import { NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './search-form.component.html',
 })
 export class SearchFormComponent implements OnInit, OnDestroy {
+
+  private searched: boolean = false;
 
   private previouSearchTerm: string;
 
@@ -54,12 +56,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    this.searched = true;
     this.changeQueryParams();
+    this.onSearch();
   }
 
   onReset(): void {
+    this.searched = true;
     this.searchForm.patchValue(Object.assign({ aggregates: {} }, this.params), { emitEvent: false });
     this.changeQueryParams();
+    this.onSearch();
   }
 
   toggleFilter(): void {
@@ -119,7 +125,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   private onQueryParamsChanged(): void {
     const subscription = this.queryParamsService.onQueryParamsChanged()
       .subscribe(queryParams => {
-        if (this.hasQueryParams(queryParams)) {
+        if (this.searched === false && this.hasQueryParams(queryParams)) {
           this.setFormValues(queryParams);
           this.onSearch();
         }
@@ -142,18 +148,22 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   private onSearchResponse(): void {
     const subscription = this.advanceSearch.onSearch().pipe(
-      map(({ response, queryParams }) => {
-        return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams };
+      map(({ response, queryParams, action }) => {
+        return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams, action };
       }),
-    ).subscribe(({ aggregateModels, queryParams }) => {
-      if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
-        this.previouSearchTerm = queryParams.ecm_fulltext;
-        const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
-          this.changeSearchFilter(models);
-        });
-        this.subscription.add(subscription1);
+    ).subscribe(({ aggregateModels, queryParams, action }) => {
+      if (action === 'beforeSearch' && !this.hasFilterQueryParams(this.queryParamsService.getCurrentQueryParams())) {
+        this.changeSearchFilter([]);
+      } else {
+        if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
+          this.previouSearchTerm = queryParams.ecm_fulltext;
+          const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
+            this.changeSearchFilter(models);
+          });
+          this.subscription.add(subscription1);
+        }
+        this.submitted = false;
       }
-      this.submitted = false;
     });
     this.subscription.add(subscription);
   }
