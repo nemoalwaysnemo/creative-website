@@ -17,6 +17,7 @@ export const NUXEO_META_INFO = {
   CREATIVE_FOLDER_TYPES: '["App-Library-Folder"]',
   CREATIVE_PROJECT_TYPES: '["App-Library-Project"]',
   BACKSLASH_BASE_FOLDER_PATH: '/know-edge/-backslash',
+  BACKSLASH_ARTICLE_TYPES: '["App-Backslash-Article"]',
   DISRUPTION_BASE_FOLDER_PATH: '/know-edge/Disruption',
   INTELLIGENCE_BASE_FOLDER_PATH: '/know-edge/Intelligence',
 };

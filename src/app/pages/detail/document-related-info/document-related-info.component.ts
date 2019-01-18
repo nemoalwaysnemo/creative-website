@@ -19,7 +19,9 @@ export class DocumentRelatedInfoComponent {
       icon: 'nb-person',
       params: {
         pageSize: 8,
-        ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+        app_edges_active_article: true,
+        ecm_path: NUXEO_META_INFO.BACKSLASH_BASE_FOLDER_PATH,
+        ecm_primaryType: NUXEO_META_INFO.BACKSLASH_ARTICLE_TYPES,
       },
     },
     {
@@ -29,6 +31,7 @@ export class DocumentRelatedInfoComponent {
       icon: 'nb-person',
       params: {
         pageSize: 8,
+        ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
         ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       },
     },

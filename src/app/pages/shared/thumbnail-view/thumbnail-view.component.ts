@@ -32,6 +32,9 @@ export class ThumbnailViewItemComponent {
     <div *ngFor="let document of documents" class="thumbnail-view">
       <tbwa-thumbnail-view-item [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
     </div>
+    <div *ngIf="showEmpty && documents && documents.length === 0" class="thumbnail-view">
+      <span class="empty-data">No data found</span>
+    </div>
   </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,7 +50,9 @@ export class ThumbnailViewComponent implements OnInit {
 
   @Input() itemLayout: string;
 
-  @Input() documents: Observable<DocumentModel[]>;
+  @Input() showEmpty: boolean = true;
+
+  @Input() documents: DocumentModel[] = [];
 
   @Input() tabIndex: number = -1;
 

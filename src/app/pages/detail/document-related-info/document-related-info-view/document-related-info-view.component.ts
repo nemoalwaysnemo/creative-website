@@ -4,7 +4,7 @@ import { Subscription, Subject } from 'rxjs';
 import { filter, mergeMap } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
 import { DocumentRelatedInfoService } from '../document-related-info.service';
-import { NUXEO_META_INFO } from '@environment/environment.na-dev';
+import { Environment, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-document-related-info-view',
@@ -21,7 +21,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   loading = true;
 
-  edgeLoading = true;
+  edgeLoading = false;
 
   documents: DocumentModel[] = [];
 
@@ -52,6 +52,10 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     event.stopImmediatePropagation();
   }
 
+  getBackslashEdgeUrl(name: string) {
+    return Environment.backslashAPPUrl + `/#/list/edge/${name}/`;
+  }
+
   private onChangeTab(): void {
     const subscription = this.documentRelatedInfoService.onChangeTab()
       .pipe(
@@ -65,10 +69,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  private getSearchParams() {
-    return Object.assign({ ecm_fulltext: this.queryField.value }, this.item.params);
-  }
-
   private onSearch(): void {
     const subscription = this.search$.pipe(
       mergeMap((params) => this.advanceSearch.request(params)),
@@ -79,15 +79,26 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  private buildBackslashEdges() {
+  private getSearchParams() {
+    const params = { ecm_fulltext: this.queryField.value };
+    return Object.assign(params, this.item.params);
+  }
+
+  private getTagsEdgesParams(): string {
     const edges = this.document.get('app_Edges:Tags_edges');
-    if (edges.length !== 0) {
+    return edges.length !== 0 ? `["${edges.join('", "')}"]` : '';
+  }
+
+  private buildBackslashEdges() {
+    const edgesParams = this.getTagsEdgesParams();
+    if (edgesParams) {
       const params: any = {
         app_edges_active_article: true,
         quickFilters: 'BackslashEdgePage',
-        app_edges_tags_edges: `["${edges.join('", "')}"]`,
+        app_edges_tags_edges: edgesParams,
         ecm_path: NUXEO_META_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
+      this.edgeLoading = true;
       const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
         this.edgeLoading = false;
         this.backslashEdges = res.entries;

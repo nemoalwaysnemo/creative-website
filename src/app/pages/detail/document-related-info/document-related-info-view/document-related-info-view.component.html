@@ -6,12 +6,17 @@
 <ng-container *ngIf="item.layout === 'backslash'; then backslashEdgesView"></ng-container>
 <ng-template #backslashEdgesView>
   <h3>\Edges</h3>
-  <div class="line"></div>
-  <ul [nbSpinner]="edgeLoading" nbSpinnerStatus="disabled">
-    <li *ngFor="let document of backslashEdges">
-      <a href="javascript:;"><img src="{{document.thumbnailUrl}}" [alt]="document.title">{{document.title}}</a>
-    </li>
-  </ul>
+  <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
+    <div class="line"></div>
+    <ul [nbSpinner]="edgeLoading" nbSpinnerStatus="disabled">
+      <li *ngFor="let document of backslashEdges">
+        <a [href]="getBackslashEdgeUrl(document.title)" target="_blank"><img src="{{document.thumbnailUrl}}" [alt]="document.title">{{document.title}}</a>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="backslashEdges && backslashEdges.length === 0">
+    <div><span class="empty-data">No data found</span></div>
+  </ng-container>
   <div class="clear"></div>
 </ng-template>
 <tbwa-thumbnail-view [loading]="loading" [layout]="item.layout" [itemLayout]="item.itemLayout" [documents]="documents"></tbwa-thumbnail-view>
