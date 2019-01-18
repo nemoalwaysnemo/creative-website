@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit, Input, OnInit } from '@angular/core';
+import { Component, Inject, AfterViewInit, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject } from 'rxjs';
 import { deepExtend } from '@core/services';
@@ -7,6 +7,7 @@ import { deepExtend } from '@core/services';
   selector: 'tbwa-picture-gallery',
   styleUrls: ['./picture-gallery.component.scss'],
   templateUrl: './picture-gallery.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PictureGalleryComponent implements OnInit, AfterViewInit {
 

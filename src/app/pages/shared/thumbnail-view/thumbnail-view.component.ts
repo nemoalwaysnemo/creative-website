@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DocumentModel } from '@core/api/nuxeo/lib';
 
@@ -6,8 +6,9 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
   selector: 'tbwa-thumbnail-view-item',
   templateUrl: './thumbnail-view-item.component.html',
   styleUrls: ['./thumbnail-view-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThumbnailViewItemComponent implements OnInit {
+export class ThumbnailViewItemComponent {
 
   layout: string = 'default';
 
@@ -21,9 +22,6 @@ export class ThumbnailViewItemComponent implements OnInit {
       this.layout = name;
     }
   }
-
-  ngOnInit() {
-  }
 }
 
 @Component({
@@ -36,6 +34,7 @@ export class ThumbnailViewItemComponent implements OnInit {
     </div>
   </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThumbnailViewComponent implements OnInit {
 
@@ -55,7 +54,8 @@ export class ThumbnailViewComponent implements OnInit {
   loading: boolean;
 
   styleClass: string = 'quarter flex';
-  styleList = {
+
+  private styleList = {
     'agency': 'quarter flex',
     'brand': 'half flex',
     'search-list': 'results',
@@ -63,10 +63,6 @@ export class ThumbnailViewComponent implements OnInit {
     'backslash': 'dates flex',
     'distruption': 'quarter flex',
   };
-
-  constructor() {
-
-  }
 
   ngOnInit() {
     this.setStyleClass(this.layout);

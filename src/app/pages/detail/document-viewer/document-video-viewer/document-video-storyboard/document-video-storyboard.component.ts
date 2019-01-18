@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentVideoViewerService } from '../document-video-viewer.service';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 
@@ -6,10 +6,11 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
   selector: 'tbwa-document-video-storyboard',
   styleUrls: ['./document-video-storyboard.component.scss'],
   templateUrl: './document-video-storyboard.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentVideoStoryboardComponent implements OnInit {
 
-  @Input() storyboards: { source: any, time: number }[];
+  @Input() storyboards: { source: any, time: number }[] = [];
 
   constructor(private seekTime: DocumentVideoViewerService) { }
 

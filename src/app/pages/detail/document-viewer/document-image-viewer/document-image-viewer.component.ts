@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-image-viewer',
   styleUrls: ['./document-image-viewer.component.scss'],
   templateUrl: './document-image-viewer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentImageViewerComponent implements OnInit {
 

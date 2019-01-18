@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription, Subject } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { takeWhile, filter, mergeMap } from 'rxjs/operators';
-import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, NuxeoPagination } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
 import { DocumentRelatedInfoService } from '../document-related-info.service';
 
 @Component({

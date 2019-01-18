@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { SimplePdfViewerComponent } from 'simple-pdf-viewer';
 import { DocumentModel } from '@core/api';
 
@@ -6,6 +6,7 @@ import { DocumentModel } from '@core/api';
   selector: 'tbwa-document-pdf-viewer',
   styleUrls: ['./document-pdf-viewer.component.scss'],
   templateUrl: './document-pdf-viewer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentPdfViewerComponent implements OnInit {
 
