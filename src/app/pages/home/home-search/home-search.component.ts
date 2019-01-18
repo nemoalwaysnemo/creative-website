@@ -71,7 +71,7 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.onSearch()
       .pipe(
         map((result: any) => result.response),
-      )
+    )
       .subscribe((response: NuxeoPagination) => {
         this.results = response.entries;
         this.show();
@@ -114,6 +114,11 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();
+  }
+
+  goToSearch(): void {
+    const params = this.buildQueryParams();
+    this.redirectToListPage(params);
   }
 
   private buildQueryParams(): any {

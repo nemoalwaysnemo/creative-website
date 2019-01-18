@@ -9,7 +9,7 @@
       <tbwa-thumbnail-view [layout]="layout" [documents]="documents" [showEmpty]="false" [tabIndex]="0"></tbwa-thumbnail-view>
     </div>
     <div class="clear"></div>
-    <a href="javascript:;" (click)="onKeyup(event)" class="advanced_filters_trigger icon_btn">Filters +</a>
+    <a href="javascript:;" (click)="goToSearch()" class="advanced_filters_trigger icon_btn">Filters +</a>
     <ng-container *ngIf="showFilter">
       <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted" [styleClass]="'homePage'"></tbwa-search-filter>
     </ng-container>
