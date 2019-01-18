@@ -13,14 +13,14 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   private api: VgAPI;
 
-  private seekTimeServiceRef: Subscription;
+  private subscription: Subscription = new Subscription();
 
   @Input() poster: string;
 
   @Input() videoSources: object;
 
   constructor(private seekTimeService: DocumentVideoViewerService, api: VgAPI) {
-    this.seekTimeServiceRef = this.seekTimeService.getTimeChanged().subscribe(
+    this.subscription = this.seekTimeService.getTimeChanged().subscribe(
       res => {
         this.api.currentTime = res.time;
         this.api.play();
@@ -29,7 +29,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.seekTimeServiceRef.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   onPlayerReady(api: VgAPI) {

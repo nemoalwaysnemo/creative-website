@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { takeWhile, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { selectObjectByKeys } from '@core/services';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -14,9 +14,9 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 export class SearchFormComponent implements OnInit, OnDestroy {
 
-  private alive: boolean = true;
-
   private previouSearchTerm: string;
+
+  private subscription: Subscription = new Subscription();
 
   searchForm: FormGroup;
 
@@ -30,7 +30,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   constructor(
@@ -50,7 +50,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.alive = false;
+    this.subscription.unsubscribe();
   }
 
   onSubmit(): void {
@@ -117,16 +117,14 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private onQueryParamsChanged(): void {
-    this.queryParamsService.onQueryParamsChanged()
-      .pipe(
-        takeWhile(() => this.alive),
-      )
+    const subscription = this.queryParamsService.onQueryParamsChanged()
       .subscribe(queryParams => {
         if (this.hasQueryParams(queryParams)) {
           this.setFormValues(queryParams);
           this.onSearch();
         }
       });
+    this.subscription.add(subscription);
   }
 
   private changeQueryParams(): void {
@@ -143,25 +141,28 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private onSearchResponse(): void {
-    this.advanceSearch.onSearch().pipe(
+    const subscription = this.advanceSearch.onSearch().pipe(
       map(({ response, queryParams }) => {
         return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams };
       }),
     ).subscribe(({ aggregateModels, queryParams }) => {
       if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
         this.previouSearchTerm = queryParams.ecm_fulltext;
-        this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
+        const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
           this.changeSearchFilter(models);
         });
+        this.subscription.add(subscription1);
       }
       this.submitted = false;
     });
+    this.subscription.add(subscription);
   }
 
   private getSearchAggregates(): void {
-    this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
+    const subscription = this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
       this.changeSearchFilter(aggregateModels);
     });
+    this.subscription.add(subscription);
   }
 
   private changeSearchFilter(aggregateModels: AggregateModel[]): void {

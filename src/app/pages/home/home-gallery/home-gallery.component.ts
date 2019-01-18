@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'tbwa-home-gallery',
   styleUrls: ['./home-gallery.component.scss'],
   templateUrl: './home-gallery.component.html',
 })
-export class HomeGalleryComponent implements OnInit {
+export class HomeGalleryComponent implements OnInit, OnDestroy {
 
   galleryItems: any = [];
   gallerySettings: any = {
@@ -21,19 +22,25 @@ export class HomeGalleryComponent implements OnInit {
 
   private params: any = {
     pageSize: 10,
-    ecm_path: NUXEO_META_INFO.AWARD_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_TYPES,
+    ecm_path: NUXEO_META_INFO.CREATIVE_AWARD_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
   };
 
   agencyDocuments: DocumentModel[];
+
+  private subscription: Subscription = new Subscription();
 
   constructor(private advanceSearch: AdvanceSearch) {
   }
 
   ngOnInit() {
-    this.advanceSearch.request(this.params).subscribe((res: NuxeoPagination) => {
+    this.subscription = this.advanceSearch.request(this.params).subscribe((res: NuxeoPagination) => {
       this.galleryItems = this.getItems(res.entries);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   private getItems(entiries: DocumentModel[]) {
@@ -51,8 +58,6 @@ export class HomeGalleryComponent implements OnInit {
   }
 
   hasVideoContent(entry: DocumentModel) {
-    if (entry.getVideoSources().length > 0) {
-      return true;
-    }
+    return entry.getVideoSources().length > 0;
   }
 }

@@ -1,12 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, Automation, AdvanceSearch, NuxeoPagination, Automations } from '@core/api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'tbwa-document-metadata-info',
   styleUrls: ['./document-metadata-info.component.scss'],
   templateUrl: './document-metadata-info.component.html',
 })
-export class DocumentMetadataInfoComponent implements OnInit {
+export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
 
   usageRights: any = {};
 
@@ -15,6 +16,8 @@ export class DocumentMetadataInfoComponent implements OnInit {
   jobTitle: string;
 
   jobLoading = true;
+
+  private subscription: Subscription = new Subscription();
 
   @Input() document: DocumentModel;
 
@@ -25,6 +28,10 @@ export class DocumentMetadataInfoComponent implements OnInit {
 
   ngOnInit() {
     this.getUsageRightsStatus();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   toggleJob() {
@@ -44,10 +51,12 @@ export class DocumentMetadataInfoComponent implements OnInit {
   }
 
   private getUsageRightsStatus(): void {
-    this.automation.execute(Automations.GetDocumentURStatus, { 'uids': this.document.uid }).subscribe((res: NuxeoPagination) => {
-      this.usageRights = res.entries.shift();
-      this.usageLoading = false;
-    });
+    const subscription = this.automation.execute(Automations.GetDocumentURStatus, { 'uids': this.document.uid })
+      .subscribe((res: NuxeoPagination) => {
+        this.usageRights = res.entries.shift();
+        this.usageLoading = false;
+      });
+    this.subscription.add(subscription);
   }
 
   private hasJobValue(): boolean {

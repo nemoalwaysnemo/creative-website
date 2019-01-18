@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { AggregateModel } from '@core/api';
 import { OptionModel } from '../option-select/option-select.interface';
@@ -13,9 +13,7 @@ import { OptionModel } from '../option-select/option-select.interface';
     multi: true,
   }],
 })
-export class SearchFilterComponent implements OnInit, OnDestroy, ControlValueAccessor {
-
-  private alive: boolean = true;
+export class SearchFilterComponent implements ControlValueAccessor {
 
   aggregateModel: any = {};
 
@@ -25,7 +23,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy, ControlValueAcc
 
   @Input() styleClass: string;
 
-  styleClasses = { 'homePage': 'home_advanced_filters flex', 'searchPage': 'advanced_filters flex'};
+  styleClasses = { 'homePage': 'home_advanced_filters flex', 'searchPage': 'advanced_filters flex' };
 
   private _onChange = (_) => { };
 
@@ -34,13 +32,6 @@ export class SearchFilterComponent implements OnInit, OnDestroy, ControlValueAcc
   @Input('aggregateModels')
   set setAggregateModels(models: AggregateModel[]) {
     this.aggregates = this.buildAggregates(models);
-  }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-    this.alive = false;
   }
 
   onChange() {

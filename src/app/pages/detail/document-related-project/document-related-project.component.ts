@@ -21,8 +21,8 @@ export class DocumentRelatedProjectComponent implements OnInit {
 
   private params: any = {
     pageSize: 4,
-    // ecm_primaryType: NUXEO_META_INFO.LIBRARY_PROJECT_TYPES,
-    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_TYPES,
+    // ecm_primaryType: NUXEO_META_INFO.CREATIVE_PROJECT_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
   };
 
   ngOnInit() {

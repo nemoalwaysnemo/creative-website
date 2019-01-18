@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OptionModel } from './option-select.interface';
@@ -13,9 +13,7 @@ import { OptionModel } from './option-select.interface';
     multi: true,
   }],
 })
-export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
-
-  private alive: boolean = true;
+export class OptionSelectComponent implements ControlValueAccessor {
 
   disabled: boolean = false;
 
@@ -44,13 +42,6 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
 
   constructor() {
     this.options$ = new BehaviorSubject<OptionModel[]>([]);
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy(): void {
-    this.alive = false;
   }
 
   onChange(event: OptionModel[]) {

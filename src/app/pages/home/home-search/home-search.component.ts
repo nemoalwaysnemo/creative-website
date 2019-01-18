@@ -1,7 +1,7 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription, BehaviorSubject, merge, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, skip } from 'rxjs/operators';
+import { debounceTime, map, skip } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
 import { Router } from '@angular/router';
@@ -21,10 +21,9 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   queryField: FormControl = new FormControl();
   layout = 'search-list';
 
-  private alive: boolean = true;
-  private queryRef: Subscription;
   private inputObs: Observable<any>;
   private filterObs: Observable<any>;
+  private subscription: Subscription = new Subscription();
 
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
   searchForm: FormGroup;
@@ -34,7 +33,7 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 10,
-    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   constructor(
@@ -53,46 +52,49 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.alive = false;
-    this.queryRef.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   search(): void {
     this.inputObs = this.queryField.valueChanges.pipe(debounceTime(300));
     this.filterObs = this.searchForm.valueChanges.pipe(skip(1));
-    this.queryRef = merge(
+    const subscription = merge(
       this.inputObs,
       this.filterObs,
     ).subscribe(_ => {
       this.advanceSearch.search(deepExtend({ ecm_fulltext: this.queryField.value || '' }, this.buildSearchParams()));
     });
+    this.subscription.add(subscription);
   }
 
   private onSearch(): void {
-    this.advanceSearch.onSearch()
+    const subscription = this.advanceSearch.onSearch()
       .pipe(
         map((result: any) => result.response),
-    )
+      )
       .subscribe((response: NuxeoPagination) => {
         this.results = response.entries;
         this.show();
       });
+    this.subscription.add(subscription);
   }
 
   private onSearchResponse(): void {
-    this.advanceSearch.onSearch().pipe(
+    const subscription = this.advanceSearch.onSearch().pipe(
       map(({ response, queryParams }) => {
         return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams };
       }),
     ).subscribe(({ aggregateModels, queryParams }) => {
       if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
         this.previouSearchTerm = queryParams.ecm_fulltext;
-        this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
+        const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
           this.changeSearchFilter(models);
         });
+        this.subscription.add(subscription1);
       }
       this.submitted = false;
     });
+    this.subscription.add(subscription);
   }
 
   toggleFilter(): void {
@@ -108,12 +110,10 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   }
 
   onKeyup(event: KeyboardEvent) {
-    if (this.alive) {
-      const params = this.buildQueryParams();
-      this.redirectToListPage(params);
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }
+    const params = this.buildQueryParams();
+    this.redirectToListPage(params);
+    event.preventDefault();
+    event.stopImmediatePropagation();
   }
 
   private buildQueryParams(): any {
@@ -135,9 +135,10 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
 
 
   private getSearchAggregates(): void {
-    this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
+    const subscription = this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
       this.changeSearchFilter(aggregateModels);
     });
+    this.subscription.add(subscription);
   }
 
   private changeSearchFilter(aggregateModels: AggregateModel[]): void {

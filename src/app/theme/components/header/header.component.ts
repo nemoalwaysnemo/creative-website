@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '@core/api';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngx-header',
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   user: any = {};
 
-  private alive: boolean = true;
+  private subscription: Subscription = new Subscription();
 
   constructor(private router: Router, private userService: UserService) {
   }
@@ -20,16 +21,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getUser();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   goHome() {
     this.router.navigate(['/p/home']);
   }
 
-  ngOnDestroy() {
-    this.alive = false;
-  }
-
   private getUser(): void {
-    this.userService.getCurrentUser().subscribe((user: any) => {
+    this.subscription = this.userService.getCurrentUser().subscribe((user: any) => {
       this.user = user;
       this.user['avatar'] = 'assets/images/user_icon.png';
     });

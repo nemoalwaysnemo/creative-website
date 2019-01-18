@@ -1,6 +1,6 @@
-import { Component, Inject, AfterViewInit, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services';
 
 @Component({
@@ -9,7 +9,7 @@ import { deepExtend } from '@core/services';
   templateUrl: './picture-gallery.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PictureGalleryComponent implements OnInit, AfterViewInit {
+export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() gallerySettings: GalleryConfig;
 
@@ -24,6 +24,8 @@ export class PictureGalleryComponent implements OnInit, AfterViewInit {
 
   private galleryRef: GalleryRef;
 
+  private subscription: Subscription = new Subscription();
+
   private options$: BehaviorSubject<GalleryItem[]> = new BehaviorSubject([]);
 
   constructor(private gallery: Gallery, @Inject(GALLERY_CONFIG) private options) {
@@ -31,7 +33,7 @@ export class PictureGalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.options$.subscribe((res: GalleryItem[]) => {
+    const subscription = this.options$.subscribe((res: GalleryItem[]) => {
       res.forEach((galleryItem: {}) => {
         if (galleryItem['poster']) {
           this.galleryRef.addVideo(galleryItem);
@@ -41,6 +43,11 @@ export class PictureGalleryComponent implements OnInit, AfterViewInit {
       });
       this.galleryRef.play();
     });
+    this.subscription.add(subscription);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   ngAfterViewInit() {

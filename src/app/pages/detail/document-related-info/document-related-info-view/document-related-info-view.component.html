@@ -7,18 +7,9 @@
 <ng-template #backslashEdgesView>
   <h3>\Edges</h3>
   <div class="line"></div>
-  <ul>
-    <li>
-      <a href="javascript:;"><img src="/assets/images/Polygon 6185.png" alt="">Authenticity</a>
-    </li>
-    <li>
-      <a href="javascript:;"><img src="/assets/images/Polygon 6185 copy.png" alt="">New Masculinity</a>
-    </li>
-    <li>
-      <a href="javascript:;"><img src="/assets/images/Polygon 6185 copy 2.png" alt="">Augmented Self</a>
-    </li>
-    <li>
-      <a href="javascript:;"><img src="/assets/images/Polygon 6185 copy 3.png" alt="">Lorem Ipsum</a>
+  <ul [nbSpinner]="edgeLoading" nbSpinnerStatus="disabled">
+    <li *ngFor="let document of backslashEdges">
+      <a href="javascript:;"><img src="{{document.thumbnailUrl}}" [alt]="document.title">{{document.title}}</a>
     </li>
   </ul>
   <div class="clear"></div>

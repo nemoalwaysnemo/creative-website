@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
-import { takeWhile, filter, mergeMap } from 'rxjs/operators';
+import { filter, mergeMap } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
 import { DocumentRelatedInfoService } from '../document-related-info.service';
+import { NUXEO_META_INFO } from '@environment/environment.na-dev';
 
 @Component({
   selector: 'tbwa-document-related-info-view',
@@ -14,17 +15,21 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   @Input() item: any = {};
 
-  private alive = true;
-
-  private documentRelatedInfoServiceRef: Subscription;
+  @Input() document: DocumentModel;
 
   private search$: Subject<any> = new Subject<any>();
 
   loading = true;
 
+  edgeLoading = true;
+
   documents: DocumentModel[] = [];
 
+  backslashEdges: DocumentModel[] = [];
+
   queryField: FormControl = new FormControl();
+
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private advanceSearch: AdvanceSearch,
@@ -33,27 +38,23 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.onSearch();
     this.onChangeTab();
+    this.buildBackslashEdges();
   }
 
   ngOnDestroy() {
-    this.alive = false;
-    this.search$.unsubscribe();
-    this.documentRelatedInfoServiceRef.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   onKeyup(event: KeyboardEvent) {
-    if (this.alive) {
-      this.loading = true;
-      this.search$.next(this.getSearchParams());
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }
+    this.loading = true;
+    this.search$.next(this.getSearchParams());
+    event.preventDefault();
+    event.stopImmediatePropagation();
   }
 
   private onChangeTab(): void {
-    this.documentRelatedInfoServiceRef = this.documentRelatedInfoService.onChangeTab()
+    const subscription = this.documentRelatedInfoService.onChangeTab()
       .pipe(
-        takeWhile(() => this.alive),
         filter((tabItem) => tabItem.name === this.item.name),
       )
       .subscribe(() => {
@@ -61,6 +62,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
           this.search$.next(this.getSearchParams());
         }
       });
+    this.subscription.add(subscription);
   }
 
   private getSearchParams() {
@@ -68,12 +70,29 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   }
 
   private onSearch(): void {
-    this.search$.pipe(
+    const subscription = this.search$.pipe(
       mergeMap((params) => this.advanceSearch.request(params)),
     ).subscribe((res: NuxeoPagination) => {
       this.loading = false;
       this.documents = res.entries;
     });
+    this.subscription.add(subscription);
   }
 
+  private buildBackslashEdges() {
+    const edges = this.document.get('app_Edges:Tags_edges');
+    if (edges.length !== 0) {
+      const params: any = {
+        app_edges_active_article: true,
+        quickFilters: 'BackslashEdgePage',
+        app_edges_tags_edges: `["${edges.join('", "')}"]`,
+        ecm_path: NUXEO_META_INFO.BACKSLASH_BASE_FOLDER_PATH,
+      };
+      const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
+        this.edgeLoading = false;
+        this.backslashEdges = res.entries;
+      });
+      this.subscription.add(subscription);
+    }
+  }
 }

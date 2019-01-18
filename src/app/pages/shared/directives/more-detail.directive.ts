@@ -1,12 +1,10 @@
-import { Directive, ElementRef, Renderer2, HostListener, Input, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Renderer2, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Directive({
   selector: '[moreDetail]',
 })
-export class MoreDetailDirective implements OnInit, OnDestroy {
-
-  private alive: boolean = true;
+export class MoreDetailDirective implements OnInit {
 
   private uuid: string;
 
@@ -27,17 +25,11 @@ export class MoreDetailDirective implements OnInit, OnDestroy {
 
   @HostListener('click')
   onClick() {
-    if (this.alive) {
-      const queryParams = { id: this.uuid };
-      this.router.navigate(['/p/document'], { queryParams });
-    }
+    const queryParams = { id: this.uuid };
+    this.router.navigate(['/p/document'], { queryParams });
   }
 
   ngOnInit() {
     this.renderer.addClass(this.elementRef.nativeElement, this.klass);
-  }
-
-  ngOnDestroy() {
-    this.alive = false;
   }
 }

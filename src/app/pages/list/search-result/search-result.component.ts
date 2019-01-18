@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
 import { ListViewItem, SearchQueryParamsService } from '@pages/shared';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'tbwa-search-result',
   styleUrls: ['./search-result.component.scss'],
   templateUrl: './search-result.component.html',
 })
-export class SearchResultComponent implements OnInit {
-
-  constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService) { }
+export class SearchResultComponent implements OnInit, OnDestroy {
 
   layout = 'search-results';
 
@@ -37,9 +36,17 @@ export class SearchResultComponent implements OnInit {
 
   queryParams: NuxeoPageProviderParams = {};
 
+  private subscription: Subscription = new Subscription();
+
+  constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService) { }
+
   ngOnInit() {
     this.onSearch();
     this.onPageChanged();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   changeToGridView() {
@@ -51,7 +58,7 @@ export class SearchResultComponent implements OnInit {
   }
 
   private onSearch(): void {
-    this.advanceSearch.onSearch().subscribe(({ response, queryParams, action }) => {
+    const subscription = this.advanceSearch.onSearch().subscribe(({ response, queryParams, action }) => {
       if (action === 'beforeSearch') {
         this.loading = true;
       } else {
@@ -63,13 +70,15 @@ export class SearchResultComponent implements OnInit {
         this.listDocuments = this.buildListViewItem(response.entries);
       }
     });
+    this.subscription.add(subscription);
   }
 
   private onPageChanged() {
-    this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
+    const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       const currentPageIndex = pageInfo.currentPageIndex;
       this.queryParamsService.changeQueryParams([], { currentPageIndex }, 'merge');
     });
+    this.subscription.add(subscription);
   }
 
   private buildListViewItem(docs: DocumentModel[]): ListViewItem[] {

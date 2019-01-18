@@ -11,7 +11,7 @@ export class AdvanceSearch extends AbstractPageProvider {
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
-    this.defaultParams.ecm_path = NUXEO_META_INFO.BASE_FOLDER_PATH;
+    this.defaultParams.ecm_path = NUXEO_META_INFO.CREATIVE_BASE_FOLDER_PATH;
   }
 
   requestSearchFilters(queryParams: NuxeoPageProviderParams = {}): Observable<AggregateModel[]> {

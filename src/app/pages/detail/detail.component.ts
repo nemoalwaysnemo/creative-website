@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { isDocumentUID } from '@core/services';
 
@@ -15,11 +15,11 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   document: DocumentModel;
 
-  private alive: boolean = true;
+  private subscription: Subscription = new Subscription();
 
   private params: any = {
     pageSize: 1,
-    ecm_primaryType: NUXEO_META_INFO.LIBRARY_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   constructor(
@@ -36,7 +36,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.alive = false;
+    this.subscription.unsubscribe();
   }
 
   private getCurrentDocument(uid: string): Observable<NuxeoPagination> {
@@ -45,9 +45,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   private onQueryParamsChanged(): void {
-    this.activatedRoute.queryParams
+    const subscription = this.activatedRoute.queryParams
       .pipe(
-        takeWhile(() => this.alive),
         tap(queryParams => {
           if (!isDocumentUID(queryParams.id)) {
             this.redirectTo404();
@@ -66,6 +65,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           this.redirectTo404();
         }
       });
+    this.subscription.add(subscription);
   }
 
   private redirectTo404(): void {

@@ -17,10 +17,10 @@ export class PaginationComponent implements OnChanges, OnInit {
   private totalPage: number = 0;
   private pageSize: number;
 
-  private dataChangedRef: Subscription;
+  private subscription: Subscription = new Subscription();
 
   ngOnInit() {
-    this.dataChangedRef = this.dataSource.onChanged().subscribe(_ => {
+    this.subscription = this.dataSource.onChanged().subscribe(_ => {
       this.currentPage = this.dataSource.pagingInfo.page;
       this.pageSize = this.dataSource.pagingInfo.perPage;
       this.totalPage = this.dataSource.pagingInfo.numberOfPages;
@@ -31,7 +31,7 @@ export class PaginationComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.source) {
       if (!changes.source.firstChange) {
-        this.dataChangedRef.unsubscribe();
+        this.subscription.unsubscribe();
       }
     }
   }
