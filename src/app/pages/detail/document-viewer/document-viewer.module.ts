@@ -5,6 +5,7 @@ import { DocumentImageViewerComponent } from './document-image-viewer/document-i
 import { DocumentVideoViewerComponent } from './document-video-viewer/document-video-viewer.component';
 import { DocumentVideoPlayerComponent } from './document-video-viewer/document-video-player/document-video-player.component';
 import { DocumentVideoStoryboardComponent } from './document-video-viewer/document-video-storyboard/document-video-storyboard.component';
+import { DocumentAudioViewerComponent } from './document-audio-viewer/document-audio-viewer.component';
 import { SimplePdfViewerModule } from 'simple-pdf-viewer';
 import { ImageViewerModule } from 'ngx-image-viewer';
 import { ThemeModule } from '@theme/theme.module';
@@ -35,6 +36,7 @@ import { DragScrollModule } from 'ngx-drag-scroll';
     DocumentVideoViewerComponent,
     DocumentVideoPlayerComponent,
     DocumentVideoStoryboardComponent,
+    DocumentAudioViewerComponent,
   ],
   exports: [
     DocumentViewerComponent,

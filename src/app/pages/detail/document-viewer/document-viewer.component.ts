@@ -22,6 +22,9 @@ export class DocumentViewerComponent {
       case 'video': {
         return this.isVideo();
       }
+      case 'audio': {
+        return this.isAudio();
+      }
       default: {
         return false;
       }
@@ -38,6 +41,10 @@ export class DocumentViewerComponent {
 
   private isVideo(): boolean {
     return this.document.isVideo();
+  }
+
+  private isAudio(): boolean {
+    return this.document.isAudio();
   }
 
 }

@@ -83,6 +83,10 @@ export class DocumentModel extends Base {
     return this.facets.indexOf(facet) !== -1;
   }
 
+  isAudio(): boolean {
+    return this.hasFacet('Audio');
+  }
+
   isVideo(): boolean {
     return this.hasFacet('Video');
   }
