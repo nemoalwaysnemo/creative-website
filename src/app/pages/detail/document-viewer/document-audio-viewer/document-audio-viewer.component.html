@@ -1,6 +1,5 @@
-
-  <div style="width:100%;">
-  <audio  id="myAudio" preload="auto" controls="controls" style="width:100%;">
+<div style="width:100%;">
+  <audio id="documentAudio" preload="auto" controls="controls" style="width:100%;">
     <source *ngFor="let audio of audioSource" [src]="audio.src" [type]="audio.type">
   </audio>
-  </div>
+</div>
