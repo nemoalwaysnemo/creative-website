@@ -2,7 +2,15 @@
 
 .results {
   position: absolute;
-  width: 1209px;
+  @include media-breakpoint-down(lg) { //992px
+    width: 700px;
+  }
+  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+    width: 1000px;
+  }
+  @include media-breakpoint-up(xxl) { //1400px
+    width: 1209px;
+  }
   max-height: 700px;
   left: 40px;
   box-sizing: border-box;

@@ -13,14 +13,14 @@ h1, h4 { cursor: pointer; }
   }
   .description {
     h1 {
-      font-family: 'Averta for TBWA W01 Bold', Exo;
+      font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
       font-size: 30px;
       margin: 0;
       margin-bottom: 13px;
       color: #5a5a5a;
     }
     .year, .client, .dot {
-      font-family: 'Averta for TBWA W01 Semibold', Exo;
+      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
       display: inline-block;
       vertical-align: middle;
       font-size: 25px;
@@ -35,7 +35,7 @@ h1, h4 { cursor: pointer; }
     }
     .line { display: none; }
     .agency {
-      font-family: 'Averta for TBWA W01 Semibold', Exo;
+      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
       font-size: 25px;
       margin: 0;
       color: #5a5a5a;
@@ -55,20 +55,23 @@ h1, h4 { cursor: pointer; }
     padding: 0 13px;
     box-sizing: border-box;
     h1 {
-      font-family: 'Averta for TBWA W01 Bold', Exo;
+      font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
       font-size: 18px;
       margin-top: 22px;
       margin-bottom: 14px;
       &.doubleline { margin-top: 4px; }
     }
     .year, .client, .dot {
+      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
       display: inline-block;
       vertical-align: middle;
       font-size: 13px;
+      margin: 0;
     }
     .dot {
       width: 4px;
       height: 4px;
+      margin: 0 2px;
       background: #000000;
       border-radius: 2px;
     }
@@ -79,6 +82,7 @@ h1, h4 { cursor: pointer; }
       background: #ebebeb;
     }
     .agency {
+      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
       margin-bottom: 14px;
       font-size: 12px;
     }

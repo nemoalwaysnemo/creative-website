@@ -7,6 +7,14 @@
 	font-size: 18px;
 	color: #000000;
 	border: solid 1px #e1e1e1;
+	&.success {
+		background-color: #40dc7e!important;
+		color: #ffffff!important;
+		&:hover, &:focus {
+			color: #ffffff;
+			text-decoration: none;
+		}
+	}
 	&.btn-disabled {
 		background-color: #eeeeee!important;
 		color: #cccccc;
@@ -44,6 +52,7 @@
 	.advanced_filters_trigger {
 		background: url('/assets/images/filters_icon.png') no-repeat 13px center;
 		&.btn-disabled { background: url('/assets/images/filters_icon_disabled.png') no-repeat 13px center; }
+		&.success { background: url('/assets/images/filters_icon_on.png') no-repeat 13px center; }
 	}
 	.dropdown_container {
 		.dropdown-trigger {
