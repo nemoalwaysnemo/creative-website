@@ -1,3 +1,5 @@
+@import '../../../../../core/nebular/theme/styles/global/breakpoints';
+
 .left { float: left; }
 .right { float: right; }
 .clear { clear: both; }
@@ -17,7 +19,15 @@
   background: url('/assets/images/scroll_arrow_next.png') no-repeat center center;
 }
 .gallery-list {
-  width: calc(949px - 34px - 44px);
+  @include media-breakpoint-down(lg) { //992px
+    width: calc(500px - 34px - 44px);
+  }
+  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+    width: calc(700px - 34px - 44px);
+  }
+  @include media-breakpoint-up(xxl) { //1400px
+    width: calc(949px - 34px - 44px);
+  }
   height: 116px;
   margin: 14px 0 0;
   padding: 0;
