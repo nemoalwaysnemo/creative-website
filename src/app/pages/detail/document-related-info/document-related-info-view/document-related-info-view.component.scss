@@ -49,6 +49,10 @@ ul {
 			&:hover { text-decoration: none; }
 			img {
 				float: left;
+				width: 56px;
+				height: 63px;
+				-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+				clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 				margin-right: 20px;
 			}
 		}
