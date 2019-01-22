@@ -48,7 +48,7 @@ export class DocumentModel extends Base {
   }
 
   get thumbnailUrl(): string {
-    const defaultUrl = 'assets/images/no-thumbnail.jpg';
+    const defaultUrl = 'assets/images/no-thumbnail.png';
     return this.facets.indexOf('Thumbnail') !== -1 && this.facets.indexOf('Audio') === -1 && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : defaultUrl;
   }
 
