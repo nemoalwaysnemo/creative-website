@@ -4,7 +4,7 @@ import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
 import { selectObjectByKeys } from '@core/services';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -49,6 +49,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.onSearchResponse();
     this.onQueryParamsChanged();
     this.showFilter = this.hasFilterQueryParams(this.queryParamsService.getCurrentQueryParams());
+    this.changeSearchFilter([]);
   }
 
   ngOnDestroy() {
@@ -57,6 +58,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.searched = true;
+    this.searchForm.patchValue({ currentPageIndex: 0 });
     this.changeQueryParams();
     this.onSearch();
   }
@@ -151,10 +153,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       map(({ response, queryParams, action }) => {
         return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams, action };
       }),
-    ).subscribe(({ aggregateModels, queryParams, action }) => {
-      if (action === 'beforeSearch' && !this.hasFilterQueryParams(this.queryParamsService.getCurrentQueryParams())) {
-        this.changeSearchFilter([]);
-      } else {
+      filter(({ aggregateModels, queryParams, action }) => action === 'afterSearch'),
+    )
+      .subscribe(({ aggregateModels, queryParams, action }) => {
         if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
           this.previouSearchTerm = queryParams.ecm_fulltext;
           const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
@@ -162,9 +163,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
           });
           this.subscription.add(subscription1);
         }
+        this.searched = false;
         this.submitted = false;
-      }
-    });
+      });
     this.subscription.add(subscription);
   }
 

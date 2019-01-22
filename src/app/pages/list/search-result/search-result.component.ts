@@ -13,7 +13,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
   layout = 'search-results';
 
-  loading: boolean = true;
+  loading: boolean = false;
 
   currentView = 'thumbnailView';
 
