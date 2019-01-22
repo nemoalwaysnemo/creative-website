@@ -54,11 +54,11 @@
 
   .g-template, .g-loading, .g-image-error-message {
     position: absolute;
-    z-index: 10;
+    z-index: 200;
     left: 0;
     top: 0;
     right: 0;
-    bottom: 0;
+    bottom: 80%;
     color: white;
     display: flex;
     align-items: center;

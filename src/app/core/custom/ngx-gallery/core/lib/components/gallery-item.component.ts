@@ -38,16 +38,11 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
       <gallery-iframe *ngSwitchCase="Types.Iframe"
                       [src]="data.src"></gallery-iframe>
 
-      <ng-container *ngSwitchDefault>
-
         <div class="g-template g-item-template">
           <ng-container *ngTemplateOutlet="config.itemTemplate;
           context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
           </ng-container>
         </div>
-
-      </ng-container>
-
     </ng-container>
   `,
 })

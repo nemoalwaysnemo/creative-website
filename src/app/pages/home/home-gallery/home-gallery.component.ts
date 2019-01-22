@@ -47,10 +47,11 @@ export class HomeGalleryComponent implements OnInit, OnDestroy {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getVideoSources(), thumb: entry.thumbnailUrl, poster: entry.videoPoster });
+        imgArray.push({ src: entry.getVideoSources(), thumb: entry.thumbnailUrl, poster: entry.videoPoster, title: entry.title, uid: entry.uid});
       } else if (entry.isPicture()) {
         const url = entry.thumbnailUrl;
-        imgArray.push({ src: url, thumb: url });
+        console.info(entry);
+        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid });
       } else {
       }
     }
