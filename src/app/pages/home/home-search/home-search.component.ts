@@ -1,7 +1,7 @@
 import { OnInit, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription, BehaviorSubject, merge, Observable } from 'rxjs';
-import { debounceTime, map, skip } from 'rxjs/operators';
+import { debounceTime, map, skip, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '@pages/shared';
 import { Router } from '@angular/router';
@@ -47,8 +47,6 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     this.createForm();
     this.getSearchAggregates();
     this.search();
-    this.onSearch();
-    this.onSearchResponse();
   }
 
   ngOnDestroy() {
@@ -56,24 +54,14 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
-    this.inputObs = this.queryField.valueChanges.pipe(debounceTime(300));
-    this.filterObs = this.searchForm.valueChanges.pipe(skip(1));
-    const subscription = merge(
-      this.inputObs,
-      this.filterObs,
-    ).subscribe(_ => {
-      this.advanceSearch.search(deepExtend({ ecm_fulltext: this.queryField.value || '' }, this.buildSearchParams()));
-    });
-    this.subscription.add(subscription);
-  }
-
-  private onSearch(): void {
-    const subscription = this.advanceSearch.onSearch()
+    const subscription = this.queryField.valueChanges
       .pipe(
-        map((result: any) => result.response),
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((query: string) => this.advanceSearch.searchForText(query, this.params)),
     )
-      .subscribe((response: NuxeoPagination) => {
-        this.results = response.entries;
+      .subscribe((result: NuxeoPagination) => {
+        this.results = result.entries;
         this.show();
       });
     this.subscription.add(subscription);
