@@ -48,3 +48,7 @@
 		&.btn-disabled { background: url('/assets/images/grid_icon_disabled.png') no-repeat 13px center; }
 	}
 }
+.search-pagination {
+	width: calc(100% - 76px);
+	margin: 0 auto;
+}

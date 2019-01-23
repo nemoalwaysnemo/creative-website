@@ -1,6 +1,4 @@
 .ng2-smart-pagination {
-  display: inline-flex;
-  font-size: 0.875em;
   padding: 0;
 
   .sr-only {
@@ -15,12 +13,41 @@
   }
 
   .ng2-smart-page-item {
-    display: inline;
+    display: inline-block;
+    vertical-align: top;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
   }
 
   .page-link-next,
   .page-link-prev {
     font-size: 10px;
+  }
+}
+.page-item {
+  .page-link {
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    text-align: center;
+    color: #2a2a2a;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover {
+      color: #ffffff;
+      background: #64b5f6;
+    }
+  }
+  &.disabled .page-link {
+    color: #bdbdbd;
+  }
+  &.active .page-link {
+    color: #ffffff;
+    &:hover { background: #057bff; }
   }
 }
 
