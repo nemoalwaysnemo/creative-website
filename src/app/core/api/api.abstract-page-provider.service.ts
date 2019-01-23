@@ -17,8 +17,8 @@ export abstract class AbstractPageProvider extends AbstractBaseService {
 
   protected entries$ = new Subject<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, action: string }>();
 
-  protected getRequestUrl(): string {
-    return join(this.endPoint, 'pp', this.provider, 'execute');
+  protected getRequestUrl(provider?: string): string {
+    return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
   search(queryParams: NuxeoPageProviderParams = {}, opts: NuxeoRequestOptions = {}): void {
@@ -28,10 +28,10 @@ export abstract class AbstractPageProvider extends AbstractBaseService {
     });
   }
 
-  request(queryParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {
+  request(queryParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider: string = this.provider): Observable<NuxeoPagination> {
     const params = this.getRequestParams(queryParams);
     const options = this.getRequestOptions(opts);
-    return this.execute(this.getRequestUrl(), params, options);
+    return this.execute(this.getRequestUrl(provider), params, options);
   }
 
   onSearch(): Observable<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, action: string }> {

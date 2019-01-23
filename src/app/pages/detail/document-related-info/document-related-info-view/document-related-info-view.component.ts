@@ -71,7 +71,9 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   private onSearch(): void {
     const subscription = this.search$.pipe(
-      mergeMap((params) => this.advanceSearch.request(params)),
+      mergeMap((mapping) => {
+        return this.advanceSearch.request(mapping.params, {}, mapping.provider);
+      }),
     ).subscribe((res: NuxeoPagination) => {
       this.loading = false;
       this.documents = res.entries;
@@ -80,17 +82,24 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   }
 
   private getSearchParams() {
-    const params = { ecm_fulltext: this.queryField.value };
-    return Object.assign(params, this.item.params);
+    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_exclude: this.document.uid }, this.item.params);
+    if (this.item.hasOwnProperty('paramsMapping')) {
+      const keys = Object.keys(this.item.paramsMapping);
+      for (const key of keys) {
+        const value = this.document.get(this.item.paramsMapping[key]);
+        params[key] = typeof value === 'string' || !value ? `"${value}"` : `"${value.join('", "')}"`;
+      }
+    }
+    return { params, provider: this.item.provider };
   }
 
-  private getTagsEdgesParams(): string {
+  private getEdgesAggParams(): string {
     const edges = this.document.get('app_Edges:Tags_edges');
     return edges.length !== 0 ? `["${edges.join('", "')}"]` : '';
   }
 
   private buildBackslashEdges() {
-    const edgesParams = this.getTagsEdgesParams();
+    const edgesParams = this.getEdgesAggParams();
     if (edgesParams) {
       const params: any = {
         app_edges_active_article: true,

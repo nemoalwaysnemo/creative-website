@@ -50,7 +50,6 @@ export class HomeGalleryComponent implements OnInit, OnDestroy {
         imgArray.push({ src: entry.getVideoSources(), thumb: entry.thumbnailUrl, poster: entry.videoPoster, title: entry.title, uid: entry.uid});
       } else if (entry.isPicture()) {
         const url = entry.thumbnailUrl;
-        console.info(entry);
         imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid });
       } else {
       }

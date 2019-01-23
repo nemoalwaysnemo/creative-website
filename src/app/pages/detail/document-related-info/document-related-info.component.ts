@@ -21,19 +21,43 @@ export class DocumentRelatedInfoComponent {
         pageSize: 8,
         app_edges_active_article: true,
         ecm_path: NUXEO_META_INFO.BACKSLASH_BASE_FOLDER_PATH,
-        ecm_primaryType: NUXEO_META_INFO.BACKSLASH_ARTICLE_TYPES,
       },
+      paramsMapping: {
+        'tagsEdgesAny': 'app_Edges:Tags_edges',
+      },
+      provider: NUXEO_META_INFO.BACKSLASH_ASSET_PAGE_PROVIDER,
     },
     {
-      name: 'Distruption',
-      layout: 'distruption',
-      itemLayout: 'default',
+      name: 'Disruption',
+      layout: 'disruption',
+      itemLayout: 'disruption',
       icon: 'nb-person',
       params: {
         pageSize: 8,
         ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
-        ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       },
+      paramsMapping: {
+        'tagsEdgesAny': 'app_Edges:Tags_edges',
+        'industryAny': 'app_Edges:industry',
+        'campaign': 'The_Loupe_Main:campaign',
+      },
+      provider: NUXEO_META_INFO.DISRUPTION_ASSET_PAGE_PROVIDER,
+    },
+    {
+      name: 'Intelligence',
+      layout: 'intelligence',
+      itemLayout: 'intelligence',
+      icon: 'nb-person',
+      params: {
+        pageSize: 8,
+        ecm_path: NUXEO_META_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      },
+      paramsMapping: {
+        'tagsEdgesAny': 'app_Edges:Tags_edges',
+        'industryAny': 'app_Edges:industry',
+        'projectName': 'app_Edges:project_name',
+      },
+      provider: NUXEO_META_INFO.INTELLIGENCE_ASSET_PAGE_PROVIDER,
     },
   ];
 

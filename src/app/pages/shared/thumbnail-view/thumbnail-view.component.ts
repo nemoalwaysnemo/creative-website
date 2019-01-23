@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
 import { DocumentModel } from '@core/api/nuxeo/lib';
 
 @Component({
@@ -21,6 +20,10 @@ export class ThumbnailViewItemComponent {
     if (name) {
       this.layout = name;
     }
+  }
+
+  getThumbnailUrl(doc: DocumentModel): string {
+    return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
   }
 }
 
@@ -65,8 +68,9 @@ export class ThumbnailViewComponent implements OnInit {
     'brand': 'half flex',
     'search-list': 'results',
     'search-results': 's-results flex',
-    'backslash': 'dates flex',
-    'distruption': 'quarter flex',
+    'backslash': 'backslash dates flex',
+    'disruption': 'disruption quarter flex',
+    'intelligence': 'intelligence quarter flex',
   };
 
   ngOnInit() {

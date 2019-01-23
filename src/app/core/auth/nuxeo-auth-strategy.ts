@@ -55,7 +55,7 @@ export class NuxeoAuthStrategy extends NbAuthStrategy {
   }
 
   private getNbAuthResult(credentials: Credentials): NbAuthResult {
-    const token = new NuxeoAuthToken(Object.assign({}, credentials, { expiresIn: 3600 * 2 }));
+    const token = new NuxeoAuthToken(Object.assign({}, credentials, { expiresIn: 3600 * 4 }));
     return new NbAuthResult(true, {}, ['/'], [], [], token);
   }
 

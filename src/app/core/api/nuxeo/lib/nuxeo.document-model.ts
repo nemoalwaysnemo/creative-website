@@ -4,8 +4,11 @@ export class DocumentModel extends Base {
 
   private _properties: any;
   private _facets: string;
-  private _uid: any;
   private _contextParameters: any;
+
+  uid: string;
+
+  type: string;
 
   title: string;
 
@@ -39,17 +42,9 @@ export class DocumentModel extends Base {
     this._facets = facets;
   }
 
-  get uid(): string {
-    return this._uid;
-  }
-
-  set uid(uid: string) {
-    this._uid = uid;
-  }
-
   get thumbnailUrl(): string {
     const defaultUrl = 'assets/images/no-thumbnail.png';
-    return this.facets.indexOf('Thumbnail') !== -1 && this.facets.indexOf('Audio') === -1 && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : defaultUrl;
+    return this.facets.indexOf('Thumbnail') !== -1 && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : defaultUrl;
   }
 
   get contextParameters(): any {
