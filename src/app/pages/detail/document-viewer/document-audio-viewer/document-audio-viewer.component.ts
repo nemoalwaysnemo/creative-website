@@ -9,7 +9,7 @@ import { DocumentModel } from '@core/api';
 })
 export class DocumentAudioViewerComponent implements OnInit {
 
-  private audioSource: any;
+  audioSource: any;
 
   @Input() document: DocumentModel;
 

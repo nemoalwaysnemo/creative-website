@@ -1,6 +1,6 @@
 <div *ngIf="layout === 'default'" class="thumbnail-view-item {{styleClass}}">
   <div class="image_holder">
-    <a routerLink="/p/document" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+    <a routerLink="/p/document" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}"></a>
   </div>
   <div class="description">
     <h1 [title]="document.title"><a routerLink="/p/document" [queryParams]="{id: document.uid}">{{document.title}}</a></h1>
@@ -12,8 +12,24 @@
   </div>
 </div>
 <div *ngIf="layout === 'backslash'" class="thumbnail-view-item {{styleClass}}">
-  <h4><a routerLink="/p/document" [queryParams]="{id: document.uid}">Wednesday</a></h4>
+  <h4>{{document.title | shorten: 15: '...'}}</h4>
   <div class="line"></div>
   <h4 class="right" [title]="document.get('The_Loupe_ProdCredits:production_date') | date">{{document.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
-  <a routerLink="/p/document" [queryParams]="{id: document.uid}"><img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img"></a>
+  <img src="{{getThumbnailUrl(document)}}" [alt]="document.title" class="thumbnail-img">
+</div>
+<div *ngIf="layout === 'disruption'" class="thumbnail-view-item {{styleClass}}">
+  <div class="image_holder">
+    <a [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}"></a>
+  </div>
+  <div class="description">
+    <h1 [title]="document.title">{{document.title}}</h1>
+  </div>
+</div>
+<div *ngIf="layout === 'intelligence'" class="thumbnail-view-item {{styleClass}}">
+  <div class="image_holder">
+    <a [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}"></a>
+  </div>
+  <div class="description">
+    <h1 [title]="document.title">{{document.title}}</h1>
+  </div>
 </div>

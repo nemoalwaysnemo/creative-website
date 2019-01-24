@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { NgPipesModule } from 'ngx-pipes';
 import { ThemeModule } from '@theme/theme.module';
 import { HomePageModule } from './home/home.module';
 import { ListPageModule } from './list/list.module';
@@ -15,7 +14,6 @@ const PAGES_COMPONENTS = [
 @NgModule({
   imports: [
     PagesRoutingModule,
-    NgPipesModule,
     ThemeModule,
     HomePageModule,
     ListPageModule,
