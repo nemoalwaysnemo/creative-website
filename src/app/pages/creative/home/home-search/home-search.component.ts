@@ -123,7 +123,7 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   }
 
   private redirectToListPage(queryParams: {}) {
-    this.router.navigate(['/p/search'], { queryParamsHandling: 'merge', queryParams });
+    this.router.navigate(['/p/creative/search'], { queryParamsHandling: 'merge', queryParams });
   }
 
 
