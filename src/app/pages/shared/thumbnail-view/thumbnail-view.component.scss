@@ -1,5 +1,12 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
-
+.empty {
+  width: 100%!important;
+  padding: 40px 0!important;
+  .empty-data {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 20px;
+  }
+}
 .results {
   position: absolute;
   @include media-breakpoint-down(lg) { //992px
