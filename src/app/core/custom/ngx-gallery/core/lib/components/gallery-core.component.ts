@@ -48,7 +48,7 @@ export class GalleryCoreComponent {
   @Output() itemClick = new EventEmitter<number>();
   @Output() thumbClick = new EventEmitter<number>();
   @Output() error = new EventEmitter<GalleryError>();
-  @Output() videoState = new EventEmitter<{ state: string }>();
+  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean }>();
 
   /** Set thumbnails position */
   @HostBinding('attr.thumbPosition') get thumbPosition(): 'top' | 'left' | 'right' | 'bottom' {

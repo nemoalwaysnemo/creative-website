@@ -185,7 +185,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onVideoStateChange(action: any = {}) {
-    if (action.state === 'playing') {
+    if (action.state === 'playing' || action.fsState) {
       this.galleryRef.stop();
     }
   }

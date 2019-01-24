@@ -79,7 +79,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<GalleryError>();
 
-  @Output() videoState = new EventEmitter<{ state: string }>();
+  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean }>();
 
   /** Item zoom */
   get zoom() {

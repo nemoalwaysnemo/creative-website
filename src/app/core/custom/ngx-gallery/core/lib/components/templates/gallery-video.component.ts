@@ -24,7 +24,7 @@ import { VgAPI } from 'videogular2/core';
           <vg-mute></vg-mute>
           <vg-volume></vg-volume>
 
-          <vg-fullscreen></vg-fullscreen>
+          <vg-fullscreen (click)="detectFullScreen()"></vg-fullscreen>
       </vg-controls>
 
       <video [vgMedia]="video" #video id="video" preload="auto" poster="{{poster}}" (error)="error.emit($event)">
@@ -52,7 +52,7 @@ export class GalleryVideoComponent implements OnInit {
 
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<Error>();
-  @Output() videoState = new EventEmitter<{ state: string }>();
+  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean}>();
 
   @ViewChild('video') video: ElementRef;
 
@@ -72,13 +72,16 @@ export class GalleryVideoComponent implements OnInit {
     const events = defaultMedia.subscriptions;
 
     events.playing.subscribe(() => {
-      this.videoState.emit({ state: defaultMedia.state });
+      this.videoState.emit({ state: defaultMedia.state, fsState: null });
     });
 
     events.pause.subscribe(() => {
-      this.videoState.emit({ state: defaultMedia.state });
+      this.videoState.emit({ state: defaultMedia.state, fsState: null });
     });
 
   }
 
+  detectFullScreen() {
+    this.videoState.emit( { state: this.api.getDefaultMedia().state, fsState: this.api.fsAPI.isFullscreen} );
+  }
 }

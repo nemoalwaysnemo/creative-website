@@ -70,7 +70,7 @@ export class GalleryItemComponent {
 
   @Output() action = new EventEmitter<string | number>();
 
-  @Output() videoState = new EventEmitter<{ state: string }>();
+  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean }>();
 
   @HostBinding('class.g-active-item') get isActive() {
     return this.index === this.currIndex;
