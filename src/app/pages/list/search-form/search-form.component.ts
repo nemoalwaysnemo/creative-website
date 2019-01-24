@@ -63,6 +63,12 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.onSearch();
   }
 
+clikcEnter(): void {
+  if (!this.showFilter) {
+    this.onSubmit();
+  }
+}
+
   onReset(): void {
     this.searched = true;
     this.searchForm.patchValue(Object.assign({ aggregates: {} }, this.params), { emitEvent: false });
