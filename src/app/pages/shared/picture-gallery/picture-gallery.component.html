@@ -5,7 +5,7 @@
   </span>
 </ng-template>
 <ng-template #itemTemplate let-index="index" let-type="type" let-data="data" let-currIndex="currIndex">
-   <a routerLink="/p/document" [queryParams]="{id: data.uid}">
-  <span class="item-text">{{data.title}}</span>
+  <a routerLink="/p/document" [queryParams]="{id: data.uid}">
+  	<span class="item-text">{{data.title}}</span>
   </a>
 </ng-template>
