@@ -1,0 +1,91 @@
+@import '../../../../core/nebular/theme/styles/global/breakpoints';
+
+$main-yellow: #fecc00;
+
+.clear { clear: both; }
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.filter-wrapper {
+  position: relative;
+  display: block;
+  float: left;
+  width: 100%;
+  height: 560px;
+  border-bottom: solid 3px $main-yellow;
+  background: url('/assets/images/search_bg.png') no-repeat center center;
+  background-size: cover;
+  > h1 {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 50px;
+    line-height: 50px;
+    margin-top: 138px;
+    margin-left: 40px;
+    color: $main-yellow;
+  }
+  > h4 {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 16px;
+    margin-left: 40px;
+    color: #ffffff;
+  }
+  .advanced_filters_trigger {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    display: inline-block;
+    margin-left: 40px;
+    margin-top: 21px;
+    font-size: 15px;
+    color: #ffffff;
+  }
+}
+
+.keyword-wrapper {
+  position: relative;
+  margin-left: 40px;
+}
+
+.keyword {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  display: block;
+  @include media-breakpoint-down(lg) { //992px
+    width: 700px;
+  }
+  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+    width: 1000px;
+  }
+  @include media-breakpoint-up(xxl) { //1400px
+    width: 1209px;
+  }
+  height: 95px;
+  margin-top: 50px;
+  padding-left: 109px;
+  font-size: 30px;
+  box-sizing: border-box;
+  background: #ffffff url('/assets/images/search_icon.png') no-repeat 38px center;
+  border: none;
+  outline: 0;
+}
+
+.keyword:focus {
+  border-color: rgba(81, 203, 238, 1);
+  ;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #b1b1b1;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #b1b1b1;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #b1b1b1;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #b1b1b1;
+}

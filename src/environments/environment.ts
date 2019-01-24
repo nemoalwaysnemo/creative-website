@@ -12,7 +12,7 @@ export const Environment = {
 
 export const NUXEO_META_INFO = {
   ROOT_FOLDER_PATH: '/',
-  CREATIVE_BASE_FOLDER_PATH: '/Creative/TBWA-',
+  CREATIVE_BASE_FOLDER_PATH: '/Creative',
   CREATIVE_AWARD_FOLDER_PATH: '/Creative/AWARDS',
   CREATIVE_IMAGE_VIDEO_TYPES: '["App-Library-Image", "App-Library-Video"]',
   CREATIVE_IMAGE_VIDEO_AUDIO_TYPES: '["App-Library-Image", "App-Library-Video", "App-Library-Audio"]',

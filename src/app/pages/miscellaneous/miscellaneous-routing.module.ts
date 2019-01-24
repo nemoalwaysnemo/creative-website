@@ -10,6 +10,9 @@ const routes: Routes = [{
   children: [{
     path: '404',
     component: NotFoundComponent,
+  }, {
+    path: '**',
+    component: NotFoundComponent,
   }],
 }];
 

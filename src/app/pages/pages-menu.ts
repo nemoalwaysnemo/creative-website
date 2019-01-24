@@ -5,7 +5,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Library',
     icon: 'nb-creative',
-    link: '/p/home',
+    link: '/p/creative',
     home: true,
   },
   {

@@ -1,0 +1,55 @@
+@import '../../../../../../core/nebular/theme/styles/global/breakpoints';
+
+.left { float: left; }
+.right { float: right; }
+.clear { clear: both; }
+.prev a,
+.next a {
+  display: block;
+  width: 17px;
+  height: 106px;
+  margin: 14px 0 0;
+}
+.prev a {
+  margin-right: 22px;
+  background: url('/assets/images/scroll_arrow_prev.png') no-repeat center center;
+}
+.next a {
+  margin-left: 22px;
+  background: url('/assets/images/scroll_arrow_next.png') no-repeat center center;
+}
+.gallery-list {
+  @include media-breakpoint-down(lg) { //992px
+    width: calc(500px - 34px - 44px);
+  }
+  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+    width: calc(700px - 34px - 44px);
+  }
+  @include media-breakpoint-up(xxl) { //1400px
+    width: calc(949px - 34px - 44px);
+  }
+  height: 116px;
+  margin: 14px 0 0;
+  padding: 0;
+  padding-left: 0!important;
+  white-space: nowrap;
+  overflow: hidden;
+  .list-item {
+    display: inline-block;
+    vertical-align: top;
+    height: 106px;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      &:hover { cursor: pointer; }
+    }
+  }
+  .list-item + .list-item { padding-left: 22px; }
+}
+.see_all {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  margin-top: 29px;
+  color: #000000;
+  &:hover { text-decoration: none; }
+}

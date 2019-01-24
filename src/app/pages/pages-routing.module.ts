@@ -1,34 +1,29 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './home/home.component';
-import { ListComponent } from './list/list.component';
-import { DetailComponent } from './detail/detail.component';
 import { PagesComponent } from './pages.component';
-import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
-  children: [{
-    path: 'home',
-    component: HomeComponent,
-  }, {
-    path: 'search',
-    component: ListComponent,
-  }, {
-    path: 'document',
-    component: DetailComponent,
-  }, {
-    path: 'miscellaneous',
-    loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
-  }, {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  }, {
-    path: '**',
-    component: NotFoundComponent,
-  }],
+  children: [
+    {
+      path: 'creative',
+      loadChildren: './creative/creative-page.module#CreativePageModule',
+    }, {
+      path: 'disruption',
+      loadChildren: './disruption/disruption-page.module#DisruptionPageModule',
+    }, {
+      path: 'intelligence',
+      loadChildren: './intelligence/intelligence-page.module#IntelligencePageModule',
+    }, {
+      path: '',
+      redirectTo: 'creative',
+      pathMatch: 'full',
+    }, {
+      path: '**',
+      loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
+    },
+  ],
 }];
 
 @NgModule({

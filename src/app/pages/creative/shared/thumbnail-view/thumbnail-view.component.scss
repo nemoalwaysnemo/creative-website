@@ -1,0 +1,81 @@
+@import '../../../../core/nebular/theme/styles/global/breakpoints';
+.empty {
+  width: 100%!important;
+  padding: 40px 0!important;
+  .empty-data {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 20px;
+  }
+}
+.results {
+  position: absolute;
+  @include media-breakpoint-down(lg) { //992px
+    width: 700px;
+  }
+  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+    width: 1000px;
+  }
+  @include media-breakpoint-up(xxl) { //1400px
+    width: 1209px;
+  }
+  max-height: 700px;
+  left: 40px;
+  box-sizing: border-box;
+  background: #ffffff;
+  box-shadow: 6px 11px 32px rgba(0, 0, 0, 0.72);
+  z-index: 1000;
+  overflow: auto;
+  > div {
+    padding: 26px 43px;
+    box-sizing: border-box;
+    &:hover { background-color: #eeeeee; }
+    &:focus-within { background-color: #eeeeee; }
+  }
+}
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.quarter {
+  > div {
+    @include media-breakpoint-down(md) {
+      width: 50%;
+    }
+    @include media-breakpoint-between(md, xl) {
+      width: 33.333333%;
+    }
+    @include media-breakpoint-up(xl) {
+      width: 25%;
+    }
+    padding: 10px 39px 28px 0;
+    box-sizing: border-box;
+  }
+}
+.half {
+  > div {
+    width: 50%;
+    padding: 10px 41px 28px 0;
+  }
+}
+.s-results {
+  width: calc(100% - 76px);
+  min-height: 100px;
+  margin: 7px auto 0;
+  > div {
+    width: 25%;
+    padding: 18px 39px 18px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+}
+.dates {
+  width: 100%;
+  > div {
+    width: 25%;
+    box-sizing: border-box;
+    padding: 0 41px 49px 0;
+  }
+}

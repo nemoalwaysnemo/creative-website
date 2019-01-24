@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goHome() {
-    this.router.navigate(['/p/home']);
+    this.router.navigate(['/']);
   }
 
   private getUser(): void {

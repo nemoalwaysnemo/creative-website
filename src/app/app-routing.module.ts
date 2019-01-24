@@ -3,7 +3,11 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { AuthGuard, NbAuthComponent, NbLoginComponent, NbLogoutComponent } from '@core/auth';
 
 const routes: Routes = [
-  { path: 'p', canActivate: [AuthGuard], loadChildren: 'app/pages/pages.module#PagesModule' },
+  {
+    path: 'p',
+    canActivate: [AuthGuard],
+    loadChildren: 'app/pages/pages.module#PagesModule',
+  },
   {
     path: 'auth',
     component: NbAuthComponent,

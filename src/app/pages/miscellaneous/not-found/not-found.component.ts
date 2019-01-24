@@ -12,6 +12,6 @@ export class NotFoundComponent {
   }
 
   goToHome() {
-    this.router.navigate(['/p/home']);
+    this.router.navigate(['/']);
   }
 }

@@ -20,7 +20,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:railsdev": "ng build --prod --configuration=rails-dev --build-optimizer --base-href=./ --deploy-url=creative_assets/ ",
-    "build:nadev": "ng build --prod --configuration=na-dev --build-optimizer --base-href=./ --deploy-url=/nuxeo/creative_library/ ",
+    "build:nadev": "ng build --prod --configuration=na-dev --build-optimizer --base-href=./ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "test": "ng test",
     "test:coverage": "rimraf coverage && yarn test -- --code-coverage",
     "lint": "ng lint",
