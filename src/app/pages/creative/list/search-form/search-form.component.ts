@@ -71,7 +71,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   toggleFilter(): void {
-    this.showFilter = !this.showFilter;
+    if (!this.submitted) {
+      this.showFilter = !this.showFilter;
+    }
   }
 
   private createForm() {

@@ -3,7 +3,7 @@
     <input class="form-control" formControlName="ecm_fulltext" [disableControl]="submitted" placeholder="Search for..." (keyup.enter)="onSubmit()" />
   </div>
   <div class="filters">
-    <a href="javascript:;" (click)="toggleFilter()" class="advanced_filters_trigger icon_btn success" [ngClass]="{'btn-disabled': showFilter}">Filter</a>
+    <a href="javascript:;" (click)="toggleFilter()" class="advanced_filters_trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': submitted}">Filter</a>
     <!-- <div class="dropdown_container">
       <a href="javascript:;" class="dropdown-trigger"><span>Asset type</span><i class="caret down"></i></a>
     </div>
