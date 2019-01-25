@@ -5,7 +5,7 @@
   .left { float: left; }
   .right { float: right; }
   .clear { clear: both; }
-  
+
   > h1,
 	.list_view_trigger,
 	.grid_view_trigger {
@@ -48,14 +48,26 @@
 	.list_view_trigger {
 		margin-right: 38px;
 		background: url('/assets/images/list_icon.png') no-repeat 13px center;
-		&.btn-active { background: url('/assets/images/list_icon_active.png') no-repeat 13px center; }
-		&.btn-disabled { background: url('/assets/images/list_icon_disabled.png') no-repeat 13px center; }
+		&.btn-active {
+		  background: url('/assets/images/list_icon_active.png') no-repeat 13px center;
+		  cursor: auto;
+		}
+		&.btn-disabled {
+		  background: url('/assets/images/list_icon_disabled.png') no-repeat 13px center;
+		  cursor: auto;
+		}
 	}
 	.grid_view_trigger {
 		margin-right: 12px;
 		background: url('/assets/images/grid_icon.png') no-repeat 13px center;
-		&.btn-active { background: url('/assets/images/grid_icon_active.png') no-repeat 13px center; }
-		&.btn-disabled { background: url('/assets/images/grid_icon_disabled.png') no-repeat 13px center; }
+		&.btn-active {
+		  background: url('/assets/images/grid_icon_active.png') no-repeat 13px center;
+		  cursor: auto;
+		}
+		&.btn-disabled {
+		  background: url('/assets/images/grid_icon_disabled.png') no-repeat 13px center;
+			cursor: auto;
+		}
 	}
 }
 .search-pagination {

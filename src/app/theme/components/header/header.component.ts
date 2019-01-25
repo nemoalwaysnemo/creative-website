@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '@core/api';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Environment } from '@environment/environment';
 
 @Component({
   selector: 'ngx-header',
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goHome() {
-    this.router.navigate(['/']);
+    this.router.navigate([Environment.homePath]);
   }
 
   private getUser(): void {

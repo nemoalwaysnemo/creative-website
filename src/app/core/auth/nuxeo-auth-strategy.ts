@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {
   NbAuthStrategy,
   NbAuthStrategyClass,
@@ -9,6 +9,7 @@ import {
 } from '../nebular/auth';
 import { NuxeoApiService, Credentials } from '../api/nuxeo';
 import { NuxeoAuthToken } from './nuxeo-auth-token';
+import { Environment } from '@environment/environment';
 
 
 @Injectable()
@@ -56,7 +57,7 @@ export class NuxeoAuthStrategy extends NbAuthStrategy {
 
   private getNbAuthResult(credentials: Credentials): NbAuthResult {
     const token = new NuxeoAuthToken(Object.assign({}, credentials, { expiresIn: 3600 * 4 }));
-    return new NbAuthResult(true, {}, ['/'], [], [], token);
+    return new NbAuthResult(true, {}, [Environment.homePath], [], [], token);
   }
 
 }

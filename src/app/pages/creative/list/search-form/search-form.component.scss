@@ -18,6 +18,7 @@
 	&.btn-disabled {
 		background-color: #eeeeee!important;
 		color: #cccccc;
+		cursor: default;
 		&:hover, &:focus {
 			color: #cccccc;
 			text-decoration: none;
@@ -119,11 +120,13 @@
 		text-transform: capitalize;
 		color: #000000;
 		background-color: #ffffff;
+		cursor: pointer;
 		&:focus {
 			outline: 0;
 			background-color: #ffffff!important;
 		}
 		&.btn-disabled {
+			cursor: auto;
 			color: #e1e1e1!important;
 			background-color: #bdbdbd!important;
 			&:focus { background-color: #bdbdbd!important; }

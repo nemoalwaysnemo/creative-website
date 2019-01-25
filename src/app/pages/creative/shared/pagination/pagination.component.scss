@@ -39,7 +39,7 @@
     cursor: pointer;
     &:hover {
       color: #ffffff;
-      background: #64b5f6;
+      background: #8ef1b6;
     }
   }
   &.disabled .page-link {
@@ -47,7 +47,8 @@
   }
   &.active .page-link {
     color: #ffffff;
-    &:hover { background: #057bff; }
+    background-color: #40dc7e;
+    &:hover { background: #40dc7e; }
   }
 }
 

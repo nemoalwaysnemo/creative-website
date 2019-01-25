@@ -1,6 +1,7 @@
 // This file is used for prod env
 
 export const Environment = {
+  homePath: '/p/creative',
   appName: 'Creative Library',
   nuxeoUrl: 'https://library-na.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
