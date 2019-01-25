@@ -6,6 +6,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Library',
     icon: 'nb-creative',
     link: '/p/creative',
+    pathMatch: 'contains',
     home: true,
   },
   {

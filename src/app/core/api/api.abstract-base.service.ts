@@ -14,14 +14,15 @@ export abstract class AbstractBaseService {
 
   protected getRequestParams(opts: any = {}): NuxeoPageProviderParams {
     const options = opts || {};
+    const searchTerm: any = {};
     if (options.hasOwnProperty('ecm_fulltext')) {
       if (options.ecm_fulltext) {
-        options.ecm_fulltext = `${opts.ecm_fulltext}*`;
+        searchTerm.ecm_fulltext = `${opts.ecm_fulltext}*`;
       } else {
         delete options.ecm_fulltext;
       }
     }
-    return deepExtend(new NuxeoPageProviderParams(), this.defaultParams, options);
+    return deepExtend(new NuxeoPageProviderParams(), this.defaultParams, options, searchTerm);
   }
 
   protected getRequestOptions(opts: any = {}): NuxeoRequestOptions {

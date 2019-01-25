@@ -14,6 +14,6 @@ export class DocumentImageViewerComponent implements OnInit {
   @Input() document: DocumentModel;
 
   ngOnInit() {
-    this.src = this.document.filePath === '' ? ['../assets/default/no_image.png'] : [this.document.filePath];
+    this.src = this.document.filePath ? [this.document.filePath] : ['assets/images/default.jpg'];
   }
 }

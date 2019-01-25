@@ -71,7 +71,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   toggleFilter(): void {
-    this.showFilter = !this.showFilter;
+    if (!this.submitted) {
+      this.showFilter = !this.showFilter;
+    }
   }
 
   private createForm() {
@@ -97,11 +99,15 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private buildQueryParams(): any {
-    return this.queryParamsService.buildQueryParams(this.searchForm.value);
+    return this.queryParamsService.buildQueryParams(this.getFormValue());
   }
 
   private buildSearchParams(): object {
-    return this.queryParamsService.buildSearchParams(this.searchForm.value);
+    return this.queryParamsService.buildSearchParams(this.getFormValue());
+  }
+
+  private getFormValue(): any {
+    return this.submitted ? this.searchForm.getRawValue() : this.searchForm.value;
   }
 
   private hasQueryParams(queryParams: {}): boolean {
@@ -153,9 +159,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       map(({ response, queryParams, action }) => {
         return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams, action };
       }),
-      filter(({ aggregateModels, queryParams, action }) => action === 'afterSearch'),
+      filter(({ action }) => action === 'afterSearch'),
     )
-      .subscribe(({ aggregateModels, queryParams, action }) => {
+      .subscribe(({ aggregateModels, queryParams }) => {
         if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
           this.previouSearchTerm = queryParams.ecm_fulltext;
           const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {

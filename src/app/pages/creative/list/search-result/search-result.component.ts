@@ -19,7 +19,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
   documents: DocumentModel[] = [];
 
-  listDocuments: ListViewItem[];
+  listDocuments: ListViewItem[] = [];
 
   totalResults = 0;
 
@@ -61,10 +61,10 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.onSearch().subscribe(({ response, queryParams, action }) => {
       if (action === 'beforeSearch') {
         this.loading = true;
+        this.queryParams = queryParams;
       } else {
         this.loading = false;
         this.paginationService.from(response);
-        this.queryParams = queryParams;
         this.totalResults = response.resultsCount;
         this.documents = response.entries;
         this.listDocuments = this.buildListViewItem(response.entries);
