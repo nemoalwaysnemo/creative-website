@@ -12,7 +12,7 @@
   </div>
 </div>
 <div *ngIf="layout === 'backslash'" class="thumbnail-view-item {{styleClass}}">
-  <h4>{{document.title | shorten: 15: '...'}}</h4>
+  <h4>{{document.title | shorten: 12: '...'}}</h4>
   <div class="line"></div>
   <h4 class="right" [title]="document.get('The_Loupe_ProdCredits:production_date') | date">{{document.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
   <img src="{{getThumbnailUrl(document)}}" [alt]="document.title" class="thumbnail-img">

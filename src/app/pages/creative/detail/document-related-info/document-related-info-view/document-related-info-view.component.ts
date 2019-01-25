@@ -19,9 +19,9 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   private search$: Subject<any> = new Subject<any>();
 
-  loading = true;
+  loading: boolean = true;
 
-  edgeLoading = false;
+  edgeLoading: boolean = true;
 
   documents: DocumentModel[] = [];
 
@@ -107,12 +107,13 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         app_edges_tags_edges: edgesParams,
         ecm_path: NUXEO_META_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
-      this.edgeLoading = true;
       const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
         this.edgeLoading = false;
         this.backslashEdges = res.entries;
       });
       this.subscription.add(subscription);
+    } else {
+      this.edgeLoading = false;
     }
   }
 }

@@ -35,7 +35,7 @@ export class ThumbnailViewItemComponent {
     <div *ngFor="let document of documents" class="thumbnail-view">
       <tbwa-thumbnail-view-item [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
     </div>
-    <div *ngIf="showEmpty && documents && documents.length === 0" class="thumbnail-view empty text-center">
+    <div *ngIf="showEmpty && !loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
       <span class="empty-data">No data found</span>
     </div>
   </div>
