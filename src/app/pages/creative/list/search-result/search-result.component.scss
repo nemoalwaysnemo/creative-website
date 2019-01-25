@@ -36,15 +36,25 @@
 				text-decoration: none;
 			}
 		}
+		&.btn-active {
+			background-color: #40dc7e!important;
+			color: #ffffff;
+			&:hover, &:focus {
+				color: #ffffff;
+				text-decoration: none;
+			}
+		}
 	}
 	.list_view_trigger {
 		margin-right: 38px;
 		background: url('/assets/images/list_icon.png') no-repeat 13px center;
+		&.btn-active { background: url('/assets/images/list_icon_active.png') no-repeat 13px center; }
 		&.btn-disabled { background: url('/assets/images/list_icon_disabled.png') no-repeat 13px center; }
 	}
 	.grid_view_trigger {
 		margin-right: 12px;
 		background: url('/assets/images/grid_icon.png') no-repeat 13px center;
+		&.btn-active { background: url('/assets/images/grid_icon_active.png') no-repeat 13px center; }
 		&.btn-disabled { background: url('/assets/images/grid_icon_disabled.png') no-repeat 13px center; }
 	}
 }
