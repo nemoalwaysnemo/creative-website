@@ -97,11 +97,15 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private buildQueryParams(): any {
-    return this.queryParamsService.buildQueryParams(this.searchForm.value);
+    return this.queryParamsService.buildQueryParams(this.getFormValue());
   }
 
   private buildSearchParams(): object {
-    return this.queryParamsService.buildSearchParams(this.searchForm.value);
+    return this.queryParamsService.buildSearchParams(this.getFormValue());
+  }
+
+  private getFormValue(): any {
+    return this.submitted ? this.searchForm.getRawValue() : this.searchForm.value;
   }
 
   private hasQueryParams(queryParams: {}): boolean {
