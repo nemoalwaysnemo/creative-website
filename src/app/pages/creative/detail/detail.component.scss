@@ -8,7 +8,7 @@
     width: 700px;
   }
   @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-    width: 1000px;
+    width: 850px;
   }
   @include media-breakpoint-up(xxl) { //1400px
     width: 1366px;
@@ -23,11 +23,11 @@
       margin-bottom: 19px;
       .showcase {
         @include media-breakpoint-down(lg) { //992px
-          width: 500px;
+          width: 400px;
           margin-right: 23px;
         }
         @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-          width: 700px;
+          width: 600px;
           margin-right: 33px;
         }
         @include media-breakpoint-up(xxl) { //1400px
@@ -37,10 +37,10 @@
       }
       .general_info {
         @include media-breakpoint-down(lg) { //992px
-          width: calc(700px - 500px - 23px);
+          width: calc(700px - 400px - 23px);
         }
         @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-          width: calc(1000px - 700px - 33px);
+          width: calc(850px - 600px - 33px);
         }
         @include media-breakpoint-up(xxl) { //1400px
           width: calc(1366px - 949px - 43px);

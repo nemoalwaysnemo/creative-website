@@ -58,12 +58,12 @@
       }
 
       &:first-child {
-        border-top-left-radius: nb-theme(accordion-border-radius);
-        border-top-right-radius: nb-theme(accordion-border-radius);
+        // border-top-left-radius: nb-theme(accordion-border-radius);
+        // border-top-right-radius: nb-theme(accordion-border-radius);
       }
       &:last-child {
-        border-bottom-left-radius: nb-theme(accordion-border-radius);
-        border-bottom-right-radius: nb-theme(accordion-border-radius);
+        // border-bottom-left-radius: nb-theme(accordion-border-radius);
+        // border-bottom-right-radius: nb-theme(accordion-border-radius);
 
         &.collapsed nb-accordion-item-header {
           border-bottom: none;
