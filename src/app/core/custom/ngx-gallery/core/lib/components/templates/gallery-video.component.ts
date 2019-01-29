@@ -9,7 +9,7 @@ import { VgAPI } from 'videogular2/core';
 
       <vg-overlay-play vgFor="video"></vg-overlay-play>
 
-      <vg-controls>
+      <vg-controls vgFor="video" [vgAutohide]="true" [vgAutohideTime]="2">
           <vg-play-pause></vg-play-pause>
 
           <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
