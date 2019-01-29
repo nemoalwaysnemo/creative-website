@@ -12,6 +12,8 @@ export class ListViewComponent {
 
   @Input() layout: string;
 
+  @Input() loading: boolean;
+
   @Input() documents: ListViewItem[];
 
   @Input()
