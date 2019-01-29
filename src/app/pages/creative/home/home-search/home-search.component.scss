@@ -58,7 +58,7 @@ $main-yellow: #fecc00;
     width: 700px;
   }
   @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-    width: 1000px;
+    width: 850px;
   }
   @include media-breakpoint-up(xxl) { //1400px
     width: 1209px;
