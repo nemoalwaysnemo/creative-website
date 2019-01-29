@@ -56,4 +56,13 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
       this.galleryRef.setConfig(config);
     }
   }
+
+  showTitle (data) {
+    if (data.show) {
+      return data.title;
+    } else {
+      return '';
+    }
+  }
+
 }

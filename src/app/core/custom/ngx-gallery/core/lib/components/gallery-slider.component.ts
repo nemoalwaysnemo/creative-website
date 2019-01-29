@@ -40,6 +40,8 @@ declare const Hammer: any;
                       [data]="item.data"
                       [currIndex]="state.currIndex"
                       [index]="i"
+                      (mouseover)="showTitle(item.data)"
+                      (mouseout)="hideTitle(item.data)"
                       (ngxTapClick)="itemClick.emit(i)"
                       (videoState)="videoState.emit($event)"
                       (error)="error.emit({itemIndex: i, error: $event})">
@@ -224,5 +226,13 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   private updateSlider(state: WorkerState) {
     const newState: WorkerState = {...this._slidingWorker$.value, ...state};
     animationFrameScheduler.schedule(() => this._slidingWorker$.next(newState));
+  }
+
+  showTitle(data) {
+    data['show'] = true;
+  }
+
+  hideTitle(data) {
+    data['show'] = false;
   }
 }

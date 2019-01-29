@@ -6,6 +6,6 @@
 </ng-template>
 <ng-template #itemTemplate let-index="index" let-type="type" let-data="data" let-currIndex="currIndex">
   <a routerLink="document" [queryParams]="{id: data.uid}">
-  	<span class="item-text">{{data.title}}</span>
+  	<span class="item-text">{{ showTitle(data) }}</span>
   </a>
 </ng-template>
