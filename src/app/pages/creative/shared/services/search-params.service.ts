@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { filterParams, selectObjectByKeys } from '@core/services';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, share } from 'rxjs/operators';
 
 @Injectable()
 export class SearchQueryParamsService {
@@ -35,11 +35,14 @@ export class SearchQueryParamsService {
     this.router.navigate(commands, { relativeTo: this.activatedRoute, queryParams, queryParamsHandling });
   }
 
-  onQueryParamsChanged(): Observable<any> {
-    return this.activatedRoute.queryParams.pipe(distinctUntilChanged());
+  onQueryParamsChanged(): Observable<Params> {
+    return this.activatedRoute.queryParams.pipe(
+      distinctUntilChanged(),
+      share(),
+    );
   }
 
-  getCurrentQueryParams(): any {
+  getCurrentQueryParams(): Params {
     return this.activatedRoute.snapshot.queryParams;
   }
 

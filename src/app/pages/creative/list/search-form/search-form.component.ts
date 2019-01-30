@@ -4,7 +4,7 @@ import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../shared';
 import { selectObjectByKeys } from '@core/services';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, takeWhile, tap } from 'rxjs/operators';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -13,8 +13,6 @@ import { NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './search-form.component.html',
 })
 export class SearchFormComponent implements OnInit, OnDestroy {
-
-  private searched: boolean = false;
 
   private previouSearchTerm: string;
 
@@ -48,8 +46,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.onPageChanged();
     this.onSearchResponse();
     this.onQueryParamsChanged();
-    this.showFilter = this.hasFilterQueryParams(this.queryParamsService.getCurrentQueryParams());
-    this.changeSearchFilter([]);
   }
 
   ngOnDestroy() {
@@ -57,17 +53,15 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.searched = true;
-    this.searchForm.patchValue({ currentPageIndex: 0 });
-    this.changeQueryParams();
+    this.patchFormValue({ currentPageIndex: 0 });
     this.onSearch();
+    this.changeQueryParams();
   }
 
   onReset(): void {
-    this.searched = true;
-    this.searchForm.patchValue(Object.assign({ aggregates: {} }, this.params), { emitEvent: false });
-    this.changeQueryParams();
+    this.patchFormValue(Object.assign({ aggregates: {} }, this.params));
     this.onSearch();
+    this.changeQueryParams();
   }
 
   toggleFilter(): void {
@@ -79,6 +73,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   private createForm() {
     const params = Object.assign({ aggregates: {} }, this.params);
     this.searchForm = this.formBuilder.group(params);
+    this.changeSearchFilter([]);
   }
 
   private setFormValues(queryParams: any): void {
@@ -95,7 +90,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       }
     }
     params = selectObjectByKeys(params, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
-    this.searchForm.patchValue(params, { emitEvent: false });
+    this.patchFormValue(params);
   }
 
   private buildQueryParams(): any {
@@ -107,7 +102,11 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private getFormValue(): any {
-    return this.submitted ? this.searchForm.getRawValue() : this.searchForm.value;
+    return this.searchForm.getRawValue();
+  }
+
+  private patchFormValue(params: { [key: string]: any }): void {
+    this.searchForm.patchValue(params);
   }
 
   private hasQueryParams(queryParams: {}): boolean {
@@ -115,29 +114,24 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private hasFilterQueryParams(queryParams: {}): boolean {
-    const keys = Object.keys(queryParams);
-    for (const key of keys) {
-      if (key.includes('_agg')) {
-        return true;
-      }
-    }
-    return false;
+    return Object.keys(queryParams).some((key) => key.includes('_agg'));
   }
 
   private onPageChanged(): void {
     if (!this.hasQueryParams(this.queryParamsService.getCurrentQueryParams())) {
       this.getSearchAggregates();
+    } else if (this.hasFilterQueryParams(this.queryParamsService.getCurrentQueryParams())) {
+      this.showFilter = true;
     }
   }
 
   private onQueryParamsChanged(): void {
-    const subscription = this.queryParamsService.onQueryParamsChanged()
-      .subscribe(queryParams => {
-        if (this.searched === false && this.hasQueryParams(queryParams)) {
-          this.setFormValues(queryParams);
-          this.onSearch();
-        }
-      });
+    const subscription = this.queryParamsService.onQueryParamsChanged().pipe(
+      filter((queryParams) => !this.submitted && this.hasQueryParams(queryParams)),
+    ).subscribe(queryParams => {
+      this.setFormValues(queryParams);
+      this.onSearch();
+    });
     this.subscription.add(subscription);
   }
 
@@ -160,18 +154,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
         return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams, action };
       }),
       filter(({ action }) => action === 'afterSearch'),
-    )
-      .subscribe(({ aggregateModels, queryParams }) => {
-        if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
-          this.previouSearchTerm = queryParams.ecm_fulltext;
-          const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
-            this.changeSearchFilter(models);
-          });
-          this.subscription.add(subscription1);
-        }
-        this.searched = false;
-        this.submitted = false;
-      });
+    ).subscribe(({ aggregateModels, queryParams }) => {
+      if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
+        this.previouSearchTerm = queryParams.ecm_fulltext;
+        const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
+          this.changeSearchFilter(models);
+        });
+        this.subscription.add(subscription1);
+      }
+      this.submitted = false;
+    });
     this.subscription.add(subscription);
   }
 

@@ -9,7 +9,10 @@ import { PaginationDataSource } from '../../shared/pagination/pagination-data-so
 })
 export class PaginationComponent implements OnChanges, OnInit {
 
+  @Input() disable: boolean = false;
+
   @Input() dataSource: PaginationDataSource;
+
   @Output() changePage = new EventEmitter<any>();
 
   private pages: any[] = [];
