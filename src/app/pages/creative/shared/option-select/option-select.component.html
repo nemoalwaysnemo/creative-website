@@ -15,4 +15,8 @@
   (change)="onChange($event)"
   (close)="onClose($event)"
   [(ngModel)]="selectedItems"
-></ng-select>
+>
+<ng-template ng-option-tmp let-item="item">
+  <span title="{{item.value}}">{{item.value}}</span>
+</ng-template>
+</ng-select>
