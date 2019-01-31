@@ -160,9 +160,15 @@ h1, h4 { cursor: pointer; }
     text-decoration: none;
   }
   .description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     padding: 0 13px;
     box-sizing: border-box;
     h1 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
       font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
       font-size: 18px;
       margin-top: 22px;
