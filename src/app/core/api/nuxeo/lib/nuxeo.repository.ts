@@ -10,6 +10,20 @@ export class Repository extends Base {
     this._nuxeo = opts.nuxeo;
   }
 
+  update(doc, opts: any = {} ) {
+    opts.body = {
+      'entity-type': 'document',
+      uid: doc.uid,
+      properties: doc.properties,
+    };
+    const options = this._computeOptions(opts);
+    const path = join('id', doc.uid);
+    options.repository = this;
+    return this._nuxeo.request(path)
+      .put(options);
+  }
+
+
   fetch(ref: string, opts: any = {}): Observable<DocumentModel> {
     const options = this._computeOptions(opts);
     const path = this._computePath(ref);

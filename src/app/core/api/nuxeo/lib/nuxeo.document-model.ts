@@ -5,7 +5,8 @@ export class DocumentModel extends Base {
   private _properties: any;
   private _facets: string;
   private _contextParameters: any;
-
+  private _repository: any;
+  private _dirtyProperties: any;
   uid: string;
 
   type: string;
@@ -15,8 +16,26 @@ export class DocumentModel extends Base {
   constructor(doc: any = {}, opts: any = {}) {
     super(opts);
     this._properties = {};
+    this._nuxeo = opts.nuxeo;
+    this._repository = opts.repository || this._nuxeo.repository(doc.repository, opts);
+    this._dirtyProperties = {};
     Object.assign(this, doc);
   }
+
+  set(properties) {
+    this._dirtyProperties = Object.assign(this._dirtyProperties, properties);
+    return this;
+  }
+
+  save(opts = {}) {
+    const options = this._computeOptions(opts);
+    return this._repository.update({
+      'entity-type': 'document',
+      uid: this.uid,
+      properties: this._dirtyProperties,
+    }, options);
+  }
+
 
   get properties(): any {
     return this._properties;
