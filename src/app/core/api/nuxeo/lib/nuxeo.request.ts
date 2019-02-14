@@ -37,9 +37,14 @@ export class Request extends Base {
     return this.execute(opts);
   }
 
+  put(opts: any = {}): Observable<NuxeoResponse> {
+    opts.method = 'PUT';
+    return this.execute(opts);
+  }
+
+
   execute(opts: any = {}): Observable<NuxeoResponse> {
     const options = this._computeOptions(opts);
-
     let path = this._path;
     const repositoryName = options.repositoryName;
     if (repositoryName !== undefined && repositoryName !== null) {
