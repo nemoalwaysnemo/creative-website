@@ -14,10 +14,6 @@ export class DocumentImageViewerComponent implements OnInit {
   @Input() document: DocumentModel;
 
   ngOnInit() {
-    this.document.set({
-       'dc:title': 'new title',
-       'dc:description': 'new description',
-    }).save();
     this.src = this.document.filePath ? [this.document.filePath] : ['assets/images/default.jpg'];
   }
 }
