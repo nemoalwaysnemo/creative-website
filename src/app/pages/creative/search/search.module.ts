@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { SharedModule } from '../shared/shared.module';
-import { ListComponent } from './list.component';
+import { SharedModule } from '../../shared/shared.module';
+import { ListComponent } from './search.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 
@@ -19,4 +19,4 @@ import { SearchResultComponent } from './search-result/search-result.component';
     SharedModule.forRoot().providers,
   ],
 })
-export class ListPageModule { }
+export class SearchPageModule { }

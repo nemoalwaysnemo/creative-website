@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
-import { PaginationDataSource } from '../../shared/pagination/pagination-data-source';
+import { PaginationDataSource } from '../../../shared/pagination/pagination-data-source';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({

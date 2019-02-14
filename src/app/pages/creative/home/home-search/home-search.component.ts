@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../shared';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../../shared';
 import { Router } from '@angular/router';
 import { deepExtend } from '@core/services';
 import { NUXEO_META_INFO } from '@environment/environment';

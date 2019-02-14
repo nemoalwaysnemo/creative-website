@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../shared';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../../shared';
 import { selectObjectByKeys } from '@core/services';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { map, filter, takeWhile, tap } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({

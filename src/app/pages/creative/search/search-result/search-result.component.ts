@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
-import { PaginationDataSource } from '../../shared/pagination/pagination-data-source';
-import { ListViewItem, SearchQueryParamsService } from '../../shared';
+import { PaginationDataSource } from '../../../shared/pagination/pagination-data-source';
+import { ListViewItem, SearchQueryParamsService } from '../../../shared';
 import { Subscription } from 'rxjs';
 
 @Component({

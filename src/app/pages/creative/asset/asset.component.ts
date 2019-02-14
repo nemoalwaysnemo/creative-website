@@ -7,11 +7,11 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { isDocumentUID } from '@core/services';
 
 @Component({
-  selector: 'tbwa-detail-page',
-  styleUrls: ['./detail.component.scss'],
-  templateUrl: './detail.component.html',
+  selector: 'tbwa-asset-page',
+  styleUrls: ['./asset.component.scss'],
+  templateUrl: './asset.component.html',
 })
-export class DetailComponent implements OnInit, OnDestroy {
+export class AssetComponent implements OnInit, OnDestroy {
 
   document: DocumentModel;
 

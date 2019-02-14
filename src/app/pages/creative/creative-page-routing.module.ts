@@ -1,8 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home/home.component';
-import { ListComponent } from './list/list.component';
-import { DetailComponent } from './detail/detail.component';
+import { SearchComponent } from './search/search.component';
+import { AssetComponent } from './asset/asset.component';
 import { CreativePageComponent } from './creative-page.component';
 import { BrandComponent } from './brand/brand.component';
 
@@ -16,10 +16,10 @@ const routes: Routes = [{
     },
     {
       path: 'search',
-      component: ListComponent,
+      component: SearchComponent,
     }, {
       path: 'document',
-      component: DetailComponent,
+      component: AssetComponent,
     }, {
       path: 'brand',
       component: BrandComponent,
