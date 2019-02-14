@@ -7,7 +7,8 @@
   */
   $popover-border-width: calc(#{nb-theme(popover-arrow-size)} - 2px);
 
-  /deep/ nb-popover, /deep/ nb-datepicker-container {
+  /deep/ nb-popover,
+  /deep/ nb-datepicker-container {
     .arrow {
       &::after {
         border-left-width: $popover-border-width;
@@ -20,4 +21,16 @@
 
 ::ng-deep ul {
   list-style: none;
+}
+
+::ng-deep .left {
+  float: left;
+}
+
+::ng-deep .right {
+  float: right;
+}
+
+::ng-deep .clear {
+  clear: both;
 }
