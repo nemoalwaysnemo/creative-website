@@ -11,6 +11,7 @@ import {
   ServerVersion,
   NuxeoOptions,
   NuxeoResponse,
+  NuxeoEnricher,
 } from './';
 import {
   Unmarshallers,
@@ -23,7 +24,6 @@ import {
 } from './nuxeo.unmarshallers';
 import { Observable } from 'rxjs';
 import { tap, map, mergeMap } from 'rxjs/operators';
-
 
 export class Nuxeo extends Base {
 
@@ -72,8 +72,8 @@ export class Nuxeo extends Base {
           this._nuxeoVersion = res.default.productVersion;
         }
       }),
-      mergeMap(res => this.login(opts)),
-      // mergeMap(res => this.users({ enrichers: { user: ['userprofile'] } }).fetch(res.username)),
+      mergeMap(_ => this.login(opts)),
+      mergeMap(res => this.users({ enrichers: { user: [NuxeoEnricher.user.PROFILE] } }).fetch(res.username)),
       tap(res => { this._connected = true; }),
     );
   }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { NbAccordionModule, NbTabsetModule, NbSpinnerModule } from '@core/nebular/theme';
 import { SharedModule } from '../../shared/shared.module';
-import { DetailComponent } from './asset.component';
+import { AssetComponent } from './asset.component';
 import { DocumentMetadataInfoComponent } from './document-metadata-info/document-metadata-info.component';
 import { DocumentAdditionalInfoComponent } from './document-additional-info/document-additional-info.component';
 import { DocumentRelatedInfoComponent } from './document-related-info/document-related-info.component';
@@ -22,7 +22,7 @@ import { DocumentViewerModule } from './document-viewer/document-viewer.module';
     DocumentViewerModule,
   ],
   declarations: [
-    DetailComponent,
+    AssetComponent,
     DocumentMetadataInfoComponent,
     DocumentAdditionalInfoComponent,
     DocumentRelatedInfoComponent,

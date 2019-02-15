@@ -10,7 +10,7 @@ export class Repository extends Base {
     this._nuxeo = opts.nuxeo;
   }
 
-  update(doc, opts: any = {} ) {
+  update(doc: DocumentModel, opts: any = {}) {
     opts.body = {
       'entity-type': 'document',
       uid: doc.uid,
@@ -19,10 +19,8 @@ export class Repository extends Base {
     const options = this._computeOptions(opts);
     const path = join('id', doc.uid);
     options.repository = this;
-    return this._nuxeo.request(path)
-      .put(options);
+    return this._nuxeo.request(path).put(options);
   }
-
 
   fetch(ref: string, opts: any = {}): Observable<DocumentModel> {
     const options = this._computeOptions(opts);

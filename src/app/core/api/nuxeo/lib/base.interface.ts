@@ -121,6 +121,29 @@ export class NuxeoRequestOptions {
   enrichers?: {} = { document: ['thumbnail'] };
 }
 
+export const NuxeoEnricher = {
+  user: {
+    PROFILE: 'userprofile',
+  },
+  document: {
+    ACLS: 'acls',
+    TAGS: 'tags',
+    SUBTYPES: 'subtypes',
+    PREVIEW: 'preview',
+    CHILDREN: 'children',
+    BREADCRUMB: 'breadcrumb',
+    DOCUMENT_URL: 'documentURL',
+    PERMISSIONS: 'permissions',
+    USER_VISIBLE_PERMISSIONS: 'userVisiblePermissions',
+  },
+};
+
+export const NuxeoPermission = {
+  Read: 'Read',
+  Write: 'Write',
+  Everything: 'Everything',
+};
+
 export class NuxeoPagination {
   readonly entityType: string;
   readonly entries: DocumentModel[];

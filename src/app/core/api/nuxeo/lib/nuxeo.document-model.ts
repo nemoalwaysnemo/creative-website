@@ -1,4 +1,8 @@
 import { Base } from './base.api';
+import { join, deepExtend } from '../../../services';
+import { NuxeoEnricher } from './base.interface';
+import { of as observableOf, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class DocumentModel extends Base {
 
@@ -8,9 +12,7 @@ export class DocumentModel extends Base {
   private _repository: any;
   private _dirtyProperties: any;
   uid: string;
-
   type: string;
-
   title: string;
 
   constructor(doc: any = {}, opts: any = {}) {
@@ -22,12 +24,12 @@ export class DocumentModel extends Base {
     Object.assign(this, doc);
   }
 
-  set(properties) {
-    this._dirtyProperties = Object.assign(this._dirtyProperties, properties);
+  set(properties: any = {}): DocumentModel {
+    this._dirtyProperties = deepExtend(this._dirtyProperties, properties);
     return this;
   }
 
-  save(opts = {}) {
+  save(opts: any = {}): Observable<DocumentModel> {
     const options = this._computeOptions(opts);
     return this._repository.update({
       'entity-type': 'document',
@@ -36,6 +38,50 @@ export class DocumentModel extends Base {
     }, options);
   }
 
+  fetchBlob(xpath: string = 'blobholder:0', opts: any = {}): Observable<any> {
+    let options = opts;
+    let blobXPath = xpath;
+    if (typeof xpath === 'object') {
+      options = xpath;
+      blobXPath = 'blobholder:0';
+    }
+    options = this._computeOptions(options);
+    const path = join('id', this.uid, '@blob', blobXPath);
+    return this._nuxeo.request(path).get(options);
+  }
+
+  fetchACLs(opts: any = {}): Observable<any> {
+    if (this.contextParameters && this.contextParameters.acls) {
+      return observableOf(this.contextParameters);
+    }
+    const options = this._computeOptions(opts);
+    options.enrichers = { document: [NuxeoEnricher.document.ACLS] };
+    return this._repository.fetch(this.uid, options).pipe(
+      map((doc: DocumentModel) => {
+        if (!this.contextParameters) {
+          this.contextParameters = {};
+        }
+        this.contextParameters.acls = doc.contextParameters.acls;
+        return this.contextParameters.acls;
+      }));
+  }
+
+  // Checks if the user has a given permission.It only works for now for 'Write', 'Read' and 'Everything' permission.
+  hasPermission(name: string, opts: any = {}): Observable<boolean> {
+    if (this.contextParameters && this.contextParameters.permissions) {
+      return observableOf(this.contextParameters.permissions.indexOf(name) !== -1);
+    }
+    const options = this._computeOptions(opts);
+    options.enrichers = { document: [NuxeoEnricher.document.PERMISSIONS] };
+    return this._repository.fetch(this.uid, options).pipe(
+      map((doc: DocumentModel) => {
+        if (!this.contextParameters) {
+          this.contextParameters = {};
+        }
+        this.contextParameters.permissions = doc.contextParameters.permissions;
+        return this.contextParameters.permissions.indexOf(name) !== -1;
+      }));
+  }
 
   get properties(): any {
     return this._properties;
