@@ -17,6 +17,7 @@ import {
   Directory,
   UserModel,
   NuxeoPagination,
+  BatchUpload,
 } from './lib';
 
 @Injectable()
@@ -85,6 +86,10 @@ export class NuxeoApiService {
 
   request(path: string, opts: NuxeoRequestOptions): Request {
     return this.nuxeo.request(path, opts);
+  }
+
+  upload(opts: any = {}): BatchUpload {
+    return this.nuxeo.batchUpload(opts);
   }
 
   repository(name?: string, opts: any = {}): Repository {

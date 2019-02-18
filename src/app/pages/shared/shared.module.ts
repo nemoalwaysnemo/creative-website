@@ -12,6 +12,7 @@ import {
   ListViewModule,
   SearchQueryParamsService,
 } from './';
+import { FileUploadModule } from '@pages/shared/file-upload/file-upload.module';
 
 const EXPORTS = [
   CommonModule,
@@ -23,6 +24,7 @@ const EXPORTS = [
   PaginationModule,
   ListViewModule,
   SharedDirectiveModule,
+  FileUploadModule,
 ];
 
 const PROVIDERS = [

@@ -12,6 +12,7 @@ import {
   NuxeoOptions,
   NuxeoResponse,
   NuxeoEnricher,
+  BatchUpload,
 } from './';
 import {
   Unmarshallers,
@@ -103,6 +104,11 @@ export class Nuxeo extends Base {
   directory(name: string, opts: any) {
     const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, directoryName: name }, opts));
     return new Directory(finalOptions);
+  }
+
+  batchUpload(opts: any) {
+    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, url: this.restUrl }, opts));
+    return new BatchUpload(finalOptions);
   }
 
   repository(name: string = null, opts: any = {}): Repository {
