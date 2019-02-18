@@ -6,7 +6,7 @@ import { SharedDirectiveModule } from './directives/shared-directive.module';
 import {
   OptionSelectModule,
   PictureGalleryModule,
-  ThumbnailViewModule,
+  CreativeThumbnailViewModule,
   SearchFilterModule,
   PaginationModule,
   ListViewModule,
@@ -19,7 +19,7 @@ const EXPORTS = [
   ThemeModule,
   OptionSelectModule,
   PictureGalleryModule,
-  ThumbnailViewModule,
+  CreativeThumbnailViewModule,
   SearchFilterModule,
   PaginationModule,
   ListViewModule,

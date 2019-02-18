@@ -2,12 +2,12 @@ import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core
 import { DocumentModel } from '@core/api/nuxeo/lib';
 
 @Component({
-  selector: 'tbwa-thumbnail-view-item',
+  selector: 'creative-thumbnail-view-item',
   templateUrl: './thumbnail-view-item.component.html',
   styleUrls: ['./thumbnail-view-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThumbnailViewItemComponent {
+export class CreativeThumbnailViewItemComponent {
 
   layout: string = 'default';
 
@@ -28,12 +28,12 @@ export class ThumbnailViewItemComponent {
 }
 
 @Component({
-  selector: 'tbwa-thumbnail-view',
+  selector: 'creative-thumbnail-view',
   styleUrls: ['./thumbnail-view.component.scss'],
   template: `
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="{{styleClass}}" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
     <div *ngFor="let document of documents" class="thumbnail-view">
-      <tbwa-thumbnail-view-item [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></tbwa-thumbnail-view-item>
+      <creative-thumbnail-view-item [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></creative-thumbnail-view-item>
     </div>
     <div *ngIf="showEmpty && !loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
       <span class="empty-data">No data found</span>
@@ -42,7 +42,7 @@ export class ThumbnailViewItemComponent {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThumbnailViewComponent implements OnInit {
+export class CreativeThumbnailViewComponent implements OnInit {
 
   @Input() layout: string;
 

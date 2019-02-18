@@ -5,7 +5,7 @@
   <div class="clear"></div>
   <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
   <ng-template #thumbnailView>
-    <tbwa-thumbnail-view [loading]="loading" [layout]="layout" [documents]="documents"></tbwa-thumbnail-view>
+    <creative-thumbnail-view [loading]="loading" [layout]="layout" [documents]="documents"></creative-thumbnail-view>
   </ng-template>
   <ng-template #listView>
     <tbwa-list-view [settings]="listViewSettings" [loading]="loading" [documents]="listDocuments"></tbwa-list-view>
