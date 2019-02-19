@@ -14,4 +14,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-backslash',
     url: Environment.backslashAPPUrl,
   },
+  {
+    title: 'Disruption & Intelligence',
+    icon: 'nb-intelligence',
+    link: '/p/intelligence',
+  },
 ];
