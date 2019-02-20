@@ -80,16 +80,16 @@ export class NuxeoApiService {
     );
   }
 
+  batchUpload(opts: any = {}): BatchUpload {
+    return this.nuxeo.batchUpload(opts);
+  }
+
   operation(id: string, opts: any = {}): Operation {
     return this.nuxeo.operation(id, opts);
   }
 
   request(path: string, opts: NuxeoRequestOptions): Request {
     return this.nuxeo.request(path, opts);
-  }
-
-  upload(opts: any = {}): BatchUpload {
-    return this.nuxeo.batchUpload(opts);
   }
 
   repository(name?: string, opts: any = {}): Repository {

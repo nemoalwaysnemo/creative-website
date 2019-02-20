@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FileUploadService } from '@core/api/api.file-upload.service';
+import { BatchUploadService } from '@core/api/api.batch-upload.service';
 
 @Component({
   selector: 'tbwa-file-upload',
@@ -8,16 +8,25 @@ import { FileUploadService } from '@core/api/api.file-upload.service';
 })
 
 export class FileUploadComponent {
-  private file: File;
 
-  constructor(private fileUploadService: FileUploadService) {}
+  private files: File[];
+
+  constructor(private batchUploadService: BatchUploadService) { }
 
   onChange(event): any {
-    const fileList: FileList = event.target.files;
-    this.file = fileList[0];
+    this.files = event.target.files;
+    console.log(11111, this.files);
   }
 
-  click(): void {
-    this.fileUploadService.upload(this.file);
+  upload(): void {
+    this.batchUploadService.upload(this.files).subscribe(res => {
+      console.log('upload!!!', res);
+    });
+  }
+
+  cancel(): void {
+    this.batchUploadService.cancel().subscribe(res => {
+      console.log('cancel!!!', res);
+    });
   }
 }

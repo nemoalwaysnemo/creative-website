@@ -1,5 +1,5 @@
 
-export class Blob {
+export class NuxeoBlob {
 
   content: any;
   name: string;

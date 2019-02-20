@@ -182,5 +182,17 @@ export class NuxeoPagination {
     this.errorMessage = response.errorMessage || '';
     this.hasError = response.hasError || false;
   }
+}
+export class NuxeoUploadResponse {
 
+  readonly uploaded: boolean;
+  readonly dropped: boolean;
+  readonly fileIdx: number;
+  readonly uploadedSize: number;
+  readonly uploadType: string;
+  readonly batchId: string;
+
+  constructor(response: any = {}) {
+    Object.assign(this, response);
+  }
 }

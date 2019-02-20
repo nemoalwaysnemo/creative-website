@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FileUploadComponent } from './file-upload.component';
-import { FileUploadService } from '@core/api/api.file-upload.service';
+import { BatchUploadService } from '@core/api/api.batch-upload.service';
 
 @NgModule({
   imports: [
@@ -12,7 +12,7 @@ import { FileUploadService } from '@core/api/api.file-upload.service';
     FileUploadComponent,
   ],
   providers: [
-    FileUploadService,
+    BatchUploadService,
   ],
 })
 

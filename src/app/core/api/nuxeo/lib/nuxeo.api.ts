@@ -101,12 +101,12 @@ export class Nuxeo extends Base {
     return new Request(finalOptions);
   }
 
-  directory(name: string, opts: any) {
+  directory(name: string, opts: any = {}) {
     const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, directoryName: name }, opts));
     return new Directory(finalOptions);
   }
 
-  batchUpload(opts: any) {
+  batchUpload(opts: any = {}) {
     const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, url: this.restUrl }, opts));
     return new BatchUpload(finalOptions);
   }

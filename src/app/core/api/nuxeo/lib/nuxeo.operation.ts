@@ -2,7 +2,7 @@ import { join, encodePath } from '../../../services';
 import { NuxeoResponse } from './base.interface';
 import { Observable } from 'rxjs';
 import { Base } from './base.api';
-import { Blob } from './nuxeo.blob';
+import { NuxeoBlob } from './nuxeo.blob';
 import { isDocument, isBatch, isBatchUpload, isBatchBlob } from './nuxeo.utils';
 
 export class Operation extends Base {
@@ -97,7 +97,7 @@ export class Operation extends Base {
           // assume ref list
           this._automationParams.input = `docs:${input.join(',')}`;
           return this._automationParams;
-        } else if (first instanceof Blob) {
+        } else if (first instanceof NuxeoBlob) {
           // blob list => multipart
           const automationParams = {
             params: this._automationParams.params,
@@ -118,7 +118,7 @@ export class Operation extends Base {
     } else if (isDocument(input)) {
       this._automationParams.input = input.uid;
       return this._automationParams;
-    } else if (input instanceof Blob) {
+    } else if (input instanceof NuxeoBlob) {
       const automationParams = {
         params: this._automationParams.params,
         context: this._automationParams.context,
@@ -135,11 +135,11 @@ export class Operation extends Base {
     if (input instanceof Array) {
       if (input.length > 0) {
         const first = input[0];
-        if (first instanceof Blob) {
+        if (first instanceof NuxeoBlob) {
           return true;
         }
       }
-    } else if (input instanceof Blob) {
+    } else if (input instanceof NuxeoBlob) {
       return true;
     }
     return false;
