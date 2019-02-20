@@ -12,12 +12,14 @@ import { Environment } from '@environment/environment';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   user: any = {};
-
+  title: any;
   private subscription: Subscription = new Subscription();
 
   constructor(private router: Router, private userService: UserService) {
+    const addressUrl = location.href;
+    const indexNum = addressUrl.lastIndexOf('\/');
+    this.title = addressUrl.substring(indexNum + 1, addressUrl.length);
   }
-
   ngOnInit() {
     this.getUser();
   }

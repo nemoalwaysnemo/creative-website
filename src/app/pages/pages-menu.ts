@@ -16,7 +16,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Disruption & Intelligence',
-    icon: 'nb-intelligence',
-    link: '/p/intelligence',
+    icon: 'nb-disruption',
+    link: '/p/disruption',
   },
 ];

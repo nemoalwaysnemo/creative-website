@@ -190,8 +190,8 @@ export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
             (toggleSubMenu)="onToggleSubMenu($event)"
             (selectItem)="onSelectItem($event)"
             (itemClick)="onItemClick($event)"
-            class="menu-item">
-        </li>
+            class="menu-item"style='width:100%;height:50px;backgroud-color:yellow'>
+            </li>
       </ng-container>
     </ul>
   `,
