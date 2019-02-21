@@ -3,7 +3,7 @@ import { NbGlobalLogicalPosition, NbGlobalPhysicalPosition } from '../cdk';
 import { NbToastStatus } from './model';
 import { TestBed } from '@angular/core/testing';
 import { ComponentFactoryResolver } from '@angular/core';
-import { NbToastrModule } from '@core/nebular/theme';
+import { NbToastrModule } from '@nebular/theme';
 
 
 describe('toastr-service', () => {
@@ -127,23 +127,26 @@ describe('toastr-container-registry', () => {
   let positionBuilder: any;
   let positionHelper: any;
   let containerStub: any;
+  let documentStub: any;
 
   beforeEach(() => {
     containerStub = {
+
       attach() {
+        return {
+          location: {
+            nativeElement: 'element',
+          },
+        };
       },
     };
-  });
 
-  beforeEach(() => {
     overlayStub = {
       create() {
         return containerStub;
       },
     };
-  });
 
-  beforeEach(() => {
     positionBuilder = {
       global() {
         return {
@@ -152,12 +155,18 @@ describe('toastr-container-registry', () => {
         };
       },
     };
-  });
 
-  beforeEach(() => {
     positionHelper = {
       toLogicalPosition(position) {
         return position;
+      },
+    };
+
+    documentStub = {
+      _contains: true,
+
+      contains: () => {
+        return documentStub._contains;
       },
     };
   });
@@ -166,7 +175,14 @@ describe('toastr-container-registry', () => {
     const cfr = TestBed.configureTestingModule({
       imports: [NbToastrModule.forRoot()],
     }).get(ComponentFactoryResolver);
-    toastrContainerRegistry = new NbToastrContainerRegistry(overlayStub, positionBuilder, positionHelper, cfr);
+
+    toastrContainerRegistry = new NbToastrContainerRegistry(
+      overlayStub,
+      positionBuilder,
+      positionHelper,
+      cfr,
+      documentStub,
+    );
   });
 
   it('should create new container if not exists for requested position', () => {
@@ -184,6 +200,17 @@ describe('toastr-container-registry', () => {
     toastrContainerRegistry.get(NbGlobalLogicalPosition.BOTTOM_START);
 
     expect(overlayCreateSpy).toHaveBeenCalledTimes(1);
+  });
+
+
+  it('should re-create when unattached from document', () => {
+    const overlayCreateSpy = spyOn(overlayStub, 'create').and.returnValue(containerStub);
+
+    toastrContainerRegistry.get(NbGlobalLogicalPosition.BOTTOM_START);
+    documentStub._contains = false;
+    toastrContainerRegistry.get(NbGlobalLogicalPosition.BOTTOM_START);
+
+    expect(overlayCreateSpy).toHaveBeenCalledTimes(2);
   });
 
   it('should return the same position for top-end and top-right when ltr', () => {
