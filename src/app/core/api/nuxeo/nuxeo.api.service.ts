@@ -2,9 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NUXEO_ENV } from './nuxeo.options';
 import { Nuxeo } from './lib/nuxeo.api';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Md5 } from 'ts-md5/dist/md5';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 import {
@@ -24,6 +24,9 @@ import {
 export class NuxeoApiService {
 
   private _nuxeo: Nuxeo;
+
+  private _currentUser: Subject<UserModel> = new Subject<UserModel>();
+
   private credentials: Credentials = {};
 
   constructor(private httpClient: HttpClient, @Inject(NUXEO_ENV) private env: NuxeoOptions, private deviceService: DeviceDetectorService) {
@@ -32,6 +35,10 @@ export class NuxeoApiService {
 
   get nuxeo(): Nuxeo {
     return this._nuxeo;
+  }
+
+  get currentUser(): Observable<UserModel> {
+    return this._currentUser;
   }
 
   getUser(username: string): Observable<UserModel> {
@@ -45,12 +52,15 @@ export class NuxeoApiService {
   login(username: string, password: string): Observable<Credentials> {
     this.credentials['username'] = username;
     return this.setCredentials({ method: 'basic', username: username, password: password }).connect().pipe(
+      tap((user: UserModel) => { this._currentUser.next(user); }),
       mergeMap(response => this.requestAuthenticationToken()),
     );
   }
 
-  loginAutomatically(): Observable<Credentials> {
-    return this.setCredentials({ method: 'basic' }).connect();
+  loginAutomatically(): Observable<UserModel> {
+    return this.setCredentials({ method: 'basic' }).connect().pipe(
+      tap((user: UserModel) => { this._currentUser.next(user); }),
+    );
   }
 
   loginWithToken(token: string): Observable<any> {

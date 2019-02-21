@@ -25,6 +25,7 @@ import {
 } from './nuxeo.unmarshallers';
 import { Observable } from 'rxjs';
 import { tap, map, mergeMap } from 'rxjs/operators';
+import { UserModel } from './nuxeo.user-model';
 
 export class Nuxeo extends Base {
 
@@ -65,7 +66,7 @@ export class Nuxeo extends Base {
     return this.http(finalOptions);
   }
 
-  connect(opts: any = {}): Observable<any> {
+  connect(opts: any = {}): Observable<UserModel> {
     return this.cmis(opts).pipe(
       tap(res => {
         if (res && res.default && res.default.productVersion) {

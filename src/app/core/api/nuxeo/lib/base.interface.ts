@@ -28,6 +28,9 @@ export class Credentials {
   username?: string;
   password?: string;
   method?: string;
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
 }
 
 export class AuthenticationToken {
