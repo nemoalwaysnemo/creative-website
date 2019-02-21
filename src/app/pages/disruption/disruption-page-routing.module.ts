@@ -4,6 +4,7 @@ import { DisruptionPageComponent } from './disruption-page.component';
 import { HomeComponent } from './home/home.component';
 import { DisruptionDaysComponent } from './home/disruption-days/disruption-days.component';
 import { DisruptionRoadmapsComponent } from './home/disruption-roadmaps/disruption-roadmaps.component';
+import { DisruptionTheoryComponent } from './home/disruption-theory/disruption-theory.component';
 const routes: Routes = [{
   path: '',
   component: DisruptionPageComponent,
@@ -19,6 +20,10 @@ const routes: Routes = [{
     {
       path: 'roadmaps',
       component: DisruptionRoadmapsComponent,
+    },
+    {
+      path: 'theory',
+      component: DisruptionTheoryComponent,
     },
     {
       path: '',

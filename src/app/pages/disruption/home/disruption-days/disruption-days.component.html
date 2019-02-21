@@ -1,9 +1,3 @@
-<nb-layout-column class="main-content">
-    <ng-content select="router-outlet"></ng-content>
-  </nb-layout-column>
+<disruption-menu></disruption-menu>
   
-  <nb-layout-column start class="small" >
-    <nb-menu [items]="subMenu" style="width: 200px;float: left;"></nb-menu>
-  </nb-layout-column>
-  
-  <creative-thumbnail-view [loading]="loading" [layout]="layout" [documents]="agencyDocuments"></creative-thumbnail-view>
+<disruption-thumbnail-view [nuxeoParams]="nuxeoParams"></disruption-thumbnail-view>
