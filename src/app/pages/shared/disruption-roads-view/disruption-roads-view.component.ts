@@ -12,14 +12,10 @@ import { Subscription } from 'rxjs';
 export class DisruptionRoadsViewComponent implements OnInit, OnDestroy {
   @Input() nuxeoParams: any;
   @Input() disruptionType: any;
-  layout: any = {};
-  sidebar: any = {};
-  private alive = true;
-  currentTheme: string;
   loading: boolean = true;
   paginationService: PaginationDataSource = new PaginationDataSource();
   private subscription: Subscription = new Subscription();
-  agencyDocuments: DocumentModel[];
+  documents: DocumentModel[];
   constructor(private advanceSearch: AdvanceSearch) { }
 
   getThumbnailUrl(doc: DocumentModel): string {
@@ -40,7 +36,7 @@ export class DisruptionRoadsViewComponent implements OnInit, OnDestroy {
   private search(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.agencyDocuments = res.entries;
+        this.documents = res.entries;
         this.loading = false;
         this.paginationService.from(res);
       });

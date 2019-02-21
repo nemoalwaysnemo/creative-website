@@ -1,11 +1,11 @@
-<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="{{styleClass}}" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}" style="float:left;width:800px;">
-  <div *ngFor="let document of agencyDocuments" class="thumbnail-view" style="float:left;width:190px;height:190px;margin:30px;">
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="disruption-days" abIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}" style="float:left;width:800px;">
+  <div *ngFor="let document of documents" class="thumbnail-view" style="float:left;width:190px;height:190px;margin:30px;">
       <img src="{{getThumbnailUrl(document)}}" [alt]="document.title" class="thumbnail-img" style="width:100%;height:80%">
       <div style='color:black'>{{ document.title }}</div>
       <div style='color:black'>{{document.get('The_Loupe_Main:agency')}}</div>
       <div style='color:black'>{{document.get('The_Loupe_ProdCredits:production_date') | date}}</div>
   </div>
-  <div *ngIf="!loading && agencyDocuments && agencyDocuments.length === 0" class="thumbnail-view empty text-center">
+  <div *ngIf="!loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
     <span class="empty-data">No data found</span>
   </div>
 </div>

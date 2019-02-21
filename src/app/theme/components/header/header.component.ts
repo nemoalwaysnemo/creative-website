@@ -3,6 +3,8 @@ import { UserService } from '@core/api';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Environment } from '@environment/environment';
+import { NbMenuService, NbMenuItem } from '@core/nebular/theme';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-header',
@@ -12,16 +14,16 @@ import { Environment } from '@environment/environment';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   user: any = {};
-  title: any;
+  title: string;
   private subscription: Subscription = new Subscription();
 
-  constructor(private router: Router, private userService: UserService) {
-    const addressUrl = location.href;
-    const indexNum = addressUrl.lastIndexOf('\/');
-    this.title = addressUrl.substring(indexNum + 1, addressUrl.length);
+  constructor(private router: Router, private menuService: NbMenuService, private userService: UserService) {
+
   }
+
   ngOnInit() {
     this.getUser();
+    this.updateHeaderTitle();
   }
 
   ngOnDestroy() {
@@ -33,10 +35,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private getUser(): void {
-    this.subscription = this.userService.getCurrentUser().subscribe((user: any) => {
+    const subscription = this.userService.getCurrentUser().subscribe((user: any) => {
       this.user = user;
       this.user['avatar'] = 'assets/images/user_icon.png';
     });
+    this.subscription.add(subscription);
+  }
+
+  private updateHeaderTitle(): void {
+    const subscription = this.menuService.onItemSelect()
+      .pipe(
+        filter((menu: { tag: string, item: NbMenuItem }) => menu.tag === 'sidebar'),
+        map((menu: { tag: string, item: NbMenuItem }) => menu.item),
+      )
+      .subscribe((item: NbMenuItem) => {
+        this.title = item.title;
+      });
+    this.subscription.add(subscription);
   }
 
 }

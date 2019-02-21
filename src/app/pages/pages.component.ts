@@ -6,7 +6,7 @@ import { MENU_ITEMS } from './pages-menu';
   styleUrls: ['pages.component.scss'],
   template: `
     <tbwa-creative-layout>
-      <nb-menu [items]="menu"></nb-menu>
+      <nb-menu tag="sidebar" [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
     </tbwa-creative-layout>
   `,

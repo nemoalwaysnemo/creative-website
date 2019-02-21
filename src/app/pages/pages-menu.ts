@@ -3,7 +3,7 @@ import { Environment } from '@environment/environment';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Library',
+    title: 'Creative Library',
     icon: 'nb-creative',
     link: '/p/creative',
     pathMatch: 'contains',
@@ -15,7 +15,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     url: Environment.backslashAPPUrl,
   },
   {
-    title: 'Disruption & Intelligence',
+    title: 'Disruption',
     icon: 'nb-disruption',
     link: '/p/disruption',
   },
