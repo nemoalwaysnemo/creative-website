@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
-import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { takeWhile, tap, distinctUntilChanged, switchMap, map, first } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { isDocumentUID } from '@core/services';
+import { BrandService } from '@pages/creative/brand/brand.service';
 
 @Component({
   selector: 'tbwa-brand-page',
@@ -13,21 +14,20 @@ import { isDocumentUID } from '@core/services';
 })
 export class BrandComponent implements OnInit, OnDestroy {
   document: DocumentModel;
+  brandMessage: { client, brand, agency, country, file, path } = { client: '', brand: '', agency: '', country: '', file: '', path: '' };
 
   private subscription: Subscription = new Subscription();
 
   private params: any = {
     pageSize: 1,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
   };
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private advanceSearch: AdvanceSearch) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
+    private advanceSearch: AdvanceSearch,
+    private brandService: BrandService) {
   }
 
   ngOnInit() {
@@ -36,6 +36,21 @@ export class BrandComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  private initBrandMessage() {
+    this.brandMessage = {
+      agency: this.document.properties['The_Loupe_Main:agency'],
+      client: this.document.properties['The_Loupe_Main:clientName'],
+      brand: this.document.properties['The_Loupe_Main:brand'],
+      country: this.document.properties['The_Loupe_Main:country'],
+      file: this.document.filePath,
+      path: this.document.path,
+    };
+    if (!this.brandService.hasBrand() || this.document.uid !== this.brandService.brand.uid) {
+      this.brandService.brand = this.document;
+      this.brandService.changeMessage(this.brandMessage);
+    }
   }
 
   private getCurrentDocument(uid: string): Observable<NuxeoPagination> {
@@ -56,10 +71,11 @@ export class BrandComponent implements OnInit, OnDestroy {
         map(queryParams => queryParams.id),
         switchMap((uid: string) => this.getCurrentDocument(uid)),
         map((res: NuxeoPagination) => res.entries.shift()),
-      )
+    )
       .subscribe((doc: DocumentModel) => {
         if (doc) {
           this.document = doc;
+          this.initBrandMessage();
         } else {
           this.redirectTo404();
         }

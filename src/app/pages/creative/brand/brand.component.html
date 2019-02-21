@@ -1,14 +1,14 @@
 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
   <div class="left">
-    <img src="assets/images/default.jpg" />
+    <img src="{{brandMessage.file}}" style="width: 400px;" />
   </div>
-  <div class="left" style="width: 400px;">
+  <div class="left" style="width: 700px;">
     <div class="brand_title">
       <ul>
-        <li>Client: Netfix</li>
-        <li>Agency: TBWA\Chiat\Day - Los Angeles</li>
-        <li>Brand: Netfix</li>
-        <li>Country: Unites States</li>
+        <li>Client: {{brandMessage.client}}</li>
+        <li>Agency: {{brandMessage.agency}}</li>
+        <li>Brand: {{brandMessage.brand}}</li>
+        <li>Country: {{brandMessage.country}}</li>
       </ul>
     </div>
     <div class="button_group">
@@ -18,10 +18,11 @@
       <button>Upload</button>
       <button>Manage Library</button>
     </div>
+    <tbwa-brand-search-form></tbwa-brand-search-form>
   </div>
   <div class="clear"></div>
 </div>
+<tbwa-brand-search-result></tbwa-brand-search-result>
 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
   search results
 </div>
-<tbwa-file-upload></tbwa-file-upload>

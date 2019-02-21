@@ -14,6 +14,7 @@ export class DocumentModel extends Base {
   uid: string;
   type: string;
   title: string;
+  path: string;
 
   constructor(doc: any = {}, opts: any = {}) {
     super(opts);
