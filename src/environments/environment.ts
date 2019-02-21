@@ -3,8 +3,8 @@
 export const Environment = {
   homePath: '/p/creative',
   appName: 'Creative Library Dev',
-  nuxeoUrl: 'http://localhost:8080/nuxeo/',
-  // nuxeoUrl: 'https://library-na-dev.factory.tools/nuxeo/',
+  // nuxeoUrl: 'http://localhost:8080/nuxeo/',
+  nuxeoUrl: 'https://library-na-dev.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
   backslashAPPUrl: 'https://library-na-dev.factory.tools/nuxeo/edges',
   production: false,
