@@ -13,6 +13,9 @@ const routes: Routes = [{
       path: 'disruption',
       loadChildren: './disruption/disruption-page.module#DisruptionPageModule',
     }, {
+      path: 'intelligence',
+      loadChildren: './intelligence/intelligence-page.module#IntelligencePageModule',
+    }, {
       path: '',
       redirectTo: 'creative',
       pathMatch: 'full',

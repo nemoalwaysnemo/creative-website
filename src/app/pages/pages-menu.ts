@@ -17,6 +17,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Disruption',
     icon: 'nb-disruption',
+    pathMatch: 'contains',
     link: '/p/disruption',
+  },
+  {
+    title: 'Intelligence',
+    icon: 'nb-intelligence',
+    pathMatch: 'contains',
+    link: '/p/intelligence',
   },
 ];
