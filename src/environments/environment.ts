@@ -19,6 +19,7 @@ export const NUXEO_META_INFO = {
   CREATIVE_IMAGE_VIDEO_AUDIO_TYPES: '["App-Library-Image", "App-Library-Video", "App-Library-Audio"]',
   CREATIVE_FOLDER_TYPES: '["App-Library-Folder"]',
   CREATIVE_PROJECT_TYPES: '["App-Library-Project"]',
+  CREATIVE_BRAND_FOLDER_TYPE: '["Brand Folder"]',
   BACKSLASH_BASE_FOLDER_PATH: '/know-edge/-backslash',
   BACKSLASH_ASSET_PAGE_PROVIDER: 'creative_website_backslash_related_assets',
   DISRUPTION_BASE_FOLDER_PATH: '/know-edge/Disruption',

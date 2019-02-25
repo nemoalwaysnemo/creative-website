@@ -12,6 +12,8 @@ export class BrandThumbnailComponent implements OnInit, OnDestroy {
 
   layout = 'brand';
 
+  documentType = 'brand';
+
   loading: boolean = true;
 
   brandDocuments: DocumentModel[];
@@ -20,7 +22,8 @@ export class BrandThumbnailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 2,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+    the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
   };
 
   constructor(private advanceSearch: AdvanceSearch) { }

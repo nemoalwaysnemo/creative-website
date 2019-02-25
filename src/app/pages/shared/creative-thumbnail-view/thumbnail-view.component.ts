@@ -15,6 +15,8 @@ export class CreativeThumbnailViewItemComponent {
 
   @Input() document: DocumentModel;
 
+  @Input() documentType: string;
+
   @Input('layout')
   set _layout(name: string) {
     if (name) {
@@ -33,7 +35,7 @@ export class CreativeThumbnailViewItemComponent {
   template: `
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="{{styleClass}}" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
     <div *ngFor="let document of documents" class="thumbnail-view">
-      <creative-thumbnail-view-item [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></creative-thumbnail-view-item>
+      <creative-thumbnail-view-item [documentType]="documentType" [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></creative-thumbnail-view-item>
     </div>
     <div *ngIf="showEmpty && !loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
       <span class="empty-data">No data found</span>
@@ -56,6 +58,8 @@ export class CreativeThumbnailViewComponent implements OnInit {
   @Input() showEmpty: boolean = true;
 
   @Input() documents: DocumentModel[] = [];
+
+  @Input() documentType: string = 'asset';
 
   @Input() tabIndex: number = -1;
 
