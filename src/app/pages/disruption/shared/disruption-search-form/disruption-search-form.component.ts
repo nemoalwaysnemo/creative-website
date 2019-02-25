@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../../shared';
@@ -14,13 +14,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 
 export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
-  nuxeoParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
-  };
+  @Input() params: any;
 
   private previouSearchTerm: string;
 
@@ -34,13 +28,13 @@ export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
 
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
 
-  private params: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
-  };
+  // private params: any = {
+  //   pageSize: 20,
+  //   currentPageIndex: 0,
+  //   ecm_fulltext: '',
+  //   ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+  //   ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
+  // };
 
   constructor(
     private formBuilder: FormBuilder,
