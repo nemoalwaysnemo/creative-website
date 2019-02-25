@@ -26,7 +26,7 @@ export class MoreDetailDirective implements OnInit {
   @HostListener('click')
   onClick() {
     const queryParams = { id: this.uuid };
-    this.router.navigate(['/p/creative/document'], { queryParams });
+    this.router.navigate(['/p/creative/asset'], { queryParams });
   }
 
   ngOnInit() {

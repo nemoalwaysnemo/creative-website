@@ -18,7 +18,7 @@ const routes: Routes = [{
       path: 'search',
       component: SearchComponent,
     }, {
-      path: 'document',
+      path: 'asset',
       component: AssetComponent,
     }, {
       path: 'brand',

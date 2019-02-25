@@ -97,8 +97,8 @@
     "rxjs-compat": "6.4.0",
     "screenfull": "^4.0.0",
     "simple-pdf-viewer": "^2.0.3",
-    "typeface-exo": "0.0.22",
-    "typescript": "3.1.6",
+    "typeface-exo": "0.0.61",
+    "typescript": "3.2.4",
     "videogular2": "^6.4.0",
     "web-animations-js": "2.3.1",
     "zone.js": "^0.8.29"
@@ -133,8 +133,7 @@
     "stylelint": "9.9.0",
     "ts-md5": "^1.2.4",
     "ts-node": "7.0.1",
-    "tslint": "5.12.1",
-    "tslint-language-service": "^0.9.9",
-    "typescript": "3.1.6"
+    "tslint": "5.13.0",
+    "tslint-language-service": "^0.9.9"
   }
 }
