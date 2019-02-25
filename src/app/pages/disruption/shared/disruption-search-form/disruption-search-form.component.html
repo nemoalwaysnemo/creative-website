@@ -1,0 +1,17 @@
+<form style="float:left" class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
+    <div class="search-input">
+      <input class="form-control" formControlName="ecm_fulltext" [disableControl]="submitted" placeholder="Search for..." (keyup.enter)="onSubmit()" />
+    </div>
+    <div class="filters">
+      <a href="javascript:;" (click)="toggleFilter()" class="advanced_filters_trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': submitted}">Filter</a>
+      <div class="clear"></div>
+    </div>
+    
+    <ng-container *ngIf="showFilter">
+      <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted" [styleClass]="'searchPage'"></tbwa-search-filter>
+      <div class="search-actions 1">
+        <button nbButton class="icon_btn success" [disabled]="submitted || !form.form.valid" (click)="onSubmit()">Search</button>
+        <button nbButton class="icon_btn" [disabled]="submitted || !form.form.valid" (click)="onReset()">Reset</button>
+      </div>
+    </ng-container>
+</form>

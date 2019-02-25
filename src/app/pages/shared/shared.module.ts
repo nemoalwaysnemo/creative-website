@@ -11,9 +11,6 @@ import {
   PaginationModule,
   ListViewModule,
   SearchQueryParamsService,
-  DisruptionMenuModule,
-  DisruptionThumbnailViewModule,
-  DisruptionRoadsViewModule,
 } from './';
 import { FileUploadModule } from '@pages/shared/file-upload/file-upload.module';
 
@@ -28,9 +25,6 @@ const EXPORTS = [
   ListViewModule,
   SharedDirectiveModule,
   FileUploadModule,
-  DisruptionMenuModule,
-  DisruptionThumbnailViewModule,
-  DisruptionRoadsViewModule,
 ];
 
 const PROVIDERS = [
