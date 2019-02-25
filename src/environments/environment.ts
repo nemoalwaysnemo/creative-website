@@ -8,7 +8,7 @@ export const Environment = {
   forgotPassword: 'https://register.adauth.me/nam/help',
   backslashAPPUrl: 'https://library-na-dev.factory.tools/nuxeo/edges',
   production: false,
-  autoLogin: true,
+  autoLogin: false,
 };
 
 export const NUXEO_META_INFO = {
