@@ -3,6 +3,7 @@ import { NuxeoApiService, NuxeoUploadResponse } from '@core/api/nuxeo';
 import { AbstractBaseService } from './api.abstract-base.service';
 import { NuxeoBlob, BatchUpload } from '@core/api/nuxeo/lib';
 import { Observable } from 'rxjs';
+import { BatchUploadQueue, BatchUploadQueueEvent } from './nuxeo/lib/nuxeo.batch-upload-queue';
 
 @Injectable()
 export class BatchUploadService extends AbstractBaseService {
@@ -21,7 +22,7 @@ export class BatchUploadService extends AbstractBaseService {
     return this.batchUpload || (this.batchUpload = this.newInstance());
   }
 
-  upload(files: File[] = []): Observable<NuxeoUploadResponse> {
+  upload(files: File[] = []): Observable<BatchUploadQueueEvent> {
     const blobs: NuxeoBlob[] = files.map(file => new NuxeoBlob({ content: file }));
     return this.getInstance().upload(blobs);
   }

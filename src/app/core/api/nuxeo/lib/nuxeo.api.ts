@@ -37,8 +37,6 @@ export class Nuxeo extends Base {
   constructor(protected httpClient: HttpClient, protected opts: NuxeoOptions) {
     super(opts);
     this.auth = opts.auth;
-    this.httpClient = httpClient;
-    // register default unmarshallers
     this._initUnmarshaller();
   }
 
@@ -146,6 +144,7 @@ export class Nuxeo extends Base {
       body: options.body,
       params: options.queryParams,
       responseType: options.json ? 'json' : 'text',
+      reportProgress: options.reportProgress,
     }).pipe(
       map((response) => {
         options.nuxeo = this;
@@ -165,7 +164,7 @@ export class Nuxeo extends Base {
       json: true,
       timeout: 30000,
       cache: false,
-      resolveWithFullResponse: false,
+      reportProgress: false,
     };
     options = Object.assign({}, options, opts);
     options.headers = Object.assign({}, options.headers, this.getAuthenticationHeaders(this.auth));

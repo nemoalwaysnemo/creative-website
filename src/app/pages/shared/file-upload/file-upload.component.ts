@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BatchUploadService } from '@core/api/api.batch-upload.service';
+import { BatchUploadQueueEvent } from '@core/api/nuxeo/lib/nuxeo.batch-upload-queue';
 
 @Component({
   selector: 'tbwa-file-upload',
@@ -9,18 +10,17 @@ import { BatchUploadService } from '@core/api/api.batch-upload.service';
 
 export class FileUploadComponent {
 
-  private files: File[];
+  private files: FileList;
 
   constructor(private batchUploadService: BatchUploadService) { }
 
   onChange(event): any {
     this.files = event.target.files;
-    console.log(11111, this.files);
   }
 
   upload(): void {
-    this.batchUploadService.upload(this.files).subscribe(res => {
-      console.log('upload!!!', res);
+    this.batchUploadService.upload(Array.from(this.files)).subscribe((batchUploadQueueEvent: BatchUploadQueueEvent) => {
+      console.log('upload!!!', batchUploadQueueEvent);
     });
   }
 
