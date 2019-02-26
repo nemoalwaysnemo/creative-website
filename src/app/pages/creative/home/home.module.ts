@@ -6,6 +6,7 @@ import { HomeSearchModule } from './home-search/home-search.module';
 import { AgencyThumbnailComponent } from './agency-thumbnail/agency-thumbnail.component';
 import { BrandThumbnailComponent } from './brand-thumbnail/brand-thumbnail.component';
 import { HomeGalleryComponent } from './home-gallery/home-gallery.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { HomeGalleryComponent } from './home-gallery/home-gallery.component';
     ThemeModule,
     SharedModule,
     HomeSearchModule,
+    RouterModule,
   ],
   declarations: [
     HomeComponent,

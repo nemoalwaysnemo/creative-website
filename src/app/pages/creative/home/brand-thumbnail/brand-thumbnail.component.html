@@ -1,5 +1,6 @@
 <div class="brand-thumbnail">
   <h1>Brands</h1>
+  <a [routerLink]="['/p/creative/search']" [queryParams]="{type: 'brand'}">see more</a>
   <creative-thumbnail-view [loading]="loading" [layout]="layout" [documents]="brandDocuments" [documentType]="documentType"></creative-thumbnail-view>
 </div>
 <div class="clear"></div>

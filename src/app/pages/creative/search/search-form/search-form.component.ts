@@ -6,6 +6,7 @@ import { selectObjectByKeys } from '@core/services';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { NUXEO_META_INFO } from '@environment/environment';
+import { deepExtend } from '@core/nebular/auth/helpers';
 
 @Component({
   selector: 'tbwa-search-form',
@@ -26,11 +27,23 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
 
-  private params: any = {
+  private type = '';
+  private params: any = {};
+
+  private baseParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+  };
+
+  private docParams: any = {
+    asset: {
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+    },
+    brand: {
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+      the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
+    },
   };
 
   constructor(
@@ -42,7 +55,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.createForm();
+    this.initParams();
     this.onPageChanged();
     this.onSearchResponse();
     this.onQueryParamsChanged();
@@ -70,6 +83,19 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  private initParams(): void {
+    const type = this.getPageType();
+    if (!this.type || this.type !== type) {
+      this.type = type;
+      if (type && Object.keys(this.docParams).includes(type)) {
+        this.params = deepExtend({}, this.baseParams, this.docParams[type]);
+      } else {
+        this.params = deepExtend({}, this.baseParams, this.docParams['asset']);
+      }
+      this.createForm();
+    }
+  }
+
   private createForm() {
     const params = Object.assign({ aggregates: {} }, this.params);
     this.searchForm = this.formBuilder.group(params);
@@ -89,12 +115,17 @@ export class SearchFormComponent implements OnInit, OnDestroy {
         params[key] = queryParams[key];
       }
     }
-    params = selectObjectByKeys(params, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
+    params = selectObjectByKeys(params, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates', 'ecm_primaryType', 'the_loupe_main_folder_type']);
     this.patchFormValue(params);
   }
 
+  private getPageType(): string {
+    return this.queryParamsService.getCurrentQueryParams()['type'];
+  }
+
   private buildQueryParams(): any {
-    return this.queryParamsService.buildQueryParams(this.getFormValue());
+    const param = this.getPageType() ? { type: this.getPageType() } : {};
+    return deepExtend(param, this.queryParamsService.buildQueryParams(this.getFormValue()));
   }
 
   private buildSearchParams(): object {
@@ -129,6 +160,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const subscription = this.queryParamsService.onQueryParamsChanged().pipe(
       filter((queryParams) => !this.submitted && this.hasQueryParams(queryParams)),
     ).subscribe(queryParams => {
+      this.initParams();
       this.setFormValues(queryParams);
       this.onSearch();
     });
