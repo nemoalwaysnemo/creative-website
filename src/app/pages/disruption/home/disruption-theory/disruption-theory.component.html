@@ -1,3 +1,9 @@
-<disruption-menu></disruption-menu>
-<disruption-search-form [params]="nuxeoParams"></disruption-search-form>
+<div class="row">
+        <div class="col-md-6">
+           <nb-card size="small">
+             <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
+             <disruption-search-form [params]="nuxeoParams"></disruption-search-form>
 <disruption-roads-view [nuxeoParams]="nuxeoParams" [disruptionType]="disruptionType"></disruption-roads-view>
+           </nb-card>
+         </div>
+       </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
+import { TAB_CONFiG } from '../../shared/tab-config';
 @Component({
   selector: 'tbwa-disruption-page',
   styleUrls: ['./disruption-days.component.scss'],
@@ -13,4 +14,5 @@ export class DisruptionDaysComponent {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
   };
+  tabs = TAB_CONFiG;
 }

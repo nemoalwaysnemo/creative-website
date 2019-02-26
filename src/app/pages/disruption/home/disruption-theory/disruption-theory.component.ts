@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
-
+import { TAB_CONFiG } from '../../shared/tab-config';
 @Component({
   selector: 'tbwa-disruption-theory-page',
   styleUrls: ['./disruption-theory.component.scss'],
@@ -15,4 +15,5 @@ export class DisruptionTheoryComponent {
     ecm_path: NUXEO_META_INFO.DISRUPTION_THEORY_PATH,
   };
   disruptionType = 'theory';
+  tabs = TAB_CONFiG;
 }

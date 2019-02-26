@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
-
+import { TAB_CONFiG } from '../../shared/tab-config';
 @Component({
   selector: 'tbwa-disruption-roadmap-page',
   styleUrls: ['./disruption-roadmaps.component.scss'],
@@ -15,4 +15,5 @@ export class DisruptionRoadmapsComponent {
     ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
   };
   disruptionType = 'roadmaps';
+  tabs = TAB_CONFiG;
 }
