@@ -60,6 +60,12 @@
     padding: 10px 41px 28px 0;
   }
 }
+.third {
+  > div {
+    width: 33.333333%;
+    padding: 10px 41px 28px 0;
+  }
+}
 .s-results {
   width: calc(100% - 76px);
   min-height: 100px;

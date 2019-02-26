@@ -69,7 +69,7 @@ export class CreativeThumbnailViewComponent implements OnInit {
 
   private styleList = {
     'agency': 'quarter flex',
-    'brand': 'half flex',
+    'brand': 'third flex',
     'search-list': 'results',
     'search-results': 's-results flex',
     'backslash': 'backslash dates flex',
