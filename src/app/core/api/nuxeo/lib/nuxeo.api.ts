@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import {
   Base,
   AuthenticationManager,
@@ -144,13 +144,21 @@ export class Nuxeo extends Base {
       body: options.body,
       params: options.queryParams,
       responseType: options.json ? 'json' : 'text',
-      reportProgress: options.reportProgress,
+      reportProgress: false,
     }).pipe(
       map((response) => {
         options.nuxeo = this;
         return Unmarshallers.unmarshall(response, options);
       }),
     );
+  }
+
+  httpRequest(opts: any = {}): Observable<HttpEvent<any>> {
+    const options = this._computeFetchOptions(opts);
+    const request = new HttpRequest(options.method, options.url, opts.body, {
+      reportProgress: options.reportProgress,
+    });
+    return this.httpClient.request(request);
   }
 
   getAuthenticationHeaders(auth: Credentials): any {

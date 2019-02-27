@@ -11,6 +11,7 @@ export class DisruptionDaysComponent {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
+    quickFilters: 'ShowInNavigation',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
   };

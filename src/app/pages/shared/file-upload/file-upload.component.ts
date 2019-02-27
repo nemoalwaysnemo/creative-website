@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { BatchUploadService } from '@core/api/api.batch-upload.service';
-import { BatchUploadQueueEvent } from '@core/api/nuxeo/lib/nuxeo.batch-upload-queue';
+import { Component, OnInit } from '@angular/core';
+import { UploadEvent, UploadFile, FileSystemFileEntry } from 'ngx-file-drop';
+import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
+import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'tbwa-file-upload',
@@ -8,25 +10,45 @@ import { BatchUploadQueueEvent } from '@core/api/nuxeo/lib/nuxeo.batch-upload-qu
   templateUrl: './file-upload.component.html',
 })
 
-export class FileUploadComponent {
+export class FileUploadComponent implements OnInit {
 
-  private files: FileList;
+  files: UploadFile[] = [];
 
-  constructor(private batchUploadService: BatchUploadService) { }
+  private batchUpload: BatchUpload;
 
-  onChange(event): any {
-    this.files = event.target.files;
+  private blobs$: Subject<NuxeoBlob> = new Subject<NuxeoBlob>();
+
+  constructor(private nuxeoApi: NuxeoApiService) {
+    this.batchUpload = this.nuxeoApi.batchUpload();
   }
 
-  upload(): void {
-    this.batchUploadService.upload(Array.from(this.files)).subscribe((batchUploadQueueEvent: BatchUploadQueueEvent) => {
-      console.log('upload!!!', batchUploadQueueEvent);
+  ngOnInit(): void {
+    this.onUpload();
+  }
+
+  private onUpload() {
+    this.blobs$.pipe(
+      map((blob: NuxeoBlob) => this.batchUpload.upload(blob)),
+    ).subscribe((batchUploadBlob: Observable<NuxeoUploadResponse>) => {
+      batchUploadBlob.subscribe((uploadResponse: NuxeoUploadResponse) => {
+        console.log(uploadResponse);
+      });
     });
   }
 
-  cancel(): void {
-    this.batchUploadService.cancel().subscribe(res => {
-      console.log('cancel!!!', res);
-    });
+  dropped(event: UploadEvent) {
+    this.files = event.files;
+    for (const droppedFile of event.files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => { this.blobs$.next(new NuxeoBlob({ content: file })); });
+      }
+    }
+  }
+
+  fileOver(event: DragEvent): void {
+  }
+
+  fileLeave(event: DragEvent): void {
   }
 }

@@ -1,8 +1,7 @@
 import { join, encodePath } from '../../../services';
-import { NuxeoResponse } from './base.interface';
+import { NuxeoResponse, NuxeoBlob } from './base.interface';
 import { Observable } from 'rxjs';
 import { Base } from './base.api';
-import { NuxeoBlob } from './nuxeo.blob';
 import { isDocument, isBatch, isBatchUpload, isBatchBlob } from './nuxeo.utils';
 
 export class Operation extends Base {

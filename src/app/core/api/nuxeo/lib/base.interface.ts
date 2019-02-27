@@ -112,7 +112,7 @@ export class NuxeoPageProviderParams {
   currentPageIndex?: number = 0;
   pageSize?: number = 20;
   ecm_path?: string;
-  quickFilters?: string;
+  quickFilters?: string = 'HiddenInNavigation';
   ecm_fulltext?: string;
   production_date?: string; // production_date: '["lastYear"]',
   ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
@@ -186,14 +186,46 @@ export class NuxeoPagination {
     this.hasError = response.hasError || false;
   }
 }
+
+export class NuxeoBlob {
+
+  readonly content: any;
+  readonly name: string;
+  readonly mimeType: string;
+  readonly size: number;
+
+  constructor(opts: any = {}) {
+    this.content = opts.content;
+    this.name = opts.name || this.content.name;
+    this.mimeType = opts.mimeType || this.content.type;
+    this.size = opts.size || this.content.size;
+  }
+}
+
+export class BatchBlob {
+
+  constructor(opts: any = {}) {
+    this['upload-batch'] = opts.batchId;
+    this['upload-fileId'] = `${opts.fileIdx}`;
+    delete opts.batchId;
+    delete opts.fileIdx;
+    Object.assign(this, opts);
+  }
+}
+
 export class NuxeoUploadResponse {
 
-  readonly uploaded: boolean;
-  readonly dropped: boolean;
+  readonly uploaded: boolean = false;
+  readonly dropped: boolean = false;
   readonly fileIdx: number;
   readonly uploadedSize: number;
   readonly uploadType: string;
   readonly batchId: string;
+  readonly kbLoaded: number = 0;
+  readonly percentLoaded: number = 0;
+  readonly batchBlob: BatchBlob;
+  readonly fileName: string;
+  readonly mimeType: string;
 
   constructor(response: any = {}) {
     Object.assign(this, response);

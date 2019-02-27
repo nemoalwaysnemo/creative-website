@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { DocumentRepository } from './api.document-repository.service';
 import { AdvanceSearch } from './api.advance-search.service';
-import { BatchUploadService } from './api.batch-upload.service';
 import { Automation } from './api.automation.service';
 import { UserService } from './api.user.service';
 import { NuxeoModule } from './nuxeo';
@@ -13,7 +12,6 @@ const SERVICES = [
     production: Environment.production,
     appName: Environment.appName,
   }).providers,
-  BatchUploadService,
   DocumentRepository,
   AdvanceSearch,
   UserService,

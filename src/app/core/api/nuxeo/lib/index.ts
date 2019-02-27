@@ -5,8 +5,6 @@ export * from './auth.token';
 export * from './base.api';
 export * from './base.authentication-manager';
 export * from './base.interface';
-export * from './nuxeo.batch-blob';
-export * from './nuxeo.blob';
 export * from './nuxeo.batch-upload';
 export * from './nuxeo.directory-entry';
 export * from './nuxeo.directory';

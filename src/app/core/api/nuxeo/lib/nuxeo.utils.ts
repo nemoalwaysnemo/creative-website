@@ -1,6 +1,6 @@
 import { DocumentModel } from './nuxeo.document-model';
 import { BatchUpload } from './nuxeo.batch-upload';
-import { BatchBlob } from './nuxeo.batch-blob';
+import { BatchBlob } from './base.interface';
 
 export function isDocument(obj: any): boolean {
   return (obj instanceof DocumentModel || (typeof obj === 'object' && obj['entity-type'] === 'document'));
