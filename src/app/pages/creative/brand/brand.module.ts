@@ -4,7 +4,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { BrandComponent } from './brand.component';
 import { SearchFormComponent } from '@pages/creative/brand/search-form/search-form.component';
 import { BrandService } from '@pages/creative/brand/brand.service';
-import { SearchResultComponent } from '@pages/creative/brand/search-result/search-result.component';
 
 
 @NgModule({
@@ -15,7 +14,6 @@ import { SearchResultComponent } from '@pages/creative/brand/search-result/searc
   declarations: [
     BrandComponent,
     SearchFormComponent,
-    SearchResultComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,

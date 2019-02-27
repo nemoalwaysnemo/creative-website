@@ -120,7 +120,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private getPageType(): string {
-    return this.queryParamsService.getCurrentQueryParams()['type'];
+    return this.queryParamsService.getPageType();
   }
 
   private buildQueryParams(): any {

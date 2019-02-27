@@ -3,7 +3,6 @@ import { ThemeModule } from '@theme/theme.module';
 import { SharedModule } from '../../shared/shared.module';
 import { SearchComponent } from './search.component';
 import { SearchFormComponent } from './search-form/search-form.component';
-import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
   imports: [
@@ -13,7 +12,6 @@ import { SearchResultComponent } from './search-result/search-result.component';
   declarations: [
     SearchComponent,
     SearchFormComponent,
-    SearchResultComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,
