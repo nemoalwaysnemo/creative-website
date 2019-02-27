@@ -1,25 +1,35 @@
-<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-  <div class="left">
-    <img src="{{brandMessage.file}}" style="width: 400px;" />
-  </div>
-  <div class="left" style="width: 700px;">
-    <div class="brand_title">
-      <ul>
-        <li>Client: {{brandMessage.client}}</li>
-        <li>Agency: {{brandMessage.agency}}</li>
-        <li>Brand: {{brandMessage.brand}}</li>
-        <li>Country: {{brandMessage.country}}</li>
-      </ul>
+<div class="document">
+  <div class="brand_section">
+    <div class="brand_intro inline-middle">
+      <img src="{{brandMessage.file}}" />
     </div>
-    <div class="button_group">
-      <button>Jobs</button>
-      <button>Campalgns</button>
-      <button>UR</button>
-      <button>Upload</button>
-      <button>Manage Library</button>
+    <div class="brand_info inline-middle">
+      <h1>{{brandMessage.client}}</h1>
+      <table>
+        <colgroup>
+          <col width="30%">
+          <col width="70%">
+        </colgroup>
+        <tbody>
+          <tr>
+            <td>Client: {{brandMessage.client}}</td>
+            <td>Agency: {{brandMessage.agency}}</td>
+          </tr>
+          <tr>
+            <td>Brand: {{brandMessage.brand}}</td>
+            <td>Country: {{brandMessage.country}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <tbwa-brand-search-form></tbwa-brand-search-form>
   </div>
-  <div class="clear"></div>
+  <div class="button_group">
+    <button>Jobs</button>
+    <button>Campalgns</button>
+    <button>UR</button>
+    <button>Upload</button>
+    <button>Manage Library</button>
+  </div>
+  <tbwa-brand-search-form></tbwa-brand-search-form>
+  <tbwa-asset-search-result></tbwa-asset-search-result>
 </div>
-<tbwa-asset-search-result></tbwa-asset-search-result>
