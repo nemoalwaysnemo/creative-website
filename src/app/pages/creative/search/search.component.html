@@ -1,2 +1,5 @@
 <tbwa-search-form></tbwa-search-form>
-<tbwa-search-result></tbwa-search-result>
+<tbwa-asset-search-result *ngIf="isAssetPage()">
+</tbwa-asset-search-result>
+<tbwa-brand-search-result *ngIf="isBrandPage()">
+</tbwa-brand-search-result>

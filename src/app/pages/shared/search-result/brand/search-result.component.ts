@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
-import { PaginationDataSource } from '../../../shared/pagination/pagination-data-source';
-import { ListViewItem, SearchQueryParamsService } from '../../../shared';
+import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
+import { ListViewItem, SearchQueryParamsService } from '@pages/shared';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -11,13 +11,15 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./search-result.component.scss'],
   templateUrl: './search-result.component.html',
 })
-export class SearchResultComponent implements OnInit, OnDestroy {
+export class BrandSearchResultComponent implements OnInit, OnDestroy {
 
   layout = 'search-results';
 
   loading: boolean = false;
 
   currentView = 'thumbnailView';
+
+  documentType = 'brand';
 
   documents: DocumentModel[] = [];
 
@@ -31,33 +33,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     columns: {
       title: {
         title: 'Title',
-        sort: false,
-      },
-      productionDate: {
-        title: 'Production Date',
-        sort: false,
-        valuePrepareFunction: (value: any) => {
-          return value ? new DatePipe('en-US').transform(value, 'yyyy-MM-dd') : null;
-        },
-      },
-      campaign: {
-        title: 'Campaign',
-        sort: false,
-      },
-      ceativeDirector: {
-        title: 'Creative Director',
-        sort: false,
-      },
-      artDirector: {
-        title: 'Art Director ',
-        sort: false,
-      },
-      producer: {
-        title: 'Producer',
-        sort: false,
-      },
-      jobNRUR: {
-        title: 'Job Nr/UR',
         sort: false,
       },
     },
@@ -81,6 +56,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.documents = [];
   }
 
   changeToGridView() {

@@ -13,6 +13,7 @@ import {
   SearchQueryParamsService,
 } from './';
 import { FileUploadModule } from '@pages/shared/file-upload/file-upload.module';
+import { SearchResultModule } from '@pages/shared/search-result/search-result.module';
 
 const EXPORTS = [
   CommonModule,
@@ -25,6 +26,7 @@ const EXPORTS = [
   ListViewModule,
   SharedDirectiveModule,
   FileUploadModule,
+  SearchResultModule,
 ];
 
 const PROVIDERS = [

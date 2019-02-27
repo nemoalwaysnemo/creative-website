@@ -46,4 +46,8 @@ export class SearchQueryParamsService {
     return this.activatedRoute.snapshot.queryParams;
   }
 
+  getPageType(): string {
+    return this.getCurrentQueryParams()['type'];
+  }
+
 }
