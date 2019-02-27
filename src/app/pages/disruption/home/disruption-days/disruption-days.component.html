@@ -1,9 +1,5 @@
-<div class="row">
- <div class="col-md-6">
-    <nb-card size="small">
-      <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
-      <disruption-search-form [params]="nuxeoParams"></disruption-search-form>
-      <disruption-thumbnail-view [nuxeoParams]="nuxeoParams"></disruption-thumbnail-view>
-    </nb-card>
-  </div>
-</div>
+<nb-card class="nb-card">
+  <nb-route-tabset fullWidth [tabs]="tabs"></nb-route-tabset>
+  <disruption-search-form [params]="nuxeoParams"></disruption-search-form>
+  <disruption-thumbnail-view [nuxeoParams]="nuxeoParams"></disruption-thumbnail-view>
+</nb-card>
