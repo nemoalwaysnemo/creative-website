@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
-import { Subject, Subscription, BehaviorSubject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { HttpEvent, HttpRequest, HttpClient, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'tbwa-file-upload',
@@ -10,7 +9,7 @@ import { HttpEvent, HttpRequest, HttpClient, HttpResponse } from '@angular/commo
   templateUrl: './file-upload.component.html',
 })
 
-export class FileUploadComponent implements OnInit {
+export class FileUploadComponent implements OnInit, OnDestroy {
 
   files: File[] = [];
 
@@ -18,9 +17,13 @@ export class FileUploadComponent implements OnInit {
 
   uploading: boolean = false;
 
+  validComboDrag: boolean;
+
   private batchUpload: BatchUpload;
 
   private fileList: NuxeoUploadResponse[] = [];
+
+  private subscription: Subscription = new Subscription();
 
   private blobs$: Subject<NuxeoBlob> = new Subject<NuxeoBlob>();
 
@@ -32,7 +35,7 @@ export class FileUploadComponent implements OnInit {
 
   @Output() onUploaded: EventEmitter<NuxeoUploadResponse[]> = new EventEmitter<NuxeoUploadResponse[]>();
 
-  constructor(private nuxeoApi: NuxeoApiService, public httpClient: HttpClient) {
+  constructor(private nuxeoApi: NuxeoApiService) {
     this.batchUpload = this.nuxeoApi.batchUpload();
   }
 
@@ -40,8 +43,12 @@ export class FileUploadComponent implements OnInit {
     this.onUpload();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   private onUpload(): void {
-    this.blobs$.pipe(mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob))).subscribe((res: NuxeoUploadResponse) => {
+    this.subscription = this.blobs$.pipe(mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob))).subscribe((res: NuxeoUploadResponse) => {
       this.updateFileResponse(res);
     });
   }

@@ -4,6 +4,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { SharedDirectiveModule } from './directives/shared-directive.module';
 
 import {
+  AssetPageModule,
   OptionSelectModule,
   PictureGalleryModule,
   CreativeThumbnailViewModule,
@@ -18,6 +19,7 @@ import { SearchResultModule } from '@pages/shared/search-result/search-result.mo
 const EXPORTS = [
   CommonModule,
   ThemeModule,
+  AssetPageModule,
   OptionSelectModule,
   PictureGalleryModule,
   CreativeThumbnailViewModule,

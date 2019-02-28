@@ -149,7 +149,7 @@ export class NuxeoRequestOptions {
     document: [
       NuxeoEnricher.document.SUBTYPES,
       NuxeoEnricher.document.THUMBNAIL,
-      NuxeoEnricher.document.BREADCRUMB,
+      // NuxeoEnricher.document.BREADCRUMB,
       NuxeoEnricher.document.PERMISSIONS,
     ],
   };

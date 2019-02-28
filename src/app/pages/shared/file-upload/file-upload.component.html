@@ -21,7 +21,7 @@
 
 <div class="batch-upload">
   <div class="batch-upload-zone">
-    <div ngFileDrop multiple="1" selectable="1" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" [(lastInvalids)]="lastInvalids" class="file-drop-zone"
+    <div ngFileDrop multiple="1" selectable="1" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" class="file-drop-zone"
       [class.invalid-drag]="validComboDrag === false" [class.valid-drag]="validComboDrag" [fileDropDisabled]="uploading || uploaded"><strong>{{placeholder}}</strong></div>
   </div>
   <div class="batch-upload-queue">

@@ -1,3 +1,5 @@
+export * from './asset/asset.module';
+export * from './asset/asset.component';
 export * from './services/search-params.service';
 export * from './creative-thumbnail-view/thumbnail-view.module';
 export * from './picture-gallery/picture-gallery.module';
@@ -7,4 +9,5 @@ export * from './option-select/option-select.interface';
 export * from './pagination/pagination.module';
 export * from './list-view/list-view.interface';
 export * from './list-view/list-view.module';
+export * from './file-upload/file-upload.module';
 export * from './shared-config';
