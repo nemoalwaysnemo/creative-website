@@ -98,10 +98,11 @@ export class BatchUpload extends Base {
           const fileIdx = this._uploadIndex;
           const mimeType = pending.blob.mimeType;
           const fileName = pending.blob.name;
+          const fileSize = pending.blob.size;
           const kbLoaded = event.loaded;
           const uploaded = false;
           const percentLoaded = Math.round(100 * event.loaded / event.total);
-          pending.subscription.next(new NuxeoUploadResponse({ fileName, mimeType, uploaded, percentLoaded, kbLoaded, fileIdx }));
+          pending.subscription.next(new NuxeoUploadResponse({ fileName, fileSize, mimeType, uploaded, percentLoaded, kbLoaded, fileIdx }));
           break;
         case HttpEventType.Response:
           const body = event.body;
@@ -114,6 +115,7 @@ export class BatchUpload extends Base {
           const response = new NuxeoUploadResponse(Object.assign({
             percentLoaded: 100,
             fileIdx: body.fileIdx,
+            fileSize: pending.blob.size,
             kbLoaded: body.uploadedSize,
             batchBlob: new BatchBlob(body),
           }, body));

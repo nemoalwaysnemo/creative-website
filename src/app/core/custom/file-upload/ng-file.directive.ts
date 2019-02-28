@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, ElementRef, Input, Output, HostListener, OnDestroy, OnInit, OnChanges } from '@angular/core';
+import { Directive, EventEmitter, ElementRef, Input, Output, HostListener, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { createInvisibleFileInputWrap, isFileInput, detectSwipe } from './helpers';
 import { acceptType, InvalidFileItem, dataUrl } from './file-tools';
 
@@ -7,21 +7,19 @@ import { acceptType, InvalidFileItem, dataUrl } from './file-tools';
 })
 export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
 
-  fileElm: any;
+  protected fileElm: any;
 
-  filters: { name: string, fn: (file: File) => boolean }[] = [];
+  protected filters: { name: string, fn: (file: File) => boolean }[] = [];
 
-  lastFileCount: number = 0;
+  protected lastFileCount: number = 0;
 
   @Input() multiple: string;
   @Input() accept: string;
   @Input() maxSize: number;
-  // @Input() forceFilename:string
-  // @Input() forcePostname:string
 
   @Input() fileDropDisabled: boolean = false;
   @Input() selectable: boolean = false;
-  @Output() init: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onInit: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() lastInvalids: InvalidFileItem[] = [];
   @Output() lastInvalidsChange: EventEmitter<{ file: File, type: string }[]> = new EventEmitter();
@@ -64,11 +62,11 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
 
     // create reference to this class with one cycle delay to avoid ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
-      this.init.emit(this);
+      this.onInit.emit(this);
     }, 0);
   }
 
-  ngOnChanges(changes) {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes.accept) {
       this.paramFileElm().setAttribute('accept', changes.accept.currentValue || '*');
     }
@@ -151,7 +149,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   que(files: File[]) {
     this.files = this.files || [];
     Array.prototype.push.apply(this.files, files);
-
+    this.files = this.distinctFiles(this.files, 'name');
     // below break memory ref and doesnt act like a que
     // this.files = files//causes memory change which triggers bindings like <ngfFormData [files]="files"></ngfFormData>
 
@@ -274,6 +272,10 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
       }
     }
     return true;
+  }
+
+  protected distinctFiles(files: File[], prop: string): File[] {
+    return files.map(e => e[prop]).map((e, i, final) => final.indexOf(e) === i && i).filter(e => files[e]).map(e => files[e]);
   }
 
   protected _acceptFilter(item: File): boolean {

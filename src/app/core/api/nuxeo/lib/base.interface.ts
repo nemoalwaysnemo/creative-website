@@ -233,6 +233,7 @@ export class NuxeoUploadResponse {
   readonly percentLoaded: number = 0;
   readonly batchBlob: BatchBlob;
   readonly fileName: string;
+  readonly fileSize: string;
   readonly mimeType: string;
 
   constructor(response: any = {}) {

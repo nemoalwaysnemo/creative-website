@@ -20,23 +20,29 @@
 </style>
 
 <div class="batch-upload">
-  <div ngFileDrop multiple="1" selectable="1" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" [(lastInvalids)]="lastInvalids" class="file-drop-zone"
-    [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"><strong>{{placeholder}}</strong></div>
-</div>
-<div class="batch-queue">
-  <h3>{{ files.length }} Queued Files</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Size</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of files;let i=index">
-        <td><strong>{{ item.name }}</strong></td>
-        <td nowrap>{{ item.size/1024/1024 | number:'.2' }} MB</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="batch-upload-zone">
+    <div ngFileDrop multiple="1" selectable="1" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" [(lastInvalids)]="lastInvalids" class="file-drop-zone"
+      [class.invalid-drag]="validComboDrag === false" [class.valid-drag]="validComboDrag" [fileDropDisabled]="uploading || uploaded"><strong>{{placeholder}}</strong></div>
+  </div>
+  <div class="batch-upload-queue">
+    <h6>{{ files.length }} Queued Files</h6>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of onUploaded | async; let i=index">
+          <td nowrap><strong>{{ item.fileName }}</strong></td>
+          <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{item.percentLoaded}}%</td>
+          <td nowrap><button nbButton size="xsmall" status="danger" (click)="removeOne(i)" [disabled]="uploading || uploaded">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button nbButton size="small" status="success" (click)="uploadFiles(files)" [disabled]="uploading || uploaded || !files.length">Upload</button>
+    <button nbButton size="small" status="danger" (click)="removeAll()" [disabled]="uploading || uploaded || !files.length">Remove</button>
+  </div>
 </div>
