@@ -2,7 +2,7 @@
   <div *ngFor="let document of documents">
     <div class="thumbnail-view">
       <div class="image_holder">
-        <a [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}"></a>
+        <a routerLink="/p/disruption/days/folders/" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}"></a>
         <!-- <img src="{{getThumbnailUrl(document)}}" [alt]="document.title" class="thumbnail-img" style="width:100%;height:80%"> -->
       </div>
       <div class="description">

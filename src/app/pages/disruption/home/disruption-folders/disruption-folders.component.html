@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-6">
+    <nb-card size="small">
+      <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
+      <div *ngIf="document && folderContents">
+          <disruption-folders-view [document]="document" [folderContents]="folderContents"></disruption-folders-view>
+      </div>
+    </nb-card>
+  </div>
+</div>

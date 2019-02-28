@@ -27,6 +27,8 @@ export const NUXEO_META_INFO = {
   DISRUPTION_ROAD_PATH: '/know-edge/Disruption/Disruption Road Maps/',
   DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption Theory/',
   DISRUPTION_DAYS_TYPE: '["App-Disruption-Day"]',
+  DISRUPTION_DAY_TYPE: '["App-Disruption-Asset"]',
+  DISRUPTION_ROADMAPS_TYPE: '["App-Disruption-Asset"]',
   DISRUPTION_ASSET_PAGE_PROVIDER: 'creative_website_disruption_related_assets',
   INTELLIGENCE_BASE_FOLDER_PATH: '/know-edge/Intelligence',
   INTELLIGENCE_ASSET_PAGE_PROVIDER: 'creative_website_intelligence_related_assets',

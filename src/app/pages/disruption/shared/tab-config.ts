@@ -1,4 +1,4 @@
-export const TAB_CONFiG: any[] = [
+export const TAB_CONFIG: any[] = [
     {
       title: 'Disruption Days',
       route: '/p/disruption/days',

@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../shared/shared.module';
-import { DisruptionMenuComponent } from './disruption-menu.component';
+import { DisruptionFoldersViewComponent } from './disruption-folders-view.component';
 @NgModule({
   imports: [
     CommonModule,
     ThemeModule,
-    SharedModule,
   ],
   declarations: [
-    DisruptionMenuComponent,
+    DisruptionFoldersViewComponent,
   ], exports: [
-    DisruptionMenuComponent,
+    DisruptionFoldersViewComponent,
   ],
 })
 
-export class DisruptionMenuModule {
+export class DisruptionFoldersViewModule {
 
 }

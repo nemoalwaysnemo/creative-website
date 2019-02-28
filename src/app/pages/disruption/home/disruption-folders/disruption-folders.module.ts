@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedModule } from '../../../shared/shared.module';
-import { DisruptionDaysComponent } from './disruption-days.component';
-
+import { DisruptionFoldersComponent } from './disruption-folders.component';
 import { DisruptionThumbnailViewModule } from '../../shared/disruption-thumbnail-view/disruption-thumbnail-view.module';
-import { DisruptionSearchFormModule } from '../../shared/disruption-search-form/disruption-search-form.module';
+import { DisruptionFoldersViewModule } from '../../shared/disruption-folders-view/disruption-folders-view.module';
 @NgModule({
   imports: [
     ThemeModule,
     SharedModule,
-
+    DisruptionFoldersViewModule,
     DisruptionThumbnailViewModule,
-    DisruptionSearchFormModule,
   ],
   declarations: [
-    DisruptionDaysComponent,
+    DisruptionFoldersComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,
   ],
 })
-export class DisruptionDaysModule { }
+export class DisruptionFoldersModule { }
