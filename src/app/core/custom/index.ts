@@ -4,6 +4,5 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
-// TODO: export all components
-
+export * from './file-upload';
 export * from './ng2-smart-table';

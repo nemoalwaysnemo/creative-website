@@ -1,19 +1,42 @@
+<style>
+  .file-drop-zone {
+    width: 300px;
+    height: 200px;
+    border: dotted 3px lightgray;
+  }
+
+  /* Default class applied to drop zones on over */
+  .invalid-drag {
+    border: dotted 3px red;
+  }
+
+  .valid-drag {
+    border: dotted 3px green;
+  }
+
+  .inline-block {
+    display: inline-block;
+  }
+</style>
+
 <div class="batch-upload">
-  <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-    <span>optional content (don't set headertext then)</span>
-  </file-drop>
-  <div class="upload-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>File Name</th>
-        </tr>
-      </thead>
-      <tbody class="upload-name-style">
-        <tr *ngFor="let item of files; let i=index">
-          <td><strong>{{ item.relativePath }}</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <div ngFileDrop multiple="1" selectable="1" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" [(lastInvalids)]="lastInvalids" class="file-drop-zone"
+    [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"><strong>{{placeholder}}</strong></div>
+</div>
+<div class="batch-queue">
+  <h3>{{ files.length }} Queued Files</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of files;let i=index">
+        <td><strong>{{ item.name }}</strong></td>
+        <td nowrap>{{ item.size/1024/1024 | number:'.2' }} MB</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

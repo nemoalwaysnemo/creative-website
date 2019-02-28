@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-disruption-page',
@@ -7,5 +6,10 @@ import { NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
+
+
+  onUploaded(test) {
+    console.log(2222, test);
+  }
 
 }

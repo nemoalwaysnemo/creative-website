@@ -118,12 +118,6 @@ export class NuxeoPageProviderParams {
   ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
 }
 
-export class NuxeoRequestOptions {
-  [key: string]: any;
-  schemas?: string[] = ['*'];
-  enrichers?: {} = { document: ['thumbnail'] };
-}
-
 export const NuxeoEnricher = {
   user: {
     PROFILE: 'userprofile',
@@ -134,6 +128,7 @@ export const NuxeoEnricher = {
     SUBTYPES: 'subtypes',
     PREVIEW: 'preview',
     CHILDREN: 'children',
+    THUMBNAIL: 'thumbnail',
     BREADCRUMB: 'breadcrumb',
     DOCUMENT_URL: 'documentURL',
     PERMISSIONS: 'permissions',
@@ -146,6 +141,19 @@ export const NuxeoPermission = {
   Write: 'Write',
   Everything: 'Everything',
 };
+
+export class NuxeoRequestOptions {
+  [key: string]: any;
+  schemas?: string[] = ['*'];
+  enrichers?: {} = {
+    document: [
+      NuxeoEnricher.document.SUBTYPES,
+      NuxeoEnricher.document.THUMBNAIL,
+      NuxeoEnricher.document.BREADCRUMB,
+      NuxeoEnricher.document.PERMISSIONS,
+    ],
+  };
+}
 
 export class NuxeoPagination {
   readonly entityType: string;

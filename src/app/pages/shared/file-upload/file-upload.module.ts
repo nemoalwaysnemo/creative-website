@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FileDropModule } from 'ngx-file-drop';
+import { NgfModule } from '@core/custom';
 import { APIModule } from '@core/api';
 import { FileUploadComponent } from './file-upload.component';
+import { ThemeModule } from '@theme/theme.module';
 
 @NgModule({
   imports: [
     APIModule,
+    NgfModule,
+    ThemeModule,
     CommonModule,
-    FileDropModule,
   ],
   declarations: [FileUploadComponent],
   exports: [

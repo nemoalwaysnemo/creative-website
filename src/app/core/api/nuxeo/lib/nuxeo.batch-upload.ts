@@ -23,7 +23,7 @@ export class BatchUpload extends Base {
     this._uploadUrl = join(opts.url, 'upload/');
     this._batchId = opts.batchId || null;
     this._nuxeo = opts.nuxeo;
-    this._uploadIndex = 0;
+    this._uploadIndex = -1;
     this._queue = [];
   }
 
@@ -39,7 +39,6 @@ export class BatchUpload extends Base {
     if (!this._batchId) {
       return observableOf(null);
     }
-    console.log(blob);
     this._uploadIndex += 1;
     const opts = {
       json: false,
@@ -56,7 +55,7 @@ export class BatchUpload extends Base {
       },
     };
     const options = this._computeOptions(opts);
-    return this._nuxeo.httpRequest(options);
+    return this._nuxeo.httpRequest(options).pipe(tap());
   }
 
   private fetchBatchId(): Observable<string> {
@@ -96,9 +95,13 @@ export class BatchUpload extends Base {
     this.fetchBatchId().pipe(concatMap(_ => this.uploadFile(pending.blob))).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.UploadProgress:
+          const fileIdx = this._uploadIndex;
+          const mimeType = pending.blob.mimeType;
+          const fileName = pending.blob.name;
           const kbLoaded = event.loaded;
+          const uploaded = false;
           const percentLoaded = Math.round(100 * event.loaded / event.total);
-          pending.subscription.next(new NuxeoUploadResponse({ percentLoaded, kbLoaded }));
+          pending.subscription.next(new NuxeoUploadResponse({ fileName, mimeType, uploaded, percentLoaded, kbLoaded, fileIdx }));
           break;
         case HttpEventType.Response:
           const body = event.body;
@@ -110,6 +113,7 @@ export class BatchUpload extends Base {
           body.fileName = pending.blob.name;
           const response = new NuxeoUploadResponse(Object.assign({
             percentLoaded: 100,
+            fileIdx: body.fileIdx,
             kbLoaded: body.uploadedSize,
             batchBlob: new BatchBlob(body),
           }, body));
