@@ -11,7 +11,7 @@ export class DisruptionRoadmapsComponent {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAPS_TYPE,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
   };
   disruptionType = 'roadmaps';
