@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../../shared';
+import {
+  DEFAULT_SEARCH_FILTER_ITEM,
+  BRAND_SEARCH_FILTER_ITEM,
+  SearchQueryParamsService,
+} from '../../../shared';
 import { selectObjectByKeys } from '@core/services';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
@@ -26,6 +30,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   showFilter: boolean = false;
 
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
+
+  private searchItems = { asset: DEFAULT_SEARCH_FILTER_ITEM, brand: BRAND_SEARCH_FILTER_ITEM};
+  private fitlerItems = this.searchItems['asset'];
 
   private type = '';
   private params: any = {};
@@ -89,8 +96,10 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       this.type = type;
       if (type && Object.keys(this.docParams).includes(type)) {
         this.params = deepExtend({}, this.baseParams, this.docParams[type]);
+        this.fitlerItems = this.searchItems[type];
       } else {
         this.params = deepExtend({}, this.baseParams, this.docParams['asset']);
+        this.fitlerItems = this.searchItems['asset'];
       }
       this.createForm();
     }
@@ -207,7 +216,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   private changeSearchFilter(aggregateModels: AggregateModel[]): void {
-    this.aggregateModels$.next(filterAggregates(DEFAULT_SEARCH_FILTER_ITEM, aggregateModels));
+    this.aggregateModels$.next(filterAggregates(this.fitlerItems, aggregateModels));
   }
 
 }
