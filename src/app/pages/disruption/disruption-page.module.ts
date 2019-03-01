@@ -6,6 +6,7 @@ import { DisruptionTheoryModule } from '../disruption/home/disruption-theory/dis
 import { DisruptionPageComponent } from './disruption-page.component';
 import { DisruptionPageRoutingModule } from './disruption-page-routing.module';
 import { DisruptionFoldersModule  } from './home/disruption-folders/disruption-folders.module';
+import { DisruptionAssetsModule } from './home/disruption-assets/disruption-assets.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { DisruptionFoldersModule  } from './home/disruption-folders/disruption-f
     DisruptionRoadmapsModule,
     DisruptionTheoryModule,
     DisruptionFoldersModule,
+    DisruptionAssetsModule,
     ThemeModule,
     DisruptionPageRoutingModule,
   ],

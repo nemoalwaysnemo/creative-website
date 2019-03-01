@@ -2,7 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
-import { AssetComponent } from '@pages/shared';
+import { AssetComponent } from './asset/asset.component';
 import { CreativePageComponent } from './creative-page.component';
 import { BrandComponent } from './brand/brand.component';
 

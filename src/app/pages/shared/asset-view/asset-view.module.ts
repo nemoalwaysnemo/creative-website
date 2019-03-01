@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { NbAccordionModule, NbTabsetModule, NbSpinnerModule } from '@core/nebular/theme';
-import { AssetComponent } from './asset.component';
+import { AssetViewComponent } from './asset-view.component';
 import { DocumentMetadataInfoComponent } from './document-metadata-info/document-metadata-info.component';
 import { DocumentAdditionalInfoComponent } from './document-additional-info/document-additional-info.component';
 import { DocumentRelatedInfoComponent } from './document-related-info/document-related-info.component';
@@ -13,7 +13,7 @@ import { DocumentViewerModule } from './document-viewer/document-viewer.module';
 import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnail-view.module';
 
 const EXPORTS = [
-  AssetComponent,
+  AssetViewComponent,
 ];
 
 @NgModule({
@@ -26,7 +26,7 @@ const EXPORTS = [
     CreativeThumbnailViewModule,
   ],
   declarations: [
-    AssetComponent,
+    AssetViewComponent,
     DocumentMetadataInfoComponent,
     DocumentAdditionalInfoComponent,
     DocumentRelatedInfoComponent,
@@ -41,4 +41,4 @@ const EXPORTS = [
     ...EXPORTS,
   ],
 })
-export class AssetPageModule { }
+export class AssetViewModule { }

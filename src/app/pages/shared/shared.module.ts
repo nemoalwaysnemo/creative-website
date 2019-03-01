@@ -2,9 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedDirectiveModule } from './directives/shared-directive.module';
-
 import {
-  AssetPageModule,
   OptionSelectModule,
   PictureGalleryModule,
   CreativeThumbnailViewModule,
@@ -12,6 +10,7 @@ import {
   PaginationModule,
   ListViewModule,
   SearchQueryParamsService,
+  AssetViewModule,
 } from './';
 import { FileUploadModule } from '@pages/shared/file-upload/file-upload.module';
 import { SearchResultModule } from '@pages/shared/search-result/search-result.module';
@@ -19,7 +18,7 @@ import { SearchResultModule } from '@pages/shared/search-result/search-result.mo
 const EXPORTS = [
   CommonModule,
   ThemeModule,
-  AssetPageModule,
+  AssetViewModule,
   OptionSelectModule,
   PictureGalleryModule,
   CreativeThumbnailViewModule,

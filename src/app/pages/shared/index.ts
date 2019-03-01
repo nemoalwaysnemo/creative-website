@@ -1,5 +1,5 @@
-export * from './asset/asset.module';
-export * from './asset/asset.component';
+export * from './asset-view/asset-view.module';
+export * from './asset-view/asset-view.component';
 export * from './services/search-params.service';
 export * from './creative-thumbnail-view/thumbnail-view.module';
 export * from './picture-gallery/picture-gallery.module';

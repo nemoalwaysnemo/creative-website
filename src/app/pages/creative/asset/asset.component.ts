@@ -12,7 +12,6 @@ import { isDocumentUID } from '@core/services';
   templateUrl: './asset.component.html',
 })
 export class AssetComponent implements OnInit, OnDestroy {
-
   document: DocumentModel;
 
   private subscription: Subscription = new Subscription();

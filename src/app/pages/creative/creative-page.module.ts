@@ -5,7 +5,7 @@ import { SearchPageModule } from './search/search.module';
 import { BrandPageModule } from './brand/brand.module';
 import { CreativePageComponent } from './creative-page.component';
 import { CreativePageRoutingModule } from './creative-page-routing.module';
-import { AssetPageModule } from '@pages/shared/';
+import { AssetPageModule } from './asset/asset.module';
 
 @NgModule({
   imports: [
@@ -14,6 +14,7 @@ import { AssetPageModule } from '@pages/shared/';
     SearchPageModule,
     AssetPageModule,
     BrandPageModule,
+    AssetPageModule,
     CreativePageRoutingModule,
   ],
   declarations: [

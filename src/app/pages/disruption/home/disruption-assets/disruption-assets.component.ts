@@ -7,14 +7,14 @@ import { TAB_CONFIG } from '../../shared/tab-config';
 import { isDocumentUID } from '@core/services';
 import { Observable, Subscription } from 'rxjs';
 @Component({
-  selector: 'tbwa-disruption-folders',
-  styleUrls: ['./disruption-folders.component.scss'],
-  templateUrl: './disruption-folders.component.html',
+  selector: 'tbwa-disruption-assets',
+  styleUrls: ['./disruption-assets.component.scss'],
+  templateUrl: './disruption-assets.component.html',
 })
-export class DisruptionFoldersComponent implements OnInit, OnDestroy {
+export class DisruptionAssetsComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   document: DocumentModel;
-  folderContents: any;
+  assetDoc: DocumentModel;
   tabs = TAB_CONFIG;
   private subscription: Subscription = new Subscription();
 
@@ -23,15 +23,17 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
     currentPageIndex: 0,
     ecm_path: '/know-edge',
     ecm_uuid: `["${this.activatedRoute.queryParams['value'].id}"]`,
-    quickFilters: 'ShowInNavigation',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+    // quickFilters: 'ShowInNavigation',
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
   };
-  contentParams: any = {
-    pageSize: 20,
+
+  folderParams: any = {
+    pageSize: 1,
     currentPageIndex: 0,
     ecm_path: '/know-edge',
-    ecm_parentId: this.activatedRoute.queryParams['value'].id,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
+    ecm_uuid: `["${this.activatedRoute.queryParams['value'].folder}"]`,
+    quickFilters: 'ShowInNavigation',
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
   };
 
   constructor(
@@ -42,9 +44,10 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
       return false;
     };
   }
+
   ngOnInit() {
     this.onQueryParamsChanged();
-    this.searchContents(this.contentParams);
+    this.searchFolders(this.folderParams);
   }
 
   ngOnDestroy() {
@@ -74,8 +77,7 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
       )
       .subscribe((doc: DocumentModel) => {
         if (doc) {
-
-          this.document = doc;
+          this.assetDoc = doc;
           this.loading = false;
         } else {
           this.redirectTo404();
@@ -88,10 +90,10 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
     this.router.navigate(['/404']);
   }
 
-  private searchContents(params: {}): void {
+  private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.folderContents = res.entries;
+        this.document = res.entries[0];
       });
     this.subscription.add(subscription);
   }
