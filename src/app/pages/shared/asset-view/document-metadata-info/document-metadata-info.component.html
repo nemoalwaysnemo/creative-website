@@ -1,3 +1,4 @@
+<div *ngIf="document.type !== 'App-Disruption-Asset'">
 <h1>Unboxing</h1>
 <h2>{{document.title}}</h2>
 <h4>About</h4>
@@ -53,3 +54,24 @@
   </nb-accordion-item>
 </nb-accordion>
 <a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}" class="download right" title="Download">Download</a>
+</div>
+<div *ngIf="document.type == 'App-Disruption-Asset'">
+  <div>{{ document.title }}</div>
+  <div>{{ document.get('The_Loupe_Main:brand') }}</div>
+  <h4>descriptions</h4>
+  <div>{{ document.get('The_Loupe_Main:description') }}</div>
+  <h4>Asset Type</h4>
+  <div>{{ document.type }}</div>
+  <h4>Industry</h4>
+  <div>{{ document.get('app_Edges:industry') }}</div>
+  <h4>Geography</h4>
+  <div>{{ parseCountry(document.get('The_Loupe_Main:country')) }}</div>
+  <h4>Author</h4>
+  <div>{{ document.get('dc:creator') }}</div>
+  <h4>Pubilished</h4>
+  <div>{{ document.get('The_Loupe_ProdCredits:production_date') }}</div>
+  <h4>Edge Category</h4>
+  <div>{{ document.get('app_Edges:backslash_category') }}</div>
+  <h4>Edge</h4>
+  <div>{{ document.get('app_Edges:Tags_edges') }}</div>
+</div>
