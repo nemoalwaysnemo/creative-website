@@ -23,7 +23,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 8,
-    quickFilters: `${NuxeoQuickFilters.HiddenInNavigation}, ${NuxeoQuickFilters.GlobalNetWorkShare}`,
+    app_global_networkshare: true,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 

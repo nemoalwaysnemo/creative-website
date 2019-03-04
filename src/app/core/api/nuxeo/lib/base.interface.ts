@@ -100,7 +100,6 @@ export const NuxeoQuickFilters = {
   ShowInNavigation: 'ShowInNavigation',
   HiddenInNavigation: 'HiddenInNavigation',
   BackslashEdgePage: 'BackslashEdgePage',
-  GlobalNetWorkShare: 'GlobalNetWorkShare',
 };
 
 export const NuxeoEnricher = {
