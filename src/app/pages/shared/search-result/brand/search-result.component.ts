@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { PaginationDataSource } from '@pages/shared/pagination/pagination-data-source';
-import { ListViewItem, SearchQueryParamsService } from '@pages/shared';
+import { ListViewItem } from '../../list-view/list-view.interface';
+import { SearchQueryParamsService } from '../../services/search-params.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'tbwa-brand-search-result',

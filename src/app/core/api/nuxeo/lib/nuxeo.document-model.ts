@@ -145,16 +145,20 @@ export class DocumentModel extends Base {
     return this.facets.indexOf(facet) !== -1;
   }
 
+  isPdf(): boolean {
+    return this.fileMimeType === 'application/pdf';
+  }
+
   isAudio(): boolean {
     return this.hasFacet('Audio');
   }
 
   isVideo(): boolean {
-    return this.hasFacet('Video');
+    return this.hasFacet('Video') && this.fileMimeType.includes('video');
   }
 
   isPicture(): boolean {
-    return !this.isVideo() && this.hasFacet('Picture');
+    return this.hasFacet('Picture') && this.fileMimeType.includes('image');
   }
 
   isFolder(): boolean {
@@ -168,5 +172,4 @@ export class DocumentModel extends Base {
   isCollectable(): boolean {
     return !this.hasFacet('NotCollectionMember');
   }
-
 }

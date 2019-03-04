@@ -10,15 +10,19 @@ import {
   PaginationModule,
   ListViewModule,
   SearchQueryParamsService,
-  AssetViewModule,
+  DocumentViewerModule,
+  DocumentMetadataInfoModule,
+  DocumentAdditionalInfoModule,
+  DocumentRelatedAgencyModule,
+  DocumentRelatedInfoComponentModule,
+  DocumentRelatedProjectModule,
+  FileUploadModule,
+  SearchResultModule,
 } from './';
-import { FileUploadModule } from '@pages/shared/file-upload/file-upload.module';
-import { SearchResultModule } from '@pages/shared/search-result/search-result.module';
 
 const EXPORTS = [
   CommonModule,
   ThemeModule,
-  AssetViewModule,
   OptionSelectModule,
   PictureGalleryModule,
   CreativeThumbnailViewModule,
@@ -28,6 +32,12 @@ const EXPORTS = [
   SharedDirectiveModule,
   FileUploadModule,
   SearchResultModule,
+  DocumentViewerModule,
+  DocumentMetadataInfoModule,
+  DocumentAdditionalInfoModule,
+  DocumentRelatedAgencyModule,
+  DocumentRelatedInfoComponentModule,
+  DocumentRelatedProjectModule,
 ];
 
 const PROVIDERS = [

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '@pages/shared/shared.module';
 import { HomeComponent } from './home.component';
 import { HomeSearchModule } from './home-search/home-search.module';
 import { AgencyThumbnailComponent } from './agency-thumbnail/agency-thumbnail.component';

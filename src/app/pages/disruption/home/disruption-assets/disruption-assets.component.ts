@@ -14,7 +14,7 @@ import { Observable, Subscription } from 'rxjs';
 export class DisruptionAssetsComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   document: DocumentModel;
-  assetDoc: DocumentModel;
+  asset: DocumentModel;
   tabs = TAB_CONFIG;
   private subscription: Subscription = new Subscription();
 
@@ -77,7 +77,7 @@ export class DisruptionAssetsComponent implements OnInit, OnDestroy {
       )
       .subscribe((doc: DocumentModel) => {
         if (doc) {
-          this.assetDoc = doc;
+          this.asset = doc;
           this.loading = false;
         } else {
           this.redirectTo404();

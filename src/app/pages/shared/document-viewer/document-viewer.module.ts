@@ -44,7 +44,6 @@ import { DragScrollModule } from 'ngx-drag-scroll';
   providers: [
     DocumentVideoViewerService,
   ],
-  bootstrap: [DocumentViewerComponent],
 })
 export class DocumentViewerModule {
 }
