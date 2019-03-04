@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
+import { AdvanceSearch, NuxeoPagination, DocumentModel, NuxeoQuickFilters } from '@core/api';
 import { PaginationDataSource } from '../../../shared/pagination/pagination-data-source';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
@@ -23,6 +23,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 8,
+    quickFilters: `${NuxeoQuickFilters.HiddenInNavigation}, ${NuxeoQuickFilters.GlobalNetWorkShare}`,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 

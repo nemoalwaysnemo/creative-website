@@ -96,27 +96,12 @@ export function filterAggregates(mapping: { [key: string]: { label?: string, pla
   return aggregates;
 }
 
-export class NuxeoOptions {
-  baseUrl: string = '';
-  auth?: Credentials;
-  production: boolean;
-  appName: string;
-}
-
-export class NuxeoResponse {
-  [key: string]: any;
-}
-
-export class NuxeoPageProviderParams {
-  [key: string]: any;
-  currentPageIndex?: number = 0;
-  pageSize?: number = 20;
-  ecm_path?: string;
-  quickFilters?: string = 'HiddenInNavigation';
-  ecm_fulltext?: string;
-  production_date?: string; // production_date: '["lastYear"]',
-  ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
-}
+export const NuxeoQuickFilters = {
+  ShowInNavigation: 'ShowInNavigation',
+  HiddenInNavigation: 'HiddenInNavigation',
+  BackslashEdgePage: 'BackslashEdgePage',
+  GlobalNetWorkShare: 'GlobalNetWorkShare',
+};
 
 export const NuxeoEnricher = {
   user: {
@@ -141,6 +126,28 @@ export const NuxeoPermission = {
   Write: 'Write',
   Everything: 'Everything',
 };
+
+export class NuxeoOptions {
+  baseUrl: string = '';
+  auth?: Credentials;
+  production: boolean;
+  appName: string;
+}
+
+export class NuxeoResponse {
+  [key: string]: any;
+}
+
+export class NuxeoPageProviderParams {
+  [key: string]: any;
+  currentPageIndex?: number = 0;
+  pageSize?: number = 20;
+  ecm_path?: string;
+  quickFilters?: string = NuxeoQuickFilters.HiddenInNavigation;
+  ecm_fulltext?: string;
+  production_date?: string; // production_date: '["lastYear"]',
+  ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
+}
 
 export class NuxeoRequestOptions {
   [key: string]: any;

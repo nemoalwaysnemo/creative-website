@@ -21,12 +21,12 @@
 
 <div class="batch-upload">
   <div class="batch-upload-zone">
-    <div ngFileDrop multiple="1" selectable="1" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" class="file-drop-zone"
-      [class.invalid-drag]="validComboDrag === false" [class.valid-drag]="validComboDrag" [fileDropDisabled]="uploading || uploaded"><strong>{{placeholder}}</strong></div>
+    <div><strong>{{placeholder}}</strong></div>
   </div>
   <div class="batch-upload-queue">
     <h6>{{ files.length }} Queued Files</h6>
-    <table class="table">
+    <table class="table" ngFileDrop multiple="1" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" class="file-drop-zone" [class.invalid-drag]="validComboDrag === false"
+      [class.valid-drag]="validComboDrag" [fileDropDisabled]="uploading || uploaded">
       <thead>
         <tr>
           <th>Name</th>
@@ -37,7 +37,7 @@
       <tbody>
         <tr *ngFor="let item of onUploaded | async; let i=index">
           <td nowrap><strong>{{ item.fileName }}</strong></td>
-          <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{item.percentLoaded}}%</td>
+          <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
           <td nowrap><button nbButton size="xsmall" status="danger" (click)="removeOne(i)" [disabled]="uploading || uploaded">Delete</button></td>
         </tr>
       </tbody>
