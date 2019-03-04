@@ -99,12 +99,6 @@ export abstract class DataSource {
     }
   }
 
-  setPaginationInfo(data: any, doEmit?: boolean) {
-    if (doEmit) {
-      this.emitOnChanged('paging');
-    }
-  }
-
   setPage(page: number, doEmit?: boolean) {
     if (doEmit) {
       this.emitOnChanged('page');

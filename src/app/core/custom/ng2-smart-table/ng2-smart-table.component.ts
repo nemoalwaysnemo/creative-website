@@ -26,7 +26,6 @@ export class Ng2SmartTableComponent implements OnChanges {
   @Output() editConfirm = new EventEmitter<any>();
   @Output() createConfirm = new EventEmitter<any>();
   @Output() rowHover: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onChangePage: EventEmitter<any> = new EventEmitter<any>();
 
   tableClass: string;
   tableId: string;
@@ -42,7 +41,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     mode: 'inline', // inline|external|click-to-edit
     selectMode: 'single', // single|multi
     hideHeader: false,
-    hideSubHeader: true,
+    hideSubHeader: false,
     actions: {
       columnTitle: 'Actions',
       add: true,
@@ -80,7 +79,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     columns: {},
     pager: {
       display: true,
-      perPage: 1000,
+      perPage: 10,
     },
     rowClassFunction: () => '',
   };
@@ -174,7 +173,6 @@ export class Ng2SmartTableComponent implements OnChanges {
 
   changePage($event: any) {
     this.resetAllSelector();
-    this.onChangePage.emit($event);
   }
 
   sort($event: any) {

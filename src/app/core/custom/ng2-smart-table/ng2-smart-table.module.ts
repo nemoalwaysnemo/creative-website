@@ -7,7 +7,6 @@ import { FilterModule } from './components/filter/filter.module';
 import { PagerModule } from './components/pager/pager.module';
 import { TBodyModule } from './components/tbody/tbody.module';
 import { THeadModule } from './components/thead/thead.module';
-import { PaginationModule } from './components/pagination/pagination.module';
 
 import { Ng2SmartTableComponent } from './ng2-smart-table.component';
 
@@ -19,7 +18,6 @@ import { Ng2SmartTableComponent } from './ng2-smart-table.component';
     CellModule,
     FilterModule,
     PagerModule,
-    PaginationModule,
     TBodyModule,
     THeadModule,
   ],
