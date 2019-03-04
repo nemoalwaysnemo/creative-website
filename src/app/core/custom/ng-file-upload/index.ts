@@ -5,7 +5,7 @@
  */
 
 export * from './ng-file-upload-status.directive';
-export *from './ng-file-background.directive';
+export * from './ng-file-background.directive';
 export * from './ng-file-form-data.directive';
 export * from './ng-file-select.directive';
 export * from './ng-file-drop.directive';
