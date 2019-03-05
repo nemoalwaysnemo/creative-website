@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, Automation, AdvanceSearch, NuxeoPagination, Automations } from '@core/api';
 import { Subscription } from 'rxjs';
+import { NUXEO_META_INFO } from '@environment/environment.na-dev';
+import { getDocumentTypes } from '@core/services';
 
 @Component({
   selector: 'tbwa-document-metadata-info',
@@ -27,11 +29,21 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getUsageRightsStatus();
+    if (this.isCreativeAsset()) {
+      this.getUsageRightsStatus();
+    }
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  isCreativeAsset(): boolean {
+    return getDocumentTypes(NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(this.document.type);
+  }
+
+  isDisruptionAsset(): boolean {
+    return getDocumentTypes(NUXEO_META_INFO.DISRUPTION_DAY_TYPE).includes(this.document.type);
   }
 
   toggleJob() {

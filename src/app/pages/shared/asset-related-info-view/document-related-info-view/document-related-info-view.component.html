@@ -10,7 +10,7 @@
     <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
       <ul>
         <li *ngFor="let document of backslashEdges">
-          <a [href]="getBackslashEdgeUrl(document.title)" target="_blank"><img src="{{document.thumbnailUrl}}" [alt]="document.title" nbTooltip="{{document.title}}">{{document.title}}</a>
+          <a [href]="getBackslashEdgeUrl(document.title)" title="{{document.title}}" target="_blank"><img src="{{document.thumbnailUrl}}" [alt]="document.title">{{document.title}}</a>
         </li>
       </ul>
     </ng-container>
