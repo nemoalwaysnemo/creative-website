@@ -10,7 +10,7 @@
     <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
       <ul>
         <li *ngFor="let document of backslashEdges">
-          <a [href]="getBackslashEdgeUrl(document.title)" title="{{document.title}}" target="_blank"><img src="{{document.thumbnailUrl}}" [alt]="document.title">{{document.title}}</a>
+          <a (click)="open(dialog, document, 'backslash')" title="{{document.title}}" target="_blank"><img src="{{document.thumbnailUrl}}" [alt]="document.title">{{document.title}}</a>
         </li>
       </ul>
     </ng-container>
@@ -22,3 +22,6 @@
   <div class="clear"></div>
 </ng-template>
 <creative-thumbnail-view [loading]="loading" [layout]="item.layout" [itemLayout]="item.itemLayout" [documents]="documents"></creative-thumbnail-view>
+<ng-template #dialog>
+  <tbwa-preview-dialog></tbwa-preview-dialog>
+</ng-template>

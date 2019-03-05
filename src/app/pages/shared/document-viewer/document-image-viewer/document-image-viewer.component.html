@@ -1,9 +1,14 @@
-<ngx-image-viewer [src]="src" [config]="{
-allowFullscreen: false,
-  btnIcons:
-  {zoomIn: 'ion-arrow-expand',
+<ng-container *ngIf="onlyImg;else imageViewer">
+  <img src="{{src}}">
+</ng-container>
+<ng-template #imageViewer>
+  <ngx-image-viewer [src]="src" [config]="{
+    allowFullscreen: false,
+    btnIcons:
+    {zoomIn: 'ion-arrow-expand',
     zoomOut: 'ion-arrow-shrink',
     rotateClockwise: 'ion-arrow-return-right',
     rotateCounterClockwise: 'ion-arrow-return-left'}
-}">
-</ngx-image-viewer>
+  }">
+  </ngx-image-viewer>
+</ng-template>

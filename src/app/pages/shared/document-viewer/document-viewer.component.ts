@@ -10,6 +10,7 @@ import { DocumentModel } from '@core/api';
 export class DocumentViewerComponent {
 
   @Input() document: DocumentModel;
+  @Input() onlyImg: boolean;
 
   getDocumentViewer(): string {
     let type = 'unkonw';
