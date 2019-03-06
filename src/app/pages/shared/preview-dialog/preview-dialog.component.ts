@@ -11,8 +11,11 @@ import { DocumentModel } from '@core/api';
   templateUrl: './preview-dialog.component.html',
 })
 export class PreviewDialogComponent implements OnInit, OnDestroy {
+
+  type: string;
+
   private subscription: Subscription = new Subscription();
-  private type: string;
+
   constructor(private dialogService: PreviewDialogService) { }
 
   ngOnInit() {

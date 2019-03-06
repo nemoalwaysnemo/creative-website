@@ -62,11 +62,11 @@
         <nb-accordion-item-body class="accordion-item-body" [nbSpinner]="usageLoading" nbSpinnerStatus="disabled">
           <ul class="state">
             <li>
-              <h4>Legit Days</h4>
+              <h4>Expires in</h4>
               <span>{{usageRights.days_left >= 0 ? usageRights.days_left : 0}} days</span>
             </li>
             <li>
-              <h4>Expires in</h4>
+              <h4>Expires on</h4>
               <span>{{usageRights.end_date | date}}</span>
             </li>
           </ul>

@@ -16,10 +16,12 @@ import {
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
+  DirectorySuggestionModule,
   FileUploadModule,
   SearchResultModule,
   PreviewDialogService,
   PreviewDialogModule,
+  DocumentFormModule,
 } from './';
 
 const EXPORTS = [
@@ -40,7 +42,9 @@ const EXPORTS = [
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
+  DirectorySuggestionModule,
   PreviewDialogModule,
+  DocumentFormModule,
 ];
 
 const PROVIDERS = [

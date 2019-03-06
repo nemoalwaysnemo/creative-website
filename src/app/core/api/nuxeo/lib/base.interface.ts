@@ -113,6 +113,7 @@ export const NuxeoEnricher = {
     PREVIEW: 'preview',
     CHILDREN: 'children',
     THUMBNAIL: 'thumbnail',
+    FAVORITES: 'favorites',
     BREADCRUMB: 'breadcrumb',
     DOCUMENT_URL: 'documentURL',
     PERMISSIONS: 'permissions',
@@ -155,6 +156,7 @@ export class NuxeoRequestOptions {
     document: [
       NuxeoEnricher.document.SUBTYPES,
       NuxeoEnricher.document.THUMBNAIL,
+      NuxeoEnricher.document.FAVORITES,
       // NuxeoEnricher.document.BREADCRUMB,
       NuxeoEnricher.document.PERMISSIONS,
     ],
@@ -246,3 +248,10 @@ export class NuxeoUploadResponse {
     Object.assign(this, response);
   }
 }
+
+export const NuxeoAutomations = {
+  CreativeGetDocumentURStatus: 'Creative.GetDocumentURStatus',
+  DirectorySuggestEntries: 'Directory.SuggestEntries',
+  RepositoryPageProvider: 'Repository.PageProvider',
+  DirectoryEntries: 'Directory.Entries',
+};

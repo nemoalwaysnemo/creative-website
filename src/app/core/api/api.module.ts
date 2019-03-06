@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { DocumentRepository } from './api.document-repository.service';
 import { AdvanceSearch } from './api.advance-search.service';
-import { Automation } from './api.automation.service';
 import { UserService } from './api.user.service';
 import { NuxeoModule } from './nuxeo';
 import { Environment } from '@environment/environment';
@@ -15,7 +14,6 @@ const SERVICES = [
   DocumentRepository,
   AdvanceSearch,
   UserService,
-  Automation,
 ];
 
 @NgModule()

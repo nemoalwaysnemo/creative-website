@@ -18,6 +18,8 @@ import {
   UserModel,
   NuxeoPagination,
   BatchUpload,
+  DirectoryEntry,
+  NuxeoResponse,
 } from './lib';
 
 @Injectable()
@@ -94,8 +96,8 @@ export class NuxeoApiService {
     return this.nuxeo.batchUpload(opts);
   }
 
-  operation(id: string, opts: any = {}): Operation {
-    return this.nuxeo.operation(id, opts);
+  operation(id: string, params: any = {}, opts: any = {}): Observable<NuxeoResponse> {
+    return this.nuxeo.operation(id, opts).params(params).execute();
   }
 
   request(path: string, opts: NuxeoRequestOptions): Request {
@@ -106,8 +108,8 @@ export class NuxeoApiService {
     return this.nuxeo.repository(name, opts);
   }
 
-  directory(path: string, opts: any = {}): Directory {
-    return this.nuxeo.directory(path, opts);
+  directory(directoryName: string, opts: any = {}): Observable<DirectoryEntry[]> {
+    return this.nuxeo.directory(directoryName, opts).fetchAll();
   }
 
   private getDeviceId(): string {

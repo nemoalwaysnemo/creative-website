@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { DocumentModel, Automation, AdvanceSearch, NuxeoPagination, Automations } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService } from '@core/api';
 import { Subscription } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment.na-dev';
 import { getDocumentTypes } from '@core/services';
@@ -23,10 +23,7 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
 
   @Input() document: DocumentModel;
 
-  constructor(
-    private advanceSearch: AdvanceSearch,
-    private automation: Automation,
-  ) { }
+  constructor(private advanceSearch: AdvanceSearch, private nuxeoApi: NuxeoApiService) { }
 
   ngOnInit() {
     if (this.isCreativeAsset()) {
@@ -63,7 +60,7 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
   }
 
   private getUsageRightsStatus(): void {
-    const subscription = this.automation.execute(Automations.GetDocumentURStatus, { 'uids': this.document.uid })
+    const subscription = this.nuxeoApi.operation(NuxeoAutomations.CreativeGetDocumentURStatus, { 'uids': this.document.uid })
       .subscribe((res: NuxeoPagination) => {
         this.usageRights = res.entries.shift();
         this.usageLoading = false;

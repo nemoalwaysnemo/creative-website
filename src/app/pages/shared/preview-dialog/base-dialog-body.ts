@@ -4,7 +4,8 @@ import { PreviewDialogService } from './preview-dialog.service';
 import { Subscription } from 'rxjs';
 
 export abstract class BaseDialogBody implements OnInit, OnDestroy {
-  @Input() protected document: DocumentModel;
+
+  @Input() document: DocumentModel;
 
   protected onlyImg: boolean = true;
   protected onlyVideo: boolean = true;
@@ -20,7 +21,7 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  protected close(): void {
+  close(): void {
     this.dialogService.close();
   }
 
