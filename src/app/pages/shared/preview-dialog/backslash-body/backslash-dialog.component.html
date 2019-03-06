@@ -1,13 +1,19 @@
-<div>
-  <div style="background: #000;color: #ffffff;"><a (click)="close()"><img src="assets/images/close.png"></a><img src="assets/images/backslash_logo.png"></div>
+<div class="dialog_body">
+  <div class="dialog_title">
+    <a (click)="close()"><img src="assets/images/close1.png"></a>
+  </div>
+  
   <ng-container *ngIf="document">
-    <tbwa-document-viewer [document]="document" [onlyImg]="onlyImg" [onlyVideo]="onlyVideo"></tbwa-document-viewer>
+    <div class="media">
+      <tbwa-document-viewer [document]="document" [onlyImg]="onlyImg" [onlyVideo]="onlyVideo"></tbwa-document-viewer>
+    </div>
   </ng-container>
+  
   <ng-container *ngIf="document">
-    <div style="background: #ffffff">
-      <img src="assets/images/preview_logo.png">
-      <h3>{{document.title}}</h3>
-      {{description}}
+    <div class="text_content">
+      <img src="assets/images/preview_logo.png" class="inline-middle">
+      <h3 class="inline-middle">{{document.title}}</h3>
+      <p>{{description}}</p>
     </div>
   </ng-container>
 </div>

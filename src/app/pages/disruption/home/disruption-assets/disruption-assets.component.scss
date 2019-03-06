@@ -4,7 +4,17 @@
 .right { float: right; }
 .clear { clear: both; }
 nb-card {
-  width: 100%;
+  @include media-breakpoint-down(lg) { //992px
+    width: 700px;
+  }
+  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+    width: 850px;
+  }
+  @include media-breakpoint-up(xxl) { //1400px
+    width: 1366px;
+  }
+
+  margin: 0 auto;
   padding: 0 40px;
   box-sizing: border-box;
 }
