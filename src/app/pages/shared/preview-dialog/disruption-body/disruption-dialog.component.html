@@ -1,7 +1,9 @@
 <div>
-  <div style="background: #000;color: #ffffff;"><a (click)="close()"><img src="assets/images/close.png"></a><img src="assets/images/backslash_logo.png"></div>
+  <div style="background: #000;color: #ffffff;"><a (click)="close()"><img src="assets/images/close.png"></a>disruption</div>
   <ng-container *ngIf="document">
-    <tbwa-document-viewer [document]="document" [onlyImg]="onlyImg"></tbwa-document-viewer>
+    <div style="max-height: 200px">
+      <tbwa-document-viewer [document]="document" [onlyImg]="onlyImg"></tbwa-document-viewer>
+    </div>
   </ng-container>
   <ng-container *ngIf="document">
     <div style="background: #ffffff">

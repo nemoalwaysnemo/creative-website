@@ -1,6 +1,6 @@
 <div class="slides" [ngSwitch]="getDocumentViewer()">
   <tbwa-document-pdf-viewer *ngSwitchCase="'pdf'" [document]="document"></tbwa-document-pdf-viewer>
   <tbwa-document-image-viewer *ngSwitchCase="'picture'" [document]="document" [onlyImg]="onlyImg"></tbwa-document-image-viewer>
-  <tbwa-document-video-viewer *ngSwitchCase="'video'" [document]="document"></tbwa-document-video-viewer>
+  <tbwa-document-video-viewer *ngSwitchCase="'video'" [document]="document" [onlyVideo]="onlyVideo"></tbwa-document-video-viewer>
   <tbwa-document-audio-viewer *ngSwitchCase="'audio'" [document]="document"></tbwa-document-audio-viewer>
 </div>

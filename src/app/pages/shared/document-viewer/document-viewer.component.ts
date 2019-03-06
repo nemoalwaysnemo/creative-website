@@ -11,6 +11,7 @@ export class DocumentViewerComponent {
 
   @Input() document: DocumentModel;
   @Input() onlyImg: boolean;
+  @Input() onlyVideo: boolean;
 
   getDocumentViewer(): string {
     let type = 'unkonw';

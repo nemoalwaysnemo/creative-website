@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
+import { PreviewDialogService } from '../preview-dialog';
 
 @Component({
   selector: 'creative-thumbnail-view-item',
@@ -22,6 +23,11 @@ export class CreativeThumbnailViewItemComponent {
     if (name) {
       this.layout = name;
     }
+  }
+  constructor(private dialogService: PreviewDialogService) { }
+
+  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
+    this.dialogService.open(dialog, doc, type);
   }
 
   getThumbnailUrl(doc: DocumentModel): string {

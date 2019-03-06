@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 export abstract class BaseDialogBody implements OnInit, OnDestroy {
   @Input() protected document: DocumentModel;
 
-  private onlyImg: boolean = true;
+  protected onlyImg: boolean = true;
+  protected onlyVideo: boolean = true;
   private subscription: Subscription = new Subscription();
 
   constructor(protected dialogService: PreviewDialogService) { }
