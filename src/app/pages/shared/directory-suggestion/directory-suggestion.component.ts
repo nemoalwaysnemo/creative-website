@@ -1,7 +1,7 @@
-import { Component, Input, forwardRef, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, forwardRef, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OptionModel } from '../option-select/option-select.interface';
-import { NuxeoAutomations, DirectoryEntry, NuxeoApiService, NuxeoResponse } from '@core/api';
+import { NuxeoAutomations, NuxeoApiService, NuxeoResponse, NuxeoPagination, DocumentModel } from '@core/api';
 import { Subscription, Observable, of as observableOf, Subject } from 'rxjs';
 import { tap, takeWhile, debounceTime, distinctUntilChanged, switchMap, share, map } from 'rxjs/operators';
 
@@ -33,11 +33,13 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private subscription: Subscription = new Subscription();
 
-  @Input() directoryName: string;
-
   @Input() placeholder: string;
 
-  @Input() contains: boolean = false;
+  @Input() directoryName: string;
+
+  @Input() contains: boolean = true;
+
+  @Input() providerName: string;
 
   constructor(private nuxeoApi: NuxeoApiService) { }
 
@@ -48,7 +50,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   ngOnInit() {
-    this.search();
+    this.onSearch();
   }
 
   ngOnDestroy() {
@@ -71,25 +73,41 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     this.disabled = isDisabled;
   }
 
-  private search(): void {
-    const subscription = this.filter$.pipe(
-      takeWhile((term: string) => !this.disabled && term !== null),
+  private getSuggestions(searchTerm: string): Observable<OptionModel[]> {
+    let res;
+    if (this.providerName) {
+      res = this.getDocumentSuggestions(this.providerName, searchTerm);
+    } else if (this.directoryName) {
+      res = this.getDirectorySuggestions(this.directoryName, searchTerm, this.contains);
+    } else {
+      res = observableOf([]);
+    }
+    return res;
+  }
+
+  private onSearch(): void {
+    this.subscription = this.filter$.pipe(
+      takeWhile((searchTerm: string) => !this.disabled && searchTerm !== null),
       debounceTime(500),
       distinctUntilChanged(),
       tap(() => this.loading = true),
-      switchMap((term: string) => this.getDirectorySuggestions(this.directoryName, term, this.contains).pipe(
+      switchMap((searchTerm: string) => this.getSuggestions(searchTerm).pipe(
         tap(() => this.loading = false),
       )),
       share(),
     ).subscribe((res: OptionModel[]) => {
       this.options$ = observableOf(res);
     });
-    this.subscription.add(subscription);
   }
 
-  private getDirectorySuggestions(directoryName: string, searchTerm: string, contains: boolean = false): Observable<any> {
+  private getDirectorySuggestions(directoryName: string, searchTerm: string, contains: boolean = false): Observable<OptionModel[]> {
     return this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName, searchTerm, contains })
       .pipe(map((res: NuxeoResponse) => res.map((entry: any) => new OptionModel(entry.label, entry.id))));
+  }
+
+  private getDocumentSuggestions(providerName: string, searchTerm: string, pageSize: number = 20): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(NuxeoAutomations.RepositoryPageProvider, { providerName, searchTerm, pageSize })
+      .pipe(map((res: NuxeoPagination) => res.entries.map((doc: DocumentModel) => new OptionModel(doc.title, doc.uid))));
   }
 
 }
