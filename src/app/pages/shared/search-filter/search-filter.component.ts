@@ -21,10 +21,6 @@ export class SearchFilterComponent implements ControlValueAccessor {
 
   disabled: boolean = false;
 
-  @Input() styleClass: string;
-
-  styleClasses = { 'homePage': 'home_advanced_filters flex', 'searchPage': 'advanced_filters flex' };
-
   private _onChange = (_) => { };
 
   private _onTouched = () => { };

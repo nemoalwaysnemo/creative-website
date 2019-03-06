@@ -1,0 +1,17 @@
+<div class="directory-suggestion flex">
+  <ng-select
+    [items]="options$ | async"
+    [placeholder]="placeholder"
+    [selectOnTab]="true"
+    [multiple]="true"
+    [hideSelected]="true"
+    bindLabel="label"
+    bindValue="value"
+    clearAllText="Clear"
+    [loading]="loading"
+    [typeahead]="filter$"
+    [virtualScroll]="true"
+    (change)="onChange($event)"
+    [(ngModel)]="selectedItems"
+  ></ng-select>
+</div>

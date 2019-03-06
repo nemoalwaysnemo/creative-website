@@ -14,7 +14,7 @@
   </div>
 
   <ng-container *ngIf="showFilter">
-    <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted" [styleClass]="'searchPage'"></tbwa-search-filter>
+    <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted"></tbwa-search-filter>
     <div class="search-actions 1">
       <button nbButton class="icon_btn success" [disabled]="submitted || !form.form.valid" (click)="onSubmit()">Search</button>
       <button nbButton class="icon_btn" [disabled]="submitted || !form.form.valid" (click)="onReset()">Reset</button>
