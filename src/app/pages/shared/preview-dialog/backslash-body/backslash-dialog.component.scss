@@ -1,0 +1,45 @@
+.inline-middle {
+	display: inline-block;
+	vertical-align: middle;
+}
+.dialog_body {
+	height: 100%;
+  overflow: auto;
+	.dialog_title {
+		height: 80px;
+		padding: 24px 0;
+		box-sizing: border-box;
+		background-image: url('assets/images/backslash_logo.png');
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: auto 32px;
+		background-color: #000000;
+		a {
+			display: block;
+			width: 32px;
+			height: 32px;
+			margin-left: 25px;
+			img {
+				display: block;
+				width: 100%;
+			}
+		}
+	}
+	.media {
+		padding: 0 144px;
+		box-sizing: border-box;
+		background-color: #000000;
+	}
+	.text_content {
+		padding: 30px 0;
+		background: #ffffff;
+		img {
+			margin-left: 33px;
+			margin-right: 27px;
+		}
+		p {
+			width: calc(100% - 254px);
+			margin: 49px auto 0;
+		}
+	}
+}

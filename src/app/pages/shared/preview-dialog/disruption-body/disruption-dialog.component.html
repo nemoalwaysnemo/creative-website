@@ -1,15 +1,21 @@
-<div>
-  <div style="background: #000;color: #ffffff;"><a (click)="close()"><img src="assets/images/close.png"></a>disruption</div>
+<div class="dialog_body">
+  <div class="dialog_title text-center">
+    <a (click)="close()" class="left"><img src="assets/images/close1.png"></a>
+    <h1>Disruption</h1>
+    <div class="clear"></div>
+  </div>
+  
   <ng-container *ngIf="document">
-    <div style="max-height: 200px">
+    <div class="media">
       <tbwa-document-viewer [document]="document" [onlyImg]="onlyImg"></tbwa-document-viewer>
     </div>
   </ng-container>
+  
   <ng-container *ngIf="document">
-    <div style="background: #ffffff">
-      <img src="assets/images/preview_logo.png">
-      <h3>{{document.title}}</h3>
-      {{description}}
+    <div class="text_content">
+      <img src="assets/images/preview_logo.png" class="inline-middle">
+      <h3 class="inline-middle">{{document.title}}</h3>
+      <p>{{description}}</p>
     </div>
   </ng-container>
 </div>
