@@ -1,0 +1,28 @@
+
+
+<ng-container [ngSwitch]="true">
+  <ng-container *ngSwitchCase="redirectToIndusty">
+      <div *ngFor="let document of folderContents" class="thumbnail-view" style="float: left">
+        <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: document.title}">
+          <div>
+            <div class="image_holder">
+              <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
+            </div>
+            <div>{{ document.title }}</div>
+          </div>
+      </a>
+      </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="!redirectToIndusty">
+      <div *ngFor="let document of folderContents" class="thumbnail-view" style="float: left">
+      <a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}">
+        <div>
+          <div class="image_holder">
+            <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
+          </div>
+          <div>{{ document.title }}</div>
+        </div>
+    </a>
+    </div>
+  </ng-container>
+</ng-container>

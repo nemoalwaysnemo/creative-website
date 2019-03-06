@@ -16,15 +16,15 @@ import {
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
-  DirectorySuggestionModule,
   FileUploadModule,
   SearchResultModule,
   PreviewDialogService,
   PreviewDialogModule,
-  DocumentFormModule,
 } from './';
 
+import { HomeSearchModule } from './home-search/home-search.module';
 const EXPORTS = [
+  HomeSearchModule,
   CommonModule,
   ThemeModule,
   OptionSelectModule,
@@ -42,9 +42,7 @@ const EXPORTS = [
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
-  DirectorySuggestionModule,
   PreviewDialogModule,
-  DocumentFormModule,
 ];
 
 const PROVIDERS = [

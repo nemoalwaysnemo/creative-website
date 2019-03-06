@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { SharedModule } from '@pages/shared/shared.module';
-import { HomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '@pages/shared/shared.module';
+import { IntelligenceFoldersComponent } from './intelligence-folders.component';
 @NgModule({
   imports: [
     ThemeModule,
@@ -10,10 +10,10 @@ import { RouterModule } from '@angular/router';
     RouterModule,
   ],
   declarations: [
-    HomeComponent,
+    IntelligenceFoldersComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,
   ],
 })
-export class HomePageModule { }
+export class IntelligenceFoldersModule { }

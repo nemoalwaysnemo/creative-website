@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdvanceSearch } from '@core/api';
 import { HomeSearchComponent } from './home-search.component';
 import { ClickOutsideModule } from 'ng-click-outside';
-import { SharedModule } from '@pages/shared/shared.module';
+import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnail-view.module';
 
 @NgModule({
   imports: [
@@ -12,7 +12,7 @@ import { SharedModule } from '@pages/shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     ClickOutsideModule,
-    SharedModule,
+    CreativeThumbnailViewModule,
   ],
   declarations: [
     HomeSearchComponent,

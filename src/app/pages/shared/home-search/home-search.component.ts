@@ -1,9 +1,9 @@
-import { OnInit, Component, OnDestroy } from '@angular/core';
+import { OnInit, Component, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../../shared';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../shared';
 import { Router } from '@angular/router';
 import { deepExtend } from '@core/services';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -15,7 +15,8 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 
 export class HomeSearchComponent implements OnInit, OnDestroy {
-
+  @Input() headline: any;
+  @Input() subHead: any;
   results: DocumentModel[];
   documents: DocumentModel[] = [];
   queryField: FormControl = new FormControl();
@@ -53,6 +54,13 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  getThumbnailUrl(doc): string {
+    if (doc) {
+      return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
+    } else {
+      return '';
+    }
+  }
   search(): void {
     const subscription = this.queryField.valueChanges
       .pipe(
