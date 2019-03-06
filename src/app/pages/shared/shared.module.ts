@@ -18,6 +18,8 @@ import {
   DocumentRelatedProjectModule,
   FileUploadModule,
   SearchResultModule,
+  PreviewDialogService,
+  PreviewDialogModule,
 } from './';
 
 const EXPORTS = [
@@ -38,10 +40,12 @@ const EXPORTS = [
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
+  PreviewDialogModule,
 ];
 
 const PROVIDERS = [
   SearchQueryParamsService,
+  PreviewDialogService,
 ];
 
 @NgModule({

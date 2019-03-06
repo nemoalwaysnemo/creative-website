@@ -1,0 +1,13 @@
+<div>
+  <div style="background: #000;color: #ffffff;"><a (click)="close()"><img src="assets/images/close.png"></a><img src="assets/images/backslash_logo.png"></div>
+  <ng-container *ngIf="document">
+    <tbwa-document-viewer [document]="document" [onlyImg]="onlyImg" [onlyVideo]="onlyVideo"></tbwa-document-viewer>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <div style="background: #ffffff">
+      <img src="assets/images/preview_logo.png">
+      <h3>{{document.title}}</h3>
+      {{description}}
+    </div>
+  </ng-container>
+</div>

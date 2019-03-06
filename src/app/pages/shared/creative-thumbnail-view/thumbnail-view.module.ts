@@ -5,6 +5,7 @@ import { NgPipesModule } from 'ngx-pipes';
 import { SharedDirectiveModule } from '../directives/shared-directive.module';
 import { CreativeThumbnailViewComponent, CreativeThumbnailViewItemComponent } from './thumbnail-view.component';
 import { ThemeModule } from '@theme/theme.module';
+import { PreviewDialogModule } from '../preview-dialog';
 
 const COMPONENTS = [CreativeThumbnailViewComponent, CreativeThumbnailViewItemComponent];
 
@@ -15,6 +16,7 @@ const COMPONENTS = [CreativeThumbnailViewComponent, CreativeThumbnailViewItemCom
     RouterModule,
     NgPipesModule,
     SharedDirectiveModule,
+    PreviewDialogModule,
   ],
   declarations: [...COMPONENTS],
   exports: [

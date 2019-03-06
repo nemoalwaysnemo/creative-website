@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { filter, mergeMap } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
 import { DocumentRelatedInfoService } from '../document-related-info.service';
 import { Environment, NUXEO_META_INFO } from '@environment/environment';
+import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
 
 @Component({
   selector: 'tbwa-document-related-info-view',
@@ -33,7 +34,11 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private advanceSearch: AdvanceSearch,
-    private documentRelatedInfoService: DocumentRelatedInfoService) { }
+    private documentRelatedInfoService: DocumentRelatedInfoService,
+    private dialogService: PreviewDialogService,
+  ) {
+
+   }
 
   ngOnInit() {
     this.onSearch();
@@ -43,6 +48,10 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
+    this.dialogService.open(dialog, doc, type);
   }
 
   onKeyup(event: KeyboardEvent) {

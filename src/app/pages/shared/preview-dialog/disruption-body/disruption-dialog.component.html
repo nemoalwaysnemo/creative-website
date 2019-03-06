@@ -1,0 +1,15 @@
+<div>
+  <div style="background: #000;color: #ffffff;"><a (click)="close()"><img src="assets/images/close.png"></a>disruption</div>
+  <ng-container *ngIf="document">
+    <div style="max-height: 200px">
+      <tbwa-document-viewer [document]="document" [onlyImg]="onlyImg"></tbwa-document-viewer>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <div style="background: #ffffff">
+      <img src="assets/images/preview_logo.png">
+      <h3>{{document.title}}</h3>
+      {{description}}
+    </div>
+  </ng-container>
+</div>

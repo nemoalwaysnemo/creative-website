@@ -7,6 +7,8 @@ export * from './document-viewer/document-viewer.module';
 export * from './services/search-params.service';
 export * from './creative-thumbnail-view/thumbnail-view.module';
 export * from './picture-gallery/picture-gallery.module';
+export * from './preview-dialog/preview-dialog.module';
+export * from './preview-dialog/preview-dialog.service';
 export * from './search-filter/search-filter.module';
 export * from './search-result/search-result.module';
 export * from './option-select/option-select.module';
