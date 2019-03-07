@@ -2,7 +2,7 @@ import { DynamicFormControlLayout } from '../misc/dynamic-form-control-layout.mo
 import { serializable } from '../../decorator/serializable.decorator';
 import { DynamicFormValueControlModelConfig, DynamicFormValueControlModel } from '../dynamic-form-value-control.model';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD = 'BATCHUPLOAD';
+export const DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD = 'BATCH_UPLOAD';
 
 export interface DynamicBatchUploadModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
 

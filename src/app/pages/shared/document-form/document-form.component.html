@@ -3,6 +3,6 @@
   <form [formGroup]="formGroup">
     <dynamic-basic-form-control *ngFor="let controlModel of formModel" class="form-row" [group]="formGroup" [model]="controlModel" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)"></dynamic-basic-form-control>
   </form>
-  <pre>{{formGroup.value | json}}</pre>
+  <pre style="width: 300rem;">{{formGroup.value | json}}</pre>
 
 </div>

@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import {
-  DynamicFormService,
-  DynamicFormControlModel,
-} from '@core/custom';
+import { DocumentModel } from '@core/api';
+import { DynamicFormService, DynamicFormControlModel } from '@core/custom';
 import { BASIC_SAMPLE_FORM_MODEL } from './document-form.model';
+
 
 @Component({
   selector: 'tbwa-document-form',
@@ -17,6 +16,9 @@ export class DocumentFormComponent implements OnInit {
 
   formGroup: FormGroup;
 
+  @Input() document: DocumentModel;
+  @Input() placeholder: string;
+
   constructor(private formService: DynamicFormService) {
     this.formModel = this.formService.fromJSON(JSON.stringify(BASIC_SAMPLE_FORM_MODEL));
     this.formGroup = this.formService.createFormGroup(this.formModel);
@@ -24,15 +26,6 @@ export class DocumentFormComponent implements OnInit {
 
   ngOnInit() {
 
-  }
-
-  add() {
-  }
-
-  remove(index: number) {
-  }
-
-  clear() {
   }
 
   onBlur($event) {

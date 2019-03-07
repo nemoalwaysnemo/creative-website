@@ -154,6 +154,7 @@ export class NuxeoRequestOptions {
   schemas?: string[] = ['*'];
   enrichers?: {} = {
     document: [
+      NuxeoEnricher.document.PREVIEW,
       NuxeoEnricher.document.SUBTYPES,
       NuxeoEnricher.document.THUMBNAIL,
       NuxeoEnricher.document.FAVORITES,

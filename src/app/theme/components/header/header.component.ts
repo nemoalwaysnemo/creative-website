@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '@core/api';
+import { UserService, UserModel } from '@core/api';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Environment } from '@environment/environment';
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private getUser(): void {
-    const subscription = this.userService.getCurrentUser().subscribe((user: any) => {
+    const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {
       this.user = user;
       this.user['avatar'] = 'assets/images/user_icon.png';
     });

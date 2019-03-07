@@ -1,13 +1,8 @@
-import { Base } from './base.api';
 
-export class UserModel extends Base {
-  private _properties: any;
-  private _dirtyProperties: any;
+export class UserModel {
+  private _properties: any = {};
 
   constructor(user: any, opts: any = {}) {
-    super(opts);
-    this._properties = {};
-    this._dirtyProperties = {};
     Object.assign(this, user);
   }
 
@@ -24,7 +19,7 @@ export class UserModel extends Base {
   }
 
   get(propertyName: string): any {
-    return this._dirtyProperties[propertyName] || this.properties[propertyName];
+    return this.properties[propertyName];
   }
 
 }
