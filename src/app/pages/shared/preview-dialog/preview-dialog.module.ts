@@ -7,7 +7,7 @@ import { PreviewDialogService } from './preview-dialog.service';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { BackslashDialogComponent } from './backslash-body/backslash-dialog.component';
 import { DisruptionDialogComponent } from './disruption-body/disruption-dialog.component';
-import { IntelligenceDialogComponent } from '@pages/shared/preview-dialog/Intelligence-body/Intelligence-dialog.component';
+import { IntelligenceDialogComponent } from '@pages/shared/preview-dialog/intelligence-body/intelligence-dialog.component';
 
 
 @NgModule({
