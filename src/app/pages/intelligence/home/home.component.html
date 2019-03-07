@@ -1,7 +1,7 @@
 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <tbwa-home-search [headline]="headline"></tbwa-home-search>
   </div>
-  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="disruption-roads third flex" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
+  <div>
       <div *ngFor="let document of folders" class="thumbnail-view" style="float: left">
           <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: document.title}">
           <div>
@@ -13,7 +13,4 @@
         </a>
       </div>
   </div>
-<div *ngIf="!loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
-  <span class="empty-data">No data found</span>
-</div>
 

@@ -3,7 +3,7 @@
     <h1>{{ this.headline }}</h1>
     <h4>{{ this.subHead }}</h4>
     <div (clickOutside)="hide()" (click)="show()" style="display:inline-block;">
-      <div class="keyword-wrapper" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}">
+      <div class="keyword-wrapper" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(backgroudDocument)+')'}">
         <input [formControl]="queryField" autofocus (keyup.enter)="onKeyup($event)" type="text" class="keyword" placeholder="Search for campaigns by title, agency, brand, client..." />
       </div>
       <creative-thumbnail-view [layout]="layout" [documents]="documents" [showEmpty]="false" [tabIndex]="0"></creative-thumbnail-view>
