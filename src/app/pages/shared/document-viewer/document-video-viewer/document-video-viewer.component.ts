@@ -16,7 +16,7 @@ export class DocumentVideoViewerComponent implements OnInit {
   storyboards: { source: any, time: number }[];
 
   @Input() document: DocumentModel;
-  @Input() onlyVideo: boolean;
+  @Input() forDailog: boolean;
 
   ngOnInit() {
     this.buildVideoInfo();

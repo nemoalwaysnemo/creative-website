@@ -2,13 +2,11 @@
   <div class="dialog_title">
     <a (click)="close()"><img src="assets/images/close1.png"></a>
   </div>
-  
   <ng-container *ngIf="document">
     <div class="media">
-      <tbwa-document-viewer [document]="document" [onlyImg]="onlyImg" [onlyVideo]="onlyVideo"></tbwa-document-viewer>
+      <tbwa-document-viewer [document]="document" [forDailog]="forDailog"></tbwa-document-viewer>
     </div>
   </ng-container>
-  
   <ng-container *ngIf="document">
     <div class="text_content">
       <img src="assets/images/preview_logo.png" class="inline-middle">

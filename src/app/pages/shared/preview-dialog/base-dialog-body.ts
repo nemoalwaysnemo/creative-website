@@ -7,8 +7,7 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
   @Input() document: DocumentModel;
 
-  protected onlyImg: boolean = true;
-  protected onlyVideo: boolean = true;
+  protected forDailog: boolean = true;
   private subscription: Subscription = new Subscription();
 
   constructor(protected dialogService: PreviewDialogService) { }
@@ -23,6 +22,10 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
   close(): void {
     this.dialogService.close();
+  }
+
+  protected parseCountry(list: string[]) {
+    return list.map((x) => x.split('/').pop()).join(', ');
   }
 
   private onDocumentNext() {

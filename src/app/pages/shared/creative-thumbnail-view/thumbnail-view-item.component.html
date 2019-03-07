@@ -27,7 +27,7 @@
 </div>
 <div *ngIf="layout === 'intelligence'" class="thumbnail-view-item {{styleClass}}">
   <div class="image_holder">
-    <a [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}"></a>
+    <a [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}" (click)="open(dialog, document, 'intelligence')"></a>
   </div>
   <div class="description">
     <h1 [title]="document.title">{{document.title}}</h1>
