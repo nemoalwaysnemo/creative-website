@@ -1,12 +1,13 @@
 import { OnInit, Component, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { debounceTime, map, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../shared';
-import { Router } from '@angular/router';
 import { deepExtend } from '@core/services';
 import { NUXEO_META_INFO } from '@environment/environment';
+import { SearchQueryParamsService } from '../services/search-params.service';
+import { DEFAULT_SEARCH_FILTER_ITEM } from '../shared-config';
 
 @Component({
   selector: 'tbwa-home-search',

@@ -84,6 +84,6 @@ export class BrandComponent implements OnInit, OnDestroy {
   }
 
   private redirectTo404(): void {
-    this.router.navigate(['/404']);
+    this.router.navigate(['/p/error/404']);
   }
 }

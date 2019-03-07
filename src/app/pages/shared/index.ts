@@ -15,6 +15,7 @@ export * from './search-filter/search-filter.module';
 export * from './search-result/search-result.module';
 export * from './option-select/option-select.module';
 export * from './option-select/option-select.interface';
+export * from './home-search/home-search.module';
 export * from './pagination/pagination.module';
 export * from './list-view/list-view.interface';
 export * from './list-view/list-view.module';

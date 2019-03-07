@@ -27,7 +27,7 @@ const routes: Routes = [
     ],
   },
   { path: '', redirectTo: 'p', pathMatch: 'full' },
-  { path: '**', redirectTo: 'p/404' },
+  { path: '**', redirectTo: 'p/error/404' },
 ];
 
 const config: ExtraOptions = {

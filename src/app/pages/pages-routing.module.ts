@@ -20,6 +20,10 @@ const routes: Routes = [{
       redirectTo: 'creative',
       pathMatch: 'full',
     }, {
+      path: 'error',
+      loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
+    },
+    {
       path: '**',
       loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
     },

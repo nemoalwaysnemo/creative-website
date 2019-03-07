@@ -20,9 +20,10 @@ import {
   SearchResultModule,
   PreviewDialogService,
   PreviewDialogModule,
+  DirectorySuggestionModule,
+  HomeSearchModule,
 } from './';
 
-import { HomeSearchModule } from './home-search/home-search.module';
 const EXPORTS = [
   HomeSearchModule,
   CommonModule,
@@ -43,6 +44,7 @@ const EXPORTS = [
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
   PreviewDialogModule,
+  DirectorySuggestionModule,
 ];
 
 const PROVIDERS = [
