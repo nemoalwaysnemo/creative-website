@@ -13,7 +13,9 @@ import { DynamicBasicRadioGroupComponent } from './radio-group/dynamic-basic-rad
 import { DynamicBasicSelectComponent } from './select/dynamic-basic-select.component';
 import { DynamicBasicTextAreaComponent } from './textarea/dynamic-basic-textarea.component';
 import { DynamicBasicSuggestionComponent } from './suggestion/dynamic-basic-suggestion.component';
+import { DynamicBasicBatchUploadComponent } from './batch-upload/dynamic-basic-batch-upload.component';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
+import { BatchFileUploadModule } from '../batch-file-upload/batch-file-upload.module';
 
 @NgModule({
 
@@ -22,6 +24,7 @@ import { DirectorySuggestionModule } from '../directory-suggestion/directory-sug
     CommonModule,
     ReactiveFormsModule,
     TextMaskModule,
+    BatchFileUploadModule,
     DirectorySuggestionModule,
     DynamicFormsCoreModule.forRoot(),
   ],
@@ -36,6 +39,7 @@ import { DirectorySuggestionModule } from '../directory-suggestion/directory-sug
     DynamicBasicSelectComponent,
     DynamicBasicTextAreaComponent,
     DynamicBasicSuggestionComponent,
+    DynamicBasicBatchUploadComponent,
   ],
   entryComponents: [
     DynamicBasicCheckboxComponent,
@@ -46,6 +50,7 @@ import { DirectorySuggestionModule } from '../directory-suggestion/directory-sug
     DynamicBasicSelectComponent,
     DynamicBasicTextAreaComponent,
     DynamicBasicSuggestionComponent,
+    DynamicBasicBatchUploadComponent,
   ],
   exports: [
     DynamicFormsCoreModule,
@@ -59,6 +64,7 @@ import { DirectorySuggestionModule } from '../directory-suggestion/directory-sug
     DynamicBasicSelectComponent,
     DynamicBasicTextAreaComponent,
     DynamicBasicSuggestionComponent,
+    DynamicBasicBatchUploadComponent,
   ],
 })
 

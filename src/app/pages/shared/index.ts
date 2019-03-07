@@ -19,5 +19,5 @@ export * from './home-search/home-search.module';
 export * from './pagination/pagination.module';
 export * from './list-view/list-view.interface';
 export * from './list-view/list-view.module';
-export * from './file-upload/file-upload.module';
+export * from './batch-file-upload/batch-file-upload.module';
 export * from './shared-config';

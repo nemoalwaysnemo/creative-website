@@ -1,0 +1,15 @@
+<ng-container [formGroup]="group">
+  <tbwa-batch-file-upload
+      [formControlName]="model.id"
+      [id]="elementId"
+      [placeholder]="model.placeholder"
+      [acceptTypes]="model.acceptTypes"
+      [maxSize]="model.maxSize"
+      [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
+      [required]="model.required"
+      [tabindex]="model.tabIndex"
+      (blur)="onBlur($event)"
+      (change)="onChange($event)"
+      (focus)="onFocus($event)">
+  </tbwa-batch-file-upload>
+</ng-container>
