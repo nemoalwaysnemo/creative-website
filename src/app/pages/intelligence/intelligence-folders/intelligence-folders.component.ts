@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {  NuxeoPagination, AdvanceSearch } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
+import { isDocumentUID } from '@core/services';
 
 @Component({
   selector: 'tbwa-intelligence-folders',
@@ -13,12 +14,13 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   folderContents: any;
   redirectToIndusty: boolean;
+  queryParams = this.activatedRoute.snapshot.queryParams;
 
   contentParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_path: '/know-edge',
-    ecm_parentId: this.activatedRoute.queryParams['value'].id,
+    ecm_parentId: this.queryParams.id,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
   };
 
@@ -26,7 +28,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_path: '/know-edge',
-    app_edges_intelligence_category: `["${this.activatedRoute.queryParams['value'].folder_type}"]`,
+    app_edges_intelligence_category: `["${this.queryParams.folder_type}"]`,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
   };
 
@@ -34,7 +36,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_path: '/know-edge',
-    app_Edges_industry: `["${this.activatedRoute.queryParams['value'].folder_type}"]`,
+    app_edges_industry_any: this.getIndustryString(this.queryParams.industry_type),
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
   };
 
@@ -47,36 +49,55 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
     };
   }
   ngOnInit() {
-    if ( this.activatedRoute.queryParams['value'].folder_type === 'Industry' ) {
-      this.redirectToIndusty = true;
-      this.searchContents(this.contentParams);
-    } else if ( this.activatedRoute.queryParams['value'].folder_type === 'Consumer' ||
-    this.activatedRoute.queryParams['value'].folder_type === 'Marketing') {
-      this.searchAssets(this.assetParams);
-    } else {
-      this.searchContents(this.industryParams);
-    }
-
+    this.checkFolderId(this.queryParams.id);
+    this.judgeRedirects(this.queryParams.folder_type);
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+  private checkFolderId(folderId: string) {
+    if ( !isDocumentUID(folderId) ) {
+      this.redirectTo404();
+    }
+  }
+
+  private judgeRedirects(folderType: string) {
+    if ( folderType === 'Industry' ) {
+      this.redirectToIndusty = true;
+      this.searchContents(this.contentParams);
+    } else if ( folderType === 'Consumer' || folderType === 'Marketing') {
+      this.searchAssets(this.assetParams);
+    } else if ( folderType === 'industryAssets') {
+      this.searchContents(this.industryParams);
+    }
   }
 
   private searchContents(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.folderContents = res.entries;
-        console.info(this.folderContents);
       });
     this.subscription.add(subscription);
   }
 
   private searchAssets(params: {}): void {
+
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.folderContents = res.entries;
       });
     this.subscription.add(subscription);
+  }
+
+  getIndustryString(industry) {
+    if (industry) {
+    const tempString = '["' + industry.join('", "') + '"]';
+    return tempString;
+    }
+  }
+
+  private redirectTo404(): void {
+    this.router.navigate(['/404']);
   }
 }
