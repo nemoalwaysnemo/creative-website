@@ -21,6 +21,7 @@ import {
   PreviewDialogService,
   PreviewDialogModule,
   DirectorySuggestionModule,
+  DocumentFormModule,
   HomeSearchModule,
 } from './';
 
@@ -44,6 +45,7 @@ const EXPORTS = [
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
   PreviewDialogModule,
+  DocumentFormModule,
   DirectorySuggestionModule,
 ];
 

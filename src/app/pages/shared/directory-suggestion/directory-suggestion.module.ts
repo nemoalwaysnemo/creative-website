@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
-import { ThemeModule } from '@theme/theme.module';
+import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { DirectorySuggestionComponent } from './directory-suggestion.component';
 import { APIModule } from '@core/api';
+import { DirectorySuggestionComponent } from './directory-suggestion.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     APIModule,
-    ThemeModule,
+    FormsModule,
+    CommonModule,
     NgSelectModule,
   ],
   declarations: [

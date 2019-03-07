@@ -32,15 +32,13 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
   DynamicRadioGroupModel,
 } from '../model/radio/dynamic-radio-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION, DynamicSuggestionModel } from '../model/suggestion/dynamic-suggestion.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RATING, DynamicRatingModel } from '../model/rating/dynamic-rating.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SELECT, DynamicSelectModel } from '../model/select/dynamic-select.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SLIDER, DynamicSliderModel } from '../model/slider/dynamic-slider.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SWITCH, DynamicSwitchModel } from '../model/switch/dynamic-switch.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA, DynamicTextAreaModel } from '../model/textarea/dynamic-textarea.model';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicTimePickerModel,
-} from '../model/timepicker/dynamic-timepicker.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER, DynamicTimePickerModel } from '../model/timepicker/dynamic-timepicker.model';
 import { DynamicFormValidationService } from './dynamic-form-validation.service';
 import { DynamicFormModel, DynamicUnionFormModel } from '../model/dynamic-form.model';
 import { DynamicPathable } from '../model/misc/dynamic-form-control-path.model';
@@ -401,6 +399,10 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER:
           formModel.push(new DynamicTimePickerModel(model, layout));
+          break;
+
+        case DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION:
+          formModel.push(new DynamicSuggestionModel(model, layout));
           break;
 
         default:

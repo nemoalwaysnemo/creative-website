@@ -12,6 +12,8 @@ import { DynamicBasicInputComponent } from './input/dynamic-basic-input.componen
 import { DynamicBasicRadioGroupComponent } from './radio-group/dynamic-basic-radio-group.component';
 import { DynamicBasicSelectComponent } from './select/dynamic-basic-select.component';
 import { DynamicBasicTextAreaComponent } from './textarea/dynamic-basic-textarea.component';
+import { DynamicBasicSuggestionComponent } from './suggestion/dynamic-basic-suggestion.component';
+import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
 
 @NgModule({
 
@@ -20,6 +22,7 @@ import { DynamicBasicTextAreaComponent } from './textarea/dynamic-basic-textarea
     CommonModule,
     ReactiveFormsModule,
     TextMaskModule,
+    DirectorySuggestionModule,
     DynamicFormsCoreModule.forRoot(),
   ],
   declarations: [
@@ -32,6 +35,7 @@ import { DynamicBasicTextAreaComponent } from './textarea/dynamic-basic-textarea
     DynamicBasicRadioGroupComponent,
     DynamicBasicSelectComponent,
     DynamicBasicTextAreaComponent,
+    DynamicBasicSuggestionComponent,
   ],
   entryComponents: [
     DynamicBasicCheckboxComponent,
@@ -41,6 +45,7 @@ import { DynamicBasicTextAreaComponent } from './textarea/dynamic-basic-textarea
     DynamicBasicRadioGroupComponent,
     DynamicBasicSelectComponent,
     DynamicBasicTextAreaComponent,
+    DynamicBasicSuggestionComponent,
   ],
   exports: [
     DynamicFormsCoreModule,
@@ -53,6 +58,7 @@ import { DynamicBasicTextAreaComponent } from './textarea/dynamic-basic-textarea
     DynamicBasicRadioGroupComponent,
     DynamicBasicSelectComponent,
     DynamicBasicTextAreaComponent,
+    DynamicBasicSuggestionComponent,
   ],
 })
 

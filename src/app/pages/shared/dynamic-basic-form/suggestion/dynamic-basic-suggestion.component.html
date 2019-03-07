@@ -1,0 +1,17 @@
+<ng-container [formGroup]="group">
+  <tbwa-directory-suggestion
+      [formControlName]="model.id"
+      [id]="elementId"
+      [placeholder]="model.placeholder"
+      [directoryName]="model.directoryName"
+      [providerName]="model.providerName"
+      [suggestion]="model.suggestion"
+      [contains]="model.contains"
+      [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
+      [required]="model.required"
+      [tabindex]="model.tabIndex"
+      (blur)="onBlur($event)"
+      (change)="onChange($event)"
+      (focus)="onFocus($event)">
+  </tbwa-directory-suggestion>
+</ng-container>

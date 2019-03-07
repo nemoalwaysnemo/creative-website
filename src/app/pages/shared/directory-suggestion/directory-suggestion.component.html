@@ -1,6 +1,6 @@
 <div class="directory-suggestion flex">
   <ng-container [ngSwitch]="true">
-    <ng-container *ngSwitchCase="getViewType() === 'suggest'">
+    <ng-container *ngSwitchCase="getViewType() === 'suggestion'">
       <ng-select
         [items]="options$ | async"
         [placeholder]="placeholder"
@@ -10,7 +10,7 @@
         bindLabel="label"
         bindValue="value"
         clearAllText="Clear"
-        [loading]="loading"
+        [loading]="loading$ | async"
         [typeahead]="filter$"
         [virtualScroll]="true"
         (change)="onChange($event)"
@@ -27,7 +27,7 @@
         bindLabel="label"
         bindValue="value"
         clearAllText="Clear"
-        [loading]="loading"
+        [loading]="loading$ | async"
         [virtualScroll]="true"
         (change)="onChange($event)"
         [(ngModel)]="selectedItems"

@@ -30,6 +30,7 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
+  DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION,
 } from '@core/custom';
 import { DynamicBasicCheckboxComponent } from './checkbox/dynamic-basic-checkbox.component';
 import { DynamicBasicInputComponent } from './input/dynamic-basic-input.component';
@@ -38,6 +39,7 @@ import { DynamicBasicSelectComponent } from './select/dynamic-basic-select.compo
 import { DynamicBasicTextAreaComponent } from './textarea/dynamic-basic-textarea.component';
 import { DynamicBasicFormArrayComponent } from './form-array/dynamic-basic-form-array.component';
 import { DynamicBasicFormGroupComponent } from './form-group/dynamic-basic-form-group.component';
+import { DynamicBasicSuggestionComponent } from './suggestion/dynamic-basic-suggestion.component';
 
 @Component({
   selector: 'dynamic-basic-form-control',
@@ -96,6 +98,9 @@ export function basicUIFormControlMapFn(model: DynamicFormControlModel): Type<Dy
 
     case DYNAMIC_FORM_CONTROL_TYPE_SELECT:
       return DynamicBasicSelectComponent;
+
+    case DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION:
+      return DynamicBasicSuggestionComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA:
       return DynamicBasicTextAreaComponent;
