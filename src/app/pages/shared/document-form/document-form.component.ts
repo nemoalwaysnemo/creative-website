@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import {
   DynamicFormService,
-  DynamicCheckboxModel,
   DynamicFormControlModel,
-  DynamicFormArrayModel,
 } from '@core/custom';
-import { BASIC_SAMPLE_FORM_MODEL, BASIC_SAMPLE_FORM_ARRAY_MODEL } from './document-form.model';
+import { BASIC_SAMPLE_FORM_MODEL } from './document-form.model';
 
 @Component({
   selector: 'tbwa-document-form',

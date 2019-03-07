@@ -1,23 +1,25 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgfModule } from '@core/custom';
 import { APIModule } from '@core/api';
-import { FileUploadComponent } from './file-upload.component';
+import { BatchFileUploadComponent } from './batch-file-upload.component';
 import { ThemeModule } from '@theme/theme.module';
 
 @NgModule({
   imports: [
     APIModule,
     NgfModule,
+    FormsModule,
     ThemeModule,
     CommonModule,
   ],
-  declarations: [FileUploadComponent],
+  declarations: [BatchFileUploadComponent],
   exports: [
-    FileUploadComponent,
+    BatchFileUploadComponent,
   ],
 })
 
-export class FileUploadModule {
+export class BatchFileUploadModule {
 
 }

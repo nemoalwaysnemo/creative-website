@@ -16,11 +16,12 @@ import {
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
-  FileUploadModule,
+  BatchFileUploadModule,
   SearchResultModule,
   PreviewDialogService,
   PreviewDialogModule,
   DirectorySuggestionModule,
+  DocumentFormModule,
   HomeSearchModule,
 } from './';
 
@@ -35,7 +36,7 @@ const EXPORTS = [
   PaginationModule,
   ListViewModule,
   SharedDirectiveModule,
-  FileUploadModule,
+  BatchFileUploadModule,
   SearchResultModule,
   DocumentViewerModule,
   DocumentMetadataInfoModule,
@@ -44,6 +45,7 @@ const EXPORTS = [
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
   PreviewDialogModule,
+  DocumentFormModule,
   DirectorySuggestionModule,
 ];
 

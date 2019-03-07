@@ -2,8 +2,8 @@ import { Component, Input, forwardRef, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OptionModel } from '../option-select/option-select.interface';
 import { NuxeoAutomations, NuxeoApiService, NuxeoResponse, NuxeoPagination, DocumentModel, DirectoryEntry } from '@core/api';
-import { Subscription, Observable, of as observableOf, Subject } from 'rxjs';
-import { tap, takeWhile, debounceTime, distinctUntilChanged, switchMap, share, map } from 'rxjs/operators';
+import { Subscription, Observable, of as observableOf, Subject, BehaviorSubject } from 'rxjs';
+import { tap, takeWhile, debounceTime, distinctUntilChanged, switchMap, share, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'tbwa-directory-suggestion',
@@ -17,9 +17,9 @@ import { tap, takeWhile, debounceTime, distinctUntilChanged, switchMap, share, m
 })
 export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  loading: boolean = false;
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  options$: Observable<OptionModel[]>;
+  options$: BehaviorSubject<OptionModel[]> = new BehaviorSubject<OptionModel[]>([]);
 
   filter$ = new Subject<string>();
 
@@ -37,9 +37,9 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() directoryName: string;
 
-  @Input() contains: boolean = true;
+  @Input() contains: boolean = false;
 
-  @Input() suggest: boolean = true;
+  @Input() suggestion: boolean = true;
 
   @Input() providerName: string;
 
@@ -52,8 +52,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   ngOnInit() {
-    if (this.suggest === true) {
-      this.onSearch();
+    if (this.suggestion === true) {
+      this.onSearchSuggestions();
     } else {
       this.getDirectoryEntries(this.directoryName);
     }
@@ -80,7 +80,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   getViewType(): string {
-    return this.suggest ? 'suggest' : 'list';
+    return this.suggestion ? 'suggestion' : 'list';
   }
 
   private getSuggestions(searchTerm: string): Observable<OptionModel[]> {
@@ -95,17 +95,17 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     return res;
   }
 
-  private onSearch(): void {
+  private onSearchSuggestions(): void {
     const subscription = this.filter$.pipe(
-      takeWhile((searchTerm: string) => !this.disabled && searchTerm !== null),
-      debounceTime(500),
+      filter((searchTerm: string) => searchTerm !== null),
+      debounceTime(300),
       distinctUntilChanged(),
-      tap(() => this.loading = true),
+      tap(() => this.loading$.next(true)),
       switchMap((searchTerm: string) => this.getSuggestions(searchTerm)),
       share(),
     ).subscribe((res: OptionModel[]) => {
-      this.options$ = observableOf(res);
-      this.loading = false;
+      this.options$.next(res);
+      this.loading$.next(false);
     });
     this.subscription.add(subscription);
   }
@@ -121,11 +121,11 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   private getDirectoryEntries(directoryName: string): void {
-    this.loading = true;
+    this.loading$.next(true);
     const subscription = this.nuxeoApi.directory(directoryName).pipe(map((res: DirectoryEntry[]) => res.map((entry: DirectoryEntry) => new OptionModel(entry.label, entry.id))))
       .subscribe((res: OptionModel[]) => {
-        this.options$ = observableOf(res);
-        this.loading = false;
+        this.options$.next(res);
+        this.loading$.next(false);
       });
     this.subscription.add(subscription);
   }

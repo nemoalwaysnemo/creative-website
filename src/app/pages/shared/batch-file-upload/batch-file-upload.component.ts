@@ -1,15 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { Subject, Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'tbwa-file-upload',
-  styleUrls: ['./file-upload.component.scss'],
-  templateUrl: './file-upload.component.html',
+  selector: 'tbwa-batch-file-upload',
+  styleUrls: ['./batch-file-upload.component.scss'],
+  templateUrl: './batch-file-upload.component.html',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => BatchFileUploadComponent),
+    multi: true,
+  }],
 })
 
-export class FileUploadComponent implements OnInit, OnDestroy {
+export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
   files: File[] = [];
 
@@ -18,6 +24,12 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   uploading: boolean = false;
 
   validComboDrag: boolean;
+
+  private disabled: boolean = false;
+
+  private _onChange = (_) => { };
+
+  private _onTouched = () => { };
 
   private batchUpload: BatchUpload;
 
@@ -47,6 +59,21 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  writeValue(value: any): void {
+  }
+
+  registerOnChange(fn: any): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
   private onUpload(): void {
     this.subscription = this.blobs$.pipe(mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob))).subscribe((res: NuxeoUploadResponse) => {
       this.updateFileResponse(res);
@@ -66,22 +93,26 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.files.splice(index, 1);
     this.fileList.splice(index, 1);
     this.onUploaded.emit(this.fileList);
+    this._onChange(this.fileList);
   }
 
   removeAll(): void {
     this.files.length = 0;
     this.fileList.length = 0;
     this.onUploaded.emit([]);
+    this._onChange([]);
   }
 
   private updateFileList(files: File[]): void {
     this.fileList = files.map((file: File, index: number) => new NuxeoUploadResponse({ fileName: file.name, fileSize: file.size, mimeType: file.type, fileIdx: index }));
     this.onUploaded.emit(this.fileList);
+    this._onChange(this.fileList);
   }
 
   private updateFileResponse(res: NuxeoUploadResponse): void {
     this.fileList[res.fileIdx] = res;
     this.onUploaded.emit(this.fileList);
+    this._onChange(this.fileList);
     this.uploaded = this.fileList.every((response: NuxeoUploadResponse) => response.uploaded);
     this.uploading = !this.uploaded;
   }
