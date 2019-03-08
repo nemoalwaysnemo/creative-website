@@ -6,6 +6,7 @@ export const Environment = {
   nuxeoUrl: 'https://library-na.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
   backslashAPPUrl: 'https://backslash.tbwa.com',
+  siteAssetPath: '/nuxeo/LibraryWebUI/',
   production: true,
   autoLogin: true,
 };
