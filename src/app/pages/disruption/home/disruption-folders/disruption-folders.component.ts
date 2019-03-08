@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { PaginationDataSource } from 'app/pages/shared/pagination/pagination-data-source';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../../shared/tab-config';
 import { isDocumentUID } from '@core/services';
@@ -15,6 +16,7 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   document: DocumentModel;
   folderContents: any;
+  paginationService: PaginationDataSource = new PaginationDataSource();
   tabs = TAB_CONFIG;
   private subscription: Subscription = new Subscription();
 
@@ -74,7 +76,6 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
       )
       .subscribe((doc: DocumentModel) => {
         if (doc) {
-
           this.document = doc;
           this.loading = false;
         } else {
@@ -91,6 +92,7 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
   private searchContents(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
+        this.paginationService.from(res);
         this.folderContents = res.entries;
       });
     this.subscription.add(subscription);
