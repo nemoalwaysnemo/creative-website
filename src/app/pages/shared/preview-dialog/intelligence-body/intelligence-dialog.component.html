@@ -10,18 +10,23 @@
     </div>
   </ng-container>
   <ng-container *ngIf="document">
-    <div style="background: #ffffff">
-      <button>download</button><button>share</button>
-      <div>Title: {{ document.title }}</div>
-      <div>Brand: {{ document.get('The_Loupe_Main:brand') }}</div>
-      <div>Description: {{ document.get('The_Loupe_Main:description') }}</div>
-      <div>Type: {{ document.get('app_Edges:disruption_type') }}</div>
-      <div>Industry: {{ document.get('app_Edges:industry') }}</div>
-      <div>Geography: {{ parseCountry(document.get('The_Loupe_Main:country')) }}</div>
-      <div>Author: {{ document.get('dc:creator') }}</div>
-      <div>Pubilished: {{ document.get('The_Loupe_ProdCredits:production_date') | date }}</div>
-      <div>Edge Cotegory: {{ document.get('app_Edges:backslash_category') }}</div>
-      <div>Edge: {{ document.get('app_Edges:Tags_edges') }}</div>
+    <div class="text_content">
+      <div class="controls">
+        <button class="inline-middle download">Download</button>
+        <button class="inline-middle share">Share</button>
+      </div>
+      <p>
+        Title: {{ document.title }}<br>
+        Brand: {{ document.get('The_Loupe_Main:brand') }}<br>
+        Description: {{ document.get('The_Loupe_Main:description') }}<br>
+        Type: {{ document.get('app_Edges:disruption_type') }}<br>
+        Industry: {{ document.get('app_Edges:industry') }}<br>
+        Geography: {{ parseCountry(document.get('The_Loupe_Main:country')) }}<br>
+        Author: {{ document.get('dc:creator') }}<br>
+        Pubilished: {{ document.get('The_Loupe_ProdCredits:production_date') | date }}<br>
+        Edge Cotegory: {{ document.get('app_Edges:backslash_category') }}<br>
+        Edge: {{ document.get('app_Edges:Tags_edges') }}
+      </p>
     </div>
   </ng-container>
 </div>

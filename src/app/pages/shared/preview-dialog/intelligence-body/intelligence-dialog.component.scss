@@ -37,15 +37,26 @@
 		background-color: #000000;
 	}
 	.text_content {
-		padding: 30px 0;
 		background: #ffffff;
-		img {
-			margin-left: 33px;
-			margin-right: 27px;
+		.controls {
+			width: calc(100% - 254px);
+			margin: 22px auto 0;
+			button {
+				height: 51px;
+				padding: 0 26px 0 50px;
+				margin-right: 25px;
+				border: none;
+				background-color: #f2f2f2;
+				background-repeat: no-repeat;
+				background-position: 18px center;
+				background-size: 19px auto;
+				&.download { background-image: url('/assets/images/download_icon.png'); }
+				&.share { background-image: url('/assets/images/share.png'); }
+			}
 		}
 		p {
 			width: calc(100% - 254px);
-			margin: 49px auto 0;
+			margin: 24px auto;
 		}
 	}
 }
