@@ -10,6 +10,19 @@ export class Repository extends Base {
     this._nuxeo = opts.nuxeo;
   }
 
+  create(parentRef: string, doc: DocumentModel, opts: any = {}): Observable<DocumentModel> {
+    opts.body = {
+      'entity-type': 'document',
+      type: doc.type,
+      name: doc.name || doc['dc:title'],
+      properties: doc.properties,
+    };
+    const options = this._computeOptions(opts);
+    const path = this._computePath(parentRef);
+    options.repository = this;
+    return this._nuxeo.request(path).post(options);
+  }
+
   update(doc: DocumentModel, opts: any = {}) {
     opts.body = {
       'entity-type': 'document',

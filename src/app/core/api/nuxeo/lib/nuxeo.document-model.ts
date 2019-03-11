@@ -1,27 +1,29 @@
 import { Base } from './base.api';
 import { join, deepExtend } from '../../../services';
-import { NuxeoEnricher } from './base.interface';
+import { NuxeoEnricher, BatchBlob } from './base.interface';
 import { of as observableOf, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export class DocumentModel extends Base {
 
-  private _properties: any;
-  private _facets: string;
+  private _properties: any = {};
+  private _dirtyProperties: any = {};
   private _contextParameters: any;
+  private _facets: string;
   private _repository: any;
-  private _dirtyProperties: any;
+
   uid: string;
   type: string;
   title: string;
+  name: string;
   path: string;
 
   constructor(doc: any = {}, opts: any = {}) {
     super(opts);
-    this._properties = {};
-    this._nuxeo = opts.nuxeo;
-    this._repository = opts.repository || this._nuxeo.repository(doc.repository, opts);
-    this._dirtyProperties = {};
+    if (opts.nuxeo) {
+      this._nuxeo = opts.nuxeo;
+      this._repository = opts.repository || this._nuxeo.repository(doc.repository, opts);
+    }
     Object.assign(this, doc);
   }
 
@@ -37,6 +39,11 @@ export class DocumentModel extends Base {
       uid: this.uid,
       properties: this._dirtyProperties,
     }, options);
+  }
+
+  attachBatchBlob(batchBlob: BatchBlob): this {
+    this.properties['file:content'] = batchBlob;
+    return this;
   }
 
   fetchBlob(xpath: string = 'blobholder:0', opts: any = {}): Observable<any> {
@@ -115,6 +122,10 @@ export class DocumentModel extends Base {
 
   get previewUrl(): string {
     return this.contextParameters && this.contextParameters.preview ? this.contextParameters.preview.url : '';
+  }
+
+  get subTypes(): string[] {
+    return this.contextParameters && this.contextParameters.subtypes ? this.contextParameters.subtypes : [];
   }
 
   get contextParameters(): any {

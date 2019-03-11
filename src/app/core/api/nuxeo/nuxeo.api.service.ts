@@ -9,12 +9,10 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 
 import {
   NuxeoRequestOptions,
-  NuxeoOptions,
+  NuxeoApiOptions,
   Credentials,
-  Operation,
   Repository,
   Request,
-  Directory,
   UserModel,
   NuxeoPagination,
   BatchUpload,
@@ -31,7 +29,7 @@ export class NuxeoApiService {
 
   private credentials: Credentials = {};
 
-  constructor(private httpClient: HttpClient, @Inject(NUXEO_ENV) private env: NuxeoOptions, private deviceService: DeviceDetectorService) {
+  constructor(private httpClient: HttpClient, @Inject(NUXEO_ENV) private env: NuxeoApiOptions, private deviceService: DeviceDetectorService) {
     this._nuxeo = new Nuxeo(httpClient, env);
   }
 
@@ -96,8 +94,9 @@ export class NuxeoApiService {
     return this.nuxeo.batchUpload(opts);
   }
 
-  operation(id: string, params: any = {}, opts: any = {}): Observable<NuxeoResponse> {
-    return this.nuxeo.operation(id, opts).params(params).execute();
+  operation(id: string, params: any = {}, input?: string): Observable<NuxeoResponse> {
+    const op = this.nuxeo.operation(id);
+    return input ? op.input(input).params(params).execute() : op.params(params).execute();
   }
 
   request(path: string, opts: NuxeoRequestOptions): Request {

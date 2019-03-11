@@ -12,7 +12,7 @@ export abstract class AbstractCore {
   protected automationUrl: string;
   protected baseOptions: any = {};
 
-  constructor(opts: NuxeoOptions) {
+  constructor(opts: NuxeoApiOptions) {
     this.apiPath = API_PATH;
     this.baseUrl = opts.baseUrl;
     this.restUrl = join(this.baseUrl, this.apiPath);
@@ -127,7 +127,7 @@ export const NuxeoPermission = {
   Everything: 'Everything',
 };
 
-export class NuxeoOptions {
+export class NuxeoApiOptions {
   baseUrl: string = '';
   auth?: Credentials;
   production: boolean;
@@ -255,4 +255,5 @@ export const NuxeoAutomations = {
   DirectorySuggestEntries: 'Directory.SuggestEntries',
   RepositoryPageProvider: 'Repository.PageProvider',
   DirectoryEntries: 'Directory.Entries',
+  DocumentCreate: 'Document.Create',
 };

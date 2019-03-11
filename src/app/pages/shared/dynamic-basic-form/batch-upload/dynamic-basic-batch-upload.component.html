@@ -10,6 +10,7 @@
       [tabindex]="model.tabIndex"
       (blur)="onBlur($event)"
       (change)="onChange($event)"
-      (focus)="onFocus($event)">
+      (focus)="onFocus($event)"
+      (onUploaded)="onCustomEvent($event, 'BATCH_UPLOAD')">
   </tbwa-batch-file-upload>
 </ng-container>

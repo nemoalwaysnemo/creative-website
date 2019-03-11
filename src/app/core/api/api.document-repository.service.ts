@@ -16,4 +16,8 @@ export class DocumentRepository extends AbstractBaseService {
   get(uuid: string, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
     return this.nuxeoApi.repository(this.defaultRepository, this.getRequestOptions(opts)).fetch(uuid);
   }
+
+  create(doc: DocumentModel): Observable<DocumentModel> {
+    return this.nuxeoApi.repository(this.defaultRepository).create(doc.path, doc);
+  }
 }

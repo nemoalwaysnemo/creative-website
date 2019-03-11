@@ -9,6 +9,7 @@ export const Environment = {
   siteAssetPath: '/nuxeo/LibraryWebUI/',
   production: true,
   autoLogin: true,
+  debug: false,
 };
 
 export const NUXEO_META_INFO = {

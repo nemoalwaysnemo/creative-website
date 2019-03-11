@@ -1,4 +1,4 @@
-import { AbstractCore, NuxeoOptions } from './base.interface';
+import { AbstractCore, NuxeoApiOptions } from './base.interface';
 
 export abstract class Base extends AbstractCore {
 
@@ -14,7 +14,7 @@ export abstract class Base extends AbstractCore {
 
   protected _nuxeo: any = {};
 
-  constructor(opts: NuxeoOptions) {
+  constructor(opts: NuxeoApiOptions) {
     super(opts);
     this.baseOptions = Object.assign({}, this.baseOptions, opts);
   }

@@ -38,11 +38,11 @@
         <tr *ngFor="let item of onUploaded | async; let i=index">
           <td nowrap><strong>{{ item.fileName }}</strong></td>
           <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
-          <td nowrap><button nbButton size="xsmall" status="danger" (click)="removeOne(i)" [disabled]="uploading || uploaded">Delete</button></td>
+          <td nowrap><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)" [disabled]="uploading || uploaded">Delete</button></td>
         </tr>
       </tbody>
     </table>
-    <button nbButton size="small" status="success" (click)="uploadFiles(files)" [disabled]="uploading || uploaded || !files.length">Upload</button>
-    <button nbButton size="small" status="danger" (click)="removeAll()" [disabled]="uploading || uploaded || !files.length">Remove</button>
+    <button nbButton class="btn btn-success btn-xs" status="success" [disabled]="uploading || uploaded || !files.length" (click)="uploadFiles(files)">Upload</button>
+    <button nbButton class="btn btn-danger btn-xs" status="danger" [disabled]="uploading || uploaded || !files.length" (click)="removeAll()">Remove</button>
   </div>
 </div>

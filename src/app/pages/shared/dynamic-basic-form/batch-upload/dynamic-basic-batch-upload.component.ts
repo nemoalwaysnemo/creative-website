@@ -22,6 +22,7 @@ export class DynamicBasicBatchUploadComponent extends DynamicFormControlComponen
   @Output() blur: EventEmitter<any> = new EventEmitter();
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
+  @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService) {

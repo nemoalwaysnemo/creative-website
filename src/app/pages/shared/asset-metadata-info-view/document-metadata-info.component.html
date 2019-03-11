@@ -60,16 +60,27 @@
       <nb-accordion-item [collapsed]="false" class="accordion-item">
         <nb-accordion-item-header class="accordion-item-header">Usage Rights</nb-accordion-item-header>
         <nb-accordion-item-body class="accordion-item-body" [nbSpinner]="usageLoading" nbSpinnerStatus="disabled">
-          <ul class="state">
-            <li>
-              <h4>Expires in</h4>
-              <span>{{usageRights.days_left >= 0 ? usageRights.days_left : 0}} days</span>
-            </li>
-            <li>
-              <h4>Expires on</h4>
-              <span>{{usageRights.end_date | date}}</span>
-            </li>
-          </ul>
+          <ng-container *ngIf="usageRights.error_messages && usageRights.error_messages.length > 0 ; then errorInfo else stateInfo"></ng-container>
+          <ng-template #stateInfo>
+            <ul class="state">
+              <li>
+                <h4>Expires in</h4>
+                <span>{{usageRights.days_left >= 0 ? usageRights.days_left : 'N/A'}} days</span>
+              </li>
+              <li>
+                <h4>Expires on</h4>
+                <span>{{usageRights.end_date ? (usageRights.end_date | date) : 'N/A'}}</span>
+              </li>
+            </ul>
+          </ng-template>
+          <ng-template #errorInfo>
+            <ul class="state error">
+              <li>
+                <h4>Errors</h4>
+                <span>{{usageRights.error_messages}}</span>
+              </li>
+            </ul>
+          </ng-template>
           <div class="clear"></div>
         </nb-accordion-item-body>
       </nb-accordion-item>

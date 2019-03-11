@@ -9,6 +9,7 @@ export const Environment = {
   siteAssetPath: 'creative_assets/',
   production: false,
   autoLogin: false,
+  debug: true,
 };
 
 export const NUXEO_META_INFO = {

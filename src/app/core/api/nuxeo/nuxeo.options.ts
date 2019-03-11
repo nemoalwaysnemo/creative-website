@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { NuxeoOptions } from './lib/base.interface';
+import { NuxeoApiOptions } from './lib/base.interface';
 
 export * from './lib/base.interface';
-export const NUXEO_ENV = new InjectionToken<NuxeoOptions>('NUXEO ENV');
+export const NUXEO_ENV = new InjectionToken<NuxeoApiOptions>('NUXEO ENV');

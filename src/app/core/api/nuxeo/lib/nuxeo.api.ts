@@ -9,7 +9,7 @@ import {
   Request,
   Users,
   ServerVersion,
-  NuxeoOptions,
+  NuxeoApiOptions,
   NuxeoResponse,
   NuxeoEnricher,
   BatchUpload,
@@ -34,7 +34,7 @@ export class Nuxeo extends Base {
   private _serverVersion: ServerVersion;
   private _nuxeoVersion: string;
 
-  constructor(protected httpClient: HttpClient, protected opts: NuxeoOptions) {
+  constructor(protected httpClient: HttpClient, protected opts: NuxeoApiOptions) {
     super(opts);
     this.auth = opts.auth;
     this._initUnmarshaller();
