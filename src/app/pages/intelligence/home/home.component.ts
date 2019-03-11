@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   headline = 'What are you looking for today?';
+  backgroudDocument: any;
   folders: any;
   params: any = {
     pageSize: 20,
@@ -20,7 +21,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_FOLDER_TYPE,
   };
-
+  backgroudParams: any = {
+    pageSize: 1,
+    currentPageIndex: 0,
+    ecm_path: NUXEO_META_INFO.INTELLIGENCE_BACKGROUND_PATH,
+    ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
+  };
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -32,6 +38,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.search(this.params);
+    this.getBackgroud(this.backgroudParams);
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -41,10 +48,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         const industryFolders = [];
-        for(const entry of res.entries){
+        for (const entry of res.entries) {
           industryFolders.push( { url: entry.thumbnailUrl, title: entry.title, uid: entry.uid } );
       }
       this.folders = industryFolders;
+      });
+    this.subscription.add(subscription);
+  }
+
+  private getBackgroud(params: {}): void {
+    const subscription = this.advanceSearch.request(params)
+      .subscribe((res: NuxeoPagination) => {
+      this.backgroudDocument = res.entries[0];
       });
     this.subscription.add(subscription);
   }

@@ -18,7 +18,7 @@ import { DEFAULT_SEARCH_FILTER_ITEM } from '../shared-config';
 export class HomeSearchComponent implements OnInit, OnDestroy {
   @Input() headline: any;
   @Input() subHead: any;
-  @Input() backgroudDocument: any;
+  @Input() backgroudDocument: DocumentModel[];
   results: DocumentModel[];
   documents: DocumentModel[] = [];
   queryField: FormControl = new FormControl();
