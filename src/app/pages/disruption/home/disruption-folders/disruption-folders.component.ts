@@ -23,7 +23,7 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
   params: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: '/know-edge',
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     ecm_uuid: `["${this.activatedRoute.queryParams['value'].id}"]`,
     quickFilters: 'ShowInNavigation',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
@@ -31,7 +31,7 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
   contentParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    ecm_path: '/know-edge',
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     ecm_parentId: this.activatedRoute.queryParams['value'].id,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
   };

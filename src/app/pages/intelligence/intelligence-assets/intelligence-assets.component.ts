@@ -15,7 +15,7 @@ export class IntelligenceAssetsComponent implements OnInit, OnDestroy {
   assetParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: '/know-edge',
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     ecm_uuid: `["${this.activatedRoute.queryParams['value'].id}"]`,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
   };

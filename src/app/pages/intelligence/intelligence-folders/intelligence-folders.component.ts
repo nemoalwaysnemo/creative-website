@@ -19,7 +19,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   contentParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    ecm_path: '/know-edge',
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     ecm_parentId: this.queryParams.id,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
   };
@@ -27,7 +27,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   assetParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    ecm_path: '/know-edge',
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     app_edges_intelligence_category: `["${this.queryParams.folder_type}"]`,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
   };
@@ -35,7 +35,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   industryParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    ecm_path: '/know-edge',
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     app_edges_industry_any: this.getIndustryString(this.queryParams.industry_type),
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
   };

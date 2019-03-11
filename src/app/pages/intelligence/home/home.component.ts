@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   params: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    ecm_path: '/know-edge',
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_FOLDER_TYPE,
   };
 
@@ -41,8 +41,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         const industryFolders = [];
-        for (const key in res.entries)  {
-          industryFolders.push( { url: res.entries[key]['thumbnailUrl'], title: res.entries[key]['title'], uid: res.entries[key]['uid'] } );
+        for(const entry of res.entries){
+          industryFolders.push( { url: entry.thumbnailUrl, title: entry.title, uid: entry.uid } );
       }
       this.folders = industryFolders;
       });

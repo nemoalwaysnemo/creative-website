@@ -35,7 +35,5 @@ export const NUXEO_META_INFO = {
   INTELLIGENCE_INDUSTRY_TYPE: '["App-Intelligence-Industry"]',
   INTELLIGENCE_ASSET_TYPE: '["App-Intelligence-Asset"]',
   INTELLIGENCE_ASSET_PAGE_PROVIDER: 'creative_website_intelligence_related_assets',
-  INTELLIGENCE_INDUSTRY_UID: '436e90fc-3216-4ae7-a15d-8b95d02b5550',
-  INTELLIGENCE_CONSUMER_UID: '23f32516-519f-48cc-9085-ef3acae560e1',
-  INTELLIGENCE_MARKETING_UID: '35b5a797-c280-4b11-92fc-5eede32bf3ce',
+  KNOWEDGE_BASIC_PATH: '/know-edge',
 };
