@@ -21,6 +21,7 @@
     "build:railsdev": "ng build --prod --configuration=rails-dev --build-optimizer --base-href=./ --deploy-url=creative_assets/ ",
     "build:naprod": "ng build --prod --configuration=na-prod --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "build:nadev": "ng build --prod --configuration=na-dev --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
+    "build:awsprod": "ng build --prod --configuration=aws-prod --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "build:awsdev": "ng build --prod --configuration=aws-dev --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "test": "ng test",
     "test:coverage": "rimraf coverage && yarn test -- --code-coverage",

@@ -16,6 +16,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   @Input() multiple: string;
   @Input() accept: string;
   @Input() maxSize: number;
+  @Input() queueLimit: number;
 
   @Input() fileDropDisabled: boolean = false;
   @Input() selectable: boolean = false;
@@ -138,6 +139,9 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     this.lastInvalidsChange.emit(this.lastInvalids);
 
     if (valids.length) {
+      if (this.queueLimit && this.queueLimit > 0) {
+        valids.splice(this.queueLimit, valids.length);
+      }
       this.que(valids);
     }
 

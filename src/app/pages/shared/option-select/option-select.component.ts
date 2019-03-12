@@ -45,7 +45,7 @@ export class OptionSelectComponent implements ControlValueAccessor {
   }
 
   onChange(event: OptionModel[]) {
-    if (event.constructor.name === 'Array') {
+    if (Array.isArray(event)) {
       this._onChange(event.map(x => x.value));
       this.selected.emit(event);
     }

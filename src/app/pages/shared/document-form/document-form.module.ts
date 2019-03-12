@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angular/forms';
-import { DynamicFormsBasicModule } from '../dynamic-basic-form';
+import { DynamicFormsNGUIModule } from '../dynamic-ng-form';
 import { DocumentFormComponent } from './document-form.component';
 import { customValidator, customDateRangeValidator, customAsyncFormGroupValidator, customForbiddenValidator } from './document-form.validators';
 
@@ -11,7 +11,7 @@ const COMPONENTS = [DocumentFormComponent];
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    DynamicFormsBasicModule,
+    DynamicFormsNGUIModule,
   ],
   declarations: [...COMPONENTS],
   exports: [

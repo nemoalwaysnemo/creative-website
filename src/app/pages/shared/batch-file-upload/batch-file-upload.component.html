@@ -20,29 +20,43 @@
 </style>
 
 <div class="batch-upload">
-  <div class="batch-upload-zone" ngFileDrop multiple="1" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" class="file-drop-zone" [class.invalid-drag]="validComboDrag === false"
-    [class.valid-drag]="validComboDrag" [fileDropDisabled]="uploading || uploaded">
+  <div class="batch-upload-zone" ngFileDrop multiple="1" [queueLimit]="queueLimit" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files" [accept]="acceptTypes" [maxSize]="maxSize" class="file-drop-zone"
+    [class.invalid-drag]="validComboDrag === false" [class.valid-drag]="validComboDrag" [fileDropDisabled]="uploading || uploaded">
     <div><strong>{{placeholder}}</strong></div>
   </div>
-  <div class="batch-upload-queue">
-    <h6>{{ files.length }} Queued Files</h6>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Size</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of onUploaded | async; let i=index">
-          <td nowrap><strong>{{ item.fileName }}</strong></td>
-          <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
-          <td nowrap><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)" [disabled]="uploading || uploaded">Delete</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <button nbButton class="btn btn-success btn-xs" status="success" [disabled]="uploading || uploaded || !files.length" (click)="uploadFiles(files)">Upload</button>
-    <button nbButton class="btn btn-danger btn-xs" status="danger" [disabled]="uploading || uploaded || !files.length" (click)="removeAll()">Remove</button>
-  </div>
+  <ng-container [ngSwitch]="true">
+    <ng-container *ngSwitchCase="!isMultiUpload()">
+      <div class="batch-upload-one">
+        <table class="table">
+          <tr *ngFor="let item of onUploaded | async; let i=index">
+            <td nowrap><strong>{{ item.fileName }}</strong></td>
+            <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
+          </tr>
+        </table>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="isMultiUpload()">
+      <div class="batch-upload-queue">
+        <h6>{{ files.length }} Queued Files</h6>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Size</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of onUploaded | async; let i=index">
+              <td nowrap><strong>{{ item.fileName }}</strong></td>
+              <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
+              <td nowrap><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)" [disabled]="uploading || uploaded">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <button nbButton class="btn btn-success btn-xs" status="success" [disabled]="uploading || uploaded || !files.length" (click)="uploadFiles(files)">Upload</button>
+        <button nbButton class="btn btn-danger btn-xs" status="danger" [disabled]="uploading || uploaded || !files.length" (click)="removeAll()">Remove</button>
+      </div>
+    </ng-container>
+  </ng-container>
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
 import { Subscription } from 'rxjs/Subscription';
 import { filterParams } from '@core/services';
 import { Observable, forkJoin } from 'rxjs';
@@ -15,13 +15,13 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   formModel: DynamicFormControlModel[];
 
+  formLayout: DynamicFormLayout;
+
   formGroup: FormGroup;
 
   submitted: boolean = false;
 
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
-
-  private formSettings: any[];
 
   private formMode: 'create' | 'edit';
 
@@ -29,12 +29,12 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  private documentModel: DocumentModel | DocumentModel;
+  private documentModel: DocumentModel;
 
   @Input() placeholder: string;
 
   @Input()
-  set document(doc: DocumentModel | DocumentModel) {
+  set document(doc: DocumentModel) {
     if (doc) {
       this.documentModel = doc;
       this.formMode = doc.uid ? 'edit' : 'create';
@@ -44,24 +44,28 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set settings(settings: any[]) {
     if (settings) {
-      this.formSettings = settings;
-      this.createForm(settings);
+      this.prepareForm(settings);
     }
+  }
+
+  @Input()
+  set layout(layout: any) {
+    this.formLayout = layout;
   }
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
 
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
 
   }
 
@@ -114,9 +118,18 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private createForm(settings: DynamicFormControlModel[]): void {
-    const opts = this.performSettings(settings);
-    this.formModel = this.createFormModel(opts);
+    this.formModel = this.createFormModel(settings);
     this.formGroup = this.createFormGroup(this.formModel);
+  }
+
+  private prepareForm(settings: DynamicFormControlModel[]) {
+    const opts = this.performSettings(settings);
+    if (this.formMode === 'create') {
+      this.createForm(opts);
+    } else if (this.formMode === 'edit' && this.documentModel) {
+      opts.forEach(opt => opt.value = this.documentModel.get(opt.id));
+      this.createForm(opts);
+    }
   }
 
   private save(): void {

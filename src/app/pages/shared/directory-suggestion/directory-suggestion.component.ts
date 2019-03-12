@@ -46,7 +46,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   constructor(private nuxeoApi: NuxeoApiService) { }
 
   onChange(event: OptionModel[]) {
-    if (event.constructor.name === 'Array') {
+    if (Array.isArray(event)) {
       this._onChange(event.map(x => x.value));
     }
   }
@@ -63,8 +63,10 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     this.subscription.unsubscribe();
   }
 
-  writeValue(value: any): void {
-    this.selectedItems = (value === null || value === undefined || value === '' ? [] : value);
+  writeValue(val: any): void {
+    const value = (val === null || val === undefined || val === '' ? [] : val);
+    this.buildDefaultOptions(value);
+    this.selectedItems = value;
   }
 
   registerOnChange(fn: any): void {
@@ -81,6 +83,10 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   getViewType(): string {
     return this.suggestion ? 'suggestion' : 'list';
+  }
+
+  private buildDefaultOptions(value: string[]): void {
+    this.options$.next(value.map(x => new OptionModel(x, x)));
   }
 
   private getSuggestions(searchTerm: string): Observable<OptionModel[]> {

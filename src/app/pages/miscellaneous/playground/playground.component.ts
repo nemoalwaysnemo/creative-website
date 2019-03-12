@@ -11,19 +11,14 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   settings: any[] = [];
 
-  parent: DocumentModel;
-
   document: DocumentModel;
 
   constructor(private documentRepository: DocumentRepository) {
 
   }
   ngOnInit(): void {
-    this.documentRepository.get('ac90b7ae-c70c-4fa6-a7ad-5ebbd9730a91').subscribe((doc: DocumentModel) => {
-      this.parent = doc;
-      this.settings = this.getSettings();
-      this.document = new DocumentModel({ path: this.parent.uid, type: 'App-Library-Image' });
-    });
+    this.create();
+    // this.update();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -34,6 +29,20 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
+  private create(): void {
+    this.documentRepository.get('ac90b7ae-c70c-4fa6-a7ad-5ebbd9730a91').subscribe((doc: DocumentModel) => {
+      this.settings = this.getSettings();
+      this.document = new DocumentModel({ path: doc.uid, type: 'App-Library-Image' });
+    });
+  }
+
+  private update(): void {
+    this.documentRepository.get('dd42acef-2db7-4377-8b92-a9b556b8fbf5').subscribe((doc: DocumentModel) => {
+      this.document = doc;
+      this.settings = this.getSettings();
+    });
+  }
+
   private getSettings(): object[] {
     return [
       new DynamicInputModel({
@@ -42,7 +51,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         maxLength: 50,
         placeholder: 'Title',
         autoComplete: 'off',
-        spellCheck: false,
         required: false,
         validators: {
           required: null,
@@ -50,35 +58,82 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         },
         errorMessages: {
           required: '{{label}} is required',
+          minLength: 'At least 4 characters',
         },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        placeholder: 'Brand',
+        autoComplete: 'off',
+        required: false,
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:industry',
+        label: 'Industry',
+        directoryName: 'GLOBAL_Industries',
+        placeholder: 'Please select industry',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Relevant_Country',
+        label: 'Geography',
+        directoryName: 'GLOBAL_Countries',
+        placeholder: 'Please select country',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:agency',
+        label: 'Agency',
+        directoryName: 'GLOBAL_Agencies',
+        placeholder: 'Please select agency',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:country',
+        label: 'Agency Country',
+        directoryName: 'GLOBAL_Countries',
+        placeholder: 'Please select country',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:backslash_category',
+        label: 'Backslash Category',
+        directoryName: 'App-Backslash-Categories',
+        placeholder: 'Please select category',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
-        label: '\Edges',
+        label: 'Edges',
         directoryName: 'App-Edges-Edges',
         placeholder: 'Please select edges',
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required.',
-        },
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Tags_edges2',
-        label: 'App-Edges-Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
-        suggestion: false,
-      }),
-
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
-        label: 'Assets',
+        label: 'Attachment',
         formMode: 'create',
-        placeholder: 'Drop files here!!!',
+        multiUpload: false,
+        queueLimit: 1,
+        placeholder: 'Drop file here!',
       }),
     ];
   }
-
+  private getFormLayout(): any {
+    return {
+      'dc:title': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'The_Loupe_Main:brand': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+    };
+  }
 }

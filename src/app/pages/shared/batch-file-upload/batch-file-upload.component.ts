@@ -45,6 +45,10 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   @Input() acceptTypes: string = '*';
 
+  @Input() queueLimit: number = 5;
+
+  @Input() multiUpload: boolean = true;
+
   @Output() onUploaded: EventEmitter<NuxeoUploadResponse[]> = new EventEmitter<NuxeoUploadResponse[]>();
 
   constructor(private nuxeoApi: NuxeoApiService) {
@@ -81,7 +85,12 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onFilesChange(files: File[]): void {
-    this.updateFileList(files);
+    if (!this.uploaded) {
+      this.updateFileList(files);
+      if (!this.isMultiUpload()) {
+        this.uploadFiles(files);
+      }
+    }
   }
 
   uploadFiles(files: File[]): void {
@@ -101,6 +110,10 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.fileList.length = 0;
     this.onUploaded.emit([]);
     this._onChange([]);
+  }
+
+  isMultiUpload(): boolean {
+    return this.multiUpload === true;
   }
 
   private updateFileList(files: File[]): void {

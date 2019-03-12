@@ -598,10 +598,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ng-select/ng-select@^2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.16.0.tgz#c974246cd4007bf7cb4d4e93d55bb4d299f96ab3"
-  integrity sha512-e4aYqaSQLmtYbll9zRIfZA39jFVCtUMYQvuTUTtwKpD+hhD5waCMUJ2Fv2nBp8ZYVWIUQzo0hGJ1jVvgOD/IVA==
+"@ng-select/ng-select@^2.16.2":
+  version "2.16.2"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.16.2.tgz#1c7444645fa867bb72ec1f4e2a53baa7c98353c9"
+  integrity sha512-aaTpx5XFOizuiAGeDTgCX/RR9Zqt/dBV9rG9GCWCuOrigH/lsPSLRVZ5m4foYy9Kl3fA5bgiqYcy4o3p9Pg1jQ==
   dependencies:
     tslib "^1.9.0"
 
