@@ -96,7 +96,7 @@ export class DocumentModel extends Base {
   }
 
   get filePath(): string {
-    return this._properties['file:content'] === null ? '' : this._properties['file:content'].data;
+    return this._properties['file:content'] === null || this._properties['file:content'] === undefined ? '' : this._properties['file:content'].data;
   }
 
   get fileMimeType(): string {

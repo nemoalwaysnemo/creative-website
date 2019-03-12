@@ -3,7 +3,7 @@
 export const Environment = {
   homePath: '/p/creative',
   appName: 'Creative Library Dev',
-  nuxeoUrl: 'http://localhost:8080/nuxeo/',
+  nuxeoUrl: 'http://library-na-dev.factory.tools/nuxeo/',
   // nuxeoUrl: 'https://library-na-dev.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
   backslashAPPUrl: 'https://library-na-dev.factory.tools/nuxeo/edges',
@@ -22,6 +22,7 @@ export const NUXEO_META_INFO = {
   CREATIVE_FOLDER_TYPES: '["App-Library-Folder"]',
   CREATIVE_PROJECT_TYPES: '["App-Library-Project"]',
   CREATIVE_BRAND_FOLDER_TYPE: '["Brand Folder"]',
+  CREATIVE_SELECTED_BRAND_TYPE: '["App-Library-Selected-Brands-Folder"]',
   BACKSLASH_BASE_FOLDER_PATH: '/know-edge/-backslash',
   BACKSLASH_ASSET_PAGE_PROVIDER: 'creative_website_backslash_related_assets',
   DISRUPTION_BASE_FOLDER_PATH: '/know-edge/Disruption',
