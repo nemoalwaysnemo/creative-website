@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { PaginationDataSource } from '../../pagination/pagination-data-source';
 import { ListViewItem } from '../../list-view/list-view.interface';
@@ -17,6 +17,8 @@ export class AssetSearchResultComponent implements OnInit, OnDestroy {
   layout = 'search-results';
 
   loading: boolean = false;
+
+   @Input() hasSearched: boolean = true;
 
   currentView = 'thumbnailView';
 
@@ -96,9 +98,10 @@ export class AssetSearchResultComponent implements OnInit, OnDestroy {
   private onSearch(): void {
     const subscription = this.advanceSearch.onSearch().subscribe(({ response, queryParams, action }) => {
       if (action === 'beforeSearch') {
+        this.hasSearched = true;
         this.loading = true;
         this.queryParams = queryParams;
-      } else {
+      } else if (this.hasSearched) {
         this.loading = false;
         this.paginationService.from(response);
         this.totalResults = response.resultsCount;

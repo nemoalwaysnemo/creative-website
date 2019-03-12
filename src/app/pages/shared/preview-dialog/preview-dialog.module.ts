@@ -9,7 +9,6 @@ import { BackslashDialogComponent } from './backslash-body/backslash-dialog.comp
 import { DisruptionDialogComponent } from './disruption-body/disruption-dialog.component';
 import { IntelligenceDialogComponent } from '@pages/shared/preview-dialog/intelligence-body/intelligence-dialog.component';
 
-
 @NgModule({
   imports: [
     CommonModule,

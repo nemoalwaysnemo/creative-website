@@ -12,7 +12,7 @@ export class PreviewDialogService {
 
   constructor(private dialogService: NbDialogService) { }
 
-  open(dialog: any, doc: DocumentModel, type: string): void {
+  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string): void {
     this.ref = this.dialogService.open(dialog);
     this.document$.next({ doc, type });
   }
