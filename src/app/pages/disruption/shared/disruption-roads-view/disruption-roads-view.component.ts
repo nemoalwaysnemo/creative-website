@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, OnDestroy} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, TemplateRef} from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel, NuxeoPageProviderParams} from '@core/api';
 import { PaginationDataSource } from 'app/pages/shared/pagination/pagination-data-source';
 import { SearchQueryParamsService } from 'app/pages/shared';
 import { Subscription } from 'rxjs';
-
+import { PreviewDialogService } from 'app/pages/shared/preview-dialog/preview-dialog.service';
 @Component({
   selector: 'disruption-roads-view',
   styleUrls: ['./disruption-roads-view.component.scss'],
@@ -19,7 +19,11 @@ export class DisruptionRoadsViewComponent implements OnInit, OnDestroy {
   documents: DocumentModel[];
   queryParams: NuxeoPageProviderParams = {};
 
-  constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService) { }
+  constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService, private dialogService: PreviewDialogService) { }
+
+  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
+    this.dialogService.open(dialog, doc, type);
+  }
 
   getThumbnailUrl(doc: DocumentModel): string {
     return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;

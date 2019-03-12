@@ -22,9 +22,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_FOLDER_TYPE,
   };
   backgroudParams: any = {
-    pageSize: 1,
+    pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.INTELLIGENCE_BACKGROUND_PATH,
+    ecm_path: NUXEO_META_INFO.BACKGROUND_PATH,
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
   constructor(

@@ -36,7 +36,6 @@ export const NUXEO_META_INFO = {
   INTELLIGENCE_ASSET_TYPE: '["App-Intelligence-Asset"]',
   INTELLIGENCE_ASSET_PAGE_PROVIDER: 'creative_website_intelligence_related_assets',
   KNOWEDGE_BASIC_PATH: '/know-edge',
-  INTELLIGENCE_BACKGROUND_PATH: '/Creative/1. GCL Frontpage/Banners/Intelligence/',
+  BACKGROUND_PATH: '/Creative/1. GCL Frontpage/Banners/',
   BACKGROUND_TYPE: '["App-Library-Image"]',
-  HOME_BACKGROUND_PATH: '/Creative/1. GCL Frontpage/Banners/Oliver Kahn Arches Bridg/',
 };

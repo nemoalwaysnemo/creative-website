@@ -11,9 +11,9 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit {
   private subscription: Subscription = new Subscription();
   backgroudParams: any = {
-    pageSize: 1,
+    pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.HOME_BACKGROUND_PATH,
+    ecm_path: NUXEO_META_INFO.BACKGROUND_PATH,
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
   backgroudDocument: any;
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   private getBackgroud(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-      this.backgroudDocument = res.entries[0];
+      this.backgroudDocument = res.entries[1];
       });
     this.subscription.add(subscription);
   }
