@@ -4,16 +4,8 @@
 .right { float: right; }
 .clear { clear: both; }
 nb-card {
-  @include media-breakpoint-down(lg) { //992px
-    width: 700px;
-  }
-  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-    width: 850px;
-  }
-  @include media-breakpoint-up(xxl) { //1400px
-    width: 1366px;
-  }
-
+  width: 100%;
+  padding: 0 40px;
   margin: 0 auto;
   box-sizing: border-box;
 }
