@@ -114,7 +114,8 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
       }),
     ];
   }
-  private getFormLayout(): any {
+
+  getFormLayout(): any {
     return {
       'dc:title': {
         element: {
@@ -126,6 +127,24 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         },
       },
       'The_Loupe_Main:brand': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'app_Edges:industry': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'app_Edges:Relevant_Country': {
         element: {
           container: 'p-0',
           label: 'col-form-label',

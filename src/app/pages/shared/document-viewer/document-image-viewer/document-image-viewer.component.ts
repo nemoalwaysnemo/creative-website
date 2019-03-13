@@ -15,6 +15,6 @@ export class DocumentImageViewerComponent implements OnInit {
   @Input() forDailog: boolean;
 
   ngOnInit() {
-    this.src = this.document.filePath ? [this.document.filePath] : ['assets/images/default.jpg'];
+    this.src = this.document.thumbnailUrl ? [this.document.thumbnailUrl] : ['assets/images/default.jpg'];
   }
 }

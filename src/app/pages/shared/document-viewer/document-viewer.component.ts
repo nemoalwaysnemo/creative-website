@@ -17,7 +17,7 @@ export class DocumentViewerComponent {
     if (this.document.isPicture()) {
       type = 'picture';
     } else if (this.document.isPdf()) {
-      type = 'pdf';
+      type = 'picture'; // #160 BIG PDFs are slooooooow
     } else if (this.document.isVideo()) {
       type = 'video';
     } else if (this.document.isAudio()) {
