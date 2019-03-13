@@ -1,7 +1,7 @@
 <div class="dialog_body">
   <div class="dialog_title text-center">
     <a (click)="close()" class="left"><img src="assets/images/close1.png"></a>
-    <h1>Disruption Roadmap</h1>
+    <h1>{{title}}</h1>
     <div class="clear"></div>
   </div>
   <ng-container *ngIf="document">
@@ -16,18 +16,7 @@
         <button class="inline-middle download" type="submit">Download</button>
         <button class="inline-middle share">Share</button>
       </div>
-      <p>
-        <!-- Title: {{ document.title }}<br>
-        Brand: {{ document.get('The_Loupe_Main:brand') }}<br>
-        Description: {{ document.get('The_Loupe_Main:description') }}<br>
-        Type: {{ document.get('app_Edges:disruption_type') }}<br>
-        Industry: {{ document.get('app_Edges:industry') }}<br>
-        Geography: {{ parseCountry(document.get('The_Loupe_Main:country')) }}<br>
-        Author: {{ document.get('dc:creator') }}<br>
-        Pubilished: {{ document.get('The_Loupe_ProdCredits:production_date') | date }}<br>
-        Edge Cotegory: {{ document.get('app_Edges:backslash_category') }}<br>
-        Edge: {{ document.get('app_Edges:Tags_edges') }} -->
-      </p>
+      <p> </p>
     </div>
   </ng-container>
 </div>
