@@ -1,6 +1,7 @@
 <div class="brand-thumbnail">
-  <h1 class="left">Recommend Brands</h1>
+  <h1 class="left">Brands</h1>
   <a [routerLink]="['/p/creative/search']" [queryParams]="{type: 'recommendBrand'}" class="see_all right">See all</a>
+  <a [routerLink]="['/p/creative/search']" [queryParams]="{type: 'brand'}" class="see_all right">My brands</a>
   <div class="clear"></div>
   <creative-thumbnail-view [loading]="loading" [layout]="layout" [itemLayout]="layout" [documents]="brandDocuments" [documentType]="documentType"></creative-thumbnail-view>
 </div>
