@@ -3,9 +3,9 @@
 export const Environment = {
   homePath: '/p/creative',
   appName: 'Creative Library',
-  nuxeoUrl: 'https://library.factory.tools/nuxeo/',
+  nuxeoUrl: '/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
-  backslashAPPUrl: 'https://library.factory.tools/nuxeo/edges',
+  backslashAPPUrl: '/nuxeo/edges',
   siteAssetPath: '/nuxeo/LibraryWebUI/',
   production: true,
   autoLogin: true,

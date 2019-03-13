@@ -3,7 +3,7 @@
 export const Environment = {
   homePath: '/p/creative',
   appName: 'Creative Library',
-  nuxeoUrl: 'https://library-na.factory.tools/nuxeo/',
+  nuxeoUrl: '/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
   backslashAPPUrl: 'https://backslash.tbwa.com',
   siteAssetPath: '/nuxeo/LibraryWebUI/',
