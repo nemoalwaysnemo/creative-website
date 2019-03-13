@@ -8,13 +8,13 @@ import { DocumentModel } from '@core/api';
 @Injectable()
 export class PreviewDialogService {
   private ref: any;
-  private document$: ReplaySubject<{ doc: DocumentModel, type: string }> = new ReplaySubject<{ doc: DocumentModel, type: string }>();
+  private document$: ReplaySubject<{ doc: DocumentModel, type: string, options: any }> = new ReplaySubject<{ doc: DocumentModel, type: string, options: any }>();
 
   constructor(private dialogService: NbDialogService) { }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string): void {
+  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string, options: any = {}): void {
     this.ref = this.dialogService.open(dialog);
-    this.document$.next({ doc, type });
+    this.document$.next({ doc, type, options });
   }
 
   close(): void {

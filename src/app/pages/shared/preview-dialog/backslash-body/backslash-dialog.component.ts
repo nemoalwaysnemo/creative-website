@@ -16,7 +16,6 @@ export class BackslashDialogComponent extends BaseDialogBody {
   }
 
   protected initDocument(res: any) {
-    this.document = res.doc;
     this.description = res.doc.get('dc:description');
   }
 

@@ -3,11 +3,11 @@ import { PreviewDialogService } from '../preview-dialog.service';
 import { BaseDialogBody } from '../base-dialog-body';
 
 @Component({
-  selector: 'tbwa-intelligence-dialog',
-  styleUrls: ['./intelligence-dialog.component.scss'],
-  templateUrl: './intelligence-dialog.component.html',
+  selector: 'tbwa-roadmaps-dialog',
+  styleUrls: ['./roadmaps-dialog.component.scss'],
+  templateUrl: './roadmaps-dialog.component.html',
 })
-export class IntelligenceDialogComponent extends BaseDialogBody {
+export class RoadmapsDialogComponent extends BaseDialogBody {
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);

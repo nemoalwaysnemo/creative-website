@@ -1,14 +1,14 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="disruption-roads third flex" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
   <div *ngFor="let document of documents" class="thumbnail-view">
-  	<div>
-  		<div class="image_holder">
-				<a (click)="open(dialog, document, 'disruption')"><img src="{{getThumbnailUrl(document)}}" [alt]="document.title" class="thumbnail-img"></a>
-  		</div>
-	  	<div class="description">
-	  		<h1 *ngIf=" disruptionType == 'roadmaps'" >{{document.get('The_Loupe_Main:brand')}}</h1>
-		    <h1 *ngIf=" disruptionType == 'theory'">{{document.title}}</h1>
-	  	</div>
-  	</div>
+    <div>
+      <div class="image_holder">
+        <a (click)="open(dialog, document, 'roadmaps')"><img src="{{getThumbnailUrl(document)}}" [alt]="document.title" class="thumbnail-img"></a>
+      </div>
+      <div class="description">
+        <h1 *ngIf=" disruptionType == 'roadmaps'">{{document.get('The_Loupe_Main:brand')}}</h1>
+        <h1 *ngIf=" disruptionType == 'theory'">{{document.title}}</h1>
+      </div>
+    </div>
   </div>
 </div>
 <div *ngIf="!loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
@@ -18,5 +18,5 @@
   <tbwa-table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination"></tbwa-table-pagination>
 </div>
 <ng-template #dialog>
-		<tbwa-preview-dialog></tbwa-preview-dialog>
-	</ng-template>
+  <tbwa-preview-dialog></tbwa-preview-dialog>
+</ng-template>

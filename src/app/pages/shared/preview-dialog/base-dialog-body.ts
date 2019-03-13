@@ -5,9 +5,12 @@ import { Subscription } from 'rxjs';
 
 export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
-  @Input() document: DocumentModel;
+  protected document: DocumentModel;
 
   protected forDailog: boolean = true;
+
+  protected downloadPath: string;
+
   private subscription: Subscription = new Subscription();
 
   constructor(protected dialogService: PreviewDialogService) { }
@@ -29,7 +32,11 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
   }
 
   private onDocumentNext() {
-    const subscription = this.dialogService.onDocmentNext().subscribe((res: { doc: DocumentModel, type: string }) => this.initDocument(res));
+    const subscription = this.dialogService.onDocmentNext().subscribe((res: { doc: DocumentModel, type: string, options: any }) => {
+      this.document = res.doc;
+      this.downloadPath = this.document.get('file:content').data;
+      this.initDocument(res);
+    });
     this.subscription.add(subscription);
   }
 

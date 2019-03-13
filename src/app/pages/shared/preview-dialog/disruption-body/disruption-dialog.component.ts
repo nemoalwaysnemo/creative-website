@@ -13,8 +13,6 @@ export class DisruptionDialogComponent extends BaseDialogBody {
     super(dialogService);
   }
 
-  protected initDocument(res: any) {
-    this.document = res.doc;
-  }
+  protected initDocument(res: any) {}
 
 }

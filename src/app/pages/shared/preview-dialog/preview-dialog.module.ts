@@ -8,6 +8,7 @@ import { DocumentViewerModule } from '../document-viewer/document-viewer.module'
 import { BackslashDialogComponent } from './backslash-body/backslash-dialog.component';
 import { DisruptionDialogComponent } from './disruption-body/disruption-dialog.component';
 import { IntelligenceDialogComponent } from '@pages/shared/preview-dialog/intelligence-body/intelligence-dialog.component';
+import { RoadmapsDialogComponent } from '@pages/shared/preview-dialog/roadmaps-body/roadmaps-dialog.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { IntelligenceDialogComponent } from '@pages/shared/preview-dialog/intell
     BackslashDialogComponent,
     DisruptionDialogComponent,
     IntelligenceDialogComponent,
+    RoadmapsDialogComponent,
   ],
   exports: [
     PreviewDialogComponent,

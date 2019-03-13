@@ -87,8 +87,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   private onSearch(): void {
     this.submitted = true;
-    console.log(this.buildSearchParams());
-
     this.advanceSearch.search(this.buildSearchParams());
   }
 
