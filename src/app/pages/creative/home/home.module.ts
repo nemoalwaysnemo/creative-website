@@ -6,6 +6,7 @@ import { AgencyThumbnailComponent } from './agency-thumbnail/agency-thumbnail.co
 import { BrandThumbnailComponent } from './brand-thumbnail/brand-thumbnail.component';
 import { HomeGalleryComponent } from './home-gallery/home-gallery.component';
 import { RouterModule } from '@angular/router';
+import { RecommendBrandThumbnailComponent } from '@pages/creative/home/recommend-brand-thumbnail/recommend-brand-thumbnail.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
     HomeGalleryComponent,
     AgencyThumbnailComponent,
     BrandThumbnailComponent,
+    RecommendBrandThumbnailComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,

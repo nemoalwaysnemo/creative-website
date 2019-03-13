@@ -6,6 +6,7 @@ import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnai
 import { ListViewModule } from '../list-view/list-view.module';
 import { PaginationModule } from '../pagination/pagination.module';
 import { BrandSearchResultComponent } from '@pages/shared/search-result/brand/search-result.component';
+import { RecommendBrandSearchResultComponent } from '@pages/shared/search-result/recommend-brand/search-result.component';
 
 
 @NgModule({
@@ -19,10 +20,12 @@ import { BrandSearchResultComponent } from '@pages/shared/search-result/brand/se
   declarations: [
     AssetSearchResultComponent,
     BrandSearchResultComponent,
+    RecommendBrandSearchResultComponent,
   ],
   exports: [
     AssetSearchResultComponent,
     BrandSearchResultComponent,
+    RecommendBrandSearchResultComponent,
   ],
 })
 export class SearchResultModule { }

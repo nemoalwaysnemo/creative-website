@@ -4,15 +4,15 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-brand-thumbnail',
-  styleUrls: ['./brand-thumbnail.component.scss'],
-  templateUrl: './brand-thumbnail.component.html',
+  selector: 'tbwa-recommend-brand-thumbnail',
+  styleUrls: ['./recommend-brand-thumbnail.component.scss'],
+  templateUrl: './recommend-brand-thumbnail.component.html',
 })
-export class BrandThumbnailComponent implements OnInit, OnDestroy {
+export class RecommendBrandThumbnailComponent implements OnInit, OnDestroy {
 
-  layout = 'brand';
+  layout = 'recommendBrand';
 
-  documentType = 'brand';
+  documentType = 'recommendBrand';
 
   loading: boolean = true;
 
@@ -22,8 +22,7 @@ export class BrandThumbnailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 3,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
-    the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
   };
 
   constructor(private advanceSearch: AdvanceSearch) { }

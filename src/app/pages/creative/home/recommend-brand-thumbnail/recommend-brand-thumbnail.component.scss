@@ -1,0 +1,36 @@
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.see_all {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  font-size: 16px;
+  margin: 36px 43px 0 0;
+  line-height: 56px;
+  color: #000000;
+
+  &:hover {
+    color: #000000;
+  }
+}
+
+.brand-thumbnail {
+  float: left;
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+
+  h1 {
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+    margin: 36px 0;
+    font-size: 35px;
+  }
+}

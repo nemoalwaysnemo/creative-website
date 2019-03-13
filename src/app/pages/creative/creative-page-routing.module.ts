@@ -5,6 +5,7 @@ import { SearchComponent } from './search/search.component';
 import { AssetComponent } from './asset/asset.component';
 import { CreativePageComponent } from './creative-page.component';
 import { BrandComponent } from './brand/brand.component';
+import { RecommendBrandComponent } from '@pages/creative/recommend-brand/recommend-brand.component';
 
 const routes: Routes = [{
   path: '',
@@ -23,8 +24,10 @@ const routes: Routes = [{
     }, {
       path: 'brand',
       component: BrandComponent,
-    },
-    {
+    }, {
+      path: 'recommendBrand',
+      component: RecommendBrandComponent,
+    }, {
       path: '',
       component: HomeComponent,
       pathMatch: 'full',

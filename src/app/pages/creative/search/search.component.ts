@@ -36,4 +36,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   isBrandPage(): boolean {
     return this.pageType === 'brand';
   }
+
+  isRecommendBrandPage(): boolean {
+    return this.pageType === 'recommendBrand';
+  }
 }

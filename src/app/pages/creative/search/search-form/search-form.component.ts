@@ -5,6 +5,7 @@ import {
   DEFAULT_SEARCH_FILTER_ITEM,
   BRAND_SEARCH_FILTER_ITEM,
   SearchQueryParamsService,
+  RECOMMEND_BRAND_SEARCH_FILTER_ITEM,
 } from '../../../shared';
 import { selectObjectByKeys } from '@core/services';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -31,7 +32,11 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
 
-  private searchItems = { asset: DEFAULT_SEARCH_FILTER_ITEM, brand: BRAND_SEARCH_FILTER_ITEM};
+  private searchItems = {
+    asset: DEFAULT_SEARCH_FILTER_ITEM,
+    brand: BRAND_SEARCH_FILTER_ITEM,
+    recommendBrand: RECOMMEND_BRAND_SEARCH_FILTER_ITEM,
+  };
   private fitlerItems = this.searchItems['asset'];
 
   private type = '';
@@ -50,6 +55,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     brand: {
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
+    },
+    recommendBrand: {
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
     },
   };
 

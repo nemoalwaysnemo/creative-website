@@ -11,6 +11,19 @@
     <h4 class="agency" [title]="document.get('The_Loupe_Main:agency')">{{document.get('The_Loupe_Main:agency')}}</h4>
   </div>
 </div>
+<div *ngIf="layout === 'recommendBrand'" class="thumbnail-view-item {{styleClass}}">
+  <div class="image_holder">
+    <a routerLink="/p/creative/{{documentType}}" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}"></a>
+  </div>
+  <div class="description">
+    <h1 [title]="document.title"><a routerLink="/p/creative/{{documentType}}" [queryParams]="{id: document.uid}">{{document.title}}</a></h1>
+    <h4 class="year" [title]="document.get('The_Loupe_ProdCredits:production_date') | date">{{document.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
+    <span class="dot"></span>
+    <h4 class="client" [title]="document.get('The_Loupe_Main:brand').join(', ')">{{document.get('The_Loupe_Main:brand').join(', ')}}</h4>
+    <div class="line"></div>
+    <h4 class="agency" [title]="document.get('The_Loupe_Main:agency')">{{document.get('The_Loupe_Main:agency')}}</h4>
+  </div>
+</div>
 <div *ngIf="layout === 'backslash'" class="thumbnail-view-item {{styleClass}}">
   <h4>{{document.title | shorten: 12: '...'}}</h4>
   <div class="line"></div>

@@ -5,29 +5,29 @@ import { takeWhile, tap, distinctUntilChanged, switchMap, map, first } from 'rxj
 import { Observable, Subscription } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { isDocumentUID } from '@core/services';
-import { BrandService } from '@pages/creative/brand/brand.service';
+import { RecommendBrandService } from '@pages/creative/recommend-brand/recommend-brand.service';
 
 @Component({
-  selector: 'tbwa-brand-page',
-  styleUrls: ['./brand.component.scss'],
-  templateUrl: './brand.component.html',
+  selector: 'tbwa-recommend-brand-page',
+  styleUrls: ['./recommend-brand.component.scss'],
+  templateUrl: './recommend-brand.component.html',
 })
-export class BrandComponent implements OnInit, OnDestroy {
+export class RecommendBrandComponent implements OnInit, OnDestroy {
   document: DocumentModel;
-  brandMessage: { title, client, brand, agency, country, file, path } = {title: '', client: '', brand: '', agency: '', country: '', file: '', path: '' };
+  brandMessage: { title, client, brand, agency, country, file, path } = { title: '', client: '', brand: '', agency: '', country: '', file: '', path: '' };
 
   private subscription: Subscription = new Subscription();
 
   private params: any = {
     pageSize: 1,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
   };
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private advanceSearch: AdvanceSearch,
-    private brandService: BrandService) {
+    private brandService: RecommendBrandService) {
   }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class BrandComponent implements OnInit, OnDestroy {
       client: this.document.properties['The_Loupe_Main:clientName'],
       brand: this.document.properties['The_Loupe_Main:brand'],
       country: this.document.properties['The_Loupe_Main:country'],
-      file: this.document.filePath,
+      file: this.document.filePath ? this.document.filePath : '',
       path: this.document.path,
     };
     if (!this.brandService.hasBrand() || this.document.uid !== this.brandService.brand.uid) {
