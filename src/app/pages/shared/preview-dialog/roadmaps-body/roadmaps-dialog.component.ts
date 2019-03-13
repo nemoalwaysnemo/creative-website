@@ -8,7 +8,7 @@ import { BaseDialogBody } from '../base-dialog-body';
   templateUrl: './roadmaps-dialog.component.html',
 })
 export class RoadmapsDialogComponent extends BaseDialogBody {
-  private title: string = '';
+  title: string = '';
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);

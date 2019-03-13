@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
-  protected document: DocumentModel;
+  document: DocumentModel;
 
   protected forDailog: boolean = true;
 
