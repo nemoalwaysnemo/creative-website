@@ -28,9 +28,10 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
     quickFilters: 'ShowInNavigation',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
   };
-  contentParams: any = {
+  nuxeoParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
+    ecm_fulltext: '',
     ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     ecm_parentId: this.activatedRoute.queryParams['value'].id,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
@@ -45,8 +46,7 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
     };
   }
   ngOnInit() {
-    this.onQueryParamsChanged();
-    this.searchContents(this.contentParams);
+    this.searchFolders(this.params);
   }
 
   ngOnDestroy() {
@@ -55,45 +55,11 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
   getThumbnailUrl(doc): string {
     return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
   }
-  private getCurrentDocument(uid: string): Observable<NuxeoPagination> {
-    const queryParams = Object.assign({}, this.params, { ecm_uuid: `["${uid}"]` });
-    return this.advanceSearch.request(queryParams);
-  }
 
-  private onQueryParamsChanged(): void {
-    const subscription = this.activatedRoute.queryParams
-      .pipe(
-        tap(queryParams => {
-          if (!isDocumentUID(queryParams.id)) {
-            this.redirectTo404();
-          }
-        }),
-        takeWhile(queryParams => isDocumentUID(queryParams.id)),
-        distinctUntilChanged(),
-        map(queryParams => queryParams.id),
-        switchMap((uid: string) => this.getCurrentDocument(uid)),
-        map((res: NuxeoPagination) => res.entries.shift()),
-      )
-      .subscribe((doc: DocumentModel) => {
-        if (doc) {
-          this.document = doc;
-          this.loading = false;
-        } else {
-          this.redirectTo404();
-        }
-      });
-    this.subscription.add(subscription);
-  }
-
-  private redirectTo404(): void {
-    this.router.navigate(['/p/error/404']);
-  }
-
-  private searchContents(params: {}): void {
+  private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.paginationService.from(res);
-        this.folderContents = res.entries;
+        this.document = res.entries[0];
       });
     this.subscription.add(subscription);
   }

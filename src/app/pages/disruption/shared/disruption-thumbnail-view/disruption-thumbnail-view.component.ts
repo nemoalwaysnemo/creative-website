@@ -3,6 +3,7 @@ import { AdvanceSearch, NuxeoPagination, DocumentModel, NuxeoPageProviderParams 
 import { PaginationDataSource } from 'app/pages/shared/pagination/pagination-data-source';
 import { SearchQueryParamsService } from 'app/pages/shared';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'disruption-thumbnail-view',
@@ -12,13 +13,16 @@ import { Subscription } from 'rxjs';
 
 export class DisruptionThumbnailViewComponent implements OnInit, OnDestroy {
   @Input() nuxeoParams: any;
+  @Input() hasSearched: boolean = true;
   loading: boolean = true;
   paginationService: PaginationDataSource = new PaginationDataSource();
   private subscription: Subscription = new Subscription();
   documents: DocumentModel[];
   queryParams: NuxeoPageProviderParams = {};
 
-  constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService) { }
+  constructor(private advanceSearch: AdvanceSearch,
+              private queryParamsService: SearchQueryParamsService,
+              private activatedRoute: ActivatedRoute) { }
 
   getThumbnailUrl(doc: DocumentModel): string {
     return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
@@ -35,7 +39,7 @@ export class DisruptionThumbnailViewComponent implements OnInit, OnDestroy {
       if (action === 'beforeSearch') {
         this.loading = true;
         this.queryParams = this.nuxeoParams;
-      } else {
+      } else if (this.hasSearched) {
         this.loading = false;
         this.paginationService.from(response);
         this.documents = response.entries;
@@ -54,7 +58,6 @@ export class DisruptionThumbnailViewComponent implements OnInit, OnDestroy {
     });
     this.subscription.add(subscription);
   }
-
   private search(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {

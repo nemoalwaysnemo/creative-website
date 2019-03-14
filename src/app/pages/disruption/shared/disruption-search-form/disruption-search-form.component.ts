@@ -139,7 +139,7 @@ export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private changeQueryParams(): void {
-    this.queryParamsService.changeQueryParams([], this.buildQueryParams());
+    this.queryParamsService.changeQueryParams([], this.buildQueryParams(), 'merge');
   }
 
   private onClear(): void {

@@ -1,34 +1,9 @@
 <nb-card class="nb-card">
   <nb-route-tabset fullWidth [tabs]="tabs"></nb-route-tabset>
-  
-  <div *ngIf="document && folderContents">
+  <div *ngIf="document">
+    <disruption-search-form [params]="nuxeoParams"></disruption-search-form>
     <disruption-folders-view [document]="document"></disruption-folders-view>
-    <div class="flex quarter">
-      <div *ngFor="let folderContent of folderContents">
-        <div class="thumbnail-view">
-          <div class="image_holder">
-            <a routerLink="/p/disruption/days/assets/" [queryParams]="{folder: document.uid, id: folderContent.uid}"
-                [ngStyle]="{'background-image': 'url('+getThumbnailUrl(folderContent)+')'}"></a>
-                
-            <!-- <img src="{{getThumbnailUrl(folderContent)}}" [alt]="folderContent.title" class="thumbnail-img"> -->
-          </div>
-          <div class="description">
-            <h1><a href="javascript:;">{{folderContent.title}}</a></h1>
-            <h4 class="year">
-              {{folderContent.get('The_Loupe_ProdCredits:production_date') | date}}
-            </h4>
-            <div class="line"></div>
-            <h4 class="agency">{{folderContent.get('The_Loupe_Main:agency')}}</h4>
-          </div>
-          <!-- <div style='color:black'>{{ document.title }}</div> -->
-          <!-- <div style='color:black'>{{document.get('The_Loupe_Main:agency')}}</div> -->
-          <!-- <div style='color:black'>{{document.get('The_Loupe_ProdCredits:production_date') | date}}</div> -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="search-pagination">
-    <tbwa-table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination"></tbwa-table-pagination>
+    <disruption-thumbnail-view [hasSearched]="false" [nuxeoParams]="nuxeoParams"></disruption-thumbnail-view>
   </div>
 </nb-card>
 

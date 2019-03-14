@@ -56,6 +56,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
   private checkFolderId(folderId: string) {
     if ( !isDocumentUID(folderId) ) {
       this.redirectTo404();
@@ -82,7 +83,6 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   }
 
   private searchAssets(params: {}): void {
-
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.folderContents = res.entries;
