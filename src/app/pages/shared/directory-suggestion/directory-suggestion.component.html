@@ -15,12 +15,12 @@
         (change)="onChange($event)"
         [(ngModel)]="selectedItems"
       >
-<ng-template ng-option-tmp let-item="item">
-{{item.label}}
-</ng-template>
-
-
-    </ng-select>
+				<ng-template ng-option-tmp let-item="item">
+					<div class="ng-option-item">
+						{{item.label}}
+					</div>
+				</ng-template>
+    	</ng-select>
     </ng-container>
     <ng-container *ngSwitchCase="getViewType() === 'list'">
       <ng-select
