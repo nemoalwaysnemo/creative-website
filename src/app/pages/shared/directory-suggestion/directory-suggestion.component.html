@@ -7,7 +7,6 @@
         [selectOnTab]="true"
         [multiple]="true"
         [hideSelected]="true"
-        bindLabel="label"
         bindValue="value"
         clearAllText="Clear"
         [loading]="loading$ | async"
@@ -15,7 +14,13 @@
         [virtualScroll]="true"
         (change)="onChange($event)"
         [(ngModel)]="selectedItems"
-      ></ng-select>
+      >
+<ng-template ng-option-tmp let-item="item">
+{{item.label}}
+</ng-template>
+
+
+    </ng-select>
     </ng-container>
     <ng-container *ngSwitchCase="getViewType() === 'list'">
       <ng-select

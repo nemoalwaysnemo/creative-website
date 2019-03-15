@@ -4,6 +4,16 @@ import { OptionModel } from '../option-select/option-select.interface';
 import { NuxeoAutomations, NuxeoApiService, NuxeoResponse, NuxeoPagination, DocumentModel, DirectoryEntry } from '@core/api';
 import { Subscription, Observable, of as observableOf, Subject, BehaviorSubject } from 'rxjs';
 import { tap, takeWhile, debounceTime, distinctUntilChanged, switchMap, share, map, filter } from 'rxjs/operators';
+import { ThemeSwitcherComponent } from '@theme/components';
+
+class Suggestion {
+  readonly displayLabel = '';
+  readonly children = [];
+  constructor({ displayLabel, children }) {
+    this.displayLabel = displayLabel;
+    this.children = children ? children : [];
+  }
+}
 
 @Component({
   selector: 'tbwa-directory-suggestion',
@@ -42,6 +52,10 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   @Input() suggestion: boolean = true;
 
   @Input() providerName: string;
+
+  private stack: string[] = [];
+
+  private suggestions = [];
 
   constructor(private nuxeoApi: NuxeoApiService) { }
 
@@ -118,7 +132,10 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private getDirectorySuggestions(directoryName: string, searchTerm: string, contains: boolean = false): Observable<OptionModel[]> {
     return this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName, searchTerm, contains })
-      .pipe(map((res: NuxeoResponse) => res.map((entry: any) => new OptionModel(entry.label, entry.id))));
+      .pipe(map((res: NuxeoPagination) => {
+        return this.flatSuggestions(res);
+      }))
+      .pipe(map((res: any) => res.map((entry: any) => new OptionModel(entry.label, entry.id))));
   }
 
   private getDocumentSuggestions(providerName: string, searchTerm: string, pageSize: number = 20): Observable<OptionModel[]> {
@@ -136,4 +153,31 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     this.subscription.add(subscription);
   }
 
+
+  private flatSuggestions(res: NuxeoPagination) {
+    if (!!res[0] && !!res[0].children) {
+      this.suggestions = [];
+      return this.suggestionsIterator(res[0]);
+    } else {
+      return res;
+    }
+  }
+
+  private suggestionsIterator(res: any): any[] {
+    const suggestion = new Suggestion(res);
+    this.stack.push(suggestion.displayLabel);
+    this.suggestions.push({ id: this.stack.join('/'), label: this.addBlank((this.stack.length - 1) * 2, suggestion.displayLabel) });
+    suggestion.children.forEach(child => {
+      this.suggestionsIterator(child);
+    });
+    this.stack.pop();
+    return this.suggestions;
+  }
+
+  private addBlank(n: number, str: string): string {
+    for (let index = 0; index < n; index++) {
+      str = ' ' + str;
+    }
+    return str;
+  }
 }
