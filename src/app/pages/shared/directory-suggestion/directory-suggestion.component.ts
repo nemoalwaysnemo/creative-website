@@ -166,7 +166,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   private suggestionsIterator(res: any): any[] {
     const suggestion = new Suggestion(res);
     this.stack.push(suggestion.displayLabel);
-    this.suggestions.push({ id: this.stack.join('/'), label: this.addBlank((this.stack.length - 1) * 2, suggestion.displayLabel) });
+    this.suggestions.push({ id: this.stack.join('/'), label: this.addBlank((this.stack.length - 1), suggestion.displayLabel) });
     suggestion.children.forEach(child => {
       this.suggestionsIterator(child);
     });
@@ -176,8 +176,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private addBlank(n: number, str: string): string {
     for (let index = 0; index < n; index++) {
-      str = ' ' + str;
+      str = '<div>' + str + '</div>';
     }
-    return str;
+    return `${str}`;
   }
 }
