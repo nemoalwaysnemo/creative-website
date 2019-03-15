@@ -3,7 +3,7 @@
   <div *ngIf="document">
     <disruption-search-form [params]="nuxeoParams"></disruption-search-form>
     <disruption-folders-view [document]="document"></disruption-folders-view>
-    <disruption-thumbnail-view [hasSearched]="false" [nuxeoParams]="nuxeoParams"></disruption-thumbnail-view>
+    <disruption-thumbnail-view [hasSearched]="false" [nuxeoParams]="nuxeoParams" [pageType]="pageType"></disruption-thumbnail-view>
   </div>
 </nb-card>
 

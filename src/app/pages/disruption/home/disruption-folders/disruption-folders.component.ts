@@ -19,7 +19,7 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
   paginationService: PaginationDataSource = new PaginationDataSource();
   tabs = TAB_CONFIG;
   private subscription: Subscription = new Subscription();
-
+  pageType = 'folders';
   params: any = {
     pageSize: 1,
     currentPageIndex: 0,

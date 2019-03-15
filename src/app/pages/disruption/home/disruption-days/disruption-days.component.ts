@@ -16,4 +16,5 @@ export class DisruptionDaysComponent {
     ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
   };
   tabs = TAB_CONFIG;
+  pageType = 'disruptionDays';
 }

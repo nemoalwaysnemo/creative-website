@@ -14,6 +14,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DisruptionThumbnailViewComponent implements OnInit, OnDestroy {
   @Input() nuxeoParams: any;
   @Input() hasSearched: boolean = true;
+  @Input() pageType: any;
+  folderId: any;
   loading: boolean = true;
   paginationService: PaginationDataSource = new PaginationDataSource();
   private subscription: Subscription = new Subscription();
@@ -29,6 +31,7 @@ export class DisruptionThumbnailViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.folderId = this.activatedRoute.snapshot.queryParams.id;
     this.search(this.nuxeoParams);
     this.onSearch();
     this.onPageChanged();
