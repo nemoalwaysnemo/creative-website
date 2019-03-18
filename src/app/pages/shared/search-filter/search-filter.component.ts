@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { AggregateModel } from '@core/api';
 import { OptionModel } from '../option-select/option-select.interface';
@@ -29,9 +29,11 @@ export class SearchFilterComponent implements ControlValueAccessor {
   set setAggregateModels(models: AggregateModel[]) {
     this.aggregates = this.buildAggregates(models);
   }
+  @Output() selected: EventEmitter<any> = new EventEmitter();
 
   onChange() {
     this._onChange(this.aggregateModel);
+    this.selected.emit(this.aggregateModel);
   }
 
   writeValue(value: any): void {
