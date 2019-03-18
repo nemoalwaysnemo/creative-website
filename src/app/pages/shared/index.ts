@@ -3,6 +3,7 @@ export * from './asset-metadata-info-view/document-metadata-info.module';
 export * from './asset-related-agency-view/document-related-agency.module';
 export * from './asset-related-info-view/document-related-info.module';
 export * from './asset-related-project/document-related-project.module';
+export * from  './auto-search/base-auto-search';
 export * from './directory-suggestion/directory-suggestion.module';
 export * from './document-viewer/document-viewer.module';
 export * from './document-form/document-form.module';

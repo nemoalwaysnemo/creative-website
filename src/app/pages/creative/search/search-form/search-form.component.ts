@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
 import {
@@ -6,6 +6,7 @@ import {
   BRAND_SEARCH_FILTER_ITEM,
   SearchQueryParamsService,
   RECOMMEND_BRAND_SEARCH_FILTER_ITEM,
+  BaseAutoSearch,
 } from '../../../shared';
 import { selectObjectByKeys } from '@core/services';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -18,11 +19,9 @@ import { deepExtend } from '@core/nebular/auth/helpers';
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
 })
-export class SearchFormComponent implements OnInit, OnDestroy {
+export class SearchFormComponent extends BaseAutoSearch {
 
   private previouSearchTerm: string;
-
-  private subscription: Subscription = new Subscription();
 
   searchForm: FormGroup;
 
@@ -66,18 +65,15 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     private advanceSearch: AdvanceSearch,
     private queryParamsService: SearchQueryParamsService,
   ) {
-
+    super();
   }
 
-  ngOnInit() {
+  onInit() {
     this.initParams();
     this.onPageChanged();
     this.onSearchResponse();
     this.onQueryParamsChanged();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.setAutoControl(this.searchForm.controls.ecm_fulltext, { skip: 1 });
   }
 
   onSubmit(): void {

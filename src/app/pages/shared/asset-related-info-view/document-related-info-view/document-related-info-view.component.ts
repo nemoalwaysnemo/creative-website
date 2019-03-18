@@ -6,13 +6,14 @@ import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
 import { DocumentRelatedInfoService } from '../document-related-info.service';
 import { Environment, NUXEO_META_INFO } from '@environment/environment';
 import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
+import { BaseAutoSearch } from '@pages/shared/auto-search/base-auto-search';
 
 @Component({
   selector: 'tbwa-document-related-info-view',
   styleUrls: ['./document-related-info-view.component.scss'],
   templateUrl: './document-related-info-view.component.html',
 })
-export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
+export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
 
   @Input() item: any = {};
 
@@ -30,24 +31,24 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   queryField: FormControl = new FormControl();
 
-  private subscription: Subscription = new Subscription();
-
   constructor(
     private advanceSearch: AdvanceSearch,
     private documentRelatedInfoService: DocumentRelatedInfoService,
     private dialogService: PreviewDialogService,
   ) {
-
+    super();
    }
 
-  ngOnInit() {
+  onInit() {
     this.onSearch();
     this.onChangeTab();
     this.buildBackslashEdges();
+    this.setAutoControl(this.queryField);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  onSubmit() {
+    this.loading = true;
+    this.search$.next(this.getSearchParams());
   }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {

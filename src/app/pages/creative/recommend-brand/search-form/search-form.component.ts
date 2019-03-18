@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../../shared';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService, BaseAutoSearch } from '../../../shared';
 import { selectObjectByKeys, deepExtend } from '@core/services';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
@@ -14,10 +14,8 @@ import { RecommendBrandService } from '@pages/creative/recommend-brand/recommend
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
 })
-export class SearchFormComponent implements OnInit, OnDestroy {
+export class SearchFormComponent extends BaseAutoSearch {
   private previouSearchTerm: string;
-
-  private subscription: Subscription = new Subscription();
 
   searchForm: FormGroup;
 
@@ -41,19 +39,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     private queryParamsService: SearchQueryParamsService,
     private brandSerice: RecommendBrandService,
   ) {
-
+    super();
   }
 
-  ngOnInit() {
+  onInit() {
     this.createForm();
     this.onMessageChange();
     this.onPageChanged();
     this.onSearchResponse();
     this.onQueryParamsChanged();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.setAutoControl(this.searchForm.controls.ecm_fulltext, { skip: 1 });
   }
 
   onSubmit(): void {
