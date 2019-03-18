@@ -1,5 +1,5 @@
 <nb-card class="nb-card">
 	<nb-route-tabset fullWidth [tabs]="tabs"></nb-route-tabset>
-	<disruption-search-form [params]="nuxeoParams"></disruption-search-form>
+	<disruption-search-form [params]="nuxeoParams" [folderID]="folderID" [subDocTypes]="subDocTypes"></disruption-search-form>
 	<disruption-roads-view [nuxeoParams]="nuxeoParams" [disruptionType]="disruptionType"></disruption-roads-view>
 </nb-card>
