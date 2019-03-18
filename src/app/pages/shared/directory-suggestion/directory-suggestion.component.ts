@@ -135,7 +135,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       .pipe(map((res: NuxeoPagination) => {
         return this.flatSuggestions(res);
       }))
-      .pipe(map((res: any) => res.map((entry: any) => new OptionModel(entry.label, entry.id))));
+      .pipe(map((res: any) => res.map((entry: any) => new OptionModel(entry.label, entry.id, false, entry.deep))));
   }
 
   private getDocumentSuggestions(providerName: string, searchTerm: string, pageSize: number = 20): Observable<OptionModel[]> {
@@ -166,18 +166,11 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   private suggestionsIterator(res: any): any[] {
     const suggestion = new Suggestion(res);
     this.stack.push(suggestion.displayLabel);
-    this.suggestions.push({ id: this.stack.join('/'), label: this.addBlank((this.stack.length - 1), suggestion.displayLabel) });
+    this.suggestions.push({ id: this.stack.join('/'), label: suggestion.displayLabel, deep: 'deep_' + (this.stack.length - 1)});
     suggestion.children.forEach(child => {
       this.suggestionsIterator(child);
     });
     this.stack.pop();
     return this.suggestions;
-  }
-
-  private addBlank(n: number, str: string): string {
-    for (let index = 0; index < n; index++) {
-      str = '<div>' + str + '</div>';
-    }
-    return `${str}`;
   }
 }

@@ -16,7 +16,8 @@
         [(ngModel)]="selectedItems"
       >
 				<ng-template ng-option-tmp let-item="item">
-          <div class="ng-option-item" innerHTML="{{item.label}}">
+          <div class="{{item.deep}}">
+            {{item.label}}
           </div>
 				</ng-template>
     	</ng-select>

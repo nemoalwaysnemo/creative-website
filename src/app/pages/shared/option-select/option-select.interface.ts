@@ -4,6 +4,7 @@ export class OptionModel {
     public label: string,
     public value: string,
     public disabled?: boolean,
+    public deep?: string,
   ) {
   }
 }
