@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((res: NuxeoPagination) => {
         const industryFolders = [];
         for (const entry of res.entries) {
-          industryFolders.push( { url: entry.thumbnailUrl, title: entry.title, uid: entry.uid } );
+          industryFolders.push( { url: entry.get('file:content').data, title: entry.title, uid: entry.uid } );
       }
       this.folders = industryFolders;
       });
