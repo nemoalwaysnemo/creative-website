@@ -2,6 +2,7 @@ import { OnInit, OnDestroy, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { PreviewDialogService } from './preview-dialog.service';
 import { Subscription } from 'rxjs';
+import { Environment } from '@environment/environment';
 
 export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
@@ -29,6 +30,10 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
   protected parseCountry(list: string[]) {
     return list.map((x) => x.split('/').pop()).join(', ');
+  }
+
+  protected changePath (src: string) {
+    return Environment.siteAssetPath + src;
   }
 
   private onDocumentNext() {
