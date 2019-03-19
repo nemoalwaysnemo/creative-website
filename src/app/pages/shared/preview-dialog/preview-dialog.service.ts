@@ -1,7 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@core/nebular/theme';
-import { PreviewDialogComponent } from './preview-dialog.component';
-import { Subject, Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { DocumentModel } from '@core/api';
 

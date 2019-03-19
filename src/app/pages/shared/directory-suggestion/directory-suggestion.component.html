@@ -15,12 +15,10 @@
         (change)="onChange($event)"
         [(ngModel)]="selectedItems"
       >
-				<ng-template ng-option-tmp let-item="item">
-          <div class="{{item.deep}}">
-            {{item.label}}
-          </div>
-				</ng-template>
-    	</ng-select>
+        <ng-template ng-option-tmp let-item="item">
+          <div class="{{item.deep}}">{{item.label}}</div>
+        </ng-template>
+      </ng-select>
     </ng-container>
     <ng-container *ngSwitchCase="getViewType() === 'list'">
       <ng-select
@@ -36,7 +34,11 @@
         [virtualScroll]="true"
         (change)="onChange($event)"
         [(ngModel)]="selectedItems"
-      ></ng-select>
+      >
+      <ng-template ng-option-tmp let-item="item">
+        <div class="{{item.deep}}">{{item.label}}</div>
+      </ng-template>
+      </ng-select>
     </ng-container>
   </ng-container>
 </div>

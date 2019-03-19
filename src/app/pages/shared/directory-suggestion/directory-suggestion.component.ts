@@ -7,8 +7,8 @@ import { tap, takeWhile, debounceTime, distinctUntilChanged, switchMap, share, m
 import { ThemeSwitcherComponent } from '@theme/components';
 
 class Suggestion {
-  readonly displayLabel = '';
-  readonly children = [];
+  readonly displayLabel: string = '';
+  readonly children: any[] = [];
   constructor({ displayLabel, children }) {
     this.displayLabel = displayLabel;
     this.children = children ? children : [];
@@ -166,10 +166,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   private suggestionsIterator(res: any): any[] {
     const suggestion = new Suggestion(res);
     this.stack.push(suggestion.displayLabel);
-    this.suggestions.push({ id: this.stack.join('/'), label: suggestion.displayLabel, deep: 'deep_' + (this.stack.length - 1)});
-    suggestion.children.forEach(child => {
-      this.suggestionsIterator(child);
-    });
+    this.suggestions.push({ id: this.stack.join('/'), label: suggestion.displayLabel, deep: 'deep_' + (this.stack.length - 1) });
+    suggestion.children.forEach(child => { this.suggestionsIterator(child); });
     this.stack.pop();
     return this.suggestions;
   }

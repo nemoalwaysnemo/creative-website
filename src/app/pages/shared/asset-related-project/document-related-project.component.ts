@@ -27,7 +27,7 @@ export class DocumentRelatedProjectComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.params.the_loupe_main_brand_any = `["${this.document.brands.join('", "')}"]`;
+    this.params.the_loupe_main_brand_any = `["${this.document.get('The_Loupe_Main:brand').join('", "')}"]`;
     this.search(this.params);
     this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       this.search(Object.assign({}, this.params, pageInfo));

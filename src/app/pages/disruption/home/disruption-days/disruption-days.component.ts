@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../../shared/tab-config';
-import { NuxeoPagination, AdvanceSearch } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'tbwa-disruption-page',
@@ -24,12 +24,12 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_TYPE,
   };
-  
+
   tabs = TAB_CONFIG;
   pageType = 'disruptionDays';
   private subscription: Subscription = new Subscription();
-  folderID: any;
-  subDocTypes: string[];
+  parentDocument: DocumentModel;
+  subDocTypes: string[] = ['App-Disruption-Day'];
 
   ngOnInit() {
     this.searchFolders(this.folderParams);
@@ -39,17 +39,12 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   }
 
 
-  constructor(private advanceSearch: AdvanceSearch) {}
+  constructor(private advanceSearch: AdvanceSearch) { }
 
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        const subTypes = [];
-        for (const entry of res.entries[0].subTypes) {
-          subTypes.push(entry['type']);
-        }
-        this.folderID = res.entries[0].uid;
-        this.subDocTypes = subTypes;
+        this.parentDocument = res.entries.shift();
       });
     this.subscription.add(subscription);
   }

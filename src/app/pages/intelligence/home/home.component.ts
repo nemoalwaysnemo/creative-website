@@ -49,9 +49,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((res: NuxeoPagination) => {
         const industryFolders = [];
         for (const entry of res.entries) {
-          industryFolders.push( { url: entry.get('file:content').data, title: entry.title, uid: entry.uid } );
-      }
-      this.folders = industryFolders;
+          industryFolders.push({ url: entry.get('file:content').data, title: entry.title, uid: entry.uid });
+        }
+        this.folders = industryFolders;
       });
     this.subscription.add(subscription);
   }
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private getBackgroud(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-      this.backgroudDocument = res.entries[0];
+        this.backgroudDocument = res.entries[0];
       });
     this.subscription.add(subscription);
   }

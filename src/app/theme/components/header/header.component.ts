@@ -35,13 +35,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private getUser(): void {
-    if (this.user.username === null) {
-      const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {
-        this.user = user;
-        this.user['avatar'] = Environment.siteAssetPath + 'assets/images/user_icon.png';
-      });
-      this.subscription.add(subscription);
-    }
+    const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {
+      this.user = user;
+      this.user['avatar'] = Environment.siteAssetPath + 'assets/images/user_icon.png';
+    });
+    this.subscription.add(subscription);
   }
 
   private updateHeaderTitle(): void {

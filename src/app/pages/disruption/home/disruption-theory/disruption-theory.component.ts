@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../../shared/tab-config';
-import { NuxeoPagination, AdvanceSearch } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'tbwa-disruption-theory-page',
@@ -24,9 +24,11 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
   };
   disruptionType = 'theory';
   tabs = TAB_CONFIG;
+  subDocTypes: string[] = [];
   private subscription: Subscription = new Subscription();
-  folderID: any;
-  subDocTypes: string[];
+  parentDocument: DocumentModel;
+
+  constructor(private advanceSearch: AdvanceSearch) { }
 
   ngOnInit() {
     this.searchFolders(this.folderParams);
@@ -35,19 +37,11 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  constructor(private advanceSearch: AdvanceSearch) {}
-
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        const subTypes = [];
-        for (const entry of res.entries[0].subTypes) {
-          subTypes.push(entry['type']);
-        }
-        this.folderID = res.entries[0].uid;
-        this.subDocTypes = subTypes;
+        this.parentDocument = res.entries.shift();
       });
     this.subscription.add(subscription);
   }
-
 }

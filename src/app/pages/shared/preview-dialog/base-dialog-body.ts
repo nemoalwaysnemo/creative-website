@@ -10,8 +10,6 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
   protected forDailog: boolean = true;
 
-  protected downloadPath: string;
-
   private subscription: Subscription = new Subscription();
 
   constructor(protected dialogService: PreviewDialogService) { }
@@ -28,23 +26,30 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
     this.dialogService.close();
   }
 
-  protected parseCountry(list: string[]) {
+  closeBtnImage(): string {
+    return this.assetPath('assets/images/close1.png');
+  }
+
+  previewBtnImage(): string {
+    return this.assetPath('assets/images/preview_logo.png');
+  }
+
+  protected parseCountry(list: string[]): string {
     return list.map((x) => x.split('/').pop()).join(', ');
   }
 
-  protected changePath (src: string) {
+  protected assetPath(src: string): string {
     return Environment.siteAssetPath + src;
   }
 
-  private onDocumentNext() {
+  private onDocumentNext(): void {
     const subscription = this.dialogService.onDocmentNext().subscribe((res: { doc: DocumentModel, type: string, options: any }) => {
       this.document = res.doc;
-      this.downloadPath = this.document.get('file:content').data;
       this.initDocument(res);
     });
     this.subscription.add(subscription);
   }
 
-  protected abstract initDocument(res: any);
+  protected abstract initDocument(res: any): void;
 
 }

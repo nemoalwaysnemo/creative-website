@@ -1,11 +1,10 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService } from '../../../shared';
+import { AdvanceSearch, AggregateModel, filterAggregates, DocumentModel } from '@core/api';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService, PreviewDialogService } from '../../../shared';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { selectObjectByKeys } from '@core/services';
-import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'disruption-search-form',
@@ -15,7 +14,9 @@ import { NUXEO_META_INFO } from '@environment/environment';
 
 export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
   @Input() params: any;
-  @Input() folderID: any;
+
+  @Input() parentDocument: DocumentModel;
+
   @Input() subDocTypes: string[];
 
   private previouSearchTerm: string;
@@ -33,6 +34,7 @@ export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private advanceSearch: AdvanceSearch,
+    private previewDialogService: PreviewDialogService,
     private queryParamsService: SearchQueryParamsService,
   ) {
 
@@ -65,6 +67,10 @@ export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
     if (!this.submitted) {
       this.showFilter = !this.showFilter;
     }
+  }
+
+  openForm(dialog: any): void {
+    this.previewDialogService.open(dialog, this.parentDocument, 'disruptionFormDay', { subDocTypes: this.subDocTypes });
   }
 
   private createForm() {
