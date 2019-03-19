@@ -100,19 +100,7 @@ table {
     }
   }
 }
-.download {
-  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-  font-size: 15px;
-  display: block;
-  height: 18px;
-  line-height: 18px;
-  padding-left: 29px;
-  margin-right: 21px;
-  margin-bottom: 12px;
-  color: #000000;
-  background: url('/assets/images/download_icon.png') no-repeat left center;
-  &:hover { text-decoration: none; }
-}
+.download,
 .preview {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   font-size: 15px;
@@ -125,3 +113,5 @@ table {
   color: #000000;
   &:hover { text-decoration: none; }
 }
+.download { background: url('/assets/images/download_icon.png') no-repeat left center; }
+.preview { background: url('/assets/images/preview_icon.png') no-repeat left center; }
