@@ -11,6 +11,7 @@ export class DocumentViewerComponent {
 
   @Input() document: DocumentModel;
   @Input() forDailog: boolean;
+  @Input() autoPlay: boolean = true;
 
   getDocumentViewer(): string {
     let type = 'unkonw';

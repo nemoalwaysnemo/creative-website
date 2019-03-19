@@ -17,6 +17,7 @@ export class DocumentVideoViewerComponent implements OnInit {
 
   @Input() document: DocumentModel;
   @Input() forDailog: boolean;
+  @Input() autoPlay: boolean = false;
 
   ngOnInit() {
     this.buildVideoInfo();
