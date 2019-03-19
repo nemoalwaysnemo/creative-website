@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../../shared/tab-config';
-import { NuxeoPagination, AdvanceSearch } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'tbwa-brilliant-thinking-page',
@@ -26,8 +26,8 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
   disruptionType = 'Brilliant Thinking';
   tabs = TAB_CONFIG;
   private subscription: Subscription = new Subscription();
-  folderID: any;
-  subDocTypes: string[];
+  subDocTypes: string[] = [];
+  parentDocument: DocumentModel;
 
   ngOnInit() {
     this.searchFolders(this.folderParams);
@@ -41,12 +41,7 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        const subTypes = [];
-        for (const entry of res.entries[0].subTypes) {
-          subTypes.push(entry['type']);
-        }
-        this.folderID = res.entries[0].uid;
-        this.subDocTypes = subTypes;
+        this.parentDocument = res.entries.shift();
       });
     this.subscription.add(subscription);
   }
