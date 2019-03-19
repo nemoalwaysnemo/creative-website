@@ -20,6 +20,7 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
   tabs = TAB_CONFIG;
   private subscription: Subscription = new Subscription();
   pageType = 'folders';
+  backPath = '/#/p/disruption/days';
   params: any = {
     pageSize: 1,
     currentPageIndex: 0,

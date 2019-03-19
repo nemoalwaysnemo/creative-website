@@ -3,6 +3,7 @@ import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoA
 import { Subscription } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment.na-dev';
 import { getDocumentTypes } from '@core/services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'tbwa-document-metadata-info',
@@ -19,16 +20,19 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
 
   jobLoading = true;
 
+  backPath: string;
+
   private subscription: Subscription = new Subscription();
 
   @Input() document: DocumentModel;
 
-  constructor(private advanceSearch: AdvanceSearch, private nuxeoApi: NuxeoApiService) { }
+  constructor(private advanceSearch: AdvanceSearch, private nuxeoApi: NuxeoApiService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     if (this.isCreativeAsset()) {
       this.getUsageRightsStatus();
     }
+    this.backPath = '/#/p/disruption/days/folders?id=' + this.activatedRoute.snapshot.queryParams.folder;
   }
 
   ngOnDestroy() {
