@@ -31,6 +31,7 @@ export const NUXEO_META_INFO = {
   DISRUPTION_DAYS_TYPE: '["App-Disruption-Day"]',
   DISRUPTION_DAY_TYPE: '["App-Disruption-Asset"]',
   DISRUPTION_ASSET_PAGE_PROVIDER: 'creative_website_disruption_related_assets',
+  DISRUPTION_BASE_FOLDER_TYPE: '["App-Disruption-Days-Folder", "App-Disruption-Roadmap-Folder", "App-Disruption-Theory-Folder" ]',
   INTELLIGENCE_BASE_FOLDER_PATH: '/know-edge/Intelligence',
   INTELLIGENCE_FOLDER_TYPE: '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder" ]',
   INTELLIGENCE_INDUSTRY_TYPE: '["App-Intelligence-Industry"]',
