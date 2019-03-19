@@ -24,10 +24,12 @@ export class DocumentRelatedProjectComponent implements OnInit {
     // ecm_primaryType: NUXEO_META_INFO.CREATIVE_PROJECT_TYPES,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
     the_loupe_main_brand_any: '',
+    ecm_uuid_exclude: '',
   };
 
   ngOnInit() {
     this.params.the_loupe_main_brand_any = `["${this.document.get('The_Loupe_Main:brand').join('", "')}"]`;
+    this.params.ecm_uuid_exclude = this.document.uid;
     this.search(this.params);
     this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       this.search(Object.assign({}, this.params, pageInfo));
