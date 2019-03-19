@@ -4,9 +4,10 @@
   </div>
   <div class="filters left">
     <a href="javascript:;" (click)="toggleFilter()" class="advanced_filters_trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': submitted}">Filter</a>
-    <a href="javascript:;" (click)="openForm(dialog)" class="advanced_filters_trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': submitted}">New Day</a>
-    <div class="clear"></div>
+    <a href="javascript:;" (click)="openForm(dialog)" class="icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': submitted}">New Day</a>
+    <a href="{{backPath}}" class="icon_btn">Back</a>
   </div>
+  <div class="clear"></div>
 
   <ng-container *ngIf="showFilter">
     <tbwa-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted"></tbwa-search-filter>

@@ -101,7 +101,8 @@ table {
   }
 }
 .download,
-.preview {
+.preview,
+.back {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   font-size: 15px;
   display: block;
@@ -115,3 +116,4 @@ table {
 }
 .download { background: url('/assets/images/download_icon.png') no-repeat left center; }
 .preview { background: url('/assets/images/preview_icon.png') no-repeat left center; }
+.back { background: url('/assets/images/back_icon.png') no-repeat left center; }

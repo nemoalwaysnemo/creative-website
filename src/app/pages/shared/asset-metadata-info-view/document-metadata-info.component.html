@@ -1,6 +1,5 @@
 <ng-container [ngSwitch]="true">
   <ng-container *ngSwitchCase="isDisruptionAsset()">
-    <a href="{{backPath}}">BACK</a>
     <h1>{{ document.title }}</h1>
     <h2>{{ document.get('The_Loupe_Main:brand') }}</h2>
     <table>
@@ -41,6 +40,7 @@
     </table>
     <a *ngIf="document.filePath" href="{{document.filePath}}" class="download right" title="Download">Download</a>
     <a href="{{document.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
+    <a href="{{backPath}}" class="back right" title="Back">Back</a>
   </ng-container>
   <ng-container *ngSwitchCase="isCreativeAsset()">
     <h1>Unboxing</h1>
