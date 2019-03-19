@@ -6,6 +6,7 @@ import { DisruptionRoadmapsComponent } from './home/disruption-roadmaps/disrupti
 import { DisruptionTheoryComponent } from './home/disruption-theory/disruption-theory.component';
 import { DisruptionFoldersComponent } from './home/disruption-folders/disruption-folders.component';
 import { DisruptionAssetsComponent } from './home/disruption-assets/disruption-assets.component';
+import { BrilliantThinkingComponent } from './home/brilliant-thinking/brilliant-thinking.component';
 const routes: Routes = [{
   path: '',
   component: DisruptionPageComponent,
@@ -34,6 +35,10 @@ const routes: Routes = [{
       {
         path: 'theory',
         component: DisruptionTheoryComponent,
+      },
+      {
+        path: 'thinking',
+        component: BrilliantThinkingComponent,
       },
   ],
 }];

@@ -22,7 +22,7 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_META_INFO.DISRUPTION_THEORY_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_TYPE,
   };
-  disruptionType = 'theory';
+  disruptionType = 'Distruption Theory';
   tabs = TAB_CONFIG;
   subDocTypes: string[] = [];
   private subscription: Subscription = new Subscription();

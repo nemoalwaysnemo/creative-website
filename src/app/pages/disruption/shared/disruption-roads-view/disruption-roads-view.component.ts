@@ -22,7 +22,7 @@ export class DisruptionRoadsViewComponent implements OnInit, OnDestroy {
   constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService, private dialogService: PreviewDialogService) { }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    const title = this.disruptionType === 'roadmaps' ? 'Distruption Roadmaps' : 'Distruption Theory';
+    const title = this.disruptionType;
     this.dialogService.open(dialog, doc, type, {title});
   }
 

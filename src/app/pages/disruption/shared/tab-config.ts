@@ -11,4 +11,8 @@ export const TAB_CONFIG: any[] = [
       title: 'Disruption Theory',
       route: '/p/disruption/theory',
     },
+    {
+      title: 'Brilliant Thinking',
+      route: '/p/disruption/thinking',
+    },
   ];

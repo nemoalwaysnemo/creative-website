@@ -1,34 +1,33 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../../shared/tab-config';
-import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
+import { NuxeoPagination, AdvanceSearch } from '@core/api';
 import { Subscription } from 'rxjs';
 @Component({
-  selector: 'tbwa-disruption-roadmap-page',
-  styleUrls: ['./disruption-roadmaps.component.scss'],
-  templateUrl: './disruption-roadmaps.component.html',
+  selector: 'tbwa-brilliant-thinking-page',
+  styleUrls: ['./brilliant-thinking.component.scss'],
+  templateUrl: './brilliant-thinking.component.html',
 })
-export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
+export class BrilliantThinkingComponent implements OnInit, OnDestroy {
   nuxeoParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_TYPE,
+    ecm_path: NUXEO_META_INFO.DISRUPTION_THINKING_PATH,
   };
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
+    ecm_path: NUXEO_META_INFO.DISRUPTION_THINKING_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_TYPE,
   };
-  subDocTypes: string[] = [];
-  parentDocument: DocumentModel;
-  disruptionType = 'Distruption Roadmaps';
 
+  disruptionType = 'Brilliant Thinking';
   tabs = TAB_CONFIG;
-
   private subscription: Subscription = new Subscription();
+  folderID: any;
+  subDocTypes: string[];
 
   ngOnInit() {
     this.searchFolders(this.folderParams);
@@ -37,13 +36,17 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-
-  constructor(private advanceSearch: AdvanceSearch) { }
+  constructor(private advanceSearch: AdvanceSearch) {}
 
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.parentDocument = res.entries.shift();
+        const subTypes = [];
+        for (const entry of res.entries[0].subTypes) {
+          subTypes.push(entry['type']);
+        }
+        this.folderID = res.entries[0].uid;
+        this.subDocTypes = subTypes;
       });
     this.subscription.add(subscription);
   }

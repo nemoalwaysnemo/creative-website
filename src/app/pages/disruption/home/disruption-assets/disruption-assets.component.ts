@@ -53,9 +53,6 @@ export class DisruptionAssetsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  getThumbnailUrl(doc): string {
-    return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
-  }
   private getCurrentDocument(uid: string): Observable<NuxeoPagination> {
     const queryParams = Object.assign({}, this.params, { ecm_uuid: `["${uid}"]` });
     return this.advanceSearch.request(queryParams);

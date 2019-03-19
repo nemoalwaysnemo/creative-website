@@ -52,9 +52,6 @@ export class DisruptionFoldersComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  getThumbnailUrl(doc): string {
-    return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
-  }
 
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)

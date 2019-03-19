@@ -18,6 +18,7 @@
     <div>{{ document.get('app_Edges:backslash_category') }}</div>
     <h4>Edge</h4>
     <div>{{ document.get('app_Edges:Tags_edges') }}</div>
+    <a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}" class="download right" title="Download">Download</a>
   </ng-container>
   <ng-container *ngSwitchCase="isCreativeAsset()">
     <h1>Unboxing</h1>

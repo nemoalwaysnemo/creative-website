@@ -7,6 +7,7 @@ import { DisruptionPageComponent } from './disruption-page.component';
 import { DisruptionPageRoutingModule } from './disruption-page-routing.module';
 import { DisruptionFoldersModule  } from './home/disruption-folders/disruption-folders.module';
 import { DisruptionAssetsModule } from './home/disruption-assets/disruption-assets.module';
+import { BrilliantThinkingModule } from './home/brilliant-thinking/brilliant-thinking.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { DisruptionAssetsModule } from './home/disruption-assets/disruption-asse
     DisruptionTheoryModule,
     DisruptionFoldersModule,
     DisruptionAssetsModule,
+    BrilliantThinkingModule,
     ThemeModule,
     DisruptionPageRoutingModule,
   ],
