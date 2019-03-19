@@ -10,8 +10,5 @@ export class DisruptionFoldersViewComponent {
   @Input() document: any;
   @Input() folderContents: any;
   loading: boolean = true;
-  getThumbnailUrl(doc): string {
-    return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
-  }
 
 }

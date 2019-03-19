@@ -1,24 +1,46 @@
 <ng-container [ngSwitch]="true">
   <ng-container *ngSwitchCase="isDisruptionAsset()">
-    <div>{{ document.title }}</div>
-    <div>{{ document.get('The_Loupe_Main:brand') }}</div>
-    <h4>Descriptions</h4>
-    <div>{{ document.get('The_Loupe_Main:description') }}</div>
-    <h4>Asset Type</h4>
-    <div>{{ document.get('app_Edges:disruption_type') }}</div>
-    <h4>Industry</h4>
-    <div>{{ document.get('app_Edges:industry') }}</div>
-    <h4>Geography</h4>
-    <div>{{ parseCountry(document.get('The_Loupe_Main:country')) }}</div>
-    <h4>Author</h4>
-    <div>{{ document.get('dc:creator') }}</div>
-    <h4>Pubilished</h4>
-    <div>{{ document.get('The_Loupe_ProdCredits:production_date') | date }}</div>
-    <h4>Edge Category</h4>
-    <div>{{ document.get('app_Edges:backslash_category') }}</div>
-    <h4>Edge</h4>
-    <div>{{ document.get('app_Edges:Tags_edges') }}</div>
-    <a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}" class="download right" title="Download">Download</a>
+    <a href="{{backPath}}">BACK</a>
+    <h1>{{ document.title }}</h1>
+    <h2>{{ document.get('The_Loupe_Main:brand') }}</h2>
+    <table>
+      <tbody>
+        <tr>
+          <th>Descriptions</th>
+          <th>Asset Type</th>
+        </tr>
+        <tr>
+          <td>{{ document.get('The_Loupe_Main:description') }}</td>
+          <td>{{ document.get('app_Edges:disruption_type') }}</td>
+        </tr>
+        <tr>
+          <th>Industry</th>
+          <th>Geography</th>
+        </tr>
+        <tr>
+          <td>{{ document.get('app_Edges:industry') }}</td>
+          <td>{{ parseCountry(document.get('The_Loupe_Main:country')) }}</td>
+        </tr>
+        <tr>
+          <th>Author</th>
+          <th>Pubilished</th>
+        </tr>
+        <tr>
+          <td>{{ document.get('dc:creator') }}</td>
+          <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date }}</td>
+        </tr>
+        <tr>
+          <th>Edge Category</th>
+          <th>Edge</th>
+        </tr>
+        <tr>
+          <td>{{ document.get('dc:creator') }}</td>
+          <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <a *ngIf="document.filePath" href="{{document.filePath}}" class="download right" title="Download">Download</a>
+    <a href="{{document.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
   </ng-container>
   <ng-container *ngSwitchCase="isCreativeAsset()">
     <h1>Unboxing</h1>
