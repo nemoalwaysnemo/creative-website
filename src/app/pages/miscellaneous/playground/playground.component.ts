@@ -30,7 +30,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private create(): void {
-    this.documentRepository.get('ac90b7ae-c70c-4fa6-a7ad-5ebbd9730a91').subscribe((doc: DocumentModel) => {
+    this.documentRepository.get('b16183cf-d6fb-4ed9-b8fc-f910f1fdceca').subscribe((doc: DocumentModel) => {
       this.settings = this.getSettings();
       this.document = new DocumentModel({ path: doc.uid, type: 'App-Library-Image' });
     });
