@@ -87,5 +87,6 @@
       </nb-accordion-item>
     </nb-accordion>
     <a *ngIf="document.get('file:content')" href="{{document.get('file:content').data}}" class="download right" title="Download">Download</a>
+    <a href="{{document.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
   </ng-container>
 </ng-container>
