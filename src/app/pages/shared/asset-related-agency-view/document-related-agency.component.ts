@@ -26,11 +26,13 @@ export class DocumentRelatedAgencyComponent implements OnInit, OnDestroy {
   private params: any = {
     pageSize: 4,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+    the_loupe_main_agency_any: '',
   };
 
   constructor(private advanceSearch: AdvanceSearch) { }
 
   ngOnInit() {
+    this.params.the_loupe_main_agency_any = `["${this.document.get('The_Loupe_Main:agency')}"]`;
     this.search(this.params);
     const subscription = this.paginationService.onPageChanged()
       .subscribe((pageInfo: any) => {

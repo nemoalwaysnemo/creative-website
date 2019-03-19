@@ -23,9 +23,11 @@ export class DocumentRelatedProjectComponent implements OnInit {
     pageSize: 4,
     // ecm_primaryType: NUXEO_META_INFO.CREATIVE_PROJECT_TYPES,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
+    the_loupe_main_brand_any: '',
   };
 
   ngOnInit() {
+    this.params.the_loupe_main_brand_any = `["${this.document.brands.join('", "')}"]`;
     this.search(this.params);
     this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       this.search(Object.assign({}, this.params, pageInfo));
