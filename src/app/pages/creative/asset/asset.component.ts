@@ -39,6 +39,16 @@ export class AssetComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  hasReleatedBrands(): boolean {
+    const brands = this.document.get('The_Loupe_Main:brand');
+    return brands && brands.length > 0;
+  }
+
+  hasReleatedAgency(): boolean {
+    const agency = this.document.get('The_Loupe_Main:agency');
+    return agency !== '' || agency !== null;
+  }
+
   private getCurrentDocument(uid: string): Observable<NuxeoPagination> {
     const queryParams = Object.assign({}, this.params, { ecm_uuid: `["${uid}"]` });
     return this.advanceSearch.request(queryParams);
