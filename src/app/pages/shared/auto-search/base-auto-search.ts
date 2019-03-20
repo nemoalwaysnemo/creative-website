@@ -15,7 +15,7 @@ export abstract class BaseAutoSearch implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.onInit();
-    this.search();
+    this._subscribe();
   }
 
   ngOnDestroy() {
@@ -26,7 +26,7 @@ export abstract class BaseAutoSearch implements OnInit, OnDestroy {
     this.opt = deepExtend({ debounce: 300, skip: 0 }, opt);
   }
 
-  search(): void {
+  private _subscribe(): void {
     const subscription = merge(
       this.$keyup.pipe(
         debounceTime(this.opt.debounce),

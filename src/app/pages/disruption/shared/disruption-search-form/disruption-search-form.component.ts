@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates, DocumentModel } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService, PreviewDialogService } from '../../../shared';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService, PreviewDialogService, BaseAutoSearch } from '../../../shared';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { selectObjectByKeys } from '@core/services';
@@ -12,7 +12,7 @@ import { selectObjectByKeys } from '@core/services';
   templateUrl: './disruption-search-form.component.html',
 })
 
-export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
+export class DisruptionSearchFormComponent extends BaseAutoSearch {
   @Input() params: any;
 
   @Input() parentDocument: DocumentModel;
@@ -20,8 +20,6 @@ export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
   @Input() subDocTypes: string[];
 
   private previouSearchTerm: string;
-
-  private subscription: Subscription = new Subscription();
 
   searchForm: FormGroup;
 
@@ -37,18 +35,14 @@ export class DisruptionSearchFormComponent implements OnInit, OnDestroy {
     private previewDialogService: PreviewDialogService,
     private queryParamsService: SearchQueryParamsService,
   ) {
-
+    super();
   }
 
-  ngOnInit() {
+  onInit() {
     this.createForm();
     this.onPageChanged();
     this.onSearchResponse();
     this.onQueryParamsChanged();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   onSubmit(): void {
