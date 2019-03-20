@@ -1,5 +1,5 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
-  <section class="filter-wrapper" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(backgroudDocument)+')'}">
+  <section class="filter-wrapper" [ngStyle]="{'background-image': 'url('+backgroudUrl+')'}">
     <h1>{{ this.headline }}</h1>
     <h4>{{ this.subHead }}</h4>
     <div (clickOutside)="hide()" (click)="show()" style="display:inline-block;">

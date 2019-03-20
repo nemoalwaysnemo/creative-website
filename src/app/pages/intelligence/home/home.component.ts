@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_FOLDER_TYPE,
   };
-  backgroudParams: any = {
+  private backgroudParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_path: NUXEO_META_INFO.BACKGROUND_PATH,

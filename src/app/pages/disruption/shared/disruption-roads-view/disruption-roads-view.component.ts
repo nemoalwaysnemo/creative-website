@@ -26,10 +26,6 @@ export class DisruptionRoadsViewComponent implements OnInit, OnDestroy {
     this.dialogService.open(dialog, doc, type, {title});
   }
 
-  getThumbnailUrl(doc: DocumentModel): string {
-    return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
-  }
-
   ngOnInit() {
     this.search(this.nuxeoParams);
     this.onSearch();

@@ -26,10 +26,6 @@ export class DisruptionThumbnailViewComponent implements OnInit, OnDestroy {
               private queryParamsService: SearchQueryParamsService,
               private activatedRoute: ActivatedRoute) { }
 
-  getThumbnailUrl(doc: DocumentModel): string {
-    return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
-  }
-
   ngOnInit() {
     this.folderId = this.activatedRoute.snapshot.queryParams.id;
     this.search(this.nuxeoParams);
