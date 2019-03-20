@@ -14,7 +14,7 @@ export class Repository extends Base {
     opts.body = {
       'entity-type': 'document',
       type: doc.type,
-      name: doc.name || doc['dc:title'],
+      name: doc.name || doc.get('dc:title'),
       properties: doc.properties,
     };
     const options = this._computeOptions(opts);

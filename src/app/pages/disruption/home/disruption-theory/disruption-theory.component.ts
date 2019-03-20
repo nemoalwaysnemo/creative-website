@@ -24,7 +24,6 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
   };
   disruptionType = 'Distruption Theory';
   tabs = TAB_CONFIG;
-  subDocTypes: string[] = [];
   private subscription: Subscription = new Subscription();
   parentDocument: DocumentModel;
 

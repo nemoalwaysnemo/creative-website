@@ -26,8 +26,9 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
   disruptionType = 'Brilliant Thinking';
   tabs = TAB_CONFIG;
   private subscription: Subscription = new Subscription();
-  subDocTypes: string[] = [];
   parentDocument: DocumentModel;
+
+  constructor(private advanceSearch: AdvanceSearch) { }
 
   ngOnInit() {
     this.searchFolders(this.folderParams);
@@ -35,8 +36,6 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-  constructor(private advanceSearch: AdvanceSearch) {}
 
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)

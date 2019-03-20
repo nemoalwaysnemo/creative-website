@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel } from '@core/custom';
 
-
 @Component({
   selector: 'tbwa-disruption-form-day',
   styleUrls: ['./disruption-form-day.component.scss'],
@@ -13,11 +12,16 @@ export class DisruptionFormDayComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  @Input() document: DocumentModel;
+  parentDocument: DocumentModel;
 
   formLayout: any = {};
 
   settings: any[] = [];
+
+  @Input()
+  set document(doc: DocumentModel) {
+    this.parentDocument = doc.newInstance('App-Disruption-Day');
+  }
 
   constructor() { }
 
@@ -27,6 +31,14 @@ export class DisruptionFormDayComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onCreated(docs: DocumentModel[]): void {
+
+  }
+
+  onUpdated(doc: DocumentModel): void {
+
   }
 
   private performForm(): void {
@@ -52,13 +64,13 @@ export class DisruptionFormDayComponent implements OnInit, OnDestroy {
           minLength: 'At least 4 characters',
         },
       }),
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand',
-        placeholder: 'Brand',
-        autoComplete: 'off',
-        required: false,
-      }),
+      // new DynamicInputModel({
+      //   id: 'The_Loupe_Main:brand',
+      //   label: 'Brand',
+      //   placeholder: 'Brand',
+      //   autoComplete: 'off',
+      //   required: false,
+      // }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',

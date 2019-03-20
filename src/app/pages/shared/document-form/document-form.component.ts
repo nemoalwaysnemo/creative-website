@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
@@ -52,6 +52,9 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   set layout(layout: any) {
     this.formLayout = layout;
   }
+
+  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
+  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
 
@@ -141,12 +144,15 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
       documents = [this.documentModel];
     }
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
+      this.onCreated.next(models);
     });
   }
 
   private update(): void {
     const properties = this.filterPropertie(this.formGroup.value);
-    this.updateDocument(this.documentModel, properties);
+    this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
+      this.onUpdated.next(model);
+    });
   }
 
   private createDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {

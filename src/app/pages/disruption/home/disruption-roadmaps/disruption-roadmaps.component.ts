@@ -22,7 +22,6 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_TYPE,
   };
-  subDocTypes: string[] = [];
   parentDocument: DocumentModel;
   disruptionType = 'Distruption Roadmaps';
 
@@ -30,15 +29,14 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
+  constructor(private advanceSearch: AdvanceSearch) { }
+
   ngOnInit() {
     this.searchFolders(this.folderParams);
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-
-  constructor(private advanceSearch: AdvanceSearch) { }
 
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)

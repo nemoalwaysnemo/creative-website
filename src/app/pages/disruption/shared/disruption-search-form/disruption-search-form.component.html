@@ -4,7 +4,7 @@
   </div>
   <div class="filters left">
     <a href="javascript:;" (click)="toggleFilter()" class="advanced_filters_trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': submitted}">Filter</a>
-    <a href="javascript:;" (click)="openForm(dialog)" class="new_day icon_btn">New Day</a>
+    <button (click)="openForm(dialog)" class="new_day icon_btn" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Day">New Day</button>
     <a href="{{backPath}}" class="back icon_btn">Back</a>
   </div>
   <div class="clear"></div>

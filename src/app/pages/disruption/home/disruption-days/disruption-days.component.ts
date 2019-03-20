@@ -29,7 +29,8 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   pageType = 'disruptionDays';
   private subscription: Subscription = new Subscription();
   parentDocument: DocumentModel;
-  subDocTypes: string[] = ['App-Disruption-Day'];
+
+  constructor(private advanceSearch: AdvanceSearch) { }
 
   ngOnInit() {
     this.searchFolders(this.folderParams);
@@ -37,9 +38,6 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-
-  constructor(private advanceSearch: AdvanceSearch) { }
 
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)

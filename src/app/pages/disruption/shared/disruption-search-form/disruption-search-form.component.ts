@@ -17,8 +17,6 @@ export class DisruptionSearchFormComponent extends BaseAutoSearch {
 
   @Input() parentDocument: DocumentModel;
 
-  @Input() subDocTypes: string[];
-
   private previouSearchTerm: string;
 
   searchForm: FormGroup;
@@ -64,7 +62,7 @@ export class DisruptionSearchFormComponent extends BaseAutoSearch {
   }
 
   openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.parentDocument, 'disruptionFormDay', { subDocTypes: this.subDocTypes });
+    this.previewDialogService.open(dialog, this.parentDocument, 'disruptionFormDay');
   }
 
   private createForm() {

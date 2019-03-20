@@ -190,6 +190,10 @@ export class DocumentModel extends Base {
     return !this.hasFacet('NotCollectionMember');
   }
 
+  newInstance(type: string): DocumentModel {
+    return new DocumentModel({ path: this.uid, type: type });
+  }
+
   private getDefaultThumbnail(): string {
     return this.assetPath + 'assets/images/no-thumbnail.png';
   }
