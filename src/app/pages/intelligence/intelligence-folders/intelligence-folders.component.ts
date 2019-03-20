@@ -15,7 +15,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   folderContents: any;
   redirectToIndusty: boolean;
   queryParams = this.activatedRoute.snapshot.queryParams;
-
+  header: any;
   contentParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
@@ -64,10 +64,11 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   }
 
   private judgeRedirects(folderType: string) {
+    this.header = folderType;
     if ( folderType === 'Industry' ) {
       this.redirectToIndusty = true;
       this.searchContents(this.contentParams);
-    } else if ( folderType === 'Consumer' || folderType === 'Marketing') {
+    } else if ( folderType === 'Consumers' || folderType === 'Marketing') {
       this.searchAssets(this.assetParams);
     } else if ( folderType === 'industryAssets') {
       this.searchContents(this.industryParams);
@@ -78,6 +79,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.folderContents = res.entries;
+        console.info(this.folderContents);
       });
     this.subscription.add(subscription);
   }

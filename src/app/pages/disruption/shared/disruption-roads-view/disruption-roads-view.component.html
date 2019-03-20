@@ -5,8 +5,8 @@
         <a (click)="open(dialog, document, 'roadmaps')"><img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img"></a>
       </div>
       <div class="description">
-        <h1 *ngIf=" disruptionType == 'roadmaps'">{{document.get('The_Loupe_Main:brand')}}</h1>
-        <h1 *ngIf=" disruptionType == 'theory'">{{document.title}}</h1>
+        <h1 *ngIf="disruptionType == 'Distruption Roadmaps'">{{document.get('The_Loupe_Main:brand')}}</h1>
+        <h1 *ngIf="disruptionType == 'Distruption Theory'">{{document.title}}</h1>
       </div>
     </div>
   </div>

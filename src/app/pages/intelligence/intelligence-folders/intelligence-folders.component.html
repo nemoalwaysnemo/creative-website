@@ -1,11 +1,11 @@
 <div class="document">
-  <h1>Industry</h1>
+  <h1>{{ header }}</h1>
   <ng-container [ngSwitch]="true">
     <ng-container *ngSwitchCase="redirectToIndusty">
       <div class="quarter flex">
         <div *ngFor="let document of folderContents">
           <div class="thumbnail-view">
-            <div class="image_holder">{{document.thumbnailUrl}}
+            <div class="image_holder">
               <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: 'industryAssets', industry_type: document.get('app_Edges:industry')}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
             </div>
             <div class="description">
@@ -57,4 +57,7 @@
       </div> -->
     </ng-container>
   </ng-container>
+  <div *ngIf="!loading && folderContents && folderContents.length === 0" class="thumbnail-view empty text-center">
+    <span class="empty-data">No data found</span>
+  </div>
 </div>
