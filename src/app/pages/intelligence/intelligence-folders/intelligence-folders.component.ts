@@ -68,7 +68,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
     if ( folderType === 'Industry' ) {
       this.redirectToIndusty = true;
       this.searchContents(this.contentParams);
-    } else if ( folderType === 'Consumers' || folderType === 'Marketing') {
+    } else if ( folderType === 'Consumers' || folderType === 'Marketing' || folderType === 'Consumer') {
       this.searchAssets(this.assetParams);
     } else if ( folderType === 'industryAssets') {
       this.searchContents(this.industryParams);
@@ -79,7 +79,6 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.folderContents = res.entries;
-        console.info(this.folderContents);
       });
     this.subscription.add(subscription);
   }
