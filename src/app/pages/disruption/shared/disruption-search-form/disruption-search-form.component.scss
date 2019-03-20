@@ -10,6 +10,7 @@
 	font-size: 18px;
 	color: #000000;
 	border: solid 1px #e1e1e1;
+	&.new_day { padding-left: 13px; }
 	&.success {
 		background-color: #40dc7e!important;
 		color: #ffffff!important;
@@ -39,6 +40,7 @@
 		margin-right: 17px;
 		box-sizing: border-box;
 	}
+	.back { background: url('/assets/images/back_icon.png') no-repeat 13px center; }
 	.advanced_filters_trigger {
 		background: url('/assets/images/filters_icon.png') no-repeat 13px center;
 		&.btn-disabled { background: url('/assets/images/filters_icon_disabled.png') no-repeat 13px center; }
@@ -94,5 +96,6 @@
 tbwa-preview-dialog {
 	display: block;
 	width: 190vh;
+	border-radius: 10px;
 	background: #ffffff;
 }
