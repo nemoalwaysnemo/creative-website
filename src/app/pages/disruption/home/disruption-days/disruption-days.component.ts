@@ -3,6 +3,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../../shared/tab-config';
 import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
+import { PreviewDialogService } from '@pages/shared';
 @Component({
   selector: 'tbwa-disruption-page',
   styleUrls: ['./disruption-days.component.scss'],
@@ -30,13 +31,17 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   parentDocument: DocumentModel;
 
-  constructor(private advanceSearch: AdvanceSearch) { }
+  constructor(private advanceSearch: AdvanceSearch, private previewDialogService: PreviewDialogService) { }
 
   ngOnInit() {
     this.searchFolders(this.folderParams);
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  openForm(dialog: any): void {
+    this.previewDialogService.open(dialog, this.parentDocument, 'disruptionFormDay');
   }
 
   private searchFolders(params: {}): void {

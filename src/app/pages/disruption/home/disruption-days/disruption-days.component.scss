@@ -25,9 +25,76 @@ div {
   padding: 0;
   margin: 0;
 }
+
 nb-card {
   width: 100%;
   padding: 0 40px;
   box-sizing: border-box;
 }
-nb-route-tabset { margin: 20px 0; }
+
+nb-route-tabset {
+  margin: 20px 0;
+}
+
+.clear {
+  clear: both;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.icon_btn {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 13px 0 45px;
+  font-size: 18px;
+  color: #000000;
+  border: solid 1px #e1e1e1;
+
+  &.new_day {
+    padding-left: 13px;
+  }
+
+  &.success {
+    background-color: #40dc7e !important;
+    color: #ffffff !important;
+
+    &:hover,
+    &:focus {
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+
+  &.btn-disabled {
+    background-color: #eeeeee !important;
+    color: #cccccc;
+    cursor: default;
+
+    &:hover,
+    &:focus {
+      color: #cccccc;
+      text-decoration: none;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    color: #000000;
+    text-decoration: none;
+  }
+}
+
+tbwa-preview-dialog {
+  display: block;
+  width: 190vh;
+  border-radius: 10px;
+  background: #ffffff;
+}

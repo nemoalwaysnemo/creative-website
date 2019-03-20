@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdvanceSearch, AggregateModel, filterAggregates, DocumentModel } from '@core/api';
-import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService, PreviewDialogService, BaseAutoSearch } from '../../../shared';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { DEFAULT_SEARCH_FILTER_ITEM, SearchQueryParamsService, BaseAutoSearch } from '../../../shared';
+import { BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { selectObjectByKeys } from '@core/services';
 
@@ -30,7 +30,6 @@ export class DisruptionSearchFormComponent extends BaseAutoSearch {
   constructor(
     private formBuilder: FormBuilder,
     private advanceSearch: AdvanceSearch,
-    private previewDialogService: PreviewDialogService,
     private queryParamsService: SearchQueryParamsService,
   ) {
     super();
@@ -59,10 +58,6 @@ export class DisruptionSearchFormComponent extends BaseAutoSearch {
     if (!this.submitted) {
       this.showFilter = !this.showFilter;
     }
-  }
-
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.parentDocument, 'disruptionFormDay');
   }
 
   private createForm() {
