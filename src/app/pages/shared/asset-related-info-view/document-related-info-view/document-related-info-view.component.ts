@@ -43,7 +43,6 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
     this.onSearch();
     this.onChangeTab();
     this.buildBackslashEdges();
-    this.setAutoControl(this.queryField);
   }
 
   onSubmit() {

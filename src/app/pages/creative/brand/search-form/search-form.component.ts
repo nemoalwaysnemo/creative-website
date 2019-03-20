@@ -45,7 +45,6 @@ export class SearchFormComponent extends BaseAutoSearch {
     this.onPageChanged();
     this.onSearchResponse();
     this.onQueryParamsChanged();
-    this.setAutoControl(this.searchForm.controls.ecm_fulltext, {skip: 1});
   }
 
   onSubmit(): void {

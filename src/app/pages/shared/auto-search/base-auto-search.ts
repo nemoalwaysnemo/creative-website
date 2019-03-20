@@ -9,9 +9,9 @@ export abstract class BaseAutoSearch implements OnInit, OnDestroy {
   protected abstract onInit();
   protected subscription: Subscription = new Subscription();
 
-  private inputSubscription: Observable<any>;
-  private filterSubject: Subject<any> = new Subject();
-
+  private $filter: Subject<any> = new Subject();
+  private $keyup: Subject<any> = new Subject();
+  private opt = { debounce: 300, skip: 0 };
 
   ngOnInit() {
     this.onInit();
@@ -22,25 +22,30 @@ export abstract class BaseAutoSearch implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  setAutoControl(control: AbstractControl, opt?: { debounce?: number, skip?: number }): void {
-    opt = deepExtend({ debounce: 300, skip: 0 }, opt);
-    this.inputSubscription = control.valueChanges.pipe(
-      debounceTime(opt.debounce),
-      distinctUntilChanged(),
-      skip(opt.skip),
-    );
+  setAutoControl(opt: { debounce?: number, skip?: number }): void {
+    this.opt = deepExtend({ debounce: 300, skip: 0 }, opt);
   }
 
   search(): void {
-    const subscription = merge(this.inputSubscription, this.filterSubject).subscribe((_: any) => {
+    const subscription = merge(
+      this.$keyup.pipe(
+        debounceTime(this.opt.debounce),
+        distinctUntilChanged(),
+        skip(this.opt.skip),
+      ),
+      this.$filter,
+    ).subscribe((_: any) => {
       this.onSubmit();
     });
     this.subscription.add(subscription);
   }
 
+  onKeyup(_: any): void {
+    this.$keyup.next(_);
+  }
 
-  onFilterChange(aggregateModels: any): void {
-    this.filterSubject.next(aggregateModels);
+  onFilterChange(_: any): void {
+    this.$filter.next(_);
   }
 
 }
