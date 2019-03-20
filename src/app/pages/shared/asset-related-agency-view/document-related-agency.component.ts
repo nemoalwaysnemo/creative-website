@@ -33,7 +33,7 @@ export class DocumentRelatedAgencyComponent implements OnInit, OnDestroy {
   constructor(private advanceSearch: AdvanceSearch) { }
 
   ngOnInit() {
-    this.params.the_loupe_main_agency = `["${this.document.get('The_Loupe_Main:agency')}"]`;
+    this.params.the_loupe_main_agency = this.document.get('The_Loupe_Main:agency');
     this.params.ecm_uuid_exclude = this.document.uid;
     this.search(this.params);
     const subscription = this.paginationService.onPageChanged()
