@@ -1,6 +1,6 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
   <div class="search_area">
-    <input formControlName="ecm_fulltext" [disableControl]="submitted" placeholder="Search for..." (keyup.enter)="onSubmit()" />
+    <input formControlName="ecm_fulltext" [disableControl]="submitted" placeholder="Search for..." (keyup)="onKeyup($event)" />
   </div>
   <div class="filters">
     <a href="javascript:;" (click)="toggleFilter()" class="advanced_filters_trigger" [ngClass]="{'success': showFilter, 'btn-disabled': submitted}">Filter +</a>

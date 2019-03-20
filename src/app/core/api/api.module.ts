@@ -10,6 +10,7 @@ const SERVICES = [
     baseUrl: Environment.nuxeoUrl,
     production: Environment.production,
     appName: Environment.appName,
+    assetPath: Environment.assetPath,
   }).providers,
   DocumentRepository,
   AdvanceSearch,

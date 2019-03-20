@@ -39,7 +39,7 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
   }
 
   protected assetPath(src: string): string {
-    return Environment.siteAssetPath + src;
+    return Environment.assetPath + src;
   }
 
   private onDocumentNext(): void {
