@@ -16,13 +16,13 @@ import { DEFAULT_SEARCH_FILTER_ITEM } from '../shared-config';
 })
 
 export class HomeSearchComponent implements OnInit, OnDestroy {
-  @Input() headline: any;
-  @Input() subHead: any;
-  @Input() backgroudDocument: DocumentModel[];
+
   results: DocumentModel[];
   documents: DocumentModel[] = [];
   queryField: FormControl = new FormControl();
   layout = 'search-list';
+
+  backgroudUrl: string = '';
 
   private inputObs: Observable<any>;
   private filterObs: Observable<any>;
@@ -38,6 +38,15 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     pageSize: 10,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
+
+  @Input() headline: any;
+  @Input() subHead: any;
+  @Input()
+  set backgroudDocument(doc: DocumentModel) {
+    if (doc) {
+      this.backgroudUrl = doc.thumbnailUrl;
+    }
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,20 +65,13 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  getThumbnailUrl(doc): string {
-    if (doc) {
-      return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
-    } else {
-      return '';
-    }
-  }
   search(): void {
     const subscription = this.queryField.valueChanges
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
         switchMap((query: string) => this.advanceSearch.searchForText(query, this.params)),
-    )
+      )
       .subscribe((result: NuxeoPagination) => {
         this.results = result.entries;
         this.show();

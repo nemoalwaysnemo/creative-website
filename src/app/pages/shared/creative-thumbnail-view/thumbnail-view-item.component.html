@@ -13,7 +13,7 @@
 </div>
 <div *ngIf="layout === 'recommendBrand'" class="thumbnail-view-item {{styleClass}}">
   <div class="image_holder">
-    <a routerLink="/p/creative/{{documentType}}" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}"></a>
+    <a routerLink="/p/creative/{{documentType}}" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
   </div>
   <div class="description">
     <h1 [title]="document.title"><a routerLink="/p/creative/{{documentType}}" [queryParams]="{id: document.uid}">{{document.title}}</a></h1>
@@ -28,11 +28,11 @@
   <h4>{{document.title | shorten: 12: '...'}}</h4>
   <div class="line"></div>
   <h4 class="right" [title]="document.get('The_Loupe_ProdCredits:production_date') | date">{{document.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
-  <a (click)="open(dialog, document, 'backslash')"><img src="{{getThumbnailUrl(document)}}" [alt]="document.title" class="thumbnail-img"></a>
+  <a (click)="open(dialog, document, 'backslash')"><img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img"></a>
 </div>
 <div *ngIf="layout === 'disruption'" class="thumbnail-view-item {{styleClass}}">
   <div class="image_holder">
-    <a [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}" (click)="open(dialog, document, 'disruption')"></a>
+    <a [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}" (click)="open(dialog, document, 'disruption')"></a>
   </div>
   <div class="description">
     <h1 [title]="document.title">{{document.title}}</h1>
@@ -40,7 +40,7 @@
 </div>
 <div *ngIf="layout === 'intelligence'" class="thumbnail-view-item {{styleClass}}">
   <div class="image_holder">
-    <a [ngStyle]="{'background-image': 'url('+getThumbnailUrl(document)+')'}" (click)="open(dialog, document, 'intelligence')"></a>
+    <a [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}" (click)="open(dialog, document, 'intelligence')"></a>
   </div>
   <div class="description">
     <h1 [title]="document.title">{{document.title}}</h1>
