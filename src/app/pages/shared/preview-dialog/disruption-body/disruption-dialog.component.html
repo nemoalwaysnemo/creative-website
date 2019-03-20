@@ -12,7 +12,7 @@
   <ng-container *ngIf="document">
     <div class="text_content">
       <div class="controls">
-        <button class="inline-middle download">Download</button>
+        <a href="{{document.filePath}}"><button class="inline-middle download">Download</button></a>
         <button class="inline-middle share">Share</button>
       </div>
       <p>
