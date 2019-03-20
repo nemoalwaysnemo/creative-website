@@ -43,7 +43,6 @@
     <a href="{{backPath}}" class="back right" title="Back">Back</a>
   </ng-container>
   <ng-container *ngSwitchCase="isCreativeAsset()">
-    <h1>Unboxing</h1>
     <h2>{{document.title}}</h2>
     <h4>About</h4>
     <p>{{document.get('dc:description')}}</p>
@@ -99,7 +98,6 @@
           <ng-template #errorInfo>
             <ul class="state error">
               <li>
-                <h4>Errors</h4>
                 <span>{{usageRights.error_messages}}</span>
               </li>
             </ul>

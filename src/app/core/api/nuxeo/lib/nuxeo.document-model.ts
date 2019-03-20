@@ -116,8 +116,10 @@ export class DocumentModel extends Base {
   }
 
   get thumbnailUrl(): string {
-    const defaultUrl = 'assets/images/no-thumbnail.png';
-    return this.facets.indexOf('Thumbnail') !== -1 && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : defaultUrl;
+    if (this.isAudio()) {
+      return this.getDefaultThumbnail();
+    }
+    return this.facets.indexOf('Thumbnail') !== -1 && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : this.getDefaultThumbnail();
   }
 
   get previewUrl(): string {
@@ -186,5 +188,9 @@ export class DocumentModel extends Base {
 
   isCollectable(): boolean {
     return !this.hasFacet('NotCollectionMember');
+  }
+
+  private getDefaultThumbnail(): string {
+    return this.assetPath + 'assets/images/no-thumbnail.png';
   }
 }

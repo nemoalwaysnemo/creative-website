@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DocumentModel, DocumentRepository } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel } from '@core/custom';
+import { PreviewDialogService } from '@pages/shared';
 
 @Component({
   selector: 'tbwa-playground',
@@ -13,7 +14,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   document: DocumentModel;
 
-  constructor(private documentRepository: DocumentRepository) {
+  constructor(private documentRepository: DocumentRepository, private previewDialogService: PreviewDialogService) {
 
   }
   ngOnInit(): void {
@@ -27,6 +28,10 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
 
+  }
+
+  openForm(dialog: any): void {
+    this.previewDialogService.open(dialog, this.document, 'disruptionFormDay', { subDocTypes: ['App-Library-Image'] });
   }
 
   private create(): void {

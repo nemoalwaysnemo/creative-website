@@ -3,7 +3,7 @@ export class UserModel {
   private _properties: any = {};
 
   constructor(user: any, opts: any = {}) {
-    Object.assign(this, user);
+    Object.assign(this, user, { avatar: opts.assetPath + 'assets/images/user_icon.png' });
   }
 
   get username(): string {

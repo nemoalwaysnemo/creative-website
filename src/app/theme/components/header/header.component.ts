@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private getUser(): void {
     const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {
       this.user = user;
-      this.user['avatar'] = Environment.siteAssetPath + 'assets/images/user_icon.png';
     });
     this.subscription.add(subscription);
   }

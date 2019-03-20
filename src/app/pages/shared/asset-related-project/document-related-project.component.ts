@@ -21,7 +21,6 @@ export class DocumentRelatedProjectComponent implements OnInit {
 
   private params: any = {
     pageSize: 4,
-    // ecm_primaryType: NUXEO_META_INFO.CREATIVE_PROJECT_TYPES,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
     the_loupe_main_brand_any: '',
     ecm_uuid_exclude: '',

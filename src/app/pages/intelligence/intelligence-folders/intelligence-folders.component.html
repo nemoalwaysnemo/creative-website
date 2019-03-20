@@ -5,9 +5,8 @@
       <div class="quarter flex">
         <div *ngFor="let document of folderContents">
           <div class="thumbnail-view">
-            <div class="image_holder">
-              <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: 'industryAssets', industry_type: document.get('app_Edges:industry')}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}">
-              </a>
+            <div class="image_holder">{{document.thumbnailUrl}}
+              <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: 'industryAssets', industry_type: document.get('app_Edges:industry')}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
             </div>
             <div class="description">
               <h1><a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: 'industryAssets', industry_type: document.get('app_Edges:industry')}">{{ document.title }}</a></h1>
@@ -15,7 +14,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- <div class="quarter flex">
         <div *ngFor="let document of folderContents" class="thumbnail-view">
           <div>
@@ -31,14 +30,13 @@
         </div>
       </div> -->
     </ng-container>
-    
+
     <ng-container *ngSwitchCase="!redirectToIndusty">
       <div class="flex quarter">
         <div *ngFor="let document of folderContents">
           <div class="thumbnail-view">
             <div class="image_holder">
-              <a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}"
-                  [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+              <a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
             </div>
             <div class="description">
               <h1><a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}">{{ document.title }}</a></h1>
@@ -46,7 +44,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- <div *ngFor="let document of folderContents" class="thumbnail-view">
         <a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}">
           <div>

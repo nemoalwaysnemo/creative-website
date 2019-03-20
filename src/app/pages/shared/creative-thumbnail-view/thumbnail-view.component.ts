@@ -30,9 +30,6 @@ export class CreativeThumbnailViewItemComponent {
     this.dialogService.open(dialog, doc, type);
   }
 
-  getThumbnailUrl(doc: DocumentModel): string {
-    return doc.isAudio() && doc.type === 'App-Library-Audio' ? 'assets/images/no-thumbnail.png' : doc.thumbnailUrl;
-  }
 }
 
 @Component({
