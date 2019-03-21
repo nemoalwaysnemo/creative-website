@@ -12,9 +12,10 @@
   <ng-container *ngIf="document">
     <div class="text_content">
       <div class="controls">
-        {{ document.get('The_Loupe_Main:brand')}}
-        <a href="{{document.filePath}}"><button class="inline-middle download" type="submit">Download</button></a>
-        <button class="inline-middle share">Share</button>
+        <h2 class="left">{{ document.get('The_Loupe_Main:brand')}}</h2>
+        <button class="share right">Share</button>
+        <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
+        <div class="clear"></div>
       </div>
       <p> </p>
     </div>

@@ -32,19 +32,24 @@
 		}
 	}
 	.media {
-		padding: 0 144px;
+		// padding: 0 144px;
 		box-sizing: border-box;
 		background-color: #000000;
 	}
 	.text_content {
 		background: #ffffff;
 		.controls {
-			width: calc(100% - 254px);
-			margin: 0;
+			// width: calc(100% - 254px);
+			width: 100%;
+			margin: 10px 0 0;
+			h2 {
+				line-height: 50px;
+				margin-left: 15px;
+			}
 			button {
 				height: 51px;
 				padding: 0 26px 0 50px;
-				margin-right: 25px;
+				margin-right: 15px;
 				border: none;
 				background-color: #f2f2f2;
 				background-repeat: no-repeat;
