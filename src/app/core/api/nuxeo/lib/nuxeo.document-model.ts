@@ -116,10 +116,10 @@ export class DocumentModel extends Base {
   }
 
   get thumbnailUrl(): string {
-    if (this.isAudio()) {
+    if (!this.facets.includes('Thumbnail') && this.isAudio()) {
       return this.getDefaultThumbnail();
     }
-    return this.facets.indexOf('Thumbnail') !== -1 && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : this.getDefaultThumbnail();
+    return this.facets.includes('Thumbnail') && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : this.getDefaultThumbnail();
   }
 
   get previewUrl(): string {
