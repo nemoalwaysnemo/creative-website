@@ -13,8 +13,6 @@ export class DocumentVideoViewerComponent implements OnInit {
 
   videoSources: { url: any, type: string }[];
 
-  storyboards: { source: any, time: number }[];
-
   @Input() document: DocumentModel;
   @Input() forDailog: boolean;
   @Input() autoPlay: boolean = false;
@@ -26,9 +24,5 @@ export class DocumentVideoViewerComponent implements OnInit {
   private buildVideoInfo(): void {
     this.poster = this.document.videoPoster;
     this.videoSources = this.document.getVideoSources();
-    const storyData = this.document.properties['vid:storyboard'];
-    this.storyboards = storyData.map((source) => {
-      return { source: source.content.data, time: source.timecode };
-    });
   }
 }

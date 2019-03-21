@@ -10,7 +10,7 @@ export abstract class BaseAutoSearch implements OnInit, OnDestroy {
 
   private $filter: Subject<any> = new Subject();
   private $keyup: Subject<any> = new Subject();
-  private opt = { debounce: 300, skip: 0 };
+  private settings = { debounce: 500, skip: 0 };
 
   ngOnInit() {
     this.onInit();
@@ -21,16 +21,16 @@ export abstract class BaseAutoSearch implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  setAutoControl(opt: { debounce?: number, skip?: number }): void {
-    this.opt = deepExtend({ debounce: 300, skip: 0 }, opt);
+  setAutoControl(settings: { debounce?: number, skip?: number }): void {
+    this.settings = deepExtend({}, this.settings, settings);
   }
 
   private _subscribe(): void {
     const subscription = merge(
       this.$keyup.pipe(
-        debounceTime(this.opt.debounce),
+        debounceTime(this.settings.debounce),
         distinctUntilChanged(),
-        skip(this.opt.skip),
+        skip(this.settings.skip),
       ),
       this.$filter,
     ).subscribe((_: any) => {

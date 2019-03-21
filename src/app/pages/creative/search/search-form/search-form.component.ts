@@ -21,8 +21,6 @@ import { deepExtend } from '@core/nebular/auth/helpers';
 })
 export class SearchFormComponent extends BaseAutoSearch {
 
-  private previouSearchTerm: string;
-
   searchForm: FormGroup;
 
   submitted: boolean = false;
@@ -38,7 +36,10 @@ export class SearchFormComponent extends BaseAutoSearch {
   };
   private fitlerItems = this.searchItems['asset'];
 
-  private type = '';
+  private previouSearchTerm: string;
+
+  private type: string = '';
+
   private params: any = {};
 
   private baseParams: any = {

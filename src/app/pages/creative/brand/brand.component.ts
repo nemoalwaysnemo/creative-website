@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
-import { takeWhile, tap, distinctUntilChanged, switchMap, map, first } from 'rxjs/operators';
+import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { isDocumentUID } from '@core/services';
@@ -14,7 +14,7 @@ import { BrandService } from '@pages/creative/brand/brand.service';
 })
 export class BrandComponent implements OnInit, OnDestroy {
   document: DocumentModel;
-  brandMessage: { title, client, brand, agency, country, file, path } = {title: '', client: '', brand: '', agency: '', country: '', file: '', path: '' };
+  brandMessage: { title, client, brand, agency, country, file, path } = { title: '', client: '', brand: '', agency: '', country: '', file: '', path: '' };
 
   private subscription: Subscription = new Subscription();
 
@@ -72,7 +72,7 @@ export class BrandComponent implements OnInit, OnDestroy {
         map(queryParams => queryParams.id),
         switchMap((uid: string) => this.getCurrentDocument(uid)),
         map((res: NuxeoPagination) => res.entries.shift()),
-    )
+      )
       .subscribe((doc: DocumentModel) => {
         if (doc) {
           this.document = doc;

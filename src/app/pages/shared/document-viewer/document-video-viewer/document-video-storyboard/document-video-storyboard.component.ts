@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentVideoViewerService } from '../document-video-viewer.service';
 import { DragScrollComponent } from 'ngx-drag-scroll';
+import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'tbwa-document-video-storyboard',
@@ -10,17 +11,23 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
 })
 export class DocumentVideoStoryboardComponent implements OnInit {
 
-  @Input() storyboards: { source: any, time: number }[] = [];
+  @Input() document: DocumentModel;
+  storyboards: { source: any, time: number }[] = [];
+
+  @ViewChild('nav', { read: DragScrollComponent }) ds: DragScrollComponent;
 
   constructor(private seekTime: DocumentVideoViewerService) { }
 
   ngOnInit() {
-    this.storyboards = this.storyboards.map((storyboard) => {
-      return { source: storyboard.source, time: storyboard.time, minutes: this.timeToMinute(storyboard.time) };
+    const storyData = this.document.get('vid:storyboard') || [];
+    this.storyboards = storyData.map((source) => {
+      return { source: source.content.data, time: source.timecode, minutes: this.timeToMinute(source.timecode) };
     });
   }
 
-  @ViewChild('nav', { read: DragScrollComponent }) ds: DragScrollComponent;
+  getDocumentType(): string {
+    return this.document ? this.document.type.toLowerCase() : '';
+  }
 
   moveLeft() {
     this.ds.moveLeft();
