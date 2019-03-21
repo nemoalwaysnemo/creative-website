@@ -24,8 +24,6 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
 
   backgroudUrl: string = '';
 
-  private inputObs: Observable<any>;
-  private filterObs: Observable<any>;
   private subscription: Subscription = new Subscription();
 
   aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
@@ -39,8 +37,9 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
-  @Input() headline: any;
-  @Input() subHead: any;
+  @Input() headline: string;
+  @Input() subHead: string;
+  @Input() placeholder: string;
   @Input()
   set backgroudDocument(doc: DocumentModel) {
     if (doc) {

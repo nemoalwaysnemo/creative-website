@@ -18,8 +18,10 @@ export class HomeComponent implements OnInit {
   };
   backgroudDocument: any;
 
-  headline = 'Discover and find inspiring TBWA work';
-  subHead = 'Over hundreds of curated work created by the TBWA network, all in one place.';
+  headline = 'This is how we kill boring.';
+  subHead = 'Our entire collection of disruptive work is all right here';
+  placeholder = 'Search for campaigns by title, agency, brand, client...';
+
   constructor(private advanceSearch: AdvanceSearch) { }
 
   ngOnInit() {

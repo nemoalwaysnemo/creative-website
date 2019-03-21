@@ -1,6 +1,6 @@
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { NuxeoPagination, AdvanceSearch } from '@core/api';
 import { Subscription } from 'rxjs';
 
@@ -12,7 +12,9 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  headline = 'What are you looking for today?';
+  headline = 'Find the knowledge in our network.';
+  subHead = 'Get the info that brought the insight.';
+  placeholder = 'Search for marketing reports, data, research...';
   backgroudDocument: any;
   folders: any;
   params: any = {
@@ -29,7 +31,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   };
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private advanceSearch: AdvanceSearch) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;

@@ -4,7 +4,7 @@
     <h4>{{ this.subHead }}</h4>
     <div (clickOutside)="hide()" (click)="show()" style="display:inline-block;">
       <div class="keyword-wrapper">
-        <input [formControl]="queryField" autofocus (keyup.enter)="onKeyup($event)" type="text" class="keyword" placeholder="Search for campaigns by title, agency, brand, client..." />
+        <input [formControl]="queryField" autofocus (keyup.enter)="onKeyup($event)" type="text" class="keyword" [placeholder]="placeholder" />
       </div>
       <creative-thumbnail-view [layout]="layout" [documents]="documents" [showEmpty]="false" [tabIndex]="0"></creative-thumbnail-view>
     </div>
