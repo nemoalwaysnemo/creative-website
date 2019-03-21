@@ -1,11 +1,12 @@
 <div>
-  <tbwa-home-search [headline]="headline" [subHead]='subHead' [placeholder]="placeholder" [backgroudDocument]="backgroudDocument"></tbwa-home-search>
+  <tbwa-home-search [headline]="headline" [subHead]="subHead" [placeholder]="placeholder" [backgroudDocument]="backgroudDocument" [params]="params" [assetType]="assetType"></tbwa-home-search>
 </div>
 <div *ngIf="folders" class="document flex quarter">
   <div *ngFor="let document of folders">
     <div class="thumbnail-view">
       <div class="image_holder">
-        <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: document.title}" [ngStyle]="{'background-image': 'url('+document.url+')'}"></a>
+        <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: document.title}"
+            [ngStyle]="{'background-image': 'url('+document.url+')'}"></a>
       </div>
       <div class="description">
         <h1>{{ document.title }}</h1>

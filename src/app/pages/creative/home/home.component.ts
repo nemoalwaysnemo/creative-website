@@ -20,6 +20,11 @@ export class HomeComponent implements OnInit {
 
   private subscription: Subscription = new Subscription();
 
+  params: any = {
+    pageSize: 10,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+  };
+
   private backgroudParams: any = {
     pageSize: 10,
     currentPageIndex: 0,

@@ -17,7 +17,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   placeholder = 'Search for marketing reports, data, research...';
   backgroudDocument: any;
   folders: any;
+  assetType = 'intelligence';
   params: any = {
+    pageSize: 20,
+    currentPageIndex: 0,
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+  };
+  folderParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
@@ -38,7 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.search(this.params);
+    this.search(this.folderParams);
     this.getBackgroud(this.backgroudParams);
   }
   ngOnDestroy() {

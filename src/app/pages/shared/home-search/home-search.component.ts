@@ -13,7 +13,6 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 
 export class HomeSearchComponent implements OnInit, OnDestroy {
-
   results: DocumentModel[];
 
   documents: DocumentModel[] = [];
@@ -29,12 +28,8 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   showFilter: boolean = false;
 
   private subscription: Subscription = new Subscription();
-
-  private params: any = {
-    pageSize: 10,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-  };
-
+  @Input() assetType: any;
+  @Input() params: any;
   @Input() headline: string;
   @Input() subHead: string;
   @Input() placeholder: string;

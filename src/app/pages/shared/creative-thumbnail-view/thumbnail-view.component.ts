@@ -12,6 +12,8 @@ export class CreativeThumbnailViewItemComponent {
 
   layout: string = 'default';
 
+  @Input() assetType: string;
+
   @Input() styleClass: string;
 
   @Input() document: DocumentModel;
@@ -38,7 +40,7 @@ export class CreativeThumbnailViewItemComponent {
   template: `
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="{{styleClass}}" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
     <div *ngFor="let document of documents" class="thumbnail-view">
-      <creative-thumbnail-view-item [documentType]="documentType" [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></creative-thumbnail-view-item>
+      <creative-thumbnail-view-item [assetType]="assetType" [documentType]="documentType" [layout]="itemLayout" [document]="document" [styleClass]="styleClass" [tabIndex]="tabIndex"></creative-thumbnail-view-item>
     </div>
     <div *ngIf="showEmpty && !loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
       <span class="empty-data">No data found</span>
@@ -48,6 +50,8 @@ export class CreativeThumbnailViewItemComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreativeThumbnailViewComponent implements OnInit {
+
+  @Input() assetType: string;
 
   @Input() layout: string;
 
