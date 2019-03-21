@@ -19,15 +19,6 @@
   background: url('/assets/images/scroll_arrow_next.png') no-repeat center center;
 }
 .gallery-list {
-  @include media-breakpoint-down(lg) { //992px
-    width: calc(400px - 34px - 44px);
-  }
-  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-    width: calc(600px - 34px - 44px);
-  }
-  @include media-breakpoint-up(xxl) { //1400px
-    width: calc(949px - 34px - 44px);
-  }
   height: 116px;
   margin: 14px 0 0;
   padding: 0;
@@ -46,6 +37,32 @@
     }
   }
   .list-item + .list-item { padding-left: 22px; }
+}
+.app-library-video {
+  .gallery-list {
+    @include media-breakpoint-down(lg) { //992px
+      width: calc(400px - 34px - 44px);
+    }
+    @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+      width: calc(600px - 34px - 44px);
+    }
+    @include media-breakpoint-up(xxl) { //1400px
+      width: calc(949px - 34px - 44px);
+    }
+  }
+}
+.app-disruption-asset {
+  .gallery-list {
+    @include media-breakpoint-down(lg) { //992px
+      width: calc(400px - 34px - 44px);
+    }
+    @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+      width: calc(600px - 34px - 44px);
+    }
+    @include media-breakpoint-up(xxl) { //1400px
+      width: calc(820px - 34px - 44px);
+    }
+  }
 }
 .see_all {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
