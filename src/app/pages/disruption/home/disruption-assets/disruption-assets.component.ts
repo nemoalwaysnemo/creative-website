@@ -40,9 +40,6 @@ export class DisruptionAssetsComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private advanceSearch: AdvanceSearch) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
   }
 
   ngOnInit() {

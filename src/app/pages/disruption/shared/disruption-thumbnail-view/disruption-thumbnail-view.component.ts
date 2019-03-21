@@ -38,6 +38,7 @@ export class DisruptionThumbnailViewComponent implements OnInit, OnDestroy {
       if (action === 'beforeSearch') {
         this.loading = true;
         this.queryParams = this.nuxeoParams;
+        this.hasSearched = true;
       } else if (this.hasSearched) {
         this.loading = false;
         this.paginationService.from(response);
