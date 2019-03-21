@@ -1,13 +1,10 @@
 import { OnInit, Component, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { debounceTime, map, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates } from '@core/api';
-import { deepExtend } from '@core/services';
+import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { SearchQueryParamsService } from '../services/search-params.service';
-import { DEFAULT_SEARCH_FILTER_ITEM } from '../shared-config';
 
 @Component({
   selector: 'tbwa-home-search',
@@ -18,19 +15,20 @@ import { DEFAULT_SEARCH_FILTER_ITEM } from '../shared-config';
 export class HomeSearchComponent implements OnInit, OnDestroy {
 
   results: DocumentModel[];
+
   documents: DocumentModel[] = [];
+
   queryField: FormControl = new FormControl();
-  layout = 'search-list';
+
+  layout: string = 'search-list';
 
   backgroudUrl: string = '';
 
-  private subscription: Subscription = new Subscription();
-
-  aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
   searchForm: FormGroup;
-  submitted: boolean = false;
+
   showFilter: boolean = false;
-  private previouSearchTerm: string;
+
+  private subscription: Subscription = new Subscription();
 
   private params: any = {
     pageSize: 10,
@@ -50,24 +48,22 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private advanceSearch: AdvanceSearch,
-    private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 
   ngOnInit() {
     this.createForm();
-    this.getSearchAggregates();
-    this.search();
+    this.onSearch();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  search(): void {
+  onSearch(): void {
     const subscription = this.queryField.valueChanges
       .pipe(
-        debounceTime(300),
+        debounceTime(500),
         distinctUntilChanged(),
         switchMap((query: string) => this.advanceSearch.searchForText(query, this.params)),
       )
@@ -76,28 +72,6 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
         this.show();
       });
     this.subscription.add(subscription);
-  }
-
-  private onSearchResponse(): void {
-    const subscription = this.advanceSearch.onSearch().pipe(
-      map(({ response, queryParams }) => {
-        return { aggregateModels: this.advanceSearch.buildAggregateModels(response), queryParams };
-      }),
-    ).subscribe(({ aggregateModels, queryParams }) => {
-      if (queryParams.ecm_fulltext === undefined || this.previouSearchTerm !== queryParams.ecm_fulltext) {
-        this.previouSearchTerm = queryParams.ecm_fulltext;
-        const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
-          this.changeSearchFilter(models);
-        });
-        this.subscription.add(subscription1);
-      }
-      this.submitted = false;
-    });
-    this.subscription.add(subscription);
-  }
-
-  toggleFilter(): void {
-    this.showFilter = !this.showFilter;
   }
 
   show(): void {
@@ -115,37 +89,16 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
     event.stopImmediatePropagation();
   }
 
-  goToSearch(): void {
-    const params = this.buildQueryParams();
-    this.redirectToListPage(params);
-  }
-
   private buildQueryParams(): any {
-    return deepExtend({ q: this.queryField.value }, this.queryParamsService.buildQueryParams(this.searchForm.value));
+    return { q: this.queryField.value };
   }
 
   private createForm() {
-    const params = Object.assign({ aggregates: {} }, this.params);
-    this.searchForm = this.formBuilder.group(params);
-  }
-
-  private buildSearchParams(): object {
-    return this.queryParamsService.buildSearchParams(this.searchForm.value);
+    this.searchForm = this.formBuilder.group(this.params);
   }
 
   private redirectToListPage(queryParams: {}) {
     this.router.navigate(['/p/creative/search'], { queryParamsHandling: 'merge', queryParams });
   }
 
-
-  private getSearchAggregates(): void {
-    const subscription = this.advanceSearch.requestSearchFilters(this.params).subscribe((aggregateModels: AggregateModel[]) => {
-      this.changeSearchFilter(aggregateModels);
-    });
-    this.subscription.add(subscription);
-  }
-
-  private changeSearchFilter(aggregateModels: AggregateModel[]): void {
-    this.aggregateModels$.next(filterAggregates(DEFAULT_SEARCH_FILTER_ITEM, aggregateModels));
-  }
 }
