@@ -9,18 +9,23 @@ import { Subscription } from 'rxjs';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
+
+  backgroudDocument: any;
+
+  headline: string = 'This is how we kill boring.';
+
+  subHead: string = 'Our entire collection of disruptive work is all right here';
+
+  placeholder: string = 'Search for campaigns by title, agency, brand, client...';
+
   private subscription: Subscription = new Subscription();
+
   private backgroudParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_path: NUXEO_META_INFO.BACKGROUND_PATH,
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
-  backgroudDocument: any;
-
-  headline = 'This is how we kill boring.';
-  subHead = 'Our entire collection of disruptive work is all right here';
-  placeholder = 'Search for campaigns by title, agency, brand, client...';
 
   constructor(private advanceSearch: AdvanceSearch) { }
 
