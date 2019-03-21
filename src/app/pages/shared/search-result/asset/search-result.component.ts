@@ -100,8 +100,8 @@ export class AssetSearchResultComponent implements OnInit, OnDestroy {
       if (action === 'beforeSearch') {
         this.hasSearched = true;
         this.loading = true;
-        this.queryParams = queryParams;
       } else if (this.hasSearched) {
+        this.queryParams = queryParams;
         this.loading = false;
         this.paginationService.from(response);
         this.totalResults = response.resultsCount;

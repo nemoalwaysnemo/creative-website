@@ -75,9 +75,9 @@ export class RecommendBrandSearchResultComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.onSearch().subscribe(({ response, queryParams, action }) => {
       if (action === 'beforeSearch') {
         this.loading = true;
-        this.queryParams = queryParams;
         this.hasSearched = true;
       } else if (this.hasSearched) {
+        this.queryParams = queryParams;
         this.loading = false;
         this.paginationService.from(response);
         this.totalResults = response.resultsCount;
