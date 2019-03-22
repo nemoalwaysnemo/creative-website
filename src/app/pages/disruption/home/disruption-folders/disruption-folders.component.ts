@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
-import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { PaginationDataSource } from 'app/pages/shared/pagination/pagination-data-source';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../../shared/tab-config';
-import { isDocumentUID } from '@core/services';
-import { Observable, Subscription } from 'rxjs';
+import { TAB_CONFIG } from '../../disruption-shared/tab-config';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'tbwa-disruption-folders',
   styleUrls: ['./disruption-folders.component.scss'],

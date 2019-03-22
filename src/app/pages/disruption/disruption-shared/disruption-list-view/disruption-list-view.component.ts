@@ -5,20 +5,21 @@ import { SearchQueryParamsService } from 'app/pages/shared';
 import { Subscription } from 'rxjs';
 import { PreviewDialogService } from 'app/pages/shared/preview-dialog/preview-dialog.service';
 @Component({
-  selector: 'disruption-roads-view',
-  styleUrls: ['./disruption-roads-view.component.scss'],
-  templateUrl: './disruption-roads-view.component.html',
+  selector: 'disruption-list-view',
+  styleUrls: ['./disruption-list-view.component.scss'],
+  templateUrl: './disruption-list-view.component.html',
 })
 
-export class DisruptionRoadsViewComponent implements OnInit, OnDestroy {
+export class DisruptionListViewComponent implements OnInit, OnDestroy {
   @Input() nuxeoParams: any;
+  /* view for roadmaps, theory, thinking */
   @Input() disruptionType: any;
+
   loading: boolean = true;
   paginationService: PaginationDataSource = new PaginationDataSource();
-  private subscription: Subscription = new Subscription();
   documents: DocumentModel[];
   queryParams: NuxeoPageProviderParams = {};
-
+  private subscription: Subscription = new Subscription();
   constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService, private dialogService: PreviewDialogService) { }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {

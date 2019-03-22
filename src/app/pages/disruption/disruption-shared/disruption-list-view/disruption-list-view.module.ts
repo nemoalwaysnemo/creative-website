@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { CommonModule } from '@angular/common';
-import { DisruptionRoadsViewComponent } from './disruption-roads-view.component';
+import { DisruptionListViewComponent } from './disruption-list-view.component';
 import { PaginationModule } from 'app/pages/shared/pagination/pagination.module';
 import { SharedModule } from '@pages/shared/shared.module';
 
@@ -13,12 +13,12 @@ import { SharedModule } from '@pages/shared/shared.module';
     PaginationModule,
   ],
   declarations: [
-    DisruptionRoadsViewComponent,
+    DisruptionListViewComponent,
   ], exports: [
-    DisruptionRoadsViewComponent,
+    DisruptionListViewComponent,
   ],
 })
 
-export class DisruptionRoadsViewModule {
+export class DisruptionListViewModule {
 
 }

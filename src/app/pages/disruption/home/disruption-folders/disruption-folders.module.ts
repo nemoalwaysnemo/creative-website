@@ -3,10 +3,10 @@ import { ThemeModule } from '@theme/theme.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@pages/shared/shared.module';
 import { DisruptionFoldersComponent } from './disruption-folders.component';
-import { DisruptionThumbnailViewModule } from '../../shared/disruption-thumbnail-view/disruption-thumbnail-view.module';
-import { DisruptionFoldersViewModule } from '../../shared/disruption-folders-view/disruption-folders-view.module';
+import { DisruptionThumbnailViewModule } from '../../disruption-shared/disruption-thumbnail-view/disruption-thumbnail-view.module';
+import { DisruptionFoldersViewModule } from '../../disruption-shared/disruption-folders-view/disruption-folders-view.module';
 import { PaginationModule } from 'app/pages/shared/pagination/pagination.module';
-import { DisruptionSearchFormModule } from '../../shared/disruption-search-form/disruption-search-form.module';
+import { DisruptionSearchFormModule } from '../../disruption-shared/disruption-search-form/disruption-search-form.module';
 @NgModule({
   imports: [
     ThemeModule,

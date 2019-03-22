@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedModule } from '@pages/shared/shared.module';
 import { DisruptionRoadmapsComponent } from './disruption-roadmaps.component';
-import { DisruptionRoadsViewModule } from '../../shared/disruption-roads-view/disruption-roads-view.module';
-import { DisruptionSearchFormModule } from '../../shared/disruption-search-form/disruption-search-form.module';
+import { DisruptionListViewModule } from '../../disruption-shared/disruption-list-view/disruption-list-view.module';
+import { DisruptionSearchFormModule } from '../../disruption-shared/disruption-search-form/disruption-search-form.module';
 @NgModule({
   imports: [
     ThemeModule,
     SharedModule,
-
-    DisruptionRoadsViewModule,
+    DisruptionListViewModule,
     DisruptionSearchFormModule,
   ],
   declarations: [
