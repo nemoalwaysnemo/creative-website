@@ -1,5 +1,15 @@
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+
 .slides {
-	width: 220vh;
+	@include media-breakpoint-down(lg) { //992px
+    width: 880px;
+  }
+  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+    width: 980px;
+  }
+  @include media-breakpoint-up(xxl) { //1400px
+		width: 1100px;
+  }
 	min-width: 800px;
 }
 tbwa-backslash-dialog,
