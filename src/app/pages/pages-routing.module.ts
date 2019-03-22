@@ -16,6 +16,9 @@ const routes: Routes = [{
       path: 'intelligence',
       loadChildren: './intelligence/intelligence-page.module#IntelligencePageModule',
     }, {
+      path: 'search',
+      loadChildren: './global-search/global-search-page.module#GlobalSearchPageModule',
+    }, {
       path: '',
       redirectTo: 'creative',
       pathMatch: 'full',
