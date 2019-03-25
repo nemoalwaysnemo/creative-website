@@ -2,7 +2,7 @@
   <div *ngFor="let document of documents" class="thumbnail-view">
     <div>
       <div class="image_holder">
-        <a (click)="open(dialog, document, 'roadmaps')" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+        <a (click)="open(dialog, document)" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
       </div>
       <div class="description">
         <h1 *ngIf="disruptionType == 'Distruption Roadmaps'">{{document.get('The_Loupe_Main:brand')}}</h1>
@@ -18,5 +18,7 @@
   <tbwa-table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination"></tbwa-table-pagination>
 </div>
 <ng-template #dialog>
-  <tbwa-preview-dialog></tbwa-preview-dialog>
+  <tbwa-preview-dialog>
+    <tbwa-roadmaps-body></tbwa-roadmaps-body>
+  </tbwa-preview-dialog>
 </ng-template>

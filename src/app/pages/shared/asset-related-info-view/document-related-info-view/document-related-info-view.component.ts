@@ -51,7 +51,7 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
   }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, type);
+    this.dialogService.open(dialog, doc);
   }
 
   onKeyup(event: KeyboardEvent) {

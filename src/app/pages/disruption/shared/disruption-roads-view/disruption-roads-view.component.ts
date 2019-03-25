@@ -21,9 +21,9 @@ export class DisruptionRoadsViewComponent implements OnInit, OnDestroy {
 
   constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService, private dialogService: PreviewDialogService) { }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
+  open(dialog: TemplateRef<any>, doc: DocumentModel) {
     const title = this.disruptionType;
-    this.dialogService.open(dialog, doc, type, {title});
+    this.dialogService.open(dialog, doc, {title});
   }
 
   ngOnInit() {

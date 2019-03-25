@@ -1,12 +1,3 @@
 <div class="slides" [ngSwitch]="type">
-  <tbwa-backslash-dialog *ngSwitchCase="'backslash'">
-  </tbwa-backslash-dialog>
-  <tbwa-disruption-dialog *ngSwitchCase="'disruption'">
-  </tbwa-disruption-dialog>
-  <tbwa-intelligence-dialog *ngSwitchCase="'intelligence'">
-  </tbwa-intelligence-dialog>
-  <tbwa-roadmaps-dialog *ngSwitchCase="'roadmaps'">
-  </tbwa-roadmaps-dialog>
-  <tbwa-disruption-form-dialog *ngSwitchCase="'disruptionFormDay'">
-  </tbwa-disruption-form-dialog>
+  <ng-content></ng-content>
 </div>
