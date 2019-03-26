@@ -40,9 +40,9 @@
 	.text_content {
 		background: #ffffff;
 		.controls {
-			// width: calc(100% - 254px);
 			width: 100%;
-			margin: 10px 0 0;
+			padding: 10px 0 0;
+			box-sizing: border-box;
 			h2 {
 				line-height: 50px;
 				margin-left: 15px;
