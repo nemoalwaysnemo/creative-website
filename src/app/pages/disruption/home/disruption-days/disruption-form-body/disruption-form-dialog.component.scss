@@ -26,7 +26,11 @@
       }
     }
   }
-
+  
+  .form {
+    height: 80vh;
+    overflow: auto;
+  }
   .text_content {
     padding: 30px 0;
     background: #ffffff;
