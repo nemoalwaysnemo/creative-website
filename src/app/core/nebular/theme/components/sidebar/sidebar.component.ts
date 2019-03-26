@@ -115,7 +115,7 @@ export class NbSidebarFooterComponent {
   selector: 'nb-sidebar',
   styleUrls: ['./sidebar.component.scss'],
   template: `
-    <div class="main-container"
+    <div class="main-container" (mouseleave)="this.collapse();"
          [class.main-container-fixed]="containerFixedValue">
       <ng-content select="nb-sidebar-header"></ng-content>
       <div class="scrollable" (click)="onClick($event)">

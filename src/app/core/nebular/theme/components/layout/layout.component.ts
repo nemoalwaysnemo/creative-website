@@ -21,7 +21,7 @@ import { NbScrollPosition, NbLayoutScrollService } from '../../services/scroll.s
 import { NbLayoutDimensions, NbLayoutRulerService } from '../../services/ruler.service';
 import { NB_WINDOW, NB_DOCUMENT } from '../../theme.options';
 import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adapter';
-
+import { NbSidebarService } from '../sidebar/sidebar.service';
 /**
  * A container component which determines a content position inside of the layout.
  * The layout could contain unlimited columns (not including the sidebars).
@@ -35,6 +35,7 @@ import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adap
 @Component({
   selector: 'nb-layout-column',
   template: `
+    <div (mouseenter)="showSideBar()" style="width:20px;height:100%;position:absolute;top:0px;left:0px"></div>
     <ng-content></ng-content>
   `,
 })
@@ -42,7 +43,6 @@ export class NbLayoutColumnComponent {
 
   @HostBinding('class.left') leftValue: boolean;
   @HostBinding('class.start') startValue: boolean;
-
   /**
    * Move the column to the very left position in the layout.
    * @param {boolean} val
@@ -61,6 +61,11 @@ export class NbLayoutColumnComponent {
   set start(val: boolean) {
     this.startValue = convertToBoolProperty(val);
     this.leftValue = false;
+  }
+  constructor(private sidebarService: NbSidebarService) {
+  }
+  showSideBar() {
+    this.sidebarService.toggle(false, 'menu-sidebar');
   }
 }
 
