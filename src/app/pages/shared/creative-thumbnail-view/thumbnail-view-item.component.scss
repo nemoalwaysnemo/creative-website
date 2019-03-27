@@ -234,3 +234,8 @@ h1, h4 { cursor: pointer; }
     text-decoration: none;
   }
 }
+tbwa-preview-dialog {
+  display: block;
+  height: 85vh;
+  overflow: auto;
+}

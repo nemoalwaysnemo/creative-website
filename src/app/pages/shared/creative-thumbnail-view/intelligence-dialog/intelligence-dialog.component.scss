@@ -3,7 +3,7 @@
 	vertical-align: middle;
 }
 .dialog_body {
-	max-height: 800px;
+	height: 100%;
   overflow: auto;
 	.dialog_title {
 		height: 80px;
@@ -41,7 +41,9 @@
 		background: #ffffff;
 		.controls {
 			width: calc(100% - 254px);
-			margin: 22px auto 0;
+			margin: 0 auto;
+			padding-top: 22px;
+			box-sizing: border-box;
 			a { cursor: default; }
 			button {
 				height: 51px;
