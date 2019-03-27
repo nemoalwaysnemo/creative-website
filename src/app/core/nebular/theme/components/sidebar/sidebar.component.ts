@@ -386,11 +386,15 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
         compact = false;
       }
     }
-
     const closedStates = [NbSidebarComponent.STATE_COMPACTED, NbSidebarComponent.STATE_COLLAPSED];
+    this.state = NbSidebarComponent.STATE_COMPACTED;
     if (compact) {
-      this.state = closedStates.includes(this.stateValue) ?
-        NbSidebarComponent.STATE_EXPANDED : NbSidebarComponent.STATE_COMPACTED;
+      /**
+       * this behaves strangely, change to satisfy demands for the moment
+      */
+      this.state = NbSidebarComponent.STATE_COMPACTED;
+      // this.state = closedStates.includes(this.stateValue) ?
+      //   NbSidebarComponent.STATE_EXPANDED : NbSidebarComponent.STATE_COMPACTED;
     } else {
       this.state = closedStates.includes(this.stateValue) ?
         NbSidebarComponent.STATE_EXPANDED : NbSidebarComponent.STATE_COLLAPSED;

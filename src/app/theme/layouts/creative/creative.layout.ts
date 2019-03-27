@@ -21,7 +21,7 @@ import { StateService } from '@core/services/state.service';
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'">
+      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="collapsed" [end]="sidebar.id === 'end'">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 

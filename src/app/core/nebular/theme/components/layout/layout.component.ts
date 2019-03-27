@@ -65,7 +65,7 @@ export class NbLayoutColumnComponent {
   constructor(private sidebarService: NbSidebarService) {
   }
   showSideBar() {
-    this.sidebarService.toggle(false, 'menu-sidebar');
+    this.sidebarService.toggle(true, 'menu-sidebar');
   }
 }
 
