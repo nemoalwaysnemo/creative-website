@@ -29,7 +29,7 @@ export class CreativeThumbnailViewItemComponent {
   constructor(private dialogService: PreviewDialogService) { }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, type);
+    this.dialogService.open(dialog, doc);
   }
 
 }

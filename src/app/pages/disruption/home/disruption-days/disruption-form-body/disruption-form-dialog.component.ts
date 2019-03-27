@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { PreviewDialogService } from '../preview-dialog.service';
-import { BaseDialogBody } from '../base-dialog-body';
+import { BaseDialogBody } from '@pages/shared/preview-dialog/base-dialog-body';
+import { PreviewDialogService } from '@pages/shared';
 
 @Component({
-  selector: 'tbwa-disruption-form-dialog',
+  selector: 'tbwa-disruption-form-body',
   styleUrls: ['./disruption-form-dialog.component.scss'],
   templateUrl: './disruption-form-dialog.component.html',
 })

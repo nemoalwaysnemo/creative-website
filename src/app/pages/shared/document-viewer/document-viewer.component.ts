@@ -10,8 +10,17 @@ import { DocumentModel } from '@core/api';
 export class DocumentViewerComponent {
 
   @Input() document: DocumentModel;
-  @Input() forDailog: boolean;
+
   @Input() autoPlay: boolean = true;
+
+  @Input('forDailog')
+  set forDailog(forDailog) {
+    this._forDailog = forDailog;
+    this.layout = forDailog ? ' dialogSlides' : 'slides';
+  }
+
+  layout: string;
+  _forDailog: boolean;
 
   getDocumentViewer(): string {
     let type = 'unkonw';

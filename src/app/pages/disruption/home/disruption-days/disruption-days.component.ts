@@ -41,7 +41,7 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   }
 
   openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.parentDocument, 'disruptionFormDay');
+    this.previewDialogService.open(dialog, this.parentDocument);
   }
 
   private searchFolders(params: {}): void {

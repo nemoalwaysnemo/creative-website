@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { PreviewDialogService } from '../preview-dialog.service';
-import { BaseDialogBody } from '../base-dialog-body';
+import { BaseDialogBody } from '@pages/shared/preview-dialog/base-dialog-body';
+import { PreviewDialogService } from '@pages/shared';
 
 @Component({
-  selector: 'tbwa-roadmaps-dialog',
+  selector: 'tbwa-roadmaps-body',
   styleUrls: ['./roadmaps-dialog.component.scss'],
   templateUrl: './roadmaps-dialog.component.html',
 })

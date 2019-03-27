@@ -31,11 +31,11 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.document, 'disruptionFormDay', { subDocTypes: ['App-Library-Image'] });
+    this.previewDialogService.open(dialog, this.document, { subDocTypes: ['App-Library-Image'] });
   }
 
   private create(): void {
-    this.documentRepository.get('b16183cf-d6fb-4ed9-b8fc-f910f1fdceca').subscribe((doc: DocumentModel) => {
+    this.documentRepository.get('fbfc12f2-6d54-4a8a-b283-d1b422e56f01').subscribe((doc: DocumentModel) => {
       this.settings = this.getSettings();
       this.document = new DocumentModel({ path: doc.uid, type: 'App-Library-Image' });
     });
