@@ -1,5 +1,5 @@
-import { Observable, ReplaySubject } from 'rxjs';
-import { share } from 'rxjs/operators';
+import { Observable, of as observableOf, Subject, BehaviorSubject } from 'rxjs';
+import { share, concat, map, switchMap, concatMap, tap, multicast, refCount } from 'rxjs/operators';
 import { AbstractBaseService } from './api.abstract-base.service';
 import { join } from '../services';
 import {
@@ -9,23 +9,33 @@ import {
   AggregateModel,
 } from './nuxeo';
 
+export class SearchResponse {
+  readonly response: NuxeoPagination;
+  readonly queryParams: NuxeoPageProviderParams;
+  readonly action: string;
+  constructor(response: any = {}) {
+    Object.assign(this, response);
+  }
+}
+
 export abstract class AbstractPageProvider extends AbstractBaseService {
 
   protected endPoint: string = 'search';
 
   protected provider: string = 'creative_website_search';
 
-  protected entries$ = new ReplaySubject<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, action: string }>(1);
+  protected entries$ = new Subject<SearchResponse>();
 
   protected getRequestUrl(provider?: string): string {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
-  search(queryParams: NuxeoPageProviderParams = {}, opts: NuxeoRequestOptions = {}): void {
-    this.entries$.next({ response: new NuxeoPagination(), queryParams, opts, action: 'beforeSearch' });
-    this.request(queryParams, opts).subscribe((response: NuxeoPagination) => {
-      this.entries$.next({ response, queryParams, opts, action: 'afterSearch' });
-    });
+  search(queryParams: NuxeoPageProviderParams = {}, opts: NuxeoRequestOptions = {}): Observable<SearchResponse> {
+    return observableOf(new SearchResponse({ response: new NuxeoPagination(), queryParams, action: 'beforeSearch' })).pipe(
+      concat(this.request(queryParams, opts).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, queryParams, action: 'afterSearch' }))))),
+      tap((res: SearchResponse) => this.entries$.next(res)),
+      share(),
+    );
   }
 
   request(queryParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider: string = this.provider): Observable<NuxeoPagination> {
@@ -34,10 +44,9 @@ export abstract class AbstractPageProvider extends AbstractBaseService {
     return this.execute(this.getRequestUrl(provider), params, options);
   }
 
-  onSearch(): Observable<{ response: NuxeoPagination, queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, action: string }> {
+  onSearch(): Observable<SearchResponse> {
     return this.entries$.pipe(share());
   }
-
 
   buildAggregateModels(response: NuxeoPagination): AggregateModel[] {
     const aggregations: AggregateModel[] = [];

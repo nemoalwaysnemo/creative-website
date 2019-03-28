@@ -22,16 +22,14 @@ export class PaginationDataSource {
 
   onPageChanged(): Observable<any> {
     return this.onChangedSource
-    .pipe(
-      filter(data => data.action === 'page'),
-      map(data => {
-        delete data.action; return data;
-      }),
-    );
+      .pipe(
+        filter(data => data.action === 'page'),
+        map(data => { delete data.action; return data; }),
+      );
   }
 
   get pagingInfo(): any {
-    return { page: this.pagination.currentPageIndex + 1, perPage: this.pagination.pageSize, currentPageSize: this.pagination.currentPageSize, numberOfPages: this.pagination.numberOfPages};
+    return { page: this.pagination.currentPageIndex + 1, perPage: this.pagination.pageSize, currentPageSize: this.pagination.currentPageSize, numberOfPages: this.pagination.numberOfPages };
   }
 
   setPage(page: number) {
