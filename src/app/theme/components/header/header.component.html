@@ -1,5 +1,6 @@
 <div class="header-container">
-  <a (click)="goHome()" href="#" class="logo"></a>
+  <div (mouseenter)="toggleSideBar()" class = "trigger"></div>
+  <a (mouseleave)="toggleSideBar()" [@openClose]="isOpen ? 'logo' : 'hide'" class="logo" (click)="goHome()" href="#" ></a>
   <h1>{{ title }}</h1>
   <nb-actions size="medium">
     <nb-action>

@@ -12,7 +12,7 @@ import { convertToBoolProperty } from '../helpers';
 import { NbThemeService } from '../../services/theme.service';
 import { NbMediaBreakpoint } from '../../services/breakpoints.service';
 import { NbSidebarService } from './sidebar.service';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 /**
  * Sidebar header container.
@@ -115,7 +115,8 @@ export class NbSidebarFooterComponent {
   selector: 'nb-sidebar',
   styleUrls: ['./sidebar.component.scss'],
   template: `
-    <div class="main-container" (mouseleave)="this.collapse();"
+    <div (mouseenter)="openSideBar()" class="trigger"></div>
+    <div class="main-container" [@openClose]="spread ? 'expand' : 'hide'"
          [class.main-container-fixed]="containerFixedValue">
       <ng-content select="nb-sidebar-header"></ng-content>
       <div class="scrollable" (click)="onClick($event)">
@@ -124,6 +125,24 @@ export class NbSidebarFooterComponent {
       <ng-content select="nb-sidebar-footer"></ng-content>
     </div>
   `,
+  animations: [
+    trigger('openClose', [
+      state('hide', style({
+            zIndex: 0,
+            width: '0px',
+      })),
+      state('expand', style({
+            zIndex: 100,
+            width: '77px',
+      })),
+      transition('hide => expand', [
+        animate('0.1s'),
+      ]),
+      transition('expand => hide', [
+        animate('0.1s'),
+      ]),
+    ]),
+  ],
 })
 export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
 
@@ -139,8 +158,8 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   protected responsiveValue: boolean = false;
 
   private alive = true;
-
   containerFixedValue: boolean = true;
+  spread = true;
 
   @HostBinding('class.fixed') fixedValue: boolean = false;
   @HostBinding('class.right') rightValue: boolean = false;
@@ -281,6 +300,10 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     private element: ElementRef) {
   }
 
+  openSideBar() {
+    this.sidebarService.toggleSidebar(true);
+  }
+
   toggleResponsive(enabled: boolean) {
     if (enabled) {
       this.mediaQuerySubscription = this.onMediaQueryChanges();
@@ -319,6 +342,13 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
           this.collapse();
         }
       });
+    this.sidebarService.onSidebar()
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag) {
+        this.spread = !this.spread;
+      }
+    });
   }
 
   ngOnDestroy() {

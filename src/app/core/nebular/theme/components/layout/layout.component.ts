@@ -35,7 +35,6 @@ import { NbSidebarService } from '../sidebar/sidebar.service';
 @Component({
   selector: 'nb-layout-column',
   template: `
-    <div (mouseenter)="showSideBar()" style="width:20px;height:100%;position:absolute;top:0px;left:0px"></div>
     <ng-content></ng-content>
   `,
 })
@@ -63,9 +62,6 @@ export class NbLayoutColumnComponent {
     this.leftValue = false;
   }
   constructor(private sidebarService: NbSidebarService) {
-  }
-  showSideBar() {
-    this.sidebarService.toggle(true, 'menu-sidebar');
   }
 }
 
