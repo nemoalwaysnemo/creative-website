@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormsCoreModule } from '@core/custom';
 import { TextMaskModule } from 'angular2-text-mask';
+import { OptionTagModule } from '../option-tag/option-tag.module';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
 import { BatchFileUploadModule } from '../batch-file-upload/batch-file-upload.module';
 import { NgbDatepickerModule, NgbButtonsModule, NgbTimepickerModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,6 +23,8 @@ import { DynamicNGTextAreaComponent } from './textarea/dynamic-ng-textarea.compo
 import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker.component';
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
 import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-upload.component';
+import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
+
 
 @NgModule({
   imports: [
@@ -34,6 +37,7 @@ import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-u
     TextMaskModule,
     BatchFileUploadModule,
     DirectorySuggestionModule,
+    OptionTagModule,
     DynamicFormsCoreModule.forRoot(),
   ],
   declarations: [
@@ -52,6 +56,7 @@ import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-u
     DynamicNGTextAreaComponent,
     DynamicNGTimePickerComponent,
     DynamicNGSuggestionComponent,
+    DynamicNGOptionTagComponent,
     DynamicNGBatchUploadComponent,
   ],
   entryComponents: [
@@ -69,6 +74,7 @@ import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-u
     DynamicNGTimePickerComponent,
     DynamicNGSuggestionComponent,
     DynamicNGBatchUploadComponent,
+    DynamicNGOptionTagComponent,
   ],
   exports: [
     DynamicFormsCoreModule,
@@ -88,6 +94,7 @@ import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-u
     DynamicNGTimePickerComponent,
     DynamicNGSuggestionComponent,
     DynamicNGBatchUploadComponent,
+    DynamicNGOptionTagComponent,
   ],
 })
 export class DynamicFormsNGUIModule {

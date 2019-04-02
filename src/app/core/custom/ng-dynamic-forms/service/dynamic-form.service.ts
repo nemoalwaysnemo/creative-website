@@ -15,6 +15,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_INPUT, DynamicInputModel } from '../model/inp
 import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP, DynamicRadioGroupModel } from '../model/radio/dynamic-radio-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD, DynamicBatchUploadModel } from '../model/batch-upload/batch-upload.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION, DynamicSuggestionModel } from '../model/suggestion/dynamic-suggestion.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG, DynamicOptionTagModel } from '../model/option-tag/dynamic-option-tag.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RATING, DynamicRatingModel } from '../model/rating/dynamic-rating.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SELECT, DynamicSelectModel } from '../model/select/dynamic-select.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SLIDER, DynamicSliderModel } from '../model/slider/dynamic-slider.model';
@@ -325,6 +326,10 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD:
           formModel.push(new DynamicBatchUploadModel(model, layout));
+          break;
+
+        case DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG:
+          formModel.push(new DynamicOptionTagModel(model, layout));
           break;
 
         default:

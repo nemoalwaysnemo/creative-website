@@ -1,0 +1,11 @@
+<ng-container [formGroup]="group">
+  <tbwa-option-tag
+    [formControlName]="model.id"
+    [id]="elementId"
+[placeholder]="model.placeholder"
+    [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
+    (blur)="onBlur($event)"
+    (change)="onChange($event)"
+    (focus)="onFocus($event)">
+  </tbwa-option-tag>
+</ng-container>

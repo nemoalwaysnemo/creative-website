@@ -22,3 +22,4 @@ export * from './list-view/list-view.interface';
 export * from './list-view/list-view.module';
 export * from './batch-file-upload/batch-file-upload.module';
 export * from './shared-config';
+export * from './option-tag/option-tag.module';

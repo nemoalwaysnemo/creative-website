@@ -36,6 +36,7 @@ import {
   DynamicTemplateDirective,
   DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION,
   DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD,
+  DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG,
 } from '@core/custom';
 import { DynamicNGCheckboxComponent } from './checkbox/dynamic-ng-checkbox.component';
 import { DynamicNGCheckboxGroupComponent } from './checkbox-group/dynamic-ng-checkbox-group.component';
@@ -51,6 +52,7 @@ import { DynamicNGTextAreaComponent } from './textarea/dynamic-ng-textarea.compo
 import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker.component';
 import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-upload.component';
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
+import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
 
 @Component({
   selector: 'dynamic-ng-form-control',
@@ -130,6 +132,9 @@ export function ngBootstrapUIFormControlMapFn(model: DynamicFormControlModel): T
 
     case DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD:
       return DynamicNGBatchUploadComponent;
+
+    case DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG:
+      return DynamicNGOptionTagComponent;
 
     default:
       return null;
