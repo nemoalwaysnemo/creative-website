@@ -22,6 +22,17 @@ export class NbSidebarService {
   private toggle$ = new Subject<{ compact: boolean, tag: string }>();
   private expand$ = new Subject<{ tag: string }>();
   private collapse$ = new Subject<{ tag: string }>();
+  private sidebarToggle$ = new Subject<{ tag: boolean }>();
+  private sidebarOpen$ = new Subject<{ tag: boolean }>();
+  private sidebarClose$ = new Subject<{ tag: boolean }>();
+
+  onSidebar(): Observable<{ tag: boolean }> {
+    return this.sidebarToggle$.pipe(share());
+  }
+
+  toggleSidebar(tag?: boolean) {
+    setTimeout(() =>  this.sidebarToggle$.next({ tag }), 200);
+  }
 
   /**
    * Subscribe to toggle events

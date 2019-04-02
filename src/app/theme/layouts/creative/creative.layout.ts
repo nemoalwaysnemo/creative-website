@@ -21,7 +21,7 @@ import { StateService } from '@core/services/state.service';
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'">
+      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'" (mouseleave)="closeSideBar()">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
@@ -94,7 +94,9 @@ export class CreativeLayoutComponent implements OnDestroy {
         this.currentTheme = theme.name;
       });
   }
-
+  closeSideBar() {
+    this.sidebarService.toggleSidebar(true);
+  }
   ngOnDestroy() {
     this.alive = false;
   }
