@@ -22,6 +22,7 @@ import { NbLayoutDimensions, NbLayoutRulerService } from '../../services/ruler.s
 import { NB_WINDOW, NB_DOCUMENT } from '../../theme.options';
 import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adapter';
 import { NbSidebarService } from '../sidebar/sidebar.service';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 /**
  * A container component which determines a content position inside of the layout.
  * The layout could contain unlimited columns (not including the sidebars).
@@ -276,9 +277,9 @@ export class NbLayoutFooterComponent {
     <div class="scrollable-container" #scrollableContainer (scroll)="onScroll($event)">
       <div class="layout">
         <ng-content select="nb-layout-header:not([subheader])"></ng-content>
-        <div class="layout-container">
+        <div class="layout-container" [id]="trtrst">
           <ng-content select="nb-sidebar"></ng-content>
-          <div class="content" [class.center]="centerValue">
+          <div class="content" [@openClose]="isOpen ? 'marginExist' : 'marginDisappear'" [class.center]="centerValue">
             <ng-content select="nb-layout-header[subheader]"></ng-content>
             <div class="columns">
               <ng-content select="nb-layout-column"></ng-content>
@@ -289,12 +290,29 @@ export class NbLayoutFooterComponent {
       </div>
     </div>
   `,
+  animations: [
+    trigger('openClose', [
+      state('marginDisappear', style({
+            marginLeft: '0px',
+      })),
+      state('marginExist', style({
+            marginLeft: '77px',
+      })),
+      transition('hide => expand', [
+        animate('0.1s'),
+      ]),
+      transition('expand => hide', [
+        animate('0.1s'),
+      ]),
+    ]),
+  ],
 })
 export class NbLayoutComponent implements AfterViewInit, OnDestroy {
 
   centerValue: boolean = false;
   restoreScrollTopValue: boolean = true;
-
+  isOpen: boolean = false;
+  initialState: boolean = true;
   @HostBinding('class.window-mode') windowModeValue: boolean = false;
   @HostBinding('class.with-scroll') withScrollValue: boolean = false;
   @HostBinding('class.with-subheader') withSubheader: boolean = false;
@@ -370,7 +388,24 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     protected rulerService: NbLayoutRulerService,
     protected scrollTop: NbRestoreScrollTopHelper,
     protected overlayContainer: NbOverlayContainerAdapter,
+    protected sidebarService: NbSidebarService,
   ) {
+
+    this.sidebarService.onSidebarOpen()
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag && this.isOpen === false) {
+        this.isOpen = !this.isOpen;
+      }
+    });
+
+    this.sidebarService.onSidebarClose()
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag && this.initialState) {
+        this.initialState = false;
+      } else if (data.tag && this.isOpen === true) {
+        this.isOpen = !this.isOpen;
+      }
+    });
     this.registerAsOverlayContainer();
 
     this.themeService.onThemeChange()

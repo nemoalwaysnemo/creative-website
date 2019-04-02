@@ -34,12 +34,20 @@ export class PagesComponent implements OnInit {
   menu = MENU_ITEMS;
   constructor(private sidebarService: NbSidebarService) { }
   ngOnInit() {
-    this.sidebarService.onSidebar()
-      .subscribe((data: { tag: boolean }) => {
-        if (data.tag) {
-          this.isOpen = !this.isOpen;
-        }
-      });
+
+    this.sidebarService.onSidebarOpen()
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag && this.isOpen === false) {
+        this.isOpen = !this.isOpen;
+      }
+    });
+
+    this.sidebarService.onSidebarClose()
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag && this.isOpen === true) {
+        this.isOpen = !this.isOpen;
+      }
+    });
 
     if (window['dataLayer']) {
       window['dataLayer'].push({ 'event': 'optimize.activate' });

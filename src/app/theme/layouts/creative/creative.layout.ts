@@ -8,7 +8,7 @@ import {
   NbSidebarService,
   NbThemeService,
 } from '@core/nebular/theme';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { StateService } from '@core/services/state.service';
 
 // TODO: move layouts into the framework
@@ -21,7 +21,7 @@ import { StateService } from '@core/services/state.service';
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'" (mouseleave)="closeSideBar()">
+      <nb-sidebar class="menu-sidebar" [@scroll]="isOpen? 'expand' : 'hide'" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'" (mouseleave)="closeSidebar()">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
@@ -38,6 +38,22 @@ import { StateService } from '@core/services/state.service';
       </nb-sidebar>
     </nb-layout>
   `,
+  animations: [
+    trigger('scroll', [
+      state('hide', style({
+            width: '0px',
+      })),
+      state('expand', style({
+            width: '77px',
+      })),
+      transition('hide => expand', [
+        animate('0.05s'),
+      ]),
+      transition('expand => hide', [
+        animate('0.05s'),
+      ]),
+    ]),
+  ],
 })
 export class CreativeLayoutComponent implements OnDestroy {
 
@@ -54,7 +70,8 @@ export class CreativeLayoutComponent implements OnDestroy {
   ];
   layout: any = {};
   sidebar: any = {};
-
+  folded: boolean = false;
+  isOpen = true;
   private alive: boolean = true;
 
   currentTheme: string;
@@ -64,6 +81,13 @@ export class CreativeLayoutComponent implements OnDestroy {
     protected themeService: NbThemeService,
     protected bpService: NbMediaBreakpointsService,
     protected sidebarService: NbSidebarService) {
+
+    this.sidebarService.onSidebarClose()
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag && this.isOpen === true) {
+        this.isOpen = !this.isOpen;
+      }
+    });
     this.stateService.onLayoutState()
       .pipe(takeWhile(() => this.alive))
       .subscribe((layout: string) => this.layout = layout);
@@ -94,8 +118,8 @@ export class CreativeLayoutComponent implements OnDestroy {
         this.currentTheme = theme.name;
       });
   }
-  closeSideBar() {
-    this.sidebarService.toggleSidebar(true);
+  closeSidebar() {
+    this.sidebarService.closeSidebar(true);
   }
   ngOnDestroy() {
     this.alive = false;

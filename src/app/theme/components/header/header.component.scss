@@ -70,6 +70,7 @@
       border-right: nb-theme(logo-border-right);
       background: url('/assets/images/logo.png') no-repeat center center;
       cursor: default;
+      z-index: 100;
     }
     h1 {
       font-family: 'Averta for TBWA W01 Black', helvetica, arial;
