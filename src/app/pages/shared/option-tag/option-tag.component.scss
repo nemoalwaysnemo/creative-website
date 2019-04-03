@@ -1,0 +1,22 @@
+.mat-standard-chip {
+	padding: 3px;
+	min-height: 23px;
+}
+mat-chip {
+	font-size: 0.9em;
+  margin-bottom: 5px;
+  margin-right: 5px;
+	border-radius: 2px;
+	background-color: #ebf5ff;
+	span {
+		display: inline-block;
+		font-size: 0.9em;
+    padding: 1px 5px;
+    box-sizing: border-box;
+    white-space: nowrap;
+	}
+	span.close {
+		border-right: 1px solid #b8dbff;
+		cursor: pointer;
+	}
+}

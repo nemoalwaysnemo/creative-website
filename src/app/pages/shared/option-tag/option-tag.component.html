@@ -1,9 +1,11 @@
   <mat-chip-list #chipList aria-label="Fruit selection">
     <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
-    {{tag}}
+      <span class="close">x</span>
+      <span>{{tag}}</span>
     </mat-chip>
     <input
       placeholder="placeholder"
+      class="form-control"
       [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       [matChipInputAddOnBlur]="addOnBlur"
