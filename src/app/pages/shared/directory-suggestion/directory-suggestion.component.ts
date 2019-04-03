@@ -80,7 +80,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   writeValue(val: any): void {
     const value = (val === null || val === undefined || val === '' ? [] : val);
     this.buildDefaultOptions(value);
-    this.selectedItems = value;
+    const option = typeof value === 'string' ? [value] : value;
+    this.selectedItems = option;
   }
 
   registerOnChange(fn: any): void {
@@ -100,7 +101,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   private buildDefaultOptions(value: string[]): void {
-    this.options$.next(value.map(x => new OptionModel(x, x)));
+    const option = typeof value === 'string' ? [value] : value;
+    this.options$.next(option.map(x => new OptionModel(x, x)));
   }
 
   private getSuggestions(searchTerm: string): Observable<OptionModel[]> {

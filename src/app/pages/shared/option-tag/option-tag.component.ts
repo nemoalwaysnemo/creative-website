@@ -24,7 +24,6 @@ export class OptionTagComponent implements ControlValueAccessor {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   tags: string[] = [];
-  selectedItems = [];
 
   private _onChange = (_) => { };
 
@@ -60,7 +59,7 @@ export class OptionTagComponent implements ControlValueAccessor {
   }
 
   writeValue(value: any): void {
-    this.selectedItems = (value === null || value === undefined || value === '' ? [] : value);
+    this.tags = (value === null || value === undefined || value === '' ? [] : value);
   }
 
   registerOnChange(fn: any): void {
