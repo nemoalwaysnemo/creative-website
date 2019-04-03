@@ -1,5 +1,5 @@
 .mat-standard-chip {
-	padding: 3px;
+	padding: 3px!important;
 	min-height: 23px;
 }
 mat-chip {
@@ -16,6 +16,8 @@ mat-chip {
     white-space: nowrap;
 	}
 	span.close {
+		margin: 0;
+		line-height: 15px;
 		border-right: 1px solid #b8dbff;
 		cursor: pointer;
 	}
