@@ -116,7 +116,7 @@ export class NbSidebarFooterComponent {
   styleUrls: ['./sidebar.component.scss'],
   template: `
     <div (mouseenter)="openSideBar()" class="trigger"></div>
-    <div class="main-container" [@openClose]="spread ? 'expand' : 'hide'"
+    <div class="main-container" [@openClose]="isOpen ? 'expand' : 'hide'"
          [class.main-container-fixed]="containerFixedValue">
       <ng-content select="nb-sidebar-header"></ng-content>
       <div class="scrollable" (click)="onClick($event)">
@@ -159,7 +159,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
 
   private alive = true;
   containerFixedValue: boolean = true;
-  spread = true;
+  isOpen = true;
 
   @HostBinding('class.fixed') fixedValue: boolean = false;
   @HostBinding('class.right') rightValue: boolean = false;
@@ -301,7 +301,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   openSideBar() {
-    this.sidebarService.toggleSidebar(true);
+    this.sidebarService.openSidebar(true);
   }
 
   toggleResponsive(enabled: boolean) {
@@ -342,13 +342,19 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
           this.collapse();
         }
       });
-    this.sidebarService.onSidebar()
-    .pipe(takeWhile(() => this.alive))
+    this.sidebarService.onSidebarClose()
     .subscribe((data: { tag: boolean }) => {
-      if (data.tag) {
-        this.spread = !this.spread;
+      if (data.tag && this.isOpen === true) {
+        this.isOpen = !this.isOpen;
       }
     });
+    this.sidebarService.onSidebarOpen()
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag && this.isOpen === false) {
+        this.isOpen = !this.isOpen;
+      }
+    });
+
   }
 
   ngOnDestroy() {

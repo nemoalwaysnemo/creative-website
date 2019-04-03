@@ -50,12 +50,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getUser();
     this.updateHeaderTitle();
-    this.sidebarService.onSidebar()
-      .subscribe((data: { tag: boolean }) => {
-        if (data.tag) {
-          this.isOpen = !this.isOpen;
-        }
-      });
+
+    this.sidebarService.onSidebarOpen()
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag && this.isOpen === false) {
+        this.isOpen = !this.isOpen;
+      }
+    });
+
+    this.sidebarService.onSidebarClose()
+    .subscribe((data: { tag: boolean }) => {
+      if (data.tag && this.isOpen === true) {
+        this.isOpen = !this.isOpen;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -85,7 +93,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  toggleSideBar() {
-    this.sidebarService.toggleSidebar(true);
+  openSidebar() {
+    this.sidebarService.openSidebar(true);
+  }
+
+  closeSidebar() {
+    this.sidebarService.closeSidebar(true);
   }
 }

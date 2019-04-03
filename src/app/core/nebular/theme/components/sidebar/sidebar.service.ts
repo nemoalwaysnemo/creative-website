@@ -34,6 +34,23 @@ export class NbSidebarService {
     setTimeout(() =>  this.sidebarToggle$.next({ tag }), 200);
   }
 
+  onSidebarOpen(): Observable<{ tag: boolean }> {
+    return this.sidebarOpen$.pipe(share());
+  }
+
+  onSidebarClose(): Observable<{ tag: boolean }> {
+    return this.sidebarClose$.pipe(share());
+  }
+
+  openSidebar(tag?: boolean) {
+    setTimeout(() =>  this.sidebarOpen$.next({ tag }), 200);
+  }
+
+  closeSidebar(tag?: boolean) {
+    setTimeout(() =>  this.sidebarClose$.next({ tag }), 200);
+  }
+
+
   /**
    * Subscribe to toggle events
    *
