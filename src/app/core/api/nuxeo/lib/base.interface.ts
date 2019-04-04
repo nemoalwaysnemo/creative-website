@@ -259,4 +259,5 @@ export const NuxeoAutomations = {
   RepositoryPageProvider: 'Repository.PageProvider',
   DirectoryEntries: 'Directory.Entries',
   DocumentCreate: 'Document.Create',
+  GetFavorite: 'Favorite.GetDocuments',
 };

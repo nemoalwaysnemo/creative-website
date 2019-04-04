@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
-
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
@@ -15,6 +14,9 @@ const routes: Routes = [{
     }, {
       path: 'intelligence',
       loadChildren: './intelligence/intelligence-page.module#IntelligencePageModule',
+    }, {
+      path: 'favorites',
+      loadChildren: './favorites/favorites.module#FavoritesModule',
     }, {
       path: 'search',
       loadChildren: './global-search/global-search-page.module#GlobalSearchPageModule',
