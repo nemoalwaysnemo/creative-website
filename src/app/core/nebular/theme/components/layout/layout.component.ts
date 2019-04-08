@@ -277,7 +277,7 @@ export class NbLayoutFooterComponent {
     <div class="scrollable-container" #scrollableContainer (scroll)="onScroll($event)">
       <div class="layout">
         <ng-content select="nb-layout-header:not([subheader])"></ng-content>
-        <div class="layout-container" [id]="trtrst">
+        <div class="layout-container">
           <ng-content select="nb-sidebar"></ng-content>
           <div class="content" [@openClose]="isOpen ? 'marginExist' : 'marginDisappear'" [class.center]="centerValue">
             <ng-content select="nb-layout-header[subheader]"></ng-content>
