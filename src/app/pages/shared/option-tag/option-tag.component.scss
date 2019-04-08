@@ -1,3 +1,9 @@
+mat-chip-list {
+  outline: 0 !important;
+  &:focus {
+    outline: 0 !important;
+  }
+}
 .mat-standard-chip {
 	padding: 3px!important;
 	min-height: 23px;

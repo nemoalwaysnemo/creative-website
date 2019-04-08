@@ -19,6 +19,7 @@ export class OptionTagComponent implements ControlValueAccessor {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  disabled = true;
 
   @Input() placeholder: string;
 
