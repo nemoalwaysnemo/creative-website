@@ -1,11 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home/home.component';
-import { SearchComponent } from './search/search.component';
 import { AssetComponent } from './asset/asset.component';
 import { CreativePageComponent } from './creative-page.component';
-import { BrandComponent } from './brand/brand.component';
-import { RecommendBrandComponent } from '@pages/creative/recommend-brand/recommend-brand.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,17 +13,8 @@ const routes: Routes = [{
       component: HomeComponent,
     },
     {
-      path: 'search',
-      component: SearchComponent,
-    }, {
       path: 'asset',
       component: AssetComponent,
-    }, {
-      path: 'brand',
-      component: BrandComponent,
-    }, {
-      path: 'recommendBrand',
-      component: RecommendBrandComponent,
     }, {
       path: '',
       component: HomeComponent,

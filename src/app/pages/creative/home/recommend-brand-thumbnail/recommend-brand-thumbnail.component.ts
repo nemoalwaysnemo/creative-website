@@ -8,15 +8,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./recommend-brand-thumbnail.component.scss'],
   templateUrl: './recommend-brand-thumbnail.component.html',
 })
-export class RecommendBrandThumbnailComponent implements OnInit, OnDestroy {
+export class RecommendedBrandThumbnailComponent implements OnInit, OnDestroy {
 
-  layout = 'recommendBrand';
-
-  documentType = 'recommendBrand';
+  layout = 'recommendedBrand';
 
   loading: boolean = true;
 
-  brandDocuments: DocumentModel[];
+  documents: DocumentModel[];
 
   private subscription: Subscription = new Subscription();
 
@@ -30,7 +28,7 @@ export class RecommendBrandThumbnailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.advanceSearch.request(this.params)
       .subscribe((res: NuxeoPagination) => {
-        this.brandDocuments = res.entries;
+        this.documents = res.entries;
         this.loading = false;
       });
   }

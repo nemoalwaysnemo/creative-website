@@ -23,7 +23,7 @@ const COMPONENTS = [
     RouterModule,
     NgPipesModule,
     SharedDirectiveModule,
-    PreviewDialogModule,
+    PreviewDialogModule.forRoot(),
     DocumentViewerModule,
   ],
   declarations: [
@@ -31,6 +31,9 @@ const COMPONENTS = [
     BackslashDialogComponent,
     DisruptionDialogComponent,
     IntelligenceDialogComponent,
+  ],
+  providers: [
+    PreviewDialogModule.forRoot().providers,
   ],
   exports: [
     ...COMPONENTS,
