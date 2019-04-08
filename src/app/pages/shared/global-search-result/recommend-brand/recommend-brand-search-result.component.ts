@@ -9,7 +9,7 @@ import { BaseSearchResultComponent } from '../abstract-search-result';
   styleUrls: ['./recommend-brand-search-result.component.scss'],
   templateUrl: './recommend-brand-search-result.component.html',
 })
-export class RecommendBrandSearchResultComponent extends BaseSearchResultComponent implements OnInit, OnDestroy {
+export class RecommendedBrandSearchResultComponent extends BaseSearchResultComponent implements OnInit, OnDestroy {
 
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
     super(advanceSearch, queryParamsService);

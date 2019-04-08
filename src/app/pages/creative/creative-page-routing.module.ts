@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './home/home.component';
 import { AssetComponent } from './asset/asset.component';
 import { CreativePageComponent } from './creative-page.component';
-import { MyBrandComponent } from './my-brand/my-brand.component';
-import { RecommendBrandComponent } from './recommend-brand/recommend-brand.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,12 +15,6 @@ const routes: Routes = [{
     {
       path: 'asset',
       component: AssetComponent,
-    }, {
-      path: 'brand',
-      component: MyBrandComponent,
-    }, {
-      path: 'recommendBrand',
-      component: RecommendBrandComponent,
     }, {
       path: '',
       component: HomeComponent,
