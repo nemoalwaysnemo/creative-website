@@ -20,11 +20,11 @@ import {
   PreviewDialogModule,
   DirectorySuggestionModule,
   DocumentFormModule,
-  HomeSearchModule,
+  HomeSearchFormModule,
 } from './';
 
 const EXPORTS = [
-  HomeSearchModule,
+  HomeSearchFormModule,
   CommonModule,
   ThemeModule,
   OptionSelectModule,

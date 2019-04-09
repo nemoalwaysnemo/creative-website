@@ -8,7 +8,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 export class CreativeAssetSearchComponent {
 
-  baseParams: any = {
+  defaultParams: any = {
     currentPageIndex: 0,
     pageSize: 20,
     ecm_fulltext: '',

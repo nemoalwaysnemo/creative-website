@@ -1,12 +1,12 @@
 <form class="global-search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
-  <div class="global-search-input">
-    <input class="form-control" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup.enter)="onKeyup($event)" />
+  <div class="filters search-input global-search-input">
+    <ng-container *ngIf="hasFilters()">
+      <div class="left">
+        <button type="button" (click)="toggleFilter()" class="advanced_filters_trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filter</button>
+      </div>
+    </ng-container>
+    <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup.enter)="onKeyup($event)" />
   </div>
-  <ng-container *ngIf="hasFilters()">
-    <div class="filters left">
-      <button type="button" (click)="toggleFilter()" class="advanced_filters_trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filter</button>
-    </div>
-  </ng-container>
   <div class="button-groups left">
     <ng-content></ng-content>
   </div>

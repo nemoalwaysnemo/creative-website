@@ -12,7 +12,7 @@ export * from './document-form/document-form.module';
 export * from './global-search-form/global-search-form.module';
 export * from './global-search-filter/global-search-filter.module';
 export * from './global-search-result/global-search-result.module';
-export * from './home-search/home-search.module';
+export * from './home-search-form/home-search-form.module';
 export * from './list-view/list-view.interface';
 export * from './list-view/list-view.module';
 export * from './option-select/option-select.module';

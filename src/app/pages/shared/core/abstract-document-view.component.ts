@@ -57,7 +57,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
             this.onInvalidDocumentUID(queryParams.id);
           }
         }),
-        filter(queryParams => isDocumentUID(queryParams.id)),
+        filter(queryParams => isDocumentUID(queryParams.id) && !this.document),
         distinctUntilChanged(),
         switchMap(queryParams => this.getCurrentDocument(queryParams.id)),
         map((res: NuxeoPagination) => res.entries.shift()),

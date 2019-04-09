@@ -32,12 +32,14 @@
 .clear { clear: both; }
 .search-input {
 	margin: 20px 0;
-  padding: 10px 38px;
+  padding: 10px 0;
   box-sizing: border-box;
   .form-control {
-  	border: solid 1px #e1e1e1;
-  	height: 50px;
-  	padding-left: 50px;
+    border: solid 1px #e1e1e1;
+    width: calc(100% - 121px);
+  	height: 40px;
+    padding-left: 40px;
+    margin-right: 0!important;
   	box-sizing: border-box;
   	background: url('/assets/images/search_icon_small.png') no-repeat 20px center;
   }

@@ -55,8 +55,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   set baseParams(params: any) {
     this.pageChangedSearch = false;
     if (params) {
-      this.searchParams = Object.assign({}, this._defaultParams, params);
-      this.onRelatedSearch(this.searchParams);
+      this.onInputChangedSearch(params);
     }
   }
 
@@ -101,16 +100,20 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     return this.search({ currentPageIndex: 0, ecm_fulltext: searchTerm });
   }
 
-  private onRelatedSearch(params: any = {}): void {
-    this.patchFormValue(this.parseToFormValues(params));
-    this.search(params).subscribe();
+  private onInputChangedSearch(params: any = {}): void {
+    this.searchParams = Object.assign({}, this._defaultParams, params);
+    const queryParams = this.queryParamsService.getCurrentQueryParams();
+    let parsedParams = this.parseToFormValues(queryParams);
+    parsedParams = selectObjectByKeys(parsedParams, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
+    this.patchFormValue(parsedParams);
+    this.search(Object.assign({}, this.searchParams, parsedParams)).subscribe();
   }
 
   private onQuerySearch(params: any = {}): void {
     let parsedParams = this.parseToFormValues(params);
     parsedParams = selectObjectByKeys(parsedParams, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
     this.patchFormValue(parsedParams);
-    this.search(params).subscribe();
+    this.search(parsedParams).subscribe();
   }
 
   private onInit() {
@@ -130,7 +133,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private search(searchParams: any = {}): Observable<SearchResponse> {
-    const params = Object.assign({}, this._defaultParams, searchParams, this.getFormValue());
+    const params = Object.assign({}, this.searchParams, searchParams, this.getFormValue());
     return this.advanceSearch.search(this.queryParamsService.buildSearchParams(params));
   }
 
@@ -174,11 +177,15 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     return Object.keys(queryParams).some((key) => key.includes('_agg'));
   }
 
+  private checkPageChanged(info: PageChangedInfo): boolean {
+    const type = info.historyState.type;
+    return (this.pageChangedSearch && type !== 'typeahead') || (!this.pageChangedSearch && type === 'pagination');
+  }
+
   private onPageChanged(): void {
     const subscription = this.queryParamsService.onPageChanged().pipe(
-      delay(300),
-      takeWhile(_ => this.pageChangedSearch),
-      filter((info: PageChangedInfo) => info.historyState.type !== 'typeahead'),
+      delay(100),
+      filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       if (!this.hasQueryParams(info.queryParams)) {
         this.getSearchAggregates();
@@ -225,7 +232,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private getSearchAggregates(): void {
-    const subscription = this.advanceSearch.requestSearchFilters(this.defaultParams).subscribe((aggregateModels: AggregateModel[]) => {
+    const subscription = this.advanceSearch.requestSearchFilters(this.searchParams).subscribe((aggregateModels: AggregateModel[]) => {
       this.changeSearchFilter(aggregateModels);
       this.hasAggs = true;
     });

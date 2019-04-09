@@ -9,9 +9,15 @@ import { Subject } from 'rxjs';
   styleUrls: ['./creative-recommend-brand-search.component.scss'],
   templateUrl: './creative-recommend-brand-search.component.html',
 })
-export class CreativeRecommendedBrandSearchComponent extends AbstractDocumentViewComponent {
+export class CreativeRecommendedBrandSearchComponent {
 
-  baseParams$: Subject<any> = new Subject<any>();
+  defaultParams: any = {
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
+    currentPageIndex: 0,
+    pageSize: 20,
+    ecm_path: '',
+    ecm_fulltext: '',
+  };
 
   filters: any = {
     'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
@@ -24,41 +30,5 @@ export class CreativeRecommendedBrandSearchComponent extends AbstractDocumentVie
     'app_edges_backslash_category_agg': { placeholder: 'Category' },
     'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
-
-  constructor(
-    protected advanceSearch: AdvanceSearch,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, queryParamsService);
-  }
-
-  protected onInvalidDocumentUID(uid: string): void {
-    this.setCurrentDocument(null);
-  }
-
-  protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
-    this.baseParams$.next(this.buildFormParams(doc));
-  }
-
-  protected getDefaultDocumentParams(): any {
-    return {
-      pageSize: 1,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
-    };
-  }
-
-  protected buildFormParams(doc?: DocumentModel): any {
-    const params = {
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-      currentPageIndex: 0,
-      pageSize: 20,
-      ecm_path: '',
-    };
-    if (doc) {
-      params['the_loupe_main_brand_any'] = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
-      params['ecm_uuid_exclude'] = doc.uid;
-    }
-    return params;
-  }
 
 }

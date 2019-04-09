@@ -5,7 +5,7 @@ import { AssetSearchResultComponent } from './asset/asset-search-result.componen
 import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnail-view.module';
 import { ListViewModule } from '../list-view/list-view.module';
 import { PaginationModule } from '../pagination/pagination.module';
-import { MyBrandSearchResultComponent } from './my-brand/my-brand-search-result.component';
+import { MyBrandSearchResultComponent } from './my-brand-result/my-brand-search-result.component';
 import { RecommendedBrandSearchResultComponent } from './recommend-brand/recommend-brand-search-result.component';
 
 

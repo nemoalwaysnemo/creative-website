@@ -2,17 +2,16 @@ import { OnInit, Component, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { debounceTime, map, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-home-search',
-  templateUrl: './home-search.component.html',
-  styleUrls: ['./home-search.component.scss'],
+  selector: 'tbwa-home-search-form',
+  templateUrl: './home-search-form.component.html',
+  styleUrls: ['./home-search-form.component.scss'],
 })
 
-export class HomeSearchComponent implements OnInit, OnDestroy {
+export class HomeSearchFormComponent implements OnInit, OnDestroy {
   results: DocumentModel[];
 
   documents: DocumentModel[] = [];
@@ -27,18 +26,20 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
 
   showFilter: boolean = false;
 
-  private subscription: Subscription = new Subscription();
   @Input() assetType: any;
   @Input() params: any;
   @Input() headline: string;
   @Input() subHead: string;
   @Input() placeholder: string;
+  @Input() redirectUrl: string;
   @Input()
   set backgroudDocument(doc: DocumentModel) {
     if (doc) {
       this.backgroudUrl = doc.thumbnailUrl;
     }
   }
+
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -93,7 +94,7 @@ export class HomeSearchComponent implements OnInit, OnDestroy {
   }
 
   private redirectToListPage(queryParams: {}) {
-    this.router.navigate(['/p/creative/search'], { queryParamsHandling: 'merge', queryParams });
+    this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
 }

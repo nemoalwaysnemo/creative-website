@@ -63,7 +63,7 @@ export abstract class BaseSearchResultComponent {
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       const currentPageIndex = pageInfo.currentPageIndex;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, {}, 'merge');
+      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge');
     });
     this.subscription.add(subscription);
   }
