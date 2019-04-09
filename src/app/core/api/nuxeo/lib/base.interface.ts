@@ -260,4 +260,6 @@ export const NuxeoAutomations = {
   DirectoryEntries: 'Directory.Entries',
   DocumentCreate: 'Document.Create',
   GetFavorite: 'Favorite.GetDocuments',
+  AddFavorite: 'Document.AddToFavorites',
+  RemoveFromFavorites: 'Document.RemoveFromFavorites',
 };

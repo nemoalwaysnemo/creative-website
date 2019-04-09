@@ -15,4 +15,8 @@ export const TAB_CONFIG: any[] = [
       title: 'My Disruption',
       route: '/p/favorites/disruption',
     },
+    {
+      title: 'My Collections',
+      route: '/p/favorites/disruption',
+    },
   ];

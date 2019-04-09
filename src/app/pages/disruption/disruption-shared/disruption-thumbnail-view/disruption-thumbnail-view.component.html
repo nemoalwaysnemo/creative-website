@@ -15,6 +15,8 @@
         <div class="line"></div>
         <h4 class="agency">{{document.get('The_Loupe_Main:agency')}}</h4>
       </div>
+      <button (click)="addToFavorite(document)">add to favorite</button>
+      <button (click)="removeFromFavorite(document)">remove favorite</button>
       <!-- <div style='color:black'>{{ document.title }}</div> -->
       <!-- <div style='color:black'>{{document.get('The_Loupe_Main:agency')}}</div> -->
       <!-- <div style='color:black'>{{document.get('The_Loupe_ProdCredits:production_date') | date}}</div> -->

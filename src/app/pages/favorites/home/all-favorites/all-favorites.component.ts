@@ -7,16 +7,13 @@ import { TAB_CONFIG } from '../../tab-config';
   templateUrl: './all-favorites.component.html',
   styleUrls: ['./all-favorites.component.scss'],
 })
-export class AllFavoritesComponent implements OnInit {
+export class AllFavoritesComponent {
   documents: any;
   tabs = TAB_CONFIG;
-  constructor(private userService: UserService, private nuxeoApi: NuxeoApiService ) { }
-
-  ngOnInit() {
-    const subscription = this.nuxeoApi.operation( NuxeoAutomations.GetFavorite, {}, '/Creative', new NuxeoRequestOptions() )
-              .subscribe((res: NuxeoPagination) => {
-                this.documents = res.entries;
-              });
-  }
-
+  operation_params = {
+    operation_type: NuxeoAutomations.GetFavorite,
+    params: {},
+    input: '/Creative',
+    opts: new NuxeoRequestOptions(),
+  };
 }

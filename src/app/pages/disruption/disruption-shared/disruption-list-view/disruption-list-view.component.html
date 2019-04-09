@@ -8,6 +8,8 @@
         <h1 *ngIf="disruptionType == 'Distruption Roadmaps'">{{document.get('The_Loupe_Main:brand')}}</h1>
         <h1 *ngIf="disruptionType == 'Distruption Theory'">{{document.title}}</h1>
       </div>
+      <button (click)="addToFavorite(document)">add to favorite</button>
+      <button (click)="removeFromFavorite(document)">remove favorite</button>
     </div>
   </div>
 </div>

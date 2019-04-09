@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { AdvanceSearch, NuxeoPagination, DocumentModel, NuxeoPageProviderParams } from '@core/api';
+import { AdvanceSearch, NuxeoPagination, DocumentModel, NuxeoPageProviderParams, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { PaginationDataSource } from 'app/pages/shared/pagination/pagination-data-source';
 import { SearchQueryParamsService } from 'app/pages/shared';
 import { Subscription } from 'rxjs';
@@ -24,8 +24,20 @@ export class DisruptionThumbnailViewComponent implements OnInit, OnDestroy {
 
   constructor(private advanceSearch: AdvanceSearch,
               private queryParamsService: SearchQueryParamsService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private nuxeoApi: NuxeoApiService) { }
 
+  public addToFavorite(document) {
+    this.nuxeoApi.operation( NuxeoAutomations.AddFavorite, {}, document.path)
+    .subscribe((res: NuxeoPagination) => {
+    });
+  }
+
+  public removeFromFavorite(document) {
+    this.nuxeoApi.operation( NuxeoAutomations.RemoveFromFavorites, {}, document.path)
+    .subscribe((res: NuxeoPagination) => {
+    });
+  }
   ngOnInit() {
     this.folderId = this.activatedRoute.snapshot.queryParams.id;
     this.search(this.nuxeoParams);

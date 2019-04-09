@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, TemplateRef} from '@angular/core';
-import { AdvanceSearch, NuxeoPagination, DocumentModel, NuxeoPageProviderParams} from '@core/api';
+import { AdvanceSearch, NuxeoPagination, DocumentModel, NuxeoPageProviderParams, NuxeoAutomations, NuxeoApiService} from '@core/api';
 import { PaginationDataSource } from 'app/pages/shared/pagination/pagination-data-source';
 import { SearchQueryParamsService } from 'app/pages/shared';
 import { Subscription } from 'rxjs';
@@ -20,8 +20,19 @@ export class DisruptionListViewComponent implements OnInit, OnDestroy {
   documents: DocumentModel[];
   queryParams: NuxeoPageProviderParams = {};
   private subscription: Subscription = new Subscription();
-  constructor(private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService, private dialogService: PreviewDialogService) { }
+  constructor(private nuxeoApi: NuxeoApiService, private advanceSearch: AdvanceSearch, private queryParamsService: SearchQueryParamsService, private dialogService: PreviewDialogService) { }
 
+  public addToFavorite(document) {
+    this.nuxeoApi.operation( NuxeoAutomations.AddFavorite, {}, document.path)
+    .subscribe((res: NuxeoPagination) => {
+    });
+  }
+
+  public removeFromFavorite(document) {
+    this.nuxeoApi.operation( NuxeoAutomations.RemoveFromFavorites, {}, document.path)
+    .subscribe((res: NuxeoPagination) => {
+    });
+  }
   open(dialog: TemplateRef<any>, doc: DocumentModel) {
     const title = this.disruptionType;
     this.dialogService.open(dialog, doc, {title});
