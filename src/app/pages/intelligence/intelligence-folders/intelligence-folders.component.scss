@@ -1,3 +1,29 @@
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+.inline-middle {
+	display: inline-block;
+	vertical-align: middle;
+}
+.brand_section {
+  margin-top: 10px;
+}
+.brand_intro {
+	width: 280px;
+	height: 280px;
+	margin-right: 30px;
+	img {
+		width: 100%;
+		height: 100%;
+	}
+}
+.brand_info {
+	width: calc(100% - 310px);
+	h1 {
+		font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+		font-size: 25px;
+		margin: 0;
+	}
+}
+
 .document {
   width: 100%;
   padding: 0 40px;
