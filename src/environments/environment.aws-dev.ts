@@ -41,6 +41,7 @@ export const NUXEO_META_INFO = {
   INTELLIGENCE_INDUSTRY_TYPE: '["App-Intelligence-Industry"]',
   INTELLIGENCE_ASSET_TYPE: '["App-Intelligence-Asset"]',
   INTELLIGENCE_ASSET_PAGE_PROVIDER: 'creative_website_intelligence_related_assets',
+  INTELLIGENCE_ALL_FOLDERS: '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder", "App-Intelligence-Industry"]',
   KNOWEDGE_BASIC_PATH: '/know-edge',
   BACKGROUND_PATH: '/Creative/1. GCL Frontpage/Banners/',
   BACKGROUND_TYPE: '["App-Library-Image"]',

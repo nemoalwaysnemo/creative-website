@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="true">
-  <ng-container *ngSwitchCase="isDisruptionAsset()">
+  <ng-container *ngSwitchCase="isDisruptionAsset() || isIntelligenceAsset()">
     <h1>{{ document.title }}</h1>
     <h2>{{ document.get('The_Loupe_Main:brand') }}</h2>
     <table>

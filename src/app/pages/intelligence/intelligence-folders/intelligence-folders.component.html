@@ -1,5 +1,8 @@
 <div class="document">
   <h1>{{ header }}</h1>
+  <div *ngIf="document">
+    <intelligence-folders-view [document]="document"></intelligence-folders-view>
+  </div>
   <ng-container [ngSwitch]="true">
     <ng-container *ngSwitchCase="redirectToIndusty">
       <div class="quarter flex">
@@ -36,7 +39,7 @@
         <div *ngFor="let document of folderContents">
           <div class="thumbnail-view">
             <div class="image_holder">
-              <a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+              <a routerLink="/p/intelligence/assets" [queryParams]="{folder: folderId, id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
             </div>
             <div class="description">
               <h1><a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}">{{ document.title }}</a></h1>
