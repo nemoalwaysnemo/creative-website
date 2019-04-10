@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {  NuxeoPagination, AdvanceSearch } from '@core/api';
+import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 import { isDocumentUID } from '@core/services';
@@ -13,9 +13,20 @@ import { isDocumentUID } from '@core/services';
 export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   folderContents: any;
+  document: DocumentModel;
   redirectToIndusty: boolean;
   queryParams = this.activatedRoute.snapshot.queryParams;
   header: any;
+  folderId = this.queryParams.id;
+
+  params: any = {
+    pageSize: 10,
+    currentPageIndex: 0,
+    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+    ecm_uuid: `["${this.queryParams.id}"]`,
+    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ALL_FOLDERS,
+  };
+
   contentParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
@@ -51,6 +62,7 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.checkFolderId(this.queryParams.id);
     this.judgeRedirects(this.queryParams.folder_type);
+    this.searchFolders(this.params);
   }
 
   ngOnDestroy() {
@@ -91,10 +103,20 @@ export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
+  private searchFolders(params: {}): void {
+    const subscription = this.advanceSearch.request(params)
+      .subscribe((res: NuxeoPagination) => {
+        this.document = res.entries[0];
+      });
+    this.subscription.add(subscription);
+  }
+
   getIndustryString(industry) {
-    if (industry) {
-    const tempString = '["' + industry.join('", "') + '"]';
-    return tempString;
+    if (industry && typeof(industry) === 'object') {
+      const tempString = '["' + industry.join('", "') + '"]';
+      return tempString;
+    } else if (industry) {
+      return industry;
     }
   }
 

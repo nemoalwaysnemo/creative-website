@@ -47,6 +47,10 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     return getDocumentTypes(NUXEO_META_INFO.DISRUPTION_DAY_TYPE).includes(this.document.type);
   }
 
+  isIntelligenceAsset(): boolean {
+    return getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(this.document.type);
+  }
+
   toggleJob() {
     if (this.jobTitle === undefined && this.hasJobValue()) {
       this.advanceSearch.request(this.getRequestParams())
