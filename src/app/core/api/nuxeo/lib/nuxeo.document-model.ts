@@ -122,6 +122,10 @@ export class DocumentModel extends Base {
     return this.facets.includes('Thumbnail') && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : this.getDefaultThumbnail();
   }
 
+  get isFavorites(): boolean {
+    return this.contextParameters && this.contextParameters.favorites ? this.contextParameters.favorites.isFavorite : null;
+  }
+
   get previewUrl(): string {
     return this.contextParameters && this.contextParameters.preview ? this.contextParameters.preview.url : '';
   }

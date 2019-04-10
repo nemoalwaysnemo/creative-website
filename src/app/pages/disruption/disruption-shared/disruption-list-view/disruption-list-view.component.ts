@@ -25,12 +25,14 @@ export class DisruptionListViewComponent implements OnInit, OnDestroy {
   public addToFavorite(document) {
     this.nuxeoApi.operation( NuxeoAutomations.AddFavorite, {}, document.path)
     .subscribe((res: NuxeoPagination) => {
+      window.location.reload();
     });
   }
 
   public removeFromFavorite(document) {
     this.nuxeoApi.operation( NuxeoAutomations.RemoveFromFavorites, {}, document.path)
     .subscribe((res: NuxeoPagination) => {
+      window.location.reload();
     });
   }
   open(dialog: TemplateRef<any>, doc: DocumentModel) {
