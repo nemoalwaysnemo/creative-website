@@ -1,11 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CreativeSearchComponent } from './creative-search.component';
-import { CreativeAssetSearchComponent } from './creative-asset-search/creative-asset-search.component';
+import { CreativeDocumentAssetSearchComponent } from './creative-document-asset-search/creative-document-asset-search.component';
 import { CreativeMyBrandSearchComponent } from './creative-my-brand-search/creative-my-brand-search.component';
 import { CreativeMyBrandAssetSearchComponent } from './creative-my-brand-asset-search/creative-my-brand-asset-search.component';
-import { CreativeRecommendedBrandSearchComponent } from './creative-recommend-brand-search/creative-recommend-brand-search.component';
-import { CreativeRecommendedBrandAssetSearchComponent } from './creative-recommend-brand-asset-search/creative-recommend-brand-asset-search.component';
+import { CreativeRecommendedBrandSearchComponent } from './creative-recommended-brand-search/creative-recommended-brand-search.component';
+import { CreativeRecommendedBrandAssetSearchComponent } from './creative-recommended-brand-asset-search/creative-recommended-brand-asset-search.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,7 +13,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'asset',
-      component: CreativeAssetSearchComponent,
+      component: CreativeDocumentAssetSearchComponent,
     },
     {
       path: 'myBrand',
@@ -33,7 +33,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      component: CreativeAssetSearchComponent,
+      component: CreativeDocumentAssetSearchComponent,
       pathMatch: 'full',
     },
   ],

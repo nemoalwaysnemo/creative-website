@@ -10,6 +10,10 @@ const routes: Routes = [{
       path: 'creative',
       loadChildren: './creative-search/creative-search.module#CreativeSearchModule',
     },
+    {
+      path: 'intelligence',
+      loadChildren: './intelligence-search/intelligence-search.module#IntelligenceSearchModule',
+    },
   ],
 }];
 

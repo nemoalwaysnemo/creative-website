@@ -3,6 +3,7 @@ import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { ListViewItem } from '../list-view/list-view.interface';
 import { Subscription } from 'rxjs';
+import { Input } from '@angular/core';
 
 export abstract class BaseSearchResultComponent {
 
@@ -23,6 +24,10 @@ export abstract class BaseSearchResultComponent {
   queryParams: NuxeoPageProviderParams = {};
 
   protected subscription: Subscription = new Subscription();
+
+  @Input() listViewSettings: any = {};
+
+  @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
 
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
   }
@@ -54,7 +59,7 @@ export abstract class BaseSearchResultComponent {
         this.paginationService.from(response);
         this.totalResults = response.resultsCount;
         this.documents = response.entries;
-        this.listDocuments = this.buildListViewItem(response.entries);
+        this.listDocuments = this.listViewBuilder(response.entries);
       }
     });
     this.subscription.add(subscription);
@@ -67,9 +72,5 @@ export abstract class BaseSearchResultComponent {
     });
     this.subscription.add(subscription);
   }
-
-  protected abstract getListViewSettings(): any;
-
-  protected abstract buildListViewItem(docs: DocumentModel[]): ListViewItem[];
 
 }

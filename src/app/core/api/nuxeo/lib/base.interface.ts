@@ -1,4 +1,4 @@
-import { join, isDocumentUID } from '../../../services';
+import { join, deepExtend, isDocumentUID } from '../../../services';
 import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';
@@ -153,9 +153,10 @@ export class NuxeoPageProviderParams {
 }
 
 export class NuxeoRequestOptions {
-  [key: string]: any;
-  schemas?: string[] = ['*'];
-  enrichers?: {} = {
+  readonly [key: string]: any;
+  readonly skipAggregates?: boolean = true;
+  readonly schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'app_global', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits'];
+  readonly enrichers?: {} = {
     document: [
       NuxeoEnricher.document.PREVIEW,
       NuxeoEnricher.document.SUBTYPES,
@@ -165,6 +166,9 @@ export class NuxeoRequestOptions {
       NuxeoEnricher.document.PERMISSIONS,
     ],
   };
+  constructor(opts: any = {}) {
+    deepExtend(this, opts);
+  }
 }
 
 export class NuxeoPagination {

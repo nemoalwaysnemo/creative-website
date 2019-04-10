@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdvanceSearch } from '@core/api';
-import { AbstractDocumentViewComponent } from '../core/abstract-document-view.component';
+import { AbstractDocumentViewComponent } from '../abstract-classes/abstract-document-view.component';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 
 @Component({

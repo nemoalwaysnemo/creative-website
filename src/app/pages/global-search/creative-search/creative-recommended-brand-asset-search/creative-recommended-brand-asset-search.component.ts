@@ -5,9 +5,9 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-creative-recommend-brand-asset-search',
-  styleUrls: ['./creative-recommend-brand-asset-search.component.scss'],
-  templateUrl: './creative-recommend-brand-asset-search.component.html',
+  selector: 'tbwa-creative-recommended-brand-asset-search',
+  styleUrls: ['./creative-recommended-brand-asset-search.component.scss'],
+  templateUrl: './creative-recommended-brand-asset-search.component.html',
 })
 export class CreativeRecommendedBrandAssetSearchComponent extends AbstractDocumentViewComponent {
 

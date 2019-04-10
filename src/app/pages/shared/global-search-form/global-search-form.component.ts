@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
-import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, takeWhile } from 'rxjs/operators';
+import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay } from 'rxjs/operators';
 import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse } from '@core/api';
 import { SearchQueryParamsService, PageChangedInfo } from '../services/search-query-params.service';
 import { selectObjectByKeys } from '@core/services';
@@ -134,7 +134,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   private search(searchParams: any = {}): Observable<SearchResponse> {
     const params = Object.assign({}, this.searchParams, searchParams, this.getFormValue());
-    return this.advanceSearch.search(this.queryParamsService.buildSearchParams(params));
+    return this.advanceSearch.search(this.queryParamsService.buildSearchParams(params), { skipAggregates: false });
   }
 
   private createForm() {
@@ -188,7 +188,11 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       if (!this.hasQueryParams(info.queryParams)) {
-        this.getSearchAggregates();
+        if (this.hasFilters()) {
+          this.getSearchAggregates();
+        } else {
+          this.onQuerySearch();
+        }
       } else {
         this.onQuerySearch(info.queryParams);
         if (this.hasFilterQueryParams(info.queryParams)) {

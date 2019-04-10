@@ -4,9 +4,9 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-recommend-brand-thumbnail',
-  styleUrls: ['./recommend-brand-thumbnail.component.scss'],
-  templateUrl: './recommend-brand-thumbnail.component.html',
+  selector: 'tbwa-recommended-brand-thumbnail',
+  styleUrls: ['./recommended-brand-thumbnail.component.scss'],
+  templateUrl: './recommended-brand-thumbnail.component.html',
 })
 export class RecommendedBrandThumbnailComponent implements OnInit, OnDestroy {
 

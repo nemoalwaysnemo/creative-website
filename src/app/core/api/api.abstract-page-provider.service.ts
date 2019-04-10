@@ -1,5 +1,5 @@
-import { Observable, of as observableOf, Subject, BehaviorSubject } from 'rxjs';
-import { share, concat, map, switchMap, concatMap, tap, multicast, refCount } from 'rxjs/operators';
+import { Observable, of as observableOf, Subject } from 'rxjs';
+import { share, concat, map, tap } from 'rxjs/operators';
 import { AbstractBaseService } from './api.abstract-base.service';
 import { join } from '../services';
 import {

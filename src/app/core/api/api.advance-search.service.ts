@@ -15,7 +15,7 @@ export class AdvanceSearch extends AbstractPageProvider {
   }
 
   requestSearchFilters(queryParams: NuxeoPageProviderParams = {}): Observable<AggregateModel[]> {
-    return this.request(this.getRequestParams(Object.assign({}, queryParams, { pageSize: 1 }))).pipe(
+    return this.request(this.getRequestParams(Object.assign({}, queryParams, { pageSize: 1 })), { skipAggregates: false }).pipe(
       map((response: NuxeoPagination) => this.buildAggregateModels(response)),
       concatMap((models: AggregateModel[]) => this.requestIDsOfAggregates(models)),
     );

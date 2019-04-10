@@ -206,9 +206,13 @@ export class Nuxeo extends Base {
       options.headers.depth = options.depth;
     }
 
+    if (options.skipAggregates) {
+      options.headers['skipAggregates'] = options.skipAggregates.toString();
+    }
+
     const { httpTimeout, transactionTimeout } = this._computeTimeouts(options);
     if (transactionTimeout) {
-      options.headers['Nuxeo-Transaction-Timeout'] = transactionTimeout;
+      options.headers['Nuxeo-Transaction-Timeout'] = transactionTimeout.toString();
     }
     options.timeout = httpTimeout;
 

@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { CreativeSearchComponent } from './creative-search.component';
 import { CreativeSearchRoutingModule } from './creative-search-routing.module';
-import { CreativeAssetSearchComponent } from './creative-asset-search/creative-asset-search.component';
+import { CreativeDocumentAssetSearchComponent } from './creative-document-asset-search/creative-document-asset-search.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { CreativeMyBrandSearchComponent } from './creative-my-brand-search/creative-my-brand-search.component';
 import { CreativeMyBrandAssetSearchComponent } from './creative-my-brand-asset-search/creative-my-brand-asset-search.component';
-import { CreativeRecommendedBrandSearchComponent } from './creative-recommend-brand-search/creative-recommend-brand-search.component';
-import { CreativeRecommendedBrandAssetSearchComponent } from './creative-recommend-brand-asset-search/creative-recommend-brand-asset-search.component';
+import { CreativeRecommendedBrandSearchComponent } from './creative-recommended-brand-search/creative-recommended-brand-search.component';
+import { CreativeRecommendedBrandAssetSearchComponent } from './creative-recommended-brand-asset-search/creative-recommended-brand-asset-search.component';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { CreativeRecommendedBrandAssetSearchComponent } from './creative-recomme
   ],
   declarations: [
     CreativeSearchComponent,
-    CreativeAssetSearchComponent,
+    CreativeDocumentAssetSearchComponent,
     CreativeMyBrandSearchComponent,
     CreativeMyBrandAssetSearchComponent,
     CreativeRecommendedBrandSearchComponent,

@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
-import { DocumentModel, AdvanceSearch } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-creative-recommend-brand-search',
-  styleUrls: ['./creative-recommend-brand-search.component.scss'],
-  templateUrl: './creative-recommend-brand-search.component.html',
+  selector: 'tbwa-creative-document-asset-search',
+  styleUrls: ['./creative-document-asset-search.component.scss'],
+  templateUrl: './creative-document-asset-search.component.html',
 })
-export class CreativeRecommendedBrandSearchComponent {
+export class CreativeDocumentAssetSearchComponent {
 
   defaultParams: any = {
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
     currentPageIndex: 0,
     pageSize: 20,
     ecm_path: '',
     ecm_fulltext: '',
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   filters: any = {
@@ -30,5 +27,4 @@ export class CreativeRecommendedBrandSearchComponent {
     'app_edges_backslash_category_agg': { placeholder: 'Category' },
     'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
-
 }
