@@ -9,8 +9,8 @@ import {
   Renderer2, ViewChild, ViewContainerRef, Inject, PLATFORM_ID, forwardRef,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
-import { filter, takeWhile } from 'rxjs/operators';
+import { BehaviorSubject, fromEvent } from 'rxjs';
+import { distinctUntilChanged, filter, map, pairwise, share, throttleTime, takeWhile } from 'rxjs/operators';
 
 import { convertToBoolProperty } from '../helpers';
 import { NbThemeService } from '../../services/theme.service';
@@ -23,6 +23,7 @@ import { NB_WINDOW, NB_DOCUMENT } from '../../theme.options';
 import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adapter';
 import { NbSidebarService } from '../sidebar/sidebar.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+
 /**
  * A container component which determines a content position inside of the layout.
  * The layout could contain unlimited columns (not including the sidebars).
@@ -96,21 +97,46 @@ export class NbLayoutColumnComponent {
  * header-padding
  * header-shadow
  */
+enum VisibilityState {
+  Visible = 'visible',
+  Hidden = 'hidden',
+}
+enum Direction {
+  Up = 'Up',
+  Down = 'Down',
+}
 @Component({
   selector: 'nb-layout-header',
   template: `
-    <nav [class.fixed]="fixedValue">
+    <nav [@toggle]="isVisible ? 'visible' : 'hidden'" [class.fixed]="fixedValue">
       <ng-content></ng-content>
     </nav>
   `,
-})
-export class NbLayoutHeaderComponent {
+  animations: [
+    trigger('toggle', [
+      state('hidden', style({
+        height: '0px',
+      })),
+      state('visible', style({
+        height: '79px',
+      })),
+      transition('hidden => visible', [
+        animate('0.5s'),
+      ]),
+      transition('visible => hidden', [
+        animate('0.5s'),
+      ]),
+    ]),
+  ],
 
+})
+export class NbLayoutHeaderComponent implements AfterViewInit {
+  isVisible = true;
   @HostBinding('class.fixed') fixedValue: boolean;
   @HostBinding('class.subheader') subheaderValue: boolean;
-
   // tslint:disable-next-line
-  constructor(@Inject(forwardRef(() => NbLayoutComponent)) private layout: NbLayoutComponent) {
+  constructor(@Inject(forwardRef(() => NbLayoutComponent)) private layout: NbLayoutComponent,
+                protected scrollService: NbLayoutScrollService) {
   }
 
   /**
@@ -132,6 +158,28 @@ export class NbLayoutHeaderComponent {
     this.subheaderValue = convertToBoolProperty(val);
     this.fixedValue = false;
     this.layout.withSubheader = this.subheaderValue;
+  }
+  ngAfterViewInit() {
+    const scroll$ = this.scrollService
+                    .onScroll()
+                    .pipe(
+                      throttleTime(10),
+                      map(() => window.pageYOffset),
+                      pairwise(),
+                      map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+                      distinctUntilChanged(),
+                      share(),
+                    );
+    const goingUp$ = scroll$.pipe(
+      filter(direction => direction === Direction.Up),
+    );
+
+    const goingDown$ = scroll$.pipe(
+      filter(direction => direction === Direction.Down),
+    );
+
+    goingUp$.subscribe(() => (this.isVisible = true));
+    goingDown$.subscribe(() => (this.isVisible = false));
   }
 }
 
@@ -270,16 +318,19 @@ export class NbLayoutFooterComponent {
  * layout-medium-padding
  * layout-small-padding
  */
+
+
+
 @Component({
   selector: 'nb-layout',
   styleUrls: ['./layout.component.scss'],
   template: `
     <div class="scrollable-container" #scrollableContainer (scroll)="onScroll($event)">
       <div class="layout">
-        <ng-content select="nb-layout-header:not([subheader])"></ng-content>
-        <div class="layout-container" [id]="trtrst">
+        <ng-content  select="nb-layout-header:not([subheader])"></ng-content>
+        <div class="layout-container">
           <ng-content select="nb-sidebar"></ng-content>
-          <div class="content" [@openClose]="isOpen ? 'marginExist' : 'marginDisappear'" [class.center]="centerValue">
+          <div class="content" [class.center]="centerValue">
             <ng-content select="nb-layout-header[subheader]"></ng-content>
             <div class="columns">
               <ng-content select="nb-layout-column"></ng-content>
@@ -290,22 +341,6 @@ export class NbLayoutFooterComponent {
       </div>
     </div>
   `,
-  animations: [
-    trigger('openClose', [
-      state('marginDisappear', style({
-            marginLeft: '0px',
-      })),
-      state('marginExist', style({
-            marginLeft: '77px',
-      })),
-      transition('hide => expand', [
-        animate('0.1s'),
-      ]),
-      transition('expand => hide', [
-        animate('0.1s'),
-      ]),
-    ]),
-  ],
 })
 export class NbLayoutComponent implements AfterViewInit, OnDestroy {
 
