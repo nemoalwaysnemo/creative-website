@@ -1,12 +1,22 @@
-import { Component, OnInit, OnDestroy, HostBinding} from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding, AfterViewInit} from '@angular/core';
 import { UserService, UserModel } from '@core/api';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Environment } from '@environment/environment';
 import { NbMenuService, NbMenuItem } from '@core/nebular/theme';
-import { filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, pairwise, share, throttleTime, takeWhile } from 'rxjs/operators';
 import { NbSidebarService } from '@core/nebular/theme/components/sidebar/sidebar.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
+enum VisibilityState {
+  Visible = 'visible',
+  Hidden = 'hidden',
+}
+enum Direction {
+  Up = 'Up',
+  Down = 'Down',
+}
+
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
@@ -36,15 +46,16 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
     ]),
   ],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-
+export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
+  private isVisible = true;
   user: any = {};
   title: string;
   private subscription: Subscription = new Subscription();
   logo: boolean = true;
-
+  headerHide: any;
   constructor(private router: Router, private menuService: NbMenuService,
-              private userService: UserService, private sidebarService: NbSidebarService) { }
+              private userService: UserService, private sidebarService: NbSidebarService,
+              protected scrollService: NbLayoutScrollService) { }
   isOpen = true;
 
   ngOnInit() {
@@ -65,6 +76,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  ngAfterViewInit() {
+    const scroll$ = this.scrollService
+                    .onScroll()
+                    .pipe(
+                      throttleTime(10),
+                      map(() => window.pageYOffset),
+                      pairwise(),
+                      map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+                      distinctUntilChanged(),
+                      share(),
+                    );
+
+    const goingUp$ = scroll$.pipe(
+      filter(direction => direction === Direction.Up),
+    );
+
+    const goingDown$ = scroll$.pipe(
+      filter(direction => direction === Direction.Down),
+    );
+
+    goingUp$.subscribe(() => (this.isVisible = true, this.headerHide = ''));
+    goingDown$.subscribe(() => (this.isVisible = false, setTimeout(() => this.headerHide = 'none', 500)));
+  }
+
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

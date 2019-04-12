@@ -1,7 +1,7 @@
 <div class="header-container">
   <div class="trigger"></div>
-  <a class="logo" (click)="goHome()" href="#" ></a>
-  <h1>{{ title }}</h1>
+  <a class="logo" (click)="goHome()" href="#" [ngStyle]="{'display': headerHide}"></a>
+  <h1 [ngStyle]="{'display': headerHide}">{{ title }}</h1>
   <nb-actions size="medium">
     <nb-action>
       <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username"></nb-user>

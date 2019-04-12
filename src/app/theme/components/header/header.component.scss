@@ -6,6 +6,9 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  .hide {
+    display: none;
+  }
   .trigger {
     z-index: 99;
     width: 40px;
