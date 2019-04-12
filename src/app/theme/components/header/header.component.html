@@ -2,7 +2,7 @@
   <div class="trigger"></div>
   <a class="logo" (click)="goHome()" href="#" [ngStyle]="{'display': headerHide}"></a>
   <h1 [ngStyle]="{'display': headerHide}">{{ title }}</h1>
-  <nb-actions size="medium">
+  <nb-actions size="medium" [@userAction]="actionTag ? 'actionExist' : 'actionDisappear'">
     <nb-action>
       <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username"></nb-user>
     </nb-action>

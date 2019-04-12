@@ -22,32 +22,26 @@ enum Direction {
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
   animations: [
-    trigger('openClose', [
-      state('hide', style({
-            display: 'block',
-            position: 'absolute',
-            width: '0px',
-            height: '79px',
-            background: 'url("/assets/images/logo.png") no-repeat center center',
+    trigger('userAction', [
+      state('actionExist', style({
+            top: '22px',
       })),
-      state('logo', style({
-            display: 'block',
-            position: 'absolute',
-            width: '77px',
-            height: '79px',
-            background: 'url("/assets/images/logo.png") no-repeat center center',
+      state('actionDisappear', style({
+            top: '-35px',
       })),
-      transition('hide => logo', [
+      transition('actionExist => actionDisappear', [
         animate('0.1s'),
       ]),
-      transition('logo => hide', [
+      transition('actionDisappear => actionExist', [
         animate('0.1s'),
       ]),
     ]),
   ],
+
 })
 export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   private isVisible = true;
+  actionTag = true;
   user: any = {};
   title: string;
   private subscription: Subscription = new Subscription();
@@ -97,8 +91,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       filter(direction => direction === Direction.Down),
     );
 
-    goingUp$.subscribe(() => (this.isVisible = true, this.headerHide = ''));
-    goingDown$.subscribe(() => (this.isVisible = false, setTimeout(() => this.headerHide = 'none', 300)));
+    goingUp$.subscribe(() => (this.isVisible = true, this.headerHide = '', this.actionTag = true));
+    goingDown$.subscribe(() => (this.isVisible = false, this.actionTag = false, setTimeout(() => (this.headerHide = 'none'), 300)));
   }
 
 
