@@ -131,13 +131,9 @@ enum Direction {
 
 })
 export class NbLayoutHeaderComponent implements AfterViewInit {
-  private isVisible = true;
+  isVisible = true;
   @HostBinding('class.fixed') fixedValue: boolean;
   @HostBinding('class.subheader') subheaderValue: boolean;
-  @HostBinding('@toggle')
-  get toggle(): VisibilityState {
-    return this.isVisible ? VisibilityState.Visible : VisibilityState.Hidden;
-  }
   // tslint:disable-next-line
   constructor(@Inject(forwardRef(() => NbLayoutComponent)) private layout: NbLayoutComponent,
                 protected scrollService: NbLayoutScrollService) {
