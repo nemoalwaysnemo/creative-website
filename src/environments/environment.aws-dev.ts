@@ -30,7 +30,7 @@ export const NUXEO_META_INFO = {
   DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption Theory/',
   DISRUPTION_THINKING_PATH: '/know-edge/Disruption/Brilliant Thinking/',
   DISRUPTION_DAYS_TYPE: '["App-Disruption-Day"]',
-  DISRUPTION_DAY_TYPE: '["App-Disruption-Asset"]',
+  DISRUPTION_DAY_TYPE: '["App-Disruption-Day-Asset"]',
   DISRUPTION_ROADMAP_TYPE: '["App-Disruption-Roadmap-Asset"]',
   DISRUPTION_THEORY_TYPE: '["App-Disruption-Theory-Asset"]',
   DISRUPTION_THINKING_TYPE: '["App-Disruption-Asset"]',

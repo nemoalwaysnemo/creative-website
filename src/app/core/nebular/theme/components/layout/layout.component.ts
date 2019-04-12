@@ -121,10 +121,10 @@ enum Direction {
         height: '79px',
       })),
       transition('hidden => visible', [
-        animate('0.5s'),
+        animate('0.3s'),
       ]),
       transition('visible => hidden', [
-        animate('0.5s'),
+        animate('0.3s'),
       ]),
     ]),
   ],
@@ -328,7 +328,7 @@ export class NbLayoutFooterComponent {
     <div class="scrollable-container" #scrollableContainer (scroll)="onScroll($event)">
       <div class="layout">
         <ng-content  select="nb-layout-header:not([subheader])"></ng-content>
-        <div class="layout-container">
+        <div class="layout-container" [ngStyle]="{'padding-top': onHide}">
           <ng-content select="nb-sidebar"></ng-content>
           <div class="content" [class.center]="centerValue">
             <ng-content select="nb-layout-header[subheader]"></ng-content>
@@ -343,7 +343,7 @@ export class NbLayoutFooterComponent {
   `,
 })
 export class NbLayoutComponent implements AfterViewInit, OnDestroy {
-
+  onHide: any;
   centerValue: boolean = false;
   restoreScrollTopValue: boolean = true;
   isOpen: boolean = false;
@@ -533,6 +533,27 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       .subscribe(({ x, y }: NbScrollPosition) => this.scroll(x, y));
 
     this.afterViewInit$.next(true);
+
+    const scroll$ = this.scrollService
+                    .onScroll()
+                    .pipe(
+                      throttleTime(10),
+                      map(() => window.pageYOffset),
+                      pairwise(),
+                      map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+                      distinctUntilChanged(),
+                      share(),
+                    );
+    const goingUp$ = scroll$.pipe(
+      filter(direction => direction === Direction.Up),
+    );
+
+    const goingDown$ = scroll$.pipe(
+      filter(direction => direction === Direction.Down),
+    );
+
+    goingUp$.subscribe(() => (this.onHide = '79px'));
+    goingDown$.subscribe(() => (this.onHide = '0px'));
   }
 
   ngOnDestroy() {

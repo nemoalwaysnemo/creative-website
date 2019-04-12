@@ -81,7 +81,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     const scroll$ = this.scrollService
                     .onScroll()
                     .pipe(
-                      throttleTime(10),
+                      throttleTime(100),
                       map(() => window.pageYOffset),
                       pairwise(),
                       map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
@@ -98,7 +98,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     );
 
     goingUp$.subscribe(() => (this.isVisible = true, this.headerHide = ''));
-    goingDown$.subscribe(() => (this.isVisible = false, setTimeout(() => this.headerHide = 'none', 500)));
+    goingDown$.subscribe(() => (this.isVisible = false, setTimeout(() => this.headerHide = 'none', 300)));
   }
 
 
