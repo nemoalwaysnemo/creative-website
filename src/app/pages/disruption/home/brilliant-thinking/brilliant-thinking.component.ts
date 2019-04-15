@@ -9,13 +9,15 @@ import { Subscription } from 'rxjs';
   templateUrl: './brilliant-thinking.component.html',
 })
 export class BrilliantThinkingComponent implements OnInit, OnDestroy {
-  nuxeoParams: any = {
+
+  defaultParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_THINKING_PATH,
   };
+
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
@@ -23,10 +25,16 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_TYPE,
   };
 
-  disruptionType = 'Brilliant Thinking';
   tabs = TAB_CONFIG;
-  private subscription: Subscription = new Subscription();
+
   parentDocument: DocumentModel;
+
+  filters: any = {
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'app_edges_industry_agg': { placeholder: 'Industry' },
+  };
+
+  private subscription: Subscription = new Subscription();
 
   constructor(private advanceSearch: AdvanceSearch) { }
 

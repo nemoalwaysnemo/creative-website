@@ -12,6 +12,10 @@ import { CreativeRecommendedBrandSearchResultComponent } from './creative-recomm
 import { CreativeDocumentAssetSearchResultComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
 import { CreativeMyBrandAssetSearchResultComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
+import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
+import { DisruptionDaysAssetSearchResultComponent } from './disruption-days-asset-search-result/disruption-days-asset-search-result.component';
+import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-asset-search-result/disruption-theory-asset-search-result.component';
+import { DisruptionThinkingAssetSearchResultComponent } from './disruption-thinking-asset-search-result/disruption-thinking-asset-search-result.component';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -19,6 +23,10 @@ const COMPONENTS = [
   CreativeMyBrandAssetSearchResultComponent,
   CreativeRecommendedBrandSearchResultComponent,
   CreativeDocumentAssetSearchResultComponent,
+  DisruptionDaysAssetSearchResultComponent,
+  DisruptionTheoryAssetSearchResultComponent,
+  DisruptionThinkingAssetSearchResultComponent,
+  DisruptionRoadmapsAssetSearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
 ];
 

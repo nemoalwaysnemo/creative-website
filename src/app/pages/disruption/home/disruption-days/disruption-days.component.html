@@ -1,9 +1,9 @@
 <nb-card class="nb-card">
   <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-  <disruption-search-form [params]="nuxeoParams" [parentDocument]="parentDocument">
+  <tbwa-global-search-form [filters]="filters" [baseParams]="defaultParams">
     <button (click)="openForm(dialog)" class="new_day icon_btn" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Day">New Day</button>
-  </disruption-search-form>
-  <disruption-thumbnail-view [nuxeoParams]="nuxeoParams" [pageType]="pageType"></disruption-thumbnail-view>
+  </tbwa-global-search-form>
+  <tbwa-disruption-roadmaps-asset-search-result></tbwa-disruption-roadmaps-asset-search-result>
 </nb-card>
 <ng-template #dialog>
   <tbwa-preview-dialog>

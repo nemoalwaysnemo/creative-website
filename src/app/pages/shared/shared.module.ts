@@ -8,7 +8,6 @@ import {
   CreativeThumbnailViewModule,
   PaginationModule,
   ListViewModule,
-  SearchQueryParamsService,
   DocumentViewerModule,
   DocumentMetadataInfoModule,
   DocumentAdditionalInfoModule,
@@ -46,7 +45,6 @@ const EXPORTS = [
 ];
 
 const PROVIDERS = [
-  SearchQueryParamsService,
   PreviewDialogService,
 ];
 

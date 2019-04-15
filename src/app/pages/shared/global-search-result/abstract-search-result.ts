@@ -11,8 +11,6 @@ export abstract class BaseSearchResultComponent {
 
   layout: string = 'search-results';
 
-  currentView: string = 'thumbnailView';
-
   documents: DocumentModel[] = [];
 
   listDocuments: ListViewItem[] = [];
@@ -24,6 +22,10 @@ export abstract class BaseSearchResultComponent {
   queryParams: NuxeoPageProviderParams = {};
 
   protected subscription: Subscription = new Subscription();
+
+  @Input() multiView: boolean = true;
+
+  @Input() currentView: string = 'thumbnailView';
 
   @Input() listViewSettings: any = {};
 

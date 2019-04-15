@@ -10,7 +10,8 @@ import { PreviewDialogService } from '@pages/shared';
   templateUrl: './disruption-days.component.html',
 })
 export class DisruptionDaysComponent implements OnInit, OnDestroy {
-  nuxeoParams: any = {
+
+  defaultParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
@@ -27,9 +28,15 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   };
 
   tabs = TAB_CONFIG;
-  pageType = 'disruptionDays';
-  private subscription: Subscription = new Subscription();
+
   parentDocument: DocumentModel;
+
+  filters: any = {
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'app_edges_industry_agg': { placeholder: 'Industry' },
+  };
+
+  private subscription: Subscription = new Subscription();
 
   constructor(private advanceSearch: AdvanceSearch, private previewDialogService: PreviewDialogService) { }
 

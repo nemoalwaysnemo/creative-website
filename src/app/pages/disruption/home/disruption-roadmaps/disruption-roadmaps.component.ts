@@ -9,23 +9,30 @@ import { Subscription } from 'rxjs';
   templateUrl: './disruption-roadmaps.component.html',
 })
 export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
-  nuxeoParams: any = {
+
+  defaultParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
   };
+
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
     ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_TYPE,
   };
-  parentDocument: DocumentModel;
-  disruptionType = 'Distruption Roadmaps';
 
   tabs = TAB_CONFIG;
+
+  parentDocument: DocumentModel;
+
+  filters: any = {
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'app_edges_industry_agg': { placeholder: 'Industry' },
+  };
 
   private subscription: Subscription = new Subscription();
 
