@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'tbwa-disruption-thinking-asset-search-result',
-  styleUrls: ['./disruption-thinking-asset-search-result.component.scss'],
+  styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './disruption-thinking-asset-search-result.component.html',
 })
 export class DisruptionThinkingAssetSearchResultComponent {

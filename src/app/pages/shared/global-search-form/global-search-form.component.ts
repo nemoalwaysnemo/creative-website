@@ -80,7 +80,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   onFilterClose(value: any): void {
-    this.search$.next(value);
+    this.search$.next(this.getFormValue().ecm_fulltext || '');
   }
 
   toggleFilter(): void {
@@ -110,7 +110,8 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private onQuerySearch(params: any = {}): void {
-    let parsedParams = this.parseToFormValues(params);
+    const queryParams = params || {};
+    let parsedParams = this.parseToFormValues(queryParams);
     parsedParams = selectObjectByKeys(parsedParams, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
     this.patchFormValue(parsedParams);
     this.search(parsedParams).subscribe();
@@ -187,17 +188,9 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
       delay(100),
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
-      if (!this.hasQueryParams(info.queryParams)) {
-        if (this.hasFilters()) {
-          this.getSearchAggregates();
-        } else {
-          this.onQuerySearch();
-        }
-      } else {
-        this.onQuerySearch(info.queryParams);
-        if (this.hasFilterQueryParams(info.queryParams)) {
-          this.showFilter = true;
-        }
+      this.onQuerySearch(info.queryParams);
+      if (this.hasFilterQueryParams(info.queryParams)) {
+        this.showFilter = true;
       }
     });
     this.subscription.add(subscription);

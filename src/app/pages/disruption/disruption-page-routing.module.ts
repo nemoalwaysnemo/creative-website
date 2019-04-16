@@ -5,41 +5,41 @@ import { DisruptionDaysComponent } from './home/disruption-days/disruption-days.
 import { DisruptionRoadmapsComponent } from './home/disruption-roadmaps/disruption-roadmaps.component';
 import { DisruptionTheoryComponent } from './home/disruption-theory/disruption-theory.component';
 import { DisruptionFoldersComponent } from './home/disruption-folders/disruption-folders.component';
-import { DisruptionAssetsComponent } from './home/disruption-assets/disruption-assets.component';
+import { DisruptionAssetComponent } from './home/disruption-asset/disruption-asset.component';
 import { BrilliantThinkingComponent } from './home/brilliant-thinking/brilliant-thinking.component';
 const routes: Routes = [{
   path: '',
   component: DisruptionPageComponent,
   children: [
-      {
-        path: '',
-        redirectTo: 'roadmaps',
-        pathMatch: 'full',
-      },
-      {
-        path: 'days',
-        component: DisruptionDaysComponent,
-      },
-      {
-        path: 'days/folders',
-        component: DisruptionFoldersComponent,
-      },
-      {
-        path: 'days/assets',
-        component: DisruptionAssetsComponent,
-      },
-      {
-        path: 'roadmaps',
-        component: DisruptionRoadmapsComponent,
-      },
-      {
-        path: 'theory',
-        component: DisruptionTheoryComponent,
-      },
-      {
-        path: 'thinking',
-        component: BrilliantThinkingComponent,
-      },
+    {
+      path: '',
+      redirectTo: 'roadmaps',
+      pathMatch: 'full',
+    },
+    {
+      path: 'days',
+      component: DisruptionDaysComponent,
+    },
+    {
+      path: 'days/folders',
+      component: DisruptionFoldersComponent,
+    },
+    {
+      path: 'days/assets',
+      component: DisruptionAssetComponent,
+    },
+    {
+      path: 'roadmaps',
+      component: DisruptionRoadmapsComponent,
+    },
+    {
+      path: 'theory',
+      component: DisruptionTheoryComponent,
+    },
+    {
+      path: 'thinking',
+      component: BrilliantThinkingComponent,
+    },
   ],
 }];
 

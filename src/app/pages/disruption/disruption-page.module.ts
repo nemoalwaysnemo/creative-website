@@ -6,18 +6,18 @@ import { DisruptionTheoryModule } from '../disruption/home/disruption-theory/dis
 import { DisruptionPageComponent } from './disruption-page.component';
 import { DisruptionPageRoutingModule } from './disruption-page-routing.module';
 import { DisruptionFoldersModule  } from './home/disruption-folders/disruption-folders.module';
-import { DisruptionAssetsModule } from './home/disruption-assets/disruption-assets.module';
+import { DisruptionAssetModule } from './home/disruption-asset/disruption-asset.module';
 import { BrilliantThinkingModule } from './home/brilliant-thinking/brilliant-thinking.module';
 
 @NgModule({
   imports: [
+    ThemeModule,
     DisruptionDaysModule,
     DisruptionRoadmapsModule,
     DisruptionTheoryModule,
     DisruptionFoldersModule,
-    DisruptionAssetsModule,
+    DisruptionAssetModule,
     BrilliantThinkingModule,
-    ThemeModule,
     DisruptionPageRoutingModule,
   ],
   declarations: [

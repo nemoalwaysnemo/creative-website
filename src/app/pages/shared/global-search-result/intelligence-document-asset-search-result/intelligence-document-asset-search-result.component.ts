@@ -5,7 +5,7 @@ import { ListViewItem } from '../../list-view/list-view.interface';
 
 @Component({
   selector: 'tbwa-intelligence-document-asset-search-result',
-  styleUrls: ['./intelligence-document-asset-search-result.component.scss'],
+  styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './intelligence-document-asset-search-result.component.html',
 })
 export class IntelligenceDocumentAssetSearchResultComponent {

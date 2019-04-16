@@ -6,12 +6,13 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../../disruption-shared/tab-config';
 import { isDocumentUID } from '@core/services';
 import { Observable, Subscription } from 'rxjs';
+
 @Component({
-  selector: 'tbwa-disruption-assets',
-  styleUrls: ['./disruption-assets.component.scss'],
-  templateUrl: './disruption-assets.component.html',
+  selector: 'tbwa-disruption-asset',
+  styleUrls: ['./disruption-asset.component.scss'],
+  templateUrl: './disruption-asset.component.html',
 })
-export class DisruptionAssetsComponent implements OnInit, OnDestroy {
+export class DisruptionAssetComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   document: DocumentModel;
   asset: DocumentModel;

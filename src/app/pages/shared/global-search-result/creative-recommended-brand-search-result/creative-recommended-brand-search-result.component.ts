@@ -4,7 +4,7 @@ import { ListViewItem } from '../../list-view/list-view.interface';
 
 @Component({
   selector: 'tbwa-creative-recommended-brand-search-result',
-  styleUrls: ['./creative-recommended-brand-search-result.component.scss'],
+  styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-recommended-brand-search-result.component.html',
 })
 export class CreativeRecommendedBrandSearchResultComponent {

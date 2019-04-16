@@ -29,7 +29,7 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
-    this.baseParams$.next(this.buildAssetsParams(doc));
+    setTimeout(() => { this.baseParams$.next(this.buildAssetsParams(doc)); }, 0);
   }
 
   protected getDefaultDocumentParams(): any {
