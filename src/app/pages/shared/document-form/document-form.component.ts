@@ -5,6 +5,7 @@ import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, D
 import { Subscription } from 'rxjs/Subscription';
 import { filterParams } from '@core/services';
 import { Observable, forkJoin } from 'rxjs';
+import { deepExtend } from '@core/nebular/auth/helpers';
 
 @Component({
   selector: 'tbwa-document-form',
@@ -99,7 +100,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private filterPropertie(formValue: any = {}) {
-    const properties = filterParams(formValue);
+    const properties = deepExtend({}, formValue);
     if (this.uploadFieldName && properties[this.uploadFieldName]) {
       delete properties[this.uploadFieldName];
     }
@@ -138,7 +139,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   private save(): void {
     let documents = [];
     this.documentModel.properties = this.filterPropertie(this.formGroup.value);
-    if (!this.uploadState || this.uploadState === 'uploaded') {
+    if (this.uploadState && this.uploadState === 'uploaded') {
       documents = this.attachFiles(this.documentModel, this.formGroup.value[this.uploadFieldName]);
     } else {
       documents = [this.documentModel];

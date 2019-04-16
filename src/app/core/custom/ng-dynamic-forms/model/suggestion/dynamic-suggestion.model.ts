@@ -12,6 +12,7 @@ export interface DynamicSuggestionModelConfig<T> extends DynamicFormValueControl
   contains?: boolean
   suggestion?: boolean;
   providerName?: string;
+  multiple?: boolean;
 }
 
 export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
@@ -21,6 +22,7 @@ export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() providerName: string;
   @serializable() suggestion: boolean;
   @serializable() contains: boolean;
+  @serializable() multiple: boolean;
 
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION;
 
@@ -31,5 +33,6 @@ export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
     this.directoryName = config.directoryName || null;
     this.directoryName = config.directoryName || null;
     this.placeholder = config.placeholder || '';
+    this.multiple = isBoolean(config.multiple) ? config.multiple : true;
   }
 }
