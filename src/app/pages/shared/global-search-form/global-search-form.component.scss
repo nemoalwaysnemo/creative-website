@@ -1,134 +1,74 @@
-.clear {
-  clear: both;
-}
+// .button-groups {
+//   box-sizing: border-box;
+//   text-align: right;
 
-.left {
-  float: left;
-}
+//   button {
+//     display: inline-block;
+//     vertical-align: middle;
+//     height: 40px;
+//     line-height: 40px;
+//     border-radius: 0;
+//     font-size: 18px;
+//     margin: 0 4px;
+//     padding: 0 13px;
+//     text-transform: capitalize;
+//     color: #000000;
+//     background-color: #ffffff;
+//     cursor: pointer;
 
-.right {
-  float: right;
-}
+//     &:focus {
+//       outline: 0;
+//       background-color: #ffffff !important;
+//     }
 
+//     &.btn-disabled {
+//       cursor: auto;
+//       color: #e1e1e1 !important;
+//       background-color: #bdbdbd !important;
+
+//       &:focus {
+//         background-color: #bdbdbd !important;
+//       }
+//     }
+//   }
+// }
 .icon_btn {
-  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-  display: block;
-  height: 40px;
-  line-height: 40px;
-  padding: 0 13px 0 45px;
-  font-size: 18px;
-  color: #000000;
-  border: solid 1px #e1e1e1;
-
   &.new_day {
     padding-left: 13px;
   }
-
-  &.success {
-    background-color: #40dc7e !important;
-    color: #ffffff !important;
-
-    &:hover,
-    &:focus {
-      color: #ffffff;
-      text-decoration: none;
-    }
-  }
-
-  &.btn-disabled {
-    background-color: #eeeeee !important;
-    color: #cccccc;
-    cursor: default;
-
-    &:hover,
-    &:focus {
-      color: #cccccc;
-      text-decoration: none;
-    }
-  }
-
-  &:hover,
-  &:focus {
-    color: #000000;
-    text-decoration: none;
-  }
 }
-
-.search-filters {
-  margin: 0 auto;
-
-  > *:not(.clear) {
-    float: left;
-    margin-right: 17px;
-    box-sizing: border-box;
-  }
-
-  .back {
-    background: url('/assets/images/back_icon.png') no-repeat 13px center;
-  }
-
-  .advanced_filters_trigger {
-    background: url('/assets/images/filters_icon.png') no-repeat 13px center;
-
-    &.btn-disabled {
-      background: url('/assets/images/filters_icon_disabled.png') no-repeat 13px center;
-    }
-
-    &.success {
-      background: url('/assets/images/filters_icon_on.png') no-repeat 13px center;
-    }
-  }
-}
-
-.search-input {
-  display: block;
-  margin-right: 39px;
-
-  input {
-    display: inline-block;
-    vertical-align: top;
-    width: 313px;
-    height: 47px;
-    padding: 0 30px 0 10px;
-    outline: 0;
-    font-size: 15px;
-    box-sizing: border-box;
-    border: solid 2px #959595;
-    background: url('/assets/images/search_icon_small.png') no-repeat 286px center;
-  }
-}
-
-.button-groups {
-  box-sizing: border-box;
-  text-align: right;
-
-  button {
-    display: inline-block;
-    vertical-align: middle;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 0;
-    font-size: 18px;
-    margin: 0 4px;
-    padding: 0 13px;
-    text-transform: capitalize;
-    color: #000000;
-    background-color: #ffffff;
-    cursor: pointer;
-
-    &:focus {
+.global-search-form {
+  margin-top: 20px;
+  .search-input {
+    display: block;
+    margin: 0 27px 0 38px;
+  
+    input {
+      display: inline-block;
+      vertical-align: top;
+      width: 312px;
+      height: 50px;
+      padding: 0 30px 0 10px;
+      border-radius: 0;
       outline: 0;
-      background-color: #ffffff !important;
+      font-size: 15px;
+      box-sizing: border-box;
+      border: solid 1px #e1e1e1;
+      background: url('/assets/images/search_icon_small.png') no-repeat 286px center;
     }
-
-    &.btn-disabled {
-      cursor: auto;
-      color: #e1e1e1 !important;
-      background-color: #bdbdbd !important;
-
-      &:focus {
-        background-color: #bdbdbd !important;
-      }
+  }
+  .search-filters {
+    margin: 0 auto;
+    > *:not(.clear) {
+      float: left;
+      margin-right: 17px;
+      box-sizing: border-box;
+    }
+    .back { background: url('/assets/images/back_icon.png') no-repeat 13px center; }
+    .advanced_filters_trigger {
+      background: url('/assets/images/filters_icon.png') no-repeat 13px center;
+      &.btn-disabled { background: url('/assets/images/filters_icon_disabled.png') no-repeat 13px center; }
+      &.success { background: url('/assets/images/filters_icon_on.png') no-repeat 13px center; }
     }
   }
 }

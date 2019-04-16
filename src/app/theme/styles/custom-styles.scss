@@ -1,0 +1,55 @@
+.icon_btn {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 13px 0 45px;
+  font-size: 18px;
+  color: #000000;
+  border: solid 1px #e1e1e1;
+  cursor: pointer;
+  &.btn-disabled {
+    background-color: #eeeeee !important;
+    color: #cccccc;
+    cursor: default;
+
+    &:hover,
+    &:focus {
+      color: #cccccc;
+      text-decoration: none;
+    }
+  }
+  &.btn-active {
+    background-color: #40dc7e !important;
+    color: #ffffff;
+
+    &:hover,
+    &:focus {
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+  &.success {
+    background-color: #40dc7e !important;
+    color: #ffffff !important;
+
+    &:hover,
+    &:focus {
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+  &:hover,
+  &:focus {
+    outline: 0;
+    color: #000000;
+    text-decoration: none;
+  }
+}
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
