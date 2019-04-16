@@ -1,27 +1,22 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '@pages/shared/shared.module';
 import { DisruptionFoldersComponent } from './disruption-folders.component';
-import { DisruptionThumbnailViewModule } from '../../disruption-shared/disruption-thumbnail-view/disruption-thumbnail-view.module';
+import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { DisruptionFoldersViewModule } from '../../disruption-shared/disruption-folders-view/disruption-folders-view.module';
-import { PaginationModule } from 'app/pages/shared/pagination/pagination.module';
-import { DisruptionSearchFormModule } from '../../disruption-shared/disruption-search-form/disruption-search-form.module';
+
 @NgModule({
   imports: [
     ThemeModule,
-    SharedModule,
-    RouterModule,
-    PaginationModule,
+    CommonModule,
     DisruptionFoldersViewModule,
-    DisruptionThumbnailViewModule,
-    DisruptionSearchFormModule,
+    GlobalSearchFormModule,
+    GlobalSearchResultModule,
   ],
   declarations: [
     DisruptionFoldersComponent,
   ],
   providers: [
-    SharedModule.forRoot().providers,
   ],
 })
 export class DisruptionFoldersModule { }

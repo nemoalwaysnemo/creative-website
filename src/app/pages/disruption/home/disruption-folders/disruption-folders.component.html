@@ -1,8 +1,8 @@
 <nb-card class="nb-card">
   <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
   <div *ngIf="document">
-    <disruption-search-form [params]="nuxeoParams" [parentDocument]="parentDocument"></disruption-search-form>
+    <tbwa-global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></tbwa-global-search-form>
     <disruption-folders-view [document]="document"></disruption-folders-view>
-    <disruption-thumbnail-view [hasSearched]="false" [nuxeoParams]="nuxeoParams" [pageType]="pageType"></disruption-thumbnail-view>
+    <tbwa-disruption-folder-day-asset-search-result></tbwa-disruption-folder-day-asset-search-result>
   </div>
 </nb-card>

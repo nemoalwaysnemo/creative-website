@@ -1,12 +1,12 @@
 .right { float: right; }
 h1, h4 { cursor: pointer; }
 .results {
-  .image_holder,
+  .image-holder,
   .description {
     display: inline-block;
     vertical-align: top;
   }
-  > .image_holder {
+  > .image-holder {
     width: 291px;
     height: 144px;
     margin-right: 32px;
@@ -67,7 +67,7 @@ h1, h4 { cursor: pointer; }
   &:hover {
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
   }
-  > .image_holder {
+  > .image-holder {
     width: 100%;
     height: 290.5px;
     overflow: hidden;
@@ -132,7 +132,7 @@ h1, h4 { cursor: pointer; }
   height: 100%;
   box-sizing: border-box;
   border: solid 1px #e1e1e1;
-  > .image_holder {
+  > .image-holder {
     width: 100%;
     height: 290.5px;
     overflow: hidden;

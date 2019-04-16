@@ -3,7 +3,7 @@
   <tbwa-global-search-form [filters]="filters" [baseParams]="defaultParams">
     <button (click)="openForm(dialog)" class="new_day icon_btn" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Day">New Day</button>
   </tbwa-global-search-form>
-  <tbwa-disruption-roadmaps-asset-search-result></tbwa-disruption-roadmaps-asset-search-result>
+  <tbwa-disruption-days-asset-search-result></tbwa-disruption-days-asset-search-result>
 </nb-card>
 <ng-template #dialog>
   <tbwa-preview-dialog>

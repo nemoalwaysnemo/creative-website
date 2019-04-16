@@ -8,7 +8,5 @@ import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 })
 export class DisruptionFoldersViewComponent {
   @Input() document: any;
-  @Input() folderContents: any;
-  loading: boolean = true;
 
 }

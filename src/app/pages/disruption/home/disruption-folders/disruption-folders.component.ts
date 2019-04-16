@@ -1,59 +1,58 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
-import { PaginationDataSource } from 'app/pages/shared/pagination/pagination-data-source';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { Component } from '@angular/core';
+import { DocumentModel, AdvanceSearch } from '@core/api';
+import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { TAB_CONFIG } from '../../disruption-shared/tab-config';
-import { Subscription } from 'rxjs';
+import { NUXEO_META_INFO } from '@environment/environment';
+import { Subject } from 'rxjs';
+
 @Component({
   selector: 'tbwa-disruption-folders',
   styleUrls: ['./disruption-folders.component.scss'],
   templateUrl: './disruption-folders.component.html',
 })
-export class DisruptionFoldersComponent implements OnInit, OnDestroy {
-  loading: boolean = true;
-  document: DocumentModel;
-  folderContents: any;
-  paginationService: PaginationDataSource = new PaginationDataSource();
+export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
+
   tabs = TAB_CONFIG;
-  private subscription: Subscription = new Subscription();
-  pageType = 'folders';
-  backPath = '/#/p/disruption/days';
-  params: any = {
-    pageSize: 1,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
-    ecm_uuid: `["${this.activatedRoute.queryParams['value'].id}"]`,
-    quickFilters: 'ShowInNavigation',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
-  };
-  nuxeoParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
-    ecm_parentId: this.activatedRoute.queryParams['value'].id,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
+
+  baseParams$: Subject<any> = new Subject<any>();
+
+  filters: any = {
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'app_edges_industry_agg': { placeholder: 'Industry' },
   };
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private advanceSearch: AdvanceSearch) {
-  }
-  ngOnInit() {
-    this.searchFolders(this.params);
+    protected advanceSearch: AdvanceSearch,
+    protected queryParamsService: SearchQueryParamsService) {
+    super(advanceSearch, queryParamsService);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  protected setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
+    this.baseParams$.next(this.buildAssetsParams(doc));
   }
 
-  private searchFolders(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.document = res.entries[0];
-      });
-    this.subscription.add(subscription);
+  protected getDefaultDocumentParams(): any {
+    return {
+      pageSize: 1,
+      currentPageIndex: 0,
+      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      quickFilters: 'ShowInNavigation',
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+    };
+  }
+
+  protected buildAssetsParams(doc?: DocumentModel): any {
+    const params = {
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
+      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      currentPageIndex: 0,
+      pageSize: 20,
+      ecm_fulltext: '',
+    };
+    if (doc) {
+      params['ecm_parentId'] = doc.uid;
+    }
+    return params;
   }
 }

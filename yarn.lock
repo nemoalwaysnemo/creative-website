@@ -628,10 +628,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ng-select/ng-select@^2.16.4":
-  version "2.16.4"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.16.4.tgz#c5c9592a750960ba0f49e7a5b34c2074a4c74bf7"
-  integrity sha512-f/A53CNMCcgulSBEnHFDpI9lSQJ9CSrNPiDqvxDkpUSbuoMAHL5WZpNEvc54DXrSgLuD4nSjVIuC92fDXfUluw==
+"@ng-select/ng-select@^2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.17.0.tgz#e39efbcdcaae53d649e25e8ea5b5139a2f7e28d0"
+  integrity sha512-hCZIcg4tACYp8tKRLZnD9CEZJcVJbKWkVrS++8dh0cJv580SCiKTQ10CJ1qzWWvmC4tIbCRyLzrUuKQRdkRWpA==
   dependencies:
     tslib "^1.9.0"
 

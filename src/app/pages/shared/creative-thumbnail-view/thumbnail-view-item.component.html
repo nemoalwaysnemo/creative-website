@@ -1,5 +1,5 @@
 <div *ngIf="layout === 'default'" class="thumbnail-view-item {{styleClass}}">
-  <div class="image_holder">
+  <div class="image-holder">
     <a *ngIf="assetType == 'intelligence'" routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
     <a *ngIf="assetType !== 'intelligence'" routerLink="/p/creative/{{documentType}}" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
   </div>
@@ -13,7 +13,7 @@
   </div>
 </div>
 <div *ngIf="layout === 'recommendedBrand'" class="thumbnail-view-item {{styleClass}}">
-  <div class="image_holder">
+  <div class="image-holder">
     <a routerLink="/p/search/creative/{{documentType}}Asset" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
   </div>
   <div class="description">
@@ -32,7 +32,7 @@
   <a (click)="open(backslashDialog, document, 'backslash')"><img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img"></a>
 </div>
 <div *ngIf="layout === 'disruption'" class="thumbnail-view-item {{styleClass}}">
-  <div class="image_holder">
+  <div class="image-holder">
     <a [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}" (click)="open(disruptionDialog, document, 'disruption')"></a>
   </div>
   <div class="description">
@@ -40,7 +40,7 @@
   </div>
 </div>
 <div *ngIf="layout === 'intelligence'" class="thumbnail-view-item {{styleClass}}">
-  <div class="image_holder">
+  <div class="image-holder">
     <a [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}" (click)="open(intelligenceDialog, document, 'intelligence')"></a>
   </div>
   <div class="description">

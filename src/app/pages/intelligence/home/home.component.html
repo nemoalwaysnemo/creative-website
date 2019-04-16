@@ -4,7 +4,7 @@
 <div *ngIf="folders" class="document flex quarter">
   <div *ngFor="let document of folders">
     <div class="thumbnail-view">
-      <div class="image_holder">
+      <div class="image-holder">
         <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: document.title}"
             [ngStyle]="{'background-image': 'url('+document.url+')'}"></a>
       </div>

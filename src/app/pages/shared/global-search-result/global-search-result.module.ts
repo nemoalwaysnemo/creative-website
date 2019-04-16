@@ -16,6 +16,7 @@ import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadm
 import { DisruptionDaysAssetSearchResultComponent } from './disruption-days-asset-search-result/disruption-days-asset-search-result.component';
 import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-asset-search-result/disruption-theory-asset-search-result.component';
 import { DisruptionThinkingAssetSearchResultComponent } from './disruption-thinking-asset-search-result/disruption-thinking-asset-search-result.component';
+import { DisruptionFolderDayAssetSearchResultComponent } from './disruption-folder-day-asset-search-result/disruption-folder-day-asset-search-result.component';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -27,6 +28,7 @@ const COMPONENTS = [
   DisruptionTheoryAssetSearchResultComponent,
   DisruptionThinkingAssetSearchResultComponent,
   DisruptionRoadmapsAssetSearchResultComponent,
+  DisruptionFolderDayAssetSearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
 ];
 

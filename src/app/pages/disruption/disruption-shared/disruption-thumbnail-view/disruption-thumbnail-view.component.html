@@ -1,7 +1,7 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="disruption-days quarter flex" abIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
   <div *ngFor="let document of documents">
     <div class="thumbnail-view">
-      <div class="image_holder">
+      <div class="image-holder">
         <a *ngIf="pageType == 'folders'" routerLink="/p/disruption/days/assets/" [queryParams]="{folder: folderId, id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
         <!-- <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img" style="width:100%;height:80%"> -->
         <a *ngIf="pageType == 'disruptionDays'" routerLink="/p/disruption/days/folders" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>

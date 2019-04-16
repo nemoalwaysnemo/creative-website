@@ -9,13 +9,13 @@ h4 {
 
 .results {
 
-  .image_holder,
+  .image-holder,
   .description {
     display: inline-block;
     vertical-align: top;
   }
 
-  > .image_holder {
+  > .image-holder {
     width: 291px;
     height: 144px;
     margin-right: 32px;
@@ -91,7 +91,7 @@ h4 {
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
   }
 
-  > .image_holder {
+  > .image-holder {
     width: 100%;
     height: 290.5px;
     overflow: hidden;
@@ -173,7 +173,7 @@ h4 {
   box-sizing: border-box;
   border: solid 1px #e1e1e1;
 
-  > .image_holder {
+  > .image-holder {
     width: 100%;
     height: 290.5px;
     overflow: hidden;
