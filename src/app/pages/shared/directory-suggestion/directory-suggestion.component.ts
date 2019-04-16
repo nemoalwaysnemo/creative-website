@@ -53,15 +53,20 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() providerName: string;
 
+  @Input() multiple: boolean;
+
   private stack: string[] = [];
 
   private suggestions = [];
 
   constructor(private nuxeoApi: NuxeoApiService) { }
 
-  onChange(event: OptionModel[]) {
+  onChange(event: any) {
     if (Array.isArray(event)) {
       this._onChange(event.map(x => x.value));
+    } else {
+      const value = event ? event.value : '';
+      this._onChange(value);
     }
   }
 
@@ -80,8 +85,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   writeValue(val: any): void {
     const value = (val === null || val === undefined || val === '' ? [] : val);
     this.buildDefaultOptions(value);
-    const option = typeof value === 'string' ? [value] : value;
-    this.selectedItems = option;
+    this.selectedItems = value;
   }
 
   registerOnChange(fn: any): void {
