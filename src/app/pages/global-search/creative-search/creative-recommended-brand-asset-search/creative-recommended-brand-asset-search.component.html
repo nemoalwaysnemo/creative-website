@@ -1,37 +1,35 @@
-<ng-container *ngIf="document">
-  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
-    <div class="brand-section">
-      <div class="brand-intro inline-middle">
-        <img src="{{document?.filePath}}" />
-      </div>
-      <div class="brand-info inline-middle">
-        <h1>{{document?.get('The_Loupe_Main:clientName')}}</h1>
-        <table>
-          <colgroup>
-            <col width="30%">
-            <col width="70%">
-          </colgroup>
-          <tbody>
-            <tr>
-              <td>Client: {{document?.get('The_Loupe_Main:clientName')}}</td>
-              <td>Agency: {{document?.get('The_Loupe_Main:agency')}}</td>
-            </tr>
-            <tr>
-              <td>Brand: {{document?.title}}</td>
-              <td>Country: {{document?.get('The_Loupe_Main:country')}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
+  <div class="brand-section">
+    <div class="brand-intro inline-middle">
+      <img src="{{document?.filePath}}" />
     </div>
-    <!-- <div class="button-group">
-      <button>Jobs</button>
-      <button>Campalgns</button>
-      <button>UR</button>
-      <button>Upload</button>
-      <button>Manage Library</button>
-    </div> -->
+    <div class="brand-info inline-middle">
+      <h1>{{document?.get('The_Loupe_Main:clientName')}}</h1>
+      <table>
+        <colgroup>
+          <col width="30%">
+          <col width="70%">
+        </colgroup>
+        <tbody>
+          <tr>
+            <td>Client: {{document?.get('The_Loupe_Main:clientName')}}</td>
+            <td>Agency: {{document?.get('The_Loupe_Main:agency')}}</td>
+          </tr>
+          <tr>
+            <td>Brand: {{document?.title}}</td>
+            <td>Country: {{document?.get('The_Loupe_Main:country')}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</ng-container>
+  <!-- <div class="button-group">
+    <button>Jobs</button>
+    <button>Campalgns</button>
+    <button>UR</button>
+    <button>Upload</button>
+    <button>Manage Library</button>
+  </div> -->
+</div>
 <tbwa-global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></tbwa-global-search-form>
 <tbwa-creative-my-brand-asset-search-result></tbwa-creative-my-brand-asset-search-result>
