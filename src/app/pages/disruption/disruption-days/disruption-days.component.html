@@ -1,10 +1,9 @@
-<nb-card class="nb-card">
-  <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-  <tbwa-global-search-form [filters]="filters" [defaultParams]="defaultParams">
-    <button (click)="openForm(dialog)" class="new_day icon_btn" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Day">New Day</button>
-  </tbwa-global-search-form>
-  <tbwa-disruption-days-asset-search-result></tbwa-disruption-days-asset-search-result>
-</nb-card>
+<nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
+<tbwa-global-search-form [filters]="filters" [defaultParams]="defaultParams">
+  <button (click)="openForm(dialog)" class="icon_btn new_day" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Day">New Day</button>
+</tbwa-global-search-form>
+<tbwa-disruption-days-asset-search-result></tbwa-disruption-days-asset-search-result>
+
 <ng-template #dialog>
   <tbwa-preview-dialog>
     <tbwa-disruption-form-body></tbwa-disruption-form-body>
