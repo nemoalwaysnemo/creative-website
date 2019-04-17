@@ -1,86 +1,128 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
-.empty {
-  width: 100%!important;
-  padding: 40px 0!important;
-  .empty-data {
-    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-    font-size: 20px;
-  }
-}
-.results {
-  position: absolute;
-  @include media-breakpoint-down(lg) { //992px
-    width: 700px;
-  }
-  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-    width: 850px;
-  }
-  @include media-breakpoint-up(xxl) { //1400px
-    width: 1209px;
-  }
-  max-height: 700px;
-  left: 40px;
+// .empty {
+//   width: 100%!important;
+//   padding: 40px 0!important;
+//   .empty-data {
+//     font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+//     font-size: 20px;
+//   }
+// }
+// .results {
+//   position: absolute;
+//   @include media-breakpoint-down(lg) { //992px
+//     width: 700px;
+//   }
+//   @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+//     width: 850px;
+//   }
+//   @include media-breakpoint-up(xxl) { //1400px
+//     width: 1209px;
+//   }
+//   max-height: 700px;
+//   left: 40px;
+//   box-sizing: border-box;
+//   background: #ffffff;
+//   box-shadow: 6px 11px 32px rgba(0, 0, 0, 0.72);
+//   z-index: 1000;
+//   overflow: auto;
+//   > div {
+//     padding: 26px 43px;
+//     box-sizing: border-box;
+//     &:hover { background-color: #eeeeee; }
+//     &:focus-within { background-color: #eeeeee; }
+//   }
+// }
+
+// .s-results {
+//   width: calc(100% - 76px);
+//   min-height: 100px;
+//   margin: 7px auto 0;
+//   > div {
+//     width: 25%;
+//     padding: 18px 39px 18px 0;
+//     box-sizing: border-box;
+//   }
+// }
+// .dates {
+//   width: 100%;
+//   > div {
+//     width: 25%;
+//     box-sizing: border-box;
+//     padding: 0 41px 49px 0;
+//   }
+// }
+
+.creative-document-asset {
+  height: 100%;
   box-sizing: border-box;
-  background: #ffffff;
-  box-shadow: 6px 11px 32px rgba(0, 0, 0, 0.72);
-  z-index: 1000;
-  overflow: auto;
-  > div {
-    padding: 26px 43px;
-    box-sizing: border-box;
-    &:hover { background-color: #eeeeee; }
-    &:focus-within { background-color: #eeeeee; }
-  }
-}
-.flex {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.quarter {
-  > div {
-    @include media-breakpoint-down(md) {
-      width: 50%;
+  border: solid 1px #e1e1e1;
+  > .image-holder {
+    width: 100%;
+    height: 290.5px;
+    overflow: hidden;
+    > a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      transition: all 0.5s;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
-    @include media-breakpoint-between(md, xl) {
-      width: 33.333333%;
+  }
+  img {
+    width: 100%;
+    height: 290.5px;
+  }
+  a {
+    color: #2a2a2a;
+    &:hover {
+      color: #2a2a2a;
+      text-decoration: none;
     }
-    @include media-breakpoint-up(xl) {
-      width: 25%;
+  }
+  .description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 13px;
+    box-sizing: border-box;
+    h1 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
+      font-size: 18px;
+      margin-top: 22px;
+      margin-bottom: 14px;
+      &.doubleline { margin-top: 4px; }
     }
-    padding: 10px 39px 28px 0;
-    box-sizing: border-box;
-  }
-}
-.half {
-  > div {
-    width: 50%;
-    padding: 10px 41px 28px 0;
-  }
-}
-.third {
-  > div {
-    width: 33.333333%;
-    padding: 10px 41px 28px 0;
-  }
-}
-.s-results {
-  width: calc(100% - 76px);
-  min-height: 100px;
-  margin: 7px auto 0;
-  > div {
-    width: 25%;
-    padding: 18px 39px 18px 0;
-    box-sizing: border-box;
-  }
-}
-.dates {
-  width: 100%;
-  > div {
-    width: 25%;
-    box-sizing: border-box;
-    padding: 0 41px 49px 0;
+    .year, .client, .dot {
+      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 13px;
+      margin: 0;
+    }
+    .dot {
+      width: 4px;
+      height: 4px;
+      margin: 0 2px;
+      background: #2a2a2a;
+      border-radius: 2px;
+    }
+    .line {
+      width: 100%;
+      height: 2px;
+      margin: 15px 0;
+      background: #ebebeb;
+    }
+    .agency {
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
   }
 }

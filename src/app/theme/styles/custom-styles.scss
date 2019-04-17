@@ -52,4 +52,31 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
+  &.quarter {
+    > div {
+      @include media-breakpoint-down(md) {
+        width: 50%;
+      }
+      @include media-breakpoint-between(md, xl) {
+        width: 33.333333%;
+      }
+      @include media-breakpoint-up(xl) {
+        width: 25%;
+      }
+      padding: 10px 39px 28px 0;
+      box-sizing: border-box;
+    }
+  }
+  &.half {
+    > div {
+      width: 50%;
+      padding: 10px 41px 28px 0;
+    }
+  }
+  &.third {
+    > div {
+      width: 33.333333%;
+      padding: 10px 41px 28px 0;
+    }
+  }
 }

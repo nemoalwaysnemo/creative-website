@@ -7,8 +7,10 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
   template: `
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
     <ng-container *ngIf="documents && documents.length !== 0">
-      <div *ngFor="let document of documents" class="thumbnail-view-item">
-        <ng-template #itemTpl [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
+      <div class="s-results flex quarter">
+        <div *ngFor="let document of documents" class="thumbnail-view-item">
+          <ng-template #itemTpl [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
+        </div>
       </div>
     </ng-container>
     <div *ngIf="!loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
