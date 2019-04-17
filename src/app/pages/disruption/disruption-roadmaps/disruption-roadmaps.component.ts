@@ -1,27 +1,27 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../../disruption-shared/tab-config';
+import { TAB_CONFIG } from '../tab-config';
 import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 @Component({
-  selector: 'tbwa-brilliant-thinking-page',
-  styleUrls: ['./brilliant-thinking.component.scss'],
-  templateUrl: './brilliant-thinking.component.html',
+  selector: 'tbwa-disruption-roadmap-page',
+  styleUrls: ['./disruption-roadmaps.component.scss'],
+  templateUrl: './disruption-roadmaps.component.html',
 })
-export class BrilliantThinkingComponent implements OnInit, OnDestroy {
+export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
 
   defaultParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_THINKING_PATH,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
+    ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
   };
 
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_THINKING_PATH,
+    ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_TYPE,
   };
 

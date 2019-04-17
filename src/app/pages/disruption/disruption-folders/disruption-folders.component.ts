@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, AdvanceSearch } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { TAB_CONFIG } from '../../disruption-shared/tab-config';
+import { TAB_CONFIG } from '../tab-config';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Subject } from 'rxjs';
 

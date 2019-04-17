@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { takeWhile, tap, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../../disruption-shared/tab-config';
+import { TAB_CONFIG } from '../tab-config';
 import { isDocumentUID } from '@core/services';
 import { Observable, Subscription } from 'rxjs';
 

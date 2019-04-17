@@ -1,12 +1,12 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { DisruptionPageComponent } from './disruption-page.component';
-import { DisruptionDaysComponent } from './home/disruption-days/disruption-days.component';
-import { DisruptionRoadmapsComponent } from './home/disruption-roadmaps/disruption-roadmaps.component';
-import { DisruptionTheoryComponent } from './home/disruption-theory/disruption-theory.component';
-import { DisruptionFoldersComponent } from './home/disruption-folders/disruption-folders.component';
-import { DisruptionAssetComponent } from './home/disruption-asset/disruption-asset.component';
-import { BrilliantThinkingComponent } from './home/brilliant-thinking/brilliant-thinking.component';
+import { DisruptionDaysComponent } from './disruption-days/disruption-days.component';
+import { DisruptionRoadmapsComponent } from './disruption-roadmaps/disruption-roadmaps.component';
+import { DisruptionTheoryComponent } from './disruption-theory/disruption-theory.component';
+import { DisruptionFoldersComponent } from './disruption-folders/disruption-folders.component';
+import { DisruptionAssetComponent } from './disruption-asset/disruption-asset.component';
+import { BrilliantThinkingComponent } from './brilliant-thinking/brilliant-thinking.component';
 const routes: Routes = [{
   path: '',
   component: DisruptionPageComponent,
