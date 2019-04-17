@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../../disruption-shared/tab-config';
+import { TAB_CONFIG } from '../tab-config';
 import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { PreviewDialogService } from '@pages/shared';
