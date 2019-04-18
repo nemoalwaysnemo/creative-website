@@ -1,4 +1,4 @@
-@import '../../../../core/nebular/theme/styles/global/breakpoints';
+@import '../../core/nebular/theme/styles/global/breakpoints';
 
 .brand-view {
   @include media-breakpoint-down(lg) {
@@ -39,7 +39,6 @@
   }
   table {
     width: 100%;
-
     td {
       font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
       font-size: 15px;

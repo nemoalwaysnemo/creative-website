@@ -6,7 +6,7 @@ import { SearchQueryParamsService } from '../services/search-query-params.servic
 
 @Component({
   selector: 'tbwa-document-brand-view',
-  styleUrls: ['./document-brand-view.component.scss'],
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './document-brand-view.component.html',
 })
 export class DocumentBrandViewComponent extends AbstractDocumentViewComponent implements OnInit, OnDestroy {

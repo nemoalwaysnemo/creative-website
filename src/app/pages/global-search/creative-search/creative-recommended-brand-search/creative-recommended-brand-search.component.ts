@@ -3,7 +3,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-creative-recommended-brand-search',
-  styleUrls: ['./creative-recommended-brand-search.component.scss'],
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-recommended-brand-search.component.html',
 })
 export class CreativeRecommendedBrandSearchComponent {

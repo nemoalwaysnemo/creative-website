@@ -7,7 +7,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'tbwa-creative-recommended-brand-asset-search',
-  styleUrls: ['./creative-recommended-brand-asset-search.component.scss'],
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-recommended-brand-asset-search.component.html',
 })
 export class CreativeRecommendedBrandAssetSearchComponent extends AbstractDocumentViewComponent {
