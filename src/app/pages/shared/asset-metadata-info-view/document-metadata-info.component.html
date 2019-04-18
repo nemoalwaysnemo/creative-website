@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="true">
-  <ng-container *ngSwitchCase="isDisruptionAsset() || isIntelligenceAsset()">
+  <ng-container *ngSwitchCase="isDisruptionAsset(document) || isIntelligenceAsset(document)">
     <h1>{{ document.title }}</h1>
     <h2>{{ document.get('The_Loupe_Main:brand') }}</h2>
     <table>
@@ -42,7 +42,7 @@
     <a href="{{document.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
     <a href="{{backPath}}" class="back right" title="Back">Back</a>
   </ng-container>
-  <ng-container *ngSwitchCase="isCreativeAsset()">
+  <ng-container *ngSwitchCase="isCreativeAsset(document)">
     <h2>{{document.title}}</h2>
     <h4>About</h4>
     <p>{{document.get('dc:description')}}</p>

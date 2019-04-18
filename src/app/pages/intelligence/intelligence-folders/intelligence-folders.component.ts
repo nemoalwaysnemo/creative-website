@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AdvanceSearch, DocumentModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./intelligence-folders.component.scss'],
   templateUrl: './intelligence-folders.component.html',
 })
-export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent implements OnInit {
+export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent {
 
   documentType: string;
 
@@ -47,6 +47,8 @@ export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent 
     switch (this.getCurrentAssetType(doc)) {
       case 'Industry':
         return this.buildIndustryParams(doc);
+      case 'IndustryAsset':
+        return this.buildIndustryAssetsParams(doc);
       case 'Consumer':
         return this.buildConsumerAndMarketingParams(doc);
       case 'Marketing':
@@ -106,6 +108,8 @@ export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent 
         return 'Consumer';
       case 'App-Intelligence-Marketing-Folder':
         return 'Marketing';
+      case 'App-Intelligence-Industry':
+        return 'IndustryAsset';
       default:
         return 'Intelligence';
     }

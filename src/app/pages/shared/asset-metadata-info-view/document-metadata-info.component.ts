@@ -29,7 +29,7 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
   constructor(private advanceSearch: AdvanceSearch, private nuxeoApi: NuxeoApiService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    if (this.isCreativeAsset()) {
+    if (this.isCreativeAsset(this.document)) {
       this.getUsageRightsStatus();
     }
     this.backPath = '/#/p/disruption/days/folders?id=' + this.activatedRoute.snapshot.queryParams.folder;
@@ -39,16 +39,16 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  isCreativeAsset(): boolean {
-    return getDocumentTypes(NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(this.document.type);
+  isCreativeAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(doc.type);
   }
 
-  isDisruptionAsset(): boolean {
-    return getDocumentTypes(NUXEO_META_INFO.DISRUPTION_DAY_TYPE).includes(this.document.type);
+  isDisruptionAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_DAY_TYPE).includes(doc.type);
   }
 
-  isIntelligenceAsset(): boolean {
-    return getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(this.document.type);
+  isIntelligenceAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
   }
 
   toggleJob() {
