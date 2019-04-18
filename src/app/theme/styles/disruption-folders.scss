@@ -1,11 +1,6 @@
-@import '../../../../core/nebular/theme/styles/global/breakpoints';
-
-.inline-middle {
-	display: inline-block;
-	vertical-align: middle;
-}
 .brand-section {
-	margin-top: 10px;
+	width: calc(100% - 76px);
+	margin: 10px auto 0;
 	color: #4b4b4b;
 }
 .brand-intro {

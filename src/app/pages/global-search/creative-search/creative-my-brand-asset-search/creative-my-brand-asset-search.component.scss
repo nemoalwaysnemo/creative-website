@@ -1,10 +1,5 @@
 @import '../../../../core/nebular/theme/styles/global/breakpoints';
 
-.inline-middle {
-  display: inline-block;
-  vertical-align: middle;
-}
-
 .brand-view {
   @include media-breakpoint-down(lg) {
     //992px
@@ -25,12 +20,10 @@
   // padding-top: 40px;
   box-sizing: border-box;
 }
-
 .brand-section {
   width: calc(100% - 76px);
   margin: 0 auto;
 }
-
 .brand-intro {
   width: 280px;
   height: 280px;
@@ -41,7 +34,6 @@
     height: 100%;
   }
 }
-
 .brand-info {
   width: calc(100% - 310px);
 
@@ -62,7 +54,6 @@
     }
   }
 }
-
 .button-group {
   width: calc(100% - 76px);
   margin: 0 auto;

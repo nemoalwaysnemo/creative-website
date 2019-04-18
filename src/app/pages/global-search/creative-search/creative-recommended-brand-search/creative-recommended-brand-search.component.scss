@@ -1,9 +1,5 @@
 @import '../../../../core/nebular/theme/styles/global/breakpoints';
 
-.inline-middle {
-  display: inline-block;
-  vertical-align: middle;
-}
 .brand-view {
   @include media-breakpoint-down(lg) {
     //992px

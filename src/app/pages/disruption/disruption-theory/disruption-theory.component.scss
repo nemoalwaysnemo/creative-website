@@ -9,11 +9,8 @@ nb-route-tabset {
   box-sizing: border-box;
 }
 .icon_btn {
-  &.new_day {
-    padding-left: 13px;
-  }
+  &.new_theory { padding-left: 13px; }
 }
-
 tbwa-preview-dialog {
   display: block;
   // width: 190vh;
