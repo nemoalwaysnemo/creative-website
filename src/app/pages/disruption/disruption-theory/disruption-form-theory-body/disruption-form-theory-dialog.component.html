@@ -1,0 +1,10 @@
+<div class="dialog_body">
+  <div class="dialog_title">
+    <a (click)="close()"><img [src]="closeBtnImage()"></a>
+  </div>
+  <ng-container *ngIf="document">
+    <div class="form">
+      <tbwa-disruption-form-theory [document]="document"></tbwa-disruption-form-theory>
+    </div>
+  </ng-container>
+</div>
