@@ -3,15 +3,14 @@ import { HomePageModule } from './home/home.module';
 import { IntelligencePageComponent } from './intelligence-page.component';
 import { IntelligencePageRoutingModule } from './intelligence-page-routing.module';
 import { IntelligenceFoldersModule } from './intelligence-folders/intelligence-folders.module';
-import { IntelligenceAssetsModule } from './intelligence-assets/intelligence-assets.module';
-
+import { IntelligenceAssetModule } from './intelligence-asset/intelligence-asset.module';
 
 @NgModule({
   imports: [
     HomePageModule,
     IntelligencePageRoutingModule,
     IntelligenceFoldersModule,
-    IntelligenceAssetsModule,
+    IntelligenceAssetModule,
   ],
   declarations: [
     IntelligencePageComponent,

@@ -1,9 +1,10 @@
 import { OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
-import { tap, distinctUntilChanged, switchMap, map, filter, delay } from 'rxjs/operators';
+import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { isDocumentUID } from '@core/services';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { ActivatedRoute } from '@angular/router';
 
 export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy {
 
@@ -15,8 +16,9 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
 
   constructor(
     protected advanceSearch: AdvanceSearch,
-    protected queryParamsService: SearchQueryParamsService) {
-    this.onInit();
+    protected activatedRoute: ActivatedRoute,
+    protected queryParamsService: SearchQueryParamsService,
+  ) {
   }
 
   onInit() {
@@ -28,6 +30,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
   }
 
   ngOnInit(): void {
+    this.onInit();
   }
 
   ngOnDestroy(): void {
@@ -49,9 +52,8 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
   }
 
   protected onQueryParamsChanged(): void {
-    const subscription = this.queryParamsService.onQueryParamsChanged()
+    const subscription = this.activatedRoute.queryParams
       .pipe(
-        delay(0),
         tap(queryParams => {
           if (!isDocumentUID(queryParams.id)) {
             this.onInvalidDocumentUID(queryParams.id);

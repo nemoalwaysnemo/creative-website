@@ -17,6 +17,8 @@ import { DisruptionDaysAssetSearchResultComponent } from './disruption-days-asse
 import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-asset-search-result/disruption-theory-asset-search-result.component';
 import { DisruptionThinkingAssetSearchResultComponent } from './disruption-thinking-asset-search-result/disruption-thinking-asset-search-result.component';
 import { DisruptionFolderDayAssetSearchResultComponent } from './disruption-folder-day-asset-search-result/disruption-folder-day-asset-search-result.component';
+import { IntelligenceIndustrySearchResultComponent } from './intelligence-industry-search-result/intelligence-industry-search-result.component';
+import { SharedServiceModule } from '../services/shared-service.module';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -29,6 +31,7 @@ const COMPONENTS = [
   DisruptionThinkingAssetSearchResultComponent,
   DisruptionRoadmapsAssetSearchResultComponent,
   DisruptionFolderDayAssetSearchResultComponent,
+  IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
 ];
 
@@ -47,6 +50,9 @@ const COMPONENTS = [
   ],
   exports: [
     ...COMPONENTS,
+  ],
+  providers: [
+    ...SharedServiceModule.forRoot().providers,
   ],
 })
 export class GlobalSearchResultModule { }

@@ -7,8 +7,9 @@ import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IntelligenceFoldersViewComponent {
+
+  @Input() loading: boolean;
+
   @Input() document: any;
-  @Input() folderContents: any;
-  loading: boolean = true;
 
 }

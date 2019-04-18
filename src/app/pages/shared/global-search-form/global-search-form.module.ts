@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { GlobalSearchFormComponent } from './global-search-form.component';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedDirectiveModule } from '../directives/shared-directive.module';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { GlobalSearchFilterModule } from '../global-search-filter/global-search-filter.module';
+import { SharedServiceModule } from '../services/shared-service.module';
 
 @NgModule({
   imports: [
@@ -11,15 +11,15 @@ import { GlobalSearchFilterModule } from '../global-search-filter/global-search-
     SharedDirectiveModule,
     GlobalSearchFilterModule,
   ],
-  providers: [
-    SearchQueryParamsService,
-  ],
   declarations: [
     GlobalSearchFormComponent,
   ],
   exports: [
     GlobalSearchFormComponent,
     GlobalSearchFilterModule,
+  ],
+  providers: [
+    ...SharedServiceModule.forRoot().providers,
   ],
 })
 export class GlobalSearchFormModule {

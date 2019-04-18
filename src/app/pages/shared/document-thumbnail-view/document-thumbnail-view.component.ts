@@ -22,6 +22,8 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
 })
 export class DocumentThumbnailViewComponent implements OnInit {
 
+  @Input() layout: 'half' | 'third' | 'quarter' = 'quarter';
+
   @Input() loading: boolean;
 
   @Input() templateRef: TemplateRef<any>;

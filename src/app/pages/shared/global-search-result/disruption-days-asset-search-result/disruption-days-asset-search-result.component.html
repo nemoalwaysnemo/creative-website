@@ -1,11 +1,11 @@
-<tbwa-global-search-result [templateRef]="thumbnailView" [multiView]="false"></tbwa-global-search-result>
+<tbwa-global-search-result [templateRef]="thumbnailView"></tbwa-global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <div class="disruption-days-asset">
     <div class="image-holder">
       <a routerLink="/p/disruption/days/folders" [queryParams]="{id: doc.uid}" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
-      <h1><a routerLink="/p/disruption/days/folders" [queryParams]="{id: doc.uid}">{{doc.title}}</a></h1>
+      <h1 [title]="doc.title"><a routerLink="/p/disruption/days/folders" [queryParams]="{id: doc.uid}">{{doc.title}}</a></h1>
     </div>
   </div>
 </ng-template>

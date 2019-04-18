@@ -1,0 +1,11 @@
+<tbwa-global-search-result [templateRef]="thumbnailView"></tbwa-global-search-result>
+<ng-template #thumbnailView let-doc="doc">
+  <div class="intelligence-industry">
+    <div class="image-holder">
+      <a routerLink="/p/intelligence/folders" [queryParams]="{id: doc.uid, folder_type: 'industryAssets', industry_type: doc.get('app_Edges:industry')}" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+    </div>
+    <div class="description">
+      <h1><a routerLink="/p/intelligence/folders" [queryParams]="{id: doc.uid, folder_type: 'industryAssets', industry_type: doc.get('app_Edges:industry')}">{{ doc.title }}</a></h1>
+    </div>
+  </div>
+</ng-template>

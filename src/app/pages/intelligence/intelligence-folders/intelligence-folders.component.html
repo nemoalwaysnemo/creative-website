@@ -1,66 +1,10 @@
-<div class="document">
-  <h1>{{ header }}</h1>
-  <div *ngIf="document">
-    <intelligence-folders-view [document]="document"></intelligence-folders-view>
-  </div>
-  <ng-container [ngSwitch]="true">
-    <ng-container *ngSwitchCase="redirectToIndusty">
-      <div class="quarter flex">
-        <div *ngFor="let document of folderContents">
-          <div class="thumbnail-view">
-            <div class="image-holder">
-              <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: 'industryAssets', industry_type: document.get('app_Edges:industry')}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
-            </div>
-            <div class="description">
-              <h1><a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: 'industryAssets', industry_type: document.get('app_Edges:industry')}">{{ document.title }}</a></h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- <div class="quarter flex">
-        <div *ngFor="let document of folderContents" class="thumbnail-view">
-          <div>
-            <div class="image-holder">
-              <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid, folder_type: 'industryAssets', industry_type: document.get('app_Edges:industry')}">
-                <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
-              </a>
-            </div>
-            <div class="description">
-              <h1>{{ document.title }}</h1>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    </ng-container>
-
-    <ng-container *ngSwitchCase="!redirectToIndusty">
-      <div class="flex quarter">
-        <div *ngFor="let document of folderContents">
-          <div class="thumbnail-view">
-            <div class="image-holder">
-              <a routerLink="/p/intelligence/assets" [queryParams]="{folder: folderId, id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
-            </div>
-            <div class="description">
-              <h1><a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}">{{ document.title }}</a></h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- <div *ngFor="let document of folderContents" class="thumbnail-view">
-        <a routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}">
-          <div>
-            <div class="image-holder">
-              <img src="{{document.thumbnailUrl}}" [alt]="document.title" class="thumbnail-img">
-            </div>
-            <div>{{ document.title }}</div>
-          </div>
-        </a>
-      </div> -->
-    </ng-container>
+<tbwa-global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></tbwa-global-search-form>
+<intelligence-folders-view [loading]="loading" [document]="document"></intelligence-folders-view>
+<ng-container [ngSwitch]="true">
+  <ng-container *ngSwitchCase="documentType == 'Industry'">
+    <tbwa-intelligence-industry-search-result></tbwa-intelligence-industry-search-result>
   </ng-container>
-  <div *ngIf="folderContents && folderContents.length === 0" class="thumbnail-view empty text-center">
-    <span class="empty-data">No data found</span>
-  </div>
-</div>
+  <ng-container *ngSwitchCase="documentType == 'Consumer' || documentType == 'Marketing'">
+    <tbwa-intelligence-document-asset-search-result></tbwa-intelligence-document-asset-search-result>
+  </ng-container>
+</ng-container>

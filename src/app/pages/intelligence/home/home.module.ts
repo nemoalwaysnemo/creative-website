@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { SharedModule } from '@pages/shared/shared.module';
 import { HomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
+import { HomeSearchFormModule } from '@pages/shared';
+
 @NgModule({
   imports: [
     ThemeModule,
-    SharedModule,
+    HomeSearchFormModule,
     RouterModule,
   ],
   declarations: [
     HomeComponent,
-  ],
-  providers: [
-    SharedModule.forRoot().providers,
   ],
 })
 export class HomePageModule { }

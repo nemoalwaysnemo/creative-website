@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'tbwa-creative-recommended-brand-asset-search',
@@ -27,8 +28,9 @@ export class CreativeRecommendedBrandAssetSearchComponent extends AbstractDocume
 
   constructor(
     protected advanceSearch: AdvanceSearch,
+    protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, queryParamsService);
+    super(advanceSearch, activatedRoute, queryParamsService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

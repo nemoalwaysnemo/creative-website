@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { TAB_CONFIG } from '../tab-config';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'tbwa-disruption-folders',
   styleUrls: ['./disruption-folders.component.scss'],
   templateUrl: './disruption-folders.component.html',
 })
-export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
+export class DisruptionFoldersComponent extends AbstractDocumentViewComponent implements OnInit, OnDestroy {
 
   tabs = TAB_CONFIG;
 
@@ -23,8 +24,9 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
 
   constructor(
     protected advanceSearch: AdvanceSearch,
+    protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, queryParamsService);
+    super(advanceSearch, activatedRoute, queryParamsService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

@@ -1,126 +1,114 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { AdvanceSearch, DocumentModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { Subscription } from 'rxjs';
-import { isDocumentUID } from '@core/services';
+import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'tbwa-intelligence-folders',
   styleUrls: ['./intelligence-folders.component.scss'],
   templateUrl: './intelligence-folders.component.html',
 })
-export class IntelligenceFoldersComponent implements OnInit, OnDestroy {
-  private subscription: Subscription = new Subscription();
-  folderContents: any;
-  document: DocumentModel;
-  redirectToIndusty: boolean;
-  queryParams = this.activatedRoute.snapshot.queryParams;
-  header: any;
-  folderId = this.queryParams.id;
+export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent implements OnInit {
 
-  params: any = {
-    pageSize: 10,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
-    ecm_uuid: `["${this.queryParams.id}"]`,
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ALL_FOLDERS,
-  };
+  documentType: string;
 
-  contentParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
-    ecm_parentId: this.queryParams.id,
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
-  };
+  baseParams$: Subject<any> = new Subject<any>();
 
-  assetParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
-    app_edges_intelligence_category: `["${this.queryParams.folder_type}"]`,
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
-  };
-
-  industryParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
-    app_edges_industry_any: this.getIndustryString(this.queryParams.industry_type),
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+  filters: any = {
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'app_edges_industry_agg': { placeholder: 'Industry' },
   };
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private advanceSearch: AdvanceSearch) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
+    protected advanceSearch: AdvanceSearch,
+    protected activatedRoute: ActivatedRoute,
+    protected queryParamsService: SearchQueryParamsService) {
+    super(advanceSearch, activatedRoute, queryParamsService);
+  }
+
+  protected setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
+    this.documentType = this.getCurrentAssetType(doc);
+    setTimeout(() => { this.baseParams$.next(this.buildAssetsParams(doc)); }, 0);
+  }
+
+  protected getDefaultDocumentParams(): object {
+    return {
+      pageSize: 1,
+      currentPageIndex: 0,
+      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ALL_FOLDERS,
     };
   }
-  ngOnInit() {
-    this.checkFolderId(this.queryParams.id);
-    this.judgeRedirects(this.queryParams.folder_type);
-    this.searchFolders(this.params);
-  }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  private checkFolderId(folderId: string) {
-    if ( !isDocumentUID(folderId) ) {
-      this.redirectTo404();
+  protected buildAssetsParams(doc?: DocumentModel): any {
+    switch (this.getCurrentAssetType(doc)) {
+      case 'Industry':
+        return this.buildIndustryParams(doc);
+      case 'Consumer':
+        return this.buildConsumerAndMarketingParams(doc);
+      case 'Marketing':
+        return this.buildConsumerAndMarketingParams(doc);
+      default:
+        return {};
     }
   }
 
-  private judgeRedirects(folderType: string) {
-    this.header = folderType;
-    if ( folderType === 'Industry' ) {
-      this.redirectToIndusty = true;
-      this.searchContents(this.contentParams);
-    } else if ( folderType === 'Consumers' || folderType === 'Marketing' || folderType === 'Consumer') {
-      this.searchAssets(this.assetParams);
-    } else if ( folderType === 'industryAssets') {
-      this.searchContents(this.industryParams);
+  protected buildConsumerAndMarketingParams(doc?: DocumentModel): any {
+    const params = {
+      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      currentPageIndex: 0,
+      pageSize: 20,
+      ecm_fulltext: '',
+    };
+    if (doc) {
+      params['app_edges_intelligence_category'] = `["${this.getCurrentAssetType(doc)}"]`;
+    }
+    return params;
+  }
+
+  protected buildIndustryParams(doc?: DocumentModel): any {
+    const params = {
+      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
+      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      currentPageIndex: 0,
+      pageSize: 20,
+      ecm_fulltext: '',
+    };
+    if (doc) {
+      params['ecm_parentId'] = doc.uid;
+    }
+    return params;
+  }
+
+  protected buildIndustryAssetsParams(doc?: DocumentModel): any {
+    const params = {
+      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      currentPageIndex: 0,
+      pageSize: 20,
+      ecm_fulltext: '',
+    };
+    if (doc) {
+      params['app_edges_industry_any'] = '["' + doc.get('app_Edges:industry').join('", "') + '"]';
+    }
+    return params;
+  }
+
+  protected getCurrentAssetType(doc: DocumentModel) {
+    switch (doc.type) {
+      case 'App-Intelligence-Industry-Folder':
+        return 'Industry';
+      case 'App-Intelligence-Consumer-Folder':
+        return 'Consumer';
+      case 'App-Intelligence-Marketing-Folder':
+        return 'Marketing';
+      default:
+        return 'Intelligence';
     }
   }
 
-  private searchContents(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.folderContents = res.entries;
-      });
-    this.subscription.add(subscription);
-  }
-
-  private searchAssets(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.folderContents = res.entries;
-      });
-    this.subscription.add(subscription);
-  }
-
-  private searchFolders(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.document = res.entries[0];
-      });
-    this.subscription.add(subscription);
-  }
-
-  getIndustryString(industry) {
-    if (industry && typeof(industry) === 'object') {
-      const tempString = '["' + industry.join('", "') + '"]';
-      return tempString;
-    } else if (industry) {
-      return industry;
-    }
-  }
-
-  private redirectTo404(): void {
-    this.router.navigate(['/404']);
-  }
 }

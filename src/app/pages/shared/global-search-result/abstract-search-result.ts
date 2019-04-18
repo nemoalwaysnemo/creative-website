@@ -21,13 +21,18 @@ export abstract class BaseSearchResultComponent {
 
   queryParams: NuxeoPageProviderParams = {};
 
-  protected subscription: Subscription = new Subscription();
+  protected multiView: boolean = false;
 
-  @Input() multiView: boolean = true;
+  protected subscription: Subscription = new Subscription();
 
   @Input() currentView: string = 'thumbnailView';
 
-  @Input() listViewSettings: any = {};
+  @Input()
+  set listViewSettings(settings: any) {
+    if (settings) {
+      this.multiView = true;
+    }
+  }
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
 

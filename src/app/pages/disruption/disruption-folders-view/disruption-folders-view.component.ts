@@ -7,6 +7,9 @@ import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DisruptionFoldersViewComponent {
+
+  @Input() loading: boolean;
+
   @Input() document: any;
 
 }

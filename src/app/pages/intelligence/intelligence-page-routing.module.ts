@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { IntelligencePageComponent } from './intelligence-page.component';
 import { HomeComponent } from './home/home.component';
 import { IntelligenceFoldersComponent } from './intelligence-folders/intelligence-folders.component';
-import { IntelligenceAssetsComponent } from './intelligence-assets/intelligence-assets.component';
+import { IntelligenceAssetComponent } from './intelligence-asset/intelligence-asset.component';
 
 const routes: Routes = [{
   path: '',
@@ -23,8 +23,8 @@ const routes: Routes = [{
       component: IntelligenceFoldersComponent,
     },
     {
-      path: 'assets',
-      component: IntelligenceAssetsComponent,
+      path: 'asset',
+      component: IntelligenceAssetComponent,
     },
   ],
 }];

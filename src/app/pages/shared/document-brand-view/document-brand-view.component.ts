@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AdvanceSearch } from '@core/api';
 import { AbstractDocumentViewComponent } from '../abstract-classes/abstract-document-view.component';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
@@ -12,15 +13,9 @@ export class DocumentBrandViewComponent extends AbstractDocumentViewComponent im
 
   constructor(
     protected advanceSearch: AdvanceSearch,
+    protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, queryParamsService);
-  }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-    this.onDestroy();
+    super(advanceSearch, activatedRoute, queryParamsService);
   }
 
   protected getDefaultDocumentParams(): any {

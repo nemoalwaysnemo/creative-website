@@ -1,10 +1,19 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { ActivatedRoute, Router, Params, Event, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
-import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay } from 'rxjs/operators';
+import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map } from 'rxjs/operators';
 import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse } from '@core/api';
-import { SearchQueryParamsService, PageChangedInfo } from '../services/search-query-params.service';
+import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { selectObjectByKeys } from '@core/services';
+
+class PageChangedInfo {
+  readonly queryParams: Params;
+  readonly historyState: { [k: string]: any };
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+}
 
 @Component({
   selector: 'tbwa-global-search-form',
@@ -60,8 +69,10 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private advanceSearch: AdvanceSearch,
+    private activatedRoute: ActivatedRoute,
     private queryParamsService: SearchQueryParamsService,
   ) {
     this.onInit();
@@ -102,7 +113,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   private onInputChangedSearch(params: any = {}): void {
     this.searchParams = Object.assign({}, this._defaultParams, params);
-    const queryParams = this.queryParamsService.getCurrentQueryParams();
+    const queryParams = this.activatedRoute.snapshot.queryParams;
     let parsedParams = this.parseToFormValues(queryParams);
     parsedParams = selectObjectByKeys(parsedParams, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
     this.patchFormValue(parsedParams);
@@ -120,7 +131,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   private onInit() {
     this.onSearch();
     this.createForm();
-    this.onPageChanged();
+    this.onCurrentPageChanged();
   }
 
   private onSearchEvent() {
@@ -170,10 +181,6 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     this.queryParamsService.changeQueryParams(queryParams, { type: 'typeahead' });
   }
 
-  private hasQueryParams(queryParams: {}): boolean {
-    return Object.keys(queryParams).length > 0;
-  }
-
   private hasFilterQueryParams(queryParams: {}): boolean {
     return Object.keys(queryParams).some((key) => key.includes('_agg'));
   }
@@ -183,8 +190,15 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     return (this.pageChangedSearch && type !== 'typeahead') || (!this.pageChangedSearch && type === 'pagination');
   }
 
-  private onPageChanged(): void {
-    const subscription = this.queryParamsService.onPageChanged().pipe(
+  private onPageChanged(): Observable<PageChangedInfo> {
+    return this.router.events.pipe(
+      filter((e: Event) => e instanceof NavigationEnd),
+      map(_ => new PageChangedInfo({ queryParams: this.activatedRoute.snapshot.queryParams, historyState: this.router.getCurrentNavigation().extras ? (this.router.getCurrentNavigation().extras.state || {}) : {} })),
+    );
+  }
+
+  private onCurrentPageChanged(): void {
+    const subscription = this.onPageChanged().pipe(
       delay(100),
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {

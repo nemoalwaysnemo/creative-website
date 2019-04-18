@@ -21,8 +21,5 @@ import { RecommendedBrandThumbnailComponent } from './recommended-brand-thumbnai
     BrandThumbnailComponent,
     RecommendedBrandThumbnailComponent,
   ],
-  providers: [
-    SharedModule.forRoot().providers,
-  ],
 })
 export class HomePageModule { }

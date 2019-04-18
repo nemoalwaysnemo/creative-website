@@ -6,11 +6,11 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { isDocumentUID } from '@core/services';
 import { Observable, Subscription } from 'rxjs';
 @Component({
-  selector: 'tbwa-intelligence-assets',
-  styleUrls: ['./intelligence-assets.component.scss'],
-  templateUrl: './intelligence-assets.component.html',
+  selector: 'tbwa-intelligence-asset',
+  styleUrls: ['./intelligence-asset.component.scss'],
+  templateUrl: './intelligence-asset.component.html',
 })
-export class IntelligenceAssetsComponent implements OnInit, OnDestroy {
+export class IntelligenceAssetComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   loading: boolean = true;
   document: DocumentModel;

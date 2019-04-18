@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { ThemeModule } from '@theme/theme.module';
+import { NbSpinnerModule } from '@core/nebular/theme';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { IntelligenceFoldersViewComponent } from './intelligence-folders-view.component';
+
 @NgModule({
   imports: [
     CommonModule,
-    ThemeModule,
-    RouterModule,
+    NbSpinnerModule,
   ],
   declarations: [
     IntelligenceFoldersViewComponent,
