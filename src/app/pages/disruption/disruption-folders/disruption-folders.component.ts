@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch } from '@core/api';
@@ -11,7 +11,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
   styleUrls: ['./disruption-folders.component.scss'],
   templateUrl: './disruption-folders.component.html',
 })
-export class DisruptionFoldersComponent extends AbstractDocumentViewComponent implements OnInit, OnDestroy {
+export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
 
   tabs = TAB_CONFIG;
 

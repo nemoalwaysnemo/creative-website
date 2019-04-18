@@ -11,6 +11,4 @@ export class DocumentAdditionalInfoComponent {
 
   @Input() document: DocumentModel;
 
-  constructor() { }
-
 }

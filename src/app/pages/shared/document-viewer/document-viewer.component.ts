@@ -22,16 +22,18 @@ export class DocumentViewerComponent {
   layout: string;
   _forDailog: boolean;
 
-  getDocumentViewer(): string {
+  getDocumentViewer(doc: DocumentModel): string {
     let type = 'unkonw';
-    if (this.document.isPicture()) {
-      type = 'picture';
-    } else if (this.document.isPdf()) {
-      type = 'picture'; // #160 BIG PDFs are slooooooow
-    } else if (this.document.isVideo()) {
-      type = 'video';
-    } else if (this.document.isAudio()) {
-      type = 'audio';
+    if (doc) {
+      if (doc.isPicture()) {
+        type = 'picture';
+      } else if (doc.isPdf()) {
+        type = 'picture'; // #160 BIG PDFs are slooooooow
+      } else if (doc.isVideo()) {
+        type = 'video';
+      } else if (doc.isAudio()) {
+        type = 'audio';
+      }
     }
     return type;
   }

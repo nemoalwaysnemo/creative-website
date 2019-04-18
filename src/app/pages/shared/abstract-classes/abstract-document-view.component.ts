@@ -12,6 +12,8 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
 
   loading: boolean = true;
 
+  protected primaryKey: string = 'id';
+
   protected subscription: Subscription = new Subscription();
 
   constructor(
@@ -47,23 +49,27 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
 
   protected abstract getDefaultDocumentParams(): object;
 
-  protected getCurrentDocument(uid: string): Observable<NuxeoPagination> {
-    return this.advanceSearch.request(Object.assign({}, this.getDefaultDocumentParams(), { ecm_uuid: `["${uid}"]` }));
+  protected getDocumentModel(uid: string, params: any = {}): Observable<NuxeoPagination> {
+    return this.advanceSearch.request(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }));
+  }
+
+  protected getDefaultDocument(primaryKey: string, params: any = {}, cacheDocument: DocumentModel): Observable<DocumentModel> {
+    return this.activatedRoute.queryParams
+      .pipe(
+        tap(queryParams => {
+          if (!isDocumentUID(queryParams[primaryKey])) {
+            this.onInvalidDocumentUID(queryParams[primaryKey]);
+          }
+        }),
+        filter(queryParams => !cacheDocument && isDocumentUID(queryParams[primaryKey])),
+        distinctUntilChanged(),
+        switchMap(queryParams => this.getDocumentModel(queryParams[primaryKey], params)),
+        map((res: NuxeoPagination) => res.entries.shift()),
+      );
   }
 
   protected onQueryParamsChanged(): void {
-    const subscription = this.activatedRoute.queryParams
-      .pipe(
-        tap(queryParams => {
-          if (!isDocumentUID(queryParams.id)) {
-            this.onInvalidDocumentUID(queryParams.id);
-          }
-        }),
-        filter(queryParams => isDocumentUID(queryParams.id) && !this.document),
-        distinctUntilChanged(),
-        switchMap(queryParams => this.getCurrentDocument(queryParams.id)),
-        map((res: NuxeoPagination) => res.entries.shift()),
-      )
+    const subscription = this.getDefaultDocument(this.primaryKey, this.getDefaultDocumentParams(), this.document)
       .subscribe((doc: DocumentModel) => {
         this.loading = false;
         this.setCurrentDocument(doc);

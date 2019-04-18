@@ -3,7 +3,7 @@
   .search-input {
     display: block;
     margin: 0 27px 0 38px;
-  
+
     input {
       display: inline-block;
       vertical-align: top;
@@ -26,7 +26,7 @@
       box-sizing: border-box;
     }
     .back { background: url('/assets/images/back_icon.png') no-repeat 13px center; }
-    .advanced_filters_trigger {
+    .advanced-filters-trigger {
       background: url('/assets/images/filters_icon.png') no-repeat 13px center;
       &.btn-disabled { background: url('/assets/images/filters_icon_disabled.png') no-repeat 13px center; }
       &.success { background: url('/assets/images/filters_icon_on.png') no-repeat 13px center; }
