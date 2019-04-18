@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DocumentModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
 
 @Component({
   selector: 'tbwa-disruption-form-roadmap',
@@ -64,13 +64,12 @@ export class DisruptionFormRoadmapComponent implements OnInit, OnDestroy {
           minLength: 'At least 4 characters',
         },
       }),
-      // new DynamicInputModel({
-      //   id: 'The_Loupe_Main:brand',
-      //   label: 'Brand',
-      //   placeholder: 'Brand',
-      //   autoComplete: 'off',
-      //   required: false,
-      // }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        placeholder: 'Brand',
+        required: false,
+      }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
@@ -81,6 +80,7 @@ export class DisruptionFormRoadmapComponent implements OnInit, OnDestroy {
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
         directoryName: 'GLOBAL_Agencies',
+        multiple: false,
         placeholder: 'Please select agency',
       }),
       new DynamicSuggestionModel<string>({

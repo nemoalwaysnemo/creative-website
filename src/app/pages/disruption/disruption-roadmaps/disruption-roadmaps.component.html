@@ -1,5 +1,11 @@
-<nb-card class="nb-card">
   <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-  <tbwa-global-search-form [filters]="filters" [defaultParams]="defaultParams"></tbwa-global-search-form>
+  <tbwa-global-search-form [filters]="filters" [defaultParams]="defaultParams">
+    <button (click)="openForm(dialog)" class="icon_btn new_roadmaps" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Roadmaps">New Roadmaps</button>
+  </tbwa-global-search-form>
   <tbwa-disruption-roadmaps-asset-search-result></tbwa-disruption-roadmaps-asset-search-result>
-</nb-card>
+
+<ng-template #dialog>
+  <tbwa-preview-dialog>
+    <tbwa-disruption-form-roadmaps-body></tbwa-disruption-form-roadmaps-body>
+  </tbwa-preview-dialog>
+</ng-template>
