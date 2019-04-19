@@ -1,6 +1,6 @@
 <tbwa-global-search-result [templateRef]="thumbnailView"></tbwa-global-search-result>
 <ng-template #thumbnailView let-doc="doc">
-  <div class="intelligence-document-asset">
+  <div class="thumbnail-view-item">
     <div class="image-holder">
       <a routerLink="/p/intelligence/asset" [queryParams]="{id: doc.uid}" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>

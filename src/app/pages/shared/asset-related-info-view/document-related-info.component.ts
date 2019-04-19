@@ -15,7 +15,6 @@ export class DocumentRelatedInfoComponent {
     {
       name: 'Backslash',
       layout: 'backslash',
-      itemLayout: 'backslash',
       icon: 'nb-person',
       params: {
         pageSize: 8,
@@ -30,7 +29,6 @@ export class DocumentRelatedInfoComponent {
     {
       name: 'Disruption',
       layout: 'disruption',
-      itemLayout: 'disruption',
       icon: 'nb-person',
       params: {
         pageSize: 8,
@@ -46,7 +44,6 @@ export class DocumentRelatedInfoComponent {
     {
       name: 'Intelligence',
       layout: 'intelligence',
-      itemLayout: 'intelligence',
       icon: 'nb-person',
       params: {
         pageSize: 8,

@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { DocumentRelatedProjectComponent } from './document-related-project.component';
-import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnail-view.module';
+import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    CreativeThumbnailViewModule,
+    RouterModule,
+    DocumentThumbnailViewModule,
   ],
   declarations: [
     DocumentRelatedProjectComponent,

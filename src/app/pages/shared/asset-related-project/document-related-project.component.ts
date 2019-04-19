@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
-import { PaginationDataSource } from '../../shared/pagination/pagination-data-source';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -10,14 +9,9 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 export class DocumentRelatedProjectComponent implements OnInit {
 
-  @Input() document: DocumentModel;
-
-  constructor(private advanceSearch: AdvanceSearch) { }
-
-  layout = 'agency';
   loading: boolean = true;
-  relatedProjectDocuments: DocumentModel[];
-  paginationService: PaginationDataSource = new PaginationDataSource();
+
+  documents: DocumentModel[];
 
   private params: any = {
     pageSize: 4,
@@ -26,21 +20,21 @@ export class DocumentRelatedProjectComponent implements OnInit {
     ecm_uuid_exclude: '',
   };
 
+  @Input() document: DocumentModel;
+
+  constructor(private advanceSearch: AdvanceSearch) { }
+
   ngOnInit() {
     this.params.the_loupe_main_brand_any = `["${this.document.get('The_Loupe_Main:brand').join('", "')}"]`;
     this.params.ecm_uuid_exclude = this.document.uid;
     this.search(this.params);
-    this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
-      this.search(Object.assign({}, this.params, pageInfo));
-    });
   }
 
   private search(params: {}): void {
     this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.loading = false;
-        this.relatedProjectDocuments = res.entries;
-        this.paginationService.from(res);
+        this.documents = res.entries;
       });
   }
 }

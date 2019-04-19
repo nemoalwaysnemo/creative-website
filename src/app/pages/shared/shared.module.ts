@@ -5,7 +5,6 @@ import { SharedDirectiveModule } from './directives/shared-directive.module';
 import {
   OptionSelectModule,
   PictureGalleryModule,
-  CreativeThumbnailViewModule,
   PaginationModule,
   ListViewModule,
   DocumentViewerModule,
@@ -15,7 +14,6 @@ import {
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
   BatchFileUploadModule,
-  PreviewDialogService,
   PreviewDialogModule,
   DirectorySuggestionModule,
   DocumentFormModule,
@@ -28,7 +26,6 @@ const EXPORTS = [
   ThemeModule,
   OptionSelectModule,
   PictureGalleryModule,
-  CreativeThumbnailViewModule,
   PaginationModule,
   ListViewModule,
   SharedDirectiveModule,

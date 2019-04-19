@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
+import { NgPipesModule } from 'ngx-pipes';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { DocumentRelatedAgencyComponent } from './document-related-agency.component';
-import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnail-view.module';
 import { DocumentRelatedInfoService } from '../asset-related-info-view/document-related-info.service';
+import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    CreativeThumbnailViewModule,
+    RouterModule,
+    NgPipesModule,
+    DocumentThumbnailViewModule,
   ],
   declarations: [
     DocumentRelatedAgencyComponent,

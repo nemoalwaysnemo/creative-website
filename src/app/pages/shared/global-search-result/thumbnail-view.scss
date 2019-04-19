@@ -1,4 +1,5 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
+@import '../../../theme/styles/custom-styles.scss';
 // .empty {
 //   width: 100%!important;
 //   padding: 40px 0!important;
@@ -52,17 +53,7 @@
 //   }
 // }
 
-.creative-document-asset,
-.creative-my-brand-asset,
-.creative-my-brand,
-.creative-recommend-brand,
-.disruption-days-asset,
-.disruption-folder-day-asset,
-.disruption-roadmaps-asset,
-.disruption-theory-asset,
-.disruption-thinking-asset,
-.intelligence-document-asset,
-.intelligence-industry {
+.thumbnail-view-item {
   height: 100%;
   box-sizing: border-box;
   border: solid 1px #e1e1e1;
@@ -88,6 +79,7 @@
     height: 290.5px;
   }
   a {
+    cursor: pointer;
     color: #2a2a2a;
     &:hover {
       color: #2a2a2a;

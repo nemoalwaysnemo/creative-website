@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
-import { PaginationDataSource } from '../../shared/pagination/pagination-data-source';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -13,13 +12,9 @@ export class DocumentRelatedAgencyComponent implements OnInit, OnDestroy {
 
   @Input() document: DocumentModel;
 
-  layout = 'agency';
-
   loading: boolean = true;
 
-  relatedAgencyDocuments: DocumentModel[];
-
-  paginationService: PaginationDataSource = new PaginationDataSource();
+  documents: DocumentModel[];
 
   private subscription: Subscription = new Subscription();
 
@@ -36,11 +31,6 @@ export class DocumentRelatedAgencyComponent implements OnInit, OnDestroy {
     this.params.the_loupe_main_agency = this.document.get('The_Loupe_Main:agency');
     this.params.ecm_uuid_exclude = this.document.uid;
     this.search(this.params);
-    const subscription = this.paginationService.onPageChanged()
-      .subscribe((pageInfo: any) => {
-        this.search(Object.assign({}, this.params, pageInfo));
-      });
-    this.subscription.add(subscription);
   }
 
   ngOnDestroy() {
@@ -51,8 +41,7 @@ export class DocumentRelatedAgencyComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.loading = false;
-        this.relatedAgencyDocuments = res.entries;
-        this.paginationService.from(res);
+        this.documents = res.entries;
       });
     this.subscription.add(subscription);
   }

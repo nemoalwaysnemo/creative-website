@@ -5,7 +5,6 @@ export * from './asset-related-info-view/document-related-info.module';
 export * from './asset-related-project/document-related-project.module';
 export * from './auto-search/base-auto-search';
 export * from './batch-file-upload/batch-file-upload.module';
-export * from './creative-thumbnail-view/thumbnail-view.module';
 export * from './directory-suggestion/directory-suggestion.module';
 export * from './document-viewer/document-viewer.module';
 export * from './document-form/document-form.module';

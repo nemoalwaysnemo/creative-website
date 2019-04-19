@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseDialogBody } from '../../base-dialog-body';
 import { PreviewDialogService } from '../../preview-dialog.service';
 
@@ -10,6 +10,8 @@ import { PreviewDialogService } from '../../preview-dialog.service';
 export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
 
   title: string;
+
+  @Input() moreInfo: boolean = true;
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);

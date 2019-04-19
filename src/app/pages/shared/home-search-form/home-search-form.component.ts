@@ -12,26 +12,33 @@ import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 })
 
 export class HomeSearchFormComponent implements OnInit, OnDestroy {
+
   results: DocumentModel[];
 
   documents: DocumentModel[] = [];
 
   queryField: FormControl = new FormControl();
 
-  layout: string = 'search-list';
-
   backgroudUrl: string = '';
+
+  layout: string = 'suggestion-inline';
 
   searchForm: FormGroup;
 
   showFilter: boolean = false;
 
-  @Input() assetType: any;
+  loading: boolean = false;
+
   @Input() params: any;
+
   @Input() headline: string;
+
   @Input() subHead: string;
+
   @Input() placeholder: string;
+
   @Input() redirectUrl: string;
+
   @Input()
   set backgroudDocument(doc: DocumentModel) {
     if (doc) {

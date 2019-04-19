@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AdvanceSearch, NuxeoPagination, DocumentModel, NuxeoQuickFilters } from '@core/api';
-import { PaginationDataSource } from '../../../shared/pagination/pagination-data-source';
+import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -11,13 +10,9 @@ import { Subscription } from 'rxjs';
 })
 export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
-  layout = 'agency';
-
   loading: boolean = true;
 
-  agencyDocuments: DocumentModel[];
-
-  paginationService: PaginationDataSource = new PaginationDataSource();
+  documents: DocumentModel[];
 
   private subscription: Subscription = new Subscription();
 
@@ -31,10 +26,6 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.search(this.params);
-    const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
-      this.search(Object.assign({}, this.params, pageInfo));
-    });
-    this.subscription.add(subscription);
   }
 
   ngOnDestroy() {
@@ -44,9 +35,8 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
   private search(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.agencyDocuments = res.entries;
+        this.documents = res.entries;
         this.loading = false;
-        this.paginationService.from(res);
       });
     this.subscription.add(subscription);
   }

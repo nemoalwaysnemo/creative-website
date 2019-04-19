@@ -7,9 +7,11 @@ import { PreviewDialogService } from './preview-dialog.service';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { DisruptionFormDayModule } from '../disruption-form-day/disruption-form-day.module';
 import { DisruptionAssetPreviewDialogBodyComponent } from './preview-dialog-body/disruption-asset-preview-dialog-body/disruption-asset-preview-dialog-body.component';
+import { BackslashAssetPreviewDialogBodyComponent } from './preview-dialog-body/backslash-asset-preview-dialog-body/backslash-asset-preview-dialog-body.component';
 
 const COMPONENTS = [
   PreviewDialogComponent,
+  BackslashAssetPreviewDialogBodyComponent,
   DisruptionAssetPreviewDialogBodyComponent,
 ];
 

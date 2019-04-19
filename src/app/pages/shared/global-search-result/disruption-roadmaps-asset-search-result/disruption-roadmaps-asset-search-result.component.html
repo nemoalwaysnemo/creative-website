@@ -1,11 +1,11 @@
 <tbwa-global-search-result [templateRef]="thumbnailView"></tbwa-global-search-result>
 <ng-template #thumbnailView let-doc="doc">
-  <div class="disruption-roadmaps-asset">
+  <div class="thumbnail-view-item">
     <div class="image-holder">
       <a (click)="open(dialog, doc)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
-      <h1>{{doc.get('The_Loupe_Main:brand')}}</h1>
+      <h1 [title]="doc.title">{{doc.title}}</h1>
     </div>
   </div>
   <ng-template #dialog>

@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   placeholder = 'Search for marketing reports, data, research...';
   document: DocumentModel;
   folders: any[];
-  assetType = 'intelligence';
+
   params: any = {
     pageSize: 20,
     currentPageIndex: 0,

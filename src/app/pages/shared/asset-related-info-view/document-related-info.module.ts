@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
+import { NgPipesModule } from 'ngx-pipes';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { DocumentRelatedInfoComponent } from './document-related-info.component';
-import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnail-view.module';
-import { DocumentRelatedInfoViewComponent } from './document-related-info-view/document-related-info-view.component';
 import { PreviewDialogModule } from '../preview-dialog/preview-dialog.module';
+import { DocumentRelatedInfoComponent } from './document-related-info.component';
+import { DocumentRelatedInfoViewComponent } from './document-related-info-view/document-related-info-view.component';
+import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    NgPipesModule,
     ThemeModule,
-    CreativeThumbnailViewModule,
     PreviewDialogModule,
+    DocumentThumbnailViewModule,
   ],
   declarations: [
     DocumentRelatedInfoComponent,

@@ -1,6 +1,4 @@
-.left { float: left; }
-.right { float: right; }
-.clear { clear: both; }
+@import '../../global-search-result/thumbnail-view.scss';
 .empty {
   width: 100% !important;
   padding: 40px 0 !important;

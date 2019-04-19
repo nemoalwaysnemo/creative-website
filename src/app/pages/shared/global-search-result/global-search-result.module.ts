@@ -8,7 +8,6 @@ import { PaginationModule } from '../pagination/pagination.module';
 import { SharedServiceModule } from '../services/shared-service.module';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { GlobalSearchResultComponent } from './global-search-result.component';
-import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnail-view.module';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 import { CreativeMyBrandSearchResultComponent } from './creative-my-brand-search-result/creative-my-brand-search-result.component';
 import { CreativeRecommendedBrandSearchResultComponent } from './creative-recommended-brand-search-result/creative-recommended-brand-search-result.component';
@@ -47,7 +46,6 @@ const COMPONENTS = [
     PreviewDialogModule,
     DocumentViewerModule,
     DocumentThumbnailViewModule,
-    CreativeThumbnailViewModule,
   ],
   declarations: [
     ...COMPONENTS,

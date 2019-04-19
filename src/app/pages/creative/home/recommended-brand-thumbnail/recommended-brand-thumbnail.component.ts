@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class RecommendedBrandThumbnailComponent implements OnInit, OnDestroy {
 
-  layout = 'recommendedBrand';
+  layout: string = 'third';
 
   loading: boolean = true;
 

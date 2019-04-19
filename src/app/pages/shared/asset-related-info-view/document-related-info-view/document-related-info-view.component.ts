@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { filter, mergeMap } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
 import { DocumentRelatedInfoService } from '../document-related-info.service';
@@ -15,6 +15,12 @@ import { BaseAutoSearch } from '@pages/shared/auto-search/base-auto-search';
 })
 export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
 
+  @ViewChild('backslashThumbnailItemView') private backslashItemView: TemplateRef<any>;
+
+  @ViewChild('disruptionThumbnailItemView') private disruptionItemView: TemplateRef<any>;
+
+  @ViewChild('intelligenceThumbnailItemView') private intelligenceItemView: TemplateRef<any>;
+
   @Input() item: any = {};
 
   @Input() document: DocumentModel;
@@ -22,6 +28,8 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
   private search$: Subject<any> = new Subject<any>();
 
   loading: boolean = true;
+
+  thumbnailItemView: TemplateRef<any>;
 
   edgeLoading: boolean = true;
 
@@ -37,7 +45,7 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
     private dialogService: PreviewDialogService,
   ) {
     super();
-   }
+  }
 
   onInit() {
     this.onSearch();
@@ -70,7 +78,20 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
       .pipe(
         filter((tabItem) => tabItem.name === this.item.name),
       )
-      .subscribe(() => {
+      .subscribe((tabItem) => {
+        switch (tabItem.layout) {
+          case 'backslash':
+            this.thumbnailItemView = this.backslashItemView;
+            break;
+          case 'disruption':
+            this.thumbnailItemView = this.disruptionItemView;
+            break;
+          case 'intelligence':
+            this.thumbnailItemView = this.intelligenceItemView;
+            break;
+          default:
+            break;
+        }
         if (this.documents.length === 0) {
           this.search$.next(this.getSearchParams());
         }

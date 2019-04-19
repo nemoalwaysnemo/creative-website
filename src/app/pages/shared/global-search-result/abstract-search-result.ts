@@ -23,7 +23,7 @@ export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   queryParams: NuxeoPageProviderParams = {};
 
-  protected multiView: boolean = false;
+  multiView: boolean = false;
 
   protected subscription: Subscription = new Subscription();
 
