@@ -1,6 +1,6 @@
 <div class="{{layout}}" [ngSwitch]="true">
   <tbwa-document-pdf-viewer *ngSwitchCase="getDocumentViewer(document) === 'pdf'" [document]="document"></tbwa-document-pdf-viewer>
-  <tbwa-document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document" [forDailog]="_forDailog"></tbwa-document-image-viewer>
-  <tbwa-document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [document]="document" [forDailog]="_forDailog" [autoPlay]="autoPlay"></tbwa-document-video-viewer>
+  <tbwa-document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document" [imageAsViewer]="imageAsViewer"></tbwa-document-image-viewer>
+  <tbwa-document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [document]="document" [storyboard]="storyboard" [autoPlay]="autoPlay"></tbwa-document-video-viewer>
   <tbwa-document-audio-viewer *ngSwitchCase="getDocumentViewer(document) === 'audio'" [document]="document"></tbwa-document-audio-viewer>
 </div>

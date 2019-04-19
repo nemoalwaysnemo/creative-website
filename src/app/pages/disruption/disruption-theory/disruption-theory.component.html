@@ -1,6 +1,6 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <tbwa-global-search-form [filters]="filters" [defaultParams]="defaultParams">
-      <button (click)="openForm(dialog)" class="icon_btn new_theory" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Theory">New Theory</button>
+  <button type="button" (click)="openForm(dialog)" class="icon_btn new_theory" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Asset">New Asset</button>
 </tbwa-global-search-form>
 <tbwa-disruption-roadmaps-asset-search-result></tbwa-disruption-roadmaps-asset-search-result>
 

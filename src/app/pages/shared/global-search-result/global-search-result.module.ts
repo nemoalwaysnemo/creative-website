@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ThemeModule } from '@theme/theme.module';
+import { PreviewDialogModule } from '../preview-dialog';
 import { ListViewModule } from '../list-view/list-view.module';
 import { PaginationModule } from '../pagination/pagination.module';
+import { SharedServiceModule } from '../services/shared-service.module';
+import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { GlobalSearchResultComponent } from './global-search-result.component';
 import { CreativeThumbnailViewModule } from '../creative-thumbnail-view/thumbnail-view.module';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
@@ -18,7 +21,6 @@ import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-
 import { DisruptionThinkingAssetSearchResultComponent } from './disruption-thinking-asset-search-result/disruption-thinking-asset-search-result.component';
 import { DisruptionFolderDayAssetSearchResultComponent } from './disruption-folder-day-asset-search-result/disruption-folder-day-asset-search-result.component';
 import { IntelligenceIndustrySearchResultComponent } from './intelligence-industry-search-result/intelligence-industry-search-result.component';
-import { SharedServiceModule } from '../services/shared-service.module';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -42,6 +44,8 @@ const COMPONENTS = [
     RouterModule,
     ListViewModule,
     PaginationModule,
+    PreviewDialogModule,
+    DocumentViewerModule,
     DocumentThumbnailViewModule,
     CreativeThumbnailViewModule,
   ],
@@ -52,6 +56,7 @@ const COMPONENTS = [
     ...COMPONENTS,
   ],
   providers: [
+    ...PreviewDialogModule.forRoot().providers,
     ...SharedServiceModule.forRoot().providers,
   ],
 })

@@ -13,14 +13,11 @@ export class DocumentViewerComponent {
 
   @Input() autoPlay: boolean = true;
 
-  @Input('forDailog')
-  set forDailog(forDailog) {
-    this._forDailog = forDailog;
-    this.layout = forDailog ? ' dialogSlides' : 'slides';
-  }
+  @Input() storyboard: boolean = true;
 
-  layout: string;
-  _forDailog: boolean;
+  @Input() imageAsViewer: boolean = true;
+
+  @Input() layout: 'dialogSlides' | 'slides' = 'slides';
 
   getDocumentViewer(doc: DocumentModel): string {
     let type = 'unkonw';

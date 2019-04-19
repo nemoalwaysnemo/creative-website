@@ -8,9 +8,13 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
   document: DocumentModel;
 
-  protected forDailog: boolean = true;
+  dialogLayout: string = 'dialogSlides';
 
-  private subscription: Subscription = new Subscription();
+  storyboard: boolean = false;
+
+  imageAsViewer: boolean = false;
+
+  protected subscription: Subscription = new Subscription();
 
   constructor(protected dialogService: PreviewDialogService) { }
 

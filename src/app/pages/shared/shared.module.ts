@@ -45,7 +45,7 @@ const EXPORTS = [
 ];
 
 const PROVIDERS = [
-  PreviewDialogService,
+  ...PreviewDialogModule.forRoot().providers,
 ];
 
 @NgModule({

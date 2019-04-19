@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
 import { BaseDialogBody } from '../../preview-dialog/base-dialog-body';
 
@@ -9,7 +9,7 @@ import { BaseDialogBody } from '../../preview-dialog/base-dialog-body';
 })
 export class BackslashDialogComponent extends BaseDialogBody {
 
-  private description: string;
+  description: string;
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);

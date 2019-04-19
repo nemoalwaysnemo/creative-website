@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 @Component({
   selector: 'tbwa-preview-dialog',
   styleUrls: ['./preview-dialog.component.scss'],

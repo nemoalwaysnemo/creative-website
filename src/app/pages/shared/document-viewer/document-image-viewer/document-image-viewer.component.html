@@ -1,14 +1,19 @@
-<ng-container *ngIf="forDailog;else imageViewer">
-  <img src="{{src}}">
+<ng-container [ngSwitch]="true">
+  <ng-container *ngSwitchCase="imageAsViewer !== true">
+    <div class="image-viewer">
+      <img src="{{src}}">
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="imageAsViewer === true">
+    <ngx-image-viewer [src]="src" [config]="{
+      allowFullscreen: false,
+      btnIcons: {
+        zoomIn: 'ion-arrow-expand',
+        zoomOut: 'ion-arrow-shrink',
+        rotateClockwise: 'ion-arrow-return-right',
+        rotateCounterClockwise: 'ion-arrow-return-left'
+      }
+    }">
+    </ngx-image-viewer>
+  </ng-container>
 </ng-container>
-<ng-template #imageViewer>
-  <ngx-image-viewer [src]="src" [config]="{
-    allowFullscreen: false,
-    btnIcons:
-    {zoomIn: 'ion-arrow-expand',
-    zoomOut: 'ion-arrow-shrink',
-    rotateClockwise: 'ion-arrow-return-right',
-    rotateCounterClockwise: 'ion-arrow-return-left'}
-  }">
-  </ngx-image-viewer>
-</ng-template>

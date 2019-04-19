@@ -1,12 +1,12 @@
 <div class="dialog_body">
   <div class="dialog_title text-center">
-<a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+    <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
     <h1>{{title}}</h1>
     <div class="clear"></div>
   </div>
   <ng-container *ngIf="document">
     <div class="media">
-      <tbwa-document-viewer [document]="document" [forDailog]="forDailog"></tbwa-document-viewer>
+      <tbwa-document-viewer [document]="document" [storyboard]="storyboard" [imageAsViewer]="imageAsViewer" [layout]="dialogLayout"></tbwa-document-viewer>
     </div>
   </ng-container>
   <ng-container *ngIf="document">

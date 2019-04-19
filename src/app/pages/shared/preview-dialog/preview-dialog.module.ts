@@ -6,6 +6,12 @@ import { NbDialogModule } from '@core/nebular/theme';
 import { PreviewDialogService } from './preview-dialog.service';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { DisruptionFormDayModule } from '../disruption-form-day/disruption-form-day.module';
+import { DisruptionAssetPreviewDialogBodyComponent } from './preview-dialog-body/disruption-asset-preview-dialog-body/disruption-asset-preview-dialog-body.component';
+
+const COMPONENTS = [
+  PreviewDialogComponent,
+  DisruptionAssetPreviewDialogBodyComponent,
+];
 
 @NgModule({
   imports: [
@@ -16,10 +22,10 @@ import { DisruptionFormDayModule } from '../disruption-form-day/disruption-form-
     NbDialogModule.forRoot(),
   ],
   declarations: [
-    PreviewDialogComponent,
+    ...COMPONENTS,
   ],
   exports: [
-    PreviewDialogComponent,
+    ...COMPONENTS,
   ],
 })
 export class PreviewDialogModule {
@@ -29,6 +35,7 @@ export class PreviewDialogModule {
       ngModule: PreviewDialogModule,
       providers: [
         PreviewDialogService,
+        ...NbDialogModule.forRoot().providers,
       ],
     };
   }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
@@ -7,14 +7,17 @@ import { DocumentModel } from '@core/api';
   templateUrl: './document-image-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocumentImageViewerComponent implements OnInit {
+export class DocumentImageViewerComponent {
 
   src: string[];
 
-  @Input() document: DocumentModel;
-  @Input() forDailog: boolean;
+  @Input() imageAsViewer: boolean = true;
 
-  ngOnInit() {
-    this.src = this.document.thumbnailUrl ? [this.document.thumbnailUrl] : ['assets/images/default.jpg'];
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.src = doc.thumbnailUrl ? [doc.thumbnailUrl] : ['assets/images/default.jpg'];
+    }
   }
+
 }
