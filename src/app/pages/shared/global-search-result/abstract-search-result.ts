@@ -1,11 +1,11 @@
+import { Input, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
+import { Subscription } from 'rxjs';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { ListViewItem } from '../list-view/list-view.interface';
-import { Subscription } from 'rxjs';
-import { Input } from '@angular/core';
 
-export abstract class BaseSearchResultComponent {
+export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
@@ -16,6 +16,8 @@ export abstract class BaseSearchResultComponent {
   listDocuments: ListViewItem[] = [];
 
   totalResults: number = 0;
+
+  listViewSetting: any = {};
 
   paginationService: PaginationDataSource = new PaginationDataSource();
 
@@ -31,12 +33,21 @@ export abstract class BaseSearchResultComponent {
   set listViewSettings(settings: any) {
     if (settings) {
       this.multiView = true;
+      this.listViewSetting = settings;
     }
   }
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
 
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
+  }
+
+  ngOnInit(): void {
+    this.onInit();
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy();
   }
 
   changeToGridView(): void {

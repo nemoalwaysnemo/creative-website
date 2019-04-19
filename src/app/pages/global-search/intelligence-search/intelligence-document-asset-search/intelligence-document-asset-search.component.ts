@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-intelligence-asset-search',
-  styleUrls: ['./intelligence-asset-search.component.scss'],
-  templateUrl: './intelligence-asset-search.component.html',
+  selector: 'tbwa-intelligence-document-asset-search',
+  templateUrl: './intelligence-document-asset-search.component.html',
 })
-export class IntelligenceAssetSearchComponent {
+export class IntelligenceDocumentAssetSearchComponent {
 
   defaultParams: any = {
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,

@@ -1,6 +1,6 @@
 <div *ngIf="layout === 'default'" class="thumbnail-view-item {{styleClass}}">
   <div class="image-holder">
-    <a *ngIf="assetType == 'intelligence'" routerLink="/p/intelligence/assets" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+    <a *ngIf="assetType == 'intelligence'" routerLink="/p/intelligence/asset" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
     <a *ngIf="assetType !== 'intelligence'" routerLink="/p/creative/{{documentType}}" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
   </div>
   <div class="description">

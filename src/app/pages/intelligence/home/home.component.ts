@@ -1,6 +1,5 @@
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 
@@ -38,11 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
   constructor(
-    private router: Router,
     private advanceSearch: AdvanceSearch) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
   }
 
   ngOnInit() {

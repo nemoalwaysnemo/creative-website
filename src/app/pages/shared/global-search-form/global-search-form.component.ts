@@ -64,7 +64,8 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   set baseParams(params: any) {
     this.pageChangedSearch = false;
     if (params) {
-      this.onInputChangedSearch(params);
+      this.searchParams = Object.assign({}, this._defaultParams, params);
+      this.onInputChangedSearch(this.searchParams);
     }
   }
 
@@ -87,11 +88,11 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   onKeyup(value: string): void {
-    this.search$.next(value);
+    this.onTypeahead(value).subscribe();
   }
 
   onFilterClose(value: any): void {
-    this.search$.next(this.getFormValue().ecm_fulltext || '');
+    this.onTypeahead(value).subscribe();
   }
 
   toggleFilter(): void {
@@ -112,18 +113,15 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private onInputChangedSearch(params: any = {}): void {
-    this.searchParams = Object.assign({}, this._defaultParams, params);
-    const queryParams = this.activatedRoute.snapshot.queryParams;
-    let parsedParams = this.parseToFormValues(queryParams);
-    parsedParams = selectObjectByKeys(parsedParams, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
+    const queryParams = Object.assign({}, this.activatedRoute.snapshot.queryParams, params);
+    const parsedParams = this.parseToFormValues(queryParams);
     this.patchFormValue(parsedParams);
-    this.search(Object.assign({}, this.searchParams, parsedParams)).subscribe();
+    this.search(parsedParams).subscribe();
   }
 
-  private onQuerySearch(params: any = {}): void {
-    const queryParams = params || {};
-    let parsedParams = this.parseToFormValues(queryParams);
-    parsedParams = selectObjectByKeys(parsedParams, ['ecm_fulltext', 'pageSize', 'currentPageIndex', 'aggregates']);
+  private onQuerySearch(queryParams: any = {}): void {
+    const params = queryParams || {};
+    const parsedParams = this.parseToFormValues(params);
     this.patchFormValue(parsedParams);
     this.search(parsedParams).subscribe();
   }
@@ -155,7 +153,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private parseToFormValues(queryParams: any = {}): object {
-    const params = Object.assign({ aggregates: {} }, this._defaultParams);
+    const params = Object.assign({ aggregates: {} }, this.searchParams);
     params.ecm_fulltext = queryParams.q || '';
     const keys = Object.keys(queryParams);
     for (const key of keys) {
@@ -211,7 +209,6 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private onSearch(): void {
-    this.onSearchEvent();
     this.onBeforeSearch();
     this.onAfterSearch();
   }
@@ -238,14 +235,6 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
       }),
     ).subscribe((_: any) => {
       this.submitted = false;
-    });
-    this.subscription.add(subscription);
-  }
-
-  private getSearchAggregates(): void {
-    const subscription = this.advanceSearch.requestSearchFilters(this.searchParams).subscribe((aggregateModels: AggregateModel[]) => {
-      this.changeSearchFilter(aggregateModels);
-      this.hasAggs = true;
     });
     this.subscription.add(subscription);
   }

@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { IntelligenceSearchComponent } from './intelligence-search.component';
-import { IntelligenceAssetSearchComponent } from './intelligence-asset-search/intelligence-asset-search.component';
+import { IntelligenceDocumentAssetSearchComponent } from './intelligence-document-asset-search/intelligence-document-asset-search.component';
 
 const routes: Routes = [{
   path: '',
@@ -9,11 +9,11 @@ const routes: Routes = [{
   children: [
     {
       path: 'asset',
-      component: IntelligenceAssetSearchComponent,
+      component: IntelligenceDocumentAssetSearchComponent,
     },
     {
       path: '',
-      component: IntelligenceAssetSearchComponent,
+      component: IntelligenceDocumentAssetSearchComponent,
       pathMatch: 'full',
     },
   ],

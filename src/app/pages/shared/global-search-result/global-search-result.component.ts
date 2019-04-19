@@ -16,12 +16,4 @@ export class GlobalSearchResultComponent extends BaseSearchResultComponent imple
     super(advanceSearch, queryParamsService);
   }
 
-  ngOnInit(): void {
-    this.onInit();
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy();
-  }
-
 }

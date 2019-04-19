@@ -4,7 +4,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { IntelligenceSearchRoutingModule } from './intelligence-search-routing.module';
 import { IntelligenceSearchComponent } from './intelligence-search.component';
-import { IntelligenceAssetSearchComponent } from './intelligence-asset-search/intelligence-asset-search.component';
+import { IntelligenceDocumentAssetSearchComponent } from './intelligence-document-asset-search/intelligence-document-asset-search.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { IntelligenceAssetSearchComponent } from './intelligence-asset-search/in
   ],
   declarations: [
     IntelligenceSearchComponent,
-    IntelligenceAssetSearchComponent,
+    IntelligenceDocumentAssetSearchComponent,
   ],
 })
 export class IntelligenceSearchModule {

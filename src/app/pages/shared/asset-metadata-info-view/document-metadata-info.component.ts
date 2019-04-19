@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService } from '@core/api';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment.na-dev';
 import { getDocumentTypes } from '@core/services';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'tbwa-document-metadata-info',
@@ -20,19 +20,20 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
 
   jobLoading = true;
 
-  backPath: string;
-
   private subscription: Subscription = new Subscription();
 
   @Input() document: DocumentModel;
 
-  constructor(private advanceSearch: AdvanceSearch, private nuxeoApi: NuxeoApiService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private advanceSearch: AdvanceSearch,
+    private nuxeoApi: NuxeoApiService,
+    private location: Location,
+  ) { }
 
   ngOnInit() {
     if (this.isCreativeAsset(this.document)) {
       this.getUsageRightsStatus();
     }
-    this.backPath = '/#/p/disruption/days/folders?id=' + this.activatedRoute.snapshot.queryParams.folder;
   }
 
   ngOnDestroy() {
@@ -65,6 +66,10 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
 
   parseCountry(list: string[]) {
     return list.map((x) => x.split('/').pop()).join(', ');
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   private getUsageRightsStatus(): void {

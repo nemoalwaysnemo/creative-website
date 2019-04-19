@@ -40,7 +40,7 @@
     </table>
     <a *ngIf="document.filePath" href="{{document.filePath}}" class="download right" title="Download">Download</a>
     <a href="{{document.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
-    <a href="{{backPath}}" class="back right" title="Back">Back</a>
+    <a href="javascript:void(0)" (click)="goBack()" class="back right" title="Back">Back</a>
   </ng-container>
   <ng-container *ngSwitchCase="isCreativeAsset(document)">
     <h2>{{document.title}}</h2>
@@ -108,5 +108,6 @@
     </nb-accordion>
     <a *ngIf="document.filePath" href="{{document.filePath}}" class="download right" title="Download">Download</a>
     <a href="{{document.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
+    <a href="javascript:void(0)" (click)="goBack()" class="back right" title="Back">Back</a>
   </ng-container>
 </ng-container>
