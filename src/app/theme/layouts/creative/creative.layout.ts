@@ -21,7 +21,7 @@ import { StateService } from '@core/services/state.service';
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" [@scroll]="isOpen? 'expand' : 'hide'" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'">
+      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
@@ -38,22 +38,22 @@ import { StateService } from '@core/services/state.service';
       </nb-sidebar>
     </nb-layout>
   `,
-  animations: [
-    trigger('scroll', [
-      state('hide', style({
-            width: '0px',
-      })),
-      state('expand', style({
-            width: '77px',
-      })),
-      transition('hide => expand', [
-        animate('0.05s'),
-      ]),
-      transition('expand => hide', [
-        animate('0.05s'),
-      ]),
-    ]),
-  ],
+  // animations: [
+  //   trigger('scroll', [
+  //     state('hide', style({
+  //           width: '0px',
+  //     })),
+  //     state('expand', style({
+  //           width: '77px',
+  //     })),
+  //     transition('hide => expand', [
+  //       animate('0.05s'),
+  //     ]),
+  //     transition('expand => hide', [
+  //       animate('0.05s'),
+  //     ]),
+  //   ]),
+  // ],
 })
 export class CreativeLayoutComponent implements OnDestroy {
 
@@ -98,7 +98,7 @@ export class CreativeLayoutComponent implements OnDestroy {
         this.sidebar = sidebar;
       });
 
-    const isBp = this.bpService.getByName('is');
+    const isBp = this.bpService.getByName('xl');
     this.menuService.onItemSelect()
       .pipe(
         takeWhile(() => this.alive),
@@ -106,7 +106,6 @@ export class CreativeLayoutComponent implements OnDestroy {
         delay(20),
       )
       .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
-
         if (bpTo.width <= isBp.width) {
           this.sidebarService.collapse('menu-sidebar');
         }

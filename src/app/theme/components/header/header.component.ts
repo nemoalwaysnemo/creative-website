@@ -3,8 +3,8 @@ import { UserService, UserModel } from '@core/api';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Environment } from '@environment/environment';
-import { NbMenuService, NbMenuItem } from '@core/nebular/theme';
-import { distinctUntilChanged, filter, map, pairwise, share, throttleTime, takeWhile } from 'rxjs/operators';
+import { NbMenuService, NbMenuItem, NbMediaBreakpointsService, NbThemeService, NbMediaBreakpoint} from '@core/nebular/theme';
+import { delay, distinctUntilChanged, filter, map, pairwise, share, throttleTime, withLatestFrom } from 'rxjs/operators';
 import { NbSidebarService } from '@core/nebular/theme/components/sidebar/sidebar.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
@@ -27,7 +27,7 @@ enum Direction {
             top: '22px',
       })),
       state('actionDisappear', style({
-            top: '-35px',
+            top: '-44px',
       })),
       transition('actionExist => actionDisappear', [
         animate('0.1s'),
@@ -48,10 +48,12 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   logo: boolean = true;
   headerHide: any;
   constructor(private router: Router, private menuService: NbMenuService,
-              private userService: UserService, private sidebarService: NbSidebarService,
+              protected bpService: NbMediaBreakpointsService,
+              protected themeService: NbThemeService,
+              private userService: UserService, protected sidebarService: NbSidebarService,
               protected scrollService: NbLayoutScrollService) { }
   isOpen = true;
-
+  sidebarSetting = false;
   ngOnInit() {
     this.getUser();
     this.updateHeaderTitle();
@@ -69,6 +71,18 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isOpen = !this.isOpen;
       }
     });
+
+    const isBp = this.bpService.getByName('xl');
+    this.menuService.onItemSelect()
+      .pipe(
+        withLatestFrom(this.themeService.onMediaQueryChange()),
+        delay(20),
+      )
+      .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
+        if (bpTo.width <= isBp.width) {
+          this.sidebarSetting = true;
+        }
+      });
   }
 
   ngAfterViewInit() {
@@ -103,7 +117,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   goHome() {
     this.router.navigate([Environment.homePath]);
   }
-
+  sidebarToggle() {
+    this.sidebarService.toggle(true, 'menu-sidebar');
+  }
   private getUser(): void {
     const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {
       this.user = user;
