@@ -11,7 +11,7 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
 
   title: string;
 
-  @Input() moreInfo: boolean = true;
+  @Input() moreInfo: boolean = false;
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);

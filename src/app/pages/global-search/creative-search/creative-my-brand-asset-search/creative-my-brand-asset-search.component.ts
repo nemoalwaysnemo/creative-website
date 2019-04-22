@@ -21,7 +21,6 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
     'the_loupe_main_brand_agg': { placeholder: 'Brand' },
     'the_loupe_main_clientName_agg': { placeholder: 'Client' },
     'app_edges_industry_agg': { placeholder: 'Industry' },
-    'the_loupe_main_campaign_agg': { placeholder: 'Campaign' },
     'app_edges_backslash_category_agg': { placeholder: 'Category' },
     'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
@@ -35,7 +34,7 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
 
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc;
-    this.baseParams$.next(this.buildAssetsParams());
+    this.baseParams$.next(this.buildAssetsParams(doc));
   }
 
   protected getDefaultDocumentParams(): any {
@@ -45,13 +44,16 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
     };
   }
 
-  protected buildAssetsParams(): any {
-    return {
+  protected buildAssetsParams(doc?: DocumentModel): any {
+    const params = {
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
       pageSize: 20,
-      ecm_path: '',
       ecm_fulltext: '',
     };
+    if (doc) {
+      params['ecm_path'] = doc.path;
+    }
+    return params;
   }
 }

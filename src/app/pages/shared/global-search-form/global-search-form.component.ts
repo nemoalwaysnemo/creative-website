@@ -5,7 +5,7 @@ import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map } from 'rxjs/operators';
 import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { selectObjectByKeys } from '@core/services';
+import { removeUselessObject } from '@core/services';
 
 class PageChangedInfo {
   readonly queryParams: Params;
@@ -79,11 +79,11 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     this.onInit();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.changeSearchFilter([]);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
@@ -126,13 +126,13 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     this.search(parsedParams).subscribe();
   }
 
-  private onInit() {
+  private onInit(): void {
     this.onSearch();
     this.createForm();
     this.onCurrentPageChanged();
   }
 
-  private onSearchEvent() {
+  private onSearchEvent(): void {
     const subscription = this.search$.pipe(
       filter((searchTerm: string) => searchTerm !== null),
       debounceTime(100),
@@ -143,11 +143,12 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private search(searchParams: any = {}): Observable<SearchResponse> {
-    const params = Object.assign({}, this.searchParams, searchParams, this.getFormValue());
+    let params = Object.assign({}, this.searchParams, searchParams, this.getFormValue());
+    params = removeUselessObject(params, ['q', 'id', 'folder']);
     return this.advanceSearch.search(this.queryParamsService.buildSearchParams(params), { skipAggregates: false });
   }
 
-  private createForm() {
+  private createForm(): void {
     const params = Object.assign({ aggregates: {} }, this._defaultParams);
     this.searchForm = this.formBuilder.group(params);
   }

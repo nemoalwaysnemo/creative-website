@@ -214,10 +214,15 @@ export function filterParams(p: object): any {
   return _;
 }
 
-export function selectObjectByKeys(p: object = {}, keys: any = []): any {
+export function selectObjectByKeys(p: object = {}, keys: string[] = []): any {
   const _ = {};
   Object.keys(p).filter(key => keys.includes(key)).forEach(key => { _[key] = p[key]; });
   return _;
+}
+
+export function removeUselessObject(p: object = {}, keys: string[] = []): any {
+  keys.forEach((k) => { p.hasOwnProperty(k) ? delete p[k] : null; });
+  return p;
 }
 
 export function isDocumentUID(uid: string): boolean {

@@ -53,7 +53,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
     return this.advanceSearch.request(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }));
   }
 
-  protected getDefaultDocument(primaryKey: string, params: any = {}, cacheDocument: DocumentModel): Observable<DocumentModel> {
+  protected getDefaultDocument(primaryKey: string, params: any = {}): Observable<DocumentModel> {
     return this.activatedRoute.queryParams
       .pipe(
         tap(queryParams => {
@@ -61,7 +61,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
             this.onInvalidDocumentUID(queryParams[primaryKey]);
           }
         }),
-        filter(queryParams => !cacheDocument && isDocumentUID(queryParams[primaryKey])),
+        filter(queryParams => !this.document && isDocumentUID(queryParams[primaryKey])),
         distinctUntilChanged(),
         switchMap(queryParams => this.getDocumentModel(queryParams[primaryKey], params)),
         map((res: NuxeoPagination) => res.entries.shift()),
@@ -69,7 +69,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
   }
 
   protected onQueryParamsChanged(): void {
-    const subscription = this.getDefaultDocument(this.primaryKey, this.getDefaultDocumentParams(), this.document)
+    const subscription = this.getDefaultDocument(this.primaryKey, this.getDefaultDocumentParams())
       .subscribe((doc: DocumentModel) => {
         this.loading = false;
         this.setCurrentDocument(doc);
