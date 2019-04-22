@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
   params: any = {
     pageSize: 10,
-    ecm_path: NUXEO_META_INFO.CREATIVE_BASE_FOLDER_PATH + '/TBWA-',
+    ecm_path: NUXEO_META_INFO.CREATIVE_BASE_FOLDER_PATH + 'TBWA-',
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 

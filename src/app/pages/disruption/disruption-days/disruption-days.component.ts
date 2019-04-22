@@ -24,7 +24,7 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
     pageSize: 1,
     currentPageIndex: 0,
     ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_TYPE,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_FOLDER_TYPE,
   };
 
   tabs = TAB_CONFIG;
