@@ -65,3 +65,36 @@ ul {
 	}
 	li + li { margin-left: 62px; }
 }
+.dates {
+  height: 100%;
+	border: none;
+  box-sizing: border-box;
+  h4, .line {
+    display: inline-block;
+    vertical-align: middle;
+		margin-bottom: 16px;
+  }
+  h4 {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 15px;
+    cursor: default;
+  }
+  .line {
+    width: 73px;
+    height: 2px;
+    margin-bottom: 0;
+    margin-left: 7px;
+    background: #2a2a2a;
+  }
+  img {
+    width: 100%;
+    height: 148px;
+  }
+  a {
+    color: #2a2a2a;
+		&:hover {
+			color: #2a2a2a;
+			text-decoration: none;
+		}
+  }
+}
