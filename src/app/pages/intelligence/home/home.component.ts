@@ -21,21 +21,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   params: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+    ecm_path: NUXEO_META_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
   };
+
   folderParams: any = {
     pageSize: 3,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+    ecm_path: NUXEO_META_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_FOLDER_TYPE,
   };
+
   private backgroudParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
     ecm_path: NUXEO_META_INFO.BACKGROUND_PATH,
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
+
   constructor(
     private advanceSearch: AdvanceSearch) {
   }
