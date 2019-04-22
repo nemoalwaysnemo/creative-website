@@ -22,6 +22,5 @@ export * from './preview-dialog/preview-dialog.module';
 export * from './preview-dialog/preview-dialog.service';
 export * from './services/search-query-params.service';
 export * from './abstract-classes/abstract-document-view.component';
-export * from './shared-config';
 export * from './services/shared-service.module';
 export * from './option-tag/option-tag.module';

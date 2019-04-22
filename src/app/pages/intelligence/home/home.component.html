@@ -1,5 +1,6 @@
 <div class="intelligence-home-form">
-  <tbwa-home-search-form [redirectUrl]="'/p/search/intelligence/asset'" [headline]="headline" [subHead]="subHead" [placeholder]="placeholder" [backgroudDocument]="document" [params]="params"></tbwa-home-search-form>
+  <tbwa-home-search-form [assetUrl]="'/p/intelligence/asset'" [redirectUrl]="'/p/search/intelligence/asset'" [headline]="headline" [subHead]="subHead" [placeholder]="placeholder" [backgroudDocument]="document" [params]="params">
+  </tbwa-home-search-form>
 </div>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document flex third">
   <div *ngFor="let document of folders">

@@ -15,6 +15,15 @@ class PageChangedInfo {
   }
 }
 
+class SearchParams {
+  readonly params: { [k: string]: any } = {};
+  readonly event: string;
+  constructor(params: any = {}, event: string) {
+    this.params = params;
+    this.event = event;
+  }
+}
+
 @Component({
   selector: 'tbwa-global-search-form',
   styleUrls: ['./global-search-form.component.scss'],
@@ -34,11 +43,11 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  private search$: Subject<any> = new Subject();
+  private search$: Subject<SearchParams> = new Subject();
 
   private pageChangedSearch: boolean = true;
 
-  private _defaultParams: any = {
+  private params: any = {
     currentPageIndex: 0,
     pageSize: 20,
     ecm_fulltext: '',
@@ -55,17 +64,15 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   @Input()
   set defaultParams(params: any) {
     this.pageChangedSearch = true;
-    if (params) {
-      this.searchParams = Object.assign({}, this._defaultParams, params);
-    }
+    this.setSearchParams(params);
   }
 
   @Input()
   set baseParams(params: any) {
     this.pageChangedSearch = false;
-    if (params) {
-      this.searchParams = Object.assign({}, this._defaultParams, params);
-      this.onInputChangedSearch(this.searchParams);
+    if (params && Object.keys(params).length > 0) {
+      this.setSearchParams(params);
+      this.onParentChanged(this.getSearchParams());
     }
   }
 
@@ -80,19 +87,19 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.changeSearchFilter([]);
+    this.buildSearchFilter([]);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  onKeyup(value: string): void {
-    this.onTypeahead(value).subscribe();
+  onKeyup(event: any): void {
+    this.onKeywordChanged(event.target.value);
   }
 
-  onFilterClose(value: any): void {
-    this.onTypeahead(value).subscribe();
+  onFilterBlur(aggregateModel: any): void {
+    this.onFilterChanged(aggregateModel);
   }
 
   toggleFilter(): void {
@@ -105,57 +112,20 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     return this.filters && Object.keys(this.filters).length > 0;
   }
 
-  private onTypeahead(searchTerm: string): Observable<SearchResponse> {
-    if (this.showQuery) {
-      this.changeQueryParams();
-    }
-    return this.search({ currentPageIndex: 0, ecm_fulltext: searchTerm });
-  }
-
-  private onInputChangedSearch(params: any = {}): void {
-    const queryParams = Object.assign({}, this.activatedRoute.snapshot.queryParams, params);
-    const parsedParams = this.parseToFormValues(queryParams);
-    this.patchFormValue(parsedParams);
-    this.search(parsedParams).subscribe();
-  }
-
-  private onQuerySearch(queryParams: any = {}): void {
-    const params = queryParams || {};
-    const parsedParams = this.parseToFormValues(params);
-    this.patchFormValue(parsedParams);
-    this.search(parsedParams).subscribe();
-  }
-
   private onInit(): void {
-    this.onSearch();
-    this.createForm();
+    this.buildSearchForm();
+    this.onSearchTriggered();
+    this.onSearchPerformed();
     this.onCurrentPageChanged();
   }
 
-  private onSearchEvent(): void {
-    const subscription = this.search$.pipe(
-      filter((searchTerm: string) => searchTerm !== null),
-      debounceTime(100),
-      distinctUntilChanged(),
-      switchMap((searchTerm: string) => this.onTypeahead(searchTerm)),
-    ).subscribe();
-    this.subscription.add(subscription);
+  private buildSearchForm(params: any = {}): void {
+    const controls = Object.assign({ aggregates: {} }, this.params, params);
+    this.searchForm = this.formBuilder.group(controls);
   }
 
-  private search(searchParams: any = {}): Observable<SearchResponse> {
-    let params = Object.assign({}, this.searchParams, searchParams, this.getFormValue());
-    params = removeUselessObject(params, ['q', 'id', 'folder']);
-    return this.advanceSearch.search(this.queryParamsService.buildSearchParams(params), { skipAggregates: false });
-  }
-
-  private createForm(): void {
-    const params = Object.assign({ aggregates: {} }, this._defaultParams);
-    this.searchForm = this.formBuilder.group(params);
-  }
-
-  private parseToFormValues(queryParams: any = {}): object {
-    const params = Object.assign({ aggregates: {} }, this.searchParams);
-    params.ecm_fulltext = queryParams.q || '';
+  private buildFormValues(queryParams: any = {}): object {
+    const params = { aggregates: {}, ecm_fulltext: queryParams.q || '' };
     const keys = Object.keys(queryParams);
     for (const key of keys) {
       if (key.includes('_agg')) {
@@ -175,9 +145,53 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     return this.searchForm.getRawValue();
   }
 
+  private onQueryParamsChanged(queryParams: any = {}): void {
+    queryParams = queryParams || {};
+    const queryValues = this.buildFormValues(queryParams);
+    const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), queryValues);
+    this.search$.next({ params, event: 'onQueryParamsChanged' });
+  }
+
+  private onParentChanged(parentParams: any = {}): void {
+    const queryValues = this.buildFormValues(this.activatedRoute.snapshot.queryParams);
+    const params = Object.assign({}, this.getSearchParams(), parentParams, this.getFormValue(), queryValues);
+    this.search$.next({ params, event: 'onParentChanged' });
+  }
+
+  private onKeywordChanged(searchTerm: string): void {
+    let params = { currentPageIndex: 0, ecm_fulltext: searchTerm };
+    params = Object.assign({}, this.getSearchParams(), this.getFormValue(), params);
+    this.search$.next({ params, event: 'onKeywordChanged' });
+  }
+
+  private onFilterChanged(aggregateModel: any = {}): void {
+    const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), { aggregates: aggregateModel });
+    this.search$.next({ params, event: 'onFilterChanged' });
+  }
+
+  private onSearchPerformed(): void {
+    const subscription = this.search$.pipe(
+      debounceTime(100),
+      distinctUntilChanged(),
+      filter((params: SearchParams) => params.params && Object.keys(params.params).length > 0),
+      switchMap((params: SearchParams) => this.performSearch(params)),
+    ).subscribe();
+    this.subscription.add(subscription);
+  }
+
+  private setSearchParams(params: any = {}): void {
+    if (params && Object.keys(params).length > 0) {
+      this.searchParams = Object.assign({}, this.params, params);
+    }
+  }
+
+  private getSearchParams(): any {
+    return this.searchParams;
+  }
+
   private changeQueryParams(): void {
     const queryParams = this.queryParamsService.buildQueryParams(this.getFormValue());
-    this.queryParamsService.changeQueryParams(queryParams, { type: 'typeahead' });
+    this.queryParamsService.changeQueryParams(queryParams, { type: 'keyword' });
   }
 
   private hasFilterQueryParams(queryParams: {}): boolean {
@@ -186,7 +200,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   private checkPageChanged(info: PageChangedInfo): boolean {
     const type = info.historyState.type;
-    return (this.pageChangedSearch && type !== 'typeahead') || (!this.pageChangedSearch && type === 'pagination');
+    return (this.pageChangedSearch && type !== 'keyword') || (!this.pageChangedSearch && type === 'pagination');
   }
 
   private onPageChanged(): Observable<PageChangedInfo> {
@@ -201,7 +215,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
       delay(100),
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
-      this.onQuerySearch(info.queryParams);
+      this.onQueryParamsChanged(info.queryParams);
       if (this.hasFilterQueryParams(info.queryParams)) {
         this.showFilter = true;
       }
@@ -209,7 +223,36 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  private onSearch(): void {
+  private performSearch(params: SearchParams): Observable<SearchResponse> {
+    let searchParams = params.params;
+    switch (params.event) {
+      case 'onCurrentPageChanged':
+        this.patchFormValue(params.params);
+        break;
+      case 'onQueryParamsChanged':
+        this.patchFormValue(params.params);
+        break;
+      case 'onParentChanged':
+        this.patchFormValue(params.params);
+        break;
+      case 'onKeywordChanged':
+        this.changeQueryParams();
+        break;
+      case 'onFilterChanged':
+        this.changeQueryParams();
+        break;
+      default:
+        break;
+    }
+    searchParams = removeUselessObject(searchParams, ['q', 'id', 'folder']);
+    return this.search(searchParams);
+  }
+
+  private search(searchParams: any = {}): Observable<SearchResponse> {
+    return this.advanceSearch.search(this.queryParamsService.buildSearchParams(searchParams), { skipAggregates: false });
+  }
+
+  private onSearchTriggered(): void {
     this.onBeforeSearch();
     this.onAfterSearch();
   }
@@ -229,7 +272,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
       tap(({ response }) => {
         const aggregateModels = this.advanceSearch.buildAggregateModels(response);
         const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
-          this.changeSearchFilter(models);
+          this.buildSearchFilter(models);
           this.hasAggs = true;
         });
         this.subscription.add(subscription1);
@@ -240,7 +283,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  private changeSearchFilter(aggregateModels: AggregateModel[] = []): void {
+  private buildSearchFilter(aggregateModels: AggregateModel[] = []): void {
     this.aggregateModels$.next(filterAggregates(this.filters, aggregateModels));
   }
 

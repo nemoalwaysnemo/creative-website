@@ -22,20 +22,20 @@ export class AdvanceSearch extends AbstractPageProvider {
   }
 
   requestIDsOfAggregates(models: AggregateModel[]): Observable<AggregateModel[]> {
-    let ids = [];
-    models.forEach((model: AggregateModel) => { ids = ids.concat(model.IDKeys); });
-    if (ids.length > 0) {
-      return this.request({ ecm_uuid: `["${ids.join('", "')}"]`, pageSize: 999 }).pipe(
-        map((response: NuxeoPagination) => {
-          const list: any = {};
-          response.entries.forEach((doc: DocumentModel) => { list[doc.uid] = doc.title; });
-          for (const model of models) {
-            model.replaceIDWithName(list);
-          }
-          return models;
-        }),
-      );
-    }
+    // let ids = [];
+    // models.forEach((model: AggregateModel) => { ids = ids.concat(model.IDKeys); });
+    // if (ids.length > 0) {
+    //   return this.request({ ecm_uuid: `["${ids.join('", "')}"]`, pageSize: 999 }).pipe(
+    //     map((response: NuxeoPagination) => {
+    //       const list: any = {};
+    //       response.entries.forEach((doc: DocumentModel) => { list[doc.uid] = doc.title; });
+    //       for (const model of models) {
+    //         model.replaceIDWithName(list);
+    //       }
+    //       return models;
+    //     }),
+    //   );
+    // }
     return observableOf(models);
   }
 

@@ -21,7 +21,6 @@ export class CreativeRecommendedBrandAssetSearchComponent extends AbstractDocume
     'the_loupe_main_brand_agg': { placeholder: 'Brand' },
     'the_loupe_main_clientName_agg': { placeholder: 'Client' },
     'app_edges_industry_agg': { placeholder: 'Industry' },
-    'the_loupe_main_campaign_agg': { placeholder: 'Campaign' },
     'app_edges_backslash_category_agg': { placeholder: 'Category' },
     'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };

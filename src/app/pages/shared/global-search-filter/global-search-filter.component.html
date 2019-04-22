@@ -1,6 +1,6 @@
 <div class="advanced_filters flex">
   <div *ngFor="let item of aggregates" class="dropdown_container">
-    <tbwa-option-select (close)="onClose()" [(ngModel)]="aggregateModel[item.id]" (ngModelChange)="onChange()" [items]="item.options" [placeholder]="item.placeholder" [className]="item.id" [disabled]="disabled" class="form-control">
+    <tbwa-option-select (blur)="onBlur()" [(ngModel)]="aggregateModel[item.id]" (ngModelChange)="onChange()" [items]="item.options" [placeholder]="item.placeholder" [className]="item.id" [disabled]="disabled" class="form-control">
     </tbwa-option-select>
   </div>
 </div>

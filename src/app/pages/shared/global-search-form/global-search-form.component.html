@@ -12,6 +12,6 @@
   </div>
   <div class="clear"></div>
   <ng-container *ngIf="hasFilters() && showFilter">
-    <tbwa-global-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted" (close)="onFilterClose($event)"></tbwa-global-search-filter>
+    <tbwa-global-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted" (blur)="onFilterBlur($event)"></tbwa-global-search-filter>
   </ng-container>
 </form>

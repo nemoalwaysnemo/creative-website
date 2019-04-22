@@ -40,7 +40,7 @@ export class OptionSelectComponent implements ControlValueAccessor {
 
   @Output() selected: EventEmitter<OptionModel[]> = new EventEmitter();
 
-  @Output() close: EventEmitter<OptionModel[]> = new EventEmitter();
+  @Output() blur: EventEmitter<OptionModel[]> = new EventEmitter();
 
   constructor() {
     this.options$ = new BehaviorSubject<OptionModel[]>([]);
@@ -53,8 +53,8 @@ export class OptionSelectComponent implements ControlValueAccessor {
     }
   }
 
-  onClose(event: OptionModel[]) {
-    this.close.next(event);
+  onBlur(event: OptionModel[]) {
+    this.blur.next(event);
   }
 
   writeValue(value: any): void {
