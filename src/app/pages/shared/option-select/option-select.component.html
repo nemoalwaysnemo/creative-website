@@ -13,7 +13,7 @@
   [closeOnSelect]="false"
   [clearOnBackspace]="true"
   (change)="onChange($event)"
-  (close)="onClose($event)"
+  (blur)="onBlur($event)"
   [(ngModel)]="selectedItems"
 >
 <ng-template ng-option-tmp let-item="item">

@@ -37,6 +37,8 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() placeholder: string;
 
+  @Input() assetUrl: string;
+
   @Input() redirectUrl: string;
 
   @Input()

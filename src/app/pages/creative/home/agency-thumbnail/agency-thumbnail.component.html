@@ -1,6 +1,6 @@
 <div class="agency-thumbnail">
   <h1 class="left">Best of TBWA\Worldwide</h1>
-  <a routerLink="/p/search/creative/asset" [queryParams]="{type: 'asset'}" class="see_all right">See all</a>
+  <a routerLink="/p/search/creative/asset" [queryParams]="{app_global_networkshare: true}" class="see_all right">See all</a>
   <div class="clear"></div>
   <document-thumbnail-view [loading]="loading" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 </div>

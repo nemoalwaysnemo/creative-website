@@ -32,15 +32,15 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
 
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
-  @Output() close: EventEmitter<any> = new EventEmitter();
+  @Output() blur: EventEmitter<any> = new EventEmitter();
 
   onChange() {
     this._onChange(this.aggregateModel);
     this.selected.emit(this.aggregateModel);
   }
 
-  onClose() {
-    this.close.next(this.aggregateModel);
+  onBlur() {
+    this.blur.next(this.aggregateModel);
   }
 
   writeValue(value: any): void {
