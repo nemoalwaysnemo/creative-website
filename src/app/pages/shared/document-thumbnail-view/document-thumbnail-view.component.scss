@@ -36,9 +36,30 @@
 .s-results {
   width: calc(100% - 76px);
   min-height: 100px;
-  margin: 7px auto 0;
+  margin: 0 auto;
+  background: #ffffff;
+  &.suggestion-inline {
+    @include media-breakpoint-down(lg) { //992px
+      width: 700px;
+    }
+    @include media-breakpoint-between(lg, xxl) { //992px - 1400px
+      width: 850px;
+    }
+    @include media-breakpoint-up(xxl) { //1400px
+      width: 1209px;
+    }
+    height: 70vh;
+    margin-left: 40px;
+    padding: 33px 43px;
+    box-sizing: border-box;
+    overflow: auto;
+    > .thumbnail-view-item {
+      height: 144px;
+      padding: 0;
+      margin: 8px 0;
+    }
+  }
   > .thumbnail-view-item {
-    width: 25%;
     padding: 18px 39px 18px 0;
     box-sizing: border-box;
   }

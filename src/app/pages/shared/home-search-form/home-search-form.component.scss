@@ -11,7 +11,6 @@ $main-yellow: #fecc00;
   padding: 0;
   box-sizing: border-box;
 }
-
 .filter-wrapper {
   position: relative;
   display: block;
@@ -47,12 +46,10 @@ $main-yellow: #fecc00;
     color: #ffffff;
   }
 }
-
 .keyword-wrapper {
   position: relative;
   margin-left: 40px;
 }
-
 .keyword {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   display: block;
@@ -73,11 +70,7 @@ $main-yellow: #fecc00;
   background: #ffffff url('/assets/images/search_icon.png') no-repeat 38px center;
   border: none;
   outline: 0;
-}
-
-.keyword:focus {
-  border-color: rgba(81, 203, 238, 1);
-  ;
+  &:focus { border-color: rgba(81, 203, 238, 1); }
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #b1b1b1;
@@ -90,4 +83,53 @@ $main-yellow: #fecc00;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #b1b1b1;
+}
+.thumbnail-view-item {
+  border: none;
+  > .image-holder {
+    display: inline-block;
+    vertical-align: top;
+    width: 291px;
+    height: 144px;
+    a, a:hover { transition: none; }
+  }
+  .description {
+    display: inline-block;
+    vertical-align: top;
+    h1 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
+      font-size: 30px;
+      line-height: 24px;
+      margin-top: 0;
+      margin-bottom: 13px;
+      a {
+        display: block;
+        height: 100%;
+      }
+    }
+    .year, .client, .dot {
+      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 18px;
+      font-size: 24px;
+      margin: 0;
+      margin-bottom: 28px;
+    }
+    .dot {
+      width: 4px;
+      height: 4px;
+      margin: 0 6px;
+      margin-bottom: 28px;
+      background: #2a2a2a;
+      border-radius: 2px;
+    }
+    .agency {
+      line-height: 20px;
+      font-size: 25px;
+    }
+  }
 }

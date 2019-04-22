@@ -86,6 +86,11 @@
       padding: 10px 41px 28px 0;
     }
   }
+  &.suggestion-inline {
+    > div {
+      width: 100%;
+    }
+  }
 }
 .empty {
   width: 100%!important;
