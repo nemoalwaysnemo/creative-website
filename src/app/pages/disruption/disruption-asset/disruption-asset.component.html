@@ -1,24 +1,24 @@
 <nb-card class="nb-card">
   <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 
-  <div *ngIf="document && asset">
-    <disruption-folders-view [document]="document"></disruption-folders-view>
+  <div *ngIf="folder && document">
+    <disruption-folders-view [document]="folder"></disruption-folders-view>
 
     <div class="document">
       <section class="general">
         <div class="showcase left">
-          <tbwa-document-viewer [document]="asset"></tbwa-document-viewer>
+          <tbwa-document-viewer [document]="document"></tbwa-document-viewer>
         </div>
         <div class="general_info left">
-          <tbwa-document-metadata-info [document]="asset"></tbwa-document-metadata-info>
+          <tbwa-document-metadata-info [document]="document"></tbwa-document-metadata-info>
         </div>
         <div class="clear"></div>
       </section>
       <section class="additional_info">
-        <tbwa-document-additional-info [document]="asset"></tbwa-document-additional-info>
+        <tbwa-document-additional-info [document]="document"></tbwa-document-additional-info>
       </section>
       <section class="related">
-        <tbwa-document-related-info [document]="asset"></tbwa-document-related-info>
+        <tbwa-document-related-info [document]="document"></tbwa-document-related-info>
       </section>
     </div>
   </div>

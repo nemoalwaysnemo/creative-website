@@ -1,11 +1,10 @@
-// This file is used for prod env
 
 export const Environment = {
   homePath: '/p/creative',
   appName: 'Creative Library',
   nuxeoUrl: '/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
-  backslashAPPUrl: 'https://backslash.tbwa.com',
+  backslashAPPUrl: '/nuxeo/edges',
   assetPath: '/nuxeo/LibraryWebUI/',
   production: true,
   autoLogin: true,
@@ -26,7 +25,7 @@ export const NUXEO_META_INFO = {
   BACKSLASH_ASSET_PAGE_PROVIDER: 'creative_website_backslash_related_assets',
   DISRUPTION_BASE_FOLDER_PATH: '/know-edge/Disruption/',
   DISRUPTION_DAYS_PATH: '/know-edge/Disruption/Disruption Days/',
-  DISRUPTION_ROAD_PATH: '/know-edge/Disruption/Disruption Roadmaps/',
+  DISRUPTION_ROADMAPS_PATH: '/know-edge/Disruption/Disruption Roadmaps/',
   DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption Theory/',
   DISRUPTION_THINKING_PATH: '/know-edge/Disruption/Brilliant Thinking/',
   DISRUPTION_DAYS_TYPE: '["App-Disruption-Day"]',

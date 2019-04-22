@@ -1,4 +1,3 @@
-// This file is used for dev env
 
 export const Environment = {
   homePath: '/p/creative',
@@ -26,7 +25,7 @@ export const NUXEO_META_INFO = {
   BACKSLASH_ASSET_PAGE_PROVIDER: 'creative_website_backslash_related_assets',
   DISRUPTION_BASE_FOLDER_PATH: '/know-edge/Disruption/',
   DISRUPTION_DAYS_PATH: '/know-edge/Disruption/Disruption Days.1555686729451/',
-  DISRUPTION_ROAD_PATH: '/know-edge/Disruption/Disruption Roadmaps.1551796258162/',
+  DISRUPTION_ROADMAPS_PATH: '/know-edge/Disruption/Disruption Roadmaps.1551796258162/',
   DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption Theory/',
   DISRUPTION_THINKING_PATH: '/know-edge/Disruption/Brilliant Thinking/',
   DISRUPTION_DAYS_TYPE: '["App-Disruption-Day"]',

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'tbwa-disruption-folder-day-asset-search-result',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './disruption-folder-day-asset-search-result.component.html',
 })
 export class DisruptionFolderDayAssetSearchResultComponent {
+
+  @Input() folderId: string;
 
 }

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment.na-dev';
+import { NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services';
 
 @Component({

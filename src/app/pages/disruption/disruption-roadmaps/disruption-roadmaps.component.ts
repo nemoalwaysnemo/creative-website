@@ -16,13 +16,13 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
+    ecm_path: NUXEO_META_INFO.DISRUPTION_ROADMAPS_PATH,
   };
 
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_ROAD_PATH,
+    ecm_path: NUXEO_META_INFO.DISRUPTION_ROADMAPS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_FOLDER_TYPE,
   };
 
