@@ -49,7 +49,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() contains: boolean = false;
 
-  @Input() suggestion: boolean = true;
+  @Input() suggestion: boolean = false;
 
   @Input() providerName: string;
 
