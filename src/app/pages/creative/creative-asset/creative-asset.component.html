@@ -1,4 +1,4 @@
-<div *ngIf="document" class="document">
+<div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">
     <div class="showcase left">
       <document-viewer [document]="document"></document-viewer>

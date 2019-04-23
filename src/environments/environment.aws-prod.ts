@@ -25,6 +25,7 @@ export const NUXEO_META_INFO = {
   BACKSLASH_ASSET_PAGE_PROVIDER: 'creative_website_backslash_related_assets',
   DISRUPTION_BASE_FOLDER_PATH: '/know-edge/Disruption/',
   DISRUPTION_DAYS_PATH: '/know-edge/Disruption/Disruption Days/',
+  DISRUPTION_DAY_ASSET_TYPES: '["App-Disruption-Asset", "App-Disruption-Day-Asset"]',
   DISRUPTION_ROADMAPS_PATH: '/know-edge/Disruption/Disruption Roadmaps/',
   DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption Theory/',
   DISRUPTION_THINKING_PATH: '/know-edge/Disruption/Brilliant Thinking/',

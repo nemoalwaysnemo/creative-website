@@ -5,10 +5,10 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'creative-home-gallery',
-  styleUrls: ['./home-gallery.component.scss'],
-  templateUrl: './home-gallery.component.html',
+  styleUrls: ['./creative-home-gallery.component.scss'],
+  templateUrl: './creative-home-gallery.component.html',
 })
-export class HomeGalleryComponent implements OnInit, OnDestroy {
+export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
   galleryItems: any = [];
   gallerySettings: any = {

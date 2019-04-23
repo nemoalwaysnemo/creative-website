@@ -5,14 +5,11 @@
     </div>
     <div class="property-info inline-middle">
       <h1>{{ document.title }}</h1>
-      <div>Type: {{ document.type }}</div>
+      <br>
+      <div>Workshop Date: {{document.get('The_Loupe_ProdCredits:production_date') | date}}</div>
       <div>Industry: {{ document.get('app_Edges:industry') }}</div>
-      <div>Geography: {{ document.get('The_Loupe_Main:country')}}</div>
-      <div>{{ document.title }}</div>
-      <br>
-      <div>Brand: {{ document.get('The_Loupe_Main:clientName')}}</div>
-      <div>Product: {{ document.get('The_Loupe_Main:brand') }}</div>
-      <br>
+      <div>Geography: {{ document.get('app_Edges:Relevant_Country')}}</div>
+      <div>Brand: {{ document.get('The_Loupe_Main:brand')}}</div>
       <div>Agency: {{ document.get('The_Loupe_Main:agency')}}</div>
       <div>Edges: {{ document.get('app_Edges:Tags_edges') }}</div>
     </div>

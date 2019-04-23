@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { AssetComponent } from './asset.component';
+import { CreativeAssetComponent } from './creative-asset.component';
 import { SharedModule } from '@pages/shared/shared.module';
+import { SharedServiceModule } from '@pages/shared';
 
 
 @NgModule({
@@ -10,10 +11,10 @@ import { SharedModule } from '@pages/shared/shared.module';
     SharedModule,
   ],
   declarations: [
-    AssetComponent,
+    CreativeAssetComponent,
   ],
   providers: [
-    // SharedModule.forRoot().providers,
+    ...SharedServiceModule.forRoot().providers,
   ],
 })
-export class AssetPageModule { }
+export class CreativeAssetPageModule { }

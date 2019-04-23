@@ -5,10 +5,10 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'creative-home-page',
-  styleUrls: ['./home.component.scss'],
-  templateUrl: './home.component.html',
+  styleUrls: ['./creative-home.component.scss'],
+  templateUrl: './creative-home.component.html',
 })
-export class HomeComponent implements OnInit {
+export class CreativeHomeComponent implements OnInit {
 
   backgroudDocument: any;
 
