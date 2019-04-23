@@ -9,6 +9,8 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 export class DocumentRelatedProjectComponent implements OnInit {
 
+  layout: string = 'quarter full-width';
+
   loading: boolean = true;
 
   documents: DocumentModel[];

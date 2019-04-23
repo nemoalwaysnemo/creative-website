@@ -171,7 +171,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   private onSearchPerformed(): void {
     const subscription = this.search$.pipe(
-      debounceTime(100),
+      debounceTime(300),
       distinctUntilChanged(),
       filter((params: SearchParams) => params.params && Object.keys(params.params).length > 0),
       switchMap((params: SearchParams) => this.performSearch(params)),

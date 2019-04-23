@@ -111,7 +111,7 @@
     "component-selector": [
       false,
       ["attribute", "element"],
-      ["ngx", "nb", "tbwa"],
+      ["ngx", "nb"],
       ["kebab-case"]
     ],
     "ban": [

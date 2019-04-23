@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
 })
 export class DocumentRelatedAgencyComponent implements OnInit, OnDestroy {
 
+  layout: string = 'quarter full-width';
+
   @Input() document: DocumentModel;
 
   loading: boolean = true;

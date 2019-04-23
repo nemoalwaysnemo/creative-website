@@ -1,6 +1,6 @@
 <form class="global-search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
   <div class="search-input global-search-input left">
-    <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup.enter)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
+    <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
   </div>
   <ng-container *ngIf="hasFilters()">
     <div class="search-filters global-search-filters left">
