@@ -281,7 +281,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
    *
    * @type string[]
    */
-  @Input() compactedBreakpoints: string[] = ['xs', 'is', 'sm', 'md', 'lg'];
+  @Input() compactedBreakpoints: string[] = ['xs', 'is', 'sm', 'md', 'lg', 'xl', 'xxl'];
 
   /**
    * Controls on which screen sizes sidebar should be switched to collapsed state.
@@ -290,7 +290,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
    *
    * @type string[]
    */
-  @Input() collapsedBreakpoints: string[] = ['xs', 'is'];
+  @Input() collapsedBreakpoints: string[] = ['xs', 'is', 'sm', 'md', 'lg'];
 
   private mediaQuerySubscription: Subscription;
   private responsiveState = NbSidebarComponent.RESPONSIVE_STATE_PC;
@@ -319,6 +319,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.mediaQuerySubscription = this.onMediaQueryChanges();
     this.sidebarService.onToggle()
       .pipe(takeWhile(() => this.alive))
       .subscribe((data: { compact: boolean, tag: string }) => {
@@ -437,27 +438,22 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
+  /**
+  * this is for listening to window resize
+  * made to adapt to our site
+  */
+
   protected onMediaQueryChanges(): Subscription {
     return this.themeService.onMediaQueryChange()
       .subscribe(([prev, current]: [NbMediaBreakpoint, NbMediaBreakpoint]) => {
-
         const isCollapsed = this.collapsedBreakpoints.includes(current.name);
-        const isCompacted = this.compactedBreakpoints.includes(current.name);
-
-        if (isCompacted) {
-          this.fixed = this.containerFixedValue;
-          this.compact();
-          this.responsiveState = NbSidebarComponent.RESPONSIVE_STATE_TABLET;
-        }
         if (isCollapsed) {
           this.fixed = true;
           this.collapse();
           this.responsiveState = NbSidebarComponent.RESPONSIVE_STATE_MOBILE;
-        }
-        if (!isCollapsed && !isCompacted && prev.width < current.width) {
-          this.expand();
-          this.fixed = false;
-          this.responsiveState = NbSidebarComponent.RESPONSIVE_STATE_PC;
+        } else {
+          this.fixed = true;
+          this.sidebarService.toggle(true, 'menu-sidebar');
         }
       });
   }
