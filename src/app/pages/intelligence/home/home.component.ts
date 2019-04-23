@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-  selector: 'tbwa-disruption-page',
+  selector: 'disruption-page',
   styleUrls: ['./home.component.scss'],
   templateUrl: './home.component.html',
 })

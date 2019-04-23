@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
 
 @Component({
-  selector: 'tbwa-disruption-form-roadmap',
+  selector: 'disruption-form-roadmap',
   styleUrls: ['./disruption-form-roadmap.component.scss'],
   templateUrl: './disruption-form-roadmap.component.html',
 })

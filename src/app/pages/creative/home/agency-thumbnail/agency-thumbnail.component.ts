@@ -4,7 +4,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-agency-thumbnail',
+  selector: 'creative-agency-thumbnail',
   styleUrls: ['./agency-thumbnail.component.scss'],
   templateUrl: './agency-thumbnail.component.html',
 })

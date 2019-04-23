@@ -3,7 +3,7 @@ import { BaseDialogBody } from '@pages/shared/preview-dialog/base-dialog-body';
 import { PreviewDialogService } from '@pages/shared';
 
 @Component({
-  selector: 'tbwa-disruption-form-brilliant-thinking-body',
+  selector: 'disruption-form-brilliant-thinking-body',
   styleUrls: ['./disruption-form-brilliant-thinking-dialog.component.scss'],
   templateUrl: './disruption-form-brilliant-thinking-dialog.component.html',
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'tbwa-creative-pages',
+  selector: 'creative-pages',
   template: `
     <router-outlet></router-outlet>
   `,

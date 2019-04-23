@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { PaginationDataSource } from '../../shared/pagination/pagination-data-source';
 
 @Component({
-  selector: 'tbwa-table-pagination',
+  selector: 'table-pagination',
   styleUrls: ['./pagination.component.scss'],
   templateUrl: './pagination.component.html',
 })

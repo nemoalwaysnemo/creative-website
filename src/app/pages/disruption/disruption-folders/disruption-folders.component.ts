@@ -7,7 +7,7 @@ import { TAB_CONFIG } from '../tab-config';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-disruption-folders',
+  selector: 'disruption-folders',
   styleUrls: ['./disruption-folders.component.scss'],
   templateUrl: './disruption-folders.component.html',
 })

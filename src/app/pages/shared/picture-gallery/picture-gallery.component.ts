@@ -4,7 +4,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services';
 
 @Component({
-  selector: 'tbwa-picture-gallery',
+  selector: 'picture-gallery',
   styleUrls: ['./picture-gallery.component.scss'],
   templateUrl: './picture-gallery.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,7 +4,7 @@ import { SearchQueryParamsService } from '../services/search-query-params.servic
 import { BaseSearchResultComponent } from './abstract-search-result';
 
 @Component({
-  selector: 'tbwa-global-search-result',
+  selector: 'global-search-result',
   styleUrls: ['./global-search-result.component.scss'],
   templateUrl: './global-search-result.component.html',
 })

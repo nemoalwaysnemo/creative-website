@@ -5,7 +5,7 @@ import { PreviewDialogService } from '@pages/shared';
 import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/option-tag/dynamic-option-tag.model';
 
 @Component({
-  selector: 'tbwa-playground',
+  selector: 'playground',
   styleUrls: ['./playground.component.scss'],
   templateUrl: './playground.component.html',
 })

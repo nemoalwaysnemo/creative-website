@@ -4,7 +4,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-document-related-agency',
+  selector: 'document-related-agency',
   styleUrls: ['./document-related-agency.component.scss'],
   templateUrl: './document-related-agency.component.html',
 })

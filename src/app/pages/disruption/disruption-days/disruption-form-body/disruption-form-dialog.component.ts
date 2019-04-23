@@ -3,7 +3,7 @@ import { BaseDialogBody } from '@pages/shared/preview-dialog/base-dialog-body';
 import { PreviewDialogService } from '@pages/shared';
 
 @Component({
-  selector: 'tbwa-disruption-form-body',
+  selector: 'disruption-form-body',
   styleUrls: ['./disruption-form-dialog.component.scss'],
   templateUrl: './disruption-form-dialog.component.html',
 })

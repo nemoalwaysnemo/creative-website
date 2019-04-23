@@ -5,7 +5,7 @@ import { mergeMap } from 'rxjs/operators';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'tbwa-batch-file-upload',
+  selector: 'batch-file-upload',
   styleUrls: ['./batch-file-upload.component.scss'],
   templateUrl: './batch-file-upload.component.html',
   providers: [{

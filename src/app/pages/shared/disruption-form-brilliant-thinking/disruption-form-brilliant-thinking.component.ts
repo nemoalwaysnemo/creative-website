@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
 
 @Component({
-  selector: 'tbwa-disruption-form-brilliant-thinking',
+  selector: 'disruption-form-brilliant-thinking',
   styleUrls: ['./disruption-form-brilliant-thinking.component.scss'],
   templateUrl: './disruption-form-brilliant-thinking.component.html',
 })

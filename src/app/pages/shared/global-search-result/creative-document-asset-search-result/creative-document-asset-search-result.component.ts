@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { ListViewItem } from '../../list-view/list-view.interface';
 
 @Component({
-  selector: 'tbwa-creative-document-asset-search-result',
+  selector: 'creative-document-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-document-asset-search-result.component.html',
 })

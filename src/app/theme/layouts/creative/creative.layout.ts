@@ -13,7 +13,7 @@ import { StateService } from '@core/services/state.service';
 
 // TODO: move layouts into the framework
 @Component({
-  selector: 'tbwa-creative-layout',
+  selector: 'creative-layout',
   styleUrls: ['./creative.layout.scss'],
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>

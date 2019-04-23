@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { VgAPI } from 'videogular2/core';
 
 @Component({
-  selector: 'tbwa-document-video-player',
+  selector: 'document-video-player',
   styleUrls: ['./document-video-player.component.scss'],
   templateUrl: './document-video-player.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

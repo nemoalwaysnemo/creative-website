@@ -5,7 +5,7 @@ import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { PreviewDialogService } from '@pages/shared';
 @Component({
-  selector: 'tbwa-disruption-roadmap-page',
+  selector: 'disruption-roadmap-page',
   styleUrls: ['./disruption-roadmaps.component.scss'],
   templateUrl: './disruption-roadmaps.component.html',
 })

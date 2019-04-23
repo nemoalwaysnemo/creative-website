@@ -5,7 +5,7 @@ import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { PreviewDialogService } from '@pages/shared';
 @Component({
-  selector: 'tbwa-disruption-page',
+  selector: 'disruption-page',
   styleUrls: ['./disruption-days.component.scss'],
   templateUrl: './disruption-days.component.html',
 })

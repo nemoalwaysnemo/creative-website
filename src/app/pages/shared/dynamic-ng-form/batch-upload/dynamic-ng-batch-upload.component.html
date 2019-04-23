@@ -1,5 +1,5 @@
 <ng-container [formGroup]="group">
-  <tbwa-batch-file-upload
+  <batch-file-upload
       [formControlName]="model.id"
       [id]="elementId"
       [placeholder]="model.placeholder"
@@ -14,5 +14,5 @@
       (change)="onChange($event)"
       (focus)="onFocus($event)"
       (onUploaded)="onCustomEvent($event, 'BATCH_UPLOAD')">
-  </tbwa-batch-file-upload>
+  </batch-file-upload>
 </ng-container>

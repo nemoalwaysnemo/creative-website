@@ -3,7 +3,7 @@ import { PreviewDialogService } from '../../preview-dialog.service';
 import { BaseDialogBody } from '../../base-dialog-body';
 
 @Component({
-  selector: 'tbwa-backslash-asset-preview-dialog-body',
+  selector: 'backslash-asset-preview-dialog-body',
   styleUrls: ['./backslash-asset-preview-dialog-body.component.scss'],
   templateUrl: './backslash-asset-preview-dialog-body.component.html',
 })

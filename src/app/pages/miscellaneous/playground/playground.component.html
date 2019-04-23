@@ -2,15 +2,15 @@
   <nb-card-body>
     <div>
       <a href="javascript:void(0)" (click)="openForm(dialog)" class="icon_btn">New Day</a>
-      <tbwa-document-form [document]="document" [settings]="settings" [layout]="getFormLayout()"></tbwa-document-form>
-      <!-- <tbwa-directory-suggestion directoryName="App-Edges-Edges"></tbwa-directory-suggestion> -->
-      <!-- <tbwa-directory-suggestion directoryName="App-Edges-Edges" suggestion="false"></tbwa-directory-suggestion> -->
+      <document-form [document]="document" [settings]="settings" [layout]="getFormLayout()"></document-form>
+      <!-- <directory-suggestion directoryName="App-Edges-Edges"></directory-suggestion> -->
+      <!-- <directory-suggestion directoryName="App-Edges-Edges" suggestion="false"></directory-suggestion> -->
     </div>
   </nb-card-body>
 </nb-card>
 
 <ng-template #dialog>
-  <tbwa-preview-dialog>
-      <tbwa-form-body></tbwa-form-body>
-  </tbwa-preview-dialog>
+  <preview-dialog>
+      <form-body></form-body>
+  </preview-dialog>
 </ng-template>

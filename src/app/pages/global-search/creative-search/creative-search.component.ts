@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'tbwa-creative-search-page',
+  selector: 'creative-search-page',
   template: `
     <router-outlet></router-outlet>
   `,

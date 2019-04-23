@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 import { DocumentModel } from '@core/api';
 
 @Component({
-  selector: 'tbwa-document-audio-viewer',
+  selector: 'document-audio-viewer',
   styleUrls: ['./document-audio-viewer.component.scss'],
   templateUrl: './document-audio-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -5,7 +5,7 @@ import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'tbwa-intelligence-asset',
+  selector: 'intelligence-asset',
   styleUrls: ['./intelligence-asset.component.scss'],
   templateUrl: './intelligence-asset.component.html',
 })

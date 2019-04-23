@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-creative-document-asset-search',
+  selector: 'creative-document-asset-search',
   styleUrls: ['./creative-document-asset-search.component.scss'],
   templateUrl: './creative-document-asset-search.component.html',
 })

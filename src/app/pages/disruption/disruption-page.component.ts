@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'tbwa-disruption-pages',
+  selector: 'disruption-pages',
   template: `
     <router-outlet></router-outlet>
   `,

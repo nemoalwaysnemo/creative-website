@@ -1,14 +1,14 @@
-<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
-  <div class="property-section">
+<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="document" class="property-section">
     <div class="property-intro inline-middle">
       <img src="{{document.thumbnailUrl}}" class="thumbnail-img">
     </div>
     <div class="property-info inline-middle">
-      <h1>{{ document.get('dc:title') }}</h1>
+      <h1>{{ document.title }}</h1>
       <div>Type: {{ document.type }}</div>
       <div>Industry: {{ document.get('app_Edges:industry') }}</div>
       <div>Geography: {{ document.get('The_Loupe_Main:country')}}</div>
-      <div>{{ document.get('dc:title') }}</div>
+      <div>{{ document.title }}</div>
       <br>
       <div>Brand: {{ document.get('The_Loupe_Main:clientName')}}</div>
       <div>Product: {{ document.get('The_Loupe_Main:brand') }}</div>

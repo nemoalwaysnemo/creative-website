@@ -1,17 +1,17 @@
 <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">
     <div class="showcase left">
-      <tbwa-document-viewer [document]="document"></tbwa-document-viewer>
+      <document-viewer [document]="document"></document-viewer>
     </div>
     <div class="general_info left">
-      <tbwa-document-metadata-info [document]="document"></tbwa-document-metadata-info>
+      <document-metadata-info [document]="document"></document-metadata-info>
     </div>
     <div class="clear"></div>
   </section>
   <section class="additional_info">
-    <tbwa-document-additional-info [document]="document"></tbwa-document-additional-info>
+    <document-additional-info [document]="document"></document-additional-info>
   </section>
   <section class="related">
-    <tbwa-document-related-info [document]="document"></tbwa-document-related-info>
+    <document-related-info [document]="document"></document-related-info>
   </section>
 </div>

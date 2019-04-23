@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
 
 @Component({
-  selector: 'tbwa-disruption-form-theory',
+  selector: 'disruption-form-theory',
   styleUrls: ['./disruption-form-theory.component.scss'],
   templateUrl: './disruption-form-theory.component.html',
 })

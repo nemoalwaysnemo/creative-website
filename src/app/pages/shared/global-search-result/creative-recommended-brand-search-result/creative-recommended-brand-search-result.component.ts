@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { ListViewItem } from '../../list-view/list-view.interface';
 
 @Component({
-  selector: 'tbwa-creative-recommended-brand-search-result',
+  selector: 'creative-recommended-brand-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-recommended-brand-search-result.component.html',
 })

@@ -5,7 +5,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
 
 @Component({
-  selector: 'tbwa-document-related-info',
+  selector: 'document-related-info',
   styleUrls: ['./document-related-info.component.scss'],
   templateUrl: './document-related-info.component.html',
 })

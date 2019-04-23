@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { ListViewItem } from '../../list-view/list-view.interface';
 
 @Component({
-  selector: 'tbwa-creative-my-brand-asset-search-result',
+  selector: 'creative-my-brand-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-my-brand-asset-search-result.component.html',
 })

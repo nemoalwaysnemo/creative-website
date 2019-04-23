@@ -3,13 +3,13 @@ import { MENU_ITEMS } from './pages-menu';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NbSidebarService } from '@core/nebular/theme/components/sidebar/sidebar.service';
 @Component({
-  selector: 'tbwa-pages',
+  selector: 'site-pages',
   styleUrls: ['pages.component.scss'],
   template: `
-    <tbwa-creative-layout>
+    <creative-layout>
       <nb-menu [@scroll]="isOpen? 'expand' : 'hide'" tag="sidebar" [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
-    </tbwa-creative-layout>
+    </creative-layout>
   `,
   animations: [
     trigger('scroll', [

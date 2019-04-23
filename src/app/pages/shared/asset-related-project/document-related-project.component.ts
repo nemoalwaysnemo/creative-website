@@ -3,7 +3,7 @@ import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-document-related-project',
+  selector: 'document-related-project',
   styleUrls: ['./document-related-project.component.scss'],
   templateUrl: './document-related-project.component.html',
 })

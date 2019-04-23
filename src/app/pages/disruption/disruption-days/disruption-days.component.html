@@ -1,11 +1,11 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-<tbwa-global-search-form [filters]="filters" [defaultParams]="defaultParams">
+<global-search-form [filters]="filters" [defaultParams]="defaultParams">
   <button type="button" (click)="openForm(dialog)" class="icon_btn new_day" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Day">New Day</button>
-</tbwa-global-search-form>
-<tbwa-disruption-days-asset-search-result></tbwa-disruption-days-asset-search-result>
+</global-search-form>
+<disruption-days-asset-search-result></disruption-days-asset-search-result>
 
 <ng-template #dialog>
-  <tbwa-preview-dialog>
-    <tbwa-disruption-form-body></tbwa-disruption-form-body>
-  </tbwa-preview-dialog>
+  <preview-dialog>
+    <disruption-form-body></disruption-form-body>
+  </preview-dialog>
 </ng-template>

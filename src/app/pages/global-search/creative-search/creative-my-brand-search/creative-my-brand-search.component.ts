@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-creative-my-brand-search',
+  selector: 'creative-my-brand-search',
   styleUrls: ['./creative-my-brand-search.component.scss'],
   templateUrl: './creative-my-brand-search.component.html',
 })

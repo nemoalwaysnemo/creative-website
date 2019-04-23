@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
-  selector: 'tbwa-document-image-viewer',
+  selector: 'document-image-viewer',
   styleUrls: ['./document-image-viewer.component.scss'],
   templateUrl: './document-image-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,7 +4,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-recommended-brand-thumbnail',
+  selector: 'creative-recommended-brand-thumbnail',
   styleUrls: ['./recommended-brand-thumbnail.component.scss'],
   templateUrl: './recommended-brand-thumbnail.component.html',
 })

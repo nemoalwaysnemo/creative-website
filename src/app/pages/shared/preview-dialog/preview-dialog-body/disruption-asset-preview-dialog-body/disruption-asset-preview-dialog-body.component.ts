@@ -3,7 +3,7 @@ import { BaseDialogBody } from '../../base-dialog-body';
 import { PreviewDialogService } from '../../preview-dialog.service';
 
 @Component({
-  selector: 'tbwa-disruption-asset-preview-dialog-body',
+  selector: 'disruption-asset-preview-dialog-body',
   styleUrls: ['../preview-dialog-body.scss'],
   templateUrl: './disruption-asset-preview-dialog-body.component.html',
 })

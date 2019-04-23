@@ -30,9 +30,9 @@
     <a (click)="open(backslashDialog, doc, 'backslash')"><img src="{{doc.thumbnailUrl}}" [alt]="doc.title" class="thumbnail-img"></a>
   </div>
   <ng-template #backslashDialog>
-    <tbwa-preview-dialog>
-      <tbwa-backslash-asset-preview-dialog-body></tbwa-backslash-asset-preview-dialog-body>
-    </tbwa-preview-dialog>
+    <preview-dialog>
+      <backslash-asset-preview-dialog-body></backslash-asset-preview-dialog-body>
+    </preview-dialog>
   </ng-template>
 </ng-template>
 <ng-template #disruptionThumbnailItemView let-doc="doc">
@@ -45,9 +45,9 @@
     </div>
   </div>
   <ng-template #disruptionDialog>
-    <tbwa-preview-dialog>
-      <tbwa-disruption-asset-preview-dialog-body [moreInfo]='true'></tbwa-disruption-asset-preview-dialog-body>
-    </tbwa-preview-dialog>
+    <preview-dialog>
+      <disruption-asset-preview-dialog-body [moreInfo]='true'></disruption-asset-preview-dialog-body>
+    </preview-dialog>
   </ng-template>
 </ng-template>
 <ng-template #intelligenceThumbnailItemView let-doc="doc">
@@ -60,8 +60,8 @@
     </div>
   </div>
   <ng-template #intelligenceDialog>
-    <tbwa-preview-dialog>
-      <tbwa-disruption-asset-preview-dialog-body [moreInfo]='true'></tbwa-disruption-asset-preview-dialog-body>
-    </tbwa-preview-dialog>
+    <preview-dialog>
+      <disruption-asset-preview-dialog-body [moreInfo]='true'></disruption-asset-preview-dialog-body>
+    </preview-dialog>
   </ng-template>
 </ng-template>

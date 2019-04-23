@@ -25,7 +25,7 @@ class SearchParams {
 }
 
 @Component({
-  selector: 'tbwa-global-search-form',
+  selector: 'global-search-form',
   styleUrls: ['./global-search-form.component.scss'],
   templateUrl: './global-search-form.component.html',
 })

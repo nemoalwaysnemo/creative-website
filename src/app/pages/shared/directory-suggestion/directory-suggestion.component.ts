@@ -16,7 +16,7 @@ class Suggestion {
 }
 
 @Component({
-  selector: 'tbwa-directory-suggestion',
+  selector: 'directory-suggestion',
   styleUrls: ['./directory-suggestion.component.scss'],
   templateUrl: './directory-suggestion.component.html',
   providers: [{

@@ -4,7 +4,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-home-gallery',
+  selector: 'creative-home-gallery',
   styleUrls: ['./home-gallery.component.scss'],
   templateUrl: './home-gallery.component.html',
 })

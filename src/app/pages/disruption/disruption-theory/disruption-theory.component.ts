@@ -5,7 +5,7 @@ import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { PreviewDialogService } from '@pages/shared';
 @Component({
-  selector: 'tbwa-disruption-theory-page',
+  selector: 'disruption-theory-page',
   styleUrls: ['./disruption-theory.component.scss'],
   templateUrl: './disruption-theory.component.html',
 })

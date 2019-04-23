@@ -5,7 +5,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-option-tag',
+  selector: 'option-tag',
   templateUrl: 'option-tag.component.html',
   styleUrls: ['option-tag.component.scss'],
   providers: [{

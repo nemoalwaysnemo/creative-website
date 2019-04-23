@@ -1,10 +1,10 @@
 <intelligence-folders-view [loading]="loading" [document]="document"></intelligence-folders-view>
-<tbwa-global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></tbwa-global-search-form>
+<global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></global-search-form>
 <ng-container [ngSwitch]="true">
   <ng-container *ngSwitchCase="documentType == 'Industry'">
-    <tbwa-intelligence-industry-search-result [folderId]="document.uid"></tbwa-intelligence-industry-search-result>
+    <intelligence-industry-search-result [folderId]="document.uid"></intelligence-industry-search-result>
   </ng-container>
   <ng-container *ngSwitchCase="documentType !== 'Industry'">
-    <tbwa-intelligence-document-asset-search-result></tbwa-intelligence-document-asset-search-result>
+    <intelligence-document-asset-search-result></intelligence-document-asset-search-result>
   </ng-container>
 </ng-container>

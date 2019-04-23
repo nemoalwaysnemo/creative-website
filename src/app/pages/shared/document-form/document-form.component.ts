@@ -8,7 +8,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { deepExtend } from '@core/nebular/auth/helpers';
 
 @Component({
-  selector: 'tbwa-document-form',
+  selector: 'document-form',
   styleUrls: ['./document-form.component.scss'],
   templateUrl: './document-form.component.html',
 })

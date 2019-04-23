@@ -9,7 +9,7 @@ import { PreviewDialogService } from '../../preview-dialog/preview-dialog.servic
 import { BaseAutoSearch } from '@pages/shared/auto-search/base-auto-search';
 
 @Component({
-  selector: 'tbwa-document-related-info-view',
+  selector: 'document-related-info-view',
   styleUrls: ['./document-related-info-view.component.scss'],
   templateUrl: './document-related-info-view.component.html',
 })

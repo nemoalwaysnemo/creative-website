@@ -10,10 +10,10 @@
     <document-thumbnail-view [loading]="loading" [templateRef]="templateRef" [documents]="documents"></document-thumbnail-view>
   </ng-template>
   <ng-template #listView>
-    <tbwa-list-view [loading]="loading" [settings]="listViewSetting" [documents]="listDocuments"></tbwa-list-view>
+    <list-view [loading]="loading" [settings]="listViewSetting" [documents]="listDocuments"></list-view>
   </ng-template>
 </div>
 <div class="search-pagination">
-  <tbwa-table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination"></tbwa-table-pagination>
+  <table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination"></table-pagination>
 </div>
 <div class="clear"></div>

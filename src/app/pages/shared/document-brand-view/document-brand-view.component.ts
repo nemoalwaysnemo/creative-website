@@ -5,7 +5,7 @@ import { AbstractDocumentViewComponent } from '../abstract-classes/abstract-docu
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 
 @Component({
-  selector: 'tbwa-document-brand-view',
+  selector: 'document-brand-view',
   styleUrls: ['../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './document-brand-view.component.html',
 })

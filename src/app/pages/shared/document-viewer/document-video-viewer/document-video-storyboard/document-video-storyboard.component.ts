@@ -4,7 +4,7 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DocumentModel } from '@core/api';
 
 @Component({
-  selector: 'tbwa-document-video-storyboard',
+  selector: 'document-video-storyboard',
   styleUrls: ['./document-video-storyboard.component.scss'],
   templateUrl: './document-video-storyboard.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

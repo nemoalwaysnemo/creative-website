@@ -6,7 +6,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services';
 
 @Component({
-  selector: 'tbwa-document-metadata-info',
+  selector: 'document-metadata-info',
   styleUrls: ['./document-metadata-info.component.scss'],
   templateUrl: './document-metadata-info.component.html',
 })

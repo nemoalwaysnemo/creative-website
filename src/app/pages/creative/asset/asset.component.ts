@@ -7,7 +7,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { isDocumentUID } from '@core/services';
 
 @Component({
-  selector: 'tbwa-asset-page',
+  selector: 'asset-page',
   styleUrls: ['./asset.component.scss'],
   templateUrl: './asset.component.html',
 })

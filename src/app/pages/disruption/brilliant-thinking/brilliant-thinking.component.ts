@@ -5,7 +5,7 @@ import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { PreviewDialogService } from '@pages/shared';
 @Component({
-  selector: 'tbwa-brilliant-thinking-page',
+  selector: 'disruption-brilliant-thinking-page',
   styleUrls: ['./brilliant-thinking.component.scss'],
   templateUrl: './brilliant-thinking.component.html',
 })

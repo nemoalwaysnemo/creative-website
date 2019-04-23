@@ -6,13 +6,15 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
 
 @Component({
-  selector: 'tbwa-disruption-asset',
+  selector: 'disruption-asset',
   styleUrls: ['./disruption-asset.component.scss'],
   templateUrl: './disruption-asset.component.html',
 })
 export class DisruptionAssetComponent extends AbstractDocumentViewComponent implements OnInit {
 
   folder: DocumentModel;
+
+  folderLoading: boolean = true;
 
   tabs = TAB_CONFIG;
 
@@ -53,6 +55,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent impl
     const folderId = this.activatedRoute.snapshot.queryParams.folder;
     if (folderId) {
       this.getDocumentModel(folderId, this.folderParams).subscribe((res: NuxeoPagination) => {
+        this.folderLoading = false;
         this.folder = res.entries.shift();
       });
     }

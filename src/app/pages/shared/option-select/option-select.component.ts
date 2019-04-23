@@ -4,7 +4,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { OptionModel } from './option-select.interface';
 
 @Component({
-  selector: 'tbwa-option-select',
+  selector: 'option-select',
   styleUrls: ['./option-select.component.scss'],
   templateUrl: './option-select.component.html',
   providers: [{

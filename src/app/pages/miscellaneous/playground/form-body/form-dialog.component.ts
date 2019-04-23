@@ -3,7 +3,7 @@ import { BaseDialogBody } from '@pages/shared/preview-dialog/base-dialog-body';
 import { PreviewDialogService } from '@pages/shared';
 
 @Component({
-  selector: 'tbwa-form-body',
+  selector: 'form-body',
   styleUrls: ['./form-dialog.component.scss'],
   templateUrl: './form-dialog.component.html',
 })

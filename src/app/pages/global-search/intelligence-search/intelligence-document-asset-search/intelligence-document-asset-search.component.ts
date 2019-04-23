@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-intelligence-document-asset-search',
+  selector: 'intelligence-document-asset-search',
   templateUrl: './intelligence-document-asset-search.component.html',
 })
 export class IntelligenceDocumentAssetSearchComponent {

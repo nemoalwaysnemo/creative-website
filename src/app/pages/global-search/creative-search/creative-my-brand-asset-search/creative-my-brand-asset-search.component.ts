@@ -6,7 +6,7 @@ import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-creative-my-brand-asset-search',
+  selector: 'creative-my-brand-asset-search',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-my-brand-asset-search.component.html',
 })

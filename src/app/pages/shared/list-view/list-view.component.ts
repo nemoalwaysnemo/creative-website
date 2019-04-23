@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ListViewSettings, ListViewItem } from './list-view.interface';
 
 @Component({
-  selector: 'tbwa-list-view',
+  selector: 'list-view',
   styleUrls: ['./list-view.component.scss'],
   templateUrl: './list-view.component.html',
 })

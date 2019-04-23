@@ -4,7 +4,7 @@ import { AggregateModel } from '@core/api';
 import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
-  selector: 'tbwa-global-search-filter',
+  selector: 'global-search-filter',
   styleUrls: ['./global-search-filter.component.scss'],
   templateUrl: './global-search-filter.component.html',
   providers: [{

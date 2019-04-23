@@ -4,7 +4,7 @@ import { NuxeoPagination, AdvanceSearch } from '@core/api';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'tbwa-home-page',
+  selector: 'creative-home-page',
   styleUrls: ['./home.component.scss'],
   templateUrl: './home.component.html',
 })

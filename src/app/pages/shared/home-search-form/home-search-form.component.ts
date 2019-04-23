@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 
 @Component({
-  selector: 'tbwa-home-search-form',
+  selector: 'home-search-form',
   templateUrl: './home-search-form.component.html',
   styleUrls: ['./home-search-form.component.scss'],
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'tbwa-intelligence-document-asset-search-result',
+  selector: 'intelligence-document-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './intelligence-document-asset-search-result.component.html',
 })
