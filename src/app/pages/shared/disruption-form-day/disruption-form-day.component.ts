@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
@@ -23,6 +23,8 @@ export class DisruptionFormDayComponent implements OnInit, OnDestroy {
     this.parentDocument = doc.newInstance('App-Disruption-Day');
   }
 
+  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
+
   constructor() { }
 
   ngOnInit() {
@@ -33,8 +35,8 @@ export class DisruptionFormDayComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onCreated(docs: DocumentModel[]): void {
-
+  ceated(docs: DocumentModel[]): void {
+    this.onCreated.next(docs);
   }
 
   onUpdated(doc: DocumentModel): void {

@@ -5,9 +5,10 @@
       Brilliant Thinking
     </h5>
   </div>
+  <ng-content></ng-content>
   <ng-container *ngIf="document">
     <div class="form">
-      <disruption-form-brilliant-thinking [document]="document"></disruption-form-brilliant-thinking>
+      <disruption-form-brilliant-thinking [document]="document" (onCreated)="onCreated($event)"></disruption-form-brilliant-thinking>
     </div>
   </ng-container>
 </div>
