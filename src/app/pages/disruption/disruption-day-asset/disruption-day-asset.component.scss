@@ -14,6 +14,7 @@ nb-route-tabset {
 .document {
   margin-top: 20px;
   > section {
+    width: calc(100% - 76px);
     margin: 0 auto;
 
     &.general {
