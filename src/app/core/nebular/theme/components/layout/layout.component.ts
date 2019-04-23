@@ -23,7 +23,7 @@ import { NB_WINDOW, NB_DOCUMENT } from '../../theme.options';
 import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adapter';
 import { NbSidebarService } from '../sidebar/sidebar.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-
+import { Subscription } from 'rxjs';
 /**
  * A container component which determines a content position inside of the layout.
  * The layout could contain unlimited columns (not including the sidebars).
@@ -131,7 +131,10 @@ enum Direction {
 
 })
 export class NbLayoutHeaderComponent implements AfterViewInit {
+  listenToScroll: boolean = true;
   isVisible = true;
+  protected goingUp: Subscription = new Subscription();
+  protected goingDown: Subscription = new Subscription();
   @HostBinding('class.fixed') fixedValue: boolean;
   @HostBinding('class.subheader') subheaderValue: boolean;
   // tslint:disable-next-line
@@ -160,26 +163,39 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
     this.layout.withSubheader = this.subheaderValue;
   }
   ngAfterViewInit() {
-    const scroll$ = this.scrollService
-                    .onScroll()
-                    .pipe(
-                      throttleTime(10),
-                      map(() => window.pageYOffset),
-                      pairwise(),
-                      map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
-                      distinctUntilChanged(),
-                      share(),
-                    );
-    const goingUp$ = scroll$.pipe(
-      filter(direction => direction === Direction.Up),
-    );
+    if (this.listenToScroll) {
+      const scroll$ = this.scrollService
+                      .onScroll()
+                      .pipe(
+                        throttleTime(10),
+                        map(() => window.pageYOffset),
+                        pairwise(),
+                        map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+                        distinctUntilChanged(),
+                        share(),
+                      );
+      const goingUp$ = scroll$.pipe(
+        filter(direction => direction === Direction.Up),
+      );
 
-    const goingDown$ = scroll$.pipe(
-      filter(direction => direction === Direction.Down),
-    );
+      const goingDown$ = scroll$.pipe(
+        filter(direction => direction === Direction.Down),
+      );
 
-    goingUp$.subscribe(() => (this.isVisible = true));
-    goingDown$.subscribe(() => (this.isVisible = false));
+      this.goingUp = goingUp$.subscribe(() => (this.isVisible = true));
+      this.goingDown = goingDown$.subscribe(() => (this.isVisible = false));
+    }
+
+    this.scrollService.onScrollListen()
+    .subscribe((res) => {
+      if (res) {
+        if (res.stop === true) {
+          this.goingUp.unsubscribe();
+          this.goingDown.unsubscribe();
+          this.listenToScroll = false;
+        }
+      }
+    });
   }
 }
 
@@ -348,6 +364,9 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
   restoreScrollTopValue: boolean = true;
   isOpen: boolean = false;
   initialState: boolean = true;
+  listenToScroll: boolean = true;
+  protected goingUp: Subscription = new Subscription();
+  protected goingDown: Subscription = new Subscription();
   @HostBinding('class.window-mode') windowModeValue: boolean = false;
   @HostBinding('class.with-scroll') withScrollValue: boolean = false;
   @HostBinding('class.with-subheader') withSubheader: boolean = false;
@@ -533,27 +552,38 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       .subscribe(({ x, y }: NbScrollPosition) => this.scroll(x, y));
 
     this.afterViewInit$.next(true);
+    if (this.listenToScroll) {
+      const scroll$ = this.scrollService
+                      .onScroll()
+                      .pipe(
+                        throttleTime(10),
+                        map(() => window.pageYOffset),
+                        pairwise(),
+                        map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+                        distinctUntilChanged(),
+                        share(),
+                      );
+      const goingUp$ = scroll$.pipe(
+        filter(direction => direction === Direction.Up),
+      );
 
-    const scroll$ = this.scrollService
-                    .onScroll()
-                    .pipe(
-                      throttleTime(10),
-                      map(() => window.pageYOffset),
-                      pairwise(),
-                      map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
-                      distinctUntilChanged(),
-                      share(),
-                    );
-    const goingUp$ = scroll$.pipe(
-      filter(direction => direction === Direction.Up),
-    );
+      const goingDown$ = scroll$.pipe(
+        filter(direction => direction === Direction.Down),
+      );
 
-    const goingDown$ = scroll$.pipe(
-      filter(direction => direction === Direction.Down),
-    );
-
-    goingUp$.subscribe(() => (this.onHide = '79px'));
-    goingDown$.subscribe(() => (this.onHide = '0px'));
+      this.goingUp = goingUp$.subscribe(() => (this.onHide = '79px'));
+      this.goingDown = goingDown$.subscribe(() => (this.onHide = '0px'));
+    }
+    this.scrollService.onScrollListen()
+    .subscribe((res) => {
+      if (res) {
+        if (res.stop === true) {
+          this.goingUp.unsubscribe();
+          this.goingDown.unsubscribe();
+          this.listenToScroll = false;
+        }
+      }
+    });
   }
 
   ngOnDestroy() {

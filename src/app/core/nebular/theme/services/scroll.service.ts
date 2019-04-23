@@ -36,7 +36,7 @@ export class NbLayoutScrollService {
   private manualScroll$ = new Subject<NbScrollPosition>();
   private scroll$ = new Subject<any>();
   private scrollable$ = new Subject<boolean>();
-
+  private scrollListening$ = new Subject<any>();
   /**
    * Returns scroll position
    *
@@ -72,6 +72,15 @@ export class NbLayoutScrollService {
   }
 
   /**
+   * Returns a tag to stop scroll listening
+   *
+   * @returns {Observable<any>}
+   */
+  onScrollListen(): Observable<{ stop: any }> {
+    return this.scrollListening$.pipe(share<any>());
+  }
+
+  /**
    * @private
    * @returns Observable<NbScrollPosition>.
    */
@@ -101,5 +110,9 @@ export class NbLayoutScrollService {
 
   scrollable(scrollable: boolean) {
     this.scrollable$.next(scrollable);
+  }
+
+  stopScrollListener(stop: boolean) {
+    this.scrollListening$.next({ stop: stop } );
   }
 }

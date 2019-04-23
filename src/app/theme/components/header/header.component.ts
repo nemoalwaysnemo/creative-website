@@ -8,6 +8,7 @@ import { delay, distinctUntilChanged, filter, map, pairwise, share, throttleTime
 import { NbSidebarService } from '@core/nebular/theme/components/sidebar/sidebar.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
+import { listener } from '@angular/core/src/render3';
 enum VisibilityState {
   Visible = 'visible',
   Hidden = 'hidden',
@@ -47,13 +48,17 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   private subscription: Subscription = new Subscription();
   logo: boolean = true;
   headerHide: any;
+  isOpen = true;
+  sidebarClosed: boolean = false;
+  listenToScroll: boolean = true;
+  protected goingUp: Subscription = new Subscription();
+  protected goingDown: Subscription = new Subscription();
   constructor(private router: Router, private menuService: NbMenuService,
               protected bpService: NbMediaBreakpointsService,
               protected themeService: NbThemeService,
               private userService: UserService, protected sidebarService: NbSidebarService,
               protected scrollService: NbLayoutScrollService) { }
-  isOpen = true;
-  sidebarSetting = false;
+
   ngOnInit() {
     this.getUser();
     this.updateHeaderTitle();
@@ -80,33 +85,46 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       )
       .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
         if (bpTo.width <= isBp.width) {
-          this.sidebarSetting = true;
+          this.sidebarClosed = true;
+          this.scrollService.stopScrollListener(true);
         }
       });
   }
 
   ngAfterViewInit() {
-    const scroll$ = this.scrollService
-                    .onScroll()
-                    .pipe(
-                      throttleTime(100),
-                      map(() => window.pageYOffset),
-                      pairwise(),
-                      map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
-                      distinctUntilChanged(),
-                      share(),
-                    );
+    if (this.listenToScroll) {
+      const scroll$ = this.scrollService
+                      .onScroll()
+                      .pipe(
+                        throttleTime(100),
+                        map(() => window.pageYOffset),
+                        pairwise(),
+                        map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+                        distinctUntilChanged(),
+                        share(),
+                      );
 
-    const goingUp$ = scroll$.pipe(
-      filter(direction => direction === Direction.Up),
-    );
+      const goingUp$ = scroll$.pipe(
+        filter(direction => direction === Direction.Up),
+      );
 
-    const goingDown$ = scroll$.pipe(
-      filter(direction => direction === Direction.Down),
-    );
+      const goingDown$ = scroll$.pipe(
+        filter(direction => direction === Direction.Down),
+      );
 
-    goingUp$.subscribe(() => (this.isVisible = true, this.headerHide = '', this.actionTag = true));
-    goingDown$.subscribe(() => (this.isVisible = false, this.actionTag = false, setTimeout(() => (this.headerHide = 'none'), 300)));
+      this.goingUp = goingUp$.subscribe(() => (this.isVisible = true, this.headerHide = '', this.actionTag = true));
+      this.goingDown = goingDown$.subscribe(() => (this.isVisible = false, this.actionTag = false, setTimeout(() => (this.headerHide = 'none'), 300)));
+    }
+    this.scrollService.onScrollListen()
+    .subscribe((res) => {
+      if (res) {
+        if (res.stop === true) {
+          this.goingUp.unsubscribe();
+          this.goingDown.unsubscribe();
+          this.listenToScroll = false;
+        }
+      }
+    });
   }
 
 
@@ -117,8 +135,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   goHome() {
     this.router.navigate([Environment.homePath]);
   }
+
   sidebarToggle() {
-    this.sidebarService.toggle(true, 'menu-sidebar');
+    if ( this.sidebarClosed ) {
+      this.sidebarService.toggle(true, 'menu-sidebar');
+      this.sidebarClosed = false;
+    } else {
+      this.sidebarService.collapse('menu-sidebar');
+      this.sidebarClosed = true;
+    }
   }
   private getUser(): void {
     const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {

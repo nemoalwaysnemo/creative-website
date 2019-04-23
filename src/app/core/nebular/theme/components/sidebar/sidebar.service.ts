@@ -25,6 +25,7 @@ export class NbSidebarService {
   private sidebarToggle$ = new Subject<{ tag: boolean }>();
   private sidebarOpen$ = new Subject<{ tag: boolean }>();
   private sidebarClose$ = new Subject<{ tag: boolean }>();
+  private sidebarStatus$ = new Subject<{ status: string }>();
 
   onSidebar(): Observable<{ tag: boolean }> {
     return this.sidebarToggle$.pipe(share());
@@ -77,6 +78,14 @@ export class NbSidebarService {
   }
 
   /**
+   * Subscribe to sidebar status
+   * @returns Observable<{ tag: string }>
+   */
+  onStatus(): Observable<{ status: string }> {
+    return this.sidebarStatus$.pipe(share());
+  }
+
+  /**
    * Toggle a sidebar
    * @param {boolean} compact
    * @param {string} tag If you have multiple sidebars on the page, mark them with `tag` input property and pass it here
@@ -102,6 +111,7 @@ export class NbSidebarService {
    */
   collapse(tag?: string) {
     this.collapse$.next({ tag });
+    this.sidebarStatus$.next({ status: 'collapse' });
   }
 
 }
