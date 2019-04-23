@@ -6,10 +6,10 @@
   <div *ngFor="let document of folders">
     <div class="thumbnail-view">
       <div class="image-holder">
-        <a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid}" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+        <a [routerLink]="['/p/intelligence/folder', document.uid]" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
       </div>
       <div class="description">
-        <h1 [title]="document.title"><a routerLink="/p/intelligence/folders" [queryParams]="{id: document.uid}">{{document.title}}</a></h1>
+        <h1 [title]="document.title"><a [routerLink]="['/p/intelligence/folder', document.uid]">{{document.title}}</a></h1>
       </div>
     </div>
   </div>

@@ -13,7 +13,7 @@ const routes: Routes = [{
       component: CreativeHomeComponent,
     },
     {
-      path: 'asset',
+      path: 'asset/:id',
       component: CreativeAssetComponent,
     }, {
       path: '',

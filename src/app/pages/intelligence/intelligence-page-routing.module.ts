@@ -19,11 +19,11 @@ const routes: Routes = [{
       pathMatch: 'full',
     },
     {
-      path: 'folders',
+      path: 'folder/:id',
       component: IntelligenceFoldersComponent,
     },
     {
-      path: 'asset',
+      path: 'asset/:id',
       component: IntelligenceAssetComponent,
     },
   ],

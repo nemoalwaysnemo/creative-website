@@ -6,11 +6,11 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
 
 @Component({
-  selector: 'disruption-asset',
-  styleUrls: ['./disruption-asset.component.scss'],
-  templateUrl: './disruption-asset.component.html',
+  selector: 'disruption-day-asset',
+  styleUrls: ['./disruption-day-asset.component.scss'],
+  templateUrl: './disruption-day-asset.component.html',
 })
-export class DisruptionAssetComponent extends AbstractDocumentViewComponent implements OnInit {
+export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent implements OnInit {
 
   folder: DocumentModel;
 
@@ -47,12 +47,12 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent impl
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,
     };
   }
 
   private searchFolder(): void {
-    const folderId = this.activatedRoute.snapshot.queryParams.folder;
+    const folderId = this.activatedRoute.snapshot.paramMap.get('folder');
     if (folderId) {
       this.getDocumentModel(folderId, this.folderParams).subscribe((res: NuxeoPagination) => {
         this.folderLoading = false;

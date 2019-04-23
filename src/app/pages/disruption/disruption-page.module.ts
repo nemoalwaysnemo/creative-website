@@ -6,7 +6,7 @@ import { DisruptionTheoryModule } from './disruption-theory/disruption-theory.mo
 import { DisruptionPageComponent } from './disruption-page.component';
 import { DisruptionPageRoutingModule } from './disruption-page-routing.module';
 import { DisruptionFoldersModule  } from './disruption-folders/disruption-folders.module';
-import { DisruptionAssetModule } from './disruption-asset/disruption-asset.module';
+import { DisruptionDayAssetModule } from './disruption-day-asset/disruption-day-asset.module';
 import { BrilliantThinkingModule } from './brilliant-thinking/brilliant-thinking.module';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { BrilliantThinkingModule } from './brilliant-thinking/brilliant-thinking
     DisruptionRoadmapsModule,
     DisruptionTheoryModule,
     DisruptionFoldersModule,
-    DisruptionAssetModule,
+    DisruptionDayAssetModule,
     BrilliantThinkingModule,
     DisruptionPageRoutingModule,
   ],

@@ -20,7 +20,7 @@ const routes: Routes = [{
       component: CreativeMyBrandSearchComponent,
     },
     {
-      path: 'myBrandAsset',
+      path: 'myBrandAsset/:id',
       component: CreativeMyBrandAssetSearchComponent,
     },
     {
@@ -28,7 +28,7 @@ const routes: Routes = [{
       component: CreativeRecommendedBrandSearchComponent,
     },
     {
-      path: 'recommendedBrandAsset',
+      path: 'recommendedBrandAsset/:id',
       component: CreativeRecommendedBrandAssetSearchComponent,
     },
     {

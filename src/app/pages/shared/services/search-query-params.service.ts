@@ -8,10 +8,8 @@ export class SearchQueryParamsService {
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   buildQueryParams(formValue: any = {}): any {
-    formValue.id = this.activatedRoute.snapshot.queryParams.id;
-    formValue.folder = this.activatedRoute.snapshot.queryParams.folder;
     formValue.q = formValue.ecm_fulltext ? formValue.ecm_fulltext : '';
-    formValue = selectObjectByKeys(formValue, ['q', 'id', 'folder', 'aggregates']);
+    formValue = selectObjectByKeys(formValue, ['q', 'aggregates']);
     if (formValue.aggregates) {
       Object.keys(formValue.aggregates).forEach((key) => { formValue[key] = formValue.aggregates[key]; });
       delete formValue.aggregates;

@@ -5,7 +5,7 @@ import { DisruptionDaysComponent } from './disruption-days/disruption-days.compo
 import { DisruptionRoadmapsComponent } from './disruption-roadmaps/disruption-roadmaps.component';
 import { DisruptionTheoryComponent } from './disruption-theory/disruption-theory.component';
 import { DisruptionFoldersComponent } from './disruption-folders/disruption-folders.component';
-import { DisruptionAssetComponent } from './disruption-asset/disruption-asset.component';
+import { DisruptionDayAssetComponent } from './disruption-day-asset/disruption-day-asset.component';
 import { BrilliantThinkingComponent } from './brilliant-thinking/brilliant-thinking.component';
 const routes: Routes = [{
   path: '',
@@ -21,12 +21,12 @@ const routes: Routes = [{
       component: DisruptionDaysComponent,
     },
     {
-      path: 'days/folders',
+      path: 'days/folders/:id',
       component: DisruptionFoldersComponent,
     },
     {
-      path: 'days/asset',
-      component: DisruptionAssetComponent,
+      path: 'days/folder/:folder/asset/:id',
+      component: DisruptionDayAssetComponent,
     },
     {
       path: 'roadmaps',

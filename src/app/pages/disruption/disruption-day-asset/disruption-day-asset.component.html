@@ -1,0 +1,19 @@
+<nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
+<disruption-folders-view [loading]="folderLoading" [document]="folder"></disruption-folders-view>
+<div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+  <section class="general">
+    <div class="showcase left">
+      <document-viewer [document]="document"></document-viewer>
+    </div>
+    <div class="general_info left">
+      <document-metadata-info [document]="document"></document-metadata-info>
+    </div>
+    <div class="clear"></div>
+  </section>
+  <section class="additional_info">
+    <document-additional-info [document]="document"></document-additional-info>
+  </section>
+  <section class="related">
+    <document-related-info [document]="document"></document-related-info>
+  </section>
+</div>

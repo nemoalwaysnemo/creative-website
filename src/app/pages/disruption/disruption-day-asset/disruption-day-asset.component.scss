@@ -3,13 +3,13 @@
 .left { float: left; }
 .right { float: right; }
 .clear { clear: both; }
-nb-card {
-  width: 100%;
+
+nb-route-tabset {
+  display: block;
+  margin: 20px 0;
   padding: 0 40px;
-  margin: 0 auto;
   box-sizing: border-box;
 }
-nb-route-tabset { margin: 20px 0; }
 
 .document {
   margin-top: 20px;

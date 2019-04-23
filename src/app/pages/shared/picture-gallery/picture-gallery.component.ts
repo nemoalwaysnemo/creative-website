@@ -11,6 +11,8 @@ import { deepExtend } from '@core/services';
 })
 export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  @Input() assetUrl: string;
+
   @Input() gallerySettings: GalleryConfig;
 
   @Input('galleryItems')

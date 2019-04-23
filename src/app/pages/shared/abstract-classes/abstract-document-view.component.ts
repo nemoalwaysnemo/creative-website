@@ -24,7 +24,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
   }
 
   onInit() {
-    this.onQueryParamsChanged();
+    this.onParamsChanged();
   }
 
   onDestroy() {
@@ -54,21 +54,21 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
   }
 
   protected getDefaultDocument(primaryKey: string, params: any = {}): Observable<DocumentModel> {
-    return this.activatedRoute.queryParams
+    return this.activatedRoute.paramMap
       .pipe(
-        tap(queryParams => {
-          if (!isDocumentUID(queryParams[primaryKey])) {
-            this.onInvalidDocumentUID(queryParams[primaryKey]);
+        tap(paramMap => {
+          if (!isDocumentUID(paramMap.get(primaryKey))) {
+            this.onInvalidDocumentUID(paramMap.get(primaryKey));
           }
         }),
-        filter(queryParams => (!this.document || this.document.uid !== queryParams[primaryKey]) && isDocumentUID(queryParams[primaryKey])),
+        filter(paramMap => (!this.document || this.document.uid !== paramMap.get(primaryKey)) && isDocumentUID(paramMap.get(primaryKey))),
         distinctUntilChanged(),
-        switchMap(queryParams => this.getDocumentModel(queryParams[primaryKey], params)),
+        switchMap(paramMap => this.getDocumentModel(paramMap.get(primaryKey), params)),
         map((res: NuxeoPagination) => res.entries.shift()),
       );
   }
 
-  protected onQueryParamsChanged(): void {
+  protected onParamsChanged(): void {
     const subscription = this.getDefaultDocument(this.primaryKey, this.getDefaultDocumentParams())
       .subscribe((doc: DocumentModel) => {
         this.loading = false;
