@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './home/home.component';
-import { AssetComponent } from './asset/asset.component';
+import { CreativeHomeComponent } from './creative-home/creative-home.component';
+import { CreativeAssetComponent } from './creative-asset/creative-asset.component';
 import { CreativePageComponent } from './creative-page.component';
 
 const routes: Routes = [{
@@ -10,14 +10,14 @@ const routes: Routes = [{
   children: [
     {
       path: 'home',
-      component: HomeComponent,
+      component: CreativeHomeComponent,
     },
     {
       path: 'asset',
-      component: AssetComponent,
+      component: CreativeAssetComponent,
     }, {
       path: '',
-      component: HomeComponent,
+      component: CreativeHomeComponent,
       pathMatch: 'full',
     },
   ],

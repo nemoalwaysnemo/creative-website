@@ -46,7 +46,7 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
 
   protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_TYPE,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,
       ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
       currentPageIndex: 0,
       pageSize: 20,
