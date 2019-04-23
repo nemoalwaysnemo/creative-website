@@ -38,6 +38,7 @@
   min-height: 100px;
   margin: 0 auto;
   background: #ffffff;
+  &.full-width { width: 100%; }
   &.suggestion-inline {
     @include media-breakpoint-down(lg) { //992px
       width: 700px;
