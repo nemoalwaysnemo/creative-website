@@ -116,7 +116,7 @@ export class NbSidebarFooterComponent {
   styleUrls: ['./sidebar.component.scss'],
   template: `
     <div (mouseenter)="openSideBar()" class="trigger"></div>
-    <div class="main-container" [@openClose]="isOpen ? 'expand' : 'hide'"
+    <div class="main-container"
          [class.main-container-fixed]="containerFixedValue">
       <ng-content select="nb-sidebar-header"></ng-content>
       <div class="scrollable" (click)="onClick($event)">
@@ -125,24 +125,24 @@ export class NbSidebarFooterComponent {
       <ng-content select="nb-sidebar-footer"></ng-content>
     </div>
   `,
-  animations: [
-    trigger('openClose', [
-      state('hide', style({
-            zIndex: 0,
-            width: '0px',
-      })),
-      state('expand', style({
-            zIndex: 100,
-            width: '77px',
-      })),
-      transition('hide => expand', [
-        animate('0.1s'),
-      ]),
-      transition('expand => hide', [
-        animate('0.1s'),
-      ]),
-    ]),
-  ],
+  // animations: [
+  //   trigger('openClose', [
+  //     state('hide', style({
+  //           zIndex: 0,
+  //           width: '0px',
+  //     })),
+  //     state('expand', style({
+  //           zIndex: 100,
+  //           width: '77px',
+  //     })),
+  //     transition('hide => expand', [
+  //       animate('0.1s'),
+  //     ]),
+  //     transition('expand => hide', [
+  //       animate('0.1s'),
+  //     ]),
+  //   ]),
+  // ],
 })
 export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
 
