@@ -4,10 +4,11 @@
     <a (click)="close()"><img [src]="closeBtnImage()"></a>
     Disruption Roadmaps
   </h5>
-  </div>
+</div>
+  <ng-content></ng-content>
   <ng-container *ngIf="document">
     <div class="form">
-      <disruption-form-roadmap [document]="document"></disruption-form-roadmap>
+      <disruption-form-roadmap [document]="document" (onCreated)="onCreated($event)"></disruption-form-roadmap>
     </div>
   </ng-container>
 </div>

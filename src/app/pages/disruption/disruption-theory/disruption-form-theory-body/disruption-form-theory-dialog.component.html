@@ -5,9 +5,10 @@
       Disruption Theory
     </h5>
   </div>
+  <ng-content></ng-content>
   <ng-container *ngIf="document">
     <div class="form">
-      <disruption-form-theory [document]="document"></disruption-form-theory>
+      <disruption-form-theory [document]="document" (onCreated)="onCreated($event)"></disruption-form-theory>
     </div>
   </ng-container>
 </div>

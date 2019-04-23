@@ -16,4 +16,8 @@ export class DisruptionFormTheoryDialogComponent extends BaseDialogBody {
   protected initDocument(res: any) {
   }
 
+  onCreated(docs: any): void {
+    this.dialogService.showAlert('success', `${docs[0].title} create success`, 3000);
+  }
+
 }

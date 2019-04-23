@@ -5,9 +5,10 @@
       Disruption Days Asset
     </h5>
   </div>
+  <ng-content></ng-content>
   <ng-container *ngIf="document">
     <div class="form">
-      <disruption-form-folders [document]="document"></disruption-form-folders>
+      <disruption-form-folders [document]="document" (onCreated)="onCreated($event)"></disruption-form-folders>
     </div>
   </ng-container>
 </div>
