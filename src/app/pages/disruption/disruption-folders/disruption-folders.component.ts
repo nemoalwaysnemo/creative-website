@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
 import { TAB_CONFIG } from '../tab-config';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -25,7 +25,8 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
+    protected queryParamsService: SearchQueryParamsService,
+    protected previewDialogService: PreviewDialogService) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -57,4 +58,9 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
     }
     return params;
   }
+
+  openForm(dialog: any): void {
+    this.previewDialogService.open(dialog, this.document);
+  }
+
 }
