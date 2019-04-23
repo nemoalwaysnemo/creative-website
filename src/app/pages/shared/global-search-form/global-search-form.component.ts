@@ -154,7 +154,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   private onParentChanged(parentParams: any = {}): void {
     const queryValues = this.buildFormValues(this.activatedRoute.snapshot.queryParams);
-    const params = Object.assign({}, this.getSearchParams(), parentParams, this.getFormValue(), queryValues);
+    const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), parentParams, queryValues);
     this.search$.next({ params, event: 'onParentChanged' });
   }
 

@@ -77,7 +77,7 @@ export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent 
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
       ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
+      pageSize: 100,
       ecm_fulltext: '',
     };
     if (doc) {
