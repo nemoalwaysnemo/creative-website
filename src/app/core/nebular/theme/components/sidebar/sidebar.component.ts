@@ -449,7 +449,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
         const isCollapsed = this.collapsedBreakpoints.includes(current.name);
         if (isCollapsed) {
           this.fixed = true;
-          this.collapse();
+          this.sidebarService.collapse('menu-sidebar');
           this.responsiveState = NbSidebarComponent.RESPONSIVE_STATE_MOBILE;
         } else {
           this.fixed = true;

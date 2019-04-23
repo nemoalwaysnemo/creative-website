@@ -77,6 +77,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
 
+    this.sidebarService.onCollapse()
+    .subscribe((res) => {
+      this.sidebarClosed = true;
+    });
+
     const isBp = this.bpService.getByName('xl');
     this.menuService.onItemSelect()
       .pipe(
