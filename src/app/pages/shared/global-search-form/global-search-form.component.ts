@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ActivatedRoute, Router, Params, Event, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, Params, Event, NavigationEnd, ParamMap } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map } from 'rxjs/operators';
@@ -113,6 +113,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private onInit(): void {
+    this.onRefreshSearch();
     this.buildSearchForm();
     this.onSearchTriggered();
     this.onSearchPerformed();
@@ -198,9 +199,18 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     return Object.keys(queryParams).some((key) => key.includes('_agg'));
   }
 
-  private checkPageChanged(info: PageChangedInfo): boolean {
-    const type = info.historyState.type;
-    return (this.pageChangedSearch && type !== 'keyword') || (!this.pageChangedSearch && type === 'pagination');
+  private onRefreshSearch(): void {
+    const subscription = this.activatedRoute.queryParamMap.pipe(
+      delay(100),
+    ).subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('refresh')) {
+        const queryParams = Object.assign({}, this.activatedRoute.snapshot.queryParams);
+        delete queryParams['refresh'];
+        this.queryParamsService.changeQueryParams(queryParams, { type: 'refresh' });
+        this.onQueryParamsChanged(queryParams);
+      }
+    });
+    this.subscription.add(subscription);
   }
 
   private onPageChanged(): Observable<PageChangedInfo> {
@@ -213,7 +223,6 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   private onCurrentPageChanged(): void {
     const subscription = this.onPageChanged().pipe(
       delay(100),
-      filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       this.onQueryParamsChanged(info.queryParams);
       if (this.hasFilterQueryParams(info.queryParams)) {
