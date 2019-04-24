@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { NbSpinnerModule } from '@core/nebular/theme';
 import { CommonModule } from '@angular/common';
+import { NbSpinnerModule } from '@core/nebular/theme';
 import { DisruptionFoldersViewComponent } from './disruption-folders-view.component';
 
 @NgModule({

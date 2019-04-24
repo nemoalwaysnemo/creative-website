@@ -25,7 +25,7 @@ const routes: Routes = [{
       component: DisruptionFoldersComponent,
     },
     {
-      path: 'days/folder/:folder/asset/:id',
+      path: 'days/folders/:folder/asset/:id',
       component: DisruptionDayAssetComponent,
     },
     {

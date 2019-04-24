@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { ThemeModule } from '@theme/theme.module';
+import { CommonModule } from '@angular/common';
+import { NbSpinnerModule } from '@core/nebular/theme';
 import { DocumentBrandViewComponent } from './document-brand-view.component';
 import { SharedServiceModule } from '../services/shared-service.module';
 
 @NgModule({
   imports: [
-    ThemeModule,
+    CommonModule,
+    NbSpinnerModule,
   ],
   declarations: [
     DocumentBrandViewComponent,

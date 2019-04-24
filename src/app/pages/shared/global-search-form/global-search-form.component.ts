@@ -213,6 +213,11 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
+  private checkPageChanged(info: PageChangedInfo): boolean {
+    const type = info.historyState.type;
+    return (this.pageChangedSearch && type !== 'keyword') || (!this.pageChangedSearch && (type === 'pagination' || type === 'refresh'));
+  }
+
   private onPageChanged(): Observable<PageChangedInfo> {
     return this.router.events.pipe(
       filter((e: Event) => e instanceof NavigationEnd),
@@ -223,6 +228,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   private onCurrentPageChanged(): void {
     const subscription = this.onPageChanged().pipe(
       delay(100),
+      filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       this.onQueryParamsChanged(info.queryParams);
       if (this.hasFilterQueryParams(info.queryParams)) {
