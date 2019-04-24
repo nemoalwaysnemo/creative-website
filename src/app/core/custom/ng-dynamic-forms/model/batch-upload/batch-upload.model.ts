@@ -28,6 +28,6 @@ export class DynamicBatchUploadModel<T> extends DynamicFormValueControlModel<T> 
     this.acceptTypes = config.acceptTypes || '*';
     this.queueLimit = config.queueLimit || 5;
     this.multiUpload = config.multiUpload;
-    this.maxSize = config.maxSize || 1048576 * 10; // 1024 == 1mb
+    this.maxSize = config.maxSize || 1048576 * 200; // 1024 == 1mb
   }
 }

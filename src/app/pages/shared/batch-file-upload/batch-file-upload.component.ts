@@ -41,7 +41,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   @Input() placeholder: string = 'Drop files here';
 
-  @Input() maxSize: number = 1048576 * 10; // 1024 == 1mb
+  @Input() maxSize: number = 1048576 * 200; // 1024 == 1mb
 
   @Input() acceptTypes: string = '*';
 
