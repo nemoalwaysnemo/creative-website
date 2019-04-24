@@ -63,4 +63,8 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
     this.previewDialogService.open(dialog, this.document);
   }
 
+  onCreated(doc: DocumentModel): void {
+    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+  }
+
 }

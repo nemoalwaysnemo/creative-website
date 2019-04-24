@@ -6,7 +6,7 @@
 
 <ng-template #dialog>
   <preview-dialog>
-    <disruption-form-theory-body>
+    <disruption-form-theory-body (createdSuccess)="onCreated($event)">
       <preview-dialog-alert></preview-dialog-alert>
     </disruption-form-theory-body>
   </preview-dialog>

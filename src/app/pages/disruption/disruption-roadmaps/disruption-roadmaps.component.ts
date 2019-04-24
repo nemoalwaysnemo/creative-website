@@ -3,7 +3,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
 import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
-import { PreviewDialogService } from '@pages/shared';
+import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 @Component({
   selector: 'disruption-roadmap-page',
   styleUrls: ['./disruption-roadmaps.component.scss'],
@@ -37,7 +37,11 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private advanceSearch: AdvanceSearch, private previewDialogService: PreviewDialogService) { }
+  constructor(
+    private advanceSearch: AdvanceSearch,
+    private previewDialogService: PreviewDialogService,
+    private queryParamsService: SearchQueryParamsService,
+  ) { }
 
   ngOnInit() {
     this.searchFolders(this.folderParams);
@@ -48,6 +52,10 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
 
   openForm(dialog: any): void {
     this.previewDialogService.open(dialog, this.parentDocument);
+  }
+
+  onCreated(doc: DocumentModel): void {
+    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
   }
 
 
