@@ -12,6 +12,6 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
   constructor(private dialogService: PreviewDialogService) { }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc);
+    this.dialogService.open(dialog, doc, {title: 'Distuption Roadmaps'});
   }
 }

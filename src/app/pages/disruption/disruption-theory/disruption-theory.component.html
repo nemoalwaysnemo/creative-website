@@ -2,7 +2,7 @@
 <global-search-form [filters]="filters" [defaultParams]="defaultParams">
   <button type="button" (click)="openForm(dialog)" class="icon_btn new_theory" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New Theory">New Theory</button>
 </global-search-form>
-<disruption-roadmaps-asset-search-result></disruption-roadmaps-asset-search-result>
+<disruption-theory-asset-search-result></disruption-theory-asset-search-result>
 
 <ng-template #dialog>
   <preview-dialog>
