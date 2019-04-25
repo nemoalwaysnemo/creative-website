@@ -8,7 +8,7 @@ import { DatepickerDirectiveComponent } from './datepicker-directive.component';
   imports: [
     CommonModule,
     FormsModule,
-    NbDatepickerModule,
+    NbDatepickerModule.forRoot(),
   ],
   exports: [
     DatepickerDirectiveComponent,

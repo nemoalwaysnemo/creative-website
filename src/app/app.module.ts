@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from '@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NbDatepickerModule } from '@core/nebular/theme';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +29,6 @@ import { NbDatepickerModule } from '@core/nebular/theme';
     CoreModule.forRoot(),
     Angulartics2Module.forRoot(),
     DeviceDetectorModule.forRoot(),
-    NbDatepickerModule.forRoot(),
   ],
   bootstrap: [AppComponent],
   providers: [
