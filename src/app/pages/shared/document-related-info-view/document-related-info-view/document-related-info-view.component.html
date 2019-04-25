@@ -24,8 +24,7 @@
 <document-thumbnail-view [loading]="loading" [layout]="'quarter full-width'" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 <ng-template #backslashThumbnailItemView let-doc="doc">
   <div class="thumbnail-view-item backslash dates">
-    <h4>{{doc.title | shorten: 12: '...'}}</h4>
-    <div class="line"></div>
+    <h4>{{doc.title | shorten: 25: '...'}}</h4>
     <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
     <a (click)="open(backslashDialog, doc, 'Backslash')"><img src="{{doc.thumbnailUrl}}" [alt]="doc.title" class="thumbnail-img"></a>
   </div>
