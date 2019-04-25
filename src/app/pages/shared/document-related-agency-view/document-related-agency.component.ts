@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
@@ -8,11 +8,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./document-related-agency.component.scss'],
   templateUrl: './document-related-agency.component.html',
 })
-export class DocumentRelatedAgencyComponent implements OnInit, OnDestroy {
+export class DocumentRelatedAgencyComponent implements OnDestroy {
 
   layout: string = 'quarter full-width';
 
-  @Input() document: DocumentModel;
+  documentModel: DocumentModel;
 
   loading: boolean = true;
 
@@ -27,20 +27,25 @@ export class DocumentRelatedAgencyComponent implements OnInit, OnDestroy {
     ecm_uuid_exclude: '',
   };
 
-  constructor(private advanceSearch: AdvanceSearch) { }
-
-  ngOnInit() {
-    this.params.the_loupe_main_agency = this.document.get('The_Loupe_Main:agency');
-    this.params.ecm_uuid_exclude = this.document.uid;
-    this.search(this.params);
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.documentModel = doc;
+      this.searchDocuments(doc);
+    }
   }
+
+  constructor(private advanceSearch: AdvanceSearch) { }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  private search(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
+  private searchDocuments(doc: DocumentModel): void {
+    this.loading = true;
+    this.params.the_loupe_main_agency = doc.get('The_Loupe_Main:agency');
+    this.params.ecm_uuid_exclude = doc.uid;
+    const subscription = this.advanceSearch.request(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.loading = false;
         this.documents = res.entries;

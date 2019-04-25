@@ -1,8 +1,19 @@
 import { Component, Input } from '@angular/core';
-import { DocumentRelatedInfoService } from './document-related-info.service';
 import { DocumentModel } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { Subject } from 'rxjs';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
+import { NUXEO_META_INFO } from '@environment/environment';
+
+export class TabInfo {
+  readonly type: string;
+  readonly tabItem: any;
+  readonly document: DocumentModel;
+  constructor(type: string, item: any, doc: DocumentModel) {
+    this.type = type;
+    this.tabItem = item;
+    this.document = doc;
+  }
+}
 
 @Component({
   selector: 'document-related-info',
@@ -58,12 +69,30 @@ export class DocumentRelatedInfoComponent {
     },
   ];
 
-  @Input() document: DocumentModel;
+  tabInfo$ = new Subject<TabInfo>();
 
-  constructor(private documentRelatedInfoService: DocumentRelatedInfoService) { }
+  private currentTab: any;
+
+  doc: DocumentModel;
+
+  constructor() {
+    this.currentTab = this.tabItems[0];
+  }
+
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.doc = doc;
+      setTimeout(() => { this.tabInfo$.next(new TabInfo('docChanged', this.currentTab, doc)); }, 0);
+    }
+  }
 
   onChangTab(tab: NbTabComponent): void {
-    this.documentRelatedInfoService.changeTab(this.getTabItem(tab));
+    const info = this.getTabItem(tab);
+    if (tab.tabTitle !== this.currentTab.name) {
+      this.tabInfo$.next(new TabInfo('tabChanged', info, this.doc));
+    }
+    this.currentTab = info;
   }
 
   private getTabItem(tab: NbTabComponent): any {

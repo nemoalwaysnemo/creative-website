@@ -1,19 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'document-related-project',
   styleUrls: ['./document-related-project.component.scss'],
   templateUrl: './document-related-project.component.html',
 })
-export class DocumentRelatedProjectComponent implements OnInit {
+export class DocumentRelatedProjectComponent implements OnDestroy {
 
   layout: string = 'quarter full-width';
+
+  documentModel: DocumentModel;
 
   loading: boolean = true;
 
   documents: DocumentModel[];
+
+  private subscription: Subscription = new Subscription();
 
   private params: any = {
     pageSize: 4,
@@ -22,21 +27,29 @@ export class DocumentRelatedProjectComponent implements OnInit {
     ecm_uuid_exclude: '',
   };
 
-  @Input() document: DocumentModel;
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.documentModel = doc;
+      this.searchDocuments(doc);
+    }
+  }
 
   constructor(private advanceSearch: AdvanceSearch) { }
 
-  ngOnInit() {
-    this.params.the_loupe_main_brand_any = `["${this.document.get('The_Loupe_Main:brand').join('", "')}"]`;
-    this.params.ecm_uuid_exclude = this.document.uid;
-    this.search(this.params);
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
-  private search(params: {}): void {
-    this.advanceSearch.request(params)
+  private searchDocuments(doc: DocumentModel): void {
+    this.loading = true;
+    this.params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
+    this.params.ecm_uuid_exclude = doc.uid;
+    const subscription = this.advanceSearch.request(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.loading = false;
         this.documents = res.entries;
       });
+    this.subscription.add(subscription);
   }
 }

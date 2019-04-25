@@ -22,7 +22,18 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  @Input() document: DocumentModel;
+  documentModel: DocumentModel;
+
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.documentModel = doc;
+      if (this.isCreativeAsset(doc)) {
+        this.getUsageRightsStatus(doc);
+      }
+    }
+  }
+
 
   constructor(
     private advanceSearch: AdvanceSearch,
@@ -31,9 +42,7 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (this.isCreativeAsset(this.document)) {
-      this.getUsageRightsStatus();
-    }
+
   }
 
   ngOnDestroy() {
@@ -52,9 +61,9 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     return doc && getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
   }
 
-  toggleJob() {
-    if (this.jobTitle === undefined && this.hasJobValue()) {
-      this.advanceSearch.request(this.getRequestParams())
+  toggleJob(doc: DocumentModel) {
+    if (this.jobTitle === undefined && this.hasJobValue(doc)) {
+      this.advanceSearch.request(this.getRequestParams(doc))
         .subscribe((res: NuxeoPagination) => {
           this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
           this.jobLoading = false;
@@ -72,8 +81,9 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  private getUsageRightsStatus(): void {
-    const subscription = this.nuxeoApi.operation(NuxeoAutomations.CreativeGetDocumentURStatus, { 'uids': this.document.uid })
+  private getUsageRightsStatus(doc: DocumentModel): void {
+    this.usageLoading = true;
+    const subscription = this.nuxeoApi.operation(NuxeoAutomations.CreativeGetDocumentURStatus, { 'uids': doc.uid })
       .subscribe((res: NuxeoPagination) => {
         this.usageRights = res.entries.shift();
         this.usageLoading = false;
@@ -81,12 +91,12 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  private hasJobValue(): boolean {
-    return this.document.get('The_Loupe_Main:jobtitle').length > 0;
+  private hasJobValue(doc: DocumentModel): boolean {
+    return doc.get('The_Loupe_Main:jobtitle').length > 0;
   }
 
-  private getRequestParams(): any {
-    const jobTitle = this.document.get('The_Loupe_Main:jobtitle');
+  private getRequestParams(doc: DocumentModel): any {
+    const jobTitle = doc.get('The_Loupe_Main:jobtitle');
     return { ecm_uuid: `["${jobTitle.join('", "')}"]` };
   }
 

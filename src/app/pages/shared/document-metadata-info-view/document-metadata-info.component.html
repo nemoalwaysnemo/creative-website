@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="true">
-  <ng-container *ngSwitchCase="isDisruptionAsset(document) || isIntelligenceAsset(document)">
-    <h1>{{ document.title }}</h1>
-    <h2>{{ document.get('The_Loupe_Main:brand') }}</h2>
+  <ng-container *ngSwitchCase="isDisruptionAsset(documentModel) || isIntelligenceAsset(documentModel)">
+    <h1>{{ documentModel.title }}</h1>
+    <h2>{{ documentModel.get('The_Loupe_Main:brand') }}</h2>
     <table>
       <tbody>
         <tr>
@@ -9,43 +9,51 @@
           <th>Asset Type</th>
         </tr>
         <tr>
-          <td>{{ document.get('The_Loupe_Main:description') }}</td>
-          <td>{{ document.get('app_Edges:disruption_type') }}</td>
+          <td>{{ documentModel.get('The_Loupe_Main:description') }}</td>
+          <td>{{ documentModel.get('app_Edges:disruption_type') }}</td>
         </tr>
         <tr>
           <th>Industry</th>
           <th>Geography</th>
         </tr>
         <tr>
-          <td>{{ document.get('app_Edges:industry') }}</td>
-          <td>{{ parseCountry(document.get('The_Loupe_Main:country')) }}</td>
+          <td>{{ documentModel.get('app_Edges:industry') }}</td>
+          <td>{{ parseCountry(documentModel.get('app_Edges:Relevant_Country')) }}</td>
         </tr>
         <tr>
           <th>Author</th>
-          <th>Pubilished</th>
+          <th>Published</th>
         </tr>
         <tr>
-          <td>{{ document.get('dc:creator') }}</td>
-          <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date }}</td>
+          <td>{{ documentModel.get('dc:creator') }}</td>
+          <td>{{ documentModel.get('The_Loupe_ProdCredits:production_date') | date }}</td>
         </tr>
         <tr>
-          <th>Edge Category</th>
+          <th>Backslash Category</th>
           <th>Edge</th>
         </tr>
         <tr>
-          <td>{{ document.get('dc:creator') }}</td>
-          <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+          <td>{{ documentModel.get('app_Edges:backslash_category') }}</td>
+          <td>{{ documentModel.get('app_Edges:Tags_edges') }}</td>
+        </tr>
+        <tr>
+          <th>Agency</th>
+          <th>Brand</th>
+        </tr>
+        <tr>
+          <td>{{ documentModel.get('The_Loupe_Main:agency') }}</td>
+          <td>{{ document.get('The_Loupe_Main:brand') }}</td>
         </tr>
       </tbody>
     </table>
-    <a *ngIf="document.filePath" href="{{document.filePath}}" class="download right" title="Download">Download</a>
-    <a href="{{document.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
+    <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right" title="Download">Download</a>
+    <a href="{{documentModel.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
     <a href="javascript:void(0)" (click)="goBack()" class="back right" title="Back">Back</a>
   </ng-container>
-  <ng-container *ngSwitchCase="isCreativeAsset(document)">
-    <h2>{{document.title}}</h2>
+  <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
+    <h2>{{documentModel.title}}</h2>
     <h4>About</h4>
-    <p>{{document.get('dc:description')}}</p>
+    <p>{{documentModel.get('dc:description')}}</p>
     <table>
       <tbody>
         <tr>
@@ -53,21 +61,21 @@
           <th>Country</th>
         </tr>
         <tr>
-          <td>{{document.get('The_Loupe_Main:assettype')}}</td>
-          <td>{{parseCountry(document.get('The_Loupe_Main:country'))}}</td>
+          <td>{{documentModel.get('The_Loupe_Main:assettype')}}</td>
+          <td>{{parseCountry(documentModel.get('The_Loupe_Main:country'))}}</td>
         </tr>
         <tr>
           <th>Agency</th>
           <th>Brand</th>
         </tr>
         <tr>
-          <td>{{document.get('The_Loupe_Main:agency')}}</td>
-          <td>{{document.get('The_Loupe_Main:brand')}}</td>
+          <td>{{documentModel.get('The_Loupe_Main:agency')}}</td>
+          <td>{{documentModel.get('The_Loupe_Main:brand')}}</td>
         </tr>
       </tbody>
     </table>
     <nb-accordion class="accordion">
-      <nb-accordion-item class="accordion-item" (click)="toggleJob()">
+      <nb-accordion-item class="accordion-item" (click)="toggleJob(documentModel)">
         <nb-accordion-item-header class="accordion-item-header"><span>Job</span></nb-accordion-item-header>
         <nb-accordion-item-body class="accordion-item-body" [nbSpinner]="jobLoading" nbSpinnerStatus="disabled">
           <table>
@@ -106,8 +114,8 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
-    <a *ngIf="document.filePath" href="{{document.filePath}}" class="download right" title="Download">Download</a>
-    <a href="{{document.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
+    <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right" title="Download">Download</a>
+    <a href="{{documentModel.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
     <a href="javascript:void(0)" (click)="goBack()" class="back right" title="Back">Back</a>
   </ng-container>
 </ng-container>

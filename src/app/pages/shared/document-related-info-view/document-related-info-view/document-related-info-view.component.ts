@@ -1,19 +1,18 @@
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { filter, mergeMap } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
-import { DocumentRelatedInfoService } from '../document-related-info.service';
 import { Environment, NUXEO_META_INFO } from '@environment/environment';
 import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
-import { BaseAutoSearch } from '@pages/shared/auto-search/base-auto-search';
+import { TabInfo } from '../document-related-info.component';
 
 @Component({
   selector: 'document-related-info-view',
   styleUrls: ['./document-related-info-view.component.scss'],
   templateUrl: './document-related-info-view.component.html',
 })
-export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
+export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('backslashThumbnailItemView') private backslashItemView: TemplateRef<any>;
 
@@ -23,15 +22,27 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
 
   @Input() item: any = {};
 
-  @Input() document: DocumentModel;
+  @Input()
+  set tabInfo(info: TabInfo) {
+    if (info) {
+      this.document = info.document;
+      this.tabInfo$.next(info);
+    }
+  }
+
+  private tabInfo$ = new Subject<TabInfo>();
 
   private search$: Subject<any> = new Subject<any>();
+
+  protected subscription: Subscription = new Subscription();
 
   loading: boolean = true;
 
   thumbnailItemView: TemplateRef<any>;
 
   edgeLoading: boolean = true;
+
+  document: DocumentModel;
 
   documents: DocumentModel[] = [];
 
@@ -41,21 +52,16 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
 
   constructor(
     private advanceSearch: AdvanceSearch,
-    private documentRelatedInfoService: DocumentRelatedInfoService,
     private dialogService: PreviewDialogService,
-  ) {
-    super();
-  }
+  ) { }
 
-  onInit() {
+  ngOnInit() {
     this.onSearch();
     this.onChangeTab();
-    this.buildBackslashEdges();
   }
 
-  onSubmit() {
-    this.loading = true;
-    this.search$.next(this.getSearchParams());
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
@@ -63,8 +69,7 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
   }
 
   onKeyup(event: KeyboardEvent) {
-    this.loading = true;
-    this.search$.next(this.getSearchParams());
+    this.search$.next(this.getSearchParams(this.document));
     event.preventDefault();
     event.stopImmediatePropagation();
   }
@@ -74,33 +79,40 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
   }
 
   private onChangeTab(): void {
-    const subscription = this.documentRelatedInfoService.onChangeTab()
-      .pipe(
-        filter((tabItem) => tabItem.name === this.item.name),
-      )
-      .subscribe((tabItem) => {
-        switch (tabItem.layout) {
-          case 'backslash':
-            this.thumbnailItemView = this.backslashItemView;
-            break;
-          case 'disruption':
-            this.thumbnailItemView = this.disruptionItemView;
-            break;
-          case 'intelligence':
-            this.thumbnailItemView = this.intelligenceItemView;
-            break;
-          default:
-            break;
-        }
-        if (this.documents.length === 0) {
-          this.search$.next(this.getSearchParams());
-        }
-      });
+    const subscription = this.tabInfo$.pipe(
+      filter((info: TabInfo) => info.document && info.tabItem.name === this.item.name),
+    ).subscribe((info: TabInfo) => {
+      switch (info.tabItem.layout) {
+        case 'backslash':
+          this.buildBackslashEdges(info.document);
+          this.thumbnailItemView = this.backslashItemView;
+          break;
+        case 'disruption':
+          this.thumbnailItemView = this.disruptionItemView;
+          break;
+        case 'intelligence':
+          this.thumbnailItemView = this.intelligenceItemView;
+          break;
+        default:
+          break;
+      }
+      if (info.type === 'docChanged') {
+        this.documents = [];
+      }
+      if (this.documents.length === 0) {
+        this.search$.next(this.getSearchParams(info.document));
+      }
+    });
     this.subscription.add(subscription);
   }
 
   private onSearch(): void {
     const subscription = this.search$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(_ => {
+        this.loading = true;
+      }),
       mergeMap((mapping) => {
         return this.advanceSearch.request(mapping.params, {}, mapping.provider);
       }),
@@ -111,25 +123,25 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
     this.subscription.add(subscription);
   }
 
-  private getSearchParams() {
-    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_exclude: this.document.uid }, this.item.params);
+  private getSearchParams(doc: DocumentModel): any {
+    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_exclude: doc.uid }, this.item.params);
     if (this.item.hasOwnProperty('paramsMapping')) {
       const keys = Object.keys(this.item.paramsMapping);
       for (const key of keys) {
-        const value = this.document.get(this.item.paramsMapping[key]);
+        const value = doc.get(this.item.paramsMapping[key]);
         params[key] = typeof value === 'string' || !value ? `"${value}"` : `"${value.join('", "')}"`;
       }
     }
     return { params, provider: this.item.provider };
   }
 
-  private getEdgesAggParams(): string {
-    const edges = this.document.get('app_Edges:Tags_edges');
+  private getEdgesAggParams(doc: DocumentModel): string {
+    const edges = doc.get('app_Edges:Tags_edges');
     return edges.length !== 0 ? `["${edges.join('", "')}"]` : '';
   }
 
-  private buildBackslashEdges() {
-    const edgesParams = this.getEdgesAggParams();
+  private buildBackslashEdges(doc: DocumentModel): void {
+    const edgesParams = this.getEdgesAggParams(doc);
     if (edgesParams) {
       const params: any = {
         app_edges_active_article: true,
@@ -137,6 +149,7 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
         app_edges_tags_edges: edgesParams,
         ecm_path: NUXEO_META_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
+      this.edgeLoading = true;
       const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
         this.edgeLoading = false;
         this.backslashEdges = res.entries;
@@ -144,6 +157,7 @@ export class DocumentRelatedInfoViewComponent extends BaseAutoSearch {
       this.subscription.add(subscription);
     } else {
       this.edgeLoading = false;
+      this.backslashEdges = [];
     }
   }
 }
