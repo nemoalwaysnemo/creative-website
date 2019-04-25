@@ -1,12 +1,14 @@
 // This file is used for local env
 
 export const Environment = {
+  title: 'Know\\edge',
+  server: 'Local',
   homePath: '/p/creative',
   appName: 'Creative Library Dev',
   nuxeoUrl: 'http://100.122.3.142:8080/nuxeo/',
   // nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
-  backslashAPPUrl: 'https://library-staging.factory.tools/nuxeo/edges',
+  backslashAppUrl: 'https://library-staging.factory.tools/nuxeo/edges',
   assetPath: '',
   production: false,
   autoLogin: false,

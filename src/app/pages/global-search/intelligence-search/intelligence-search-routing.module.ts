@@ -8,7 +8,7 @@ const routes: Routes = [{
   component: IntelligenceSearchComponent,
   children: [
     {
-      path: 'asset/:id',
+      path: 'asset',
       component: IntelligenceDocumentAssetSearchComponent,
     },
     {

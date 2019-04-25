@@ -75,7 +75,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   }
 
   getBackslashEdgeUrl(name: string) {
-    return Environment.backslashAPPUrl + `/#/list/edge/${name}/`;
+    return Environment.backslashAppUrl + `/#/list/edge/${name}/`;
   }
 
   private onChangeTab(): void {

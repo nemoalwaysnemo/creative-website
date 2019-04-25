@@ -13,7 +13,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Backslash',
     icon: 'nb-backslash',
     target: '_blank',
-    url: Environment.backslashAPPUrl,
+    url: Environment.backslashAppUrl,
   },
   {
     title: 'Disruption',

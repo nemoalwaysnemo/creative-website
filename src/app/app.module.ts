@@ -10,12 +10,11 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '@core/core.module';
 import { DeviceDetectorModule } from 'ngx-device-detector';
-import { Angulartics2Module } from 'angulartics2';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from '@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { GoogleAnalyticsModule } from '@core/google-analytics';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    Angulartics2Module.forRoot(),
+    GoogleAnalyticsModule.forRoot(),
     DeviceDetectorModule.forRoot(),
   ],
   bootstrap: [AppComponent],

@@ -14,11 +14,13 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
 
   usageRights: any = {};
 
-  usageLoading = true;
+  usageLoading: boolean = true;
 
   jobTitle: string;
 
-  jobLoading = true;
+  loading: boolean = true;
+
+  jobLoading: boolean = true;
 
   private subscription: Subscription = new Subscription();
 
@@ -27,6 +29,7 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
+      this.loading = false;
       this.documentModel = doc;
       if (this.isCreativeAsset(doc)) {
         this.getUsageRightsStatus(doc);

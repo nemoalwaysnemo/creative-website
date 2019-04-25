@@ -194,10 +194,10 @@ export class DocumentModel extends Base {
     return !this.hasFacet('NotCollectionMember');
   }
 
-  hasThumnail():boolean {
+  hasThumnail(): boolean {
     return this.thumbnailUrl !== this.getDefaultThumbnail();
   }
-  
+
   newInstance(type: string): DocumentModel {
     return new DocumentModel({ path: this.uid, type: type });
   }

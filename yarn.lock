@@ -1068,13 +1068,6 @@ angular2-toaster@^7.0.0:
   resolved "https://registry.yarnpkg.com/angular2-toaster/-/angular2-toaster-7.0.0.tgz#8d72716b6b267cf36576bf77361bb3ab09e9d093"
   integrity sha512-+nKyzg7X9r9knVghyURR63eXpbvErd/Hm7c7rx/v4gfqI7jNAkWHxO1tikVKEQFoD+au6Fu54LOGhEmXb0ECxg==
 
-angulartics2@^7.4.1:
-  version "7.4.1"
-  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-7.4.1.tgz#94455160b4e0440acf6004f2be4c21389a3a54e0"
-  integrity sha512-b+H7KrC6flwRKbQhP6Fa1M85MYNfRamUlaNnpDnCgXXJHB45J8iFHQ9P1MPd7zfIDq3XMMOw94D0kUcP42Zs+A==
-  dependencies:
-    tslib "^1.9.0"
-
 ansi-colors@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-1.1.0.tgz#6374b4dd5d4718ff3ce27a671a3b1cad077132a9"
