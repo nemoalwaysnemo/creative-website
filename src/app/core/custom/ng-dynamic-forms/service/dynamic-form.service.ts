@@ -22,6 +22,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_SLIDER, DynamicSliderModel } from '../model/s
 import { DYNAMIC_FORM_CONTROL_TYPE_SWITCH, DynamicSwitchModel } from '../model/switch/dynamic-switch.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA, DynamicTextAreaModel } from '../model/textarea/dynamic-textarea.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER, DynamicTimePickerModel } from '../model/timepicker/dynamic-timepicker.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE, DynamicDatepickerDirectiveModel } from '../model/dynamic-datepicker/dynamic-datepicker-directive.model';
 import { DynamicFormValidationService } from './dynamic-form-validation.service';
 import { DynamicFormModel, DynamicUnionFormModel } from '../model/dynamic-form.model';
 import { DynamicPathable } from '../model/misc/dynamic-form-control-path.model';
@@ -330,6 +331,10 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG:
           formModel.push(new DynamicOptionTagModel(model, layout));
+          break;
+
+        case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE:
+          formModel.push(new DynamicDatepickerDirectiveModel(model, layout));
           break;
 
         default:

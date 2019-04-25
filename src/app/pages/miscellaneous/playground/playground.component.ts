@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DocumentModel, DocumentRepository } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDatePickerModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 import { PreviewDialogService } from '@pages/shared';
 import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/option-tag/dynamic-option-tag.model';
 
@@ -19,8 +19,8 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   ngOnInit(): void {
-    this.create();
-    // this.update();
+    // this.create();
+    this.update();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,7 +43,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private update(): void {
-    this.documentRepository.get('dd42acef-2db7-4377-8b92-a9b556b8fbf5').subscribe((doc: DocumentModel) => {
+    this.documentRepository.get('094a3694-4795-42ac-aea0-1f8b95fe337e').subscribe((doc: DocumentModel) => {
       this.document = doc;
       this.settings = this.getSettings();
     });
@@ -72,6 +72,16 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         label: 'Brand',
         placeholder: 'Brand',
         required: false,
+      }),
+      // new DynamicDatePickerModel({
+      //   id: 'The_Loupe_ProdCredits:production_date',
+      //   label: 'Production Date',
+      //   placeholder: 'Production Date',
+      // }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Production Date',
+        placeholder: 'Production Date',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',

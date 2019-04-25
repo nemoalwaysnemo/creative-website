@@ -37,6 +37,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION,
   DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD,
   DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG,
+  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE,
 } from '@core/custom';
 import { DynamicNGCheckboxComponent } from './checkbox/dynamic-ng-checkbox.component';
 import { DynamicNGCheckboxGroupComponent } from './checkbox-group/dynamic-ng-checkbox-group.component';
@@ -53,6 +54,7 @@ import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker
 import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-upload.component';
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
+import { DynamicNGDatepickerDirectiveComponent } from '@pages/shared/dynamic-ng-form/datepicker-directive/dynamic-ng-datepicker-directive.component';
 
 @Component({
   selector: 'dynamic-ng-form-control',
@@ -136,6 +138,8 @@ export function ngBootstrapUIFormControlMapFn(model: DynamicFormControlModel): T
     case DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG:
       return DynamicNGOptionTagComponent;
 
+    case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE:
+      return DynamicNGDatepickerDirectiveComponent;
     default:
       return null;
   }

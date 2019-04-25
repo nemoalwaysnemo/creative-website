@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormsCoreModule } from '@core/custom';
 import { TextMaskModule } from 'angular2-text-mask';
 import { OptionTagModule } from '../option-tag/option-tag.module';
+import { DatepickerDirectiveModule } from '../datepicker-directive/datepicker-directive.module';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
 import { BatchFileUploadModule } from '../batch-file-upload/batch-file-upload.module';
 import { NgbDatepickerModule, NgbButtonsModule, NgbTimepickerModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,6 +25,8 @@ import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
 import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-upload.component';
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
+import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
+
 
 
 @NgModule({
@@ -38,6 +41,7 @@ import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.
     BatchFileUploadModule,
     DirectorySuggestionModule,
     OptionTagModule,
+    DatepickerDirectiveModule,
     DynamicFormsCoreModule.forRoot(),
   ],
   declarations: [
@@ -57,6 +61,7 @@ import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.
     DynamicNGTimePickerComponent,
     DynamicNGSuggestionComponent,
     DynamicNGOptionTagComponent,
+    DynamicNGDatepickerDirectiveComponent,
     DynamicNGBatchUploadComponent,
   ],
   entryComponents: [
@@ -75,6 +80,7 @@ import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.
     DynamicNGSuggestionComponent,
     DynamicNGBatchUploadComponent,
     DynamicNGOptionTagComponent,
+    DynamicNGDatepickerDirectiveComponent,
   ],
   exports: [
     DynamicFormsCoreModule,
@@ -95,6 +101,7 @@ import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.
     DynamicNGSuggestionComponent,
     DynamicNGBatchUploadComponent,
     DynamicNGOptionTagComponent,
+    DynamicNGDatepickerDirectiveComponent,
   ],
 })
 export class DynamicFormsNGUIModule {

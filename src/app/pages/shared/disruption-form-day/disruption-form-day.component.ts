@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DocumentModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 
 @Component({
   selector: 'disruption-form-day',
@@ -71,6 +71,11 @@ export class DisruptionFormDayComponent implements OnInit, OnDestroy {
         label: 'Brand',
         placeholder: 'Brand',
         required: false,
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Production Date',
+        placeholder: 'Production Date',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',

@@ -23,3 +23,4 @@ export * from './services/search-query-params.service';
 export * from './abstract-classes/abstract-document-view.component';
 export * from './services/shared-service.module';
 export * from './option-tag/option-tag.module';
+export * from './datepicker-directive/datepicker-directive.module';

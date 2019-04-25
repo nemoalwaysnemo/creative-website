@@ -41,6 +41,7 @@ export * from './model/timepicker/dynamic-timepicker.model';
 export * from './model/suggestion/dynamic-suggestion.model';
 export * from './model/option-tag/dynamic-option-tag.model';
 export * from './model/batch-upload/batch-upload.model';
+export * from './model/dynamic-datepicker/dynamic-datepicker-directive.model';
 
 export * from './model/misc/dynamic-form-control-layout.model';
 export * from './model/misc/dynamic-form-control-path.model';
