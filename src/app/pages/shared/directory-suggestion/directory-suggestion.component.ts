@@ -49,7 +49,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() contains: boolean = false;
 
-  @Input() suggestion: boolean = false;
+  @Input() suggestion: boolean = true;
 
   @Input() providerName: string;
 
@@ -73,6 +73,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   ngOnInit() {
     if (this.suggestion === true) {
       this.onSearchSuggestions();
+      this.filter$.next('');
     } else {
       this.getDirectoryEntries(this.directoryName);
     }
