@@ -33,7 +33,7 @@ export class DocumentViewerComponent {
       } else if (doc.isAudio()) {
         type = 'audio';
       }
-    } else if ( doc ) {
+    } else if (doc) {
       if (doc.isPicture()) {
         type = 'picture';
       } else if (doc.isPdf()) {

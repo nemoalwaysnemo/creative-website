@@ -6,6 +6,7 @@ import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map 
 import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { removeUselessObject } from '@core/services';
+import { GoogleAnalyticsService } from '@core/google-analytics';
 
 class PageChangedInfo {
   readonly queryParams: Params;
@@ -82,6 +83,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     private advanceSearch: AdvanceSearch,
     private activatedRoute: ActivatedRoute,
     private queryParamsService: SearchQueryParamsService,
+    private googleAnalyticsService: GoogleAnalyticsService,
   ) {
     this.onInit();
   }
@@ -239,27 +241,34 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private performSearch(params: SearchParams): Observable<SearchResponse> {
+    let event = 'GlobalSearch';
     let searchParams = params.params;
     switch (params.event) {
       case 'onCurrentPageChanged':
+        event = 'CurrentPageChanged';
         this.patchFormValue(params.params);
         break;
       case 'onQueryParamsChanged':
+        event = 'QueryParamsChanged';
         this.patchFormValue(params.params);
         break;
       case 'onParentChanged':
+        event = 'CurrentDocumentChanged';
         this.patchFormValue(params.params);
         break;
       case 'onKeywordChanged':
+        event = 'SearchTermChanged';
         this.changeQueryParams();
         break;
       case 'onFilterChanged':
+        event = 'FormFilterChanged';
         this.changeQueryParams();
         break;
       default:
         break;
     }
     searchParams = removeUselessObject(searchParams, ['q', 'id', 'folder']);
+    this.googleAnalyticsService.searchTrack({ 'event_category': 'Search', 'event_action': event, 'event_label': event });
     return this.search(searchParams);
   }
 

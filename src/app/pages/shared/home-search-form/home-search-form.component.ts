@@ -2,8 +2,9 @@ import { OnInit, Component, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
+import { GoogleAnalyticsService } from '@core/google-analytics';
 
 @Component({
   selector: 'home-search-form',
@@ -51,9 +52,10 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private advanceSearch: AdvanceSearch,
-    private router: Router,
+    private googleAnalyticsService: GoogleAnalyticsService,
   ) { }
 
   ngOnInit() {
@@ -70,6 +72,9 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
+        tap(_ => {
+          this.googleAnalyticsService.searchTrack({ 'event_category': 'Search', 'event_action': 'HomeQuickSearch', 'event_label': 'HomeQuickSearch' });
+        }),
         switchMap((query: string) => this.advanceSearch.searchForText(query, this.params)),
       )
       .subscribe((result: NuxeoPagination) => {

@@ -1,31 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { Environment } from '@environment/environment';
-import { removeUselessObject } from '@core/services';
 import { Title } from '@angular/platform-browser';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { ReplaySubject, Observable, of as observableOf } from 'rxjs';
+import { distinctUntilChanged, map, tap, concatMap } from 'rxjs/operators';
+import { removeUselessObject, isDocumentUID } from '@core/services';
+import { NuxeoApiService, NuxeoAutomations } from '@core/api';
 
 declare let dataLayer: any;
 
-export const ANALYTICS_VARIABLES = {
-  Event: {
-    Custom: 'google-analytics-tracking',
-    PageView: 'google-analytics-pageview',
-  },
-  Dimensions: {
-    DocId: 'dimensions.docId',
-    UserId: 'dimensions.userId',
-  },
-};
+export class GtmEvent {
+  readonly [key: string]: any;
+  readonly event: string;
+  readonly event_category?: string;
+  readonly event_action?: string;
+  readonly event_label?: string;
+  readonly page_location?: string;
+  readonly page_path?: string;
+  readonly page_title?: string;
+
+  constructor(opts: any = {}) {
+    Object.assign(this, opts);
+  }
+}
 
 @Injectable()
 export class GoogleAnalyticsService {
 
-  constructor(private router: Router, private titleService: Title) {
+  private userId: string;
+
+  private event$ = new ReplaySubject<Partial<GtmEvent>>(10);
+
+  constructor(
+    private router: Router,
+    private titleService: Title,
+    private nuxeoApi: NuxeoApiService,
+    private activatedRoute: ActivatedRoute,
+  ) {
     // The dataLayer needs to be initialized
     if (typeof dataLayer !== 'undefined' && dataLayer) {
       dataLayer = (window as any).dataLayer = (window as any).dataLayer || [];
     }
+    this.startTracking();
+  }
+
+  startTracking(): void {
+    this.getUserDigest().pipe(
+      concatMap(_ => this.event$),
+    ).subscribe((event: GtmEvent) => {
+      this.pushLayer(event);
+    });
   }
 
   pageTrack(): void {
@@ -33,42 +56,84 @@ export class GoogleAnalyticsService {
       distinctUntilChanged(),
     ).subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.trackPageView({ url: event.url, title: this.titleService.getTitle() });
+        if (!this.activatedRoute.snapshot.queryParamMap.has('q')) {
+          this.trackPageView({ url: event.url, title: this.titleService.getTitle() });
+        }
       }
     });
+  }
+
+  searchTrack(e: any = {}): void {
+    const event = Object.assign({}, e, {
+      'event': 'google-analytics-search',
+      'event_category': e.category || 'Search',
+      'event_action': e.action || 'Search',
+      'event_label': e.label || e.action,
+      'event_value': `/#${this.router.url}`,
+    });
+    this.eventTrack(event);
   }
 
   eventTrack(e: any = {}): void {
     let event = Object.assign({
       'event': e.event || 'google-analytics-tracking',
       'event_category': e.category || 'GA-Track',
-      'event_action': this.buildPrefix(e.action),
+      'event_action': e.action,
       'event_label': e.label,
-      'dimensions.docId': this.buildPrefix(e.docId),
+      'event_value': e.value,
     }, e);
     event = removeUselessObject(event, ['category', 'action', 'label', 'docId']);
-    this.pushLayer(event);
-  }
-
-  private pushLayer(layer: any = {}) {
-    if (typeof dataLayer !== 'undefined' && dataLayer) {
-      dataLayer.push(layer);
-    }
+    this.event$.next(event);
   }
 
   private trackPageView(e: any = {}): void {
     let event = Object.assign({
       'event': 'google-analytics-pageview',
-      'page_location': document.location,
+      'page_location': (() => document.location).call(this),
       'page_path': `#${e.url}`,
       'page_title': e.title,
     }, e);
     event = removeUselessObject(event, ['title', 'url']);
-    this.pushLayer(event);
+    this.event$.next(event);
   }
 
-  private buildPrefix(str: string): string {
-    return `${Environment.server} ${str}`;
+  private pushLayer(layer: any = {}) {
+    if (typeof dataLayer !== 'undefined' && dataLayer) {
+      layer = this.setDimensionUserId(layer);
+      layer = this.setDimensionDocId(layer);
+      dataLayer.push(layer);
+    }
+  }
+
+  private getUserDigest(): Observable<string> {
+    if (this.userId) {
+      return observableOf(this.userId);
+    } else {
+      return this.nuxeoApi.operation(NuxeoAutomations.TBWAUserDigest).pipe(
+        map(res => res.value),
+        tap(userId => this.userId = userId),
+      );
+    }
+  }
+
+  private setDimensionDocId(event: any = {}): any {
+    const docId = this.getPrimaryKey();
+    if (docId && !event['dimensions.docId']) {
+      event['dimensions.docId'] = docId;
+    }
+    return event;
+  }
+
+  private setDimensionUserId(event: any = {}): any {
+    if (this.userId) {
+      event['dimensions.userId'] = this.userId;
+    }
+    return event;
+  }
+
+  private getPrimaryKey(): string {
+    const list = this.router.url.split('/').filter(x => isDocumentUID(x));
+    return list.shift();
   }
 
 }

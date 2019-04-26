@@ -1,7 +1,8 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@core/nebular/theme';
-import { Observable, ReplaySubject, Subject, interval, timer } from 'rxjs';
-import { share, switchMap } from 'rxjs/operators';
+import { Observable, ReplaySubject, Subject, timer } from 'rxjs';
+import { share } from 'rxjs/operators';
+import { GoogleAnalyticsService } from '@core/google-analytics';
 import { DocumentModel } from '@core/api';
 
 @Injectable()
@@ -11,13 +12,14 @@ export class PreviewDialogService {
 
   private document$: ReplaySubject<{ doc: DocumentModel, options: any }> = new ReplaySubject<{ doc: DocumentModel, type: string, options: any }>();
 
-  private alertStatus$: Subject<{ switch: boolean, status?: string, message?: string }> = new Subject<{ switch: boolean, status?: string, message?: string } >();
+  private alertStatus$: Subject<{ switch: boolean, status?: string, message?: string }> = new Subject<{ switch: boolean, status?: string, message?: string }>();
 
-  constructor(private dialogService: NbDialogService) { }
+  constructor(private dialogService: NbDialogService, private googleAnalyticsService: GoogleAnalyticsService) { }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, options: any = {}): void {
     this.ref = this.dialogService.open(dialog);
     this.document$.next({ doc, options });
+    this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': doc.uid });
   }
 
   close(): void {
@@ -29,14 +31,14 @@ export class PreviewDialogService {
   }
 
   showAlert(status?: string, message?: string, second?: number): void {
-    this.alertStatus$.next({ switch: true, status, message});
+    this.alertStatus$.next({ switch: true, status, message });
     if (second) {
       timer(second).subscribe(_ => this.close());
     }
   }
 
   hideAlert(): void {
-    this.alertStatus$.next({switch: false});
+    this.alertStatus$.next({ switch: false });
   }
 
   onAlertNext(): Observable<any> {

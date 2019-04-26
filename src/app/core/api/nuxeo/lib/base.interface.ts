@@ -139,6 +139,9 @@ export class NuxeoApiOptions {
 
 export class NuxeoResponse {
   [key: string]: any;
+  constructor(opts: any = {}) {
+    Object.assign(this, opts);
+  }
 }
 
 export class NuxeoPageProviderParams {
@@ -263,4 +266,5 @@ export const NuxeoAutomations = {
   RepositoryPageProvider: 'Repository.PageProvider',
   DirectoryEntries: 'Directory.Entries',
   DocumentCreate: 'Document.Create',
+  TBWAUserDigest: 'TBWA.GetUserDigest',
 };
