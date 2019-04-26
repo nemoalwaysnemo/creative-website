@@ -3,13 +3,13 @@ import { DocumentModel } from '@core/api';
 
 export abstract class DisruptionBaseForm implements OnInit {
 
-  protected parentDocument: DocumentModel;
+  parentDocument: DocumentModel;
 
-  protected formLayout: any = {};
+  formLayout: any = {};
 
-  protected settings: any[] = [];
+  settings: any[] = [];
 
-  protected abstract parentType: string;
+   protected abstract parentType: string;
 
   @Input() mode: 'create' | 'edit' = 'create';
 
