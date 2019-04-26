@@ -5,7 +5,6 @@ import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, Dyn
 
 @Component({
   selector: 'disruption-form-brilliant-thinking',
-  styleUrls: ['./disruption-form-brilliant-thinking.component.scss'],
   templateUrl: './disruption-form-brilliant-thinking.component.html',
 })
 export class DisruptionFormBrilliantThinkingComponent implements OnInit, OnDestroy {

@@ -5,7 +5,6 @@ import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, Dyn
 
 @Component({
   selector: 'disruption-form-roadmap',
-  styleUrls: ['./disruption-form-roadmap.component.scss'],
   templateUrl: './disruption-form-roadmap.component.html',
 })
 export class DisruptionFormRoadmapComponent implements OnInit, OnDestroy {

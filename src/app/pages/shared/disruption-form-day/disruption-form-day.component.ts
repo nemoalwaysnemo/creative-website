@@ -5,7 +5,6 @@ import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, Dyn
 
 @Component({
   selector: 'disruption-form-day',
-  styleUrls: ['./disruption-form-day.component.scss'],
   templateUrl: './disruption-form-day.component.html',
 })
 export class DisruptionFormDayComponent implements OnInit, OnDestroy {

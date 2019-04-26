@@ -5,7 +5,6 @@ import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, Dyn
 
 @Component({
   selector: 'disruption-form-folders',
-  styleUrls: ['./disruption-form-folders.component.scss'],
   templateUrl: './disruption-form-folders.component.html',
 })
 export class DisruptionFormFoldersComponent implements OnInit, OnDestroy {
@@ -70,33 +69,33 @@ export class DisruptionFormFoldersComponent implements OnInit, OnDestroy {
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
-        placeholder: 'Brand',
+        placeholder: 'Leave blank to copy from Disruption Day',
         required: false,
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
         directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
+        placeholder: 'Leave blank to copy from Disruption Day',
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
         directoryName: 'GLOBAL_Agencies',
         multiple: false,
-        placeholder: 'Please select agency',
+        placeholder: 'Leave blank to copy from Disruption Day',
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
         directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
+        placeholder: 'Leave blank to copy from Disruption Day',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
         directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
+        placeholder: 'Leave blank to copy from Disruption Day',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
