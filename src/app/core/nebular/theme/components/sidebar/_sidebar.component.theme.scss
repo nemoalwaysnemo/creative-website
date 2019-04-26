@@ -5,15 +5,6 @@
  */
 
 @mixin nb-sidebar-theme() {
-  .trigger {
-    z-index: 99;
-    width: 40px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
   nb-sidebar {
     border-right: solid 3px #fecc00;
     font-size: nb-theme(sidebar-font-size);

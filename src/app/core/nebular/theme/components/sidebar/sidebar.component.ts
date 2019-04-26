@@ -115,7 +115,6 @@ export class NbSidebarFooterComponent {
   selector: 'nb-sidebar',
   styleUrls: ['./sidebar.component.scss'],
   template: `
-    <div (mouseenter)="openSideBar()" class="trigger"></div>
     <div class="main-container"
          [class.main-container-fixed]="containerFixedValue">
       <ng-content select="nb-sidebar-header"></ng-content>
