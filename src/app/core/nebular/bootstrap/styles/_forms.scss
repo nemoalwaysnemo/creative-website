@@ -68,7 +68,7 @@
     $border-w: nb-theme(form-control-border-width);
     $border-t: nb-theme(form-control-border-type);
     $border-s: nb-theme(form-control-selected-border-color);
-
+    &.datepicker { width: 150px; }
     &:focus {
       border: $border-w $border-t $border-s;
       background-color: nb-theme(form-control-focus-bg);
