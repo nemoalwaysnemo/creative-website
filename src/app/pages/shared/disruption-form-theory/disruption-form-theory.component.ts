@@ -1,53 +1,15 @@
-import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { DocumentModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
+import { Component } from '@angular/core';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { DisruptionBaseForm } from '../disruption-base-form/disruption-base-form';
 
 @Component({
   selector: 'disruption-form-theory',
   templateUrl: './disruption-form-theory.component.html',
 })
-export class DisruptionFormTheoryComponent implements OnInit, OnDestroy {
+export class DisruptionFormTheoryComponent extends DisruptionBaseForm {
+  protected parentType = 'App-Disruption-Theory-Asset';
 
-  private subscription: Subscription = new Subscription();
-
-  parentDocument: DocumentModel;
-
-  formLayout: any = {};
-
-  settings: any[] = [];
-
-  @Input()
-  set document(doc: DocumentModel) {
-    this.parentDocument = doc.newInstance('App-Disruption-Theory-Asset');
-  }
-
-  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
-
-  constructor() { }
-
-  ngOnInit() {
-    this.performForm();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  ceated(docs: DocumentModel[]): void {
-    this.onCreated.next(docs);
-  }
-
-  onUpdated(doc: DocumentModel): void {
-
-  }
-
-  private performForm(): void {
-    this.settings = this.getSettings();
-    this.formLayout = this.getFormLayout();
-  }
-
-  private getSettings(): object[] {
+  protected getSettings(): object[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
@@ -107,7 +69,7 @@ export class DisruptionFormTheoryComponent implements OnInit, OnDestroy {
     ];
   }
 
-  private getFormLayout(): any {
+  protected getFormLayout(): any {
     return {
       'dc:title': {
         element: {

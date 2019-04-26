@@ -1,53 +1,15 @@
-import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { DocumentModel } from '@core/api';
+import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { DisruptionBaseForm } from '../disruption-base-form/disruption-base-form';
 
 @Component({
   selector: 'disruption-form-day',
   templateUrl: './disruption-form-day.component.html',
 })
-export class DisruptionFormDayComponent implements OnInit, OnDestroy {
+export class DisruptionFormDayComponent extends DisruptionBaseForm {
+  protected parentType = 'App-Disruption-Day';
 
-  private subscription: Subscription = new Subscription();
-
-  parentDocument: DocumentModel;
-
-  formLayout: any = {};
-
-  settings: any[] = [];
-
-  @Input()
-  set document(doc: DocumentModel) {
-    this.parentDocument = doc.newInstance('App-Disruption-Day');
-  }
-
-  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
-
-  constructor() { }
-
-  ngOnInit() {
-    this.performForm();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  ceated(docs: DocumentModel[]): void {
-    this.onCreated.next(docs);
-  }
-
-  onUpdated(doc: DocumentModel): void {
-
-  }
-
-  private performForm(): void {
-    this.settings = this.getSettings();
-    this.formLayout = this.getFormLayout();
-  }
-
-  private getSettings(): object[] {
+  protected getSettings(): object[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
@@ -124,7 +86,7 @@ export class DisruptionFormDayComponent implements OnInit, OnDestroy {
     ];
   }
 
-  private getFormLayout(): any {
+  protected getFormLayout(): any {
     return {
       'dc:title': {
         element: {

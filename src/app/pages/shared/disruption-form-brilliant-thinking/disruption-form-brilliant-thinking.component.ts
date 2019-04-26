@@ -1,53 +1,15 @@
-import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { DocumentModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
+import { Component } from '@angular/core';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { DisruptionBaseForm } from '../disruption-base-form/disruption-base-form';
 
 @Component({
   selector: 'disruption-form-brilliant-thinking',
   templateUrl: './disruption-form-brilliant-thinking.component.html',
 })
-export class DisruptionFormBrilliantThinkingComponent implements OnInit, OnDestroy {
+export class DisruptionFormBrilliantThinkingComponent extends DisruptionBaseForm {
+  protected parentType = 'App-Disruption-Asset';
 
-  private subscription: Subscription = new Subscription();
-
-  parentDocument: DocumentModel;
-
-  formLayout: any = {};
-
-  settings: any[] = [];
-
-  @Input()
-  set document(doc: DocumentModel) {
-    this.parentDocument = doc.newInstance('App-Disruption-Asset');
-  }
-
-  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
-
-  constructor() { }
-
-  ngOnInit() {
-    this.performForm();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  ceated(docs: DocumentModel[]): void {
-    this.onCreated.next(docs);
-  }
-
-  onUpdated(doc: DocumentModel): void {
-
-  }
-
-  private performForm(): void {
-    this.settings = this.getSettings();
-    this.formLayout = this.getFormLayout();
-  }
-
-  private getSettings(): object[] {
+  protected getSettings(): object[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
@@ -107,7 +69,7 @@ export class DisruptionFormBrilliantThinkingComponent implements OnInit, OnDestr
     ];
   }
 
-  private getFormLayout(): any {
+  protected getFormLayout(): any {
     return {
       'dc:title': {
         element: {
