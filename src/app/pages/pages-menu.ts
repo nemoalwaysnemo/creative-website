@@ -5,8 +5,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Creative Library',
     icon: 'nb-creative',
-    link: '/p/creative',
     pathMatch: 'contains',
+    link: '/p/creative',
+    linksForMatch: ['/p/search/creative'],
     home: true,
   },
   {
@@ -26,5 +27,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-intelligence',
     pathMatch: 'contains',
     link: '/p/intelligence',
+    linksForMatch: ['/p/search/intelligence'],
   },
 ];

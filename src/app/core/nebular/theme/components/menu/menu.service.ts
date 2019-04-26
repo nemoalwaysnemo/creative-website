@@ -43,6 +43,9 @@ export class NbMenuItem {
    * @type {string}
    */
   link?: string;
+
+
+  linksForMatch?: string[] = [];
   /**
    * Item URL (absolute)
    * @type {string}
@@ -194,7 +197,7 @@ export class NbMenuService {
 @Injectable()
 export class NbMenuInternalService {
 
-  constructor(private location: Location) {}
+  constructor(private location: Location) { }
 
   prepareItems(items: NbMenuItem[]) {
     const defaultItem = new NbMenuItem();
@@ -273,19 +276,19 @@ export class NbMenuInternalService {
   }
 
   itemHover(item: NbMenuItem, tag?: string) {
-    itemHover$.next({tag, item});
+    itemHover$.next({ tag, item });
   }
 
   submenuToggle(item: NbMenuItem, tag?: string) {
-    submenuToggle$.next({tag, item});
+    submenuToggle$.next({ tag, item });
   }
 
   itemSelect(item: NbMenuItem, tag?: string) {
-    itemSelect$.next({tag, item});
+    itemSelect$.next({ tag, item });
   }
 
   itemClick(item: NbMenuItem, tag?: string) {
-    itemClick$.next({tag, item});
+    itemClick$.next({ tag, item });
   }
 
   /**
@@ -338,7 +341,7 @@ export class NbMenuInternalService {
   }
 
   private applyDefaults(item, defaultItem) {
-    const menuItem = {...item};
+    const menuItem = { ...item };
     Object.assign(item, defaultItem, menuItem);
     item.children && item.children.forEach(child => {
       this.applyDefaults(child, defaultItem);
@@ -378,6 +381,6 @@ export class NbMenuInternalService {
     const exact: boolean = item.pathMatch === 'full';
     return exact
       ? isUrlPathEqual(this.location.path(), item.link)
-      : isUrlPathContain(this.location.path(), item.link);
+      : (isUrlPathContain(this.location.path(), item.link) || (item.linksForMatch || []).some(x => isUrlPathContain(this.location.path(), x)));
   }
 }
