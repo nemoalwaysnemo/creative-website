@@ -47,7 +47,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() directoryName: string;
 
-  @Input() contains: boolean = false;
+  @Input() contains: boolean = true;
 
   @Input() suggestion: boolean = true;
 

@@ -29,7 +29,7 @@ export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
   constructor(config: DynamicSuggestionModelConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.suggestion = isBoolean(config.suggestion) ? config.suggestion : true;
-    this.contains = isBoolean(config.contains) ? config.contains : false;
+    this.contains = isBoolean(config.contains) ? config.contains : true;
     this.directoryName = config.directoryName || null;
     this.directoryName = config.directoryName || null;
     this.placeholder = config.placeholder || '';
