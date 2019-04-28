@@ -14,4 +14,13 @@
       <div>Edges: {{ document.get('app_Edges:Tags_edges') }}</div>
     </div>
   </div>
+    <button type="button" (click)="openForm(dialog)">update</button>
 </div>
+
+<ng-template #dialog>
+  <preview-dialog>
+    <disruption-folders-edit-from-body>
+      <preview-dialog-alert></preview-dialog-alert>
+    </disruption-folders-edit-from-body>
+  </preview-dialog>
+</ng-template>

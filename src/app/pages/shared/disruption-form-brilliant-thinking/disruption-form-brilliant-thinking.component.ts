@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
-import { DisruptionBaseForm } from '../disruption-base-form/disruption-base-form';
+import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
 
 @Component({
   selector: 'disruption-form-brilliant-thinking',
   templateUrl: './disruption-form-brilliant-thinking.component.html',
 })
-export class DisruptionFormBrilliantThinkingComponent extends DisruptionBaseForm {
-  protected parentType = 'App-Disruption-Asset';
+export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruptionForm {
+  protected parentType = AbstractDisruptionForm.THINKING;
 
   protected getSettings(): object[] {
     return [

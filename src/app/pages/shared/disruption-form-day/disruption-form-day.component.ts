@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
-import { DisruptionBaseForm } from '../disruption-base-form/disruption-base-form';
+import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
 
 @Component({
   selector: 'disruption-form-day',
   templateUrl: './disruption-form-day.component.html',
 })
-export class DisruptionFormDayComponent extends DisruptionBaseForm {
-  protected parentType = 'App-Disruption-Day';
+export class DisruptionFormDayComponent extends AbstractDisruptionForm {
+  protected parentType = AbstractDisruptionForm.DAY;
 
   protected getSettings(): object[] {
     return [
@@ -33,16 +33,16 @@ export class DisruptionFormDayComponent extends DisruptionBaseForm {
         placeholder: 'Brand',
         required: false,
       }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Production Date',
-        placeholder: 'Production Date',
-      }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
         directoryName: 'GLOBAL_Industries',
         placeholder: 'Please select industry',
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Workshop Date',
+        placeholder: 'Workshop Date',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',

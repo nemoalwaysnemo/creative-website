@@ -3,17 +3,17 @@ import { FormDailogBody } from '@pages/shared/preview-dialog/dailog-bodys/form_d
 import { PreviewDialogService } from '@pages/shared';
 
 @Component({
-  selector: 'disruption-form-theory-body',
-  styleUrls: ['./disruption-form-theory-dialog.component.scss'],
-  templateUrl: './disruption-form-theory-dialog.component.html',
+  selector: 'disruption-folders-edit-from-body',
+  styleUrls: ['./disruption-folders-edit-from-dialog.component.scss'],
+  templateUrl: './disruption-folders-edit-from-dialog.component.html',
 })
-export class DisruptionFormTheoryDialogComponent extends FormDailogBody {
+export class DisruptionFormFoldersEditDialogComponent extends FormDailogBody {
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);
   }
 
-  mode: 'create' | 'edit' = 'create';
+  mode: 'create' | 'edit' = 'edit';
 
   protected initDocument(res: any) {
   }

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
-import { DisruptionBaseForm } from '../disruption-base-form/disruption-base-form';
+import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
 
 @Component({
   selector: 'disruption-form-roadmap',
   templateUrl: './disruption-form-roadmap.component.html',
 })
-export class DisruptionFormRoadmapComponent extends DisruptionBaseForm {
-  protected parentType = 'App-Disruption-Roadmap-Asset';
+export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
+  protected parentType = AbstractDisruptionForm.ROADMAP;
 
   protected getSettings(): object[] {
     return [

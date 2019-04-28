@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
-import { DisruptionBaseForm } from '../disruption-base-form/disruption-base-form';
+import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
 
 
 @Component({
   selector: 'disruption-form-folders',
   templateUrl: './disruption-form-folders.component.html',
 })
-export class DisruptionFormFoldersComponent extends DisruptionBaseForm {
-  protected parentType = 'App-Disruption-Day-Asset';
+export class DisruptionFormFoldersComponent extends AbstractDisruptionForm {
+  protected parentType = AbstractDisruptionForm.DAY_ASSET;
 
   protected getSettings(): object[] {
     return [

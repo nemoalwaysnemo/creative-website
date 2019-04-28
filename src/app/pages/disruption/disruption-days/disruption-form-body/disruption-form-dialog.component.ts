@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CreateFormDailogBody } from '@pages/shared/preview-dialog/dailog-bodys/create_form_dailog_body';
+import { FormDailogBody } from '@pages/shared/preview-dialog/dailog-bodys/form_dailog_body';
 import { PreviewDialogService } from '@pages/shared';
 
 @Component({
@@ -7,11 +7,13 @@ import { PreviewDialogService } from '@pages/shared';
   styleUrls: ['./disruption-form-dialog.component.scss'],
   templateUrl: './disruption-form-dialog.component.html',
 })
-export class DisruptionFormDialogComponent extends CreateFormDailogBody {
+export class DisruptionFormDialogComponent extends FormDailogBody {
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);
   }
+
+  mode: 'create' | 'edit' = 'create';
 
   protected initDocument(res: any) {
   }

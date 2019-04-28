@@ -2,9 +2,11 @@ import { BaseDialogBody } from '../base-dialog-body';
 import { PreviewDialogService } from '../preview-dialog.service';
 import { Output, EventEmitter } from '@angular/core';
 
-export abstract class CreateFormDailogBody extends BaseDialogBody {
+export abstract class FormDailogBody extends BaseDialogBody {
 
   @Output() createdSuccess: EventEmitter<any> = new EventEmitter();
+
+  abstract mode: 'create' | 'edit';
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);

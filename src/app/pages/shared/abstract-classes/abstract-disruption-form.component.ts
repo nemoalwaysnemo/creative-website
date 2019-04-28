@@ -1,7 +1,13 @@
 import { OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
-export abstract class DisruptionBaseForm implements OnInit {
+export abstract class AbstractDisruptionForm implements OnInit {
+  static THINKING = 'App-Disruption-Asset';
+  static DAY = 'App-Disruption-Day';
+  static DAY_ASSET = 'App-Disruption-Day-Asset';
+  static ROADMAP = 'App-Disruption-Roadmap-Asset';
+  static THEORY = 'App-Disruption-Theory-Asset';
+
 
   parentDocument: DocumentModel;
 
@@ -9,7 +15,7 @@ export abstract class DisruptionBaseForm implements OnInit {
 
   settings: any[] = [];
 
-   protected abstract parentType: string;
+  protected abstract parentType: string;
 
   @Input() mode: 'create' | 'edit' = 'create';
 
