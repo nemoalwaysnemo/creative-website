@@ -12,9 +12,9 @@
       <div>Brand: {{ document.get('The_Loupe_Main:brand')}}</div>
       <div>Agency: {{ document.get('The_Loupe_Main:agency')}}</div>
       <div>Edges: {{ document.get('app_Edges:Tags_edges') }}</div>
+      <button type="button" (click)="openForm(dialog)" class="icon_btn">Update</button>
     </div>
   </div>
-    <button type="button" (click)="openForm(dialog)">update</button>
 </div>
 
 <ng-template #dialog>

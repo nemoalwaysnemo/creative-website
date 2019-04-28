@@ -100,20 +100,22 @@ table {
     }
   }
 }
-.download,
-.preview,
-.back {
+.icon_btn {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   font-size: 15px;
   display: block;
   height: 18px;
   line-height: 18px;
-  padding-left: 29px;
+  padding: 0 0 0 29px;
   margin-right: 21px;
   margin-bottom: 12px;
   color: #000000;
-  &:hover { text-decoration: none; }
+  border: none;
+  &:hover {
+    color: #000000;
+    text-decoration: none;
+  }
+  &.download { background: url('/assets/images/download_icon.png') no-repeat left center; }
+  &.preview { background: url('/assets/images/preview_icon.png') no-repeat left center; }
+  &.back { background: url('/assets/images/back_icon.png') no-repeat left center; }
 }
-.download { background: url('/assets/images/download_icon.png') no-repeat left center; }
-.preview { background: url('/assets/images/preview_icon.png') no-repeat left center; }
-.back { background: url('/assets/images/back_icon.png') no-repeat left center; }

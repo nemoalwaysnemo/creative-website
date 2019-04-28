@@ -48,9 +48,9 @@
             </tr>
           </tbody>
         </table>
-        <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right" title="Download">Download</a>
-        <a href="{{documentModel.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
-        <a href="javascript:void(0)" (click)="goBack()" class="back right" title="Back">Back</a>
+        <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
+        <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
+        <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
       </ng-container>
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
         <h2>{{documentModel.title}}</h2>
@@ -116,9 +116,9 @@
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>
-        <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right" title="Download">Download</a>
-        <a href="{{documentModel.previewUrl}}" class="preview right" title="Preview" target="_blank">Preview</a>
-        <a href="javascript:void(0)" (click)="goBack()" class="back right" title="Back">Back</a>
+        <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
+        <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
+        <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
       </ng-container>
     </ng-container>
   </div>
