@@ -139,7 +139,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private getDirectorySuggestions(directoryName: string, searchTerm: string, contains: boolean = false): Observable<OptionModel[]> {
     return this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName, searchTerm, contains })
-      .pipe(map((res: NuxeoPagination) => {
+      .pipe(map((res: NuxeoPagination[]) => {
         return this.flatSuggestions(res);
       }))
       .pipe(map((res: any) => res.map((entry: any) => new OptionModel(entry.label, entry.id, false, entry.deep))));
@@ -161,10 +161,13 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
 
-  private flatSuggestions(res: NuxeoPagination) {
+  private flatSuggestions(res: any[]): any[] {
     if (!!res[0] && !!res[0].children) {
       this.suggestions = [];
-      return this.suggestionsIterator(res[0]);
+      for (const root of res) {
+        this.suggestionsIterator(root);
+      }
+      return this.suggestions;
     } else {
       return res;
     }
