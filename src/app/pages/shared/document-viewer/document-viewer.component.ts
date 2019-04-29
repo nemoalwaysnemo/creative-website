@@ -19,27 +19,15 @@ export class DocumentViewerComponent {
 
   @Input() layout: 'dialogSlides' | 'slides' = 'slides';
 
-  @Input() ThumnailAnyway: boolean = false;
-
   getDocumentViewer(doc: DocumentModel): string {
     let type = 'unkonw';
-    if (doc && this.ThumnailAnyway) {
-      if (doc.hasThumnail()) {
-        type = 'picture';
-      } else if (doc.isPdf()) {
-        type = 'picture'; // #160 BIG PDFs are slooooooow
-      } else if (doc.isVideo()) {
+     if (doc) {
+      if (doc.isVideo()) {
         type = 'video';
-      } else if (doc.isAudio()) {
-        type = 'audio';
-      }
-    } else if (doc) {
-      if (doc.isPicture()) {
-        type = 'picture';
       } else if (doc.isPdf()) {
-        type = 'picture'; // #160 BIG PDFs are slooooooow
-      } else if (doc.isVideo()) {
-        type = 'video';
+        type = 'picture';
+      } else if (doc.isPicture()) {
+        type = 'picture';
       } else if (doc.isAudio()) {
         type = 'audio';
       }

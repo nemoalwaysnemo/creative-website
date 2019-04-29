@@ -153,13 +153,20 @@ export class DocumentModel extends Base {
   }
 
   getVideoSources(): { url: string, type: string }[] {
-    const sources = this.get('vid:transcodedVideos') || [];
-    return sources.map((conversion: any) => {
-      return {
-        url: conversion.content.data,
-        type: conversion.content['mime-type'],
-      };
-    });
+    const sources = this.get('vid:transcodedVideos');
+    if ( sources.length !== 0 ) {
+      return sources.map((conversion: any) => {
+        return {
+          url: conversion.content.data,
+          type: conversion.content['mime-type'],
+        };
+      });
+    } else {
+      return [ {
+        url: this.filePath,
+        type: '',
+      } ];
+    }
   }
 
   hasFacet(facet: string): boolean {
@@ -175,7 +182,15 @@ export class DocumentModel extends Base {
   }
 
   isVideo(): boolean {
-    return this.hasFacet('Video') && this.fileMimeType.includes('video');
+    if (this.get('vid:info') && this.get('vid:info').streams && this.get('vid:info').duration > 1) {
+      for (const stream of this.get('vid:info').streams) {
+        if ( stream.type === 'Video') {
+          return true;
+        }
+      }
+    }
+    return false;
+    // return this.hasFacet('Video') && this.fileMimeType.includes('video');
   }
 
   isPicture(): boolean {
