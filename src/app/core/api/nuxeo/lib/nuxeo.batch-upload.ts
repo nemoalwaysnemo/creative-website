@@ -55,7 +55,7 @@ export class BatchUpload extends Base {
       },
     };
     const options = this._computeOptions(opts);
-    return this._nuxeo.httpRequest(options).pipe(tap());
+    return this._nuxeo.httpRequest(options);
   }
 
   private fetchBatchId(): Observable<string> {
