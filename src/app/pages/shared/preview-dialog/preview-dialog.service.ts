@@ -30,7 +30,7 @@ export class PreviewDialogService {
     return this.document$.pipe(share());
   }
 
-  showAlert(status?: string, message?: string, second?: number): void {
+  closeWithAlert(status?: string, message?: string, second?: number): void {
     this.alertStatus$.next({ switch: true, status, message });
     if (second) {
       timer(second).subscribe(_ => this.close());

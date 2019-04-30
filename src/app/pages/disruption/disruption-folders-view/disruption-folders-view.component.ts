@@ -1,5 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
-import { PreviewDialogService } from '@pages/shared';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'disruption-folders-view',
@@ -9,7 +10,10 @@ import { PreviewDialogService } from '@pages/shared';
 })
 export class DisruptionFoldersViewComponent {
 
-  constructor(protected previewDialogService: PreviewDialogService) {}
+  constructor(
+    protected previewDialogService: PreviewDialogService,
+    protected queryParamsService: SearchQueryParamsService,
+  ) { }
 
   @Input() loading: boolean;
 
@@ -19,4 +23,7 @@ export class DisruptionFoldersViewComponent {
     this.previewDialogService.open(dialog, this.document);
   }
 
+  onUpdate(doc: DocumentModel): void {
+    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+  }
 }

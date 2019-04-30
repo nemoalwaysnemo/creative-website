@@ -5,6 +5,7 @@ import { Output, EventEmitter } from '@angular/core';
 export abstract class FormDailogBody extends BaseDialogBody {
 
   @Output() createdSuccess: EventEmitter<any> = new EventEmitter();
+  @Output() updatedSuccess: EventEmitter<any> = new EventEmitter();
 
   abstract mode: 'create' | 'edit';
 
@@ -13,11 +14,11 @@ export abstract class FormDailogBody extends BaseDialogBody {
   }
 
   showSuccessMessage(message: string): void {
-    this.dialogService.showAlert('success', message, 3000);
+    this.dialogService.closeWithAlert('success', message, 3000);
   }
 
   showErrorMessage(message: string): void {
-    this.dialogService.showAlert('danger', message);
+    this.dialogService.closeWithAlert('danger', message);
   }
 
   onCreated(docs: any): void {
@@ -25,5 +26,9 @@ export abstract class FormDailogBody extends BaseDialogBody {
     this.showSuccessMessage(`${docs[0].title} create success`);
   }
 
+  onUpdated(doc: any): void {
+    this.updatedSuccess.next(doc);
+    this.showSuccessMessage(`${doc.title} update success`);
+  }
 
 }

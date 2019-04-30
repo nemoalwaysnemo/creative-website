@@ -12,14 +12,14 @@
       <div>Brand: {{ document.get('The_Loupe_Main:brand')}}</div>
       <div>Agency: {{ document.get('The_Loupe_Main:agency')}}</div>
       <div>Edges: {{ document.get('app_Edges:Tags_edges') }}</div>
-      <button type="button" (click)="openForm(dialog)" class="icon_btn">Update</button>
+      <button type="button" (click)="openForm(dialog)" class="icon_btn">Edit</button>
     </div>
   </div>
 </div>
 
 <ng-template #dialog>
   <preview-dialog>
-    <disruption-folders-edit-from-body>
+    <disruption-folders-edit-from-body (updatedSuccess)="onUpdate($event)">
       <preview-dialog-alert></preview-dialog-alert>
     </disruption-folders-edit-from-body>
   </preview-dialog>

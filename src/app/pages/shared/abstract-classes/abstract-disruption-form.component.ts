@@ -29,6 +29,7 @@ export abstract class AbstractDisruptionForm implements OnInit {
   }
 
   @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
+  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   constructor() { }
 
@@ -40,8 +41,8 @@ export abstract class AbstractDisruptionForm implements OnInit {
     this.onCreated.next(docs);
   }
 
-  public onUpdated(doc: DocumentModel): void {
-
+  public updated(doc: DocumentModel): void {
+    this.onUpdated.next(doc);
   }
 
   protected performForm(): void {
