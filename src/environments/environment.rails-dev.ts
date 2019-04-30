@@ -8,7 +8,7 @@ export const Environment = {
   forgotPassword: 'https://register.adauth.me/nam/help',
   backslashAppUrl: '/backslash',
   assetPath: 'LibraryWebUI/',
-  production: false,
+  production: true,
   autoLogin: false,
   debug: true,
 };

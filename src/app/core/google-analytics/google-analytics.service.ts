@@ -5,6 +5,7 @@ import { ReplaySubject, Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, map, tap, concatMap } from 'rxjs/operators';
 import { removeUselessObject, isDocumentUID } from '@core/services';
 import { NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { Environment } from '@environment/environment';
 
 declare let dataLayer: any;
 
@@ -40,7 +41,9 @@ export class GoogleAnalyticsService {
     if (typeof dataLayer !== 'undefined' && dataLayer) {
       dataLayer = (window as any).dataLayer = (window as any).dataLayer || [];
     }
-    this.startTracking();
+    if (Environment.production) {
+      this.startTracking();
+    }
   }
 
   startTracking(): void {
