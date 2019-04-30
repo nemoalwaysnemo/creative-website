@@ -24,12 +24,12 @@ export class DocumentViewerComponent {
      if (doc) {
       if (doc.isVideo()) {
         type = 'video';
-      } else if (doc.isPdf()) {
-        type = 'picture';
-      } else if (doc.isPicture()) {
-        type = 'picture';
       } else if (doc.isAudio()) {
         type = 'audio';
+      } else if (doc.isPicture()) {
+        type = 'picture';
+      } else if (doc.isPdf()) {
+        type = 'picture';
       }
     }
     return type;

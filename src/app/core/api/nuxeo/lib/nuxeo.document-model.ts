@@ -178,15 +178,19 @@ export class DocumentModel extends Base {
   }
 
   isAudio(): boolean {
-    return this.hasFacet('Audio');
+    if (this.get('vid:info') && this.get('vid:info').streams && this.get('vid:info').duration > 1) {
+      if (this.get('vid:info').format.includes('mp3')) {
+        return true;
+      }
+    }
+    return false;
+    // return this.hasFacet('Audio');
   }
 
   isVideo(): boolean {
     if (this.get('vid:info') && this.get('vid:info').streams && this.get('vid:info').duration > 1) {
-      for (const stream of this.get('vid:info').streams) {
-        if ( stream.type === 'Video') {
-          return true;
-        }
+      if (this.get('vid:info').format.includes('mp4'||'mov'||'m4a'||'3gp'||'3g2'||'mj2')) {
+        return true;
       }
     }
     return false;
