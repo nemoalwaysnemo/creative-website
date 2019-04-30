@@ -174,7 +174,8 @@ export class DocumentModel extends Base {
   }
 
   isPdf(): boolean {
-    return this.fileMimeType === 'application/pdf';
+    return this.fileMimeType === 'application/pdf' ||
+    (this.get('picture:info') && this.get('picture:info').format && this.get('picture:info').format.includes('PDF' || 'JPEG' || 'GIF'));
   }
 
   isAudio(): boolean {
@@ -189,7 +190,7 @@ export class DocumentModel extends Base {
 
   isVideo(): boolean {
     if (this.get('vid:info') && this.get('vid:info').streams && this.get('vid:info').duration > 1) {
-      if (this.get('vid:info').format.includes('mp4'||'mov'||'m4a'||'3gp'||'3g2'||'mj2')) {
+      if (this.get('vid:info').format.includes('mp4' || 'mov' || 'm4a' || '3gp' || '3g2' || 'mj2')) {
         return true;
       }
     }
@@ -198,7 +199,8 @@ export class DocumentModel extends Base {
   }
 
   isPicture(): boolean {
-    return this.hasFacet('Picture') && this.fileMimeType.includes('image');
+    return  (this.hasFacet('Picture') && this.fileMimeType.includes('image')) ||
+    (this.get('picture:info') && this.get('picture:info').format && this.get('picture:info').format.includes('PNG') );
   }
 
   isFolder(): boolean {
