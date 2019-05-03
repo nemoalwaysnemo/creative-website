@@ -51,8 +51,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   isOpen = true;
   sidebarClosed: boolean = false;
   listenToScroll: boolean = true;
-  // protected goingUp: Subscription = new Subscription();
-  // protected goingDown: Subscription = new Subscription();
+  protected goingUp: Subscription = new Subscription();
+  protected goingDown: Subscription = new Subscription();
   constructor(private router: Router, private menuService: NbMenuService,
               protected bpService: NbMediaBreakpointsService,
               protected themeService: NbThemeService,
@@ -97,39 +97,39 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // if (this.listenToScroll) {
-    //   const scroll$ = this.scrollService
-    //                   .onScroll()
-    //                   .pipe(
-    //                     throttleTime(100),
-    //                     map(() => window.pageYOffset),
-    //                     pairwise(),
-    //                     map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
-    //                     distinctUntilChanged(),
-    //                     share(),
-    //                   );
+    if (this.listenToScroll) {
+      const scroll$ = this.scrollService
+                      .onScroll()
+                      .pipe(
+                        throttleTime(100),
+                        map(() => window.pageYOffset),
+                        pairwise(),
+                        map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+                        distinctUntilChanged(),
+                        share(),
+                      );
 
-    //   const goingUp$ = scroll$.pipe(
-    //     filter(direction => direction === Direction.Up),
-    //   );
+      const goingUp$ = scroll$.pipe(
+        filter(direction => direction === Direction.Up),
+      );
 
-    //   const goingDown$ = scroll$.pipe(
-    //     filter(direction => direction === Direction.Down),
-    //   );
+      const goingDown$ = scroll$.pipe(
+        filter(direction => direction === Direction.Down),
+      );
 
-    //   this.goingUp = goingUp$.subscribe(() => (this.isVisible = true, this.headerHide = '', this.actionTag = true));
-    //   this.goingDown = goingDown$.subscribe(() => (this.isVisible = false, this.actionTag = false, setTimeout(() => (this.headerHide = 'none'), 300)));
-    // }
-    // this.scrollService.onScrollListen()
-    // .subscribe((res) => {
-    //   if (res) {
-    //     if (res.stop === true) {
-    //       this.goingUp.unsubscribe();
-    //       this.goingDown.unsubscribe();
-    //       this.listenToScroll = false;
-    //     }
-    //   }
-    // });
+      this.goingUp = goingUp$.subscribe(() => (this.isVisible = true, this.headerHide = '', this.actionTag = true));
+      this.goingDown = goingDown$.subscribe(() => (this.isVisible = false, this.actionTag = false, setTimeout(() => (this.headerHide = 'none'), 300)));
+    }
+    this.scrollService.onScrollListen()
+    .subscribe((res) => {
+      if (res) {
+        if (res.stop === true) {
+          this.goingUp.unsubscribe();
+          this.goingDown.unsubscribe();
+          this.listenToScroll = false;
+        }
+      }
+    });
   }
 
 
