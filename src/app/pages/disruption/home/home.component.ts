@@ -21,15 +21,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   params: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+    ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
   };
 
   folderParams: any = {
-    pageSize: 3,
+    pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_FOLDER_TYPE,
+    ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_FOLDER_TYPE,
   };
 
   private backgroudParams: any = {
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private search(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.folders = res.entries;
+        this.folders = res.entries.filter( x => x.path !== '/know-edge/Disruption' );
         this.loading = false;
       });
     this.subscription.add(subscription);
@@ -64,8 +64,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   private getBackgroud(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.document = res.entries[1];
+        this.document = res.entries[2];
       });
     this.subscription.add(subscription);
   }
+
 }

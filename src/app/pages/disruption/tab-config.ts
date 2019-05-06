@@ -1,18 +1,18 @@
 export const TAB_CONFIG: any[] = [
     {
       title: 'Disruption Roadmaps',
-      route: '/p/disruption/roadmaps',
+      route: '/p/disruption/Disruption Roadmaps',
     },
     {
       title: 'Disruption Days',
-      route: '/p/disruption/days',
+      route: '/p/disruption/Disruption Days',
     },
     {
       title: 'Disruption Theory',
-      route: '/p/disruption/theory',
+      route: '/p/disruption/Disruption Theory',
     },
     {
       title: 'Brilliant Thinking',
-      route: '/p/disruption/thinking',
+      route: '/p/disruption/Brilliant Thinking',
     },
   ];

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HomePageModule } from './home/home.module';
 import { ThemeModule } from '@theme/theme.module';
 import { DisruptionDaysModule } from './disruption-days/disruption-days.module';
 import { DisruptionRoadmapsModule } from './disruption-roadmaps/disruption-roadmaps.module';
@@ -12,6 +13,7 @@ import { BrilliantThinkingModule } from './brilliant-thinking/brilliant-thinking
 @NgModule({
   imports: [
     ThemeModule,
+    HomePageModule,
     DisruptionDaysModule,
     DisruptionRoadmapsModule,
     DisruptionTheoryModule,
