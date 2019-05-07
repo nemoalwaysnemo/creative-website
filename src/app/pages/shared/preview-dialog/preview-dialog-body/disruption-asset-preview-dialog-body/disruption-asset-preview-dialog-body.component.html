@@ -15,6 +15,7 @@
         <h2 class="left">{{ document.get('The_Loupe_Main:brand')}}</h2>
         <button class="share right">Share</button>
         <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
+        <button class="right" (click)="closeInfo()">Edit</button>
         <div class="clear"></div>
       </div>
       <ng-container *ngIf="moreInfo">

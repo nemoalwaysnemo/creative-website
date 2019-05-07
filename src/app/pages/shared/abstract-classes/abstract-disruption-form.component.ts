@@ -37,7 +37,7 @@ export abstract class AbstractDisruptionForm implements OnInit {
     this.performForm();
   }
 
-  public ceated(docs: DocumentModel[]): void {
+  public created(docs: DocumentModel[]): void {
     this.onCreated.next(docs);
   }
 

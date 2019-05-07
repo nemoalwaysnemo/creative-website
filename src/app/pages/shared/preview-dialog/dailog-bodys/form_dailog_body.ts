@@ -31,4 +31,8 @@ export abstract class FormDailogBody extends BaseDialogBody {
     this.showSuccessMessage(`${doc.title} update success`);
   }
 
+  showMessage(status?: string, message?: string): void {
+    this.dialogService.alert(status, message);
+  }
+
 }

@@ -10,7 +10,15 @@
   </div>
   <ng-template #dialog>
     <preview-dialog>
-      <disruption-asset-preview-dialog-body></disruption-asset-preview-dialog-body>
+      <ng-container *ngIf="!showEdit">
+        <disruption-asset-preview-dialog-body (callBack)="openEdit($event)"></disruption-asset-preview-dialog-body>
+      </ng-container>
+
+      <ng-container *ngIf="showEdit">
+        <disruption-thinking-edit-dialog-body (updatedSuccess)="onUpdate($event)" (callBack)="reflash($event)">
+          <preview-dialog-alert></preview-dialog-alert>
+        </disruption-thinking-edit-dialog-body>
+      </ng-container>
     </preview-dialog>
   </ng-template>
 </ng-template>

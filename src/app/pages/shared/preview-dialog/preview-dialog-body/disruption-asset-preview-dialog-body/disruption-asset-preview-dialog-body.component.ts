@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { BaseDialogBody } from '../../base-dialog-body';
 import { PreviewDialogService } from '../../preview-dialog.service';
 
@@ -21,4 +21,7 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
     this.title = res.options.title;
   }
 
+  closeInfo(): void {
+    this.callBack.next({type: 'openEdit', value: true});
+  }
 }

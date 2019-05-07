@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@core/nebular/theme';
-import { Observable, ReplaySubject, Subject, timer } from 'rxjs';
+import { Observable, ReplaySubject, Subject, timer, merge } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { GoogleAnalyticsService } from '@core/google-analytics';
 import { DocumentModel } from '@core/api';
@@ -10,13 +10,18 @@ export class PreviewDialogService {
 
   private ref: any;
 
+  private close$: Subject<any> = new Subject<any>();
+
   private document$: ReplaySubject<{ doc: DocumentModel, options: any }> = new ReplaySubject<{ doc: DocumentModel, type: string, options: any }>();
 
   private alertStatus$: Subject<{ switch: boolean, status?: string, message?: string }> = new Subject<{ switch: boolean, status?: string, message?: string }>();
 
+  private options: any = {};
+
   constructor(private dialogService: NbDialogService, private googleAnalyticsService: GoogleAnalyticsService) { }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, options: any = {}): void {
+    this.options = options;
     this.ref = this.dialogService.open(dialog);
     this.document$.next({ doc, options });
     this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': doc.uid });
@@ -24,9 +29,18 @@ export class PreviewDialogService {
 
   close(): void {
     this.ref.close();
+    this.close$.next(this.ref);
   }
 
-  onDocmentNext(): Observable<any> {
+  onClose(): Observable<any> {
+    return this.close$.pipe(share());
+  }
+
+  setDocument(doc: DocumentModel, options: any = this.options): void {
+    this.document$.next({ doc, options });
+  }
+
+  onDocumentNext(): Observable<any> {
     return this.document$.pipe(share());
   }
 
@@ -37,6 +51,10 @@ export class PreviewDialogService {
     }
   }
 
+  alert(status?: string, message?: string): void {
+    this.alertStatus$.next({ switch: true, status, message });
+  }
+
   hideAlert(): void {
     this.alertStatus$.next({ switch: false });
   }
@@ -45,4 +63,7 @@ export class PreviewDialogService {
     return this.alertStatus$.pipe(share());
   }
 
+  delayed(sub?: Subject<any>, message?: any, second: number = 3000): void {
+    timer(second).subscribe(_ => sub.next(message));
+  }
 }

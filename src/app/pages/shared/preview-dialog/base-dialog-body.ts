@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, Input } from '@angular/core';
+import { OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { PreviewDialogService } from './preview-dialog.service';
 import { Subscription } from 'rxjs';
@@ -14,12 +14,17 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
   imageAsViewer: boolean = false;
 
+  @Output() callBack: EventEmitter<{ type: string, value: any }> = new EventEmitter<{ type: string, value: any }>();
+
   protected subscription: Subscription = new Subscription();
 
   constructor(protected dialogService: PreviewDialogService) { }
 
   ngOnInit() {
     this.onDocumentNext();
+    this.dialogService.onClose().subscribe(_ => {
+      this.onClose();
+    });
   }
 
   ngOnDestroy() {
@@ -38,6 +43,8 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
     return this.assetPath('assets/images/preview_logo.png');
   }
 
+  protected onClose(): void {}
+
   protected parseCountry(list: string[]): string {
     return list.map((x) => x.split('/').pop()).join(', ');
   }
@@ -47,7 +54,7 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
   }
 
   private onDocumentNext(): void {
-    const subscription = this.dialogService.onDocmentNext().subscribe((res: { doc: DocumentModel, type: string, options: any }) => {
+    const subscription = this.dialogService.onDocumentNext().subscribe((res: { doc: DocumentModel, type: string, options: any }) => {
       this.document = res.doc;
       this.initDocument(res);
     });
