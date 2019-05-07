@@ -34,6 +34,10 @@ const routes: Routes = [{
       component: DisruptionDayAssetComponent,
     },
     {
+      path: 'days/asset/:id',
+      component: DisruptionDayAssetComponent,
+    },
+    {
       path: 'Disruption Roadmaps',
       component: DisruptionRoadmapsComponent,
     },

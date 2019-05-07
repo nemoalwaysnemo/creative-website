@@ -53,6 +53,9 @@ export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent i
 
   private searchFolder(): void {
     const folderId = this.activatedRoute.snapshot.paramMap.get('folder');
+    if ( folderId == null ) {
+      this.folderLoading = false;
+    }
     if (folderId) {
       this.getDocumentModel(folderId, this.folderParams).subscribe((res: NuxeoPagination) => {
         this.folderLoading = false;

@@ -12,9 +12,9 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   loading: boolean = true;
-  headline = 'Find the knowledge in our network.';
-  subHead = 'Get the info that brought the insight.';
-  placeholder = 'Search for marketing reports, data, research...';
+  headline = 'You name it. We\'ve disrupted it.';
+  subHead = 'Find the who, what, where, when, Why and how of our process.';
+  placeholder = 'Search...';
   document: DocumentModel;
   folders: any[];
 
