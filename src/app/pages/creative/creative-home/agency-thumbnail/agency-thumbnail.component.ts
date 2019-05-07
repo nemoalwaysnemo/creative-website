@@ -20,7 +20,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 8,
-    app_global_networkshare: true,
+    ecm_path: NUXEO_META_INFO.CREATIVE_BEST_ASSETS_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
