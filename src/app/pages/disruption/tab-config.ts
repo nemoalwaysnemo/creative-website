@@ -8,8 +8,8 @@ export const TAB_CONFIG: any[] = [
       route: '/p/disruption/Disruption Days',
     },
     {
-      title: 'Disruption Theory',
-      route: '/p/disruption/Disruption Theory',
+      title: 'Disruption How Tos',
+      route: '/p/disruption/Disruption How Tos',
     },
     {
       title: 'Brilliant Thinking',

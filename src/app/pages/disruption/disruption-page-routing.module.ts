@@ -42,7 +42,7 @@ const routes: Routes = [{
       component: DisruptionRoadmapsComponent,
     },
     {
-      path: 'Disruption Theory',
+      path: 'Disruption How Tos',
       component: DisruptionTheoryComponent,
     },
     {
