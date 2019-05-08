@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { SimplePdfViewerComponent } from 'simple-pdf-viewer';
 import { DocumentModel } from '@core/api';
 
 @Component({
@@ -8,16 +7,17 @@ import { DocumentModel } from '@core/api';
   templateUrl: './document-pdf-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocumentPdfViewerComponent implements OnInit {
+export class DocumentPdfViewerComponent {
 
-  filePath: string;
+  src: string[];
 
-  @Input() document: DocumentModel;
+  @Input() imageAsViewer: boolean = true;
 
-  @ViewChild(SimplePdfViewerComponent) private pdfViewer: SimplePdfViewerComponent;
-
-  ngOnInit() {
-    this.filePath = this.document.get('file:content').data;
-    this.pdfViewer.zoomFullPage();
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.src = doc.thumbnailUrl ? [doc.thumbnailUrl] : ['assets/images/default.jpg'];
+    }
   }
+
 }

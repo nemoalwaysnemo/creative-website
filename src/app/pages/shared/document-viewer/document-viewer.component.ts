@@ -13,7 +13,7 @@ export class DocumentViewerComponent {
 
   @Input() autoPlay: boolean = true;
 
-  @Input() storyboard: boolean = true;
+  @Input() storyboard: boolean = false;
 
   @Input() imageAsViewer: boolean = true;
 
@@ -27,9 +27,11 @@ export class DocumentViewerComponent {
       } else if (doc.isAudio()) {
         type = 'audio';
       } else if (doc.isPicture()) {
+        console.log('pic');
         type = 'picture';
       } else if (doc.isPdf()) {
-        type = 'picture';
+        type = 'pdf';
+        console.log('pdf');
       }
     }
     return type;

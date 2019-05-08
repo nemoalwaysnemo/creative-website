@@ -23,12 +23,12 @@ export abstract class FormDailogBody extends BaseDialogBody {
 
   onCreated(docs: any): void {
     this.createdSuccess.next(docs);
-    this.showSuccessMessage(`${docs[0].title} create success`);
+    this.showSuccessMessage(`${docs[0].title} has been created successfully!`);
   }
 
   onUpdated(doc: any): void {
     this.updatedSuccess.next(doc);
-    this.showSuccessMessage(`${doc.title} update success`);
+    this.showSuccessMessage(`${doc.title} has been updated successfully!`);
   }
 
   showMessage(status?: string, message?: string): void {
