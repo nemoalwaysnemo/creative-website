@@ -17,11 +17,11 @@ import { StateService } from '@core/services/state.service';
   styleUrls: ['./creative.layout.scss'],
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
-      <nb-layout-header fixed>
+      <nb-layout-header fixed *ngIf="!hideBars">
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'">
+      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'" *ngIf="!hideBars">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
@@ -56,7 +56,7 @@ import { StateService } from '@core/services/state.service';
   // ],
 })
 export class CreativeLayoutComponent implements OnDestroy {
-
+  hideBars: boolean = false;
   subMenu: NbMenuItem[] = [
     {
       title: 'PAGE LEVEL MENU',
@@ -81,6 +81,13 @@ export class CreativeLayoutComponent implements OnDestroy {
     protected themeService: NbThemeService,
     protected bpService: NbMediaBreakpointsService,
     protected sidebarService: NbSidebarService) {
+
+    this.sidebarService.onHideAllBarsonSidebar()
+    .subscribe((data: { close: boolean }) => {
+      if (data.close) {
+        this.hideBars = true;
+      }
+    });
 
     this.sidebarService.onSidebarClose()
     .subscribe((data: { tag: boolean }) => {
@@ -110,7 +117,6 @@ export class CreativeLayoutComponent implements OnDestroy {
           this.sidebarService.collapse('menu-sidebar');
         }
       });
-
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {

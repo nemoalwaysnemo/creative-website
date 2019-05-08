@@ -26,6 +26,15 @@ export class NbSidebarService {
   private sidebarOpen$ = new Subject<{ tag: boolean }>();
   private sidebarClose$ = new Subject<{ tag: boolean }>();
   private sidebarStatus$ = new Subject<{ status: string }>();
+  private hideAllBars$ = new Subject<{ close: boolean }>();
+
+  onHideAllBarsonSidebar(): Observable<{ close: boolean }> {
+    return this.hideAllBars$.pipe(share());
+  }
+
+  closeAllBars (close?: boolean) {
+    this.hideAllBars$.next({ close: true });
+  }
 
   onSidebar(): Observable<{ tag: boolean }> {
     return this.sidebarToggle$.pipe(share());
