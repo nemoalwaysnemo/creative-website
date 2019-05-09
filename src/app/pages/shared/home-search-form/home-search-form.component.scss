@@ -65,6 +65,26 @@ $main-yellow: #fecc00;
   outline: 0;
   &:focus { border-color: rgba(81, 203, 238, 1); }
 }
+.filter_trigger {
+  display: inline-block;
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  font-size: 15px;
+  margin-left: 40px;
+  margin-top: 21px;
+  margin-bottom: 18px;
+  color: #ffffff;
+  &:hover {
+    text-decoration: none;
+    color: #ffffff;
+  }
+}
+.line {
+  display: block;
+  width: calc(100% - 80px);
+  height: 2px;
+  margin: 0 auto;
+  background-color: #ffc300;
+}
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #b1b1b1;
 }
