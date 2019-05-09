@@ -57,7 +57,7 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
   }
 
   isDisruptionAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
   }
 
   isIntelligenceAsset(doc: DocumentModel): boolean {

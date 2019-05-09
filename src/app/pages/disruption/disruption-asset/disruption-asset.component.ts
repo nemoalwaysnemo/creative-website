@@ -22,6 +22,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
+      quickFilters: '',
       ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
     };

@@ -10,6 +10,7 @@ export class DisruptionDocumentAssetSearchComponent {
   defaultParams: any = {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
+    quickFilters: '',
     currentPageIndex: 0,
     pageSize: 20,
     ecm_fulltext: '',

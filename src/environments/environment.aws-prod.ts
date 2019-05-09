@@ -43,7 +43,7 @@ export const NUXEO_META_INFO = {
   DISRUPTION_THEORY_FOLDER_TYPE: '["App-Disruption-Theory-Folder"]',
   DISRUPTION_THINKING_FOLDER_TYPE: '["App-Disruption-Folder"]',
   DISRUPTION_FOLDER_TYPE: '["App-Disruption-Roadmap-Folder", "App-Disruption-Days-Folder", "App-Disruption-Theory-Folder", "App-Disruption-Folder"]',
-  DISRUPTION_ASSET_TYPE: '["App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset"]',
+  DISRUPTION_ASSET_TYPE: '["App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset", "App-Disruption-Day"]',
   INTELLIGENCE_BASE_FOLDER_PATH: '/know-edge/Intelligence/',
   INTELLIGENCE_FOLDER_TYPE: '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder"]',
   INTELLIGENCE_INDUSTRY_TYPE: '["App-Intelligence-Industry"]',

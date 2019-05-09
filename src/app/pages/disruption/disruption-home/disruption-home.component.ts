@@ -20,6 +20,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   params: any = {
     pageSize: 20,
     currentPageIndex: 0,
+    quickFilters: '',
     ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
   };
