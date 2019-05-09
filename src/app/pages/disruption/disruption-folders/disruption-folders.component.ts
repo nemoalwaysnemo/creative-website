@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
-import { DocumentModel, AdvanceSearch, Permission } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPermission } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
 import { TAB_CONFIG } from '../tab-config';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -34,7 +34,7 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
-    this.addChildren$ = this.document.hasPermission(Permission.AddChildren);
+    this.addChildren$ = this.document.hasPermission(NuxeoPermission.AddChildren);
     setTimeout(() => { this.baseParams$.next(this.buildAssetsParams(doc)); }, 0);
   }
 

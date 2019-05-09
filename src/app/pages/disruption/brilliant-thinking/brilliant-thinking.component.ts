@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, Permission } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
 import { Subscription, Observable } from 'rxjs';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 @Component({
@@ -55,7 +55,7 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.parentDocument = res.entries.shift();
-        this.addChildren$ = this.parentDocument.hasPermission(Permission.AddChildren);
+        this.addChildren$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
       });
     this.subscription.add(subscription);
   }

@@ -1,7 +1,7 @@
-import { Component, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { DocumentModel } from '@core/api';
-import { Permission } from '@core/api';
+import { NuxeoPermission } from '@core/api';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -24,7 +24,7 @@ export class DisruptionFoldersViewComponent {
   @Input() set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
-      this.write$ = this.doc.hasPermission(Permission.Write);
+      this.write$ = this.doc.hasPermission(NuxeoPermission.Write);
     }
   }
 

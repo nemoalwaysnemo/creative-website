@@ -1,7 +1,7 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseDialogBody } from '../../base-dialog-body';
 import { PreviewDialogService } from '../../preview-dialog.service';
-import { Permission } from '@core/api';
+import { NuxeoPermission } from '@core/api';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -23,10 +23,10 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
 
   protected initDocument(res: any) {
     this.title = res.options.title;
-    this.write$ = this.document.hasPermission(Permission.Write);
+    this.write$ = this.document.hasPermission(NuxeoPermission.Write);
   }
 
   closeInfo(): void {
-    this.callBack.next({type: 'openEdit', value: true});
+    this.callBack.next({ type: 'openEdit', value: true });
   }
 }

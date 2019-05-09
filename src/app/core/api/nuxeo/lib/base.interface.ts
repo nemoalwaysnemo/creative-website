@@ -98,11 +98,15 @@ export function filterAggregates(mapping: { [key: string]: { label?: string, pla
   return aggregates;
 }
 
-export const NuxeoQuickFilters = {
-  ShowInNavigation: 'ShowInNavigation',
-  HiddenInNavigation: 'HiddenInNavigation',
-  BackslashEdgePage: 'BackslashEdgePage',
-};
+export enum NuxeoQuickFilters {
+  ShowInNavigation = 'ShowInNavigation',
+  HiddenInNavigation = 'HiddenInNavigation',
+  BackslashEdgePage = 'BackslashEdgePage',
+}
+
+export enum NuxeoSortByFields {
+  ProductionDate = 'The_Loupe_ProdCredits:production_date',
+}
 
 export const NuxeoEnricher = {
   user: {
@@ -123,11 +127,12 @@ export const NuxeoEnricher = {
   },
 };
 
-export const NuxeoPermission = {
-  Read: 'Read',
-  Write: 'Write',
-  Everything: 'Everything',
-};
+export enum NuxeoPermission {
+  Write = 'Write',
+  Read = 'Read',
+  Everything = 'Everything',
+  AddChildren = 'AddChildren',
+}
 
 export class NuxeoApiOptions {
   baseUrl: string = '';
@@ -149,6 +154,8 @@ export class NuxeoPageProviderParams {
   currentPageIndex?: number = 0;
   pageSize?: number = 20;
   ecm_path?: string;
+  sortBy?: string = NuxeoSortByFields.ProductionDate;
+  sortOrder?: string = 'ASC';
   quickFilters?: string = NuxeoQuickFilters.HiddenInNavigation;
   ecm_fulltext?: string;
   production_date?: string; // production_date: '["lastYear"]',
@@ -260,17 +267,11 @@ export class NuxeoUploadResponse {
   }
 }
 
-export const NuxeoAutomations = {
-  CreativeGetDocumentURStatus: 'Creative.GetDocumentURStatus',
-  DirectorySuggestEntries: 'Directory.SuggestEntries',
-  RepositoryPageProvider: 'Repository.PageProvider',
-  DirectoryEntries: 'Directory.Entries',
-  DocumentCreate: 'Document.Create',
-  TBWAUserDigest: 'TBWA.GetUserDigest',
-};
-
-export enum Permission {
-  Write = 'Write',
-  Read = 'Read',
-  AddChildren = 'AddChildren',
+export enum NuxeoAutomations {
+  CreativeGetDocumentURStatus = 'Creative.GetDocumentURStatus',
+  DirectorySuggestEntries = 'Directory.SuggestEntries',
+  RepositoryPageProvider = 'Repository.PageProvider',
+  DirectoryEntries = 'Directory.Entries',
+  DocumentCreate = 'Document.Create',
+  TBWAUserDigest = 'TBWA.GetUserDigest',
 }
