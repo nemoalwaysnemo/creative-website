@@ -32,10 +32,6 @@ import { StateService } from '@core/services/state.service';
       <nb-layout-footer fixed>
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
-
-      <nb-sidebar class="settings-sidebar" tag="settings-sidebar" state="collapsed" fixed [end]="sidebar.id !== 'end'">
-        <ngx-theme-settings></ngx-theme-settings>
-      </nb-sidebar>
     </nb-layout>
   `,
   // animations: [
