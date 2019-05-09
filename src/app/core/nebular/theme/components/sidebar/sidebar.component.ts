@@ -116,7 +116,7 @@ export class NbSidebarFooterComponent {
   styleUrls: ['./sidebar.component.scss'],
   template: `
     <div class="main-container"
-         [class.main-container-fixed]="containerFixedValue">
+         [class.main-container-fixed]="containerFixedValue" (mouseenter)="stopHiding()" (mouseleave)="hideSidebarIn5s()">
       <ng-content select="nb-sidebar-header"></ng-content>
       <div class="scrollable" (click)="onClick($event)">
         <ng-content></ng-content>
@@ -159,7 +159,6 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   private alive = true;
   containerFixedValue: boolean = true;
   isOpen = true;
-
   @HostBinding('class.fixed') fixedValue: boolean = false;
   @HostBinding('class.right') rightValue: boolean = false;
   @HostBinding('class.left') leftValue: boolean = true;
@@ -299,9 +298,6 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     private element: ElementRef) {
   }
 
-  openSideBar() {
-    this.sidebarService.openSidebar(true);
-  }
 
   toggleResponsive(enabled: boolean) {
     if (enabled) {
@@ -318,6 +314,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.hideSidebarIn5s();
     this.mediaQuerySubscription = this.onMediaQueryChanges();
     this.sidebarService.onToggle()
       .pipe(takeWhile(() => this.alive))
@@ -362,6 +359,12 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     if (this.mediaQuerySubscription) {
       this.mediaQuerySubscription.unsubscribe();
     }
+  }
+  private hideSidebarIn5s() {
+    this.sidebarService.hideLater('menu-sidebar');
+  }
+  private stopHiding() {
+    this.sidebarService.clearSidebarHiding();
   }
 
   // TODO: this is more of a workaround, should be a better way to make components communicate to each other
