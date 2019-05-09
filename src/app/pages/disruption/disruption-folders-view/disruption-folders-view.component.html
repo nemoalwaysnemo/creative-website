@@ -12,7 +12,7 @@
       <div>Brand: {{ doc.get('The_Loupe_Main:brand')}}</div>
       <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
       <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
-      <ng-container *ngIf="write$ | async">
+      <ng-container *ngIf="writePermission$ | async">
         <button type="button" (click)="openForm(dialog)" class="icon_btn">Edit</button>
       </ng-container>
     </div>

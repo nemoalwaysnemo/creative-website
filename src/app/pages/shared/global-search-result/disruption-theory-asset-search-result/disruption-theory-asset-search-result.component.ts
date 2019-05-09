@@ -24,7 +24,7 @@ export class DisruptionTheoryAssetSearchResultComponent implements OnInit {
   }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, { title: 'Disruption Theory' });
+    this.dialogService.open(dialog, doc, { title: 'Disruption How Tos' });
   }
 
   openEdit(callback: any): void {

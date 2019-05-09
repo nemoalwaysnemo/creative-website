@@ -24,11 +24,11 @@ export class DisruptionFoldersViewComponent {
   @Input() set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
-      this.write$ = this.doc.hasPermission(NuxeoPermission.Write);
+      this.writePermission$ = this.doc.hasPermission(NuxeoPermission.Write);
     }
   }
 
-  write$: Observable<boolean>;
+  writePermission$: Observable<boolean>;
 
   openForm(dialog: any): void {
     this.previewDialogService.open(dialog, this.doc);
