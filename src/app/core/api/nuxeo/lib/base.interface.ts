@@ -268,3 +268,9 @@ export const NuxeoAutomations = {
   DocumentCreate: 'Document.Create',
   TBWAUserDigest: 'TBWA.GetUserDigest',
 };
+
+export enum Permission {
+  Write = 'Write',
+  Read = 'Read',
+  AddChildren = 'AddChildren',
+}

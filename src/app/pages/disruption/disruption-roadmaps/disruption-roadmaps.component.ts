@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
-import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
-import { Subscription } from 'rxjs';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, Permission } from '@core/api';
+import { Subscription, Observable } from 'rxjs';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 @Component({
   selector: 'disruption-roadmap-page',
@@ -29,6 +29,8 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
   tabs = TAB_CONFIG;
 
   parentDocument: DocumentModel;
+
+  addChildren$: Observable<boolean>;
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
@@ -61,8 +63,9 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
 
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.parentDocument = res.entries.shift();
+    .subscribe((res: NuxeoPagination) => {
+      this.parentDocument = res.entries.shift();
+      this.addChildren$ = this.parentDocument.hasPermission(Permission.AddChildren);
       });
     this.subscription.add(subscription);
   }

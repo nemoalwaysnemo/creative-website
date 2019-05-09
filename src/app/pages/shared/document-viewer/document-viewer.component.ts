@@ -27,11 +27,9 @@ export class DocumentViewerComponent {
       } else if (doc.isAudio()) {
         type = 'audio';
       } else if (doc.isPicture()) {
-        console.log('pic');
         type = 'picture';
       } else if (doc.isPdf()) {
         type = 'pdf';
-        console.log('pdf');
       }
     }
     return type;

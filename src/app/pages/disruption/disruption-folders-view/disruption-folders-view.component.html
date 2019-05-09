@@ -1,18 +1,20 @@
 <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
-  <div *ngIf="document" class="property-section">
+  <div *ngIf="doc" class="property-section">
     <div class="property-intro inline-middle">
-      <img src="{{document.thumbnailUrl}}" class="thumbnail-img">
+      <img src="{{doc.thumbnailUrl}}" class="thumbnail-img">
     </div>
     <div class="property-info inline-middle">
-      <h1>{{ document.title }}</h1>
+      <h1>{{ doc.title }}</h1>
       <br>
-      <div>Workshop Date: {{document.get('The_Loupe_ProdCredits:production_date') | date}}</div>
-      <div>Industry: {{ document.get('app_Edges:industry') }}</div>
-      <div>Geography: {{ document.get('app_Edges:Relevant_Country')}}</div>
-      <div>Brand: {{ document.get('The_Loupe_Main:brand')}}</div>
-      <div>Agency: {{ document.get('The_Loupe_Main:agency')}}</div>
-      <div>Edges: {{ document.get('app_Edges:Tags_edges') }}</div>
-      <button type="button" (click)="openForm(dialog)" class="icon_btn">Edit</button>
+      <div>Workshop Date: {{doc.get('The_Loupe_ProdCredits:production_date') | date}}</div>
+      <div>Industry: {{ doc.get('app_Edges:industry') }}</div>
+      <div>Geography: {{ doc.get('app_Edges:Relevant_Country')}}</div>
+      <div>Brand: {{ doc.get('The_Loupe_Main:brand')}}</div>
+      <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
+      <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
+      <ng-container *ngIf="write$ | async">
+        <button type="button" (click)="openForm(dialog)" class="icon_btn">Edit</button>
+      </ng-container>
     </div>
   </div>
 </div>
