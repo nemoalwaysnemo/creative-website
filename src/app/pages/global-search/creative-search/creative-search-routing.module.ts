@@ -4,8 +4,8 @@ import { CreativeSearchComponent } from './creative-search.component';
 import { CreativeDocumentAssetSearchComponent } from './creative-document-asset-search/creative-document-asset-search.component';
 import { CreativeMyBrandSearchComponent } from './creative-my-brand-search/creative-my-brand-search.component';
 import { CreativeMyBrandAssetSearchComponent } from './creative-my-brand-asset-search/creative-my-brand-asset-search.component';
-import { CreativeRecommendedBrandSearchComponent } from './creative-recommended-brand-search/creative-recommended-brand-search.component';
-import { CreativeRecommendedBrandAssetSearchComponent } from './creative-recommended-brand-asset-search/creative-recommended-brand-asset-search.component';
+import { CreativePopularBrandSearchComponent } from './creative-popular-brand-search/creative-popular-brand-search.component';
+import { CreativePopularBrandAssetSearchComponent } from './creative-popular-brand-asset-search/creative-popular-brand-asset-search.component';
 
 const routes: Routes = [{
   path: '',
@@ -24,12 +24,12 @@ const routes: Routes = [{
       component: CreativeMyBrandAssetSearchComponent,
     },
     {
-      path: 'recommendedBrand',
-      component: CreativeRecommendedBrandSearchComponent,
+      path: 'popularBrand',
+      component: CreativePopularBrandSearchComponent,
     },
     {
-      path: 'recommendedBrandAsset/:id',
-      component: CreativeRecommendedBrandAssetSearchComponent,
+      path: 'popularBrandAsset/:id',
+      component: CreativePopularBrandAssetSearchComponent,
     },
     {
       path: '',

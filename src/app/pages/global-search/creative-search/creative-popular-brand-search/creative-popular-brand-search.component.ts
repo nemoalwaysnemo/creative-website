@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'creative-recommended-brand-search',
+  selector: 'creative-popular-brand-search',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
-  templateUrl: './creative-recommended-brand-search.component.html',
+  templateUrl: './creative-popular-brand-search.component.html',
 })
-export class CreativeRecommendedBrandSearchComponent {
+export class CreativePopularBrandSearchComponent {
 
   defaultParams: any = {
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,

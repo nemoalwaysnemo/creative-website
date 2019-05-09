@@ -3,13 +3,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 
-
 @Component({
-  selector: 'disruption-page',
-  styleUrls: ['./home.component.scss'],
-  templateUrl: './home.component.html',
+  selector: 'disruption-home',
+  styleUrls: ['./disruption-home.component.scss'],
+  templateUrl: './disruption-home.component.html',
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class DisruptionHomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   loading: boolean = true;
   headline = 'You name it. We\'ve disrupted it.';

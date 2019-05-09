@@ -4,11 +4,11 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'creative-recommended-brand-thumbnail',
-  styleUrls: ['./recommended-brand-thumbnail.component.scss'],
-  templateUrl: './recommended-brand-thumbnail.component.html',
+  selector: 'creative-popular-brand-thumbnail',
+  styleUrls: ['./popular-brand-thumbnail.component.scss'],
+  templateUrl: './popular-brand-thumbnail.component.html',
 })
-export class RecommendedBrandThumbnailComponent implements OnInit, OnDestroy {
+export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
 
   layout: string = 'third full-width';
 
