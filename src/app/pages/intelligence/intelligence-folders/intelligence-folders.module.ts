@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule, SharedServiceModule } from '@pages/shared';
 import { IntelligenceFoldersComponent } from './intelligence-folders.component';
-import { IntelligencenFoldersViewModule } from '../intelligence-shared/intelligence-folders-view/intelligence-folders-view.module';
+import { IntelligenceFoldersViewModule } from '../intelligence-shared/intelligence-folders-view/intelligence-folders-view.module';
 
 @NgModule({
   imports: [
@@ -11,7 +11,7 @@ import { IntelligencenFoldersViewModule } from '../intelligence-shared/intellige
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
-    IntelligencenFoldersViewModule,
+    IntelligenceFoldersViewModule,
   ],
   declarations: [
     IntelligenceFoldersComponent,

@@ -5,11 +5,11 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-  selector: 'disruption-page',
-  styleUrls: ['./home.component.scss'],
-  templateUrl: './home.component.html',
+  selector: 'disruption-home',
+  styleUrls: ['./intelligence-home.component.scss'],
+  templateUrl: './intelligence-home.component.html',
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class IntelligenceHomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   loading: boolean = true;
   headline = 'Find the knowledge in our network.';

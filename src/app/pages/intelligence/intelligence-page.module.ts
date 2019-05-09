@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HomePageModule } from './home/home.module';
+import { IntelligenceHomeModule } from './intelligence-home/intelligence-home.module';
 import { IntelligencePageComponent } from './intelligence-page.component';
 import { IntelligencePageRoutingModule } from './intelligence-page-routing.module';
 import { IntelligenceFoldersModule } from './intelligence-folders/intelligence-folders.module';
@@ -7,7 +7,7 @@ import { IntelligenceAssetModule } from './intelligence-asset/intelligence-asset
 
 @NgModule({
   imports: [
-    HomePageModule,
+    IntelligenceHomeModule,
     IntelligencePageRoutingModule,
     IntelligenceFoldersModule,
     IntelligenceAssetModule,

@@ -3,21 +3,19 @@ import { ThemeModule } from '@theme/theme.module';
 import { RouterModule } from '@angular/router';
 import { SharedServiceModule } from '@pages/shared';
 import { SharedModule } from '@pages/shared/shared.module';
-import { IntelligenceAssetComponent } from './intelligence-asset.component';
-import { IntelligenceFoldersViewModule } from '../intelligence-shared/intelligence-folders-view/intelligence-folders-view.module';
+import { DisruptionAssetComponent } from './disruption-asset.component';
 
 @NgModule({
   imports: [
     ThemeModule,
     SharedModule,
     RouterModule,
-    IntelligenceFoldersViewModule,
   ],
   declarations: [
-    IntelligenceAssetComponent,
+    DisruptionAssetComponent,
   ],
   providers: [
     ...SharedServiceModule.forRoot().providers,
   ],
 })
-export class IntelligenceAssetModule { }
+export class DisruptionAssetModule { }

@@ -7,11 +7,11 @@ import { HomeSearchFormModule } from '@pages/shared';
 @NgModule({
   imports: [
     ThemeModule,
-    HomeSearchFormModule,
     RouterModule,
+    HomeSearchFormModule,
   ],
   declarations: [
     DisruptionHomeComponent,
   ],
 })
-export class HomePageModule { }
+export class DisruptionHomeModule { }

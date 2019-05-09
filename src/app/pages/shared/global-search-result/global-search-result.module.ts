@@ -26,6 +26,7 @@ import { IntelligenceIndustrySearchResultComponent } from './intelligence-indust
 import { DisruptionFormRoadmapModule } from '../disruption-form-roadmap/disruption-form-roadmap.module';
 import { DisruptionFormTheoryModule } from '../disruption-form-theory/disruption-form-theory.module';
 import { DisruptionFormBrilliantThinkingModule } from '../disruption-form-brilliant-thinking/disruption-form-brilliant-thinking.module';
+import { DisruptionDocumentAssetSearchResultComponent } from './disruption-document-asset-search-result/disruption-document-asset-search-result.component';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -41,6 +42,7 @@ const COMPONENTS = [
   DisruptionTheoryEditDialogComponent,
   DisruptionThinkingEditDialogComponent,
   DisruptionFolderDayAssetSearchResultComponent,
+  DisruptionDocumentAssetSearchResultComponent,
   IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
 ];

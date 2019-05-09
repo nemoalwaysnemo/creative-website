@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { HomeComponent } from './home.component';
+import { IntelligenceHomeComponent } from './intelligence-home.component';
 import { RouterModule } from '@angular/router';
 import { HomeSearchFormModule } from '@pages/shared';
 
 @NgModule({
   imports: [
     ThemeModule,
-    HomeSearchFormModule,
     RouterModule,
+    HomeSearchFormModule,
   ],
   declarations: [
-    HomeComponent,
+    IntelligenceHomeComponent,
   ],
 })
-export class HomePageModule { }
+export class IntelligenceHomeModule { }

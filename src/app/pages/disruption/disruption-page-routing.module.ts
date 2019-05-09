@@ -8,6 +8,8 @@ import { DisruptionFoldersComponent } from './disruption-folders/disruption-fold
 import { DisruptionDayAssetComponent } from './disruption-day-asset/disruption-day-asset.component';
 import { BrilliantThinkingComponent } from './brilliant-thinking/brilliant-thinking.component';
 import { DisruptionHomeComponent } from './disruption-home/disruption-home.component';
+import { DisruptionAssetComponent } from './disruption-asset/disruption-asset.component';
+
 const routes: Routes = [{
   path: '',
   component: DisruptionPageComponent,
@@ -22,19 +24,19 @@ const routes: Routes = [{
       component: DisruptionHomeComponent,
     },
     {
+      path: 'asset/:id',
+      component: DisruptionAssetComponent,
+    },
+    {
       path: 'Disruption Days',
       component: DisruptionDaysComponent,
     },
     {
-      path: 'days/folders/:id',
+      path: 'Disruption Days/folder/:id',
       component: DisruptionFoldersComponent,
     },
     {
-      path: 'days/folders/:folder/asset/:id',
-      component: DisruptionDayAssetComponent,
-    },
-    {
-      path: 'days/asset/:id',
+      path: 'Disruption Days/folder/:folder/asset/:id',
       component: DisruptionDayAssetComponent,
     },
     {

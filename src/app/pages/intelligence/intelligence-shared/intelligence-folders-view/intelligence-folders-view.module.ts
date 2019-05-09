@@ -15,6 +15,6 @@ import { IntelligenceFoldersViewComponent } from './intelligence-folders-view.co
   ],
 })
 
-export class IntelligencenFoldersViewModule {
+export class IntelligenceFoldersViewModule {
 
 }

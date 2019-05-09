@@ -22,4 +22,4 @@ import { DocumentThumbnailViewModule } from '@pages/shared/document-thumbnail-vi
     PopularBrandThumbnailComponent,
   ],
 })
-export class CreativeHomePageModule { }
+export class CreativeHomeModule { }
