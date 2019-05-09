@@ -6,27 +6,7 @@ import { VgAPI } from 'videogular2/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <vg-player (onPlayerReady)="onPlayerReady($event)">
-
       <vg-overlay-play vgFor="video"></vg-overlay-play>
-
-      <vg-controls vgFor="video" [vgAutohide]="true" [vgAutohideTime]="2">
-          <vg-play-pause></vg-play-pause>
-
-          <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
-
-          <vg-scrub-bar>
-              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-              <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-          </vg-scrub-bar>
-
-          <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-
-          <vg-mute></vg-mute>
-          <vg-volume></vg-volume>
-
-          <vg-fullscreen (click)="detectFullScreen()"></vg-fullscreen>
-      </vg-controls>
-
       <video [vgMedia]="video" #video id="video" preload="auto" poster="{{poster}}" (error)="error.emit($event)">
           <source *ngFor="let src of videoSources" src="{{src?.url}}" type="{{src?.type}}">
       </video>
