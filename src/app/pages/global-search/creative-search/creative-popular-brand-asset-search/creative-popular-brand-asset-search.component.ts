@@ -6,11 +6,11 @@ import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'creative-recommended-brand-asset-search',
+  selector: 'creative-popular-brand-asset-search',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
-  templateUrl: './creative-recommended-brand-asset-search.component.html',
+  templateUrl: './creative-popular-brand-asset-search.component.html',
 })
-export class CreativeRecommendedBrandAssetSearchComponent extends AbstractDocumentViewComponent {
+export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentViewComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 

@@ -24,7 +24,8 @@ const routes: Routes = [{
       loadChildren: './global-search/global-search-page.module#GlobalSearchPageModule',
     }, {
       path: '',
-      redirectTo: 'knowledge',
+      redirectTo: 'creative',
+      // redirectTo: 'knowledge',
       pathMatch: 'full',
     }, {
       path: 'error',

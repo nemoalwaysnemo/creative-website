@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { HomeComponent } from './home.component';
+import { DisruptionHomeComponent } from './disruption-home.component';
 import { RouterModule } from '@angular/router';
 import { HomeSearchFormModule } from '@pages/shared';
 
@@ -11,7 +11,7 @@ import { HomeSearchFormModule } from '@pages/shared';
     RouterModule,
   ],
   declarations: [
-    HomeComponent,
+    DisruptionHomeComponent,
   ],
 })
 export class HomePageModule { }

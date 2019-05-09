@@ -5,7 +5,7 @@ import { SharedModule } from '@pages/shared/shared.module';
 import { CreativeHomeComponent } from './creative-home.component';
 import { AgencyThumbnailComponent } from './agency-thumbnail/agency-thumbnail.component';
 import { CreativeHomeGalleryComponent } from './creative-home-gallery/creative-home-gallery.component';
-import { RecommendedBrandThumbnailComponent } from './recommended-brand-thumbnail/recommended-brand-thumbnail.component';
+import { PopularBrandThumbnailComponent } from './popular-brand-thumbnail/popular-brand-thumbnail.component';
 import { DocumentThumbnailViewModule } from '@pages/shared/document-thumbnail-view/document-thumbnail-view.module';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { DocumentThumbnailViewModule } from '@pages/shared/document-thumbnail-vi
     CreativeHomeComponent,
     CreativeHomeGalleryComponent,
     AgencyThumbnailComponent,
-    RecommendedBrandThumbnailComponent,
+    PopularBrandThumbnailComponent,
   ],
 })
 export class CreativeHomePageModule { }
