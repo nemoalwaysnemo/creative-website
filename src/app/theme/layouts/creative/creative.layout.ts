@@ -91,16 +91,16 @@ export class CreativeLayoutComponent implements OnDestroy {
         this.hideBars = false;
       }
     });
-
-    this.sidebarService.onStatus()
-    .subscribe((res) => {
-      if (res.status === 'closed') {
-        this.showTrigger = true;
-      } else if (res.status === 'opened') {
-        this.showTrigger = false;
-      }
-    });
-
+    if (this.isDesktopDevice) {
+      this.sidebarService.onStatus()
+      .subscribe((res) => {
+        if (res.status === 'closed') {
+          this.showTrigger = true;
+        } else if (res.status === 'opened') {
+          this.showTrigger = false;
+        }
+      });
+    }
     this.sidebarService.onSidebarClose()
     .subscribe((data: { tag: boolean }) => {
       if (data.tag && this.isOpen === true) {

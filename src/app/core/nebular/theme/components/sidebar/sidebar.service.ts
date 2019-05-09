@@ -7,6 +7,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 /**
  * Sidebar service.
@@ -18,7 +19,7 @@ import { share } from 'rxjs/operators';
  */
 @Injectable()
 export class NbSidebarService {
-
+  constructor( private deviceService: DeviceDetectorService ) { }
   private toggle$ = new Subject<{ compact: boolean, tag: string }>();
   private expand$ = new Subject<{ tag: string }>();
   private collapse$ = new Subject<{ tag: string }>();
@@ -29,6 +30,8 @@ export class NbSidebarService {
   private hideAllBars$ = new Subject<{ close: boolean }>();
   sidebarTimeId: any;
   waitingHiding: boolean = false;
+  isDesktopDevice = this.deviceService.isDesktop();
+
   onHideAllBarsonSidebar(): Observable<{ close: boolean }> {
     return this.hideAllBars$.pipe(share());
   }
@@ -63,13 +66,15 @@ export class NbSidebarService {
   }
 
   hideLater(tag?: string) {
-    if (!this.waitingHiding) {
-      this.waitingHiding = true;
-      this.sidebarTimeId = setTimeout(() => {
-        this.collapse(tag);
-        this.sidebarStatus$.next({ status: 'closed' });
-        this.waitingHiding = false;
-      }, 5000);
+    if ( this.isDesktopDevice ) {
+      if ( !this.waitingHiding ) {
+        this.waitingHiding = true;
+        this.sidebarTimeId = setTimeout(() => {
+          this.collapse(tag);
+          this.sidebarStatus$.next({ status: 'closed' });
+          this.waitingHiding = false;
+        }, 5000);
+      }
     }
   }
   clearSidebarHiding() {
