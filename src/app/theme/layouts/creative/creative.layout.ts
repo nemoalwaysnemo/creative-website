@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { delay, withLatestFrom, takeWhile } from 'rxjs/operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import {
   NbMediaBreakpoint,
   NbMediaBreakpointsService,
@@ -55,7 +56,7 @@ import { StateService } from '@core/services/state.service';
   //   ]),
   // ],
 })
-export class CreativeLayoutComponent implements OnDestroy {
+export class CreativeLayoutComponent implements OnDestroy, AfterViewInit {
   hideBars: boolean = false;
   subMenu: NbMenuItem[] = [
     {
@@ -75,17 +76,22 @@ export class CreativeLayoutComponent implements OnDestroy {
   private alive: boolean = true;
 
   currentTheme: string;
-
+  isDesktopDevice = null;
   constructor(protected stateService: StateService,
     protected menuService: NbMenuService,
     protected themeService: NbThemeService,
     protected bpService: NbMediaBreakpointsService,
-    protected sidebarService: NbSidebarService) {
+    protected sidebarService: NbSidebarService,
+    private deviceService: DeviceDetectorService) {
+
+    this.isDesktopDevice = this.deviceService.isDesktop();
 
     this.sidebarService.onHideAllBarsonSidebar()
     .subscribe((data: { close: boolean }) => {
       if (data.close) {
         this.hideBars = true;
+      } else {
+        this.hideBars = false;
       }
     });
 
@@ -113,7 +119,7 @@ export class CreativeLayoutComponent implements OnDestroy {
         delay(20),
       )
       .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
-        if (bpTo.width <= isBp.width) {
+        if (bpTo.width <= isBp.width && !this.isDesktopDevice) {
           this.sidebarService.collapse('menu-sidebar');
         }
       });
@@ -122,6 +128,9 @@ export class CreativeLayoutComponent implements OnDestroy {
       .subscribe(theme => {
         this.currentTheme = theme.name;
       });
+  }
+
+  ngAfterViewInit() {
   }
   closeSidebar() {
     this.sidebarService.closeSidebar(true);

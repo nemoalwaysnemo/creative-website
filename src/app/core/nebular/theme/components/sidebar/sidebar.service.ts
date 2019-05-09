@@ -33,7 +33,7 @@ export class NbSidebarService {
   }
 
   closeAllBars (close?: boolean) {
-    this.hideAllBars$.next({ close: true });
+    this.hideAllBars$.next({ close: close });
   }
 
   onSidebar(): Observable<{ tag: boolean }> {
