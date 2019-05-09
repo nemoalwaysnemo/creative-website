@@ -24,6 +24,7 @@ import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adap
 import { NbSidebarService } from '../sidebar/sidebar.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Subscription } from 'rxjs';
+import { HEADER_OFFSET } from '@angular/core/src/render3/interfaces/view';
 /**
  * A container component which determines a content position inside of the layout.
  * The layout could contain unlimited columns (not including the sidebars).
@@ -108,38 +109,28 @@ enum Direction {
 @Component({
   selector: 'nb-layout-header',
   template: `
-    <nav [@toggle]="isVisible ? 'visible' : 'hidden'" [class.fixed]="fixedValue">
-      <ng-content></ng-content>
+    <nav #header>
+    <ng-content></ng-content>
     </nav>
   `,
-  animations: [
-    trigger('toggle', [
-      state('hidden', style({
-        height: '0px',
-      })),
-      state('visible', style({
-        height: '79px',
-      })),
-      transition('hidden => visible', [
-        animate('0.3s'),
-      ]),
-      transition('visible => hidden', [
-        animate('0.3s'),
-      ]),
-    ]),
-  ],
-
 })
 export class NbLayoutHeaderComponent implements AfterViewInit {
   listenToScroll: boolean = true;
   isVisible = true;
+  h: number = 0;
   protected goingUp: Subscription = new Subscription();
   protected goingDown: Subscription = new Subscription();
   @HostBinding('class.fixed') fixedValue: boolean;
   @HostBinding('class.subheader') subheaderValue: boolean;
+
+  @ViewChild('header')
+  private el: ElementRef;
   // tslint:disable-next-line
   constructor(@Inject(forwardRef(() => NbLayoutComponent)) private layout: NbLayoutComponent,
-                protected scrollService: NbLayoutScrollService) {
+    protected scrollService: NbLayoutScrollService,
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+  ) {
   }
 
   /**
@@ -163,40 +154,24 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
     this.layout.withSubheader = this.subheaderValue;
   }
   ngAfterViewInit() {
-    if (this.listenToScroll) {
-      const scroll$ = this.scrollService
-                      .onScroll()
-                      .pipe(
-                        throttleTime(10),
-                        map(() => window.pageYOffset),
-                        pairwise(),
-                        map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
-                        distinctUntilChanged(),
-                        share(),
-                      );
-      const goingUp$ = scroll$.pipe(
-        filter(direction => direction === Direction.Up),
-      );
-
-      const goingDown$ = scroll$.pipe(
-        filter(direction => direction === Direction.Down),
-      );
-
-      this.goingUp = goingUp$.subscribe(() => (this.isVisible = true));
-      this.goingDown = goingDown$.subscribe(() => (this.isVisible = false));
+      this.scrollService.onScroll()
+        .pipe(
+          map(() => window.pageYOffset),
+          pairwise(),
+          map(([y1, y2]) => y1 - y2),
+      )
+        .subscribe(y => {
+          const offsetY = this.h + y;
+          if (offsetY < - 78) {
+            this.h = - 78;
+          } else if (offsetY > 0) {
+            this.h = 0;
+          } else {
+            this.h = offsetY;
+          }
+          this.renderer.setStyle(this.el.nativeElement, 'top', this.h + 'px');
+        });
     }
-
-    this.scrollService.onScrollListen()
-    .subscribe((res) => {
-      if (res) {
-        if (res.stop === true) {
-          this.goingUp.unsubscribe();
-          this.goingDown.unsubscribe();
-          this.listenToScroll = false;
-        }
-      }
-    });
-  }
 }
 
 /**
@@ -446,26 +421,26 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
   ) {
 
     this.sidebarService.onSidebarOpen()
-    .subscribe((data: { tag: boolean }) => {
-      if (data.tag && this.isOpen === false) {
-        this.isOpen = !this.isOpen;
-      }
-    });
+      .subscribe((data: { tag: boolean }) => {
+        if (data.tag && this.isOpen === false) {
+          this.isOpen = !this.isOpen;
+        }
+      });
 
     this.sidebarService.onSidebarClose()
-    .subscribe((data: { tag: boolean }) => {
-      if (data.tag && this.initialState) {
-        this.initialState = false;
-      } else if (data.tag && this.isOpen === true) {
-        this.isOpen = !this.isOpen;
-      }
-    });
+      .subscribe((data: { tag: boolean }) => {
+        if (data.tag && this.initialState) {
+          this.initialState = false;
+        } else if (data.tag && this.isOpen === true) {
+          this.isOpen = !this.isOpen;
+        }
+      });
     this.registerAsOverlayContainer();
 
     this.themeService.onThemeChange()
       .pipe(
         takeWhile(() => this.alive),
-      )
+    )
       .subscribe((theme: any) => {
         const body = this.document.getElementsByTagName('body')[0];
         if (theme.previous) {
@@ -477,7 +452,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.themeService.onAppendLayoutClass()
       .pipe(
         takeWhile(() => this.alive),
-      )
+    )
       .subscribe((className: string) => {
         this.renderer.addClass(this.elementRef.nativeElement, className);
       });
@@ -485,7 +460,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.themeService.onRemoveLayoutClass()
       .pipe(
         takeWhile(() => this.alive),
-      )
+    )
       .subscribe((className: string) => {
         this.renderer.removeClass(this.elementRef.nativeElement, className);
       });
@@ -494,7 +469,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       this.afterViewInit$
         .pipe(
           takeWhile(() => this.alive),
-        )
+      )
         .subscribe((_) => resolve());
     }));
     this.spinnerService.load();
@@ -502,7 +477,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.rulerService.onGetDimensions()
       .pipe(
         takeWhile(() => this.alive),
-      )
+    )
       .subscribe(({ listener }) => {
         listener.next(this.getDimensions());
         listener.complete();
@@ -511,7 +486,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.scrollService.onGetPosition()
       .pipe(
         takeWhile(() => this.alive),
-      )
+    )
       .subscribe(({ listener }) => {
         listener.next(this.getScrollPosition());
         listener.complete();
@@ -522,7 +497,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       .pipe(
         filter(() => this.restoreScrollTopValue),
         takeWhile(() => this.alive),
-      )
+    )
       .subscribe(() => {
         this.scroll(0, 0);
       });
@@ -531,7 +506,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       .onScrollableChange()
       .pipe(
         filter(() => this.withScrollValue),
-      )
+    )
       .subscribe((scrollable: boolean) => {
         this.overlayScrollBlock = !scrollable;
       });
@@ -554,15 +529,15 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.afterViewInit$.next(true);
     if (this.listenToScroll) {
       const scroll$ = this.scrollService
-                      .onScroll()
-                      .pipe(
-                        throttleTime(10),
-                        map(() => window.pageYOffset),
-                        pairwise(),
-                        map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
-                        distinctUntilChanged(),
-                        share(),
-                      );
+        .onScroll()
+        .pipe(
+          throttleTime(10),
+          map(() => window.pageYOffset),
+          pairwise(),
+          map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+          distinctUntilChanged(),
+          share(),
+      );
       const goingUp$ = scroll$.pipe(
         filter(direction => direction === Direction.Up),
       );
@@ -571,19 +546,19 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
         filter(direction => direction === Direction.Down),
       );
 
-      this.goingUp = goingUp$.subscribe(() => (this.onHide = '79px'));
-      this.goingDown = goingDown$.subscribe(() => (this.onHide = '0px'));
+      // this.goingUp = goingUp$.subscribe(() => (this.onHide = '79px'));
+      // this.goingDown = goingDown$.subscribe(() => (this.onHide = '0px'));
     }
     this.scrollService.onScrollListen()
-    .subscribe((res) => {
-      if (res) {
-        if (res.stop === true) {
-          this.goingUp.unsubscribe();
-          this.goingDown.unsubscribe();
-          this.listenToScroll = false;
+      .subscribe((res) => {
+        if (res) {
+          if (res.stop === true) {
+            this.goingUp.unsubscribe();
+            this.goingDown.unsubscribe();
+            this.listenToScroll = false;
+          }
         }
-      }
-    });
+      });
   }
 
   ngOnDestroy() {

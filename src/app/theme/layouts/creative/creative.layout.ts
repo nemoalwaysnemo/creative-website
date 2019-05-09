@@ -22,7 +22,7 @@ import { StateService } from '@core/services/state.service';
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'" *ngIf="!hideBars">
+      <nb-sidebar style="top: 0" class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'" *ngIf="!hideBars">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 

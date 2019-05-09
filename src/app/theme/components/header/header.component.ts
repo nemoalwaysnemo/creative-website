@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   headerHide: any;
   isOpen = true;
   sidebarClosed: boolean = false;
-  listenToScroll: boolean = true;
+  listenToScroll: boolean = false;
   protected goingUp: Subscription = new Subscription();
   protected goingDown: Subscription = new Subscription();
   constructor(private router: Router, private menuService: NbMenuService,
