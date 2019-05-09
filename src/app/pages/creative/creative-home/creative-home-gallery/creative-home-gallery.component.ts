@@ -15,7 +15,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     playerInterval: 5000,
     autoPlay: true,
     dots: true,
-    dotsSize: 20,
+    dotsSize: 10,
     loop: true,
     thumb: false,
   };

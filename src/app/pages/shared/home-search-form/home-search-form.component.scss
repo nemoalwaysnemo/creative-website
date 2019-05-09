@@ -22,7 +22,7 @@ $main-yellow: #fecc00;
   background-position: center center;
   background-size: cover;
   > h1 {
-    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
     font-size: 50px;
     line-height: 50px;
     margin-top: 138px;
@@ -48,20 +48,13 @@ $main-yellow: #fecc00;
 }
 .keyword-wrapper {
   position: relative;
-  margin-left: 40px;
+  width: calc(100% - 80px);
+  margin: 0 auto;
 }
 .keyword {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   display: block;
-  @include media-breakpoint-down(lg) { //992px
-    width: 700px;
-  }
-  @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-    width: 850px;
-  }
-  @include media-breakpoint-up(xxl) { //1400px
-    width: 1209px;
-  }
+  width: 100%;
   height: 95px;
   margin-top: 50px;
   padding-left: 109px;

@@ -40,17 +40,8 @@
   background: #ffffff;
   &.full-width { width: 100%; }
   &.suggestion-inline {
-    @include media-breakpoint-down(lg) { //992px
-      width: 700px;
-    }
-    @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-      width: 850px;
-    }
-    @include media-breakpoint-up(xxl) { //1400px
-      width: 1209px;
-    }
+    width: 100%;
     height: 70vh;
-    margin-left: 40px;
     padding: 33px 43px;
     box-sizing: border-box;
     overflow: auto;
