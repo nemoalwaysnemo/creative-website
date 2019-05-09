@@ -143,10 +143,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   sidebarToggle() {
     if ( this.sidebarClosed ) {
-      this.sidebarService.toggle(true, 'menu-sidebar');
+      this.sidebarService.openSidebar(true, 'menu-sidebar');
       this.sidebarClosed = false;
     } else {
-      this.sidebarService.collapse('menu-sidebar');
+      this.sidebarService.closeSidebar('menu-sidebar');
       this.sidebarClosed = true;
     }
   }
@@ -167,13 +167,5 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         this.title = item.title;
       });
     this.subscription.add(subscription);
-  }
-
-  openSidebar() {
-    this.sidebarService.openSidebar(true);
-  }
-
-  closeSidebar() {
-    this.sidebarService.closeSidebar(true);
   }
 }

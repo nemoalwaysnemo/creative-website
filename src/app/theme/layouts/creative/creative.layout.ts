@@ -17,6 +17,7 @@ import { StateService } from '@core/services/state.service';
   selector: 'creative-layout',
   styleUrls: ['./creative.layout.scss'],
   template: `
+    <div *ngIf="showTrigger" (mouseenter)="showSideBar()" class="sidebarTrigger"></div>
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
       <nb-layout-header fixed *ngIf="!hideBars">
         <ngx-header></ngx-header>
@@ -26,7 +27,7 @@ import { StateService } from '@core/services/state.service';
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
-      <nb-layout-column class="main-content">
+      <nb-layout-column class="main-content"  (mouseenter)="sidebarHide()">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 
@@ -52,7 +53,7 @@ import { StateService } from '@core/services/state.service';
   //   ]),
   // ],
 })
-export class CreativeLayoutComponent implements OnDestroy, AfterViewInit {
+export class CreativeLayoutComponent implements OnDestroy {
   hideBars: boolean = false;
   subMenu: NbMenuItem[] = [
     {
@@ -70,7 +71,7 @@ export class CreativeLayoutComponent implements OnDestroy, AfterViewInit {
   folded: boolean = false;
   isOpen = true;
   private alive: boolean = true;
-
+  showTrigger: boolean = true;
   currentTheme: string;
   isDesktopDevice = null;
   constructor(protected stateService: StateService,
@@ -88,6 +89,15 @@ export class CreativeLayoutComponent implements OnDestroy, AfterViewInit {
         this.hideBars = true;
       } else {
         this.hideBars = false;
+      }
+    });
+
+    this.sidebarService.onStatus()
+    .subscribe((res) => {
+      if (res.status === 'closed') {
+        this.showTrigger = true;
+      } else if (res.status === 'opened') {
+        this.showTrigger = false;
       }
     });
 
@@ -125,12 +135,15 @@ export class CreativeLayoutComponent implements OnDestroy, AfterViewInit {
         this.currentTheme = theme.name;
       });
   }
+  sidebarHide() {
+    this.sidebarService.hideLater('menu-sidebar');
+  }
 
-  ngAfterViewInit() {
+  showSideBar() {
+    this.showTrigger = false;
+    this.sidebarService.toggle(true, 'menu-sidebar');
   }
-  closeSidebar() {
-    this.sidebarService.closeSidebar(true);
-  }
+
   ngOnDestroy() {
     this.alive = false;
   }
