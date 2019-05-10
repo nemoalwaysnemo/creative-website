@@ -46,7 +46,7 @@ export class CreativeHomeComponent implements OnInit, OnDestroy {
   private getBackgroud(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.document = res.entries.filter((doc: DocumentModel) => doc.title.toLowerCase().includes('frontpage')).shift();
+        this.document = res.entries.filter((doc: DocumentModel) => doc.title.toLowerCase().includes('creative')).shift();
       });
     this.subscription.add(subscription);
   }

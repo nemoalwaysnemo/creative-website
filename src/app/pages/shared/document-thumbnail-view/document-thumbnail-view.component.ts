@@ -6,14 +6,17 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
   styleUrls: ['./document-thumbnail-view.component.scss'],
   template: `
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
-    <ng-container *ngIf="documents && documents.length !== 0">
+    <ng-container *ngIf="documentList && documentList.length !== 0">
       <div class="s-results flex {{layout}}">
-        <div *ngFor="let document of documents" class="thumbnail-view-item">
+        <div *ngFor="let document of documentList" class="thumbnail-view-item">
           <ng-template #itemTpl [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
         </div>
+        <ng-container *ngIf="emptyList && emptyList.length !== 0">
+          <div class="empty-thumbnail-view-item"></div>
+        </ng-container>
       </div>
     </ng-container>
-    <div *ngIf="!hideEmpty && !loading && documents && documents.length === 0" class="thumbnail-view empty text-center">
+    <div *ngIf="!hideEmpty && !loading && documentList && documentList.length === 0" class="thumbnail-view empty text-center">
       <span class="empty-data">No data found</span>
     </div>
   </div>
@@ -21,6 +24,10 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentThumbnailViewComponent implements OnInit {
+
+  documentList: DocumentModel[] = [];
+
+  emptyList: any[] = [];
 
   @Input() layout: 'half' | 'third' | 'quarter' | 'suggestion-inline' = 'quarter';
 
@@ -30,10 +37,27 @@ export class DocumentThumbnailViewComponent implements OnInit {
 
   @Input() templateRef: TemplateRef<any>;
 
-  @Input() documents: DocumentModel[] = [];
+  @Input()
+  set documents(docs: DocumentModel[]) {
+    if (docs && docs.length > 0) {
+      this.documentList = docs;
+      this.emptyList = this.fillForQuarter(docs);
+    }
+  }
 
   ngOnInit(): void {
 
+  }
+
+  private fillForQuarter(docs: DocumentModel[]): any[] {
+    const list: any[] = [];
+    if (this.layout === 'quarter' && docs.length % 4 > 0) {
+      const number = 4 - (docs.length % 4);
+      for (let index = 0; index < number; index++) {
+        list.push({});
+      }
+    }
+    return list;
   }
 
 }
