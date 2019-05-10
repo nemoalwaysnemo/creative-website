@@ -339,19 +339,20 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
           this.collapse();
         }
       });
-    this.sidebarService.onSidebarClose()
-    .subscribe((data: { tag: boolean }) => {
-      if (data.tag && this.isOpen === true) {
-        this.isOpen = !this.isOpen;
-      }
-    });
-    this.sidebarService.onSidebarOpen()
-    .subscribe((data: { tag: boolean }) => {
-      if (data.tag && this.isOpen === false) {
-        this.isOpen = !this.isOpen;
-      }
-    });
 
+    this.sidebarService.onSidebarClose()
+      .subscribe((data: { tag: boolean }) => {
+        if (data.tag && this.isOpen === true) {
+          this.isOpen = !this.isOpen;
+        }
+      });
+
+    this.sidebarService.onSidebarOpen()
+      .subscribe((data: { tag: boolean }) => {
+        if (data.tag && this.isOpen === false) {
+          this.isOpen = !this.isOpen;
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -360,10 +361,12 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
       this.mediaQuerySubscription.unsubscribe();
     }
   }
-  private hideSidebarIn5s() {
+
+  hideSidebarIn5s() {
     this.sidebarService.hideLater('menu-sidebar');
   }
-  private stopHiding() {
+
+  stopHiding() {
     this.sidebarService.clearSidebarHiding();
   }
 

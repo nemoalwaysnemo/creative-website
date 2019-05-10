@@ -61,7 +61,6 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
     this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
   }
 
-
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {

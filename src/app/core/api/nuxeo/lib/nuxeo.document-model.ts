@@ -144,8 +144,14 @@ export class DocumentModel extends Base {
 
   get videoPoster(): string {
     const pictures = this.get('picture:views');
-    const poster = pictures.filter(item => item.title === 'StaticPlayerView').map(function (picture) { return picture.content.data; }).shift();
+    const poster = pictures.filter(item => item.title === 'StaticPlayerView').map(picture => picture.content.data).shift();
     return poster || this.thumbnailUrl;
+  }
+  // 'Thumbnail', 'Small', 'Medium', 'FullHD', 'OriginalJpeg'
+  get originalPicture(): string {
+    const pictures = this.get('picture:views');
+    const originalJpeg = pictures.filter(item => item.title === 'OriginalJpeg').map(picture => picture.content.data).shift();
+    return originalJpeg || this.thumbnailUrl;
   }
 
   get(propertyName: string): any {
@@ -154,7 +160,7 @@ export class DocumentModel extends Base {
 
   getVideoSources(): { url: string, type: string }[] {
     const sources = this.get('vid:transcodedVideos');
-    if ( sources.length !== 0 ) {
+    if (sources.length !== 0) {
       return sources.map((conversion: any) => {
         return {
           url: conversion.content.data,
@@ -162,10 +168,10 @@ export class DocumentModel extends Base {
         };
       });
     } else {
-      return [ {
+      return [{
         url: this.filePath,
         type: '',
-      } ];
+      }];
     }
   }
 
@@ -175,7 +181,7 @@ export class DocumentModel extends Base {
 
   isPdf(): boolean {
     return this.fileMimeType === 'application/pdf' ||
-    (this.get('picture:info') && this.get('picture:info').format && this.get('picture:info').format.includes('PDF' || 'JPEG' || 'GIF'));
+      (this.get('picture:info') && this.get('picture:info').format && this.get('picture:info').format.includes('PDF' || 'JPEG' || 'GIF'));
   }
 
   isAudio(): boolean {
@@ -199,8 +205,8 @@ export class DocumentModel extends Base {
   }
 
   isPicture(): boolean {
-    return  (this.hasFacet('Picture') && this.fileMimeType.includes('image')) ||
-    (this.get('picture:info') && this.get('picture:info').format && this.get('picture:info').format.includes('PNG') );
+    return (this.hasFacet('Picture') && this.fileMimeType.includes('image')) ||
+      (this.get('picture:info') && this.get('picture:info').format && this.get('picture:info').format.includes('PNG'));
   }
 
   isFolder(): boolean {

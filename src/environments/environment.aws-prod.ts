@@ -29,7 +29,7 @@ export const NUXEO_META_INFO = {
   DISRUPTION_BASE_FOLDER_PATH: '/know-edge/Disruption/',
   DISRUPTION_DAYS_PATH: '/know-edge/Disruption/Disruption Days/',
   DISRUPTION_ROADMAPS_PATH: '/know-edge/Disruption/Disruption Roadmaps/',
-  DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption Theory/',
+  DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption How Tos/',
   DISRUPTION_THINKING_PATH: '/know-edge/Disruption/Brilliant Thinking/',
   DISRUPTION_DAYS_TYPE: '["App-Disruption-Day"]',
   DISRUPTION_DAY_TYPE: '["App-Disruption-Day-Asset"]',

@@ -45,7 +45,7 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   @Input()
   set backgroudDocument(doc: DocumentModel) {
     if (doc) {
-      this.backgroudUrl = doc.thumbnailUrl;
+      this.backgroudUrl = doc.originalPicture;
     }
   }
 
