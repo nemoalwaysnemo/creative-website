@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
@@ -18,6 +18,7 @@ export class DisruptionRoadmapsComponent implements OnInit, OnDestroy {
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_ROADMAPS_PATH,
+    quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
   };
 
   folderParams: any = {

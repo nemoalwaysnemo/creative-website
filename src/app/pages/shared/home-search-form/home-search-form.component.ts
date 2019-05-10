@@ -99,14 +99,6 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     event.stopImmediatePropagation();
   }
 
-  isThinkingPath(path) {
-    return path.includes('/Disruption/Brilliant Thinking');
-  }
-
-  isDaysPath(path) {
-    return path.includes('/Disruption/Disruption Days');
-  }
-
   private buildQueryParams(): any {
     return { q: this.queryField.value };
   }

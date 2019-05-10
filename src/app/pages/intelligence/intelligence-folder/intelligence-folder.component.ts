@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AdvanceSearch, DocumentModel } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoQuickFilters } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'intelligence-folders',
-  styleUrls: ['./intelligence-folders.component.scss'],
-  templateUrl: './intelligence-folders.component.html',
+  selector: 'intelligence-folder',
+  styleUrls: ['./intelligence-folder.component.scss'],
+  templateUrl: './intelligence-folder.component.html',
 })
-export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent {
+export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
 
   documentType: string;
 
@@ -74,6 +74,7 @@ export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent 
 
   protected buildIndustryParams(doc?: DocumentModel): any {
     const params = {
+      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
       ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
       currentPageIndex: 0,
@@ -88,6 +89,7 @@ export class IntelligenceFoldersComponent extends AbstractDocumentViewComponent 
 
   protected buildIndustryAssetsParams(doc?: DocumentModel): any {
     const params = {
+      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
       currentPageIndex: 0,
