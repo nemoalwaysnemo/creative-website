@@ -35,7 +35,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   private backgroudParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.BACKGROUND_PATH,
+    ecm_path: NUXEO_META_INFO.FRONTPAGE_BANNER_PATH,
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
 
@@ -55,7 +55,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   private search(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.folders = res.entries.filter( x => x.path !== '/know-edge/Disruption' );
+        this.folders = res.entries.filter(x => x.path !== '/know-edge/Disruption');
         this.loading = false;
       });
     this.subscription.add(subscription);
@@ -64,7 +64,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   private getBackgroud(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.document = res.entries[2];
+        this.document = res.entries.filter((doc: DocumentModel) => doc.title.toLowerCase().includes('disruption')).shift();
       });
     this.subscription.add(subscription);
   }

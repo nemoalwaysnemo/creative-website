@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 
-
 @Component({
   selector: 'disruption-home',
   styleUrls: ['./intelligence-home.component.scss'],
@@ -35,7 +34,7 @@ export class IntelligenceHomeComponent implements OnInit, OnDestroy {
   private backgroudParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.BACKGROUND_PATH,
+    ecm_path: NUXEO_META_INFO.FRONTPAGE_BANNER_PATH,
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
 
@@ -64,7 +63,7 @@ export class IntelligenceHomeComponent implements OnInit, OnDestroy {
   private getBackgroud(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.document = res.entries[1];
+        this.document = res.entries.filter((doc: DocumentModel) => doc.title.toLowerCase().includes('intelligence')).shift();
       });
     this.subscription.add(subscription);
   }
