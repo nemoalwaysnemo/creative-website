@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, Observable, of as observableOf } from 'rxjs';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
+import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
-import { Subscription, Observable } from 'rxjs';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+
 @Component({
   selector: 'disruption-brilliant-thinking-page',
   styleUrls: ['./brilliant-thinking.component.scss'],
@@ -30,7 +31,7 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
 
   parentDocument: DocumentModel;
 
-  addChildren$: Observable<boolean>;
+  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
@@ -55,7 +56,9 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.parentDocument = res.entries.shift();
-        this.addChildren$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
+        if (this.parentDocument) {
+          this.addChildrenPermission$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
+        }
       });
     this.subscription.add(subscription);
   }

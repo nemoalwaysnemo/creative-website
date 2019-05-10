@@ -20,7 +20,6 @@ export abstract class AbstractCore {
     this.restUrl = join(this.baseUrl, this.apiPath);
     this.automationUrl = join(this.restUrl, 'automation/');
   }
-
 }
 
 export class Credentials {
@@ -99,12 +98,15 @@ export function filterAggregates(mapping: { [key: string]: { label?: string, pla
 }
 
 export enum NuxeoQuickFilters {
+  Alphabetically = 'Alphabetically',
+  ProductionDate = 'ProductionDate',
   ShowInNavigation = 'ShowInNavigation',
   HiddenInNavigation = 'HiddenInNavigation',
   BackslashEdgePage = 'BackslashEdgePage',
 }
 
 export enum NuxeoSortByFields {
+  Title = 'dc:title',
   ProductionDate = 'The_Loupe_ProdCredits:production_date',
 }
 
@@ -154,9 +156,9 @@ export class NuxeoPageProviderParams {
   currentPageIndex?: number = 0;
   pageSize?: number = 20;
   ecm_path?: string;
-  sortBy?: string = NuxeoSortByFields.ProductionDate;
-  sortOrder?: string = 'ASC';
-  quickFilters?: string = NuxeoQuickFilters.HiddenInNavigation;
+  sortBy?: string;
+  sortOrder?: string;
+  quickFilters?: string = `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
   ecm_fulltext?: string;
   production_date?: string; // production_date: '["lastYear"]',
   ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'

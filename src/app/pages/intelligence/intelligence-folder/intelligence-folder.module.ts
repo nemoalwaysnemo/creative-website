@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule, SharedServiceModule } from '@pages/shared';
-import { IntelligenceFoldersComponent } from './intelligence-folders.component';
-import { IntelligenceFoldersViewModule } from '../intelligence-shared/intelligence-folders-view/intelligence-folders-view.module';
+import { IntelligenceFolderComponent } from './intelligence-folder.component';
+import { IntelligenceFolderViewModule } from '../intelligence-shared/intelligence-folder-view/intelligence-folder-view.module';
 
 @NgModule({
   imports: [
@@ -11,13 +11,13 @@ import { IntelligenceFoldersViewModule } from '../intelligence-shared/intelligen
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
-    IntelligenceFoldersViewModule,
+    IntelligenceFolderViewModule,
   ],
   declarations: [
-    IntelligenceFoldersComponent,
+    IntelligenceFolderComponent,
   ],
   providers: [
     ...SharedServiceModule.forRoot().providers,
   ],
 })
-export class IntelligenceFoldersModule { }
+export class IntelligenceFolderModule { }

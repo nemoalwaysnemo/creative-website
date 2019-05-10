@@ -1,12 +1,12 @@
 import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'intelligence-folders-view',
+  selector: 'intelligence-folder-view',
   styleUrls: ['../../../../theme/styles/disruption-folders.scss'],
-  templateUrl: './intelligence-folders-view.component.html',
+  templateUrl: './intelligence-folder-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IntelligenceFoldersViewComponent {
+export class IntelligenceFolderViewComponent {
 
   @Input() loading: boolean;
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { NbSpinnerModule } from '@core/nebular/theme';
 import { CommonModule } from '@angular/common';
-import { IntelligenceFoldersViewComponent } from './intelligence-folders-view.component';
+import { IntelligenceFolderViewComponent } from './intelligence-folder-view.component';
 
 @NgModule({
   imports: [
@@ -9,12 +9,12 @@ import { IntelligenceFoldersViewComponent } from './intelligence-folders-view.co
     NbSpinnerModule,
   ],
   declarations: [
-    IntelligenceFoldersViewComponent,
+    IntelligenceFolderViewComponent,
   ], exports: [
-    IntelligenceFoldersViewComponent,
+    IntelligenceFolderViewComponent,
   ],
 })
 
-export class IntelligenceFoldersViewModule {
+export class IntelligenceFolderViewModule {
 
 }

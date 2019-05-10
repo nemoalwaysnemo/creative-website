@@ -12,11 +12,6 @@ import { Observable } from 'rxjs';
 })
 export class DisruptionFoldersViewComponent {
 
-  constructor(
-    protected previewDialogService: PreviewDialogService,
-    protected queryParamsService: SearchQueryParamsService,
-  ) { }
-
   @Input() loading: boolean;
 
   @Input() doc: DocumentModel;
@@ -29,6 +24,11 @@ export class DisruptionFoldersViewComponent {
   }
 
   writePermission$: Observable<boolean>;
+
+  constructor(
+    protected previewDialogService: PreviewDialogService,
+    protected queryParamsService: SearchQueryParamsService,
+  ) { }
 
   openForm(dialog: any): void {
     this.previewDialogService.open(dialog, this.doc);

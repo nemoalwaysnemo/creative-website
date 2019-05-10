@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, Observable, of as observableOf } from 'rxjs';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
-import { Subscription, Observable } from 'rxjs';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+
 @Component({
   selector: 'disruption-theory-page',
   styleUrls: ['./disruption-theory.component.scss'],
@@ -17,6 +18,7 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_THEORY_PATH,
+    quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
   };
 
   folderParams: any = {
@@ -30,7 +32,7 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
 
   parentDocument: DocumentModel;
 
-  addChildren$: Observable<boolean>;
+  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
@@ -56,7 +58,9 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.parentDocument = res.entries.shift();
-        this.addChildren$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
+        if (this.parentDocument) {
+          this.addChildrenPermission$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
+        }
       });
     this.subscription.add(subscription);
   }

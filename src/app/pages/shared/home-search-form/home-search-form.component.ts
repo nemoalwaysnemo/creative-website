@@ -45,7 +45,7 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   @Input()
   set backgroudDocument(doc: DocumentModel) {
     if (doc) {
-      this.backgroudUrl = doc.thumbnailUrl;
+      this.backgroudUrl = doc.originalPicture;
     }
   }
 
@@ -97,14 +97,6 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();
-  }
-
-  isThinkingPath(path) {
-    return path.includes('/Disruption/Brilliant Thinking');
-  }
-
-  isDaysPath(path) {
-    return path.includes('/Disruption/Disruption Days');
   }
 
   private buildQueryParams(): any {
