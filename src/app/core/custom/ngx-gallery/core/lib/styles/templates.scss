@@ -32,6 +32,10 @@
       position: absolute;
       width: 100%;
       height: 100%;
+      object-fit: cover;
+    }
+    img {
+      object-fit: cover;
     }
   }
 
@@ -67,7 +71,7 @@
   }
 
   gallery-core[imageSize='contain'] gallery-slider .g-image-item {
-    background-size: contain;
+    background-size: cover;
   }
 }
 
