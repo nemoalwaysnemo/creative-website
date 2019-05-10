@@ -54,6 +54,8 @@
       </ng-container>
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
         <h2>{{documentModel.title}}</h2>
+        <h4>Brand</h4>
+        <p>{{documentModel.get('The_Loupe_Main:brand')}}</p>
         <h4>About</h4>
         <p>{{documentModel.get('dc:description')}}</p>
         <table>
@@ -68,11 +70,9 @@
             </tr>
             <tr>
               <th>Agency</th>
-              <th>Brand</th>
             </tr>
             <tr>
               <td>{{documentModel.get('The_Loupe_Main:agency')}}</td>
-              <td>{{documentModel.get('The_Loupe_Main:brand')}}</td>
             </tr>
           </tbody>
         </table>
