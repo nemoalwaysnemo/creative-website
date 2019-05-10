@@ -15,8 +15,6 @@ export class DocumentViewerComponent {
 
   @Input() storyboard: boolean = false;
 
-  @Input() imageAsViewer: boolean = true;
-
   @Input() layout: 'dialogSlides' | 'slides' = 'slides';
 
   getDocumentViewer(doc: DocumentModel): string {

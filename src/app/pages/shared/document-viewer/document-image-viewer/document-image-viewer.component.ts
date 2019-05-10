@@ -11,8 +11,6 @@ export class DocumentImageViewerComponent {
 
   src: string[];
 
-  @Input() imageAsViewer: boolean = true;
-
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {

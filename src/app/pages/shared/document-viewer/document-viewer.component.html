@@ -1,6 +1,6 @@
 <div class="{{layout}}" [ngSwitch]="true">
-  <document-pdf-viewer *ngSwitchCase="getDocumentViewer(document) === 'pdf'" [document]=" document" [imageAsViewer]="imageAsViewer"></document-pdf-viewer>
-  <document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document" [imageAsViewer]="imageAsViewer"></document-image-viewer>
+  <document-pdf-viewer *ngSwitchCase="getDocumentViewer(document) === 'pdf'" [document]=" document"></document-pdf-viewer>
+  <document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document"></document-image-viewer>
   <document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [document]="document" [storyboard]="storyboard" [autoPlay]="autoPlay"></document-video-viewer>
   <document-audio-viewer *ngSwitchCase="getDocumentViewer(document) === 'audio'" [document]="document"></document-audio-viewer>
 </div>
