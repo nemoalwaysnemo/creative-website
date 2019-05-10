@@ -11,7 +11,7 @@
   <ng-template #dialog>
     <preview-dialog>
       <ng-container *ngIf="!showEdit">
-        <disruption-asset-preview-dialog-body (callBack)="openEdit($event)"></disruption-asset-preview-dialog-body>
+        <disruption-asset-preview-dialog-body [editButton]='true' (callBack)="openEdit($event)"></disruption-asset-preview-dialog-body>
       </ng-container>
 
       <ng-container *ngIf="showEdit">

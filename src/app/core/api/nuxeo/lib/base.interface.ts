@@ -20,7 +20,6 @@ export abstract class AbstractCore {
     this.restUrl = join(this.baseUrl, this.apiPath);
     this.automationUrl = join(this.restUrl, 'automation/');
   }
-
 }
 
 export class Credentials {
@@ -98,11 +97,18 @@ export function filterAggregates(mapping: { [key: string]: { label?: string, pla
   return aggregates;
 }
 
-export const NuxeoQuickFilters = {
-  ShowInNavigation: 'ShowInNavigation',
-  HiddenInNavigation: 'HiddenInNavigation',
-  BackslashEdgePage: 'BackslashEdgePage',
-};
+export enum NuxeoQuickFilters {
+  Alphabetically = 'Alphabetically',
+  ProductionDate = 'ProductionDate',
+  ShowInNavigation = 'ShowInNavigation',
+  HiddenInNavigation = 'HiddenInNavigation',
+  BackslashEdgePage = 'BackslashEdgePage',
+}
+
+export enum NuxeoSortByFields {
+  Title = 'dc:title',
+  ProductionDate = 'The_Loupe_ProdCredits:production_date',
+}
 
 export const NuxeoEnricher = {
   user: {
@@ -123,11 +129,12 @@ export const NuxeoEnricher = {
   },
 };
 
-export const NuxeoPermission = {
-  Read: 'Read',
-  Write: 'Write',
-  Everything: 'Everything',
-};
+export enum NuxeoPermission {
+  Write = 'Write',
+  Read = 'Read',
+  Everything = 'Everything',
+  AddChildren = 'AddChildren',
+}
 
 export class NuxeoApiOptions {
   baseUrl: string = '';
@@ -149,7 +156,9 @@ export class NuxeoPageProviderParams {
   currentPageIndex?: number = 0;
   pageSize?: number = 20;
   ecm_path?: string;
-  quickFilters?: string = NuxeoQuickFilters.HiddenInNavigation;
+  sortBy?: string;
+  sortOrder?: string;
+  quickFilters?: string = `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
   ecm_fulltext?: string;
   production_date?: string; // production_date: '["lastYear"]',
   ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
@@ -260,11 +269,11 @@ export class NuxeoUploadResponse {
   }
 }
 
-export const NuxeoAutomations = {
-  CreativeGetDocumentURStatus: 'Creative.GetDocumentURStatus',
-  DirectorySuggestEntries: 'Directory.SuggestEntries',
-  RepositoryPageProvider: 'Repository.PageProvider',
-  DirectoryEntries: 'Directory.Entries',
-  DocumentCreate: 'Document.Create',
-  TBWAUserDigest: 'TBWA.GetUserDigest',
-};
+export enum NuxeoAutomations {
+  CreativeGetDocumentURStatus = 'Creative.GetDocumentURStatus',
+  DirectorySuggestEntries = 'Directory.SuggestEntries',
+  RepositoryPageProvider = 'Repository.PageProvider',
+  DirectoryEntries = 'Directory.Entries',
+  DocumentCreate = 'Document.Create',
+  TBWAUserDigest = 'TBWA.GetUserDigest',
+}

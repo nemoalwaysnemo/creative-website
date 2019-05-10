@@ -7,34 +7,36 @@ import { DisruptionTheoryComponent } from './disruption-theory/disruption-theory
 import { DisruptionFoldersComponent } from './disruption-folders/disruption-folders.component';
 import { DisruptionDayAssetComponent } from './disruption-day-asset/disruption-day-asset.component';
 import { BrilliantThinkingComponent } from './brilliant-thinking/brilliant-thinking.component';
-import { HomeComponent } from './home/home.component';
+import { DisruptionHomeComponent } from './disruption-home/disruption-home.component';
+import { DisruptionAssetComponent } from './disruption-asset/disruption-asset.component';
+
 const routes: Routes = [{
   path: '',
   component: DisruptionPageComponent,
   children: [
     {
       path: '',
-      component: HomeComponent,
+      component: DisruptionHomeComponent,
       pathMatch: 'full',
     },
     {
       path: 'home',
-      component: HomeComponent,
+      component: DisruptionHomeComponent,
+    },
+    {
+      path: 'asset/:id',
+      component: DisruptionAssetComponent,
     },
     {
       path: 'Disruption Days',
       component: DisruptionDaysComponent,
     },
     {
-      path: 'days/folders/:id',
+      path: 'Disruption Days/folder/:id',
       component: DisruptionFoldersComponent,
     },
     {
-      path: 'days/folders/:folder/asset/:id',
-      component: DisruptionDayAssetComponent,
-    },
-    {
-      path: 'days/asset/:id',
+      path: 'Disruption Days/folder/:folder/asset/:id',
       component: DisruptionDayAssetComponent,
     },
     {
@@ -42,7 +44,7 @@ const routes: Routes = [{
       component: DisruptionRoadmapsComponent,
     },
     {
-      path: 'Disruption Theory',
+      path: 'Disruption How Tos',
       component: DisruptionTheoryComponent,
     },
     {

@@ -53,7 +53,8 @@
         <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
       </ng-container>
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
-        <h2>{{documentModel.title}}</h2>
+        <h1>{{documentModel.title}}</h1>
+        <h2>{{documentModel.get('The_Loupe_Main:brand')}}</h2>
         <h4>About</h4>
         <p>{{documentModel.get('dc:description')}}</p>
         <table>
@@ -68,11 +69,9 @@
             </tr>
             <tr>
               <th>Agency</th>
-              <th>Brand</th>
             </tr>
             <tr>
               <td>{{documentModel.get('The_Loupe_Main:agency')}}</td>
-              <td>{{documentModel.get('The_Loupe_Main:brand')}}</td>
             </tr>
           </tbody>
         </table>

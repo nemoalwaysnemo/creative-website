@@ -12,8 +12,6 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
 
   storyboard: boolean = false;
 
-  imageAsViewer: boolean = false;
-
   @Output() callBack: EventEmitter<{ type: string, value: any }> = new EventEmitter<{ type: string, value: any }>();
 
   protected subscription: Subscription = new Subscription();

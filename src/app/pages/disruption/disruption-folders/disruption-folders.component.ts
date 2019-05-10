@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { DocumentModel, AdvanceSearch } from '@core/api';
+import { Subject, Observable, of as observableOf } from 'rxjs';
+import { DocumentModel, AdvanceSearch, NuxeoPermission } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
 import { TAB_CONFIG } from '../tab-config';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -16,6 +16,8 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
   tabs = TAB_CONFIG;
 
   baseParams$: Subject<any> = new Subject<any>();
+
+  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
@@ -32,6 +34,7 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
+    this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
     setTimeout(() => { this.baseParams$.next(this.buildAssetsParams(doc)); }, 0);
   }
 

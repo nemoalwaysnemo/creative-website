@@ -1,0 +1,11 @@
+<global-search-result [templateRef]="thumbnailView"></global-search-result>
+<ng-template #thumbnailView let-doc="doc">
+  <div class="thumbnail-view-item">
+    <div class="image-holder">
+      <a [routerLink]="['/p/disruption/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+    </div>
+    <div class="description">
+      <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/asset', doc.uid]">{{ doc.title }}</a></h1>
+    </div>
+  </div>
+</ng-template>

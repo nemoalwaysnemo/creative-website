@@ -11,6 +11,10 @@ const routes: Routes = [{
       loadChildren: './creative-search/creative-search.module#CreativeSearchModule',
     },
     {
+      path: 'disruption',
+      loadChildren: './disruption-search/disruption-search.module#DisruptionSearchModule',
+    },
+    {
       path: 'intelligence',
       loadChildren: './intelligence-search/intelligence-search.module#IntelligenceSearchModule',
     },

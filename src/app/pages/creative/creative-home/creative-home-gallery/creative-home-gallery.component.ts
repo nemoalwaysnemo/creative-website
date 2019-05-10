@@ -15,7 +15,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     playerInterval: 5000,
     autoPlay: true,
     dots: true,
-    dotsSize: 20,
+    dotsSize: 10,
     loop: true,
     thumb: false,
   };
@@ -47,10 +47,10 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getVideoSources(), thumb: entry.thumbnailUrl, poster: entry.videoPoster, title: entry.title, uid: entry.uid});
+        imgArray.push({ src: entry.getVideoSources(), thumb: entry.thumbnailUrl, poster: entry.videoPoster, title: entry.title, uid: entry.uid, description: entry.get('dc:description')});
       } else if (entry.isPicture()) {
         const url = entry.thumbnailUrl;
-        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid });
+        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid, description: entry.get('dc:description')});
       } else {
       }
     }

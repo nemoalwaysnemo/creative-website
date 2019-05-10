@@ -6,7 +6,7 @@
   </div>
   <ng-container *ngIf="document">
     <div class="media">
-      <document-viewer [document]="document" [storyboard]="storyboard" [imageAsViewer]="imageAsViewer" [layout]="dialogLayout"></document-viewer>
+      <document-viewer [document]="document" [storyboard]="storyboard" [layout]="dialogLayout"></document-viewer>
     </div>
   </ng-container>
   <ng-container *ngIf="document">
@@ -15,7 +15,9 @@
         <h2 class="left">{{ document.get('The_Loupe_Main:brand')}}</h2>
         <button class="share right">Share</button>
         <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
-        <button class="right" (click)="closeInfo()">Edit</button>
+        <ng-container *ngIf="writePermission$ | async">
+          <button class="right" (click)="closeInfo()">Edit</button>
+        </ng-container>
         <div class="clear"></div>
       </div>
       <ng-container *ngIf="moreInfo">

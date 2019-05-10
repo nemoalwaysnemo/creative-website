@@ -1,6 +1,8 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { DocumentModel } from '@core/api';
+import { NuxeoPermission } from '@core/api';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'disruption-folders-view',
@@ -10,17 +12,26 @@ import { DocumentModel } from '@core/api';
 })
 export class DisruptionFoldersViewComponent {
 
+  @Input() loading: boolean;
+
+  @Input() doc: DocumentModel;
+
+  @Input() set document(doc: DocumentModel) {
+    if (doc) {
+      this.doc = doc;
+      this.writePermission$ = this.doc.hasPermission(NuxeoPermission.Write);
+    }
+  }
+
+  writePermission$: Observable<boolean>;
+
   constructor(
     protected previewDialogService: PreviewDialogService,
     protected queryParamsService: SearchQueryParamsService,
   ) { }
 
-  @Input() loading: boolean;
-
-  @Input() document: any;
-
   openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.document);
+    this.previewDialogService.open(dialog, this.doc);
   }
 
   onUpdate(doc: DocumentModel): void {

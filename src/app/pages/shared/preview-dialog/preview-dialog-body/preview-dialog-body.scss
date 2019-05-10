@@ -4,7 +4,7 @@
 }
 .dialog_body {
   max-height: 800px;
-  overflow: auto;
+  // overflow: auto;
 	.dialog_title {
 		height: 80px;
 		padding: 24px 0;
@@ -17,7 +17,8 @@
 			margin-left: 25px;
 			img {
 				display: block;
-				width: 100%;
+        width: 100%;
+        cursor: pointer;
 			}
 		}
 		h1 {

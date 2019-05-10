@@ -7,6 +7,10 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
+      path: 'knowledge',
+      loadChildren: './knowledge/knowledge-page.module#KnowledgePageModule',
+    },
+    {
       path: 'creative',
       loadChildren: './creative/creative-page.module#CreativePageModule',
     }, {
@@ -21,6 +25,7 @@ const routes: Routes = [{
     }, {
       path: '',
       redirectTo: 'creative',
+      // redirectTo: 'knowledge',
       pathMatch: 'full',
     }, {
       path: 'error',

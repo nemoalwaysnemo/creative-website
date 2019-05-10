@@ -10,7 +10,7 @@ import { DocumentViewerModule } from '../document-viewer/document-viewer.module'
 import { GlobalSearchResultComponent } from './global-search-result.component';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 import { CreativeMyBrandSearchResultComponent } from './creative-my-brand-search-result/creative-my-brand-search-result.component';
-import { CreativeRecommendedBrandSearchResultComponent } from './creative-recommended-brand-search-result/creative-recommended-brand-search-result.component';
+import { CreativePopularBrandSearchResultComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
 import { CreativeDocumentAssetSearchResultComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
 import { CreativeMyBrandAssetSearchResultComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
@@ -26,12 +26,13 @@ import { IntelligenceIndustrySearchResultComponent } from './intelligence-indust
 import { DisruptionFormRoadmapModule } from '../disruption-form-roadmap/disruption-form-roadmap.module';
 import { DisruptionFormTheoryModule } from '../disruption-form-theory/disruption-form-theory.module';
 import { DisruptionFormBrilliantThinkingModule } from '../disruption-form-brilliant-thinking/disruption-form-brilliant-thinking.module';
+import { DisruptionDocumentAssetSearchResultComponent } from './disruption-document-asset-search-result/disruption-document-asset-search-result.component';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
   CreativeMyBrandSearchResultComponent,
   CreativeMyBrandAssetSearchResultComponent,
-  CreativeRecommendedBrandSearchResultComponent,
+  CreativePopularBrandSearchResultComponent,
   CreativeDocumentAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
   DisruptionTheoryAssetSearchResultComponent,
@@ -41,6 +42,7 @@ const COMPONENTS = [
   DisruptionTheoryEditDialogComponent,
   DisruptionThinkingEditDialogComponent,
   DisruptionFolderDayAssetSearchResultComponent,
+  DisruptionDocumentAssetSearchResultComponent,
   IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
 ];

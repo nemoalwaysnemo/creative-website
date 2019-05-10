@@ -13,9 +13,7 @@ export class DocumentViewerComponent {
 
   @Input() autoPlay: boolean = true;
 
-  @Input() storyboard: boolean = true;
-
-  @Input() imageAsViewer: boolean = true;
+  @Input() storyboard: boolean = false;
 
   @Input() layout: 'dialogSlides' | 'slides' = 'slides';
 
@@ -29,7 +27,7 @@ export class DocumentViewerComponent {
       } else if (doc.isPicture()) {
         type = 'picture';
       } else if (doc.isPdf()) {
-        type = 'picture';
+        type = 'pdf';
       }
     }
     return type;

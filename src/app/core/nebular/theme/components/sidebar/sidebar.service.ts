@@ -7,6 +7,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 /**
  * Sidebar service.
@@ -18,7 +19,7 @@ import { share } from 'rxjs/operators';
  */
 @Injectable()
 export class NbSidebarService {
-
+  constructor( private deviceService: DeviceDetectorService ) { }
   private toggle$ = new Subject<{ compact: boolean, tag: string }>();
   private expand$ = new Subject<{ tag: string }>();
   private collapse$ = new Subject<{ tag: string }>();
@@ -26,6 +27,18 @@ export class NbSidebarService {
   private sidebarOpen$ = new Subject<{ tag: boolean }>();
   private sidebarClose$ = new Subject<{ tag: boolean }>();
   private sidebarStatus$ = new Subject<{ status: string }>();
+  private hideAllBars$ = new Subject<{ close: boolean }>();
+  sidebarTimeId: any;
+  waitingHiding: boolean = false;
+  isDesktopDevice = this.deviceService.isDesktop();
+
+  onHideAllBarsonSidebar(): Observable<{ close: boolean }> {
+    return this.hideAllBars$.pipe(share());
+  }
+
+  closeAllBars (close?: boolean) {
+    this.hideAllBars$.next({ close: close });
+  }
 
   onSidebar(): Observable<{ tag: boolean }> {
     return this.sidebarToggle$.pipe(share());
@@ -43,15 +56,33 @@ export class NbSidebarService {
     return this.sidebarClose$.pipe(share());
   }
 
-  openSidebar(tag?: boolean) {
-    setTimeout(() =>  this.sidebarOpen$.next({ tag }), 200);
+  openSidebar(compact = false, tag?: string) {
+    this.toggle(compact, tag);
+    this.sidebarStatus$.next({ status: 'opened' });
+  }
+  closeSidebar(tag: string) {
+    this.collapse(tag);
+    this.sidebarStatus$.next({ status: 'closed' });
   }
 
-  closeSidebar(tag?: boolean) {
-    setTimeout(() =>  this.sidebarClose$.next({ tag }), 200);
+  hideLater(tag?: string) {
+    if ( this.isDesktopDevice ) {
+      if ( !this.waitingHiding ) {
+        this.waitingHiding = true;
+        this.sidebarTimeId = setTimeout(() => {
+          this.collapse(tag);
+          this.sidebarStatus$.next({ status: 'closed' });
+          this.waitingHiding = false;
+        }, 5000);
+      }
+    }
   }
-
-
+  clearSidebarHiding() {
+    if ( this.sidebarTimeId ) {
+      clearTimeout(this.sidebarTimeId);
+      this.waitingHiding = false;
+    }
+  }
   /**
    * Subscribe to toggle events
    *

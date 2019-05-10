@@ -42,12 +42,10 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() redirectUrl: string;
 
-  pageRedirect: string;
-
   @Input()
   set backgroudDocument(doc: DocumentModel) {
     if (doc) {
-      this.backgroudUrl = doc.thumbnailUrl;
+      this.backgroudUrl = doc.originalPicture;
     }
   }
 
@@ -81,7 +79,6 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
       )
       .subscribe((result: NuxeoPagination) => {
         this.results = result.entries;
-        this.pageRedirect = this.params.ecm_fulltext;
         this.show();
       });
     this.subscription.add(subscription);
@@ -100,28 +97,6 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();
-  }
-
-  isThinkingPath(path) {
-    return path.includes('/Disruption/Brilliant Thinking');
-  }
-
-  isDaysPath(path) {
-    return path.includes('/Disruption/Disruption Days');
-  }
-
-  resultRedirectUrl(doc) {
-    if ( doc.type === 'App-Disruption-Roadmap-Asset' ) {
-      return '#/p/disruption/Disruption Roadmaps?q=' + this.pageRedirect;
-    } else if ( doc.type === 'App-Disruption-Theory-Asset'  ) {
-      return '#//p/disruption/Disruption Theory?q=' + this.pageRedirect;
-    } else if ( doc.type === 'App-Disruption-Asset' && this.isThinkingPath(doc.path) ) {
-      return '#/p/disruption/Brilliant Thinking?q=' + this.pageRedirect;
-    } else if ( doc.type === 'App-Disruption-Asset' && this.isDaysPath(doc.path) ) {
-      return '#/p/disruption/days/asset/' + doc.uid;
-    } else {
-      return '#/' + this.assetUrl + '/' + doc.uid;
-    }
   }
 
   private buildQueryParams(): any {

@@ -1,13 +1,3 @@
-<section id="viewer">
-  <simple-pdf-viewer #pdfViewer [src]="filePath"></simple-pdf-viewer>
-</section>
-<nb-actions size="medium">
-  <nb-action (click)="pdfViewer.zoomIn()" icon="ion-arrow-expand"></nb-action>
-  <nb-action (click)="pdfViewer.zoomOut()" icon="ion-arrow-shrink"></nb-action>
-  <nb-action (click)="pdfViewer.firstPage()" icon="ion-skip-backward"></nb-action>
-  <nb-action (click)="pdfViewer.prevPage()" icon="ion-arrow-left-b"></nb-action>
-  <nb-action (click)="pdfViewer.nextPage()" icon="ion-arrow-right-b"></nb-action>
-  <nb-action (click)="pdfViewer.lastPage()" icon="ion-skip-forward"></nb-action>
-  <nb-action (click)="pdfViewer.turnLeft()" icon="ion-arrow-return-left"></nb-action>
-  <nb-action (click)="pdfViewer.turnRight()" icon="ion-arrow-return-right"></nb-action>
-</nb-actions>
+<div class="image-viewer">
+  <img src="{{src}}">
+</div>

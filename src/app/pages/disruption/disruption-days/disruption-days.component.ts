@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, Observable, of as observableOf } from 'rxjs';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
-import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
-import { Subscription } from 'rxjs';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+
 @Component({
   selector: 'disruption-page',
   styleUrls: ['./disruption-days.component.scss'],
@@ -15,9 +16,9 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    quickFilters: 'ShowInNavigation',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
     ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
+    quickFilters: `${NuxeoQuickFilters.ShowInNavigation},${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`,
   };
 
   folderParams: any = {
@@ -30,6 +31,8 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   tabs = TAB_CONFIG;
 
   parentDocument: DocumentModel;
+
+  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
@@ -59,11 +62,13 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
     this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
   }
 
-
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
         this.parentDocument = res.entries.shift();
+        if (this.parentDocument) {
+          this.addChildrenPermission$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
+        }
       });
     this.subscription.add(subscription);
   }

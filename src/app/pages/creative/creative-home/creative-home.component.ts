@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { NuxeoPagination, AdvanceSearch } from '@core/api';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -8,13 +8,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./creative-home.component.scss'],
   templateUrl: './creative-home.component.html',
 })
-export class CreativeHomeComponent implements OnInit {
+export class CreativeHomeComponent implements OnInit, OnDestroy {
 
-  backgroudDocument: any;
+  document: DocumentModel;
 
   headline: string = 'This is how we kill boring.';
 
-  subHead: string = 'Our entire collection of disruptive work is all right here';
+  subHead: string = 'Our entire collection of disruptive work is all right here.';
 
   placeholder: string = 'Search for campaigns by title, agency, brand, client...';
 
@@ -29,7 +29,7 @@ export class CreativeHomeComponent implements OnInit {
   private backgroudParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.BACKGROUND_PATH,
+    ecm_path: NUXEO_META_INFO.FRONTPAGE_BANNER_PATH,
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
 
@@ -39,10 +39,14 @@ export class CreativeHomeComponent implements OnInit {
     this.getBackgroud(this.backgroudParams);
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   private getBackgroud(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.backgroudDocument = res.entries[1];
+        this.document = res.entries.filter((doc: DocumentModel) => doc.title.toLowerCase().includes('creative')).shift();
       });
     this.subscription.add(subscription);
   }

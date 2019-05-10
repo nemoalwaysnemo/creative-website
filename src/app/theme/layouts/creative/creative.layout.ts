@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { delay, withLatestFrom, takeWhile } from 'rxjs/operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import {
   NbMediaBreakpoint,
   NbMediaBreakpointsService,
@@ -16,26 +17,23 @@ import { StateService } from '@core/services/state.service';
   selector: 'creative-layout',
   styleUrls: ['./creative.layout.scss'],
   template: `
+    <div *ngIf="showTrigger" (mouseenter)="showSideBar()" class="sidebarTrigger"></div>
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
-      <nb-layout-header fixed>
+      <nb-layout-header fixed *ngIf="!hideBars">
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'">
+      <nb-sidebar style="top: 0" class="menu-sidebar" tag="menu-sidebar" state="compacted" [end]="sidebar.id === 'end'" *ngIf="!hideBars">
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
-      <nb-layout-column class="main-content">
+      <nb-layout-column class="main-content"  (mouseenter)="sidebarHide()">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 
       <nb-layout-footer fixed>
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
-
-      <nb-sidebar class="settings-sidebar" tag="settings-sidebar" state="collapsed" fixed [end]="sidebar.id !== 'end'">
-        <ngx-theme-settings></ngx-theme-settings>
-      </nb-sidebar>
     </nb-layout>
   `,
   // animations: [
@@ -56,7 +54,7 @@ import { StateService } from '@core/services/state.service';
   // ],
 })
 export class CreativeLayoutComponent implements OnDestroy {
-
+  hideBars: boolean = false;
   subMenu: NbMenuItem[] = [
     {
       title: 'PAGE LEVEL MENU',
@@ -73,15 +71,36 @@ export class CreativeLayoutComponent implements OnDestroy {
   folded: boolean = false;
   isOpen = true;
   private alive: boolean = true;
-
+  showTrigger: boolean = true;
   currentTheme: string;
-
+  isDesktopDevice = null;
   constructor(protected stateService: StateService,
     protected menuService: NbMenuService,
     protected themeService: NbThemeService,
     protected bpService: NbMediaBreakpointsService,
-    protected sidebarService: NbSidebarService) {
+    protected sidebarService: NbSidebarService,
+    private deviceService: DeviceDetectorService) {
 
+    this.isDesktopDevice = this.deviceService.isDesktop();
+
+    this.sidebarService.onHideAllBarsonSidebar()
+    .subscribe((data: { close: boolean }) => {
+      if (data.close) {
+        this.hideBars = true;
+      } else {
+        this.hideBars = false;
+      }
+    });
+    if (this.isDesktopDevice) {
+      this.sidebarService.onStatus()
+      .subscribe((res) => {
+        if (res.status === 'closed') {
+          this.showTrigger = true;
+        } else if (res.status === 'opened') {
+          this.showTrigger = false;
+        }
+      });
+    }
     this.sidebarService.onSidebarClose()
     .subscribe((data: { tag: boolean }) => {
       if (data.tag && this.isOpen === true) {
@@ -106,20 +125,25 @@ export class CreativeLayoutComponent implements OnDestroy {
         delay(20),
       )
       .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
-        if (bpTo.width <= isBp.width) {
+        if (bpTo.width <= isBp.width && !this.isDesktopDevice) {
           this.sidebarService.collapse('menu-sidebar');
         }
       });
-
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
         this.currentTheme = theme.name;
       });
   }
-  closeSidebar() {
-    this.sidebarService.closeSidebar(true);
+  sidebarHide() {
+    this.sidebarService.hideLater('menu-sidebar');
   }
+
+  showSideBar() {
+    this.showTrigger = false;
+    this.sidebarService.toggle(true, 'menu-sidebar');
+  }
+
   ngOnDestroy() {
     this.alive = false;
   }

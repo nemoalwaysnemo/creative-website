@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HomePageModule } from './home/home.module';
+import { DisruptionHomeModule } from './disruption-home/disruption-home.module';
 import { ThemeModule } from '@theme/theme.module';
 import { DisruptionDaysModule } from './disruption-days/disruption-days.module';
 import { DisruptionRoadmapsModule } from './disruption-roadmaps/disruption-roadmaps.module';
@@ -9,11 +9,13 @@ import { DisruptionPageRoutingModule } from './disruption-page-routing.module';
 import { DisruptionFoldersModule  } from './disruption-folders/disruption-folders.module';
 import { DisruptionDayAssetModule } from './disruption-day-asset/disruption-day-asset.module';
 import { BrilliantThinkingModule } from './brilliant-thinking/brilliant-thinking.module';
+import { DisruptionAssetModule } from './disruption-asset/disruption-asset.module';
 
 @NgModule({
   imports: [
     ThemeModule,
-    HomePageModule,
+    DisruptionHomeModule,
+    DisruptionAssetModule,
     DisruptionDaysModule,
     DisruptionRoadmapsModule,
     DisruptionTheoryModule,

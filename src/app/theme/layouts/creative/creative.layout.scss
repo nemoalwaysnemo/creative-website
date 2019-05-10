@@ -3,6 +3,16 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 
 @include nb-install-component() {
+
+  .sidebarTrigger {
+    width: 79px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+  }
+
   nb-layout-column.small {
     flex: 0.15 !important;
   }
