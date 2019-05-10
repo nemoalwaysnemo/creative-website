@@ -92,6 +92,20 @@
     }
   }
 }
+.s-results {
+  &.quarter {
+    > .thumbnail-view-item {
+      width: 329px;
+      float: left;
+    }
+  }
+  &.third {
+    > .thumbnail-view-item {
+      width: 440px;
+      float: left;
+    }
+  }
+}
 .empty {
   width: 100%!important;
   padding: 40px 0!important;
