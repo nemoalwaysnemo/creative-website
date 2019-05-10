@@ -20,7 +20,6 @@ export abstract class AbstractCore {
     this.restUrl = join(this.baseUrl, this.apiPath);
     this.automationUrl = join(this.restUrl, 'automation/');
   }
-
 }
 
 export class Credentials {
@@ -105,6 +104,7 @@ export enum NuxeoQuickFilters {
 }
 
 export enum NuxeoSortByFields {
+  Title = 'dc:title',
   ProductionDate = 'The_Loupe_ProdCredits:production_date',
 }
 
@@ -154,8 +154,8 @@ export class NuxeoPageProviderParams {
   currentPageIndex?: number = 0;
   pageSize?: number = 20;
   ecm_path?: string;
-  sortBy?: string = NuxeoSortByFields.ProductionDate;
-  sortOrder?: string = 'ASC';
+  sortBy?: string = `${NuxeoSortByFields.ProductionDate},${NuxeoSortByFields.Title}`;
+  sortOrder?: string = 'DESC,ASC';
   quickFilters?: string = NuxeoQuickFilters.HiddenInNavigation;
   ecm_fulltext?: string;
   production_date?: string; // production_date: '["lastYear"]',
