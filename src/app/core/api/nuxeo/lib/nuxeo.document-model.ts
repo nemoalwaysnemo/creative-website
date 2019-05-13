@@ -143,15 +143,25 @@ export class DocumentModel extends Base {
   }
 
   get videoPoster(): string {
-    const pictures = this.get('picture:views');
-    const poster = pictures.filter(item => item.title === 'StaticPlayerView').map(picture => picture.content.data).shift();
-    return poster || this.thumbnailUrl;
+    return this.pictureViews('StaticPlayerView');
+  }
+
+  get originalPicture(): string {
+    return this.pictureViews('OriginalJpeg');
+  }
+
+  get fullHDPicture(): string {
+    return this.pictureViews('FullHD');
   }
   // 'Thumbnail', 'Small', 'Medium', 'FullHD', 'OriginalJpeg'
-  get originalPicture(): string {
-    const pictures = this.get('picture:views');
-    const originalJpeg = pictures.filter(item => item.title === 'OriginalJpeg').map(picture => picture.content.data).shift();
-    return originalJpeg || this.thumbnailUrl;
+  pictureViews(title: string): string {
+    const picture = this.get('picture:views').filter((item: any) => item.title === title).map((p: any) => p.content.data).shift();
+    return picture || this.thumbnailUrl;
+  }
+
+  get attachedImage(): string {
+    const images = this.get('files:files').filter((item: any) => item.file['mime-type'].includes('image')).map((p: any) => p.file.data);
+    return images[0] || this.pictureViews('FullHD');
   }
 
   get(propertyName: string): any {
@@ -219,10 +229,6 @@ export class DocumentModel extends Base {
 
   isCollectable(): boolean {
     return !this.hasFacet('NotCollectionMember');
-  }
-
-  hasThumnail(): boolean {
-    return this.thumbnailUrl !== this.getDefaultThumbnail();
   }
 
   newInstance(type: string): DocumentModel {
