@@ -14,7 +14,7 @@ export class DocumentImageViewerComponent {
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
-      this.src = doc.thumbnailUrl ? [doc.thumbnailUrl] : ['assets/images/default.jpg'];
+      this.src = doc.fullHDPicture ? [doc.fullHDPicture] : ['assets/images/default.jpg'];
     }
   }
 
