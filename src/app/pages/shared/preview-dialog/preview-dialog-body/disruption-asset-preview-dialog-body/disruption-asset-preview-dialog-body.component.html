@@ -30,7 +30,7 @@
           Geography: {{ parseCountry(document.get('app_Edges:Relevant_Country')) }}<br>
           Author: {{ document.get('The_Loupe_Main:created_by').join(', ') }}<br>
           Published: {{ document.get('The_Loupe_ProdCredits:production_date') | date }}<br>
-          Edge Cotegory: {{ document.get('app_Edges:backslash_category').join(', ') }}<br>
+          Edge Category: {{ document.get('app_Edges:backslash_category').join(', ') }}<br>
           Edge: {{ document.get('app_Edges:Tags_edges') }}
         </p>
       </ng-container>

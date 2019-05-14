@@ -2,7 +2,7 @@
 export const Environment = {
   title: 'Know\\edge',
   server: 'Prod',
-  homePath: '/p/creative',
+  homePath: '/p/knowledge',
   appName: 'Creative Library',
   nuxeoUrl: '/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',

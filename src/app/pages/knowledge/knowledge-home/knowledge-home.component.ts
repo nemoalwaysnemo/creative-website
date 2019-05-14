@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { Environment } from '@environment/environment';
 
 @Component({
   selector: 'knowledge-home-page',
@@ -6,4 +7,6 @@ import { Component} from '@angular/core';
   templateUrl: './knowledge-home.component.html',
 })
 export class KnowledgeHomeComponent {
+
+  backslashUrl: string = Environment.backslashAppUrl;
 }

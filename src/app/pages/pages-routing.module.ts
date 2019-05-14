@@ -28,8 +28,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      redirectTo: 'creative',
-      // redirectTo: 'knowledge',
+      redirectTo: 'knowledge',
       pathMatch: 'full',
     }, {
       path: 'error',

@@ -3,7 +3,7 @@
 export const Environment = {
   title: 'Know\\edge',
   server: 'Local',
-  homePath: '/p/creative',
+  homePath: '/p/knowledge',
   appName: 'Creative Library Dev',
   nuxeoUrl: 'http://100.122.3.142:8080/nuxeo/',
   // nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
@@ -31,7 +31,7 @@ export const NUXEO_META_INFO = {
   DISRUPTION_BASE_FOLDER_PATH: '/know-edge/Disruption/',
   DISRUPTION_DAYS_PATH: '/know-edge/Disruption/Disruption Days.1555686729451/',
   DISRUPTION_ROADMAPS_PATH: '/know-edge/Disruption/Disruption Roadmaps.1551796258162/',
-  DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption How Tos/',
+  DISRUPTION_THEORY_PATH: '/know-edge/Disruption/Disruption Theory/',
   DISRUPTION_THINKING_PATH: '/know-edge/Disruption/Brilliant Thinking/',
   DISRUPTION_DAYS_TYPE: '["App-Disruption-Day"]',
   DISRUPTION_DAY_ASSET_TYPES: '["App-Disruption-Asset", "App-Disruption-Day-Asset"]',
