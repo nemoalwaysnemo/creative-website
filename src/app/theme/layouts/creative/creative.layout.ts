@@ -27,13 +27,9 @@ import { StateService } from '@core/services/state.service';
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
-      <nb-layout-column class="main-content"  (mouseenter)="sidebarHide()">
+      <nb-layout-column class="main-content" (mouseenter)="sidebarHide()">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
-
-      <nb-layout-footer fixed>
-        <ngx-footer></ngx-footer>
-      </nb-layout-footer>
     </nb-layout>
   `,
   // animations: [
@@ -59,11 +55,6 @@ export class CreativeLayoutComponent implements OnDestroy {
     {
       title: 'PAGE LEVEL MENU',
       group: true,
-    },
-    {
-      title: 'Buttons',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/p/ui-features/buttons',
     },
   ];
   layout: any = {};
