@@ -49,7 +49,7 @@
           </tbody>
         </table>
         <ng-container *ngIf="writePermission$ | async ">
-          <a (click)="openForm(dialog)" title="Edit" class="edit right icon_btn">Edit</a>
+          <a href="javascript:;" (click)="openForm(dialog)" title="Edit" class="edit right icon_btn">Edit</a>
         </ng-container>
         <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
         <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
