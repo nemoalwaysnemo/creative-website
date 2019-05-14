@@ -27,7 +27,7 @@
               <th>Published</th>
             </tr>
             <tr>
-              <td>{{ documentModel.get('The_Loupe_Main:created_by') }}</td>
+              <td>{{ documentModel.get('The_Loupe_Main:created_by').join(', ') }}</td>
               <td>{{ documentModel.get('The_Loupe_ProdCredits:production_date') | date }}</td>
             </tr>
             <tr>
@@ -35,7 +35,7 @@
               <th>Edge</th>
             </tr>
             <tr>
-              <td>{{ documentModel.get('app_Edges:backslash_category') }}</td>
+              <td>{{ documentModel.get('app_Edges:backslash_category').join(', ') }}</td>
               <td>{{ documentModel.get('app_Edges:Tags_edges') }}</td>
             </tr>
             <tr>
