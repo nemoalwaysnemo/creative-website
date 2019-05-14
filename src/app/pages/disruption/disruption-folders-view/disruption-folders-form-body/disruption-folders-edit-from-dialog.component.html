@@ -2,13 +2,13 @@
   <div class="dialog_title">
     <h5>
       <a (click)="close()"><img [src]="closeBtnImage()"></a>
-      Disruption Days Asset
+      Edit Day
     </h5>
   </div>
   <ng-content></ng-content>
   <ng-container *ngIf="document">
     <div class="form">
-      <disruption-form-folders [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)"></disruption-form-folders>
+      <disruption-form-day [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)"></disruption-form-day>
     </div>
   </ng-container>
 </div>

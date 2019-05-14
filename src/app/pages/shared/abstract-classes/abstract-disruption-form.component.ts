@@ -35,6 +35,7 @@ export abstract class AbstractDisruptionForm implements OnInit {
 
   ngOnInit() {
     this.performForm();
+    console.info(`[${this.mode}]\t=>  [${this.parentType}]`);
   }
 
   public created(docs: DocumentModel[]): void {

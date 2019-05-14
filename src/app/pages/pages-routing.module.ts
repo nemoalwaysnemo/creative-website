@@ -23,6 +23,10 @@ const routes: Routes = [{
       path: 'search',
       loadChildren: './global-search/global-search-page.module#GlobalSearchPageModule',
     }, {
+      path: 'redirect',
+      loadChildren: './miscellaneous/redirect/redirect.module#RedirectModule',
+    },
+    {
       path: '',
       redirectTo: 'creative',
       // redirectTo: 'knowledge',

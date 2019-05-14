@@ -1,0 +1,46 @@
+<div class="dialog_body">
+  <div class="dialog_title">
+    <h5>
+      <a (click)="close()"><img [src]="closeBtnImage()"></a>
+      {{title}}
+    </h5>
+  </div>
+  <ng-content></ng-content>
+  <ng-container *ngIf="document">
+    <div class="form">
+      <ng-container [ngSwitch]="document.type">
+
+        <ng-container *ngSwitchCase="assetTypes.thinking">
+          <disruption-form-brilliant-thinking [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)">
+            <preview-dialog-alert></preview-dialog-alert>
+          </disruption-form-brilliant-thinking>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="assetTypes.day">
+          <disruption-form-day [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)">
+            <preview-dialog-alert></preview-dialog-alert>
+          </disruption-form-day>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="assetTypes.day_asset">
+          <disruption-form-folders [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)">
+            <preview-dialog-alert></preview-dialog-alert>
+          </disruption-form-folders>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="assetTypes.roadmap">
+          <disruption-form-roadmap [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)">
+            <preview-dialog-alert></preview-dialog-alert>
+          </disruption-form-roadmap>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="assetTypes.theory">
+          <disruption-form-theory [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)">
+            <preview-dialog-alert></preview-dialog-alert>
+          </disruption-form-theory>
+        </ng-container>
+
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MiscellaneousComponent } from './miscellaneous.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PlaygroundComponent } from './playground/playground.component';
+import { RedirectComponent } from '@pages/miscellaneous/redirect/redirect.component';
 
 const routes: Routes = [{
   path: '',
@@ -19,6 +20,10 @@ const routes: Routes = [{
       path: '',
       component: NotFoundComponent,
       pathMatch: 'full',
+    },
+    {
+      path: 'redirect',
+      component: RedirectComponent,
     },
   ],
 }];

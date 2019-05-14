@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService } from '@core/api';
+import { Subscription, Observable,  of as observableOf } from 'rxjs';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services';
+import { PreviewDialogService } from '../preview-dialog/preview-dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'document-metadata-info',
@@ -24,6 +26,10 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
+  showEdit: boolean = false;
+
+  writePermission$: Observable<boolean> = observableOf(true);
+
   documentModel: DocumentModel;
 
   @Input()
@@ -34,6 +40,12 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
       if (this.isCreativeAsset(doc)) {
         this.getUsageRightsStatus(doc);
       }
+
+      if (this.isDisruptionAsset(doc)) {
+        this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
+      } else {
+        this.writePermission$ = observableOf(false);
+      }
     }
   }
 
@@ -42,6 +54,8 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     private advanceSearch: AdvanceSearch,
     private nuxeoApi: NuxeoApiService,
     private location: Location,
+    private previewDialogService: PreviewDialogService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -103,4 +117,11 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     return { ecm_uuid: `["${jobTitle.join('", "')}"]` };
   }
 
+  openForm(dialog: any): void {
+    this.previewDialogService.open(dialog, this.documentModel);
+  }
+
+  onUpdated(document: DocumentModel): void {
+    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/asset/${document.uid}`}});
+  }
 }

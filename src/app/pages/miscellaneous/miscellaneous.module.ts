@@ -5,6 +5,7 @@ import { SharedModule } from '@pages/shared/shared.module';
 import { DisruptionFormDayModule } from '@pages/shared/disruption-form-day/disruption-form-day.module';
 import { FormDialogComponent } from './playground/form-body/form-dialog.component';
 import { DatepickerDirectiveModule } from '@pages/shared';
+import { RedirectModule } from './redirect/redirect.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { DatepickerDirectiveModule } from '@pages/shared';
     MiscellaneousRoutingModule,
     DisruptionFormDayModule,
     DatepickerDirectiveModule,
+    RedirectModule,
   ],
   declarations: [
     ...routedComponents,

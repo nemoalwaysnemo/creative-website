@@ -48,6 +48,9 @@
             </tr>
           </tbody>
         </table>
+        <ng-container *ngIf="writePermission$ | async ">
+          <a (click)="openForm(dialog)" title="Edit" class="edit right icon_btn">Edit</a>
+        </ng-container>
         <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
         <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
         <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
@@ -122,3 +125,11 @@
     </ng-container>
   </div>
 </div>
+
+<ng-template #dialog>
+  <preview-dialog>
+    <metadata-edit-form-dialog-body (updatedSuccess)="onUpdated($event)">
+      <preview-dialog-alert></preview-dialog-alert>
+    </metadata-edit-form-dialog-body>
+  </preview-dialog>
+</ng-template>
