@@ -4,6 +4,7 @@ import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQu
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../tab-config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'disruption-page',
@@ -45,6 +46,7 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
     private advanceSearch: AdvanceSearch,
     private previewDialogService: PreviewDialogService,
     private queryParamsService: SearchQueryParamsService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -58,8 +60,9 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
     this.previewDialogService.open(dialog, this.parentDocument);
   }
 
-  onCreated(doc: DocumentModel): void {
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+  onCreated(docs: DocumentModel[]): void {
+    const url = `/p/disruption/Disruption Days/folder/${docs[0].uid}`;
+    this.router.navigateByUrl(url);
   }
 
   private searchFolders(params: {}): void {
