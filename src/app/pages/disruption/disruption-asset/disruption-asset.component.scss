@@ -13,21 +13,7 @@
 }
 
 .document {
-  @include media-breakpoint-down(lg) {
-    //992px
-    width: 700px;
-  }
-
-  @include media-breakpoint-between(lg, xxl) {
-    //992px - 1400px
-    width: 850px;
-  }
-
-  @include media-breakpoint-up(xxl) {
-    //1400px
-    width: 1366px;
-  }
-
+  width: calc(100% - 76px);
   margin: 0 auto;
   padding-top: 40px;
   box-sizing: border-box;
