@@ -62,7 +62,7 @@ export class CreativeLayoutComponent implements OnDestroy {
   folded: boolean = false;
   isOpen = true;
   private alive: boolean = true;
-  showTrigger: boolean = true;
+  showTrigger: boolean;
   currentTheme: string;
   isDesktopDevice = null;
   constructor(protected stateService: StateService,
@@ -71,9 +71,7 @@ export class CreativeLayoutComponent implements OnDestroy {
     protected bpService: NbMediaBreakpointsService,
     protected sidebarService: NbSidebarService,
     private deviceService: DeviceDetectorService) {
-
-    this.isDesktopDevice = this.deviceService.isDesktop();
-
+    const isDesktopDevice = this.deviceService.isDesktop();
     this.sidebarService.onHideAllBarsonSidebar()
     .subscribe((data: { close: boolean }) => {
       if (data.close) {
@@ -82,7 +80,7 @@ export class CreativeLayoutComponent implements OnDestroy {
         this.hideBars = false;
       }
     });
-    if (this.isDesktopDevice) {
+    if ( isDesktopDevice ) {
       this.sidebarService.onStatus()
       .subscribe((res) => {
         if (res.status === 'closed') {
@@ -116,7 +114,7 @@ export class CreativeLayoutComponent implements OnDestroy {
         delay(20),
       )
       .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
-        if (bpTo.width <= isBp.width && !this.isDesktopDevice) {
+        if (bpTo.width <= isBp.width && !isDesktopDevice) {
           this.sidebarService.collapse('menu-sidebar');
         }
       });
