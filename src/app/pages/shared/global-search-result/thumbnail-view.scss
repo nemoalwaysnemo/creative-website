@@ -59,7 +59,26 @@
   border: solid 1px #e1e1e1;
   > .image-holder {
     width: 100%;
-    height: 288px;
+    @include media-breakpoint-down(md) {
+      // < 768px
+      height: 268px;
+    }
+    @include media-breakpoint-between(md, lg) {
+      //768px - 992px
+      height: 268px;
+    }
+    @include media-breakpoint-between(lg, xl) {
+      //992px - 1200px
+      height: 268px;
+    }
+    @include media-breakpoint-between(xl, xxl) {
+      //1200px - 1400px
+      height: 268px;
+    }
+    @include media-breakpoint-up(xxl) {
+      // > 1400px
+      height: 268px;
+    }
     overflow: hidden;
     > a {
       display: block;

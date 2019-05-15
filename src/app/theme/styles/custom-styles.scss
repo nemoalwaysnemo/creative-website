@@ -98,7 +98,27 @@ body {
 .s-results {
   &.quarter {
     > .thumbnail-view-item {
-      width: 329px;
+      // width: 329px;
+      @include media-breakpoint-down(md) {
+        // < 768px
+        width: calc(100% / 2);
+      }
+      @include media-breakpoint-between(md, lg) {
+        //768px - 992px
+        width: calc(100% / 2);
+      }
+      @include media-breakpoint-between(lg, xl) {
+        //992px - 1200px
+        width: calc(100% / 3);
+      }
+      @include media-breakpoint-between(xl, xxl) {
+        //1200px - 1400px
+        width: calc(100% / 3);
+      }
+      @include media-breakpoint-up(xxl) {
+        // > 1400px
+        width: calc(100% / 4);
+      }
       float: left;
     }
   }
