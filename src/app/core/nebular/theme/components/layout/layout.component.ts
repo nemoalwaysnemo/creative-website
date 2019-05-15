@@ -158,7 +158,11 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
         .pipe(
           map(() => window.pageYOffset),
           pairwise(),
-          map(([y1, y2]) => y1 - y2),
+          map(([y1, y2]) => {
+            y1 = y1 > 0 ? y1 : 0;
+            y2 = y2 > 0 ? y2 : 0;
+            return y1 - y2;
+          }),
       )
         .subscribe(y => {
           const offsetY = this.h + y;
