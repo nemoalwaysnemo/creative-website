@@ -1,3 +1,6 @@
+<ng-container *ngIf="isDisruptionDayAsset(document) && folder">
+  <disruption-folders-view [loading]="folderLoading" [document]="folder"></disruption-folders-view>
+</ng-container>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="document" class="document">
     <section class="general">

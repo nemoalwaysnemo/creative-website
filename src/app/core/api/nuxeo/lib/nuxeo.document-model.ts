@@ -17,6 +17,7 @@ export class DocumentModel extends Base {
   title: string;
   name: string;
   path: string;
+  parentRef: string;
 
   constructor(doc: any = {}, opts: any = {}) {
     super(opts);
