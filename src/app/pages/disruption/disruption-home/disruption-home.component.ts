@@ -9,12 +9,19 @@ import { Subscription } from 'rxjs';
   templateUrl: './disruption-home.component.html',
 })
 export class DisruptionHomeComponent implements OnInit, OnDestroy {
+
   private subscription: Subscription = new Subscription();
+
   loading: boolean = true;
+
   headline = 'You name it. We\'ve disrupted it.';
+
   subHead = 'Find the who, what, where, when, Why and how of our process.';
+
   placeholder = 'Search...';
+
   document: DocumentModel;
+
   folders: any[];
 
   params: any = {
@@ -39,6 +46,8 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
   };
 
+  private allowedTabs: string[] = ['roadmaps', 'days', 'thinking', 'how tos'];
+
   constructor(
     private advanceSearch: AdvanceSearch) {
   }
@@ -55,7 +64,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   private search(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
-        this.folders = res.entries.filter(x => x.path !== '/know-edge/Disruption');
+        this.folders = res.entries.filter((doc: DocumentModel) => this.allowedTabs.some(x => doc.title.toLocaleLowerCase().includes(x)));
         this.loading = false;
       });
     this.subscription.add(subscription);
