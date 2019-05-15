@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
@@ -7,24 +7,26 @@ import { DocumentModel } from '@core/api';
   templateUrl: './document-video-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocumentVideoViewerComponent implements OnInit {
+export class DocumentVideoViewerComponent {
 
   poster: string;
 
+  documentModel: DocumentModel;
+
   videoSources: { url: any, type: string }[];
 
-  @Input() document: DocumentModel;
+  @Input()
+  set document(doc: DocumentModel) {
+    this.documentModel = doc;
+    this.buildVideoInfo(doc);
+  }
 
   @Input() autoPlay: boolean = false;
 
   @Input() storyboard: boolean = true;
 
-  ngOnInit() {
-    this.buildVideoInfo();
-  }
-
-  private buildVideoInfo(): void {
-    this.poster = this.document.videoPoster;
-    this.videoSources = this.document.getVideoSources();
+  private buildVideoInfo(doc: DocumentModel): void {
+    this.poster = doc.videoPoster;
+    this.videoSources = doc.getVideoSources();
   }
 }

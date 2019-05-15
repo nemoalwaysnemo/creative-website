@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Subscription, Observable,  of as observableOf } from 'rxjs';
+import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./document-metadata-info.component.scss'],
   templateUrl: './document-metadata-info.component.html',
 })
-export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
+export class DocumentMetadataInfoComponent implements OnDestroy {
 
   usageRights: any = {};
 
@@ -49,7 +49,6 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-
   constructor(
     private advanceSearch: AdvanceSearch,
     private nuxeoApi: NuxeoApiService,
@@ -57,10 +56,6 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
     private previewDialogService: PreviewDialogService,
     private router: Router,
   ) { }
-
-  ngOnInit() {
-
-  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -122,6 +117,6 @@ export class DocumentMetadataInfoComponent implements OnInit, OnDestroy {
   }
 
   onUpdated(document: DocumentModel): void {
-    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/asset/${document.uid}`}});
+    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/asset/${document.uid}` } });
   }
 }
