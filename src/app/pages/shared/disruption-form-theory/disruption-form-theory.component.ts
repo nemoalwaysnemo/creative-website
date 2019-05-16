@@ -39,6 +39,12 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
         directoryName: 'GLOBAL_Industries',
         placeholder: 'Please select industry',
       }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Published',
+        formMode: 'edit',
+        placeholder: 'Published',
+      }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
@@ -53,10 +59,29 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
         placeholder: 'Please select country',
       }),
       new DynamicSuggestionModel<string>({
+        id: 'app_Edges:backslash_category',
+        label: 'Backslash Category',
+        directoryName: 'App-Backslash-Categories',
+        formMode: 'edit',
+        placeholder: 'Please select category',
+      }),
+      new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
         directoryName: 'App-Edges-Edges',
         placeholder: 'Please select edges',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:description',
+        label: 'Description',
+        formMode: 'edit',
+        placeholder: 'description',
+      }),
+      new DynamicInputModel({
+        id: 'dc:creator',
+        label: 'Author',
+        formMode: 'edit',
+        placeholder: 'Author',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
@@ -90,6 +115,60 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
         },
       },
       'app_Edges:industry': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'The_Loupe_Main:description': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'app_Edges:backslash_category': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'The_Loupe_ProdCredits:production_date': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'app_Edges:Relevant_Country': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'The_Loupe_Main:agency': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'The_Loupe_Main:country': {
         element: {
           container: 'p-0',
           label: 'col-form-label',
