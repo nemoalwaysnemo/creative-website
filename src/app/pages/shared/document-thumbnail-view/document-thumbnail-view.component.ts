@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
 
 @Component({
@@ -24,7 +24,7 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocumentThumbnailViewComponent implements OnInit {
+export class DocumentThumbnailViewComponent {
 
   documentList: DocumentModel[] = [];
 
@@ -40,14 +40,8 @@ export class DocumentThumbnailViewComponent implements OnInit {
 
   @Input()
   set documents(docs: DocumentModel[]) {
-    if (docs && docs.length > 0) {
-      this.documentList = docs;
-      this.emptyList = this.fillForQuarter(docs);
-    }
-  }
-
-  ngOnInit(): void {
-
+    this.documentList = docs;
+    this.emptyList = this.fillForQuarter(docs);
   }
 
   private fillForQuarter(docs: DocumentModel[]): any[] {
