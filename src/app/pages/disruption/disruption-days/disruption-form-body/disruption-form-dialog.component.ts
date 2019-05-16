@@ -18,4 +18,9 @@ export class DisruptionFormDialogComponent extends FormDailogBody {
   protected initDocument(res: any) {
   }
 
+  onCreated(docs: any[]): void {
+    this.showSuccessMessage(`${docs[0].title} has been created successfully!`);
+    this.dialogService.delayed(this.createdSuccess, docs, 2000);
+  }
+
 }

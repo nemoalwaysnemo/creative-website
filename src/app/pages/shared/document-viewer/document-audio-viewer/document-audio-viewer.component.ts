@@ -22,7 +22,7 @@ export class DocumentAudioViewerComponent {
   }
 
   private buildAudioInfo(doc: DocumentModel) {
-    const audioSourceContent = (doc.get('file:content') || []);
+    const audioSourceContent = (doc.get('file:content') || {});
     this.audioSource = [{ src: audioSourceContent.data, type: audioSourceContent['mime-type'] }];
   }
 }
