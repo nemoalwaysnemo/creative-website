@@ -61,7 +61,7 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   }
 
   onCreated(docs: DocumentModel[]): void {
-    const url = `/p/disruption/Disruption Days/folder/${docs[0].uid}`;
+    const url = `/p/disruption/Disruption Days/day/${docs[0].uid}`;
     this.router.navigateByUrl(url);
   }
 

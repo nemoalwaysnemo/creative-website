@@ -1,7 +1,7 @@
 <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled"
   [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="doc" class="property-section">
-    <a [routerLink]="['/p/disruption/Disruption Days/folder',  doc.uid]" class="property-intro inline-middle">
+    <a [routerLink]="['/p/disruption/Disruption Days/day',  doc.uid]" class="property-intro inline-middle">
       <img src="{{doc.thumbnailUrl}}" class="thumbnail-img">
     </a>
     <div class="property-info inline-middle">

@@ -32,11 +32,11 @@ const routes: Routes = [{
       component: DisruptionDaysComponent,
     },
     {
-      path: 'Disruption Days/folder/:id',
+      path: 'Disruption Days/day/:id',
       component: DisruptionFoldersComponent,
     },
     {
-      path: 'Disruption Days/folder/:folder/asset/:id',
+      path: 'Disruption Days/day/:folder/asset/:id',
       component: DisruptionDayAssetComponent,
     },
     {

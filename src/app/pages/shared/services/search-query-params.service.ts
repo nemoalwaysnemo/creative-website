@@ -18,7 +18,7 @@ export class SearchQueryParamsService {
   }
 
   buildSearchParams(formValue: any = {}): any {
-    const values = filterParams(formValue);
+    const values = filterParams(formValue, ['quickFilters']);
     if (values.aggregates) {
       const keys = Object.keys(values.aggregates);
       if (keys.length > 0) {

@@ -37,6 +37,6 @@ export class DisruptionFoldersViewComponent {
   }
 
   onUpdate(doc: DocumentModel): void {
-    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/Disruption Days/folder/${doc.uid}` } });
+    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/Disruption Days/day/${doc.uid}` } });
   }
 }

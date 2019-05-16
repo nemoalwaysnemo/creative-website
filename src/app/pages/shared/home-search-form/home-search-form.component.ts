@@ -41,6 +41,8 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() assetUrl: string;
 
+  @Input() assetUrlMapping: object = {};
+
   @Input() folderUrl: string;
 
   @Input() redirectUrl: string;
@@ -95,26 +97,31 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     this.documents = [];
   }
 
-  onKeyup(event: KeyboardEvent) {
+  onKeyup(event: KeyboardEvent): void {
     const params = this.buildQueryParams();
     this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();
   }
 
+  getAssetUrl(doc: DocumentModel): string {
+    return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
+  }
+
+  private matchAssetUrl(doc: DocumentModel): string {
+    return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+  }
+
   private buildQueryParams(): any {
     return { q: this.queryField.value };
   }
 
-  private createForm() {
+  private createForm(): void {
     this.searchForm = this.formBuilder.group(this.params);
   }
 
-  private redirectToListPage(queryParams: {}) {
+  private redirectToListPage(queryParams: {}): void {
     this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
-  checkType(doc) {
-    return NUXEO_META_INFO.FOLDER_TYPE.includes(doc.type) ? this.folderUrl : this.assetUrl;
-  }
 }

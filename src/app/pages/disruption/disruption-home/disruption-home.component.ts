@@ -14,13 +14,18 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
 
-  headline = 'You name it. We\'ve disrupted it.';
+  headline: string = 'You name it. We\'ve disrupted it.';
 
-  subHead = 'Find the who, what, where, when, Why and how of our process.';
+  subHead: string = 'Find the who, what, where, when, Why and how of our process.';
 
-  placeholder = 'Search...';
+  placeholder: string = 'Search...';
 
   document: DocumentModel;
+
+  assetUrlMapping: object = {
+    'App-Disruption-Day': '/p/disruption/Disruption Days/day',
+    '*': '/p/disruption/asset',
+  };
 
   folders: any[];
 
@@ -43,7 +48,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_path: NUXEO_META_INFO.FRONTPAGE_BANNER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
+    ecm_primaryType: NUXEO_META_INFO.FRONTPAGE_BANNER_TYPE,
   };
 
   private allowedTabs: string[] = ['roadmaps', 'days', 'thinking', 'how tos'];

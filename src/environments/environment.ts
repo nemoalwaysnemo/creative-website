@@ -5,7 +5,8 @@ export const Environment = {
   server: 'Local',
   homePath: '/p/knowledge',
   appName: 'Creative Library Dev',
-  nuxeoUrl: 'http://100.122.3.142:8080/nuxeo/',
+  nuxeoUrl: 'https://knowledge.tbwa.com/nuxeo/',
+  // nuxeoUrl: 'http://100.122.3.142:8080/nuxeo/',
   // nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
   forgotPassword: 'https://register.adauth.me/nam/help',
   backslashAppUrl: 'https://library-staging.factory.tools/nuxeo/edges',
@@ -53,6 +54,5 @@ export const NUXEO_META_INFO = {
   INTELLIGENCE_ALL_FOLDERS: '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder", "App-Intelligence-Industry"]',
   KNOWEDGE_BASIC_PATH: '/know-edge/',
   FRONTPAGE_BANNER_PATH: '/Creative/1. GCL Frontpage/Banners/',
-  BACKGROUND_TYPE: '["App-Library-Image"]',
-  FOLDER_TYPE: '["App-Disruption-Day"]',
+  FRONTPAGE_BANNER_TYPE: '["App-Library-Image"]',
 };

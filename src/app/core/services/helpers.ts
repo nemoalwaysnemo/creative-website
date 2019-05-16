@@ -205,12 +205,13 @@ export function range(start: number, end: number, step: number = 0, offset: numb
   });
 }
 
-export function filterParams(p: object): any {
+export function filterParams(p: object, keepValues: string[] = []): any {
   const _ = {};
   Object.keys(p)
     .filter(key => !!p[key])
     .filter(key => p[key].length ? p[key].length > 0 : (p[key] !== null && typeof p[key] === 'object' ? Object.keys(p[key]).length > 0 : (p[key] !== null && p[key] !== undefined && p[key] !== '')))
     .forEach(key => { _[key] = p[key]; });
+  keepValues.forEach(k => _[k] = p[k]);
   return _;
 }
 

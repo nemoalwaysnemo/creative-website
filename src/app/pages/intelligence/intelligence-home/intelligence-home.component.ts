@@ -35,7 +35,7 @@ export class IntelligenceHomeComponent implements OnInit, OnDestroy {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_path: NUXEO_META_INFO.FRONTPAGE_BANNER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BACKGROUND_TYPE,
+    ecm_primaryType: NUXEO_META_INFO.FRONTPAGE_BANNER_TYPE,
   };
 
   constructor(
