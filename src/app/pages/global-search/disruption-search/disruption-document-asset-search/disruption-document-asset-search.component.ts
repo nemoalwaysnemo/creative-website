@@ -17,6 +17,9 @@ export class DisruptionDocumentAssetSearchComponent {
   };
 
   filters: any = {
+    'the_loupe_main_brand_agg': { placeholder: 'Brand' },
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'the_loupe_main_country_agg': { placeholder: 'County' },
     'app_edges_industry_agg': { placeholder: 'Industry' },
     'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
