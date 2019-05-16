@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'home-search-form',
@@ -39,6 +40,8 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   @Input() placeholder: string;
 
   @Input() assetUrl: string;
+
+  @Input() folderUrl: string;
 
   @Input() redirectUrl: string;
 
@@ -111,4 +114,7 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
+  checkType(doc) {
+    return NUXEO_META_INFO.FOLDER_TYPE.includes(doc.type) ? this.folderUrl : this.assetUrl;
+  }
 }
