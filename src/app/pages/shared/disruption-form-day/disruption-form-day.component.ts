@@ -81,7 +81,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         formMode: 'create',
         multiUpload: false,
         queueLimit: 1,
-        placeholder: 'Drop file here!',
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,tif,gif',
       }),
     ];
   }
