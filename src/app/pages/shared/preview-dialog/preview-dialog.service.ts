@@ -10,8 +10,6 @@ export class PreviewDialogService {
 
   private ref: any;
 
-  private close$: Subject<any> = new Subject<any>();
-
   private document$: ReplaySubject<{ doc: DocumentModel, options: any }> = new ReplaySubject<{ doc: DocumentModel, type: string, options: any }>();
 
   private alertStatus$: Subject<{ switch: boolean, status?: string, message?: string }> = new Subject<{ switch: boolean, status?: string, message?: string }>();
@@ -29,11 +27,10 @@ export class PreviewDialogService {
 
   close(): void {
     this.ref.close();
-    this.close$.next(this.ref);
   }
 
   onClose(): Observable<any> {
-    return this.close$.pipe(share());
+    return  this.dialogService.onClose();
   }
 
   setDocument(doc: DocumentModel, options: any = this.options): void {

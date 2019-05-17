@@ -5,8 +5,8 @@
  */
 
 import { ComponentFactoryResolver, Inject, Injectable, Injector, TemplateRef, Type } from '@angular/core';
-import { fromEvent as observableFromEvent } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { fromEvent as observableFromEvent, Subject, Observable } from 'rxjs';
+import { filter, share } from 'rxjs/operators';
 
 import {
   NbComponentPortal,
@@ -147,6 +147,7 @@ export class NbDialogService {
               protected cfr: ComponentFactoryResolver) {
   }
 
+  private close$: Subject<any> = new Subject<any>();
   /**
    * Opens new instance of the dialog, may receive optional config.
    * */
@@ -238,13 +239,23 @@ export class NbDialogService {
 
   protected registerCloseListeners<T>(config: NbDialogConfig, overlayRef: NbOverlayRef, dialogRef: NbDialogRef<T>) {
     if (config.closeOnBackdropClick) {
-      overlayRef.backdropClick().subscribe(() => dialogRef.close());
+      overlayRef.backdropClick().subscribe(() => {
+        this.close$.next(dialogRef);
+        dialogRef.close();
+      });
     }
 
     if (config.closeOnEsc) {
       observableFromEvent(this.document, 'keyup')
         .pipe(filter((event: KeyboardEvent) => event.keyCode === 27))
-        .subscribe(() => dialogRef.close());
+        .subscribe(() => {
+          this.close$.next(dialogRef);
+          dialogRef.close();
+        });
     }
+  }
+
+  onClose(): Observable<any> {
+    return this.close$.pipe(share());
   }
 }
