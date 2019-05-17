@@ -35,6 +35,14 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
     this.showEdit = false;
   }
 
+  callback(message: { type, value }): void {
+    if (message.type === 'success') {
+      this.reflash(message.value);
+    } else if (message.type === 'back') {
+      this.showEdit = message.value;
+    }
+  }
+
   reflash(doc: any): void {
     this.dialogService.setDocument(doc);
     this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');

@@ -15,7 +15,7 @@
       </ng-container>
 
       <ng-container *ngIf="showEdit">
-        <disruption-roadmap-edit-dialog-body (updatedSuccess)="onUpdate($event)" (callBack)="reflash($event)">
+        <disruption-roadmap-edit-dialog-body (updatedSuccess)="onUpdate($event)" (callBack)="callback($event)">
           <preview-dialog-alert></preview-dialog-alert>
         </disruption-roadmap-edit-dialog-body>
       </ng-container>

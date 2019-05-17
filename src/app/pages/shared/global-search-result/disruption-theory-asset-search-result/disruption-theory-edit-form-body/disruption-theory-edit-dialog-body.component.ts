@@ -23,8 +23,12 @@ export class DisruptionTheoryEditDialogComponent extends FormDailogBody {
 
   onUpdated(doc: any): void {
     this.showMessage('success', `${doc.title} update success`);
-    this.callBack.next(doc);
+    this.callBack.next({ type: 'success', value: doc });
     this.dialogService.delayed(this.updatedSuccess, doc);
+  }
+
+  back(): void {
+    this.callBack.next({ type: 'back', value: false });
   }
 
 }

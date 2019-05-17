@@ -30,7 +30,7 @@ export class PreviewDialogService {
   }
 
   onClose(): Observable<any> {
-    return  this.dialogService.onClose();
+    return this.dialogService.onClose();
   }
 
   setDocument(doc: DocumentModel, options: any = this.options): void {
