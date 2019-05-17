@@ -147,6 +147,7 @@ export class NbDialogService {
               protected cfr: ComponentFactoryResolver) {
   }
 
+  private onClose$: Subject<any> = new Subject<any>();
   private close$: Subject<any> = new Subject<any>();
   /**
    * Opens new instance of the dialog, may receive optional config.
@@ -240,7 +241,7 @@ export class NbDialogService {
   protected registerCloseListeners<T>(config: NbDialogConfig, overlayRef: NbOverlayRef, dialogRef: NbDialogRef<T>) {
     if (config.closeOnBackdropClick) {
       overlayRef.backdropClick().subscribe(() => {
-        this.close$.next(dialogRef);
+        this.onClose$.next(dialogRef);
         dialogRef.close();
       });
     }
@@ -249,13 +250,23 @@ export class NbDialogService {
       observableFromEvent(this.document, 'keyup')
         .pipe(filter((event: KeyboardEvent) => event.keyCode === 27))
         .subscribe(() => {
-          this.close$.next(dialogRef);
+          this.onClose$.next(dialogRef);
           dialogRef.close();
         });
     }
+
+    this.close$.subscribe(() => {
+      this.onClose$.next(dialogRef);
+      dialogRef.close();
+    });
+
+  }
+
+  close(): void {
+    this.close$.next(true);
   }
 
   onClose(): Observable<any> {
-    return this.close$.pipe(share());
+    return this.onClose$.pipe(share());
   }
 }

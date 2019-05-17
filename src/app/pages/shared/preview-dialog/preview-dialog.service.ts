@@ -26,7 +26,7 @@ export class PreviewDialogService {
   }
 
   close(): void {
-    this.ref.close();
+    this.dialogService.close();
   }
 
   onClose(): Observable<any> {
