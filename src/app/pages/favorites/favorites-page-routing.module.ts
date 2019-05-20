@@ -1,13 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { FavoritesComponent } from './favorites.component';
-import { AllFavoritesComponent } from './home/all-favorites/all-favorites.component';
-import { MyBackslashComponent } from './home/my-backslash/my-backslash.component';
-import { MyBrandsComponent } from './home/my-brands/my-brands.component';
-import { MyDisruptionComponent } from './home/my-disruption/my-disruption.component';
+import { FavoritesPageComponent } from './favorites-page.component';
+import { AllFavoritesComponent } from './all-favorites/all-favorites.component';
+import { MyBackslashComponent } from './my-backslash/my-backslash.component';
+import { MyBrandsComponent } from './my-brands/my-brands.component';
+import { MyDisruptionComponent } from './my-disruption/my-disruption.component';
 const routes: Routes = [{
     path: '',
-    component: FavoritesComponent,
+    component: FavoritesPageComponent,
     children: [
         {
           path: '',
@@ -37,5 +37,5 @@ const routes: Routes = [{
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class FavoritesRoutingModule {
+export class FavoritesPageRoutingModule {
 }

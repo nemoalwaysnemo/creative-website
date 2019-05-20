@@ -5,9 +5,9 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <router-outlet></router-outlet>
   `,
-  styleUrls: ['./favorites.component.scss'],
+  styleUrls: ['./favorites-page.component.scss'],
 })
-export class FavoritesComponent implements OnInit {
+export class FavoritesPageComponent implements OnInit {
 
   constructor() { }
 

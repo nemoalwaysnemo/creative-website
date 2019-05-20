@@ -20,7 +20,7 @@ const routes: Routes = [{
       loadChildren: './intelligence/intelligence-page.module#IntelligencePageModule',
     }, {
       path: 'favorites',
-      loadChildren: './favorites/favorites.module#FavoritesModule',
+      loadChildren: './favorites/favorites-page.module#FavoritesPageModule',
     }, {
       path: 'search',
       loadChildren: './global-search/global-search-page.module#GlobalSearchPageModule',

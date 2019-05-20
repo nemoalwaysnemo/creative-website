@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { SharedModule } from '@pages/shared/shared.module';
+import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule  } from '@pages/shared';
 import { AllFavoritesComponent } from './all-favorites.component';
-import { FavoritesThumbnailViewModule } from '../../favorites-shared/favorites-thumbnail-view/favorites-thumbnail-view.module';
 @NgModule({
   imports: [
     ThemeModule,
-    SharedModule,
-    FavoritesThumbnailViewModule,
+    GlobalSearchFormModule,
+    GlobalSearchResultModule,
+    PreviewDialogModule,
   ],
   declarations: [
     AllFavoritesComponent,
   ],
   providers: [
-    SharedModule.forRoot().providers,
   ],
 })
 export class AllFavoritesModule { }

@@ -275,15 +275,8 @@ export enum NuxeoAutomations {
   RepositoryPageProvider = 'Repository.PageProvider',
   DirectoryEntries = 'Directory.Entries',
   DocumentCreate = 'Document.Create',
+  GetFavorite = 'Favorite.GetDocuments',
+  AddFavorite = 'Document.AddToFavorites',
+  RemoveFromFavorites = 'Document.RemoveFromFavorites',
   TBWAUserDigest = 'TBWA.GetUserDigest',
 }
-export const NuxeoAutomations = {
-  CreativeGetDocumentURStatus: 'Creative.GetDocumentURStatus',
-  DirectorySuggestEntries: 'Directory.SuggestEntries',
-  RepositoryPageProvider: 'Repository.PageProvider',
-  DirectoryEntries: 'Directory.Entries',
-  DocumentCreate: 'Document.Create',
-  GetFavorite: 'Favorite.GetDocuments',
-  AddFavorite: 'Document.AddToFavorites',
-  RemoveFromFavorites: 'Document.RemoveFromFavorites',
-};
