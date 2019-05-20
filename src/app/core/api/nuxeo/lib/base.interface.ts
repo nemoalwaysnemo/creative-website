@@ -277,3 +277,13 @@ export enum NuxeoAutomations {
   DocumentCreate = 'Document.Create',
   TBWAUserDigest = 'TBWA.GetUserDigest',
 }
+export const NuxeoAutomations = {
+  CreativeGetDocumentURStatus: 'Creative.GetDocumentURStatus',
+  DirectorySuggestEntries: 'Directory.SuggestEntries',
+  RepositoryPageProvider: 'Repository.PageProvider',
+  DirectoryEntries: 'Directory.Entries',
+  DocumentCreate: 'Document.Create',
+  GetFavorite: 'Favorite.GetDocuments',
+  AddFavorite: 'Document.AddToFavorites',
+  RemoveFromFavorites: 'Document.RemoveFromFavorites',
+};
