@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { MyBrandsComponent } from './my-brands.component';
-import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule  } from '@pages/shared';
+import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule } from '@pages/shared';
+import { AllFavoritesComponent } from './all-favorites.component';
 @NgModule({
   imports: [
     ThemeModule,
@@ -10,9 +10,7 @@ import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule  
     PreviewDialogModule,
   ],
   declarations: [
-    MyBrandsComponent,
-  ],
-  providers: [
+    AllFavoritesComponent,
   ],
 })
-export class MyBrandsModule { }
+export class AllFavoritesModule { }

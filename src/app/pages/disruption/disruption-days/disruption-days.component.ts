@@ -3,7 +3,7 @@ import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../tab-config';
+import { TAB_CONFIG } from '../disruption-tab-config';
 import { Router } from '@angular/router';
 
 @Component({

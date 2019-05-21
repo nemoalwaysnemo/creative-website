@@ -1,16 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { UserService } from '@core/api/api.user.service';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoRequestOptions, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../tab-config';
+import { TAB_CONFIG } from '../favorite-tab-config';
 @Component({
-  selector: 'my-backslash',
-  templateUrl: './my-backslash.component.html',
-  styleUrls: ['./my-backslash.component.scss'],
+  selector: 'favorite-brand',
+  templateUrl: './favorite-brand.component.html',
+  styleUrls: ['./favorite-brand.component.scss'],
 })
-export class MyBackslashComponent implements OnInit, OnDestroy {
+export class FavoriteBrandComponent implements OnInit, OnDestroy {
 
   defaultParams: any = {
     pageSize: 20,
@@ -50,6 +49,7 @@ export class MyBackslashComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.searchFolders(this.folderParams);
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -62,7 +62,6 @@ export class MyBackslashComponent implements OnInit, OnDestroy {
     this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
   }
 
-
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
@@ -73,5 +72,4 @@ export class MyBackslashComponent implements OnInit, OnDestroy {
       });
     this.subscription.add(subscription);
   }
-
 }

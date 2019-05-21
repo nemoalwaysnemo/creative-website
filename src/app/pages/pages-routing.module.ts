@@ -19,8 +19,8 @@ const routes: Routes = [{
       path: 'intelligence',
       loadChildren: './intelligence/intelligence-page.module#IntelligencePageModule',
     }, {
-      path: 'favorites',
-      loadChildren: './favorites/favorites-page.module#FavoritesPageModule',
+      path: 'favorite',
+      loadChildren: './favorite/favorite-page.module#FavoritePageModule',
     }, {
       path: 'search',
       loadChildren: './global-search/global-search-page.module#GlobalSearchPageModule',

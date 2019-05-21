@@ -1,25 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { UserService } from '@core/api/api.user.service';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoRequestOptions, NuxeoPermission, NuxeoQuickFilters  } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../tab-config';
-
+import { TAB_CONFIG } from '../favorite-tab-config';
 @Component({
-  selector: 'tbwa-all-favorites',
-  templateUrl: './all-favorites.component.html',
-  styleUrls: ['./all-favorites.component.scss'],
+  selector: 'favorite-disruption',
+  templateUrl: './favorite-disruption.component.html',
+  styleUrls: ['./favorite-disruption.component.scss'],
 })
-export class AllFavoritesComponent implements OnInit, OnDestroy {
-  documents: any;
-  tabs = TAB_CONFIG;
-  operation_params = {
-    operation_type: NuxeoAutomations.GetFavorite,
-    params: {},
-    input: '/Creative',
-    opts: new NuxeoRequestOptions(),
-  };
+export class FavoriteDisruptionComponent implements OnInit, OnDestroy {
 
   defaultParams: any = {
     pageSize: 20,
@@ -36,6 +26,8 @@ export class AllFavoritesComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_META_INFO.DISRUPTION_ROADMAPS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_FOLDER_TYPE,
   };
+
+  tabs = TAB_CONFIG;
 
   parentDocument: DocumentModel;
 
@@ -57,6 +49,7 @@ export class AllFavoritesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.searchFolders(this.folderParams);
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -69,7 +62,6 @@ export class AllFavoritesComponent implements OnInit, OnDestroy {
     this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
   }
 
-
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
       .subscribe((res: NuxeoPagination) => {
@@ -80,4 +72,5 @@ export class AllFavoritesComponent implements OnInit, OnDestroy {
       });
     this.subscription.add(subscription);
   }
+
 }

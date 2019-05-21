@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPermission } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
-import { TAB_CONFIG } from '../tab-config';
+import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({

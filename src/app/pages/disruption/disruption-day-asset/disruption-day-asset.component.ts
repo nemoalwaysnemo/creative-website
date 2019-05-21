@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../tab-config';
+import { TAB_CONFIG } from '../disruption-tab-config';
 
 @Component({
   selector: 'disruption-day-asset',

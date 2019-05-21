@@ -1,16 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { UserService } from '@core/api/api.user.service';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoRequestOptions, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../tab-config';
+import { TAB_CONFIG } from '../favorite-tab-config';
 @Component({
-  selector: 'my-disruption',
-  templateUrl: './my-disruption.component.html',
-  styleUrls: ['./my-disruption.component.scss'],
+  selector: 'favorite-backslash',
+  templateUrl: './favorite-backslash.component.html',
+  styleUrls: ['./favorite-backslash.component.scss'],
 })
-export class MyDisruptionComponent implements OnInit, OnDestroy {
+export class FavoriteBackslashComponent implements OnInit, OnDestroy {
 
   defaultParams: any = {
     pageSize: 20,
@@ -50,6 +49,7 @@ export class MyDisruptionComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.searchFolders(this.folderParams);
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -61,7 +61,6 @@ export class MyDisruptionComponent implements OnInit, OnDestroy {
   onCreated(doc: DocumentModel): void {
     this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
   }
-
 
   private searchFolders(params: {}): void {
     const subscription = this.advanceSearch.request(params)
