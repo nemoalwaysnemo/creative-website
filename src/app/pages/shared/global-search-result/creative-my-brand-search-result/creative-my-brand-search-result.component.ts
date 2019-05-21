@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { ListViewItem } from '../../list-view/list-view.interface';
+import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 
 @Component({
   selector: 'creative-my-brand-search-result',
@@ -21,7 +21,7 @@ export class CreativeMyBrandSearchResultComponent {
   listViewBuilder: Function = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
-      items.push(new ListViewItem({
+      items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc.title,
         productionDate: doc.get('The_Loupe_ProdCredits:production_date'),

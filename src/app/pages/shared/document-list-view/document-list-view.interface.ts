@@ -8,14 +8,14 @@ export const LIST_VIEW_SETTINGS: any = {
   },
 };
 
-export class ListViewSettings {
+export class DocumentListViewSettings {
 
   static OptionsFactory(opts: any = {}): any {
     return deepExtend({}, LIST_VIEW_SETTINGS, opts);
   }
 }
 
-export class ListViewItem {
+export class DocumentListViewItem {
 
   [key: string]: any;
   readonly uid: string;

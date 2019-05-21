@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Ng2SmartTableModule } from '@core/custom';
-import { ListViewComponent } from './list-view.component';
+import { DocumentListViewComponent } from './document-list-view.component';
 import { SharedDirectiveModule } from '../directives/shared-directive.module';
 import { ThemeModule } from '@theme/theme.module';
 
@@ -12,11 +12,11 @@ import { ThemeModule } from '@theme/theme.module';
     SharedDirectiveModule,
     ThemeModule,
   ],
-  declarations: [ListViewComponent],
+  declarations: [DocumentListViewComponent],
   exports: [
-    ListViewComponent,
+    DocumentListViewComponent,
   ],
 })
-export class ListViewModule {
+export class DocumentListViewModule {
 
 }

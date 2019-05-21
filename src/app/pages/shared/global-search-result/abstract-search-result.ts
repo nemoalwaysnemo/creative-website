@@ -3,7 +3,7 @@ import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api
 import { Subscription } from 'rxjs';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { ListViewItem } from '../list-view/list-view.interface';
+import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 
 export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
 
@@ -13,7 +13,7 @@ export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   documents: DocumentModel[] = [];
 
-  listDocuments: ListViewItem[] = [];
+  listDocuments: DocumentListViewItem[] = [];
 
   totalResults: number = 0;
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ThemeModule } from '@theme/theme.module';
 import { PreviewDialogModule } from '../preview-dialog';
-import { ListViewModule } from '../list-view/list-view.module';
+import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
 import { PaginationModule } from '../pagination/pagination.module';
 import { SharedServiceModule } from '../services/shared-service.module';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
@@ -52,7 +52,7 @@ const COMPONENTS = [
     CommonModule,
     ThemeModule,
     RouterModule,
-    ListViewModule,
+    DocumentListViewModule,
     PaginationModule,
     PreviewDialogModule,
     DocumentViewerModule,
