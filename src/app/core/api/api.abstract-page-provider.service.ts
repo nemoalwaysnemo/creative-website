@@ -1,6 +1,6 @@
 import { Observable, of as observableOf, Subject } from 'rxjs';
 import { share, concat, map, tap } from 'rxjs/operators';
-import { AbstractBaseService } from './api.abstract-base.service';
+import { AbstractBaseSearchService } from './api.abstract-base-search.service';
 import { join } from '../services';
 import {
   NuxeoPagination,
@@ -18,7 +18,7 @@ export class SearchResponse {
   }
 }
 
-export abstract class AbstractPageProvider extends AbstractBaseService {
+export abstract class AbstractPageProvider extends AbstractBaseSearchService {
 
   protected endPoint: string = 'search';
 

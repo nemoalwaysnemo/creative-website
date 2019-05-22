@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NuxeoApiService } from './nuxeo';
 import { UserModel, DocumentModel, NuxeoAutomations } from './nuxeo/lib';
-import { AbstractBaseService } from './api.abstract-base.service';
+import { AbstractBaseSearchService } from './api.abstract-base-search.service';
 import { switchMap } from 'rxjs/operators';
 import { NbAuthService } from '@core/nebular/auth/services/auth.service';
 import { NuxeoAuthToken } from '@core/auth/nuxeo-auth-token';
 import { CacheService } from '@core/services';
 
 @Injectable()
-export class UserService extends AbstractBaseService {
+export class UserService extends AbstractBaseSearchService {
 
   constructor(
     protected nuxeoApi: NuxeoApiService,

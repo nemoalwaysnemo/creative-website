@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AbstractBaseService } from './api.abstract-base.service';
+import { AbstractBaseSearchService } from './api.abstract-base-search.service';
 import { NuxeoApiService, NuxeoRequestOptions } from '@core/api/nuxeo';
 import { DocumentModel } from './nuxeo/lib';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class DocumentRepository extends AbstractBaseService {
+export class DocumentRepository extends AbstractBaseSearchService {
 
   private defaultRepository: string;
 

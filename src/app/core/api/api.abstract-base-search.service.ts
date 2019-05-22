@@ -5,7 +5,7 @@ import {
   NuxeoPageProviderParams,
 } from './nuxeo';
 
-export abstract class AbstractBaseService {
+export abstract class AbstractBaseSearchService {
 
   protected defaultParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
 

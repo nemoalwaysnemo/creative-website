@@ -36,12 +36,8 @@ import {
   ThemeSwitcherListComponent,
 } from './components';
 import {
-  CapitalizePipe,
   PluralPipe,
-  RoundPipe,
   TimingPipe,
-  NumberWithCommasPipe,
-  EvaIconsPipe,
 } from './pipes';
 import {
   CreativeLayoutComponent,
@@ -90,12 +86,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const PIPES = [
-  CapitalizePipe,
   PluralPipe,
-  RoundPipe,
   TimingPipe,
-  NumberWithCommasPipe,
-  EvaIconsPipe,
 ];
 
 const NB_THEME_PROVIDERS = [
