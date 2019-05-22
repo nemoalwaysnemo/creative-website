@@ -275,7 +275,7 @@ export enum NuxeoAutomations {
   RepositoryPageProvider = 'Repository.PageProvider',
   DirectoryEntries = 'Directory.Entries',
   DocumentCreate = 'Document.Create',
-  GetFavorite = 'Favorite.GetDocuments',
+  GetFavorite = 'Favorite.Fetch',
   AddFavorite = 'Document.AddToFavorites',
   RemoveFromFavorites = 'Document.RemoveFromFavorites',
   TBWAUserDigest = 'TBWA.GetUserDigest',

@@ -1,18 +1,14 @@
-import { Component, OnInit, OnDestroy, HostBinding, AfterViewInit} from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
 import { UserService, UserModel } from '@core/api';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Environment } from '@environment/environment';
-import { NbMenuService, NbMenuItem, NbMediaBreakpointsService, NbThemeService, NbMediaBreakpoint} from '@core/nebular/theme';
+import { NbMenuService, NbMenuItem, NbMediaBreakpointsService, NbThemeService, NbMediaBreakpoint } from '@core/nebular/theme';
 import { delay, distinctUntilChanged, filter, map, pairwise, share, throttleTime, withLatestFrom } from 'rxjs/operators';
 import { NbSidebarService } from '@core/nebular/theme/components/sidebar/sidebar.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
-import { listener } from '@angular/core/src/render3';
-enum VisibilityState {
-  Visible = 'visible',
-  Hidden = 'hidden',
-}
+
 enum Direction {
   Up = 'Up',
   Down = 'Down',
@@ -25,10 +21,10 @@ enum Direction {
   animations: [
     trigger('userAction', [
       state('actionExist', style({
-            top: '22px',
+        top: '22px',
       })),
       state('actionDisappear', style({
-            top: '-44px',
+        top: '-44px',
       })),
       transition('actionExist => actionDisappear', [
         animate('0.1s'),
@@ -54,33 +50,33 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   protected goingUp: Subscription = new Subscription();
   protected goingDown: Subscription = new Subscription();
   constructor(private router: Router, private menuService: NbMenuService,
-              protected bpService: NbMediaBreakpointsService,
-              protected themeService: NbThemeService,
-              private userService: UserService, protected sidebarService: NbSidebarService,
-              protected scrollService: NbLayoutScrollService) { }
+    protected bpService: NbMediaBreakpointsService,
+    protected themeService: NbThemeService,
+    private userService: UserService, protected sidebarService: NbSidebarService,
+    protected scrollService: NbLayoutScrollService) { }
 
   ngOnInit() {
     this.getUser();
     this.updateHeaderTitle();
 
     this.sidebarService.onSidebarOpen()
-    .subscribe((data: { tag: boolean }) => {
-      if (data.tag && this.isOpen === false) {
-        this.isOpen = !this.isOpen;
-      }
-    });
+      .subscribe((data: { tag: boolean }) => {
+        if (data.tag && this.isOpen === false) {
+          this.isOpen = !this.isOpen;
+        }
+      });
 
     this.sidebarService.onSidebarClose()
-    .subscribe((data: { tag: boolean }) => {
-      if (data.tag && this.isOpen === true) {
-        this.isOpen = !this.isOpen;
-      }
-    });
+      .subscribe((data: { tag: boolean }) => {
+        if (data.tag && this.isOpen === true) {
+          this.isOpen = !this.isOpen;
+        }
+      });
 
     this.sidebarService.onCollapse()
-    .subscribe((res) => {
-      this.sidebarClosed = true;
-    });
+      .subscribe((res) => {
+        this.sidebarClosed = true;
+      });
 
     const isBp = this.bpService.getByName('xl');
     this.menuService.onItemSelect()
@@ -99,15 +95,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     if (this.listenToScroll) {
       const scroll$ = this.scrollService
-                      .onScroll()
-                      .pipe(
-                        throttleTime(100),
-                        map(() => window.pageYOffset),
-                        pairwise(),
-                        map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
-                        distinctUntilChanged(),
-                        share(),
-                      );
+        .onScroll()
+        .pipe(
+          throttleTime(100),
+          map(() => window.pageYOffset),
+          pairwise(),
+          map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+          distinctUntilChanged(),
+          share(),
+        );
 
       const goingUp$ = scroll$.pipe(
         filter(direction => direction === Direction.Up),
@@ -121,15 +117,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.goingDown = goingDown$.subscribe(() => (this.isVisible = false, this.actionTag = false, setTimeout(() => (this.headerHide = 'none'), 300)));
     }
     this.scrollService.onScrollListen()
-    .subscribe((res) => {
-      if (res) {
-        if (res.stop === true) {
-          this.goingUp.unsubscribe();
-          this.goingDown.unsubscribe();
-          this.listenToScroll = false;
+      .subscribe((res) => {
+        if (res) {
+          if (res.stop === true) {
+            this.goingUp.unsubscribe();
+            this.goingDown.unsubscribe();
+            this.listenToScroll = false;
+          }
         }
-      }
-    });
+      });
   }
 
 
@@ -142,7 +138,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   sidebarToggle() {
-    if ( this.sidebarClosed ) {
+    if (this.sidebarClosed) {
       this.sidebarService.openSidebar(true, 'menu-sidebar');
       this.sidebarClosed = false;
     } else {
@@ -150,6 +146,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.sidebarClosed = true;
     }
   }
+
   private getUser(): void {
     const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {
       this.user = user;
