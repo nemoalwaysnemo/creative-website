@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
 @Component({
@@ -17,13 +17,13 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_THINKING_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
   };
 
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_THINKING_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_FOLDER_TYPE,
   };
 

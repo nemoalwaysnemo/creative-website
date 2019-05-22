@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 8,
-    ecm_path: NUXEO_META_INFO.CREATIVE_BEST_ASSETS_PATH,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_BEST_ASSETS_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 

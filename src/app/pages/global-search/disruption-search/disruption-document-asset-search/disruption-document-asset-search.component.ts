@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'disruption-document-asset-search',
@@ -9,7 +9,7 @@ export class DisruptionDocumentAssetSearchComponent {
 
   defaultParams: any = {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
     quickFilters: '',
     currentPageIndex: 0,
     pageSize: 20,

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Subject } from 'rxjs';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 export class TabInfo {
   readonly type: string;
@@ -30,7 +30,7 @@ export class DocumentRelatedInfoComponent {
       params: {
         pageSize: 8,
         app_edges_active_article: true,
-        ecm_path: NUXEO_META_INFO.BACKSLASH_BASE_FOLDER_PATH,
+        ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       },
       paramsMapping: {
         'tagsEdgesAny': 'app_Edges:Tags_edges',
@@ -43,7 +43,7 @@ export class DocumentRelatedInfoComponent {
       icon: 'nb-person',
       params: {
         pageSize: 8,
-        ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
+        ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
       },
       paramsMapping: {
         'tagsEdgesAny': 'app_Edges:Tags_edges',
@@ -58,7 +58,7 @@ export class DocumentRelatedInfoComponent {
       icon: 'nb-person',
       params: {
         pageSize: 8,
-        ecm_path: NUXEO_META_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+        ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       },
       paramsMapping: {
         'tagsEdgesAny': 'app_Edges:Tags_edges',

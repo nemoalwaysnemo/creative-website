@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
+
 @Component({
   selector: 'favorite-brand',
   templateUrl: './favorite-brand.component.html',
@@ -16,14 +17,14 @@ export class FavoriteBrandComponent implements OnInit, OnDestroy {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_ROADMAPS_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
     quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
   };
 
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_ROADMAPS_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_FOLDER_TYPE,
   };
 

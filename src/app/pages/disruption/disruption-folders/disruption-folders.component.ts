@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPermission } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'disruption-folders',
@@ -42,7 +42,7 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
       quickFilters: 'ShowInNavigation',
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
     };
@@ -51,7 +51,7 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
   protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,
-      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',

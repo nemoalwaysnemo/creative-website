@@ -1,4 +1,4 @@
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
@@ -33,21 +33,21 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     pageSize: 20,
     currentPageIndex: 0,
     quickFilters: '',
-    ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
   };
 
   folderParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_BASE_FOLDER_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_FOLDER_TYPE,
   };
 
   private backgroudParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.FRONTPAGE_BANNER_PATH,
+    ecm_path: NUXEO_PATH_INFO.FRONTPAGE_BANNER_PATH,
     ecm_primaryType: NUXEO_META_INFO.FRONTPAGE_BANNER_TYPE,
   };
 

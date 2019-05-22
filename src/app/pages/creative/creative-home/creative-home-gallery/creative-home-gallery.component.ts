@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,7 +22,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 10,
-    ecm_path: NUXEO_META_INFO.CREATIVE_AWARD_FOLDER_PATH,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_AWARD_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
   };
 
@@ -47,10 +47,10 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getVideoSources(), thumb: entry.attachedImage, poster: entry.attachedImage, title: entry.title, uid: entry.uid, description: entry.get('dc:description')});
+        imgArray.push({ src: entry.getVideoSources(), thumb: entry.attachedImage, poster: entry.attachedImage, title: entry.title, uid: entry.uid, description: entry.get('dc:description') });
       } else if (entry.isPicture()) {
         const url = entry.attachedImage;
-        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid, description: entry.get('dc:description')});
+        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid, description: entry.get('dc:description') });
       } else {
       }
     }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel, NuxeoPagination } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
     pageSize: 1,
     currentPageIndex: 0,
     quickFilters: 'ShowInNavigation',
-    ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+    ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
   };
 
@@ -44,7 +44,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
       pageSize: 1,
       currentPageIndex: 0,
       quickFilters: '',
-      ecm_path: NUXEO_META_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
     };
   }

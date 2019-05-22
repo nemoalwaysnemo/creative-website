@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
-import { Environment, NUXEO_META_INFO } from '@environment/environment';
+import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
 import { TabInfo } from '../document-related-info.component';
 
@@ -147,7 +147,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         app_edges_active_article: true,
         quickFilters: 'BackslashEdgePage',
         app_edges_tags_edges: edgesParams,
-        ecm_path: NUXEO_META_INFO.BACKSLASH_BASE_FOLDER_PATH,
+        ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
       this.edgeLoading = true;
       const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {

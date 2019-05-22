@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { PreviewDialogService } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { Router } from '@angular/router';
 
@@ -18,14 +18,14 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     quickFilters: `${NuxeoQuickFilters.ShowInNavigation},${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`,
   };
 
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_META_INFO.DISRUPTION_DAYS_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_FOLDER_TYPE,
   };
 
@@ -45,7 +45,6 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   constructor(
     private advanceSearch: AdvanceSearch,
     private previewDialogService: PreviewDialogService,
-    private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 
