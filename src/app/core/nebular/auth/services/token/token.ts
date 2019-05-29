@@ -165,7 +165,7 @@ export class NbAuthSimpleToken extends NbAuthToken {
  */
 export class NbAuthJWTToken extends NbAuthSimpleToken {
 
-  static NAME = 'nb:auth:jwt:token';
+  static NAME = 'gcl:auth:jwt:token';
 
   /**
    * for JWT token, the iat (issued at) field of the token payload contains the creation Date
