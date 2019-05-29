@@ -12,6 +12,8 @@ You can use Homebrew to install it:
 
 Or you can go to nodejs.org to find an installer.
 
+### run the project
+
 After checking out the project,
 
 cd to the rep and run:
