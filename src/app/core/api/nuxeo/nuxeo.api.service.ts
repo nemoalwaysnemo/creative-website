@@ -29,8 +29,8 @@ export class NuxeoApiService {
 
   private credentials: Credentials = {};
 
-  constructor(private httpClient: HttpClient, @Inject(NUXEO_ENV) private env: NuxeoApiOptions, private deviceService: DeviceDetectorService) {
-    this._nuxeo = new Nuxeo(httpClient, env);
+  constructor(private httpClient: HttpClient, @Inject(NUXEO_ENV) readonly apiOpts: NuxeoApiOptions, private deviceService: DeviceDetectorService) {
+    this._nuxeo = new Nuxeo(httpClient, apiOpts);
   }
 
   get nuxeo(): Nuxeo {
@@ -77,7 +77,7 @@ export class NuxeoApiService {
   }
 
   requestAuthenticationToken(): Observable<Credentials> {
-    return this.nuxeo.requestAuthenticationToken(this.env.appName, this.getDeviceId(), this.deviceService.device, 'r', { json: false }).pipe(
+    return this.nuxeo.requestAuthenticationToken(this.apiOpts.appName, this.getDeviceId(), this.deviceService.device, 'r', { json: false }).pipe(
       map(token => {
         this.credentials['token'] = token;
         return this.credentials;

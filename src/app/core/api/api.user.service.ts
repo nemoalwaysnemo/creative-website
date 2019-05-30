@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NuxeoApiService } from './nuxeo';
-import { UserModel, DocumentModel, NuxeoAutomations, NuxeoRequestOptions } from './nuxeo/lib';
+import { UserModel, DocumentModel, NuxeoAutomations } from './nuxeo/lib';
 import { AbstractBaseSearchService } from './api.abstract-base-search.service';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { CacheService } from '@core/services';
 import { NbAuthService, NbAuthToken } from '../base-auth/services';
 
@@ -22,11 +22,9 @@ export class UserService extends AbstractBaseSearchService {
     return this.authService.getToken()
       .pipe(
         switchMap((token: NbAuthToken) => {
-          return this.nuxeoApi.operation(NuxeoAutomations.GetCurrentUser, {}, null, new NuxeoRequestOptions({ schemas: ['*'] })).pipe(
-            tap(res => { }),
-          );
-          // return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetCurrentUser));
-          return this.nuxeoApi.getUser(token.getValue());
+          return this.cacheService.get('TBWA.GetAccessTokenInfo', this.nuxeoApi.operation(NuxeoAutomations.GetAccessTokenInfo, { token: token.getValue() }).pipe(
+            map(res => new UserModel({ properties: { username: res.value.nuxeoLogin } }, this.nuxeoApi.apiOpts)),
+          ));
         }),
       );
   }
