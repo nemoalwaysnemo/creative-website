@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { AuthGuard, NbAuthComponent, NbLoginComponent, NbLogoutComponent } from '@core/auth';
+import { AuthGuard } from '@core/base-auth';
 
 const routes: Routes = [
   {
@@ -10,21 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    component: NbAuthComponent,
-    children: [
-      {
-        path: '',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'login',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
-      },
-    ],
+    loadChildren: 'app/auth/auth.module#AuthModule',
   },
   { path: '', redirectTo: 'p', pathMatch: 'full' },
   { path: '**', redirectTo: 'p/error/404' },

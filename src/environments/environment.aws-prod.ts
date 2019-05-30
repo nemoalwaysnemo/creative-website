@@ -1,16 +1,12 @@
 
 export const Environment = {
   title: 'Know\\edge',
-  server: 'Prod',
   homePath: '/p/knowledge',
   appName: 'Creative Library',
   nuxeoUrl: '/nuxeo/',
-  forgotPassword: 'https://register.adauth.me/nam/help',
   backslashAppUrl: '/nuxeo/edges',
   assetPath: '/nuxeo/LibraryWebUI/',
   production: true,
-  autoLogin: true,
-  debug: false,
 };
 
 export enum NUXEO_PATH_INFO {

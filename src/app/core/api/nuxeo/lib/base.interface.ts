@@ -280,4 +280,5 @@ export enum NuxeoAutomations {
   AddFavorite = 'Document.AddToFavorites',
   RemoveFromFavorites = 'Document.RemoveFromFavorites',
   TBWAUserDigest = 'TBWA.GetUserDigest',
+  GetCurrentUser = 'User.Get',
 }

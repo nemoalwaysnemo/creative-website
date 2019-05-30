@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import { NuxeoAuthModule } from './auth';
+import { BaseAuthModule } from './base-auth';
 import { APIModule } from './api';
 import { PageTitleModule } from './page-title';
 import {
@@ -13,14 +13,14 @@ const PROVIDERS = [
   LayoutService,
   APIModule.forRoot().providers,
   PageTitleModule.forRoot().providers,
-  NuxeoAuthModule.forRoot().providers,
+  BaseAuthModule.forRoot().providers,
 ];
 
 @NgModule({
   imports: [
     APIModule,
     PageTitleModule,
-    NuxeoAuthModule,
+    BaseAuthModule,
   ],
 })
 export class CoreModule {

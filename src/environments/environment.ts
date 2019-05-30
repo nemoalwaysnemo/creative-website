@@ -2,18 +2,15 @@
 
 export const Environment = {
   title: 'Know\\edge',
-  server: 'Local',
   homePath: '/p/knowledge',
   appName: 'Creative Library Dev',
-  nuxeoUrl: 'https://knowledge.tbwa.com/nuxeo/',
+  // nuxeoUrl: 'http://localhost:8080/nuxeo/',
+  // nuxeoUrl: 'https://knowledge.tbwa.com/nuxeo/',
   // nuxeoUrl: 'http://100.122.3.142:8080/nuxeo/',
-  // nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
-  forgotPassword: 'https://register.adauth.me/nam/help',
+  nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
   backslashAppUrl: 'https://library-staging.factory.tools/nuxeo/edges',
   assetPath: '',
   production: false,
-  autoLogin: false,
-  debug: true,
 };
 
 export enum NUXEO_PATH_INFO {

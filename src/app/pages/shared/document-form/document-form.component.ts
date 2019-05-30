@@ -2,10 +2,8 @@ import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmi
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
-import { Subscription } from 'rxjs/Subscription';
-import { filterParams } from '@core/services';
 import { Observable, forkJoin } from 'rxjs';
-import { deepExtend } from '@core/nebular/auth/helpers';
+import { deepExtend } from '@core/services';
 
 @Component({
   selector: 'document-form',
@@ -29,8 +27,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   private formMode: 'create' | 'edit';
 
   private uploadFieldName: string;
-
-  private subscription: Subscription = new Subscription();
 
   private documentModel: DocumentModel;
 

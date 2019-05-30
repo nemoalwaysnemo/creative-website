@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NuxeoApiService } from './nuxeo';
-import { UserModel, DocumentModel, NuxeoAutomations } from './nuxeo/lib';
+import { UserModel, DocumentModel, NuxeoAutomations, NuxeoRequestOptions } from './nuxeo/lib';
 import { AbstractBaseSearchService } from './api.abstract-base-search.service';
-import { switchMap } from 'rxjs/operators';
-import { NbAuthService } from '@core/nebular/auth/services/auth.service';
-import { NuxeoAuthToken } from '@core/auth/nuxeo-auth-token';
+import { switchMap, tap } from 'rxjs/operators';
 import { CacheService } from '@core/services';
+import { NbAuthService, NbAuthToken } from '../base-auth/services';
 
 @Injectable()
 export class UserService extends AbstractBaseSearchService {
@@ -19,11 +18,15 @@ export class UserService extends AbstractBaseSearchService {
     super(nuxeoApi);
   }
 
-  getCurrentUser(): Observable<UserModel> {
+  getCurrentUser(): Observable<any> {
     return this.authService.getToken()
       .pipe(
-        switchMap((token: NuxeoAuthToken) => {
-          return this.nuxeoApi.getUser(token.getValue().username);
+        switchMap((token: NbAuthToken) => {
+          return this.nuxeoApi.operation(NuxeoAutomations.GetCurrentUser, {}, null, new NuxeoRequestOptions({ schemas: ['*'] })).pipe(
+            tap(res => { }),
+          );
+          // return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetCurrentUser));
+          return this.nuxeoApi.getUser(token.getValue());
         }),
       );
   }
