@@ -263,6 +263,7 @@ export class NuxeoUploadResponse {
   readonly fileName: string;
   readonly fileSize: string;
   readonly mimeType: string;
+  title: string = null;
 
   constructor(response: any = {}) {
     Object.assign(this, response);

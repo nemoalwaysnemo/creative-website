@@ -87,8 +87,8 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
         id: 'uploadFiles',
         label: 'Attachment',
         formMode: 'create',
-        multiUpload: false,
-        queueLimit: 1,
+        multiUpload: true,
+        queueLimit: 5,
         placeholder: 'Drop file here!',
       }),
     ];

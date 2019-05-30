@@ -36,6 +36,7 @@
         <button nbButton class="btn btn-success btn-xs" status="success" [disabled]="uploading || uploaded || !files.length" (click)="uploadFiles(files)">Upload</button>
         <button nbButton class="btn btn-danger btn-xs" status="danger" [disabled]="uploading || uploaded || !files.length" (click)="removeAll()">Remove</button>
       </div>
+    <dynamic-ng-form [group]="formGroup" [model]="formModel" [layout]="formLayout" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)"></dynamic-ng-form>
     </ng-container>
   </ng-container>
 </div>

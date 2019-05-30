@@ -5,6 +5,7 @@ import { NgfModule } from '@core/custom';
 import { APIModule } from '@core/api';
 import { BatchFileUploadComponent } from './batch-file-upload.component';
 import { ThemeModule } from '@theme/theme.module';
+import { DynamicFormsBaseNGUIModule } from '@pages/shared/dynamic-ng-form/dynamic-ng-form-base-ui.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { ThemeModule } from '@theme/theme.module';
     FormsModule,
     ThemeModule,
     CommonModule,
+    DynamicFormsBaseNGUIModule,
   ],
   declarations: [BatchFileUploadComponent],
   exports: [

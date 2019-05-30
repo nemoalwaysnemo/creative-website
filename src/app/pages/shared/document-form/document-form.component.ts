@@ -24,6 +24,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
+  dynamicModels: DynamicFormControlModel[] = [];
+
   private formMode: 'create' | 'edit';
 
   private uploadFieldName: string;
@@ -33,6 +35,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   private documentModel: DocumentModel;
 
   @Input() placeholder: string;
+
+  @Input() dynamicModelIndex: number[] = [];
 
   @Input()
   set document(doc: DocumentModel) {
@@ -169,7 +173,13 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
-    return files.map((res: NuxeoUploadResponse) => new DocumentModel(doc).attachBatchBlob(res.batchBlob));
+    return files.map((res: NuxeoUploadResponse) => {
+      const model = new DocumentModel(deepExtend({}, doc)).attachBatchBlob(res.batchBlob);
+      if (!!res.title) {
+        model.properties['dc:title'] = res.title;
+      }
+      return model;
+    });
   }
 
   private performUploading(list: NuxeoUploadResponse[]): void {
@@ -180,8 +190,15 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     } else if (list.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
       this.uploadState = 'uploading';
     } else if (list.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
+      this.hideControls();
       this.uploadState = 'uploaded';
     }
   }
 
+  hideControls(): void {
+    console.log(this.dynamicModelIndex);
+    this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
+      this.formService.removeFormGroupControl(modelIndex - index, this.formGroup, this.formModel);
+    });
+  }
 }

@@ -15,6 +15,8 @@ export abstract class AbstractDisruptionForm implements OnInit {
 
   settings: any[] = [];
 
+  dynamicModelIndex: number[] = [0];
+
   protected abstract parentType: string;
 
   @Input() mode: 'create' | 'edit' = 'create';
