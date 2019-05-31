@@ -37,13 +37,13 @@ export const NUXEO_AUTH_SERVICES = [
         },
         authorize: {
           endpoint: 'authorize',
-          redirectUri: window.location.origin + '/#/auth/login',
+          redirectUri: Environment.oauth2CallBackPath + '#/auth/login',
           responseType: NbOAuth2ResponseType.CODE,
         },
         token: {
           endpoint: 'token',
           requireValidToken: false,
-          redirectUri: window.location.origin + '/#/auth/login',
+          redirectUri: Environment.oauth2CallBackPath + '#/auth/login',
           grantType: NbOAuth2GrantType.AUTHORIZATION_CODE,
           class: NbAuthOAuth2Token,
         },

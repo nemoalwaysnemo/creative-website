@@ -6,6 +6,7 @@ export const Environment = {
   nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
   backslashAppUrl: '/backslash',
   assetPath: 'LibraryWebUI/',
+  oauth2CallBackPath: '/nuxeo/site/LibraryWebUI/',
   production: true,
 };
 
