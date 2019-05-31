@@ -30,7 +30,7 @@ export function nbOptionsFactory(options) {
   return deepExtend({ strategies: [] }, options);
 }
 
-export function nbNoOpInterceptorFilter(req: HttpRequest<any>): boolean {
+export function noOpInterceptorFilter(request: HttpRequest<any>): boolean {
   return true;
 }
 
@@ -45,7 +45,7 @@ export class NbAuthModule {
         { provide: NB_AUTH_STRATEGIES, useFactory: nbStrategiesFactory, deps: [NB_AUTH_OPTIONS, Injector] },
         { provide: NB_AUTH_TOKENS, useFactory: nbTokensFactory, deps: [NB_AUTH_STRATEGIES] },
         { provide: NB_AUTH_FALLBACK_TOKEN, useValue: NbAuthSimpleToken },
-        { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: nbNoOpInterceptorFilter },
+        { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: noOpInterceptorFilter },
         { provide: NbTokenStorage, useClass: NbTokenLocalStorage },
         NbAuthTokenParceler,
         NbAuthService,
