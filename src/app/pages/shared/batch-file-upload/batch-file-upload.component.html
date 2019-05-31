@@ -30,7 +30,7 @@
             <tr *ngFor="let item of onUploaded | async; let i=index">
               <td nowrap><strong>{{ item.fileName }}</strong></td>
               <td>
-                <dynamic-ng-form [group]="formGroup" [model]="formModel" [layout]="formLayout" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)"></dynamic-ng-form>
+                <dynamic-ng-form [group]="formGroups[i]" [model]="formModels[i]" [layout]="formLayout" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)"></dynamic-ng-form>
               </td>
               <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
               <td nowrap><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)" [disabled]="uploading || uploaded">Delete</button></td>

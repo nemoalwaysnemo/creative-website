@@ -20,6 +20,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   submitted: boolean = false;
 
+  childrenValid: boolean = true;
+
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
   dynamicModels: DynamicFormControlModel[] = [];
@@ -86,6 +88,9 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onCustomEvent(event: any): void {
+    if (event.type === 'VALID' ) {
+      this.childrenValid = event.$event;
+    }
     if (event.type === 'BATCH_UPLOAD') {
       this.performUploading(event.$event);
     }
@@ -192,8 +197,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   hideControls(): void {
-    console.log(this.dynamicModelIndex);
     this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
+      this.childrenValid = false;
       this.formService.removeFormGroupControl(modelIndex - index, this.formGroup, this.formModel);
     });
   }

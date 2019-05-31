@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { Subject, Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, filter } from 'rxjs/operators';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
 import { DynamicFormControlModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSuggestionModel } from '@core/custom';
 
@@ -40,11 +40,11 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private blobs$: Subject<NuxeoBlob> = new Subject<NuxeoBlob>();
 
-  formModel: DynamicFormControlModel[] = [];
+  formModels: DynamicFormControlModel[][] = [];
 
   formLayout: DynamicFormLayout;
 
-  formGroup: FormGroup;
+  formGroups: FormGroup[] = [];
 
   @Input() placeholder: string = 'Drop files here';
 
@@ -58,14 +58,32 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   @Output() onUploaded: EventEmitter<NuxeoUploadResponse[]> = new EventEmitter<NuxeoUploadResponse[]>();
 
+  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService) {
     this.batchUpload = this.nuxeoApi.batchUpload();
   }
 
+  fileNumber: number = 0;
+
   ngOnInit(): void {
     this.onUpload();
-    this.formModel = this.formService.fromJSON([]);
-    this.formGroup = this.formService.createFormGroup(this.formModel);
+    this.onUploaded.pipe(
+      filter(files => {
+        return files.length !== this.fileNumber;
+      }),
+    ).subscribe(files => {
+      this.fileNumber = files.length;
+      const formModels = [];
+      const formGroups = [];
+      files.forEach(_ => {
+        const formModel = this.formService.fromJSON([]);
+        formModels.push(formModel);
+        formGroups.push(this.formService.createFormGroup(formModel));
+      });
+      this.formModels = formModels;
+      this.formGroups = formGroups;
+    });
   }
 
   ngOnDestroy() {
@@ -92,6 +110,11 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onChange(event: any): void {
+    let valid: boolean = true;
+    this.formGroups.forEach((group: FormGroup) => {
+      valid = valid && group.valid;
+    });
+    this.valid.emit(valid);
     this.fileList.find(res => res.fileIdx.toString() === event.model.id.split('_')[0]).title = event.model.value;
   }
 
@@ -107,7 +130,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
       if (res.uploaded) {
         const formModels = this.formService.fromJSON(this.fileInput(res));
         formModels.forEach(formModel => {
-          this.formService.addFormGroupControl(this.formGroup, this.formModel, formModel);
+          this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
         });
       }
 
@@ -169,9 +192,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     return [
       new DynamicInputModel({
         id: `${res.fileIdx}_title`,
-        label: 'Asset Title',
         maxLength: 50,
-        placeholder: 'Title',
+        placeholder: `Asset title`,
         autoComplete: 'off',
         required: false,
         validators: {
