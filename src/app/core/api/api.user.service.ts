@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { NuxeoApiService } from './nuxeo';
+import { CacheService } from '@core/services';
+import { Observable } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 import { UserModel, DocumentModel, NuxeoAutomations } from './nuxeo/lib';
 import { AbstractBaseSearchService } from './api.abstract-base-search.service';
-import { switchMap, map } from 'rxjs/operators';
-import { CacheService } from '@core/services';
 import { NbAuthService, NbAuthToken } from '../base-auth/services';
 
 @Injectable()

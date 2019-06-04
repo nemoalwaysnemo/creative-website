@@ -5,7 +5,7 @@ import { NB_AUTH_TOKENS } from '../../base-auth.options';
 
 export interface NbTokenPack {
   name: string,
-  ownerStrategyName: string,
+  strategyName: string,
   createdAt: Number,
   value: string,
 }
@@ -25,7 +25,7 @@ export class NbAuthTokenParceler {
   wrap(token: NbAuthToken): string {
     return JSON.stringify({
       name: token.getName(),
-      ownerStrategyName: token.getOwnerStrategyName(),
+      strategyName: token.getOwnerStrategyName(),
       createdAt: token.getCreatedAt().getTime(),
       value: token.toString(),
     });
@@ -41,7 +41,7 @@ export class NbAuthTokenParceler {
     if (tokenPack) {
       tokenClass = this.getClassByName(tokenPack.name) || this.fallbackClass;
       tokenValue = tokenPack.value;
-      tokenOwnerStrategyName = tokenPack.ownerStrategyName;
+      tokenOwnerStrategyName = tokenPack.strategyName;
       tokenCreatedAt = new Date(Number(tokenPack.createdAt));
     }
 

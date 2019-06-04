@@ -29,7 +29,7 @@ export class BaseAuthInterceptor implements HttpInterceptor {
               // Request is sent to server without authentication so that the client code
               // receives the 401/403 error and can act as desired ('session expired', redirect to login, aso)
               return next.handle(request).pipe(
-                catchError((error, caught) => {
+                catchError((error: any, caught) => {
                   // intercept the respons error and displace it to the console
                   console.log(error);
                   this.handleAuthError(error);
@@ -43,13 +43,16 @@ export class BaseAuthInterceptor implements HttpInterceptor {
     }
   }
 
-  private handleAuthError(error: HttpErrorResponse): Observable<any> {
+  private handleAuthError(error: HttpErrorResponse): void {
     // handle your auth error or rethrow
     if (error.status === 401) {
       // navigate /delete cookies or whatever
       this.router.navigate(['/auth/login']);
       // if you've caught / handled the error, you don't want to rethrow it unless you also want downstream consumers to have to handle it as well.
-      return observableOf(error.message);
+    } else {
+      this.authService.logout('oauth2').subscribe(_ => {
+        this.router.navigate(['/auth/login']);
+      });
     }
     throw error;
   }
