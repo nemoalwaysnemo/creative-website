@@ -5,6 +5,9 @@
 
     <button nbButton outline class="btn btn-success btn-xs" status="primary"
     			[disabled]="uploadState ==='preparing' || uploadState === 'uploading' || submitted || !formGroup.valid || !childrenValid"
-    			(click)="onSave($event)">Save</button>
+          (click)="onSave($event)">Save</button>
+    <button nbButton outline class="btn btn-success btn-xs" status="primary"
+    [disabled]="uploadState ==='preparing' || uploadState === 'uploading' || submitted || !formGroup.valid || !childrenValid"
+    (click)="onDelete($event)">Delete</button>
   </ng-container>
 </div>

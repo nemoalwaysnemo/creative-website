@@ -27,6 +27,11 @@ export class DisruptionRoadmapEditDialogComponent extends FormDailogBody {
     this.dialogService.delayed(this.updatedSuccess, doc);
   }
 
+  onDeleted(doc: any): void {
+    // this.callBack.next({type: 'success', value: doc});
+    this.dialogService.closeWithAlert('success' , `${doc.title} deleted success`, 3000);
+  }
+
   back(): void {
     this.callBack.next({type: 'back', value: false});
   }

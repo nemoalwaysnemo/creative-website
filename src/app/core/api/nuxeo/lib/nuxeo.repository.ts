@@ -35,6 +35,13 @@ export class Repository extends Base {
     return this._nuxeo.request(path).put(options);
   }
 
+  delete(ref: string, opts: any = {}): Observable<DocumentModel>  {
+    const options = this._computeOptions(opts);
+    const path = this._computePath(ref);
+    options.repository = this;
+    return this._nuxeo.request(path).delete(options);
+  }
+
   fetch(ref: string, opts: any = {}): Observable<DocumentModel> {
     const options = this._computeOptions(opts);
     const path = this._computePath(ref);

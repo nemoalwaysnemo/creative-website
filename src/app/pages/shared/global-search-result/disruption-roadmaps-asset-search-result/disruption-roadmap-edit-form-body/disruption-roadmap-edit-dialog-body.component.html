@@ -9,7 +9,7 @@
   <ng-content></ng-content>
   <ng-container *ngIf="document">
     <div class="form">
-      <disruption-form-roadmap [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)"></disruption-form-roadmap>
+      <disruption-form-roadmap [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)" (onDeleted)="onDeleted($event)"></disruption-form-roadmap>
     </div>
   </ng-container>
 </div>

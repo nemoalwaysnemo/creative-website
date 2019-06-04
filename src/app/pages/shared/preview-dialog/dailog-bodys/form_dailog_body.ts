@@ -6,6 +6,7 @@ export abstract class FormDailogBody extends BaseDialogBody {
 
   @Output() createdSuccess: EventEmitter<any> = new EventEmitter();
   @Output() updatedSuccess: EventEmitter<any> = new EventEmitter();
+  @Output() deletedSuccess: EventEmitter<any> = new EventEmitter();
 
   abstract mode: 'create' | 'edit';
 

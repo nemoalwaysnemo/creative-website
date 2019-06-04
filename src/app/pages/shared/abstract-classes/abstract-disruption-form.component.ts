@@ -33,6 +33,7 @@ export abstract class AbstractDisruptionForm implements OnInit {
   @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
   @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
+  @Output() onDeleted: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
   constructor() { }
 
   ngOnInit() {
@@ -46,6 +47,10 @@ export abstract class AbstractDisruptionForm implements OnInit {
 
   public updated(doc: DocumentModel): void {
     this.onUpdated.next(doc);
+  }
+
+  public deleted(doc: DocumentModel): void {
+    this.onDeleted.next(doc);
   }
 
   protected performForm(): void {

@@ -42,6 +42,11 @@ export class DocumentModel extends Base {
     }, options);
   }
 
+  delete(opts: any = {}): Observable<DocumentModel> {
+    const options = this._computeOptions(opts);
+    return this._repository.delete(this.path);
+  }
+
   attachBatchBlob(batchBlob: BatchBlob): this {
     this.properties['file:content'] = batchBlob;
     return this;

@@ -11,6 +11,9 @@ export const Unmarshallers = {
   },
 
   unmarshall: (json: any = {}, options: any = {}): any => {
+    if (!json) {
+      return '';
+    }
     const entityType = json['entity-type'];
     const unmarshaller = unmarshallers[entityType];
     return (unmarshaller && unmarshaller(json, options)) || json;
