@@ -52,7 +52,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   @Input() acceptTypes: string = '*';
 
-  @Input() queueLimit: number = 5;
+  @Input() queueLimit: number = 25;
 
   @Input() multiUpload: boolean = true;
 

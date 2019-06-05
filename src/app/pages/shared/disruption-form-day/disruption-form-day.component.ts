@@ -92,7 +92,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         label: 'Attachment',
         formMode: 'create',
         multiUpload: true,
-        queueLimit: 5,
+        queueLimit: 25,
         placeholder: 'Drop Logo/Image here!',
         acceptTypes: 'pdf,bmp,jpg,jpeg,png,tif,gif',
       }),

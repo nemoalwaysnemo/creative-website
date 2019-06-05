@@ -88,7 +88,7 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         label: 'Attachment',
         formMode: 'create',
         multiUpload: true,
-        queueLimit: 5,
+        queueLimit: 25,
         placeholder: 'Drop file here!',
       }),
     ];
