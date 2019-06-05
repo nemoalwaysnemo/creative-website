@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormDailogBody } from '@pages/shared/preview-dialog/dailog-bodys/form_dailog_body';
 import { PreviewDialogService } from '../../../preview-dialog';
+import { DocumentViewService } from '@pages/shared/services/document-view.service';
 
 @Component({
   selector: 'disruption-roadmap-edit-dialog-body',
@@ -11,7 +12,7 @@ export class DisruptionRoadmapEditDialogComponent extends FormDailogBody {
 
   title: string;
 
-  constructor(protected dialogService: PreviewDialogService) {
+  constructor(protected dialogService: PreviewDialogService, private documentViewService: DocumentViewService) {
     super(dialogService);
   }
 
@@ -28,8 +29,10 @@ export class DisruptionRoadmapEditDialogComponent extends FormDailogBody {
   }
 
   onDeleted(doc: any): void {
+
     // this.callBack.next({type: 'success', value: doc});
-    this.dialogService.closeWithAlert('success' , `${doc.title} deleted success`, 3000);
+    this.dialogService.closeWithAlert('success' , `${doc.title} deleted success`, 2000);
+    this.documentViewService.hideDeletedDoc(doc.uid);
   }
 
   back(): void {

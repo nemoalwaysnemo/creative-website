@@ -1,6 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef, OnInit } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
-
+import { DocumentViewService } from '@pages/shared/services/document-view.service';
 @Component({
   selector: 'document-thumbnail-view',
   styleUrls: ['./document-thumbnail-view.component.scss'],
@@ -22,10 +22,10 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
     </div>
   </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocumentThumbnailViewComponent {
+export class DocumentThumbnailViewComponent implements OnInit {
 
+  constructor(private documentViewService: DocumentViewService) { }
   documentList: DocumentModel[] = [];
 
   emptyList: any[] = [];
@@ -42,6 +42,13 @@ export class DocumentThumbnailViewComponent {
   set documents(docs: DocumentModel[]) {
     this.documentList = docs;
     this.emptyList = this.fillForQuarter(docs);
+  }
+
+  ngOnInit() {
+    this.documentViewService.onDeletedDoc()
+      .subscribe((res) => {
+        this.documentList = this.documentList.filter(function (el) { return el.uid !== res.uid; });
+      });
   }
 
   private fillForQuarter(docs: DocumentModel[]): any[] {
