@@ -16,7 +16,7 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
     quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
   };
