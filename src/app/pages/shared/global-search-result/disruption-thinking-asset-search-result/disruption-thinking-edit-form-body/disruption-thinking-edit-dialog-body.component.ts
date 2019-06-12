@@ -28,7 +28,7 @@ export class DisruptionThinkingEditDialogComponent extends FormDailogBody {
   }
 
   back(): void {
-    this.callBack.next({ type: 'back', value: false });
+    this.callBack.next({ type: 'back', value: 'preview' });
   }
 
 }

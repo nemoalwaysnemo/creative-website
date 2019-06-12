@@ -80,7 +80,6 @@ export class DocumentModel extends Base {
       }));
   }
 
-  // Checks if the user has a given permission.It only works for now for 'Write', 'Read' and 'Everything' permission.
   hasPermission(name: string, opts: any = {}): Observable<boolean> {
     if (this.contextParameters && this.contextParameters.permissions) {
       return observableOf(this.contextParameters.permissions.indexOf(name) !== -1);

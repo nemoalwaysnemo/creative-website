@@ -16,7 +16,6 @@ const COMPONENTS = [
   BackslashAssetPreviewDialogBodyComponent,
   DisruptionAssetPreviewDialogBodyComponent,
   DeleteDialogBodyComponent,
-  DeleteDialogBodyComponent,
 ];
 
 @NgModule({

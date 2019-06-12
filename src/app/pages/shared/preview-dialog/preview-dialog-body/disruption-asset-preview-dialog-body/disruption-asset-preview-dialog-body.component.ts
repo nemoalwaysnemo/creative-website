@@ -15,6 +15,8 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
 
   writePermission$: Observable<boolean>;
 
+  deletePermission$: Observable<boolean>;
+
   @Input() moreInfo: boolean = false;
 
   @Input() editButton: boolean = false;
@@ -30,6 +32,7 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
     } else {
       this.writePermission$ = observableOf(false);
     }
+    this.deletePermission$ = this.document.hasPermission(NuxeoPermission.delete);
   }
 
   openEditDialog(): void {
