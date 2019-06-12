@@ -58,7 +58,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
   @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-  @Output() onDeleted: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
 
@@ -89,7 +88,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onCustomEvent(event: any): void {
-    if (event.type === 'VALID') {
+    if (event.type === 'VALID' ) {
       this.childrenValid = event.$event;
     }
     if (event.type === 'BATCH_UPLOAD') {
@@ -103,10 +102,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     } else if (this.formMode === 'edit') {
       this.update();
     }
-  }
-
-  onDelete($event: any): void {
-    this.delete();
   }
 
   private filterPropertie(formValue: any = {}) {
@@ -166,13 +161,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  private delete(): void {
-    const properties = this.filterPropertie(this.formGroup.value);
-    this.deleteDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
-      this.onDeleted.next(this.documentModel);
-    });
-  }
-
   private createDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
     return forkJoin(documents.map(x => this.createDocument(x)));
   }
@@ -185,9 +173,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     return model.set(properties).save();
   }
 
-  private deleteDocument(model: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    return model.set(properties).delete();
-  }
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
     return files.map((res: NuxeoUploadResponse) => {
       const model = new DocumentModel(deepExtend({}, doc)).attachBatchBlob(res.batchBlob);

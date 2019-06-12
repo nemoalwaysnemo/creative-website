@@ -32,7 +32,11 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
     }
   }
 
-  closeInfo(): void {
+  openEditDialog(): void {
     this.callBack.next({ type: 'openEdit', value: true });
+  }
+
+  openDeleteDialog(): void {
+    this.callBack.next({ type: 'openDelete', value: true });
   }
 }

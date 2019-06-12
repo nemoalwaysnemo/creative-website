@@ -13,13 +13,13 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
   constructor(
     private dialogService: PreviewDialogService,
     private queryParamsService: SearchQueryParamsService,
-  ) {}
+  ) { }
 
-  showEdit: boolean = false;
+  showEdit: string = 'preview';
 
   ngOnInit() {
     this.dialogService.onClose().subscribe(_ => {
-      this.showEdit = false;
+      this.showEdit = 'preview';
     });
   }
 
@@ -27,12 +27,16 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
     this.dialogService.open(dialog, doc, { title: 'Disruption Roadmaps' });
   }
 
-  openEdit(callback: any): void {
-    this.showEdit = true;
+  openEdit(event: any): void {
+    if (event.type === 'openEdit') {
+      this.showEdit = 'edit';
+    } else if (event.type === 'openDelete') {
+      this.showEdit = 'delete';
+    }
   }
 
   onUpdate(doc: any): void {
-    this.showEdit = false;
+    this.showEdit = 'edit';
   }
 
   callback(message: { type, value }): void {

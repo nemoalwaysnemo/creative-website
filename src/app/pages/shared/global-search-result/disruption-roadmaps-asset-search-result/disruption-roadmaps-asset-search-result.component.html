@@ -10,14 +10,20 @@
   </div>
   <ng-template #dialog>
     <preview-dialog>
-      <ng-container *ngIf="!showEdit">
+      <ng-container *ngIf="showEdit == 'preview'">
         <disruption-asset-preview-dialog-body [editButton]='true' (callBack)="openEdit($event)"></disruption-asset-preview-dialog-body>
       </ng-container>
 
-      <ng-container *ngIf="showEdit">
+      <ng-container *ngIf="showEdit == 'edit'">
         <disruption-roadmap-edit-dialog-body (updatedSuccess)="onUpdate($event)" (callBack)="callback($event)">
           <preview-dialog-alert></preview-dialog-alert>
         </disruption-roadmap-edit-dialog-body>
+      </ng-container>
+
+      <ng-container *ngIf="showEdit == 'delete'">
+        <delete-dialog-body [document]="doc" (callBack)="callback($event)">
+            <preview-dialog-alert></preview-dialog-alert>
+        </delete-dialog-body>
       </ng-container>
     </preview-dialog>
   </ng-template>
