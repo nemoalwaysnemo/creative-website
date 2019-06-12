@@ -9,12 +9,14 @@ import { DisruptionFormDayModule } from '../disruption-form-day/disruption-form-
 import { DisruptionAssetPreviewDialogBodyComponent } from './preview-dialog-body/disruption-asset-preview-dialog-body/disruption-asset-preview-dialog-body.component';
 import { BackslashAssetPreviewDialogBodyComponent } from './preview-dialog-body/backslash-asset-preview-dialog-body/backslash-asset-preview-dialog-body.component';
 import { PreviewDialogAlertComponent } from './preview-dialog-alert/preview-dialog-alert.component';
-
+import { DeleteDialogBodyComponent } from './delete-dialog-body/delete-dialog-body.component';
 const COMPONENTS = [
   PreviewDialogComponent,
   PreviewDialogAlertComponent,
   BackslashAssetPreviewDialogBodyComponent,
   DisruptionAssetPreviewDialogBodyComponent,
+  DeleteDialogBodyComponent,
+  DeleteDialogBodyComponent,
 ];
 
 @NgModule({
