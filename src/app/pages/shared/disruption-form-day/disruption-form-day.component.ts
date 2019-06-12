@@ -41,8 +41,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Published',
-        placeholder: 'Published',
+        label: 'Workshop Date',
+        placeholder: 'Workshop Date',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
@@ -91,10 +91,10 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         id: 'uploadFiles',
         label: 'Attachment',
         formMode: 'create',
-        multiUpload: true,
-        queueLimit: 25,
+        multiUpload: false,
+        queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'pdf,bmp,jpg,jpeg,png,tif,gif',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
       }),
     ];
   }
