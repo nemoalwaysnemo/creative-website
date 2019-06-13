@@ -22,4 +22,4 @@ const Declarations = [
   ],
   declarations: Declarations,
   exports: Declarations,
-}) export class NgfModule {}
+}) export class NgFileModule {}

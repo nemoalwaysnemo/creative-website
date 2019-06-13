@@ -39,7 +39,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
     }
   }
 
-  protected getDefaultDocumentParams(): any {
+  protected getCurrentDocumentParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,

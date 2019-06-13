@@ -1,36 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+import { Component, OnInit } from '@angular/core';
+import { Observable, of as observableOf, Subject, timer } from 'rxjs';
+import { AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'disruption-theory-page',
   styleUrls: ['./disruption-theory.component.scss'],
   templateUrl: './disruption-theory.component.html',
 })
-export class DisruptionTheoryComponent implements OnInit, OnDestroy {
+export class DisruptionTheoryComponent extends AbstractDocumentViewComponent implements OnInit {
 
-  defaultParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-    quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
-  };
-
-  folderParams: any = {
-    pageSize: 1,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
-  };
+  baseParams$: Subject<any> = new Subject<any>();
 
   tabs = TAB_CONFIG;
-
-  parentDocument: DocumentModel;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
@@ -39,38 +24,47 @@ export class DisruptionTheoryComponent implements OnInit, OnDestroy {
     'app_edges_industry_agg': { placeholder: 'Industry' },
   };
 
-  private subscription: Subscription = new Subscription();
-
   constructor(
-    private advanceSearch: AdvanceSearch,
-    private previewDialogService: PreviewDialogService,
-    private queryParamsService: SearchQueryParamsService,
-  ) { }
+    protected advanceSearch: AdvanceSearch,
+    protected activatedRoute: ActivatedRoute,
+    protected queryParamsService: SearchQueryParamsService) {
+    super(advanceSearch, activatedRoute, queryParamsService);
+  }
 
   ngOnInit() {
-    this.searchFolders(this.folderParams);
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.searchCurrentDocument();
   }
 
-  private searchFolders(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.parentDocument = res.entries.shift();
-        if (this.parentDocument) {
-          this.addChildrenPermission$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
-        }
-      });
-    this.subscription.add(subscription);
+  protected setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
+    if (doc) {
+      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+    }
   }
 
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.parentDocument);
+  protected getCurrentDocumentParams(): object {
+    return {
+      pageSize: 1,
+      currentPageIndex: 0,
+      ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+    };
   }
 
-  onCreated(doc: DocumentModel): void {
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+  protected buildAssetsParams(doc?: DocumentModel): any {
+    const params = {
+      pageSize: 20,
+      currentPageIndex: 0,
+      ecm_fulltext: '',
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
+    };
+    if (doc) {
+      params['ecm_parentId'] = doc.uid;
+    }
+    return params;
   }
 
 }

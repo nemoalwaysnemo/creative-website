@@ -1,15 +1,3 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-<global-search-form [filters]="filters" [defaultParams]="defaultParams">
-  <ng-container *ngIf="addChildrenPermission$ | async">
-    <button type="button" (click)="openForm(dialog)" class="icon_btn new_theory" [ngClass]="{'btn-disabled': !parentDocument }" [disabled]="!parentDocument" title="New How To">New How To</button>
-  </ng-container>
-</global-search-form>
+<global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></global-search-form>
 <disruption-theory-asset-search-result></disruption-theory-asset-search-result>
-
-<ng-template #dialog>
-  <preview-dialog>
-    <disruption-form-theory-body (createdSuccess)="onCreated($event)">
-      <preview-dialog-alert></preview-dialog-alert>
-    </disruption-form-theory-body>
-  </preview-dialog>
-</ng-template>

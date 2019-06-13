@@ -4,14 +4,12 @@ import { AbstractPageProvider } from './api.abstract-page-provider.service';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 import { of as observableOf, Observable } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
-import { DocumentModel } from './nuxeo/lib';
 
 @Injectable()
 export class AdvanceSearch extends AbstractPageProvider {
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
-    this.defaultParams.ecm_path = NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH;
   }
 
   requestSearchFilters(queryParams: NuxeoPageProviderParams = {}): Observable<AggregateModel[]> {

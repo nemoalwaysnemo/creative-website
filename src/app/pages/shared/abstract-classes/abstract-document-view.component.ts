@@ -47,13 +47,13 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
     this.redirectTo404();
   }
 
-  protected abstract getDefaultDocumentParams(): object;
+  protected abstract getCurrentDocumentParams(): object;
 
   protected getDocumentModel(uid: string, params: any = {}): Observable<NuxeoPagination> {
     return this.advanceSearch.request(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }));
   }
 
-  protected getDefaultDocument(primaryKey: string, params: any = {}): Observable<DocumentModel> {
+  protected getCurrentDocument(primaryKey: string, params: any = {}): Observable<DocumentModel> {
     return this.activatedRoute.paramMap
       .pipe(
         tap(paramMap => {
@@ -68,13 +68,28 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
       );
   }
 
+  protected searchCurrentDocument(params: any = {}): void {
+    const subscription = this.advanceSearch.request(Object.assign({}, this.getCurrentDocumentParams(), params))
+      .pipe(
+        map((res: NuxeoPagination) => res.entries.shift()),
+      ).subscribe((doc: DocumentModel) => {
+        this.loading = false;
+        this.setCurrentDocument(doc);
+      });
+    this.subscription.add(subscription);
+  }
+
   protected onParamsChanged(): void {
-    const subscription = this.getDefaultDocument(this.primaryKey, this.getDefaultDocumentParams())
+    const subscription = this.getCurrentDocument(this.primaryKey, this.getCurrentDocumentParams())
       .subscribe((doc: DocumentModel) => {
         this.loading = false;
         this.setCurrentDocument(doc);
       });
     this.subscription.add(subscription);
+  }
+
+  protected refresh(): void {
+    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
   }
 
   protected redirectTo404(): void {

@@ -34,7 +34,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
     setTimeout(() => { this.baseParams$.next(this.buildAssetsParams(doc)); }, 0);
   }
 
-  protected getDefaultDocumentParams(): object {
+  protected getCurrentDocumentParams(): object {
     return {
       pageSize: 1,
       currentPageIndex: 0,

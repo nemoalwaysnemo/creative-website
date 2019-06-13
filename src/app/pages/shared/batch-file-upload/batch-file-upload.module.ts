@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgfModule } from '@core/custom';
+import { NgFileModule } from '@core/custom';
 import { APIModule } from '@core/api';
 import { BatchFileUploadComponent } from './batch-file-upload.component';
 import { ThemeModule } from '@theme/theme.module';
@@ -10,7 +10,7 @@ import { DynamicFormsBaseNGUIModule } from '@pages/shared/dynamic-ng-form/dynami
 @NgModule({
   imports: [
     APIModule,
-    NgfModule,
+    NgFileModule,
     FormsModule,
     ThemeModule,
     CommonModule,

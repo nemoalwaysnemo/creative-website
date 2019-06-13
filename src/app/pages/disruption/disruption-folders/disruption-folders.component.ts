@@ -38,7 +38,7 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
     setTimeout(() => { this.baseParams$.next(this.buildAssetsParams(doc)); }, 0);
   }
 
-  protected getDefaultDocumentParams(): any {
+  protected getCurrentDocumentParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,

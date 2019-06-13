@@ -37,7 +37,7 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
     this.baseParams$.next(this.buildAssetsParams(doc));
   }
 
-  protected getDefaultDocumentParams(): any {
+  protected getCurrentDocumentParams(): any {
     return {
       pageSize: 1,
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
