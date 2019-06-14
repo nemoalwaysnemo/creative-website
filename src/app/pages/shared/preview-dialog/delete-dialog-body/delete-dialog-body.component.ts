@@ -2,10 +2,9 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { PreviewDialogService } from '../preview-dialog.service';
 import { BaseDialogBody } from '../base-dialog-body';
 import { Observable, of as observableOf } from 'rxjs';
-import { NuxeoPermission } from '@core/api';
 import { DocumentModel } from '@core/api';
-import { deepExtend } from '@core/services';
 import { DocumentViewService } from '@pages/shared/services/document-view.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'delete-dialog-body',
@@ -15,53 +14,28 @@ import { DocumentViewService } from '@pages/shared/services/document-view.servic
 
 export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit {
 
-  constructor(protected dialogService: PreviewDialogService, private documentViewService: DocumentViewService) {
+  constructor(protected dialogService: PreviewDialogService, private documentViewService: DocumentViewService, private router: Router) {
     super(dialogService);
   }
-  @Input() document: DocumentModel;
 
-  title: string;
-
-  writePermission$: Observable<boolean>;
-
-  private uploadFieldName: string;
-
-
-  @Input() editButton: boolean = false;
-
+  @Input() deleteRedirect: string;
   @Output() onDeleted: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
-  protected initDocument(res: any) {
-    this.title = res.options.title;
-    if (this.editButton) {
-      this.writePermission$ = this.document.hasPermission(NuxeoPermission.Write);
-    } else {
-      this.writePermission$ = observableOf(false);
-    }
-  }
+  protected initDocument() { }
 
   onDelete($event: any): void {
     this.delete();
   }
 
-  private filterPropertie(formValue: any = {}) {
-    const properties = deepExtend({}, formValue);
-    if (this.uploadFieldName && properties[this.uploadFieldName]) {
-      delete properties[this.uploadFieldName];
-    }
-    return properties;
-  }
-
   private delete(): void {
-    const properties = this.filterPropertie('');
-    this.deleteDocument(this.document, properties).subscribe((model: DocumentModel) => {
+    this.deleteDocument(this.document).subscribe((model: DocumentModel) => {
       this.dialogService.closeWithAlert('success', `${this.document.title} deleted success`, 3000);
-      this.documentViewService.hideDeletedDoc(this.document.uid);
+      this.router.navigateByUrl(this.deleteRedirect);
     });
   }
 
-  private deleteDocument(model: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    return model.set(properties).delete();
+  private deleteDocument(model: DocumentModel): Observable<DocumentModel> {
+    return model.delete();
   }
 
   back(): void {

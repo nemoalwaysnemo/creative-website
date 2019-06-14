@@ -14,16 +14,30 @@
       <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
       <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
       <ng-container *ngIf="writePermission$ | async">
-        <button type="button" (click)="openForm(dialog)" class="icon_btn">Edit</button>
+        <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn">Edit</button>
+      </ng-container>
+      <ng-container *ngIf="deletePermission$ | async">
+        <button type="button" (click)="openDialog(dialog, 'delete')" class="icon_btn">Delete</button>
       </ng-container>
     </div>
   </div>
 </div>
-
 <ng-template #dialog>
   <preview-dialog>
-    <disruption-folder-edit-from-body (updatedSuccess)="onUpdate($event)">
-      <preview-dialog-alert></preview-dialog-alert>
-    </disruption-folder-edit-from-body>
+    
+    <ng-container [ngSwitch]="showEdit">
+      <ng-container *ngSwitchCase="'edit'">
+        <disruption-folder-edit-from-body (updatedSuccess)="onUpdate($event)">
+          <preview-dialog-alert></preview-dialog-alert>
+        </disruption-folder-edit-from-body>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'delete'">
+        <delete-dialog-body [deleteRedirect]= "deleteRedirect" (callBack)="callback($event)">
+          <preview-dialog-alert></preview-dialog-alert>
+        </delete-dialog-body>
+      </ng-container>
+    </ng-container>
+
   </preview-dialog>
 </ng-template>

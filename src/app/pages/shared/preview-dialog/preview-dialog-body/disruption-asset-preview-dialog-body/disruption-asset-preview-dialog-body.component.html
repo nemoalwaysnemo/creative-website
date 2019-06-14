@@ -15,7 +15,7 @@
         <h2 class="left">{{ document.get('The_Loupe_Main:brand')}}</h2>
         <button class="share right">Share</button>
         <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
-        <ng-container *ngIf="writePermission$ | async">
+        <ng-container *ngIf="deletePermission$ | async">
           <button class="right edit" (click)="openDeleteDialog()">Delete</button>
         </ng-container>
         <ng-container *ngIf="writePermission$ | async">

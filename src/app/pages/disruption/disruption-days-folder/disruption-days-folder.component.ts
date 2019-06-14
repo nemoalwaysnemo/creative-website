@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPermission } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoEnricher} from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
@@ -47,6 +47,21 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
       ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
       quickFilters: 'ShowInNavigation',
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+    };
+  }
+
+  protected getCurrentDocumentRequestParams(): any {
+    return {
+      enrichers: {
+        document: [
+          NuxeoEnricher.document.PREVIEW,
+          NuxeoEnricher.document.THUMBNAIL,
+          NuxeoEnricher.document.FAVORITES,
+          NuxeoEnricher.document.PERMISSIONS,
+          NuxeoEnricher.document.HAS_FOLDERISH_CHILD,
+          NuxeoEnricher.document.HAS_CONTENT,
+        ],
+      },
     };
   }
 

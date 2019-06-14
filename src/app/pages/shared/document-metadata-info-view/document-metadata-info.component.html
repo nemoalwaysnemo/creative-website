@@ -49,7 +49,10 @@
           </tbody>
         </table>
         <ng-container *ngIf="writePermission$ | async ">
-          <a href="javascript:;" (click)="openForm(dialog)" title="Edit" class="edit right icon_btn">Edit</a>
+          <a href="javascript:;" (click)="openForm(dialog, 'edit')" title="Edit" class="edit right icon_btn">Edit</a>
+        </ng-container>
+        <ng-container *ngIf="deletePermission$ | async ">
+          <a href="javascript:;" (click)="openForm(dialog, 'delete')" title="Edit" class="edit right icon_btn">Delete</a>
         </ng-container>
         <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
         <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
@@ -128,8 +131,17 @@
 
 <ng-template #dialog>
   <preview-dialog>
-    <metadata-edit-form-dialog-body (updatedSuccess)="onUpdated($event)">
-      <preview-dialog-alert></preview-dialog-alert>
-    </metadata-edit-form-dialog-body>
+    <ng-container [ngSwitch]="dialogType">
+      <ng-container *ngSwitchCase="'edit'">
+        <metadata-edit-form-dialog-body (updatedSuccess)="onUpdated($event)">
+          <preview-dialog-alert></preview-dialog-alert>
+        </metadata-edit-form-dialog-body>
+      </ng-container>
+      <ng-container *ngSwitchCase="'delete'">
+        <delete-dialog-body [deleteRedirect]= "deleteRedirect" (callBack)="callback($event)">
+          <preview-dialog-alert></preview-dialog-alert>
+        </delete-dialog-body>
+      </ng-container>
+    </ng-container>
   </preview-dialog>
 </ng-template>

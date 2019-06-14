@@ -2,6 +2,7 @@ import { Component, TemplateRef, OnInit } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { PreviewDialogService } from '@pages/shared/preview-dialog';
 import { SearchQueryParamsService } from '@pages/shared/services/search-query-params.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'disruption-roadmaps-asset-search-result',
@@ -13,7 +14,10 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
   constructor(
     private dialogService: PreviewDialogService,
     private queryParamsService: SearchQueryParamsService,
+    private router: Router,
   ) { }
+
+  deleteRedirect: string;
 
   showEdit: string = 'preview';
 
@@ -21,6 +25,7 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
     this.dialogService.onClose().subscribe(_ => {
       this.showEdit = 'preview';
     });
+    this.deleteRedirect = this.router.url;
   }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {

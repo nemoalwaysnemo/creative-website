@@ -30,8 +30,13 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   writePermission$: Observable<boolean> = observableOf(true);
 
+  deletePermission$: Observable<boolean>;
+
   documentModel: DocumentModel;
 
+  dialogType: string = 'edit';
+
+  @Input() deleteRedirect: string = '/p/disruption/Disruption Days';
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
@@ -43,8 +48,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
       if (this.isDisruptionAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
+        this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       } else {
         this.writePermission$ = observableOf(false);
+        this.deletePermission$ = observableOf(false);
       }
     }
   }
@@ -112,7 +119,8 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return { ecm_uuid: `["${jobTitle.join('", "')}"]` };
   }
 
-  openForm(dialog: any): void {
+  openForm(dialog: any, type: string): void {
+    this.dialogType = type;
     this.previewDialogService.open(dialog, this.documentModel);
   }
 

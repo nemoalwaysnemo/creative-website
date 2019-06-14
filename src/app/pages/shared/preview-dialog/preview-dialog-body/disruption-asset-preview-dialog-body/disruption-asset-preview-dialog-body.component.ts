@@ -32,7 +32,7 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
     } else {
       this.writePermission$ = observableOf(false);
     }
-    this.deletePermission$ = this.document.hasPermission(NuxeoPermission.delete);
+    this.deletePermission$ = this.document.hasPermission(NuxeoPermission.Delete);
   }
 
   openEditDialog(): void {

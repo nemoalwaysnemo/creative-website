@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { DocumentModel } from '@core/api';
 import { NuxeoPermission } from '@core/api';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,21 +14,26 @@ import { Router } from '@angular/router';
 export class DisruptionFolderViewComponent {
 
   @Input() loading: boolean;
+  showEdit: string = 'edit';
+  @Input() deleteRedirect: string = '/p/disruption/Disruption Days';
 
   @Input() assetUrl: string;
 
   @Input() assetUrlMapping: object = {};
+  @Input() doc: DocumentModel;
 
   @Input() set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
       this.writePermission$ = this.doc.hasPermission(NuxeoPermission.Write);
+      if (!doc.hasAnyContent()) {
+        this.deletePermission$ = this.doc.hasPermission(NuxeoPermission.Delete);
+      }
     }
   }
 
-  doc: DocumentModel;
-
   writePermission$: Observable<boolean>;
+  deletePermission$: Observable<boolean> = observableOf(false);
 
   constructor(
     protected previewDialogService: PreviewDialogService,
@@ -44,7 +49,8 @@ export class DisruptionFolderViewComponent {
     return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
   }
 
-  openForm(dialog: any): void {
+  openDialog(dialog: any, type): void {
+    this.showEdit = type;
     this.previewDialogService.open(dialog, this.doc);
   }
 
@@ -52,3 +58,4 @@ export class DisruptionFolderViewComponent {
     this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/Disruption Days/day/${doc.uid}` } });
   }
 }
+

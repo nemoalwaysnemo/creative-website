@@ -136,7 +136,7 @@ export enum NuxeoPermission {
   Read = 'Read',
   Everything = 'Everything',
   AddChildren = 'AddChildren',
-  delete = 'delete',
+  Delete = 'Remove',
 }
 
 export class NuxeoApiOptions {
