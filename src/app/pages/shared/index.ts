@@ -24,5 +24,5 @@ export * from './abstract-classes/abstract-document-view.component';
 export * from './services/shared-service.module';
 export * from './option-tag/option-tag.module';
 export * from './datepicker-directive/datepicker-directive.module';
-export * from './disruption-form-folders/disruption-form-folders.module';
+export * from './disruption-form-folder/disruption-form-folder.module';
 export * from './disruption-form-day/disruption-form-day.module';

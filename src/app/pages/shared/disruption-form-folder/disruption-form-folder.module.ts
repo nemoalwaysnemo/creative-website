@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DocumentFormModule } from '../document-form/document-form.module';
-import { DisruptionFormFoldersComponent } from './disruption-form-folders.component';
+import { DisruptionFormFolderComponent } from './disruption-form-folder.component';
 
 @NgModule({
   imports: [
@@ -9,10 +9,10 @@ import { DisruptionFormFoldersComponent } from './disruption-form-folders.compon
     DocumentFormModule,
   ],
   declarations: [
-    DisruptionFormFoldersComponent,
+    DisruptionFormFolderComponent,
   ],
   exports: [
-    DisruptionFormFoldersComponent,
+    DisruptionFormFolderComponent,
   ],
 })
-export class DisruptionFormFoldersModule { }
+export class DisruptionFormFolderModule { }

@@ -11,6 +11,7 @@ import { DisruptionDaysFolderModule } from './disruption-days-folder/disruption-
 import { DisruptionDayAssetModule } from './disruption-day-asset/disruption-day-asset.module';
 import { BrilliantThinkingModule } from './brilliant-thinking/brilliant-thinking.module';
 import { DisruptionAssetModule } from './disruption-asset/disruption-asset.module';
+import { DisruptionTheoryAssetModule } from './disruption-theory-asset/disruption-theory-asset.module';
 
 @NgModule({
   imports: [
@@ -20,10 +21,11 @@ import { DisruptionAssetModule } from './disruption-asset/disruption-asset.modul
     DisruptionDaysModule,
     DisruptionRoadmapsModule,
     DisruptionTheoryModule,
+    DisruptionTheoryAssetModule,
+    DisruptionTheoryFolderModule,
     DisruptionDaysFolderModule,
     DisruptionDayAssetModule,
     BrilliantThinkingModule,
-    DisruptionTheoryFolderModule,
     DisruptionPageRoutingModule,
   ],
   declarations: [

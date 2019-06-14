@@ -8,7 +8,7 @@ import { DisruptionFormBrilliantThinkingModule } from '../disruption-form-brilli
 import { MetadataEditFormDialogComponent } from './metadata-dialog-body/metadata-edit-form-dialog.component';
 import { DisruptionFormTheoryModule } from '../disruption-form-theory/disruption-form-theory.module';
 import { DisruptionFormDayModule } from '../disruption-form-day/disruption-form-day.module';
-import { DisruptionFormFoldersModule } from '../disruption-form-folders/disruption-form-folders.module';
+import { DisruptionFormFolderModule } from '../disruption-form-folder/disruption-form-folder.module';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { DisruptionFormFoldersModule } from '../disruption-form-folders/disrupti
     DisruptionFormBrilliantThinkingModule,
     DisruptionFormTheoryModule,
     DisruptionFormDayModule,
-    DisruptionFormFoldersModule,
+    DisruptionFormFolderModule,
   ],
   declarations: [
     DocumentMetadataInfoComponent,

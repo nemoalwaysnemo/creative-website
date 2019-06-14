@@ -4,7 +4,7 @@
     <button type="button" (click)="openForm(dialog)" class="icon_btn new_day" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Asset">New Asset</button>
   </ng-container>
 </global-search-form>
-<disruption-folders-view [loading]="loading" [document]="document" [assetUrl]="'/p/disruption/Disruption How Tos/folder/'"></disruption-folders-view>
+<disruption-folder-view [loading]="loading" [document]="document" [assetUrl]="'/p/disruption/Disruption How Tos/folder/'"></disruption-folder-view>
 <disruption-folder-theory-asset-search-result [folderId]="document?.uid"></disruption-folder-theory-asset-search-result>
 
 <ng-template #dialog>

@@ -6,12 +6,12 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'disruption-folders-view',
-  styleUrls: ['../../../theme/styles/disruption-folders.scss'],
-  templateUrl: './disruption-folders-view.component.html',
+  selector: 'disruption-folder-view',
+  styleUrls: ['../../../theme/styles/disruption-folder.scss'],
+  templateUrl: './disruption-folder-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DisruptionFoldersViewComponent {
+export class DisruptionFolderViewComponent {
 
   @Input() loading: boolean;
 

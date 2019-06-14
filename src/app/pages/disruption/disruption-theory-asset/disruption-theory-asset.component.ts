@@ -6,11 +6,11 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
 @Component({
-  selector: 'disruption-day-asset',
-  styleUrls: ['./disruption-day-asset.component.scss'],
-  templateUrl: './disruption-day-asset.component.html',
+  selector: 'disruption-theory-asset',
+  styleUrls: ['./disruption-theory-asset.component.scss'],
+  templateUrl: './disruption-theory-asset.component.html',
 })
-export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent implements OnInit {
+export class DisruptionTheoryAssetComponent extends AbstractDocumentViewComponent implements OnInit {
 
   folder: DocumentModel;
 
@@ -21,9 +21,8 @@ export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent i
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    quickFilters: 'ShowInNavigation',
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
   };
 
   constructor(
@@ -46,8 +45,8 @@ export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent i
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
     };
   }
 

@@ -23,9 +23,9 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="assetTypes.day_asset">
-          <disruption-form-folders [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)">
+          <disruption-form-folder [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)">
             <preview-dialog-alert></preview-dialog-alert>
-          </disruption-form-folders>
+          </disruption-form-folder>
         </ng-container>
 
         <ng-container *ngSwitchCase="assetTypes.roadmap">

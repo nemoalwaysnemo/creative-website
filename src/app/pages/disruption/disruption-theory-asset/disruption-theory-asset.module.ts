@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedModule } from '@pages/shared/shared.module';
-import { DisruptionDayAssetComponent } from './disruption-day-asset.component';
+import { DisruptionTheoryAssetComponent } from './disruption-theory-asset.component';
 import { DisruptionFolderViewModule } from '../disruption-folder-view/disruption-folder-view.module';
 
 @NgModule({
@@ -11,10 +11,10 @@ import { DisruptionFolderViewModule } from '../disruption-folder-view/disruption
     DisruptionFolderViewModule,
   ],
   declarations: [
-    DisruptionDayAssetComponent,
+    DisruptionTheoryAssetComponent,
   ],
   providers: [
     SharedModule.forRoot().providers,
   ],
 })
-export class DisruptionDayAssetModule { }
+export class DisruptionTheoryAssetModule { }

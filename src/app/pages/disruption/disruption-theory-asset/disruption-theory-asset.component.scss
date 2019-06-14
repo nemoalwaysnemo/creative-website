@@ -1,0 +1,69 @@
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+
+.left { float: left; }
+.right { float: right; }
+.clear { clear: both; }
+
+nb-route-tabset {
+  display: block;
+  margin: 20px 0;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.document {
+  margin-top: 20px;
+  > section {
+    width: calc(100% - 76px);
+    margin: 0 auto;
+
+    &.general {
+      margin-bottom: 19px;
+
+      .showcase {
+        @include media-breakpoint-down(lg) {
+          //992px
+          width: 400px;
+          margin-right: 23px;
+        }
+
+        @include media-breakpoint-between(lg, xxl) {
+          //992px - 1400px
+          width: 600px;
+          margin-right: 33px;
+        }
+
+        @include media-breakpoint-up(xxl) {
+          //1400px
+          width: 820px;
+          margin-right: 43px;
+        }
+      }
+
+      .general_info {
+        @include media-breakpoint-down(lg) {
+          //992px
+          width: calc(700px - 400px - 23px);
+        }
+
+        @include media-breakpoint-between(lg, xxl) {
+          //992px - 1400px
+          width: calc(850px - 600px - 33px);
+        }
+
+        @include media-breakpoint-up(xxl) {
+          //1400px
+          width: calc(1366px - 949px - 43px);
+        }
+      }
+    }
+
+    &.additional_info {
+      margin-bottom: 60px;
+    }
+
+    &.more {
+      padding-top: 69px;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { filterParams, selectObjectByKeys } from '@core/services';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
 @Injectable()
 export class SearchQueryParamsService {
@@ -30,7 +30,11 @@ export class SearchQueryParamsService {
   }
 
   changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = ''): void {
-    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams, queryParamsHandling, state });
+    this.navigate([], { relativeTo: this.activatedRoute, queryParams, queryParamsHandling, state });
+  }
+
+  navigate(commands: any[], extras?: NavigationExtras): Promise<boolean> {
+    return this.router.navigate(commands, extras);
   }
 
   redirectTo404(): void {

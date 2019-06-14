@@ -4,14 +4,14 @@ import { RouterModule } from '@angular/router';
 import { SharedServiceModule } from '@pages/shared';
 import { SharedModule } from '@pages/shared/shared.module';
 import { DisruptionAssetComponent } from './disruption-asset.component';
-import { DisruptionFoldersViewModule } from '../disruption-folders-view/disruption-folders-view.module';
+import { DisruptionFolderViewModule } from '../disruption-folder-view/disruption-folder-view.module';
 
 @NgModule({
   imports: [
     ThemeModule,
     SharedModule,
     RouterModule,
-    DisruptionFoldersViewModule,
+    DisruptionFolderViewModule,
   ],
   declarations: [
     DisruptionAssetComponent,

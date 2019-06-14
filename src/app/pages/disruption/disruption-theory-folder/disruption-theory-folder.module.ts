@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { DisruptionTheoryFolderComponent } from './disruption-theory-folder.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule, SharedServiceModule, PreviewDialogModule } from '@pages/shared';
-import { DisruptionFoldersViewModule } from '../disruption-folders-view/disruption-folders-view.module';
-import { DisruptionFormFoldersModule } from '../../shared/disruption-form-folders/disruption-form-folders.module';
+import { DisruptionFolderViewModule } from '../disruption-folder-view/disruption-folder-view.module';
+import { DisruptionFormFolderModule } from '../../shared/disruption-form-folder/disruption-form-folder.module';
 import { DisruptionFormTheoryFolderDialogComponent } from './disruption-form-theory-folder-body/disruption-form-theory-folder-dialog.component';
 import { DisruptionFormTheoryModule } from '@pages/shared/disruption-form-theory/disruption-form-theory.module';
 
@@ -15,9 +15,9 @@ import { DisruptionFormTheoryModule } from '@pages/shared/disruption-form-theory
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
-    DisruptionFoldersViewModule,
+    DisruptionFolderViewModule,
     DisruptionFormTheoryModule,
-    DisruptionFormFoldersModule,
+    DisruptionFormFolderModule,
   ],
   declarations: [
     DisruptionTheoryFolderComponent,

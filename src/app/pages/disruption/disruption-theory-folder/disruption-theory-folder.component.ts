@@ -70,7 +70,7 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
       if (doc.hasFolderishChild) {
         return this.buildSubFolderParams(doc);
       } else {
-        return this.buildFolderAssetParams(doc);
+        return this.buildTheoryAssetParams(doc);
       }
     }
     return {};
@@ -90,7 +90,7 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
     return params;
   }
 
-  protected buildFolderAssetParams(doc?: DocumentModel): any {
+  protected buildTheoryAssetParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,

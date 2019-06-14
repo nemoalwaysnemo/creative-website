@@ -4,7 +4,7 @@ import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operator
 import { Observable, Subscription } from 'rxjs';
 import { isDocumentUID } from '@core/services';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 
 export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy {
 
@@ -99,4 +99,9 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
   protected redirectTo404(): void {
     this.queryParamsService.redirectTo404();
   }
+
+  protected navigate(commands: any[], extras?: NavigationExtras): Promise<boolean> {
+    return this.queryParamsService.navigate(commands, extras);
+  }
+
 }

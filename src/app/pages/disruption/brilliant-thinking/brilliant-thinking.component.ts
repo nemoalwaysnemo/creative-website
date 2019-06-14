@@ -1,16 +1,26 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+import { Component, OnInit } from '@angular/core';
+import { Observable, of as observableOf } from 'rxjs';
+import { AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
+import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'disruption-brilliant-thinking-page',
   styleUrls: ['./brilliant-thinking.component.scss'],
   templateUrl: './brilliant-thinking.component.html',
 })
-export class BrilliantThinkingComponent implements OnInit, OnDestroy {
+export class BrilliantThinkingComponent extends AbstractDocumentViewComponent implements OnInit {
+
+  tabs = TAB_CONFIG;
+
+  addChildrenPermission$: Observable<boolean> = observableOf(false);
+
+  filters: any = {
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'app_edges_industry_agg': { placeholder: 'Industry' },
+  };
 
   defaultParams: any = {
     pageSize: 20,
@@ -20,55 +30,39 @@ export class BrilliantThinkingComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
   };
 
-  folderParams: any = {
-    pageSize: 1,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_FOLDER_TYPE,
-  };
-
-  tabs = TAB_CONFIG;
-
-  parentDocument: DocumentModel;
-
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
-
-  filters: any = {
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'app_edges_industry_agg': { placeholder: 'Industry' },
-  };
-
-  private subscription: Subscription = new Subscription();
-
-  constructor(private advanceSearch: AdvanceSearch,
-    private previewDialogService: PreviewDialogService,
-    private queryParamsService: SearchQueryParamsService,
-  ) { }
+  constructor(
+    protected advanceSearch: AdvanceSearch,
+    protected activatedRoute: ActivatedRoute,
+    protected queryParamsService: SearchQueryParamsService,
+    protected previewDialogService: PreviewDialogService) {
+    super(advanceSearch, activatedRoute, queryParamsService);
+  }
 
   ngOnInit() {
-    this.searchFolders(this.folderParams);
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.searchCurrentDocument();
   }
 
-  private searchFolders(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.parentDocument = res.entries.shift();
-        if (this.parentDocument) {
-          this.addChildrenPermission$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
-        }
-      });
-    this.subscription.add(subscription);
+  protected setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
+    if (doc) {
+      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
+    }
+  }
+
+  protected getCurrentDocumentSearchParams(): object {
+    return {
+      pageSize: 1,
+      currentPageIndex: 0,
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_FOLDER_TYPE,
+    };
   }
 
   openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.parentDocument);
+    this.previewDialogService.open(dialog, this.document);
   }
 
   onCreated(doc: DocumentModel): void {
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+    this.refresh();
   }
-
 }

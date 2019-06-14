@@ -11,8 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
 
-  private disruptionDayAsset: string = 'App-Disruption-Day-Asset';
-
   folder: DocumentModel;
 
   folderLoading: boolean = true;
@@ -21,8 +19,15 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
     pageSize: 1,
     currentPageIndex: 0,
     quickFilters: 'ShowInNavigation',
-    ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+  };
+
+  disruptionTheoryParams: any = {
+    pageSize: 1,
+    currentPageIndex: 0,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
   };
 
   constructor(
@@ -34,8 +39,8 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
-    if (this.isDisruptionDayAsset(doc)) {
-      this.searchFolder(doc.parentRef);
+    if (this.showFolderView(doc)) {
+      this.searchFolder(doc);
     }
   }
 
@@ -49,15 +54,25 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
     };
   }
 
-  private searchFolder(folderId: string): void {
-    this.getDocumentModel(folderId, this.disruptionDayParams).subscribe((res: NuxeoPagination) => {
+  private searchFolder(doc: DocumentModel): void {
+    this.getDocumentModel(doc.parentRef, this.getFolderParams(doc)).subscribe((res: NuxeoPagination) => {
       this.folderLoading = false;
       this.folder = res.entries.shift();
     });
   }
 
-  isDisruptionDayAsset(doc: DocumentModel): boolean {
-    return doc && doc.type === this.disruptionDayAsset;
+  private getFolderParams(doc: DocumentModel): any {
+    switch (doc.type) {
+      case 'App-Disruption-Day-Asset':
+        return this.disruptionDayParams;
+      case 'App-Disruption-Theory-Asset':
+        return this.disruptionTheoryParams;
+      default:
+        return {};
+    }
   }
 
+  showFolderView(doc: DocumentModel): boolean {
+    return doc && ['App-Disruption-Day-Asset', 'App-Disruption-Theory-Asset'].includes(doc.type);
+  }
 }

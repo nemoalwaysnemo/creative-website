@@ -4,10 +4,10 @@ import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-
 
 
 @Component({
-  selector: 'disruption-form-folders',
-  templateUrl: './disruption-form-folders.component.html',
+  selector: 'disruption-form-folder',
+  templateUrl: './disruption-form-folder.component.html',
 })
-export class DisruptionFormFoldersComponent extends AbstractDisruptionForm {
+export class DisruptionFormFolderComponent extends AbstractDisruptionForm {
   protected parentType = AbstractDisruptionForm.DAY_ASSET;
 
   protected getSettings(): object[] {
