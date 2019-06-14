@@ -17,7 +17,7 @@ export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit 
   constructor(protected dialogService: PreviewDialogService, private documentViewService: DocumentViewService, private router: Router) {
     super(dialogService);
   }
-
+  @Input() backButton: boolean;
   @Input() deleteRedirect: string;
   @Output() onDeleted: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
@@ -39,6 +39,10 @@ export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit 
   }
 
   back(): void {
-    this.callBack.next({ type: 'back', value: 'preview' });
+    if (this.backButton) {
+      this.callBack.next({ type: 'back', value: 'preview' });
+    } else {
+      this.close();
+    }
   }
 }

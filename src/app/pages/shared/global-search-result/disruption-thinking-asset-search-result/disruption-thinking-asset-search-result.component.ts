@@ -18,7 +18,7 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
   ) { }
 
   deleteRedirect: string;
-
+  backButton: boolean = false;
   showEdit: string = 'preview';
 
   ngOnInit() {
@@ -37,6 +37,7 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
     if (event.type === 'openEdit') {
       this.showEdit = 'edit';
     } else if (event.type === 'openDelete') {
+      this.backButton = true;
       this.showEdit = 'delete';
     }
   }

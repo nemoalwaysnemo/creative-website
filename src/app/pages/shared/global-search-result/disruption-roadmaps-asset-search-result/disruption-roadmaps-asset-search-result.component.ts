@@ -18,8 +18,8 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
   ) { }
 
   deleteRedirect: string;
-
   showEdit: string = 'preview';
+  backButton: boolean = false;
 
   ngOnInit() {
     this.dialogService.onClose().subscribe(_ => {
@@ -36,6 +36,7 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
     if (event.type === 'openEdit') {
       this.showEdit = 'edit';
     } else if (event.type === 'openDelete') {
+      this.backButton = true;
       this.showEdit = 'delete';
     }
   }
