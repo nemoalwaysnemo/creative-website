@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, Observable, of as observableOf } from 'rxjs';
+import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPermission } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
 @Component({
-  selector: 'disruption-folders',
-  styleUrls: ['./disruption-folders.component.scss'],
-  templateUrl: './disruption-folders.component.html',
+  selector: 'disruption-days-folder',
+  styleUrls: ['./disruption-days-folder.component.scss'],
+  templateUrl: './disruption-days-folder.component.html',
 })
-export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
+export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent {
 
   tabs = TAB_CONFIG;
 
@@ -34,11 +34,13 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
-    this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
-    setTimeout(() => { this.baseParams$.next(this.buildAssetsParams(doc)); }, 0);
+    if (doc) {
+      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+    }
   }
 
-  protected getCurrentDocumentParams(): any {
+  protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,
@@ -67,7 +69,7 @@ export class DisruptionFoldersComponent extends AbstractDocumentViewComponent {
   }
 
   onCreated(doc: DocumentModel): void {
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+    this.refresh();
   }
 
 }

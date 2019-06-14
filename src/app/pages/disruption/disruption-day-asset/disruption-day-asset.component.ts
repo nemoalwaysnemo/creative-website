@@ -42,7 +42,7 @@ export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent i
     this.document = doc;
   }
 
-  protected getCurrentDocumentParams(): any {
+  protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,

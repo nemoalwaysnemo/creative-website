@@ -15,7 +15,9 @@ export class DisruptionFoldersViewComponent {
 
   @Input() loading: boolean;
 
-  @Input() doc: DocumentModel;
+  @Input() assetUrl: string;
+
+  @Input() assetUrlMapping: object = {};
 
   @Input() set document(doc: DocumentModel) {
     if (doc) {
@@ -24,6 +26,8 @@ export class DisruptionFoldersViewComponent {
     }
   }
 
+  doc: DocumentModel;
+
   writePermission$: Observable<boolean>;
 
   constructor(
@@ -31,6 +35,14 @@ export class DisruptionFoldersViewComponent {
     protected queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
+
+  getAssetUrl(doc: DocumentModel): string {
+    return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
+  }
+
+  private matchAssetUrl(doc: DocumentModel): string {
+    return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+  }
 
   openForm(dialog: any): void {
     this.previewDialogService.open(dialog, this.doc);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of as observableOf, Subject, timer } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { Subject, timer } from 'rxjs';
+import { AdvanceSearch, DocumentModel, NuxeoQuickFilters } from '@core/api';
 import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
@@ -16,8 +16,6 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
   baseParams$: Subject<any> = new Subject<any>();
 
   tabs = TAB_CONFIG;
-
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
@@ -38,12 +36,11 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
     if (doc) {
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
     }
   }
 
-  protected getCurrentDocumentParams(): object {
+  protected getCurrentDocumentSearchParams(): object {
     return {
       pageSize: 1,
       currentPageIndex: 0,

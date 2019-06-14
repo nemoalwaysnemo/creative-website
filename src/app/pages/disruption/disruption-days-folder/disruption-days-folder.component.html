@@ -4,13 +4,13 @@
     <button type="button" (click)="openForm(dialog)" class="icon_btn new_day" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Asset">New Asset</button>
   </ng-container>
 </global-search-form>
-<disruption-folders-view [loading]="loading" [document]="document"></disruption-folders-view>
+<disruption-folders-view [loading]="loading" [document]="document" [assetUrl]="'/p/disruption/Disruption Days/day/'"></disruption-folders-view>
 <disruption-folder-day-asset-search-result [folderId]="document?.uid"></disruption-folder-day-asset-search-result>
 
 <ng-template #dialog>
   <preview-dialog>
-    <disruption-form-folders-body (createdSuccess)="onCreated($event)">
+    <disruption-form-days-folder-body (createdSuccess)="onCreated($event)">
       <preview-dialog-alert></preview-dialog-alert>
-    </disruption-form-folders-body>
+    </disruption-form-days-folder-body>
   </preview-dialog>
 </ng-template>

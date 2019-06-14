@@ -123,8 +123,10 @@ export const NuxeoEnricher = {
     THUMBNAIL: 'thumbnail',
     FAVORITES: 'favorites',
     BREADCRUMB: 'breadcrumb',
-    DOCUMENT_URL: 'documentURL',
     PERMISSIONS: 'permissions',
+    DOCUMENT_URL: 'documentURL',
+    HAS_CONTENT: 'hasContent', // Boolean flag indicating whether or not current Folderish or Collection document has children or members
+    HAS_FOLDERISH_CHILD: 'hasFolderishChild', // Boolean flag indicating whether or not current document has folderish child document
     USER_VISIBLE_PERMISSIONS: 'userVisiblePermissions',
   },
 };
@@ -172,16 +174,13 @@ export class NuxeoRequestOptions {
   readonly enrichers?: {} = {
     document: [
       NuxeoEnricher.document.PREVIEW,
-      NuxeoEnricher.document.SUBTYPES,
+      // NuxeoEnricher.document.SUBTYPES,
       NuxeoEnricher.document.THUMBNAIL,
       NuxeoEnricher.document.FAVORITES,
       // NuxeoEnricher.document.BREADCRUMB,
       NuxeoEnricher.document.PERMISSIONS,
     ],
   };
-  constructor(opts: any = {}) {
-    deepExtend(this, opts);
-  }
 }
 
 export class NuxeoPagination {

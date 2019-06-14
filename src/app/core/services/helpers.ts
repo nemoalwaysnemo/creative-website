@@ -211,7 +211,7 @@ export function filterParams(p: object, keepValues: string[] = []): any {
     .filter(key => !!p[key])
     .filter(key => p[key].length ? p[key].length > 0 : (p[key] !== null && typeof p[key] === 'object' ? Object.keys(p[key]).length > 0 : (p[key] !== null && p[key] !== undefined && p[key] !== '')))
     .forEach(key => { _[key] = p[key]; });
-  keepValues.forEach(k => _[k] = p[k]);
+  keepValues.forEach(k => { if (p[k] !== undefined) { _[k] = p[k]; } });
   return _;
 }
 

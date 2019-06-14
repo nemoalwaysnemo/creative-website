@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
-import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'home-search-form',

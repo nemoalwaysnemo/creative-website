@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { AdvanceSearch, DocumentModel, NuxeoQuickFilters } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
@@ -30,11 +30,13 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
-    this.documentType = this.getCurrentAssetType(doc);
-    setTimeout(() => { this.baseParams$.next(this.buildAssetsParams(doc)); }, 0);
+    if (doc) {
+      this.documentType = this.getCurrentAssetType(doc);
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+    }
   }
 
-  protected getCurrentDocumentParams(): object {
+  protected getCurrentDocumentSearchParams(): object {
     return {
       pageSize: 1,
       currentPageIndex: 0,

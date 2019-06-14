@@ -37,7 +37,7 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
     this.baseParams$.next(this.buildAssetsParams(doc));
   }
 
-  protected getCurrentDocumentParams(): any {
+  protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,

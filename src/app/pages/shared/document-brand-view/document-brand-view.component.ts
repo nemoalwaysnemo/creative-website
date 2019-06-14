@@ -18,7 +18,7 @@ export class DocumentBrandViewComponent extends AbstractDocumentViewComponent {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
-  protected getCurrentDocumentParams(): any {
+  protected getCurrentDocumentSearchParams(): any {
     return {};
   }
 

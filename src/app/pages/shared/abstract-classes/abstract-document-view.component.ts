@@ -1,5 +1,5 @@
 import { OnInit, OnDestroy } from '@angular/core';
-import { DocumentModel, NuxeoPagination, AdvanceSearch } from '@core/api';
+import { DocumentModel, NuxeoPagination, AdvanceSearch, NuxeoRequestOptions } from '@core/api';
 import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { isDocumentUID } from '@core/services';
@@ -47,13 +47,17 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
     this.redirectTo404();
   }
 
-  protected abstract getCurrentDocumentParams(): object;
+  protected abstract getCurrentDocumentSearchParams(): object;
 
-  protected getDocumentModel(uid: string, params: any = {}): Observable<NuxeoPagination> {
-    return this.advanceSearch.request(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }));
+  protected getCurrentDocumentRequestParams(): object {
+    return {};
   }
 
-  protected getCurrentDocument(primaryKey: string, params: any = {}): Observable<DocumentModel> {
+  protected getDocumentModel(uid: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {
+    return this.advanceSearch.request(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }), opts);
+  }
+
+  protected getCurrentDocument(primaryKey: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
     return this.activatedRoute.paramMap
       .pipe(
         tap(paramMap => {
@@ -63,13 +67,13 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
         }),
         filter(paramMap => (!this.document || this.document.uid !== paramMap.get(primaryKey)) && isDocumentUID(paramMap.get(primaryKey))),
         distinctUntilChanged(),
-        switchMap(paramMap => this.getDocumentModel(paramMap.get(primaryKey), params)),
+        switchMap(paramMap => this.getDocumentModel(paramMap.get(primaryKey), params, opts)),
         map((res: NuxeoPagination) => res.entries.shift()),
       );
   }
 
-  protected searchCurrentDocument(params: any = {}): void {
-    const subscription = this.advanceSearch.request(Object.assign({}, this.getCurrentDocumentParams(), params))
+  protected searchCurrentDocument(params: any = {}, opts?: NuxeoRequestOptions): void {
+    const subscription = this.advanceSearch.request(Object.assign({}, this.getCurrentDocumentSearchParams(), params), opts)
       .pipe(
         map((res: NuxeoPagination) => res.entries.shift()),
       ).subscribe((doc: DocumentModel) => {
@@ -80,7 +84,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
   }
 
   protected onParamsChanged(): void {
-    const subscription = this.getCurrentDocument(this.primaryKey, this.getCurrentDocumentParams())
+    const subscription = this.getCurrentDocument(this.primaryKey, this.getCurrentDocumentSearchParams(), this.getCurrentDocumentRequestParams())
       .subscribe((doc: DocumentModel) => {
         this.loading = false;
         this.setCurrentDocument(doc);

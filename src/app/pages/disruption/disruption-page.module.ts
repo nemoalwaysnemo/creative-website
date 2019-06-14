@@ -4,9 +4,10 @@ import { ThemeModule } from '@theme/theme.module';
 import { DisruptionDaysModule } from './disruption-days/disruption-days.module';
 import { DisruptionRoadmapsModule } from './disruption-roadmaps/disruption-roadmaps.module';
 import { DisruptionTheoryModule } from './disruption-theory/disruption-theory.module';
+import { DisruptionTheoryFolderModule } from './disruption-theory-folder/disruption-theory-folder.module';
 import { DisruptionPageComponent } from './disruption-page.component';
 import { DisruptionPageRoutingModule } from './disruption-page-routing.module';
-import { DisruptionFoldersModule  } from './disruption-folders/disruption-folders.module';
+import { DisruptionDaysFolderModule } from './disruption-days-folder/disruption-days-folder.module';
 import { DisruptionDayAssetModule } from './disruption-day-asset/disruption-day-asset.module';
 import { BrilliantThinkingModule } from './brilliant-thinking/brilliant-thinking.module';
 import { DisruptionAssetModule } from './disruption-asset/disruption-asset.module';
@@ -19,9 +20,10 @@ import { DisruptionAssetModule } from './disruption-asset/disruption-asset.modul
     DisruptionDaysModule,
     DisruptionRoadmapsModule,
     DisruptionTheoryModule,
-    DisruptionFoldersModule,
+    DisruptionDaysFolderModule,
     DisruptionDayAssetModule,
     BrilliantThinkingModule,
+    DisruptionTheoryFolderModule,
     DisruptionPageRoutingModule,
   ],
   declarations: [

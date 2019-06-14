@@ -16,7 +16,6 @@ import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-d
 import { CreativeMyBrandAssetSearchResultComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
 import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
 import { DisruptionRoadmapEditDialogComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmap-edit-form-body/disruption-roadmap-edit-dialog-body.component';
-import { DisruptionTheoryEditDialogComponent } from './disruption-theory-asset-search-result/disruption-theory-edit-form-body/disruption-theory-edit-dialog-body.component';
 import { DisruptionThinkingEditDialogComponent } from './disruption-thinking-asset-search-result/disruption-thinking-edit-form-body/disruption-thinking-edit-dialog-body.component';
 import { DisruptionDaysAssetSearchResultComponent } from './disruption-days-asset-search-result/disruption-days-asset-search-result.component';
 import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-asset-search-result/disruption-theory-asset-search-result.component';
@@ -31,6 +30,8 @@ import { AllFavoritesAssetSearchResultComponent } from './all-favorites-asset-se
 import { FavoriteBackslashAssetSearchResultComponent } from './favorite-backslash-asset-search-result/favorite-backslash-asset-search-result.component';
 import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-search-result/favorite-brand-asset-search-result.component';
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
+import { DisruptionFolderTheoryAssetSearchResultComponent } from './disruption-folder-theory-asset-search-result/disruption-folder-theory-asset-search-result.component';
+
 const COMPONENTS = [
   GlobalSearchResultComponent,
   CreativeMyBrandSearchResultComponent,
@@ -42,9 +43,9 @@ const COMPONENTS = [
   DisruptionThinkingAssetSearchResultComponent,
   DisruptionRoadmapsAssetSearchResultComponent,
   DisruptionRoadmapEditDialogComponent,
-  DisruptionTheoryEditDialogComponent,
   DisruptionThinkingEditDialogComponent,
   DisruptionFolderDayAssetSearchResultComponent,
+  DisruptionFolderTheoryAssetSearchResultComponent,
   DisruptionDocumentAssetSearchResultComponent,
   IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,

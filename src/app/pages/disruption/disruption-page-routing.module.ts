@@ -4,11 +4,12 @@ import { DisruptionPageComponent } from './disruption-page.component';
 import { DisruptionDaysComponent } from './disruption-days/disruption-days.component';
 import { DisruptionRoadmapsComponent } from './disruption-roadmaps/disruption-roadmaps.component';
 import { DisruptionTheoryComponent } from './disruption-theory/disruption-theory.component';
-import { DisruptionFoldersComponent } from './disruption-folders/disruption-folders.component';
+import { DisruptionDaysFolderComponent } from './disruption-days-folder/disruption-days-folder.component';
 import { DisruptionDayAssetComponent } from './disruption-day-asset/disruption-day-asset.component';
 import { BrilliantThinkingComponent } from './brilliant-thinking/brilliant-thinking.component';
 import { DisruptionHomeComponent } from './disruption-home/disruption-home.component';
 import { DisruptionAssetComponent } from './disruption-asset/disruption-asset.component';
+import { DisruptionTheoryFolderComponent } from './disruption-theory-folder/disruption-theory-folder.component';
 
 const routes: Routes = [{
   path: '',
@@ -33,10 +34,18 @@ const routes: Routes = [{
     },
     {
       path: 'Disruption Days/day/:id',
-      component: DisruptionFoldersComponent,
+      component: DisruptionDaysFolderComponent,
     },
     {
       path: 'Disruption Days/day/:folder/asset/:id',
+      component: DisruptionDayAssetComponent,
+    },
+    {
+      path: 'Disruption How Tos/folder/:id',
+      component: DisruptionTheoryFolderComponent,
+    },
+    {
+      path: 'Disruption Days/folder/:folder/asset/:id',
       component: DisruptionDayAssetComponent,
     },
     {

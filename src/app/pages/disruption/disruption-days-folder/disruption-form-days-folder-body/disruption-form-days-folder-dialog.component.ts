@@ -3,11 +3,11 @@ import { FormDailogBody } from '@pages/shared/preview-dialog/dailog-bodys/form_d
 import { PreviewDialogService } from '@pages/shared';
 
 @Component({
-  selector: 'disruption-form-theory-body',
-  styleUrls: ['./disruption-form-theory-dialog.component.scss'],
-  templateUrl: './disruption-form-theory-dialog.component.html',
+  selector: 'disruption-form-days-folder-body',
+  styleUrls: ['./disruption-form-days-folder-dialog.component.scss'],
+  templateUrl: './disruption-form-days-folder-dialog.component.html',
 })
-export class DisruptionFormTheoryDialogComponent extends FormDailogBody {
+export class DisruptionFormDaysFolderDialogComponent extends FormDailogBody {
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);

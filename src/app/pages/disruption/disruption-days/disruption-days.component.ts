@@ -51,6 +51,7 @@ export class DisruptionDaysComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.searchFolders(this.folderParams);
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

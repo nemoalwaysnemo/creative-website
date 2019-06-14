@@ -139,6 +139,10 @@ export class DocumentModel extends Base {
     return this.contextParameters && this.contextParameters.subtypes ? this.contextParameters.subtypes : [];
   }
 
+  get hasFolderishChild(): boolean {
+    return this.contextParameters && this.contextParameters.hasFolderishChild ? true : false;
+  }
+
   get contextParameters(): any {
     return this._contextParameters;
   }
