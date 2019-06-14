@@ -96,12 +96,8 @@ export class DocumentModel extends Base {
       }));
   }
 
-  hasAnyContent() {
-    if (this.contextParameters['hasContent'] === undefined) {
-      return true;
-    } else {
-      return this.contextParameters['hasContent'];
-    }
+  get hasAnyContent(): boolean {
+    return this.contextParameters['hasContent'] === undefined ? true : this.contextParameters.hasContent;
   }
 
   get properties(): any {

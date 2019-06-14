@@ -13,9 +13,9 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
 
   title: string;
 
-  writePermission$: Observable<boolean>;
+  writePermission$: Observable<boolean> = observableOf(false);
 
-  deletePermission$: Observable<boolean>;
+  deletePermission$: Observable<boolean> = observableOf(false);
 
   @Input() moreInfo: boolean = false;
 
@@ -29,8 +29,6 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
     this.title = res.options.title;
     if (this.editButton) {
       this.writePermission$ = this.document.hasPermission(NuxeoPermission.Write);
-    } else {
-      this.writePermission$ = observableOf(false);
     }
     this.deletePermission$ = this.document.hasPermission(NuxeoPermission.Delete);
   }

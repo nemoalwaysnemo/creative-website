@@ -28,9 +28,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   showEdit: boolean = false;
 
-  writePermission$: Observable<boolean> = observableOf(true);
+  writePermission$: Observable<boolean> = observableOf(false);
 
-  deletePermission$: Observable<boolean>;
+  deletePermission$: Observable<boolean> = observableOf(false);
 
   documentModel: DocumentModel;
 
@@ -49,9 +49,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       if (this.isDisruptionAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
-      } else {
-        this.writePermission$ = observableOf(false);
-        this.deletePermission$ = observableOf(false);
       }
     }
   }

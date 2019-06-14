@@ -26,13 +26,13 @@ export class DisruptionFolderViewComponent {
     if (doc) {
       this.doc = doc;
       this.writePermission$ = this.doc.hasPermission(NuxeoPermission.Write);
-      if (!doc.hasAnyContent()) {
+      if (!doc.hasAnyContent) {
         this.deletePermission$ = this.doc.hasPermission(NuxeoPermission.Delete);
       }
     }
   }
 
-  writePermission$: Observable<boolean>;
+  writePermission$: Observable<boolean> = observableOf(false);
   deletePermission$: Observable<boolean> = observableOf(false);
 
   constructor(
