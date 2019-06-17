@@ -36,7 +36,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   dialogType: string = 'edit';
 
-  @Input() deleteRedirect: string = '/p/disruption/Disruption Days';
+  @Input() deleteRedirect: string = '';
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
