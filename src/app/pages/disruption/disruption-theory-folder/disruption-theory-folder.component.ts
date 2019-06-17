@@ -36,9 +36,7 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
     this.document = doc;
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
-      if (!doc.hasFolderishChild) {
-        this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
-      }
+      this.addChildrenPermission$ = !doc.hasFolderishChild ? doc.hasPermission(NuxeoPermission.AddChildren) : observableOf(false);
     }
   }
 
