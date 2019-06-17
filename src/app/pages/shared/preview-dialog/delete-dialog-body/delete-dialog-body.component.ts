@@ -5,6 +5,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { DocumentModel } from '@core/api';
 import { DocumentViewService } from '@pages/shared/services/document-view.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'delete-dialog-body',
@@ -14,7 +15,10 @@ import { Router } from '@angular/router';
 
 export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit {
 
-  constructor(protected dialogService: PreviewDialogService, private documentViewService: DocumentViewService, private router: Router) {
+  constructor(protected dialogService: PreviewDialogService,
+    private documentViewService: DocumentViewService,
+    private router: Router,
+    private location: Location) {
     super(dialogService);
   }
   @Input() backButton: boolean;
@@ -30,7 +34,11 @@ export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit 
   private delete(): void {
     this.deleteDocument(this.document).subscribe((model: DocumentModel) => {
       this.dialogService.closeWithAlert('success', `${this.document.title} deleted success`, 3000);
-      this.router.navigateByUrl(this.deleteRedirect);
+      if (this.deleteRedirect === '') {
+        this.location.back();
+      } else {
+        this.router.navigateByUrl(this.deleteRedirect);
+      }
     });
   }
 

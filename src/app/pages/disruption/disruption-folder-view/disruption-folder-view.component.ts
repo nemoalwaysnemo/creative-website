@@ -15,7 +15,7 @@ export class DisruptionFolderViewComponent {
 
   @Input() loading: boolean;
   showEdit: string = 'edit';
-  @Input() deleteRedirect: string = '/p/disruption/Disruption Days';
+  @Input() deleteRedirect: string = '';
 
   @Input() assetUrl: string;
 

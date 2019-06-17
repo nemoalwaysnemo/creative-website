@@ -51,6 +51,7 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
           NuxeoEnricher.document.FAVORITES,
           NuxeoEnricher.document.PERMISSIONS,
           NuxeoEnricher.document.HAS_FOLDERISH_CHILD,
+          NuxeoEnricher.document.HAS_CONTENT,
         ],
       },
     };
