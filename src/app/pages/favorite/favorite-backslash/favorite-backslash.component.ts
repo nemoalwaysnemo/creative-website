@@ -1,77 +1,73 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+import { Subscription, Observable, of as observableOf, Subject, timer} from 'rxjs';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoPermission, NuxeoQuickFilters, UserService } from '@core/api';
+import { PreviewDialogService, SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'favorite-backslash',
   templateUrl: './favorite-backslash.component.html',
   styleUrls: ['./favorite-backslash.component.scss'],
 })
-export class FavoriteBackslashComponent implements OnInit, OnDestroy {
+export class FavoriteBackslashComponent extends AbstractDocumentViewComponent implements OnInit {
 
-  defaultParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
-    quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
-  };
-
-  folderParams: any = {
-    pageSize: 1,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_FOLDER_TYPE,
-  };
+  baseParams$: Subject<any> = new Subject<any>();
 
   tabs = TAB_CONFIG;
-
-  parentDocument: DocumentModel;
-
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
     'app_edges_industry_agg': { placeholder: 'Industry' },
   };
 
-  private subscription: Subscription = new Subscription();
-
   constructor(
-    private advanceSearch: AdvanceSearch,
-    private previewDialogService: PreviewDialogService,
-    private queryParamsService: SearchQueryParamsService,
-  ) { }
+    protected advanceSearch: AdvanceSearch,
+    protected activatedRoute: ActivatedRoute,
+    protected queryParamsService: SearchQueryParamsService,
+    private userService: UserService) {
+    super(advanceSearch, activatedRoute, queryParamsService);
+  }
 
   ngOnInit() {
-    this.searchFolders(this.folderParams);
+    this.getFavoriteId();
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.parentDocument);
-  }
-
-  onCreated(doc: DocumentModel): void {
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
-  }
-
-  private searchFolders(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.parentDocument = res.entries.shift();
-        if (this.parentDocument) {
-          this.addChildrenPermission$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
-        }
+  private getFavoriteId() {
+    this.userService.getFavoriteDocument()
+      .subscribe((res) => {
+        this.setCurrentDocument(res);
       });
-    this.subscription.add(subscription);
+  }
+
+  protected setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
+    if (doc) {
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+    }
+  }
+
+  protected getCurrentDocumentSearchParams(): object {
+    return {
+      pageSize: 1,
+      currentPageIndex: 0,
+      ecm_path_eq: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+    };
+  }
+
+  protected buildAssetsParams(doc?: DocumentModel): any {
+    const params = {
+      pageSize: 20,
+      currentPageIndex: 0,
+      ecm_fulltext: '',
+      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
+    };
+    if (doc) {
+      params['ecm_parentId'] = doc.uid;
+    }
+    return params;
   }
 
 }
