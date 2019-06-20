@@ -1,16 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+
+import { Component, OnInit } from '@angular/core';
+import { Observable, of as observableOf } from 'rxjs';
+import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { PreviewDialogService, SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'favorite-brand',
   templateUrl: './favorite-brand.component.html',
   styleUrls: ['./favorite-brand.component.scss'],
 })
-export class FavoriteBrandComponent implements OnInit, OnDestroy {
+export class FavoriteBrandComponent extends AbstractDocumentViewComponent implements OnInit {
 
   defaultParams: any = {
     pageSize: 20,
@@ -19,13 +21,6 @@ export class FavoriteBrandComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
     quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
-  };
-
-  folderParams: any = {
-    pageSize: 1,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_FOLDER_TYPE,
   };
 
   tabs = TAB_CONFIG;
@@ -39,20 +34,16 @@ export class FavoriteBrandComponent implements OnInit, OnDestroy {
     'app_edges_industry_agg': { placeholder: 'Industry' },
   };
 
-  private subscription: Subscription = new Subscription();
-
   constructor(
-    private advanceSearch: AdvanceSearch,
-    private previewDialogService: PreviewDialogService,
-    private queryParamsService: SearchQueryParamsService,
-  ) { }
-
-  ngOnInit() {
-    this.searchFolders(this.folderParams);
+    protected advanceSearch: AdvanceSearch,
+    protected activatedRoute: ActivatedRoute,
+    protected queryParamsService: SearchQueryParamsService,
+    protected previewDialogService: PreviewDialogService) {
+    super(advanceSearch, activatedRoute, queryParamsService);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  ngOnInit() {
+    this.searchCurrentDocument();
   }
 
   openForm(dialog: any): void {
@@ -63,14 +54,20 @@ export class FavoriteBrandComponent implements OnInit, OnDestroy {
     this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
   }
 
-  private searchFolders(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.parentDocument = res.entries.shift();
-        if (this.parentDocument) {
-          this.addChildrenPermission$ = this.parentDocument.hasPermission(NuxeoPermission.AddChildren);
-        }
-      });
-    this.subscription.add(subscription);
+  protected setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
+    if (doc) {
+      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
+    }
   }
+
+  protected getCurrentDocumentSearchParams(): object {
+    return {
+      pageSize: 1,
+      currentPageIndex: 0,
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_FOLDER_TYPE,
+    };
+  }
+
 }
