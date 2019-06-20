@@ -6,6 +6,7 @@ import { APIModule } from '@core/api';
 import { BatchFileUploadComponent } from './batch-file-upload.component';
 import { ThemeModule } from '@theme/theme.module';
 import { DynamicFormsBaseNGUIModule } from '@pages/shared/dynamic-ng-form/dynamic-ng-form-base-ui.module';
+import { AttachmentUploadComponent } from './attachment-upload.component';
 
 @NgModule({
   imports: [
@@ -16,9 +17,13 @@ import { DynamicFormsBaseNGUIModule } from '@pages/shared/dynamic-ng-form/dynami
     CommonModule,
     DynamicFormsBaseNGUIModule,
   ],
-  declarations: [BatchFileUploadComponent],
+  declarations: [
+    BatchFileUploadComponent,
+    AttachmentUploadComponent,
+  ],
   exports: [
     BatchFileUploadComponent,
+    AttachmentUploadComponent,
   ],
 })
 

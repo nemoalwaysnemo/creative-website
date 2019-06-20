@@ -1,0 +1,39 @@
+<div class="batch-upload">
+  <div class="batch-upload-zone" style="width: 50%; float: left" ngFileDrop multiple="1" [queueLimit]="1" (filesChange)="onFilesChange($event, 'document')" [(validDrag)]="validComboDrag" [(files)]="documents" [accept]="acceptTypes"
+    [maxSize]="maxSize"
+    class="file-drop-zone" [class.invalid-drag]="validComboDrag === false" [class.valid-drag]="validComboDrag" [fileDropDisabled]="uploading || uploaded">
+    <div><strong>{{assetPlaceholder}}</strong></div>
+  </div>
+    <div class="batch-upload-zone" style="width: 50%; float: left" ngFileDrop multiple="1" [queueLimit]="queueLimit" (filesChange)="onFilesChange($event, 'attachments')" [(validDrag)]="validComboDrag" [(files)]="attachments"
+      [accept]="acceptTypes" [maxSize]="maxSize"
+      class="file-drop-zone" [class.invalid-drag]="validComboDrag === false" [class.valid-drag]="validComboDrag" [fileDropDisabled]="uploading || uploaded">
+      <div><strong>Drop to upload attachments</strong></div>
+    </div>
+  <ng-container [ngSwitch]="true">
+      <div class="batch-upload-queue">
+        <h6>{{ files.length }} Queued Files</h6>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Size</th>
+              <th>Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of onUploaded | async; let i=index">
+              <td nowrap><strong>{{ item.fileName }}</strong></td>
+              <td nowrap>{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
+              <td nowrap>{{ showType(item.uploadFileType)  }}</td>
+              <td nowrap><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i, item.uploadFileType)" [disabled]="uploading || uploaded">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <button nbButton class="btn btn-success btn-xs" status="success" [disabled]="uploading || uploaded || !files.length" (click)="uploadFiles(files)">Upload</button>
+          <button nbButton class="btn btn-danger btn-xs" status="danger" [disabled]="uploading || uploaded || !files.length" (click)="removeAll()">Remove</button>
+        </div>
+      </div>
+  </ng-container>
+</div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicAttachmentUploadModel } from '@core/custom';
 import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
 
 @Component({
@@ -95,6 +95,13 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
         acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
+      new DynamicAttachmentUploadModel<string>({
+        id: 'uploadAttachments',
+        label: 'Attachment',
+        formMode: 'edit',
+        queueLimit: 25,
+        placeholder: 'Drop file here!',
       }),
     ];
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicAttachmentUploadModel } from '@core/custom';
 import { Observable, forkJoin } from 'rxjs';
 import { deepExtend } from '@core/services';
 
@@ -88,7 +88,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onCustomEvent(event: any): void {
-    if (event.type === 'VALID' ) {
+    if (event.type === 'VALID') {
       this.childrenValid = event.$event;
     }
     if (event.type === 'BATCH_UPLOAD') {
@@ -121,7 +121,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private performSettings(settings: DynamicFormControlModel[]): any[] {
-    const uploadModel = settings.find((v) => v instanceof DynamicBatchUploadModel);
+    const uploadModel = settings.find((v) => (v instanceof DynamicBatchUploadModel) || (v instanceof DynamicAttachmentUploadModel));
     this.uploadFieldName = uploadModel ? uploadModel.id : this.uploadFieldName;
     return settings.filter((v) => v.formMode === null || v.formMode === this.formMode);
   }
@@ -156,6 +156,10 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private update(): void {
     const properties = this.filterPropertie(this.formGroup.value);
+    if (this.uploadState && this.uploadState === 'uploaded') {
+      this.attachDeffFiles(properties);
+    }
+
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
       this.onUpdated.next(model);
     });
@@ -183,6 +187,25 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+  private attachDeffFiles(properties: any): any {
+    const files = this.formGroup.value.uploadAttachments;
+    const document = files.find(file => file.uploadFileType === 'document');
+    const attachmens = [];
+
+    files.forEach(attachment => {
+      if (attachment.uploadFileType === 'attachment') {
+        attachmens.push({ 'file': attachment.batchBlob });
+      }
+    });
+    if (!!document) {
+      properties['file:content'] = document.batchBlob;
+    }
+    if (attachmens.length > 0) {
+      properties['files:files'] = attachmens;
+    }
+    return properties;
+  }
+
   private performUploading(list: NuxeoUploadResponse[]): void {
     if (list.length === 0) {
       this.uploadState = null;
@@ -197,9 +220,11 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   hideControls(): void {
-    this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
-      this.childrenValid = false;
-      this.formService.removeFormGroupControl(modelIndex - index, this.formGroup, this.formModel);
-    });
+    if (this.formMode === 'create') {
+      this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
+        this.childrenValid = false;
+        this.formService.removeFormGroupControl(modelIndex - index, this.formGroup, this.formModel);
+      });
+    }
   }
 }
