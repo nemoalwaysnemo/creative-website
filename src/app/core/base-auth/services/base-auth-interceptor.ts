@@ -22,7 +22,12 @@ export class BaseAuthInterceptor implements HttpInterceptor {
               return this.authService.getToken().pipe(
                 switchMap((token: NbAuthToken) => {
                   request = request.clone({ setHeaders: { Authorization: `Bearer ${token.getValue()}` } });
-                  return next.handle(request);
+                  return next.handle(request).pipe(
+                    catchError((error: any, caught) => {
+                      // intercept the respons error and displace it to the console
+                      this.handleAuthError(error);
+                      return observableOf(error);
+                    }));
                 }),
               );
             } else {
@@ -31,7 +36,6 @@ export class BaseAuthInterceptor implements HttpInterceptor {
               return next.handle(request).pipe(
                 catchError((error: any, caught) => {
                   // intercept the respons error and displace it to the console
-                  console.log(error);
                   this.handleAuthError(error);
                   return observableOf(error);
                 }));

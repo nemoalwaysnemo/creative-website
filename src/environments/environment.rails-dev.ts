@@ -2,11 +2,11 @@
 export const Environment = {
   title: 'Know\\edge',
   homePath: '/p/knowledge',
-  appName: 'Creative Library Dev',
+  appName: 'Creative Library',
   nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
   backslashAppUrl: '/backslash',
   assetPath: 'LibraryWebUI/',
-  oauth2CallBackPath: '/nuxeo/site/LibraryWebUI/',
+  oauth2CallBackPath: 'http://localhost:3000/',
   production: true,
 };
 

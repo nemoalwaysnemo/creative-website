@@ -7,8 +7,8 @@ export const DYNAMIC_FORM_CONTROL_TYPE_ATTACHMENT_UPLOAD = 'ATTACHMENT_UPLOAD';
 export interface DynamicAttachmentUploadModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
 
   placeholder?: string;
-  acceptTypes?: string
-  queueLimit?: number
+  acceptTypes?: string;
+  queueLimit?: number;
   maxSize?: number;
 }
 
