@@ -20,8 +20,6 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   placeholder: string = 'Search...';
 
-  document: DocumentModel;
-
   assetUrlMapping: object = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
     'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder/',
@@ -45,13 +43,6 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_FOLDER_TYPE,
   };
 
-  private backgroudParams: any = {
-    pageSize: 10,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.FRONTPAGE_BANNER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.FRONTPAGE_BANNER_TYPE,
-  };
-
   private allowedTabs: string[] = ['roadmaps', 'days', 'thinking', 'how tos'];
 
   constructor(
@@ -60,7 +51,6 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.search(this.folderParams);
-    this.getBackgroud(this.backgroudParams);
   }
 
   ngOnDestroy() {
@@ -72,14 +62,6 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
       .subscribe((res: NuxeoPagination) => {
         this.folders = res.entries.filter((doc: DocumentModel) => this.allowedTabs.some(x => doc.title.toLocaleLowerCase().includes(x)));
         this.loading = false;
-      });
-    this.subscription.add(subscription);
-  }
-
-  private getBackgroud(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
-      .subscribe((res: NuxeoPagination) => {
-        this.document = res.entries.filter((doc: DocumentModel) => doc.title.toLowerCase().includes('disruption')).shift();
       });
     this.subscription.add(subscription);
   }

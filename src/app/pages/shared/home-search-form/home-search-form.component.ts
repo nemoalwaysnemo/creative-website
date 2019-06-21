@@ -46,13 +46,6 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() redirectUrl: string;
 
-  @Input()
-  set backgroudDocument(doc: DocumentModel) {
-    if (doc) {
-      this.backgroudUrl = doc.originalPicture;
-    }
-  }
-
   private subscription: Subscription = new Subscription();
 
   constructor(
