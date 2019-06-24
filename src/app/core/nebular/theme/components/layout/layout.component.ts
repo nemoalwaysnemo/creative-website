@@ -22,7 +22,6 @@ import { NbLayoutDimensions, NbLayoutRulerService } from '../../services/ruler.s
 import { NB_WINDOW, NB_DOCUMENT } from '../../theme.options';
 import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adapter';
 import { NbSidebarService } from '../sidebar/sidebar.service';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { HEADER_OFFSET } from '@angular/core/src/render3/interfaces/view';
 /**
@@ -98,14 +97,6 @@ export class NbLayoutColumnComponent {
  * header-padding
  * header-shadow
  */
-enum VisibilityState {
-  Visible = 'visible',
-  Hidden = 'hidden',
-}
-enum Direction {
-  Up = 'Up',
-  Down = 'Down',
-}
 @Component({
   selector: 'nb-layout-header',
   template: `
@@ -115,11 +106,7 @@ enum Direction {
   `,
 })
 export class NbLayoutHeaderComponent implements AfterViewInit {
-  listenToScroll: boolean = true;
-  isVisible = true;
   h: number = 0;
-  protected goingUp: Subscription = new Subscription();
-  protected goingDown: Subscription = new Subscription();
   @HostBinding('class.fixed') fixedValue: boolean;
   @HostBinding('class.subheader') subheaderValue: boolean;
 
@@ -323,7 +310,7 @@ export class NbLayoutFooterComponent {
     <div class="scrollable-container" #scrollableContainer (scroll)="onScroll($event)">
       <div class="layout">
         <ng-content  select="nb-layout-header:not([subheader])"></ng-content>
-        <div class="layout-container" [ngStyle]="{'padding-top': onHide}">
+        <div class="layout-container">
           <ng-content select="nb-sidebar"></ng-content>
           <div class="content" [class.center]="centerValue">
             <ng-content select="nb-layout-header[subheader]"></ng-content>
@@ -338,14 +325,9 @@ export class NbLayoutFooterComponent {
   `,
 })
 export class NbLayoutComponent implements AfterViewInit, OnDestroy {
-  onHide: any;
   centerValue: boolean = false;
   restoreScrollTopValue: boolean = true;
-  isOpen: boolean = false;
   initialState: boolean = true;
-  listenToScroll: boolean = true;
-  protected goingUp: Subscription = new Subscription();
-  protected goingDown: Subscription = new Subscription();
   @HostBinding('class.window-mode') windowModeValue: boolean = false;
   @HostBinding('class.with-scroll') withScrollValue: boolean = false;
   @HostBinding('class.with-subheader') withSubheader: boolean = false;
@@ -423,22 +405,6 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     protected overlayContainer: NbOverlayContainerAdapter,
     protected sidebarService: NbSidebarService,
   ) {
-
-    this.sidebarService.onSidebarOpen()
-      .subscribe((data: { tag: boolean }) => {
-        if (data.tag && this.isOpen === false) {
-          this.isOpen = !this.isOpen;
-        }
-      });
-
-    this.sidebarService.onSidebarClose()
-      .subscribe((data: { tag: boolean }) => {
-        if (data.tag && this.initialState) {
-          this.initialState = false;
-        } else if (data.tag && this.isOpen === true) {
-          this.isOpen = !this.isOpen;
-        }
-      });
     this.registerAsOverlayContainer();
 
     this.themeService.onThemeChange()
@@ -531,38 +497,6 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       .subscribe(({ x, y }: NbScrollPosition) => this.scroll(x, y));
 
     this.afterViewInit$.next(true);
-    if (this.listenToScroll) {
-      const scroll$ = this.scrollService
-        .onScroll()
-        .pipe(
-          throttleTime(10),
-          map(() => window.pageYOffset),
-          pairwise(),
-          map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
-          distinctUntilChanged(),
-          share(),
-      );
-      const goingUp$ = scroll$.pipe(
-        filter(direction => direction === Direction.Up),
-      );
-
-      const goingDown$ = scroll$.pipe(
-        filter(direction => direction === Direction.Down),
-      );
-
-      // this.goingUp = goingUp$.subscribe(() => (this.onHide = '79px'));
-      // this.goingDown = goingDown$.subscribe(() => (this.onHide = '0px'));
-    }
-    this.scrollService.onScrollListen()
-      .subscribe((res) => {
-        if (res) {
-          if (res.stop === true) {
-            this.goingUp.unsubscribe();
-            this.goingDown.unsubscribe();
-            this.listenToScroll = false;
-          }
-        }
-      });
   }
 
   ngOnDestroy() {

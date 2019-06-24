@@ -12,7 +12,6 @@ import { convertToBoolProperty } from '../helpers';
 import { NbThemeService } from '../../services/theme.service';
 import { NbMediaBreakpoint } from '../../services/breakpoints.service';
 import { NbSidebarService } from './sidebar.service';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 /**
  * Sidebar header container.
@@ -124,24 +123,6 @@ export class NbSidebarFooterComponent {
       <ng-content select="nb-sidebar-footer"></ng-content>
     </div>
   `,
-  // animations: [
-  //   trigger('openClose', [
-  //     state('hide', style({
-  //           zIndex: 0,
-  //           width: '0px',
-  //     })),
-  //     state('expand', style({
-  //           zIndex: 100,
-  //           width: '77px',
-  //     })),
-  //     transition('hide => expand', [
-  //       animate('0.1s'),
-  //     ]),
-  //     transition('expand => hide', [
-  //       animate('0.1s'),
-  //     ]),
-  //   ]),
-  // ],
 })
 export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
 

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { Environment } from '@environment/environment';
 import { NbMenuService, NbMenuItem, NbMediaBreakpointsService, NbThemeService, NbMediaBreakpoint } from '@core/nebular/theme';
 import { delay, distinctUntilChanged, filter, map, pairwise, share, throttleTime, withLatestFrom } from 'rxjs/operators';
-import { NbSidebarService } from '@core/nebular/theme/components/sidebar/sidebar.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
 
@@ -52,31 +51,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private router: Router, private menuService: NbMenuService,
     protected bpService: NbMediaBreakpointsService,
     protected themeService: NbThemeService,
-    private userService: UserService, protected sidebarService: NbSidebarService,
+    private userService: UserService,
     protected scrollService: NbLayoutScrollService) { }
-
   ngOnInit() {
     this.getUser();
     this.updateHeaderTitle();
-
-    this.sidebarService.onSidebarOpen()
-      .subscribe((data: { tag: boolean }) => {
-        if (data.tag && this.isOpen === false) {
-          this.isOpen = !this.isOpen;
-        }
-      });
-
-    this.sidebarService.onSidebarClose()
-      .subscribe((data: { tag: boolean }) => {
-        if (data.tag && this.isOpen === true) {
-          this.isOpen = !this.isOpen;
-        }
-      });
-
-    this.sidebarService.onCollapse()
-      .subscribe((res) => {
-        this.sidebarClosed = true;
-      });
 
     const isBp = this.bpService.getByName('xl');
     this.menuService.onItemSelect()
@@ -86,7 +65,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       )
       .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
         if (bpTo.width <= isBp.width) {
-          this.sidebarClosed = true;
           this.scrollService.stopScrollListener(true);
         }
       });
@@ -135,16 +113,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   goHome() {
     this.router.navigate([Environment.homePath]);
-  }
-
-  sidebarToggle() {
-    if (this.sidebarClosed) {
-      this.sidebarService.openSidebar(true, 'menu-sidebar');
-      this.sidebarClosed = false;
-    } else {
-      this.sidebarService.closeSidebar('menu-sidebar');
-      this.sidebarClosed = true;
-    }
   }
 
   private getUser(): void {

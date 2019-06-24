@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 export class IntelligenceHomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   loading: boolean = true;
-  headline = 'Find the knowledge in our network.';
-  subHead = 'Get the info that brought the insight.';
+  headline = 'All brains on deck.';
+  subHead = 'Before we disrupt, we do our homework.';
   placeholder = 'Search for marketing reports, data, research...';
   folders: any[];
 
