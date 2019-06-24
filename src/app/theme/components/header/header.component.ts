@@ -133,4 +133,20 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     this.subscription.add(subscription);
   }
+
+  tabs = [
+    {
+      title: 'Creative Library',
+    },
+    {
+      title: 'Backslash',
+    },
+    {
+      title: 'Disruption',
+    },
+    {
+      title: 'Intelligence',
+    },
+  ];
+
 }

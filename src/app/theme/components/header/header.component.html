@@ -1,10 +1,16 @@
 <div class="header-container">
-  <a class="logo" [ngStyle]="{'display': headerHide}"></a>
-  <!-- <a *ngIf="!sidebarSetting" class="logo" (click)="goHome()" href="#" [ngStyle]="{'display': headerHide}"></a> -->
-  <h1 [ngStyle]="{'display': headerHide}">{{ title }}</h1>
+<!-- 上半部分 左边logo 右边原来那个按钮 -->
+<div>
+  <div>这是logo</div>
   <nb-actions size="medium" [@userAction]="actionTag ? 'actionExist' : 'actionDisappear'">
     <nb-action>
       <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username"></nb-user>
     </nb-action>
   </nb-actions>
+</div>
+<!-- 下半部用tabset做的导航 但是好像现在样式有冲突 -->
+<div>
+  <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
+</div>
+
 </div>
