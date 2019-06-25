@@ -16,25 +16,22 @@ $main-yellow: #fecc00;
   display: block;
   float: left;
   width: 100%;
-  height: 560px;
-  border-bottom: solid 3px $main-yellow;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  height: 425px;
   > h1 {
     font-family: 'Averta for TBWA W01 Black', helvetica, arial;
-    font-size: 50px;
-    line-height: 50px;
-    margin-top: 138px;
-    margin-left: 40px;
+    font-size: 107px;
+    line-height: 80px;
+    margin-top: 68px;
+    margin-left: 60px;
     color: $main-yellow;
   }
   > h4 {
     font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-    font-size: 20px;
+    font-size: 26px;
     line-height: 20px;
-    margin-top: 16px;
-    margin-left: 40px;
+    margin-top: 26px;
+    margin-left: 60px;
+    color: #010101;
   }
   .advanced_filters_trigger {
     font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
@@ -47,54 +44,45 @@ $main-yellow: #fecc00;
 }
 .keyword-wrapper {
   position: relative;
-  width: calc(100% - 80px);
-  margin: 0 auto;
-}
-.keyword {
-  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-  display: block;
-  width: 100%;
-  height: 95px;
-  margin-top: 50px;
-  padding-left: 109px;
-  font-size: 30px;
-  box-sizing: border-box;
-  background: #ffffff url('/assets/images/search_icon.png') no-repeat 38px center;
-  border: none;
-  outline: 0;
-  &:focus { border-color: rgba(81, 203, 238, 1); }
+  width: calc(100% - 120px);
+  margin: 28px auto 0;
+  .keyword {
+    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+    display: block;
+    width: 100%;
+    height: 95px;
+    padding-left: 97px;
+    font-size: 26px;
+    box-sizing: border-box;
+    background: #f7f6f6 url('/assets/images/search_icon1.png') no-repeat 38px center;
+    border: none;
+    outline: 0;
+    &:focus { border-color: rgba(81, 203, 238, 1); }
+  }
 }
 .filter_trigger {
   display: inline-block;
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   font-size: 15px;
-  margin-left: 40px;
-  margin-top: 21px;
-  margin-bottom: 18px;
-  color: #ffffff;
+  margin-left: 60px;
+  margin-top: 24px;
+  color: #b0afaf;
   &:hover {
     text-decoration: none;
-    color: #ffffff;
+    color: #b0afaf;
   }
 }
-.line {
-  display: block;
-  width: calc(100% - 80px);
-  height: 2px;
-  margin: 0 auto;
-  background-color: #ffc300;
-}
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #b1b1b1;
+  color: #aeaeae;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: #b1b1b1;
+  color: #aeaeae;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: #b1b1b1;
+  color: #aeaeae;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: #b1b1b1;
+  color: #aeaeae;
 }
 .thumbnail-view-item {
   border: none;
