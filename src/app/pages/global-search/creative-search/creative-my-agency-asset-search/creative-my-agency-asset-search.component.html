@@ -1,0 +1,22 @@
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
+  <div class="property-section">
+    <div class="property-intro inline-middle">
+      <img src="{{document?.filePath}}" />
+    </div>
+    <div class="property-info inline-middle">
+      <h1>{{document?.get('The_Loupe_Main:clientName')}}</h1>
+      <table>
+        <tbody>
+          <tr>
+            <td>Country: {{document?.get('The_Loupe_Main:country')}}</td>
+          </tr>
+          <tr>
+            <td><button type="button" class="icon_btn" title="Create brand">Create brand</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<global-search-form [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
+<creative-document-asset-search-result [showResult]="showResult"></creative-document-asset-search-result>

@@ -4,7 +4,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
 @Component({
   selector: 'creative-my-agency-search',
   templateUrl: './creative-my-agency-search.component.html',
-  styleUrls: ['./creative-my-agency-search.component.scss']
+  styleUrls: ['./creative-my-agency-search.component.scss'],
 })
 export class CreativeMyAgencySearchComponent {
 
