@@ -1,20 +1,17 @@
 <div class="header-container">
-  <!-- 上半部分 左边logo 右边原来那个按钮 -->
   <div class="top-bar">
     <div class="left logo"></div>
-    <nb-actions size="medium" [@userAction]="actionTag ? 'actionExist' : 'actionDisappear'" class="right">
+    <nb-actions size="medium" class="right">
       <nb-action>
         <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username"></nb-user>
       </nb-action>
     </nb-actions>
     <div class="clear"></div>
   </div>
-  <!-- 下半部用tabset做的导航 但是好像现在样式有冲突 -->
   <div class="main-nav">
-    <!-- <nb-route-tabset [tabs]="tabs"></nb-route-tabset> -->
-    <a href="#" class="active">Creative Library</a>
-    <a href="#">Backslash</a>
-    <a href="#">Disruption</a>
-    <a href="#">Intelligence</a>
+    <a [routerLink]="['/p/creative']" [ngClass]="{'active': selectLayout('creative')}">Creative Library</a>
+    <a href="{{backslashUrl}}" target="_blank">Backslash</a>
+    <a [routerLink]="['/p/disruption']" [ngClass]="{'active': selectLayout('disruption')}">Disruption</a>
+    <a [routerLink]="['/p/intelligence']" [ngClass]="{'active': selectLayout('intelligence')}">Intelligence</a>
   </div>
 </div>

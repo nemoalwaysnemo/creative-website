@@ -141,27 +141,28 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
     this.layout.withSubheader = this.subheaderValue;
   }
   ngAfterViewInit() {
-      this.scrollService.onScroll()
-        .pipe(
-          map(() => window.pageYOffset),
-          pairwise(),
-          map(([y1, y2]) => {
-            y1 = y1 > 0 ? y1 : 0;
-            y2 = y2 > 0 ? y2 : 0;
-            return y1 - y2;
-          }),
-      )
-        .subscribe(y => {
-          const offsetY = this.h + y;
-          if (offsetY < - 78) {
-            this.h = - 78;
-          } else if (offsetY > 0) {
-            this.h = 0;
-          } else {
-            this.h = offsetY;
-          }
-          this.renderer.setStyle(this.el.nativeElement, 'top', this.h + 'px');
-        });
+    //   this.scrollService.onScroll()
+    //     .pipe(
+    //       map(() => window.pageYOffset),
+    //       pairwise(),
+    //       map(([y1, y2]) => {
+    //         y1 = y1 > 0 ? y1 : 0;
+    //         y2 = y2 > 0 ? y2 : 0;
+    //         return y1 - y2;
+    //       }),
+    //   )
+    //     .subscribe(y => {
+    //       const offsetY = this.h + y;
+    //       if (offsetY < - 78) {
+    //         this.h = - 78;
+    //       } else if (offsetY > 0) {
+    //         this.h = 0;
+    //       } else {
+    //         this.h = offsetY;
+    //       }
+    //       // this.h += y;
+    //       this.renderer.setStyle(this.el.nativeElement, 'top', this.h + 'px');
+    //     });
     }
 }
 
