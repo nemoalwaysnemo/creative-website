@@ -1,30 +1,5 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 
-// .results {
-//   position: absolute;
-//   @include media-breakpoint-down(lg) { //992px
-//     width: 700px;
-//   }
-//   @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-//     width: 850px;
-//   }
-//   @include media-breakpoint-up(xxl) { //1400px
-//     width: 1209px;
-//   }
-//   max-height: 700px;
-//   left: 40px;
-//   box-sizing: border-box;
-//   background: #ffffff;
-//   box-shadow: 6px 11px 32px rgba(0, 0, 0, 0.72);
-//   z-index: 1000;
-//   overflow: auto;
-//   > div {
-//     padding: 26px 43px;
-//     box-sizing: border-box;
-//     &:hover { background-color: #eeeeee; }
-//     &:focus-within { background-color: #eeeeee; }
-//   }
-// }
 .empty {
   width: 100%!important;
   padding: 40px 0!important;
@@ -34,31 +9,31 @@
   }
 }
 .s-results {
-  width: calc(100% - 76px);
+  width: 100%;
   min-height: 100px;
   margin: 0 auto;
   background: #ffffff;
   &.full-width {
-    @include media-breakpoint-down(md) {
-      // < 768px
-      width: 720px;
-    }
-    @include media-breakpoint-between(md, lg) {
-      //768px - 992px
-      width: 720px;
-    }
-    @include media-breakpoint-between(lg, xl) {
-      //992px - 1200px
-      width: 960px;
-    }
-    @include media-breakpoint-between(xl, xxl) {
-      //1200px - 1400px
-      width: 1140px;
-    }
-    @include media-breakpoint-up(xxl) {
-      // > 1400px
-      min-width: 1320px;
-    }
+    // @include media-breakpoint-down(md) {
+    //   // < 768px
+    //   width: 720px;
+    // }
+    // @include media-breakpoint-between(md, lg) {
+    //   //768px - 992px
+    //   width: 720px;
+    // }
+    // @include media-breakpoint-between(lg, xl) {
+    //   //992px - 1200px
+    //   width: 960px;
+    // }
+    // @include media-breakpoint-between(xl, xxl) {
+    //   //1200px - 1400px
+    //   width: 1140px;
+    // }
+    // @include media-breakpoint-up(xxl) {
+    //   // > 1400px
+    //   min-width: 1320px;
+    // }
   }
   &.suggestion-inline {
     width: 100%;
@@ -73,7 +48,7 @@
     }
   }
   > .thumbnail-view-item {
-    padding: 18px;
+    padding: 0 30px 27px;
     box-sizing: border-box;
   }
 }

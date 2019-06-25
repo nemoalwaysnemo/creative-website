@@ -1,6 +1,6 @@
 <div class="agency-thumbnail">
   <h1 class="left">Best of TBWA\Worldwide</h1>
-  <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}" class="see_all right">See all</a>
+  <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}" class="see_all right">My Agency</a>
   <div class="clear"></div>
   <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 </div>
@@ -9,15 +9,17 @@
 <ng-template #thumbnailItemView let-doc="doc">
   <div class="thumbnail-view-item">
     <div class="image-holder">
-      <a [routerLink]="['/p/creative/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
-    </div>
-    <div class="description">
-      <h1 [title]="doc.title"><a [routerLink]="['/p/creative/asset', doc.uid]">{{doc.title}}</a></h1>
-      <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">{{doc.get('The_Loupe_ProdCredits:production_date') | date: 'yyyy'}}</h4>
-      <span class="dot"></span>
-      <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
-      <div class="line"></div>
-      <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+      <a [routerLink]="['/p/creative/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}">
+        <div class="description">
+          <h1 [title]="doc.title">{{doc.title}}</h1>
+          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">
+            {{doc.get('The_Loupe_ProdCredits:production_date') | date: 'yyyy'}}
+          </h4>
+          <span class="dot"></span>
+          <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+          <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+        </div>
+      </a>
     </div>
   </div>
 </ng-template>

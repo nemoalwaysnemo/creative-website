@@ -1,57 +1,5 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 @import '../../../theme/styles/custom-styles.scss';
-// .empty {
-//   width: 100%!important;
-//   padding: 40px 0!important;
-//   .empty-data {
-//     font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-//     font-size: 20px;
-//   }
-// }
-// .results {
-//   position: absolute;
-//   @include media-breakpoint-down(lg) { //992px
-//     width: 700px;
-//   }
-//   @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-//     width: 850px;
-//   }
-//   @include media-breakpoint-up(xxl) { //1400px
-//     width: 1209px;
-//   }
-//   max-height: 700px;
-//   left: 40px;
-//   box-sizing: border-box;
-//   background: #ffffff;
-//   box-shadow: 6px 11px 32px rgba(0, 0, 0, 0.72);
-//   z-index: 1000;
-//   overflow: auto;
-//   > div {
-//     padding: 26px 43px;
-//     box-sizing: border-box;
-//     &:hover { background-color: #eeeeee; }
-//     &:focus-within { background-color: #eeeeee; }
-//   }
-// }
-
-// .s-results {
-//   width: calc(100% - 76px);
-//   min-height: 100px;
-//   margin: 7px auto 0;
-//   > div {
-//     width: 25%;
-//     padding: 18px 39px 18px 0;
-//     box-sizing: border-box;
-//   }
-// }
-// .dates {
-//   width: 100%;
-//   > div {
-//     width: 25%;
-//     box-sizing: border-box;
-//     padding: 0 41px 49px 0;
-//   }
-// }
 
 .thumbnail-view-item {
   height: 100%;
@@ -61,35 +9,92 @@
     width: 100%;
     @include media-breakpoint-down(md) {
       // < 768px
-      height: 268px;
+      height: 213px;
     }
     @include media-breakpoint-between(md, lg) {
       //768px - 992px
-      height: 268px;
+      height: 213px;
     }
     @include media-breakpoint-between(lg, xl) {
       //992px - 1200px
-      height: 268px;
+      height: 213px;
     }
     @include media-breakpoint-between(xl, xxl) {
       //1200px - 1400px
-      height: 268px;
+      height: 213px;
     }
     @include media-breakpoint-up(xxl) {
       // > 1400px
-      height: 268px;
+      height: 213px;
     }
     overflow: hidden;
     > a {
+      position: relative;
       display: block;
       width: 100%;
       height: 100%;
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
-      transition: all 0.5s;
+      .description {
+        position: absolute;
+        // display: block;
+        display: none;
+        width: 100%;
+        height: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0 25px;
+        box-sizing: border-box;
+        transition: display 0.3s;
+        z-index: 2;
+        h1 {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          font-family: 'Averta for TBWA W01 Extrabold', helvetica, arial;
+          font-size: 28px;
+          margin: 25px 0 90px;
+          color: #ffffff;
+          // &.doubleline { margin-top: 4px; }
+        }
+        .year, .client, .dot {
+          font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 13px;
+          margin: 0;
+          color: #ffffff;
+        }
+        .dot {
+          width: 4px;
+          height: 4px;
+          margin: 0 5px;
+          background: #ffffff;
+          border-radius: 2px;
+        }
+        .agency {
+          font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+          display: block;
+          height: 14px;
+          margin: 10px 0 0;
+          font-size: 13px;
+          color: #ffffff;
+        }
+      }
       &:hover {
-        transform: scale(1.1);
+        &::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.2);
+          z-index: 1;
+        }
+        .description { display: block; }
       }
     }
   }
@@ -105,49 +110,7 @@
       text-decoration: none;
     }
   }
-  .description {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 0 13px;
-    box-sizing: border-box;
-    h1 {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
-      font-size: 18px;
-      margin-top: 22px;
-      margin-bottom: 8px;
-      &.doubleline { margin-top: 4px; }
-    }
-    .year, .client, .dot {
-      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-      display: inline-block;
-      vertical-align: middle;
-      font-size: 13px;
-      margin: 0;
-    }
-    .dot {
-      width: 4px;
-      height: 4px;
-      margin: 0 5px;
-      background: #2a2a2a;
-      border-radius: 2px;
-    }
-    .line {
-      width: 100%;
-      height: 2px;
-      margin: 15px 0;
-      background: #ebebeb;
-    }
-    .agency {
-      display: block;
-      height: 14px;
-      margin-bottom: 14px;
-      font-size: 12px;
-    }
-  }
+  
 }
 disruption-asset-preview-dialog-body {
   display: block;
