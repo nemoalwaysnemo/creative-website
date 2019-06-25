@@ -6,6 +6,13 @@
   height: 76px;
   padding: 20px 60px;
   box-sizing: border-box;
+  .logo {
+    width: 147px;
+    height: 36px;
+    background-image: url('/assets/images/logo1.png');
+    background-repeat: no-repeat;
+    background-position: top left;
+  }
 }
 .main-nav {
   width: 100%;
