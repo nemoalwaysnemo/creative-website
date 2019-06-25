@@ -6,6 +6,8 @@ import { CreativeMyBrandSearchComponent } from './creative-my-brand-search/creat
 import { CreativeMyBrandAssetSearchComponent } from './creative-my-brand-asset-search/creative-my-brand-asset-search.component';
 import { CreativePopularBrandSearchComponent } from './creative-popular-brand-search/creative-popular-brand-search.component';
 import { CreativePopularBrandAssetSearchComponent } from './creative-popular-brand-asset-search/creative-popular-brand-asset-search.component';
+import { CreativeMyAgencySearchComponent } from './creative-my-agency-search/creative-my-agency-search.component';
+import { CreativeMyAgencyAssetSearchComponent } from './creative-my-agency-asset-search/creative-my-agency-asset-search.component'
 
 const routes: Routes = [{
   path: '',
@@ -30,6 +32,14 @@ const routes: Routes = [{
     {
       path: 'popularBrandAsset/:id',
       component: CreativePopularBrandAssetSearchComponent,
+    },
+    {
+      path: 'myAgency',
+      component: CreativeMyAgencySearchComponent,
+    },
+    {
+      path: 'myAgencyAsset/:id',
+      component: CreativeMyAgencyAssetSearchComponent,
     },
     {
       path: '',

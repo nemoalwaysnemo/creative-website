@@ -31,6 +31,7 @@ import { FavoriteBackslashAssetSearchResultComponent } from './favorite-backslas
 import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-search-result/favorite-brand-asset-search-result.component';
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
 import { DisruptionFolderTheoryAssetSearchResultComponent } from './disruption-folder-theory-asset-search-result/disruption-folder-theory-asset-search-result.component';
+import { CreativeMyAgencyAssetSearchResultComponent } from './creative-my-agency-asset-search-result/creative-my-agency-asset-search-result.component';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -38,6 +39,7 @@ const COMPONENTS = [
   CreativeMyBrandAssetSearchResultComponent,
   CreativePopularBrandSearchResultComponent,
   CreativeDocumentAssetSearchResultComponent,
+  CreativeMyAgencyAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
   DisruptionTheoryAssetSearchResultComponent,
   DisruptionThinkingAssetSearchResultComponent,

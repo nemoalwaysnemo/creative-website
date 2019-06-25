@@ -62,6 +62,8 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() filters: { [key: string]: { placeholder: string } } = {};
 
+  @Input() showInput: boolean = true;
+
   @Input()
   set defaultParams(params: any) {
     this.pageChangedSearch = true;
@@ -112,6 +114,10 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   hasFilters(): boolean {
     return this.filters && Object.keys(this.filters).length > 0;
+  }
+
+  isShowInput(): boolean {
+    return this.showInput;
   }
 
   private onInit(): void {

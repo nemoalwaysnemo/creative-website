@@ -9,6 +9,8 @@ import { CreativeMyBrandSearchComponent } from './creative-my-brand-search/creat
 import { CreativeMyBrandAssetSearchComponent } from './creative-my-brand-asset-search/creative-my-brand-asset-search.component';
 import { CreativePopularBrandSearchComponent } from './creative-popular-brand-search/creative-popular-brand-search.component';
 import { CreativePopularBrandAssetSearchComponent } from './creative-popular-brand-asset-search/creative-popular-brand-asset-search.component';
+import { CreativeMyAgencySearchComponent } from './creative-my-agency-search/creative-my-agency-search.component';
+import { CreativeMyAgencyAssetSearchComponent } from './creative-my-agency-asset-search/creative-my-agency-asset-search.component';
 
 @NgModule({
   imports: [
@@ -25,6 +27,8 @@ import { CreativePopularBrandAssetSearchComponent } from './creative-popular-bra
     CreativeMyBrandAssetSearchComponent,
     CreativePopularBrandSearchComponent,
     CreativePopularBrandAssetSearchComponent,
+    CreativeMyAgencySearchComponent,
+    CreativeMyAgencyAssetSearchComponent,
   ],
 })
 export class CreativeSearchModule {

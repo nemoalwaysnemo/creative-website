@@ -1,7 +1,9 @@
 <form class="global-search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
-  <div class="search-input global-search-input left">
-    <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
-  </div>
+  <ng-container *ngIf="isShowInput()">
+    <div class="search-input global-search-input left">
+      <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
+    </div>
+  </ng-container>
   <ng-container *ngIf="hasFilters()">
     <div class="search-filters global-search-filters left">
       <button type="button" (click)="toggleFilter()" class="advanced-filters-trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filter</button>
