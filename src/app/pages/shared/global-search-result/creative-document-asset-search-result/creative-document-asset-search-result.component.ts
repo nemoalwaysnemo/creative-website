@@ -16,6 +16,14 @@ export class CreativeDocumentAssetSearchResultComponent {
       this.listViewSettings = null;
     }
   }
+  showResult: boolean = false;
+
+  @Input()
+  set showListViewSettings(flag: boolean) {
+    if (flag) {
+      this.showResult = true;
+    }
+  }
 
   listViewSettings: any = {
     columns: {

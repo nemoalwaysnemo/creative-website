@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-creative-my-agency-asset-search',
+  selector: 'creative-my-agency-asset-search',
   templateUrl: './creative-my-agency-asset-search.component.html',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
 })
@@ -28,6 +28,7 @@ export class CreativeMyAgencyAssetSearchComponent extends AbstractDocumentViewCo
   showInput: boolean = false;
 
   multiView: boolean = true;
+  showListViewSettings: boolean = true;
 
   constructor(
     protected advanceSearch: AdvanceSearch,
