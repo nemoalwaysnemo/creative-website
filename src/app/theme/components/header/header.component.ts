@@ -124,7 +124,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(
         filter((menu: { tag: string, item: NbMenuItem }) => menu.tag === 'sidebar'),
         map((menu: { tag: string, item: NbMenuItem }) => menu.item),
-      )
+    )
       .subscribe((item: NbMenuItem) => {
         this.title = item.title;
       });
@@ -133,8 +133,12 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   selectLayout(type: string): boolean {
-    const pageType = this.router.url.split('/');
-    return type === pageType[2];
+    const url = this.router.url;
+    let pageType = url.split('/')[2];
+    if (pageType === 'search') {
+      pageType = url.split('/')[3];
+    }
+    return type === pageType;
   }
 
 }

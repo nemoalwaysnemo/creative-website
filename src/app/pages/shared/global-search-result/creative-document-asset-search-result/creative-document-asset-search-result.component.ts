@@ -9,7 +9,13 @@ import { DocumentListViewItem } from '../../document-list-view/document-list-vie
   templateUrl: './creative-document-asset-search-result.component.html',
 })
 export class CreativeDocumentAssetSearchResultComponent {
-  @Input() showResult: boolean = false;
+
+  @Input()
+  set multiView(listView: boolean) {
+    if (!listView) {
+      this.listViewSettings = null;
+    }
+  }
 
   listViewSettings: any = {
     columns: {
@@ -62,10 +68,5 @@ export class CreativeDocumentAssetSearchResultComponent {
       }));
     }
     return items;
-  }
-
-
-  isShowResult(): boolean {
-    return this.showResult;
   }
 }

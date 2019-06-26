@@ -15,21 +15,17 @@
             <td>Client: {{document?.get('The_Loupe_Main:clientName')}}</td>
             <td>Agency: {{document?.get('The_Loupe_Main:agency')}}</td>
           </tr>
-          <tr>
-            <td>Brand: {{document?.title}}</td>
-            <td>Country: {{document?.get('The_Loupe_Main:country')}}</td>
-          </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <!-- <div class="button-group">
+  <div class="button-group">
     <button>Jobs</button>
     <button>Campalgns</button>
     <button>UR</button>
     <button>Upload</button>
     <button>Manage Library</button>
-  </div> -->
+  </div>
 </div>
-<global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></global-search-form>
-<creative-document-asset-search-result></creative-document-asset-search-result>
+<global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
+<creative-document-asset-search-result [multiView]="multiView"></creative-document-asset-search-result>
