@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'tbwa-creative-my-agency-asset-search',
+  selector: 'creative-my-agency-asset-search',
   templateUrl: './creative-my-agency-asset-search.component.html',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
 })
@@ -15,19 +15,19 @@ export class CreativeMyAgencyAssetSearchComponent extends AbstractDocumentViewCo
   baseParams$: Subject<any> = new Subject<any>();
 
   filters: any = {
-    'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'the_loupe_main_country_agg': { placeholder: 'County' },
-    'the_loupe_main_brand_agg': { placeholder: 'Brand' },
-    'the_loupe_main_clientName_agg': { placeholder: 'Client' },
-    'app_edges_industry_agg': { placeholder: 'Industry' },
-    'app_edges_backslash_category_agg': { placeholder: 'Category' },
-    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
+    // 'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
+    // 'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    // 'the_loupe_main_country_agg': { placeholder: 'County' },
+    // 'the_loupe_main_brand_agg': { placeholder: 'Brand' },
+    // 'the_loupe_main_clientName_agg': { placeholder: 'Client' },
+    // 'app_edges_industry_agg': { placeholder: 'Industry' },
+    // 'app_edges_backslash_category_agg': { placeholder: 'Category' },
+    // 'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
 
   showInput: boolean = false;
 
-  showResult: boolean = true;
+  showListViewSettings: boolean = true;
 
   constructor(
     protected advanceSearch: AdvanceSearch,
