@@ -27,8 +27,9 @@ export class CreativeMyAgencyAssetSearchComponent extends AbstractDocumentViewCo
 
   showInput: boolean = false;
 
-  multiView: boolean = true;
-  showListViewSettings: boolean = true;
+  multiView: boolean = false;
+
+  showResultSet: boolean = true;
 
   constructor(
     protected advanceSearch: AdvanceSearch,
