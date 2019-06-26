@@ -18,5 +18,5 @@
     </div>
   </div>
 </div>
-<global-search-form [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
-<creative-document-asset-search-result [showResult]="showResult"></creative-document-asset-search-result>
+<global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
+<creative-document-asset-search-result [multiView]="multiView" [showListViewSettings]="showListViewSettings"></creative-document-asset-search-result>

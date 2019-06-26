@@ -14,15 +14,19 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
 
   baseParams$: Subject<any> = new Subject<any>();
 
+  showInput: boolean = false;
+
+  multiView: boolean = false;
+
   filters: any = {
-    'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'the_loupe_main_country_agg': { placeholder: 'County' },
-    'the_loupe_main_brand_agg': { placeholder: 'Brand' },
-    'the_loupe_main_clientName_agg': { placeholder: 'Client' },
-    'app_edges_industry_agg': { placeholder: 'Industry' },
-    'app_edges_backslash_category_agg': { placeholder: 'Category' },
-    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
+    // 'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
+    // 'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    // 'the_loupe_main_country_agg': { placeholder: 'County' },
+    // 'the_loupe_main_brand_agg': { placeholder: 'Brand' },
+    // 'the_loupe_main_clientName_agg': { placeholder: 'Client' },
+    // 'app_edges_industry_agg': { placeholder: 'Industry' },
+    // 'app_edges_backslash_category_agg': { placeholder: 'Category' },
+    // 'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
 
   constructor(
