@@ -14,7 +14,6 @@ import { DYNAMIC_FORM_CONTROL_TYPE_FILE_UPLOAD, DynamicFileUploadModel } from '.
 import { DYNAMIC_FORM_CONTROL_TYPE_INPUT, DynamicInputModel } from '../model/input/dynamic-input.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP, DynamicRadioGroupModel } from '../model/radio/dynamic-radio-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD, DynamicBatchUploadModel } from '../model/batch-upload/batch-upload.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_ATTACHMENT_UPLOAD, DynamicAttachmentUploadModel } from '@core/custom/ng-dynamic-forms/model/attachment-upload/attachment-upload.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION, DynamicSuggestionModel } from '../model/suggestion/dynamic-suggestion.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG, DynamicOptionTagModel } from '../model/option-tag/dynamic-option-tag.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RATING, DynamicRatingModel } from '../model/rating/dynamic-rating.model';
@@ -30,6 +29,7 @@ import { DynamicPathable } from '../model/misc/dynamic-form-control-path.model';
 import { DynamicValidatorsConfig } from '../model/misc/dynamic-form-control-validation.model';
 import { maskFromString, parseReviver } from '../utils/json.utils';
 import { isString } from '../utils/core.utils';
+import { DynamicDragDropFileZoneModel, DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE } from '../model/drag-drop-file-zone/drag-drop-file-zone.model';
 
 @Injectable({
   providedIn: 'root',
@@ -330,9 +330,10 @@ export class DynamicFormService {
           formModel.push(new DynamicBatchUploadModel(model, layout));
           break;
 
-        case DYNAMIC_FORM_CONTROL_TYPE_ATTACHMENT_UPLOAD:
-          formModel.push(new DynamicAttachmentUploadModel(model, layout));
+        case DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE:
+          formModel.push(new DynamicDragDropFileZoneModel(model, layout));
           break;
+
         case DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG:
           formModel.push(new DynamicOptionTagModel(model, layout));
           break;

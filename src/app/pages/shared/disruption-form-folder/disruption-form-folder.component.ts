@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicAttachmentUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
 
 
@@ -84,108 +84,121 @@ export class DisruptionFormFolderComponent extends AbstractDisruptionForm {
         formMode: 'edit',
         placeholder: 'Author',
       }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'create',
+        uploadType: 'asset',
+        queueLimit: 25,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        queueLimit: 1,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        queueLimit: 1,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
-        label: 'Attachment',
-        formMode: 'create',
-        multiUpload: true,
-        queueLimit: 25,
-        placeholder: 'Drop file here!',
-      }),
-      new DynamicAttachmentUploadModel<string>({
-        id: 'uploadAttachments',
-        label: 'Attachment',
-        formMode: 'edit',
-        queueLimit: 25,
-        placeholder: 'Drop file here!',
+        multiUpload: false,
       }),
     ];
   }
 
-protected getFormLayout(): any {
-      return {
-        'dc:title': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+  protected getFormLayout(): any {
+    return {
+      'dc:title': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
         },
-        'The_Loupe_Main:brand': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+        grid: {
+          host: 'col-sm-4',
         },
-        'app_Edges:industry': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+      },
+      'The_Loupe_Main:brand': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
         },
-        'The_Loupe_Main:description': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+        grid: {
+          host: 'col-sm-4',
         },
-        'app_Edges:backslash_category': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+      },
+      'app_Edges:industry': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
         },
-        'The_Loupe_ProdCredits:production_date': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+        grid: {
+          host: 'col-sm-4',
         },
-        'app_Edges:Relevant_Country': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+      },
+      'The_Loupe_Main:description': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
         },
-        'The_Loupe_Main:agency': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+        grid: {
+          host: 'col-sm-4',
         },
-        'The_Loupe_Main:country': {
-          element: {
-            container: 'p-0',
-            label: 'col-form-label',
-          },
-          grid: {
-            host: 'col-sm-4',
-          },
+      },
+      'app_Edges:backslash_category': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
         },
-      };
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'The_Loupe_ProdCredits:production_date': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'app_Edges:Relevant_Country': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'The_Loupe_Main:agency': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+      'The_Loupe_Main:country': {
+        element: {
+          container: 'p-0',
+          label: 'col-form-label',
+        },
+        grid: {
+          host: 'col-sm-4',
+        },
+      },
+    };
   }
 
 }

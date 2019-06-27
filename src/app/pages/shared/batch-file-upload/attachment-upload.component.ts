@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { Subject, Subscription } from 'rxjs';
-import { mergeMap, filter } from 'rxjs/operators';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSuggestionModel } from '@core/custom';
+import { mergeMap } from 'rxjs/operators';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DynamicFormLayout, DynamicFormService } from '@core/custom';
 
 @Component({
   selector: 'attachment-file-upload',
@@ -48,6 +48,8 @@ export class AttachmentUploadComponent implements OnInit, OnDestroy, ControlValu
 
   @Input() placeholder: string;
 
+  @Input() assetPlaceholder: string;
+
   @Input() maxSize: number = 1048576 * 200; // 1024 == 1mb
 
   @Input() acceptTypes: string = '*';
@@ -61,7 +63,8 @@ export class AttachmentUploadComponent implements OnInit, OnDestroy, ControlValu
   constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService) {
     this.batchUpload = this.nuxeoApi.batchUpload();
   }
-  assetPlaceholder: string = 'Drop to upload asset';
+
+
   fileNumber: number = 0;
 
   ngOnInit(): void {

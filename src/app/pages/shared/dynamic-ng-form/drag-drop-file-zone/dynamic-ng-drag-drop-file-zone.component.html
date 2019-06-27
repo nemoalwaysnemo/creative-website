@@ -1,15 +1,19 @@
 <ng-container [formGroup]="group">
-  <batch-file-upload
+  <drag-drop-file-zone
       [formControlName]="model.id"
       [id]="elementId"
+      [placeholder]="model.placeholder"
+      [acceptTypes]="model.acceptTypes"
+      [queueLimit]="model.queueLimit"
+      [uploadType]="model.uploadType"
+      [maxSize]="model.maxSize"
       [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
-      [multiUpload]="model.multiUpload"
       [required]="model.required"
       [tabindex]="model.tabIndex"
       (blur)="onBlur($event)"
       (change)="onChange($event)"
       (focus)="onFocus($event)"
       (valid)="onValid($event)"
-      (onUploaded)="onCustomEvent($event, 'BATCH_UPLOAD')">
-  </batch-file-upload>
+      (fileChange)="onCustomEvent($event, 'DRAG_DROP_FILE')">
+  </drag-drop-file-zone>
 </ng-container>

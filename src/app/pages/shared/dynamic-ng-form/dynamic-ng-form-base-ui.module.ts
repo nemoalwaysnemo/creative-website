@@ -25,8 +25,6 @@ import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 
-
-
 @NgModule({
   imports: [
     CommonModule,
