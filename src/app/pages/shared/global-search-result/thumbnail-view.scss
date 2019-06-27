@@ -1,6 +1,11 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 @import '../../../theme/styles/custom-styles.scss';
 
+.title {
+  font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+  font-size: 35px;
+  margin: 76px 0 0;
+}
 .thumbnail-view-item {
   height: 100%;
   box-sizing: border-box;
