@@ -11,6 +11,7 @@ import { BaseSearchResultComponent } from './abstract-search-result';
 export class GlobalSearchResultComponent extends BaseSearchResultComponent implements OnInit, OnDestroy {
 
   @Input() templateRef: TemplateRef<any>;
+  @Input() layout: string = 'quarter';
 
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
     super(advanceSearch, queryParamsService);

@@ -26,6 +26,8 @@ export class CreativeDocumentAssetSearchResultComponent {
     }
   }
 
+  @Input() layout: string = 'quarter';
+
   listViewSettings: any = {
     columns: {
       title: {

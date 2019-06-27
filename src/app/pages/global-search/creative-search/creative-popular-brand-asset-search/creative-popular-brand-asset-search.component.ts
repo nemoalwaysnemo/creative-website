@@ -14,7 +14,11 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
 
   baseParams$: Subject<any> = new Subject<any>();
 
+  layout: string = 'third';
+
   showInput: boolean = false;
+
+  showResultSet: boolean = true;
 
   multiView: boolean = false;
 

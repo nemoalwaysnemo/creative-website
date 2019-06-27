@@ -16,6 +16,8 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
 
   showInput: boolean = false;
 
+  showResultSet: boolean = true;
+
   multiView: boolean = false;
 
   filters: any = {
