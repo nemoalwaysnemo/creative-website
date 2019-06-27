@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BatchFileUploadModule } from '../batch-file-upload/batch-file-upload.module';
 import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-upload.component';
-
 import { DynamicFormsBaseNGUIModule } from './dynamic-ng-form-base-ui.module';
-import { DynamicNGAttachmentUploadComponent } from './attachment-upload/dynamic-ng-attachment-upload.component';
-
+import { DynamicNGDragDropFileZoneComponent } from './drag-drop-file-zone/dynamic-ng-drag-drop-file-zone.component';
 
 @NgModule({
   imports: [
@@ -17,17 +15,18 @@ import { DynamicNGAttachmentUploadComponent } from './attachment-upload/dynamic-
   ],
   declarations: [
     DynamicNGBatchUploadComponent,
-    DynamicNGAttachmentUploadComponent,
+    DynamicNGDragDropFileZoneComponent,
   ],
   entryComponents: [
     DynamicNGBatchUploadComponent,
-    DynamicNGAttachmentUploadComponent,
+    DynamicNGDragDropFileZoneComponent,
   ],
   exports: [
     DynamicNGBatchUploadComponent,
-    DynamicNGAttachmentUploadComponent,
+    DynamicNGDragDropFileZoneComponent,
     DynamicFormsBaseNGUIModule,
   ],
 })
 export class DynamicFormsNGUIModule {
+
 }

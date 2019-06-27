@@ -39,11 +39,11 @@ export class BatchUpload extends Base {
     if (!this._batchId) {
       return observableOf(null);
     }
-    this._uploadIndex += 1;
+    const index = Number.isInteger(blob.fileIdx) ? blob.fileIdx : (this._uploadIndex += 1);
     const opts = {
       json: false,
       method: 'POST',
-      url: join(this._uploadUrl, this._batchId, this._uploadIndex.toString()),
+      url: join(this._uploadUrl, this._batchId, index.toString()),
       body: blob.content,
       reportProgress: true,
       headers: {
@@ -95,14 +95,16 @@ export class BatchUpload extends Base {
     this.fetchBatchId().pipe(concatMap(_ => this.uploadFile(pending.blob))).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.UploadProgress:
-          const fileIdx = this._uploadIndex;
+          const fileIdx = Number.isInteger(pending.blob.fileIdx) ? pending.blob.fileIdx : this._uploadIndex;
+          const uploadFileType = pending.blob.uploadFileType;
           const mimeType = pending.blob.mimeType;
           const fileName = pending.blob.name;
           const fileSize = pending.blob.size;
+          const blob = pending.blob;
           const kbLoaded = event.loaded;
           const uploaded = false;
           const percentLoaded = Math.round(100 * event.loaded / event.total);
-          pending.subscription.next(new NuxeoUploadResponse({ fileName, fileSize, mimeType, uploaded, percentLoaded, kbLoaded, fileIdx }));
+          pending.subscription.next(new NuxeoUploadResponse({ fileName, fileSize, mimeType, uploaded, percentLoaded, kbLoaded, fileIdx, blob, uploadFileType }));
           break;
         case HttpEventType.Response:
           const body = event.body;
@@ -114,9 +116,11 @@ export class BatchUpload extends Base {
           body.fileName = pending.blob.name;
           const response = new NuxeoUploadResponse(Object.assign({
             percentLoaded: 100,
+            blob: pending.blob,
             fileIdx: body.fileIdx,
             fileSize: pending.blob.size,
             kbLoaded: body.uploadedSize,
+            uploadFileType: pending.blob.uploadFileType,
             batchBlob: new BatchBlob(body),
           }, body));
           pending.subscription.next(response);

@@ -16,10 +16,11 @@ export class CreativeDocumentAssetSearchResultComponent {
       this.listViewSettings = null;
     }
   }
+
   showResult: boolean = false;
 
   @Input()
-  set showListViewSettings(flag: boolean) {
+  set showResultSet(flag: boolean) {
     if (flag) {
       this.showResult = true;
     }

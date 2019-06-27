@@ -157,7 +157,8 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     // below break memory ref and doesnt act like a que
     // this.files = files//causes memory change which triggers bindings like <ngfFormData [files]="files"></ngfFormData>
 
-    this.filesChange.emit(this.files);
+    // this.filesChange.emit(this.files);
+    this.filesChange.emit(files);
 
     if (files.length) {
       this.fileChange.emit(this.file = files[0]);
@@ -236,8 +237,14 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
 
   eventToFiles(event: Event) {
     const transfer = this.eventToTransfer(event);
-    if (transfer.files && transfer.files.length) return transfer.files;
-    if (transfer.items && transfer.items.length) return transfer.items;
+    if (transfer) {
+      if (transfer.files && transfer.files.length) {
+        return transfer.files;
+      }
+      if (transfer.items && transfer.items.length) {
+        return transfer.items;
+      }
+    }
     return [];
   }
 
@@ -257,7 +264,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
         return this.filters[i].name;
       }
     }
-    return;
+    return undefined;
   }
 
   isFileValid(file: File): boolean {

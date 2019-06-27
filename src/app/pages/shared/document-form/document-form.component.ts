@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicAttachmentUploadModel } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
 import { Observable, forkJoin } from 'rxjs';
 import { deepExtend } from '@core/services';
 
@@ -106,9 +106,11 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private filterPropertie(formValue: any = {}) {
     const properties = deepExtend({}, formValue);
-    if (this.uploadFieldName && properties[this.uploadFieldName]) {
-      delete properties[this.uploadFieldName];
-    }
+    Object.keys(properties).forEach((key: string) => {
+      if (!key.includes(':')) {
+        delete properties[key];
+      }
+    });
     return properties;
   }
 
@@ -121,7 +123,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private performSettings(settings: DynamicFormControlModel[]): any[] {
-    const uploadModel = settings.find((v) => (v instanceof DynamicBatchUploadModel) || (v instanceof DynamicAttachmentUploadModel));
+    const uploadModel = settings.find((v) => (v instanceof DynamicBatchUploadModel));
     this.uploadFieldName = uploadModel ? uploadModel.id : this.uploadFieldName;
     return settings.filter((v) => v.formMode === null || v.formMode === this.formMode);
   }
@@ -144,7 +146,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   private save(): void {
     let documents = [];
     this.documentModel.properties = this.filterPropertie(this.formGroup.value);
-    if (this.uploadState && this.uploadState === 'uploaded') {
+    if (this.uploadState === 'uploaded') {
       documents = this.attachFiles(this.documentModel, this.formGroup.value[this.uploadFieldName]);
     } else {
       documents = [this.documentModel];
@@ -155,11 +157,10 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private update(): void {
-    const properties = this.filterPropertie(this.formGroup.value);
-    if (this.uploadState && this.uploadState === 'uploaded') {
-      this.attachDeffFiles(properties);
+    let properties = this.filterPropertie(this.formGroup.value);
+    if (this.uploadState === 'uploaded') {
+      properties = this.updateAttachedFiles(properties);
     }
-
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
       this.onUpdated.next(model);
     });
@@ -187,19 +188,17 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  private attachDeffFiles(properties: any): any {
-    const files = this.formGroup.value.uploadAttachments;
-    const document = files.find(file => file.uploadFileType === 'document');
+  private updateAttachedFiles(properties: any): any {
     const attachmens = [];
-
-    files.forEach(attachment => {
-      if (attachment.uploadFileType === 'attachment') {
-        attachmens.push({ 'file': attachment.batchBlob });
+    const files = this.formGroup.value[this.uploadFieldName];
+    files.forEach((file: NuxeoUploadResponse) => {
+      if (file.uploadFileType === 'asset') {
+        properties['file:content'] = file.batchBlob;
+      }
+      if (file.uploadFileType === 'attachment') {
+        attachmens.push({ 'file': file.batchBlob });
       }
     });
-    if (!!document) {
-      properties['file:content'] = document.batchBlob;
-    }
     if (attachmens.length > 0) {
       properties['files:files'] = attachmens;
     }

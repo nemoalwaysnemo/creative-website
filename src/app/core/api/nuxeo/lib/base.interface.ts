@@ -227,11 +227,15 @@ export class NuxeoBlob {
 
   readonly content: any;
   readonly name: string;
+  readonly uploadFileType: string; // asset or attachment
   readonly mimeType: string;
   readonly size: number;
+  fileIdx: number;
 
   constructor(opts: any = {}) {
+    this.uploadFileType = opts.uploadFileType;
     this.content = opts.content;
+    this.fileIdx = opts.fileIdx;
     this.name = opts.name || this.content.name;
     this.mimeType = opts.mimeType || this.content.type;
     this.size = opts.size || this.content.size;
@@ -250,10 +254,9 @@ export class BatchBlob {
 }
 
 export class NuxeoUploadResponse {
-
+  [key: string]: any;
   readonly uploaded: boolean = false;
   readonly dropped: boolean = false;
-  readonly fileIdx: number;
   readonly uploadedSize: number;
   readonly uploadType: string;
   readonly batchId: string;
@@ -263,11 +266,19 @@ export class NuxeoUploadResponse {
   readonly fileName: string;
   readonly fileSize: string;
   readonly mimeType: string;
-  title: string = null;
-  uploadFileType: 'document' | 'attachment' | null = null;
+  readonly blob: NuxeoBlob;
+  uploadFileType: string; // 'asset' | 'attachment';
+  fileIdx: number;
 
   constructor(response: any = {}) {
     Object.assign(this, response);
+    if (response.blob) {
+      this.fileIdx = this.blob.fileIdx;
+      this.fileName = this.blob.name;
+      this.mimeType = this.blob.mimeType;
+      this.uploadFileType = this.blob.uploadFileType;
+      this.fileSize = this.blob.size.toString();
+    }
   }
 }
 

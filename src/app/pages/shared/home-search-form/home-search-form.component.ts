@@ -34,6 +34,8 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() headline: string;
 
+  @Input() extraHeadline: string = '';
+
   @Input() subHead: string;
 
   @Input() placeholder: string;

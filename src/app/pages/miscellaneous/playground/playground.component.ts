@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DocumentModel, DocumentRepository } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDatePickerModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDatePickerModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { PreviewDialogService } from '@pages/shared';
 import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/option-tag/dynamic-option-tag.model';
 
@@ -43,7 +43,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private update(): void {
-    this.documentRepository.get('094a3694-4795-42ac-aea0-1f8b95fe337e').subscribe((doc: DocumentModel) => {
+    this.documentRepository.get('5487a983-cf80-4a74-bb25-f9e9f54b0ed9').subscribe((doc: DocumentModel) => {
       this.document = doc;
       this.settings = this.getSettings();
     });
@@ -119,13 +119,33 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         directoryName: 'App-Edges-Edges',
         placeholder: 'Please select edges',
       }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'create',
+        uploadType: 'asset',
+        queueLimit: 25,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        queueLimit: 1,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        queueLimit: 1,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
-        label: 'Attachment',
-        formMode: 'create',
         multiUpload: false,
-        queueLimit: 1,
-        placeholder: 'Drop file here!',
       }),
     ];
   }

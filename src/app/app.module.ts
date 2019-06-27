@@ -11,7 +11,6 @@ import { GoogleAnalyticsModule } from '@core/google-analytics';
 import { CacheService } from '@core/services';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +24,6 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     CoreModule.forRoot(),
     GoogleAnalyticsModule.forRoot(),
     DeviceDetectorModule.forRoot(),
-    ScrollToModule.forRoot(),
   ],
   bootstrap: [AppComponent],
   providers: [

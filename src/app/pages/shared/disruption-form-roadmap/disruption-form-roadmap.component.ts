@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicAttachmentUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
 
 @Component({
@@ -83,20 +83,33 @@ export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
         formMode: 'edit',
         placeholder: 'Author',
       }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'create',
+        uploadType: 'asset',
+        queueLimit: 25,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        queueLimit: 1,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        queueLimit: 1,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+      }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
-        label: 'Attachment',
-        formMode: 'create',
-        multiUpload: true,
-        queueLimit: 25,
-        placeholder: 'Drop file here!',
-      }),
-      new DynamicAttachmentUploadModel<string>({
-        id: 'uploadAttachments',
-        label: 'Attachment',
-        formMode: 'edit',
-        queueLimit: 25,
-        placeholder: 'Drop file here!',
+        multiUpload: false,
       }),
     ];
   }
