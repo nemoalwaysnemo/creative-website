@@ -12,6 +12,7 @@ import { debounce } from './debounce';
 export class CreativeHomeComponent implements OnInit, OnDestroy {
 
   private destination: number = 0;
+
   headline: string = 'This is how we kill boring.';
 
   subHead: string = 'Our entire collection of disruptive work is all right here.';
@@ -19,6 +20,8 @@ export class CreativeHomeComponent implements OnInit, OnDestroy {
   placeholder: string = 'Search for campaigns by title, agency, brand, client...';
 
   private subscription: Subscription = new Subscription();
+
+  scrollAsEnter: boolean = false;
 
   params: any = {
     pageSize: 10,
@@ -31,13 +34,22 @@ export class CreativeHomeComponent implements OnInit, OnDestroy {
   @debounce()
   scroll(event: MouseEvent) {
     const delta = event['deltaY'];
-    if (delta > 0 && this.destination < 3) {
-      this.destination = this.destination + 1;
-      this.scrollService.triggerScrollTo('destination-' + this.destination);
-    } else if (delta < 0 && this.destination > 0) {
-      this.destination = this.destination - 1;
-      this.scrollService.triggerScrollTo('destination-' + this.destination);
+    if (!this.scrollAsEnter) {
+      if (delta > 0 && this.destination < 3) {
+        this.destination = this.destination + 1;
+        this.scrollService.triggerScrollTo('destination-' + this.destination);
+      } else if (delta < 0 && this.destination > 0) {
+        this.destination = this.destination - 1;
+        this.scrollService.triggerScrollTo('destination-' + this.destination);
+      }
     }
+  }
+
+  onmouseenter(event) {
+    this.destination = event;
+    this.scrollAsEnter = true;
+    // this.scrollService.triggerScrollTo('destination-' + this.destination);
+    setTimeout(() => this.scrollAsEnter = false, 300);
   }
 
   ngOnInit() {
