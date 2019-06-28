@@ -20,6 +20,8 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
 
   multiView: boolean = false;
 
+  layout: string = 'third';
+
   filters: any = {
     // 'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
     // 'the_loupe_main_agency_agg': { placeholder: 'Agency' },
