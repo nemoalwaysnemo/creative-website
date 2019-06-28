@@ -36,7 +36,7 @@ export class NbDialogConfig<D = any> {
   /**
    * Disables scroll on content under dialog if true and does nothing otherwise.
    * */
-  hasScroll: boolean = false;
+  hasScroll: boolean = true;
 
   /**
    * Focuses dialog automatically after open if true.
