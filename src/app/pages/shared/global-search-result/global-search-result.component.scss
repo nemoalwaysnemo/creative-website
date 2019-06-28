@@ -5,13 +5,14 @@
     height: 46px;
     line-height: 46px;
     margin-top: 32px;
+    margin-bottom: 39px;
   }
   > h1 {
     font-family: 'Averta for TBWA W01 Black', helvetica, arial;
-    margin-left: 38px;
+    margin-left: 60px;
   }
   .list_view_trigger {
-    margin-right: 38px;
+    margin-right: 60px;
     background: url('/assets/images/list_icon.png') no-repeat 13px center;
     &.btn-active {
       background: url('/assets/images/list_icon_active.png') no-repeat 13px center;
