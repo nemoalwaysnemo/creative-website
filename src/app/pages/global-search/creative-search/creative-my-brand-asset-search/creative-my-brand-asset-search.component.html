@@ -1,35 +1,25 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
   <div class="property-section">
-    <div class="property-intro inline-middle">
+    <div class="property-intro inline-top">
       <img src="{{document?.filePath}}" />
     </div>
-    <div class="property-info inline-middle">
+    <div class="property-info inline-top">
       <h1>{{document?.get('The_Loupe_Main:clientName')}}</h1>
-      <table>
-        <colgroup>
-          <col width="30%">
-          <col width="70%">
-        </colgroup>
-        <tbody>
-          <tr>
-            <td>Client: {{document?.get('The_Loupe_Main:clientName')}}</td>
-            <td>Agency: {{document?.get('The_Loupe_Main:agency')}}</td>
-          </tr>
-          <!-- <tr>
-            <td>Brand: {{document?.title}}</td>
-            <td>Country: {{document?.get('The_Loupe_Main:country')}}</td>
-          </tr> -->
-        </tbody>
-      </table>
+      <ul>
+        <li><b>Client:</b> {{document?.get('The_Loupe_Main:clientName')}}</li>
+        <li><b>Agency:</b> {{document?.get('The_Loupe_Main:agency')}}</li>
+      </ul>
+      <div class="button-group">
+        <button class="btn">Jobs</button>
+        <button class="btn">Campalgns</button>
+        <button class="btn">UR</button>
+        <button class="btn">Upload</button>
+        <button class="btn">Manage Library</button>
+      </div>
     </div>
   </div>
-  <div class="button-group">
-    <button>Jobs</button>
-    <button>Campalgns</button>
-    <button>UR</button>
-    <button>Upload</button>
-    <button>Manage Library</button>
-  </div>
 </div>
-<global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
-<creative-document-asset-search-result [layout]="layout" [multiView]="multiView" [showResultSet]="showResultSet"></creative-document-asset-search-result>
+<div class="brand-thumbnail">
+  <global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
+  <creative-document-asset-search-result [layout]="layout" [multiView]="multiView" [showResultSet]="showResultSet"></creative-document-asset-search-result>
+</div>
