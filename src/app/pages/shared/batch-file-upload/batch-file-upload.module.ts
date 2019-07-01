@@ -6,7 +6,6 @@ import { APIModule } from '@core/api';
 import { BatchFileUploadComponent } from './batch-file-upload.component';
 import { ThemeModule } from '@theme/theme.module';
 import { DynamicFormsBaseNGUIModule } from '../dynamic-ng-form/dynamic-ng-form-base-ui.module';
-import { AttachmentUploadComponent } from './attachment-upload.component';
 import { DragDropFileZoneComponent } from './drag-drop-file-zone.component';
 import { DragDropFileZoneService } from './drag-drop-file-zone.service';
 
@@ -21,7 +20,6 @@ import { DragDropFileZoneService } from './drag-drop-file-zone.service';
   ],
   declarations: [
     BatchFileUploadComponent,
-    AttachmentUploadComponent,
     DragDropFileZoneComponent,
   ],
   providers: [
@@ -29,7 +27,6 @@ import { DragDropFileZoneService } from './drag-drop-file-zone.service';
   ],
   exports: [
     BatchFileUploadComponent,
-    AttachmentUploadComponent,
     DragDropFileZoneComponent,
   ],
 })

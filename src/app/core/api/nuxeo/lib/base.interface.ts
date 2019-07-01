@@ -230,10 +230,12 @@ export class NuxeoBlob {
   readonly uploadFileType: string; // asset or attachment
   readonly mimeType: string;
   readonly size: number;
+  readonly formMode: string;
   fileIdx: number;
 
   constructor(opts: any = {}) {
     this.uploadFileType = opts.uploadFileType;
+    this.formMode = opts.formMode;
     this.content = opts.content;
     this.fileIdx = opts.fileIdx;
     this.name = opts.name || this.content.name;
@@ -267,6 +269,7 @@ export class NuxeoUploadResponse {
   readonly fileSize: string;
   readonly mimeType: string;
   readonly blob: NuxeoBlob;
+  readonly formMode: string;
   uploadFileType: string; // 'asset' | 'attachment';
   fileIdx: number;
 
@@ -277,6 +280,7 @@ export class NuxeoUploadResponse {
       this.fileName = this.blob.name;
       this.mimeType = this.blob.mimeType;
       this.uploadFileType = this.blob.uploadFileType;
+      this.formMode = this.blob.formMode;
       this.fileSize = this.blob.size.toString();
     }
   }

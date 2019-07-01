@@ -36,6 +36,8 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
 
   @Input() uploadType: string;
 
+  @Input() formMode: string;
+
   @Input() queueLimit: number = 1;
 
   @Input() maxSize: number = 1048576 * 200; // 1024 == 1mb
@@ -48,7 +50,7 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
 
   ngOnInit(): void {
     this.subscription = this.dragDropFileZoneService.onStateChange().subscribe((x: any) => {
-      this.disalbed = x.disalbed;
+      this.disalbed = x.data;
     });
   }
 
@@ -80,7 +82,7 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   }
 
   onFilesChange(files: File[]): void {
-    this.dragDropFileZoneService.changeFiles(this.uploadType, files, this.queueLimit);
+    this.dragDropFileZoneService.changeFiles(this.uploadType, files, this.queueLimit, this.formMode);
   }
 
 }

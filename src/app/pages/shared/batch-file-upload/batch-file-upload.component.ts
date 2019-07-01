@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { Subject, Subscription } from 'rxjs';
-import { mergeMap, filter } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
 import { DynamicFormControlModel, DynamicFormLayout, DynamicFormService, DynamicInputModel } from '@core/custom';
 import { DragDropFileZoneService } from './drag-drop-file-zone.service';
@@ -68,16 +68,19 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   private init(): void {
     this.onUpload();
     this.onUploaded.subscribe((response: NuxeoUploadResponse[]) => {
-      // this.fileNumber = files.length;
-      // const formModels = [];
-      // const formGroups = [];
-      // files.forEach(_ => {
-      //   const formModel = this.formService.fromJSON([]);
-      //   formModels.push(formModel);
-      //   formGroups.push(this.formService.createFormGroup(formModel));
-      // });
-      // this.formModels = formModels;
-      // this.formGroups = formGroups;
+      if (response.some((res: NuxeoUploadResponse) => res.formMode === 'create')) {
+        console.log(11111);
+        this.fileNumber = response.length;
+        const formModels = [];
+        const formGroups = [];
+        response.forEach(_ => {
+          const formModel = this.formService.fromJSON([]);
+          formModels.push(formModel);
+          formGroups.push(this.formService.createFormGroup(formModel));
+        });
+        this.formModels = formModels;
+        this.formGroups = formGroups;
+      }
     });
     this.dragDropFileZoneService.onFilesChange().subscribe((metadata: any) => {
       this.updateQueue(metadata);
@@ -126,8 +129,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   uploadFiles(files: NuxeoUploadResponse[]): void {
     this.uploading = true;
-    console.log(66666, files);
-    this.upload(files.map(x => x.blob));
+    this.upload(files.filter((res: NuxeoUploadResponse) => !res.uploaded).map(x => x.blob));
   }
 
   removeOne(index: number): void {
@@ -149,25 +151,42 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   hasSubForm(): boolean {
-    return false;
+    return this.isMultiUpload();
+  }
+
+  hasFiles(): boolean {
+    return this.files.filter((res: NuxeoUploadResponse) => res).length > 0;
   }
 
   private onUpload(): void {
     const subscription = this.blobs$.pipe(mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob))).subscribe((res: NuxeoUploadResponse) => {
-      // this.performSubForm(res);
+      this.performSubForm(res);
       this.updateFileResponse(res);
     });
     this.subscription.add(subscription);
   }
 
-  private updateQueue(queue: { data: File[], target: string, queueLimit: number }): void {
+  private updateQueue(queue: any = {}): void {
+    if ((queue.queueLimit > 1 && !this.uploaded) || (queue.queueLimit === 1 && this.files.filter((res: NuxeoUploadResponse) => res.uploaded && res.uploadFileType === queue.target).length === 0)) {
+      this.updateQueueFiles(queue);
+    }
+  }
+
+  private updateQueueFiles(queue: { data: File[], target: string, queueLimit: number, formMode: string }): void {
     this.queueFiles[queue.target] = this.queueFiles[queue.target] ? this.queueFiles[queue.target] : {};
-    const files = queue.data.filter((f: File) => !this.queueFiles[queue.target][f.name]);
-    if (files.length > 0) {
+    const droped = queue.data.filter((f: File) => !this.queueFiles[queue.target][f.name]);
+    if (droped.length > 0) {
       this.queueFiles[queue.target] = {};
-      const queued = files.map((f: File) => new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: f, uploadFileType: queue.target }) }));
-      const target = this.files.filter((res: NuxeoUploadResponse) => res.uploadFileType === queue.target).slice(files.length, queue.queueLimit + 1).concat(queued);
-      this.files = this.files.filter((res: NuxeoUploadResponse) => res.uploadFileType !== queue.target).concat(target);
+      const target = droped.map((f: File) => new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: f, uploadFileType: queue.target, formMode: queue.formMode }) }));
+      const queued = this.files.filter((res: NuxeoUploadResponse) => res.uploadFileType === queue.target);
+      if ((queued.length === 0) || (queued.length + target.length) <= queue.queueLimit) {
+        this.files = this.files.concat(target);
+      } else if (queue.queueLimit === 1) {
+        this.files.splice(queued[0].fileIdx, 1, ...target.slice(0, 1));
+      } else {
+        const other = this.files.filter((res: NuxeoUploadResponse) => res.uploadFileType !== queue.target);
+        this.files = queued.concat(target).slice(- queue.queueLimit).concat(other);
+      }
       this.files.forEach((res: NuxeoUploadResponse, index: number) => { res.fileIdx = index; res.blob.fileIdx = index; this.queueFiles[res.uploadFileType][res.fileName] = true; });
     }
   }
@@ -181,12 +200,16 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   private updateFileResponse(res: NuxeoUploadResponse): void {
-    this.files[res.fileIdx] = res;
+    const index = this.files.findIndex((response: NuxeoUploadResponse) => res.fileIdx.toString() === response.fileIdx.toString());
+    this.files[index] = res;
     this.onUploaded.emit(this.files);
     this._onChange(this.files);
     this.uploaded = this.files.every((response: NuxeoUploadResponse) => response.uploaded);
     this.uploading = !this.uploaded;
     if (this.uploaded) {
+      // if (this.isMultiUpload()) {
+      this.dragDropFileZoneService.changeState(true);
+      // }
       // this.dragDropFileZoneService.changeState({ target: });
     }
   }
@@ -197,8 +220,10 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private performSubForm(res: NuxeoUploadResponse): void {
     if (res.uploaded) {
+      console.log(222222);
       const formModels = this.formService.fromJSON(this.fileInput(res));
       formModels.forEach(formModel => {
+        console.log(44444, this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
         this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
       });
     }

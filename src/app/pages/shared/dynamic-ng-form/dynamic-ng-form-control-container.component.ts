@@ -38,7 +38,6 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD,
   DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE,
-  DYNAMIC_FORM_CONTROL_TYPE_ATTACHMENT_UPLOAD,
   DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE,
 } from '@core/custom';
 import { DynamicNGCheckboxComponent } from './checkbox/dynamic-ng-checkbox.component';
@@ -54,7 +53,6 @@ import { DynamicNGSelectComponent } from './select/dynamic-ng-select.component';
 import { DynamicNGTextAreaComponent } from './textarea/dynamic-ng-textarea.component';
 import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker.component';
 import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-upload.component';
-import { DynamicNGAttachmentUploadComponent } from './attachment-upload/dynamic-ng-attachment-upload.component';
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';

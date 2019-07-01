@@ -7,7 +7,7 @@ export class DragDropFileZoneService {
 
   private event$ = new Subject<any>();
 
-  changeState(target: string, disabled: boolean): void {
+  changeState(disabled: boolean, target?: string): void {
     this.event$.next({ data: disabled, event: 'state', target });
   }
 
@@ -15,8 +15,8 @@ export class DragDropFileZoneService {
     return this.filterEvents('state');
   }
 
-  changeFiles(target: string, files: File[], queueLimit: number): void {
-    this.event$.next({ data: files, event: 'files', target, queueLimit });
+  changeFiles(target: string, files: File[], queueLimit: number, formMode: string): void {
+    this.event$.next({ data: files, event: 'files', target, queueLimit, formMode });
   }
 
   onFilesChange(): Observable<{ data: File[], target: string, queueLimit: number }> {
