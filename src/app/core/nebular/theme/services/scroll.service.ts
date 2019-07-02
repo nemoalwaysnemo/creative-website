@@ -34,11 +34,11 @@ export interface NbScrollPosition {
 export class NbLayoutScrollService {
   constructor(private _scrollToService: ScrollToService) { }
 
-  public triggerScrollTo(destination: string) {
+  public triggerScrollTo(destination: string, offset: number = -129) {
     const config: ScrollToConfigOptions = {
       target: destination,
       duration: 300,
-      offset: -129,
+      offset: offset,
     };
 
     this._scrollToService.scrollTo(config);
