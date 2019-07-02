@@ -61,7 +61,7 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
     };
     if (doc) {
       params['the_loupe_main_brand_any'] = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
-      params['ecm_uuid_exclude'] = doc.uid;
+      params['ecm_uuid_not_eq'] = doc.uid;
     }
     return params;
   }
