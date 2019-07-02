@@ -16,6 +16,7 @@ export interface DynamicFormControlModelConfig {
   id: string;
   label?: string;
   formMode?: string;
+  layoutPosition?: string;
   labelTooltip?: string;
   controlTooltip?: string;
   name?: string;
@@ -35,6 +36,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   @serializable() label: string | null;
   @serializable() labelTooltip: string | null;
   @serializable() formMode: string | null;
+  @serializable() layoutPosition: string | 'left';
   @serializable() controlTooltip: string | null;
   @serializable() layout: DynamicFormControlLayout | null;
   @serializable() name: string;
@@ -54,6 +56,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.id = config.id;
     this.label = config.label || null;
     this.formMode = config.formMode || null;
+    this.layoutPosition = config.layoutPosition || 'left';
     this.labelTooltip = config.labelTooltip || null;
     this.controlTooltip = config.controlTooltip || null;
     this.layout = layout;

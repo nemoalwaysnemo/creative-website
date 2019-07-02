@@ -1,11 +1,42 @@
-<dynamic-ng-form-control *ngFor="let model of formModel; trackBy: trackByFn"
-                                   [group]="formGroup"
-                                   [hidden]="model.hidden"
-                                   [layout]="formLayout"
-                                   [model]="model"
-                                   [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
-                                   [templates]="templates"
-                                   (blur)="onEvent($event, 'blur')"
-                                   (change)="onEvent($event, 'change')"
-                                   (focus)="onEvent($event, 'focus')"
-                                   (customEvent)="onEvent($event, 'custom')"></dynamic-ng-form-control>
+<div class="layout-left">
+  <dynamic-ng-form-control *ngFor="let model of layoutLeft; trackBy: trackByFn"
+                          [group]="formGroup"
+                          [hidden]="model.hidden"
+                          [layout]="formLayout"
+                          [model]="model"
+                          [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
+                          [templates]="templates"
+                          (blur)="onEvent($event, 'blur')"
+                          (change)="onEvent($event, 'change')"
+                          (focus)="onEvent($event, 'focus')"
+                          (customEvent)="onEvent($event, 'custom')">
+  </dynamic-ng-form-control>
+</div>
+<div class="layout-right">
+  <dynamic-ng-form-control *ngFor="let model of layoutRight; trackBy: trackByFn"
+                          [group]="formGroup"
+                          [hidden]="model.hidden"
+                          [layout]="formLayout"
+                          [model]="model"
+                          [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
+                          [templates]="templates"
+                          (blur)="onEvent($event, 'blur')"
+                          (change)="onEvent($event, 'change')"
+                          (focus)="onEvent($event, 'focus')"
+                          (customEvent)="onEvent($event, 'custom')">
+  </dynamic-ng-form-control>
+</div>
+<div class="layout-bottom">
+  <dynamic-ng-form-control *ngFor="let model of layoutBottom; trackBy: trackByFn"
+                          [group]="formGroup"
+                          [hidden]="model.hidden"
+                          [layout]="formLayout"
+                          [model]="model"
+                          [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
+                          [templates]="templates"
+                          (blur)="onEvent($event, 'blur')"
+                          (change)="onEvent($event, 'change')"
+                          (focus)="onEvent($event, 'focus')"
+                          (customEvent)="onEvent($event, 'custom')">
+  </dynamic-ng-form-control>
+</div>

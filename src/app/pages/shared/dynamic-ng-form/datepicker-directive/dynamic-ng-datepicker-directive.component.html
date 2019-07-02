@@ -3,6 +3,7 @@
     [formControlName]="model.id"
     [id]="elementId"
     [placeholder]="model.placeholder"
+    [default]="model.default"
     [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
     (blur)="onBlur($event)"
     (change)="onChange($event)"
