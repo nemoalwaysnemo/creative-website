@@ -37,11 +37,10 @@ export class CreativeHomeComponent implements OnInit, OnDestroy {
     if (!this.scrollAsEnter) {
       if (delta > 0 && this.destination < 3) {
         this.destination = this.destination + 1;
-        this.scrollService.triggerScrollTo('destination-' + this.destination);
       } else if (delta < 0 && this.destination > 0) {
         this.destination = this.destination - 1;
-        this.scrollService.triggerScrollTo('destination-' + this.destination);
       }
+      this.scrollToSection(this.destination);
     }
   }
 
@@ -59,4 +58,11 @@ export class CreativeHomeComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  private scrollToSection(destination) {
+    if (destination === 2 || destination === 3) {
+      this.scrollService.triggerScrollTo('destination-' + destination, -150);
+    } else {
+      this.scrollService.triggerScrollTo('destination-' + destination);
+    }
+  }
 }
