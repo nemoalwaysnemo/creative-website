@@ -60,8 +60,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   fileNumber: number = 0;
 
   ngOnInit(): void {
-    console.log('%c ngOnInit!', 'background: #222; color: #bada55');
-    console.log(this.files);
     this.init();
   }
 
@@ -69,7 +67,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.onUpload();
     this.onUploaded.subscribe((response: NuxeoUploadResponse[]) => {
       if (response.some((res: NuxeoUploadResponse) => res.formMode === 'create')) {
-        console.log(11111);
         this.fileNumber = response.length;
         const formModels = [];
         const formGroups = [];
@@ -89,7 +86,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   ngOnDestroy() {
-    console.log('%c ngOnDestroy!', 'background: #222; color: #bada55');
     this.subscription.unsubscribe();
   }
 
@@ -220,12 +216,12 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private performSubForm(res: NuxeoUploadResponse): void {
     if (res.uploaded) {
-      console.log(222222);
-      const formModels = this.formService.fromJSON(this.fileInput(res));
-      formModels.forEach(formModel => {
-        console.log(44444, this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
-        this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
-      });
+      // console.log(222222);
+      // const formModels = this.formService.fromJSON(this.fileInput(res));
+      // formModels.forEach(formModel => {
+      //   console.log(44444, this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
+      //   this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
+      // });
     }
   }
 

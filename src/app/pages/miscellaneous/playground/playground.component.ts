@@ -123,6 +123,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         id: 'dragDropAssetZone',
         formMode: 'create',
         uploadType: 'asset',
+        layoutPosition: 'right',
         queueLimit: 25,
         placeholder: 'Drop Logo/Image here!',
         acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
@@ -131,6 +132,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         id: 'dragDropAssetZone',
         formMode: 'edit',
         uploadType: 'asset',
+        layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
         acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
@@ -139,13 +141,22 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         id: 'dragDropAttachmentZone',
         formMode: 'edit',
         uploadType: 'attachment',
+        layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop to upload attachment',
         acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
+        layoutPosition: 'bottom',
+        formMode: 'create',
         multiUpload: true,
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'uploadFiles',
+        layoutPosition: 'bottom',
+        formMode: 'edit',
+        multiUpload: false,
       }),
     ];
   }
