@@ -65,7 +65,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private init(): void {
     this.onUpload();
-    this.onUploaded.subscribe((response: NuxeoUploadResponse[]) => {
+    const sub = this.onUploaded.subscribe((response: NuxeoUploadResponse[]) => {
       if (response.some((res: NuxeoUploadResponse) => res.formMode === 'create')) {
         this.fileNumber = response.length;
         const formModels = [];
@@ -79,10 +79,13 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
         this.formGroups = formGroups;
       }
     });
-    this.dragDropFileZoneService.onFilesChange().subscribe((metadata: any) => {
+    this.subscription.add(sub);
+
+    const subscription = this.dragDropFileZoneService.onFilesChange().subscribe((metadata: any) => {
       this.updateQueue(metadata);
       this.onFilesChange(this.files);
     });
+    this.subscription.add(subscription);
   }
 
   ngOnDestroy() {
@@ -155,7 +158,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   private onUpload(): void {
-    const subscription = this.blobs$.pipe(mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob))).subscribe((res: NuxeoUploadResponse) => {
+    const subscription = this.blobs$.pipe(
+      mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob)),
+    ).subscribe((res: NuxeoUploadResponse) => {
       this.performSubForm(res);
       this.updateFileResponse(res);
     });
