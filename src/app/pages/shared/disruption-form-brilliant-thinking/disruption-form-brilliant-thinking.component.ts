@@ -45,6 +45,13 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         formMode: 'edit',
         placeholder: 'Published',
       }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Published',
+        formMode: 'create',
+        default: (new Date()),
+        placeholder: 'Published',
+      }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',

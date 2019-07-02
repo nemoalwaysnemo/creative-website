@@ -19,6 +19,11 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
 
   @Input() placeholder: string;
 
+  @Input()
+  set default(defaultValue: any) {
+    this.writeValue(defaultValue);
+  }
+
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
