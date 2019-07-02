@@ -124,7 +124,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   }
 
   private getSearchParams(doc: DocumentModel): any {
-    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_exclude: doc.uid }, this.item.params);
+    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_not_eq: doc.uid }, this.item.params);
     if (this.item.hasOwnProperty('paramsMapping')) {
       const keys = Object.keys(this.item.paramsMapping);
       for (const key of keys) {

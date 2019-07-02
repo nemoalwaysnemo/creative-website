@@ -1,4 +1,4 @@
-export function debounce(delay: number = 100): MethodDecorator {
+export function debounce(delay: number = 300): MethodDecorator {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     let timeout = null;
     const original = descriptor.value;

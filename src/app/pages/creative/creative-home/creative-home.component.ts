@@ -34,21 +34,12 @@ export class CreativeHomeComponent implements OnInit, OnDestroy {
   @debounce()
   scroll(event: MouseEvent) {
     const delta = event['deltaY'];
-    if (!this.scrollAsEnter) {
-      if (delta > 0 && this.destination < 3) {
-        this.destination = this.destination + 1;
-      } else if (delta < 0 && this.destination > 0) {
-        this.destination = this.destination - 1;
-      }
-      this.scrollToSection(this.destination);
+    if (delta > 0 && this.destination < 3) {
+      this.destination = this.destination + 1;
+    } else if (delta < 0 && this.destination > 0) {
+      this.destination = this.destination - 1;
     }
-  }
-
-  onmouseenter(event) {
-    this.destination = event;
-    this.scrollAsEnter = true;
-    // this.scrollService.triggerScrollTo('destination-' + this.destination);
-    setTimeout(() => this.scrollAsEnter = false, 300);
+    this.scrollToSection(this.destination);
   }
 
   ngOnInit() {
