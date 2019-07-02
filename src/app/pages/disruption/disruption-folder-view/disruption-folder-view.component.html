@@ -14,16 +14,17 @@
       <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
       <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
       <ng-container *ngIf="writePermission$ | async">
-        <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn">Edit</button>
+        <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn left">Edit</button>
       </ng-container>
       <ng-container [ngSwitch]="doc.type">
         <ng-container *ngSwitchCase="'App-Disruption-Theory-Folder'">
-          <button type="button" (click)="goBack()" class="icon_btn">Back to parent</button>
+          <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
         </ng-container>
       </ng-container>
       <ng-container *ngIf="deletePermission$ | async">
-        <button type="button" (click)="openDialog(dialog, 'delete')" class="icon_btn">Delete</button>
+        <button type="button" (click)="openDialog(dialog, 'delete')" class="icon_btn left">Delete</button>
       </ng-container>
+      <div class="clear"></div>
     </div>
   </div>
 </div>
