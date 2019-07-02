@@ -16,7 +16,7 @@ $main-yellow: #fecc00;
   display: block;
   float: left;
   width: 100%;
-  height: 425px;
+  // height: 425px;
   > h1 {
     font-family: 'Averta for TBWA W01 Black', helvetica, arial;
     font-size: 107px;
@@ -24,6 +24,10 @@ $main-yellow: #fecc00;
     margin-top: 68px;
     margin-left: 60px;
     color: $main-yellow;
+    &.extraHeadline {
+      margin-top: 23px;
+      &:empty { display: none; }
+    }
   }
   > h4 {
     font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
@@ -64,8 +68,7 @@ $main-yellow: #fecc00;
   display: inline-block;
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   font-size: 15px;
-  margin-left: 60px;
-  margin-top: 24px;
+  margin: 24px 0 32px 60px;
   color: #b0afaf;
   &:hover {
     text-decoration: none;

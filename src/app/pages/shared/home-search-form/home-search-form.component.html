@@ -1,14 +1,13 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
   <section class="filter-wrapper" [ngStyle]="{'background-image': 'url('+backgroudUrl+')'}">
-    <h1>{{ this.headline }}</h1>
-    <h1>{{ this.extraHeadline }}</h1>
+    <h1 class="headline">{{ this.headline }}</h1>
+    <h1 class="extraHeadline">{{ this.extraHeadline }}</h1>
     <h4>{{ this.subHead }}</h4>
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
       <input [formControl]="queryField" autofocus (keyup.enter)="onKeyup($event)" type="text" class="keyword" [placeholder]="placeholder" />
       <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
     <a href="javascript:;" class="filter_trigger">Filters +</a>
-    <div class="clear"></div>
   </section>
   <div class="clear"></div>
 </form>
