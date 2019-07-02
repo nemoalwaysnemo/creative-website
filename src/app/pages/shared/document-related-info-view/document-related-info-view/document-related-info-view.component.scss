@@ -13,9 +13,11 @@ h2 {
 	line-height: 47px;
 	font-size: 25px;
 	margin-bottom: 25px;
+	margin-left: 30px;
 }
 .search_area {
 	display: block;
+	margin-right: 30px;
 	input {
 		display: inline-block;
 		vertical-align: top;
@@ -33,16 +35,18 @@ h3 {
 	font-family: 'Averta for TBWA W01 Black', helvetica, arial;
 	font-size: 20px;
 	margin-bottom: 23px;
+	padding: 0 30px;
 }
 .line {
 	height: 2px;
-	margin-bottom: 12px;
 	background: #ebebeb;
+	width: calc(100% - 60px);
+	margin: 0 auto 12px;
 }
 ul {
 	height: 63px;
 	margin-bottom: 37px;
-	padding-left: 0;
+	padding-left: 30px!important;
 	li {
 		float: left;
 		a {

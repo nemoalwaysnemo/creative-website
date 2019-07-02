@@ -1,48 +1,35 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
-}
-
-.clear {
-  clear: both;
-}
-
 .document {
-  @include media-breakpoint-down(md) {
-    // < 768px
-    width: 720px;
-  }
-  @include media-breakpoint-between(md, lg) {
-    //768px - 992px
-    width: 720px;
-  }
-  @include media-breakpoint-between(lg, xl) {
-    //992px - 1200px
-    width: 960px;
-  }
-  @include media-breakpoint-between(xl, xxl) {
-    //1200px - 1400px
-    width: 1140px;
-  }
-  @include media-breakpoint-up(xxl) {
-    // > 1400px
-    width: 1320px;
-  }
+  // @include media-breakpoint-down(md) {
+  //   // < 768px
+  //   width: 720px;
+  // }
+  // @include media-breakpoint-between(md, lg) {
+  //   //768px - 992px
+  //   width: 720px;
+  // }
+  // @include media-breakpoint-between(lg, xl) {
+  //   //992px - 1200px
+  //   width: 960px;
+  // }
+  // @include media-breakpoint-between(xl, xxl) {
+  //   //1200px - 1400px
+  //   width: 1140px;
+  // }
+  // @include media-breakpoint-up(xxl) {
+  //   // > 1400px
+  //   width: 1320px;
+  // }
+  width: 100%;
   margin: 0 auto;
-  padding-top: 40px;
+  padding: 40px 0 0;
   box-sizing: border-box;
-
   > section {
     margin: 0 auto;
-
     &.general {
+      padding: 0 60px;
       margin-bottom: 19px;
-
       .showcase {
         @include media-breakpoint-down(md) {
           // < 768px
@@ -70,37 +57,38 @@
           margin-right: 43px;
         }
       }
-
       .general_info {
         @include media-breakpoint-down(md) {
           // < 768px
-          width: calc(720px - 400px - 23px);
+          width: calc(100% - 400px - 23px);
         }
         @include media-breakpoint-between(md, lg) {
           //768px - 992px
-          width: calc(720px - 400px - 33px);
+          width: calc(100% - 400px - 33px);
         }
         @include media-breakpoint-between(lg, xl) {
           //992px - 1200px
-          width: calc(960px - 640px - 33px);
+          width: calc(100% - 640px - 33px);
         }
         @include media-breakpoint-between(xl, xxl) {
           //1200px - 1400px
-          width: calc(1140px - 740px - 33px);
+          width: calc(100% - 740px - 33px);
         }
         @include media-breakpoint-up(xxl) {
           // > 1400px
-          width: calc(1320px - 940px - 43px);
+          width: calc(100% - 940px - 43px);
         }
       }
     }
-
     &.additional_info {
+      padding: 0 60px;
       margin-bottom: 60px;
     }
-
+    &.related {
+      padding: 0;
+    }
     &.more {
-      padding-top: 69px;
+      padding: 69px 30px 0;
     }
   }
 }

@@ -6,6 +6,7 @@
 <ng-container *ngIf="item.layout === 'backslash'; then backslashEdgesView"></ng-container>
 <ng-template #backslashEdgesView>
   <h3>\Edges</h3>
+  <div class="line"></div>
   <div [nbSpinner]="edgeLoading" nbSpinnerStatus="disabled">
     <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
       <ul>
@@ -18,7 +19,6 @@
   <ng-container *ngIf="!edgeLoading && backslashEdges && backslashEdges.length === 0">
     <div class="empty text-center"><span class="empty-data">No edge found</span></div>
   </ng-container>
-  <div class="line"></div>
   <div class="clear"></div>
 </ng-template>
 <document-thumbnail-view [loading]="loading" [layout]="'quarter full-width'" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>

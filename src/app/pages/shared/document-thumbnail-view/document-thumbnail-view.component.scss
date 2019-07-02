@@ -15,26 +15,7 @@
   padding: 0 30px;
   background: #ffffff;
   &.full-width {
-    // @include media-breakpoint-down(md) {
-    //   // < 768px
-    //   width: 720px;
-    // }
-    // @include media-breakpoint-between(md, lg) {
-    //   //768px - 992px
-    //   width: 720px;
-    // }
-    // @include media-breakpoint-between(lg, xl) {
-    //   //992px - 1200px
-    //   width: 960px;
-    // }
-    // @include media-breakpoint-between(xl, xxl) {
-    //   //1200px - 1400px
-    //   width: 1140px;
-    // }
-    // @include media-breakpoint-up(xxl) {
-    //   // > 1400px
-    //   min-width: 1320px;
-    // }
+    padding: 0;
   }
   &.suggestion-inline {
     width: 100%;
