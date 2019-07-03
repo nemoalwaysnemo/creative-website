@@ -14,6 +14,7 @@ import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-contro
 
 @Component({
   selector: 'dynamic-ng-form',
+  styleUrls: ['./dynamic-ng-form.component.scss'],
   templateUrl: './dynamic-ng-form.component.html',
 })
 export class DynamicNGFormComponent extends DynamicFormComponent {

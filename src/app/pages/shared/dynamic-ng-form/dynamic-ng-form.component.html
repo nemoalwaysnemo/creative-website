@@ -1,4 +1,4 @@
-<div class="layout-left">
+<div class="layout-left left">
   <dynamic-ng-form-control *ngFor="let model of layoutLeft; trackBy: trackByFn"
                           [group]="formGroup"
                           [hidden]="model.hidden"
@@ -12,7 +12,7 @@
                           (customEvent)="onEvent($event, 'custom')">
   </dynamic-ng-form-control>
 </div>
-<div class="layout-right">
+<div class="layout-right right">
   <dynamic-ng-form-control *ngFor="let model of layoutRight; trackBy: trackByFn"
                           [group]="formGroup"
                           [hidden]="model.hidden"
@@ -26,6 +26,7 @@
                           (customEvent)="onEvent($event, 'custom')">
   </dynamic-ng-form-control>
 </div>
+<div class="clear"></div>
 <div class="layout-bottom">
   <dynamic-ng-form-control *ngFor="let model of layoutBottom; trackBy: trackByFn"
                           [group]="formGroup"

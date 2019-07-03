@@ -1,0 +1,16 @@
+.layout-left,
+.layout-right {
+  width: 50%;
+  padding: 0 10px;
+}
+.layout-right {
+  padding-top: 30px;
+}
+dynamic-ng-form-control {
+  padding: 0;
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  flex: none;
+  max-width: none;
+}
