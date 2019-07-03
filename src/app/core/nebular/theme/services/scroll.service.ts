@@ -32,6 +32,9 @@ export interface NbScrollPosition {
  */
 @Injectable()
 export class NbLayoutScrollService {
+
+  private sectionScroll$ = new Subject<{ tag: boolean }>();
+
   constructor(private _scrollToService: ScrollToService) { }
 
   public triggerScrollTo(destination: string, offset: number = -129) {
@@ -125,5 +128,13 @@ export class NbLayoutScrollService {
 
   stopScrollListener(stop: boolean) {
     this.scrollListening$.next({ stop: stop });
+  }
+
+  onSectionScroll(): Observable<{ tag: boolean }> {
+    return this.sectionScroll$.pipe(share());
+  }
+
+  runSectionScroll(tag?: boolean) {
+    this.sectionScroll$.next({ tag: tag });
   }
 }

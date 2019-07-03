@@ -21,7 +21,7 @@ export class CreativeHomeComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  scrollAsEnter: boolean = false;
+  scrollToglle: boolean = true;
 
   params: any = {
     pageSize: 10,
@@ -34,15 +34,21 @@ export class CreativeHomeComponent implements OnInit, OnDestroy {
   @debounce()
   scroll(event: MouseEvent) {
     const delta = event['deltaY'];
-    if (delta > 0 && this.destination < 3) {
-      this.destination = this.destination + 1;
-    } else if (delta < 0 && this.destination > 0) {
-      this.destination = this.destination - 1;
+    if (this.scrollToglle) {
+      if (delta > 0 && this.destination < 3) {
+        this.destination = this.destination + 1;
+      } else if (delta < 0 && this.destination > 0) {
+        this.destination = this.destination - 1;
+      }
+      this.scrollToSection(this.destination);
     }
-    this.scrollToSection(this.destination);
   }
 
   ngOnInit() {
+    this.scrollService.onSectionScroll()
+      .subscribe((res) => {
+        this.scrollToglle = res.tag;
+      });
   }
 
   ngOnDestroy() {

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
+import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
 
 @Component({
   selector: 'home-search-form',
@@ -55,6 +56,7 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private advanceSearch: AdvanceSearch,
     private googleAnalyticsService: GoogleAnalyticsService,
+    private scrollService: NbLayoutScrollService,
   ) { }
 
   ngOnInit() {
@@ -77,6 +79,9 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
         switchMap((query: string) => this.advanceSearch.searchForText(query, this.params)),
       )
       .subscribe((result: NuxeoPagination) => {
+        if (result.entries.length > 0) {
+          this.stopSectionScroll();
+        }
         this.results = result.entries;
         this.show();
       });
@@ -85,9 +90,13 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   show(): void {
     this.documents = this.results;
+    if (this.documents && this.documents.length > 0) {
+      this.stopSectionScroll();
+    }
   }
 
   hide(): void {
+    this.startSectionScroll();
     this.documents = [];
   }
 
@@ -118,4 +127,11 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
+  private stopSectionScroll() {
+    this.scrollService.runSectionScroll(false);
+  }
+
+  private startSectionScroll() {
+    this.scrollService.runSectionScroll(true);
+  }
 }
