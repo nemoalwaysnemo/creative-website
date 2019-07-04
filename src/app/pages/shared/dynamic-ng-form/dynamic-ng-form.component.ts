@@ -11,6 +11,7 @@ import {
   DynamicFormControlModel,
 } from '@core/custom';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'dynamic-ng-form',
@@ -22,6 +23,16 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
   layoutLeft: DynamicFormModel = [];
   layoutRight: DynamicFormModel = [];
   layoutBottom: DynamicFormModel = [];
+
+  @Input()
+  set modelOperation(operation: any) {
+    operation.subscribe(opt => {
+      if (opt.type === 'delete') {
+        this.deleteModel(opt.id);
+      }
+    });
+  }
+
 
   @Input('group') formGroup: FormGroup;
   @Input('model')
@@ -51,4 +62,18 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
   constructor(protected formService: DynamicFormService, protected layoutService: DynamicFormLayoutService) {
     super(formService, layoutService);
   }
+
+  deleteModel(id: string): void {
+    [this.layoutLeft, this.layoutRight, this.layoutBottom].forEach(models => {
+      const index = models.findIndex(model => {
+        return model.id === id;
+      });
+      if (index > -1) {
+        this.formService.removeFormGroupControl(index, this.formGroup, models);
+      }
+    });
+  }
+
+
+
 }

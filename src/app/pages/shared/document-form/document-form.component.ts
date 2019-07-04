@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
+import { DocumentModel, DocumentRepository, NuxeoUploadResponse, Operation } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, Subject } from 'rxjs';
 import { deepExtend } from '@core/services';
 
 @Component({
@@ -25,6 +25,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
   dynamicModels: DynamicFormControlModel[] = [];
+
+  modelOperation: Subject<{ id: string, type: string }> = new Subject();
 
   private formMode: 'create' | 'edit';
 
@@ -222,7 +224,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     if (this.formMode === 'create') {
       this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
         this.childrenValid = false;
-        this.formService.removeFormGroupControl(modelIndex - index, this.formGroup, this.formModel);
+        this.modelOperation.next({ id: 'dc:title', type: 'delete'});
       });
     }
   }

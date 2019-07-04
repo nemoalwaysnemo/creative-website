@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { Subject, Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, filter } from 'rxjs/operators';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
 import { DynamicFormControlModel, DynamicFormLayout, DynamicFormService, DynamicInputModel } from '@core/custom';
 import { DragDropFileZoneService } from './drag-drop-file-zone.service';
@@ -65,7 +65,17 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private init(): void {
     this.onUpload();
-    const sub = this.onUploaded.subscribe((response: NuxeoUploadResponse[]) => {
+    const sub = this.onUploaded.pipe(
+      filter(
+        (res: NuxeoUploadResponse[]) => {
+          let uploaded = false;
+          res.forEach(i => {
+            uploaded = uploaded || i.uploaded;
+          });
+          return !uploaded;
+        },
+      ),
+    ).subscribe((response: NuxeoUploadResponse[]) => {
       if (response.some((res: NuxeoUploadResponse) => res.formMode === 'create')) {
         this.fileNumber = response.length;
         const formModels = [];
@@ -115,7 +125,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     let valid: boolean = true;
     this.formGroups.forEach((group: FormGroup) => { valid = valid && group.valid; });
     this.valid.emit(valid);
-    // this.fileList.find(res => res.fileIdx.toString() === event.model.id.split('_')[0]).title = event.model.value;
+    this.files.find(res => res.fileIdx.toString() === event.model.id.split('_')[0]).title = event.model.value;
   }
 
   onFocus(event: any): void {
@@ -221,12 +231,10 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private performSubForm(res: NuxeoUploadResponse): void {
     if (res.uploaded) {
-      // console.log(222222);
-      // const formModels = this.formService.fromJSON(this.fileInput(res));
-      // formModels.forEach(formModel => {
-      //   console.log(44444, this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
-      //   this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
-      // });
+      const formModels = this.formService.fromJSON(this.fileInput(res));
+      formModels.forEach(formModel => {
+        this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
+      });
     }
   }
 
