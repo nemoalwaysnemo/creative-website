@@ -1,6 +1,6 @@
 <div style="width: 95%; margin: 0 auto; padding: 0 0 20px;">
   <ng-container *ngIf="formGroup">
-    <dynamic-ng-form [group]="formGroup" [model]="formModel" [layout]="formLayout" (customEvent)="onCustomEvent($event)"
+    <dynamic-ng-form [group]="formGroup" [model]="formModel" [layout]="formLayout" [modelOperation]="modelOperation" (customEvent)="onCustomEvent($event)"
     									(blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)"></dynamic-ng-form>
 
     <button nbButton outline class="btn btn-success btn-xs" status="primary"
