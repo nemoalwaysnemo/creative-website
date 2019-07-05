@@ -230,7 +230,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   private performSubForm(res: NuxeoUploadResponse): void {
-    if (res.uploaded) {
+    if (res.uploaded && res.formMode === 'create') {
       const formModels = this.formService.fromJSON(this.fileInput(res));
       formModels.forEach(formModel => {
         this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
