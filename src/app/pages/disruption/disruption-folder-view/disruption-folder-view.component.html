@@ -1,10 +1,10 @@
 <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled"
   [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="doc" class="property-section">
-    <a [routerLink]="[getAssetUrl(doc),  doc.uid]" class="property-intro inline-middle">
+    <a [routerLink]="[getAssetUrl(doc),  doc.uid]" class="property-intro inline-top">
       <img src="{{doc.thumbnailUrl}}" class="thumbnail-img">
     </a>
-    <div class="property-info inline-middle">
+    <div class="property-info inline-top">
       <h1>{{ doc.title }}</h1>
       <br>
       <div>Workshop Date: {{doc.get('The_Loupe_ProdCredits:production_date') | date}}</div>
