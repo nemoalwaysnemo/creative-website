@@ -1,6 +1,6 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, DocumentModel } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoQuickFilters } from '@core/api';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -33,7 +33,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   params: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    quickFilters: '',
+    quickFilters: `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
   };
