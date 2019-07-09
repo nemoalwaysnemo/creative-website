@@ -43,17 +43,17 @@
         }
         @include media-breakpoint-between(lg, xl) {
           //992px - 1200px
-          width: 640px;
+          width: 710px;
           margin-right: 33px;
         }
         @include media-breakpoint-between(xl, xxl) {
           //1200px - 1400px
-          width: 740px;
-          margin-right: 33px;
+          width: 800px;
+          margin-right: 43px;
         }
         @include media-breakpoint-up(xxl) {
           // > 1400px
-          width: 940px;
+          width: 930px;
           margin-right: 43px;
         }
       }
@@ -68,15 +68,15 @@
         }
         @include media-breakpoint-between(lg, xl) {
           //992px - 1200px
-          width: calc(100% - 640px - 33px);
+          width: calc(100% - 710px - 33px);
         }
         @include media-breakpoint-between(xl, xxl) {
           //1200px - 1400px
-          width: calc(100% - 740px - 33px);
+          width: calc(100% - 800px - 43px);
         }
         @include media-breakpoint-up(xxl) {
           // > 1400px
-          width: calc(100% - 940px - 43px);
+          width: calc(100% - 930px - 43px);
         }
       }
     }
