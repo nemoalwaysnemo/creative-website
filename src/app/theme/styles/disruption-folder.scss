@@ -1,6 +1,13 @@
+.document {
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 0 0;
+	box-sizing: border-box;
+}
 .property-section {
-	width: calc(100% - 76px);
-	margin: 10px auto 0;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 60px;
 	color: #4b4b4b;
 }
 .property-intro {
