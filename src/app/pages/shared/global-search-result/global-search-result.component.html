@@ -13,7 +13,7 @@
     <document-list-view [loading]="loading" [settings]="listViewSetting" [documents]="listDocuments"></document-list-view>
   </ng-template>
 </div>
-<div class="search-pagination">
+<div *ngIf="hasPagination" class="search-pagination">
   <table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination"></table-pagination>
 </div>
 <div class="clear"></div>
