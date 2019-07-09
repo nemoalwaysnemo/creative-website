@@ -560,10 +560,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ng-select/ng-select@^2.20.0":
-  version "2.20.1"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.20.1.tgz#e94c9e6940946936daefd11f732890016341c59b"
-  integrity sha512-1bAxbFOTIn7SrpdeGvuAdeEFrKauGWIsNKPdizifWbnUSKVKGbTqHPLtQClIilGGg2uUBcs7IfkQ6yu+RIlCsQ==
+"@ng-select/ng-select@^2.20.3":
+  version "2.20.3"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.20.3.tgz#f6d832cf3e4cfe1d9dd6fa51ae15248e77b43008"
+  integrity sha512-QVyBiT2H6sljRrcNb4Wx7lABd08FQqWDJ/0LlfeWiP6N2Zc8+uSwCglkAgl7wu746mf7McVwL0H4ewVYnc+iHw==
   dependencies:
     tslib "^1.9.0"
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoQuickFilters } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoQuickFilters, SearchResponse } from '@core/api';
 import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
@@ -22,6 +22,13 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
     'app_edges_industry_agg': { placeholder: 'Industry' },
   };
 
+
+  responseHandler: Function = (res: SearchResponse) => {
+    if (res.queryParams.ecm_fulltext) {
+    }
+    return res;
+  }
+
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
@@ -31,6 +38,18 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
 
   ngOnInit() {
     this.searchCurrentDocument();
+    // this.onAssetsSearch();
+  }
+
+  protected onAssetsSearch(): void {
+    const subscription = this.advanceSearch.onSearch().subscribe((res: SearchResponse) => {
+      if (res.action === 'beforeSearch') {
+        // this.buildSearchAssetsParams(this.document, res);
+      } else if (res.queryParams.ecm_fulltext) {
+
+      }
+    });
+    this.subscription.add(subscription);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -54,6 +73,21 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
       pageSize: 20,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
+    };
+    if (doc) {
+      params['ecm_parentId'] = doc.uid;
+    }
+    return params;
+  }
+
+  protected buildSearchAssetsParams(doc: DocumentModel, res: SearchResponse): any {
+    const params = {
+      pageSize: 1000,
+      currentPageIndex: 0,
+      ecm_fulltext: res.queryParams.ecm_fulltext,
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
       quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,

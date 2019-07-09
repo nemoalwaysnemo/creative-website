@@ -1,5 +1,5 @@
 import { Input, OnInit, OnDestroy } from '@angular/core';
-import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, NuxeoPagination, SearchResponse } from '@core/api';
 import { Subscription } from 'rxjs';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
@@ -68,16 +68,13 @@ export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
   }
 
   protected onSearch(): void {
-    const subscription = this.advanceSearch.onSearch().subscribe(({ response, queryParams, action }) => {
-      if (action === 'beforeSearch') {
+    const subscription = this.advanceSearch.onSearch().subscribe((res: SearchResponse) => {
+      if (res.action === 'beforeSearch') {
         this.loading = true;
       } else {
         this.loading = false;
-        this.queryParams = queryParams;
-        this.paginationService.from(response);
-        this.totalResults = response.resultsCount;
-        this.documents = response.entries;
-        this.listDocuments = this.listViewBuilder(response.entries);
+        this.queryParams = res.queryParams;
+        this.handleResponse(res);
       }
     });
     this.subscription.add(subscription);
@@ -89,6 +86,13 @@ export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
       this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge');
     });
     this.subscription.add(subscription);
+  }
+
+  protected handleResponse(res: SearchResponse): void {
+    this.paginationService.from(res.response);
+    this.totalResults = res.response.resultsCount;
+    this.documents = res.response.entries;
+    this.listDocuments = this.listViewBuilder(res.response.entries);
   }
 
 }

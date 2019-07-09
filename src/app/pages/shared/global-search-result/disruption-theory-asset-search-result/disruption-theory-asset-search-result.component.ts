@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { SearchResponse } from '@core/api';
 
 @Component({
   selector: 'disruption-theory-asset-search-result',
@@ -6,5 +7,10 @@ import { Component, Input } from '@angular/core';
   templateUrl: './disruption-theory-asset-search-result.component.html',
 })
 export class DisruptionTheoryAssetSearchResultComponent {
+
+
+  hasPagination: boolean = false;
+
+  @Input() responseHandler: Function = (res: SearchResponse): SearchResponse => res;
 
 }
