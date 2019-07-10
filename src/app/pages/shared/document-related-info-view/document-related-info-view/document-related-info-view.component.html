@@ -26,7 +26,8 @@
   <div class="thumbnail-view-item backslash dates">
     <h4>{{doc.title | shorten: 25: '...'}}</h4>
     <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
-    <a (click)="open(backslashDialog, doc, 'Backslash')"><img src="{{doc.thumbnailUrl}}" [alt]="doc.title" class="thumbnail-img"></a>
+    <!-- <a (click)="open(backslashDialog, doc, 'Backslash')"><img src="{{doc.thumbnailUrl}}" [alt]="doc.title" class="thumbnail-img"></a> -->
+    <a (click)="open(backslashDialog, doc, 'Backslash')" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
   </div>
   <ng-template #backslashDialog>
     <preview-dialog>
