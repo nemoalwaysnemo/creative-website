@@ -40,7 +40,6 @@ export enum NUXEO_META_INFO {
   DISRUPTION_ROADMAP_FOLDER_TYPE = '["App-Disruption-Roadmap-Folder"]',
   DISRUPTION_DAYS_FOLDER_TYPE = '["App-Disruption-Days-Folder"]',
   DISRUPTION_THEORY_FOLDER_TYPE = '["App-Disruption-Theory-Folder"]',
-  DISRUPTION_THEORY_ASSET_TYPE = '["App-Disruption-Theory-Folder", "App-Disruption-Theory-Asset"]',
   DISRUPTION_THINKING_FOLDER_TYPE = '["App-Disruption-Folder"]',
   DISRUPTION_FOLDER_TYPE = '["App-Disruption-Roadmap-Folder", "App-Disruption-Days-Folder", "App-Disruption-Theory-Folder", "App-Disruption-Folder"]',
   DISRUPTION_ASSET_TYPE = '["App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset", "App-Disruption-Day"]',

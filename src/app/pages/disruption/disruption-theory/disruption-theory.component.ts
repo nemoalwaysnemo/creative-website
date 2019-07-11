@@ -98,7 +98,7 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
     if (res.entries.length > 0) {
       const ids = res.entries.map((doc: DocumentModel) => {
         return doc.breadcrumb[doc.breadcrumb.length - 2];
-      }).map((doc: DocumentModel) => doc.uid).filter((value, index, self) => { // uniq
+      }).filter((doc: DocumentModel) => `${doc.path}/` !== NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH).map((doc: DocumentModel) => doc.uid).filter((value, index, self) => { // uniq
         return self.indexOf(value) === index;
       });
       const params = {
