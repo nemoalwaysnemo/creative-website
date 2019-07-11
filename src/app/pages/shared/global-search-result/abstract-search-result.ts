@@ -1,9 +1,10 @@
 import { Input, OnInit, OnDestroy } from '@angular/core';
-import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, NuxeoPagination, SearchResponse } from '@core/api';
-import { Subscription } from 'rxjs';
+import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
+import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
+import { concatMap } from 'rxjs/operators';
 
 export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
 
@@ -21,13 +22,15 @@ export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   paginationService: PaginationDataSource = new PaginationDataSource();
 
-  queryParams: NuxeoPageProviderParams = {};
+  queryParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
 
   multiView: boolean = false;
 
   protected subscription: Subscription = new Subscription();
 
   @Input() currentView: string = 'thumbnailView';
+
+  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   @Input()
   set listViewSettings(settings: any) {
@@ -68,7 +71,9 @@ export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
   }
 
   protected onSearch(): void {
-    const subscription = this.advanceSearch.onSearch().subscribe((res: SearchResponse) => {
+    const subscription = this.advanceSearch.onSearch().pipe(
+      concatMap((res: SearchResponse) => this.afterSearch(res)),
+    ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {
         this.loading = true;
       } else {

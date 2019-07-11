@@ -147,6 +147,11 @@ export class DocumentModel extends Base {
     return this.contextParameters && this.contextParameters.hasFolderishChild ? true : false;
   }
 
+  get breadcrumb(): DocumentModel[] {
+    const documents = this.contextParameters && this.contextParameters.breadcrumb ? this.contextParameters.breadcrumb.entries : [];
+    return documents.map(doc => new DocumentModel(doc));
+  }
+
   get contextParameters(): any {
     return this._contextParameters;
   }
@@ -168,12 +173,12 @@ export class DocumentModel extends Base {
   }
   // 'Thumbnail', 'Small', 'Medium', 'FullHD', 'OriginalJpeg'
   pictureViews(title: string): string {
-    const picture = this.get('picture:views').filter((item: any) => item.title === title).map((p: any) => p.content.data).shift();
+    const picture = (this.get('picture:views') || []).filter((item: any) => item.title === title).map((p: any) => p.content.data).shift();
     return picture || this.thumbnailUrl;
   }
 
   get attachedImage(): string {
-    const images = this.get('files:files').filter((item: any) => item.file['mime-type'].includes('image')).map((p: any) => p.file.data);
+    const images = (this.get('files:files') || []).filter((item: any) => item.file['mime-type'].includes('image')).map((p: any) => p.file.data);
     return images[0] || this.pictureViews('FullHD');
   }
 

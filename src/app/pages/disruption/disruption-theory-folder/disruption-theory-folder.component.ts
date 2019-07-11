@@ -77,7 +77,7 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
 
   protected buildSubFolderParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
       currentPageIndex: 0,
       pageSize: 20,

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, timer } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoQuickFilters, SearchResponse } from '@core/api';
+import { Subject, timer, Observable, of as observableOf } from 'rxjs';
+import { AdvanceSearch, DocumentModel, NuxeoQuickFilters, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination } from '@core/api';
 import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'disruption-theory-page',
@@ -22,11 +23,21 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
     'app_edges_industry_agg': { placeholder: 'Industry' },
   };
 
-
-  responseHandler: Function = (res: SearchResponse) => {
-    if (res.queryParams.ecm_fulltext) {
+  beforeSearch: Function = (queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
+    if (queryParams.hasKeyword()) {
+      queryParams = this.buildSearchAssetsParams(queryParams);
+      opts.setEnrichers('document', [NuxeoEnricher.document.BREADCRUMB, NuxeoEnricher.document.HIGHLIGHT]);
     }
-    return res;
+    return { queryParams, opts };
+  }
+
+  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+    if (res.queryParams.hasKeyword() && res.action === 'afterSearch') {
+      return this.performSearchAssetsResults(res.response).pipe(
+        map((response: NuxeoPagination) => { res.response = response; return res; }),
+      );
+    }
+    return observableOf(res);
   }
 
   constructor(
@@ -38,24 +49,12 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
 
   ngOnInit() {
     this.searchCurrentDocument();
-    // this.onAssetsSearch();
-  }
-
-  protected onAssetsSearch(): void {
-    const subscription = this.advanceSearch.onSearch().subscribe((res: SearchResponse) => {
-      if (res.action === 'beforeSearch') {
-        // this.buildSearchAssetsParams(this.document, res);
-      } else if (res.queryParams.ecm_fulltext) {
-
-      }
-    });
-    this.subscription.add(subscription);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
     if (doc) {
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
     }
   }
 
@@ -67,8 +66,8 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
     };
   }
-
-  protected buildAssetsParams(doc?: DocumentModel): any {
+  // get the default sub folders (second-level folders)
+  protected buildDefaultAssetsParams(doc?: DocumentModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
       currentPageIndex: 0,
@@ -80,22 +79,38 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return params;
+    return new NuxeoPageProviderParams(params);
   }
-
-  protected buildSearchAssetsParams(doc: DocumentModel, res: SearchResponse): any {
+  // get all matched assets and then get their parent folders
+  protected buildSearchAssetsParams(queryParams: NuxeoPageProviderParams): NuxeoPageProviderParams {
     const params = {
       pageSize: 1000,
       currentPageIndex: 0,
-      ecm_fulltext: res.queryParams.ecm_fulltext,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+      ecm_fulltext: queryParams.ecm_fulltext,
+      ecm_mixinType_not_in: '["Folderish"]',
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
     };
-    if (doc) {
-      params['ecm_parentId'] = doc.uid;
-    }
-    return params;
+    return new NuxeoPageProviderParams(params);
   }
-
+  // calculate their parent folder ids
+  protected performSearchAssetsResults(res: NuxeoPagination): Observable<NuxeoPagination> {
+    if (res.entries.length > 0) {
+      const ids = res.entries.map((doc: DocumentModel) => {
+        return doc.breadcrumb[doc.breadcrumb.length - 2];
+      }).map((doc: DocumentModel) => doc.uid).filter((value, index, self) => { // uniq
+        return self.indexOf(value) === index;
+      });
+      const params = {
+        pageSize: 100,
+        currentPageIndex: 0,
+        ecm_uuid: `["${ids.join('", "')}"]`,
+        ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+        ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      };
+      return this.advanceSearch.request(new NuxeoPageProviderParams(params));
+    } else {
+      return observableOf(res);
+    }
+  }
 }

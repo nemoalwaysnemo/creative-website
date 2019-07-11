@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NuxeoApiService, NuxeoPageProviderParams, NuxeoPagination, AggregateModel } from './nuxeo';
+import { NuxeoApiService, NuxeoPageProviderParams, NuxeoPagination, AggregateModel, NuxeoRequestOptions } from './nuxeo';
 import { AbstractPageProvider } from './api.abstract-page-provider.service';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 import { of as observableOf, Observable } from 'rxjs';
@@ -12,8 +12,8 @@ export class AdvanceSearch extends AbstractPageProvider {
     super(nuxeoApi);
   }
 
-  requestSearchFilters(queryParams: NuxeoPageProviderParams = {}): Observable<AggregateModel[]> {
-    return this.request(this.getRequestParams(Object.assign({}, queryParams, { pageSize: 1 })), { skipAggregates: false }).pipe(
+  requestSearchFilters(queryParams: NuxeoPageProviderParams = new NuxeoPageProviderParams()): Observable<AggregateModel[]> {
+    return this.request(this.getRequestParams(Object.assign({}, queryParams, { pageSize: 1 })), new NuxeoRequestOptions({ skipAggregates: false })).pipe(
       map((response: NuxeoPagination) => this.buildAggregateModels(response)),
       concatMap((models: AggregateModel[]) => this.requestIDsOfAggregates(models)),
     );
@@ -37,7 +37,7 @@ export class AdvanceSearch extends AbstractPageProvider {
     return observableOf(models);
   }
 
-  searchForText(searchTerm: string, queryParams: NuxeoPageProviderParams = {}): Observable<NuxeoPagination> {
+  searchForText(searchTerm: string, queryParams: NuxeoPageProviderParams = new NuxeoPageProviderParams()): Observable<NuxeoPagination> {
     queryParams.ecm_fulltext = searchTerm;
     return this.request(queryParams);
   }

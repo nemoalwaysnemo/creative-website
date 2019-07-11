@@ -94,7 +94,7 @@ export class NuxeoApiService {
     return this.nuxeo.batchUpload(opts);
   }
 
-  operation(id: string, params: any = {}, input: string = null, opts: NuxeoRequestOptions = {}): Observable<any> {
+  operation(id: string, params: any = {}, input: string = null, opts: NuxeoRequestOptions = new NuxeoRequestOptions()): Observable<any> {
     const op = this.nuxeo.operation(id, opts);
     return input ? op.input(input).params(params).execute() : op.params(params).execute();
   }

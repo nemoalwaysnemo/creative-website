@@ -17,9 +17,9 @@
   "scripts": {
     "commit": "git-cz",
     "build:railsdev": "ng build --prod --configuration=rails-dev --build-optimizer --base-href=./ --deploy-url=LibraryWebUI/ ",
-    "build:awsprod": "ng build --prod --configuration=aws-prod --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
-    "build:awsstg": "ng build --prod --configuration=aws-stg --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
-    "build:awsdev": "ng build --prod --configuration=aws-dev --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
+    "build:prod": "ng build --prod --configuration=aws-prod --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
+    "build:stg": "ng build --prod --configuration=aws-stg --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
+    "build:dev": "ng build --prod --configuration=aws-dev --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "lint": "ng lint",
     "lint:fix": "ng lint ngx-admin-demo --fix",
     "lint:styles": "stylelint ./src/**/*.scss",

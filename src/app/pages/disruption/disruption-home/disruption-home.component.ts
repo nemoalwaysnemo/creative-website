@@ -1,6 +1,6 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoQuickFilters } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams } from '@core/api';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -60,7 +60,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   }
 
   private search(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
+    const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.folders = res.entries.filter((doc: DocumentModel) => this.allowedTabs.some(x => doc.title.toLocaleLowerCase().includes(x)));
         this.loading = false;

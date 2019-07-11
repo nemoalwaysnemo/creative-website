@@ -10,7 +10,7 @@ import {
 } from './nuxeo';
 
 export class SearchResponse {
-  readonly response: NuxeoPagination;
+  response: NuxeoPagination;
   readonly queryParams: NuxeoPageProviderParams;
   readonly action: string;
   constructor(response: any = {}) {
@@ -30,7 +30,7 @@ export abstract class AbstractPageProvider extends AbstractBaseSearchService {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
-  search(queryParams: NuxeoPageProviderParams = {}, opts: NuxeoRequestOptions = {}): Observable<SearchResponse> {
+  search(queryParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions()): Observable<SearchResponse> {
     return observableOf(new SearchResponse({ response: new NuxeoPagination(), queryParams, action: 'beforeSearch' })).pipe(
       concat(this.request(queryParams, opts).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, queryParams, action: 'afterSearch' }))))),
       tap((res: SearchResponse) => this.entries$.next(res)),
