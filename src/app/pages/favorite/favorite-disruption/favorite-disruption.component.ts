@@ -20,7 +20,6 @@ export class FavoriteDisruptionComponent extends AbstractDocumentViewComponent i
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
-    quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
   };
 
   tabs = TAB_CONFIG;

@@ -76,7 +76,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
 
   protected buildIndustryParams(doc?: DocumentModel): any {
     const params = {
-      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
+      quickFilters: NuxeoQuickFilters.Alphabetically,
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
       ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
       currentPageIndex: 0,
@@ -91,7 +91,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
 
   protected buildIndustryAssetsParams(doc?: DocumentModel): any {
     const params = {
-      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
+      quickFilters: NuxeoQuickFilters.Alphabetically,
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
       currentPageIndex: 0,

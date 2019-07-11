@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination } from '@core/api';
 import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'disruption-page',
@@ -22,13 +23,31 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
     'app_edges_industry_agg': { placeholder: 'Industry' },
   };
 
+
+  beforeSearch: Function = (queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
+    if (queryParams.hasKeyword()) {
+      queryParams = this.buildSearchAssetsParams(queryParams);
+      opts.setEnrichers('document', [NuxeoEnricher.document.BREADCRUMB, NuxeoEnricher.document.HIGHLIGHT]);
+    }
+    return { queryParams, opts };
+  }
+
+  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+    if (res.queryParams.hasKeyword() && res.action === 'afterSearch') {
+      return this.performSearchAssetsResults(res.response).pipe(
+        map((response: NuxeoPagination) => { res.response = response; return res; }),
+      );
+    }
+    return observableOf(res);
+  }
+
   defaultParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+    ecm_mixinType: '["HiddenInNavigation"]',
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-    quickFilters: `${NuxeoQuickFilters.ShowInNavigation},${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
   };
 
   constructor(
@@ -57,6 +76,39 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_FOLDER_TYPE,
     };
+  }
+
+  // get all matched assets and then get their parent folders
+  protected buildSearchAssetsParams(queryParams: NuxeoPageProviderParams): NuxeoPageProviderParams {
+    const params = {
+      pageSize: 1000,
+      currentPageIndex: 0,
+      ecm_fulltext: queryParams.ecm_fulltext,
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,
+    };
+    return new NuxeoPageProviderParams(params);
+  }
+  // calculate their parent folder ids
+  protected performSearchAssetsResults(res: NuxeoPagination): Observable<NuxeoPagination> {
+    if (res.entries.length > 0) {
+      const ids = res.entries.map((doc: DocumentModel) => {
+        return doc.breadcrumb[doc.breadcrumb.length - 2];
+      }).map((doc: DocumentModel) => doc.uid).filter((value, index, self) => { // uniq
+        return self.indexOf(value) === index;
+      });
+      const params = {
+        pageSize: 100,
+        currentPageIndex: 0,
+        ecm_uuid: `["${ids.join('", "')}"]`,
+        ecm_mixinType: '["HiddenInNavigation"]',
+        ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+        ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+      };
+      return this.advanceSearch.request(new NuxeoPageProviderParams(params));
+    } else {
+      return observableOf(res);
+    }
   }
 
   openForm(dialog: any): void {

@@ -46,8 +46,8 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
-      quickFilters: 'ShowInNavigation',
+      ecm_mixinType: '["HiddenInNavigation"]',
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
     };
   }
@@ -70,7 +70,7 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
   protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,
-      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',

@@ -72,9 +72,8 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
       pageSize: 20,
       currentPageIndex: 0,
       ecm_fulltext: '',
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
     };
     if (doc) {
       params['ecm_parentId'] = doc.uid;
@@ -88,8 +87,8 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
       currentPageIndex: 0,
       ecm_fulltext: queryParams.ecm_fulltext,
       ecm_mixinType_not_in: '["Folderish"]',
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
     };
     return new NuxeoPageProviderParams(params);
   }
@@ -105,8 +104,8 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
         pageSize: 100,
         currentPageIndex: 0,
         ecm_uuid: `["${ids.join('", "')}"]`,
-        ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+        ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
       };
       return this.advanceSearch.request(new NuxeoPageProviderParams(params));
     } else {

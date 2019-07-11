@@ -23,7 +23,7 @@ export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent i
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    quickFilters: 'ShowInNavigation',
+    ecm_mixinType: '["HiddenInNavigation"]',
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
   };
