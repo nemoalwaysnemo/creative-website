@@ -6,7 +6,8 @@ import { AdvanceSearch } from '@core/api';
 import { HomeSearchFormComponent } from './home-search-form.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
-
+import { GlobalSearchFilterModule } from '../global-search-filter/global-search-filter.module';
+import { SharedDirectiveModule } from '../directives/shared-directive.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +16,8 @@ import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document
     ReactiveFormsModule,
     ClickOutsideModule,
     DocumentThumbnailViewModule,
+    GlobalSearchFilterModule,
+    SharedDirectiveModule,
   ],
   declarations: [
     HomeSearchFormComponent,

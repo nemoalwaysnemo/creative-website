@@ -30,6 +30,18 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   folders: any[];
 
+  filters: any = {
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'app_edges_industry_agg': { placeholder: 'Industry' },
+  };
+
+  defaultParams: any = {
+    pageSize: 20,
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
+  };
+
   params: any = {
     pageSize: 20,
     currentPageIndex: 0,
