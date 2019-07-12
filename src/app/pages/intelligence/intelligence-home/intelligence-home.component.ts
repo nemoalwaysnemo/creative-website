@@ -16,11 +16,23 @@ export class IntelligenceHomeComponent implements OnInit, OnDestroy {
   placeholder = 'Search for marketing reports, data, research...';
   folders: any[];
 
-  params: any = {
+  filters: any = {
+    'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'the_loupe_main_country_agg': { placeholder: 'County' },
+    'the_loupe_main_brand_agg': { placeholder: 'Brand' },
+    'the_loupe_main_clientName_agg': { placeholder: 'Client' },
+    'app_edges_industry_agg': { placeholder: 'Industry' },
+    'app_edges_backslash_category_agg': { placeholder: 'Category' },
+    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
+  };
+
+  defaultParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+    ecm_fulltext: '',
   };
 
   folderParams: any = {
