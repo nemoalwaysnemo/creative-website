@@ -70,10 +70,10 @@ $main-yellow: #fecc00;
   font-size: 15px;
   margin: 24px 0 32px 60px;
   color: #b0afaf;
-  &:hover {
-    text-decoration: none;
-    color: #b0afaf;
-  }
+  border: none;
+  cursor: pointer;
+  &.success { margin-bottom: 10px; }
+  &:focus { outline: 0; }
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #aeaeae;

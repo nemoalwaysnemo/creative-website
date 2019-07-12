@@ -9,11 +9,9 @@
       <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView"
         [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
-    <a class="filter_trigger">
-      <button type="button" (click)="toggleFilter()" class="advanced-filters-trigger icon_btn"
-        [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs"
-        title="Filter">Filter</button>
-    </a>
+    <button type="button" (click)="toggleFilter()" class="filter_trigger"
+      [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs"
+      title="Filter">Filters +</button>
   </section>
   <div class="search-filters left">
     <ng-content></ng-content>
