@@ -36,25 +36,45 @@ export class OptionSelectComponent implements ControlValueAccessor {
     }
   }
 
+  @Input() closeOnSelect: boolean = false;
+
   @Input() placeholder: string;
 
   @Output() selected: EventEmitter<OptionModel[]> = new EventEmitter();
-
-  @Output() blur: EventEmitter<OptionModel[]> = new EventEmitter();
 
   constructor() {
     this.options$ = new BehaviorSubject<OptionModel[]>([]);
   }
 
-  onChange(event: OptionModel[]) {
+  onChange(event: OptionModel[]): void {
     if (Array.isArray(event)) {
       this._onChange(event.map(x => x.value));
       this.selected.emit(event);
     }
   }
 
-  onBlur(event: OptionModel[]) {
-    this.blur.next(event);
+  onOpen(): void {
+  }
+
+  onClose(): void {
+  }
+
+  onClear(): void {
+  }
+
+  onSearch(event: OptionModel[]): void {
+  }
+
+  onFocus(event: FocusEvent): void {
+  }
+
+  onBlur(event: FocusEvent): void {
+  }
+
+  onAdd(event: OptionModel): void {
+  }
+
+  onRemove(event: OptionModel): void {
   }
 
   writeValue(value: any): void {

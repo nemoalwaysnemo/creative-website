@@ -2,7 +2,7 @@ import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@an
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters } from '@core/api';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
 import { TabInfo } from '../document-related-info.component';
@@ -145,8 +145,8 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     if (edgesParams) {
       const params: any = {
         app_edges_active_article: true,
-        quickFilters: 'BackslashEdgePage',
         app_edges_tags_edges: edgesParams,
+        quickFilters: NuxeoQuickFilters.BackslashEdgePage,
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
       this.edgeLoading = true;

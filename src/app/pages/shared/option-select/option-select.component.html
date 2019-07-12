@@ -1,5 +1,6 @@
 <ng-select
   [items]="options$ | async"
+  [closeOnSelect]="closeOnSelect"
   [placeholder]="placeholder"
   [selectOnTab]="true"
   [multiple]="true"
@@ -10,13 +11,19 @@
   [loading]="loading"
   [disabled]="disabled"
   [virtualScroll]="true"
-  [closeOnSelect]="false"
   [clearOnBackspace]="true"
-  (change)="onChange($event)"
+  (open)="onOpen()"
+  (close)="onClose()"
+  (clear)="onClear()"
+  (focus)="onFocus($event)"
+  (search)="onSearch($event)"
   (blur)="onBlur($event)"
+  (add)="onAdd($event)"
+  (remove)="onRemove($event)"
+  (change)="onChange($event)"
   [(ngModel)]="selectedItems"
 >
-<ng-template ng-option-tmp let-item="item">
-  <span title="{{item.value}}">{{item.value}}</span>
+<ng-template ng-label-tmp let-item="item">
+  <span title="{{item.label}}">{{item.label}}</span>
 </ng-template>
 </ng-select>

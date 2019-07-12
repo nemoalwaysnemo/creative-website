@@ -100,8 +100,8 @@ export function filterAggregates(mapping: { [key: string]: { label?: string, pla
 export enum NuxeoQuickFilters {
   Alphabetically = 'Alphabetically',
   ProductionDate = 'ProductionDate',
-  ShowInNavigation = 'ShowInNavigation',
-  HiddenInNavigation = 'HiddenInNavigation',
+  // ShowInNavigation = 'ShowInNavigation',
+  // HiddenInNavigation = 'HiddenInNavigation',
   BackslashEdgePage = 'BackslashEdgePage',
 }
 

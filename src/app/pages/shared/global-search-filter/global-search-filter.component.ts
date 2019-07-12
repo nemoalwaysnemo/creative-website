@@ -19,6 +19,8 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
 
   aggregates: AggregateModel[] = [];
 
+  closeOnSelect: boolean = true;
+
   disabled: boolean = false;
 
   private _onChange = (_) => { };
@@ -32,15 +34,12 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
 
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
-  @Output() blur: EventEmitter<any> = new EventEmitter();
-
-  onChange() {
+  onModelChange(): void {
     this._onChange(this.aggregateModel);
     this.selected.emit(this.aggregateModel);
   }
 
-  onBlur() {
-    this.blur.next(this.aggregateModel);
+  onChange(): void {
   }
 
   writeValue(value: any): void {
@@ -75,7 +74,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
     return aggregates;
   }
 
-  private buildOptionModel(agg: any = {}) {
+  private buildOptionModel(agg: any = {}): OptionModel {
     const label = `${agg.key} (${agg.docCount})`;
     const value = agg.key;
     const disabled = false;

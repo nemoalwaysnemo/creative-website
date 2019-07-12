@@ -1,6 +1,16 @@
 <div class="advanced_filters flex">
   <div *ngFor="let item of aggregates" class="dropdown_container">
-    <option-select (blur)="onBlur()" [(ngModel)]="aggregateModel[item.id]" (ngModelChange)="onChange()" [items]="item.options" [placeholder]="item.placeholder" [className]="item.id" [disabled]="disabled" class="form-control">
+    <option-select
+      (change)="onChange()"
+      [(ngModel)]="aggregateModel[item.id]"
+      (ngModelChange)="onModelChange()"
+      [items]="item.options"
+      [closeOnSelect]="closeOnSelect"
+      [placeholder]="item.placeholder"
+      [className]="item.id"
+      [disabled]="disabled"
+      class="form-control"
+      >
     </option-select>
   </div>
 </div>

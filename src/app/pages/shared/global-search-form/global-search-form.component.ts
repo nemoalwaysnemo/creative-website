@@ -104,7 +104,7 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
     this.onKeywordChanged(event.target.value);
   }
 
-  onFilterBlur(aggregateModel: any): void {
+  onFilterSelected(aggregateModel: any): void {
     this.onFilterChanged(aggregateModel);
   }
 
