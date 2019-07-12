@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Params, Event, NavigationEnd, ParamMap } from '
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map } from 'rxjs/operators';
-import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse } from '@core/api';
+import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { removeUselessObject } from '@core/services';
 import { GoogleAnalyticsService } from '@core/google-analytics';
@@ -58,11 +58,13 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() showQuery: boolean = true;
 
+  @Input() showInput: boolean = true;
+
   @Input() placeholder: string = 'Search for...';
 
   @Input() filters: { [key: string]: { placeholder: string } } = {};
 
-  @Input() showInput: boolean = true;
+  @Input() beforeSearch: Function = (queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ queryParams, opts });
 
   @Input()
   set defaultParams(params: any) {
@@ -279,7 +281,10 @@ export class GlobalSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private search(searchParams: any = {}): Observable<SearchResponse> {
-    return this.advanceSearch.search(this.queryParamsService.buildSearchParams(searchParams), { skipAggregates: false });
+    const params = new NuxeoPageProviderParams(this.queryParamsService.buildSearchParams(searchParams));
+    const options = new NuxeoRequestOptions({ skipAggregates: false });
+    const { queryParams, opts } = this.beforeSearch.call(this, params, options);
+    return this.advanceSearch.search(queryParams, opts);
   }
 
   private onSearchTriggered(): void {

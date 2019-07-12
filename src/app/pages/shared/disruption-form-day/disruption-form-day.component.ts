@@ -92,7 +92,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         formMode: 'create',
         uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 25,
+        queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
         acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
       }),
@@ -118,7 +118,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         id: 'uploadFiles',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',

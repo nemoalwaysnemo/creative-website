@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SearchResponse } from '@core/api';
+import { Observable, of as observableOf } from 'rxjs';
 
 @Component({
   selector: 'disruption-theory-asset-search-result',
@@ -8,9 +9,6 @@ import { SearchResponse } from '@core/api';
 })
 export class DisruptionTheoryAssetSearchResultComponent {
 
-
-  hasPagination: boolean = false;
-
-  @Input() responseHandler: Function = (res: SearchResponse): SearchResponse => res;
+  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
 }

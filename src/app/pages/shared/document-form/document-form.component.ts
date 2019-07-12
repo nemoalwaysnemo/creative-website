@@ -34,6 +34,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private documentModel: DocumentModel;
 
+  private fileMultiUpload: boolean;
+
   @Input() placeholder: string;
 
   @Input() dynamicModelIndex: number[] = [];
@@ -49,6 +51,9 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set settings(settings: any[]) {
     if (settings) {
+      this.fileMultiUpload = settings.find(model => {
+        return model.id === 'uploadFiles' && model.formMode === 'create';
+      }).multiUpload;
       this.prepareForm(settings);
     }
   }
@@ -221,9 +226,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   hideControls(): void {
-    if (this.formMode === 'create') {
+    if (this.formMode === 'create' && this.fileMultiUpload) {
       this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
-        this.childrenValid = false;
         this.modelOperation.next({ id: 'dc:title', type: 'delete'});
       });
     }

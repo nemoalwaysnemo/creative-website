@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -43,7 +43,7 @@ export class IntelligenceHomeComponent implements OnInit, OnDestroy {
   }
 
   private search(params: {}): void {
-    const subscription = this.advanceSearch.request(params)
+    const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.folders = res.entries;
         this.loading = false;

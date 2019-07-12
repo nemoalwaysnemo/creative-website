@@ -49,8 +49,8 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
 
   protected abstract getCurrentDocumentSearchParams(): object;
 
-  protected getCurrentDocumentRequestParams(): object {
-    return {};
+  protected getCurrentDocumentRequestParams(): NuxeoRequestOptions {
+    return null;
   }
 
   protected getDocumentModel(uid: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {

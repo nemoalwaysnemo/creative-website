@@ -114,7 +114,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.loading = true;
       }),
       mergeMap((mapping) => {
-        return this.advanceSearch.request(mapping.params, {}, mapping.provider);
+        return this.advanceSearch.request(mapping.params, null, mapping.provider);
       }),
     ).subscribe((res: NuxeoPagination) => {
       this.loading = false;

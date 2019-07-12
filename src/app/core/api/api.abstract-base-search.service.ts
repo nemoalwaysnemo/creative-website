@@ -24,7 +24,11 @@ export abstract class AbstractBaseSearchService {
     } else if (options.hasOwnProperty('ecm_path_eq')) {
       options.ecm_path_eq = '/' + options.ecm_path_eq.split('/').filter(x => x.trim()).join('/');
     }
-    return deepExtend(new NuxeoPageProviderParams(), this.defaultParams, options, searchTerm);
+    const searchParams: NuxeoPageProviderParams = deepExtend(new NuxeoPageProviderParams(), this.defaultParams, options, searchTerm);
+    if (searchParams.hasOwnProperty('ecm_mixinType') || !searchParams['ecm_mixinType_not_in']) {
+      delete searchParams.ecm_mixinType_not_in;
+    }
+    return searchParams;
   }
 
   protected getRequestOptions(opts: any = {}): NuxeoRequestOptions {

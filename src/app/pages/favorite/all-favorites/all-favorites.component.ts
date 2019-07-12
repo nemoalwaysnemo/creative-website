@@ -71,7 +71,6 @@ export class AllFavoritesComponent implements OnInit, OnDestroy {
       pageSize: 20,
       currentPageIndex: 0,
       ecm_fulltext: '',
-      quickFilters: `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.Alphabetically}`,
     };
     if (doc) {
       params['uuidAny'] = doc.uid;

@@ -120,6 +120,7 @@ export const NuxeoEnricher = {
     SUBTYPES: 'subtypes',
     PREVIEW: 'preview',
     CHILDREN: 'children',
+    HIGHLIGHT: 'highlight',
     THUMBNAIL: 'thumbnail',
     FAVORITES: 'favorites',
     BREADCRUMB: 'breadcrumb',
@@ -161,10 +162,20 @@ export class NuxeoPageProviderParams {
   ecm_path?: string;
   sortBy?: string;
   sortOrder?: string;
-  quickFilters?: string = `${NuxeoQuickFilters.HiddenInNavigation},${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
+  ecm_mixinType_not_in?: string = '["HiddenInNavigation"]';
+  highlight?: string = 'dc:title.fulltext,ecm:binarytext,dc:description.fulltext,ecm:tag,note:note.fulltext,file:content.name';
+  quickFilters?: string = `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
   ecm_fulltext?: string;
   production_date?: string; // production_date: '["lastYear"]',
   ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
+
+  constructor(opts: any = {}) {
+    Object.assign(this, opts);
+  }
+
+  hasKeyword(): boolean {
+    return !!this.ecm_fulltext;
+  }
 }
 
 export class NuxeoRequestOptions {
@@ -175,12 +186,26 @@ export class NuxeoRequestOptions {
     document: [
       NuxeoEnricher.document.PREVIEW,
       // NuxeoEnricher.document.SUBTYPES,
+      NuxeoEnricher.document.HIGHLIGHT,
       NuxeoEnricher.document.THUMBNAIL,
       NuxeoEnricher.document.FAVORITES,
       // NuxeoEnricher.document.BREADCRUMB,
       NuxeoEnricher.document.PERMISSIONS,
     ],
   };
+
+  constructor(opts: any = {}) {
+    Object.assign(this, opts);
+  }
+
+  addEnrichers(type: string, name: string): void {
+    this.enrichers[type].push(name);
+  }
+
+  setEnrichers(type: string, names: string[]): void {
+    this.enrichers[type] = names;
+  }
+
 }
 
 export class NuxeoPagination {

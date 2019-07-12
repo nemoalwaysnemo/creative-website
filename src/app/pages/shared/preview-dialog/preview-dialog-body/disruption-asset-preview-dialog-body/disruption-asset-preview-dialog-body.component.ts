@@ -21,16 +21,18 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
 
   @Input() editButton: boolean = false;
 
+  @Input() deleteButton: boolean = true;
+
+  @Input() previewButton: boolean = false;
+
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);
   }
 
   protected initDocument(res: any) {
     this.title = res.options.title;
-    if (this.editButton) {
-      this.writePermission$ = this.document.hasPermission(NuxeoPermission.Write);
-    }
-    this.deletePermission$ = this.document.hasPermission(NuxeoPermission.Delete);
+    this.writePermission$ = this.editButton && this.document.hasPermission(NuxeoPermission.Write);
+    this.deletePermission$ = this.deleteButton && this.document.hasPermission(NuxeoPermission.Delete);
   }
 
   openEditDialog(): void {

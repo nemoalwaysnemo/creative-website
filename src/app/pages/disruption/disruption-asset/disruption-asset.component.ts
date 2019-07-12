@@ -18,7 +18,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
   disruptionDayParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    quickFilters: 'ShowInNavigation',
+    ecm_mixinType: '["HiddenInNavigation"]',
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
   };
@@ -48,7 +48,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      quickFilters: '',
+      ecm_mixinType_not_in: '', // override
       ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
     };
