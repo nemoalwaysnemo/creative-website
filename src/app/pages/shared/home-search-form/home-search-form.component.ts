@@ -136,7 +136,6 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   }
 
   onKeyenter(event: KeyboardEvent): void {
-    console.info('kek');
     const params = this.buildQueryParams();
     this.redirectToListPage(params);
     event.preventDefault();
@@ -258,12 +257,13 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
       filter((params: SearchParams) => params.params && Object.keys(params.params).length > 0),
       switchMap((params: SearchParams) => this.performSearch(params)),
     ).subscribe((res) => {
-      console.info(res);
       if (res.response.entries.length > 0) {
         this.stopSectionScroll();
       }
-      this.results = res.response.entries;
-      this.show();
+      if (res.queryParams['ecm_fulltext']) {
+        this.results = res.response.entries;
+        this.show();
+      }
     });
     this.subscription.add(subscription);
   }
@@ -327,7 +327,6 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   }
 
   private performSearch(params: SearchParams): Observable<SearchResponse> {
-    console.info('lerrperformsearch', params);
     let event = 'GlobalSearch';
     let searchParams = params.params;
     switch (params.event) {

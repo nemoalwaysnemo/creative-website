@@ -4,8 +4,8 @@
     <h1 class="extraHeadline">{{ this.extraHeadline }}</h1>
     <h4>{{ this.subHead }}</h4>
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
-      <input formControlName="ecm_fulltext" autofocus (keyup.enter)="onKeyenter($event)" (keyup)="onKeyup($event)" type="text" class="keyword"
-        [placeholder]="placeholder" />
+      <input formControlName="ecm_fulltext" autofocus (keyup.enter)="onKeyenter($event)" (keyup)="onKeyup($event)"
+        type="text" class="keyword" [placeholder]="placeholder" />
       <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView"
         [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
@@ -31,9 +31,11 @@
     </div>
     <div class="description">
       <h1 [title]="doc.title"><a [routerLink]="[getAssetUrl(doc), doc.uid]">{{doc.title}}</a></h1>
-      <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
+      <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">
+        {{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
       <span class="dot"></span>
-      <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+      <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">
+        {{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
       <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
     </div>
   </div>
