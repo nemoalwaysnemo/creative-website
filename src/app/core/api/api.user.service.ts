@@ -33,4 +33,13 @@ export class UserService extends AbstractBaseSearchService {
     return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetFavorite));
   }
 
+  getUserInfo(): Observable<any> {
+    return this.cacheService.get('User.Info',
+      this.getCurrentUser().pipe(
+        switchMap((user: UserModel) => {
+          return this.nuxeoApi.getUser(user.username).pipe(
+            map((res: UserModel) => res.properties));
+        }),
+      ));
+  }
 }

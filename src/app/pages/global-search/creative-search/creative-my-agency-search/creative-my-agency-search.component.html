@@ -1,2 +1,38 @@
-<global-search-form [defaultParams]="defaultParams" [showInput]="showInput"></global-search-form>
-<creative-my-agency-asset-search-result></creative-my-agency-asset-search-result>
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
+  <div class="property-section" *ngIf="document">
+    <div class="property-intro inline-top">
+      <img src="{{document?.thumbnailUrl}}" />
+    </div>
+    <div class="property-info inline-top">
+      <h1>{{document?.get('The_Loupe_Main:agency')}}</h1>
+      <ul>
+        <li><b>Country:</b> {{document?.get('The_Loupe_Main:country')}}</li>
+      </ul>
+      <div class="button-group">
+        <ng-container [ngSwitch]="showType">
+          <ng-container *ngSwitchCase="'showcase'">
+            <button type="button" class="btn" (click)="toggleBtn()" title="My Brands">My Brands</button>
+          </ng-container>
+          <ng-container *ngSwitchCase="'brands'">
+            <button type="button" class="btn" (click)="toggleBtn()" title="Showcase">Showcase</button>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="brand-thumbnail">
+  <global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput">
+  </global-search-form>
+  <ng-container [ngSwitch]="showType">
+    <ng-container *ngSwitchCase="'brands'">
+      <creative-my-brand-asset-search-result [layout]="layout" [multiView]="multiView" [displayTitle]="showTitle">
+      </creative-my-brand-asset-search-result>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'showcase'">
+      <creative-document-asset-search-result [layout]="layout" [multiView]="multiView" [displayTitle]="showTitle">
+      </creative-document-asset-search-result>
+    </ng-container>
+  </ng-container>
+</div>

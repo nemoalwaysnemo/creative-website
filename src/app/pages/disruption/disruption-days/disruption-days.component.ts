@@ -59,7 +59,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
   }
 
   ngOnInit() {
-    this.searchCurrentDocument();
+    this.searchCurrentDocument().subscribe();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

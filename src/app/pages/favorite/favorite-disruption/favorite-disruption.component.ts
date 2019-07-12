@@ -42,7 +42,7 @@ export class FavoriteDisruptionComponent extends AbstractDocumentViewComponent i
   }
 
   ngOnInit() {
-    this.searchCurrentDocument();
+    this.searchCurrentDocument().subscribe();
   }
 
   openForm(dialog: any): void {

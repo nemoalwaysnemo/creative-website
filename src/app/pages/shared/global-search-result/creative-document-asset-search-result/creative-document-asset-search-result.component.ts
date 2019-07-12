@@ -17,14 +17,7 @@ export class CreativeDocumentAssetSearchResultComponent {
     }
   }
 
-  showResult: boolean = false;
-
-  @Input()
-  set showResultSet(flag: boolean) {
-    if (flag) {
-      this.showResult = true;
-    }
-  }
+  @Input() displayTitle: boolean = true;
 
   @Input() layout: string = 'quarter';
 

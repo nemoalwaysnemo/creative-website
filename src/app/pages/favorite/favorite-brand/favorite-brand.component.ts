@@ -42,7 +42,7 @@ export class FavoriteBrandComponent extends AbstractDocumentViewComponent implem
   }
 
   ngOnInit() {
-    this.searchCurrentDocument();
+    this.searchCurrentDocument().subscribe();
   }
 
   openForm(dialog: any): void {

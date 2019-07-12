@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 
@@ -8,6 +8,17 @@ import { DocumentListViewItem } from '../../document-list-view/document-list-vie
   templateUrl: './creative-my-brand-asset-search-result.component.html',
 })
 export class CreativeMyBrandAssetSearchResultComponent {
+
+  @Input()
+  set multiView(listView: boolean) {
+    if (!listView) {
+      this.listViewSettings = null;
+    }
+  }
+
+  @Input() displayTitle: boolean = true;
+
+  @Input() layout: string = 'quarter';
 
   listViewSettings: any = {
     columns: {

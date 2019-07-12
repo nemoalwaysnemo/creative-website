@@ -72,15 +72,15 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
       );
   }
 
-  protected searchCurrentDocument(params: any = {}, opts?: NuxeoRequestOptions): void {
-    const subscription = this.advanceSearch.request(Object.assign({}, this.getCurrentDocumentSearchParams(), params), opts)
+  protected searchCurrentDocument(params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
+    return this.advanceSearch.request(Object.assign({}, this.getCurrentDocumentSearchParams(), params), opts)
       .pipe(
         map((res: NuxeoPagination) => res.entries.shift()),
-      ).subscribe((doc: DocumentModel) => {
-        this.loading = false;
-        this.setCurrentDocument(doc);
-      });
-    this.subscription.add(subscription);
+        tap((doc: DocumentModel) => {
+          this.loading = false;
+          this.setCurrentDocument(doc);
+        }),
+      );
   }
 
   protected onParamsChanged(): void {

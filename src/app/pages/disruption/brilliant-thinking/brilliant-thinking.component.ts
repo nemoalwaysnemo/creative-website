@@ -39,7 +39,7 @@ export class BrilliantThinkingComponent extends AbstractDocumentViewComponent im
   }
 
   ngOnInit() {
-    this.searchCurrentDocument();
+    this.searchCurrentDocument().subscribe();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
