@@ -1,5 +1,7 @@
 <div class="disruption-home-form">
-  <home-search-form [assetUrlMapping]="assetUrlMapping" [redirectUrl]="'/p/search/disruption/asset/'" [headline]="headline" [extraHeadline]="extraHeadline" [subHead]="subHead" [placeholder]="placeholder" [params]="params">
+  <home-search-form [assetUrlMapping]="assetUrlMapping" [redirectUrl]="'/p/search/disruption/asset/'" [headline]="headline" 
+  [extraHeadline]="extraHeadline" [subHead]="subHead" [placeholder]="placeholder" [Folderparams]="params" [filters]="filters" 
+  [defaultParams]="defaultParams">
   </home-search-form>
 </div>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document flex third">
