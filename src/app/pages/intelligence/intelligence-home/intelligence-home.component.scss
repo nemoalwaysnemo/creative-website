@@ -22,7 +22,7 @@
 }
 
 .document {
-  padding: 46px 35px;
+  padding: 0 30px 46px;
   box-sizing: border-box;
 }
 .flex {
@@ -35,7 +35,7 @@
 .third {
   > div {
     width: 33.333333%;
-    padding: 10px 39px 28px 0;
+    padding: 0 30px 28px;
     box-sizing: border-box;
   }
 }
