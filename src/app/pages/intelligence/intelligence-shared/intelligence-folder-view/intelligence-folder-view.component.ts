@@ -1,5 +1,4 @@
 import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 import { Router } from '@angular/router';
 import { DocumentModel } from '@core/api';
 
@@ -11,6 +10,10 @@ import { DocumentModel } from '@core/api';
 })
 export class IntelligenceFolderViewComponent {
 
+  folderType: Array<string> = ['App-Intelligence-Consumer-Folder', 'App-Intelligence-Industry-Folder', 'App-Intelligence-Marketing-Folder'];
+
+  isShow: boolean = false;
+
   @Input() loading: boolean;
 
   @Input() doc: DocumentModel;
@@ -18,6 +21,7 @@ export class IntelligenceFolderViewComponent {
   @Input() set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
+      this.isShow = this.showBackToParent(doc.type);
     }
   }
 
@@ -25,16 +29,12 @@ export class IntelligenceFolderViewComponent {
     private router: Router,
   ) { }
 
-  backToParent(): void {
-    const rootPath: string = NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH;
-    const splitPath: string = this.doc.path.split(rootPath)[1];
-    const childSplitPath: Array<string> = splitPath.split('/');
+  showBackToParent(type: string): boolean {
+    return this.folderType.indexOf(type) < 0 ? true : false;
+  }
 
-    if ( childSplitPath.length < 2 ) {
-      this.router.navigate(['p/redirect'], { queryParams: { url: `/p/intelligence/` } });
-    } else {
-      this.router.navigate(['p/redirect'], { queryParams: { url: `/p/intelligence/folder/${this.doc.parentRef}` } });
-    }
+  backToParent(): void {
+    this.router.navigate(['p/redirect'], { queryParams: { url: `/p/intelligence/folder/${this.doc.parentRef}` } });
   }
 
 }

@@ -5,7 +5,7 @@
     </div>
     <div class="property-info inline-middle">
       <h1>{{ doc?.title }}</h1>
-      <button type="button" (click)="backToParent()" class="icon_btn left">Back to parent</button>
+      <button *ngIf="isShow" type="button" (click)="backToParent()" class="icon_btn left">Back to parent</button>
     </div>
   </div>
 </div>
