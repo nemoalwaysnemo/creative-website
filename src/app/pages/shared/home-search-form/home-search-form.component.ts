@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription, BehaviorSubject, Subject, Observable } from 'rxjs';
 import { ActivatedRoute, Router, Params, Event, NavigationEnd, ParamMap } from '@angular/router';
 import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map } from 'rxjs/operators';
-import { NuxeoPagination, DocumentModel, AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions } from '@core/api';
+import { DocumentModel, AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
 import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
 import { removeUselessObject } from '@core/services';
@@ -42,16 +42,6 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
   showFilter: boolean = false;
   loading: boolean = false;
-  @Input() Folderparams: any;
-  @Input() headline: string;
-  @Input() extraHeadline: string = '';
-  @Input() subHead: string;
-  @Input() placeholder: string;
-  @Input() assetUrl: string;
-  @Input() assetUrlMapping: object = {};
-  @Input() folderUrl: string;
-  @Input() redirectUrl: string;
-  @Input() beforeSearch: Function = (queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ queryParams, opts });
   private subscription: Subscription = new Subscription();
   submitted: boolean = false;
   hasAggs: boolean = false;
@@ -65,6 +55,15 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     aggregates: {},
   };
   private searchParams: any = {};
+  private forceStopScoll: boolean = false;
+  @Input() headline: string;
+  @Input() extraHeadline: string = '';
+  @Input() subHead: string;
+  @Input() placeholder: string;
+  @Input() assetUrl: string;
+  @Input() assetUrlMapping: object = {};
+  @Input() redirectUrl: string;
+  @Input() beforeSearch: Function = (queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ queryParams, opts });
   @Input() showQuery: boolean = true;
   @Input() filters: { [key: string]: { placeholder: string } } = {};
   @Input() showInput: boolean = true;
@@ -95,32 +94,11 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createForm();
-    this.onSearch();
     this.buildSearchFilter([]);
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  onSearch(): void {
-    const subscription = this.queryField.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        tap(_ => {
-          this.googleAnalyticsService.searchTrack({ 'event_category': 'Search', 'event_action': 'HomeQuickSearch', 'event_label': 'HomeQuickSearch' });
-        }),
-        switchMap((query: string) => this.advanceSearch.searchForText(query, this.params)),
-      )
-      .subscribe((result: NuxeoPagination) => {
-        if (result.entries.length > 0) {
-          this.stopSectionScroll();
-        }
-        this.results = result.entries;
-        this.show();
-      });
-    this.subscription.add(subscription);
   }
 
   show(): void {
@@ -131,7 +109,10 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   }
 
   hide(): void {
-    this.startSectionScroll();
+    if (!this.forceStopScoll) {
+      this.startSectionScroll();
+    }
+    this.forceStopScoll = false;
     this.documents = [];
   }
 
@@ -148,6 +129,10 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   getAssetUrl(doc: DocumentModel): string {
     return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
+  }
+
+  onFilterSelected(aggregateModel: any): void {
+    this.onFilterChanged(aggregateModel);
   }
 
   private matchAssetUrl(doc: DocumentModel): string {
@@ -181,6 +166,10 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   toggleFilter(): void {
     if (!this.submitted) {
       this.showFilter = !this.showFilter;
+    }
+    if (this.showFilter) {
+      this.stopSectionScroll();
+      this.forceStopScoll = true;
     }
   }
 
@@ -260,9 +249,15 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
       if (res.response.entries.length > 0) {
         this.stopSectionScroll();
       }
+      this.results = res.response.entries;
       if (res.queryParams['ecm_fulltext']) {
-        this.results = res.response.entries;
         this.show();
+      } else {
+        for (const key in res.queryParams) {
+          if (key in this.filters) {
+            this.show();
+          }
+        }
       }
     });
     this.subscription.add(subscription);

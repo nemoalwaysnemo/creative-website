@@ -19,7 +19,7 @@
   <div class="clear"></div>
   <ng-container *ngIf="hasFilters() && showFilter">
     <global-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async"
-      [disableControl]="submitted" (blur)="onFilterBlur($event)"></global-search-filter>
+      [disableControl]="submitted" (selected)="onFilterSelected($event)"></global-search-filter>
   </ng-container>
 </form>
 <ng-template #thumbnailItemView let-doc="doc">
