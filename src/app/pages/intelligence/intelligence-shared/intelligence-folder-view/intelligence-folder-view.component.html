@@ -1,10 +1,11 @@
 <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <div class="property-section">
     <div class="property-intro inline-middle">
-      <img src="{{document?.thumbnailUrl}}" class="thumbnail-img">
+      <img src="{{doc?.thumbnailUrl}}" class="thumbnail-img">
     </div>
     <div class="property-info inline-middle">
-      <h1>{{ document?.title }}</h1>
+      <h1>{{ doc?.title }}</h1>
+      <button type="button" (click)="backToParent()" class="icon_btn left">Back to parent</button>
     </div>
   </div>
 </div>
