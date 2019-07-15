@@ -33,6 +33,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
   }
 
   @Output() selected: EventEmitter<any> = new EventEmitter();
+  @Output() preventHideDoc: EventEmitter<any> = new EventEmitter();
 
   onModelChange(): void {
     this._onChange(this.aggregateModel);
@@ -58,6 +59,10 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  preventHide() {
+    this.preventHideDoc.emit(true);
   }
 
   private buildAggregates(models: AggregateModel[]): any[] {

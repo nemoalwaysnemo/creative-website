@@ -56,6 +56,7 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   };
   private searchParams: any = {};
   private forceStopScoll: boolean = false;
+  private preventDocHide: boolean = false;
   @Input() headline: string;
   @Input() extraHeadline: string = '';
   @Input() subHead: string;
@@ -112,8 +113,11 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
     if (!this.forceStopScoll) {
       this.startSectionScroll();
     }
+    if (!this.preventDocHide) {
+      this.documents = [];
+    }
     this.forceStopScoll = false;
-    this.documents = [];
+    this.preventDocHide = false;
   }
 
   onKeyenter(event: KeyboardEvent): void {
@@ -133,6 +137,10 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
 
   onFilterSelected(aggregateModel: any): void {
     this.onFilterChanged(aggregateModel);
+  }
+
+  preventHide(pre: boolean) {
+    this.preventDocHide = pre;
   }
 
   private matchAssetUrl(doc: DocumentModel): string {
@@ -171,6 +179,7 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
       this.stopSectionScroll();
       this.forceStopScoll = true;
     }
+    this.preventDocHide = true;
   }
 
   hasFilters(): boolean {
