@@ -76,7 +76,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
 
   private buildOptionModel(agg: any = {}): OptionModel {
     const label = `${agg.key} (${agg.docCount})`;
-    const value = agg.key;
+    const value = agg.key.replace(/\\/gi, String.fromCharCode(92, 92));
     const disabled = false;
     return new OptionModel(label, value, disabled);
   }
