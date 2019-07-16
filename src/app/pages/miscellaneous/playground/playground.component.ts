@@ -19,8 +19,8 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   ngOnInit(): void {
-    this.create();
-    // this.update();
+    // this.create();
+    this.update();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,7 +43,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private update(): void {
-    this.documentRepository.get('5487a983-cf80-4a74-bb25-f9e9f54b0ed9').subscribe((doc: DocumentModel) => {
+    this.documentRepository.get('1f824061-c722-4cbd-af56-8481df7c4b56').subscribe((doc: DocumentModel) => {
       this.document = doc;
       this.settings = this.getSettings();
     });
@@ -126,7 +126,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         layoutPosition: 'right',
         queueLimit: 25,
         placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+        acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -135,7 +135,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+        acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',
@@ -144,7 +144,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop to upload attachment',
-        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif,key,ppt,zip,doc,xls,mp4',
+        acceptTypes: 'image/*,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',

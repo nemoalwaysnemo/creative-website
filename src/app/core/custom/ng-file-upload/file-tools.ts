@@ -21,12 +21,12 @@ export function acceptType(accept: string, type: string, name?: string): boolean
 
     // try by mime
     regx = new RegExp(acceptRegString, 'gi');
-    if (type.search(regx) >= 0) {
+    if (type && type.search(regx) >= 0) {
       return true;
     }
 
     // try by ext
-    if (acceptRegString.substring(0, 1) === '.') {
+    if ((name || type) && acceptRegString.substring(0, 1) === '.') {
       acceptRegString = '\\' + acceptRegString; // .substring(1, acceptRegString.length-1)//remove dot at front
       regx = new RegExp(acceptRegString + '$', 'i');
       if ((name || type).search(regx) >= 0) {

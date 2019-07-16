@@ -97,7 +97,7 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         layoutPosition: 'right',
         queueLimit: 25,
         placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+        acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -106,7 +106,7 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+        acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',
@@ -115,7 +115,7 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop to upload attachment',
-        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif,key,ppt,zip,doc,xls,mp4',
+        acceptTypes: 'image/*,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',

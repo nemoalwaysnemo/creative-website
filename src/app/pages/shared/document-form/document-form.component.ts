@@ -51,9 +51,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set settings(settings: any[]) {
     if (settings) {
-      this.fileMultiUpload = settings.find(model => {
-        return model.id === 'uploadFiles' && model.formMode === 'create';
-      }).multiUpload;
+      const model = settings.find(m => m.id === 'uploadFiles' && m.formMode === 'create');
+      this.fileMultiUpload = model ? model.multiUpload : false;
       this.prepareForm(settings);
     }
   }
