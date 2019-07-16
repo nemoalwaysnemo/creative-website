@@ -72,7 +72,10 @@ $main-yellow: #fecc00;
   color: #b0afaf;
   border: none;
   cursor: pointer;
-  &.success { margin-bottom: 10px; }
+  &.success {
+    margin-bottom: 10px;
+    color: #40dc7e;
+  }
   &:focus { outline: 0; }
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
