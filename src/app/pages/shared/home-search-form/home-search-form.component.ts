@@ -57,6 +57,7 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   private searchParams: any = {};
   private forceStopScoll: boolean = false;
   private preventDocHide: boolean = false;
+  private isInitialSearch: boolean = true;
   @Input() headline: string;
   @Input() extraHeadline: string = '';
   @Input() subHead: string;
@@ -103,7 +104,7 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
   }
 
   show(): void {
-    this.documents = this.results;
+    this.documents = this.isInitialSearch ? this.documents = [] : this.results;
     if (this.documents && this.documents.length > 0) {
       this.stopSectionScroll();
     }
@@ -255,19 +256,19 @@ export class HomeSearchFormComponent implements OnInit, OnDestroy {
       filter((params: SearchParams) => params.params && Object.keys(params.params).length > 0),
       switchMap((params: SearchParams) => this.performSearch(params)),
     ).subscribe((res) => {
+      let searchFilter = false;
       if (res.response.entries.length > 0) {
         this.stopSectionScroll();
       }
       this.results = res.response.entries;
-      if (res.queryParams['ecm_fulltext']) {
-        this.show();
-      } else {
-        for (const key in res.queryParams) {
-          if (key in this.filters) {
-            this.show();
-          }
+      const searchText = !!res.queryParams['ecm_fulltext'];
+      for (const key in res.queryParams) {
+        if (key in this.filters) {
+          searchFilter = true;
         }
       }
+      this.isInitialSearch = !(searchText || searchFilter);
+      this.isInitialSearch ? this.hide() : this.show();
     });
     this.subscription.add(subscription);
   }
