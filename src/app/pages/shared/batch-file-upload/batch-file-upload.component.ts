@@ -240,7 +240,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
       formModels.forEach(formModel => {
         this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
         const value = {};
-        value[`${res.fileIdx}_title`] = res.fileName;
+        const reg = /\.\w+$/;
+        value[`${res.fileIdx}_title`] = res.fileName.replace(reg, '');
         this.formGroups[res.fileIdx].patchValue(value);
         this.setFileTitle(`${res.fileIdx}_title`, res.fileName);
       });
