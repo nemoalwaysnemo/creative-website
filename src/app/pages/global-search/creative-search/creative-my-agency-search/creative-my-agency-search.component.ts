@@ -43,7 +43,6 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     this.searchCurrentAgency().subscribe();
   }
 
-
   toggleBtn(): void {
     this.brandsFlag = !this.brandsFlag;
     if ( !this.brandsFlag ) {
@@ -93,6 +92,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
       ecm_fulltext: '',
       currentPageIndex: 0,
+      app_global_networkshare: true,
     };
     return new NuxeoPageProviderParams(params);
   }
@@ -104,6 +104,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       ecm_fulltext: '',
       currentPageIndex: 0,
+      app_global_networkshare: true,
     };
     return new NuxeoPageProviderParams(params);
   }

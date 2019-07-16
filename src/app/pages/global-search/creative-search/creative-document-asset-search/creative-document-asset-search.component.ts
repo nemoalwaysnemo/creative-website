@@ -16,6 +16,8 @@ export class CreativeDocumentAssetSearchComponent {
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
+  showResultSet: boolean = false;
+
   filters: any = {
     'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
