@@ -109,7 +109,7 @@ export class DisruptionFormFolderComponent extends AbstractDisruptionForm {
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop to upload attachment',
-        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif',
+        acceptTypes: 'pdf,bmp,jpg,jpeg,png,gif,key,ppt,zip,doc,xls,mp4',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
