@@ -1,6 +1,6 @@
 {
   "name": "tbwa-creative-website",
-  "version": "2.2.0",
+  "version": "2.3.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "build:stg": "ng build --prod --configuration=aws-stg --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "build:dev": "ng build --prod --configuration=aws-dev --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "lint": "ng lint",
-    "lint:fix": "ng lint ngx-admin-demo --fix",
+    "lint:fix": "ng lint tbwa-creative-website --fix",
     "lint:styles": "stylelint ./src/**/*.scss",
     "lint:ci": "yarn lint && yarn lint:styles",
     "release:changelog": "yarn conventional-changelog -p angular -i CHANGELOG.md -s",
