@@ -130,7 +130,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.formGroups.forEach((group: FormGroup) => { valid = valid && group.valid; });
     this.valid.emit(valid);
     this.files.find(res => res.fileIdx.toString() === id.split('_')[0]).title = value;
-    console.log(this.files);
   }
 
   onFocus(event: any): void {
@@ -241,9 +240,10 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
         this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
         const value = {};
         const reg = /\.\w+$/;
-        value[`${res.fileIdx}_title`] = res.fileName.replace(reg, '');
+        const filename = res.fileName.replace(reg, '');
+        value[`${res.fileIdx}_title`] = filename;
         this.formGroups[res.fileIdx].patchValue(value);
-        this.setFileTitle(`${res.fileIdx}_title`, res.fileName);
+        this.setFileTitle(`${res.fileIdx}_title`, filename);
       });
     }
   }
