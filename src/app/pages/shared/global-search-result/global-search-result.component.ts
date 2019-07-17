@@ -8,7 +8,7 @@ import { AbstractSearchResultComponent } from './abstract-search-result';
   styleUrls: ['./global-search-result.component.scss'],
   templateUrl: './global-search-result.component.html',
 })
-export class GlobalSearchResultComponent extends AbstractSearchResultComponent implements OnInit, OnDestroy {
+export class GlobalSearchResultComponent extends AbstractSearchResultComponent {
 
   @Input() templateRef: TemplateRef<any>;
 
