@@ -14,11 +14,11 @@ import { TabInfo } from '../document-related-info.component';
 })
 export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
-  @ViewChild('backslashThumbnailItemView') private backslashItemView: TemplateRef<any>;
+  @ViewChild('backslashThumbnailItemView', { static: true }) private backslashItemView: TemplateRef<any>;
 
-  @ViewChild('disruptionThumbnailItemView') private disruptionItemView: TemplateRef<any>;
+  @ViewChild('disruptionThumbnailItemView', { static: true }) private disruptionItemView: TemplateRef<any>;
 
-  @ViewChild('intelligenceThumbnailItemView') private intelligenceItemView: TemplateRef<any>;
+  @ViewChild('intelligenceThumbnailItemView', { static: true }) private intelligenceItemView: TemplateRef<any>;
 
   @Input() item: any = {};
 

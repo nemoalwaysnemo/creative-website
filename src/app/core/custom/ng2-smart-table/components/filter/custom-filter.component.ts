@@ -17,7 +17,7 @@ import { FilterDefault } from './filter-default';
 export class CustomFilterComponent extends FilterDefault implements OnChanges, OnDestroy {
   @Input() query: string;
   customComponent: any;
-  @ViewChild('dynamicTarget', { read: ViewContainerRef }) dynamicTarget: any;
+  @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: any;
 
   constructor(private resolver: ComponentFactoryResolver) {
     super();

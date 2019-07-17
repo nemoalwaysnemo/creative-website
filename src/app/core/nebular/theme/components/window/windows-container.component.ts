@@ -6,5 +6,5 @@ import { Component, ViewContainerRef, ViewChild } from '@angular/core';
   styleUrls: ['./windows-container.component.scss'],
 })
 export class NbWindowsContainerComponent {
-  @ViewChild('viewContainerRef', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
+  @ViewChild('viewContainerRef', { static: true, read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
 }

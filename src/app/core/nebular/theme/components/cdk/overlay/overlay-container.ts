@@ -58,7 +58,7 @@ export abstract class NbPositionedContainer {
   `,
 })
 export class NbOverlayContainerComponent {
-  @ViewChild(NbPortalOutletDirective) portalOutlet: NbPortalOutletDirective;
+  @ViewChild(NbPortalOutletDirective, { static: true }) portalOutlet: NbPortalOutletDirective;
 
   isAttached: boolean = false;
 

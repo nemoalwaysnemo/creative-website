@@ -103,6 +103,7 @@
 }
 
 @function btn-focus-color($bg, $percentage: 14%) {
+  @debug nb-theme($bg);
   @return tint(nb-theme($bg), $percentage);
 }
 

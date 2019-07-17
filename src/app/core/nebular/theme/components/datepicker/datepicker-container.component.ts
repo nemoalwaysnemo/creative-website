@@ -18,7 +18,7 @@ import { NbComponentPortal, NbOverlayContainerComponent, NbPositionedContainer }
   `,
 })
 export class NbDatepickerContainerComponent extends NbPositionedContainer {
-  @ViewChild(NbOverlayContainerComponent) overlayContainer: NbOverlayContainerComponent;
+  @ViewChild(NbOverlayContainerComponent, { static: true }) overlayContainer: NbOverlayContainerComponent;
 
   attach<T>(portal: NbComponentPortal<T>): ComponentRef<T> {
     return this.overlayContainer.attachComponentPortal(portal);

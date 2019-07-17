@@ -126,7 +126,7 @@ export class NbSortIconComponent {
 })
 export class NbSortHeaderComponent {
 
-  @ContentChild(NbSortHeaderIconDirective, { read: TemplateRef })
+  @ContentChild(NbSortHeaderIconDirective, { static: true, read: TemplateRef })
   sortIcon: TemplateRef<NbSortHeaderIconDirectiveContext>;
 
   /**

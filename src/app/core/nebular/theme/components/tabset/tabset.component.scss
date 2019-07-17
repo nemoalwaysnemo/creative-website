@@ -14,7 +14,7 @@
     // justify-content: space-around;
   }
 
-  /deep/ nb-tab {
+  ::ng-deep nb-tab {
     // flex: 1;
     // -ms-flex: 1 1 auto;
     // overflow: auto;
@@ -46,14 +46,14 @@
       // &.active a::before {
       //   display: block;
       // }
-      
+
       &.active a {
         font-family: 'Averta for TBWA W01 Black', helvetica, arial;
         font-size: 18px;
         background-color: #fecc00;
         border-bottom: solid 2px #a1a1a1;
       }
-      
+
       a {
         font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
         display: block;

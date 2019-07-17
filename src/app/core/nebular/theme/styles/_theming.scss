@@ -12,14 +12,18 @@
 @import 'core/mixins';
 @import 'core/functions';
 
-$nb-enabled-themes: () !global;
-$nb-enable-css-variables: false !global;
+$nb-enabled-themes: ();
+$nb-enable-css-variables: false;
+$theme-name: 'default';
 
-$nb-themes: () !global;
-$nb-themes-non-processed: () !global;
-$nb-themes-export: () !global;
+$nb-themes: ();
+$nb-themes-non-processed: ();
+$nb-themes-export: ();
 
 @function nb-theme($key) {
+  @debug $theme;
+  @debug $key;
+  @debug '-----------------------';
   @return map-get($theme, $key);
 }
 
@@ -46,10 +50,10 @@ $nb-themes-export: () !global;
 }
 
 @function set-global-theme-vars($theme, $theme-name) {
-  $theme: $theme !global;
-  $theme-name: $theme-name !global;
+  $theme: $theme;
+  $theme-name: $theme-name;
   @if ($nb-enable-css-variables) {
-    $theme: convert-to-css-variables($theme) !global;
+    $theme: convert-to-css-variables($theme);
   }
   @return $theme;
 }
@@ -60,18 +64,20 @@ $nb-themes-export: () !global;
 
 
   @if ($default != null) {
-
-    $theme: map-merge(map-get($nb-themes-non-processed, $default), $theme);
-    $nb-themes-non-processed: map-set($nb-themes-non-processed, $name, $theme) !global;
+    $temp: map-get($nb-themes-non-processed, $default);
+    @if ($temp != null) {
+      $theme: map-merge($temp, $theme);
+    }
+    $nb-themes-non-processed: map-set($nb-themes-non-processed, $name, $theme);
 
     $theme-data: map-set($theme-data, data, $theme);
-    $nb-themes-export: map-set($nb-themes-export, $name, map-set($theme-data, parent, $default)) !global;
+    $nb-themes-export: map-set($nb-themes-export, $name, map-set($theme-data, parent, $default));
 
   } @else {
-    $nb-themes-non-processed: map-set($nb-themes-non-processed, $name, $theme) !global;
+    $nb-themes-non-processed: map-set($nb-themes-non-processed, $name, $theme);
 
     $theme-data: map-set($theme-data, data, $theme);
-    $nb-themes-export: map-set($nb-themes-export, $name, map-set($theme-data, parent, null)) !global;
+    $nb-themes-export: map-set($nb-themes-export, $name, map-set($theme-data, parent, null));
   }
 
   $theme-parsed: ();
@@ -144,7 +150,7 @@ $nb-themes-export: () !global;
     @content;
   }
 }
-    
+
 // Add content for theme into a list of themes
 @mixin nb-for-themes($names...) {
   @each $name in $names {
@@ -166,15 +172,6 @@ $nb-themes-export: () !global;
     @include nb-except-theme($name) {
       @content;
     }
-  }
-}
-
-// TODO: another mixing for the almost same thing
-@mixin nb-install-root-component() {
-  @warn '`nb-install-root-component` is depricated, replace with `nb-install-component`, as `body` is root element now';
-
-  @include nb-install-component() {
-    @content;
   }
 }
 

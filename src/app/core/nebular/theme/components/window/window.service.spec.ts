@@ -23,7 +23,7 @@ class NbTestWindowComponent {}
   `,
 })
 class NbTestWindowWithTemplateComponent {
-  @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
+  @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
 
   constructor(private ws: NbWindowService) {}
 

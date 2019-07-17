@@ -30,8 +30,8 @@ let scrollService: NbLayoutScrollService;
 })
 class ScrollTestComponent {
 
-  @ViewChild('resize', { read: ElementRef }) private resizeElement: ElementRef;
-  @ViewChild('layout', { read: ElementRef }) private layout: ElementRef;
+  @ViewChild('resize', { static: true, read: ElementRef }) private resizeElement: ElementRef;
+  @ViewChild('layout', { static: true, read: ElementRef }) private layout: ElementRef;
   localScroll = false;
 
   setSize(width: string, height: string) {

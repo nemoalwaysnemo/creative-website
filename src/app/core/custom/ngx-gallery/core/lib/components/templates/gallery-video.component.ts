@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { VgAPI } from 'videogular2/core';
+import { VgAPI } from 'videogular2/compiled/core';
 
 @Component({
   selector: 'gallery-video',
@@ -34,7 +34,7 @@ export class GalleryVideoComponent implements OnInit {
   @Output() error = new EventEmitter<Error>();
   @Output() videoState = new EventEmitter<{ state: string, fsState: boolean}>();
 
-  @ViewChild('video') video: ElementRef;
+  @ViewChild('video', { static: true }) video: ElementRef;
 
   ngOnInit() {
     if (this.src instanceof Array) {

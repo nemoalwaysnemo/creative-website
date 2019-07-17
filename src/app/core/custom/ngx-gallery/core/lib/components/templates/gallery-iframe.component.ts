@@ -26,7 +26,7 @@ export class GalleryIframeComponent implements OnInit {
     }
   }
 
-  @ViewChild('iframe') iframe: ElementRef;
+  @ViewChild('iframe', { static: true }) iframe: ElementRef;
 
   constructor(private _sanitizer: DomSanitizer) {
   }

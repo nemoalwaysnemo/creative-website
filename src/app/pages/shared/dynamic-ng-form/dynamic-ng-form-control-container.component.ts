@@ -78,7 +78,7 @@ export class DynamicNGFormControlContainerComponent extends DynamicFormControlCo
   @Output() focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
-  @ViewChild('componentViewContainer', { read: ViewContainerRef }) componentViewContainerRef: ViewContainerRef;
+  @ViewChild('componentViewContainer', { static: true, read: ViewContainerRef }) componentViewContainerRef: ViewContainerRef;
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver,
     protected layoutService: DynamicFormLayoutService,

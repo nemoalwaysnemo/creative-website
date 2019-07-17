@@ -1,4 +1,3 @@
-import { FormHooks } from '@angular/forms/src/model';
 import { Subject } from 'rxjs';
 import { DynamicFormControlLayout } from './misc/dynamic-form-control-layout.model';
 import { DynamicPathable } from './misc/dynamic-form-control-path.model';
@@ -21,7 +20,7 @@ export interface DynamicFormControlModelConfig {
   controlTooltip?: string;
   name?: string;
   relation?: DynamicFormControlRelationGroup[];
-  updateOn?: FormHooks;
+  updateOn?: any;
   validators?: DynamicValidatorsConfig;
 }
 
@@ -42,7 +41,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   @serializable() name: string;
   parent: DynamicPathable | null = null;
   @serializable() relation: DynamicFormControlRelationGroup[];
-  @serializable() updateOn: FormHooks | null;
+  @serializable() updateOn: any | null;
   requiredUpdates: Subject<boolean>;
   @serializable() validators: DynamicValidatorsConfig | null;
 
