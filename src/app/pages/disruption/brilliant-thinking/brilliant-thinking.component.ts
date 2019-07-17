@@ -19,7 +19,7 @@ export class BrilliantThinkingComponent extends AbstractDocumentViewComponent im
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'app_edges_industry_agg': { placeholder: 'Industry' },
+    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
   };
 
   defaultParams: any = {

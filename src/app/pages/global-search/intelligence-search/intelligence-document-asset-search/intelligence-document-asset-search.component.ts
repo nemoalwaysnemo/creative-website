@@ -16,7 +16,7 @@ export class IntelligenceDocumentAssetSearchComponent {
   };
 
   filters: any = {
-    'app_edges_industry_agg': { placeholder: 'Industry' },
+    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
     'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
 }

@@ -71,10 +71,11 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
       const options = [];
       const id = model.id;
       const placeholder = model.placeholder;
+      const iteration = model.iteration;
       for (const bucket of model.extendedBuckets) {
         options.push(this.buildOptionModel(bucket));
       }
-      aggregates.push({ id, placeholder, options });
+      aggregates.push({ id, placeholder, options, iteration });
     }
     return aggregates;
   }

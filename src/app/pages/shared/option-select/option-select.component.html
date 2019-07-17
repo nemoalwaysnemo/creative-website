@@ -5,7 +5,7 @@
   [selectOnTab]="true"
   [multiple]="true"
   [hideSelected]="true"
-  bindLabel="label"
+  bindLabel="inputLabel"
   bindValue="value"
   clearAllText="Clear"
   [loading]="loading"
@@ -23,4 +23,7 @@
   (change)="onChange($event)"
   [(ngModel)]="selectedItems"
 >
+  <ng-template ng-option-tmp let-item="item">
+    <div class="{{item.deep}}">{{item.label}}</div>
+  </ng-template>
 </ng-select>

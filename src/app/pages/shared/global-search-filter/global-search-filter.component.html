@@ -1,7 +1,7 @@
 <div class="advanced_filters flex" (click)="preventHide()">
   <div *ngFor="let item of aggregates" class="dropdown_container">
     <option-select (change)="onChange()" [(ngModel)]="aggregateModel[item.id]" (ngModelChange)="onModelChange()"
-      [items]="item.options" [closeOnSelect]="closeOnSelect" [placeholder]="item.placeholder" [className]="item.id"
+      [items]="item.options" [iteration]="item.iteration" [closeOnSelect]="closeOnSelect" [placeholder]="item.placeholder" [className]="item.id"
       [disabled]="disabled" class="form-control">
     </option-select>
   </div>

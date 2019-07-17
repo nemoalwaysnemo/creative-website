@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { OptionModel } from './option-select.interface';
+import { OptionModel, ItemTree } from './option-select.interface';
 
 @Component({
   selector: 'option-select',
@@ -19,7 +19,7 @@ export class OptionSelectComponent implements ControlValueAccessor {
 
   loading: boolean = false;
 
-  options$: Observable<OptionModel[]>;
+  options$: BehaviorSubject<OptionModel[]>;
 
   filter$ = new Subject<string>();
 
@@ -29,10 +29,20 @@ export class OptionSelectComponent implements ControlValueAccessor {
 
   private _onTouched = () => { };
 
+  @Input() iteration: boolean = false;
+
   @Input()
   set items(items: OptionModel[]) {
     if (items) {
-      this.options$ = new BehaviorSubject(items);
+      if (this.iteration) {
+        const tree = new ItemTree('/');
+        items.forEach(item => {
+          tree.addNodes(item.value, item.label);
+        });
+        tree.plantingTree();
+        items = tree.models.length > 0 ? tree.models : items;
+      }
+      this.options$.next(items);
     }
   }
 

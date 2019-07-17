@@ -20,7 +20,7 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
 
   filters: any = {
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'app_edges_industry_agg': { placeholder: 'Industry' },
+    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
   };
 
   beforeSearch: Function = (queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
