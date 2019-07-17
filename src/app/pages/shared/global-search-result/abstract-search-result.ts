@@ -6,7 +6,7 @@ import { SearchQueryParamsService } from '../services/search-query-params.servic
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { concatMap } from 'rxjs/operators';
 
-export abstract class BaseSearchResultComponent implements OnInit, OnDestroy {
+export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
