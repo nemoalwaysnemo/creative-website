@@ -11,6 +11,43 @@ export class OptionModel {
   public inputLabel: string;
 }
 
+export class ItemNode {
+  constructor(
+    public value: string,
+    public label: string,
+    public inputLabel?: string,
+  ) { }
+
+  private _parent: ItemNode;
+  private _children: ItemNode[] = [];
+  public disabled: boolean = true;
+
+  private setChild(child: ItemNode): void {
+    this._children.push(child);
+  }
+
+  set parent(parent: ItemNode) {
+    this._parent = parent;
+    parent.setChild(this);
+  }
+
+  get parent(): ItemNode {
+    return this._parent;
+  }
+
+  get children(): ItemNode[] {
+    return this._children;
+  }
+
+  hasChildren(): boolean {
+    return this._children.length > 0;
+  }
+
+  isRoot(): boolean {
+    return !this._parent;
+  }
+}
+
 export class ItemTree {
   constructor(
     public cut: string,
@@ -97,39 +134,3 @@ export class ItemTree {
 
 }
 
-export class ItemNode {
-  constructor(
-    public value: string,
-    public label: string,
-    public inputLabel?: string,
-  ) { }
-
-  private _parent: ItemNode;
-  private _children: ItemNode[] = [];
-  public disabled: boolean = true;
-
-  private setChild(child: ItemNode): void {
-    this._children.push(child);
-  }
-
-  set parent(parent: ItemNode) {
-    this._parent = parent;
-    parent.setChild(this);
-  }
-
-  get parent(): ItemNode {
-    return this._parent;
-  }
-
-  get children(): ItemNode[] {
-    return this._children;
-  }
-
-  hasChildren(): boolean {
-    return this._children.length > 0;
-  }
-
-  isRoot(): boolean {
-    return !this._parent;
-  }
-}
