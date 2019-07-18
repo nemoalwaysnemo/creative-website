@@ -13,7 +13,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject, Observable, Subscription, fromEvent, animationFrameScheduler } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, fromEvent } from 'rxjs';
 import { map, tap, debounceTime } from 'rxjs/operators';
 import { GalleryState, GalleryError } from '../models/gallery.model';
 import { GalleryConfig } from '../models/config.model';
@@ -40,8 +40,8 @@ declare const Hammer: any;
                       [data]="item.data"
                       [currIndex]="state.currIndex"
                       [index]="i"
-                      (ngxTapClick)="itemClick.emit(i)"
                       (videoState)="videoState.emit($event)"
+                      (tapClick)="itemClick.emit(i)"
                       (error)="error.emit({itemIndex: i, error: $event})">
         </gallery-item>
 
@@ -53,7 +53,7 @@ declare const Hammer: any;
 export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
 
   /** Sliding worker */
-  private readonly _slidingWorker$ = new BehaviorSubject<WorkerState>({value: 0, active: false});
+  private readonly _slidingWorker$ = new BehaviorSubject<WorkerState>({ value: 0, active: false });
 
   /** HammerJS instance */
   private _hammer: any;
@@ -83,7 +83,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
 
   /** Item zoom */
   get zoom() {
-    return {transform: `perspective(50px) translate3d(0, 0, ${-this.config.zoomOut}px)`};
+    return { transform: `perspective(50px) translate3d(0, 0, ${-this.config.zoomOut}px)` };
   }
 
   constructor(private _el: ElementRef, private _zone: NgZone, @Inject(PLATFORM_ID) private platform: Object) {
@@ -97,7 +97,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges() {
     // Refresh the slider
-    this.updateSlider({value: 0, active: false});
+    this.updateSlider({ value: 0, active: false });
   }
 
   ngOnInit() {
@@ -109,7 +109,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
 
       // Activate gestures
       this._hammer = new Hammer(this._el.nativeElement);
-      this._hammer.get('pan').set({direction});
+      this._hammer.get('pan').set({ direction });
 
       this._zone.runOutsideAngular(() => {
         // Move the slider
@@ -117,16 +117,16 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
 
           switch (this.config.slidingDirection) {
             case SlidingDirection.Horizontal:
-              this.updateSlider({value: e.deltaX, active: true});
+              this.updateSlider({ value: e.deltaX, active: true });
               if (e.isFinal) {
-                this.updateSlider({value: 0, active: false});
+                this.updateSlider({ value: 0, active: false });
                 this.horizontalPan(e);
               }
               break;
             case SlidingDirection.Vertical:
-              this.updateSlider({value: e.deltaY, active: true});
+              this.updateSlider({ value: e.deltaY, active: true });
               if (e.isFinal) {
-                this.updateSlider({value: 0, active: false});
+                this.updateSlider({ value: 0, active: false });
                 this.verticalPan(e);
               }
           }
@@ -142,7 +142,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
       ).subscribe();
     }
 
-    setTimeout(() => this.updateSlider({value: 0, active: false}));
+    setTimeout(() => this.updateSlider({ value: 0, active: false }));
   }
 
   ngOnDestroy() {
@@ -222,7 +222,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private updateSlider(state: WorkerState) {
-    const newState: WorkerState = {...this._slidingWorker$.value, ...state};
-    animationFrameScheduler.schedule(() => this._slidingWorker$.next(newState));
+    const newState: WorkerState = { ...this._slidingWorker$.value, ...state };
+    this._slidingWorker$.next(newState);
   }
 }

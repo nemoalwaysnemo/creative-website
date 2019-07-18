@@ -16,6 +16,7 @@ import { VgAPI } from 'videogular2/compiled/core';
 export class GalleryVideoComponent implements OnInit {
 
   preload: string = 'auto';
+
   api: VgAPI;
 
   videoSources: { url: string, type?: string }[];
@@ -32,7 +33,8 @@ export class GalleryVideoComponent implements OnInit {
 
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<Error>();
-  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean}>();
+
+  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean }>();
 
   @ViewChild('video', { static: true }) video: ElementRef;
 
@@ -62,6 +64,6 @@ export class GalleryVideoComponent implements OnInit {
   }
 
   detectFullScreen() {
-    this.videoState.emit( { state: this.api.getDefaultMedia().state, fsState: this.api.fsAPI.isFullscreen} );
+    this.videoState.emit({ state: this.api.getDefaultMedia().state, fsState: this.api.fsAPI.isFullscreen });
   }
 }

@@ -32,7 +32,7 @@ export class RequestCacheWithMap implements RequestCache {
   put(req: HttpRequest<any>, response: HttpResponse<any>): void {
     const url = req.urlWithParams;
 
-    const entry = {url, response, lastRead: Date.now()};
+    const entry = { url, response, lastRead: Date.now() };
     this.cache.set(url, entry);
 
     // remove expired cache entries

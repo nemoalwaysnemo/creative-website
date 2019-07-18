@@ -1,17 +1,18 @@
-import { Directive, Input, Output, OnDestroy, SimpleChanges, OnChanges, EventEmitter } from '@angular/core';
+import { Directive, Input, Output, OnDestroy, SimpleChanges, OnChanges, EventEmitter, Inject } from '@angular/core';
 import { HttpClient, HttpEventType, HttpRequest, HttpEvent, HttpHeaders } from '@angular/common/http';
-import { Subject, Observable, Subscription, SubscriptionLike, zip, fromEvent, EMPTY } from 'rxjs';
+import { Subject, Observable, Subscription, zip, fromEvent, EMPTY } from 'rxjs';
 import { tap, switchMap, catchError } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
-  selector: '[ngxLazyImage]',
+  selector: '[lazyImage]',
 })
 export class LazyImageDirective implements OnChanges, OnDestroy {
 
   private _imageLoader$ = new Subject<string>();
-  private _loaderSub$: SubscriptionLike = Subscription.EMPTY;
+  private _loaderSub$ = Subscription.EMPTY;
 
-  @Input('ngxLazyImage') src: string;
+  @Input('lazyImage') src: string;
 
   @Input() mode: 'determinate' | 'indeterminate';
 
@@ -19,7 +20,10 @@ export class LazyImageDirective implements OnChanges, OnDestroy {
   @Output() loaded = new EventEmitter<string>();
   @Output() error = new EventEmitter<Error>();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    @Inject(DOCUMENT) private document: any,
+  ) {
     this._loaderSub$ = this._imageLoader$.pipe(
       switchMap((imageSrc: string) => this.mode === 'determinate' ? this.progressiveLoader(imageSrc) : this.nativeLoader(imageSrc)),
     ).subscribe();
@@ -48,13 +52,13 @@ export class LazyImageDirective implements OnChanges, OnDestroy {
     const downloadImage = new HttpRequest('GET', url, {
       reportProgress: true,
       responseType: 'blob',
-      headers: new HttpHeaders({'CACHE_GALLERY_IMAGE': 'true'}),
+      headers: new HttpHeaders({ 'CACHE_GALLERY_IMAGE': 'true' }),
     });
     return this.http.request(downloadImage).pipe(
       tap((event: HttpEvent<string>) => {
 
         if (event.type === HttpEventType.DownloadProgress) {
-          this.progress.emit({loaded: event.loaded, total: event.total});
+          this.progress.emit({ loaded: event.loaded, total: event.total });
         }
 
         if (event.type === HttpEventType.Response) {
@@ -74,7 +78,7 @@ export class LazyImageDirective implements OnChanges, OnDestroy {
    * @param url
    */
   nativeLoader(url: string): Observable<any> {
-    const img = new Image();
+    const img = this.document.createElement('img');
     // Stop previously loading
     img.src = url;
     // Image load success
@@ -83,7 +87,7 @@ export class LazyImageDirective implements OnChanges, OnDestroy {
     );
     // Image load failed
     const loadError = fromEvent(img, 'error').pipe(
-      tap(() => this.error.emit(new Error(`[ngxLazyImage]: The image ${url} did not load`))),
+      tap(() => this.error.emit(new Error(`[lazyImage]: The image ${url} did not load`))),
     );
     return zip(loadSuccess, loadError);
   }

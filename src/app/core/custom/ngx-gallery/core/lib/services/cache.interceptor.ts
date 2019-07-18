@@ -51,7 +51,7 @@ function isCachable(req: HttpRequest<any>) {
  * Will add the response to the cache on the way out.
  */
 function sendRequest(req: HttpRequest<any>, next: HttpHandler, cache: RequestCache): Observable<HttpEvent<any>> {
-  const request = req.clone({headers: req.headers.delete('CACHE_GALLERY_IMAGE')});
+  const request = req.clone({ headers: req.headers.delete('CACHE_GALLERY_IMAGE') });
   return next.handle(request).pipe(
     tap(event => {
       // There may be other events besides the response.

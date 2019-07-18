@@ -21,10 +21,16 @@ $nb-themes-non-processed: ();
 $nb-themes-export: ();
 
 @function nb-theme($key) {
-  @debug $theme;
-  @debug $key;
-  @debug '-----------------------';
-  @return map-get($theme, $key);
+  $value: map-get($theme, $key);
+  @return nb-deep-find-value($theme, $key, $value);
+}
+
+@function nb-deep-find-value($theme, $key, $value) {
+  $parent-value: map-get($theme, $value);
+  @if ($parent-value !=null) {
+    @return nb-deep-find-value($theme, $value, $parent-value);
+  }
+  @return $value;
 }
 
 @function nb-get-value($theme, $key, $value) {
@@ -44,8 +50,6 @@ $nb-themes-export: ();
   @each $var, $value in $variables {
     $result: map-set($result, $var, '--var(#{$var})');
   }
-
-  @debug $result;
   @return $result;
 }
 

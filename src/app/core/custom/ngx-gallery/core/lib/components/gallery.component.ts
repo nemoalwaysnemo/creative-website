@@ -35,7 +35,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
 
   galleryRef: GalleryRef;
   @Input() id: string;
-  @Input() items: GalleryItem [];
+  @Input() items: GalleryItem[];
   @Input() nav: boolean = this._gallery.config.nav;
   @Input() dots: boolean = this._gallery.config.dots;
   @Input() loop: boolean = this._gallery.config.loop;
@@ -75,7 +75,6 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   @Output() indexChange = new EventEmitter<GalleryState>();
   @Output() itemsChange = new EventEmitter<GalleryState>();
   @Output() error = new EventEmitter<GalleryError>();
-  @Output() playing = new EventEmitter<any>();
   private _itemClick$: SubscriptionLike = Subscription.EMPTY;
   private _thumbClick$: SubscriptionLike = Subscription.EMPTY;
   private _itemChange$: SubscriptionLike = Subscription.EMPTY;

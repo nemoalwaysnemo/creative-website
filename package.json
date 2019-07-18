@@ -15,12 +15,14 @@
     "build:prod": "ng build --prod --configuration=aws-prod --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "build:stg": "ng build --prod --configuration=aws-stg --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "build:dev": "ng build --prod --configuration=aws-dev --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
+    "build:test": "ng build --prod --configuration=aws-stg --build-optimizer --base-href=./ --deploy-url=/LibraryWebUI/ ",
     "lint": "ng lint",
     "lint:fix": "ng lint ngx-admin-demo --fix",
     "lint:styles": "stylelint ./src/**/*.scss",
     "lint:ci": "yarn lint && yarn lint:styles",
     "release:changelog": "yarn conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release:version": "standard-version"
+    "release:version": "standard-version",
+    "server": "lite-server --baseDir=dist/LibraryWebUI"
   },
   "config": {
     "commitizen": {
@@ -98,6 +100,7 @@
     "karma-coverage-istanbul-reporter": "1.3.0",
     "karma-jasmine": "1.1.0",
     "karma-jasmine-html-reporter": "0.2.2",
+    "lite-server": "^2.5.3",
     "npm-run-all": "4.1.5",
     "protractor": "5.4.2",
     "rimraf": "2.6.3",

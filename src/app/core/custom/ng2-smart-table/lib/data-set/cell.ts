@@ -1,13 +1,11 @@
 import { Column } from './column';
-import { DataSet } from './data-set';
-import { Row } from './row';
 
 export class Cell {
 
   newValue: any = '';
   protected static PREPARE = (value: any) => value;
 
-  constructor(protected value: any, protected row: Row, protected column: any, protected dataSet: DataSet) {
+  constructor(protected value: any, protected row: any, protected column: any, protected dataSet: any) {
     this.newValue = value;
   }
 
@@ -15,7 +13,7 @@ export class Cell {
     return this.column;
   }
 
-  getRow(): Row {
+  getRow(): any {
     return this.row;
   }
 

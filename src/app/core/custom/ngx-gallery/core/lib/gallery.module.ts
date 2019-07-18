@@ -2,6 +2,9 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
+import { VgCoreModule } from 'videogular2/compiled/core';
+import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
+
 import { GalleryConfig, GALLERY_CONFIG } from './models/config.model';
 
 import { GalleryComponent } from './components/gallery.component';
@@ -19,28 +22,21 @@ import { GalleryVideoComponent } from './components/templates/gallery-video.comp
 import { GalleryIframeComponent } from './components/templates/gallery-iframe.component';
 import { RadialProgressComponent } from './components/templates/radial-progress.component';
 
-import { LazyImageDirective } from './directives/lazy-image';
-import { TapClickDirective } from './directives/tap-click';
+import { LazyImageDirective } from './directives/lazy-image.directive';
+import { TapClickDirective } from './directives/tap-click.directive';
 import { CachingInterceptor } from './services/cache.interceptor';
 import { RequestCache, RequestCacheWithMap } from './services/cache.service';
-
-import { VgCoreModule } from 'videogular2/compiled/core';
-import { VgControlsModule } from 'videogular2/compiled/controls';
-import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
-import { VgBufferingModule } from 'videogular2/compiled/buffering';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     VgCoreModule,
-    VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule,
   ],
   providers: [
-    {provide: RequestCache, useClass: RequestCacheWithMap},
-    {provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true},
+    { provide: RequestCache, useClass: RequestCacheWithMap },
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
   ],
   declarations: [
     GalleryComponent,
