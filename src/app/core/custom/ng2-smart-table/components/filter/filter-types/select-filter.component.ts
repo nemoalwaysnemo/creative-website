@@ -21,7 +21,7 @@ import { DefaultFilter } from './default-filter';
 })
 export class SelectFilterComponent extends DefaultFilter implements OnInit {
 
-  @ViewChild('inputControl', { read: NgControl }) inputControl: NgControl;
+  @ViewChild('inputControl', { static: true, read: NgControl }) inputControl: NgControl;
 
   constructor() {
     super();

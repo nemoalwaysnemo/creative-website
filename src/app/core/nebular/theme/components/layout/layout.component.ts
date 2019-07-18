@@ -23,7 +23,7 @@ import { NB_WINDOW, NB_DOCUMENT } from '../../theme.options';
 import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adapter';
 import { NbSidebarService } from '../sidebar/sidebar.service';
 import { Subscription } from 'rxjs';
-import { HEADER_OFFSET } from '@angular/core/src/render3/interfaces/view';
+// import { HEADER_OFFSET } from '@angular/core/src/render3/interfaces/view';
 /**
  * A container component which determines a content position inside of the layout.
  * The layout could contain unlimited columns (not including the sidebars).
@@ -110,7 +110,7 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
   @HostBinding('class.fixed') fixedValue: boolean;
   @HostBinding('class.subheader') subheaderValue: boolean;
 
-  @ViewChild('header')
+  @ViewChild('header', { static: true })
   private el: ElementRef;
   // tslint:disable-next-line
   constructor(@Inject(forwardRef(() => NbLayoutComponent)) private layout: NbLayoutComponent,
@@ -384,8 +384,8 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.restoreScrollTopValue = convertToBoolProperty(val);
   }
 
-  @ViewChild('layoutTopDynamicArea', { read: ViewContainerRef }) veryTopRef: ViewContainerRef;
-  @ViewChild('scrollableContainer', { read: ElementRef }) scrollableContainerRef: ElementRef;
+  @ViewChild('layoutTopDynamicArea', { static: true, read: ViewContainerRef }) veryTopRef: ViewContainerRef;
+  @ViewChild('scrollableContainer', { static: true, read: ElementRef }) scrollableContainerRef: ElementRef;
 
   protected afterViewInit$ = new BehaviorSubject(null);
 

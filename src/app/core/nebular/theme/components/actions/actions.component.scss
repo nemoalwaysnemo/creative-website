@@ -13,7 +13,7 @@
   width: 35px;
   height: 35px;
 
-  /deep/ nb-action {
+  ::ng-deep nb-action {
     // display: flex;
     // flex-wrap: wrap;
     // align-items: center;

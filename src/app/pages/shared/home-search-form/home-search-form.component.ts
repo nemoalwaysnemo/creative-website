@@ -160,7 +160,6 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
       filter((params: SearchParams) => params.params && Object.keys(params.params).length > 0),
       switchMap((params: SearchParams) => this.performSearch(params)),
     ).subscribe((res) => {
-      console.info(res);
       let searchFilter = false;
       if (res.response.entries.length > 0) {
         this.stopSectionScroll();

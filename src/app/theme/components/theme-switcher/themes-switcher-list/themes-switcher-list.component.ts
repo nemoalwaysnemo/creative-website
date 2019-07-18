@@ -27,14 +27,6 @@ export class ThemeSwitcherListComponent {
       title: 'Light',
       key: 'default',
     },
-    {
-      title: 'Cosmic',
-      key: 'cosmic',
-    },
-    {
-      title: 'Corporate',
-      key: 'corporate',
-    },
   ];
 
   constructor(private themeService: NbThemeService) {

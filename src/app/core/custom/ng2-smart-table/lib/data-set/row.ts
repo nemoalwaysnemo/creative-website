@@ -1,6 +1,5 @@
 import { Cell } from './cell';
 import { Column } from './column';
-import { DataSet } from './data-set';
 
 export class Row {
 
@@ -9,7 +8,7 @@ export class Row {
   cells: Array<Cell> = [];
 
 
-  constructor(public index: number, protected data: any, protected _dataSet: DataSet) {
+  constructor(public index: number, protected data: any, protected _dataSet: any) {
     this.process();
   }
 

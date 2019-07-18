@@ -41,7 +41,7 @@ import {
   `,
 })
 export class NbPopoverComponent extends NbPositionedContainer implements NbRenderableContainer {
-  @ViewChild(NbOverlayContainerComponent) overlayContainer: NbOverlayContainerComponent;
+  @ViewChild(NbOverlayContainerComponent, { static: true }) overlayContainer: NbOverlayContainerComponent;
 
   @Input() content: any;
   @Input() context: Object;

@@ -1,4 +1,3 @@
-import { DataSet } from './data-set';
 
 export class Column {
 
@@ -20,7 +19,7 @@ export class Column {
   filterFunction: Function;
   onComponentInitFunction: Function;
 
-  constructor(public id: string, protected settings: any, protected dataSet: DataSet) {
+  constructor(public id: string, protected settings: any, protected dataSet: any) {
     this.process();
   }
 

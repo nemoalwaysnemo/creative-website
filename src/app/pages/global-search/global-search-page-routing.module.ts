@@ -8,15 +8,15 @@ const routes: Routes = [{
   children: [
     {
       path: 'creative',
-      loadChildren: './creative-search/creative-search.module#CreativeSearchModule',
+      loadChildren: () => import('./creative-search/creative-search.module').then(m => m.CreativeSearchModule),
     },
     {
       path: 'disruption',
-      loadChildren: './disruption-search/disruption-search.module#DisruptionSearchModule',
+      loadChildren: () => import('./disruption-search/disruption-search.module').then(m => m.DisruptionSearchModule),
     },
     {
       path: 'intelligence',
-      loadChildren: './intelligence-search/intelligence-search.module#IntelligenceSearchModule',
+      loadChildren: () => import('./intelligence-search/intelligence-search.module').then(m => m.IntelligenceSearchModule),
     },
   ],
 }];

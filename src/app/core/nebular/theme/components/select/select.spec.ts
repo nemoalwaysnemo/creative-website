@@ -71,7 +71,7 @@ export class NbSelectTestComponent {
   @Input() multiple: boolean;
   @Input() customLabel: boolean;
   @Output() selectedChange: EventEmitter<any> = new EventEmitter();
-  @ViewChild(NbSelectComponent) select: NbSelectComponent<any>;
+  @ViewChild(NbSelectComponent, { static: true }) select: NbSelectComponent<any>;
   groups = TEST_GROUPS;
 }
 
@@ -90,7 +90,7 @@ export class NbSelectWithInitiallySelectedOptionComponent {
   @Input() selected = 1;
   @Input() options = [ 1, 2, 3 ];
 
-  @ViewChild(NbSelectComponent) select: NbSelectComponent<number>;
+  @ViewChild(NbSelectComponent, { static: true }) select: NbSelectComponent<number>;
 }
 
 describe('Component: NbSelectComponent', () => {

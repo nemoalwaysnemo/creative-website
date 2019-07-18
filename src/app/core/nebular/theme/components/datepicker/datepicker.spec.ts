@@ -27,8 +27,8 @@ import { NbDatepickerComponent, NbRangepickerComponent } from './datepicker.comp
   `,
 })
 export class NbDatepickerTestComponent {
-  @ViewChild(NbDatepickerComponent) datepicker: NbDatepickerComponent<Date>;
-  @ViewChild(NbDatepickerDirective) datepickerDirective: NbDatepickerDirective<Date>;
+  @ViewChild(NbDatepickerComponent, { static: true }) datepicker: NbDatepickerComponent<Date>;
+  @ViewChild(NbDatepickerDirective, { static: true }) datepickerDirective: NbDatepickerDirective<Date>;
 }
 
 @Component({
@@ -43,8 +43,8 @@ export class NbDatepickerTestComponent {
   `,
 })
 export class NbRangepickerTestComponent {
-  @ViewChild(NbRangepickerComponent) rangepicker: NbRangepickerComponent<Date>;
-  @ViewChild(NbDatepickerDirective) datepickerDirective: NbDatepickerDirective<Date>;
+  @ViewChild(NbRangepickerComponent, { static: true }) rangepicker: NbRangepickerComponent<Date>;
+  @ViewChild(NbDatepickerDirective, { static: true }) datepickerDirective: NbDatepickerDirective<Date>;
 }
 
 describe('nb-datepicker', () => {

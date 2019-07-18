@@ -71,7 +71,7 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
     return this.windowRef.state === NbWindowState.MINIMIZED;
   }
 
-  @ViewChild(NbOverlayContainerComponent) overlayContainer: NbOverlayContainerComponent;
+  @ViewChild(NbOverlayContainerComponent, { static: true }) overlayContainer: NbOverlayContainerComponent;
 
   protected focusTrap: NbFocusTrap;
 

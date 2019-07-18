@@ -58,9 +58,9 @@ let scrollDirective: NbInfiniteListDirective;
   `],
 })
 class ScrollTestComponent {
-  @ViewChild(NbListComponent, { read: ElementRef }) listElementRef: ElementRef;
-  @ViewChild(NbInfiniteListDirective) infiniteListDirective: NbInfiniteListDirective;
-  @ViewChild(NbLayoutComponent) layoutComponent: NbLayoutComponent;
+  @ViewChild(NbListComponent, { static: true, read: ElementRef }) listElementRef: ElementRef;
+  @ViewChild(NbInfiniteListDirective, { static: true }) infiniteListDirective: NbInfiniteListDirective;
+  @ViewChild(NbLayoutComponent, { static: true }) layoutComponent: NbLayoutComponent;
 
   listenWindowScroll = false;
   threshold = THRESHOLD;

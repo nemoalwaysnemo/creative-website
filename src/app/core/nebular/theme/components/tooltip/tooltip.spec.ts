@@ -28,8 +28,8 @@ import { NbTooltipComponent } from './tooltip.component';
   `,
 })
 export class NbTooltipDefaultTestComponent {
-  @ViewChild('button') button: ElementRef;
-  @ViewChild(NbTooltipDirective) tooltip: NbTooltipDirective;
+  @ViewChild('button', { static: true }) button: ElementRef;
+  @ViewChild(NbTooltipDirective, { static: true }) tooltip: NbTooltipDirective;
 }
 
 @Component({
@@ -49,8 +49,8 @@ export class NbTooltipDefaultTestComponent {
   `,
 })
 export class NbTooltipBindingsTestComponent {
-  @ViewChild(NbTooltipDirective) tooltip: NbTooltipDirective;
-  @ViewChild('button') button: ElementRef;
+  @ViewChild(NbTooltipDirective, { static: true }) tooltip: NbTooltipDirective;
+  @ViewChild('button', { static: true }) button: ElementRef;
   @Input() content: any = '';
   @Input() status = 'primary';
   @Input() icon = '';
@@ -72,8 +72,8 @@ export class NbTooltipBindingsTestComponent {
   `,
 })
 export class NbTooltipInstanceTestComponent {
-  @ViewChild(NbTooltipDirective) tooltip: NbTooltipDirective;
-  @ViewChild('button') button: ElementRef;
+  @ViewChild(NbTooltipDirective, { static: true }) tooltip: NbTooltipDirective;
+  @ViewChild('button', { static: true }) button: ElementRef;
 }
 
 const dynamicOverlay = {

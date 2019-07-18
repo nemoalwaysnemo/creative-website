@@ -42,7 +42,7 @@ export class NbCalendarPickerRowComponent<D, T> implements OnChanges {
   @Input() filter: (D) => boolean;
   @Output() select: EventEmitter<D> = new EventEmitter();
 
-  @ViewChild(TemplateRef, { read: ViewContainerRef }) containerRef: ViewContainerRef;
+  @ViewChild(TemplateRef, { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
 
   constructor(private cfr: ComponentFactoryResolver) {
   }

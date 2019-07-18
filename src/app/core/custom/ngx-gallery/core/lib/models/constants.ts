@@ -25,8 +25,8 @@ export enum ThumbnailsPosition {
 }
 
 export enum ImageLoaderMode {
-  Determinate= 'determinate',
-  Indeterminate= 'indeterminate',
+  Determinate = 'determinate',
+  Indeterminate = 'indeterminate',
 }
 
 export enum DotsPosition {
