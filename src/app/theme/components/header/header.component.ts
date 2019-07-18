@@ -138,6 +138,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (pageType === 'search') {
       pageType = url.split('/')[3];
     }
+    pageType = pageType.split('?').length > 1 ? pageType.split('?')[0] : pageType;
     return type === pageType;
   }
 
