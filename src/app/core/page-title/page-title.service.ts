@@ -31,7 +31,7 @@ export class PageTitleService {
 
   private buildPageTitle(event: NavigationEnd): string {
     const list = event.url.split('/p/').pop().split('/');
-    const title = list.shift();
+    const title = list.shift().split('?').shift();
     return title.charAt(0).toUpperCase() + title.substring(1);
   }
 
