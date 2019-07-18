@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { AbstractControlOptions, FormHooks } from '@angular/forms/src/model';
+import { AbstractControl, FormArray, FormControl, FormGroup, AbstractControlOptions } from '@angular/forms';
 import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
 import { DynamicFormValueControlModel } from '../model/dynamic-form-value-control.model';
 import { DynamicFormArrayModel, DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormArrayGroupModel } from '../model/form-array/dynamic-form-array.model';
@@ -40,7 +39,7 @@ export class DynamicFormService {
 
   private createAbstractControlOptions(validatorsConfig: DynamicValidatorsConfig | null = null,
     asyncValidatorsConfig: DynamicValidatorsConfig | null = null,
-    updateOn: FormHooks | null = null): AbstractControlOptions {
+    updateOn: any | null = null): AbstractControlOptions {
 
     return {
       asyncValidators: asyncValidatorsConfig !== null ? this.validationService.getAsyncValidators(asyncValidatorsConfig) : null,

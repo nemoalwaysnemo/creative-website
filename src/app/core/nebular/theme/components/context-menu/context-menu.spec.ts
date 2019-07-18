@@ -29,8 +29,8 @@ import { NbContextMenuModule } from './context-menu.module';
   `,
 })
 export class NbContextMenuDefaultTestComponent {
-  @ViewChild('button') button: ElementRef;
-  @ViewChild(NbContextMenuDirective) contextMenu: NbContextMenuDirective;
+  @ViewChild('button', { static: true }) button: ElementRef;
+  @ViewChild(NbContextMenuDirective, { static: true }) contextMenu: NbContextMenuDirective;
 
   items = [{ title: 'User' }, { title: 'Log Out' }];
 }
@@ -51,8 +51,8 @@ export class NbContextMenuDefaultTestComponent {
   `,
 })
 export class NbContextMenuBindingsTestComponent {
-  @ViewChild(NbContextMenuDirective) contextMenu: NbContextMenuDirective;
-  @ViewChild('button') button: ElementRef;
+  @ViewChild(NbContextMenuDirective, { static: true }) contextMenu: NbContextMenuDirective;
+  @ViewChild('button', { static: true }) button: ElementRef;
   @Input() trigger = NbTrigger.CLICK;
   @Input() position = NbPosition.TOP;
   @Input() adjustment = NbAdjustment.CLOCKWISE;
@@ -73,8 +73,8 @@ export class NbContextMenuBindingsTestComponent {
   `,
 })
 export class NbContextMenuInstanceTestComponent {
-  @ViewChild(NbContextMenuDirective) contextMenu: NbContextMenuDirective;
-  @ViewChild('button') button: ElementRef;
+  @ViewChild(NbContextMenuDirective, { static: true }) contextMenu: NbContextMenuDirective;
+  @ViewChild('button', { static: true }) button: ElementRef;
 
   items = [{ title: 'User' }, { title: 'Log Out' }];
 }

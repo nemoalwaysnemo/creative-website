@@ -11,7 +11,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { animationFrameScheduler, BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GalleryConfig } from '../models/config.model';
 import { GalleryState, GalleryError } from '../models/gallery.model';
@@ -37,7 +37,7 @@ declare const Hammer: any;
                        [currIndex]="state.currIndex"
                        [index]="i"
                        [tapClickDisabled]="config.disableThumb"
-                       (ngxTapClick)="thumbClick.emit(i)"
+                       (tapClick)="thumbClick.emit(i)"
                        (error)="error.emit({itemIndex: i, error: $event})"></gallery-thumb>
       </div>
     </div>
@@ -46,7 +46,7 @@ declare const Hammer: any;
 export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
 
   /** Sliding worker */
-  private readonly _slidingWorker$ = new BehaviorSubject<WorkerState>({value: 0, active: false});
+  private readonly _slidingWorker$ = new BehaviorSubject<WorkerState>({ value: 0, active: false });
 
   /** HammerJS instance */
   private _hammer: any;
@@ -89,7 +89,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges() {
     // Refresh the slider
-    this.updateSlider({value: 0, active: false});
+    this.updateSlider({ value: 0, active: false });
     this._freeModeCurrentOffset = 0;
   }
 
@@ -111,7 +111,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
 
       // Activate gestures
       this._hammer = new Hammer(this._el.nativeElement);
-      this._hammer.get('pan').set({direction});
+      this._hammer.get('pan').set({ direction });
 
       this._zone.runOutsideAngular(() => {
         // Move the slider
@@ -139,17 +139,17 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     switch (this.config.thumbPosition) {
       case ThumbnailsPosition.Right:
       case ThumbnailsPosition.Left:
-        this.updateSlider({value: e.deltaY, active: true});
+        this.updateSlider({ value: e.deltaY, active: true });
         if (e.isFinal) {
-          this.updateSlider({value: 0, active: false});
+          this.updateSlider({ value: 0, active: false });
           this.verticalPan(e);
         }
         break;
       case ThumbnailsPosition.Top:
       case ThumbnailsPosition.Bottom:
-        this.updateSlider({value: e.deltaX, active: true});
+        this.updateSlider({ value: e.deltaX, active: true });
         if (e.isFinal) {
-          this.updateSlider({value: 0, active: false});
+          this.updateSlider({ value: 0, active: false });
           this.horizontalPan(e);
         }
     }
@@ -162,7 +162,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     switch (this.config.thumbPosition) {
       case ThumbnailsPosition.Right:
       case ThumbnailsPosition.Left:
-        this.updateSlider({value: this._freeModeCurrentOffset + e.deltaY, active: true});
+        this.updateSlider({ value: this._freeModeCurrentOffset + e.deltaY, active: true });
         if (e.isFinal) {
           if (this.minFreeScrollExceeded(e.deltaY, this.config.thumbWidth, this.config.thumbHeight)) {
             this._freeModeCurrentOffset = -(this.state.items.length - 1 - this.state.currIndex) * this.config.thumbHeight;
@@ -171,12 +171,12 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
           } else {
             this._freeModeCurrentOffset += e.deltaY;
           }
-          this.updateSlider({value: this._freeModeCurrentOffset, active: false});
+          this.updateSlider({ value: this._freeModeCurrentOffset, active: false });
         }
         break;
       case ThumbnailsPosition.Top:
       case ThumbnailsPosition.Bottom:
-        this.updateSlider({value: this._freeModeCurrentOffset + e.deltaX, active: true});
+        this.updateSlider({ value: this._freeModeCurrentOffset + e.deltaX, active: true });
         if (e.isFinal) {
           if (this.minFreeScrollExceeded(e.deltaX, this.config.thumbHeight, this.config.thumbWidth)) {
             this._freeModeCurrentOffset = -(this.state.items.length - 1 - this.state.currIndex) * this.config.thumbWidth;
@@ -185,7 +185,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
           } else {
             this._freeModeCurrentOffset += e.deltaX;
           }
-          this.updateSlider({value: this._freeModeCurrentOffset, active: false});
+          this.updateSlider({ value: this._freeModeCurrentOffset, active: false });
         }
     }
   }
@@ -280,7 +280,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private updateSlider(state: WorkerState) {
-    const newState: WorkerState = {...this._slidingWorker$.value, ...state};
-    animationFrameScheduler.schedule(() => this._slidingWorker$.next(newState));
+    const newState: WorkerState = { ...this._slidingWorker$.value, ...state };
+    this._slidingWorker$.next(newState);
   }
 }

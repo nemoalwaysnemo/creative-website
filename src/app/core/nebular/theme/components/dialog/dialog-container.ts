@@ -26,7 +26,7 @@ import { NbDialogConfig } from './dialog-config';
   template: '<ng-template nbPortalOutlet></ng-template>',
 })
 export class NbDialogContainerComponent implements OnInit, OnDestroy {
-  @ViewChild(NbPortalOutletDirective) portalOutlet: NbPortalOutletDirective;
+  @ViewChild(NbPortalOutletDirective, { static: true }) portalOutlet: NbPortalOutletDirective;
 
   protected focusTrap: NbFocusTrap;
 

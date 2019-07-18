@@ -29,7 +29,7 @@ export class NbStepComponent {
    *
    * @type {TemplateRef}
    */
-  @ViewChild(TemplateRef) content: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any>;
 
   /**
    * Top level abstract control of the step

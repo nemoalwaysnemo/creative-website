@@ -17,10 +17,10 @@ import { NbInputModule } from './input.module';
   `,
 })
 class InputTestComponent {
-  @ViewChild('inputEl', { read: ElementRef })
+  @ViewChild('inputEl', { static: true, read: ElementRef })
   inputElementRef: ElementRef;
 
-  @ViewChild('textareaEl', { read: ElementRef })
+  @ViewChild('textareaEl', { static: true, read: ElementRef })
   textareaElementRef: ElementRef;
 
   get inputElement() {

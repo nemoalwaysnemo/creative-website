@@ -6,11 +6,11 @@ const routes: Routes = [
   {
     path: 'p',
     canActivate: [AuthGuard],
-    loadChildren: 'app/pages/pages.module#PagesModule',
+    loadChildren: () => import('app/pages/pages.module').then(m => m.PagesModule),
   },
   {
     path: 'auth',
-    loadChildren: 'app/auth/auth.module#AuthModule',
+    loadChildren: () => import('app/auth/auth.module').then(m => m.AuthModule),
   },
   { path: '', redirectTo: 'p', pathMatch: 'full' },
   { path: '**', redirectTo: 'p/error/404' },

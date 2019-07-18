@@ -84,7 +84,7 @@ export class NbSearchFieldComponent implements OnChanges, AfterViewInit {
   @Output() close = new EventEmitter();
   @Output() search = new EventEmitter();
 
-  @ViewChild('searchInput') inputElement: ElementRef<HTMLInputElement>;
+  @ViewChild('searchInput', { static: true }) inputElement: ElementRef<HTMLInputElement>;
 
   @HostBinding('class.show')
   get showClass() {
@@ -251,8 +251,8 @@ export class NbSearchComponent implements OnInit, OnDestroy {
    */
   @Input() type: string;
 
-  @ViewChild(NbPortalDirective) searchFieldPortal: NbPortalDirective;
-  @ViewChild('searchButton') searchButton: ElementRef<HTMLElement>;
+  @ViewChild(NbPortalDirective, { static: true }) searchFieldPortal: NbPortalDirective;
+  @ViewChild('searchButton', { static: true }) searchButton: ElementRef<HTMLElement>;
 
   constructor(
     private searchService: NbSearchService,

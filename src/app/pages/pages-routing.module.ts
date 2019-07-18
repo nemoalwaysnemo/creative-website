@@ -7,26 +7,26 @@ const routes: Routes = [{
   children: [
     {
       path: 'knowledge',
-      loadChildren: './knowledge/knowledge-page.module#KnowledgePageModule',
+      loadChildren: () => import('./knowledge/knowledge-page.module').then(m => m.KnowledgePageModule),
     },
     {
       path: 'creative',
-      loadChildren: './creative/creative-page.module#CreativePageModule',
+      loadChildren: () => import('./creative/creative-page.module').then(m => m.CreativePageModule),
     }, {
       path: 'disruption',
-      loadChildren: './disruption/disruption-page.module#DisruptionPageModule',
+      loadChildren: () => import('./disruption/disruption-page.module').then(m => m.DisruptionPageModule),
     }, {
       path: 'intelligence',
-      loadChildren: './intelligence/intelligence-page.module#IntelligencePageModule',
+      loadChildren: () => import('./intelligence/intelligence-page.module').then(m => m.IntelligencePageModule),
     }, {
       path: 'favorite',
-      loadChildren: './favorite/favorite-page.module#FavoritePageModule',
+      loadChildren: () => import('./favorite/favorite-page.module').then(m => m.FavoritePageModule),
     }, {
       path: 'search',
-      loadChildren: './global-search/global-search-page.module#GlobalSearchPageModule',
+      loadChildren: () => import('./global-search/global-search-page.module').then(m => m.GlobalSearchPageModule),
     }, {
       path: 'redirect',
-      loadChildren: './miscellaneous/redirect/redirect.module#RedirectModule',
+      loadChildren: () => import('./miscellaneous/redirect/redirect.module').then(m => m.RedirectModule),
     },
     {
       path: '',
@@ -34,11 +34,11 @@ const routes: Routes = [{
       pathMatch: 'full',
     }, {
       path: 'error',
-      loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
+      loadChildren: () => import('./miscellaneous/miscellaneous.module').then(m => m.MiscellaneousModule),
     },
     {
       path: '**',
-      loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
+      loadChildren: () => import('./miscellaneous/miscellaneous.module').then(m => m.MiscellaneousModule),
     },
   ],
 }];

@@ -1,4 +1,4 @@
-import { BehaviorSubject, Subject, Observable, of, EMPTY} from 'rxjs';
+import { BehaviorSubject, Subject, Observable, of, EMPTY } from 'rxjs';
 import { delay, filter, switchMap, tap } from 'rxjs/operators';
 import { defaultState } from '../utils/gallery.default';
 import { GalleryError, GalleryItem, GalleryState } from '../models/gallery.model';
@@ -86,7 +86,7 @@ export class GalleryRef {
    * @param state
    */
   private setState(state: GalleryState) {
-    this._state.next({...this._state.value, ...state});
+    this._state.next({ ...this._state.value, ...state });
   }
 
   /**
@@ -94,7 +94,7 @@ export class GalleryRef {
    * @param config
    */
   setConfig(config: GalleryConfig) {
-    this._config.next({...this._config.value, ...config});
+    this._config.next({ ...this._config.value, ...config });
   }
 
   /** Add gallery item
@@ -222,16 +222,16 @@ export class GalleryRef {
    */
   play(interval?: number) {
     if (interval) {
-      this.setConfig({playerInterval: interval});
+      this.setConfig({ playerInterval: interval });
     }
-    this.setState({action: GalleryAction.PLAY, isPlaying: true});
+    this.setState({ action: GalleryAction.PLAY, isPlaying: true });
   }
 
   /**
    * Stop gallery player
    */
   stop() {
-    this.setState({action: GalleryAction.STOP, isPlaying: false});
+    this.setState({ action: GalleryAction.STOP, isPlaying: false });
   }
 
   /**
