@@ -94,7 +94,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*',
+        acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -103,7 +103,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*',
+        acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',
@@ -112,7 +112,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.key,.ppt,.zip,.doc,.xls,.mp4',
+        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'uploadFiles',
