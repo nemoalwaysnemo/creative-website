@@ -51,6 +51,8 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected searchParams: any = {};
 
+  @Input() showQuery: boolean = true;
+
   @Input() placeholder: string = 'Search for...';
 
   @Input() filters: { [key: string]: { placeholder: string } } = {};
@@ -188,8 +190,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected changeQueryParams(): void {
-    const queryParams = this.queryParamsService.buildQueryParams(this.getFormValue());
-    this.queryParamsService.changeQueryParams(queryParams, { type: 'keyword' });
+    if (this.showQuery) {
+      const queryParams = this.queryParamsService.buildQueryParams(this.getFormValue());
+      this.queryParamsService.changeQueryParams(queryParams, { type: 'keyword' });
+    }
   }
 
   protected hasFilterQueryParams(queryParams: {}): boolean {

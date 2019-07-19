@@ -23,7 +23,7 @@ class SearchParams {
   styleUrls: ['./home-search-form.component.scss'],
 })
 
-export class HomeSearchFormComponent extends AbstractSearchFormComponent implements OnInit, OnDestroy {
+export class HomeSearchFormComponent extends AbstractSearchFormComponent implements OnInit {
 
   results: DocumentModel[];
   documents: DocumentModel[] = [];
@@ -44,18 +44,19 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
   preventDocHide: boolean = false;
   isInitialSearch: boolean = true;
 
-
   @Input() headline: string;
+
   @Input() extraHeadline: string = '';
+
   @Input() subHead: string;
 
   @Input() assetUrl: string;
+
   @Input() assetUrlMapping: object = {};
+
   @Input() redirectUrl: string;
 
-  @Input() showQuery: boolean = true;
-
-  @Input() showInput: boolean = true;
+  @Input() showQuery: boolean = false;
 
   constructor(
     protected router: Router,
@@ -79,10 +80,6 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
   ngOnInit() {
     this.createForm();
     this.buildSearchFilter([]);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   show(): void {
