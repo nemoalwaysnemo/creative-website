@@ -91,7 +91,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   }
 
   protected requestCampaignTitle(docs: DocumentModel[]): Observable<DocumentModel[]> {
-    let ids = [];
+    const ids = [];
     docs.forEach( (doc: DocumentModel) => {
       if (doc.get('The_Loupe_Main:campaign')) ids.push(doc.get('The_Loupe_Main:campaign'));
     });

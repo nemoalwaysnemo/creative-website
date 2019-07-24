@@ -14,7 +14,7 @@ import { VgControlsModule } from 'videogular2/compiled/controls';
 import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
 import { VgBufferingModule } from 'videogular2/compiled/buffering';
 import { DragScrollModule } from 'ngx-drag-scroll';
-
+import { DocumentRelatedCampaignComponent } from './document-related-campaign/document-related-campaign.component';
 @NgModule({
   imports: [
     ThemeModule,
@@ -33,6 +33,7 @@ import { DragScrollModule } from 'ngx-drag-scroll';
     DocumentVideoPlayerComponent,
     DocumentVideoStoryboardComponent,
     DocumentAudioViewerComponent,
+    DocumentRelatedCampaignComponent,
   ],
   exports: [
     DocumentViewerComponent,
