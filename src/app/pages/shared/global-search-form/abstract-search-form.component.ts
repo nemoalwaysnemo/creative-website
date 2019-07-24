@@ -55,9 +55,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() placeholder: string = 'Search for...';
 
-  @Input() filters: { [key: string]: { placeholder: string } } = {};
 
-  @Input() beforeSearch: Function = (queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ queryParams, opts });
+  @Input() filters: { [key: string]: { [key: string]: string } } = {};
+
+  @Input() beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
 
   @Input()
   set defaultParams(params: any) {
@@ -271,11 +272,11 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     return this.search(searchParams);
   }
 
-  protected search(searchParams: any = {}): Observable<SearchResponse> {
-    const params = new NuxeoPageProviderParams(this.queryParamsService.buildSearchParams(searchParams));
+  protected search(queryParams: any = {}): Observable<SearchResponse> {
+    const params = new NuxeoPageProviderParams(this.queryParamsService.buildSearchParams(queryParams));
     const options = new NuxeoRequestOptions({ skipAggregates: false });
-    const { queryParams, opts } = this.beforeSearch.call(this, params, options);
-    return this.advanceSearch.search(queryParams, opts);
+    const { searchParams, opts } = this.beforeSearch.call(this, params, options);
+    return this.advanceSearch.search(searchParams, opts);
   }
 
   protected onSearchTriggered(): void {

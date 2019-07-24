@@ -1,12 +1,12 @@
-import { Input, OnInit, OnDestroy } from '@angular/core';
+import { Input } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
-import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { concatMap } from 'rxjs/operators';
+import { AbstractSearchResultComponent } from './abstract-search-result.component';
 
-export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy {
+export abstract class AbstractGlobalSearchResultComponent extends AbstractSearchResultComponent {
 
   loading: boolean = false;
 
@@ -22,15 +22,11 @@ export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy
 
   paginationService: PaginationDataSource = new PaginationDataSource();
 
-  queryParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
+  searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
 
   multiView: boolean = false;
 
-  protected subscription: Subscription = new Subscription();
-
   @Input() currentView: string = 'thumbnailView';
-
-  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   @Input()
   set listViewSettings(settings: any) {
@@ -43,14 +39,7 @@ export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy
   @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
 
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
-  }
-
-  ngOnInit(): void {
-    this.onInit();
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy();
+    super(queryParamsService);
   }
 
   changeToGridView(): void {
@@ -66,10 +55,6 @@ export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy
     this.onPageChanged();
   }
 
-  protected onDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
   protected onSearch(): void {
     const subscription = this.advanceSearch.onSearch().pipe(
       concatMap((res: SearchResponse) => this.afterSearch(res)),
@@ -78,7 +63,7 @@ export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy
         this.loading = true;
       } else {
         this.loading = false;
-        this.queryParams = res.queryParams;
+        this.searchParams = res.searchParams;
         this.handleResponse(res);
       }
     });
