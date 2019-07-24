@@ -1,6 +1,6 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPageProviderParams } from '@core/api';
 import { Subscription } from 'rxjs';
 
 @Component({

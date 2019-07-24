@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable, of as observableOf, Subject, timer} from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoPermission, NuxeoQuickFilters, UserService } from '@core/api';
-import { PreviewDialogService, SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
+import { Component, OnInit } from '@angular/core';
+import { Subject, timer } from 'rxjs';
+import { DocumentModel, AdvanceSearch, UserService } from '@core/api';
+import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
 import { ActivatedRoute } from '@angular/router';

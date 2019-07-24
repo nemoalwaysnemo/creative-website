@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy, Input, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { AdvanceSearch } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractSearchResultComponent } from './abstract-search-result';
+import { AbstractGlobalSearchResultComponent } from './abstract-global-search-result.component';
 
 @Component({
   selector: 'global-search-result',
   styleUrls: ['./global-search-result.component.scss'],
   templateUrl: './global-search-result.component.html',
 })
-export class GlobalSearchResultComponent extends AbstractSearchResultComponent {
+export class GlobalSearchResultComponent extends AbstractGlobalSearchResultComponent {
 
   @Input() templateRef: TemplateRef<any>;
 

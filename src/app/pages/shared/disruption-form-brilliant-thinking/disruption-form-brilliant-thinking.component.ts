@@ -96,7 +96,7 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop Logo/Image here!',
+        placeholder: 'Drop File here!',
         acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
@@ -105,7 +105,7 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
+        placeholder: 'Drop File here!',
         acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({

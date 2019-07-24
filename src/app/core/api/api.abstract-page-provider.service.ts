@@ -11,7 +11,7 @@ import {
 
 export class SearchResponse {
   response: NuxeoPagination;
-  readonly queryParams: NuxeoPageProviderParams;
+  readonly searchParams: NuxeoPageProviderParams;
   readonly action: string;
   constructor(response: any = {}) {
     Object.assign(this, response);
@@ -30,16 +30,16 @@ export abstract class AbstractPageProvider extends AbstractBaseSearchService {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
-  search(queryParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions()): Observable<SearchResponse> {
-    return observableOf(new SearchResponse({ response: new NuxeoPagination(), queryParams, action: 'beforeSearch' })).pipe(
-      concat(this.request(queryParams, opts).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, queryParams, action: 'afterSearch' }))))),
+  search(searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions()): Observable<SearchResponse> {
+    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, action: 'beforeSearch' })).pipe(
+      concat(this.request(searchParams, opts).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, action: 'afterSearch' }))))),
       tap((res: SearchResponse) => this.entries$.next(res)),
       share(),
     );
   }
 
-  request(queryParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider: string = this.provider): Observable<NuxeoPagination> {
-    const params = this.getRequestParams(queryParams);
+  request(searchParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider: string = this.provider): Observable<NuxeoPagination> {
+    const params = this.getRequestParams(searchParams);
     const options = this.getRequestOptions(opts);
     return this.execute(this.getRequestUrl(provider), params, options);
   }

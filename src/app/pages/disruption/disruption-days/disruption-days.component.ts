@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination } from '@core/api';
 import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
@@ -23,17 +23,16 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
     'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
   };
 
-
-  beforeSearch: Function = (queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { queryParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
-    if (queryParams.hasKeyword()) {
-      queryParams = this.buildSearchAssetsParams(queryParams);
+  beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
+    if (searchParams.hasKeyword()) {
+      searchParams = this.buildSearchAssetsParams(searchParams);
       opts.setEnrichers('document', [NuxeoEnricher.document.BREADCRUMB, NuxeoEnricher.document.HIGHLIGHT]);
     }
-    return { queryParams, opts };
+    return { searchParams, opts };
   }
 
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
-    if (res.queryParams.hasKeyword() && res.action === 'afterSearch') {
+    if (res.searchParams.hasKeyword() && res.action === 'afterSearch') {
       return this.performSearchAssetsResults(res.response).pipe(
         map((response: NuxeoPagination) => { res.response = response; return res; }),
       );

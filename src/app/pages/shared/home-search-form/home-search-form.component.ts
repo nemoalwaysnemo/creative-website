@@ -2,7 +2,7 @@ import { OnInit, Component, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { DocumentModel, AdvanceSearch } from '@core/api';
+import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
 import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
@@ -156,18 +156,13 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
       distinctUntilChanged(),
       filter((params: SearchParams) => params.params && Object.keys(params.params).length > 0),
       switchMap((params: SearchParams) => this.performSearch(params)),
-    ).subscribe((res) => {
-      let searchFilter = false;
+    ).subscribe((res: SearchResponse) => {
       if (res.response.entries.length > 0) {
         this.stopSectionScroll();
       }
       this.results = res.response.entries;
-      const searchText = !!res.queryParams['ecm_fulltext'];
-      for (const key in res.queryParams) {
-        if (key in this.filters) {
-          searchFilter = true;
-        }
-      }
+      const searchText = !!res.searchParams['ecm_fulltext'];
+      const searchFilter = Object.keys(res.searchParams).filter((key: string) => key.includes('_agg')).some((agg: string) => !!this.filters[agg]);
       this.isInitialSearch = !(searchText || searchFilter);
       this.isInitialSearch ? this.hide() : this.show();
     });
