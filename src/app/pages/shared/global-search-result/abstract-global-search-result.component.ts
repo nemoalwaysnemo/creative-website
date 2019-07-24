@@ -1,10 +1,11 @@
 import { Input } from '@angular/core';
-import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { AbstractSearchResultComponent } from './abstract-search-result.component';
+import { of as observableOf, Observable } from 'rxjs';
 
 export abstract class AbstractGlobalSearchResultComponent extends AbstractSearchResultComponent {
 
@@ -82,7 +83,40 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
     this.documents = res.response.entries;
-    this.listDocuments = this.listViewBuilder(res.response.entries);
+
+    const subscription = this.requestCampaignTitle(res.response.entries).subscribe((doc: DocumentModel[]) => {
+      this.listDocuments = this.listViewBuilder(doc);
+    });
+    this.subscription.add(subscription);
   }
 
+  protected requestCampaignTitle(docs: DocumentModel[]): Observable<DocumentModel[]> {
+    let ids = [];
+    docs.forEach( (doc: DocumentModel) => {
+      if (doc.get('The_Loupe_Main:campaign')) ids = ids.concat(doc.get('The_Loupe_Main:campaign'));
+    });
+
+    const distIds = Array.from(new Set(ids));
+    if (distIds.length > 0) {
+      const params = {
+        ecm_uuid: `["${distIds.join('", "')}"]`,
+        pageSize: 999,
+      };
+
+      return this.advanceSearch.request(new NuxeoPageProviderParams(params), new NuxeoRequestOptions({schemas: ['The_Loupe_Main']})).pipe(
+        map((response: NuxeoPagination) => {
+          const listNew: any = {};
+          response.entries.forEach((resDoc: DocumentModel) => { listNew[resDoc.get('The_Loupe_Main:campaign')] = resDoc.title; });
+
+          for (const doc of docs) {
+            doc.properties['The_Loupe_Main:campaign_title'] = listNew[doc.get('The_Loupe_Main:campaign')] ? listNew[doc.get('The_Loupe_Main:campaign')] : null;
+          }
+
+          return docs;
+        }),
+      );
+    }
+
+    return observableOf(docs);
+  }
 }
