@@ -15,14 +15,14 @@
     "build:prod": "ng build --prod --configuration=aws-prod --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "build:stg": "ng build --prod --configuration=aws-stg --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
     "build:dev": "ng build --prod --configuration=aws-dev --build-optimizer --base-href=/nuxeo/site/LibraryWebUI/ --deploy-url=/nuxeo/LibraryWebUI/ ",
-    "build:test": "ng build --prod --configuration=aws-stg --build-optimizer --base-href=./ --deploy-url=/LibraryWebUI/ ",
+    "build:test": "ng build --prod --configuration=local --build-optimizer --base-href=./ --deploy-url=./",
     "lint": "ng lint",
     "lint:fix": "ng lint tbwa-creative-website --fix",
     "lint:styles": "stylelint ./src/**/*.scss",
     "lint:ci": "yarn lint && yarn lint:styles",
     "release:changelog": "yarn conventional-changelog -p angular -i CHANGELOG.md -s",
     "release:version": "standard-version",
-    "server": "lite-server --baseDir=dist/LibraryWebUI"
+    "serve": "lite-server --baseDir=./dist/LibraryWebUI"
   },
   "config": {
     "commitizen": {
