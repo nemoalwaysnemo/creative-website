@@ -34,15 +34,6 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
   getDocumentType(): string {
     return this.document ? this.document.type.toLowerCase() : '';
   }
-
-  moveLeft() {
-    this.ds.moveLeft();
-  }
-
-  moveRight() {
-    this.ds.moveRight();
-  }
-
   redirectToDoc(doc) {
     this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/creative/asset/${doc.uid}` } });
   }
@@ -67,12 +58,21 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
     entries.forEach((entrie: DocumentModel) => {
       if (entrie.fileMimeType) {
         if (entrie.isVideo()) {
-          carouselData.push({ source: entrie.videoPoster, uid: entrie.uid });
+          carouselData.push({ source: entrie.videoPoster, uid: entrie.uid, title: entrie.title });
         } else if (entrie.isAudio() || entrie.isPicture() || entrie.isPdf()) {
-          carouselData.push({ source: entrie.thumbnailUrl, uid: entrie.uid });
+          carouselData.push({ source: entrie.thumbnailUrl, uid: entrie.uid, title: entrie.title});
         }
       }
     });
     return carouselData;
   }
+
+  moveLeft() {
+    this.ds.moveLeft();
+  }
+
+  moveRight() {
+    this.ds.moveRight();
+  }
+
 }
