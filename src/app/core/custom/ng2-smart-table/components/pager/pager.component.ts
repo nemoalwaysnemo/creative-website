@@ -70,7 +70,7 @@ export class PagerComponent implements OnChanges {
 
   currentPerPage: any;
 
-  protected pages: Array<any>;
+  protected pages: any[];
   protected page: number;
   protected count: number = 0;
   protected perPage: number;
@@ -135,7 +135,7 @@ export class PagerComponent implements OnChanges {
     return this.page;
   }
 
-  getPages(): Array<any> {
+  getPages(): any[] {
     return this.pages;
   }
 

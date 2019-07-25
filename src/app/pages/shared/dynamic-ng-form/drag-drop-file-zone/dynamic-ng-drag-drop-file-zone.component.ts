@@ -25,7 +25,7 @@ export class DynamicNGDragDropFileZoneComponent extends DynamicFormControlCompon
   @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService) {
+              protected validationService: DynamicFormValidationService) {
 
     super(layoutService, validationService);
   }

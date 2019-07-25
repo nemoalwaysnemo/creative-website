@@ -27,8 +27,8 @@ export class DynamicNGDatePickerComponent extends DynamicFormControlComponent {
   @ViewChild(NgbDatepicker, { static: true }) ngbDatePicker: NgbDatepicker;
 
   constructor(protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService,
-    public config: NgbDatepickerConfig) {
+              protected validationService: DynamicFormValidationService,
+              public config: NgbDatepickerConfig) {
 
     super(layoutService, validationService);
   }

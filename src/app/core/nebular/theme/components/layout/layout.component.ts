@@ -9,7 +9,7 @@ import {
   Renderer2, ViewChild, ViewContainerRef, Inject, PLATFORM_ID, forwardRef,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject, fromEvent } from 'rxjs';
+import { BehaviorSubject, fromEvent, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, pairwise, share, throttleTime, takeWhile } from 'rxjs/operators';
 
 import { convertToBoolProperty } from '../helpers';
@@ -22,7 +22,6 @@ import { NbLayoutDimensions, NbLayoutRulerService } from '../../services/ruler.s
 import { NB_WINDOW, NB_DOCUMENT } from '../../theme.options';
 import { NbOverlayContainerAdapter } from '../cdk/adapter/overlay-container-adapter';
 import { NbSidebarService } from '../sidebar/sidebar.service';
-import { Subscription } from 'rxjs';
 // import { HEADER_OFFSET } from '@angular/core/src/render3/interfaces/view';
 /**
  * A container component which determines a content position inside of the layout.
@@ -112,11 +111,10 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
 
   @ViewChild('header', { static: true })
   private el: ElementRef;
-  // tslint:disable-next-line
   constructor(@Inject(forwardRef(() => NbLayoutComponent)) private layout: NbLayoutComponent,
-    protected scrollService: NbLayoutScrollService,
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
+              protected scrollService: NbLayoutScrollService,
+              private elementRef: ElementRef,
+              private renderer: Renderer2,
   ) {
   }
 
@@ -301,8 +299,6 @@ export class NbLayoutFooterComponent {
  * layout-medium-padding
  * layout-small-padding
  */
-
-
 
 @Component({
   selector: 'nb-layout',

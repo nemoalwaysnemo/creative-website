@@ -91,15 +91,15 @@ describe('Component: NbCheckbox with form control', () => {
       declarations: [NbCheckboxComponent, CheckboxWithFormControlComponent],
     });
 
-      fixture = TestBed.createComponent(CheckboxWithFormControlComponent);
-      fixture.detectChanges();
+    fixture = TestBed.createComponent(CheckboxWithFormControlComponent);
+    fixture.detectChanges();
 
-      checkboxComponent = fixture.debugElement.query(
+    checkboxComponent = fixture.debugElement.query(
         By.directive(NbCheckboxComponent),
       );
-      checkboxInstance = checkboxComponent.componentInstance;
-      testComponent = fixture.debugElement.componentInstance;
-      inputElement = <HTMLInputElement>(
+    checkboxInstance = checkboxComponent.componentInstance;
+    testComponent = fixture.debugElement.componentInstance;
+    inputElement = <HTMLInputElement>(
         checkboxComponent.nativeElement.querySelector('input')
       );
   });

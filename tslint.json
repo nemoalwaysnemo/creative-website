@@ -10,6 +10,7 @@
         "singleline": "never"
       }
     ],
+    "encoding": true,
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
@@ -22,16 +23,29 @@
     "import-blacklist": [
       true
     ],
+    "new-parens": true,
     "import-spacing": true,
     "indent": [
       true,
-      "spaces"
+      "spaces",
+      2
     ],
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [
       true,
-      500
+      240
+    ],
+    "align": [
+      true,
+      "parameters",
+      "statements",
+      "members",
+      "elements"
+    ],
+    "array-type": [
+      true,
+      "array"
     ],
     "member-access": false,
     "no-arg": true,
@@ -50,15 +64,31 @@
     "no-empty-interface": true,
     "no-eval": true,
     "no-misused-new": true,
+    "no-for-in-array": true,
+    "no-default-export": true,
+    "no-unsafe-finally": true,
+    // "no-unused-expression": true,
+    "no-duplicate-imports": true,
+    "no-mergeable-namespace": true,
     "no-non-null-assertion": true,
     "no-shadowed-variable": true,
     "no-string-literal": false,
+    "no-sparse-arrays": true,
     "no-string-throw": true,
+    "no-reference-import": true,
+    "no-irregular-whitespace": true,
+    "no-conditional-assignment": true,
+    "no-invalid-template-strings": true,
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
     "no-unnecessary-initializer": true,
     "no-var-keyword": true,
+    // "object-literal-shorthand": true,
     "object-literal-sort-keys": false,
+    "no-consecutive-blank-lines": [
+      true,
+      2
+    ],
     "one-line": [
       true,
       "check-open-brace",
@@ -66,10 +96,29 @@
       "check-else",
       "check-whitespace"
     ],
+    "use-isnan": true,
     "prefer-const": true,
+    "prefer-for-of": true,
+    // "cyclomatic-complexity": [
+    //   true,
+    //   20
+    // ],
     "quotemark": [
       true,
-      "single"
+      "single",
+      "avoid-escape"
+    ],
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "space-before-function-paren": [
+      true,
+      "asyncArrow"
+    ],
+    "space-within-parens": [
+      true,
+      0
     ],
     "radix": true,
     "semicolon": [

@@ -104,7 +104,7 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
     private elementRef: ElementRef,
     private scrollService: NbLayoutScrollService,
     private dimensionsService: NbLayoutRulerService,
-  ) {}
+  ) { }
 
   ngAfterViewInit() {
     this.scrollService.onScroll()
@@ -131,7 +131,7 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
       )
       .subscribe(dimentions => this.checkPosition(dimentions));
 
-      this.getContainerDimensions().subscribe(dimentions => this.checkPosition(dimentions));
+    this.getContainerDimensions().subscribe(dimentions => this.checkPosition(dimentions));
   }
 
   ngOnDestroy() {
@@ -145,7 +145,7 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
     const scrollDown = scrollTop > this.lastScrollPosition;
     const distanceToBottom = scrollHeight - scrollTop - clientHeight;
 
-    if ((initialCheck ||  manualCheck || scrollDown) && distanceToBottom <= this.threshold) {
+    if ((initialCheck || manualCheck || scrollDown) && distanceToBottom <= this.threshold) {
       this.bottomThreshold.emit();
     }
     if ((initialCheck || scrollUp) && scrollTop <= this.threshold) {
@@ -163,11 +163,11 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
 
     return forkJoin(this.scrollService.getPosition(), this.dimensionsService.getDimensions())
       .pipe(
-          map(([scrollPosition, dimensions]) => ({
-            scrollTop: scrollPosition.y,
-            scrollHeight: dimensions.scrollHeight,
-            clientHeight: dimensions.clientHeight,
-          })),
+        map(([scrollPosition, dimensions]) => ({
+          scrollTop: scrollPosition.y,
+          scrollHeight: dimensions.scrollHeight,
+          clientHeight: dimensions.clientHeight,
+        })),
       );
   }
 

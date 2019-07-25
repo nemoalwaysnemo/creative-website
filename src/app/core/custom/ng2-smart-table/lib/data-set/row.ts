@@ -5,7 +5,7 @@ export class Row {
 
   isSelected: boolean = false;
   isInEditing: boolean = false;
-  cells: Array<Cell> = [];
+  cells: Cell[] = [];
 
 
   constructor(public index: number, protected data: any, protected _dataSet: any) {

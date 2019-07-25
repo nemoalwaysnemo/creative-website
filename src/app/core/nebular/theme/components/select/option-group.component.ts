@@ -32,5 +32,3 @@ export class NbOptionGroupComponent {
     return this.disabled;
   }
 }
-
-

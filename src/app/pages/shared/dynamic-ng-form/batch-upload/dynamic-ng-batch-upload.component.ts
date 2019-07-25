@@ -25,7 +25,7 @@ export class DynamicNGBatchUploadComponent extends DynamicFormControlComponent {
   @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService) {
+              protected validationService: DynamicFormValidationService) {
 
     super(layoutService, validationService);
   }

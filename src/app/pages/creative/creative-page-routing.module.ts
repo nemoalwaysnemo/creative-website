@@ -15,7 +15,8 @@ const routes: Routes = [{
     {
       path: 'asset/:id',
       component: CreativeAssetComponent,
-    }, {
+    },
+    {
       path: '',
       component: CreativeHomeComponent,
       pathMatch: 'full',

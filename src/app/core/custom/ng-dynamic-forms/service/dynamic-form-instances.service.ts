@@ -7,11 +7,11 @@ import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
 })
 export class DynamicFormInstancesService {
 
-  protected formControlInstances: { [key: string]: ComponentRef<DynamicFormControl> | Array<ComponentRef<DynamicFormControl> | undefined> } = {};
+  protected formControlInstances: { [key: string]: ComponentRef<DynamicFormControl> | ComponentRef<DynamicFormControl | undefined>[] } = {};
 
   getFormControlInstance(modelId: string, index?: number): ComponentRef<DynamicFormControl> | undefined {
-    const retInstance: ComponentRef<DynamicFormControl> | Array<ComponentRef<DynamicFormControl>> =
-      this.formControlInstances[modelId] as ComponentRef<DynamicFormControl> | Array<ComponentRef<DynamicFormControl>>;
+    const retInstance: ComponentRef<DynamicFormControl> | ComponentRef<DynamicFormControl>[] =
+      this.formControlInstances[modelId] as ComponentRef<DynamicFormControl> | ComponentRef<DynamicFormControl>[];
     if (Array.isArray(retInstance) && index !== undefined) {
       return retInstance[index];
     } else {
@@ -21,7 +21,7 @@ export class DynamicFormInstancesService {
 
   setFormControlInstance(model: DynamicFormControlModel, instance: ComponentRef<DynamicFormControl>, index?: number): void {
     if (index !== undefined) {
-      const arrayRef: Array<ComponentRef<DynamicFormControl>> = this.formControlInstances[model.id] as Array<ComponentRef<DynamicFormControl>> || [];
+      const arrayRef: ComponentRef<DynamicFormControl>[] = this.formControlInstances[model.id] as ComponentRef<DynamicFormControl>[] || [];
       arrayRef[index] = instance;
       this.formControlInstances[model.id] = arrayRef;
     } else {

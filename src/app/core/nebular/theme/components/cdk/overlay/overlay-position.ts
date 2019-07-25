@@ -175,10 +175,10 @@ export class NbGlobalPositionStrategy extends GlobalPositionStrategy {
 @Injectable()
 export class NbPositionBuilderService {
   constructor(@Inject(NB_DOCUMENT) protected document,
-    protected viewportRuler: NbViewportRulerAdapter,
-    protected platform: NbPlatform,
-    protected positionBuilder: NbOverlayPositionBuilder,
-    protected overlayContainer: NbOverlayContainerAdapter) {
+              protected viewportRuler: NbViewportRulerAdapter,
+              protected platform: NbPlatform,
+              protected positionBuilder: NbOverlayPositionBuilder,
+              protected overlayContainer: NbOverlayContainerAdapter) {
   }
 
   global(): NbGlobalPositionStrategy {

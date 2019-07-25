@@ -258,6 +258,7 @@ export function restoreExif(orig: any, resized: any) {
 
   ExifRestorer.getExifArray = function (segments: number[][]) {
     let seg;
+    // tslint:disable-next-line:prefer-for-of
     for (let x = 0; x < segments.length; x++) {
       seg = segments[x];
       if (seg[0] === 255 && seg[1] === 225) { // (ff e1)

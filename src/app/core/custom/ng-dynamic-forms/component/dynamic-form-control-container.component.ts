@@ -75,9 +75,9 @@ export abstract class DynamicFormControlContainerComponent implements OnChanges,
   protected subscriptions: Subscription[] = [];
 
   protected constructor(protected componentFactoryResolver: ComponentFactoryResolver,
-    protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService,
-    protected dynamicFormInstanceService: DynamicFormInstancesService) {
+                        protected layoutService: DynamicFormLayoutService,
+                        protected validationService: DynamicFormValidationService,
+                        protected dynamicFormInstanceService: DynamicFormInstancesService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {

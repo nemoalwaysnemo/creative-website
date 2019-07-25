@@ -1,5 +1,4 @@
-import { Subject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { EventEmitter } from '@angular/core';
 
 import { Deferred, getDeepFromObject } from './helpers';
@@ -71,11 +70,11 @@ export class Grid {
     return getDeepFromObject(this.settings, name, defaultValue);
   }
 
-  getColumns(): Array<Column> {
+  getColumns(): Column[] {
     return this.dataSet.getColumns();
   }
 
-  getRows(): Array<Row> {
+  getRows(): Row[] {
     return this.dataSet.getRows();
   }
 
@@ -250,7 +249,7 @@ export class Grid {
     return sortConf;
   }
 
-  getSelectedRows(): Array<any> {
+  getSelectedRows(): any[] {
     return this.dataSet.getRows()
       .filter(r => r.isSelected);
   }

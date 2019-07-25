@@ -185,8 +185,8 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
   protected defaultOptions: NbOAuth2AuthStrategyOptions = auth2StrategyOptions;
 
   constructor(protected http: HttpClient,
-    protected route: ActivatedRoute,
-    @Inject(NB_WINDOW) protected window: any) {
+              protected route: ActivatedRoute,
+              @Inject(NB_WINDOW) protected window: any) {
     super();
   }
 
@@ -402,7 +402,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
       const item = part.split('=');
       acc[item[0]] = decodeURIComponent(item[1]);
       return acc;
-    }, {}) : {};
+    },                                   {}) : {};
   }
 
   protected urlEncodeParameters(params: any): string {

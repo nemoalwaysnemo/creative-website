@@ -275,8 +275,8 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   private responsiveState = NbSidebarComponent.RESPONSIVE_STATE_PC;
 
   constructor(private sidebarService: NbSidebarService,
-    private themeService: NbThemeService,
-    private element: ElementRef) {
+              private themeService: NbThemeService,
+              private element: ElementRef) {
   }
 
 

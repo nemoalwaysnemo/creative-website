@@ -32,7 +32,7 @@ export abstract class DynamicFormControlComponent implements DynamicFormControl 
   focus: EventEmitter<any>;
 
   protected constructor(protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService) { }
+                        protected validationService: DynamicFormValidationService) { }
 
   get control(): AbstractControl | never {
 

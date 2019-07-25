@@ -16,9 +16,9 @@ import { Location } from '@angular/common';
 export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit {
 
   constructor(protected dialogService: PreviewDialogService,
-    private documentViewService: DocumentViewService,
-    private router: Router,
-    private location: Location) {
+              private documentViewService: DocumentViewService,
+              private router: Router,
+              private location: Location) {
     super(dialogService);
   }
   @Input() backButton: boolean;

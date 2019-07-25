@@ -64,9 +64,9 @@ export interface NbAuthTokenClass<T = NbAuthToken> {
 }
 
 export function nbAuthCreateToken<T extends NbAuthToken>(tokenClass: NbAuthTokenClass<T>,
-  token: any,
-  strategyName: string,
-  createdAt?: Date) {
+                                                         token: any,
+                                                         strategyName: string,
+                                                         createdAt?: Date) {
   return new tokenClass(token, strategyName, createdAt);
 }
 
@@ -106,8 +106,8 @@ export class NbAuthSimpleToken extends NbAuthToken {
   static NAME = 'nb:auth:simple:token';
 
   constructor(protected readonly token: any,
-    protected readonly strategyName: string,
-    protected createdAt?: Date) {
+              protected readonly strategyName: string,
+              protected createdAt?: Date) {
     super();
     try {
       this.parsePayload();
@@ -231,8 +231,8 @@ export class NbAuthOAuth2Token extends NbAuthSimpleToken {
   static NAME = 'gcl:auth:oauth2:token';
 
   constructor(data: { [key: string]: string | number } | string = {},
-    strategyName: string,
-    createdAt?: Date) {
+              strategyName: string,
+              createdAt?: Date) {
 
     // we may get it as string when retrieving from a storage
     super(prepareOAuth2Token(data), strategyName, createdAt);

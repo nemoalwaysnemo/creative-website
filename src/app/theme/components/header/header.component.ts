@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   // protected goingUp: Subscription = new Subscription();
   // protected goingDown: Subscription = new Subscription();
   constructor(private router: Router, private menuService: NbMenuService,
-    private userService: UserService,
+              private userService: UserService,
   ) { }
   ngOnInit() {
     this.getUser();

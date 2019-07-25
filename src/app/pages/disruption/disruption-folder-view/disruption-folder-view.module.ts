@@ -17,7 +17,8 @@ import { DisruptionFormFolderEditDialogComponent } from './disruption-folder-for
   declarations: [
     DisruptionFolderViewComponent,
     DisruptionFormFolderEditDialogComponent,
-  ], exports: [
+  ],
+  exports: [
     DisruptionFolderViewComponent,
     DisruptionFormFolderEditDialogComponent,
   ],

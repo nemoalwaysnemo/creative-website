@@ -27,9 +27,8 @@ export class DynamicNGRatingComponent extends DynamicFormControlComponent {
   @ViewChild(NgbRating, { static: true }) ngbRating: NgbRating;
 
   constructor(protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService,
-    public config: NgbRatingConfig) {
-
+              protected validationService: DynamicFormValidationService,
+              public config: NgbRatingConfig) {
     super(layoutService, validationService);
   }
 }

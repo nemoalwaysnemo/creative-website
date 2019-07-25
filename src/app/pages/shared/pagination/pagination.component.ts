@@ -66,7 +66,7 @@ export class PaginationComponent implements OnChanges, OnInit {
     return this.totalPage;
   }
 
-  getPages(): Array<number> {
+  getPages(): number[] {
     return this.pages;
   }
 
@@ -80,7 +80,7 @@ export class PaginationComponent implements OnChanges, OnInit {
     }
   }
 
-  protected computePages(currentPage: number = 0, totalPages: number, listLength: number = 6): Array<any> {
+  protected computePages(currentPage: number = 0, totalPages: number, listLength: number = 6): any[] {
     const offset = Math.ceil(listLength / 2);
     let start = currentPage - offset;
     let end = currentPage + offset;
@@ -97,7 +97,7 @@ export class PaginationComponent implements OnChanges, OnInit {
     return this.range(start, end);
   }
 
-  private range(start: number, end: number, step: number = 0, offset: number = 0): Array<number> {
+  private range(start: number, end: number, step: number = 0, offset: number = 0): number[] {
     const len = (Math.abs(end - start) + ((offset || 0) * 2)) / (step || 1) + 1;
     const direction = start < end ? 1 : -1;
     const startingPoint = start - (direction * (offset || 0));

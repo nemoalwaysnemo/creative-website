@@ -45,7 +45,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   toggleBtn(): void {
     this.caseFlag = !this.caseFlag;
-    if ( !this.caseFlag ) {
+    if (!this.caseFlag) {
       this.showType = 'brands';
       this.baseParams$.next(this.buildBrandParams(this.userInfo));
     } else {
