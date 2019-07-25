@@ -3,5 +3,5 @@
   <document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document"></document-image-viewer>
   <document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [document]="document" [storyboard]="storyboard" [autoPlay]="autoPlay"></document-video-viewer>
   <document-audio-viewer *ngSwitchCase="getDocumentViewer(document) === 'audio'" [document]="document"></document-audio-viewer>
-  <document-related-campaign [document]="document"></document-related-campaign>
+  <document-related-campaign *ngIf= "showRelated" [document]="document"></document-related-campaign>
 </div>

@@ -17,9 +17,11 @@ export class DocumentViewerComponent {
 
   @Input() layout: 'dialogSlides' | 'slides' = 'slides';
 
+  @Input() showRelated: boolean = false;
+
   getDocumentViewer(doc: DocumentModel): string {
     let type = 'unkonw';
-     if (doc) {
+    if (doc) {
       if (doc.isVideo()) {
         type = 'video';
       } else if (doc.isAudio()) {
