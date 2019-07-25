@@ -111,8 +111,7 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
 
   @ViewChild('header', { static: true })
   private el: ElementRef;
-  constructor(@Inject(forwardRef(() => NbLayoutComponent)) private layout: NbLayoutComponent,
-              protected scrollService: NbLayoutScrollService,
+  constructor(protected scrollService: NbLayoutScrollService,
               private elementRef: ElementRef,
               private renderer: Renderer2,
   ) {
@@ -136,7 +135,7 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
   set subheader(val: boolean) {
     this.subheaderValue = convertToBoolProperty(val);
     this.fixedValue = false;
-    this.layout.withSubheader = this.subheaderValue;
+    // this.layout.withSubheader = this.subheaderValue;
   }
   ngAfterViewInit() {
     //   this.scrollService.onScroll()
@@ -161,7 +160,7 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
     //       // this.h += y;
     //       this.renderer.setStyle(this.el.nativeElement, 'top', this.h + 'px');
     //     });
-    }
+  }
 }
 
 /**
@@ -407,7 +406,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.themeService.onThemeChange()
       .pipe(
         takeWhile(() => this.alive),
-    )
+      )
       .subscribe((theme: any) => {
         const body = this.document.getElementsByTagName('body')[0];
         if (theme.previous) {
@@ -419,7 +418,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.themeService.onAppendLayoutClass()
       .pipe(
         takeWhile(() => this.alive),
-    )
+      )
       .subscribe((className: string) => {
         this.renderer.addClass(this.elementRef.nativeElement, className);
       });
@@ -427,7 +426,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.themeService.onRemoveLayoutClass()
       .pipe(
         takeWhile(() => this.alive),
-    )
+      )
       .subscribe((className: string) => {
         this.renderer.removeClass(this.elementRef.nativeElement, className);
       });
@@ -436,7 +435,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       this.afterViewInit$
         .pipe(
           takeWhile(() => this.alive),
-      )
+        )
         .subscribe((_) => resolve());
     }));
     this.spinnerService.load();
@@ -444,7 +443,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.rulerService.onGetDimensions()
       .pipe(
         takeWhile(() => this.alive),
-    )
+      )
       .subscribe(({ listener }) => {
         listener.next(this.getDimensions());
         listener.complete();
@@ -453,7 +452,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.scrollService.onGetPosition()
       .pipe(
         takeWhile(() => this.alive),
-    )
+      )
       .subscribe(({ listener }) => {
         listener.next(this.getScrollPosition());
         listener.complete();
@@ -464,7 +463,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       .pipe(
         filter(() => this.restoreScrollTopValue),
         takeWhile(() => this.alive),
-    )
+      )
       .subscribe(() => {
         this.scroll(0, 0);
       });
@@ -473,7 +472,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       .onScrollableChange()
       .pipe(
         filter(() => this.withScrollValue),
-    )
+      )
       .subscribe((scrollable: boolean) => {
         this.overlayScrollBlock = !scrollable;
       });
