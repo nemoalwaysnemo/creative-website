@@ -1,17 +1,17 @@
 
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { DragScrollComponent } from 'ngx-drag-scroll';
-import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination } from '@core/api';
-import { AdvanceSearch } from '@core/api';
+import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { NUXEO_META_INFO } from '@environment/environment';
 @Component({
   selector: 'document-related-campaign',
   styleUrls: ['./document-related-campaign.component.scss'],
   templateUrl: './document-related-campaign.component.html',
 })
-export class DocumentRelatedCampaignComponent implements OnInit {
-  loading = true;
+export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
+  loading: boolean = true;
   private subscription: Subscription = new Subscription();
   @Input() document: DocumentModel;
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
@@ -19,12 +19,16 @@ export class DocumentRelatedCampaignComponent implements OnInit {
 
   constructor(
     private router: Router,
-    protected advanceSearch: AdvanceSearch,
-  ) { }
+    private advanceSearch: AdvanceSearch,
+  ) {
+  }
 
   ngOnInit() {
-    this.relatedDocs.push({ type: '', source: this.document.thumbnailUrl, uid: this.document.uid });
     this.searchRelatedCampaign(this.document);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   getDocumentType(): string {
@@ -39,7 +43,7 @@ export class DocumentRelatedCampaignComponent implements OnInit {
     this.ds.moveRight();
   }
 
-  jumpToDoc(doc) {
+  redirectToDoc(doc) {
     this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/creative/asset/${doc.uid}` } });
   }
 
@@ -47,28 +51,28 @@ export class DocumentRelatedCampaignComponent implements OnInit {
     const params: any = {
       pageSize: 20,
       currentPageIndex: 0,
-      ecm_primaryType: ['App-Library-Image', 'App-Library-Video', 'App-Library-Audio'],
-      'The_Loupe_Main:campaign': doc.get('The_Loupe_Main:campaign'),
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      'The_Loupe_Main:campaign': [doc.get('The_Loupe_Main:campaign')],
     };
     const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
       .subscribe((res: NuxeoPagination) => {
-        const carouselData = [];
-        res.entries.forEach((entrie: DocumentModel) => {
-          if (entrie.fileMimeType) {
-            if (entrie.isVideo()) {
-              carouselData.push({ type: 'video', source: entrie.videoPoster, uid: entrie.uid });
-            } else if (entrie.isAudio) {
-              carouselData.push({ type: 'audio', source: entrie.thumbnailUrl, uid: entrie.uid });
-            } else if (entrie.isPicture()) {
-              carouselData.push({ type: 'img', source: entrie.thumbnailUrl, uid: entrie.uid });
-            } else if (entrie.isPdf()) {
-              carouselData.push({ type: 'pdf', source: entrie.thumbnailUrl, uid: entrie.uid });
-            }
-          }
-        });
-        this.relatedDocs = carouselData;
+        this.relatedDocs = this.wrapAsCarouselData(res.entries);
         this.loading = false;
       });
     this.subscription.add(subscription);
+  }
+
+  wrapAsCarouselData(entries) {
+    const carouselData = [];
+    entries.forEach((entrie: DocumentModel) => {
+      if (entrie.fileMimeType) {
+        if (entrie.isVideo()) {
+          carouselData.push({ source: entrie.videoPoster, uid: entrie.uid });
+        } else if (entrie.isAudio() || entrie.isPicture() || entrie.isPdf()) {
+          carouselData.push({ source: entrie.thumbnailUrl, uid: entrie.uid });
+        }
+      }
+    });
+    return carouselData;
   }
 }

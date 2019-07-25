@@ -2,7 +2,7 @@
   <div *ngIf="document" class="document">
     <section class="general">
       <div class="showcase left">
-        <document-viewer [document]="document"></document-viewer>
+        <document-viewer [document]="document" [showRelated]="true"></document-viewer>
       </div>
       <div class="general_info left">
         <document-metadata-info [document]="document"></document-metadata-info>

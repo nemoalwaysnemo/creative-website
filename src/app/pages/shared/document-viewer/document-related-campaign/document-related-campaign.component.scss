@@ -1,5 +1,8 @@
 @import '../../../../core/nebular/theme/styles/global/breakpoints';
-
+.storyboard {
+  height: 120px;
+  width: 800px;
+}
 .left { float: left; }
 .right { float: right; }
 .clear { clear: both; }
