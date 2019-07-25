@@ -27,9 +27,9 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   showTitle: boolean = false;
 
-  brandsFlag: boolean = true;
+  caseFlag: boolean = true;
 
-  showType: string = 'brands';
+  showType: string = 'showcase';
 
   constructor(
     private userService: UserService,
@@ -44,13 +44,13 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
   }
 
   toggleBtn(): void {
-    this.brandsFlag = !this.brandsFlag;
-    if ( !this.brandsFlag ) {
-      this.showType = 'showcase';
-      this.baseParams$.next(this.buildCaseParams(this.userInfo));
-    } else {
+    this.caseFlag = !this.caseFlag;
+    if ( !this.caseFlag ) {
       this.showType = 'brands';
       this.baseParams$.next(this.buildBrandParams(this.userInfo));
+    } else {
+      this.showType = 'showcase';
+      this.baseParams$.next(this.buildCaseParams(this.userInfo));
     }
   }
 
@@ -58,7 +58,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     this.document = doc;
     if (doc) {
       this.showTitle = true;
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildBrandParams(this.userInfo)); });
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildCaseParams(this.userInfo)); });
     }
   }
 
