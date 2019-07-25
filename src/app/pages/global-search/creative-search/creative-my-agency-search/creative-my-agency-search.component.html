@@ -6,7 +6,7 @@
     <div class="property-info inline-top">
       <h1>{{document?.get('The_Loupe_Main:agency')}}</h1>
       <ul>
-        <li><b>Country:</b> {{document?.get('The_Loupe_Main:country')}}</li>
+        <li><b>Country:</b> {{parseCountry(document?.get('The_Loupe_Main:country'))}}</li>
       </ul>
       <div class="button-group">
         <ng-container [ngSwitch]="showType">

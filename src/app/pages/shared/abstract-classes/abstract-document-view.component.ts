@@ -104,4 +104,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
     return this.queryParamsService.navigate(commands, extras);
   }
 
+  protected parseCountry(list: string[]): string {
+    return list.map((x) => x.split('/').pop()).join(', ');
+  }
 }
