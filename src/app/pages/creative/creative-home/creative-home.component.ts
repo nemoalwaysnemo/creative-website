@@ -1,13 +1,12 @@
+import { Component } from '@angular/core';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { Component, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'creative-home-page',
   styleUrls: ['./creative-home.component.scss'],
   templateUrl: './creative-home.component.html',
 })
-export class CreativeHomeComponent implements OnDestroy {
+export class CreativeHomeComponent {
 
   headline: string = 'This is how we kill boring.';
 
@@ -15,17 +14,13 @@ export class CreativeHomeComponent implements OnDestroy {
 
   placeholder: string = 'Search for campaigns by title, agency, brand, client...';
 
-  private subscription: Subscription = new Subscription();
-
-  scrollToglle: boolean = true;
-
   filters: any = {
     'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
     'the_loupe_main_country_agg': { placeholder: 'County', iteration: true },
     'the_loupe_main_brand_agg': { placeholder: 'Brand' },
     'the_loupe_main_clientName_agg': { placeholder: 'Client' },
-    'app_edges_industry_agg': { placeholder: 'Industry',  iteration: true },
+    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
     'app_edges_backslash_category_agg': { placeholder: 'Category' },
     'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
@@ -38,9 +33,4 @@ export class CreativeHomeComponent implements OnDestroy {
     ecm_fulltext: '',
   };
 
-  constructor() { }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }
