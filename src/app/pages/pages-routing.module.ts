@@ -5,10 +5,10 @@ const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
-    {
-      path: 'knowledge',
-      loadChildren: () => import('./knowledge/knowledge-page.module').then(m => m.KnowledgePageModule),
-    },
+    // {
+    //   path: 'knowledge',
+    //   loadChildren: () => import('./knowledge/knowledge-page.module').then(m => m.KnowledgePageModule),
+    // },
     {
       path: 'creative',
       loadChildren: () => import('./creative/creative-page.module').then(m => m.CreativePageModule),
@@ -35,7 +35,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      redirectTo: 'knowledge',
+      redirectTo: 'creative',
       pathMatch: 'full',
     },
     {

@@ -1,7 +1,7 @@
 
 export const Environment = {
   title: 'Know\\edge',
-  homePath: '/p/knowledge',
+  homePath: '/p/creative',
   appName: 'Creative Library Dev (LTS 2019)',
   nuxeoUrl: '/nuxeo/',
   backslashAppUrl: '/nuxeo/edges',
