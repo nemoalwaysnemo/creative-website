@@ -1,11 +1,8 @@
 @import '../../../../core/nebular/theme/styles/global/breakpoints';
 .storyboard {
   height: 120px;
-  width: 800px;
+  width: 100%;
 }
-.left { float: left; }
-.right { float: right; }
-.clear { clear: both; }
 .prev a,
 .next a {
   display: block;
@@ -41,30 +38,10 @@
   }
   .list-item + .list-item { padding-left: 22px; }
 }
-.app-library-video {
-  .gallery-list {
-    @include media-breakpoint-down(lg) { //992px
-      width: calc(400px - 34px - 44px);
-    }
-    @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-      width: calc(600px - 34px - 44px);
-    }
-    @include media-breakpoint-up(xxl) { //1400px
-      width: calc(949px - 34px - 44px);
-    }
-  }
-}
+.app-library-video,
 .app-disruption-asset {
   .gallery-list {
-    @include media-breakpoint-down(lg) { //992px
-      width: calc(400px - 34px - 44px);
-    }
-    @include media-breakpoint-between(lg, xxl) { //992px - 1400px
-      width: calc(600px - 34px - 44px);
-    }
-    @include media-breakpoint-up(xxl) { //1400px
-      width: calc(820px - 34px - 44px);
-    }
+    width: calc(100% - 34px - 44px);
   }
 }
 .see_all {
