@@ -11,24 +11,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
-            "sourceMap": false,
-            "extractCss": true,
-            "vendorChunk": true,
-            "namedChunks": false,
-            "optimization": true,
-            "buildOptimizer": true,
-            "extractLicenses": false,
             "preserveSymlinks": true,
             "rebaseRootRelativeCssUrls": true,
             "outputPath": "dist/LibraryWebUI",
-            "deployUrl": "/nuxeo/LibraryWebUI/",
-            "baseHref": "/nuxeo/site/LibraryWebUI/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
-            "outputHashing": "all",
             "assets": [
               "src/assets",
               "src/favicon.ico",
@@ -51,35 +40,82 @@
           },
           "configurations": {
             "aws-prod": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "deployUrl": "/nuxeo/LibraryWebUI/",
+              "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.aws-prod.ts"
               }]
             },
             "aws-stg": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "deployUrl": "/nuxeo/LibraryWebUI/",
+              "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.aws-stg.ts"
               }]
             },
             "aws-dev": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "deployUrl": "/nuxeo/LibraryWebUI/",
+              "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.aws-dev.ts"
               }]
             },
             "rails-dev": {
-              "deployUrl": "./",
-              "baseHref": "LibraryWebUI/",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "deployUrl": "LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.rails-dev.ts"
               }]
             },
-            "test-dev": {
-              "sourceMap": true,
-              "deployUrl": "./",
-              "baseHref": "./"
+            "local-dev": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
           }
         },
@@ -90,7 +126,7 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "tbwa-creative-website:build:production"
+              "browserTarget": "tbwa-creative-website:build:aws-prod"
             }
           }
         },

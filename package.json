@@ -15,7 +15,7 @@
     "build:stg": "ng build --c=aws-stg",
     "build:dev": "ng build --c=aws-dev",
     "build:rdev": "ng build --c=rails-dev",
-    "build:test": "ng build --c=test-dev && yarn serve",
+    "build:test": "ng build --c=local-dev && yarn serve",
     "lint": "ng lint",
     "lint:fix": "ng lint tbwa-creative-website --fix",
     "lint:styles": "stylelint ./src/**/*.scss",
