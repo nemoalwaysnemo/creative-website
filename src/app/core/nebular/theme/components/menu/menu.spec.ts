@@ -19,7 +19,7 @@ import { NbMenuComponent } from './menu.component';
   template: `<nb-menu [items]="items" [tag]="menuTag"></nb-menu>`,
 })
 export class SingleMenuTestComponent {
-  constructor (public menuPublicService: NbMenuService) {}
+  constructor(public menuPublicService: NbMenuService) { }
   @Input() items: NbMenuItem[];
   @Input() menuTag: string;
   @ViewChild(NbMenuComponent, { static: true }) menuComponent: NbMenuComponent;
@@ -32,7 +32,7 @@ export class SingleMenuTestComponent {
   `,
 })
 export class DoubleMenusTestComponent {
-  constructor (public menuPublicService: NbMenuService) {}
+  constructor(public menuPublicService: NbMenuService) { }
   @Input() firstMenuItems: NbMenuItem[];
   @Input() secondMenuItems: NbMenuItem[];
   @Input() firstMenuTag: string;
@@ -55,7 +55,7 @@ function createTestBed() {
 
 function createSingleMenuComponent(menuItems, menuTag = 'menu') {
   createTestBed();
-  const fixture = TestBed.createComponent( SingleMenuTestComponent );
+  const fixture = TestBed.createComponent(SingleMenuTestComponent);
   fixture.componentInstance.items = menuItems;
   fixture.componentInstance.menuTag = menuTag;
   const menuService = fixture.componentInstance.menuPublicService;
@@ -63,9 +63,9 @@ function createSingleMenuComponent(menuItems, menuTag = 'menu') {
   return { fixture, menuService };
 }
 
-function createDoubleMenuComponent( firstMenuItems, firstMenuTag, secondMenuItems, secondMenuTag ) {
+function createDoubleMenuComponent(firstMenuItems, firstMenuTag, secondMenuItems, secondMenuTag) {
   createTestBed();
-  const fixture = TestBed.createComponent( DoubleMenusTestComponent );
+  const fixture = TestBed.createComponent(DoubleMenusTestComponent);
   fixture.componentInstance.firstMenuItems = firstMenuItems;
   fixture.componentInstance.secondMenuItems = secondMenuItems;
   fixture.componentInstance.firstMenuTag = firstMenuTag;
@@ -138,7 +138,7 @@ describe('NbMenuItem', () => {
 
   it('should expand child menu items', () => {
     const { fixture } = createSingleMenuComponent([
-      { title: 'Parent item', expanded: true, children: [{  title: 'Child item' }] },
+      { title: 'Parent item', expanded: true, children: [{ title: 'Child item' }] },
     ]);
     const childList = fixture.nativeElement.querySelector('.menu-item > ul.menu-items');
     expect(childList.classList).toContain('expanded');
@@ -165,10 +165,10 @@ describe('menu services', () => {
 
   it('should operate with menu by tag', () => {
     const { fixture, menuService } = createDoubleMenuComponent(
-      [{ title: 'Home'}],
+      [{ title: 'Home' }],
       'menuFirst',
-      [{ title: 'Home'}],
-      'menuSecond' );
+      [{ title: 'Home' }],
+      'menuSecond');
     const itemToAdd = { title: 'Added item' };
     const initialFirstMenuItemsCount = fixture.nativeElement
       .querySelector('nb-menu:first-child')
@@ -204,7 +204,7 @@ describe('menu services', () => {
 
   it('should get selected menu item', (done) => {
     const selectedItem = { title: 'Menu item selected', selected: true };
-    const { menuService } = createSingleMenuComponent([{ title: 'Menu item not selected' }, selectedItem ]);
+    const { menuService } = createSingleMenuComponent([{ title: 'Menu item not selected' }, selectedItem]);
     menuService.getSelectedItem('menu')
       .pipe(take(1))
       .subscribe((menuBag: NbMenuBag) => {

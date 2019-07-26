@@ -1,7 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
-import { DocumentModel } from '@core/api';
-import { NuxeoPermission } from '@core/api';
+import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
 import { NUXEO_PATH_INFO } from '@environment/environment';
@@ -60,13 +59,12 @@ export class DisruptionFolderViewComponent {
   goBack(): void {
     const rootPath: string = NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH;
     const splitPath: string = this.doc.path.split(rootPath)[1];
-    const childSplitPath: Array<string> = splitPath.split('/');
+    const childSplitPath: string[] = splitPath.split('/');
 
-    if ( childSplitPath.length < 2 ) {
+    if (childSplitPath.length < 2) {
       this.router.navigate(['p/redirect'], { queryParams: { url: `/p/disruption/Disruption How Tos` } });
     } else {
       this.router.navigate(['p/redirect'], { queryParams: { url: `/p/disruption/Disruption How Tos/folder/${this.doc.parentRef}` } });
     }
   }
 }
-

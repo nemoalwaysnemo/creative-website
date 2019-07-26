@@ -7,10 +7,13 @@ import { NbSidebarService } from '@core/nebular/theme';
   `,
 })
 export class KnowledgePageComponent implements OnInit, OnDestroy {
-  constructor( protected sidebarService: NbSidebarService ) {}
+
+  constructor(protected sidebarService: NbSidebarService) { }
+
   ngOnInit() {
     this.sidebarService.closeAllBars(true);
   }
+
   ngOnDestroy() {
     this.sidebarService.closeAllBars(false);
   }

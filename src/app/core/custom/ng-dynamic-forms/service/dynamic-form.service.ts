@@ -38,8 +38,8 @@ export class DynamicFormService {
   constructor(private validationService: DynamicFormValidationService) { }
 
   private createAbstractControlOptions(validatorsConfig: DynamicValidatorsConfig | null = null,
-    asyncValidatorsConfig: DynamicValidatorsConfig | null = null,
-    updateOn: any | null = null): AbstractControlOptions {
+                                       asyncValidatorsConfig: DynamicValidatorsConfig | null = null,
+                                       updateOn: any | null = null): AbstractControlOptions {
 
     return {
       asyncValidators: asyncValidatorsConfig !== null ? this.validationService.getAsyncValidators(asyncValidatorsConfig) : null,
@@ -65,7 +65,7 @@ export class DynamicFormService {
   }
 
   createFormGroup(formModel: DynamicFormModel, options: AbstractControlOptions | null = null,
-    parent: DynamicPathable | null = null): FormGroup {
+                  parent: DynamicPathable | null = null): FormGroup {
 
     const controls: { [controlId: string]: AbstractControl; } = {};
     formModel.forEach(model => {
@@ -127,7 +127,7 @@ export class DynamicFormService {
   }
 
   insertFormGroupControl(index: number, formGroup: FormGroup, formModel: DynamicUnionFormModel,
-    ...models: DynamicFormModel): void {
+                         ...models: DynamicFormModel): void {
 
     const parent = formModel instanceof DynamicFormGroupModel ? formModel : null,
       controls = this.createFormGroup(models, null, parent).controls;

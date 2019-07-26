@@ -42,7 +42,7 @@ export class ServerDataSource extends LocalDataSource {
    * @param res
    * @returns {any}
    */
-  protected extractDataFromResponse(res: any): Array<any> {
+  protected extractDataFromResponse(res: any): any[] {
     const rawData = res.body;
     const data = !!this.conf.dataKey ? getDeepFromObject(rawData, this.conf.dataKey, []) : rawData;
 

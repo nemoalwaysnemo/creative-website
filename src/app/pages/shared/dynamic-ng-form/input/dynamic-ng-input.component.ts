@@ -24,7 +24,7 @@ export class DynamicNGInputComponent extends DynamicFormControlComponent {
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
   constructor(protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService) {
+              protected validationService: DynamicFormValidationService) {
 
     super(layoutService, validationService);
   }

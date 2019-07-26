@@ -12,7 +12,8 @@ const routes: Routes = [{
     {
       path: '404',
       component: NotFoundComponent,
-    }, {
+    },
+    {
       path: 'playground',
       component: PlaygroundComponent,
     },

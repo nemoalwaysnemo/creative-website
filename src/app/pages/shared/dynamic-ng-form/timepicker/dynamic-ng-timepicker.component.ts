@@ -27,8 +27,8 @@ export class DynamicNGTimePickerComponent extends DynamicFormControlComponent {
   @ViewChild(NgbTimepicker, { static: true }) ngbTimePicker: NgbTimepicker;
 
   constructor(protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService,
-    public config: NgbTimepickerConfig) {
+              protected validationService: DynamicFormValidationService,
+              public config: NgbTimepickerConfig) {
 
     super(layoutService, validationService);
   }

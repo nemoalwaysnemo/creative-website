@@ -6,22 +6,22 @@ import { deepExtend } from '../../helpers';
 
 export class LocalDataSource extends DataSource {
 
-  protected data: Array<any> = [];
-  protected filteredAndSorted: Array<any> = [];
-  protected sortConf: Array<any> = [];
+  protected data: any[] = [];
+  protected filteredAndSorted: any[] = [];
+  protected sortConf: any[] = [];
   protected filterConf: any = {
     filters: [],
     andOperator: true,
   };
   protected pagingConf: any = {};
 
-  constructor(data: Array<any> = []) {
+  constructor(data: any[] = []) {
     super();
 
     this.data = data;
   }
 
-  load(data: Array<any>): Promise<any> {
+  load(data: any[]): Promise<any> {
     this.data = data;
 
     return super.load(data);
@@ -122,7 +122,7 @@ export class LocalDataSource extends DataSource {
    * @param doEmit
    * @returns {LocalDataSource}
    */
-  setSort(conf: Array<any>, doEmit = true): LocalDataSource {
+  setSort(conf: any[], doEmit = true): LocalDataSource {
     if (conf !== null) {
 
       conf.forEach((fieldConf) => {
@@ -148,7 +148,7 @@ export class LocalDataSource extends DataSource {
    * @param doEmit
    * @returns {LocalDataSource}
    */
-  setFilter(conf: Array<any>, andOperator = true, doEmit = true): LocalDataSource {
+  setFilter(conf: any[], andOperator = true, doEmit = true): LocalDataSource {
     if (conf && conf.length > 0) {
       conf.forEach((fieldConf) => {
         this.addFilter(fieldConf, andOperator, false);
@@ -212,7 +212,7 @@ export class LocalDataSource extends DataSource {
     return this.pagingConf;
   }
 
-  protected prepareData(data: Array<any>): Array<any> {
+  protected prepareData(data: any[]): any[] {
     data = this.filter(data);
     data = this.sort(data);
     this.filteredAndSorted = data.slice(0);
@@ -220,7 +220,7 @@ export class LocalDataSource extends DataSource {
     return this.paginate(data);
   }
 
-  protected sort(data: Array<any>): Array<any> {
+  protected sort(data: any[]): any[] {
     if (this.sortConf) {
       this.sortConf.forEach((fieldConf) => {
         data = LocalSorter
@@ -231,7 +231,7 @@ export class LocalDataSource extends DataSource {
   }
 
   // TODO: refactor?
-  protected filter(data: Array<any>): Array<any> {
+  protected filter(data: any[]): any[] {
     if (this.filterConf.filters) {
       if (this.filterConf.andOperator) {
         this.filterConf.filters.forEach((fieldConf: any) => {
@@ -257,7 +257,7 @@ export class LocalDataSource extends DataSource {
     return data;
   }
 
-  protected paginate(data: Array<any>): Array<any> {
+  protected paginate(data: any[]): any[] {
     if (this.pagingConf && this.pagingConf['page'] && this.pagingConf['perPage']) {
       data = LocalPager.paginate(data, this.pagingConf['page'], this.pagingConf['perPage']);
     }

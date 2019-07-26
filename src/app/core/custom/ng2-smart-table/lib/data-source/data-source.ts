@@ -1,5 +1,4 @@
-import { Subject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 export abstract class DataSource {
 
@@ -19,7 +18,7 @@ export abstract class DataSource {
     this.emitOnChanged('refresh');
   }
 
-  load(data: Array<any>): Promise<any> {
+  load(data: any[]): Promise<any> {
     this.emitOnChanged('load');
     return Promise.resolve();
   }
@@ -75,13 +74,13 @@ export abstract class DataSource {
     return Promise.resolve();
   }
 
-  setSort(conf: Array<any>, doEmit?: boolean) {
+  setSort(conf: any[], doEmit?: boolean) {
     if (doEmit) {
       this.emitOnChanged('sort');
     }
   }
 
-  setFilter(conf: Array<any>, andOperator?: boolean, doEmit?: boolean) {
+  setFilter(conf: any[], andOperator?: boolean, doEmit?: boolean) {
     if (doEmit) {
       this.emitOnChanged('filter');
     }

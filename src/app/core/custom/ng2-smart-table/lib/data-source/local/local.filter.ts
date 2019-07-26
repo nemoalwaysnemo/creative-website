@@ -4,7 +4,7 @@ export class LocalFilter {
     return value.toString().toLowerCase().includes(search.toString().toLowerCase());
   }
 
-  static filter(data: Array<any>, field: string, search: string, customFilter?: Function): Array<any> {
+  static filter(data: any[], field: string, search: string, customFilter?: Function): any[] {
     const filter: Function = customFilter ? customFilter : this.FILTER;
 
     return data.filter((el) => {

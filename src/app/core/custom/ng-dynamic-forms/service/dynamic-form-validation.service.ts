@@ -11,11 +11,11 @@ import { DYNAMIC_VALIDATORS, Validator, ValidatorFactory, ValidatorsToken } from
 export class DynamicFormValidationService {
 
   constructor(@Optional() @Inject(NG_VALIDATORS) private validators: ValidatorFn[],
-    @Optional() @Inject(NG_ASYNC_VALIDATORS) private asyncValidators: AsyncValidatorFn[],
-    @Optional() @Inject(DYNAMIC_VALIDATORS) private dynamicValidators: Map<string, Validator | ValidatorFactory>) { }
+              @Optional() @Inject(NG_ASYNC_VALIDATORS) private asyncValidators: AsyncValidatorFn[],
+              @Optional() @Inject(DYNAMIC_VALIDATORS) private dynamicValidators: Map<string, Validator | ValidatorFactory>) { }
 
   private getValidatorFn(validatorName: string, validatorArgs: any = null,
-    validatorsToken: ValidatorsToken = this.validators): Validator | never {
+                         validatorsToken: ValidatorsToken = this.validators): Validator | never {
     let validatorFn: ValidatorFactory | Validator | undefined;
     if (Validators.hasOwnProperty(validatorName)) { // Built-in Angular Validators
       validatorFn = (Validators as any)[validatorName];
@@ -36,7 +36,7 @@ export class DynamicFormValidationService {
   }
 
   private getValidatorFns(validatorsConfig: DynamicValidatorsConfig,
-    validatorsToken: ValidatorsToken = this.validators): Validator[] {
+                          validatorsToken: ValidatorsToken = this.validators): Validator[] {
     let validatorFns: Validator[] = [];
     if (isObject(validatorsConfig)) {
       validatorFns = Object.keys(validatorsConfig).map(validatorConfigKey => {
@@ -80,7 +80,7 @@ export class DynamicFormValidationService {
   }
 
   updateValidators(validatorsConfig: DynamicValidatorsConfig | null, control: AbstractControl,
-    model: DynamicFormControlModel): void {
+                   model: DynamicFormControlModel): void {
 
     model.validators = validatorsConfig;
 
@@ -94,7 +94,7 @@ export class DynamicFormValidationService {
   }
 
   updateAsyncValidators(asyncValidatorsConfig: DynamicValidatorsConfig | null, control: AbstractControl,
-    model: DynamicFormControlModel): void {
+                        model: DynamicFormControlModel): void {
 
     model.asyncValidators = asyncValidatorsConfig;
 

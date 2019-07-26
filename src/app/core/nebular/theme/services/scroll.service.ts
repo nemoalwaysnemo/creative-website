@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, Subscriber } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 
 /**
  * Scroll position type
@@ -32,20 +31,6 @@ export interface NbScrollPosition {
  */
 @Injectable()
 export class NbLayoutScrollService {
-
-  private sectionScroll$ = new Subject<{ tag: boolean }>();
-
-  constructor(private _scrollToService: ScrollToService) { }
-
-  public triggerScrollTo(destination: string, offset: number = -129) {
-    const config: ScrollToConfigOptions = {
-      target: destination,
-      duration: 300,
-      offset: offset,
-    };
-
-    this._scrollToService.scrollTo(config);
-  }
   private scrollPositionReq$ = new Subject<any>();
   private manualScroll$ = new Subject<NbScrollPosition>();
   private scroll$ = new Subject<any>();
@@ -128,13 +113,5 @@ export class NbLayoutScrollService {
 
   stopScrollListener(stop: boolean) {
     this.scrollListening$.next({ stop: stop });
-  }
-
-  onSectionScroll(): Observable<{ tag: boolean }> {
-    return this.sectionScroll$.pipe(share());
-  }
-
-  runSectionScroll(tag?: boolean) {
-    this.sectionScroll$.next({ tag: tag });
   }
 }

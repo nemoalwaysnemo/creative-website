@@ -10,7 +10,8 @@ import { IntelligenceFolderViewComponent } from './intelligence-folder-view.comp
   ],
   declarations: [
     IntelligenceFolderViewComponent,
-  ], exports: [
+  ],
+  exports: [
     IntelligenceFolderViewComponent,
   ],
 })

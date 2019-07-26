@@ -38,10 +38,10 @@ export class CreativeLayoutComponent implements OnDestroy {
   private alive: boolean = true;
   currentTheme: string;
   constructor(protected stateService: StateService,
-    protected menuService: NbMenuService,
-    protected themeService: NbThemeService,
-    protected bpService: NbMediaBreakpointsService,
-    protected sidebarService: NbSidebarService) {
+              protected menuService: NbMenuService,
+              protected themeService: NbThemeService,
+              protected bpService: NbMediaBreakpointsService,
+              protected sidebarService: NbSidebarService) {
     this.sidebarService.onHideAllBarsonSidebar()
       .subscribe((data: { close: boolean }) => {
         if (data.close) {

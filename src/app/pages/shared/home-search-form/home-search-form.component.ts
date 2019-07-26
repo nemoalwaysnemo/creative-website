@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
-import { NbLayoutScrollService } from '@core/nebular/theme/services/scroll.service.ts';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { AbstractSearchFormComponent } from '../global-search-form/abstract-search-form.component';
 
@@ -40,7 +39,6 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
     aggregates: {},
   };
 
-  forceStopScoll: boolean = false;
   preventDocHide: boolean = false;
   isInitialSearch: boolean = true;
 
@@ -63,7 +61,6 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
     protected formBuilder: FormBuilder,
     protected advanceSearch: AdvanceSearch,
     protected googleAnalyticsService: GoogleAnalyticsService,
-    protected scrollService: NbLayoutScrollService,
     protected queryParamsService: SearchQueryParamsService,
     protected activatedRoute: ActivatedRoute,
   ) {
@@ -84,19 +81,12 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
 
   show(): void {
     this.documents = this.isInitialSearch ? this.documents = [] : this.results;
-    if (this.documents && this.documents.length > 0) {
-      this.stopSectionScroll();
-    }
   }
 
   hide(): void {
-    if (!this.forceStopScoll) {
-      this.startSectionScroll();
-    }
     if (!this.preventDocHide) {
       this.documents = [];
     }
-    this.forceStopScoll = false;
     this.preventDocHide = false;
   }
 
@@ -131,21 +121,9 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
     this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
-  private stopSectionScroll() {
-    this.scrollService.runSectionScroll(false);
-  }
-
-  private startSectionScroll() {
-    this.scrollService.runSectionScroll(true);
-  }
-
   toggleFilter(): void {
     if (!this.submitted) {
       this.showFilter = !this.showFilter;
-    }
-    if (this.showFilter) {
-      this.stopSectionScroll();
-      this.forceStopScoll = true;
     }
     this.preventDocHide = true;
   }
@@ -157,9 +135,6 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
       filter((params: SearchParams) => params.params && Object.keys(params.params).length > 0),
       switchMap((params: SearchParams) => this.performSearch(params)),
     ).subscribe((res: SearchResponse) => {
-      if (res.response.entries.length > 0) {
-        this.stopSectionScroll();
-      }
       this.results = res.response.entries;
       const searchText = !!res.searchParams['ecm_fulltext'];
       const searchFilter = Object.keys(res.searchParams).filter((key: string) => key.includes('_agg')).some((agg: string) => !!this.filters[agg]);

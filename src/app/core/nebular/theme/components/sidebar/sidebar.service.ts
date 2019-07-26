@@ -19,7 +19,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
  */
 @Injectable()
 export class NbSidebarService {
-  constructor( private deviceService: DeviceDetectorService ) { }
+  constructor(private deviceService: DeviceDetectorService) { }
   private toggle$ = new Subject<{ compact: boolean, tag: string }>();
   private expand$ = new Subject<{ tag: string }>();
   private collapse$ = new Subject<{ tag: string }>();
@@ -36,7 +36,7 @@ export class NbSidebarService {
     return this.hideAllBars$.pipe(share());
   }
 
-  closeAllBars (close?: boolean) {
+  closeAllBars(close?: boolean) {
     this.hideAllBars$.next({ close: close });
   }
 
@@ -45,7 +45,7 @@ export class NbSidebarService {
   }
 
   toggleSidebar(tag?: boolean) {
-    setTimeout(() =>  this.sidebarToggle$.next({ tag }), 200);
+    setTimeout(() => this.sidebarToggle$.next({ tag }), 200);
   }
 
   onSidebarOpen(): Observable<{ tag: boolean }> {
@@ -66,8 +66,8 @@ export class NbSidebarService {
   }
 
   hideLater(tag?: string) {
-    if ( this.isDesktopDevice ) {
-      if ( !this.waitingHiding ) {
+    if (this.isDesktopDevice) {
+      if (!this.waitingHiding) {
         this.waitingHiding = true;
         this.sidebarTimeId = setTimeout(() => {
           this.collapse(tag);
@@ -78,7 +78,7 @@ export class NbSidebarService {
     }
   }
   clearSidebarHiding() {
-    if ( this.sidebarTimeId ) {
+    if (this.sidebarTimeId) {
       clearTimeout(this.sidebarTimeId);
       this.waitingHiding = false;
     }

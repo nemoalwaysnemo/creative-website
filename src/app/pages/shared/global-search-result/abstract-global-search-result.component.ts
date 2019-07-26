@@ -92,7 +92,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   protected requestCampaignTitle(docs: DocumentModel[]): Observable<DocumentModel[]> {
     const ids = [];
-    docs.forEach( (doc: DocumentModel) => {
+    docs.forEach((doc: DocumentModel) => {
       if (doc.get('The_Loupe_Main:campaign')) ids.push(doc.get('The_Loupe_Main:campaign'));
     });
 
@@ -103,7 +103,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
         pageSize: 999,
       };
 
-      return this.advanceSearch.request(new NuxeoPageProviderParams(params), new NuxeoRequestOptions({schemas: ['The_Loupe_Main']})).pipe(
+      return this.advanceSearch.request(new NuxeoPageProviderParams(params), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] })).pipe(
         map((response: NuxeoPagination) => {
           const listNew: any = {};
           response.entries.forEach((resDoc: DocumentModel) => { listNew[resDoc.uid] = resDoc.title; });

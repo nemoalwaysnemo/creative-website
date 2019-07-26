@@ -81,9 +81,9 @@ export class DynamicNGFormControlContainerComponent extends DynamicFormControlCo
   @ViewChild('componentViewContainer', { static: true, read: ViewContainerRef }) componentViewContainerRef: ViewContainerRef;
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver,
-    protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService,
-    protected dynamicFormInstancesService: DynamicFormInstancesService) {
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService,
+              protected dynamicFormInstancesService: DynamicFormInstancesService) {
 
     super(componentFactoryResolver, layoutService, validationService, dynamicFormInstancesService);
   }

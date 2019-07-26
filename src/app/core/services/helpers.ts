@@ -175,8 +175,10 @@ export function b64decode(str: string): string {
     // initialize result and counters
     let bc: number = 0, bs: any, buffer: any, idx: number = 0;
     // get next character
+    // tslint:disable-next-line:no-conditional-assignment
     buffer = str.charAt(idx++);
     // character found in table? initialize bit storage and add its ascii value;
+    // tslint:disable-next-line:no-conditional-assignment
     ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
       // and if not first of each 4 characters,
       // convert the first 8 bits to one ascii character
@@ -195,7 +197,7 @@ export function b64DecodeUnicode(str: any): string {
   }).join(''));
 }
 
-export function range(start: number, end: number, step: number = 0, offset: number = 0): Array<any> {
+export function range(start: number, end: number, step: number = 0, offset: number = 0): any[] {
   const len = (Math.abs(end - start) + ((offset || 0) * 2)) / (step || 1) + 1;
   const direction = start < end ? 1 : -1;
   const startingPoint = start - (direction * (offset || 0));

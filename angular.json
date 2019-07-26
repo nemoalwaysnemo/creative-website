@@ -49,6 +49,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "deployUrl": "/nuxeo/LibraryWebUI/",
+              "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.aws-prod.ts"
@@ -64,6 +66,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "deployUrl": "/nuxeo/LibraryWebUI/",
+              "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.aws-stg.ts"
@@ -79,6 +83,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "deployUrl": "/nuxeo/LibraryWebUI/",
+              "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.aws-dev.ts"
@@ -94,10 +100,22 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "deployUrl": "LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.rails-dev.ts"
               }]
+            },
+            "local-dev": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
           }
         },
@@ -108,7 +126,7 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "tbwa-creative-website:build:production"
+              "browserTarget": "tbwa-creative-website:build:aws-prod"
             }
           }
         },

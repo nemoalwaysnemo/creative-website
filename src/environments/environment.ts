@@ -2,7 +2,7 @@
 
 export const Environment = {
   title: 'Know\\edge',
-  homePath: '/p/knowledge',
+  homePath: '/p/creative',
   appName: 'Creative Library Dev',
   nuxeoUrl: 'http://localhost:8080/nuxeo/',
   // nuxeoUrl: 'https://knowledge.tbwa.com/nuxeo/',

@@ -259,6 +259,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   }
 
   getFileFilterFailName(file: File): string | undefined {
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.filters.length; i++) {
       if (!this.filters[i].fn.call(this, file)) {
         return this.filters[i].name;
