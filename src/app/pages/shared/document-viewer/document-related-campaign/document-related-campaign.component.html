@@ -4,11 +4,12 @@
     <div *ngIf="relatedDocs && relatedDocs.length !== 0">
       <div drag-scroll-item *ngFor="let relatedDoc of relatedDocs" (click)="redirectToDoc(relatedDoc)"
         [title]="relatedDoc.title" class="list-item">
-        <ng-container>
           <img style="width: 125px; height: 125px;" [src]="relatedDoc.source" />
-        </ng-container>
       </div>
     </div>
   </drag-scroll>
   <div class="next left" (click)="moveRight()"><a href="javascript:void(0)"></a></div>
+  <div *ngIf="!loading && relatedDocs && relatedDocs.length === 0" class="thumbnail-view empty text-center">
+    <span class="empty-data">No data found</span>
+  </div>
 </div>

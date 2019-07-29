@@ -53,7 +53,7 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  wrapAsCarouselData(entries) {
+  private wrapAsCarouselData(entries) {
     const carouselData = [];
     entries.forEach((entrie: DocumentModel) => {
       if (entrie.fileMimeType) {
