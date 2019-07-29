@@ -4,7 +4,7 @@
       <div *ngIf="relatedDocs && relatedDocs.length !== 0">
         <div drag-scroll-item *ngFor="let relatedDoc of relatedDocs" (click)="redirectToDoc(relatedDoc)"
           [title]="relatedDoc.title" class="list-item">
-            <img style="width: 125px; height: 125px;" [src]="relatedDoc.source" />
+            <img style="width: 125px;" [src]="relatedDoc.source" />
         </div>
       </div>
     </drag-scroll>
