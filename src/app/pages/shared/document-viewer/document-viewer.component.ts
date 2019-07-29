@@ -1,11 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'document-viewer',
   styleUrls: ['./document-viewer.component.scss'],
   templateUrl: './document-viewer.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentViewerComponent {
 
