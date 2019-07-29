@@ -44,6 +44,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
   private searchDocuments(doc: DocumentModel): void {
     this.loading = true;
     this.params.the_loupe_main_agency = doc.get('The_Loupe_Main:agency');
+    this.params.the_loupe_main_brand_not_in = `["${doc.get('The_Loupe_Main:brand')}"]`;
     this.params.ecm_uuid_not_eq = doc.uid;
     const subscription = this.advanceSearch.request(this.params)
       .subscribe((res: NuxeoPagination) => {

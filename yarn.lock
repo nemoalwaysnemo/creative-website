@@ -566,10 +566,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ng-select/ng-select@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-3.0.3.tgz#c57ec23e953000d84c1fd3a449bdb0e38811597d"
-  integrity sha512-x+qAi/RHJrgOO8V9a88LVwFBdsgyr/Hm4nLjW/mxUAdMJRKRsacEt4DCJid5ul4gDt/Aqym/rvHpQaP+JWtRsQ==
+"@ng-select/ng-select@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-3.0.4.tgz#9549279c6c5b76aafdae83a1440bf7d71ff631da"
+  integrity sha512-GYKGfUHeaJT9faxiKD8FjfUbL1JNEqSaLND570YcttRjN95o+DnH1GFLKUwZLrO8KB1R90aCR9B2NJ+J9fmOmw==
   dependencies:
     tslib "^1.9.0"
 
@@ -6736,10 +6736,10 @@ ngx-device-detector@1.3.9:
   dependencies:
     tslib "^1.9.0"
 
-ngx-drag-scroll@^8.0.0-beta.1:
-  version "8.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/ngx-drag-scroll/-/ngx-drag-scroll-8.0.0-beta.1.tgz#3cc6bc6f7a155f49296041104e59d3db923353c5"
-  integrity sha512-5JonQMGVDB5qcUp2qNqt10v49ggvXBKemAKcQBebkKinEeUikXxoKWyrQOFxASfvOPNxOtj6RGXBS7TgGSwftw==
+ngx-drag-scroll@^8.0.0-beta.2:
+  version "8.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/ngx-drag-scroll/-/ngx-drag-scroll-8.0.0-beta.2.tgz#caa84f267b645e9d96d20edf9ac5e2ddf391a4f7"
+  integrity sha512-HRxcginx9HNO7Jv0MydvEkh2vmtPocu9GUqRgU5c0Q3vikDNXAcDv7KDjLK9kicmvfpXE+3rzuZeYln77/2CmA==
   dependencies:
     tslib "^1.9.0"
 
@@ -10289,10 +10289,10 @@ vfile@^3.0.0:
     unist-util-stringify-position "^1.0.0"
     vfile-message "^1.0.0"
 
-videogular2@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/videogular2/-/videogular2-7.0.0.tgz#b3e9e539af71f8adb2d28787e7b938d245b358ed"
-  integrity sha512-+T+GqsAp4nXDyhJvAZMwpeLoF72V8THOcEFJNr945yfN6TcibKn+xLJNUejDCLV26U+9oUlnHauXQgXhS3XSUg==
+videogular2@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/videogular2/-/videogular2-7.0.1.tgz#f13306a21396e32f775b9910e7b85dc943f3d4d6"
+  integrity sha512-nWsOGmyZEodK61ahF7EzWWoKn9DqsBdNRmvsZ5uz7jDgbEavABxWwgf4fWrHDgbizBNc9/VuyG5OwPZqkaW56w==
 
 viz.js@^1.8.0:
   version "1.8.2"
@@ -10805,7 +10805,7 @@ yn@^3.0.0:
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.0.tgz#fcbe2db63610361afcc5eb9e0ac91e976d046114"
   integrity sha512-kKfnnYkbTfrAdd0xICNFw7Atm8nKpLcLv9AZGEt+kczL/WQVai4e2V6ZN8U/O+iI6WrNuJjNNOyu4zfhl9D3Hg==
 
-zone.js@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.9.1.tgz#e37c6e5c54c13fae4de26b5ffe8d8e9212da6d9b"
-  integrity sha512-GkPiJL8jifSrKReKaTZ5jkhrMEgXbXYC+IPo1iquBjayRa0q86w3Dipjn8b415jpitMExe9lV8iTsv8tk3DGag==
+zone.js@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.10.0.tgz#dbaa5cf2889e3f92f903de1d8a6edabdc8d4da69"
+  integrity sha512-dxEcxkKgOj5kNBcngPmeu9VV0PrMPd2aJXX5TDX/MKOITusSzYNjZPs1EVSsLywvdThRVwsEqUi2BAEYeuRP2Q==
