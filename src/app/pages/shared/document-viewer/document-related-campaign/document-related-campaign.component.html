@@ -1,10 +1,12 @@
 <div class="storyboard {{getDocumentType()}}" [nbSpinner]="loading" nbSpinnerStatus="disabled">
-  <drag-scroll class="gallery-list left" drag-scroll-y-disabled="true" scrollbar-hidden="true" #nav>
+  <drag-scroll class="gallery-list" drag-scroll-y-disabled="true" scrollbar-hidden="true" #nav>
     <div *ngIf="relatedDocs && relatedDocs.length !== 0">
       <div class="prev left" (click)="moveLeft()"><a href="javascript:void(0)"></a></div>
-      <div drag-scroll-item *ngFor="let relatedDoc of relatedDocs" (click)="redirectToDoc(relatedDoc)"
-        [title]="relatedDoc.title" class="list-item">
-        <img style="width: 125px; height: 125px;" [src]="relatedDoc.source" />
+      <div class="list left">
+        <div drag-scroll-item *ngFor="let relatedDoc of relatedDocs" (click)="redirectToDoc(relatedDoc)"
+          [title]="relatedDoc.title" class="list-item">
+          <img style="width: 125px;" [src]="relatedDoc.source" />
+        </div>
       </div>
       <div class="next left" (click)="moveRight()"><a href="javascript:void(0)"></a></div>
     </div>
