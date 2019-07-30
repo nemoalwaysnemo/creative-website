@@ -36,7 +36,7 @@ export class CreativeMyBrandAssetSearchResultComponent {
         uid: doc.uid,
         title: doc.title,
         productionDate: doc.get('The_Loupe_ProdCredits:production_date'),
-        campaign: doc.get('The_Loupe_Main:campaign_title'),
+        campaign: doc.get('The_Loupe_Main:campaign_title_'),
         ceativeDirector: doc.get('The_Loupe_Credits:creativeDirector'),
         artDirector: doc.get('The_Loupe_Credits:artProducer'),
         producer: doc.get('The_Loupe_Credits:producer'),
