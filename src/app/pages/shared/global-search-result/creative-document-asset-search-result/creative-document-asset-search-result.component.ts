@@ -27,6 +27,10 @@ export class CreativeDocumentAssetSearchResultComponent {
         title: 'Title',
         sort: false,
       },
+      brand: {
+        title: 'Brand',
+        sort: false,
+      },
       productionDate: {
         title: 'Production Date',
         sort: false,
@@ -46,10 +50,6 @@ export class CreativeDocumentAssetSearchResultComponent {
         title: 'Art Director ',
         sort: false,
       },
-      producer: {
-        title: 'Producer',
-        sort: false,
-      },
       jobNRUR: {
         title: 'Job Nr/UR',
         sort: false,
@@ -63,11 +63,11 @@ export class CreativeDocumentAssetSearchResultComponent {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc.title,
+        brand: doc.get('The_Loupe_Main:brand').join(', '),
         productionDate: doc.get('The_Loupe_ProdCredits:production_date'),
         campaign: doc.get('The_Loupe_Main:campaign_title'),
         ceativeDirector: doc.get('The_Loupe_Credits:creativeDirector'),
         artDirector: doc.get('The_Loupe_Credits:artProducer'),
-        producer: doc.get('The_Loupe_Credits:producer'),
         jobNRUR: doc.get('The_Loupe_Main:jobnumber'),
       }));
     }
