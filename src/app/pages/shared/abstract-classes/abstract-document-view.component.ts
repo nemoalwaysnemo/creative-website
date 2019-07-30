@@ -130,7 +130,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
         ecm_uuid: `["${distIds.join('", "')}"]`,
       };
 
-      return this.advanceSearch.request(new NuxeoPageProviderParams(params))
+      return this.advanceSearch.request(new NuxeoPageProviderParams(params), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
         .pipe(
           map((response: NuxeoPagination) => {
             response.entries.forEach((resDoc: DocumentModel) => { listNew[resDoc.uid] = resDoc.title; });

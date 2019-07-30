@@ -8,9 +8,9 @@ export class SearchQueryParamsService {
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
-  buildQueryParams(formValue: any = {}): any {
+  buildQueryParams(formValue: any = {}, allowedParams: string[] = []): any {
     formValue.q = formValue.ecm_fulltext ? formValue.ecm_fulltext : '';
-    formValue = selectObjectByKeys(formValue, ['q', 'aggregates']);
+    formValue = selectObjectByKeys(formValue, allowedParams);
     if (formValue.aggregates) {
       Object.keys(formValue.aggregates).forEach((key) => { formValue[key] = formValue.aggregates[key]; });
       delete formValue.aggregates;

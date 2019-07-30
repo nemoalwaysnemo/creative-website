@@ -1,6 +1,6 @@
 import { OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router, Params, Event, NavigationEnd, ParamMap } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map } from 'rxjs/operators';
 import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions } from '@core/api';
@@ -48,6 +48,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     pageSize: 20,
     ecm_fulltext: '',
   };
+
+  protected allowedLinkParams: string[] = [
+    'app_global_networkshare',
+  ];
 
   protected searchParams: any = {};
 
@@ -125,6 +129,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     this.searchForm = this.formBuilder.group(controls);
   }
 
+  protected addControlToSearchForm(key: string, value: any): void {
+    this.searchForm && this.searchForm.addControl(key, new FormControl(value));
+  }
+
   protected buildFormValues(queryParams: any = {}): object {
     const params = { aggregates: {}, ecm_fulltext: queryParams.q || '' };
     const keys = Object.keys(queryParams);
@@ -180,9 +188,19 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
+  protected setPassedParams(params: any = {}): void {
+    if (params && Object.keys(params).length > 0) {
+      for (const key in params) {
+        if (params.hasOwnProperty(key) && this.allowedLinkParams.includes(key)) {
+          this.addControlToSearchForm(key, params[key]);
+        }
+      }
+    }
+  }
+
   protected setSearchParams(params: any = {}): void {
     if (params && Object.keys(params).length > 0) {
-      this.searchParams = Object.assign({}, this.params, params);
+      this.searchParams = { ...this.params, ...params };
     }
   }
 
@@ -192,7 +210,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected changeQueryParams(): void {
     if (this.showQuery) {
-      const queryParams = this.queryParamsService.buildQueryParams(this.getFormValue());
+      const queryParams = this.queryParamsService.buildQueryParams(this.getFormValue(), ['q', 'aggregates'].concat(this.allowedLinkParams));
       this.queryParamsService.changeQueryParams(queryParams, { type: 'keyword' });
     }
   }
@@ -232,6 +250,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
       delay(100),
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
+      this.setPassedParams(info.queryParams);
       this.onQueryParamsChanged(info.queryParams);
       if (this.hasFilterQueryParams(info.queryParams)) {
         this.showFilter = true;
