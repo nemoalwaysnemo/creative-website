@@ -2,13 +2,14 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
+import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 
 @Component({
   selector: 'creative-document-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-document-asset-search-result.component.html',
 })
-export class CreativeDocumentAssetSearchResultComponent {
+export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchResultComponent {
 
   @Input()
   set multiView(listView: boolean) {
@@ -65,12 +66,16 @@ export class CreativeDocumentAssetSearchResultComponent {
         title: doc.title,
         brand: doc.get('The_Loupe_Main:brand').join(', '),
         productionDate: doc.get('The_Loupe_ProdCredits:production_date'),
-        campaign: doc.get('The_Loupe_Main:campaign_title'),
+        campaign: doc.get('The_Loupe_Main:campaign_title_'),
         ceativeDirector: doc.get('The_Loupe_Credits:creativeDirector'),
         artDirector: doc.get('The_Loupe_Credits:artProducer'),
         jobNRUR: doc.get('The_Loupe_Main:jobnumber'),
       }));
     }
     return items;
+  }
+
+  protected onInit(): void {
+    this.onQueryParamsChanged();
   }
 }
