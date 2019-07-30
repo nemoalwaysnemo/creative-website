@@ -37,20 +37,25 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
   redirectToDoc(doc) {
     this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/creative/asset/${doc.uid}` } });
   }
-
   private searchRelatedCampaign(doc): void {
-    const params: any = {
-      pageSize: 20,
-      currentPageIndex: 0,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-      'The_Loupe_Main:campaign': [doc.get('The_Loupe_Main:campaign')],
-    };
-    const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
-      .subscribe((res: NuxeoPagination) => {
-        this.relatedDocs = this.wrapAsCarouselData(res.entries);
-        this.loading = false;
-      });
-    this.subscription.add(subscription);
+    const campaign = doc.get('The_Loupe_Main:campaign');
+    if (campaign == null) {
+      this.loading = false;
+      this.relatedDocs = [];
+    } else {
+      const params: any = {
+        pageSize: 10,
+        currentPageIndex: 0,
+        ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+        the_loupe_main_campaign: `["${campaign}"]`,
+      };
+      const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
+        .subscribe((res: NuxeoPagination) => {
+          this.relatedDocs = this.wrapAsCarouselData(res.entries);
+          this.loading = false;
+        });
+      this.subscription.add(subscription);
+    }
   }
 
   private wrapAsCarouselData(entries) {
@@ -60,7 +65,7 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
         if (entrie.isVideo()) {
           carouselData.push({ source: entrie.videoPoster, uid: entrie.uid, title: entrie.title });
         } else if (entrie.isAudio() || entrie.isPicture() || entrie.isPdf()) {
-          carouselData.push({ source: entrie.thumbnailUrl, uid: entrie.uid, title: entrie.title});
+          carouselData.push({ source: entrie.thumbnailUrl, uid: entrie.uid, title: entrie.title });
         }
       }
     });
@@ -72,6 +77,7 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
   }
 
   moveRight() {
+    console.info(123);
     this.ds.moveRight();
   }
 

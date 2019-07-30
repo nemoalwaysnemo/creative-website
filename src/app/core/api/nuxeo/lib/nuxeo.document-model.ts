@@ -218,8 +218,11 @@ export class DocumentModel extends Base {
         return true;
       }
     }
+    if (this.get('file:content') && this.get('file:content')['mime-type']
+         && this.get('file:content')['mime-type'].includes('audio') && this.get('file:content').data) {
+      return true;
+    }
     return false;
-    // return this.hasFacet('Audio');
   }
 
   isVideo(): boolean {
