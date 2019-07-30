@@ -19,6 +19,7 @@
   background: url('/assets/images/scroll_arrow_next.png') no-repeat center center;
 }
 .gallery-list {
+  width: calc(100% - 34px - 44px);
   height: 116px;
   margin: 14px 0 0;
   padding: 0;
@@ -37,13 +38,6 @@
     }
   }
   .list-item + .list-item { padding-left: 22px; }
-}
-.app-library-video,
-.app-library-image,
-.app-disruption-asset {
-  .gallery-list {
-    width: calc(100% - 34px - 44px);
-  }
 }
 .see_all {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
