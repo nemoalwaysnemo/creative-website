@@ -57,14 +57,34 @@ export class DisruptionFolderViewComponent {
   }
 
   goBack(): void {
-    const rootPath: string = NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH;
+    const parentInfo: any = this.goBackInfo(this.doc.type);
+    const rootPath: string = parentInfo.rootPath;
     const splitPath: string = this.doc.path.split(rootPath)[1];
     const childSplitPath: string[] = splitPath.split('/');
 
     if (childSplitPath.length < 2) {
-      this.router.navigate(['p/redirect'], { queryParams: { url: `/p/disruption/Disruption How Tos` } });
+      this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlRootPath}` } });
     } else {
-      this.router.navigate(['p/redirect'], { queryParams: { url: `/p/disruption/Disruption How Tos/folder/${this.doc.parentRef}` } });
+      this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlParentPath}${this.doc.parentRef}` } });
+    }
+  }
+
+  protected goBackInfo(type: string): any {
+    switch (type) {
+      case 'App-Disruption-Theory-Folder':
+        return {
+          'rootPath': NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+          'urlRootPath': '/p/disruption/Disruption How Tos',
+          'urlParentPath': '/p/disruption/Disruption How Tos/folder/',
+        };
+      case 'App-Disruption-Day':
+        return {
+          'rootPath': NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+          'urlRootPath': '/p/disruption/Disruption Days',
+          'urlParentPath': '/p/disruption/Disruption Days/day/',
+        };
+      default:
+        return {};
     }
   }
 }

@@ -16,11 +16,7 @@
       <ng-container *ngIf="writePermission$ | async">
         <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn left">Edit</button>
       </ng-container>
-      <ng-container [ngSwitch]="doc.type">
-        <ng-container *ngSwitchCase="'App-Disruption-Theory-Folder'">
-          <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
-        </ng-container>
-      </ng-container>
+      <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
       <ng-container *ngIf="deletePermission$ | async">
         <button type="button" (click)="openDialog(dialog, 'delete')" class="icon_btn left">Delete</button>
       </ng-container>
