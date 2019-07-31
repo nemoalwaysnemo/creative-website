@@ -41,7 +41,7 @@
           Edge Category: {{ document.get('app_Edges:backslash_category').join(', ') }}<br>
           Edge: {{ document.get('app_Edges:Tags_edges') }}
         </p>
-        <h4 style="padding-left: 123px;">Additional Attachments</h4>
+        <h4 *ngIf= "attachments && attachments.length !== 0" style="padding-left: 123px;">Additional Attachments</h4>
         <p *ngFor="let attachment of attachments">
           <span>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
           <span><a href="{{ attachment.url }}"> Download </a></span>

@@ -12,7 +12,7 @@
     <preview-dialog>
       <ng-container [ngSwitch]="showEdit">
         <ng-container *ngSwitchCase="'preview'">
-          <disruption-asset-preview-dialog-body [editButton]='true' (callBack)="openEdit($event)" [moreInfo]='true'>
+          <disruption-asset-preview-dialog-body [editButton]='true' (callBack)="openEdit($event)" [moreInfo]='true' [previewButton]='true'>
           </disruption-asset-preview-dialog-body>
         </ng-container>
 
