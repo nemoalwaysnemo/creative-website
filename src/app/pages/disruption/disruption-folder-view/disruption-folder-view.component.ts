@@ -25,8 +25,10 @@ export class DisruptionFolderViewComponent {
   @Input() set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
-      this.writePermission$ = this.doc.hasPermission(NuxeoPermission.Write);
-      this.deletePermission$ = !doc.hasAnyContent ? this.doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
+      if (this.doc.type !== 'App-Disruption-Day') {
+        this.writePermission$ = this.doc.hasPermission(NuxeoPermission.Write);
+        this.deletePermission$ = !doc.hasAnyContent ? this.doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
+      }
     }
   }
 
