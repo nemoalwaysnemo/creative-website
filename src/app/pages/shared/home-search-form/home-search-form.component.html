@@ -4,13 +4,10 @@
     <h1 class="extraHeadline">{{ this.extraHeadline }}</h1>
     <h4>{{ this.subHead }}</h4>
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
-      <input formControlName="ecm_fulltext" autofocus (keyup.enter)="onKeyenter($event)" (keyup)="onKeyup($event)"
-        type="text" class="keyword" [placeholder]="placeholder" />
-      <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView"
-        [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
+      <input class="keyword" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
+      <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
-    <button type="button" (click)="toggleFilter()" class="filter_trigger"
-      [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters
+    <button type="button" (click)="toggleFilter()" class="filter_trigger" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters
       +</button>
   </section>
   <div class="search-filters left">
@@ -18,8 +15,7 @@
   </div>
   <div class="clear"></div>
   <ng-container *ngIf="hasFilters() && showFilter">
-    <global-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async"
-      [disableControl]="submitted" (selected)="onFilterSelected($event)" (preventHideDoc)="preventHide($event)">
+    <global-search-filter formControlName="aggregates" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted" (selected)="onFilterSelected($event)" (preventHideDoc)="preventHide($event)">
     </global-search-filter>
   </ng-container>
 </form>

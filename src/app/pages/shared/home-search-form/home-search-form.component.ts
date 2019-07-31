@@ -1,20 +1,11 @@
-import { OnInit, Component, OnDestroy, Input } from '@angular/core';
-import { FormControl, FormBuilder } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractSearchFormComponent } from '../global-search-form/abstract-search-form.component';
-
-class SearchParams {
-  readonly params: { [k: string]: any } = {};
-  readonly event: string;
-  constructor(params: any = {}, event: string) {
-    this.params = params;
-    this.event = event;
-  }
-}
+import { AbstractSearchFormComponent, SearchParams } from '../global-search-form/abstract-search-form.component';
 
 @Component({
   selector: 'home-search-form',
@@ -22,25 +13,21 @@ class SearchParams {
   styleUrls: ['./home-search-form.component.scss'],
 })
 
-export class HomeSearchFormComponent extends AbstractSearchFormComponent implements OnInit {
+export class HomeSearchFormComponent extends AbstractSearchFormComponent {
 
-  results: DocumentModel[];
   documents: DocumentModel[] = [];
-  queryField: FormControl = new FormControl();
+
   backgroudUrl: string = '';
+
   layout: string = 'suggestion-inline';
+
   loading: boolean = false;
-  searchParams: any = {};
 
-  params: any = {
-    currentPageIndex: 0,
-    pageSize: 20,
-    ecm_fulltext: '',
-    aggregates: {},
-  };
+  private preventDocHide: boolean = false;
 
-  preventDocHide: boolean = false;
-  isInitialSearch: boolean = true;
+  private isInitialSearch: boolean = true;
+
+  private results: DocumentModel[] = [];
 
   @Input() headline: string;
 
@@ -74,11 +61,6 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
     );
   }
 
-  ngOnInit() {
-    this.createForm();
-    this.buildSearchFilter([]);
-  }
-
   show(): void {
     this.documents = this.isInitialSearch ? this.documents = [] : this.results;
   }
@@ -90,7 +72,7 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
     this.preventDocHide = false;
   }
 
-  onKeyenter(event: KeyboardEvent): void {
+  onKeyEnter(event: KeyboardEvent): void {
     const params = this.buildQueryParams();
     this.redirectToListPage(params);
     event.preventDefault();
@@ -107,14 +89,6 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent impleme
 
   private matchAssetUrl(doc: DocumentModel): string {
     return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
-  }
-
-  private buildQueryParams(): any {
-    return { q: this.queryField.value };
-  }
-
-  private createForm(): void {
-    this.searchForm = this.formBuilder.group(this.params);
   }
 
   private redirectToListPage(queryParams: {}): void {
