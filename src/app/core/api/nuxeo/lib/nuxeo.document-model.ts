@@ -186,6 +186,10 @@ export class DocumentModel extends Base {
     return this.properties[propertyName];
   }
 
+  getAttachmentList(): { type: string, url: string, title: string }[] {
+    return (this.get('files:files') || []).map((entry: any) => ({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name }));
+  }
+
   getVideoSources(): { url: string, type: string }[] {
     const sources = this.get('vid:transcodedVideos');
     if (sources.length !== 0) {
@@ -219,7 +223,7 @@ export class DocumentModel extends Base {
       }
     }
     if (this.get('file:content') && this.get('file:content')['mime-type']
-         && this.get('file:content')['mime-type'].includes('audio') && this.get('file:content').data) {
+      && this.get('file:content')['mime-type'].includes('audio') && this.get('file:content').data) {
       return true;
     }
     return false;
@@ -260,14 +264,4 @@ export class DocumentModel extends Base {
     return this.assetPath + 'assets/images/no-thumbnail.png';
   }
 
-
-  buildAttachmentList() {
-    const attachmentList = [];
-    if (this.get('files:files').length > 0) {
-      this.get('files:files').forEach((entry) => {
-        attachmentList.push({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name });
-      });
-    }
-    return attachmentList;
-  }
 }
