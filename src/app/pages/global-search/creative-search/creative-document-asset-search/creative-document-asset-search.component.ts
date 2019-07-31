@@ -52,7 +52,6 @@ export class CreativeDocumentAssetSearchComponent extends AbstractDocumentViewCo
 
   ngOnInit() {
     this.setResultHeader();
-    this.searchCurrentDocument().subscribe();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

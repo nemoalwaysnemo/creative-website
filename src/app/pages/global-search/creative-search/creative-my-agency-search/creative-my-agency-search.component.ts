@@ -59,6 +59,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc;
     if (doc) {
+      this.resultHeader = 'Results:';
       timer(0).subscribe(() => { this.baseParams$.next(this.buildCaseParams(this.userInfo)); });
     }
   }
