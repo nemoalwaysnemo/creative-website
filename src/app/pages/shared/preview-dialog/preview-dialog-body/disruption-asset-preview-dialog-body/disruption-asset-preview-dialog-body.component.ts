@@ -25,6 +25,8 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
 
   @Input() previewButton: boolean = false;
 
+  attachments: { type: any, url: any, title: any }[] = [];
+
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);
   }
@@ -33,6 +35,7 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
     this.title = res.options.title;
     this.writePermission$ = this.editButton && this.document.hasPermission(NuxeoPermission.Write);
     this.deletePermission$ = this.deleteButton && this.document.hasPermission(NuxeoPermission.Delete);
+    this.attachments = this.document.buildAttachmentList();
   }
 
   openEditDialog(): void {

@@ -259,4 +259,15 @@ export class DocumentModel extends Base {
   private getDefaultThumbnail(): string {
     return this.assetPath + 'assets/images/no-thumbnail.png';
   }
+
+
+  buildAttachmentList() {
+    const attachmentList = [];
+    if (this.get('files:files').length > 0) {
+      this.get('files:files').forEach((entry) => {
+        attachmentList.push({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name });
+      });
+    }
+    return attachmentList;
+  }
 }

@@ -18,7 +18,7 @@ export class DocumentAdditionalInfoComponent implements OnInit {
   ngOnInit() {
     if (NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(this.document.type)) {
       this.docType = 'Disruption';
-      this.buildAttachmentList();
+      this.attachments = this.document.buildAttachmentList();
     } else if (NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE.includes(this.document.type)) {
       this.docType = 'Intelligence';
     } else {
@@ -30,13 +30,4 @@ export class DocumentAdditionalInfoComponent implements OnInit {
     return NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(this.document.type);
   }
 
-  private buildAttachmentList() {
-    const attachmentList = [];
-    if (this.document.get('files:files').length > 0) {
-      this.document.get('files:files').forEach((entry) => {
-        attachmentList.push({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name });
-      });
-    }
-    this.attachments = attachmentList;
-  }
 }
