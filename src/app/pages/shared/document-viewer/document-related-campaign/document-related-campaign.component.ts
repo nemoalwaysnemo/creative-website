@@ -34,14 +34,13 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
   getDocumentType(): string {
     return this.document ? this.document.type.toLowerCase() : '';
   }
-  redirectToDoc(doc) {
+  redirectToDoc(doc: DocumentModel) {
     this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/creative/asset/${doc.uid}` } });
   }
-  private searchRelatedCampaign(doc): void {
+  private searchRelatedCampaign(doc: DocumentModel): void {
     const campaign = doc.get('The_Loupe_Main:campaign');
     if (campaign == null) {
       this.loading = false;
-      this.relatedDocs = [];
     } else {
       const params: any = {
         pageSize: 10,
@@ -58,7 +57,7 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
     }
   }
 
-  private wrapAsCarouselData(entries) {
+  private wrapAsCarouselData(entries: DocumentModel[]) {
     const carouselData = [];
     entries.forEach((entrie: DocumentModel) => {
       if (entrie.fileMimeType) {
