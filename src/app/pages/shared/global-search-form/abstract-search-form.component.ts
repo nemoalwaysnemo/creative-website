@@ -8,7 +8,7 @@ import { SearchQueryParamsService } from '../services/search-query-params.servic
 import { removeUselessObject } from '@core/services';
 import { GoogleAnalyticsService } from '@core/google-analytics';
 
-class PageChangedInfo {
+export class PageChangedInfo {
   readonly queryParams: Params;
   readonly historyState: { [k: string]: any };
   constructor(data: any = {}) {
@@ -16,7 +16,7 @@ class PageChangedInfo {
   }
 }
 
-class SearchParams {
+export class SearchParams {
   readonly params: { [k: string]: any } = {};
   readonly event: string;
   constructor(params: any = {}, event: string) {
@@ -58,7 +58,6 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   @Input() showQuery: boolean = true;
 
   @Input() placeholder: string = 'Search for...';
-
 
   @Input() filters: { [key: string]: { [key: string]: string } } = {};
 
@@ -208,10 +207,13 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     return this.searchParams;
   }
 
+  protected buildQueryParams(): any {
+    return this.queryParamsService.buildQueryParams(this.getFormValue(), ['q', 'aggregates'].concat(this.allowedLinkParams));
+  }
+
   protected changeQueryParams(): void {
     if (this.showQuery) {
-      const queryParams = this.queryParamsService.buildQueryParams(this.getFormValue(), ['q', 'aggregates'].concat(this.allowedLinkParams));
-      this.queryParamsService.changeQueryParams(queryParams, { type: 'keyword' });
+      this.queryParamsService.changeQueryParams(this.buildQueryParams(), { type: 'keyword' });
     }
   }
 
