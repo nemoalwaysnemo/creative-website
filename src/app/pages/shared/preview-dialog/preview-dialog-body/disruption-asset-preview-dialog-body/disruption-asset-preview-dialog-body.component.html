@@ -14,7 +14,8 @@
       <div class="controls">
         <h2 class="left">{{ document.get('The_Loupe_Main:brand')}}</h2>
         <button class="share right">Share</button>
-        <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
+        <a href="{{document.filePath}}" class="right"><button class="inline-middle download"
+            type="submit">Download</button></a>
         <ng-container *ngIf="deletePermission$ | async">
           <button class="right edit" (click)="openDeleteDialog()">Delete</button>
         </ng-container>
@@ -22,7 +23,8 @@
           <button class="right edit" (click)="openEditDialog()">Edit</button>
         </ng-container>
         <ng-container *ngIf="previewButton">
-          <a href="{{document.previewUrl}}" title="Preview" target="_blank" ><button class="right edit">Preview</button></a>
+          <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button
+              class="right edit">Preview</button></a>
         </ng-container>
         <div class="clear"></div>
       </div>
@@ -38,6 +40,11 @@
           Published: {{ document.get('The_Loupe_ProdCredits:production_date') | date }}<br>
           Edge Category: {{ document.get('app_Edges:backslash_category').join(', ') }}<br>
           Edge: {{ document.get('app_Edges:Tags_edges') }}
+        </p>
+        <h4 style="padding-left: 123px;">Additional Attachments</h4>
+        <p *ngFor="let attachment of attachments">
+          <span>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span><a href="{{ attachment.url }}"> Download </a></span>
         </p>
       </ng-container>
     </div>

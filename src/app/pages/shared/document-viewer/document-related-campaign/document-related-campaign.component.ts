@@ -76,7 +76,6 @@ export class DocumentRelatedCampaignComponent implements OnInit, OnDestroy {
   }
 
   moveRight() {
-    console.info(123);
     this.ds.moveRight();
   }
 
