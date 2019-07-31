@@ -6,6 +6,7 @@
     </div>
     <div class="description">
       <h1 [title]="doc.title"><a [routerLink]="['/p/intelligence/asset', doc.uid]">{{ doc.title }}</a></h1>
+      <h4 class="year">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
     </div>
   </div>
 </ng-template>
