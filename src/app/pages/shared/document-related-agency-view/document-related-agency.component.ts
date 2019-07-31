@@ -22,6 +22,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
 
   private params: any = {
     pageSize: 4,
+    app_global_networkshare: true,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
     the_loupe_main_agency: '',
     ecm_uuid_not_eq: '',
