@@ -16,7 +16,7 @@ export class CreativeMyBrandAssetSearchResultComponent {
     }
   }
 
-  @Input() displayTitle: boolean = true;
+  @Input() resultHeader: string;
 
   @Input() layout: string = 'quarter';
 

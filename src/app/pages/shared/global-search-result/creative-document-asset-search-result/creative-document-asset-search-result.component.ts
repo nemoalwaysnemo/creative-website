@@ -18,9 +18,9 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
     }
   }
 
-  @Input() displayTitle: boolean = true;
-
   @Input() layout: string = 'quarter';
+
+  @Input() resultHeader: string;
 
   listViewSettings: any = {
     columns: {

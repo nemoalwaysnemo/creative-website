@@ -16,6 +16,12 @@ export class CreativeMyAgencyAssetSearchComponent extends AbstractDocumentViewCo
 
   layout: string = 'third';
 
+  showInput: boolean = false;
+
+  multiView: boolean = false;
+
+  resultHeader: string = 'Results:';
+
   filters: any = {
     // 'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
     // 'the_loupe_main_agency_agg': { placeholder: 'Agency' },
@@ -26,12 +32,6 @@ export class CreativeMyAgencyAssetSearchComponent extends AbstractDocumentViewCo
     // 'app_edges_backslash_category_agg': { placeholder: 'Category' },
     // 'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
-
-  showInput: boolean = false;
-
-  multiView: boolean = false;
-
-  showResultSet: boolean = true;
 
   constructor(
     protected advanceSearch: AdvanceSearch,

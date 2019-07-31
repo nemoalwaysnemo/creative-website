@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { AdvanceSearch, SearchResponse, NuxeoPagination, DocumentModel } from '@core/api';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class CreativeDocumentAssetSearchComponent extends AbstractDocumentViewComponent implements OnInit {
 
-  showResultSet: boolean = false;
+  resultHeader: string;
 
   defaultParams: any = {
     currentPageIndex: 0,
@@ -51,6 +51,7 @@ export class CreativeDocumentAssetSearchComponent extends AbstractDocumentViewCo
   }
 
   ngOnInit() {
+    this.setResultHeader();
     this.searchCurrentDocument().subscribe();
   }
 
@@ -60,6 +61,17 @@ export class CreativeDocumentAssetSearchComponent extends AbstractDocumentViewCo
 
   protected getCurrentDocumentSearchParams(): object {
     return {};
+  }
+
+  private setResultHeader(): void {
+    const subscription = this.queryParamsService.onQueryParamsChanged().subscribe((params: Params) => {
+      if (params.hasOwnProperty('app_global_networkshare')) {
+        this.resultHeader = `Best of TBWA\Worldwide`;
+      } else {
+        this.resultHeader = '';
+      }
+    });
+    this.subscription.add(subscription);
   }
 
 }

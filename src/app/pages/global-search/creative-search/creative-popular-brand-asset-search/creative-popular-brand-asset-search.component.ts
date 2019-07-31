@@ -18,8 +18,6 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
 
   showInput: boolean = false;
 
-  showResultSet: boolean = true;
-
   multiView: boolean = false;
 
   filters: any = {

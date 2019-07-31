@@ -25,7 +25,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   multiView: boolean = false;
 
-  showTitle: boolean = false;
+  resultHeader: string;
 
   caseFlag: boolean = true;
 
@@ -47,9 +47,11 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     this.caseFlag = !this.caseFlag;
     if (!this.caseFlag) {
       this.showType = 'brands';
+      this.resultHeader = 'Brands:';
       this.baseParams$.next(this.buildBrandParams(this.userInfo));
     } else {
       this.showType = 'showcase';
+      this.resultHeader = 'Results:';
       this.baseParams$.next(this.buildCaseParams(this.userInfo));
     }
   }
@@ -57,7 +59,6 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc;
     if (doc) {
-      this.showTitle = true;
       timer(0).subscribe(() => { this.baseParams$.next(this.buildCaseParams(this.userInfo)); });
     }
   }
