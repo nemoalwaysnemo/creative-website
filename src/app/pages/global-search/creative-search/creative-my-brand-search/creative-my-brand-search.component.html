@@ -1,2 +1,4 @@
-<global-search-form [filters]="filters" [defaultParams]="defaultParams"></global-search-form>
-<creative-my-brand-asset-search-result></creative-my-brand-asset-search-result>
+<global-search-form [filters]="filters" [defaultParams]="defaultParams">
+  <global-search-button class="group-right" (resultViewChange)="onResultViewChange($event)"></global-search-button>
+</global-search-form>
+<creative-my-brand-asset-search-result [selectedView]="currentView"></creative-my-brand-asset-search-result>

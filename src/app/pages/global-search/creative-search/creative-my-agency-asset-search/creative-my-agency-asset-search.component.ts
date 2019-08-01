@@ -18,8 +18,6 @@ export class CreativeMyAgencyAssetSearchComponent extends AbstractDocumentViewCo
 
   showInput: boolean = false;
 
-  multiView: boolean = false;
-
   resultHeader: string = 'Results:';
 
   filters: any = {

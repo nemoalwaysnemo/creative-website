@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { AdvanceSearch, SearchResponse, NuxeoPagination, DocumentModel } from '@core/api';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
+import { SearchQueryParamsService } from '@pages/shared';
+import { AdvanceSearch, SearchResponse, NuxeoPagination } from '@core/api';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Params } from '@angular/router';
 
 @Component({
   selector: 'creative-document-asset-search',
   styleUrls: ['./creative-document-asset-search.component.scss'],
   templateUrl: './creative-document-asset-search.component.html',
 })
-export class CreativeDocumentAssetSearchComponent extends AbstractDocumentViewComponent implements OnInit {
+export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
 
   resultHeader: string;
+
+  currentView: string = 'thumbnailView';
 
   defaultParams: any = {
     currentPageIndex: 0,
@@ -34,9 +36,11 @@ export class CreativeDocumentAssetSearchComponent extends AbstractDocumentViewCo
     'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
 
+  private subscription: Subscription = new Subscription();
+
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
     if (res.action === 'afterSearch') {
-      return this.requestTitleForIds(res.response, ['The_Loupe_Main:campaign']).pipe(
+      return this.advanceSearch.requestTitleByIds(res.response, ['The_Loupe_Main:campaign']).pipe(
         map((response: NuxeoPagination) => { res.response = response; return res; }),
       );
     }
@@ -45,21 +49,19 @@ export class CreativeDocumentAssetSearchComponent extends AbstractDocumentViewCo
 
   constructor(
     protected advanceSearch: AdvanceSearch,
-    protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
   }
 
   ngOnInit() {
     this.setResultHeader();
   }
 
-  protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
-  protected getCurrentDocumentSearchParams(): object {
-    return {};
+  onResultViewChange(name: string): void {
+    this.currentView = name;
   }
 
   private setResultHeader(): void {

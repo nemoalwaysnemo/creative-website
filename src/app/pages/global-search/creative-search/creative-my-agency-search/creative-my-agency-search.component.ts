@@ -23,8 +23,6 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   showInput: boolean = false;
 
-  multiView: boolean = false;
-
   resultHeader: string;
 
   caseFlag: boolean = true;

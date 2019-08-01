@@ -1,7 +1,7 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <global-search-form [filters]="filters" [defaultParams]="defaultParams">
   <ng-container *ngIf="addChildrenPermission$ | async">
-    <button type="button" (click)="openForm(dialog)" class="icon_btn new_roadmaps" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Roadmap">New Roadmap</button>
+    <button type="button" (click)="openForm(dialog)" class="icon_btn new_roadmaps group-left" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Roadmap">New Roadmap</button>
   </ng-container>
 </global-search-form>
 <disruption-roadmaps-asset-search-result></disruption-roadmaps-asset-search-result>

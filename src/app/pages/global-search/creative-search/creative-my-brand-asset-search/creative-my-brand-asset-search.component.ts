@@ -18,8 +18,6 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
 
   resultHeader: string = 'Results:';
 
-  multiView: boolean = false;
-
   layout: string = 'third';
 
   filters: any = {

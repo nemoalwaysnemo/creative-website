@@ -12,9 +12,10 @@ import { AbstractSearchResultComponent } from '../abstract-search-result.compone
 export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchResultComponent {
 
   @Input()
-  set multiView(listView: boolean) {
-    if (!listView) {
-      this.listViewSettings = null;
+  set selectedView(name: string) {
+    this.currentView = name;
+    if (!this.listViewSettings) {
+      this.listViewSettings = this.defaultSettings;
     }
   }
 
@@ -22,7 +23,9 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
 
   @Input() resultHeader: string;
 
-  listViewSettings: any = {
+  listViewSettings: any;
+
+  private defaultSettings: any = {
     columns: {
       title: {
         title: 'Title',

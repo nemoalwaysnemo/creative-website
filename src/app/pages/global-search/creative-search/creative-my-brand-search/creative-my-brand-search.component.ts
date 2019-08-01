@@ -19,4 +19,10 @@ export class CreativeMyBrandSearchComponent {
 
   filters: any = {};
 
+  currentView: string = 'thumbnailView';
+
+  onResultViewChange(name: string): void {
+    this.currentView = name;
+  }
+
 }

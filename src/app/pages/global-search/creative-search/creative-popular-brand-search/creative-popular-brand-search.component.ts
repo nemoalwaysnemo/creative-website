@@ -18,4 +18,10 @@ export class CreativePopularBrandSearchComponent {
 
   filters: any = {};
 
+  currentView: string = 'thumbnailView';
+
+  onResultViewChange(name: string): void {
+    this.currentView = name;
+  }
+
 }

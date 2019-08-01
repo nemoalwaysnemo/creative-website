@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
+import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 
 @Component({
@@ -7,12 +8,13 @@ import { DocumentListViewItem } from '../../document-list-view/document-list-vie
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-my-brand-asset-search-result.component.html',
 })
-export class CreativeMyBrandAssetSearchResultComponent {
+export class CreativeMyBrandAssetSearchResultComponent extends AbstractSearchResultComponent {
 
   @Input()
-  set multiView(listView: boolean) {
-    if (!listView) {
-      this.listViewSettings = null;
+  set selectedView(name: string) {
+    this.currentView = name;
+    if (!this.listViewSettings) {
+      this.listViewSettings = this.defaultSettings;
     }
   }
 
@@ -20,7 +22,9 @@ export class CreativeMyBrandAssetSearchResultComponent {
 
   @Input() layout: string = 'quarter';
 
-  listViewSettings: any = {
+  listViewSettings: any;
+
+  private defaultSettings: any = {
     columns: {
       title: {
         title: 'Title',
@@ -44,6 +48,10 @@ export class CreativeMyBrandAssetSearchResultComponent {
       }));
     }
     return items;
+  }
+
+  protected onInit(): void {
+
   }
 
 }

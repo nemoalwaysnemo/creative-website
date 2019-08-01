@@ -18,8 +18,6 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
 
   showInput: boolean = false;
 
-  multiView: boolean = false;
-
   filters: any = {
     // 'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
     // 'the_loupe_main_agency_agg': { placeholder: 'Agency' },

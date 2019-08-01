@@ -10,7 +10,10 @@
     </div>
   </ng-container>
   <div class="search-filters left">
-    <ng-content></ng-content>
+    <ng-content select=".group-left"></ng-content>
+  </div>
+  <div class="button-groups right">
+    <ng-content select=".group-right"></ng-content>
   </div>
   <div class="clear"></div>
   <ng-container *ngIf="hasFilters() && showFilter">

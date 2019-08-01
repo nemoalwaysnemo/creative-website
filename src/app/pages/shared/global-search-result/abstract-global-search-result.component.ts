@@ -24,14 +24,9 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
 
-  multiView: boolean = false;
-
-  @Input() currentView: string = 'thumbnailView';
-
   @Input()
   set listViewSettings(settings: any) {
     if (settings) {
-      this.multiView = true;
       this.listViewSetting = settings;
     }
   }
@@ -40,14 +35,6 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);
-  }
-
-  changeToGridView(): void {
-    this.currentView = 'thumbnailView';
-  }
-
-  changeToListView(): void {
-    this.currentView = 'listView';
   }
 
   protected onInit(): void {

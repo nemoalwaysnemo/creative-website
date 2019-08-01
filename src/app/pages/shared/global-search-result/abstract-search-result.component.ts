@@ -6,9 +6,16 @@ import { Params } from '@angular/router';
 
 export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy {
 
+  currentView: string = 'thumbnailView';
+
   queryParams: Params = {};
 
   protected subscription: Subscription = new Subscription();
+
+  @Input()
+  set selectedView(name: string) {
+    this.currentView = name;
+  }
 
   @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 

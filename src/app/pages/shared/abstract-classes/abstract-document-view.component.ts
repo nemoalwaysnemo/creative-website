@@ -108,42 +108,4 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
     return list.map((x) => x.split('/').pop()).join(', ');
   }
 
-  protected requestTitleForIds(res: NuxeoPagination, properties: string[]): Observable<NuxeoPagination> {
-    let ids = [];
-    const listNew: any = {};
-    properties.forEach((pro: string) => {
-      res.entries.forEach((doc: DocumentModel) => {
-        const hasProperties = doc.get(pro);
-        if (hasProperties && hasProperties.length > 0) {
-          if (typeof (hasProperties) === 'string') {
-            ids.push(hasProperties);
-          } else {
-            ids = ids.concat(hasProperties);
-          }
-        }
-      });
-    });
-
-    const distIds: string[] = Array.from(new Set(ids));
-    if (distIds.length > 0) {
-      const params = {
-        ecm_uuid: `["${distIds.join('", "')}"]`,
-      };
-
-      return this.advanceSearch.request(new NuxeoPageProviderParams(params), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
-        .pipe(
-          map((response: NuxeoPagination) => {
-            response.entries.forEach((resDoc: DocumentModel) => { listNew[resDoc.uid] = resDoc.title; });
-            properties.forEach((pro: string) => {
-              for (const doc of res.entries) {
-                doc.properties[pro + '_title_'] = listNew[doc.get(pro)] ? listNew[doc.get(pro)] : null;
-              }
-            });
-            return res;
-          }),
-        );
-    }
-    return observableOf(res);
-  }
-
 }

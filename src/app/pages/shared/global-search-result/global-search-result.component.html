@@ -1,9 +1,5 @@
 <div class="search-results">
   <h1 *ngIf="!!searchParams.ecm_fulltext" class="left">Results for "{{searchParams.ecm_fulltext}}" ({{totalResults}})</h1>
-  <ng-container *ngIf="multiView">
-    <button (click)="changeToListView()" class="list_view_trigger icon_btn right" [ngClass]="{'btn-active': currentView != 'thumbnailView'}" title="List View">List</button>
-    <button (click)="changeToGridView()" class="grid_view_trigger icon_btn right" [ngClass]="{'btn-active': currentView === 'thumbnailView'}" title="Grid View">Grid</button>
-  </ng-container>
   <div class="clear"></div>
   <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
   <ng-template #thumbnailView>
