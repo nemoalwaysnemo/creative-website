@@ -18,6 +18,8 @@ export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent i
 
   tabs = TAB_CONFIG;
 
+  showButton: boolean = false;
+
   deleteRedirect = '/p/disruption/Disruption Days';
 
   folderParams: any = {

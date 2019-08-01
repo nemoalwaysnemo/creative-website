@@ -22,10 +22,12 @@ export class DisruptionFolderViewComponent {
   @Input() assetUrlMapping: object = {};
   @Input() doc: DocumentModel;
 
+  @Input() showButton: boolean = true;
+
   @Input() set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
-      if (this.doc.type !== 'App-Disruption-Day') {
+      if  (this.showButton) {
         this.writePermission$ = this.doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = !doc.hasAnyContent ? this.doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
       }
