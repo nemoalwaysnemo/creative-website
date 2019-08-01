@@ -1,8 +1,6 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [defaultParams]="defaultParams">
-  <ng-container *ngIf="addChildrenPermission$ | async">
-    <button type="button" (click)="openForm(dialog)" class="icon_btn new_day group-left" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Day">New Day</button>
-  </ng-container>
+  <button *ngIf="addChildrenPermission$ | async" type="button" (click)="openForm(dialog)" class="icon_btn new_day group-left" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Day">New Day</button>
 </global-search-form>
 <disruption-days-asset-search-result [afterSearch]="afterSearch"></disruption-days-asset-search-result>
 

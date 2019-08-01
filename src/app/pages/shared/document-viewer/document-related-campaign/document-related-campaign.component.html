@@ -7,7 +7,7 @@
       </div>
     </div>
     <div *ngIf="!loading && relatedDocs && relatedDocs.length === 0" class="thumbnail-view empty text-center">
-      <span class="empty-data">No related doc found</span>
+      <span class="empty-data">No related data found</span>
     </div>
   </drag-scroll>
   <div *ngIf="relatedDocs && relatedDocs.length !== 0" class="next left" (click)="moveRight()"><a href="javascript:void(0)"></a></div>

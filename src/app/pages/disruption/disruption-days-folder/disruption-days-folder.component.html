@@ -1,8 +1,6 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <global-search-form [filters]="filters" [baseParams]="baseParams$ | async">
-  <ng-container *ngIf="addChildrenPermission$ | async">
-    <button type="button" (click)="openForm(dialog)" class="icon_btn new_day group-left" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Asset">New Asset</button>
-  </ng-container>
+  <button *ngIf="addChildrenPermission$ | async" type="button" (click)="openForm(dialog)" class="icon_btn new_day group-left" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Asset">New Asset</button>
 </global-search-form>
 <disruption-folder-view [loading]="loading" [document]="document" [assetUrl]="'/p/disruption/Disruption Days/day/'" [deleteRedirect]="deleteRedirect"></disruption-folder-view>
 <disruption-folder-day-asset-search-result [folderId]="document?.uid"></disruption-folder-day-asset-search-result>
