@@ -19,15 +19,8 @@ export class DocumentAdditionalInfoComponent implements OnInit {
     if (NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(this.document.type)) {
       this.docType = 'Disruption';
       this.attachments = this.document.getAttachmentList();
-    } else if (NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE.includes(this.document.type)) {
-      this.docType = 'Intelligence';
-    } else {
+    } else if (NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(this.document.type)) {
       this.docType = 'Creative';
     }
   }
-
-  isDisruptionAsset() {
-    return NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(this.document.type);
-  }
-
 }

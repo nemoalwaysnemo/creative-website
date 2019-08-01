@@ -6,10 +6,10 @@
         <img style="width: 125px;" [src]="relatedDoc.source" />
       </div>
     </div>
+    <div *ngIf="!loading && relatedDocs && relatedDocs.length === 0" class="thumbnail-view empty text-center">
+      <span class="empty-data">No related doc found</span>
+    </div>
   </drag-scroll>
   <div *ngIf="relatedDocs && relatedDocs.length !== 0" class="next left" (click)="moveRight()"><a href="javascript:void(0)"></a></div>
   <div class="clear"></div>
-  <div *ngIf="!loading && relatedDocs && relatedDocs.length === 0" class="thumbnail-view empty text-center">
-    <span class="empty-data">No related doc found</span>
-  </div>
 </div>
