@@ -15,6 +15,8 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
 
   folderLoading: boolean = true;
 
+  showButton: boolean = true;
+
   disruptionDayParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
@@ -39,6 +41,8 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
+    this.showButton = doc.type !== 'App-Disruption-Day-Asset';
+
     if (this.showFolderView(doc)) {
       this.searchFolder(doc);
     }

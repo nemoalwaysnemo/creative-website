@@ -1,5 +1,5 @@
 <ng-container *ngIf="showFolderView(document) && folder">
-  <disruption-folder-view [loading]="folderLoading" [document]="folder"></disruption-folder-view>
+  <disruption-folder-view [showButton]="showButton" [loading]="folderLoading" [document]="folder"></disruption-folder-view>
 </ng-container>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="document" class="document">
