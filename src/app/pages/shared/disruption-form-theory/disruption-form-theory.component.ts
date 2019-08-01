@@ -96,8 +96,8 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop File here!',
-        acceptTypes: 'image/*,.pdf',
+        placeholder: 'Drop PDF File(s) here!',
+        acceptTypes: '.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -105,8 +105,8 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop File here!',
-        acceptTypes: 'image/*,.pdf',
+        placeholder: 'Drop PDF File(s) here!',
+        acceptTypes: '.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',
