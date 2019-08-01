@@ -1,24 +1,36 @@
 .list_view_trigger {
+  // background: url('/assets/images/list_icon.png') no-repeat 13px center;
   margin-right: 60px;
-  background: url('/assets/images/list_icon.png') no-repeat 13px center;
+  padding: 0 13px;
+  color: #000000;
   &.btn-active {
-    background: url('/assets/images/list_icon_active.png') no-repeat 13px center;
+    // background: url('/assets/images/list_icon_active.png') no-repeat 13px center;
+    background-color: #ffcb00!important;
+    border: solid 1px #ffcb00;
     cursor: auto;
   }
   &.btn-disabled {
-    background: url('/assets/images/list_icon_disabled.png') no-repeat 13px center;
+    // background: url('/assets/images/list_icon_disabled.png') no-repeat 13px center;
+    background-color: #cccccc!important;
+    border: solid 1px #cccccc;
     cursor: auto;
   }
 }
 .grid_view_trigger {
+  // background: url('/assets/images/grid_icon.png') no-repeat 13px center;
   margin-right: 12px;
-  background: url('/assets/images/grid_icon.png') no-repeat 13px center;
+  padding: 0 13px;
+  color: #000000;
   &.btn-active {
-    background: url('/assets/images/grid_icon_active.png') no-repeat 13px center;
+    // background: url('/assets/images/grid_icon_active.png') no-repeat 13px center;
+    background-color: #ffcb00!important;
+    border: solid 1px #ffcb00;
     cursor: auto;
   }
   &.btn-disabled {
-    background: url('/assets/images/grid_icon_disabled.png') no-repeat 13px center;
+    // background: url('/assets/images/grid_icon_disabled.png') no-repeat 13px center;
+    background-color: #cccccc!important;
+    border: solid 1px #cccccc;
     cursor: auto;
   }
 }
