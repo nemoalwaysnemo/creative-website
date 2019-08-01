@@ -17,19 +17,26 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
                        (error)="error.emit($event)"></gallery-image>
 
         <div class="g-template g-item-template">
-          <ng-container *ngTemplateOutlet="config.itemTemplate;
-          context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
+          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
           </ng-container>
         </div>
 
       </ng-container>
 
-      <gallery-video *ngSwitchCase="Types.Video"
-                     [src]="data.src"
-                     [poster]="data.poster"
-                     [pause]="currIndex !== index"
-                     (error)="error.emit($event)"
-                     (videoState)="videoState.emit($event)"></gallery-video>
+      <ng-container *ngSwitchCase="Types.Video">
+
+        <gallery-video [src]="data.src"
+                       [poster]="data.poster"
+                       [pause]="currIndex !== index"
+                       (error)="error.emit($event)"
+                       (videoState)="videoState.emit($event)"></gallery-video>
+
+        <div class="g-template g-item-template">
+          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
+          </ng-container>
+        </div>
+
+      </ng-container>
 
       <gallery-iframe *ngSwitchCase="Types.Youtube"
                       [src]="data.src"
@@ -41,8 +48,7 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
       <ng-container *ngSwitchDefault>
 
         <div class="g-template g-item-template">
-          <ng-container *ngTemplateOutlet="config.itemTemplate;
-          context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
+          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
           </ng-container>
         </div>
 
