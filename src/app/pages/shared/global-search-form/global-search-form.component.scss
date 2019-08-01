@@ -28,9 +28,18 @@
     }
     .back { background: url('/assets/images/back_icon.png') no-repeat 13px center; }
     .advanced-filters-trigger {
-      background: url('/assets/images/filters_icon.png') no-repeat 13px center;
-      &.btn-disabled { background: url('/assets/images/filters_icon_disabled.png') no-repeat 13px center; }
-      &.success { background: url('/assets/images/filters_icon_on.png') no-repeat 13px center; }
+      // background: url('/assets/images/filters_icon.png') no-repeat 13px center;
+      padding: 0 13px;
+      color: #000000;
+      &.btn-disabled {
+        background-color: #e0e0e0!important;
+        border: solid 1px #e0e0e0;
+        color: #757575;
+      }
+      &.success {
+        background-color: #ffcb00!important;
+        border: solid 1px #ffcb00;
+      }
     }
   }
 }

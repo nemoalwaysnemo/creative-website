@@ -11,8 +11,9 @@
   }
   &.btn-disabled {
     // background: url('/assets/images/list_icon_disabled.png') no-repeat 13px center;
-    background-color: #cccccc!important;
-    border: solid 1px #cccccc;
+    background-color: #e0e0e0!important;
+    border: solid 1px #e0e0e0;
+    color: #757575;
     cursor: auto;
   }
 }
@@ -29,8 +30,9 @@
   }
   &.btn-disabled {
     // background: url('/assets/images/grid_icon_disabled.png') no-repeat 13px center;
-    background-color: #cccccc!important;
-    border: solid 1px #cccccc;
+    background-color: #e0e0e0!important;
+    border: solid 1px #e0e0e0;
+    color: #757575;
     cursor: auto;
   }
 }
