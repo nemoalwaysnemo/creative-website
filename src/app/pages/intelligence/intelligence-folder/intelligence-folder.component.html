@@ -1,8 +1,8 @@
 <intelligence-folder-view [loading]="loading" [document]="document"></intelligence-folder-view>
-<global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></global-search-form>
+<global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [baseParams]="baseParams$ | async"></global-search-form>
 <ng-container [ngSwitch]="true">
   <ng-container *ngSwitchCase="documentType == 'Industry'">
-    <intelligence-industry-search-result [folderId]="document.uid"></intelligence-industry-search-result>
+    <intelligence-industry-search-result [folderId]="document.uid" [afterSearch]="afterSearch"></intelligence-industry-search-result>
   </ng-container>
   <ng-container *ngSwitchCase="documentType !== 'Industry'">
     <intelligence-document-asset-search-result></intelligence-document-asset-search-result>

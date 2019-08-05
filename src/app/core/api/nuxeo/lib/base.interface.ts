@@ -167,6 +167,7 @@ export class NuxeoPageProviderParams {
   ecm_mixinType_not_in?: string = '["HiddenInNavigation"]';
   highlight?: string = 'dc:title.fulltext,ecm:binarytext,dc:description.fulltext,ecm:tag,note:note.fulltext,file:content.name';
   quickFilters?: string = `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
+  keyword?: string;
   ecm_fulltext?: string;
   production_date?: string; // production_date: '["lastYear"]',
   ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
@@ -176,7 +177,7 @@ export class NuxeoPageProviderParams {
   }
 
   hasKeyword(): boolean {
-    return !!this.ecm_fulltext;
+    return !!this.ecm_fulltext || !!this.keyword;
   }
 }
 
