@@ -30,11 +30,12 @@
     display: inline-block;
     vertical-align: top;
     height: 106px;
-    img {
-      display: block;
-      width: 100%;
+    > div {
+      width: 125px;
       height: 100%;
-      &:hover { cursor: pointer; }
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: auto 106px;
     }
   }
   .list-item + .list-item { padding-left: 22px; }

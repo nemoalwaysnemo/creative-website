@@ -3,7 +3,7 @@
   <drag-scroll class="gallery-list left" drag-scroll-y-disabled="true" scrollbar-hidden="true" #nav>
     <div *ngIf="relatedDocs && relatedDocs.length !== 0">
       <div drag-scroll-item *ngFor="let relatedDoc of relatedDocs" (click)="redirectToDoc(relatedDoc)" [title]="relatedDoc.title" class="list-item">
-        <img style="width: 125px;" [src]="relatedDoc.source" />
+        <div [ngStyle]="{'background-image': 'url(' + relatedDoc.source + ')'}"></div>
       </div>
     </div>
     <div *ngIf="!loading && relatedDocs && relatedDocs.length === 0" class="thumbnail-view empty text-center">
