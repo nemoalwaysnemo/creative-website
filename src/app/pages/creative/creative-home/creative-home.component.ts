@@ -15,10 +15,10 @@ export class CreativeHomeComponent {
   placeholder: string = 'Search for campaigns by title, agency, brand, client...';
 
   filters: any = {
-    'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
+    'the_loupe_main_brand_agg': { placeholder: 'Brand' },
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
     'the_loupe_main_country_agg': { placeholder: 'County', iteration: true },
-    'the_loupe_main_brand_agg': { placeholder: 'Brand' },
+    'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
     'the_loupe_main_clientName_agg': { placeholder: 'Client' },
     'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
     'app_edges_backslash_category_agg': { placeholder: 'Category' },
