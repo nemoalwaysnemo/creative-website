@@ -1,5 +1,27 @@
-.agency-thumbnail {
+@import '../../../../core/nebular/theme/styles/global/breakpoints';
+
+.home-gallery {
 	position: relative;
-	height: 493px;
+	width: 100%;
+	@include media-breakpoint-down(md) {
+		// < 768px
+		height: calc(576px * 9 / 16);
+	}
+	@include media-breakpoint-between(md, lg) {
+		//768px - 992px
+		height: calc(768px * 9 / 16);
+	}
+	@include media-breakpoint-between(lg, xl) {
+		// 992px - 1200px
+		height: calc(992px * 9 / 16);
+	}
+	@include media-breakpoint-between(xl, xxxl) {
+		// 1200px - 1600px
+		height: calc(1200px * 9 / 16 - 120px);
+	}
+	@include media-breakpoint-up(xxxl) {
+		// > 1600px 
+		height: calc(100vw * 9 / 16 - 120px);
+	}
 	margin-top: 37px;
 }
