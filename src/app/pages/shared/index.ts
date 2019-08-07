@@ -26,3 +26,4 @@ export * from './option-tag/option-tag.module';
 export * from './datepicker-directive/datepicker-directive.module';
 export * from './disruption-form-folder/disruption-form-folder.module';
 export * from './disruption-form-day/disruption-form-day.module';
+export * from './disruption-form-theory/disruption-form-theory.module';
