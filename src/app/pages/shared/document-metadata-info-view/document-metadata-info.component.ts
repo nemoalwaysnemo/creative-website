@@ -1,11 +1,12 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel, NuxeoUserGroups } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services';
 import { PreviewDialogService } from '../preview-dialog/preview-dialog.service';
 import { Router } from '@angular/router';
+import { concatMap, map, share } from 'rxjs/operators';
 
 @Component({
   selector: 'document-metadata-info',
@@ -32,6 +33,8 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   deletePermission$: Observable<boolean> = observableOf(false);
 
+  downloadPermission$: Observable<boolean> = observableOf(false);
+
   documentModel: DocumentModel;
 
   dialogType: string = 'edit';
@@ -44,6 +47,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       this.documentModel = doc;
       if (this.isCreativeAsset(doc)) {
         this.getUsageRightsStatus(doc);
+        this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
+      } else {
+        this.downloadPermission$ = observableOf(true);
       }
 
       if (this.isDisruptionAsset(doc)) {
@@ -56,6 +62,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   constructor(
     private advanceSearch: AdvanceSearch,
     private nuxeoApi: NuxeoApiService,
+    private userService: UserService,
     private location: Location,
     private previewDialogService: PreviewDialogService,
     private router: Router,
@@ -63,6 +70,15 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
+    return this.userService.getCurrentUserInfo().pipe(
+      concatMap((user: UserModel) => doc.getParentProperty('app_global:download_mainfile').pipe(
+        map((permission: boolean) => user.hasGroup(NuxeoUserGroups.Everyone) && permission === true),
+      )),
+      share(),
+    );
   }
 
   isCreativeAsset(doc: DocumentModel): boolean {
@@ -97,6 +113,15 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     this.location.back();
   }
 
+  openForm(dialog: any, type: string): void {
+    this.dialogType = type;
+    this.previewDialogService.open(dialog, this.documentModel);
+  }
+
+  onUpdated(document: DocumentModel): void {
+    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/asset/${document.uid}` } });
+  }
+
   private getUsageRightsStatus(doc: DocumentModel): void {
     this.usageLoading = true;
     const subscription = this.nuxeoApi.operation(NuxeoAutomations.CreativeGetDocumentURStatus, { 'uids': doc.uid })
@@ -114,14 +139,5 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   private getRequestParams(doc: DocumentModel): any {
     const jobTitle = doc.get('The_Loupe_Main:jobtitle');
     return { ecm_uuid: `["${jobTitle.join('", "')}"]` };
-  }
-
-  openForm(dialog: any, type: string): void {
-    this.dialogType = type;
-    this.previewDialogService.open(dialog, this.documentModel);
-  }
-
-  onUpdated(document: DocumentModel): void {
-    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/asset/${document.uid}` } });
   }
 }

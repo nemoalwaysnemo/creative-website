@@ -48,14 +48,18 @@
             </tr>
           </tbody>
         </table>
-        <ng-container *ngIf="writePermission$ | async ">
+        <ng-container *ngIf="writePermission$ | async">
           <a href="javascript:;" (click)="openForm(dialog, 'edit')" title="Edit" class="edit right icon_btn">Edit</a>
         </ng-container>
-        <ng-container *ngIf="deletePermission$ | async ">
-          <a href="javascript:;" (click)="openForm(dialog, 'delete')" title="Edit" class="edit right icon_btn">Delete</a>
+        <ng-container *ngIf="deletePermission$ | async">
+          <a href="javascript:;" (click)="openForm(dialog, 'delete')" title="Delete" class="edit right icon_btn">Delete</a>
         </ng-container>
-        <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
-        <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
+        <ng-container *ngIf="downloadPermission$ | async">
+          <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
+        </ng-container>
+        <ng-container *ngIf="downloadPermission$ | async">
+          <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
+        </ng-container>
         <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
       </ng-container>
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
@@ -121,8 +125,12 @@
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>
-        <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
-        <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
+        <ng-container *ngIf="downloadPermission$ | async">
+          <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
+        </ng-container>
+        <ng-container *ngIf="downloadPermission$ | async">
+          <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
+        </ng-container>
         <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
       </ng-container>
     </ng-container>
@@ -138,7 +146,7 @@
         </metadata-edit-form-dialog-body>
       </ng-container>
       <ng-container *ngSwitchCase="'delete'">
-        <delete-dialog-body [deleteRedirect]= "deleteRedirect" (callBack)="callback($event)">
+        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callBack)="callback($event)">
           <preview-dialog-alert></preview-dialog-alert>
         </delete-dialog-body>
       </ng-container>

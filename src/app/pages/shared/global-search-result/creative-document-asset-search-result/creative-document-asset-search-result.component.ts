@@ -4,6 +4,16 @@ import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 
+
+@Component({
+  template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>`,
+})
+export class RowRenderComponent {
+  @Input()
+  public value: { title: string, uid: string};
+}
+
+
 @Component({
   selector: 'creative-document-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
@@ -30,10 +40,8 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
       title: {
         title: 'Title',
         sort: false,
-        type: 'html',
-        valuePrepareFunction: (value: {uid: string, title: string}) => {
-          return value ? `<a href="/#/p/creative/asset/${value.uid}">${value.title}</a>` : null;
-        },
+        type: 'custom',
+        renderComponent: RowRenderComponent,
       },
       brand: {
         title: 'Brand',

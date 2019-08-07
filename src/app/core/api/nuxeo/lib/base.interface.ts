@@ -79,7 +79,7 @@ export class AggregateModel {
   }
 }
 
-export function filterAggregates(mapping: { [key: string]: { label?: string, placeholder?: string, iteration?: boolean} }, models: AggregateModel[] = []): AggregateModel[] {
+export function filterAggregates(mapping: { [key: string]: { label?: string, placeholder?: string, iteration?: boolean } }, models: AggregateModel[] = []): AggregateModel[] {
   const numberOfModels: number = models.length;
   const aggregates: AggregateModel[] = [];
   const keys = Object.keys(mapping);
@@ -130,7 +130,8 @@ export const NuxeoEnricher = {
     DOCUMENT_URL: 'documentURL',
     HAS_CONTENT: 'hasContent', // Boolean flag indicating whether or not current Folderish or Collection document has children or members
     HAS_FOLDERISH_CHILD: 'hasFolderishChild', // Boolean flag indicating whether or not current document has folderish child document
-    USER_VISIBLE_PERMISSIONS: 'userVisiblePermissions',
+    USER_VISIBLE_PERMISSIONS: 'userVisiblePermissions', // List of permissions available on current document
+    FIRST_ACCESSIBLE_ANCESTOR: 'firstAccessibleAncestor', // The closest document's ancestor which is used to find what safe document to redirect to when deleting some.
   },
 };
 
@@ -325,4 +326,8 @@ export enum NuxeoAutomations {
   RemoveFromFavorites = 'Document.RemoveFromFavorites',
   TBWAUserDigest = 'TBWA.GetUserDigest',
   GetAccessTokenInfo = 'TBWA.GetAccessTokenInfo',
+}
+
+export enum NuxeoUserGroups {
+  Everyone = 'Everyone-o-tbwa-AUTOPOP',
 }

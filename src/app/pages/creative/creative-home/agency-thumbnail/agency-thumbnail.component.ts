@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AdvanceSearch, NuxeoPagination, DocumentModel, UserService, NuxeoPageProviderParams } from '@core/api';
+import { AdvanceSearch, NuxeoPagination, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'creative-agency-thumbnail',
@@ -28,7 +28,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
-  constructor(private advanceSearch: AdvanceSearch, private userService: UserService) {}
+  constructor(private advanceSearch: AdvanceSearch, private userService: UserService) { }
 
   ngOnInit() {
     this.search(this.params);
@@ -40,9 +40,9 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
   }
 
   getMyAgency(): void {
-    const subscription = this.userService.getUserInfo()
-      .subscribe((user: any) => {
-        if (user.companycode) {
+    const subscription = this.userService.getCurrentUserInfo()
+      .subscribe((user: UserModel) => {
+        if (user.get('companycode')) {
           this.myAgencyFlag = true;
         }
       });

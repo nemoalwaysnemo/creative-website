@@ -11,7 +11,7 @@ import { GlobalSearchResultComponent } from './global-search-result.component';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 import { CreativeMyBrandSearchResultComponent } from './creative-my-brand-search-result/creative-my-brand-search-result.component';
 import { CreativePopularBrandSearchResultComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
-import { CreativeDocumentAssetSearchResultComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
+import { CreativeDocumentAssetSearchResultComponent, RowRenderComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
 import { CreativeMyBrandAssetSearchResultComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
 import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
@@ -38,6 +38,7 @@ const COMPONENTS = [
   CreativeMyBrandSearchResultComponent,
   CreativeMyBrandAssetSearchResultComponent,
   CreativePopularBrandSearchResultComponent,
+  RowRenderComponent,
   CreativeDocumentAssetSearchResultComponent,
   CreativeMyAgencyAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
@@ -71,6 +72,7 @@ const COMPONENTS = [
     DisruptionFormTheoryModule,
     DisruptionFormBrilliantThinkingModule,
   ],
+  entryComponents: [RowRenderComponent],
   declarations: [
     ...COMPONENTS,
   ],
