@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { Subject, timer, Observable } from 'rxjs';
-import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, NuxeoRequestOptions } from '@core/api';
+import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, NuxeoRequestOptions, UserModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 
@@ -62,17 +62,17 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     }
   }
 
-  protected searchCurrentAgency(params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
-    return this.userService.getUserInfo().pipe(
-      tap((user: any) => this.userInfo = user),
-      switchMap((user: any) => this.searchCurrentDocument(this.getSearchParams(user))),
+  protected searchCurrentAgency(): Observable<DocumentModel> {
+    return this.userService.getCurrentUserInfo().pipe(
+      tap((user: UserModel) => this.userInfo = user.properties),
+      switchMap((user: UserModel) => this.searchCurrentDocument(this.getSearchParams(user))),
     );
   }
 
-  private getSearchParams(user: any = {}): NuxeoPageProviderParams {
+  private getSearchParams(user: UserModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 1,
-      the_loupe_main_companycode: user.companycode,
+      the_loupe_main_companycode: user.get('companycode'),
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_AGENCY_FOLDER_TYPE,
       ecm_fulltext: '',
@@ -84,10 +84,10 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     return {};
   }
 
-  protected buildBrandParams(user: any = {}): NuxeoPageProviderParams {
+  protected buildBrandParams(user: UserModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
-      the_loupe_main_companycode: user.companycode,
+      the_loupe_main_companycode: user.get('companycode'),
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
       ecm_fulltext: '',
@@ -97,10 +97,10 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     return new NuxeoPageProviderParams(params);
   }
 
-  protected buildCaseParams(user: any = {}): NuxeoPageProviderParams {
+  protected buildCaseParams(user: UserModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
-      the_loupe_main_companycode: user.companycode,
+      the_loupe_main_companycode: user.get('companycode'),
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       ecm_fulltext: '',
       currentPageIndex: 0,

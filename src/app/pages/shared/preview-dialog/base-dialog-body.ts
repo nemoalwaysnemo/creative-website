@@ -36,6 +36,7 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
   closeBtnImage(): string {
     return this.assetPath('assets/images/close1.png');
   }
+
   backBtnImage(): string {
     return this.assetPath('assets/images/back_icon_white.png');
   }

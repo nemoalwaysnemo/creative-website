@@ -2,7 +2,7 @@ import { Base } from './base.api';
 import { join, deepExtend } from '../../../services';
 import { NuxeoEnricher, BatchBlob } from './base.interface';
 import { of as observableOf, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 export class DocumentModel extends Base {
 
@@ -11,6 +11,7 @@ export class DocumentModel extends Base {
   private _contextParameters: any;
   private _facets: string;
   private _repository: any;
+  private _parent: DocumentModel;
 
   uid: string;
   type: string;
@@ -94,6 +95,23 @@ export class DocumentModel extends Base {
         this.contextParameters.permissions = doc.contextParameters.permissions;
         return this.contextParameters.permissions.indexOf(name) !== -1;
       }));
+  }
+
+  fetchDocument(uid: string, opts: any = {}): Observable<DocumentModel> {
+    const options = this._computeOptions(opts);
+    options.enrichers = { document: [NuxeoEnricher.document.THUMBNAIL] };
+    options.schemas = ['dublincore', 'app_global', 'app_Edges', 'The_Loupe_Main'];
+    return this._repository.fetch(uid, options);
+  }
+
+  getParentProperty(propertyName: string): Observable<any> {
+    if (this._parent) {
+      return observableOf(this._parent.get(propertyName));
+    }
+    return this.fetchDocument(this.parentRef).pipe(
+      tap((doc: DocumentModel) => { this._parent = doc; }),
+      map((doc: DocumentModel) => doc.get(propertyName)),
+    );
   }
 
   get hasAnyContent(): boolean {

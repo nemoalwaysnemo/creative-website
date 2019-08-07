@@ -22,4 +22,8 @@ export class UserModel {
     return this.properties[propertyName];
   }
 
+  hasGroup(groupName: string): boolean {
+    return (this.get('groups') || []).includes(groupName);
+  }
+
 }
