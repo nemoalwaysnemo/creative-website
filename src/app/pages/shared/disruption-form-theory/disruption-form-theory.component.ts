@@ -127,6 +127,7 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
         id: 'uploadFiles',
         layoutPosition: 'bottom',
         formMode: 'edit',
+        showInputs: false,
         multiUpload: true,
       }),
     ];

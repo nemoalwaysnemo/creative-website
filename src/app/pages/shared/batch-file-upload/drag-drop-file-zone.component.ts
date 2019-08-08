@@ -40,7 +40,7 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
 
   @Input() queueLimit: number = 1;
 
-  @Input() maxSize: number = 1048576 * 200; // 1024 == 1mb
+  @Input() maxSize: number = 1024 * 1024 * 200; // 1024 == 1mb
 
   // @Output() fileChange: EventEmitter<any> = new EventEmitter<any>();
 

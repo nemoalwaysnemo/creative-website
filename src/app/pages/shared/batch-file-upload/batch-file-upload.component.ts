@@ -53,6 +53,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Input() showInputs: boolean = true;
+
   constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService, private dragDropFileZoneService: DragDropFileZoneService) {
     this.batchUpload = this.nuxeoApi.batchUpload();
   }
