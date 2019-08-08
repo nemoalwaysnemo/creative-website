@@ -39,6 +39,10 @@ export class OptionTagComponent implements ControlValueAccessor {
     }
   }
 
+  onBlur(event: any) {
+    if ((this.tags && this.tags.length < 1) || !this.tags) this._onTouched();
+  }
+
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;

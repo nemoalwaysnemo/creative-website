@@ -17,7 +17,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         maxLength: 50,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: false,
+        required: true,
         validators: {
           required: null,
           minLength: 4,
@@ -31,24 +31,51 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         placeholder: 'Brand',
-        required: false,
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
         directoryName: 'GLOBAL_Industries',
         placeholder: 'Please select industry',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Workshop Date',
         placeholder: 'Workshop Date',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
         label: 'Geography',
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Please select country',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -56,36 +83,78 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         multiple: false,
         directoryName: 'GLOBAL_Agencies',
         placeholder: 'Please select agency',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Please select country',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
         directoryName: 'App-Backslash-Categories',
         placeholder: 'Please select category',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
         directoryName: 'App-Edges-Edges',
         placeholder: 'Please select edges',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:description',
         label: 'Description',
         formMode: 'edit',
         placeholder: 'description',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicInputModel({
         id: 'dc:creator',
         label: 'Author',
         formMode: 'edit',
         placeholder: 'Author',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

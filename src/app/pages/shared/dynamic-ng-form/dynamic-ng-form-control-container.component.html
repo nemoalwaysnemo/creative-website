@@ -12,6 +12,7 @@
     <div [ngClass]="getClass('grid', 'control')">
 
         <ng-container #componentViewContainer></ng-container>
+        <div *ngIf="hasRequired" style="color:red;">*</div>
 
         <small *ngIf="hasHint" class="text-muted" [innerHTML]="hint" [ngClass]="getClass('element', 'hint')"></small>
 

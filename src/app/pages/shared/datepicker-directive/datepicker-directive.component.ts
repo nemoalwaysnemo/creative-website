@@ -45,6 +45,10 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
     this._onChange(event);
   }
 
+  onBlur(event: any) {
+    if ((this.value && this.value.length < 1) || !this.value) this._onTouched();
+  }
+
   registerOnChange(fn: any): void {
     this._onChange = fn;
   }

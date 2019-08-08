@@ -70,6 +70,10 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     }
   }
 
+  onBlur(event: any) {
+    if ((this.selectedItems.length < 1 && this.selectedItems) || !this.selectedItems) this._onTouched();
+  }
+
   ngOnInit() {
     if (this.suggestion === true) {
       this.onSearchSuggestions();

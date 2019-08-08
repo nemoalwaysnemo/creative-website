@@ -1,2 +1,2 @@
-<input type="text" [nbDatepicker]="datepicker" [placeholder]="placeholder" class="form-control datepicker" value="{{value}}" (change)="inputChange($event)">
+<input type="text" [nbDatepicker]="datepicker" [placeholder]="placeholder" class="form-control datepicker" value="{{value}}" (change)="inputChange($event)" (blur)="onBlur($event)">
 <nb-datepicker #datepicker (dateChange)="onChange($event)" [date]="date"></nb-datepicker>

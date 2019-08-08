@@ -15,6 +15,7 @@
         [virtualScroll]="true"
         (change)="onChange($event)"
         [(ngModel)]="selectedItems"
+        (blur)="onBlur($event)"
       >
         <ng-template ng-option-tmp let-item="item">
           <div class="{{item.deep}}">{{item.label}}</div>
@@ -35,6 +36,7 @@
         [virtualScroll]="true"
         (change)="onChange($event)"
         [(ngModel)]="selectedItems"
+        (blur)="onBlur($event)"
       >
       <ng-template ng-option-tmp let-item="item">
         <div class="{{item.deep}}">{{item.label}}</div>

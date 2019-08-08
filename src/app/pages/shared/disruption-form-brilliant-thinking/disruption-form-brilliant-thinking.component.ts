@@ -17,7 +17,7 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         maxLength: 50,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: false,
+        required: true,
         validators: {
           required: null,
           minLength: 4,
@@ -31,19 +31,36 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         placeholder: 'Brand',
-        required: false,
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
         directoryName: 'GLOBAL_Industries',
         placeholder: 'Please select industry',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Published',
         formMode: 'edit',
         placeholder: 'Published',
+        required: true,
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -51,6 +68,10 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         formMode: 'create',
         default: (new Date()),
         placeholder: 'Published',
+        required: true,
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -58,12 +79,26 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         directoryName: 'GLOBAL_Agencies',
         multiple: false,
         placeholder: 'Please select agency',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Please select country',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
@@ -71,6 +106,13 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         directoryName: 'App-Backslash-Categories',
         formMode: 'edit',
         placeholder: 'Please select category',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
@@ -83,12 +125,26 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         label: 'Description',
         formMode: 'edit',
         placeholder: 'description',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicInputModel({
         id: 'dc:creator',
         label: 'Author',
         formMode: 'edit',
         placeholder: 'Author',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

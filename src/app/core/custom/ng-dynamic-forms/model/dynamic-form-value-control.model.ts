@@ -31,7 +31,6 @@ export abstract class DynamicFormValueControlModel<T> extends DynamicFormControl
     this.required = isBoolean(config.required) ? config.required : false;
     this.requiredUpdates.subscribe(required => this.required = required);
     this.tabIndex = config.tabIndex || null;
-
     this.value = config.value !== null && config.value !== undefined ? config.value : null;
     this.valueUpdates = new Subject<T>();
     this.valueUpdates.subscribe((value: T) => this.value = value);
@@ -43,6 +42,10 @@ export abstract class DynamicFormValueControlModel<T> extends DynamicFormControl
 
   get value(): T | null {
     return this._value;
+  }
+
+  get isRequired(): boolean {
+    return this.required;
   }
 
   getAdditional(key: string, defaultValue?: any): any {
