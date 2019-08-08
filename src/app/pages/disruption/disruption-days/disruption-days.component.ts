@@ -26,7 +26,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
-      opts.setEnrichers('document', [NuxeoEnricher.document.BREADCRUMB, NuxeoEnricher.document.HIGHLIGHT]);
+      opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
     }
     return { searchParams, opts };
   }
@@ -91,9 +91,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
   // calculate their parent folder ids
   protected performSearchAssetsResults(res: NuxeoPagination): Observable<NuxeoPagination> {
     if (res.entries.length > 0) {
-      const ids = res.entries.map((doc: DocumentModel) => {
-        return doc.breadcrumb[doc.breadcrumb.length - 2];
-      }).map((doc: DocumentModel) => doc.uid).filter((value, index, self) => { // uniq
+      const ids = res.entries.map((doc: DocumentModel) => doc.parentRef).filter((value, index, self) => { // uniq
         return self.indexOf(value) === index;
       });
       const params = {

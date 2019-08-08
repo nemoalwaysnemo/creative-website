@@ -4,7 +4,7 @@ import { AdvanceSearch, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParam
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'intelligence-folder',
@@ -25,7 +25,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {
       searchParams = this.buildIndustryParams(this.document, searchParams.ecm_fulltext);
-      opts.setEnrichers('document', [NuxeoEnricher.document.BREADCRUMB, NuxeoEnricher.document.HIGHLIGHT]);
+      opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
     }
     return { searchParams, opts };
   }
@@ -33,6 +33,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
     if (res.searchParams.hasKeyword() && res.action === 'afterSearch' && this.documentType === 'Industry') {
       return this.performSearchAssetsResults(res).pipe(
+        concatMap((response: NuxeoPagination) => this.performSearchIndustryResults(response)),
         map((response: NuxeoPagination) => { res.response = response; return res; }),
       );
     }
@@ -58,7 +59,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ALL_FOLDERS,
     };
   }
@@ -96,7 +97,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
   protected buildConsumerAndMarketingParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
@@ -111,7 +112,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
     const params = {
       quickFilters: NuxeoQuickFilters.Alphabetically,
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
-      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 100,
       ecm_fulltext: '',
@@ -129,7 +130,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
     const params = {
       quickFilters: NuxeoQuickFilters.Alphabetically,
       ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
@@ -142,26 +143,50 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
 
   protected performSearchAssetsResults(res: SearchResponse): Observable<NuxeoPagination> {
     if (res.response.entries.length > 0) {
-      let industries: string[] = [];
-      res.response.entries.forEach((doc: DocumentModel) => {
-        if (doc.get('app_Edges:industry').length > 0) {
-          industries = industries.concat(doc.get('app_Edges:industry'));
-        }
-      });
+      const industries: string[] = this.getDocumentIndustries(res.response);
       if (industries.length > 0) {
         const params = {
           quickFilters: NuxeoQuickFilters.Alphabetically,
           ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
-          ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+          ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
           app_edges_industry_any: '["' + industries.join('", "') + '"]',
           ecm_fulltext: res.searchParams.keyword,
           currentPageIndex: 0,
-          pageSize: 20,
+          pageSize: 1000,
         };
         return this.advanceSearch.request(new NuxeoPageProviderParams(params));
       }
     }
     return observableOf(res.response);
+  }
+
+  // calculate their parent folder ids
+  protected performSearchIndustryResults(res: NuxeoPagination): Observable<NuxeoPagination> {
+    if (res.entries.length > 0) {
+      const industries: string[] = this.getDocumentIndustries(res);
+      if (industries.length > 0) {
+        const params = {
+          pageSize: 100,
+          currentPageIndex: 0,
+          app_edges_industry: `["${industries.join('", "')}"]`,
+          ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+          ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
+          quickFilters: NuxeoQuickFilters.Alphabetically,
+        };
+        return this.advanceSearch.request(new NuxeoPageProviderParams(params));
+      }
+    }
+    return observableOf(res);
+  }
+
+  private getDocumentIndustries(res: NuxeoPagination): string[] {
+    let industries: string[] = [];
+    res.entries.forEach((doc: DocumentModel) => {
+      if (doc.get('app_Edges:industry').length > 0) {
+        industries = industries.concat(doc.get('app_Edges:industry'));
+      }
+    });
+    return industries;
   }
 
 }

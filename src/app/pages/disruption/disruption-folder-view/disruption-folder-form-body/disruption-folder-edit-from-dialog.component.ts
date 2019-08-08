@@ -9,7 +9,7 @@ import { PreviewDialogService } from '@pages/shared';
 })
 export class DisruptionFormFolderEditDialogComponent extends FormDailogBody {
 
-  type: string;
+  private documentType: string;
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);
@@ -18,15 +18,15 @@ export class DisruptionFormFolderEditDialogComponent extends FormDailogBody {
   mode: 'create' | 'edit' = 'edit';
 
   protected initDocument(res: any) {
-    this.type = res.options.type;
+    this.documentType = res.options.type;
   }
 
   typeIs(type: string): boolean {
     switch (type) {
       case 'day':
-        return this.type === 'App-Disruption-Day';
+        return this.documentType === 'App-Disruption-Day';
       case 'howtos':
-        return this.type === 'App-Disruption-Theory-Folder';
+        return this.documentType === 'App-Disruption-Theory-Folder';
       default:
         return false;
     }

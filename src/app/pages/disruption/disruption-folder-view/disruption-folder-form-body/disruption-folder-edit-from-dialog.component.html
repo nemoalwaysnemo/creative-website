@@ -2,23 +2,23 @@
   <div class="dialog_title">
     <h5>
       <a (click)="close()"><img [src]="closeBtnImage()"></a>
-         <ng-container *ngIf="typeIs('howtos')">
-            Edit How Tos
-         </ng-container>
-          <ng-container *ngIf="typeIs('day')">
-            Edit Day
-          </ng-container>
+      <ng-container *ngIf="typeIs('howtos')">
+        Edit How Tos
+      </ng-container>
+      <ng-container *ngIf="typeIs('day')">
+        Edit Day
+      </ng-container>
     </h5>
   </div>
   <ng-content></ng-content>
-  <ng-container *ngIf="document&&typeIs('day')">
+  <ng-container *ngIf="document && typeIs('day')">
     <div class="form">
       <disruption-form-day [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)"></disruption-form-day>
     </div>
   </ng-container>
-    <ng-container *ngIf="document&&typeIs('howtos')">
-      <div class="form">
-        <disruption-form-theory [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)"></disruption-form-theory>
-      </div>
-    </ng-container>
+  <ng-container *ngIf="document && typeIs('howtos')">
+    <div class="form">
+      <disruption-form-theory [mode]="mode" [document]="document" (onUpdated)="onUpdated($event)"></disruption-form-theory>
+    </div>
+  </ng-container>
 </div>

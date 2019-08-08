@@ -13,10 +13,10 @@
       <div>Brand: {{ doc.get('The_Loupe_Main:brand')}}</div>
       <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
       <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
+      <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
       <ng-container *ngIf="writePermission$ | async">
         <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn left">Edit</button>
       </ng-container>
-      <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
       <ng-container *ngIf="deletePermission$ | async">
         <button type="button" (click)="openDialog(dialog, 'delete')" class="icon_btn left">Delete</button>
       </ng-container>
@@ -26,7 +26,7 @@
 </div>
 <ng-template #dialog>
   <preview-dialog>
-    
+
     <ng-container [ngSwitch]="showEdit">
       <ng-container *ngSwitchCase="'edit'">
         <disruption-folder-edit-from-body (updatedSuccess)="onUpdate($event)">
