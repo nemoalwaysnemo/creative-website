@@ -153,11 +153,18 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     return this.searchForm.getRawValue();
   }
 
-  protected onQueryParamsChanged(queryParams: any = {}): void {
+  protected onQueryParamsChanged(queryParams: any = {}, refresh = false): void {
     queryParams = queryParams || {};
     const queryValues = this.buildFormValues(queryParams);
     const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), queryValues);
+    if (refresh && params.currentPageIndex) {
+      params.pageSize = parseInt(params.pageSize, 10) * (parseInt(params.currentPageIndex, 10) + 1);
+      params.currentPageIndex = 0;
+    } else {
+      params.pageSize = 20;
+    }
     this.search$.next({ params, event: 'onQueryParamsChanged' });
+    refresh = false;
   }
 
   protected onParentChanged(parentParams: any = {}): void {
@@ -248,15 +255,17 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected onCurrentPageChanged(): void {
+    let initialState = true;
     const subscription = this.onPageChanged().pipe(
       delay(100),
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       this.setPassedParams(info.queryParams);
-      this.onQueryParamsChanged(info.queryParams);
+      this.onQueryParamsChanged(info.queryParams, initialState);
       if (this.hasFilterQueryParams(info.queryParams)) {
         this.showFilter = true;
       }
+      initialState = false;
     });
     this.subscription.add(subscription);
   }

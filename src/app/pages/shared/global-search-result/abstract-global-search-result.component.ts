@@ -5,7 +5,7 @@ import { SearchQueryParamsService } from '../services/search-query-params.servic
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { concatMap } from 'rxjs/operators';
 import { AbstractSearchResultComponent } from './abstract-search-result.component';
-
+import { ActivatedRoute } from '@angular/router';
 export abstract class AbstractGlobalSearchResultComponent extends AbstractSearchResultComponent {
 
   loading: boolean = false;
@@ -33,7 +33,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
 
-  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
+  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService, protected route: ActivatedRoute) {
     super(queryParamsService);
   }
 
@@ -65,10 +65,20 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
     this.subscription.add(subscription);
   }
 
+  protected onScroll() {
+    if (this.currentView === 'thumbnailView') {
+      const currentPageIndex = parseInt(this.route.snapshot.queryParams.currentPageIndex || 0, 10) + 1;
+      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
+    }
+  }
+
   protected handleResponse(res: SearchResponse): void {
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    this.documents = res.response.entries;
-    this.listDocuments = this.listViewBuilder(res.response.entries);
+    this.documents = this.documents.concat(res.response.entries);
+    console.info(window.innerHeight);
+    // window.scrollTo(0, (this.totalResults - 20) / this.totalResults * window.screen.height);
+    window.scrollTo(0, 20000);
+    this.listDocuments = this.listViewBuilder(res.response.entries.slice(res.response.entries.length - 20, res.response.entries.length));
   }
 }

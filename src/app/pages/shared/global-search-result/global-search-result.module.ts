@@ -32,6 +32,7 @@ import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
 import { DisruptionFolderTheoryAssetSearchResultComponent } from './disruption-folder-theory-asset-search-result/disruption-folder-theory-asset-search-result.component';
 import { CreativeMyAgencyAssetSearchResultComponent } from './creative-my-agency-asset-search-result/creative-my-agency-asset-search-result.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -71,6 +72,7 @@ const COMPONENTS = [
     DisruptionFormRoadmapModule,
     DisruptionFormTheoryModule,
     DisruptionFormBrilliantThinkingModule,
+    InfiniteScrollModule,
   ],
   entryComponents: [RowRenderComponent],
   declarations: [
