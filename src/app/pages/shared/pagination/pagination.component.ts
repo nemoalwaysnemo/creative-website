@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PaginationDataSource } from '../../shared/pagination/pagination-data-source';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'table-pagination',
   styleUrls: ['./pagination.component.scss'],
@@ -22,9 +22,10 @@ export class PaginationComponent implements OnChanges, OnInit {
 
   private subscription: Subscription = new Subscription();
 
+  constructor(protected activatedRoute: ActivatedRoute) { }
   ngOnInit() {
     this.subscription = this.dataSource.onChanged().subscribe(_ => {
-      this.currentPage = this.dataSource.pagingInfo.page;
+      this.currentPage = parseInt(this.activatedRoute.snapshot.queryParams.currentPageIndex, 10) + 1 || 1;
       this.pageSize = this.dataSource.pagingInfo.perPage;
       this.totalPage = this.dataSource.pagingInfo.numberOfPages;
       this.initPages();

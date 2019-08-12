@@ -1,4 +1,4 @@
-<div class="search-results">
+<div class="search-results" infiniteScroll [immediateCheck]="true" [infiniteScrollDistance]="0.01" [infiniteScrollThrottle]="50" [alwaysCallback]="true" (scrolled)="onScroll()">
   <h1 *ngIf="!!searchParams.ecm_fulltext" class="left">Results for "{{searchParams.ecm_fulltext}}" ({{totalResults}})</h1>
   <div class="clear"></div>
   <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
@@ -9,7 +9,8 @@
     <document-list-view [loading]="loading" [settings]="listViewSetting" [documents]="listDocuments"></document-list-view>
   </ng-template>
 </div>
-<div *ngIf="hasPagination" class="search-pagination">
-  <table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination"></table-pagination>
+<div *ngIf="hasPagination">
+  <table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination" 
+  [ngStyle]="currentView === 'thumbnailView'? {'display': 'none'} : {}"></table-pagination>
 </div>
 <div class="clear"></div>
