@@ -83,6 +83,6 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
     this.documents = this.documents.concat(res.response.entries);
     const destinationAnchor = 'scroll-anchor-' + (this.documents.length - pageSize - 1);
     this.viewportScroller.scrollToAnchor(destinationAnchor);
-    this.listDocuments = this.listViewBuilder(res.response.entries.slice(res.response.entries.length - pageSize, res.response.entries.length));
+    this.listDocuments = this.listViewBuilder(res.response.entries.slice(res.response.entries.length - pageSize));
   }
 }

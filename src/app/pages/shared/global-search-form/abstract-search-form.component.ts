@@ -160,8 +160,6 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     if (refresh && params.currentPageIndex) {
       params.pageSize = parseInt(params.pageSize, 10) * (parseInt(params.currentPageIndex, 10) + 1);
       params.currentPageIndex = 0;
-    } else {
-      params.pageSize = 20;
     }
     this.search$.next({ params, event: 'onQueryParamsChanged' });
     refresh = false;
