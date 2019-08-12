@@ -1,7 +1,8 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
   <div class="property-section" *ngIf="document">
     <div class="property-intro inline-top">
-      <img src="{{document?.thumbnailUrl}}" />
+      <div [ngStyle]="{'background-image': 'url('+document?.thumbnailUrl+')'}"></div>
+      <!-- <img src="{{document?.thumbnailUrl}}" /> -->
     </div>
     <div class="property-info inline-top">
       <h1>{{document?.get('The_Loupe_Main:agency')}}</h1>
