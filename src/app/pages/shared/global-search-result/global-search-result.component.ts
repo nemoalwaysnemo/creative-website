@@ -3,6 +3,7 @@ import { AdvanceSearch } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { AbstractGlobalSearchResultComponent } from './abstract-global-search-result.component';
 import { ActivatedRoute } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 @Component({
   selector: 'global-search-result',
   styleUrls: ['./global-search-result.component.scss'],
@@ -16,8 +17,11 @@ export class GlobalSearchResultComponent extends AbstractGlobalSearchResultCompo
 
   @Input() layout: string = 'quarter';
 
-  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService, protected route: ActivatedRoute) {
-    super(advanceSearch, queryParamsService, route);
+  constructor(protected advanceSearch: AdvanceSearch,
+              protected queryParamsService: SearchQueryParamsService,
+              protected route: ActivatedRoute,
+              protected viewportScroller: ViewportScroller) {
+    super(advanceSearch, queryParamsService, route, viewportScroller);
   }
 
 }

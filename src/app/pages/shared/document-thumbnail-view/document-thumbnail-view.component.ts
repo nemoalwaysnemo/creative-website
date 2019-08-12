@@ -8,8 +8,10 @@ import { DocumentViewService } from '@pages/shared/services/document-view.servic
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
     <ng-container *ngIf="documentList && documentList.length !== 0">
       <div class="s-results {{layout}}">
-        <div *ngFor="let document of documentList" class="thumbnail-view-item">
-          <ng-template #itemTpl [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
+        <div *ngFor="let document of documentList; let i=index" class="thumbnail-view-item">
+          <div id="scroll-anchor-{{i}}">
+            <ng-template #itemTpl [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
+          </div>
         </div>
         <div class="clear"></div>
         <ng-container *ngIf="emptyList && emptyList.length !== 0">

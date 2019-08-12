@@ -1,4 +1,5 @@
 import { Input } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
@@ -24,6 +25,8 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
 
+  hasNextPage: boolean = true;
+
   @Input()
   set listViewSettings(settings: any) {
     if (settings) {
@@ -33,7 +36,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
 
-  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService, protected route: ActivatedRoute) {
+  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService, protected route: ActivatedRoute, protected viewportScroller: ViewportScroller) {
     super(queryParamsService);
   }
 
@@ -66,19 +69,20 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   }
 
   protected onScroll() {
-    if (this.currentView === 'thumbnailView') {
+    if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
       const currentPageIndex = parseInt(this.route.snapshot.queryParams.currentPageIndex || 0, 10) + 1;
       this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
     }
   }
 
   protected handleResponse(res: SearchResponse): void {
+    !res.response.isNextPageAvailable ? this.hasNextPage = false : '';
+    const pageSize = res.response.pageSize;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
     this.documents = this.documents.concat(res.response.entries);
-    console.info(window.innerHeight);
-    // window.scrollTo(0, (this.totalResults - 20) / this.totalResults * window.screen.height);
-    window.scrollTo(0, 20000);
-    this.listDocuments = this.listViewBuilder(res.response.entries.slice(res.response.entries.length - 20, res.response.entries.length));
+    const destinationAnchor = 'scroll-anchor-' + (this.documents.length - pageSize - 1);
+    this.viewportScroller.scrollToAnchor(destinationAnchor);
+    this.listDocuments = this.listViewBuilder(res.response.entries.slice(res.response.entries.length - pageSize, res.response.entries.length));
   }
 }
