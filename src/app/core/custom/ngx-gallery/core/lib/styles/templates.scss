@@ -59,13 +59,19 @@
   .g-template, .g-loading, .g-image-error-message {
     position: absolute;
     z-index: 200;
-    left: 0;
     top: 0;
+    color: white;
+    align-items: center;
+  }
+  .g-template {
+    width: 100%;
+    height: 100%;
+  }
+  .g-loading, .g-image-error-message {
+    left: 0;
     right: 0;
     bottom: 80%;
-    color: white;
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
   }
