@@ -84,10 +84,10 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     return {};
   }
 
-  protected buildBrandParams(user: UserModel): NuxeoPageProviderParams {
+  protected buildBrandParams(user: any): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
-      the_loupe_main_companycode: user.get('companycode'),
+      the_loupe_main_companycode: user.companycode,
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
       ecm_fulltext: '',
@@ -97,10 +97,10 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     return new NuxeoPageProviderParams(params);
   }
 
-  protected buildCaseParams(user: UserModel): NuxeoPageProviderParams {
+  protected buildCaseParams(user: any): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
-      the_loupe_main_companycode: user.get('companycode'),
+      the_loupe_main_companycode: user.companycode,
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       ecm_fulltext: '',
       currentPageIndex: 0,
