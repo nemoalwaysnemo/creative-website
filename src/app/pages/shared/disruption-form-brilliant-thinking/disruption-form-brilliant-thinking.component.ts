@@ -58,6 +58,9 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         formMode: 'edit',
         placeholder: 'Published',
         required: true,
+        validators: {
+          required: null,
+        },
         errorMessages: {
           required: '{{label}} is required',
         },
