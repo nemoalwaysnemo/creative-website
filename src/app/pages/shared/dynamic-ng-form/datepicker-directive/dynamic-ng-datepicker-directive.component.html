@@ -1,6 +1,7 @@
 <ng-container [formGroup]="group">
   <datepicker-directive
     [formControlName]="model.id"
+    [readonly]="model.readonly"
     [id]="elementId"
     [placeholder]="model.placeholder"
     [default]="model.default"

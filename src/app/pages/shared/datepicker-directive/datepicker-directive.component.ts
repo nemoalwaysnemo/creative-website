@@ -18,6 +18,7 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
   value: any = '';
 
   @Input() placeholder: string;
+  @Input() readonly: false;
 
   @Input()
   set default(defaultValue: any) {
