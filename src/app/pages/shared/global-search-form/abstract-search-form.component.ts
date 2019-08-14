@@ -261,7 +261,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       this.setPassedParams(info.queryParams);
-      this.onQueryParamsChanged(info.queryParams, pageChanged);
+      this.onQueryParamsChanged(info.queryParams, pageChanged && this.pageChangedSearch);
       if (this.hasFilterQueryParams(info.queryParams)) {
         this.showFilter = true;
       }
