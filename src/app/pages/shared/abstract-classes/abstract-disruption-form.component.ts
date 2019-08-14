@@ -8,7 +8,6 @@ export abstract class AbstractDisruptionForm implements OnInit {
   static ROADMAP = 'App-Disruption-Roadmap-Asset';
   static THEORY = 'App-Disruption-Theory-Asset';
 
-
   parentDocument: DocumentModel;
 
   formLayout: any = {};

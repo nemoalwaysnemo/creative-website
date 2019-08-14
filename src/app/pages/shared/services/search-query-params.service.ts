@@ -34,6 +34,10 @@ export class SearchQueryParamsService {
     this.navigate([], { relativeTo: this.activatedRoute, queryParams, queryParamsHandling, state });
   }
 
+  clearQueryParams(): void {
+    this.changeQueryParams({});
+  }
+
   getSnapshotQueryParams(): Params {
     return this.activatedRoute.snapshot.queryParams;
   }

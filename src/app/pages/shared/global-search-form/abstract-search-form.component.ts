@@ -244,7 +244,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected checkPageChanged(info: PageChangedInfo): boolean {
     const type = info.historyState.type;
-    return (this.pageChangedSearch && type !== 'keyword') || (!this.pageChangedSearch && (type === 'pagination' || type === 'refresh'));
+    return (this.pageChangedSearch && type !== 'keyword') || (!this.pageChangedSearch && (['refresh', 'pagination', 'scroll'].includes(type)));
   }
 
   protected onPageChanged(): Observable<PageChangedInfo> {

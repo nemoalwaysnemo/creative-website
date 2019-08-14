@@ -43,6 +43,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   toggleBtn(): void {
     this.caseFlag = !this.caseFlag;
+    this.queryParamsService.clearQueryParams();
     if (!this.caseFlag) {
       this.showType = 'brands';
       this.resultHeader = 'Brands:';
