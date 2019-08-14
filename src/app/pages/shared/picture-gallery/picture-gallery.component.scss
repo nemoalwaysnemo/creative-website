@@ -1,3 +1,5 @@
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+
 ::ng-deep {
 	gallery {
 		height: 100%!important;
@@ -44,9 +46,27 @@
     font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
     position: absolute;
     display: inline-block;
-    color: #ffffff;
-		// top: 440px;
-		bottom: 30px;
+		color: #ffffff;
+		@include media-breakpoint-down(md) {
+			// < 768px
+			top: calc(576px * 9 / 16 - 50px);
+		}
+		@include media-breakpoint-between(md, lg) {
+			//768px - 992px
+			top: calc(768px * 9 / 16 - 50px);
+		}
+		@include media-breakpoint-between(lg, xl) {
+			// 992px - 1200px
+			top: calc(992px * 9 / 16 - 50px);
+		}
+		@include media-breakpoint-between(xl, xxxl) {
+			// 1200px - 1600px
+			top: calc(1200px * 9 / 16 - 170px);
+		}
+		@include media-breakpoint-up(xxxl) {
+			// > 1600px 
+			top: calc(100vw * 9 / 16 - 200px);
+		}
     left: 73px;
 		font-size: 18px;
   }
