@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { filterParams, selectObjectByKeys } from '@core/services';
-import { ActivatedRoute, Router, Params, NavigationExtras } from '@angular/router';
+import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -32,6 +32,14 @@ export class SearchQueryParamsService {
 
   changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = ''): void {
     this.navigate([], { relativeTo: this.activatedRoute, queryParams, queryParamsHandling, state });
+  }
+
+  getSnapshotQueryParams(): Params {
+    return this.activatedRoute.snapshot.queryParams;
+  }
+
+  getSnapshotQueryParamMap(): ParamMap {
+    return this.activatedRoute.snapshot.queryParamMap;
   }
 
   onQueryParamsChanged(): Observable<Params> {
