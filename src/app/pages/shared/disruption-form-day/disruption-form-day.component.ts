@@ -56,6 +56,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Workshop Date',
         placeholder: 'Workshop Date',
+        readonly: true,
         required: true,
         validators: {
           required: null,

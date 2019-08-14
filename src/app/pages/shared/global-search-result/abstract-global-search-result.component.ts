@@ -25,7 +25,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
 
-  hasNextPage: boolean = true;
+  hasNextPage: boolean = false;
 
   @Input()
   set listViewSettings(settings: any) {
@@ -68,7 +68,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
     this.subscription.add(subscription);
   }
 
-  protected onScroll() {
+  onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
       const currentPageIndex = parseInt(this.route.snapshot.queryParams.currentPageIndex || 0, 10) + 1;
       this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
@@ -76,13 +76,13 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   }
 
   protected handleResponse(res: SearchResponse): void {
-    !res.response.isNextPageAvailable ? this.hasNextPage = false : '';
     const pageSize = res.response.pageSize;
+    this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
     this.documents = this.documents.concat(res.response.entries);
     const destinationAnchor = 'scroll-anchor-' + (this.documents.length - pageSize - 1);
     this.viewportScroller.scrollToAnchor(destinationAnchor);
-    this.listDocuments = this.listViewBuilder(res.response.entries.slice(res.response.entries.length - pageSize));
+    this.listDocuments = this.listViewBuilder(res.response.entries.slice(res.response.entries.length));
   }
 }

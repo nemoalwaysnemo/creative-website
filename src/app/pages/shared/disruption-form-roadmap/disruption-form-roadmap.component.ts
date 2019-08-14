@@ -57,6 +57,7 @@ export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
         label: 'Published',
         formMode: 'edit',
         placeholder: 'Published',
+        readonly: true,
         required: true,
         validators: {
           required: null,
@@ -71,6 +72,7 @@ export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
         formMode: 'create',
         default: (new Date()),
         placeholder: 'Published',
+        readonly: true,
         required: true,
         errorMessages: {
           required: '{{label}} is required',
