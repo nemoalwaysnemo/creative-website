@@ -1,5 +1,4 @@
 import { Input } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
@@ -36,7 +35,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
 
-  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService, protected route: ActivatedRoute, protected viewportScroller: ViewportScroller) {
+  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);
   }
 
@@ -63,26 +62,31 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       const currentPageIndex = pageInfo.currentPageIndex;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge');
+      const queryParams = Object.assign({}, this.queryParamsService.getSnapshotQueryParams(), { currentPageIndex });
+      delete queryParams['infiniteScroll'];
+      this.queryParamsService.changeQueryParams(queryParams, { type: 'pagination' });
     });
     this.subscription.add(subscription);
   }
 
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
-      const currentPageIndex = parseInt(this.route.snapshot.queryParams.currentPageIndex || 0, 10) + 1;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
+      const infiniteScroll: boolean = true;
+      const pageIndex: string = this.queryParamsService.getSnapshotQueryParamMap().get('currentPageIndex');
+      const currentPageIndex: number = parseInt(pageIndex || '0', 10) + 1;
+      this.queryParamsService.changeQueryParams({ currentPageIndex, infiniteScroll }, { type: 'scroll' }, 'merge');
     }
   }
 
   protected handleResponse(res: SearchResponse): void {
-    const pageSize = res.response.pageSize;
     this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    this.documents = this.documents.concat(res.response.entries);
-    const destinationAnchor = 'scroll-anchor-' + (this.documents.length - pageSize - 1);
-    this.viewportScroller.scrollToAnchor(destinationAnchor);
-    this.listDocuments = this.listViewBuilder(res.response.entries.slice(res.response.entries.length));
+    if (this.queryParamsService.getSnapshotQueryParamMap().has('infiniteScroll')) {
+      this.documents = this.documents.concat(res.response.entries);
+    } else {
+      this.documents = res.response.entries;
+    }
+    this.listDocuments = this.listViewBuilder(res.searchParams.pageSize > 20 ? res.response.entries.slice(-20) : res.response.entries);
   }
 }

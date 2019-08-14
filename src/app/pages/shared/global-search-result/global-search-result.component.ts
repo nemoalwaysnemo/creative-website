@@ -17,11 +17,8 @@ export class GlobalSearchResultComponent extends AbstractGlobalSearchResultCompo
 
   @Input() layout: string = 'quarter';
 
-  constructor(protected advanceSearch: AdvanceSearch,
-              protected queryParamsService: SearchQueryParamsService,
-              protected route: ActivatedRoute,
-              protected viewportScroller: ViewportScroller) {
-    super(advanceSearch, queryParamsService, route, viewportScroller);
+  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
+    super(advanceSearch, queryParamsService);
   }
 
 }

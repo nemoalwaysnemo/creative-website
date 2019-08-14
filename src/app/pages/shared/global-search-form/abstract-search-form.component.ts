@@ -17,9 +17,11 @@ export class PageChangedInfo {
 }
 
 export class SearchParams {
+  readonly defaults: { [k: string]: any } = {};
   readonly params: { [k: string]: any } = {};
   readonly event: string;
-  constructor(params: any = {}, event: string) {
+  constructor(params: any = {}, event: string, defaults?: any) {
+    this.defaults = defaults || {};
     this.params = params;
     this.event = event;
   }
@@ -153,33 +155,33 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     return this.searchForm.getRawValue();
   }
 
-  protected onQueryParamsChanged(queryParams: any = {}, refresh = false): void {
+  protected onQueryParamsChanged(queryParams: any = {}, pageChanged = false): void {
     queryParams = queryParams || {};
     const queryValues = this.buildFormValues(queryParams);
     const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), queryValues);
-    if (refresh && params.currentPageIndex) {
+    const pageSize = params.pageSize;
+    if (pageChanged && params.currentPageIndex) {
       params.pageSize = parseInt(params.pageSize, 10) * (parseInt(params.currentPageIndex, 10) + 1);
       params.currentPageIndex = 0;
     }
-    this.search$.next({ params, event: 'onQueryParamsChanged' });
-    refresh = false;
+    this.search$.next(new SearchParams(params, 'onQueryParamsChanged', { pageSize }));
   }
 
   protected onParentChanged(parentParams: any = {}): void {
     const queryValues = this.buildFormValues(this.activatedRoute.snapshot.queryParams);
     const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), parentParams, queryValues);
-    this.search$.next({ params, event: 'onParentChanged' });
+    this.search$.next(new SearchParams(params, 'onParentChanged'));
   }
 
   protected onKeywordChanged(searchTerm: string): void {
     let params = { currentPageIndex: 0, ecm_fulltext: searchTerm };
     params = Object.assign({}, this.getSearchParams(), this.getFormValue(), params);
-    this.search$.next({ params, event: 'onKeywordChanged' });
+    this.search$.next(new SearchParams(params, 'onKeywordChanged'));
   }
 
   protected onFilterChanged(aggregateModel: any = {}): void {
     const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), { aggregates: aggregateModel });
-    this.search$.next({ params, event: 'onFilterChanged' });
+    this.search$.next(new SearchParams(params, 'onFilterChanged'));
   }
 
   protected onSearchPerformed(): void {
@@ -253,36 +255,36 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected onCurrentPageChanged(): void {
-    let initialState = true;
+    let pageChanged = true;
     const subscription = this.onPageChanged().pipe(
       delay(100),
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       this.setPassedParams(info.queryParams);
-      this.onQueryParamsChanged(info.queryParams, initialState);
+      this.onQueryParamsChanged(info.queryParams, pageChanged);
       if (this.hasFilterQueryParams(info.queryParams)) {
         this.showFilter = true;
       }
-      initialState = false;
+      pageChanged = false;
     });
     this.subscription.add(subscription);
   }
 
   protected performSearch(params: SearchParams): Observable<SearchResponse> {
     let event = 'GlobalSearch';
-    let searchParams = params.params;
+    const formValue = { ...params.params, ...params.defaults };
     switch (params.event) {
       case 'onCurrentPageChanged':
         event = 'CurrentPageChanged';
-        this.patchFormValue(params.params);
+        this.patchFormValue(formValue);
         break;
       case 'onQueryParamsChanged':
         event = 'QueryParamsChanged';
-        this.patchFormValue(params.params);
+        this.patchFormValue(formValue);
         break;
       case 'onParentChanged':
         event = 'CurrentDocumentChanged';
-        this.patchFormValue(params.params);
+        this.patchFormValue(formValue);
         break;
       case 'onKeywordChanged':
         event = 'SearchTermChanged';
@@ -295,7 +297,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    searchParams = removeUselessObject(searchParams, ['q', 'id', 'folder']);
+    const searchParams = removeUselessObject(params.params, ['q', 'id', 'folder']);
     this.googleAnalyticsService.searchTrack({ 'event_category': 'Search', 'event_action': event, 'event_label': event });
     return this.search(searchParams);
   }
