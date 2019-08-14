@@ -37,6 +37,7 @@ export abstract class AbstractDisruptionForm implements OnInit {
 
   ngOnInit() {
     this.performForm();
+    this.defaultValue();
     console.info(`[${this.mode}] => [${this.parentType}]`);
   }
 
@@ -51,6 +52,13 @@ export abstract class AbstractDisruptionForm implements OnInit {
   protected performForm(): void {
     this.settings = this.getSettings();
     this.formLayout = this.getFormLayout();
+  }
+
+  private defaultValue() {
+    const settings = this.getSettings();
+    settings.filter(setting => !!setting.default && setting.formMode !== 'edit').forEach(setting => {
+      this.parentDocument.properties[setting.id] = setting.default;
+    });
   }
 
   protected abstract getSettings();

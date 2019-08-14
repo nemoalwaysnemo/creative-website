@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { NullTemplateVisitor } from '@angular/compiler';
@@ -19,11 +19,6 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
 
   @Input() placeholder: string;
   @Input() readonly: false;
-
-  @Input()
-  set default(defaultValue: any) {
-    this.writeValue(defaultValue);
-  }
 
   private _onChange = (_) => { };
 

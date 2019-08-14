@@ -141,9 +141,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private prepareForm(settings: DynamicFormControlModel[]) {
     const opts = this.performSettings(settings);
-    if (this.formMode === 'create') {
-      this.createForm(opts);
-    } else if (this.formMode === 'edit' && this.documentModel) {
+    if (this.documentModel) {
       opts.forEach(opt => opt.value = this.documentModel.get(opt.id));
       this.createForm(opts);
     }
