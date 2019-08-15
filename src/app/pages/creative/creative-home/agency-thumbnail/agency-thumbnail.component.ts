@@ -23,7 +23,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   private params: any = {
-    pageSize: 8,
+    pageSize: 9,
     ecm_path: NUXEO_PATH_INFO.CREATIVE_BEST_ASSETS_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
