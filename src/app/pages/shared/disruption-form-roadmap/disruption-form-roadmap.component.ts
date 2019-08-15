@@ -188,7 +188,8 @@ export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
         id: 'uploadFiles',
         layoutPosition: 'bottom',
         formMode: 'edit',
-        multiUpload: false,
+        showInputs: false,
+        multiUpload: true,
       }),
     ];
   }
