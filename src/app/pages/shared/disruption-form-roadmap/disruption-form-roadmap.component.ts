@@ -174,7 +174,7 @@ export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
         formMode: 'edit',
         uploadType: 'attachment',
         layoutPosition: 'right',
-        queueLimit: 1,
+        queueLimit: 20,
         placeholder: 'Drop to upload attachment',
         acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
