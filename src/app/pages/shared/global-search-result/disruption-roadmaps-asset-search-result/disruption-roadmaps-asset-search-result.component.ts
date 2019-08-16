@@ -42,7 +42,7 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
   }
 
   onUpdate(doc: any): void {
-    this.showEdit = 'edit';
+    this.showEdit = 'preview';
   }
 
   callback(message: { type, value }): void {
