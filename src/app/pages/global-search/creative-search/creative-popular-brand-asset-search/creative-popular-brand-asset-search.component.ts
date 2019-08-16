@@ -20,11 +20,13 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
     'the_loupe_main_agency_agg': { placeholder: 'Agency' },
     'the_loupe_main_country_agg': { placeholder: 'County', iteration: true },
     'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
+    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
+    'the_loupe_main_campaign_agg': { placeholder: 'Campaign'},
+    'app_global_networkshare_agg': { placeholder: 'Showcase', convertRule: { 'true': 'yes', 'false': 'no'} },
     // 'the_loupe_main_campaign_agg': { placeholder: 'Campaign' },
     // 'the_loupe_main_clientName_agg': { placeholder: 'Client' },
     // 'app_edges_industry_agg': { placeholder: 'Industry' },
     // 'app_edges_backslash_category_agg': { placeholder: 'Category' },
-    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
 
   constructor(

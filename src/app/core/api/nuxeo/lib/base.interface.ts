@@ -49,6 +49,7 @@ export class AggregateModel {
   readonly field: string;
   readonly type: string;
   readonly IDKeys: string[] = [];
+  convertRule: any = {};
   iteration: boolean = false;
   label: string;
   placeholder: string;
@@ -79,19 +80,20 @@ export class AggregateModel {
   }
 }
 
-export function filterAggregates(mapping: { [key: string]: { label?: string, placeholder?: string, iteration?: boolean } }, models: AggregateModel[] = []): AggregateModel[] {
+export function filterAggregates(mapping: { [key: string]: { label?: string, placeholder?: string, iteration?: boolean, convertRule?: any } }, models: AggregateModel[] = []): AggregateModel[] {
   const numberOfModels: number = models.length;
   const aggregates: AggregateModel[] = [];
   const keys = Object.keys(mapping);
   for (const key of keys) {
     if (numberOfModels === 0) {
-      aggregates.push(new AggregateModel({ label: mapping[key].label, placeholder: mapping[key].placeholder, iteration: mapping[key].iteration }));
+      aggregates.push(new AggregateModel({ label: mapping[key].label, placeholder: mapping[key].placeholder, iteration: mapping[key].iteration, convertRule: mapping[key].convertRule }));
     } else {
       const model = models.filter((x) => x.id === key).shift();
       if (model) {
         model.label = mapping[model.id].label;
         model.placeholder = mapping[model.id].placeholder;
         model.iteration = mapping[model.id].iteration;
+        model.convertRule = mapping[model.id].convertRule;
         aggregates.push(model);
       }
     }
