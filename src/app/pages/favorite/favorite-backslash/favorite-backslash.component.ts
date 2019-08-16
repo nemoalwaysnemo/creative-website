@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, AdvanceSearch, UserService } from '@core/api';
+import { DocumentModel, AdvanceSearch, UserService, SearchFilterModel } from '@core/api';
 import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
@@ -17,10 +17,10 @@ export class FavoriteBackslashComponent extends AbstractDocumentViewComponent im
 
   tabs = TAB_CONFIG;
 
-  filters: any = {
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+  ];
 
   constructor(
     protected advanceSearch: AdvanceSearch,

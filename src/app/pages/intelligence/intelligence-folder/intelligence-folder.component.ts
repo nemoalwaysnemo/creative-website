@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
@@ -17,10 +17,10 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  filters: any = {
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+  ];
 
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {

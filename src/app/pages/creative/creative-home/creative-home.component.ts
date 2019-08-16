@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { SearchFilterModel } from '@core/api';
 
 @Component({
   selector: 'creative-home-page',
@@ -14,16 +15,16 @@ export class CreativeHomeComponent {
 
   placeholder: string = 'Search for campaigns by title, agency, brand, client...';
 
-  filters: any = {
-    'the_loupe_main_brand_agg': { placeholder: 'Brand' },
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'the_loupe_main_country_agg': { placeholder: 'County', iteration: true },
-    'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
-    'the_loupe_main_clientName_agg': { placeholder: 'Client' },
-    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
-    'app_edges_backslash_category_agg': { placeholder: 'Category' },
-    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
+    new SearchFilterModel({ key: 'the_loupe_main_clientName_agg', placeholder: 'Client' }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
 
   defaultParams: any = {
     pageSize: 10,

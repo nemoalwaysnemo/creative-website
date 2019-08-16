@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { SearchFilterModel } from '@core/api';
 
 @Component({
   selector: 'intelligence-document-asset-search',
@@ -15,8 +16,8 @@ export class IntelligenceDocumentAssetSearchComponent {
     ecm_fulltext: '',
   };
 
-  filters: any = {
-    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
-    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
 }

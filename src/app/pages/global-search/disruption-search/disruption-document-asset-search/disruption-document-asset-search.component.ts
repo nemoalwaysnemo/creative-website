@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { SearchFilterModel } from '@core/api';
 
 @Component({
   selector: 'disruption-document-asset-search',
@@ -16,11 +17,11 @@ export class DisruptionDocumentAssetSearchComponent {
     ecm_fulltext: '',
   };
 
-  filters: any = {
-    'the_loupe_main_brand_agg': { placeholder: 'Brand' },
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'the_loupe_main_country_agg': { placeholder: 'County', iteration: true },
-    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
-    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
 }

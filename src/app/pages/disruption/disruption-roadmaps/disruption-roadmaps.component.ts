@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoPermission, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
@@ -17,10 +17,10 @@ export class DisruptionRoadmapsComponent extends AbstractDocumentViewComponent i
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
-  filters: any = {
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+  ];
 
   defaultParams: any = {
     pageSize: 20,

@@ -72,18 +72,16 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
       const id = model.id;
       const placeholder = model.placeholder;
       const iteration = model.iteration;
-      const convertRule = model.convertRule;
       for (const bucket of model.extendedBuckets) {
-        options.push(this.buildOptionModel(bucket, convertRule));
+        options.push(this.buildOptionModel(bucket, model.optionLabels));
       }
       aggregates.push({ id, placeholder, options, iteration });
     }
     return aggregates;
   }
 
-  private buildOptionModel(agg: any = {}, convertRule: any = {}): OptionModel {
-    let aggKey = agg.key;
-    convertRule && (aggKey in convertRule) ? aggKey = convertRule[aggKey] : '';
+  private buildOptionModel(agg: any = {}, optionLabels: any = {}): OptionModel {
+    const aggKey = optionLabels && optionLabels[agg.key] ? optionLabels[agg.key] : agg.key;
     const label = `${aggKey} (${agg.docCount})`;
     const value = agg.key.replace(/\\/gi, String.fromCharCode(92, 92));
     const disabled = false;

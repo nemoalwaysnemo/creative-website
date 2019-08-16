@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Subscription, Observable, of as observableOf } from 'rxjs';
-import { UserService, DocumentModel, NuxeoQuickFilters } from '@core/api';
+import { UserService, DocumentModel, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
@@ -24,10 +24,10 @@ export class AllFavoritesComponent implements OnInit, OnDestroy {
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
-  filters: any = {
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+  ];
 
   private subscription: Subscription = new Subscription();
 

@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoQuickFilters } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { PreviewDialogService, SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
@@ -28,10 +28,10 @@ export class FavoriteDisruptionComponent extends AbstractDocumentViewComponent i
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
-  filters: any = {
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'app_edges_industry_agg': { placeholder: 'Industry', iteration: true },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+  ];
 
   constructor(
     protected advanceSearch: AdvanceSearch,

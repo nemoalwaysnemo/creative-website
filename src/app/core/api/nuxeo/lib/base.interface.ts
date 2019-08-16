@@ -49,7 +49,7 @@ export class AggregateModel {
   readonly field: string;
   readonly type: string;
   readonly IDKeys: string[] = [];
-  convertRule: any = {};
+  optionLabels: any = {};
   iteration: boolean = false;
   label: string;
   placeholder: string;
@@ -80,24 +80,34 @@ export class AggregateModel {
   }
 }
 
-export function filterAggregates(mapping: { [key: string]: { label?: string, placeholder?: string, iteration?: boolean, convertRule?: any } }, models: AggregateModel[] = []): AggregateModel[] {
+export class SearchFilterModel {
+  readonly key: string;
+  readonly placeholder: string;
+  readonly iteration?: boolean;
+  readonly optionLabels?: any = {};
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+}
+
+export function filterAggregates(mapping: SearchFilterModel[] = [], models: AggregateModel[] = []): AggregateModel[] {
   const numberOfModels: number = models.length;
   const aggregates: AggregateModel[] = [];
-  const keys = Object.keys(mapping);
-  for (const key of keys) {
+  mapping.forEach((filterModel: SearchFilterModel) => {
+    const key = filterModel.key;
     if (numberOfModels === 0) {
-      aggregates.push(new AggregateModel({ label: mapping[key].label, placeholder: mapping[key].placeholder, iteration: mapping[key].iteration, convertRule: mapping[key].convertRule }));
+      aggregates.push(new AggregateModel({ label: filterModel.placeholder, placeholder: filterModel.placeholder, iteration: filterModel.iteration, optionLabels: filterModel.optionLabels }));
     } else {
       const model = models.filter((x) => x.id === key).shift();
       if (model) {
-        model.label = mapping[model.id].label;
-        model.placeholder = mapping[model.id].placeholder;
-        model.iteration = mapping[model.id].iteration;
-        model.convertRule = mapping[model.id].convertRule;
+        model.label = filterModel.placeholder;
+        model.placeholder = filterModel.placeholder;
+        model.iteration = filterModel.iteration;
+        model.optionLabels = filterModel.optionLabels;
         aggregates.push(model);
       }
     }
-  }
+  });
   return aggregates;
 }
 

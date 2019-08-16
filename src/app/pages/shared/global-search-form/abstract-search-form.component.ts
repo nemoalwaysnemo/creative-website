@@ -3,7 +3,7 @@ import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map, startWith, pairwise, merge, skipUntil } from 'rxjs/operators';
-import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions } from '@core/api';
+import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { removeUselessObject, getPathPartOfUrl } from '@core/services';
 import { GoogleAnalyticsService } from '@core/google-analytics';
@@ -62,7 +62,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() placeholder: string = 'Search for...';
 
-  @Input() filters: { [key: string]: { [key: string]: string } } = {};
+  @Input() filters: SearchFilterModel[] = [];
 
   @Input() beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
 
@@ -114,7 +114,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   hasFilters(): boolean {
-    return this.filters && Object.keys(this.filters).length > 0;
+    return this.filters && this.filters.length > 0;
   }
 
   protected onInit(): void {

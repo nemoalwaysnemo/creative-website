@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { Subject, timer, Observable } from 'rxjs';
-import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, NuxeoRequestOptions, UserModel } from '@core/api';
+import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, NuxeoRequestOptions, UserModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 
@@ -12,8 +12,6 @@ import { switchMap, tap } from 'rxjs/operators';
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
 })
 export class CreativeMyAgencySearchComponent extends AbstractDocumentViewComponent implements OnInit {
-
-  filters: any = {};
 
   baseParams$: Subject<any> = new Subject<any>();
 
@@ -28,6 +26,17 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
   caseFlag: boolean = true;
 
   showType: string = 'showcase';
+
+  filters: SearchFilterModel[] = [
+    // new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    // new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
+    // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
+    // new SearchFilterModel({ key: 'the_loupe_main_clientName_agg', placeholder: 'Client' }),
+    // new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+    // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
+    // new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
 
   constructor(
     private userService: UserService,

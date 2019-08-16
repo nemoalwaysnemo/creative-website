@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DocumentModel, AdvanceSearch } from '@core/api';
+import { DocumentModel, AdvanceSearch, SearchFilterModel } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 
@@ -16,18 +16,14 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
 
   layout: string = 'third';
 
-  filters: any = {
-    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    'the_loupe_main_country_agg': { placeholder: 'County', iteration: true },
-    'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
-    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
-    'the_loupe_main_campaign_agg': { placeholder: 'Campaign'},
-    'app_global_networkshare_agg': { placeholder: 'Showcase', convertRule: { 'true': 'yes', 'false': 'no'} },
-    // 'the_loupe_main_campaign_agg': { placeholder: 'Campaign' },
-    // 'the_loupe_main_clientName_agg': { placeholder: 'Client' },
-    // 'app_edges_industry_agg': { placeholder: 'Industry' },
-    // 'app_edges_backslash_category_agg': { placeholder: 'Category' },
-  };
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign' }),
+    new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { 'true': 'yes', 'false': 'no' } }),
+  ];
 
   constructor(
     protected advanceSearch: AdvanceSearch,

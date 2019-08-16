@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
+import { SearchFilterModel } from '@core/api';
 
 @Component({
   selector: 'creative-popular-brand-search',
@@ -16,7 +17,14 @@ export class CreativePopularBrandSearchComponent {
     ecm_fulltext: '',
   };
 
-  filters: any = {};
+  filters: SearchFilterModel[] = [
+    // new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
+    // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
+    // new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+    // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign' }),
+    // new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { 'true': 'yes', 'false': 'no' } }),
+  ];
 
   currentView: string = 'thumbnailView';
 
