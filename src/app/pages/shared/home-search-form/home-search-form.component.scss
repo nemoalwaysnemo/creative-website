@@ -144,6 +144,9 @@ $main-yellow: #fecc00;
     .description {
       width: calc(100% - 291px - 32px);
       margin-left: 32px;
+      .agency {
+        height: auto;
+      }
     }
   }
 }
