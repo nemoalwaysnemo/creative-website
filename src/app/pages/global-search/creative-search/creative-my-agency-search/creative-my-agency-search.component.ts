@@ -59,7 +59,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
       this.baseParams$.next(this.buildBrandParams(this.userInfo));
     } else {
       this.showType = 'showcase';
-      this.resultHeader = 'Showcase';
+      this.resultHeader = 'Showcase:';
       this.baseParams$.next(this.buildCaseParams(this.userInfo));
     }
   }
