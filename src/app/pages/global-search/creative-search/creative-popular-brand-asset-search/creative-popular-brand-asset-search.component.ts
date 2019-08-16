@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-popular-brand-asset-search',
@@ -16,17 +16,15 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
 
   layout: string = 'third';
 
-  showInput: boolean = false;
-
   filters: any = {
-    // 'the_loupe_main_brand_agg': { placeholder: 'Brand' },
-    // 'the_loupe_main_agency_agg': { placeholder: 'Agency' },
-    // 'the_loupe_main_country_agg': { placeholder: 'County', iteration: true },
-    // 'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
+    'the_loupe_main_agency_agg': { placeholder: 'Agency' },
+    'the_loupe_main_country_agg': { placeholder: 'County', iteration: true },
+    'the_loupe_main_assettype_agg': { placeholder: 'Asset Type' },
+    // 'the_loupe_main_campaign_agg': { placeholder: 'Campaign' },
     // 'the_loupe_main_clientName_agg': { placeholder: 'Client' },
     // 'app_edges_industry_agg': { placeholder: 'Industry' },
     // 'app_edges_backslash_category_agg': { placeholder: 'Category' },
-    // 'app_edges_tags_edges_agg': { placeholder: 'Edges' },
+    'app_edges_tags_edges_agg': { placeholder: 'Edges' },
   };
 
   constructor(
@@ -51,9 +49,9 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
   protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
-      ecm_path: '',
     };
     if (doc) {
       params['the_loupe_main_brand_any'] = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;

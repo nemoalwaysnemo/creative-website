@@ -36,7 +36,9 @@ export abstract class AbstractDisruptionForm implements OnInit {
 
   ngOnInit() {
     this.performForm();
-    this.defaultValue();
+    if (this.mode === 'create') {
+      this.defaultValue();
+    }
     console.info(`[${this.mode}] => [${this.parentType}]`);
   }
 

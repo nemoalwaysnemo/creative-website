@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,6 +22,7 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
 
   private params: any = {
     pageSize: 4,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
     the_loupe_main_brand_any: '',
     ecm_uuid_not_eq: '',

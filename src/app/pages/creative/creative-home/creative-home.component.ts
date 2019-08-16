@@ -27,7 +27,7 @@ export class CreativeHomeComponent {
 
   defaultParams: any = {
     pageSize: 10,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH + 'TBWA-',
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
     currentPageIndex: 0,
     ecm_fulltext: '',
