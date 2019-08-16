@@ -50,7 +50,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
       this.baseParams$.next(this.buildBrandParams(this.userInfo));
     } else {
       this.showType = 'showcase';
-      this.resultHeader = 'Results:';
+      this.resultHeader = 'Showcase';
       this.baseParams$.next(this.buildCaseParams(this.userInfo));
     }
   }
@@ -58,7 +58,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc;
     if (doc) {
-      this.resultHeader = 'Results:';
+      this.resultHeader = 'Showcase:';
       timer(0).subscribe(() => { this.baseParams$.next(this.buildCaseParams(this.userInfo)); });
     }
   }
