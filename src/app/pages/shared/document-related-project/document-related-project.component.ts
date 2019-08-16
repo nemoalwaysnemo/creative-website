@@ -22,8 +22,8 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
 
   private params: any = {
     pageSize: 4,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH + 'TBWA-',
     the_loupe_main_brand_any: '',
     ecm_uuid_not_eq: '',
   };
