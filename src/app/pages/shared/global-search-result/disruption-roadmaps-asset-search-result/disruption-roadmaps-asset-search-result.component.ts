@@ -55,6 +55,6 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
 
   reflash(doc: any): void {
     this.dialogService.setDocument(doc);
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+    this.queryParamsService.refresh();
   }
 }

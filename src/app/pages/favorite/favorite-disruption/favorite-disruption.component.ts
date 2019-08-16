@@ -50,7 +50,7 @@ export class FavoriteDisruptionComponent extends AbstractDocumentViewComponent i
   }
 
   onCreated(doc: DocumentModel): void {
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+    this.queryParamsService.refresh();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

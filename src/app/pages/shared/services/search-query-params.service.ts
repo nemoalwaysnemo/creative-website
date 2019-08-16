@@ -57,4 +57,9 @@ export class SearchQueryParamsService {
   redirectTo404(): void {
     this.router.navigate(['/p/error/404']);
   }
+
+  refresh(): void {
+    this.changeQueryParams({ reload: true }, { type: 'reload' }, 'merge');
+  }
+
 }

@@ -93,7 +93,7 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
   }
 
   protected refresh(): void {
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+    this.queryParamsService.refresh();
   }
 
   protected redirectTo404(): void {

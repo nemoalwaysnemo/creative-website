@@ -162,31 +162,24 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     return params;
   }
 
-  protected onPageInitialized(queryParams: any = {}): void {
-    const searchParams = this.buildSearchParams(queryParams);
-    this.triggerSearch(searchParams, 'onPageInitialized');
-  }
-
-  protected onPageRefreshed(params: Params): void {
+  protected onPageReloaded(params: Params): void {
     const queryParams = Object.assign({}, params);
-    delete queryParams['refresh'];
-    this.queryParamsService.changeQueryParams(queryParams, { type: 'refresh' });
+    delete queryParams['reload'];
+    delete queryParams['scroll'];
+    this.queryParamsService.changeQueryParams(queryParams, { type: 'pagination' });
   }
 
-  protected onPageQueryParamsChanged(info: PageChangedInfo): void {
+  protected onPageQueryParamsChanged(info: PageChangedInfo, event: string = 'onQueryParamsChanged'): void {
     let searchParams = this.buildSearchParams(info.queryParams);
-    const pageSize = searchParams.pageSize;
-    switch (info.historyState.type) {
-      case 'refresh':
-        this.onPageRefreshed(info.queryParams);
-        break;
-      case 'pagination':
-        searchParams = this.getNewPageSize(searchParams);
-        break;
-      default:
-        break;
+    if (info.queryParams.reload || info.historyState.type === 'reload') {
+      this.onPageReloaded(info.queryParams);
+    } else if (info.historyState.type === 'pagination') {
+      const pageSize = searchParams.pageSize;
+      searchParams = this.getNewPageSize(searchParams);
+      this.triggerSearch(searchParams, event, { pageSize });
+    } else {
+      this.triggerSearch(searchParams, event);
     }
-    this.triggerSearch(searchParams, 'onQueryParamsChanged', { pageSize });
   }
 
   protected onParentChanged(parentParams: any = {}): void {
@@ -258,7 +251,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected checkPageChanged(info: PageChangedInfo): boolean {
     const type = info.historyState.type;
-    // return (this.pageChangedSearch && !['keyword', 'filter'].includes(type)) || (!this.pageChangedSearch && (['refresh', 'pagination', 'scroll'].includes(type)));
+    // return (this.pageChangedSearch && !['keyword', 'filter'].includes(type)) || (!this.pageChangedSearch && (['reload', 'pagination', 'scroll'].includes(type)));
     return !['keyword', 'filter'].includes(type);
   }
 
@@ -287,7 +280,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     ).subscribe((info: PageChangedInfo) => {
       if (info.initial) {
         this.setDefaultParams(info.queryParams);
-        this.onPageInitialized(info.queryParams);
+        this.onPageQueryParamsChanged(info, 'onPageInitialized');
         this.showFilter = this.hasFilterQueryParams(info.queryParams);
       } else {
         this.onPageQueryParamsChanged(info);

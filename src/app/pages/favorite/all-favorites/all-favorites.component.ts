@@ -52,7 +52,7 @@ export class AllFavoritesComponent implements OnInit, OnDestroy {
   }
 
   onCreated(doc: DocumentModel): void {
-    this.queryParamsService.changeQueryParams({ refresh: true }, { type: 'refresh' }, 'merge');
+    this.queryParamsService.refresh();
   }
 
   private getFavoriteId() {
