@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
@@ -49,13 +49,11 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
     protected advanceSearch: AdvanceSearch,
     protected googleAnalyticsService: GoogleAnalyticsService,
     protected queryParamsService: SearchQueryParamsService,
-    protected activatedRoute: ActivatedRoute,
   ) {
     super(
       router,
       formBuilder,
       advanceSearch,
-      activatedRoute,
       queryParamsService,
       googleAnalyticsService,
     );

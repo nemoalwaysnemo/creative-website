@@ -109,7 +109,7 @@ $nb-themes-export: ();
 }
 
 @mixin install-css-variables($theme-name, $variables) {
-  .nb-theme-#{$theme-name} {
+  .gcl-theme-#{$theme-name} {
     @each $var, $value in $variables {
       --#{$var}: $value;
     }
@@ -129,20 +129,20 @@ $nb-themes-export: ();
       We have to use :host insted of :host-context($theme), to be able to prefix theme class
       with something defined inside of @content, by prefixing &.
       For example this scss code:
-        .nb-theme-default {
+        .gcl-theme-default {
           .some-selector & {
             ...
           }
         }
       Will result in next css:
-        .some-selector .nb-theme-default {
+        .some-selector .gcl-theme-default {
           ...
         }
 
       It doesn't work with :host-context because angular splitting it in two selectors and removes
       prefix in one of the selectors.
     */
-    .nb-theme-#{$theme-name} :host {
+    .gcl-theme-#{$theme-name} :host {
       $theme: set-global-theme-vars($theme, $theme-name);
       @content;
     }
@@ -183,7 +183,7 @@ $nb-themes-export: ();
   $themes-to-install: get-enabled-themes();
 
   @each $theme-name, $theme in $themes-to-install {
-    .nb-theme-#{$theme-name} {
+    .gcl-theme-#{$theme-name} {
       $theme: set-global-theme-vars($theme, $theme-name);
       @content;
     }

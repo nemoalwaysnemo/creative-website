@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { SearchQueryParamsService } from '@pages/shared';
 import { AdvanceSearch, SearchResponse, NuxeoPagination } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
@@ -20,8 +20,8 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
   defaultParams: any = {
     currentPageIndex: 0,
     pageSize: 20,
-    ecm_path: '',
     ecm_fulltext: '',
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 

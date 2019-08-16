@@ -235,3 +235,7 @@ export function isDocumentUID(uid: string): boolean {
 export function getDocumentTypes(envTypes: string): string[] {
   return Array.from(JSON.parse(envTypes));
 }
+
+export function getPathPartOfUrl(url: string): string {
+  return url.match(/.*?(?=[?;#]|$)/)[0];
+}

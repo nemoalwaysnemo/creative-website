@@ -30,8 +30,8 @@ export class SearchQueryParamsService {
     return values;
   }
 
-  changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = ''): void {
-    this.navigate([], { relativeTo: this.activatedRoute, queryParams, queryParamsHandling, state });
+  changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = '', skipLocationChange: boolean = false): void {
+    this.navigate([], { relativeTo: this.activatedRoute, queryParams, queryParamsHandling, skipLocationChange, state });
   }
 
   clearQueryParams(): void {

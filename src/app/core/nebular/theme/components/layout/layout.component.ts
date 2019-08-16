@@ -410,9 +410,9 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
       .subscribe((theme: any) => {
         const body = this.document.getElementsByTagName('body')[0];
         if (theme.previous) {
-          this.renderer.removeClass(body, `nb-theme-${theme.previous}`);
+          this.renderer.removeClass(body, `gcl-theme-${theme.previous}`);
         }
-        this.renderer.addClass(body, `nb-theme-${theme.name}`);
+        this.renderer.addClass(body, `gcl-theme-${theme.name}`);
       });
 
     this.themeService.onAppendLayoutClass()

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { AdvanceSearch } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
@@ -19,7 +19,6 @@ export class GlobalSearchFormComponent extends AbstractSearchFormComponent {
     protected router: Router,
     protected formBuilder: FormBuilder,
     protected advanceSearch: AdvanceSearch,
-    protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -27,7 +26,6 @@ export class GlobalSearchFormComponent extends AbstractSearchFormComponent {
       router,
       formBuilder,
       advanceSearch,
-      activatedRoute,
       queryParamsService,
       googleAnalyticsService,
     );

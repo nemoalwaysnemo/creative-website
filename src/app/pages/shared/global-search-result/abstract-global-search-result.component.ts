@@ -5,7 +5,7 @@ import { SearchQueryParamsService } from '../services/search-query-params.servic
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { concatMap } from 'rxjs/operators';
 import { AbstractSearchResultComponent } from './abstract-search-result.component';
-import { ActivatedRoute } from '@angular/router';
+
 export abstract class AbstractGlobalSearchResultComponent extends AbstractSearchResultComponent {
 
   loading: boolean = false;
@@ -62,19 +62,17 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       const currentPageIndex = pageInfo.currentPageIndex;
-      const queryParams = Object.assign({}, this.queryParamsService.getSnapshotQueryParams(), { currentPageIndex });
-      delete queryParams['infiniteScroll'];
-      this.queryParamsService.changeQueryParams(queryParams, { type: 'pagination' });
+      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge', true);
     });
     this.subscription.add(subscription);
   }
 
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
-      const infiniteScroll: boolean = true;
+      const scroll: boolean = true;
       const pageIndex: string = this.queryParamsService.getSnapshotQueryParamMap().get('currentPageIndex');
       const currentPageIndex: number = parseInt(pageIndex || '0', 10) + 1;
-      this.queryParamsService.changeQueryParams({ currentPageIndex, infiniteScroll }, { type: 'scroll' }, 'merge');
+      this.queryParamsService.changeQueryParams({ currentPageIndex, scroll }, { type: 'scroll' }, 'merge', true);
     }
   }
 
@@ -82,11 +80,12 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
     this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    if (this.queryParamsService.getSnapshotQueryParamMap().has('infiniteScroll')) {
+    if (this.queryParamsService.getSnapshotQueryParamMap().has('scroll')) {
       this.documents = this.documents.concat(res.response.entries);
     } else {
       this.documents = res.response.entries;
     }
-    this.listDocuments = this.listViewBuilder(res.searchParams.pageSize > 20 ? res.response.entries.slice(-20) : res.response.entries);
+    const offset = res.searchParams.pageSize % 20 === 0 ? -20 : - (res.searchParams.pageSize % 20 === 0);
+    this.listDocuments = this.listViewBuilder(res.response.entries.slice(offset));
   }
 }

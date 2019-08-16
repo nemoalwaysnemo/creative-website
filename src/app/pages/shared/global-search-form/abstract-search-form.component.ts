@@ -1,14 +1,15 @@
 import { OnInit, OnDestroy, Input } from '@angular/core';
-import { ActivatedRoute, Router, Params, Event, NavigationEnd, ParamMap } from '@angular/router';
+import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
-import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map } from 'rxjs/operators';
+import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map, startWith, pairwise, merge, skipUntil } from 'rxjs/operators';
 import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { removeUselessObject } from '@core/services';
+import { removeUselessObject, getPathPartOfUrl } from '@core/services';
 import { GoogleAnalyticsService } from '@core/google-analytics';
 
 export class PageChangedInfo {
+  readonly initial: boolean;
   readonly queryParams: Params;
   readonly historyState: { [k: string]: any };
   constructor(data: any = {}) {
@@ -43,7 +44,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected search$: Subject<SearchParams> = new Subject();
 
-  protected pageChangedSearch: boolean = true;
+  // protected pageChangedSearch: boolean = true;
 
   protected params: any = {
     currentPageIndex: 0,
@@ -67,13 +68,13 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   @Input()
   set defaultParams(params: any) {
-    this.pageChangedSearch = true;
+    // this.pageChangedSearch = true;
     this.setSearchParams(params);
   }
 
   @Input()
   set baseParams(params: any) {
-    this.pageChangedSearch = false;
+    // this.pageChangedSearch = false;
     if (params && Object.keys(params).length > 0) {
       this.setSearchParams(params);
       this.onParentChanged(this.getSearchParams());
@@ -84,7 +85,6 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     protected router: Router,
     protected formBuilder: FormBuilder,
     protected advanceSearch: AdvanceSearch,
-    protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -118,7 +118,6 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected onInit(): void {
-    this.onRefreshSearch();
     this.buildSearchForm();
     this.onSearchTriggered();
     this.onSearchPerformed();
@@ -155,33 +154,55 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     return this.searchForm.getRawValue();
   }
 
-  protected onQueryParamsChanged(queryParams: any = {}, pageChanged = false): void {
-    queryParams = queryParams || {};
-    const queryValues = this.buildFormValues(queryParams);
-    const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), queryValues);
-    const pageSize = params.pageSize;
-    if (pageChanged && params.currentPageIndex) {
+  protected getNewPageSize(params: any = {}): any {
+    if (!isNaN(params.currentPageIndex)) {
       params.pageSize = parseInt(params.pageSize, 10) * (parseInt(params.currentPageIndex, 10) + 1);
       params.currentPageIndex = 0;
     }
-    this.search$.next(new SearchParams(params, 'onQueryParamsChanged', { pageSize }));
+    return params;
+  }
+
+  protected onPageInitialized(queryParams: any = {}): void {
+    const searchParams = this.buildSearchParams(queryParams);
+    this.triggerSearch(searchParams, 'onPageInitialized');
+  }
+
+  protected onPageRefreshed(params: Params): void {
+    const queryParams = Object.assign({}, params);
+    delete queryParams['refresh'];
+    this.queryParamsService.changeQueryParams(queryParams, { type: 'refresh' });
+  }
+
+  protected onPageQueryParamsChanged(info: PageChangedInfo): void {
+    let searchParams = this.buildSearchParams(info.queryParams);
+    const pageSize = searchParams.pageSize;
+    switch (info.historyState.type) {
+      case 'refresh':
+        this.onPageRefreshed(info.queryParams);
+        break;
+      case 'pagination':
+        searchParams = this.getNewPageSize(searchParams);
+        break;
+      default:
+        break;
+    }
+    this.triggerSearch(searchParams, 'onQueryParamsChanged', { pageSize });
   }
 
   protected onParentChanged(parentParams: any = {}): void {
-    const queryValues = this.buildFormValues(this.activatedRoute.snapshot.queryParams);
+    const queryValues = this.buildFormValues(this.queryParamsService.getSnapshotQueryParams());
     const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), parentParams, queryValues);
-    this.search$.next(new SearchParams(params, 'onParentChanged'));
+    this.triggerSearch(params, 'onParentChanged');
   }
 
   protected onKeywordChanged(searchTerm: string): void {
-    let params = { currentPageIndex: 0, ecm_fulltext: searchTerm };
-    params = Object.assign({}, this.getSearchParams(), this.getFormValue(), params);
-    this.search$.next(new SearchParams(params, 'onKeywordChanged'));
+    const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), { ecm_fulltext: searchTerm });
+    this.triggerSearch(params, 'onKeywordChanged');
   }
 
   protected onFilterChanged(aggregateModel: any = {}): void {
     const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), { aggregates: aggregateModel });
-    this.search$.next(new SearchParams(params, 'onFilterChanged'));
+    this.triggerSearch(params, 'onFilterChanged');
   }
 
   protected onSearchPerformed(): void {
@@ -194,7 +215,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  protected setPassedParams(params: any = {}): void {
+  protected setDefaultParams(params: any = {}): void {
     if (params && Object.keys(params).length > 0) {
       for (const key in params) {
         if (params.hasOwnProperty(key) && this.allowedLinkParams.includes(key)) {
@@ -214,13 +235,20 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     return this.searchParams;
   }
 
+  protected buildSearchParams(queryParams: any = {}): any {
+    const queryValues = this.buildFormValues(queryParams);
+    return Object.assign({}, this.getSearchParams(), this.getFormValue(), queryValues);
+  }
+
   protected buildQueryParams(): any {
     return this.queryParamsService.buildQueryParams(this.getFormValue(), ['q', 'aggregates'].concat(this.allowedLinkParams));
   }
 
-  protected changeQueryParams(): void {
+  protected changeQueryParams(type: string): void {
     if (this.showQuery) {
-      this.queryParamsService.changeQueryParams(this.buildQueryParams(), { type: 'keyword' });
+      const queryParams = Object.assign({}, this.buildQueryParams());
+      delete queryParams['scroll'];
+      this.queryParamsService.changeQueryParams(queryParams, { type: type });
     }
   }
 
@@ -228,54 +256,52 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     return Object.keys(queryParams).some((key) => key.includes('_agg'));
   }
 
-  protected onRefreshSearch(): void {
-    const subscription = this.activatedRoute.queryParamMap.pipe(
-      delay(100),
-    ).subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('refresh')) {
-        const queryParams = Object.assign({}, this.activatedRoute.snapshot.queryParams);
-        delete queryParams['refresh'];
-        this.queryParamsService.changeQueryParams(queryParams, { type: 'refresh' });
-        this.onQueryParamsChanged(queryParams);
-      }
-    });
-    this.subscription.add(subscription);
-  }
-
   protected checkPageChanged(info: PageChangedInfo): boolean {
     const type = info.historyState.type;
-    return (this.pageChangedSearch && type !== 'keyword') || (!this.pageChangedSearch && (['refresh', 'pagination', 'scroll'].includes(type)));
+    // return (this.pageChangedSearch && !['keyword', 'filter'].includes(type)) || (!this.pageChangedSearch && (['refresh', 'pagination', 'scroll'].includes(type)));
+    return !['keyword', 'filter'].includes(type);
   }
 
-  protected onPageChanged(): Observable<PageChangedInfo> {
+  protected onInitialCurrentPage(): Observable<boolean> {
     return this.router.events.pipe(
-      filter((e: Event) => e instanceof NavigationEnd),
-      map(_ => new PageChangedInfo({ queryParams: this.activatedRoute.snapshot.queryParams, historyState: this.router.getCurrentNavigation().extras ? (this.router.getCurrentNavigation().extras.state || {}) : {} })),
+      startWith(null),
+      filter(event => event === null || event instanceof NavigationEnd),
+      pairwise(),
+      map(([prev, current]: [NavigationEnd, NavigationEnd]) => this.isPageChanged(prev, current)),
+      filter(res => !!res),
     );
   }
 
+  private isPageChanged(prev: NavigationEnd, current: NavigationEnd) {
+    return !prev || getPathPartOfUrl(prev.url) !== getPathPartOfUrl(current.url);
+  }
+
   protected onCurrentPageChanged(): void {
-    let pageChanged = true;
-    const subscription = this.onPageChanged().pipe(
-      delay(100),
+    const subscription = this.onInitialCurrentPage().pipe(
+      merge(this.queryParamsService.onQueryParamsChanged()),
+      skipUntil(this.onInitialCurrentPage()),
+      // tslint:disable-next-line:max-line-length
+      map((data: any) => new PageChangedInfo({ initial: (data === true), queryParams: this.queryParamsService.getSnapshotQueryParams(), historyState: this.router.getCurrentNavigation().extras ? (this.router.getCurrentNavigation().extras.state || {}) : {} })),
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
+      delay(100),
     ).subscribe((info: PageChangedInfo) => {
-      this.setPassedParams(info.queryParams);
-      this.onQueryParamsChanged(info.queryParams, pageChanged && this.pageChangedSearch);
-      if (this.hasFilterQueryParams(info.queryParams)) {
-        this.showFilter = true;
+      if (info.initial) {
+        this.setDefaultParams(info.queryParams);
+        this.onPageInitialized(info.queryParams);
+        this.showFilter = this.hasFilterQueryParams(info.queryParams);
+      } else {
+        this.onPageQueryParamsChanged(info);
       }
-      pageChanged = false;
     });
     this.subscription.add(subscription);
   }
 
   protected performSearch(params: SearchParams): Observable<SearchResponse> {
     let event = 'GlobalSearch';
-    const formValue = { ...params.params, ...params.defaults };
+    const formValue = { ...params.params, ...params.defaults, ... { currentPageIndex: 0 } };
     switch (params.event) {
-      case 'onCurrentPageChanged':
-        event = 'CurrentPageChanged';
+      case 'onPageInitialized':
+        event = 'PageInitialized';
         this.patchFormValue(formValue);
         break;
       case 'onQueryParamsChanged':
@@ -284,15 +310,15 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
         break;
       case 'onParentChanged':
         event = 'CurrentDocumentChanged';
-        this.patchFormValue(formValue);
+        this.patchFormValue(formValue); // should update form params
         break;
       case 'onKeywordChanged':
         event = 'SearchTermChanged';
-        this.changeQueryParams();
+        this.changeQueryParams('keyword'); // should update query params
         break;
       case 'onFilterChanged':
         event = 'FormFilterChanged';
-        this.changeQueryParams();
+        this.changeQueryParams('filter');
         break;
       default:
         break;
@@ -307,6 +333,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     const options = new NuxeoRequestOptions({ skipAggregates: false });
     const { searchParams, opts } = this.beforeSearch.call(this, params, options);
     return this.advanceSearch.search(searchParams, opts);
+  }
+
+  protected triggerSearch(searchParams: any = {}, event: string, defaultValue: any = {}): void {
+    this.search$.next(new SearchParams(searchParams, event, defaultValue));
   }
 
   protected onSearchTriggered(): void {
