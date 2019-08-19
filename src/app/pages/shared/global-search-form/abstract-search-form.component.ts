@@ -44,7 +44,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected search$: Subject<SearchParams> = new Subject();
 
-  protected pageChangedSearch: boolean = true;
+  protected parentChangedSearch: boolean = true;
 
   protected params: any = {
     currentPageIndex: 0,
@@ -68,13 +68,13 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   @Input()
   set defaultParams(params: any) {
-    this.pageChangedSearch = true;
+    this.parentChangedSearch = true;
     this.setSearchParams(params);
   }
 
   @Input()
   set baseParams(params: any) {
-    this.pageChangedSearch = false;
+    this.parentChangedSearch = false;
     if (params && Object.keys(params).length > 0) {
       this.setSearchParams(params);
       this.onParentChanged(this.getSearchParams());
@@ -175,7 +175,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     let searchParams = this.buildSearchParams(info.queryParams);
     if (info.queryParams.reload || info.historyState.type === 'reload') {
       this.onPageReloaded(info.queryParams);
-    } else if (info.historyState.type === 'pagination') {
+    } else if (info.historyState.type === 'pagination' || event === 'onPageInitialized') {
       const pageSize = searchParams.pageSize;
       searchParams = this.getNewPageSize(searchParams);
       this.triggerSearch(searchParams, event, { pageSize });
@@ -253,7 +253,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected checkPageChanged(info: PageChangedInfo): boolean {
     const type = info.historyState.type;
-    return (this.pageChangedSearch && !['keyword', 'filter'].includes(type)) || (!this.pageChangedSearch && (['reload', 'pagination', 'scroll'].includes(type)));
+    return (this.parentChangedSearch && !['keyword', 'filter'].includes(type)) || (!this.parentChangedSearch && (['reload', 'pagination', 'scroll'].includes(type)));
   }
 
   protected onInitialCurrentPage(): Observable<boolean> {

@@ -82,10 +82,11 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
   private getSearchParams(user: UserModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 1,
+      ecm_fulltext: '',
+      currentPageIndex: 0,
       the_loupe_main_companycode: user.get('companycode'),
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_AGENCY_FOLDER_TYPE,
-      ecm_fulltext: '',
     };
     return new NuxeoPageProviderParams(params);
   }
