@@ -10,7 +10,7 @@ import { SearchFilterModel } from '@core/api';
 export class CreativePopularBrandSearchComponent {
 
   defaultParams: any = {
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
     currentPageIndex: 0,
     pageSize: 20,

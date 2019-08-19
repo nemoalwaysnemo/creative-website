@@ -44,7 +44,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected search$: Subject<SearchParams> = new Subject();
 
-  // protected pageChangedSearch: boolean = true;
+  protected pageChangedSearch: boolean = true;
 
   protected params: any = {
     currentPageIndex: 0,
@@ -68,13 +68,13 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   @Input()
   set defaultParams(params: any) {
-    // this.pageChangedSearch = true;
+    this.pageChangedSearch = true;
     this.setSearchParams(params);
   }
 
   @Input()
   set baseParams(params: any) {
-    // this.pageChangedSearch = false;
+    this.pageChangedSearch = false;
     if (params && Object.keys(params).length > 0) {
       this.setSearchParams(params);
       this.onParentChanged(this.getSearchParams());
@@ -100,7 +100,9 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   onKeyup(event: any): void {
-    this.onKeywordChanged(event.target.value);
+    if (event.target.value.trim()) {
+      this.onKeywordChanged(event.target.value);
+    }
   }
 
   onFilterSelected(aggregateModel: any): void {
@@ -251,8 +253,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected checkPageChanged(info: PageChangedInfo): boolean {
     const type = info.historyState.type;
-    // return (this.pageChangedSearch && !['keyword', 'filter'].includes(type)) || (!this.pageChangedSearch && (['reload', 'pagination', 'scroll'].includes(type)));
-    return !['keyword', 'filter'].includes(type);
+    return (this.pageChangedSearch && !['keyword', 'filter'].includes(type)) || (!this.pageChangedSearch && (['reload', 'pagination', 'scroll'].includes(type)));
   }
 
   protected onInitialCurrentPage(): Observable<boolean> {
@@ -273,10 +274,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     const subscription = this.onInitialCurrentPage().pipe(
       merge(this.queryParamsService.onQueryParamsChanged()),
       skipUntil(this.onInitialCurrentPage()),
-      // tslint:disable-next-line:max-line-length
-      map((data: any) => new PageChangedInfo({ initial: (data === true), queryParams: this.queryParamsService.getSnapshotQueryParams(), historyState: this.router.getCurrentNavigation().extras ? (this.router.getCurrentNavigation().extras.state || {}) : {} })),
-      filter((info: PageChangedInfo) => this.checkPageChanged(info)),
       delay(100),
+      // tslint:disable-next-line:max-line-length
+      map((data: any) => new PageChangedInfo({ initial: (data === true), queryParams: this.queryParamsService.getSnapshotQueryParams(), historyState: (this.router.getCurrentNavigation() && this.router.getCurrentNavigation().extras) ? (this.router.getCurrentNavigation().extras.state || {}) : {} })),
+      filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       if (info.initial) {
         this.setDefaultParams(info.queryParams);
