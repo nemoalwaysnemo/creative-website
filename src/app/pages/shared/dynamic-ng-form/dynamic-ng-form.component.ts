@@ -33,6 +33,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
     });
   }
 
+  @Input() formClass: string;
 
   @Input('group') formGroup: FormGroup;
   @Input('model')
