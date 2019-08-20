@@ -257,6 +257,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
         maxLength: 50,
         placeholder: `Asset title`,
         autoComplete: 'off',
+        selfClass: 'inner-input ',
         required: false,
         validators: {
           required: null,

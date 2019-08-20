@@ -16,6 +16,8 @@ export class DocumentViewerComponent {
 
   @Input() layout: 'dialogSlides' | 'slides' = 'slides';
 
+  @Input() styleName: string;
+
   @Input() showRelated: boolean = false;
 
   getDocumentViewer(doc: DocumentModel): string {

@@ -12,14 +12,20 @@ import { NUXEO_META_INFO } from '@environment/environment';
 })
 export class DocumentRelatedCampaignComponent implements OnDestroy {
   loading: boolean = true;
+
   private subscription: Subscription = new Subscription();
+
+  @Input() styleName: string;
+
   @Input() set document(doc: DocumentModel) {
     if (doc) {
       this.loading = true;
       this.searchRelatedCampaign(doc);
     }
   }
+
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
+
   relatedDocs: { type: any, source: any, uid: any }[] = [];
 
   constructor(
@@ -27,6 +33,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
     private advanceSearch: AdvanceSearch,
   ) {
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

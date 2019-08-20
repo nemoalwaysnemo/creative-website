@@ -1,7 +1,7 @@
 <div class="{{layout}}" [ngSwitch]="true">
-  <document-pdf-viewer *ngSwitchCase="getDocumentViewer(document) === 'pdf'" [document]=" document"></document-pdf-viewer>
-  <document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document"></document-image-viewer>
-  <document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [document]="document" [storyboard]="storyboard" [autoPlay]="autoPlay"></document-video-viewer>
-  <document-audio-viewer *ngSwitchCase="getDocumentViewer(document) === 'audio'" [document]="document"></document-audio-viewer>
-  <document-related-campaign *ngIf= "showRelated" [document]="document"></document-related-campaign>
+  <document-pdf-viewer *ngSwitchCase="getDocumentViewer(document) === 'pdf'" [document]=" document" [styleName]="styleName"></document-pdf-viewer>
+  <document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document" [styleName]="styleName"></document-image-viewer>
+  <document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [document]="document" [styleName]="styleName" [storyboard]="storyboard" [autoPlay]="autoPlay"></document-video-viewer>
+  <document-audio-viewer *ngSwitchCase="getDocumentViewer(document) === 'audio'" [document]="document" [styleName]="styleName"></document-audio-viewer>
+  <document-related-campaign *ngIf="showRelated" [document]="document" [styleName]="styleName"></document-related-campaign>
 </div>

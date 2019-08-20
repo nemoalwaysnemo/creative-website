@@ -1,4 +1,4 @@
-<div class="storyboard {{getDocumentType()}}" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+<div class="storyboard {{getDocumentType()}} {{styleName}}" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <div *ngIf="relatedDocs && relatedDocs.length !== 0" class="prev left" (click)="moveLeft()"><a href="javascript:void(0)"></a></div>
   <drag-scroll class="gallery-list left" drag-scroll-y-disabled="true" scrollbar-hidden="true" #nav>
     <div *ngIf="relatedDocs && relatedDocs.length !== 0">

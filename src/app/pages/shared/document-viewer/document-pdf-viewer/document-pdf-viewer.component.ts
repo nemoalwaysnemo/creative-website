@@ -11,6 +11,8 @@ export class DocumentPdfViewerComponent {
 
   src: string[];
 
+  @Input() styleName: string;
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {

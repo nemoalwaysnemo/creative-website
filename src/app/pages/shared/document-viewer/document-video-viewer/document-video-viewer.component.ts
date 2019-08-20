@@ -15,6 +15,8 @@ export class DocumentVideoViewerComponent {
 
   videoSources: { url: any, type: string }[];
 
+  @Input() styleName: string;
+
   @Input()
   set document(doc: DocumentModel) {
     this.documentModel = doc;

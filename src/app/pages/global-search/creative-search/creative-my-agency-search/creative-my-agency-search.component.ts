@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { Subject, timer, Observable } from 'rxjs';
 import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, NuxeoRequestOptions, UserModel, SearchFilterModel } from '@core/api';
@@ -99,6 +99,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     const params = {
       pageSize: 20,
       the_loupe_main_companycode: user.companycode,
+      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
       ecm_fulltext: '',
@@ -112,6 +113,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     const params = {
       pageSize: 20,
       the_loupe_main_companycode: user.companycode,
+      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       ecm_fulltext: '',
       currentPageIndex: 0,

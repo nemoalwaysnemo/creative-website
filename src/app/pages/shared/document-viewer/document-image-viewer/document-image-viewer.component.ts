@@ -11,6 +11,8 @@ export class DocumentImageViewerComponent {
 
   src: string[];
 
+  @Input() styleName: string;
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
