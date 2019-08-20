@@ -18,7 +18,8 @@ export class DisruptionFolderViewComponent {
   @Input() deleteRedirect: string = '';
 
   @Input() assetUrl: string;
-
+  @Input() backAssetFlag: boolean = false;
+ 
   @Input() assetUrlMapping: object = {};
   @Input() doc: DocumentModel;
 

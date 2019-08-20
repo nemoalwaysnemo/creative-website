@@ -20,6 +20,8 @@ export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent i
 
   showButton: boolean = false;
 
+  backAssetFlag: boolean = true;
+
   deleteRedirect = '/p/disruption/Disruption Days';
 
   folderParams: any = {
