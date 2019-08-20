@@ -13,4 +13,12 @@ dynamic-ng-form-control {
   width: 100%;
   flex: none;
   max-width: none;
+  .document-form {
+    float: none;
+    width: 100%;
+  }
+  .document-form + div {
+    display: none;
+    float: none;
+  }
 }

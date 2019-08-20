@@ -1,6 +1,6 @@
 <div style="width: 95%; margin: 0 auto; padding: 0 0 20px;">
   <ng-container *ngIf="formGroup">
-    <dynamic-ng-form [formClass]="'document-form'" [group]="formGroup" [model]="formModel" [layout]="formLayout" [modelOperation]="modelOperation" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
+    <dynamic-ng-form [group]="formGroup" [model]="formModel" [layout]="formLayout" [modelOperation]="modelOperation" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
       (focus)="onFocus($event)">
     </dynamic-ng-form>
     <button nbButton outline class="btn btn-success btn-xs" status="primary" [disabled]="uploadState ==='preparing' || uploadState === 'uploading' || submitted || !formGroup.valid || !childrenValid" (click)="onSave($event)">Save</button>
