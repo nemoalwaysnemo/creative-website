@@ -1,4 +1,4 @@
-<div class="layout-left left">
+<div class="layout-left left {{formClass}}">
   <dynamic-ng-form-control *ngFor="let model of layoutLeft; trackBy: trackByFn"
                           [group]="formGroup"
                           [hidden]="model.hidden"
