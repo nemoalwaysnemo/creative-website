@@ -17,7 +17,7 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
   layout: string = 'third';
 
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign' }),
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', convertTitle: true }),
     // new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     // new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),

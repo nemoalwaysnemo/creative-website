@@ -49,10 +49,11 @@ export class AggregateModel {
   readonly field: string;
   readonly type: string;
   readonly IDKeys: string[] = [];
-  optionLabels: any = {};
   iteration: boolean = false;
-  label: string;
+  convertTitle: boolean = false;
+  optionLabels: any = {};
   placeholder: string;
+  label: string;
 
   constructor(data: any = {}) {
     this.entityType = data['entity-type'];
@@ -83,28 +84,29 @@ export class AggregateModel {
 export class SearchFilterModel {
   readonly key: string;
   readonly placeholder: string;
-  readonly iteration?: boolean;
+  readonly iteration?: boolean = false;
+  readonly convertTitle?: boolean = false;
   readonly optionLabels?: any = {};
   constructor(data: any = {}) {
     Object.assign(this, data);
   }
 }
 
-export function filterAggregates(mapping: SearchFilterModel[] = [], models: AggregateModel[] = []): AggregateModel[] {
+export function filterAggregates(filters: SearchFilterModel[] = [], models: AggregateModel[] = []): AggregateModel[] {
   const numberOfModels: number = models.length;
   const aggregates: AggregateModel[] = [];
-  mapping.forEach((filterModel: SearchFilterModel) => {
-    const key = filterModel.key;
+  filters.forEach((filter: SearchFilterModel) => {
     if (numberOfModels === 0) {
-      aggregates.push(new AggregateModel({ label: filterModel.placeholder, placeholder: filterModel.placeholder, iteration: filterModel.iteration, optionLabels: filterModel.optionLabels }));
+      aggregates.push(new AggregateModel({ label: filter.placeholder, placeholder: filter.placeholder, convertTitle: filter.convertTitle, iteration: filter.iteration, optionLabels: filter.optionLabels }));
     } else {
-      const model = models.filter((x) => x.id === key).shift();
-      if (model) {
-        model.label = filterModel.placeholder;
-        model.placeholder = filterModel.placeholder;
-        model.iteration = filterModel.iteration;
-        model.optionLabels = filterModel.optionLabels;
-        aggregates.push(model);
+      const agg = models.filter((x: AggregateModel) => x.id === filter.key).shift();
+      if (agg) {
+        agg.label = filter.placeholder;
+        agg.placeholder = filter.placeholder;
+        agg.convertTitle = filter.convertTitle;
+        agg.iteration = filter.iteration;
+        agg.optionLabels = filter.optionLabels;
+        aggregates.push(agg);
       }
     }
   });

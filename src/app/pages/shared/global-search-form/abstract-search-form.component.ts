@@ -2,7 +2,7 @@ import { OnInit, OnDestroy, Input } from '@angular/core';
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
-import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map, startWith, pairwise, merge, skipUntil } from 'rxjs/operators';
+import { filter, tap, debounceTime, distinctUntilChanged, switchMap, delay, map, startWith, pairwise, merge, skipUntil, concatMap } from 'rxjs/operators';
 import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { removeUselessObject, getPathPartOfUrl } from '@core/services';
@@ -350,13 +350,13 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   protected onAfterSearch(): void {
     const subscription = this.advanceSearch.onSearch().pipe(
       filter(({ action }) => action === 'afterSearch'),
-      tap(({ response }) => {
+      concatMap(({ response }) => {
         const aggregateModels = this.advanceSearch.buildAggregateModels(response);
-        const subscription1 = this.advanceSearch.requestIDsOfAggregates(aggregateModels).subscribe((models: AggregateModel[]) => {
-          this.buildSearchFilter(models);
-          this.hasAggs = true;
-        });
-        this.subscription.add(subscription1);
+        return this.advanceSearch.requestIDsOfAggregates(filterAggregates(this.filters, aggregateModels)).pipe(
+          tap((models: AggregateModel[]) => {
+            this.buildSearchFilter(models);
+            this.hasAggs = true;
+          }));
       }),
     ).subscribe((_: any) => {
       this.submitted = false;

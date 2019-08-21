@@ -49,12 +49,7 @@ export abstract class AbstractPageProvider extends AbstractBaseSearchService {
   }
 
   buildAggregateModels(response: NuxeoPagination): AggregateModel[] {
-    const aggregations: AggregateModel[] = [];
-    const aggs = Object.values(response.aggregations);
-    for (const agg of aggs) {
-      aggregations.push(new AggregateModel(agg));
-    }
-    return aggregations;
+    return Object.values(response.aggregations).map((agg: any) => new AggregateModel(agg));
   }
 
   protected execute(url: string, queryParams: any = {}, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
