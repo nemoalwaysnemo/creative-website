@@ -46,9 +46,9 @@ export class DocumentRelatedInfoComponent {
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
       },
       paramsMapping: {
-        'tagsEdgesAny': 'app_Edges:Tags_edges',
+        'brandAny': 'The_Loupe_Main:brand',
         'industryAny': 'app_Edges:industry',
-        'campaign': 'The_Loupe_Main:campaign',
+        'tagsEdgesAny': 'app_Edges:Tags_edges',
       },
       provider: NUXEO_META_INFO.DISRUPTION_ASSET_PAGE_PROVIDER,
     },
@@ -61,9 +61,9 @@ export class DocumentRelatedInfoComponent {
         ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       },
       paramsMapping: {
-        'tagsEdgesAny': 'app_Edges:Tags_edges',
+        'brandAny': 'The_Loupe_Main:brand',
         'industryAny': 'app_Edges:industry',
-        'projectName': 'app_Edges:project_name',
+        'tagsEdgesAny': 'app_Edges:Tags_edges',
       },
       provider: NUXEO_META_INFO.INTELLIGENCE_ASSET_PAGE_PROVIDER,
     },

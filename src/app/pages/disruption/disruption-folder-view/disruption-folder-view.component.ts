@@ -18,6 +18,7 @@ export class DisruptionFolderViewComponent {
   @Input() deleteRedirect: string = '';
 
   @Input() assetUrl: string;
+  @Input() backAssetFlag: boolean = false;
 
   @Input() assetUrlMapping: object = {};
   @Input() doc: DocumentModel;
@@ -53,7 +54,7 @@ export class DisruptionFolderViewComponent {
 
   openDialog(dialog: any, type): void {
     this.showEdit = type;
-    this.previewDialogService.open(dialog, this.doc, {type: this.doc.type});
+    this.previewDialogService.open(dialog, this.doc, { type: this.doc.type });
   }
 
   onUpdate(doc: DocumentModel): void {

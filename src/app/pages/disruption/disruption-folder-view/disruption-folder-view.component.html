@@ -13,7 +13,13 @@
       <div>Brand: {{ doc.get('The_Loupe_Main:brand')}}</div>
       <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
       <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
-      <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
+
+      <ng-container *ngIf="doc.type === 'App-Disruption-Day' && backAssetFlag">
+          <button type="button" [routerLink]="[getAssetUrl(doc),  doc.uid]" class="icon_btn left">Back to parent</button>
+      </ng-container>
+      <ng-container *ngIf="!backAssetFlag">
+          <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
+      </ng-container>
       <ng-container *ngIf="writePermission$ | async">
         <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn left">Edit</button>
       </ng-container>
