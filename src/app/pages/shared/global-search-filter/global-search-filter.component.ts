@@ -80,8 +80,8 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
     return aggregates;
   }
 
-  private buildOptionModel(agg: any = {}, optionLabels: any = {}): OptionModel {
-    const aggKey = optionLabels && optionLabels[agg.key] ? optionLabels[agg.key] : agg.key;
+  private buildOptionModel(agg: any = {}, labels: any = {}): OptionModel {
+    const aggKey = labels && (labels[agg.label] || labels[agg.key]) ? (labels[agg.label] || labels[agg.key]) : (agg.label || agg.key);
     const label = `${aggKey} (${agg.docCount})`;
     const value = agg.key.replace(/\\/gi, String.fromCharCode(92, 92));
     const disabled = false;

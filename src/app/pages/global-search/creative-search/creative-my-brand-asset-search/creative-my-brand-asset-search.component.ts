@@ -26,6 +26,7 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
     // new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
     // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+    new SearchFilterModel({ key: 'the_loupe_prodCredits_production_date_agg', placeholder: 'Year' }),
     new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { 'true': 'yes', 'false': 'no' } }),
   ];
 

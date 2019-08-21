@@ -74,7 +74,7 @@ export class AggregateModel {
   private replaceBuckets(buckets: any[], list: { id: string, name: string }): void {
     buckets.forEach((bucket: any) => {
       if (isDocumentUID(bucket.key) && list[bucket.key]) {
-        bucket.key = list[bucket.key];
+        bucket.label = list[bucket.key];
       }
     });
   }
