@@ -56,9 +56,7 @@ export class BaseAuthInterceptor implements HttpInterceptor {
     } else if (error.status === 404) {
       this.router.navigate(['/error/404']);
     } else if (error.status === 500) {
-      this.authService.logout('oauth2').subscribe(_ => {
-        this.router.navigate(['/auth/login']);
-      });
+      this.router.navigate(['/error/500']);
     }
     throw error;
   }

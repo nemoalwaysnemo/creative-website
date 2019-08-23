@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MiscellaneousComponent } from './miscellaneous.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ServerErrorComponent } from './server-error/server-error.component';
 import { PlaygroundComponent } from './playground/playground.component';
 import { RedirectComponent } from '@pages/miscellaneous/redirect/redirect.component';
 
@@ -12,6 +13,10 @@ const routes: Routes = [{
     {
       path: '404',
       component: NotFoundComponent,
+    },
+    {
+      path: '500',
+      component: ServerErrorComponent,
     },
     {
       path: 'playground',
@@ -39,4 +44,5 @@ export const routedComponents = [
   MiscellaneousComponent,
   PlaygroundComponent,
   NotFoundComponent,
+  ServerErrorComponent,
 ];
