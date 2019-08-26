@@ -1,7 +1,7 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
   <div class="property-section">
     <div class="property-intro inline-top">
-      <div [ngStyle]="{'background-image': 'url('+document?.filePath+')'}"></div>
+      <div *ngIf="document" [ngStyle]="{'background-image': 'url('+document?.filePath+')'}"></div>
       <!-- <img src="{{document?.filePath}}" /> -->
     </div>
     <div class="property-info inline-top">
