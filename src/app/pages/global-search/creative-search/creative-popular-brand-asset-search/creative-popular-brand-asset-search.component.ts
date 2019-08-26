@@ -22,6 +22,7 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', convertTitle: true }),
+    new SearchFilterModel({ key: 'the_loupe_prodCredits_production_date_agg', placeholder: 'Year' }),
     new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { 'true': 'Yes', 'false': 'No' } }),
   ];
 
