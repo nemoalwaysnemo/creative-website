@@ -24,7 +24,6 @@
 	// 	height: calc(100vw * 9 / 16 - 120px);
 	// }
 
-
 	@media only screen and (max-width: 900px) {
 		// < 900px
 		height: calc(900px * 9 / 16);
@@ -33,25 +32,25 @@
 		//900px - 1000px
 		height: calc(900px * 9 / 16);
 	}
-	@media screen and (min-width: 1101px) and (max-width: 1200px) {
+	@media screen and (min-width: 1000px) and (max-width: 1200px) {
 		// 1101px - 1200px
-		height: calc(1101px * 9 / 16);
+		height: calc(1000px * 9 / 16);
 	}
-	@media screen and (min-width: 1201px) and (max-width: 1300px) {
+	@media screen and (min-width: 1200px) and (max-width: 1300px) {
 		// 1201px - 1300px
-		height: calc(1201px * 9 / 16);
+		height: calc(1200px * 9 / 16);
 	}
-	@media screen and (min-width: 1301px) and (max-width: 1400px) {
+	@media screen and (min-width: 1300px) and (max-width: 1400px) {
 		// 1301px - 1400px
-		height: calc(1301px * 9 / 16 - 160px);
+		height: calc(1300px * 9 / 16 - 160px);
 	}
-	@media screen and (min-width: 1401px) and (max-width: 1500px) {
+	@media screen and (min-width: 1400px) and (max-width: 1500px) {
 		// 1401px - 1500px
-		height: calc(1401px * 9 / 16 - 220px);
+		height: calc(1400px * 9 / 16 - 220px);
 	}
-	@media screen and (min-width: 1501px) and (max-width: 1600px) {
+	@media screen and (min-width: 1500px) and (max-width: 1600px) {
 		// 1501px - 1600px
-		height: calc(1501px * 9 / 16 - 220px);
+		height: calc(1500px * 9 / 16 - 220px);
 	}
 	@include media-breakpoint-up(xxxl) {
 		// > 1600px 

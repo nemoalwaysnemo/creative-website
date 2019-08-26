@@ -47,25 +47,58 @@
     position: absolute;
     display: inline-block;
 		color: #ffffff;
-		@include media-breakpoint-down(md) {
-			// < 768px
-			top: calc(576px * 9 / 16 - 50px);
+		// @include media-breakpoint-down(md) {
+		// 	// < 768px
+		// 	top: calc(576px * 9 / 16 - 50px);
+		// }
+		// @include media-breakpoint-between(md, lg) {
+		// 	//768px - 992px
+		// 	top: calc(768px * 9 / 16 - 50px);
+		// }
+		// @include media-breakpoint-between(lg, xl) {
+		// 	// 992px - 1200px
+		// 	top: calc(992px * 9 / 16 - 50px);
+		// }
+		// @include media-breakpoint-between(xl, xxxl) {
+		// 	// 1200px - 1600px
+		// 	top: calc(1200px * 9 / 16 - 170px);
+		// }
+		// @include media-breakpoint-up(xxxl) {
+		// 	// > 1600px 
+		// 	top: calc(100vw * 9 / 16 - 200px);
+		// }
+
+		@media only screen and (max-width: 900px) {
+			// < 900px
+			top: calc(900px * 9 / 16 - 50px);
 		}
-		@include media-breakpoint-between(md, lg) {
-			//768px - 992px
-			top: calc(768px * 9 / 16 - 50px);
+		@media screen and (min-width: 900px) and (max-width: 1000px) {
+			//900px - 1000px
+			top: calc(900px * 9 / 16 - 50px);
 		}
-		@include media-breakpoint-between(lg, xl) {
-			// 992px - 1200px
-			top: calc(992px * 9 / 16 - 50px);
+		@media screen and (min-width: 1000px) and (max-width: 1200px) {
+			// 1101px - 1200px
+			top: calc(1000px * 9 / 16 - 50px);
 		}
-		@include media-breakpoint-between(xl, xxxl) {
-			// 1200px - 1600px
-			top: calc(1200px * 9 / 16 - 170px);
+		@media screen and (min-width: 1200px) and (max-width: 1300px) {
+			// 1201px - 1300px
+			top: calc(1200px * 9 / 16 - 50px);
+		}
+		@media screen and (min-width: 1300px) and (max-width: 1400px) {
+			// 1301px - 1400px
+			top: calc(1300px * 9 / 16 - 50px);
+		}
+		@media screen and (min-width: 1400px) and (max-width: 1500px) {
+			// 1401px - 1500px
+			top: calc(1400px * 9 / 16 - 270px);
+		}
+		@media screen and (min-width: 1500px) and (max-width: 1600px) {
+			// 1501px - 1600px
+			top: calc(1500px * 9 / 16 - 270px);
 		}
 		@include media-breakpoint-up(xxxl) {
 			// > 1600px 
-			top: calc(100vw * 9 / 16 - 200px);
+			top: calc(100vw * 9 / 16 - 270px);
 		}
     left: 73px;
 		font-size: 18px;
