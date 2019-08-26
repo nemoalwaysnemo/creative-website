@@ -218,6 +218,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
       this.uploadState = 'uploading';
     } else if (list.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
       this.hideControls();
+      this.setTitle(list[0]);
       this.uploadState = 'uploaded';
     }
   }
@@ -225,8 +226,16 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   hideControls(): void {
     if (this.formMode === 'create' && this.fileMultiUpload) {
       this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
-        this.modelOperation.next({ id: 'dc:title', type: 'delete'});
+        this.modelOperation.next({ id: 'dc:title', type: 'delete' });
       });
+    }
+  }
+
+  setTitle(res: NuxeoUploadResponse): void {
+    if (this.formMode === 'create' && !this.fileMultiUpload) {
+      const reg = /\.\w+$/;
+      const title = res.fileName.replace(reg, '');
+      this.formGroup.patchValue({ 'dc:title': title});
     }
   }
 }
