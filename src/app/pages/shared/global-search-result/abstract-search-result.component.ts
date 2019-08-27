@@ -1,5 +1,5 @@
 import { Input, OnInit, OnDestroy } from '@angular/core';
-import { SearchResponse } from '@core/api';
+import { SearchResponse, DocumentModel } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { Params } from '@angular/router';
@@ -17,6 +17,8 @@ export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy
     this.currentView = name;
   }
 
+  @Input() thumbnailType: 'attachedImage' | 'thumbnailUrl' = 'thumbnailUrl';
+
   @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   constructor(protected queryParamsService: SearchQueryParamsService) {
@@ -29,6 +31,10 @@ export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy
 
   ngOnDestroy(): void {
     this.onDestroy();
+  }
+
+  getThumbnailUrl(doc: DocumentModel): string {
+    return doc[this.thumbnailType];
   }
 
   protected abstract onInit(): void;

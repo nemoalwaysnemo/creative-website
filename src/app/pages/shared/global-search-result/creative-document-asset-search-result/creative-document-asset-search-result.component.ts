@@ -8,11 +8,11 @@ import { AbstractSearchResultComponent } from '../abstract-search-result.compone
 @Component({
   template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>`,
 })
+
 export class RowRenderComponent {
   @Input()
-  public value: { title: string, uid: string};
+  public value: { title: string, uid: string };
 }
-
 
 @Component({
   selector: 'creative-document-asset-search-result',
@@ -78,7 +78,7 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: {title: doc.title, uid: doc.uid},
+        title: { title: doc.title, uid: doc.uid },
         brand: doc.get('The_Loupe_Main:brand').join(', '),
         productionDate: doc.get('The_Loupe_ProdCredits:production_date'),
         campaign: doc.get('The_Loupe_Main:campaign_title_'),
