@@ -43,12 +43,8 @@ export class DocumentThumbnailViewComponent implements OnInit {
   @Input() templateRef: TemplateRef<any>;
 
   @Input()
-  set viewType(type: string) {
-    if (!type) {
-      this.msg = 'No data found';
-    } else {
-      this.msg = (type !== 'agency' && type !== 'brand') ? 'No related ' + type + ' found' : 'No text at all';
-    }
+  set noResult(type: string) {
+    this.msg = type;
   }
 
   @Input()

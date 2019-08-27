@@ -18,7 +18,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
 
   documents: DocumentModel[];
 
-  viewType: string = 'agency';
+  noResult: string = 'No text at all';
 
   private subscription: Subscription = new Subscription();
 
