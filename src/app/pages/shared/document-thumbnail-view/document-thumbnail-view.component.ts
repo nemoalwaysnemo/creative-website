@@ -20,9 +20,7 @@ import { DocumentViewService } from '@pages/shared/services/document-view.servic
       </div>
     </ng-container>
     <div *ngIf="!hideEmpty && !loading && documentList && documentList.length === 0" class="thumbnail-view empty text-center">
-      <span *ngIf="!viewType" class="empty-data">No data found</span>
-      <span *ngIf="viewType && viewType!='agency' && viewType!='brand'" class="empty-data">No related {{viewType}} found</span>
-      <span *ngIf="viewType=='agency' || viewType=='brand'" class="empty-data">No text at all</span>
+      <span class="empty-data">{{msg}}</span>
     </div>
   </div>
   `,
@@ -36,13 +34,22 @@ export class DocumentThumbnailViewComponent implements OnInit {
 
   @Input() layout: string = 'quarter'; // 'half' | 'third' | 'quarter' | 'suggestion-inline';
 
+  msg: string = 'No data found';
+
   @Input() hideEmpty: boolean = false;
 
   @Input() loading: boolean;
 
   @Input() templateRef: TemplateRef<any>;
 
-  @Input() viewType: string = '';
+  @Input()
+  set viewType(type: string) {
+    if (!type) {
+      this.msg = 'No data found';
+    } else {
+      this.msg = (type !== 'agency' && type !== 'brand') ? 'No related ' + type + ' found' : 'No text at all';
+    }
+  }
 
   @Input()
   set documents(docs: DocumentModel[]) {
