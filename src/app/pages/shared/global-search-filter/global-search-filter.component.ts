@@ -33,6 +33,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
   }
 
   @Output() selected: EventEmitter<any> = new EventEmitter();
+
   @Output() preventHideDoc: EventEmitter<any> = new EventEmitter();
 
   onModelChange(): void {
@@ -73,7 +74,9 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
       const placeholder = model.placeholder;
       const iteration = model.iteration;
       for (const bucket of model.extendedBuckets) {
-        options.push(this.buildOptionModel(bucket, model.optionLabels));
+        if (model.filterValue && model.filterValue.call(this, bucket)) {
+          options.push(this.buildOptionModel(bucket, model.optionLabels));
+        }
       }
       aggregates.push({ id, placeholder, options, iteration });
     }

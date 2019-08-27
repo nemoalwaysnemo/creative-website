@@ -1,5 +1,5 @@
 <h1>See more {{documentModel.get('The_Loupe_Main:agency')}}</h1>
-<document-thumbnail-view [loading]="loading" [layout]="layout" [viewType]="viewType" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
+<document-thumbnail-view [loading]="loading" [layout]="layout" [noResultText]="noResultText" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 <ng-template #thumbnailItemView let-doc="doc">
   <div class="thumbnail-view-item">
     <div class="image-holder">

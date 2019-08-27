@@ -21,7 +21,7 @@
   </ng-container>
   <div class="clear"></div>
 </ng-template>
-<document-thumbnail-view [loading]="loading" [layout]="'quarter full-width'" [viewType]="viewType" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
+<document-thumbnail-view [loading]="loading" [layout]="'quarter full-width'" [noResultText]="noResultText" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 <ng-template #backslashThumbnailItemView let-doc="doc">
   <div class="thumbnail-view-item backslash dates">
     <h4>{{doc.title}}</h4>
