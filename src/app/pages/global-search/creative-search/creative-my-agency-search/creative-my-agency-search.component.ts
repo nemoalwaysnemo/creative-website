@@ -15,7 +15,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'third';
+  layout: string = 'third full-width';
 
   userInfo: any = {};
 

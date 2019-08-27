@@ -34,7 +34,7 @@ export class DocumentThumbnailViewComponent implements OnInit {
 
   emptyList: any[] = [];
 
-  @Input() layout: 'half' | 'third' | 'quarter' | 'suggestion-inline' = 'quarter';
+  @Input() layout: string = 'quarter'; // 'half' | 'third' | 'quarter' | 'suggestion-inline';
 
   @Input() hideEmpty: boolean = false;
 
