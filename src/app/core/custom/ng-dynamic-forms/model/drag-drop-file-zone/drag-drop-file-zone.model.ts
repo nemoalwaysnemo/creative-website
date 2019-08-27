@@ -26,6 +26,6 @@ export class DynamicDragDropFileZoneModel<T> extends DynamicFormValueControlMode
     this.acceptTypes = config.acceptTypes || '*';
     this.queueLimit = config.queueLimit || 5;
     this.uploadType = config.uploadType;
-    this.maxSize = config.maxSize || 1048576 * 200; // 1024 == 1mb
+    this.maxSize = config.maxSize || 1024 * 1024 * 1024 * 100; // 1024 == 1mb
   }
 }
