@@ -50,7 +50,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   queryField: FormControl = new FormControl();
 
-  noResult: string;
+  noResultText: string;
 
   constructor(
     private advanceSearch: AdvanceSearch,
@@ -105,7 +105,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.search$.next(this.getSearchParams(info.document));
       }
 
-      this.noResult = 'No related ' + info.tabItem.name + ' found';
+      this.noResultText = 'No related ' + info.tabItem.name + ' found';
     });
     this.subscription.add(subscription);
   }
