@@ -17,7 +17,7 @@ export class AdvanceSearch extends AbstractPageProvider {
     let ids = [];
     models.filter((model: AggregateModel) => model.convertTitle).forEach((model: AggregateModel) => { ids = ids.concat(model.IDKeys); });
     if (ids.length > 0) {
-      return this.request(new NuxeoPageProviderParams({ ecm_uuid: `["${ids.join('", "')}"]`, pageSize: 999 })).pipe(
+      return this.request(new NuxeoPageProviderParams({ ecm_uuid: `["${ids.join('", "')}"]`, pageSize: ids.length })).pipe(
         map((response: NuxeoPagination) => {
           const list: any = {};
           response.entries.forEach((doc: DocumentModel) => { list[doc.uid] = doc.title; });
@@ -48,6 +48,7 @@ export class AdvanceSearch extends AbstractPageProvider {
     const distIds: string[] = Array.from(new Set(ids));
     if (distIds.length > 0) {
       const params = {
+        pageSize: distIds.length,
         ecm_uuid: `["${distIds.join('", "')}"]`,
       };
 

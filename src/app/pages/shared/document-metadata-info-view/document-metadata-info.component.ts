@@ -138,6 +138,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   private getRequestParams(doc: DocumentModel): any {
     const jobTitle = doc.get('The_Loupe_Main:jobtitle');
-    return { ecm_uuid: `["${jobTitle.join('", "')}"]` };
+    return { ecm_uuid: `["${jobTitle.join('", "')}"]`, pageSize: jobTitle.length };
   }
 }

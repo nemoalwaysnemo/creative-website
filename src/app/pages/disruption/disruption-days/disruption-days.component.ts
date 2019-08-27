@@ -95,8 +95,8 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
         return self.indexOf(value) === index;
       });
       const params = {
-        pageSize: 100,
         currentPageIndex: 0,
+        pageSize: ids.length,
         ecm_uuid: `["${ids.join('", "')}"]`,
         ecm_mixinType: '["HiddenInNavigation"]',
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
