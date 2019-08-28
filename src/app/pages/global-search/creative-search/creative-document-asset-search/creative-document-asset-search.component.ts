@@ -15,7 +15,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
 
   resultHeader: string;
 
-  layout: string = 'quarter';
+  layout: string = 'quarter full-width';
 
   currentView: string = 'thumbnailView';
 
