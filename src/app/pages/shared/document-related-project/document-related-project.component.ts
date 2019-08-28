@@ -18,7 +18,7 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
 
   documents: DocumentModel[];
 
-  noResultText: string = 'No text at all';
+  noResultText: string = 'No more assets';
 
   private subscription: Subscription = new Subscription();
 
