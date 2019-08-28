@@ -1,5 +1,5 @@
 <ng-container *ngIf="resultHeader">
-  <h1 class="title">{{resultHeader}}</h1>
+  <h1 class="title" style="margin-left: 60px;">{{resultHeader}}</h1>
 </ng-container>
 <global-search-result [templateRef]="thumbnailView" [listViewBuilder]="listViewBuilder" [listViewSettings]="listViewSettings" [selectedView]="currentView" [layout]="layout"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
