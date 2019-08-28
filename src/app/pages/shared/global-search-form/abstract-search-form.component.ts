@@ -44,7 +44,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected search$: Subject<SearchParams> = new Subject();
 
-  protected parentChangedSearch: boolean = true;
+  protected defaultParamsSearch: boolean = true;
 
   protected params: any = {
     currentPageIndex: 0,
@@ -68,13 +68,13 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   @Input()
   set defaultParams(params: any) {
-    this.parentChangedSearch = true;
+    this.defaultParamsSearch = true;
     this.setSearchParams(params);
   }
 
   @Input()
   set baseParams(params: any) {
-    this.parentChangedSearch = false;
+    this.defaultParamsSearch = false;
     if (params && Object.keys(params).length > 0) {
       this.setSearchParams(params);
       this.onParentChanged(this.getSearchParams());
@@ -166,14 +166,12 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected onPageReloaded(params: Params): void {
     const queryParams = Object.assign({}, params);
-    delete queryParams['reload'];
-    delete queryParams['scroll'];
     this.queryParamsService.changeQueryParams(queryParams, { type: 'pagination' });
   }
 
   protected onPageQueryParamsChanged(info: PageChangedInfo, event: string = 'onQueryParamsChanged'): void {
     let searchParams = this.buildSearchParams(info.queryParams);
-    if (info.queryParams.reload || info.historyState.type === 'reload') {
+    if (info.historyState.type === 'reload') {
       this.onPageReloaded(info.queryParams);
     } else if (info.historyState.type === 'pagination' || event === 'onPageInitialized') {
       const pageSize = searchParams.pageSize;
@@ -187,7 +185,9 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   protected onParentChanged(parentParams: any = {}): void {
     const queryValues = this.buildFormValues(this.queryParamsService.getSnapshotQueryParams());
     const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), parentParams, queryValues);
-    this.triggerSearch(params, 'onParentChanged');
+    const pageSize = params.pageSize;
+    const searchParams = this.getNewPageSize(params);
+    this.triggerSearch(searchParams, 'onParentChanged', { pageSize });
   }
 
   protected onKeywordChanged(searchTerm: string): void {
@@ -242,7 +242,6 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   protected changeQueryParams(type: string): void {
     if (this.showQuery) {
       const queryParams = Object.assign({}, this.buildQueryParams());
-      delete queryParams['scroll'];
       this.queryParamsService.changeQueryParams(queryParams, { type: type });
     }
   }
@@ -253,7 +252,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected checkPageChanged(info: PageChangedInfo): boolean {
     const type = info.historyState.type;
-    return (this.parentChangedSearch && !['keyword', 'filter'].includes(type)) || (!this.parentChangedSearch && (['reload', 'pagination', 'scroll'].includes(type)));
+    return (this.defaultParamsSearch && !['keyword', 'filter'].includes(type)) || (!this.defaultParamsSearch && (['reload', 'pagination', 'scroll'].includes(type)));
   }
 
   protected onInitialCurrentPage(): Observable<boolean> {
@@ -276,7 +275,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
       skipUntil(this.onInitialCurrentPage()),
       delay(100),
       // tslint:disable-next-line:max-line-length
-      map((data: any) => new PageChangedInfo({ initial: (data === true), queryParams: this.queryParamsService.getSnapshotQueryParams(), historyState: (this.router.getCurrentNavigation() && this.router.getCurrentNavigation().extras) ? (this.router.getCurrentNavigation().extras.state || {}) : {} })),
+      map((data: any) => new PageChangedInfo({ initial: (data === true), queryParams: this.queryParamsService.getSnapshotQueryParams(), historyState: history.state })),
       filter((info: PageChangedInfo) => this.checkPageChanged(info)),
     ).subscribe((info: PageChangedInfo) => {
       if (info.initial) {

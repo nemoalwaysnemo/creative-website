@@ -59,8 +59,7 @@ export class SearchQueryParamsService {
   }
 
   refresh(): void {
-    const queryParams = Object.assign({}, this.getSnapshotQueryParams(), { reload: true });
-    delete queryParams['scroll'];
+    const queryParams = Object.assign({}, this.getSnapshotQueryParams());
     delete queryParams['currentPageIndex'];
     this.changeQueryParams(queryParams, { type: 'reload' });
   }
