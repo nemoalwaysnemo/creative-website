@@ -51,8 +51,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set settings(settings: any[]) {
     if (settings) {
-      const model = settings.find(m => m.id === 'uploadFiles' && m.formMode === 'create');
-      this.fileMultiUpload = model ? model.multiUpload : false;
       this.prepareForm(settings);
     }
   }
@@ -131,6 +129,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   private performSettings(settings: DynamicFormControlModel[]): any[] {
     const uploadModel = settings.find((v) => (v instanceof DynamicBatchUploadModel));
     this.uploadFieldName = uploadModel ? uploadModel.id : this.uploadFieldName;
+    const model = settings.find(m => (m instanceof DynamicBatchUploadModel) && m.formMode === 'create');
+    this.fileMultiUpload = model ? (model as any).multiUpload : false;
     return settings.filter((v) => v.formMode === null || v.formMode === this.formMode);
   }
 
@@ -235,7 +235,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     if (this.formMode === 'create' && !this.fileMultiUpload && !this.formGroup.value['dc:title']) {
       const reg = /\.\w+$/;
       const title = res.fileName.replace(reg, '');
-      this.formGroup.patchValue({ 'dc:title': title});
+      this.formGroup.patchValue({ 'dc:title': title });
     }
   }
 }

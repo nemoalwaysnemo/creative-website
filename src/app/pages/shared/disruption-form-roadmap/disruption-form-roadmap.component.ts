@@ -179,13 +179,13 @@ export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
         acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'uploadFiles',
+        id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
         multiUpload: true,
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'uploadFiles',
+        id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
         showInputs: false,
