@@ -62,17 +62,16 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
       const currentPageIndex = pageInfo.currentPageIndex;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge', true);
+      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge');
     });
     this.subscription.add(subscription);
   }
 
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
-      const scroll: boolean = true;
       const pageIndex: string = this.queryParamsService.getSnapshotQueryParamMap().get('currentPageIndex');
       const currentPageIndex: number = parseInt(pageIndex || '0', 10) + 1;
-      this.queryParamsService.changeQueryParams({ currentPageIndex, scroll }, { type: 'scroll' }, 'merge', true);
+      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
     }
   }
 

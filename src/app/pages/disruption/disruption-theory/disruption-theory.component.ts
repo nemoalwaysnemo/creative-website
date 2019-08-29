@@ -101,8 +101,8 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
         return self.indexOf(value) === index;
       });
       const params = {
-        pageSize: 100,
         currentPageIndex: 0,
+        pageSize: ids.length,
         ecm_uuid: `["${ids.join('", "')}"]`,
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
         ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,

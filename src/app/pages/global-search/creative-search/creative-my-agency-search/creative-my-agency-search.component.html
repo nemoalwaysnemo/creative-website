@@ -22,17 +22,15 @@
     </div>
   </div>
 </div>
-<div class="brand-thumbnail">
-  <global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
-  <ng-container [ngSwitch]="showType">
-    <ng-container *ngSwitchCase="'brands'">
-      <creative-my-brand-asset-search-result [layout]="layout" [resultHeader]="resultHeader">
-      </creative-my-brand-asset-search-result>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'showcase'">
-      <creative-document-asset-search-result [layout]="layout" [resultHeader]="resultHeader">
-      </creative-document-asset-search-result>
-    </ng-container>
+<global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
+<ng-container [ngSwitch]="showType">
+  <ng-container *ngSwitchCase="'brands'">
+    <creative-my-brand-asset-search-result [layout]="layout" [resultHeader]="resultHeader">
+    </creative-my-brand-asset-search-result>
   </ng-container>
-</div>
+
+  <ng-container *ngSwitchCase="'showcase'">
+    <creative-document-asset-search-result [layout]="layout" [resultHeader]="resultHeader">
+    </creative-document-asset-search-result>
+  </ng-container>
+</ng-container>

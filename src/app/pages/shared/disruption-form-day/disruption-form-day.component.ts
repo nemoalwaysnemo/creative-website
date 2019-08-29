@@ -185,13 +185,13 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'uploadFiles',
+        id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
         multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'uploadFiles',
+        id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
         showInputs: false,

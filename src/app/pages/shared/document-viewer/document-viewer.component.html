@@ -1,4 +1,4 @@
-<div class="{{layout}}" [ngSwitch]="true">
+<div class="{{layout}} {{styleName}}" [ngSwitch]="true">
   <document-pdf-viewer *ngSwitchCase="getDocumentViewer(document) === 'pdf'" [document]=" document" [styleName]="styleName"></document-pdf-viewer>
   <document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document" [styleName]="styleName"></document-image-viewer>
   <document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [document]="document" [styleName]="styleName" [storyboard]="storyboard" [autoPlay]="autoPlay"></document-video-viewer>

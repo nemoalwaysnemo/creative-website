@@ -119,7 +119,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   onUpdated(document: DocumentModel): void {
-    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/disruption/asset/${document.uid}` } });
+    this.router.navigate(['/p/redirect'], { queryParams: { url: decodeURI(this.router.url) } });
   }
 
   private getUsageRightsStatus(doc: DocumentModel): void {
@@ -138,6 +138,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   private getRequestParams(doc: DocumentModel): any {
     const jobTitle = doc.get('The_Loupe_Main:jobtitle');
-    return { ecm_uuid: `["${jobTitle.join('", "')}"]` };
+    return { ecm_uuid: `["${jobTitle.join('", "')}"]`, pageSize: jobTitle.length };
   }
 }

@@ -23,7 +23,7 @@
 
   .scrollable-container {
     height: calc(100vh - #{$padding-top});
-    box-shadow: nb-theme(layout-window-shadow);
+    // box-shadow: nb-theme(layout-window-shadow);
   }
 }
 

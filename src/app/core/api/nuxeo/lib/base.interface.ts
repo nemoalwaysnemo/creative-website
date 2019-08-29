@@ -49,6 +49,7 @@ export class AggregateModel {
   readonly field: string;
   readonly type: string;
   readonly IDKeys: string[] = [];
+  filterValue: Function = (bucket: any): boolean => true;
   iteration: boolean = false;
   convertTitle: boolean = false;
   optionLabels: any = {};
@@ -87,6 +88,7 @@ export class SearchFilterModel {
   readonly iteration?: boolean = false;
   readonly convertTitle?: boolean = false;
   readonly optionLabels?: any = {};
+  readonly filterValue: Function = (bucket: any): boolean => true;
   constructor(data: any = {}) {
     Object.assign(this, data);
   }
@@ -99,12 +101,13 @@ export function filterAggregates(filters: SearchFilterModel[] = [], models: Aggr
     if (numberOfModels === 0) {
       aggregates.push(new AggregateModel({ label: filter.placeholder, placeholder: filter.placeholder, convertTitle: filter.convertTitle, iteration: filter.iteration, optionLabels: filter.optionLabels }));
     } else {
-      const agg = models.filter((x: AggregateModel) => x.id === filter.key).shift();
+      const agg: AggregateModel = models.filter((x: AggregateModel) => x.id === filter.key).shift();
       if (agg) {
         agg.label = filter.placeholder;
         agg.placeholder = filter.placeholder;
         agg.convertTitle = filter.convertTitle;
         agg.iteration = filter.iteration;
+        agg.filterValue = filter.filterValue;
         agg.optionLabels = filter.optionLabels;
         aggregates.push(agg);
       }
