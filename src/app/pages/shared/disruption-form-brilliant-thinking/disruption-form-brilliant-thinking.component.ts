@@ -79,6 +79,19 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         },
       }),
       new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Relevant_Country',
+        label: 'Geography',
+        directoryName: 'GLOBAL_Countries',
+        placeholder: 'Please select country',
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
         directoryName: 'GLOBAL_Agencies',
@@ -128,7 +141,6 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
       new DynamicInputModel({
         id: 'The_Loupe_Main:description',
         label: 'Description',
-        formMode: 'edit',
         placeholder: 'description',
         required: true,
         validators: {
@@ -141,7 +153,6 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
       new DynamicInputModel({
         id: 'dc:creator',
         label: 'Author',
-        formMode: 'edit',
         placeholder: 'Author',
         required: true,
         validators: {
