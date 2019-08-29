@@ -1,3 +1,5 @@
+@import '../../core/nebular/theme/styles/global/breakpoints';
+
 .left { float: left; }
 .right { float: right; }
 .clear { clear: both; }
@@ -102,36 +104,365 @@ body {
   }
 }
 .s-results {
-  &.quarter {
+  width: 100%;
+  min-height: 100px;
+  margin: 0 auto;
+  padding: 0 30px;
+  background: #ffffff;
+  &.full-width {
+    padding: 0;
+  }
+  &.suggestion-inline {
+    width: 100%;
+    height: 70vh;
+    padding: 33px 43px;
+    box-sizing: border-box;
+    box-shadow: 0 0 11px rgba(0, 0, 0, 0.72);
+    overflow: auto;
     > .thumbnail-view-item {
-      // width: 329px;
+      height: 144px;
+      padding: 0;
+      margin: 11px 0;
+      > .image-holder {
+        display: inline-block;
+        vertical-align: top;
+        width: 291px;
+        height: 144px;
+      }
+      .description {
+        display: inline-block;
+        vertical-align: top;
+        width: calc(100% - 291px - 32px);
+        margin-left: 32px;
+        h1 {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
+          font-size: 30px;
+          line-height: 35px;
+          margin-top: 0;
+          margin-bottom: 13px;
+          a {
+            display: block;
+            height: 100%;
+          }
+        }
+        .year, .client, .dot {
+          font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+          display: inline-block;
+          vertical-align: middle;
+          line-height: 18px;
+          font-size: 24px;
+          margin: 0;
+          margin-bottom: 28px;
+        }
+        .dot {
+          width: 4px;
+          height: 4px;
+          margin: 0 5px;
+          margin-bottom: 28px;
+          background: #2a2a2a;
+          border-radius: 2px;
+        }
+        .agency {
+          height: auto;
+          line-height: 30px;
+        }
+      }
+    }
+  }
+  &.dates {
+    h4, .line {
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 16px;
+    }
+    h4 {
+      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+      font-size: 15px;
+      cursor: default;
+    }
+    h4:first-child {
+      max-width: 193px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .image-holder {
+      a:hover { cursor: pointer; }
+    }
+  }
+  &.my_agency,
+  &.my_brand,
+  &.disruption_home,
+  &.intelligence_home {
+    > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
-        // < 768px
-        width: calc(100% / 2);
+      	// < 768px
+        width: calc((100% - 60px * 2) / 2);
       }
-      @include media-breakpoint-between(md, lg) {
-        //768px - 992px
-        width: calc(100% / 2);
-      }
-      @include media-breakpoint-between(lg, xl) {
-        //992px - 1200px
-        width: calc(100% / 3);
+      @include media-breakpoint-between(md, xl) {
+      	//768px - 1200px
+        width: calc((100% - 60px * 2) / 2);
       }
       @include media-breakpoint-between(xl, xxl) {
-        //1200px - 1400px
-        width: calc(100% / 3);
+      	// 1200px - 1400px
+        width: calc((100% - 60px * 3) / 3);
       }
-      @include media-breakpoint-up(xxl) {
-        // > 1400px
-        width: calc(100% / 4);
+      @include media-breakpoint-between(xxl, xxxl) {
+      	// 1400px - 1600px
+        width: calc((100% - 60px * 3) / 3);
+      }
+      @include media-breakpoint-up(xxxl) {
+      	// > 1600px 
+        width: calc((100% - 60px * 4) / 4);
       }
       float: left;
+      margin: 0 30px 30px;
+      overflow: hidden;
+      .image-holder {
+        width: 100%;
+        @include media-breakpoint-down(md) {
+          // < 768px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(md, xl) {
+          //768px - 1200px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(xl, xxl) {
+          // 1200px - 1400px
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+        }
+        @include media-breakpoint-between(xxl, xxxl) {
+          // 1400px - 1600px
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px 
+          height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+        }
+      }
+    }
+  }
+  &.disruption_home,
+  &.intelligence_home {
+    .image-holder {
+      a {
+        transition: all 0.5s;
+        &:hover { transform: scale(1.1); }
+      }
+    }
+    .description {
+      h1 {
+        white-space: nowrap!important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  &.creative_asset_search,
+  &.popular_brand_search {
+    > .thumbnail-view-item {
+      @include media-breakpoint-down(md) {
+      	// < 768px
+        width: calc((100% - 60px * 2) / 2);
+      }
+      @include media-breakpoint-between(md, xl) {
+      	//768px - 1200px
+        width: calc((100% - 60px * 2) / 2);
+      }
+      @include media-breakpoint-between(xl, xxl) {
+      	// 1200px - 1400px
+        width: calc((100% - 60px * 3) / 3);
+      }
+      @include media-breakpoint-between(xxl, xxxl) {
+      	// 1400px - 1600px
+        width: calc((100% - 60px * 4) / 4);
+      }
+      @include media-breakpoint-up(xxxl) {
+      	// > 1600px 
+        width: calc((100% - 60px * 4) / 4);
+      }
+      float: left;
+      margin: 0 30px 30px;
+      overflow: hidden;
+      .image-holder {
+        width: 100%;
+        @include media-breakpoint-down(md) {
+          // < 768px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(md, xl) {
+          //768px - 1200px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(xl, xxl) {
+          // 1200px - 1400px
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+        }
+        @include media-breakpoint-between(xxl, xxxl) {
+          // 1400px - 1600px
+          height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px 
+          height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+        }
+      }
+    }
+  }
+  &.creative_asset_search {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    > .thumbnail-view-item {
+      float: none;
+      margin: 0 0 30px;
+    }
+  }
+  &.agency,
+  &.popular_brand {
+    > .thumbnail-view-item {
+      @include media-breakpoint-down(md) {
+      	// < 768px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(md, lg) {
+      	//768px - 992px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(lg, xl) {
+      	// 992px - 1200px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(xl, xxxl) {
+      	// 1200px - 1600px
+        width: calc((100% - 60px * 3) / 3);
+        height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+      }
+      @include media-breakpoint-up(xxxl) {
+      	// > 1600px 
+        width: calc((100% - 60px * 4) / 4);
+        height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+      }
+      float: left;
+      margin: 0 30px 50px;
+      overflow: hidden;
+      .image-holder {
+        width: 100%;
+        height: 100%;
+        > a {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+          .description {
+            position: absolute;
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 0 25px;
+            transition: display 0.3s;
+            z-index: 2;
+            h1 {
+              font-family: 'Averta for TBWA W01 Extrabold', helvetica, arial;
+              width: 100%;
+              font-size: 24px;
+              margin: 20px 0;
+              padding: 0;
+              white-space: normal;
+            }
+          }
+          &:hover {
+            &::after {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background-color: rgba(0, 0, 0, 0.2);
+              z-index: 1;
+            }
+            .description { display: block; }
+          }
+        }
+      }
+    }
+  }
+
+  &.quarter {
+    > .thumbnail-view-item {
+      @include media-breakpoint-down(md) {
+      	// < 768px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(md, lg) {
+      	//768px - 992px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(lg, xl) {
+      	// 992px - 1200px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(xl, xxxl) {
+      	// 1200px - 1600px
+        width: calc((100% - 60px * 3) / 3);
+        height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+      }
+      @include media-breakpoint-up(xxxl) {
+      	// > 1600px 
+        width: calc((100% - 60px * 4) / 4);
+        height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+      }
+      float: left;
+      margin: 0 30px 50px;
+      overflow: hidden;
     }
   }
   &.third {
     > .thumbnail-view-item {
-      width: 33.333333%;
+      @include media-breakpoint-down(md) {
+      	// < 768px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(md, lg) {
+      	//768px - 992px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(lg, xl) {
+      	// 992px - 1200px
+        width: calc((100% - 60px * 2) / 2);
+        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+      }
+      @include media-breakpoint-between(xl, xxxl) {
+      	// 1200px - 1600px
+        width: calc((100% - 60px * 3) / 3);
+        height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+      }
+      @include media-breakpoint-up(xxxl) {
+      	// > 1600px 
+        width: calc((100% - 60px * 4) / 4);
+        height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+      }
       float: left;
+      margin: 0 30px 50px;
+      overflow: hidden;
     }
   }
 }

@@ -20,7 +20,7 @@ export class CreativeMyBrandAssetSearchResultComponent extends AbstractSearchRes
 
   @Input() resultHeader: string;
 
-  @Input() layout: string = 'quarter';
+  @Input() layout: string = 'my_brand full-width';
 
   listViewSettings: any;
 

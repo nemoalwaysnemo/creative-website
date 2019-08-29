@@ -4,15 +4,14 @@
     [defaultParams]="defaultParams">
   </home-search-form>
 </div>
-<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document flex third">
-  <div *ngFor="let document of folders">
-    <div class="thumbnail-view">
-      <h1 [title]="document.title"><a [routerLink]="['/p/intelligence/folder', document.uid]">{{document.title}}</a>
-      </h1>
-      <div class="image-holder">
-        <a [routerLink]="['/p/intelligence/folder', document.uid]"
-          [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
-      </div>
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results intelligence_home">
+  <div *ngFor="let document of folders" class="thumbnail-view-item">
+    <div class="description">
+      <h1 [title]="document.title"><a [routerLink]="['/p/intelligence/folder', document.uid]">{{document.title}}</a></h1>
+    </div>
+    <div class="image-holder">
+      <a [routerLink]="['/p/intelligence/folder', document.uid]" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
     </div>
   </div>
+  <div class="clear"></div>
 </div>

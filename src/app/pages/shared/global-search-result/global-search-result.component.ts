@@ -15,7 +15,7 @@ export class GlobalSearchResultComponent extends AbstractGlobalSearchResultCompo
 
   @Input() hasPagination: boolean = true;
 
-  @Input() layout: string = 'quarter';
+  @Input() layout: string = 'disruption_home';
 
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
     super(advanceSearch, queryParamsService);

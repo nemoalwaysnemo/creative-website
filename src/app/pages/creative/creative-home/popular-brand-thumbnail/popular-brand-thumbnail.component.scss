@@ -17,4 +17,15 @@
     color: #afafaf;
     &:hover { color: #afafaf; }
   }
+  .image-holder {
+    > a {
+      .description {
+        h1 {
+          font-size: 28px;
+          margin: 25px 0 0;
+          color: #ffffff;
+        }
+      }
+    }
+  }
 }

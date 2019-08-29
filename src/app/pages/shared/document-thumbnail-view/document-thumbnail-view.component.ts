@@ -9,14 +9,9 @@ import { DocumentViewService } from '@pages/shared/services/document-view.servic
     <ng-container *ngIf="documentList && documentList.length !== 0">
       <div class="s-results {{layout}}">
         <div *ngFor="let document of documentList; let i=index" class="thumbnail-view-item">
-          <div id="scroll-anchor-{{i}}">
-            <ng-template #itemTpl [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
-          </div>
+          <ng-template #itemTpl [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
         </div>
         <div class="clear"></div>
-        <ng-container *ngIf="emptyList && emptyList.length !== 0">
-          <div class="empty-thumbnail-view-item"></div>
-        </ng-container>
       </div>
     </ng-container>
     <div *ngIf="!hideEmpty && !loading && documentList && documentList.length === 0" class="thumbnail-view empty text-center">
@@ -29,8 +24,6 @@ export class DocumentThumbnailViewComponent implements OnInit {
 
   constructor(private documentViewService: DocumentViewService) { }
   documentList: DocumentModel[] = [];
-
-  emptyList: any[] = [];
 
   @Input() layout: string = 'quarter'; // 'half' | 'third' | 'quarter' | 'suggestion-inline';
 
@@ -45,7 +38,6 @@ export class DocumentThumbnailViewComponent implements OnInit {
   @Input()
   set documents(docs: DocumentModel[]) {
     this.documentList = docs;
-    this.emptyList = this.fillForQuarter(docs);
   }
 
   ngOnInit() {
@@ -54,16 +46,4 @@ export class DocumentThumbnailViewComponent implements OnInit {
         this.documentList = this.documentList.filter(function (el) { return el.uid !== res.uid; });
       });
   }
-
-  private fillForQuarter(docs: DocumentModel[]): any[] {
-    const list: any[] = [];
-    if (this.layout === 'quarter' && docs.length % 4 > 0) {
-      const number = 4 - (docs.length % 4);
-      for (let index = 0; index < number; index++) {
-        list.push({});
-      }
-    }
-    return list;
-  }
-
 }

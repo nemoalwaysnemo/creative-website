@@ -14,7 +14,7 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'third';
+  layout: string = 'my_brand full-width';
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),

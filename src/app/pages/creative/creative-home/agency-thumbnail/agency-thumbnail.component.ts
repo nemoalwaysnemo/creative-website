@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
-  layout: string = 'third full-width';
+  layout: string = 'full-width agency';
 
   loading: boolean = true;
 
