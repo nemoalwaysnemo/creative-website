@@ -141,7 +141,6 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
       new DynamicInputModel({
         id: 'dc:creator',
         label: 'Author',
-        formMode: 'edit',
         placeholder: 'Author',
         required: true,
         validators: {

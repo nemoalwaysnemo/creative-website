@@ -141,7 +141,6 @@ export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
       new DynamicInputModel({
         id: 'dc:creator',
         label: 'Author',
-        formMode: 'edit',
         placeholder: 'Author',
         required: true,
         validators: {

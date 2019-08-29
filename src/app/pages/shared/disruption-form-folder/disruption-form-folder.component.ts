@@ -81,7 +81,6 @@ export class DisruptionFormFolderComponent extends AbstractDisruptionForm {
       new DynamicInputModel({
         id: 'dc:creator',
         label: 'Author',
-        formMode: 'edit',
         placeholder: 'Author',
       }),
       new DynamicDragDropFileZoneModel<string>({
