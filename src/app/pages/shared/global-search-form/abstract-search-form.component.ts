@@ -166,6 +166,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected onPageReloaded(params: Params): void {
     const queryParams = Object.assign({}, params);
+    delete queryParams['reload'];
     this.queryParamsService.changeQueryParams(queryParams, { type: 'pagination' });
   }
 
@@ -252,7 +253,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected checkPageChanged(info: PageChangedInfo): boolean {
     const type = info.historyState.type;
-    return (this.defaultParamsSearch && !['keyword', 'filter'].includes(type)) || (!this.defaultParamsSearch && (['reload', 'pagination', 'scroll'].includes(type)));
+    return (this.defaultParamsSearch && !['keyword', 'filter'].includes(type)) || (!this.defaultParamsSearch && ['reload', 'pagination', 'scroll'].includes(type));
   }
 
   protected onInitialCurrentPage(): Observable<boolean> {

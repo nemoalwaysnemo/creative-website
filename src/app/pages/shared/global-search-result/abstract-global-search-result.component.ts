@@ -61,6 +61,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
+      this.documents = [];
       const currentPageIndex = pageInfo.currentPageIndex;
       this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge');
     });
@@ -79,7 +80,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
     this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    if (this.queryParamsService.getSnapshotQueryParamMap().has('scroll')) {
+    if (this.queryParamsService.getSnapshotQueryParamMap().has('currentPageIndex')) {
       this.documents = this.documents.concat(res.response.entries);
     } else {
       this.documents = res.response.entries;
