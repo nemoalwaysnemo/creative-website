@@ -2,7 +2,7 @@ import { Component, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/c
 import { DocumentVideoViewerService } from '../document-video-viewer.service';
 import { Subscription } from 'rxjs/Subscription';
 import { VgAPI } from 'videogular2/compiled/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'document-video-player',
@@ -53,7 +53,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
     }
 
     this.$muteToggle.subscribe((res: boolean) => {
-      this.cookieService.set('unmutedMode', res && 'true', 0);
+      this.cookieService.set('unmutedMode', res.toString(), 0);
       this.api.$$setAllProperties('volume', +res);
     });
   }
