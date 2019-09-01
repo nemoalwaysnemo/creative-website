@@ -285,8 +285,8 @@ export class NuxeoBlob {
     this.content = opts.content;
     this.fileIdx = opts.fileIdx;
     this.name = opts.name || this.content.name;
-    this.mimeType = opts.mimeType || this.content.type;
-    this.size = opts.size || this.content.size;
+    this.mimeType = opts.mimeType || opts['mime-type'] || this.content.type;
+    this.size = opts.size || opts.length || this.content.size;
   }
 }
 

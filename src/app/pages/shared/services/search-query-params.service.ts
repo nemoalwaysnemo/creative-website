@@ -59,7 +59,7 @@ export class SearchQueryParamsService {
   }
 
   refresh(): void {
-    const queryParams = Object.assign({}, this.getSnapshotQueryParams());
+    const queryParams = Object.assign({ reload: true }, this.getSnapshotQueryParams());
     delete queryParams['currentPageIndex'];
     this.changeQueryParams(queryParams, { type: 'reload' });
   }

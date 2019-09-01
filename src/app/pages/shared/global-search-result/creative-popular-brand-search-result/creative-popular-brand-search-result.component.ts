@@ -19,7 +19,6 @@ export class CreativePopularBrandSearchResultComponent extends AbstractSearchRes
   }
 
   @Input() layout: string = 'quarter';
-  
   listViewSettings: any;
 
   private defaultSettings: any = {
