@@ -38,7 +38,7 @@
 	}
 	@media screen and (min-width: 1200px) and (max-width: 1300px) {
 		// 1201px - 1300px
-		height: calc(1200px * 9 / 16);
+		height: calc(1200px * 9 / 16 - 110px);
 	}
 	@media screen and (min-width: 1300px) and (max-width: 1400px) {
 		// 1301px - 1400px
