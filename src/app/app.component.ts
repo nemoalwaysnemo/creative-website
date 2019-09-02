@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
       } else if (e.anchor) {
         // anchor navigation
         viewportScroller.scrollToAnchor(e.anchor);
-      } else if (!e.routerEvent.url.includes('scroll')) {
+      } else if (!e.routerEvent.url.includes('currentPageIndex')) {
         // forward navigation
         viewportScroller.scrollToPosition([0, 0]);
       }
