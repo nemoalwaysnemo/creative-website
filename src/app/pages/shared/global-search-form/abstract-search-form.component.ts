@@ -100,9 +100,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   onKeyup(event: any): void {
-    if (event.target.value.trim()) {
-      this.onKeywordChanged(event.target.value);
-    }
+    this.onKeywordChanged(event.target.value.trim());
   }
 
   onFilterSelected(aggregateModel: any): void {
