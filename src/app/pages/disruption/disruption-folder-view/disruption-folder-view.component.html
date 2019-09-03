@@ -2,7 +2,8 @@
   [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="doc" class="property-section">
     <a [routerLink]="[getAssetUrl(doc),  doc.uid]" class="property-intro inline-top">
-      <img src="{{doc.thumbnailUrl}}" class="thumbnail-img">
+      <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
+      <!-- <img src="{{doc.thumbnailUrl}}" class="thumbnail-img"> -->
     </a>
     <div class="property-info inline-top">
       <h1>{{ doc.title }}</h1>

@@ -1,7 +1,8 @@
 <div class="document" style="padding: 40px 0 0;" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <div class="property-section">
     <div class="property-intro inline-middle">
-      <img src="{{doc?.thumbnailUrl}}" class="thumbnail-img">
+      <div [ngStyle]="{'background-image': 'url('+doc?.thumbnailUrl+')'}"></div>
+      <!-- <img src="{{doc?.thumbnailUrl}}" class="thumbnail-img"> -->
     </div>
     <div class="property-info inline-middle">
       <h1>{{ doc?.title }}</h1>
