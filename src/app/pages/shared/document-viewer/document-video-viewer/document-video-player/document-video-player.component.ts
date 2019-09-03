@@ -38,21 +38,21 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
   onPlayerReady(api: VgAPI) {
 
     this.api = api;
-    const defaultVolumn = this.cookieService.get('defaultVolumn');
-    defaultVolumn ? setVolumn(defaultVolumn) : setVolumn(0);
+    const defaultVolume = this.cookieService.get('defaultVolume');
+    defaultVolume ? setVolume(defaultVolume) : setVolume(0);
 
     const defaultMedia = this.api.getDefaultMedia();
     defaultMedia.subscriptions.volumeChange.subscribe(
       (res) => {
-        const presentVolumn = res.target.volume;
-        setVolumn(presentVolumn);
-        this.cookieService.set('defaultVolumn', presentVolumn.toString());
+        const presentVolume = res.target.volume;
+        setVolume(presentVolume);
+        this.cookieService.set('defaultVolume', presentVolume.toString());
       });
     if (this.autoPlay) {
       this.api.play();
     }
 
-    function setVolumn(volume) {
+    function setVolume(volume) {
       api.$$setAllProperties('volume', volume);
     }
   }
