@@ -194,16 +194,18 @@ body {
     }
   }
   &.my_agency,
-  &.my_brand,
-  &.disruption_home,
-  &.intelligence_home {
+  &.my_brand {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
       }
-      @include media-breakpoint-between(md, xl) {
-      	//768px - 1200px
+      @include media-breakpoint-between(md, lg) {
+      	//768px - 992px
+        width: calc((100% - 60px * 2) / 2);
+      }
+      @include media-breakpoint-between(lg, xl) {
+      	//992px - 1200px
         width: calc((100% - 60px * 2) / 2);
       }
       @include media-breakpoint-between(xl, xxl) {
@@ -227,8 +229,12 @@ body {
           // < 768px
           height: calc((100vw - 60px * 3) / 2 * 9 / 16);
         }
-        @include media-breakpoint-between(md, xl) {
-          //768px - 1200px
+        @include media-breakpoint-between(md, lg) {
+          //768px - 992px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(lg, xl) {
+          //992px - 1200px
           height: calc((100vw - 60px * 3) / 2 * 9 / 16);
         }
         @include media-breakpoint-between(xl, xxl) {
@@ -242,6 +248,106 @@ body {
         @include media-breakpoint-up(xxxl) {
           // > 1600px 
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+        }
+      }
+    }
+  }
+  &.disruption_home {
+    > .thumbnail-view-item {
+      @include media-breakpoint-down(md) {
+      	// < 768px
+        width: calc((100% - 60px * 2) / 2);
+      }
+      @include media-breakpoint-between(md, lg) {
+      	//768px - 992px
+        width: calc((100% - 60px * 2) / 2);
+      }
+      @include media-breakpoint-between(lg, xl) {
+      	//992px - 1200px
+        width: calc((100% - 60px * 3) / 3);
+      }
+      @include media-breakpoint-between(xl, xxl) {
+      	// 1200px - 1400px
+        width: calc((100% - 60px * 3) / 3);
+      }
+      @include media-breakpoint-between(xxl, xxxl) {
+      	// 1400px - 1600px
+        width: calc((100% - 60px * 4) / 4);
+      }
+      @include media-breakpoint-up(xxxl) {
+      	// > 1600px 
+        width: calc((100% - 60px * 4) / 4);
+      }
+      float: left;
+      margin: 0 30px 30px;
+      overflow: hidden;
+      .image-holder {
+        width: 100%;
+        @include media-breakpoint-down(md) {
+          // < 768px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(md, lg) {
+          //768px - 992px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(lg, xl) {
+          //992px - 1200px
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+        }
+        @include media-breakpoint-between(xl, xxl) {
+          // 1200px - 1400px
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+        }
+        @include media-breakpoint-between(xxl, xxxl) {
+          // 1400px - 1600px
+          height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px 
+          height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+        }
+      }
+    }
+  }
+  &.intelligence_home {
+    > .thumbnail-view-item {
+      @include media-breakpoint-down(md) {
+      	// < 768px
+        width: calc((100% - 60px * 2) / 2);
+      }
+      @include media-breakpoint-between(md, lg) {
+      	//768px - 992px
+        width: calc((100% - 60px * 2) / 2);
+      }
+      @include media-breakpoint-between(lg, xxxl) {
+      	//992px - 1600px
+        width: calc((100% - 60px * 3) / 3);
+      }
+      @include media-breakpoint-up(xxxl) {
+      	// > 1600px 
+        width: calc((100% - 60px * 3) / 3);
+      }
+      float: left;
+      margin: 0 30px 30px;
+      overflow: hidden;
+      .image-holder {
+        width: 100%;
+        @include media-breakpoint-down(md) {
+          // < 768px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(md, lg) {
+          //768px - 992px
+          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(lg, xxxl) {
+          //992px - 1600px
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px 
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
       }
     }
@@ -272,9 +378,13 @@ body {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
       }
-      @include media-breakpoint-between(md, xl) {
-      	//768px - 1200px
+      @include media-breakpoint-between(md, lg) {
+      	//768px - 992px
         width: calc((100% - 60px * 2) / 2);
+      }
+      @include media-breakpoint-between(lg, xl) {
+      	//992px - 1200px
+        width: calc((100% - 60px * 3) / 3);
       }
       @include media-breakpoint-between(xl, xxl) {
       	// 1200px - 1400px
@@ -297,9 +407,13 @@ body {
           // < 768px
           height: calc((100vw - 60px * 3) / 2 * 9 / 16);
         }
-        @include media-breakpoint-between(md, xl) {
-          //768px - 1200px
+        @include media-breakpoint-between(md, lg) {
+          //768px - 992px
           height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        }
+        @include media-breakpoint-between(lg, xl) {
+          //992px - 1200px
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
         @include media-breakpoint-between(xl, xxl) {
           // 1200px - 1400px
@@ -352,8 +466,8 @@ body {
       }
       @include media-breakpoint-up(xxxl) {
       	// > 1600px 
-        width: calc((100% - 60px * 4) / 4);
-        height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+        width: calc((100% - 60px * 3) / 3);
+        height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
       float: left;
       margin: 0 30px 50px;
@@ -403,7 +517,6 @@ body {
       }
     }
   }
-
   &.quarter {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
