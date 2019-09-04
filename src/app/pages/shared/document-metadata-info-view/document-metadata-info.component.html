@@ -64,7 +64,7 @@
       </ng-container>
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
         <h1>{{documentModel.title}}</h1>
-        <h2>{{documentModel.get('The_Loupe_Main:brand')}}</h2>
+        <h2><a *ngIf="documentModel.parentRef" href="javascript:void(0)" (click)="goBrandFolder();" class="icon_btn">{{documentModel.get('The_Loupe_Main:brand')}}</a></h2>
         <h4>About</h4>
         <p>{{documentModel.get('dc:description')}}</p>
         <table>
@@ -81,7 +81,7 @@
               <th colspan="2">Agency</th>
             </tr>
             <tr>
-              <td colspan="2">{{documentModel.get('The_Loupe_Main:agency')}}</td>
+              <td colspan="2"><a href="javascript:void(0)" (click)="goAgencyFolder();" class="icon_btn">{{documentModel.get('The_Loupe_Main:agency')}}</a></td>
             </tr>
           </tbody>
         </table>

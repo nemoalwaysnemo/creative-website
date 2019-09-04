@@ -45,14 +45,19 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
   }
 
   private searchDocuments(doc: DocumentModel): void {
-    this.loading = true;
-    this.params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
-    this.params.ecm_uuid_not_eq = doc.uid;
-    const subscription = this.advanceSearch.request(this.params)
-      .subscribe((res: NuxeoPagination) => {
-        this.loading = false;
-        this.documents = res.entries;
-      });
-    this.subscription.add(subscription);
+    if (doc.get('The_Loupe_Main:brand')[0] !== null) {
+      this.loading = true;
+      this.params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
+      this.params.ecm_uuid_not_eq = doc.uid;
+      const subscription = this.advanceSearch.request(this.params)
+        .subscribe((res: NuxeoPagination) => {
+          this.loading = false;
+          this.documents = res.entries;
+        });
+      this.subscription.add(subscription);
+    } else {
+      this.loading = false;
+      this.documents = [];
+    }
   }
 }
