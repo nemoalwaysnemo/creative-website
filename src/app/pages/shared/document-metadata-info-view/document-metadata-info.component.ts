@@ -141,6 +141,16 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return { ecm_uuid: `["${jobTitle.join('", "')}"]`, pageSize: jobTitle.length };
   }
 
+  hasBrand(): boolean {
+    const brands = this.documentModel.get('The_Loupe_Main:brand');
+    return brands && brands.length > 0 && brands[0] !== null;
+  }
+
+  hasAgency(): boolean {
+    const agency = this.documentModel.get('The_Loupe_Main:agency');
+    return agency !== '' || agency !== null;
+  }
+
   goAgencyFolder(): void {
     const agencyId = this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 3].uid;
     this.router.navigate(['p/redirect'], { queryParams: { url: `/p/search/creative/myBrandAsset/${agencyId}` } });
