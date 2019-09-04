@@ -190,7 +190,13 @@ body {
       text-overflow: ellipsis;
     }
     .image-holder {
-      a:hover { cursor: pointer; }
+      a {
+        transition: all 0.5s;
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
+      }
     }
   }
   &.my_agency,
@@ -248,6 +254,13 @@ body {
         @include media-breakpoint-up(xxxl) {
           // > 1600px 
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
+        }
+        a {
+          transition: all 0.5s;
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
         }
       }
     }
@@ -427,6 +440,13 @@ body {
           // > 1600px 
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
+        a {
+          transition: all 0.5s;
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
+        }
       }
     }
   }
@@ -483,6 +503,7 @@ body {
           background-repeat: no-repeat;
           background-position: center center;
           background-size: cover;
+          transition: all 0.5s;
           .description {
             position: absolute;
             display: none;
@@ -501,6 +522,8 @@ body {
             }
           }
           &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
             &::after {
               content: '';
               position: absolute;
@@ -511,7 +534,10 @@ body {
               background-color: rgba(0, 0, 0, 0.2);
               z-index: 1;
             }
-            .description { display: block; }
+            .description {
+              display: block;
+              transform: scale(0.9);
+            }
           }
         }
       }
