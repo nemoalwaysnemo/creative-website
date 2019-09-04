@@ -55,10 +55,16 @@
           height: calc(800px * 9 / 16 + 140px);
           margin-right: 43px;
         }
-        @include media-breakpoint-up(xxl) {
-          // > 1400px
+        @include media-breakpoint-between(xxl, xxxl) {
+          //1400px - 1600px
           width: 930px;
           height: calc(930px * 9 / 16 + 140px);
+          margin-right: 43px;
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px
+          width: calc(100% - 490px - 43px);
+          height: calc((100% - 490px - 43px) * 9 / 16 + 140px);
           margin-right: 43px;
         }
       }
@@ -79,9 +85,13 @@
           //1200px - 1400px
           width: calc(100% - 800px - 43px);
         }
-        @include media-breakpoint-up(xxl) {
-          // > 1400px
+        @include media-breakpoint-between(xxl, xxxl) {
+          //1400px - 1600px
           width: calc(100% - 930px - 43px);
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px
+          width: 490px;
         }
       }
     }

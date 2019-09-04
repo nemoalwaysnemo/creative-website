@@ -37,9 +37,14 @@ nb-route-tabset {
           width: 800px;
           margin-right: 43px;
         }
-        @include media-breakpoint-up(xxl) {
-          // > 1400px
+        @include media-breakpoint-between(xxl, xxxl) {
+          //1400px - 1600px
           width: 930px;
+          margin-right: 43px;
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px
+          width: calc(100% - 490px - 43px);
           margin-right: 43px;
         }
       }
@@ -60,9 +65,13 @@ nb-route-tabset {
           //1200px - 1400px
           width: calc(100% - 800px - 43px);
         }
-        @include media-breakpoint-up(xxl) {
-          // > 1400px
+        @include media-breakpoint-between(xxl, xxxl) {
+          //1400px - 1600px
           width: calc(100% - 930px - 43px);
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px
+          width: 490px;
         }
       }
     }
