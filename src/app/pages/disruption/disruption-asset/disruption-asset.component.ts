@@ -17,6 +17,14 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
 
   showButton: boolean = true;
 
+  backAssetFlag: boolean = false;
+
+  assetUrlMapping: object = {
+    'App-Disruption-Day': '/p/disruption/Disruption Days/day',
+    'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder/',
+    '*': '/p/disruption/asset',
+  };
+
   disruptionDayParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
@@ -68,6 +76,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
   private getFolderParams(doc: DocumentModel): any {
     switch (doc.type) {
       case 'App-Disruption-Day-Asset':
+        this.backAssetFlag = true;
         return this.disruptionDayParams;
       case 'App-Disruption-Theory-Asset':
         return this.disruptionTheoryParams;
