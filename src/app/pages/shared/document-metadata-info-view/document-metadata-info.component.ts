@@ -148,7 +148,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   hasAgency(): boolean {
     const agency = this.documentModel.get('The_Loupe_Main:agency');
-    return agency !== '' || agency !== null;
+    return agency && agency.length > 0  && agency !== null;
   }
 
   goAgencyFolder(): void {
