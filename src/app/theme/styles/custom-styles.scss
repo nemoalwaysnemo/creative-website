@@ -212,7 +212,7 @@ body {
       }
       @include media-breakpoint-between(lg, xl) {
       	//992px - 1200px
-        width: calc((100% - 60px * 2) / 2);
+        width: calc((100% - 60px * 3) / 3);
       }
       @include media-breakpoint-between(xl, xxl) {
       	// 1200px - 1400px
@@ -241,7 +241,7 @@ body {
         }
         @include media-breakpoint-between(lg, xl) {
           //992px - 1200px
-          height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+          height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
         @include media-breakpoint-between(xl, xxl) {
           // 1200px - 1400px
@@ -476,8 +476,8 @@ body {
       }
       @include media-breakpoint-between(lg, xl) {
       	// 992px - 1200px
-        width: calc((100% - 60px * 2) / 2);
-        height: calc((100vw - 60px * 3) / 2 * 9 / 16);
+        width: calc((100% - 60px * 3) / 3);
+        height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
       @include media-breakpoint-between(xl, xxxl) {
       	// 1200px - 1600px
