@@ -64,7 +64,7 @@
         @include media-breakpoint-up(xxxl) {
           // > 1600px
           width: calc(100% - 490px - 43px);
-          height: calc((100% - 490px - 43px) * 9 / 16 + 140px);
+          height: calc((100vw - 490px - 43px) * 9 / 16 + 140px);
           margin-right: 43px;
         }
       }
