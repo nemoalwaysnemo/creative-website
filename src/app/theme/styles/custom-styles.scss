@@ -523,7 +523,6 @@ body {
           }
           &:hover {
             cursor: pointer;
-            transform: scale(1.1);
             &::after {
               content: '';
               position: absolute;
@@ -536,7 +535,6 @@ body {
             }
             .description {
               display: block;
-              transform: scale(0.9);
             }
           }
         }
