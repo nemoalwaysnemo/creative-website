@@ -524,6 +524,8 @@ body {
               font-size: 24px;
               margin: 20px 0;
               padding: 0;
+              text-overflow: unset;
+              overflow: visible;
               white-space: normal;
             }
           }
