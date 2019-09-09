@@ -263,6 +263,9 @@ body {
           }
         }
       }
+      .description {
+        > h1 { margin: 20px 0 25px; }
+      }
     }
   }
   &.disruption_home {
@@ -459,6 +462,9 @@ body {
     > .thumbnail-view-item {
       float: none;
       margin: 0 0 30px;
+      .description {
+        > h1 { margin: 20px 0 25px; }
+      }
     }
   }
   &.agency,
