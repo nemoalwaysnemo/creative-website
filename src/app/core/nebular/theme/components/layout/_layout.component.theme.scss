@@ -75,7 +75,7 @@
     @media screen and (min-width: nb-theme(layout-window-mode-max-width) + 20px) {
       // $padding-top: nb-theme(layout-window-mode-padding-top) / 4;
 
-      @include window-mode($padding-top);
+      // @include window-mode($padding-top);
 
       nb-layout.with-scroll {
         .scrollable-container {
@@ -87,7 +87,7 @@
     @media screen and (min-width: nb-theme(layout-window-mode-max-width) + 150px) {
       // $padding-top: nb-theme(layout-window-mode-padding-top) / 2;
 
-      @include window-mode($padding-top);
+      // @include window-mode($padding-top);
 
       nb-layout.with-scroll {
         .scrollable-container {
@@ -99,7 +99,7 @@
     @media screen and (min-width: nb-theme(layout-window-mode-max-width) + 300px) {
       // $padding-top: nb-theme(layout-window-mode-padding-top);
 
-      @include window-mode($padding-top);
+      // @include window-mode($padding-top);
 
       nb-layout.with-scroll {
         .scrollable-container {
