@@ -76,7 +76,14 @@
     justify-content: center;
     flex-direction: column;
   }
-
+  vg-overlay-play .vg-overlay-play {
+    height: calc(100% - 250px)!important;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
   gallery-core[imageSize='contain'] gallery-slider .g-image-item {
     background-size: cover;
   }
