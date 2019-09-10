@@ -622,6 +622,12 @@ body {
     font-size: 20px;
   }
 }
+nb-route-tabset {
+  display: block;
+  margin: 20px 0 40px;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
 preview-dialog {
   display: block;
   border-radius: 10px;
