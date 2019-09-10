@@ -151,6 +151,14 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return agency && agency.length > 0  && agency !== null;
   }
 
+  hasAgencyFolder(): boolean {
+    return this.documentModel.breadcrumb && this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 3] ? true : false;
+  }
+
+  hasFilter() : boolean {
+    return this.documentModel.path.includes('Creative/1. GCL Frontpage/');
+  }
+
   goAgencyFolder(): void {
     const agencyId = this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 3].uid;
     this.router.navigate(['p/redirect'], { queryParams: { url: `/p/search/creative/myAgencyAsset/${agencyId}` } });
