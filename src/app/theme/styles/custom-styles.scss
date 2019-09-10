@@ -200,7 +200,9 @@ body {
     }
   }
   &.my_agency,
-  &.my_brand {
+  &.my_brand,
+  &.my_brand_asset_search,
+  &.my_agency_asset_search {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
       	// < 768px

@@ -14,7 +14,7 @@ export class CreativeMyAgencyAssetSearchComponent extends AbstractDocumentViewCo
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'third';
+  layout: string = 'my_agency_asset_search full-width';
 
   filters: SearchFilterModel[] = [
       new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
