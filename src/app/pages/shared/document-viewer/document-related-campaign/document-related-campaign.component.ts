@@ -51,7 +51,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
       this.relatedDocs = [];
     } else {
       const params: any = {
-        pageSize: 10,
+        pageSize: 25,
         currentPageIndex: 0,
         ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
         the_loupe_main_campaign: `["${campaign}"]`,
