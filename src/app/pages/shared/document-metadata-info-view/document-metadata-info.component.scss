@@ -11,10 +11,16 @@ h1 {
   margin-bottom: 10px;
   font-size: 25px;
 }
-h2 {
+h2, h2 a {
   font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
   margin-bottom: 43px;
   font-size: 25px;
+  color: #000000;
+}
+h2 a:hover {
+  text-decoration: none;
+  color: #000000;
+  cursor: pointer;
 }
 h4 {
   font-family: 'Averta for TBWA W01 Black', helvetica, arial;
@@ -42,6 +48,16 @@ table {
   td {
     font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
     font-size: 15px;
+    a.text {
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+      font-size: 15px;
+      color: #000000;
+      &:hover {
+        text-decoration: none;
+        color: #000000;
+        cursor: pointer;
+      }
+    }
   }
 }
 .accordion {
