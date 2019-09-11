@@ -155,6 +155,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return this.documentModel.breadcrumb && this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 3] ? true : false;
   }
 
+  hasBrandFolder(): boolean {
+    return this.documentModel.breadcrumb && this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 2] ? true : false;
+  }
+
   hasFilter(): boolean {
     return this.documentModel.path.includes('Creative/1. GCL Frontpage/');
   }

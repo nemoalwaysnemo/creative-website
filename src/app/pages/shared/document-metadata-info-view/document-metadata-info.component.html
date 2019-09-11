@@ -64,8 +64,8 @@
       </ng-container>
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
         <h1>{{documentModel.title}}</h1>
-        <h2><a *ngIf="documentModel.parentRef && hasBrand() && !hasFilter()" href="javascript:void(0)" (click)="goBrandFolder();" class="">{{documentModel.get('The_Loupe_Main:brand')}}</a>
-            <ng-container *ngIf="documentModel.parentRef && hasBrand() && hasFilter()">{{documentModel.get('The_Loupe_Main:brand')}}</ng-container>
+        <h2><a *ngIf="documentModel.parentRef && hasBrand() && !hasFilter() && hasBrandFolder()" href="javascript:void(0)" (click)="goBrandFolder();" class="">{{documentModel.get('The_Loupe_Main:brand')}}</a>
+            <ng-container *ngIf="documentModel.parentRef && hasBrand() || !hasBrandFolder() && hasFilter()">{{documentModel.get('The_Loupe_Main:brand')}}</ng-container>
         </h2>
         <h4>About</h4>
         <p>{{documentModel.get('dc:description')}}</p>
