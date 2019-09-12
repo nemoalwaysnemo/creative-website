@@ -18,7 +18,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   extraHeadline: string = 'We\'ve disrupted it.';
 
-  subHead: string = 'Find the who, what, where, when, Why and how of our process.';
+  subHead: string = 'Find the who, what, where, when, why and how of our process.';
 
   placeholder: string = 'Search...';
 
