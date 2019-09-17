@@ -20,7 +20,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   subHead: string = 'Find the who, what, where, when, why and how of our process.';
 
-  placeholder: string = 'Search...';
+  placeholder: string = 'Search for roadmaps, disruption days and how-tos...';
 
   assetUrlMapping: object = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
