@@ -333,7 +333,7 @@ export class NuxeoUploadResponse {
 }
 
 export enum NuxeoAutomations {
-  CreativeGetDocumentURStatus = 'Creative.GetDocumentURStatus',
+  CreativeGetDocumentURStatus = 'Creative.GetDocumentAllURStatus',
   DirectorySuggestEntries = 'Directory.SuggestEntries',
   RepositoryPageProvider = 'Repository.PageProvider',
   DirectoryEntries = 'Directory.Entries',
