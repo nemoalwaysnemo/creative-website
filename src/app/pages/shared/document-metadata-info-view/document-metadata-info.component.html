@@ -54,13 +54,13 @@
         <ng-container *ngIf="deletePermission$ | async">
           <a href="javascript:;" (click)="openForm(dialog, 'delete')" title="Delete" class="edit right icon_btn">Delete</a>
         </ng-container>
-        <ng-container *ngIf="downloadPermission$ | async">
+        <!-- <ng-container *ngIf="downloadPermission$ | async">
           <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
         </ng-container>
         <ng-container *ngIf="downloadPermission$ | async">
           <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
         </ng-container>
-        <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
+        <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a> -->
       </ng-container>
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
         <h1>{{documentModel.title}}</h1>
@@ -130,13 +130,13 @@
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>
-        <ng-container *ngIf="downloadPermission$ | async">
+        <!-- <ng-container *ngIf="downloadPermission$ | async">
           <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
         </ng-container>
         <ng-container *ngIf="downloadPermission$ | async">
           <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
         </ng-container>
-        <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
+        <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a> -->
       </ng-container>
     </ng-container>
   </div>

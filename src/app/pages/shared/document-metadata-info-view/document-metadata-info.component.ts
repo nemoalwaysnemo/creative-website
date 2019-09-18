@@ -47,9 +47,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       this.documentModel = doc;
       if (this.isCreativeAsset(doc)) {
         this.getUsageRightsStatus(doc);
-        this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
+        // this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
       } else {
-        this.downloadPermission$ = observableOf(true);
+        // this.downloadPermission$ = observableOf(true);
       }
 
       if (this.isDisruptionAsset(doc)) {
