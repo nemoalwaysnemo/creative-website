@@ -1,10 +1,10 @@
-<div class="document" style="padding: 40px 0 0;" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+<div class="document" style="padding: 69px 0 0;" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <div class="property-section">
-    <div class="property-intro inline-middle">
+    <div class="property-intro inline-top">
       <div [ngStyle]="{'background-image': 'url('+doc?.thumbnailUrl+')'}"></div>
       <!-- <img src="{{doc?.thumbnailUrl}}" class="thumbnail-img"> -->
     </div>
-    <div class="property-info inline-middle">
+    <div class="property-info inline-top">
       <h1>{{ doc?.title }}</h1>
       <button *ngIf="isShow" type="button" (click)="backToParent()" class="icon_btn left">Back to parent</button>
     </div>

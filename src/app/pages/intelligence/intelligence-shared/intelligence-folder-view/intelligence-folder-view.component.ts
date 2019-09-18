@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'intelligence-folder-view',
-  styleUrls: ['../../../../theme/styles/disruption-folder.scss'],
+  styleUrls: ['./intelligence-folder-view.component.scss'],
   templateUrl: './intelligence-folder-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
