@@ -7,7 +7,7 @@
       <input class="keyword" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
       <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
-    <button type="button" (click)="toggleFilter()" class="filter_trigger" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters
+    <button type="button" (click)="toggleFilter()" class="filter_trigger" [ngClass]="{'show': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters
       +</button>
   </section>
   <div class="search-filters left">

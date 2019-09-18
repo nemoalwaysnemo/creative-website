@@ -77,6 +77,10 @@ $main-yellow: #fecc00;
     margin-bottom: 10px;
     color: #40dc7e;
   }
+  &.show {
+    margin-bottom: 10px;
+    color: #000000;
+  }
   &:focus { outline: 0; }
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
