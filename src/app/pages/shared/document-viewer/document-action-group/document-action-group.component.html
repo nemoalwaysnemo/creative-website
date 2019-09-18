@@ -5,6 +5,6 @@
   <ng-container *ngIf="downloadPermission$ | async">
     <a href="{{documentModel.previewUrl}}" class="preview right btn" title="Preview" target="_blank">Preview</a>
   </ng-container>
-  <a href="javascript:void(0)" (click)="goBack()" class="back right btn" title="Back">Back</a>
+  <a href="javascript:void(0)" (click)="goBack()" class="back left btn" title="Back">Back</a>
   <div class="clear"></div>
 </div>
