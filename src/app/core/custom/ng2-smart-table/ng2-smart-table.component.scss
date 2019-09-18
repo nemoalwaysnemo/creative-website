@@ -45,10 +45,12 @@
     }
 
     a {
-      color: #1e6bb8;
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+      color: #000000;
       text-decoration: none;
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
+        color: #000000;
       }
     }
   }
