@@ -4,6 +4,15 @@ import { AbstractSearchResultComponent } from '../abstract-search-result.compone
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 
 @Component({
+  template: `<a [routerLink]="['/p/search/creative/myBrandAsset', value.uid]">{{ value.title }}</a>`,
+})
+
+export class MyBrandRowRenderComponent {
+  @Input()
+  public value: { title: string, uid: string };
+}
+
+@Component({
   selector: 'creative-my-brand-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-my-brand-asset-search-result.component.html',
@@ -29,6 +38,8 @@ export class CreativeMyBrandAssetSearchResultComponent extends AbstractSearchRes
       title: {
         title: 'Title',
         sort: false,
+        type: 'custom',
+        renderComponent: MyBrandRowRenderComponent,
       },
     },
   };
@@ -38,7 +49,7 @@ export class CreativeMyBrandAssetSearchResultComponent extends AbstractSearchRes
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: doc.title,
+        title: { title: doc.title, uid: doc.uid },
         productionDate: doc.get('The_Loupe_ProdCredits:production_date'),
         campaign: doc.get('The_Loupe_Main:campaign_title_'),
         ceativeDirector: doc.get('The_Loupe_Credits:creativeDirector'),
