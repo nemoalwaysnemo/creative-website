@@ -1,9 +1,10 @@
 <div class="document-action-group {{styleName}}">
   <ng-container *ngIf="downloadPermission$ | async">
-    <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
+    <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right btn" title="Download">Download</a>
   </ng-container>
   <ng-container *ngIf="downloadPermission$ | async">
-    <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
+    <a href="{{documentModel.previewUrl}}" class="preview right btn" title="Preview" target="_blank">Preview</a>
   </ng-container>
-  <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a>
+  <a href="javascript:void(0)" (click)="goBack()" class="back right btn" title="Back">Back</a>
+  <div class="clear"></div>
 </div>

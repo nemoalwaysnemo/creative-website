@@ -1,0 +1,19 @@
+.btn {
+  font-family: "Averta for TBWA W01 Semibold", helvetica, arial;
+    font-size: 15px;
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    text-transform: none;
+    padding: 0 20px 0 13px;
+    color: #000000;
+    cursor: pointer !important;
+    border-right: solid 1px #cccccc;
+    border-radius: 0;
+    margin-top: 20px;
+    margin-left: 7px;
+  &:hover {
+    text-decoration: none;
+    color: #000000;
+  }
+}
