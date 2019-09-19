@@ -29,7 +29,7 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
                        [poster]="data.poster"
                        [pause]="currIndex !== index"
                        (error)="error.emit($event)"
-                       (videoState)="videoState.emit($event)"></gallery-video>
+                       (customEvent)="customEvent.emit($event)"></gallery-video>
 
         <div class="g-template g-item-template">
           <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
@@ -79,7 +79,7 @@ export class GalleryItemComponent {
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<Error>();
 
-  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean }>();
+  @Output() customEvent = new EventEmitter<any>();
 
   @HostBinding('class.g-active-item') get isActive() {
     return this.index === this.currIndex;

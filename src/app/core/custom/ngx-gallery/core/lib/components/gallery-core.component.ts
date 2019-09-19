@@ -17,7 +17,7 @@ import { GalleryConfig } from '../models/config.model';
                       [config]="config"
                       (action)="action.emit($event)"
                       (itemClick)="itemClick.emit($event)"
-                      (videoState)="videoState.emit($event)"
+                      (customEvent)="customEvent.emit($event)"
                       (error)="error.emit($event)">
 
         <gallery-nav *ngIf="config.nav && state.items.length > 1"
@@ -48,7 +48,7 @@ export class GalleryCoreComponent {
   @Output() itemClick = new EventEmitter<number>();
   @Output() thumbClick = new EventEmitter<number>();
   @Output() error = new EventEmitter<GalleryError>();
-  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean }>();
+  @Output() customEvent = new EventEmitter<any>();
 
   /** Set thumbnails position */
   @HostBinding('attr.thumbPosition') get thumbPosition(): 'top' | 'left' | 'right' | 'bottom' {

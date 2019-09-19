@@ -40,7 +40,7 @@ declare const Hammer: any;
                       [data]="item.data"
                       [currIndex]="state.currIndex"
                       [index]="i"
-                      (videoState)="videoState.emit($event)"
+                      (customEvent)="customEvent.emit({itemIndex: i, event: $event})"
                       (tapClick)="itemClick.emit(i)"
                       (error)="error.emit({itemIndex: i, error: $event})">
         </gallery-item>
@@ -79,7 +79,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   /** Stream that emits when an error occurs */
   @Output() error = new EventEmitter<GalleryError>();
 
-  @Output() videoState = new EventEmitter<{ state: string, fsState: boolean }>();
+  @Output() customEvent = new EventEmitter<any>();
 
   /** Item zoom */
   get zoom() {

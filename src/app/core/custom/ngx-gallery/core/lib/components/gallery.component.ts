@@ -26,7 +26,7 @@ import { IframeItem, ImageItem, VideoItem, YoutubeItem } from './templates/items
                   (action)="onAction($event)"
                   (itemClick)="onItemClick($event)"
                   (thumbClick)="onThumbClick($event)"
-                  (videoState)="onVideoStateChange($event)"
+                  (customEvent)="onCustomEvent($event)"
                   (error)="onError($event)"></gallery-core>
     <ng-content></ng-content>
   `,
@@ -75,6 +75,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   @Output() indexChange = new EventEmitter<GalleryState>();
   @Output() itemsChange = new EventEmitter<GalleryState>();
   @Output() error = new EventEmitter<GalleryError>();
+  @Output() customEvent = new EventEmitter<any>();
   private _itemClick$: SubscriptionLike = Subscription.EMPTY;
   private _thumbClick$: SubscriptionLike = Subscription.EMPTY;
   private _itemChange$: SubscriptionLike = Subscription.EMPTY;
@@ -183,8 +184,10 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onVideoStateChange(action: any = {}) {
-    if (action.state === 'playing' || action.fsState) {
+  onCustomEvent(e: any) {
+    const { event } = e;
+    this.customEvent.emit(e);
+    if (event.api && event.api.getDefaultMedia().state === 'playing' || event.api.fsAPI.isFullscreen) {
       this.galleryRef.stop();
     }
   }

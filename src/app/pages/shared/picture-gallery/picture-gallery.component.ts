@@ -2,6 +2,7 @@ import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetec
 import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services';
+import { Params } from '@angular/router';
 
 @Component({
   selector: 'picture-gallery',
@@ -10,6 +11,8 @@ import { deepExtend } from '@core/services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  queryParams: Params[] = [];
 
   @Input() assetUrl: string;
 
@@ -58,4 +61,11 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
       this.galleryRef.setConfig(config);
     }
   }
+
+  onCustomEvent(e: any): void {
+    const { itemIndex, event } = e;
+    const currentTime = event.player.currentTime;
+    this.queryParams[itemIndex] = { currentTime };
+  }
+
 }
