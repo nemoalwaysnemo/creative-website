@@ -3,6 +3,7 @@ import { DocumentVideoViewerService } from '../document-video-viewer.service';
 import { Subscription } from 'rxjs/Subscription';
 import { VgAPI } from 'videogular2/compiled/core';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'document-video-player',
   styleUrls: ['./document-video-player.component.scss'],
@@ -21,12 +22,14 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   @Input() autoPlay: boolean;
 
-  constructor(private seekTimeService: DocumentVideoViewerService, api: VgAPI, private cookieService: CookieService) {
+  constructor(private seekTimeService: DocumentVideoViewerService,
+              private cookieService: CookieService,
+              protected activatedRoute: ActivatedRoute,
+              api: VgAPI) {
     this.subscription = this.seekTimeService.getTimeChanged().subscribe(
       res => {
         this.api.currentTime = res.time;
         this.api.play();
-
       },
     );
   }
@@ -36,10 +39,12 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
   }
 
   onPlayerReady(api: VgAPI) {
-
     this.api = api;
     const defaultVolume = this.cookieService.get('defaultVolume');
     defaultVolume ? setVolume(defaultVolume) : setVolume(0);
+
+    const currentTime = this.activatedRoute.snapshot.queryParams['currentTime'];
+    currentTime ? setTime(currentTime) : '';
 
     const defaultMedia = this.api.getDefaultMedia();
     defaultMedia.subscriptions.volumeChange.subscribe(
@@ -54,6 +59,10 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
     function setVolume(volume) {
       api.$$setAllProperties('volume', volume);
+    }
+
+    function setTime(time) {
+      api.$$setAllProperties('currentTime', time);
     }
   }
 
