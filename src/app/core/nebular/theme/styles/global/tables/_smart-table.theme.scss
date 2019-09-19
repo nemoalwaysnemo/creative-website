@@ -9,7 +9,7 @@
   ng2-smart-table {
     table tr th,
     table tr th a {
-      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;;
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
       font-size: nb-theme(smart-table-header-font-size);
       font-weight: nb-theme(smart-table-header-font-weight);
       line-height: nb-theme(smart-table-header-line-height);
@@ -17,7 +17,7 @@
     }
 
     table tr td {
-      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;;
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
       font-size: nb-theme(smart-table-font-size);
       font-weight: nb-theme(smart-table-font-weight);
       line-height: nb-theme(smart-table-line-height);
@@ -176,7 +176,7 @@
       }
 
       .pagination {
-        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;;
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
         font-size: nb-theme(btn-font-size-md);
         line-height: nb-theme(btn-line-height);
         border: nb-theme(smart-table-paging-border-color) solid nb-theme(smart-table-paging-border-width);
