@@ -12,8 +12,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DocumentVideoPlayerComponent implements OnDestroy {
 
-  private api: VgAPI;
-
   private subscription: Subscription = new Subscription();
 
   @Input() poster: string;
@@ -24,8 +22,8 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   constructor(private seekTimeService: DocumentVideoViewerService,
               private cookieService: CookieService,
-              protected activatedRoute: ActivatedRoute,
-              api: VgAPI) {
+              private activatedRoute: ActivatedRoute,
+              private api: VgAPI) {
     this.subscription = this.seekTimeService.getTimeChanged().subscribe(
       res => {
         this.api.currentTime = res.time;
@@ -61,7 +59,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
       api.$$setAllProperties('volume', volume);
     }
 
-    function setTime(time) {
+    function setTime(time: number) {
       api.$$setAllProperties('currentTime', time);
     }
   }

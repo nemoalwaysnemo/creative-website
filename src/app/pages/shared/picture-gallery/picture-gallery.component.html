@@ -6,7 +6,7 @@
 </ng-template>
 <ng-template #itemTemplate let-index="index" let-type="type" let-data="data" let-currIndex="currIndex">
   <a [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]">
-    <span class="item-text">{{data.title}}</span>
+    <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
   </a>
   <span class="item-description">{{data.description}}</span>
 </ng-template>

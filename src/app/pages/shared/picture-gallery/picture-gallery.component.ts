@@ -29,6 +29,8 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   private galleryRef: GalleryRef;
 
+  private videoPlayers: HTMLMediaElement[] = [];
+
   private subscription: Subscription = new Subscription();
 
   private options$: BehaviorSubject<GalleryItem[]> = new BehaviorSubject([]);
@@ -64,8 +66,13 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   onCustomEvent(e: any): void {
     const { itemIndex, event } = e;
-    const currentTime = event.player.currentTime;
-    this.queryParams[itemIndex] = { currentTime };
+    this.videoPlayers[itemIndex] = event.player;
   }
 
+  onClick(i: number): void {
+    if (this.videoPlayers[i]) {
+      const currentTime = this.videoPlayers[i].currentTime;
+      this.queryParams[i] = { currentTime };
+    }
+  }
 }
