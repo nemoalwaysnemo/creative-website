@@ -43,9 +43,26 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
-      this.documentModel = doc;
+      this.documentModel = this.checkfiles(doc);
       this.formMode = doc.uid ? 'edit' : 'create';
     }
+  }
+
+
+  checkfiles(doc: DocumentModel): DocumentModel {
+    const files = doc.get('files:files');
+    let flag = false;
+    if (!!files) {
+      files.forEach(file => {
+        if (!file.file) {
+          flag = true;
+        }
+      });
+    }
+    if (flag) {
+      doc.set({ 'files:files': [] });
+    }
+    return doc;
   }
 
   @Input()
@@ -205,6 +222,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     });
     if (attachmens.length > 0) {
       properties['files:files'] = attachmens;
+    } else {
+      delete properties['files:files'];
     }
     return properties;
   }
