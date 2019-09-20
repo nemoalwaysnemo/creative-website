@@ -107,10 +107,12 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   writeValue(values: any): void {
-    values.forEach(value => {
-      value.file['size'] = parseInt(value.file.length, 10);
-    });
-    this.attachments = values;
+    if (!!values) {
+      values.forEach(value => {
+        value.file['size'] = parseInt(value.file.length, 10);
+      });
+      this.attachments = values;
+    }
   }
 
   registerOnChange(fn: any): void {

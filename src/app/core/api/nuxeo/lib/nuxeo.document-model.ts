@@ -205,7 +205,7 @@ export class DocumentModel extends Base {
   }
 
   getAttachmentList(): { type: string, url: string, title: string }[] {
-    return (this.get('files:files') || []).map((entry: any) => ({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name }));
+    return (this.get('files:files') || []).filter((entry: any) => entry && entry.file).map((entry: any) => ({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name }));
   }
 
   getVideoSources(): { url: string, type: string }[] {
