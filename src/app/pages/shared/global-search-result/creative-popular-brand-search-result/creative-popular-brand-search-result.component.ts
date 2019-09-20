@@ -6,10 +6,8 @@ import { DocumentListViewItem } from '../../document-list-view/document-list-vie
 @Component({
   template: `<a [routerLink]="['/p/search/creative/popularBrandAsset', value.uid]">{{ value.title }}</a>`,
 })
-
 export class PopularBrandRowRenderComponent {
-  @Input()
-  public value: { title: string, uid: string };
+  @Input() value: { title: string, uid: string };
 }
 
 @Component({

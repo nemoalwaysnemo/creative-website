@@ -8,10 +8,8 @@ import { AbstractSearchResultComponent } from '../abstract-search-result.compone
 @Component({
   template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>`,
 })
-
-export class RowRenderComponent {
-  @Input()
-  public value: { title: string, uid: string };
+export class CreativeRowRenderComponent {
+  @Input() value: { title: string, uid: string };
 }
 
 @Component({
@@ -41,7 +39,7 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
         title: 'Title',
         sort: false,
         type: 'custom',
-        renderComponent: RowRenderComponent,
+        renderComponent: CreativeRowRenderComponent,
       },
       brand: {
         title: 'Brand',
