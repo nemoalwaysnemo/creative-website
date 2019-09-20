@@ -205,6 +205,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
       if (!!res.title) {
         model.properties['dc:title'] = res.title;
       }
+      delete model.properties['files:files'];
       return model;
     });
   }
