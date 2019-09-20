@@ -3,6 +3,7 @@ import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
+import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 
 @Component({
@@ -86,6 +87,10 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
       }));
     }
     return items;
+  }
+
+  constructor(protected queryParamsService: SearchQueryParamsService) {
+    super(queryParamsService);
   }
 
   protected onInit(): void {

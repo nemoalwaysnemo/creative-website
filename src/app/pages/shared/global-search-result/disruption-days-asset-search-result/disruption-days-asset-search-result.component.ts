@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
+import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
   selector: 'disruption-days-asset-search-result',
@@ -7,6 +8,10 @@ import { AbstractSearchResultComponent } from '../abstract-search-result.compone
   templateUrl: './disruption-days-asset-search-result.component.html',
 })
 export class DisruptionDaysAssetSearchResultComponent extends AbstractSearchResultComponent {
+
+  constructor(protected queryParamsService: SearchQueryParamsService) {
+    super(queryParamsService);
+  }
 
   protected onInit(): void {
     this.onQueryParamsChanged();
