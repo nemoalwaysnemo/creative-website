@@ -32,6 +32,8 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
 
   @Input() resultHeader: string;
 
+  @Input() hideEmpty: boolean = false;
+
   listViewSettings: any;
 
   private defaultSettings: any = {

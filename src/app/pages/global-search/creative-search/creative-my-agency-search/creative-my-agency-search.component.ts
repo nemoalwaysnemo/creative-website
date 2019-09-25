@@ -27,6 +27,10 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   showType: string = 'showcase';
 
+  startUrl: string = 'https://docs.google.com/forms/d/e/1FAIpQLSec80v5JjUkTTywVUq83U3V8t4sKDzlQnaZHU8A9Y5CYr3yCw/viewform';
+
+  hideEmpty: boolean = false;
+
   filters: SearchFilterModel[] = [
     // new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     // new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
@@ -69,6 +73,8 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     if (doc) {
       this.resultHeader = 'Showcase:';
       timer(0).subscribe(() => { this.baseParams$.next(this.buildCaseParams(this.userInfo)); });
+    } else {
+      this.hideEmpty = true;
     }
   }
 

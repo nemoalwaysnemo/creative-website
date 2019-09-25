@@ -17,6 +17,8 @@ export class GlobalSearchResultComponent extends AbstractGlobalSearchResultCompo
 
   @Input() layout: string = 'disruption_home';
 
+  @Input() hideEmpty: boolean = false;
+
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
     super(advanceSearch, queryParamsService);
   }

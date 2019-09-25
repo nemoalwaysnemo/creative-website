@@ -21,6 +21,23 @@
       </div>
     </div>
   </div>
+  <div class="property-section" *ngIf="!document">
+    <div class="property-intro inline-top">
+      <div></div>
+    </div>
+    <div class="property-info inline-top">
+      <h1>Agency Not Found…Yet</h1>
+      <ul>
+        <li>Oh no. Your agency is not in our Global Creative Library.<br/>
+            No sweat, reach out and we’ll get this disruptive ship sailing.<br/>
+            Please use this form to contact us.
+        </li>
+      </ul>
+      <div class="button-group">
+        <a href="{{startUrl}}" title="Start Here" target="_blank" class="btn">Start Here</a>
+      </div>
+    </div>
+  </div>
 </div>
 <global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
 <ng-container [ngSwitch]="showType">
@@ -30,7 +47,7 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="'showcase'">
-    <creative-document-asset-search-result [layout]="layout" [resultHeader]="resultHeader">
+    <creative-document-asset-search-result [layout]="layout" [resultHeader]="resultHeader" [hideEmpty]="hideEmpty">
     </creative-document-asset-search-result>
   </ng-container>
 </ng-container>

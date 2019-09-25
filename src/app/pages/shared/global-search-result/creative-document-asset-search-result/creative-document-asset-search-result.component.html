@@ -2,7 +2,7 @@
   <h1 class="title" style="margin-left: 60px;">{{resultHeader}}</h1>
 </ng-container>
 <div class="agency-thumbnail">
-  <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [listViewBuilder]="listViewBuilder" [listViewSettings]="listViewSettings" [selectedView]="currentView" [layout]="layout"></global-search-result>
+  <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [listViewBuilder]="listViewBuilder" [listViewSettings]="listViewSettings" [selectedView]="currentView" [hideEmpty]="hideEmpty" [layout]="layout"></global-search-result>
 </div>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
