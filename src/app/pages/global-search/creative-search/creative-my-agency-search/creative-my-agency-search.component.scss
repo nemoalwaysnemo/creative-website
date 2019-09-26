@@ -1,3 +1,71 @@
+@import '../../core/nebular/theme/styles/global/breakpoints';
+
+.brand-view {
+  padding: 69px 60px 0;
+}
+.property-section {
+  width: 100%;
+  margin: 0 auto;
+}
+.property-intro {
+  width: 375px;
+  height: 211px;
+  margin-right: 60px;
+  > div {
+    width: 375px;
+    height: calc(375px * 9 / 16);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+}
+.property-info {
+  width: calc(100% - 435px);
+  h1 {
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+    line-height: 77px;
+    font-size: 80px;
+    margin: 0 0 50px;
+    color: #fecc00;
+  }
+  ul {
+    margin: 0 0 17px;
+    padding-left: 0;
+    > li {
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+      font-size: 26px;
+      line-height: 42px;
+      color: #000000;
+      b { font-family: 'Averta for TBWA W01 Regular', helvetica, arial; }
+    }
+  }
+}
+.button-group {
+  width: 100%;
+  margin: 0;
+  > .btn {
+    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+    width: calc(100% / 3 - 26.666666px);
+    height: 66px;
+    margin-right: 40px;
+    margin-bottom: 17px;
+    padding: 0;
+    border: none;
+    background: #f7f6f6;
+    color: #818181;
+    font-size: 26px;
+    border-radius: 0;
+    text-transform: capitalize;
+    cursor: pointer;
+    &:nth-child(3n) { margin-right: 0; }
+  }
+}
+.brand-thumbnail {
+  width: 100%;
+  padding: 0 30px;
+	margin-top: 45px;
+  box-sizing: border-box;
+}
 .not_found_section {
   position: relative;
   width: 100%;
@@ -48,6 +116,7 @@
         padding: 10px 30px;
         font-size: 16px;
         text-transform: capitalize;
+        cursor: pointer;
       }
     }
   }
