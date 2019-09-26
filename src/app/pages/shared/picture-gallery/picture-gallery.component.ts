@@ -15,15 +15,15 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
   queryParams: Params[] = [];
 
   @Input() assetUrl: string;
-
+  @Input() galleryType: string = 'creative';
   @Input() gallerySettings: GalleryConfig;
-
   @Input('galleryItems')
   set setItems(galleryItems: GalleryItem[]) {
     if (galleryItems) {
       this.options$.next(galleryItems);
     }
   }
+
 
   private galleryId = 'pictureGallery';
 
