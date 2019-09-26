@@ -22,6 +22,7 @@ export enum NUXEO_PATH_INFO {
   DISRUPTION_ROADMAPS_PATH = '/know-edge/Disruption/Disruption Roadmaps.1551796258162/',
   DISRUPTION_THEORY_PATH = '/know-edge/Disruption/Disruption Theory/',
   DISRUPTION_THINKING_PATH = '/know-edge/Disruption/Brilliant Thinking/',
+  DISRUPTION_AWARD_FOLDER_PATH = '/know-edge/Disruption/Disruption Awards/Carousel/',
   INTELLIGENCE_BASE_FOLDER_PATH = '/know-edge/Intelligence/',
   FRONTPAGE_BANNER_PATH = '/Creative/1. GCL Frontpage/Banners/',
 }
@@ -45,6 +46,8 @@ export enum NUXEO_META_INFO {
   DISRUPTION_THINKING_FOLDER_TYPE = '["App-Disruption-Folder"]',
   DISRUPTION_FOLDER_TYPE = '["App-Disruption-Roadmap-Folder", "App-Disruption-Days-Folder", "App-Disruption-Theory-Folder", "App-Disruption-Folder"]',
   DISRUPTION_ASSET_TYPE = '["App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset", "App-Disruption-Day"]',
+  DISRUPTION_AWARDs_ASSET_TYPE = '["App-Disruption-Awards-Asset"]',
+  DISRUPTION_AWARDs_FOLDER_TYPE = '["App-Disruption-Awards-Folder"]',
   INTELLIGENCE_FOLDER_TYPE = '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder"]',
   INTELLIGENCE_INDUSTRY_TYPE = '["App-Intelligence-Industry"]',
   INTELLIGENCE_ASSET_TYPE = '["App-Intelligence-Asset"]',

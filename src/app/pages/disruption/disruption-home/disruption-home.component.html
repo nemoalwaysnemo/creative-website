@@ -4,6 +4,9 @@
   [defaultParams]="defaultParams">
   </home-search-form>
 </div>
+<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+  <disruption-home-gallery></disruption-home-gallery>
+</div>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption_home">
   <div *ngFor="let document of folders" class="thumbnail-view-item">
     <div class="description">
