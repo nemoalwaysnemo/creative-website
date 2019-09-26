@@ -1,11 +1,54 @@
-@import '../../../../core/nebular/theme/styles/global/breakpoints';
-
-.inline-middle {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.button-group {
-  width: calc(100% - 76px);
-  margin: 0 auto;
+.not_found_section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 181px);
+  > div {
+    position: absolute;
+    width: calc(100% - 120px);
+    max-width: 1155px;
+    height: calc(100% - 130px);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    .not_found_icon {
+      width: 350px;
+      height: 100%;
+      background: url('/assets/images/404.png') no-repeat top left;
+      background-size: 350px;
+    }
+    .not_found_description {
+      width: calc(100% - 350px);
+      height: 100%;
+      h1 {
+        font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+        line-height: 89px;
+        font-size: 80px;
+        margin: 0;
+        padding-top: 12px;
+        padding-left: 30px;
+        color: #fecc01;
+      }
+      p {
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+        font-size: 20px;
+        margin: 0;
+        padding-top: 12px;
+        padding-left: 30px;
+        color: #000000;
+      }
+      .btn {
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+        background: #f7f6f6;
+        color: #777878;
+        margin-left: 30px;
+        margin-top: 20px;
+        border-radius: 0;
+        padding: 10px 30px;
+        font-size: 16px;
+        text-transform: capitalize;
+      }
+    }
+  }
 }

@@ -9,7 +9,7 @@ import { switchMap, tap } from 'rxjs/operators';
 @Component({
   selector: 'creative-my-agency-search',
   templateUrl: './creative-my-agency-search.component.html',
-  styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
+  styleUrls: ['./creative-my-agency-search.component.scss'],
 })
 export class CreativeMyAgencySearchComponent extends AbstractDocumentViewComponent implements OnInit {
 
