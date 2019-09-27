@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <div class="not_found_section" *ngIf="!document">
+  <div class="not_found_section" *ngIf="hideEmpty&&!document">
     <div>
       <div class="not_found_icon inline-top"></div>
       <div class="not_found_description inline-top">
