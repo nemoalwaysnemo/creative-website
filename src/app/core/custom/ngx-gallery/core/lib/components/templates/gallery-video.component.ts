@@ -7,7 +7,7 @@ import { VgAPI } from 'videogular2/compiled/core';
   template: `
     <vg-player (onPlayerReady)="onPlayerReady($event)">
       <vg-overlay-play vgFor="video"></vg-overlay-play>
-      <video [vgMedia]="video" #video id="video" preload="auto" poster="{{poster}}" (error)="error.emit($event)">
+      <video [vgMedia]="video" #video id="video" preload="metadata" poster="{{poster}}" (error)="error.emit($event)">
           <source *ngFor="let src of videoSources" src="{{src?.url}}" type="{{src?.type}}">
       </video>
     </vg-player>

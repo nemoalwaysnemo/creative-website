@@ -32,7 +32,7 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_AWARDs_FOLDER_TYPE,
   };
 
-  private showGallery: boolean = true;
+  showGallery: boolean = true;
   agencyDocuments: DocumentModel[];
 
   private subscription: Subscription = new Subscription();
