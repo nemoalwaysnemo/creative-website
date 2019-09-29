@@ -32,7 +32,7 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_AWARDs_FOLDER_TYPE,
   };
 
-  showGallery: boolean = true;
+  showGallery: boolean = false;
   agencyDocuments: DocumentModel[];
 
   private subscription: Subscription = new Subscription();
@@ -45,7 +45,9 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
       this.galleryItems = this.getItems(res.entries);
     });
     this.advanceSearch.request(this.gallerySwitch).subscribe((res: NuxeoPagination) => {
-      this.showGallery = res.entries[0].get('app_global:enable_carousel');
+      if (res.entries.length > 0) {
+        this.showGallery = (res.entries[0].get('app_global:enable_carousel') === true);
+      }
     });
   }
 
@@ -57,7 +59,7 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getVideoSources(), thumb: entry.attachedImage, poster: entry.attachedImage, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), outerLink: entry.get('app_Edges:URL') });
+        imgArray.push({ src: entry.getCarouselVideoSources(), thumb: entry.attachedImage, poster: entry.attachedImage, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), outerLink: this.getUrlContent(entry.get('app_Edges:URL')) });
       } else if (entry.isPicture()) {
         const url = entry.attachedImage;
         imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), outerLink: entry.get('app_Edges:URL') });
@@ -70,4 +72,13 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   hasVideoContent(entry: DocumentModel) {
     return entry.getVideoSources().length > 0;
   }
+
+  getUrlContent(str_url) {
+    if (str_url.length > 0) {
+      return 'https://' + str_url.match(/(http:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*)/g)[0];
+    } else {
+      return '';
+    }
+  }
+
 }

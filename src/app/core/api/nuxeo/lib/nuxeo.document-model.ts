@@ -225,6 +225,23 @@ export class DocumentModel extends Base {
     }
   }
 
+  getCarouselVideoSources(): { url: string, type: string }[] {
+    const sources = this.filePath;
+    if (sources.length !== 0) {
+      return [{
+        url: this.filePath,
+        type: this.fileMimeType,
+      }];
+    } else {
+      return this.get('vid:transcodedVideos').map((conversion: any) => {
+        return {
+          url: conversion.content.data,
+          type: conversion.content['mime-type'],
+        };
+      });
+    }
+  }
+
   hasFacet(facet: string): boolean {
     return this.facets.indexOf(facet) !== -1;
   }
