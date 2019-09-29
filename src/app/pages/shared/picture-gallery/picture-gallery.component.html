@@ -6,7 +6,10 @@
   </span>
 </ng-template>
 <ng-template #itemTemplate let-index="index" let-type="type" let-data="data" let-currIndex="currIndex">
-  <a *ngIf="galleryType === 'disruption'" href={{data.outerLink}}>
+  <a *ngIf="galleryType === 'disruption' && !!data.outerLink" href= {{data.outerLink}}>
+    <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
+  </a>
+  <a *ngIf="galleryType === 'disruption' && !data.outerLink" href="javascript:void(0)">
     <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
   </a>
   <a *ngIf="galleryType === 'creative'" [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]">
