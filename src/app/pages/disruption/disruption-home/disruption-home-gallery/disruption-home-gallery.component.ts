@@ -74,7 +74,7 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   getUrlContent(str_url) {
-    if (str_url.length > 0) {
+    if (str_url && str_url.length > 0) {
       return 'https://' + str_url.match(/(http:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*)/g)[0];
     } else {
       return '';
