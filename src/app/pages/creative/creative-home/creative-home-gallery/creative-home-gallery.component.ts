@@ -26,8 +26,6 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
   };
 
-  agencyDocuments: DocumentModel[];
-
   private subscription: Subscription = new Subscription();
 
   constructor(private advanceSearch: AdvanceSearch) {

@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
+import { NuxeoPagination, DocumentModel, AdvanceSearch, NuxeoPageProviderParams } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
+import { filter, map, concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'disruption-home-gallery',
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
 
   galleryItems: any = [];
+
   gallerySettings: any = {
     playerInterval: 5000,
     autoPlay: true,
@@ -23,17 +25,16 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   private params: any = {
     pageSize: 10,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_AWARD_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_AWARDs_ASSET_TYPE,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_AWARD_ASSET_TYPE,
   };
 
   private gallerySwitch: any = {
-    pageSize: 10,
+    pageSize: 1,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_AWARD_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_AWARDs_FOLDER_TYPE,
+    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_AWARD_FOLDER_TYPE,
   };
 
   showGallery: boolean = false;
-  agencyDocuments: DocumentModel[];
 
   private subscription: Subscription = new Subscription();
 
@@ -41,21 +42,27 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.advanceSearch.request(this.params).subscribe((res: NuxeoPagination) => {
-      this.galleryItems = this.getItems(res.entries);
-    });
-    this.advanceSearch.request(this.gallerySwitch).subscribe((res: NuxeoPagination) => {
-      if (res.entries.length > 0) {
-        this.showGallery = (res.entries[0].get('app_global:enable_carousel') === true);
-      }
-    });
+    this.getItems();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  private getItems(entiries: DocumentModel[]) {
+  private getItems(): void {
+    this.subscription = this.advanceSearch.request(new NuxeoPageProviderParams(this.gallerySwitch)).pipe(
+      map((res: NuxeoPagination) => {
+        this.showGallery = res.entries.length > 0 && (res.entries[0].get('app_global:enable_carousel') === true);
+        return this.showGallery;
+      }),
+      filter((show: boolean) => show),
+      concatMap(_ => this.advanceSearch.request(this.params)),
+    ).subscribe((res: NuxeoPagination) => {
+      this.galleryItems = this.convertItems(res.entries);
+    });
+  }
+
+  private convertItems(entiries: DocumentModel[]): any[] {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
@@ -69,13 +76,13 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
     return imgArray;
   }
 
-  hasVideoContent(entry: DocumentModel) {
+  hasVideoContent(entry: DocumentModel): boolean {
     return entry.getVideoSources().length > 0;
   }
 
-  getUrlContent(str_url) {
-    if (str_url && str_url.length > 0) {
-      return 'https://' + str_url.match(/(http:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*)/g)[0];
+  getUrlContent(url: string): string {
+    if (url && url.length > 0) {
+      return 'https://' + url.match(/(http:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*)/g)[0];
     } else {
       return '';
     }
