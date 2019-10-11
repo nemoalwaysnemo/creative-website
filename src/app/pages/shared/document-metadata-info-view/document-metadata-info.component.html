@@ -51,7 +51,10 @@
         <ng-container *ngIf="writePermission$ | async">
           <a href="javascript:;" (click)="openForm(dialog, 'edit')" title="Edit" class="edit right icon_btn">Edit</a>
         </ng-container>
-        <ng-container *ngIf="deletePermission$ | async">
+        <ng-container *ngIf="isDisruptionAsset(documentModel) && deletePermission$ | async">
+          <a href="javascript:;" (click)="openForm(dialog, 'deleteSoft')" title="Delete" class="edit right icon_btn">Delete</a>
+        </ng-container>
+        <ng-container *ngIf="isIntelligenceAsset(documentModel) && deletePermission$ | async">
           <a href="javascript:;" (click)="openForm(dialog, 'delete')" title="Delete" class="edit right icon_btn">Delete</a>
         </ng-container>
         <!-- <ng-container *ngIf="downloadPermission$ | async">
@@ -149,6 +152,11 @@
         <metadata-edit-form-dialog-body (updatedSuccess)="onUpdated($event)">
           <preview-dialog-alert></preview-dialog-alert>
         </metadata-edit-form-dialog-body>
+      </ng-container>
+      <ng-container *ngSwitchCase="'deleteSoft'">
+        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callBack)="callback($event)" [isSoftDel]="true">
+          <preview-dialog-alert></preview-dialog-alert>
+        </delete-dialog-body>
       </ng-container>
       <ng-container *ngSwitchCase="'delete'">
         <delete-dialog-body [deleteRedirect]="deleteRedirect" (callBack)="callback($event)">

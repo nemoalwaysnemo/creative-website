@@ -3,7 +3,8 @@ import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
-import { NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { getDocumentTypes } from '@core/services';
 
 @Component({
   selector: 'disruption-folder-view',
@@ -91,5 +92,9 @@ export class DisruptionFolderViewComponent {
       default:
         return {};
     }
+  }
+
+  isDisruptionAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
   }
 }

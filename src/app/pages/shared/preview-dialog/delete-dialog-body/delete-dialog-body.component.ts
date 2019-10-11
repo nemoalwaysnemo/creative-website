@@ -14,36 +14,54 @@ import { Location } from '@angular/common';
 })
 
 export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit {
-
   constructor(protected dialogService: PreviewDialogService,
               private documentViewService: DocumentViewService,
               private router: Router,
               private location: Location) {
-    super(dialogService);
+                super(dialogService);
   }
   @Input() backButton: boolean;
   @Input() deleteRedirect: string;
+  @Input() isSoftDel: boolean = false;
   @Output() onDeleted: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   protected initDocument() { }
 
   onDelete($event: any): void {
-    this.delete();
+    if (this.isSoftDel) {
+      this.move();
+    } else {
+      this.delete();
+    }
   }
 
   private delete(): void {
     this.deleteDocument(this.document).subscribe((model: DocumentModel) => {
-      this.dialogService.closeWithAlert('success', `${this.document.title} deleted success`, 3000);
-      if (this.deleteRedirect === '') {
-        this.location.back();
-      } else {
-        this.router.navigateByUrl(this.deleteRedirect);
-      }
+      this.deleteDialog();
     });
   }
 
   private deleteDocument(model: DocumentModel): Observable<DocumentModel> {
     return model.delete();
+  }
+
+  private move(): void {
+    this.moveDocument(this.document).subscribe((model: DocumentModel) => {
+      this.deleteDialog();
+    });
+  }
+
+  private moveDocument(model: DocumentModel): Observable<DocumentModel> {
+    return model.moveToTrash();
+  }
+
+  private deleteDialog(): void {
+    this.dialogService.closeWithAlert('success', `${this.document.title} deleted success`, 3000);
+    if (this.deleteRedirect === '') {
+      this.location.back();
+    } else {
+      this.router.navigateByUrl(this.deleteRedirect);
+    }
   }
 
   back(): void {

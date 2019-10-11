@@ -24,8 +24,11 @@
       <ng-container *ngIf="writePermission$ | async">
         <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn left">Edit</button>
       </ng-container>
-      <ng-container *ngIf="deletePermission$ | async">
+      <ng-container *ngIf="!isDisruptionAsset(doc) && deletePermission$ | async">
         <button type="button" (click)="openDialog(dialog, 'delete')" class="icon_btn left">Delete</button>
+      </ng-container>
+      <ng-container *ngIf="isDisruptionAsset(doc) && deletePermission$ | async">
+          <button type="button" (click)="openDialog(dialog, 'deleteSoft')" class="icon_btn left">Delete</button>
       </ng-container>
       <div class="clear"></div>
     </div>
@@ -46,6 +49,12 @@
           <preview-dialog-alert></preview-dialog-alert>
         </delete-dialog-body>
       </ng-container>
+
+      <ng-container *ngSwitchCase="'deleteSoft'">
+          <delete-dialog-body [deleteRedirect]= "deleteRedirect" (callBack)="callback($event)" [isSoftDel]="true">
+            <preview-dialog-alert></preview-dialog-alert>
+          </delete-dialog-body>
+        </ng-container>
     </ng-container>
 
   </preview-dialog>

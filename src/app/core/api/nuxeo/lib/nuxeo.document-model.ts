@@ -1,6 +1,6 @@
 import { Base } from './base.api';
 import { join, deepExtend } from '../../../services';
-import { NuxeoEnricher, BatchBlob } from './base.interface';
+import { NuxeoEnricher, BatchBlob, NuxeoAutomations } from './base.interface';
 import { of as observableOf, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -46,6 +46,12 @@ export class DocumentModel extends Base {
   delete(opts: any = {}): Observable<DocumentModel> {
     const options = this._computeOptions(opts);
     return this._repository.delete(this.path);
+  }
+
+  moveToTrash(params: any = {}): Observable<DocumentModel> {
+    const input = `doc:${this.uid}`;
+    const op = this._nuxeo.operation(NuxeoAutomations.MoveToTrash);
+    return op.input(input).params(params).execute();
   }
 
   attachBatchBlob(batchBlob: BatchBlob): this {

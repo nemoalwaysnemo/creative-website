@@ -21,7 +21,7 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'delete'">
-          <delete-dialog-body (callBack)="callback($event)" [deleteRedirect]="deleteRedirect" [backButton]="backButton">
+          <delete-dialog-body (callBack)="callback($event)" [deleteRedirect]="deleteRedirect" [backButton]="backButton" [isSoftDel]="true">
             <preview-dialog-alert></preview-dialog-alert>
           </delete-dialog-body>
         </ng-container>

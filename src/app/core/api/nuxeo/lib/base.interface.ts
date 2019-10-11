@@ -343,6 +343,7 @@ export enum NuxeoAutomations {
   RemoveFromFavorites = 'Document.RemoveFromFavorites',
   TBWAUserDigest = 'TBWA.GetUserDigest',
   GetAccessTokenInfo = 'TBWA.GetAccessTokenInfo',
+  MoveToTrash = 'Document.Trash',
 }
 
 export enum NuxeoUserGroups {
