@@ -83,7 +83,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   @Output() customEvent = new EventEmitter<any>();
 
   @HostListener('touchmove', ['$event'])
-  onTouchMove(event: TouchEvent): void {
+  onTouchMove(event: TouchEvent | any): void {
     if (event) {
       event.preventDefault();
       event.stopImmediatePropagation();
