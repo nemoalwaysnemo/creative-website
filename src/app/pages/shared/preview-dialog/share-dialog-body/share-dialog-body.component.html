@@ -1,0 +1,8 @@
+<div class="dialog_body">
+    <div class="text_content">Share
+        <input value="{{currentUrl}}" #inputTarget autocomplete="off" placeholder="" autocapitalize="none" spellcheck="false" autocorrect="off" autofocus>
+    </div>
+    <div class="action_content">
+        <button [ngxClipboard]="inputTarget" (cbOnSuccess)="onCopy($event)" class="btn btn-success">{{btn}}</button>
+    </div>
+</div>

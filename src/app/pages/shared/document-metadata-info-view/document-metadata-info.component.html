@@ -57,6 +57,7 @@
         <ng-container *ngIf="isIntelligenceAsset(documentModel) && deletePermission$ | async">
           <a href="javascript:;" (click)="openForm(dialog, 'delete')" title="Delete" class="edit right icon_btn">Delete</a>
         </ng-container>
+        <a href="javascript:;" (click)="openForm(dialog, 'share')" title="Share" class="edit right icon_btn">Share</a>
         <!-- <ng-container *ngIf="downloadPermission$ | async">
           <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
         </ng-container>
@@ -162,6 +163,11 @@
         <delete-dialog-body [deleteRedirect]="deleteRedirect" (callBack)="callback($event)">
           <preview-dialog-alert></preview-dialog-alert>
         </delete-dialog-body>
+      </ng-container>
+      <ng-container *ngSwitchCase="'share'">
+        <share-dialog-body>
+          <preview-dialog-alert></preview-dialog-alert>
+        </share-dialog-body>
       </ng-container>
     </ng-container>
   </preview-dialog>

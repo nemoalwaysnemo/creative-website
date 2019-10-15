@@ -1984,10 +1984,10 @@ bonjour@^3.5.0:
     multicast-dns "^6.0.1"
     multicast-dns-service-types "^1.1.0"
 
-bootstrap@4.1.3:
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.3.tgz#0eb371af2c8448e8c210411d0cb824a6409a12be"
-  integrity sha512-rDFIzgXcof0jDyjNosjv4Sno77X4KuPeFxG2XZZv1/Kc8DRVGVADdoQyyOVDwPqL36DDmtCQbrpMCqvpPLJQ0w==
+bootstrap@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
+  integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -6815,6 +6815,14 @@ ng2-completer@3.0.2:
   dependencies:
     rxjs-compat "^6.2.2"
 
+ngx-clipboard@^12.2.1:
+  version "12.2.1"
+  resolved "https://registry.yarnpkg.com/ngx-clipboard/-/ngx-clipboard-12.2.1.tgz#3c2b89dc215bb3e0f4fa058b1f8ed6489cf6796e"
+  integrity sha512-9TzgVUKcVHGMYRa/DIit05+uVieiQhd8UEo7f97HTDiDeC1iXFgJjdHSGYyVWfVEQ5WuoryXmk6uYkgugf0y2g==
+  dependencies:
+    ngx-window-token "^2.0.0"
+    tslib "^1.9.0"
+
 ngx-cookie-service@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-2.2.0.tgz#79fe67863b3b93ee226c9ea8d60e1542c7115a58"
@@ -6855,6 +6863,13 @@ ngx-scrollbar@^6.0.0:
   dependencies:
     "@juggle/resize-observer" "^2.3.0"
     bezier-easing "^2.0.0"
+    tslib "^1.9.0"
+
+ngx-window-token@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-window-token/-/ngx-window-token-2.0.1.tgz#8f91221af4116aa9f49bb3f7a6f1111639884fba"
+  integrity sha512-rvqdqJEfnWXQFU5fyfYt06E10tR/UtFOYdF3QebfcOh5VIJhnTKiprX8e4B9OrX7WEVFm9BT8uV72xXcEgsaKA==
+  dependencies:
     tslib "^1.9.0"
 
 nice-try@^1.0.4:
