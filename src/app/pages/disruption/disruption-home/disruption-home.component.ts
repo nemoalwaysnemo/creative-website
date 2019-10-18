@@ -2,6 +2,7 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { Subscription } from 'rxjs';
+import { TAB_CONFIG } from '../disruption-tab-config';
 
 @Component({
   selector: 'disruption-home',
@@ -11,6 +12,8 @@ import { Subscription } from 'rxjs';
 export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
+
+  tabs = TAB_CONFIG;
 
   loading: boolean = true;
 
@@ -55,8 +58,6 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_FOLDER_TYPE,
   };
 
-  private allowedTabs: string[] = ['roadmaps', 'days', 'thinking', 'how tos'];
-
   constructor(
     private advanceSearch: AdvanceSearch) {
   }
@@ -72,7 +73,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   private search(params: {}): void {
     const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
       .subscribe((res: NuxeoPagination) => {
-        this.folders = res.entries.filter((doc: DocumentModel) => this.allowedTabs.some(x => doc.title.toLocaleLowerCase().includes(x)));
+        this.folders = res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title));
         this.loading = false;
       });
     this.subscription.add(subscription);
