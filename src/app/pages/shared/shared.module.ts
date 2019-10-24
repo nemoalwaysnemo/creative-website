@@ -18,6 +18,7 @@ import {
   DirectorySuggestionModule,
   DocumentFormModule,
   HomeSearchFormModule,
+  ShareDocumentButtonModule,
 } from './';
 
 const EXPORTS = [
@@ -39,6 +40,7 @@ const EXPORTS = [
   PreviewDialogModule,
   DocumentFormModule,
   DirectorySuggestionModule,
+  ShareDocumentButtonModule,
 ];
 
 const PROVIDERS = [

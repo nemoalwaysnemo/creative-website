@@ -16,6 +16,7 @@ import { VgControlsModule } from 'videogular2/compiled/controls';
 import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
 import { VgBufferingModule } from 'videogular2/compiled/buffering';
 import { DragScrollModule } from 'ngx-drag-scroll';
+import { ShareDocumentButtonModule } from '../share-document-button/share-document-button.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { DragScrollModule } from 'ngx-drag-scroll';
     VgOverlayPlayModule,
     VgBufferingModule,
     DragScrollModule,
+    ShareDocumentButtonModule,
   ],
   declarations: [
     DocumentPdfViewerComponent,

@@ -5,6 +5,11 @@
   <ng-container *ngIf="downloadPermission$ | async">
     <a href="{{documentModel.previewUrl}}" class="preview right btn" title="Preview" target="_blank">Preview</a>
   </ng-container>
+  <a href="javascript:;" nbPopoverPlacement="bottom" [nbPopover]="popContent" title="Share" class="right btn">Share</a>
   <a href="javascript:void(0)" (click)="goBack()" class="back left btn" title="Back">Back</a>
   <div class="clear"></div>
 </div>
+
+<ng-template #popContent>
+  <share-document-button></share-document-button>
+</ng-template>

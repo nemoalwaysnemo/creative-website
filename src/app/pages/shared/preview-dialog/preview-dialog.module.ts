@@ -6,12 +6,11 @@ import { NbDialogModule } from '@core/nebular/theme';
 import { PreviewDialogService } from './preview-dialog.service';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { DisruptionFormDayModule } from '../disruption-form-day/disruption-form-day.module';
-import { ClipboardModule } from 'ngx-clipboard';
 import { DisruptionAssetPreviewDialogBodyComponent } from './preview-dialog-body/disruption-asset-preview-dialog-body/disruption-asset-preview-dialog-body.component';
 import { BackslashAssetPreviewDialogBodyComponent } from './preview-dialog-body/backslash-asset-preview-dialog-body/backslash-asset-preview-dialog-body.component';
 import { PreviewDialogAlertComponent } from './preview-dialog-alert/preview-dialog-alert.component';
 import { DeleteDialogBodyComponent } from './delete-dialog-body/delete-dialog-body.component';
-import { ShareDialogBodyComponent } from './share-dialog-body/share-dialog-body.component';
+import { ShareDocumentButtonModule } from '../share-document-button/share-document-button.module';
 
 const COMPONENTS = [
   PreviewDialogComponent,
@@ -19,7 +18,6 @@ const COMPONENTS = [
   BackslashAssetPreviewDialogBodyComponent,
   DisruptionAssetPreviewDialogBodyComponent,
   DeleteDialogBodyComponent,
-  ShareDialogBodyComponent,
 ];
 
 @NgModule({
@@ -28,7 +26,7 @@ const COMPONENTS = [
     ThemeModule,
     DocumentViewerModule,
     DisruptionFormDayModule,
-    ClipboardModule,
+    ShareDocumentButtonModule,
     NbDialogModule.forRoot(),
   ],
   declarations: [
