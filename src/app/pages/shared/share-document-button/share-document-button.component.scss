@@ -4,6 +4,7 @@
   }
   
 .dialog_body {
+	min-width: 500px;
 	max-height: 800px;
 	overflow: auto;
 	.dialog_title {
@@ -43,10 +44,13 @@
 
 	.text_content {
 		font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-		padding: 30px;
+		padding: 15px 20px;
 		background: #ffffff;
 		font-size: 24px;
 		box-sizing: border-box;
+		.form-control:focus {
+			border: 2px solid #fecc01;
+		}
 		img {
 		margin-left: 33px;
 		margin-right: 27px;
@@ -58,8 +62,13 @@
 		}
 	}
 	.action_content {
-		padding: 10px 30px;
+		padding: 10px 20px;
 		box-sizing: border-box;
-		.btn { margin-right: 10px; }
+		.btn {
+			color: #000000;
+			margin-right: 10px;
+			background: #fecc01;
+			cursor: pointer;
+		}
 	}
 }
