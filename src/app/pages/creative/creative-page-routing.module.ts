@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { CreativeHomeComponent } from './creative-home/creative-home.component';
 import { CreativeAssetComponent } from './creative-asset/creative-asset.component';
 import { CreativePageComponent } from './creative-page.component';
+import { FolderManageComponent } from './folder-manage/folder-manage.component';
+import { LibraryManageComponent } from './library-manage/library-manage.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,6 +17,14 @@ const routes: Routes = [{
     {
       path: 'asset/:id',
       component: CreativeAssetComponent,
+    },
+    {
+      path: ':type/:id/folder',
+      component: FolderManageComponent,
+    },
+    {
+      path: ':type/:id/library',
+      component: LibraryManageComponent,
     },
     {
       path: '',

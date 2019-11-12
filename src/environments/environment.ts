@@ -39,6 +39,7 @@ export enum NUXEO_META_INFO {
   CREATIVE_BRAND_FOLDER_TYPE = '["Brand Folder"]',
   CREATIVE_SELECTED_BRAND_TYPE = '["App-Library-Selected-Brand"]',
   CREATIVE_AGENCY_FOLDER_TYPE = '["Agency Folder"]',
+  CREATIVE_AGENCY_AND_BRAND_FOLDER_TYPE = '["Brand Folder", "Agency Folder"]',
   DISRUPTION_DAYS_TYPE = '["App-Disruption-Day"]',
   DISRUPTION_DAY_ASSET_TYPES = '["App-Disruption-Asset", "App-Disruption-Day-Asset"]',
   DISRUPTION_ROADMAP_TYPE = '["App-Disruption-Roadmap-Asset"]',
