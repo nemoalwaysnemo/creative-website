@@ -1,9 +1,10 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentVideoViewerService } from '../document-video-viewer.service';
-import { Subscription } from 'rxjs/Subscription';
 import { VgAPI } from 'videogular2/compiled/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'document-video-player',
   styleUrls: ['./document-video-player.component.scss'],
