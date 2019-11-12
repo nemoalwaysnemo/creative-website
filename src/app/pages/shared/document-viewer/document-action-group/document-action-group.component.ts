@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable, of as observableOf } from 'rxjs';
-import { concatMap, map, share } from 'rxjs/operators';
+import { Observable, of as observableOf, combineLatest } from 'rxjs';
+import { concatMap, map, share, tap } from 'rxjs/operators';
 import { DocumentModel, UserService, UserModel, NuxeoUserGroups } from '@core/api';
 import { getDocumentTypes } from '@core/services';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -42,12 +42,18 @@ export class DocumentActionGroupComponent {
   }
 
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
-    return this.userService.getCurrentUserInfo().pipe(
-      concatMap((user: UserModel) => doc.getParentProperty('app_global:download_mainfile').pipe(
-        map((permission: boolean) => user.hasGroup(NuxeoUserGroups.Everyone) && permission === true),
-      )),
-      share(),
-    );
+    return combineLatest(
+      doc.hasPermission('ReadWrite'),
+      doc.hasPermission('Everything'),
+      this.userService.getCurrentUserInfo().pipe(
+        concatMap((user: UserModel) => doc.getParentProperty('app_global:download_mainfile').pipe(
+          map((permission: boolean) => user.hasGroup(NuxeoUserGroups.Everyone) && permission === true),
+        )),
+      ), (one, two, three) => {
+        return one || two || three;
+      }).pipe(
+        share(),
+      );
   }
 
   goBack() {
