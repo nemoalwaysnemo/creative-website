@@ -1,14 +1,17 @@
 
 export class OptionModel {
+
+  public inputLabel: string;
+
   constructor(
     public label: string,
     public value: string,
+    public hint?: string,
     public disabled?: boolean,
     public deep?: string,
   ) {
     this.inputLabel = label;
   }
-  public inputLabel: string;
 }
 
 export class ItemNode {
@@ -74,7 +77,7 @@ export class ItemTree {
   }
 
   private suggestionsIterator(node: ItemNode): void {
-    const model = new OptionModel(node.label, node.value, node.disabled, `deep_${this.deep}`);
+    const model = new OptionModel(node.label, node.value, '', node.disabled, `deep_${this.deep}`);
     model.inputLabel = node.inputLabel;
     this.models.push(model);
     if (node.hasChildren()) {
@@ -133,4 +136,3 @@ export class ItemTree {
   }
 
 }
-

@@ -51,74 +51,81 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   private getSettings(): object[] {
     return [
-      // new DynamicInputModel({
-      //   id: 'dc:title',
-      //   label: 'Title',
-      //   maxLength: 50,
-      //   placeholder: 'Title',
-      //   autoComplete: 'off',
-      //   required: false,
-      //   validators: {
-      //     required: null,
-      //     minLength: 4,
-      //   },
-      //   errorMessages: {
-      //     required: '{{label}} is required',
-      //     minLength: 'At least 4 characters',
-      //   },
-      // }),
-      // new DynamicOptionTagModel({
-      //   id: 'The_Loupe_Main:brand',
-      //   label: 'Brand',
-      //   placeholder: 'Brand',
-      //   required: false,
-      // }),
-      // // new DynamicDatePickerModel({
-      // //   id: 'The_Loupe_ProdCredits:production_date',
-      // //   label: 'Production Date',
-      // //   placeholder: 'Production Date',
-      // // }),
-      // new DynamicDatepickerDirectiveModel<string>({
-      //   id: 'The_Loupe_ProdCredits:production_date',
-      //   label: 'Production Date',
-      //   placeholder: 'Production Date',
-      // }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'app_Edges:industry',
-      //   label: 'Industry',
-      //   directoryName: 'GLOBAL_Industries',
-      //   placeholder: 'Please select industry',
-      // }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'app_Edges:Relevant_Country',
-      //   label: 'Geography',
-      //   directoryName: 'GLOBAL_Countries',
-      //   placeholder: 'Please select country',
-      // }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'The_Loupe_Main:agency',
-      //   label: 'Agency',
-      //   directoryName: 'GLOBAL_Agencies',
-      //   placeholder: 'Please select agency',
-      // }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'The_Loupe_Main:country',
-      //   label: 'Agency Country',
-      //   directoryName: 'GLOBAL_Countries',
-      //   placeholder: 'Please select country',
-      // }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'app_Edges:backslash_category',
-      //   label: 'Backslash Category',
-      //   directoryName: 'App-Backslash-Categories',
-      //   placeholder: 'Please select category',
-      // }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'app_Edges:Tags_edges',
-      //   label: 'Edges',
-      //   directoryName: 'App-Edges-Edges',
-      //   placeholder: 'Please select edges',
-      // }),
+      new DynamicInputModel({
+        id: 'dc:title',
+        label: 'Title',
+        maxLength: 50,
+        placeholder: 'Title',
+        autoComplete: 'off',
+        required: false,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        placeholder: 'Brand',
+        required: false,
+      }),
+      new DynamicDatePickerModel({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Production Date',
+        placeholder: 'Production Date',
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Production Date',
+        placeholder: 'Production Date',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:library_librarians',
+        label: 'Librarians',
+        initSearch: false,
+        searchUserGroup: true,
+        placeholder: 'Please select user/group',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:industry',
+        label: 'Industry',
+        directoryName: 'GLOBAL_Industries',
+        placeholder: 'Please select industry',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Relevant_Country',
+        label: 'Geography',
+        directoryName: 'GLOBAL_Countries',
+        placeholder: 'Please select country',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:agency',
+        label: 'Agency',
+        directoryName: 'GLOBAL_Agencies',
+        placeholder: 'Please select agency',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:country',
+        label: 'Agency Country',
+        directoryName: 'GLOBAL_Countries',
+        placeholder: 'Please select country',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:backslash_category',
+        label: 'Backslash Category',
+        directoryName: 'App-Backslash-Categories',
+        placeholder: 'Please select category',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Tags_edges',
+        label: 'Edges',
+        directoryName: 'App-Edges-Edges',
+        placeholder: 'Please select edges',
+      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',

@@ -47,9 +47,13 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() directoryName: string;
 
+  @Input() searchUserGroup: boolean = false;
+
   @Input() contains: boolean = true;
 
   @Input() suggestion: boolean = true;
+
+  @Input() initSearch: boolean = true;
 
   @Input() providerName: string;
 
@@ -77,7 +81,9 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   ngOnInit() {
     if (this.suggestion === true) {
       this.onSearchSuggestions();
-      this.filter$.next('');
+      if (this.initSearch) {
+        this.filter$.next('');
+      }
     } else {
       this.getDirectoryEntries(this.directoryName);
     }
@@ -115,11 +121,14 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   private getSuggestions(searchTerm: string): Observable<OptionModel[]> {
-    let res;
+    let res: Observable<OptionModel[]>;
     if (this.providerName) {
       res = this.getDocumentSuggestions(this.providerName, searchTerm);
     } else if (this.directoryName) {
       res = this.getDirectorySuggestions(this.directoryName, searchTerm, this.contains);
+    } else if (this.searchUserGroup) {
+      console.log(1111, searchTerm);
+      res = this.getUserGroupSuggestions(searchTerm);
     } else {
       res = observableOf([]);
     }
@@ -143,10 +152,17 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private getDirectorySuggestions(directoryName: string, searchTerm: string, contains: boolean = false): Observable<OptionModel[]> {
     return this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName, searchTerm, contains })
-      .pipe(map((res: NuxeoPagination[]) => {
-        return this.flatSuggestions(res);
-      }))
-      .pipe(map((res: any) => res.map((entry: any) => new OptionModel(entry.label, entry.id, false, entry.deep))));
+      .pipe(
+        map((res: NuxeoPagination[]) => this.flatSuggestions(res)),
+        map((res: any) => res.map((entry: any) => new OptionModel(entry.label, entry.id, '', false, entry.deep))),
+      );
+  }
+
+  private getUserGroupSuggestions(searchTerm: string): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(NuxeoAutomations.UserGroupSuggestion, { searchTerm })
+      .pipe(
+        map((res: any) => res.map((entry: any) => new OptionModel(entry.displayLabel, entry.id, entry.id, false))),
+      );
   }
 
   private getDocumentSuggestions(providerName: string, searchTerm: string, pageSize: number = 20): Observable<OptionModel[]> {

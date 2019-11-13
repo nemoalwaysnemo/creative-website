@@ -29,7 +29,7 @@ export class DynamicOptionTagModel<T> extends DynamicFormValueControlModel<T> {
     this.suggestion = isBoolean(config.suggestion) ? config.suggestion : true;
     this.contains = isBoolean(config.contains) ? config.contains : false;
     this.directoryName = config.directoryName || null;
-    this.directoryName = config.directoryName || null;
+    this.providerName = config.providerName || null;
     this.placeholder = config.placeholder || '';
   }
 }

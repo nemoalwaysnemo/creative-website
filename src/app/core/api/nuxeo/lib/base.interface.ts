@@ -335,6 +335,7 @@ export class NuxeoUploadResponse {
 export enum NuxeoAutomations {
   CreativeGetDocumentURStatus = 'Creative.GetDocumentAllURStatus',
   DirectorySuggestEntries = 'Directory.SuggestEntries',
+  UserGroupSuggestion = 'UserGroup.Suggestion',
   RepositoryPageProvider = 'Repository.PageProvider',
   DirectoryEntries = 'Directory.Entries',
   DocumentCreate = 'Document.Create',
