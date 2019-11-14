@@ -3,7 +3,7 @@ import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../creative-tab-config';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
 
 @Component({
   selector: 'folder-manage',
@@ -90,6 +90,22 @@ export class FolderManageComponent extends AbstractDocumentManageComponent {
           minLength: 'At least 4 characters',
         },
       }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'bottom',
+        formMode: 'edit',
+        showInputs: false,
+        multiUpload: true,
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        layoutPosition: 'right',
+        queueLimit: 1,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'image/*',
+      }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',
         label: 'Client',
@@ -128,11 +144,11 @@ export class FolderManageComponent extends AbstractDocumentManageComponent {
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Please select country',
       }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'The_Loupe_Rights:contract_mediatypes',
-      //   label: 'Usage Rights Media Usage Types',
-      //   directoryName: 'App-Library-UR-contract-mediatype',
-      // }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Rights:contract_mediatypes',
+        label: 'Usage Rights Media Usage Types',
+        directoryName: 'App-Library-UR-contract-mediatypes',
+      }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettypes_image',
         label: 'Image Asset Types',
