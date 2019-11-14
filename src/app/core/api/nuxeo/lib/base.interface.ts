@@ -155,6 +155,7 @@ export const NuxeoEnricher = {
 export enum NuxeoPermission {
   Write = 'Write',
   Read = 'Read',
+  ReadWrite = 'ReadWrite',
   Everything = 'Everything',
   AddChildren = 'AddChildren',
   Delete = 'Remove',

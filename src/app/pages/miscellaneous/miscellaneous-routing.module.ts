@@ -5,11 +5,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { PlaygroundComponent } from './playground/playground.component';
 import { RedirectComponent } from '@pages/miscellaneous/redirect/redirect.component';
+import { PermissionDeniedComponent } from './permission-denied/permission-denied.component';
 
 const routes: Routes = [{
   path: '',
   component: MiscellaneousComponent,
   children: [
+    {
+      path: '403',
+      component: PermissionDeniedComponent,
+    },
     {
       path: '404',
       component: NotFoundComponent,
@@ -45,4 +50,5 @@ export const routedComponents = [
   PlaygroundComponent,
   NotFoundComponent,
   ServerErrorComponent,
+  PermissionDeniedComponent,
 ];

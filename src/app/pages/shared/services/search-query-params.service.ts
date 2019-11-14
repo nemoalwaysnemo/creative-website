@@ -54,6 +54,10 @@ export class SearchQueryParamsService {
     return this.router.navigate(commands, extras);
   }
 
+  redirectTo403(): void {
+    this.router.navigate(['/p/error/403']);
+  }
+
   redirectTo404(): void {
     this.router.navigate(['/p/error/404']);
   }

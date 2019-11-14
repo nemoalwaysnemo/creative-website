@@ -1,12 +1,16 @@
-import { AdvanceSearch } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { AbstractDocumentViewComponent } from './abstract-document-view.component';
-import { ActivatedRoute } from '@angular/router';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, combineLatest, of as observableOf } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 export abstract class AbstractDocumentManageComponent extends AbstractDocumentViewComponent {
 
   tabs: any[] = [];
+
+  managePermission$: Observable<boolean> = observableOf(false);
 
   protected tabConfig: any[];
 
@@ -21,6 +25,26 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
   onInit() {
     super.onInit();
     this.parseTabRoute();
+  }
+
+  protected setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
+    if (doc) {
+      this.managePermission$ = this.hasPermission(doc);
+      this.managePermission$.subscribe((hasPermission: boolean) => {
+        if (!hasPermission) {
+          this.queryParamsService.redirectTo403();
+        }
+      });
+    }
+  }
+
+  protected hasPermission(doc: DocumentModel): Observable<boolean> {
+    return combineLatest(
+      doc.hasPermission(NuxeoPermission.ReadWrite),
+      doc.hasPermission(NuxeoPermission.Everything),
+      (one, two) => (one || two),
+    ).pipe(share());
   }
 
   protected parseTabRoute(): void {

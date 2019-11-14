@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { Environment } from '@environment/environment';
 
 @Component({
-  selector: 'page-not-found',
-  styleUrls: ['./not-found.component.scss'],
-  templateUrl: './not-found.component.html',
+  selector: 'permission-denied',
+  styleUrls: ['./permission-denied.component.scss'],
+  templateUrl: './permission-denied.component.html',
 })
-export class NotFoundComponent {
+export class PermissionDeniedComponent {
 
   constructor(private router: Router) {
   }
