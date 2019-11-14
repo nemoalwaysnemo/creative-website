@@ -13,7 +13,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
 })
 export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent {
 
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
 
   baseParams$: Subject<any> = new Subject<any>();
 

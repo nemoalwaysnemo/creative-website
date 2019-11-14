@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output, HostBinding } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse, Operation } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
@@ -46,23 +46,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
       this.documentModel = this.checkfiles(doc);
       this.formMode = doc.uid ? 'edit' : 'create';
     }
-  }
-
-
-  checkfiles(doc: DocumentModel): DocumentModel {
-    const files = doc.get('files:files');
-    let flag = false;
-    if (!!files) {
-      files.forEach(file => {
-        if (!file.file) {
-          flag = true;
-        }
-      });
-    }
-    if (flag) {
-      doc.set({ 'files:files': [] });
-    }
-    return doc;
   }
 
   @Input()
@@ -123,6 +106,22 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     } else if (this.formMode === 'edit') {
       this.update();
     }
+  }
+
+  checkfiles(doc: DocumentModel): DocumentModel {
+    const files = doc.get('files:files');
+    let flag = false;
+    if (!!files) {
+      files.forEach(file => {
+        if (!file.file) {
+          flag = true;
+        }
+      });
+    }
+    if (flag) {
+      doc.set({ 'files:files': [] });
+    }
+    return doc;
   }
 
   private filterPropertie(formValue: any = {}) {

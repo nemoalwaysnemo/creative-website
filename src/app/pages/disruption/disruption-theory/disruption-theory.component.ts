@@ -16,7 +16,7 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),

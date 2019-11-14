@@ -16,7 +16,7 @@ export class DisruptionDayAssetComponent extends AbstractDocumentViewComponent i
 
   folderLoading: boolean = true;
 
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
 
   showButton: boolean = false;
 

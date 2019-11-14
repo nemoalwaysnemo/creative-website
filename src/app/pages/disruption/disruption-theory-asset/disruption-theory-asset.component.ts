@@ -16,7 +16,7 @@ export class DisruptionTheoryAssetComponent extends AbstractDocumentViewComponen
 
   folderLoading: boolean = true;
 
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
 
   folderParams: any = {
     pageSize: 1,

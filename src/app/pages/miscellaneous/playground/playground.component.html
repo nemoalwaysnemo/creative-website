@@ -3,14 +3,12 @@
     <div>
       <a href="javascript:void(0)" (click)="openForm(dialog)" class="icon_btn">New Day</a>
       <document-form [document]="document" [settings]="settings" [layout]="getFormLayout()"></document-form>
-      <!-- <directory-suggestion directoryName="App-Edges-Edges"></directory-suggestion> -->
-      <!-- <directory-suggestion directoryName="App-Edges-Edges" suggestion="false"></directory-suggestion> -->
     </div>
   </nb-card-body>
 </nb-card>
 
 <ng-template #dialog>
   <preview-dialog>
-      <form-body></form-body>
+    <form-body></form-body>
   </preview-dialog>
 </ng-template>

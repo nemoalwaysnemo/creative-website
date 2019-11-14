@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AdvanceSearch } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
+import { TAB_CONFIG } from '../creative-tab-config';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
-import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
-import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/option-tag/dynamic-option-tag.model';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel } from '@core/custom';
+
 @Component({
   selector: 'folder-manage',
   styleUrls: ['./folder-manage.component.scss'],
@@ -12,6 +13,8 @@ import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/optio
 export class FolderManageComponent extends AbstractDocumentManageComponent implements OnInit {
 
   settings: any[] = [];
+
+  protected tabConfig: any[] = TAB_CONFIG;
 
   constructor(
     protected advanceSearch: AdvanceSearch,

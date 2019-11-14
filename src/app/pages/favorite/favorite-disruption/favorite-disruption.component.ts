@@ -22,7 +22,7 @@ export class FavoriteDisruptionComponent extends AbstractDocumentViewComponent i
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
   };
 
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
 
   parentDocument: DocumentModel;
 

@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 })
 export class DisruptionDaysComponent extends AbstractDocumentViewComponent implements OnInit {
 
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 

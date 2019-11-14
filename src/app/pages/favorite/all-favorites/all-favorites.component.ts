@@ -11,7 +11,7 @@ import { TAB_CONFIG } from '../favorite-tab-config';
 })
 export class AllFavoritesComponent implements OnInit, OnDestroy {
   documents: any;
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
   baseParams$: Subject<any> = new Subject<any>();
   folderParams: any = {
     pageSize: 1,

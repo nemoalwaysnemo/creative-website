@@ -13,7 +13,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
 
   loading: boolean = true;
 

@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BrilliantThinkingComponent extends AbstractDocumentViewComponent implements OnInit {
 
-  tabs = TAB_CONFIG;
+  tabs: any[] = TAB_CONFIG;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
