@@ -78,11 +78,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         label: 'Production Date',
         placeholder: 'Production Date',
       }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Production Date',
-        placeholder: 'Production Date',
-      }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
         label: 'Librarians',

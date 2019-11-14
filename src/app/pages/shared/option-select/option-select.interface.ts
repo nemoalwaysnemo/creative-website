@@ -1,16 +1,15 @@
 
 export class OptionModel {
+  inputLabel?: string;
+  label: string;
+  value: string;
+  hint?: string;
+  deep?: string;
+  disabled?: boolean = false;
 
-  public inputLabel: string;
-
-  constructor(
-    public label: string,
-    public value: string,
-    public hint?: string,
-    public disabled?: boolean,
-    public deep?: string,
-  ) {
-    this.inputLabel = label;
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+    this.inputLabel = this.label;
   }
 }
 
@@ -77,7 +76,7 @@ export class ItemTree {
   }
 
   private suggestionsIterator(node: ItemNode): void {
-    const model = new OptionModel(node.label, node.value, '', node.disabled, `deep_${this.deep}`);
+    const model = new OptionModel({ label: node.label, value: node.value, disabled: node.disabled, deep: `deep_${this.deep}` });
     model.inputLabel = node.inputLabel;
     this.models.push(model);
     if (node.hasChildren()) {

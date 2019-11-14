@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdvanceSearch } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDatePickerModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
 import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/option-tag/dynamic-option-tag.model';
 @Component({
   selector: 'folder-manage',
@@ -10,7 +10,9 @@ import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/optio
   templateUrl: './folder-manage.component.html',
 })
 export class FolderManageComponent extends AbstractDocumentManageComponent implements OnInit {
+
   settings: any[] = [];
+
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,

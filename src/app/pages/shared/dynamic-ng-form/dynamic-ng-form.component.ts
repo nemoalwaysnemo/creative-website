@@ -11,7 +11,6 @@ import {
   DynamicFormControlModel,
 } from '@core/custom';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'dynamic-ng-form',

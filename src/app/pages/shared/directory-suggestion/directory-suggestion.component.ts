@@ -117,7 +117,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private buildDefaultOptions(value: string[]): void {
     const option = typeof value === 'string' ? [value] : value;
-    this.options$.next(option.map(x => new OptionModel(x, x)));
+    this.options$.next(option.map(x => new OptionModel({ label: x, value: x })));
   }
 
   private getSuggestions(searchTerm: string): Observable<OptionModel[]> {
@@ -127,7 +127,6 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     } else if (this.directoryName) {
       res = this.getDirectorySuggestions(this.directoryName, searchTerm, this.contains);
     } else if (this.searchUserGroup) {
-      console.log(1111, searchTerm);
       res = this.getUserGroupSuggestions(searchTerm);
     } else {
       res = observableOf([]);
@@ -154,25 +153,25 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     return this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName, searchTerm, contains })
       .pipe(
         map((res: NuxeoPagination[]) => this.flatSuggestions(res)),
-        map((res: any) => res.map((entry: any) => new OptionModel(entry.label, entry.id, '', false, entry.deep))),
+        map((res: any) => res.map((entry: any) => new OptionModel({ label: entry.label, value: entry.id, deep: entry.deep }))),
       );
   }
 
   private getUserGroupSuggestions(searchTerm: string): Observable<OptionModel[]> {
     return this.nuxeoApi.operation(NuxeoAutomations.UserGroupSuggestion, { searchTerm })
       .pipe(
-        map((res: any) => res.map((entry: any) => new OptionModel(entry.displayLabel, entry.id, entry.id, false))),
+        map((res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id }))),
       );
   }
 
   private getDocumentSuggestions(providerName: string, searchTerm: string, pageSize: number = 20): Observable<OptionModel[]> {
     return this.nuxeoApi.operation(NuxeoAutomations.RepositoryPageProvider, { providerName, searchTerm, pageSize })
-      .pipe(map((res: NuxeoPagination) => res.entries.map((doc: DocumentModel) => new OptionModel(doc.title, doc.uid))));
+      .pipe(map((res: NuxeoPagination) => res.entries.map((doc: DocumentModel) => new OptionModel({ label: doc.title, value: doc.uid }))));
   }
 
   private getDirectoryEntries(directoryName: string): void {
     this.loading$.next(true);
-    const subscription = this.nuxeoApi.directory(directoryName).pipe(map((res: DirectoryEntry[]) => res.map((entry: DirectoryEntry) => new OptionModel(entry.label, entry.id))))
+    const subscription = this.nuxeoApi.directory(directoryName).pipe(map((res: DirectoryEntry[]) => res.map((entry: DirectoryEntry) => new OptionModel({ label: entry.label, value: entry.id }))))
       .subscribe((res: OptionModel[]) => {
         this.options$.next(res);
         this.loading$.next(false);

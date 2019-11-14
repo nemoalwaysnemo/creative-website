@@ -87,7 +87,6 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
     const aggKey = labels && (labels[agg.label] || labels[agg.key]) ? (labels[agg.label] || labels[agg.key]) : (agg.label || agg.key);
     const label = `${aggKey} (${agg.docCount})`;
     const value = agg.key.replace(/\\/gi, String.fromCharCode(92, 92));
-    const disabled = false;
-    return new OptionModel(label, value, '', disabled);
+    return new OptionModel({ label, value });
   }
 }
