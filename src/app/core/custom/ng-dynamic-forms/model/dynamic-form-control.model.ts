@@ -12,6 +12,7 @@ export interface DynamicFormControlModelConfig {
   disabled?: boolean;
   errorMessages?: DynamicValidatorsConfig;
   hidden?: boolean;
+  hiddenFn?: Function;
   id: string;
   label?: string;
   formMode?: string;
@@ -32,6 +33,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   disabledUpdates: Subject<boolean>;
   @serializable() errorMessages: DynamicValidatorsConfig | null;
   @serializable() hidden: boolean;
+  @serializable() hiddenFn: Function = (doc: any): boolean => false;
   @serializable() id: string;
   @serializable() label: string | null;
   @serializable() labelTooltip: string | null;
@@ -54,6 +56,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.asyncValidators = config.asyncValidators || null;
     this.errorMessages = config.errorMessages || null;
     this.hidden = isBoolean(config.hidden) ? config.hidden : false;
+    this.hiddenFn = config.hiddenFn || null;
     this.id = config.id;
     this.label = config.label || null;
     this.formMode = config.formMode || null;

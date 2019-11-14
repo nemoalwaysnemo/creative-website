@@ -36,14 +36,14 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private create(): void {
-    this.documentRepository.get('5487a983-cf80-4a74-bb25-f9e9f54b0ed9').subscribe((doc: DocumentModel) => {
+    this.documentRepository.get('c4e41076-c38f-4f8a-848b-8ba45e114530').subscribe((doc: DocumentModel) => {
       this.settings = this.getSettings();
       this.document = new DocumentModel({ path: doc.uid, type: 'App-Library-Image' });
     });
   }
 
   private update(): void {
-    this.documentRepository.get('1f824061-c722-4cbd-af56-8481df7c4b56').subscribe((doc: DocumentModel) => {
+    this.documentRepository.get('c4e41076-c38f-4f8a-848b-8ba45e114530').subscribe((doc: DocumentModel) => {
       this.document = doc;
       this.settings = this.getSettings();
     });
@@ -66,6 +66,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
+        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
