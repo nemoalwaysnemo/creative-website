@@ -19,7 +19,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   userInfo: any = {};
 
-  showInput: boolean = false;
+  showInput: boolean = true;
 
   resultHeader: string;
 
@@ -32,8 +32,8 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
   hideEmpty: boolean = false;
 
   filters: SearchFilterModel[] = [
-    // new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
     // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     // new SearchFilterModel({ key: 'the_loupe_main_clientName_agg', placeholder: 'Client' }),
@@ -80,7 +80,10 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   protected searchCurrentAgency(): Observable<DocumentModel> {
     return this.userService.getCurrentUserInfo().pipe(
-      tap((user: UserModel) => this.userInfo = user.properties),
+      tap((user: UserModel) => {
+        user.properties['companycode'] = '05001002';
+        this.userInfo = user.properties;
+      }),
       switchMap((user: UserModel) => this.searchCurrentDocument(this.getSearchParams(user))),
     );
   }
