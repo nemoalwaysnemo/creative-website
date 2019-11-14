@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output, HostBinding } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DocumentModel, DocumentRepository, NuxeoUploadResponse, Operation } from '@core/api';
+import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
 import { Observable, forkJoin, Subject } from 'rxjs';
 import { deepExtend } from '@core/services';
@@ -62,6 +62,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
   @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+  @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
 
@@ -106,6 +107,10 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     } else if (this.formMode === 'edit') {
       this.update();
     }
+  }
+
+  onCancel($event: any): void {
+    this.onCanceled.next(this.documentModel);
   }
 
   checkfiles(doc: DocumentModel): DocumentModel {

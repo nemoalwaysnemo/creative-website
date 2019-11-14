@@ -20,4 +20,12 @@ export class LibraryManageComponent extends AbstractDocumentManageComponent {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
+  protected getSettings(): any[] {
+    return [];
+  }
+
+  protected getFormLayout(): any {
+    return [];
+  }
+
 }

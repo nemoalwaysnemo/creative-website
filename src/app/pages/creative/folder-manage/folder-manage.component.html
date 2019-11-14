@@ -59,7 +59,6 @@
     <button (click)="changeView()">EDIT</button>
   </div>
   <div *ngIf="document && showForm" class="document">
-    <document-form [document]="document" [settings]="settings" [layout]="getFormLayout()"></document-form>
-    <button (click)="changeView()">CANCEL</button>
+    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="onCanceled($event)"></document-form>
   </div>
 </div>

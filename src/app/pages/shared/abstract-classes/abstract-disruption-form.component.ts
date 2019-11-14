@@ -62,6 +62,6 @@ export abstract class AbstractDisruptionForm implements OnInit {
     });
   }
 
-  protected abstract getSettings();
-  protected abstract getFormLayout();
+  protected abstract getSettings(): any[];
+  protected abstract getFormLayout(): any;
 }

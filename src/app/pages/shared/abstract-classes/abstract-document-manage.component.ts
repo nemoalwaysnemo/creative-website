@@ -10,6 +10,10 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
 
   tabs: any[] = [];
 
+  settings: any[] = [];
+
+  formLayout: any = {};
+
   managePermission$: Observable<boolean> = observableOf(false);
 
   protected tabConfig: any[];
@@ -24,7 +28,16 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
 
   onInit() {
     super.onInit();
+    this.performForm();
     this.parseTabRoute();
+  }
+
+  protected abstract getSettings(): any[];
+  protected abstract getFormLayout(): any;
+
+  protected performForm(): void {
+    this.settings = this.getSettings();
+    this.formLayout = this.getFormLayout();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdvanceSearch } from '@core/api';
+import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../creative-tab-config';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
@@ -10,11 +10,11 @@ import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel } from
   styleUrls: ['./folder-manage.component.scss'],
   templateUrl: './folder-manage.component.html',
 })
-export class FolderManageComponent extends AbstractDocumentManageComponent implements OnInit {
-
-  settings: any[] = [];
+export class FolderManageComponent extends AbstractDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
+
+  showForm: boolean = false;
 
   constructor(
     protected advanceSearch: AdvanceSearch,
@@ -23,14 +23,15 @@ export class FolderManageComponent extends AbstractDocumentManageComponent imple
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
-  private showForm: boolean = false;
-
   changeView() {
     this.showForm = !this.showForm;
-    this.settings = this.getSettings();
   }
 
-  getFormLayout(): any {
+  onCanceled(doc: DocumentModel): void {
+    this.changeView();
+  }
+
+  protected getFormLayout(): any {
     return {
       'dc:title': {
         element: {
@@ -71,7 +72,7 @@ export class FolderManageComponent extends AbstractDocumentManageComponent imple
     };
   }
 
-  private getSettings(): object[] {
+  protected getSettings(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
