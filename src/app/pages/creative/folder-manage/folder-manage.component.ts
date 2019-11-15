@@ -125,10 +125,11 @@ export class FolderManageComponent extends AbstractDocumentManageComponent {
         directoryName: 'GLOBAL_Industries',
         placeholder: 'Please select industry',
       }),
-      new DynamicSuggestionModel<string>({
+      new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:region',
         label: 'Region',
         placeholder: 'Please add region',
+        required: false,
         hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_region'),
       }),
       new DynamicSuggestionModel<string>({
