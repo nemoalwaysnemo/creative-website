@@ -80,10 +80,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   protected searchCurrentAgency(): Observable<DocumentModel> {
     return this.userService.getCurrentUserInfo().pipe(
-      tap((user: UserModel) => {
-        user.properties['companycode'] = '05001002';
-        this.userInfo = user.properties;
-      }),
+      tap((user: UserModel) => this.userInfo = user.properties),
       switchMap((user: UserModel) => this.searchCurrentDocument(this.getSearchParams(user))),
     );
   }

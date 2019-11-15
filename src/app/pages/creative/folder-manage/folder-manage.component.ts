@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../creative-tab-config';
@@ -117,12 +117,19 @@ export class FolderManageComponent extends AbstractDocumentManageComponent {
         label: 'Brand',
         placeholder: 'Brand',
         required: false,
+        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:brand_activation'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
         directoryName: 'GLOBAL_Industries',
         placeholder: 'Please select industry',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:region',
+        label: 'Region',
+        placeholder: 'Please add region',
+        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_region'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
@@ -148,6 +155,14 @@ export class FolderManageComponent extends AbstractDocumentManageComponent {
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Usage Rights Media Usage Types',
         directoryName: 'App-Library-UR-contract-mediatypes',
+        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+      }),
+      new DynamicOptionTagModel<string>({
+        id: 'The_Loupe_Main:productModel',
+        label: 'Product',
+        placeholder: 'Please add product',
+        required: false,
+        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_productlist'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettypes_image',
