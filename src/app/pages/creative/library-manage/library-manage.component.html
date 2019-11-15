@@ -1,6 +1,169 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
-  <div *ngIf="document" class="document">
-
+  <div *ngIf="document && !showForm" class="document">
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Title</h4><span>{{ document.title }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Folder Type</h4><span>{{ document.get('The_Loupe_Main:folder_type') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Description</h4><span>{{ document.get('The_Loupe_Main:description') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Folder Image</h4><img style="width: 200px;height: 200px;" [src]="document.thumbnailUrl">
+      </div>
+      <div class="showcase-area">
+        <h4>Agency</h4><span>{{ document.get('The_Loupe_Main:agency') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Country</h4><span>{{ document.get('The_Loupe_Main:country') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Hyperion Code</h4><span>{{ document.get('The_Loupe_Main:HyperionCode') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Company Code</h4><span>{{ document.get('The_Loupe_Main:CompanyCode') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Brand</h4><span>{{ document.get('The_Loupe_Main:brand').join(', ') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Client</h4><span>{{ document.get('The_Loupe_Main:clientName') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Industry</h4><span>{{ document.get('app_Edges:industry') }}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Set Defaults</h4><span>{{document.get('app_global:set_defaults') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Library Brands Tab</h4><span>{{document.get('app_global:agency_brands_tab') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Library Showcase Tab</h4><span>{{document.get('app_global:showcase_tab') === true ? 'Yes' : 'No'}}</span>
+      </div>
+    </div>
+    <h3>Configure listings for this folder</h3><br>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>enable List Management</h4><span>{{document.get('app_global:app_global:manage_lists') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Brand Management</h4><span>{{document.get('app_global:brand_activation') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Product Management</h4><span>{{document.get('app_global_fields:enable_productlist') === true ? 'Yes' : 'No'}}</span>
+      </div>
+    </div>
+    <h3>Enable Region Management in Custom Fields</h3>
+    <h3>FEATURE MANAGEMENT FOR AGENCY</h3>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>enable Campaign & Project Management</h4><span>{{document.get('app_global:campaign_mgt') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Campaign Assets</h4><span>{{document.get('app_global:campaign_assets') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Awards</h4><span>{{document.get('app_global:Awards') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable know\edge</h4><span>{{document.get('app_global:knowledge') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable \backslash</h4><span>{{document.get('app_global:backslash') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Edges</h4><span>{{document.get('app_Edges:Tags_edges').join(',')}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable TBWA Share</h4><span>{{document.get('app_global:networkshare') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable ISCI</h4><span>{{document.get('app_global:ISCI') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable AI auto tagging</h4><span>{{document.get('app_global:auto_tagging') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>allow Download of Main File</h4><span>{{document.get('app_global:download_mainfile') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Allow Download of Attachments</h4><span>{{document.get('app_global:download_attachments') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Collections</h4><span>{{document.get('app_global:collections') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Usage Rights</h4><span>{{document.get('app_global:UsageRights') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Global Contract Reference</h4><span>{{document.get('app_global:UsageRights_globalref') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable historic Usage Rights</h4><span>{{document.get('app_global:UsageRights_historic') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Library Report</h4><span>{{document.get('app_global:library_report') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Project Completion Reports</h4><span>{{document.get('app_global:app_global:completion_report') === true ? 'Yes' : 'No'}}</span>
+      </div>
+    </div>
+    <h3>CUSTOM FIELD MANAGEMENT</h3><br>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>enable Region</h4><span>{{document.get('app_global_fields:enable_region') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Product Year</h4><span>{{document.get('app_global_fields:enable_productyear') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Enable Jobnumber</h4><span>{{document.get('app_global_fields:enable_jobnumber') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable PO Number Internal</h4><span>{{document.get('app_global_fields:enable_po_number_internal') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable PO Number Client</h4><span>{{document.get('app_global_fields:enable_po_number_client') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable PO Number Vendor</h4><span>{{document.get('app_global_fields:enable_po_number_vendor') === true ? 'Yes' : 'No'}}</span>
+      </div>
+    </div>
+    <h3>FEATURE MANAGEMENT FOR CLIENTS</h3><br>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>enable Usage Rights For Clients</h4><span>{{document.get('app_global:UsageRights_for_clients') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Backslash For Clients</h4><span>{{document.get('app_global:backslash_for_clients') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable know\edge For Clients</h4><span>{{document.get('app_global:knowledge_for_clients') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Campaigns For Clients</h4><span>{{document.get('app_global:campaigns_for_clients') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Projects For Clients</h4><span>{{document.get('app_global:projects_for_clients') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Download Main file For Clients</h4><span>{{document.get('app_global:download_mainfile_for_clients') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Download Attachments For Clients</h4><span>{{document.get('app_global:download_attachments_for_clients') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>enable Collections For Clients</h4><span>{{document.get('app_global:collections_for_clients') === true ? 'Yes' : 'No'}}</span>
+      </div>
+    </div>  
+    <button nbButton outline class="btn btn-success" (click)="changeView()">Edit</button>
   </div>
+
+  <div *ngIf="document && showForm" class="document">
+      <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onUpdated)="onUpdated($event)" (onCanceled)="onCanceled($event)"></document-form>
+    </div>
 </div>
