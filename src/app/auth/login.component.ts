@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NbAuthService, NbAuthResult } from '@core/base-auth/services';
+import { CookieService } from 'ngx-cookie-service';
+import { of as observableOf } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   private strategy: string = 'oauth2';
 
-  constructor(protected authService: NbAuthService, protected router: Router) {
+  constructor(protected authService: NbAuthService, protected router: Router, protected cookieService: CookieService) {
 
   }
 
@@ -24,9 +27,24 @@ export class LoginComponent implements OnInit {
   }
 
   private autoLogin(): void {
-    this.authService.authenticate(this.strategy).subscribe((result: NbAuthResult) => {
+    this.authService.isAuthenticated().pipe(
+      switchMap((authenticated: boolean) => {
+        if (!authenticated) {
+          this.authService.authenticate(this.strategy);
+        }
+        return observableOf(new NbAuthResult(true));
+      }),
+    ).subscribe((result: NbAuthResult) => {
       this.redirect(result);
     });
+  }
+
+  private getRequestedUrl(): string {
+    return this.cookieService.get('requestedUrl');
+  }
+
+  private clearRequestedUrl(): void {
+    this.cookieService.delete('requestedUrl');
   }
 
   private redirect(result: NbAuthResult): void {
@@ -36,8 +54,13 @@ export class LoginComponent implements OnInit {
       this.errors = result.getErrors();
     }
     const redirect = result.getRedirect();
-    if (redirect) {
+    if (this.getRequestedUrl()) {
+      this.router.navigateByUrl(this.getRequestedUrl());
+      this.clearRequestedUrl();
+    } else if (redirect) {
       this.router.navigateByUrl(redirect);
+    } else {
+      this.router.navigateByUrl('/');
     }
   }
 }
