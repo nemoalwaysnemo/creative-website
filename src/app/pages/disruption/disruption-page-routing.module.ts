@@ -17,11 +17,6 @@ const routes: Routes = [{
   component: DisruptionPageComponent,
   children: [
     {
-      path: '',
-      component: DisruptionHomeComponent,
-      pathMatch: 'full',
-    },
-    {
       path: 'home',
       component: DisruptionHomeComponent,
     },
@@ -60,6 +55,11 @@ const routes: Routes = [{
     {
       path: 'Brilliant Thinking',
       component: BrilliantThinkingComponent,
+    },
+    {
+      path: '',
+      redirectTo: 'home',
+      pathMatch: 'full',
     },
   ],
 }];

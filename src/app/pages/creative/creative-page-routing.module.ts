@@ -28,7 +28,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      component: CreativeHomeComponent,
+      redirectTo: 'home',
       pathMatch: 'full',
     },
   ],

@@ -41,11 +41,6 @@ const routes: Routes = [{
       path: 'myAgencyAsset/:id',
       component: CreativeMyAgencyAssetSearchComponent,
     },
-    {
-      path: '',
-      component: CreativeDocumentAssetSearchComponent,
-      pathMatch: 'full',
-    },
   ],
 }];
 

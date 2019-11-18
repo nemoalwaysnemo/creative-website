@@ -6,7 +6,7 @@ export const Environment = {
   nuxeoUrl: '/nuxeo/',
   backslashAppUrl: '/nuxeo/edges',
   assetPath: '/nuxeo/LibraryWebUI/',
-  oauth2CallBackPath: '/nuxeo/site/LibraryWebUI/',
+  oauth2CallBackPath: '/nuxeo/LibraryWebUI/#/',
   production: true,
 };
 

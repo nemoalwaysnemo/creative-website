@@ -14,17 +14,17 @@ const routes: Routes = [{
       component: IntelligenceHomeComponent,
     },
     {
-      path: '',
-      component: IntelligenceHomeComponent,
-      pathMatch: 'full',
-    },
-    {
       path: 'folder/:id',
       component: IntelligenceFolderComponent,
     },
     {
       path: 'asset/:id',
       component: IntelligenceAssetComponent,
+    },
+    {
+      path: '',
+      redirectTo: 'home',
+      pathMatch: 'full',
     },
   ],
 }];
