@@ -29,10 +29,10 @@ export class LoginComponent implements OnInit {
   private autoLogin(): void {
     this.authService.isAuthenticated().pipe(
       switchMap((authenticated: boolean) => {
-        if (!authenticated) {
-          this.authService.authenticate(this.strategy);
+        if (authenticated) {
+          return observableOf(new NbAuthResult(true));
         }
-        return observableOf(new NbAuthResult(true));
+        return this.authService.authenticate(this.strategy);
       }),
     ).subscribe((result: NbAuthResult) => {
       this.redirect(result);
