@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NuxeoApiService, NuxeoPageProviderParams, NuxeoPagination, AggregateModel, NuxeoRequestOptions } from './nuxeo';
 import { AbstractPageProvider } from './api.abstract-page-provider.service';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 import { of as observableOf, Observable } from 'rxjs';
-import { map, concatMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { DocumentModel } from './nuxeo/lib';
 
 @Injectable()

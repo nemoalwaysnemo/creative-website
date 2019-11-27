@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   private strategy: string = 'oauth2';
 
-  constructor(protected authService: NbAuthService, protected router: Router, protected cookieService: CookieService) {
+  constructor(private authService: NbAuthService, private router: Router, private cookieService: CookieService) {
 
   }
 

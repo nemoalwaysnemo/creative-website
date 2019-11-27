@@ -14,7 +14,7 @@ export abstract class AbstractBaseSearchService {
     const searchTerm: any = {};
     if (options.hasOwnProperty('ecm_fulltext')) {
       if (options.ecm_fulltext) {
-        searchTerm.ecm_fulltext = `${opts.ecm_fulltext}*`;
+        searchTerm.ecm_fulltext = `${opts.ecm_fulltext}`;
       } else {
         delete options.ecm_fulltext;
       }

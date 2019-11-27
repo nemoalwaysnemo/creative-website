@@ -51,7 +51,7 @@ export class BaseAuthInterceptor implements HttpInterceptor {
     // handle your auth error or rethrow
     if (error.status === 401) {
       // navigate /delete cookies or whatever
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/auth/logout']);
       // if you've caught / handled the error, you don't want to rethrow it unless you also want downstream consumers to have to handle it as well.
     } else if (error.status === 404) {
       this.router.navigate(['/error/404']);
