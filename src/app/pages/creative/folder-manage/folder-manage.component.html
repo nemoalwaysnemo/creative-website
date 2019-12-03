@@ -69,6 +69,7 @@
     <button (click)="changeView()">EDIT</button>
   </div>
   <div *ngIf="document && showForm" class="document">
-    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="onCanceled($event)"></document-form>
+    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="onCanceled($event)"
+    (onUpdated)="onUpdated($event)"></document-form>
   </div>
 </div>

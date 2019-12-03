@@ -31,6 +31,9 @@ export class FolderManageComponent extends AbstractDocumentManageComponent {
     this.changeView();
   }
 
+  onUpdated(doc: any): void {
+    this.refresh();
+  }
   protected getFormLayout(): any {
     return {
       'dc:title': {
