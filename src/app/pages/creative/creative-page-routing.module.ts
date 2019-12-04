@@ -5,7 +5,7 @@ import { CreativeAssetComponent } from './creative-asset/creative-asset.componen
 import { CreativePageComponent } from './creative-page.component';
 import { FolderManageComponent } from './folder-manage/folder-manage.component';
 import { LibraryManageComponent } from './library-manage/library-manage.component';
-
+import { CreativeBrandComponent } from './creative-brand/creative-brand.component';
 const routes: Routes = [{
   path: '',
   component: CreativePageComponent,
@@ -17,6 +17,14 @@ const routes: Routes = [{
     {
       path: 'asset/:id',
       component: CreativeAssetComponent,
+    },
+    {
+      path: 'brand/:id/showcase',
+      component: CreativeBrandComponent,
+    },
+    {
+      path: 'brand/:id',
+      component: CreativeBrandComponent,
     },
     {
       path: ':type/:id/folder',

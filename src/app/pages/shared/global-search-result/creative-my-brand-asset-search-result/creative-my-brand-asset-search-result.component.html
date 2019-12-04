@@ -6,10 +6,10 @@
 </div>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
-    <a [routerLink]="['/p/search/creative/myBrandAsset', doc.uid]" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+    <a [routerLink]="['/p/creative/brand', doc.uid, 'showcase']" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
   </div>
   <div class="description">
-    <h1 [title]="doc.title"><a [routerLink]="['/p/search/creative/myBrandAsset', doc.uid]">{{doc.title}}</a></h1>
+    <h1 [title]="doc.title"><a [routerLink]="['/p/creative/brand', doc.uid, 'showcase']">{{doc.title}}</a></h1>
     <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
   </div>
 </ng-template>

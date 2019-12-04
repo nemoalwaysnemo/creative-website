@@ -21,10 +21,10 @@ const routes: Routes = [{
       path: 'myBrand',
       component: CreativeMyBrandSearchComponent,
     },
-    {
-      path: 'myBrandAsset/:id',
-      component: CreativeMyBrandAssetSearchComponent,
-    },
+    // {
+    //   path: 'myBrandAsset/:id',
+    //   component: CreativeMyBrandAssetSearchComponent,
+    // },
     {
       path: 'popularBrand',
       component: CreativePopularBrandSearchComponent,

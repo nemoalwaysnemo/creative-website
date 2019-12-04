@@ -6,7 +6,7 @@ import { CreativePageRoutingModule } from './creative-page-routing.module';
 import { CreativeAssetPageModule } from './creative-asset/creative-asset.module';
 import { LibraryManagePageModule } from './library-manage/library-manage.module';
 import { FolderManagePageModule } from './folder-manage/folder-manage.module';
-
+import { CreativeBrandModule } from './creative-brand/creative-brand.module';
 @NgModule({
   imports: [
     ThemeModule,
@@ -15,6 +15,7 @@ import { FolderManagePageModule } from './folder-manage/folder-manage.module';
     FolderManagePageModule,
     LibraryManagePageModule,
     CreativePageRoutingModule,
+    CreativeBrandModule,
   ],
   declarations: [
     CreativePageComponent,
