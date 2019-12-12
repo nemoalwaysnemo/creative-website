@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch, SearchFilterModel } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -15,7 +15,7 @@ export class CreativeBrandComponent extends AbstractDocumentViewComponent {
 
   tabs: any[] = [
     {
-      title: 'showcase',
+      title: 'Showcase',
       route: '/p/creative/brand/' + this.brand_id + '/showcase',
     },
     {
@@ -41,6 +41,8 @@ export class CreativeBrandComponent extends AbstractDocumentViewComponent {
 
   layout: string = 'my_brand_asset_search full-width';
 
+  showType: string;
+
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', convertTitle: true }),
     // new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
@@ -56,6 +58,7 @@ export class CreativeBrandComponent extends AbstractDocumentViewComponent {
   ];
 
   constructor(
+    protected previewDialogService: PreviewDialogService,
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
@@ -84,5 +87,11 @@ export class CreativeBrandComponent extends AbstractDocumentViewComponent {
       params['ecm_path'] = doc.path;
     }
     return params;
+  }
+
+  openDialog(dialog: any, type): void {
+    this.showType = type;
+    // this.previewDialogService.open(dialog, this.document, { type: this.document.type });
+    this.previewDialogService.open(dialog, this.document);
   }
 }

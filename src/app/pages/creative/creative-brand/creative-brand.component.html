@@ -24,5 +24,34 @@
 </div>
 <div style="margin-top: 45px;">
   <global-search-form [filters]="filters" [baseParams]="baseParams$ | async"></global-search-form>
+  <button type="button" (click)="openDialog(dialog, 'audio')" class="icon_btn left">Upload Audio</button>
+  <button type="button" (click)="openDialog(dialog, 'image')" class="icon_btn left">Upload Image</button>
+  <button type="button" (click)="openDialog(dialog, 'video')" class="icon_btn left">Upload Video</button>
   <creative-document-asset-search-result [layout]="layout"></creative-document-asset-search-result>
 </div>
+
+<ng-template #dialog>
+  <preview-dialog>
+
+    <ng-container [ngSwitch]="showType">
+      <ng-container *ngSwitchCase="'audio'">
+        <creative-brand-audio (updatedSuccess)="onUpdate($event)">
+          <preview-dialog-alert></preview-dialog-alert>
+        </creative-brand-audio>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'image'">
+        <creative-brand-image (updatedSuccess)="onUpdate($event)" >
+          <preview-dialog-alert></preview-dialog-alert>
+        </creative-brand-image>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'video'">
+        <creative-brand-video (updatedSuccess)="onUpdate($event)" >
+          <preview-dialog-alert></preview-dialog-alert>
+        </creative-brand-video>
+      </ng-container>
+    </ng-container>
+
+  </preview-dialog>
+</ng-template>
