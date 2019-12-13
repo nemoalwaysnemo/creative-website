@@ -6,23 +6,19 @@ import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'creative-my-brand-asset-search',
+  selector: 'creative-brand-showcase',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
-  templateUrl: './creative-my-brand-asset-search.component.html',
+  templateUrl: './creative-brand-showcase.component.html',
 })
-export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewComponent {
+export class CreativeBrandShowcaseComponent extends AbstractDocumentViewComponent {
+
+  baseParams$: Subject<any> = new Subject<any>();
 
   layout: string = 'creative_brand_showcase full-width';
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', convertTitle: true }),
-    // new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_clientName_agg', placeholder: 'Client' }),
-    // new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
-    // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     new SearchFilterModel({ key: 'the_loupe_prodCredits_production_date_agg', placeholder: 'Year', filterValue: (bucket: any) => bucket.docCount > 0 }),
     new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { 'true': 'Yes', 'false': 'No' } }),
@@ -37,12 +33,14 @@ export class CreativeMyBrandAssetSearchComponent extends AbstractDocumentViewCom
 
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc;
+    this.baseParams$.next(this.buildAssetsParams(doc));
   }
 
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+      the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
     };
   }
 

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'creative-pages',
+  selector: 'creative-brand-page',
   template: '<router-outlet></router-outlet>',
 })
-export class CreativePageComponent {
+export class CreativeBrandPageComponent {
+
 }

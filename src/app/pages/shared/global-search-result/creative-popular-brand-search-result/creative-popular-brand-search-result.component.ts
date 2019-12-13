@@ -7,7 +7,7 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
 @Component({
   template: `<a [routerLink]="['/p/search/creative/popularBrandAsset', value.uid]">{{ value.title }}</a>`,
 })
-export class PopularBrandRowRenderComponent {
+export class CreativePopularBrandRowRenderComponent {
   @Input() value: { title: string, uid: string };
 }
 
@@ -35,7 +35,7 @@ export class CreativePopularBrandSearchResultComponent extends AbstractSearchRes
         title: 'Title',
         sort: false,
         type: 'custom',
-        renderComponent: PopularBrandRowRenderComponent,
+        renderComponent: CreativePopularBrandRowRenderComponent,
       },
     },
   };

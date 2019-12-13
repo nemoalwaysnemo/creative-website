@@ -201,7 +201,7 @@ body {
   }
   &.my_agency,
   &.my_brand,
-  &.my_brand_asset_search,
+  &.creative_brand_showcase,
   &.my_agency_asset_search {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
@@ -225,7 +225,7 @@ body {
         width: calc((100% - 60px * 3) / 3);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
       }
       float: left;
@@ -254,7 +254,7 @@ body {
           height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
         @include media-breakpoint-up(xxxl) {
-          // > 1600px 
+          // > 1600px
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
         a {
@@ -293,7 +293,7 @@ body {
         width: calc((100% - 60px * 4) / 4);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
       }
       float: left;
@@ -322,7 +322,7 @@ body {
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
         @include media-breakpoint-up(xxxl) {
-          // > 1600px 
+          // > 1600px
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
       }
@@ -343,7 +343,7 @@ body {
         width: calc((100% - 60px * 3) / 3);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 3) / 3);
       }
       float: left;
@@ -364,7 +364,7 @@ body {
           height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
         @include media-breakpoint-up(xxxl) {
-          // > 1600px 
+          // > 1600px
           height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
       }
@@ -413,7 +413,7 @@ body {
         width: calc((100% - 60px * 4) / 4);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
       }
       float: left;
@@ -442,7 +442,7 @@ body {
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
         @include media-breakpoint-up(xxxl) {
-          // > 1600px 
+          // > 1600px
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
         a {
@@ -493,7 +493,7 @@ body {
         height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 3) / 3);
         height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
@@ -574,7 +574,7 @@ body {
         height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
         height: calc((100vw - 60px * 5) / 4 * 9 / 16);
       }
@@ -606,7 +606,7 @@ body {
         height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
         height: calc((100vw - 60px * 5) / 4 * 9 / 16);
       }

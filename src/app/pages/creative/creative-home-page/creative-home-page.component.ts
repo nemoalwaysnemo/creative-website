@@ -4,10 +4,10 @@ import { SearchFilterModel } from '@core/api';
 
 @Component({
   selector: 'creative-home-page',
-  styleUrls: ['./creative-home.component.scss'],
-  templateUrl: './creative-home.component.html',
+  styleUrls: ['./creative-home-page.component.scss'],
+  templateUrl: './creative-home-page.component.html',
 })
-export class CreativeHomeComponent {
+export class CreativeHomePageComponent {
 
   headline: string = 'This is how we kill boring.';
 

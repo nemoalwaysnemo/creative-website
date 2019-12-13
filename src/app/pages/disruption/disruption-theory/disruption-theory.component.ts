@@ -48,7 +48,8 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
   }
 
   ngOnInit() {
-    this.searchCurrentDocument().subscribe();
+    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
+    this.subscription.add(subscription);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

@@ -28,17 +28,16 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
 
   onInit() {
     super.onInit();
-    this.performForm();
-    this.parseTabRoute();
+    // this.performForm();
   }
 
-  protected abstract getSettings(): any[];
-  protected abstract getFormLayout(): any;
+  // protected abstract getSettings(): any[];
+  // protected abstract getFormLayout(): any;
 
-  protected performForm(): void {
-    this.settings = this.getSettings();
-    this.formLayout = this.getFormLayout();
-  }
+  // protected performForm(): void {
+  //   this.settings = this.getSettings();
+  //   this.formLayout = this.getFormLayout();
+  // }
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
@@ -58,19 +57,6 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
       doc.hasPermission(NuxeoPermission.Everything),
       (one, two) => (one || two),
     ).pipe(share());
-  }
-
-  protected parseTabRoute(): void {
-    if (this.tabs.length === 0) {
-      const params: any = this.activatedRoute.snapshot.params;
-      for (const config of this.tabConfig) {
-        const tab: any = { title: config['title'], route: config['route'] };
-        for (const key of ['type', 'id']) {
-          tab['route'] = tab.route.replace(`:${key}`, params[key]);
-        }
-        this.tabs.push(tab);
-      }
-    }
   }
 
   protected getCurrentDocumentSearchParams(): any {

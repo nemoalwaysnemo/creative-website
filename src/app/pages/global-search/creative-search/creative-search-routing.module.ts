@@ -18,7 +18,7 @@ const routes: Routes = [{
       component: CreativeDocumentAssetSearchComponent,
     },
     {
-      path: 'myBrand',
+      path: 'brand',
       component: CreativeMyBrandSearchComponent,
     },
     // {

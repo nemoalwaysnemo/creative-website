@@ -40,7 +40,8 @@ export class DisruptionRoadmapsComponent extends AbstractDocumentViewComponent i
   }
 
   ngOnInit() {
-    this.searchCurrentDocument().subscribe();
+    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
+    this.subscription.add(subscription);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

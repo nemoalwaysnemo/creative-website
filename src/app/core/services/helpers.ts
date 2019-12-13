@@ -239,3 +239,15 @@ export function getDocumentTypes(envTypes: string): string[] {
 export function getPathPartOfUrl(url: string): string {
   return url.match(/.*?(?=[?;#]|$)/)[0];
 }
+
+export function parseTabRoute(tabConfig: any[], routeParams): any[] {
+  const tabs: any[] = [];
+  for (const config of tabConfig) {
+    const tab: any = { title: config['title'], route: config['route'] };
+    for (const key of ['type', 'id']) {
+      tab['route'] = tab.route.replace(`:${key}`, routeParams[key]);
+    }
+    tabs.push(tab);
+  }
+  return tabs;
+}

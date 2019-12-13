@@ -5,11 +5,11 @@ import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'creative-asset',
-  styleUrls: ['./creative-asset.component.scss'],
-  templateUrl: './creative-asset.component.html',
+  selector: 'creative-asset-page',
+  styleUrls: ['./creative-asset-page.component.scss'],
+  templateUrl: './creative-asset-page.component.html',
 })
-export class CreativeAssetComponent extends AbstractDocumentViewComponent {
+export class CreativeAssetPageComponent extends AbstractDocumentViewComponent {
 
   constructor(
     protected advanceSearch: AdvanceSearch,

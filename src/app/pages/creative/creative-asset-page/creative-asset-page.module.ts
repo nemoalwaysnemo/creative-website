@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { CreativeAssetComponent } from './creative-asset.component';
+import { CreativeAssetPageComponent } from './creative-asset-page.component';
 import { SharedModule } from '@pages/shared/shared.module';
 import { SharedServiceModule } from '@pages/shared';
 
@@ -11,7 +11,7 @@ import { SharedServiceModule } from '@pages/shared';
     SharedModule,
   ],
   declarations: [
-    CreativeAssetComponent,
+    CreativeAssetPageComponent,
   ],
   providers: [
     ...SharedServiceModule.forRoot().providers,
