@@ -28,16 +28,16 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
 
   onInit() {
     super.onInit();
-    // this.performForm();
+    this.performForm();
   }
 
-  // protected abstract getSettings(): any[];
-  // protected abstract getFormLayout(): any;
+  protected abstract getSettings(): any[];
+  protected abstract getFormLayout(): any;
 
-  // protected performForm(): void {
-  //   this.settings = this.getSettings();
-  //   this.formLayout = this.getFormLayout();
-  // }
+  protected performForm(): void {
+    this.settings = this.getSettings();
+    this.formLayout = this.getFormLayout();
+  }
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
