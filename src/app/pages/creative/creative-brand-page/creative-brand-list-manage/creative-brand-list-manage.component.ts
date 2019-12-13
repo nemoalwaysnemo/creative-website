@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { TAB_CONFIG } from '../creative-brand-page/creative-brand-tab-config';
+import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
 
 @Component({
-  selector: 'folder-manage',
-  styleUrls: ['./folder-manage.component.scss'],
-  templateUrl: './folder-manage.component.html',
+  selector: 'creative-brand-list-manage',
+  styleUrls: ['./creative-brand-list-manage.component.scss'],
+  templateUrl: './creative-brand-list-manage.component.html',
 })
-export class FolderManageComponent extends AbstractDocumentManageComponent {
+export class CreativeBrandListManageComponent extends AbstractDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 

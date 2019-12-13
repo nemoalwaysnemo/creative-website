@@ -7,7 +7,8 @@ import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared'
 import { GlobalSearchButtonModule } from '@pages/shared/global-search-button/global-search-button.module';
 import { CreativeBrandShowcaseModule } from './creative-brand-showcase/creative-brand-showcase.module';
 import { CreativeBrandUsageRightsModule } from './creative-brand-usage-rights/creative-brand-usage-rights.module';
-
+import { CreativeBrandListManageModule } from './creative-brand-list-manage/creative-brand-list-manage.module';
+import { CreativeBrandLibraryManageModule } from './creative-brand-library-manage/creative-brand-library-manage.module';
 @NgModule({
   imports: [
     ThemeModule,
@@ -18,6 +19,8 @@ import { CreativeBrandUsageRightsModule } from './creative-brand-usage-rights/cr
     CreativeBrandShowcaseModule,
     CreativeBrandUsageRightsModule,
     CreativeBrandPageRoutingModule,
+    CreativeBrandListManageModule,
+    CreativeBrandLibraryManageModule,
   ],
   declarations: [
     CreativeBrandPageComponent,

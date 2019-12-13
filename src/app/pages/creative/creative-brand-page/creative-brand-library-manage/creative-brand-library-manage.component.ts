@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { TAB_CONFIG } from '../creative-brand-page/creative-brand-tab-config';
+import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { NbToastrService } from '@core/nebular/theme';
 
 @Component({
-  selector: 'library-manage',
-  styleUrls: ['./library-manage.component.scss'],
-  templateUrl: './library-manage.component.html',
+  selector: 'creative-brand-library-manage',
+  styleUrls: ['./creative-brand-library-manage.component.scss'],
+  templateUrl: './creative-brand-library-manage.component.html',
 })
-export class LibraryManageComponent extends AbstractDocumentManageComponent {
+export class CreativeBrandLibraryManageComponent extends AbstractDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 

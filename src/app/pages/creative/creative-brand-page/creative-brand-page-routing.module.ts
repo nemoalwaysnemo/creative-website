@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { CreativeBrandPageComponent } from './creative-brand-page.component';
 import { CreativeBrandShowcaseComponent } from './creative-brand-showcase/creative-brand-showcase.component';
 import { CreativeBrandUsageRightsComponent } from './creative-brand-usage-rights/creative-brand-usage-rights.component';
-
+import { CreativeBrandListManageComponent } from './creative-brand-list-manage/creative-brand-list-manage.component';
+import { CreativeBrandLibraryManageComponent } from './creative-brand-library-manage/creative-brand-library-manage.component';
 const routes: Routes = [{
   path: '',
   component: CreativeBrandPageComponent,
@@ -15,6 +16,14 @@ const routes: Routes = [{
     {
       path: ':id/usageRights',
       component: CreativeBrandUsageRightsComponent,
+    },
+    {
+      path: ':id/folder',
+      component: CreativeBrandListManageComponent,
+    },
+    {
+      path: ':id/library',
+      component: CreativeBrandLibraryManageComponent,
     },
   ],
 }];
