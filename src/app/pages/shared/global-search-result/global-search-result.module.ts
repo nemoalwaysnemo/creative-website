@@ -29,6 +29,10 @@ import { DisruptionFormBrilliantThinkingModule } from '../disruption-form-brilli
 import { DisruptionDocumentAssetSearchResultComponent } from './disruption-document-asset-search-result/disruption-document-asset-search-result.component';
 import { DisruptionFolderTheoryAssetSearchResultComponent } from './disruption-folder-theory-asset-search-result/disruption-folder-theory-asset-search-result.component';
 import { CreativeMyAgencyAssetSearchResultComponent } from './creative-my-agency-asset-search-result/creative-my-agency-asset-search-result.component';
+import { AllFavoritesAssetSearchResultComponent } from './all-favorites-asset-search-result/all-favorites-asset-search-result.component';
+import { FavoriteBackslashAssetSearchResultComponent } from './favorite-backslash-asset-search-result/favorite-backslash-asset-search-result.component';
+import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-search-result/favorite-brand-asset-search-result.component';
+import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const COMPONENTS = [
@@ -53,6 +57,10 @@ const COMPONENTS = [
   DisruptionDocumentAssetSearchResultComponent,
   IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
+  AllFavoritesAssetSearchResultComponent,
+  FavoriteBackslashAssetSearchResultComponent,
+  FavoriteBrandAssetSearchResultComponent,
+  FavoriteDisruptionAssetSearchResultComponent,
 ];
 
 @NgModule({

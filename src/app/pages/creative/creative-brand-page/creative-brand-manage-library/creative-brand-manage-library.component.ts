@@ -7,11 +7,11 @@ import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@page
 import { NbToastrService } from '@core/nebular/theme';
 
 @Component({
-  selector: 'creative-brand-library-manage',
-  styleUrls: ['./creative-brand-library-manage.component.scss'],
-  templateUrl: './creative-brand-library-manage.component.html',
+  selector: 'creative-brand-manage-library',
+  styleUrls: ['./creative-brand-manage-library.component.scss'],
+  templateUrl: './creative-brand-manage-library.component.html',
 })
-export class CreativeBrandLibraryManageComponent extends AbstractDocumentManageComponent {
+export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 

@@ -17,8 +17,7 @@ export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewCompo
 
   layout: string = 'creative-brand-usage-rights full-width';
 
-  filters: SearchFilterModel[] = [
-  ];
+  filters: SearchFilterModel[] = [];
 
   constructor(
     protected advanceSearch: AdvanceSearch,

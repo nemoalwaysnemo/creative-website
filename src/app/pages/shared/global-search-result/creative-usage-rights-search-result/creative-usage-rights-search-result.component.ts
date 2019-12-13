@@ -5,13 +5,6 @@ import { AbstractSearchResultComponent } from '../abstract-search-result.compone
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
-  template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>`,
-})
-export class CreativeUsageRightsRowRenderComponent {
-  @Input() value: { title: string, uid: string };
-}
-
-@Component({
   selector: 'creative-usage-rights-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-usage-rights-search-result.component.html',

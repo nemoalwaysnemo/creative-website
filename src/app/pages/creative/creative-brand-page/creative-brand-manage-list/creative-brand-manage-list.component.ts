@@ -6,11 +6,11 @@ import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@page
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
 
 @Component({
-  selector: 'creative-brand-list-manage',
-  styleUrls: ['./creative-brand-list-manage.component.scss'],
-  templateUrl: './creative-brand-list-manage.component.html',
+  selector: 'creative-brand-manage-list',
+  styleUrls: ['./creative-brand-manage-list.component.scss'],
+  templateUrl: './creative-brand-manage-list.component.html',
 })
-export class CreativeBrandListManageComponent extends AbstractDocumentManageComponent {
+export class CreativeBrandManageListComponent extends AbstractDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 
