@@ -147,7 +147,7 @@ export class NbDialogService {
               protected cfr: ComponentFactoryResolver) {
   }
 
-  private onClose$: Subject<any> = new Subject<any>();
+  private event$: Subject<any> = new Subject<any>();
   private close$: Subject<any> = new Subject<any>();
   /**
    * Opens new instance of the dialog, may receive optional config.
@@ -159,7 +159,7 @@ export class NbDialogService {
     const dialogRef = new NbDialogRef<T>(overlayRef);
     const container = this.createContainer(config, overlayRef);
     this.createContent(config, content, container, dialogRef);
-
+    this.event$.next({ action: 'open', ref: dialogRef });
     this.registerCloseListeners(config, overlayRef, dialogRef);
 
     return dialogRef;
@@ -241,7 +241,7 @@ export class NbDialogService {
   protected registerCloseListeners<T>(config: NbDialogConfig, overlayRef: NbOverlayRef, dialogRef: NbDialogRef<T>) {
     if (config.closeOnBackdropClick) {
       overlayRef.backdropClick().subscribe(() => {
-        this.onClose$.next(dialogRef);
+        this.event$.next({ action: 'close', ref: dialogRef });
         dialogRef.close();
       });
     }
@@ -250,13 +250,13 @@ export class NbDialogService {
       observableFromEvent(this.document, 'keyup')
         .pipe(filter((event: KeyboardEvent) => event.keyCode === 27))
         .subscribe(() => {
-          this.onClose$.next(dialogRef);
+          this.event$.next({ action: 'close', ref: dialogRef });
           dialogRef.close();
         });
     }
 
     this.close$.subscribe(() => {
-      this.onClose$.next(dialogRef);
+      this.event$.next({ action: 'close', ref: dialogRef });
       dialogRef.close();
     });
 
@@ -267,6 +267,16 @@ export class NbDialogService {
   }
 
   onClose(): Observable<any> {
-    return this.onClose$.pipe(share());
+    return this.event$.pipe(
+      filter((x: any) => x.action === 'close'),
+      share(),
+    );
+  }
+
+  onOpen(): Observable<any> {
+    return this.event$.pipe(
+      filter((x: any) => x.action === 'open'),
+      share(),
+    );
   }
 }

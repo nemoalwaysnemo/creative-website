@@ -42,7 +42,7 @@ export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewCompo
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
     };
   }

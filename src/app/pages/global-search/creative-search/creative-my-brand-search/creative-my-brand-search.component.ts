@@ -11,7 +11,7 @@ export class CreativeMyBrandSearchComponent {
 
   defaultParams: any = {
     the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+    ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
     currentPageIndex: 0,
     pageSize: 20,
     ecm_path: '',
