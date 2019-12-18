@@ -20,7 +20,7 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
     }
   }
 
-  @Input() layout: string = 'quarter';
+  @Input() layout: string;
 
   @Input() resultHeader: string;
 

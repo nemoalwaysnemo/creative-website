@@ -1,5 +1,9 @@
 export const TAB_CONFIG: any[] = [
   {
+    title: 'Asset',
+    route: '/p/creative/brand/:id/asset',
+  },
+  {
     title: 'Showcase',
     route: '/p/creative/brand/:id/showcase',
   },

@@ -19,7 +19,7 @@ export class CreativeMyAgencyAssetSearchComponent extends AbstractDocumentViewCo
   filters: SearchFilterModel[] = [
       new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     //   new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-      new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
+      new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
     //   new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     //   new SearchFilterModel({ key: 'the_loupe_main_clientName_agg', placeholder: 'Client' }),
       new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),

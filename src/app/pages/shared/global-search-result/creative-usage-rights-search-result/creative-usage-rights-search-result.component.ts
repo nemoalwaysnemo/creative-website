@@ -19,7 +19,7 @@ export class CreativeUsageRightsSearchResultComponent extends AbstractSearchResu
     }
   }
 
-  @Input() layout: string = 'quarter';
+  @Input() layout: string;
 
   @Input() resultHeader: string;
 

@@ -18,10 +18,9 @@ export class CreativeBrandCampaignComponent extends AbstractDocumentViewComponen
 
   layout: string = 'creative_brand_campaign full-width';
 
-  filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
-    new SearchFilterModel({ key: 'the_loupe_prodCredits_production_date_agg', placeholder: 'Year', filterValue: (bucket: any) => bucket.docCount > 0 }),
-  ];
+  filters: SearchFilterModel[] = [];
+
+  showInput: boolean = false;
 
   constructor(
     protected advanceSearch: AdvanceSearch,

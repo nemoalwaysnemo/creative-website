@@ -4,22 +4,23 @@ import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch, SearchFilterModel } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'creative-brand-usage-rights',
+  selector: 'creative-brand-asset',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
-  templateUrl: './creative-brand-usage-rights.component.html',
+  templateUrl: './creative-brand-asset.component.html',
 })
-export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewComponent {
+export class CreativeBrandAssetComponent extends AbstractDocumentViewComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'creative-brand-usage-rights full-width';
+  layout: string = 'creative_brand_asset full-width';
 
-  filters: SearchFilterModel[] = [];
-
-  showInput: boolean = false;
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', convertTitle: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
 
   constructor(
     protected advanceSearch: AdvanceSearch,
@@ -30,9 +31,7 @@ export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewCompo
 
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc;
-    if (doc) {
-      this.baseParams$.next(this.buildContractParams(doc));
-    }
+    this.baseParams$.next(this.buildAssetsParams(doc));
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -43,9 +42,9 @@ export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewCompo
     };
   }
 
-  protected buildContractParams(doc?: DocumentModel): any {
+  protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_UR_CONTRACT_TYPES,
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',

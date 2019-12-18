@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CreativePageComponent } from './creative-page.component';
 import { CreativeHomePageComponent } from './creative-home-page/creative-home-page.component';
 import { CreativeAssetPageComponent } from './creative-asset-page/creative-asset-page.component';
+import { CreativeBrandAssetComponent } from './creative-brand-page/creative-brand-asset/creative-brand-asset.component';
 import { CreativeBrandShowcaseComponent } from './creative-brand-page/creative-brand-showcase/creative-brand-showcase.component';
 import { CreativeBrandCampaignComponent } from './creative-brand-page/creative-brand-campaign/creative-brand-campaign.component';
 import { CreativeBrandUsageRightsComponent } from './creative-brand-page/creative-brand-usage-rights/creative-brand-usage-rights.component';
@@ -20,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'asset/:id',
       component: CreativeAssetPageComponent,
+    },
+    {
+      path: 'brand/:id/asset',
+      component: CreativeBrandAssetComponent,
     },
     {
       path: 'brand/:id/showcase',

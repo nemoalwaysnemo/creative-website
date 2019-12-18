@@ -12,6 +12,8 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
 
   loading: boolean = true;
 
+  showInput: boolean = true;
+
   protected primaryKey: string = 'id';
 
   protected subscription: Subscription = new Subscription();
