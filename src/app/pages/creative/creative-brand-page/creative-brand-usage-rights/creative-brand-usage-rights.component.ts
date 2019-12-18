@@ -26,17 +26,11 @@ export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewCompo
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
-  protected onParamsChanged(): void {
-    const subscription = this.getCurrentDocument(this.primaryKey, this.getCurrentDocumentSearchParams(), this.getCurrentDocumentRequestParams())
-      .pipe(
-        tap((doc: DocumentModel) => { this.document = doc; }),
-        switchMap((brand: DocumentModel) => this.searchCurrentDocument(this.buildUsageRightsFolderParams(brand))),
-      ).subscribe();
-    this.subscription.add(subscription);
-  }
-
   protected setCurrentDocument(doc?: DocumentModel): void {
-    this.baseParams$.next(this.buildContractParams(doc));
+    this.document = doc;
+    if (doc) {
+      this.baseParams$.next(this.buildContractParams(doc));
+    }
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -45,17 +39,6 @@ export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewCompo
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
     };
-  }
-
-  protected buildUsageRightsFolderParams(doc?: DocumentModel): any {
-    const params = {
-      pageSize: 1,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_UR_FOLDER_TYPE,
-    };
-    if (doc) {
-      params['ecm_path'] = doc.path;
-    }
-    return params;
   }
 
   protected buildContractParams(doc?: DocumentModel): any {

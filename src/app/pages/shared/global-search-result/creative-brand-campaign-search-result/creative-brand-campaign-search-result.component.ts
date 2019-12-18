@@ -6,13 +6,6 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  template: `<a [routerLink]="['/p/creative/brand/', value.pid, 'campaign', value.uid]">{{ value.title }}</a>`,
-})
-export class CreativeBrandCampaignRowRenderComponent {
-  @Input() value: { title: string, uid: string, pid: string };
-}
-
-@Component({
   selector: 'creative-brand-campaign-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-brand-campaign-search-result.component.html',
@@ -42,8 +35,6 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
       title: {
         title: 'Title',
         sort: false,
-        type: 'custom',
-        renderComponent: CreativeBrandCampaignRowRenderComponent,
       },
       edges: {
         title: 'Edges',
@@ -57,7 +48,7 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: { title: doc.title, uid: doc.uid, pid: this.parentId },
+        title: doc.title,
         edges: doc.get('app_Edges:Tags_edges').join(', '),
       }));
     }
