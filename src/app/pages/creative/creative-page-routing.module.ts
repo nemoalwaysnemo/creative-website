@@ -6,6 +6,7 @@ import { CreativeAssetPageComponent } from './creative-asset-page/creative-asset
 import { CreativeBrandAssetComponent } from './creative-brand-page/creative-brand-asset/creative-brand-asset.component';
 import { CreativeBrandShowcaseComponent } from './creative-brand-page/creative-brand-showcase/creative-brand-showcase.component';
 import { CreativeBrandCampaignComponent } from './creative-brand-page/creative-brand-campaign/creative-brand-campaign.component';
+import { CreativeBrandProjectComponent } from './creative-brand-page/creative-brand-project/creative-brand-project.component';
 import { CreativeBrandUsageRightsComponent } from './creative-brand-page/creative-brand-usage-rights/creative-brand-usage-rights.component';
 import { CreativeBrandManageListComponent } from './creative-brand-page/creative-brand-manage-list/creative-brand-manage-list.component';
 import { CreativeBrandManageLibraryComponent } from './creative-brand-page/creative-brand-manage-library/creative-brand-manage-library.component';
@@ -33,6 +34,10 @@ const routes: Routes = [{
     {
       path: 'brand/:id/campaign',
       component: CreativeBrandCampaignComponent,
+    },
+    {
+      path: 'brand/:id/project',
+      component: CreativeBrandProjectComponent,
     },
     {
       path: 'brand/:id/usageRights',
