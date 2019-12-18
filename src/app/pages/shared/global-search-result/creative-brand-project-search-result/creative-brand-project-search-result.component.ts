@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
@@ -36,8 +37,12 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
         title: 'Title',
         sort: false,
       },
-      edges: {
-        title: 'Edges',
+      live_date: {
+        title: 'Live Date',
+        sort: false,
+      },
+      job_number: {
+        title: 'Job Number',
         sort: false,
       },
     },
@@ -49,7 +54,8 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc.title,
-        edges: doc.get('app_Edges:Tags_edges').join(', '),
+        live_date: this.datepipe.transform(doc.get('The_Loupe_Rights:first-airing'), 'dd/MM/yyyy'),
+        job_number: doc.get('The_Loupe_Main:jobnumber'),
       }));
     }
     return items;
@@ -58,6 +64,7 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
   constructor(
     protected queryParamsService: SearchQueryParamsService,
     protected activatedRoute: ActivatedRoute,
+    protected datepipe: DatePipe,
     ) {
     super(queryParamsService);
   }
