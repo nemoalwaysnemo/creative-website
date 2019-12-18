@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch, SearchFilterModel } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-brand-usage-rights',

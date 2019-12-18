@@ -6,7 +6,6 @@ import { CreativeBrandInfoViewModule } from '../creative-brand-info-view/creativ
 import { CreativeBrandCampaignComponent } from './creative-brand-campaign.component';
 import { CreativeBrandFormButtonModule } from '../creative-brand-form-button/creative-brand-form-button.module';
 
-
 @NgModule({
   imports: [
     ThemeModule,
@@ -15,12 +14,9 @@ import { CreativeBrandFormButtonModule } from '../creative-brand-form-button/cre
     GlobalSearchResultModule,
     CreativeBrandFormButtonModule,
     CreativeBrandInfoViewModule,
-    GlobalSearchFormModule,
   ],
   declarations: [
     CreativeBrandCampaignComponent,
-  ],
-  providers: [
   ],
 })
 export class CreativeBrandCampaignModule { }

@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
-import { GlobalSearchButtonModule } from '@pages/shared/global-search-button/global-search-button.module';
-import { CreativeBrandInfoViewModule } from '../creative-brand-info-view/creative-brand-info-view.module';
 import { CreativeBrandUsageRightsComponent } from './creative-brand-usage-rights.component';
+import { CreativeBrandInfoViewModule } from '../creative-brand-info-view/creative-brand-info-view.module';
+import { CreativeBrandFormButtonModule } from '../creative-brand-form-button/creative-brand-form-button.module';
 
 @NgModule({
   imports: [
@@ -12,13 +12,11 @@ import { CreativeBrandUsageRightsComponent } from './creative-brand-usage-rights
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
-    GlobalSearchButtonModule,
     CreativeBrandInfoViewModule,
+    CreativeBrandFormButtonModule,
   ],
   declarations: [
     CreativeBrandUsageRightsComponent,
-  ],
-  providers: [
   ],
 })
 export class CreativeBrandUsageRightsModule { }

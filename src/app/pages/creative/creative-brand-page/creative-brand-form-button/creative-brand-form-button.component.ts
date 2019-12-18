@@ -67,6 +67,12 @@ export class CreativeBrandFormButtonComponent {
       case 'stock':
         formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_STOCK_FORM;
         break;
+      case 'campaign':
+        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM;
+        break;
+      case 'project':
+        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM;
+        break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
     }

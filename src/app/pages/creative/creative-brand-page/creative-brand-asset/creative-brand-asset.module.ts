@@ -18,7 +18,5 @@ import { CreativeBrandFormButtonModule } from '../creative-brand-form-button/cre
   declarations: [
     CreativeBrandAssetComponent,
   ],
-  providers: [
-  ],
 })
 export class CreativeBrandAssetModule { }
