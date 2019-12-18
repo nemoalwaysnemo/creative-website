@@ -32,6 +32,7 @@ export enum NUXEO_META_INFO {
   CREATIVE_IMAGE_VIDEO_AUDIO_TYPES = '["App-Library-Image", "App-Library-Video", "App-Library-Audio"]',
   CREATIVE_FOLDER_TYPES = '["App-Library-Folder"]',
   CREATIVE_PROJECT_TYPES = '["App-Library-Project"]',
+  CREATIVE_CAMPAIGN_TYPES = '["App-Library-Campaign"]',
   CREATIVE_UR_FOLDER_TYPE = '["App-Library-UR-Folder"]',
   CREATIVE_BRAND_FOLDER_TYPE = '["Brand Folder"]',
   CREATIVE_SELECTED_BRAND_TYPE = '["App-Library-Selected-Brand"]',
