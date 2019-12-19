@@ -7,7 +7,10 @@ import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/ab
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
 })
 export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent {
-
+  protected getAccordionSettings(): {} {
+    return {
+    };
+  }
   protected getSettings(): object[] {
     return [
       new DynamicInputModel({

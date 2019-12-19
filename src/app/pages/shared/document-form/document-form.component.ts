@@ -40,6 +40,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() dynamicModelIndex: number[] = [];
 
+  @Input() accordions: any;
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
@@ -69,7 +71,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {

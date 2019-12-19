@@ -1,35 +1,45 @@
 import { Component } from '@angular/core';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DynamicCheckboxModel, DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 
 @Component({
   selector: 'creative-project-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends AbstractDocumentFormComponent {
+
+  protected getAccordionSettings(): {} {
+    return {
+      '+ Agency Credits': [],
+      '+ Backslash': [],
+      '+ Usage Rights': [],
+    };
+  }
 
   protected getSettings(): object[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
-        label: 'Title',
-        maxLength: 50,
-        placeholder: 'Title',
+        label: 'Project Name',
         autoComplete: 'off',
+        required: false,
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:campaign',
+        label: 'Search Campaign',
+        // providerName: 'App-Library-PageProvider-Campaigns',
+        placeholder: 'select a value',
         required: true,
         validators: {
           required: null,
-          minLength: 4,
         },
         errorMessages: {
           required: '{{label}} is required',
-          minLength: 'At least 4 characters',
         },
       }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand',
-        placeholder: 'Brand',
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:jobnumber',
+        label: 'Job Number',
         required: true,
         validators: {
           required: null,
@@ -39,162 +49,175 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         },
       }),
       new DynamicSuggestionModel<string>({
-        id: 'app_Edges:industry',
-        label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Workshop Date',
-        placeholder: 'Workshop Date',
-        readonly: true,
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Relevant_Country',
-        label: 'Geography',
+        id: 'The_Loupe_Rights:asset_countries',
+        label: 'Default Asset Country',
         directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        placeholder: 'select a value',
+        required: false,
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:agency',
-        label: 'Agency',
-        multiple: false,
-        directoryName: 'GLOBAL_Agencies',
-        placeholder: 'Please select agency',
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+      // Agency Credits
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:accountDirector',
+        label: 'Account Director',
+        autoComplete: 'off',
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        layoutPosition: 'right',
+        accordionTab: '+ Agency Credits',
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:creativeDirector',
+        label: 'Creative Director',
+        autoComplete: 'off',
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        layoutPosition: 'right',
+        accordionTab: '+ Agency Credits',
       }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:artDirector',
+        label: 'Art Director',
+        autoComplete: 'off',
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        layoutPosition: 'right',
+        accordionTab: '+ Agency Credits',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:copyWriter',
+        label: 'Copy Writer',
+        autoComplete: 'off',
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        layoutPosition: 'right',
+        accordionTab: '+ Agency Credits',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:broadcastProducer',
+        label: 'Broadcast Producer',
+        autoComplete: 'off',
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        layoutPosition: 'right',
+        accordionTab: '+ Agency Credits',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:printProducer',
+        label: 'Print Producer',
+        autoComplete: 'off',
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        layoutPosition: 'right',
+        accordionTab: '+ Agency Credits',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:digitalProducer',
+        label: 'Digital Producer',
+        autoComplete: 'off',
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        layoutPosition: 'right',
+        accordionTab: '+ Agency Credits',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:projectManager',
+        label: 'Project Manager',
+        autoComplete: 'off',
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        layoutPosition: 'right',
+        accordionTab: '+ Agency Credits',
+      }),
+      // backslash
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
-        label: 'Backslash Category',
+        label: 'Category',
         directoryName: 'App-Backslash-Categories',
-        placeholder: 'Please select category',
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        accordionTab: '+ Backslash',
       }),
-      new DynamicSuggestionModel<string>({
+      new DynamicOptionTagModel({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
         directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        placeholder: 'Leave blank to copy from campaign.',
+        required: false,
+        accordionTab: '+ Backslash',
+      }),
+      // Usage Rights
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_Rights:first-airing',
+        label: 'First-Airing',
+        readonly: true,
+        required: false,
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Rights:contract_mediatypes',
+        label: 'Media Usage Types',
+        placeholder: 'select Media Usage Type of asset',
+        // directoryName: 'App-Edges-Edges',
+        required: false,
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicCheckboxModel({
+        id: 'The_Loupe_Rights:no_talent_contract',
+        label: 'No Talent Contract?',
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Talent:Contract-Model-IDs',
+        label: 'Talent Contracts',
+        // providerName: 'App-Lib-UR-PageProvider-Talent-Project-create',
+        placeholder: 'select contract',
+        required: false,
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicCheckboxModel({
+        id: 'The_Loupe_Rights:no_music_contract',
+        label: 'No Music Contract?',
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Talent:Contract-Music-IDs',
+        label: 'Music Contracts',
+        // providerName: 'App-Lib-UR-PageProvider-Music-Project-create',
+        placeholder: 'select contract',
+        required: false,
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicCheckboxModel({
+        id: 'The_Loupe_Rights:no_photographer_contract',
+        label: 'No Photographer Contract?',
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Talent:Contract-Photographer-IDs',
+        label: 'Photographer Contracts',
+        // providerName: 'App-Lib-UR-PageProvider-Photographer-Project-create',
+        placeholder: 'select contract',
+        required: false,
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicCheckboxModel({
+        id: 'The_Loupe_Rights:no_stock_contract',
+        label: 'No Stock Contract?',
+        accordionTab: '+ Usage Rights',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Talent:Contract-Stock-IDs',
+        label: 'Stock/Illustration Contracts',
+        // providerName: 'App-Lib-UR-PageProvider-Stock-Project-create',
+        placeholder: 'select contract',
+        required: false,
+        accordionTab: '+ Usage Rights',
       }),
       new DynamicInputModel({
-        id: 'The_Loupe_Main:description',
-        label: 'Description',
-        formMode: 'edit',
-        placeholder: 'description',
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
-      }),
-      new DynamicInputModel({
-        id: 'dc:creator',
-        label: 'Author',
-        formMode: 'edit',
-        placeholder: 'Author',
-        required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'create',
-        uploadType: 'asset',
-        layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*,.pdf',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'edit',
-        uploadType: 'asset',
-        layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*,.pdf',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'create',
-        multiUpload: false,
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
+        id: 'HBC_usage_rights:Font',
+        label: 'Font',
+        required: false,
+        accordionTab: '+ Usage Rights',
       }),
     ];
   }

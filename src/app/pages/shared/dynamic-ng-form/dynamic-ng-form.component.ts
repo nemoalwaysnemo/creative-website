@@ -22,6 +22,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
   layoutLeft: DynamicFormModel = [];
   layoutRight: DynamicFormModel = [];
   layoutBottom: DynamicFormModel = [];
+  layoutAccordion: any = [];
 
   @Input()
   set modelOperation(operation: any) {
@@ -35,19 +36,35 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
   @Input() formClass: string;
 
   @Input('group') formGroup: FormGroup;
+  @Input('accordions')
+  set refactorAccordions(accordions) {
+    const keys = Object.keys(accordions);
+    for (const key of keys) {
+      this.layoutAccordion.push({ 'accordionTabName': key, 'accordionContents': [], 'position': '' });
+    }
+  }
+
   @Input('model')
   set formModel(formModel: DynamicFormModel) {
     const models = formModel || [];
     models.forEach((model: DynamicFormControlModel) => {
-      if (model.layoutPosition === 'bottom') {
-        this.layoutBottom.push(model);
-      } else if (model.layoutPosition === 'right') {
-        this.layoutRight.push(model);
+      if (!model.accordionTab) {
+        if (model.layoutPosition === 'bottom') {
+          this.layoutBottom.push(model);
+        } else if (model.layoutPosition === 'right') {
+          this.layoutRight.push(model);
+        } else {
+          this.layoutLeft.push(model);
+        }
       } else {
-        this.layoutLeft.push(model);
+        this.layoutAccordion.forEach(element => {
+          if (element['accordionTabName'] === model.accordionTab) {
+            element['accordionContents'].push(model);
+            element['position'] = model.layoutPosition;
+          }
+        });
       }
     });
-
   }
   @Input('layout') formLayout: DynamicFormLayout;
 

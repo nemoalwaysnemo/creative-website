@@ -12,6 +12,48 @@
                           (customEvent)="onEvent($event, 'custom')">
   </dynamic-ng-form-control>
 </div>
+
+<div class="layout-left left {{formClass}}">
+  <div *ngFor="let accordion of layoutAccordion;">
+      <nb-accordion class="accordion">
+        <nb-accordion-item class="accordion-item">
+          <nb-accordion-item-header class="accordion-item-header"><span>{{ accordion['accordionTabName'] }}</span></nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <dynamic-ng-form-control *ngFor="let model of accordion['accordionContents']; trackBy: trackByFn" [group]="formGroup"
+            [hidden]="model.hidden" [layout]="formLayout" [model]="model"
+            [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]" [templates]="templates"
+            (blur)="onEvent($event, 'blur')" (change)="onEvent($event, 'change')" (focus)="onEvent($event, 'focus')"
+            (customEvent)="onEvent($event, 'custom')">
+          </dynamic-ng-form-control>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+  </div>
+</div>
+
+<!-- position of accordions should be fixed, temperaryly on the right top;  customization of accordions positions causes problems -->
+<!-- for ex: 2 models under the same accordion tab but different layout position -->
+
+<!-- <div class="layout-left-accordion left {{formClass}}">
+  <div *ngFor="let accordion of layoutAccordion;">
+    <div *ngIf="accordion['position'] == 'left'">
+      <nb-accordion class="accordion">
+        <nb-accordion-item class="accordion-item">
+          <nb-accordion-item-header class="accordion-item-header"><span>{{ accordion['accordionTabName'] }}</span></nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <dynamic-ng-form-control *ngFor="let model of accordion['accordionContents']; trackBy: trackByFn" [group]="formGroup"
+            [hidden]="model.hidden" [layout]="formLayout" [model]="model"
+            [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]" [templates]="templates"
+            (blur)="onEvent($event, 'blur')" (change)="onEvent($event, 'change')" (focus)="onEvent($event, 'focus')"
+            (customEvent)="onEvent($event, 'custom')">
+          </dynamic-ng-form-control>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+  </div>
+</div> -->
+
 <div class="layout-right right">
   <dynamic-ng-form-control *ngFor="let model of layoutRight; trackBy: trackByFn"
                           [group]="formGroup"

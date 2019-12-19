@@ -21,6 +21,8 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   settings: any[] = [];
 
+  accordions: any = {};
+
   protected subscription: Subscription = new Subscription();
 
   ngOnInit() {
@@ -59,6 +61,7 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   protected performForm(): void {
     this.settings = this.getSettings();
     this.formLayout = this.getFormLayout();
+    this.accordions = this.getAccordionSettings();
   }
 
   private setDefaultValue() {
@@ -70,4 +73,5 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   protected abstract getSettings(): any[];
   protected abstract getFormLayout(): any;
+  protected abstract getAccordionSettings(): any;
 }
