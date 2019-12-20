@@ -4,10 +4,9 @@ import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/ab
 
 @Component({
   selector: 'creative-project-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)" (onCanceled)="canceled($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends AbstractDocumentFormComponent {
-
   protected getAccordionSettings(): {} {
     return {
       '+ Agency Credits': [],

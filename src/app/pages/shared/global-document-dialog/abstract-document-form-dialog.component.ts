@@ -9,11 +9,6 @@ export abstract class AbstractDocumentFormDialogComponent extends AbstractDocume
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
 
   @Input() component: Type<DocumentModelForm>;
-
-  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
-
-  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-
   protected customComponent: ComponentRef<any>;
 
   constructor(
@@ -22,9 +17,9 @@ export abstract class AbstractDocumentFormDialogComponent extends AbstractDocume
   ) {
     super(dialogService);
   }
-
   protected onInit(): void {
     this.createComponent();
+    this.subscribeEventEmitters();
   }
 
   protected onDestroy(): void {
@@ -42,4 +37,13 @@ export abstract class AbstractDocumentFormDialogComponent extends AbstractDocume
     }
   }
 
+  protected subscribeEventEmitters() {
+    this.customComponent.instance.onCanceled.subscribe(_ => {
+      this.close();
+    });
+    this.customComponent.instance.onCreated.subscribe(_ => {
+    });
+    this.customComponent.instance.onUpdated.subscribe(_ => {
+    });
+  }
 }

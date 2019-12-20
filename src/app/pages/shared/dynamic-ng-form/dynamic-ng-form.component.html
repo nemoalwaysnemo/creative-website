@@ -19,7 +19,7 @@
         <nb-accordion-item class="accordion-item">
           <nb-accordion-item-header class="accordion-item-header"><span>{{ accordion['accordionTabName'] }}</span></nb-accordion-item-header>
           <nb-accordion-item-body>
-            <dynamic-ng-form-control *ngFor="let model of accordion['accordionContents']; trackBy: trackByFn" [group]="formGroup"
+            <dynamic-ng-form-control *ngFor="let model of accordion['modelsContents']; trackBy: trackByFn" [group]="formGroup"
             [hidden]="model.hidden" [layout]="formLayout" [model]="model"
             [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]" [templates]="templates"
             (blur)="onEvent($event, 'blur')" (change)="onEvent($event, 'change')" (focus)="onEvent($event, 'focus')"
@@ -41,7 +41,7 @@
         <nb-accordion-item class="accordion-item">
           <nb-accordion-item-header class="accordion-item-header"><span>{{ accordion['accordionTabName'] }}</span></nb-accordion-item-header>
           <nb-accordion-item-body>
-            <dynamic-ng-form-control *ngFor="let model of accordion['accordionContents']; trackBy: trackByFn" [group]="formGroup"
+            <dynamic-ng-form-control *ngFor="let model of accordion['modelsContents']; trackBy: trackByFn" [group]="formGroup"
             [hidden]="model.hidden" [layout]="formLayout" [model]="model"
             [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]" [templates]="templates"
             (blur)="onEvent($event, 'blur')" (change)="onEvent($event, 'change')" (focus)="onEvent($event, 'focus')"

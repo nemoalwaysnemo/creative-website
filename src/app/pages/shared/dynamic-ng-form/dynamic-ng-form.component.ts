@@ -37,10 +37,12 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   @Input('group') formGroup: FormGroup;
   @Input('accordions')
-  set refactorAccordions(accordions) {
-    const keys = Object.keys(accordions);
-    for (const key of keys) {
-      this.layoutAccordion.push({ 'accordionTabName': key, 'accordionContents': [], 'position': '' });
+  set accordionsStructure(accordions) {
+    if (accordions) {
+      const keys = Object.keys(accordions);
+      for (const key of keys) {
+        this.layoutAccordion.push({ 'accordionTabName': key, 'accordionContents': [], 'position': '' });
+      }
     }
   }
 
@@ -59,7 +61,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
       } else {
         this.layoutAccordion.forEach(element => {
           if (element['accordionTabName'] === model.accordionTab) {
-            element['accordionContents'].push(model);
+            element['modelsContents'].push(model);
             element['position'] = model.layoutPosition;
           }
         });

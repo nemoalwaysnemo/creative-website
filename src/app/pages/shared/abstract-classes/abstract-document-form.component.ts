@@ -17,6 +17,10 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   @Input() mode: 'create' | 'edit' = 'create';
 
+  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
+  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+  @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+
   formLayout: any = {};
 
   settings: any[] = [];
@@ -57,6 +61,11 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   public updated(doc: DocumentModel): void {
   }
+
+  public canceled(doc: DocumentModel): void {
+    this.onCanceled.next(doc);
+  }
+
 
   protected performForm(): void {
     this.settings = this.getSettings();
