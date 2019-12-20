@@ -41,7 +41,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
     if (accordions) {
       const keys = Object.keys(accordions);
       for (const key of keys) {
-        this.layoutAccordion.push({ 'accordionTabName': key, 'accordionContents': [], 'position': '' });
+        this.layoutAccordion.push({ 'accordionTabName': key, 'modelsContents': [], 'position': '' });
       }
     }
   }
