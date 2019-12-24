@@ -24,6 +24,7 @@ export interface DynamicFormControlModelConfig {
   name?: string;
   relation?: DynamicFormControlRelationGroup[];
   updateOn?: any;
+  document?: any;
   validators?: DynamicValidatorsConfig;
 }
 
@@ -45,6 +46,8 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   @serializable() selfClass: string | null;
   @serializable() layout: DynamicFormControlLayout | null;
   @serializable() name: string;
+  @serializable() value: any;
+  @serializable() document: any;
   parent: DynamicPathable | null = null;
   @serializable() relation: DynamicFormControlRelationGroup[];
   @serializable() updateOn: any | null;
@@ -68,6 +71,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.labelTooltip = config.labelTooltip || null;
     this.controlTooltip = config.controlTooltip || null;
     this.layout = layout;
+    this.document = config.document;
     this.name = config.name || config.id;
     this.relation = Array.isArray(config.relation) ? config.relation : [];
     this.updateOn = isString(config.updateOn) ? config.updateOn : null;

@@ -43,6 +43,10 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private subscription: Subscription = new Subscription();
 
+  @Input() document: DocumentModel;
+
+  @Input() pageSize: number = 20;
+
   @Input() placeholder: string;
 
   @Input() directoryName: string;
@@ -56,6 +60,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   @Input() initSearch: boolean = true;
 
   @Input() providerName: string;
+
+  @Input() contentViewProvider: string;
 
   @Input() multiple: boolean;
 
@@ -120,10 +126,13 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     this.options$.next(option.map(x => new OptionModel({ label: x, value: x })));
   }
 
-  private getSuggestions(searchTerm: string): Observable<OptionModel[]> {
+  private getSuggestions(searchTerm: string, doc?: DocumentModel, pageSize: number = 20): Observable<OptionModel[]> {
     let res: Observable<OptionModel[]>;
+    const uuid = doc ? doc.uid : null;
     if (this.providerName) {
-      res = this.getDocumentSuggestions(this.providerName, searchTerm);
+      res = this.getDocumentSuggestions(this.providerName, searchTerm, uuid, pageSize);
+    } else if (this.contentViewProvider) {
+      res = this.getContentViewDocumentSuggestions(this.contentViewProvider, searchTerm, uuid, pageSize);
     } else if (this.directoryName) {
       res = this.getDirectorySuggestions(this.directoryName, searchTerm, this.contains);
     } else if (this.searchUserGroup) {
@@ -140,7 +149,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       debounceTime(300),
       distinctUntilChanged(),
       tap(() => this.loading$.next(true)),
-      switchMap((searchTerm: string) => this.getSuggestions(searchTerm)),
+      switchMap((searchTerm: string) => this.getSuggestions(searchTerm, this.document, this.pageSize)),
       share(),
     ).subscribe((res: OptionModel[]) => {
       this.options$.next(res);
@@ -164,11 +173,18 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       );
   }
 
-  private getDocumentSuggestions(providerName: string, searchTerm: string, pageSize: number = 20): Observable<OptionModel[]> {
-    return this.nuxeoApi.operation(NuxeoAutomations.RepositoryPageProvider, { providerName, searchTerm, pageSize })
+  private getDocumentModels(operationName: string, providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(operationName, { providerName, searchTerm, pageSize }, input)
       .pipe(map((res: NuxeoPagination) => res.entries.map((doc: DocumentModel) => new OptionModel({ label: doc.title, value: doc.uid }))));
   }
 
+  private getDocumentSuggestions(providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
+    return this.getDocumentModels(NuxeoAutomations.RepositoryPageProvider, providerName, searchTerm, input, pageSize);
+  }
+
+  private getContentViewDocumentSuggestions(providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
+    return this.getDocumentModels(NuxeoAutomations.ContentViewPageProvider, providerName, searchTerm, input, pageSize);
+  }
   private getDirectoryEntries(directoryName: string): void {
     this.loading$.next(true);
     const subscription = this.nuxeoApi.directory(directoryName).pipe(map((res: DirectoryEntry[]) => res.map((entry: DirectoryEntry) => new OptionModel({ label: entry.label, value: entry.id }))))

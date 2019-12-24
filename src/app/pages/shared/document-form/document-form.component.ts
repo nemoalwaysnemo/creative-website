@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output, HostBinding } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicSuggestionModel, DynamicOptionTagModel } from '@core/custom';
 import { Observable, forkJoin, Subject } from 'rxjs';
 import { deepExtend } from '@core/services';
 
@@ -148,7 +148,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     return this.formService.createFormGroup(formModel);
   }
 
-  private performSettings(settings: DynamicFormControlModel[]): any[] {
+  private performSettings(settings: DynamicFormControlModel[]): DynamicFormControlModel[] {
     const uploadModel = settings.find((v) => (v instanceof DynamicBatchUploadModel));
     this.uploadFieldName = uploadModel ? uploadModel.id : this.uploadFieldName;
     const model = settings.find(m => (m instanceof DynamicBatchUploadModel) && m.formMode === 'create');
@@ -162,13 +162,14 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private prepareForm(settings: DynamicFormControlModel[]) {
-    const opts = this.performSettings(settings);
+    const models = this.performSettings(settings);
     if (this.documentModel) {
-      opts.forEach(opt => {
-        if (opt.hiddenFn) { opt.hidden = opt.hiddenFn.call(this, this.documentModel); }
-        opt.value = this.documentModel.get(opt.id);
+      models.forEach((model: DynamicFormControlModel) => {
+        if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, this.documentModel); }
+        if (model.document) { model.document = this.documentModel; }
+        model.value = this.documentModel.get(model.id);
       });
-      this.createForm(opts);
+      this.createForm(models);
     }
   }
 

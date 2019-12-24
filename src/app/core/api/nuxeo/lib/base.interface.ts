@@ -338,6 +338,8 @@ export enum NuxeoAutomations {
   DirectorySuggestEntries = 'Directory.SuggestEntries',
   UserGroupSuggestion = 'UserGroup.Suggestion',
   RepositoryPageProvider = 'Repository.PageProvider',
+  ContentViewPageProvider = 'ContentView.PageProvider',
+  InitializeDocument = 'Document.Initialize',
   DirectoryEntries = 'Directory.Entries',
   DocumentCreate = 'Document.Create',
   GetFavorite = 'Favorite.Fetch',

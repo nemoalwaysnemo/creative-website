@@ -8,6 +8,7 @@ export const DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION = 'SUGGESTION';
 export interface DynamicSuggestionModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
 
   placeholder?: string;
+  contentViewProvider?: string;
   directoryName?: string;
   searchUserGroup?: boolean
   contains?: boolean
@@ -22,6 +23,7 @@ export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() placeholder: string;
   @serializable() directoryName: string;
   @serializable() providerName: string;
+  @serializable() contentViewProvider: string;
   @serializable() searchUserGroup: boolean;
   @serializable() suggestion: boolean;
   @serializable() initSearch: boolean;
@@ -36,6 +38,7 @@ export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
     this.initSearch = isBoolean(config.initSearch) ? config.initSearch : true;
     this.contains = isBoolean(config.contains) ? config.contains : true;
     this.searchUserGroup = isBoolean(config.searchUserGroup) ? config.searchUserGroup : true;
+    this.contentViewProvider = config.contentViewProvider || null;
     this.directoryName = config.directoryName || null;
     this.providerName = config.providerName || null;
     this.placeholder = config.placeholder || '';

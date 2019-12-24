@@ -87,10 +87,12 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         placeholder: 'Please select user/group',
       }),
       new DynamicSuggestionModel<string>({
+        // id: 'app_Edges:industry',
         id: 'app_Edges:industry',
-        label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
+        label: 'Campaigns',
+        document: true,
+        contentViewProvider: 'App-Library-PageProvider-Campaigns',
+        placeholder: 'Please select campaign',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',

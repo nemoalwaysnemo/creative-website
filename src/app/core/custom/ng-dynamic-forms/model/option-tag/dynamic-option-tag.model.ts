@@ -12,6 +12,7 @@ export interface DynamicOptionTagModelConfig<T> extends DynamicFormValueControlM
   contains?: boolean
   suggestion?: boolean;
   providerName?: string;
+  contentViewProvider?: string;
 }
 
 export class DynamicOptionTagModel<T> extends DynamicFormValueControlModel<T> {
@@ -19,6 +20,7 @@ export class DynamicOptionTagModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() placeholder: string;
   @serializable() directoryName: string;
   @serializable() providerName: string;
+  @serializable() contentViewProvider: string;
   @serializable() suggestion: boolean;
   @serializable() contains: boolean;
 
@@ -28,6 +30,7 @@ export class DynamicOptionTagModel<T> extends DynamicFormValueControlModel<T> {
     super(config, layout);
     this.suggestion = isBoolean(config.suggestion) ? config.suggestion : true;
     this.contains = isBoolean(config.contains) ? config.contains : false;
+    this.contentViewProvider = config.contentViewProvider || null;
     this.directoryName = config.directoryName || null;
     this.providerName = config.providerName || null;
     this.placeholder = config.placeholder || '';
