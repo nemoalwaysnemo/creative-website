@@ -1,25 +1,19 @@
-import { Component, Input, Output, EventEmitter, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, Type, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { DocumentModel } from '@core/api';
+import { Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { of as observableOf, Observable, Subscription, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 export interface DocumentModelForm {
   mode: string;
   docType: string;
   document: DocumentModel;
-  setTargetModel(doc: DocumentModel);
 }
 
 export abstract class AbstractDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
 
-  @Input() document: DocumentModel;
+  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
-  @Input() docType: string;
-
-  @Input() mode: 'create' | 'edit' = 'create';
-
-  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
-  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-  @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+  document: DocumentModel;
 
   formLayout: any = {};
 
@@ -27,7 +21,33 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   accordions: any = {};
 
+  @Input()
+  set documentModel(doc: DocumentModel) {
+    this.setFormDocument(doc);
+  }
+
+  @Input()
+  set docType(docType: string) {
+    if (docType) {
+      this.documentType = docType;
+    }
+  }
+
+  @Input() mode: 'create' | 'edit' = 'create';
+
+  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
+
+  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+
+  @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+
   protected subscription: Subscription = new Subscription();
+
+  protected documentType: string;
+
+  constructor(protected nuxeoApi: NuxeoApiService) {
+    this.onDocumentChanged();
+  }
 
   ngOnInit() {
     this.onInit();
@@ -37,19 +57,30 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.onDestroy();
   }
 
-  setTargetModel(doc: DocumentModel) {
-    if (this.mode === 'create') {
-      this.document = doc.newInstance(this.docType);
-    } else if (this.mode === 'edit') {
-      this.document = doc;
+  getDocType(): string {
+    return this.documentType;
+  }
+
+  setFormDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.document$.next(doc);
     }
+  }
+
+  protected initializeDocument(uuid: string, docType: string): Observable<DocumentModel> {
+    return this.nuxeoApi.operation(NuxeoAutomations.InitializeDocument, { type: docType }, uuid, { schemas: '*' });
+  }
+
+  protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
+    if (this.mode === 'create') {
+      return observableOf(doc.newInstance(this.getDocType()));
+    }
+    return observableOf(doc);
   }
 
   protected onInit(): void {
     this.performForm();
-    if (this.mode === 'create') {
-      this.setDefaultValue();
-    }
+    this.onDocumentChanged();
   }
 
   protected onDestroy(): void {
@@ -66,6 +97,14 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.onCanceled.next(doc);
   }
 
+  protected onDocumentChanged(): void {
+    const subscription = this.document$.pipe(
+      switchMap((doc: DocumentModel) => this.beforeSetDocument(doc)),
+    ).subscribe((doc: DocumentModel) => {
+      this.document = doc;
+    });
+    this.subscription.add(subscription);
+  }
 
   protected performForm(): void {
     this.settings = this.getSettings();
@@ -73,14 +112,10 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.accordions = this.getAccordionSettings();
   }
 
-  private setDefaultValue() {
-    const settings = this.getSettings();
-    settings.filter((setting: any) => !!setting.default && setting.formMode !== 'edit').forEach(setting => {
-      this.document.properties[setting.id] = setting.default;
-    });
+  protected getAccordionSettings(): {} {
+    return {};
   }
 
   protected abstract getSettings(): any[];
   protected abstract getFormLayout(): any;
-  protected abstract getAccordionSettings(): any;
 }

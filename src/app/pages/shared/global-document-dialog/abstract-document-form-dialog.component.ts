@@ -4,11 +4,16 @@ import { GlobalDocumentDialogService } from './global-document-dialog.service';
 import { DocumentModelForm } from '../abstract-classes/abstract-document-form.component';
 import { DocumentModel } from '@core/api';
 
-export abstract class AbstractDocumentFormDialogComponent extends AbstractDocumentDialogComponent {
+export abstract class AbstractDocumentFormDialogComponent extends AbstractDocumentDialogComponent implements DocumentModelForm {
 
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
 
+  @Input() docType: string;
+
+  @Input() mode: 'create' | 'edit' = 'create';
+
   @Input() component: Type<DocumentModelForm>;
+
   protected customComponent: ComponentRef<any>;
 
   constructor(
@@ -17,6 +22,7 @@ export abstract class AbstractDocumentFormDialogComponent extends AbstractDocume
   ) {
     super(dialogService);
   }
+
   protected onInit(): void {
     this.createComponent();
     this.subscribeEventEmitters();
@@ -33,7 +39,9 @@ export abstract class AbstractDocumentFormDialogComponent extends AbstractDocume
     if (!this.customComponent) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.component);
       this.customComponent = this.dynamicTarget.createComponent(componentFactory);
-      this.customComponent.instance.target = this.customComponent.instance.setTargetModel(this.document);
+      this.customComponent.instance.mode = this.mode;
+      this.customComponent.instance.docType = this.docType;
+      this.customComponent.instance.documentModel = this.document;
     }
   }
 

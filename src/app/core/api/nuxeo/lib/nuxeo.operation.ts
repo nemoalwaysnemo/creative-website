@@ -38,7 +38,7 @@ export class Operation extends Base {
     return this;
   }
 
-  input(input: any): this {
+  input(input: string): this {
     this._automationParams.input = input;
     return this;
   }
@@ -57,11 +57,9 @@ export class Operation extends Base {
   }
 
   _computeContentTypeHeader(input: any) {
-    let contentType = 'application/json+nxrequest';
+    let contentType = 'application/json';
     if (this._isMultipartInput(input)) {
       contentType = 'multipart/form-data';
-    } else if (isBatch(input)) {
-      contentType = 'application/json';
     }
     return contentType;
   }

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicSuggestionModel, DynamicOptionTagModel } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
 import { Observable, forkJoin, Subject } from 'rxjs';
 import { deepExtend } from '@core/services';
 
@@ -10,7 +10,7 @@ import { deepExtend } from '@core/services';
   styleUrls: ['./document-form.component.scss'],
   templateUrl: './document-form.component.html',
 })
-export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
+export class DocumentFormComponent implements OnInit, OnDestroy {
 
   formModel: DynamicFormControlModel[];
 
@@ -42,6 +42,8 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() accordions: any;
 
+  @Input() loading: boolean = false;
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
@@ -71,10 +73,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-
   }
 
   ngOnDestroy(): void {
@@ -114,7 +112,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     this.onCanceled.next(this.documentModel);
   }
 
-  checkfiles(doc: DocumentModel): DocumentModel {
+  private checkfiles(doc: DocumentModel): DocumentModel {
     const files = doc.get('files:files');
     let flag = false;
     if (!!files) {
@@ -165,9 +163,10 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     const models = this.performSettings(settings);
     if (this.documentModel) {
       models.forEach((model: DynamicFormControlModel) => {
+        const modelValue = this.documentModel.get(model.id);
         if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, this.documentModel); }
         if (model.document) { model.document = this.documentModel; }
-        model.value = this.documentModel.get(model.id);
+        model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
       });
       this.createForm(models);
     }

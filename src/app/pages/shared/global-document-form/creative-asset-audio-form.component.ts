@@ -1,16 +1,21 @@
 import { Component } from '@angular/core';
+import { NuxeoApiService, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'creative-asset-audio-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
 })
 export class CreativeAssetAudioFormComponent extends AbstractDocumentFormComponent {
-  protected getAccordionSettings(): {} {
-    return {
-    };
+
+  protected documentType: string = 'App-Library-Audio';
+
+  constructor(protected nuxeoApi: NuxeoApiService) {
+    super(nuxeoApi);
   }
+
   protected getSettings(): object[] {
     return [
       new DynamicInputModel({

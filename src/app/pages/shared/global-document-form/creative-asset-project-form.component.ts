@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
-import { DynamicCheckboxModel, DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { NuxeoApiService, DocumentModel } from '@core/api';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'creative-project-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)" (onCanceled)="canceled($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [loading]="loading" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)" (onCanceled)="canceled($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends AbstractDocumentFormComponent {
+
+  protected documentType: string = 'App-Library-Project';
+
+  constructor(protected nuxeoApi: NuxeoApiService) {
+    super(nuxeoApi);
+  }
+
   protected getAccordionSettings(): {} {
     return {
       '+ Agency Credits': [],

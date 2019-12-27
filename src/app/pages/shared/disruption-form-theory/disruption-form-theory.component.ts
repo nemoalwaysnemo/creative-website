@@ -70,7 +70,7 @@ export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Published',
         formMode: 'create',
-        default: (new Date()),
+        defaultValue: (new Date()),
         placeholder: 'Published',
         readonly: true,
         required: true,

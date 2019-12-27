@@ -9,6 +9,7 @@ import { DocumentModel } from '@core/api';
   templateUrl: './document-form-dialog.component.html',
 })
 export class DocumentFormDialogComponent extends AbstractDocumentFormDialogComponent {
+
   @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   constructor(
@@ -18,7 +19,7 @@ export class DocumentFormDialogComponent extends AbstractDocumentFormDialogCompo
     super(dialogService, componentFactoryResolver);
   }
 
-  canceled(doc): void {
+  canceled(doc: DocumentModel): void {
     this.onCanceled.next(doc);
   }
 }

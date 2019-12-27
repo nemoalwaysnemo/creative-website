@@ -23,9 +23,7 @@ export abstract class DynamicFormValueControlModel<T> extends DynamicFormControl
   valueUpdates: Subject<T>;
 
   protected constructor(config: DynamicFormValueControlModelConfig<T>, layout?: DynamicFormControlLayout) {
-
     super(config, layout);
-
     this.additional = isObject(config.additional) ? config.additional : null;
     this.hint = config.hint || null;
     this.required = isBoolean(config.required) ? config.required : false;
