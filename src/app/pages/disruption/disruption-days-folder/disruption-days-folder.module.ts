@@ -6,6 +6,7 @@ import { GlobalSearchFormModule, GlobalSearchResultModule, SharedServiceModule, 
 import { DisruptionFolderViewModule } from '../disruption-folder-view/disruption-folder-view.module';
 import { DisruptionFormDaysFolderDialogComponent } from './disruption-form-days-folder-body/disruption-form-days-folder-dialog.component';
 import { DisruptionFormFolderModule } from '../../shared/disruption-form-folder/disruption-form-folder.module';
+import { DisruptionFormButtonModule } from '../disruption-form-button/disruption-form-button.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { DisruptionFormFolderModule } from '../../shared/disruption-form-folder/
     GlobalSearchResultModule,
     DisruptionFolderViewModule,
     DisruptionFormFolderModule,
+    DisruptionFormButtonModule,
   ],
   declarations: [
     DisruptionDaysFolderComponent,

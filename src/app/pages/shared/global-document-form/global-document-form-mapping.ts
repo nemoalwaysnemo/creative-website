@@ -7,7 +7,11 @@ import { CreativeUsageRightsPhotoComponent } from './creative-usage-rights-photo
 import { CreativeUsageRightsStockComponent } from './creative-usage-rights-stock-form.component';
 import { CreativeCampaignFormComponent } from './creative-asset-campaign-form.component';
 import { CreativeProjectFormComponent } from './creative-asset-project-form.component';
-
+import { DisruptionRoadmapFormComponent } from './disruption-roadmap-form.compoent';
+import { DisruptionDayFolderFormComponent } from './disruption-day-folder-form.compoent';
+import { DisruptionBrilliantThinkingFormComponent } from './disruption-brilliant-thinking-form.compoent';
+import { DisruptionDayAssetFormComponent } from './disruption-day-asset-form-component';
+import { DisruptionHowTosAssetFormComponent } from './disruption-how-tos-asset-form.compoent';
 export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_ASSET_IMAGE_FORM: CreativeAssetImageFormComponent,
   CREATIVE_ASSET_VIDEO_FORM: CreativeAssetVideoFormComponent,
@@ -18,6 +22,11 @@ export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_USAGE_RIGHTS_STOCK_FORM: CreativeUsageRightsStockComponent,
   CREATIVE_CAMPAIGN_FORM: CreativeCampaignFormComponent,
   CREATIVE_PROJECT_FORM: CreativeProjectFormComponent,
+  DISRUPTION_ROADMAP_FORM: DisruptionRoadmapFormComponent,
+  DISRUPTION_BRILLIANT_THINKING_FORM: DisruptionBrilliantThinkingFormComponent,
+  DISRUPTION_DAY_FORM: DisruptionDayFolderFormComponent,
+  DISRUPTION_DAY_ASSET_FORM: DisruptionDayAssetFormComponent,
+  DISRUPTION_HOW_TOS_ASSET_FORM: DisruptionHowTosAssetFormComponent,
 };
 
 export function GLOBAL_DOCUMENT_FORMS(): any[] {

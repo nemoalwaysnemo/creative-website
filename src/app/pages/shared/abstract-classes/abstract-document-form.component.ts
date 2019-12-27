@@ -87,10 +87,12 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.subscription.unsubscribe();
   }
 
-  public created(docs: DocumentModel[]): void {
+  public created(doc: DocumentModel[]): void {
+    this.onCreated.next(doc);
   }
 
   public updated(doc: DocumentModel): void {
+    this.onUpdated.next(doc);
   }
 
   public canceled(doc: DocumentModel): void {

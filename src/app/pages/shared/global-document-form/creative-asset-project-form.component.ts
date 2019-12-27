@@ -35,7 +35,7 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:campaign',
         label: 'Search Campaign',
-        // providerName: 'App-Library-PageProvider-Campaigns',
+        providerName: 'App-Library-PageProvider-Campaigns',
         placeholder: 'select a value',
         required: true,
         validators: {

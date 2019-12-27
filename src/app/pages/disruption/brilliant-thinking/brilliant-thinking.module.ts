@@ -5,6 +5,7 @@ import { BrilliantThinkingComponent } from './brilliant-thinking.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule } from '@pages/shared';
 import { DisruptionFormBrilliantThinkingDialogComponent } from './disruption-form-brilliant-thinking-body/disruption-form-brilliant-thinking-dialog.component';
 import { DisruptionFormBrilliantThinkingModule } from '@pages/shared/disruption-form-brilliant-thinking/disruption-form-brilliant-thinking.module';
+import { DisruptionFormButtonModule } from '../disruption-form-button/disruption-form-button.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { DisruptionFormBrilliantThinkingModule } from '@pages/shared/disruption-
     GlobalSearchFormModule,
     GlobalSearchResultModule,
     DisruptionFormBrilliantThinkingModule,
+    DisruptionFormButtonModule,
   ],
   declarations: [
     BrilliantThinkingComponent,

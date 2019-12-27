@@ -13,7 +13,7 @@ import { CreativeMyBrandSearchResultComponent } from './creative-my-brand-search
 import { CreativePopularBrandSearchResultComponent, CreativePopularBrandRowRenderComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
 import { CreativeUsageRightsSearchResultComponent } from './creative-usage-rights-search-result/creative-usage-rights-search-result.component';
 import { CreativeBrandCampaignSearchResultComponent } from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
-import { CreativeBrandProjectSearchResultComponent } from './creative-brand-project-search-result/creative-brand-project-search-result.component';
+import { CreativeBrandProjectSearchResultComponent, CreativeBrandProjectRowRenderComponent } from './creative-brand-project-search-result/creative-brand-project-search-result.component';
 import { CreativeDocumentAssetSearchResultComponent, CreativeDocumentAssetRowRenderComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
 import { CreativeMyBrandAssetSearchResultComponent, CreativeBrandRowRenderComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
@@ -48,6 +48,7 @@ const COMPONENTS = [
   CreativeUsageRightsSearchResultComponent,
   CreativeBrandCampaignSearchResultComponent,
   CreativeBrandProjectSearchResultComponent,
+  CreativeBrandProjectRowRenderComponent,
   CreativeDocumentAssetSearchResultComponent,
   CreativeMyAgencyAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
@@ -83,6 +84,7 @@ const COMPONENTS = [
     InfiniteScrollModule,
   ],
   entryComponents: [
+    CreativeBrandProjectRowRenderComponent,
     CreativeDocumentAssetRowRenderComponent,
     CreativeBrandRowRenderComponent,
     CreativePopularBrandRowRenderComponent,

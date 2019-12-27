@@ -1,10 +1,36 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { ActivatedRoute } from '@angular/router';
+import { PreviewDialogService } from '@pages/shared/preview-dialog';
+
+@Component({
+  template: `
+        <a (click)="open(dialog, document)"> {{ document.title }} </a>
+        <ng-template #dialog>
+          <preview-dialog>
+              <disruption-asset-preview-dialog-body [editButton]='true' (callBack)="openEdit($event)"></disruption-asset-preview-dialog-body>
+          </preview-dialog>
+        </ng-template>
+  `,
+})
+export class CreativeBrandProjectRowRenderComponent {
+  constructor(
+    private dialogService: PreviewDialogService,
+  ) {
+  }
+  document: DocumentModel;
+  @Input()
+  set value(value: any) {
+    this.document = value;
+  }
+  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
+    this.dialogService.open(dialog, doc, { title: 'Brand Projects' });
+  }
+}
 
 @Component({
   selector: 'creative-brand-project-search-result',
@@ -22,9 +48,7 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
   }
 
   @Input() layout: string;
-
   @Input() resultHeader: string;
-
   @Input() hideEmpty: boolean = false;
 
   parentId: string = this.activatedRoute.snapshot.params.id;
@@ -36,6 +60,8 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
       title: {
         title: 'Title',
         sort: false,
+        type: 'custom',
+        renderComponent: CreativeBrandProjectRowRenderComponent,
       },
       live_date: {
         title: 'Live Date',
@@ -53,7 +79,7 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: doc.title,
+        title: doc,
         live_date: this.datepipe.transform(doc.get('The_Loupe_Rights:first-airing'), 'dd/MM/yyyy'),
         job_number: doc.get('The_Loupe_Main:jobnumber'),
       }));
@@ -62,10 +88,11 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
   }
 
   constructor(
+    private dialogService: PreviewDialogService,
     protected queryParamsService: SearchQueryParamsService,
     protected activatedRoute: ActivatedRoute,
     protected datepipe: DatePipe,
-    ) {
+  ) {
     super(queryParamsService);
   }
 

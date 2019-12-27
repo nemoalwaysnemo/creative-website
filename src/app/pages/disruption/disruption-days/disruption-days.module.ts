@@ -5,7 +5,7 @@ import { DisruptionDaysComponent } from './disruption-days.component';
 import { DisruptionFormDialogComponent } from './disruption-form-body/disruption-form-dialog.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule } from '@pages/shared';
 import { DisruptionFormDayModule } from '@pages/shared/disruption-form-day/disruption-form-day.module';
-
+import { DisruptionFormButtonModule } from '../disruption-form-button/disruption-form-button.module';
 @NgModule({
   imports: [
     ThemeModule,
@@ -13,6 +13,7 @@ import { DisruptionFormDayModule } from '@pages/shared/disruption-form-day/disru
     DisruptionFormDayModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    DisruptionFormButtonModule,
   ],
   declarations: [
     DisruptionDaysComponent,
