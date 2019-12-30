@@ -29,6 +29,9 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
       if (opt.type === 'delete') {
         this.deleteModel(opt.id);
       }
+      if (opt.type === 'hide') {
+        this.hideModel(opt.id);
+      }
     });
   }
 
@@ -71,6 +74,20 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
       if (index > -1) {
         this.formService.removeFormGroupControl(index, this.formGroup, models);
       }
+    });
+  }
+
+  hideModel(id: string): void {
+    this.hideSwich(id, true);
+  }
+
+  private hideSwich(id: string, type: boolean): void {
+    [this.layoutLeft, this.layoutRight, this.layoutBottom].forEach(models => {
+      models.forEach(model => {
+        if (model.id === id) {
+          model.hidden = type;
+        }
+      });
     });
   }
 
