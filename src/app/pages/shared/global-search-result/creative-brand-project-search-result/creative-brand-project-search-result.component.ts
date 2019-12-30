@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
@@ -12,7 +12,7 @@ import { PreviewDialogService } from '@pages/shared/preview-dialog';
         <a (click)="open(dialog, document)"> {{ document.title }} </a>
         <ng-template #dialog>
           <preview-dialog>
-              <disruption-asset-preview-dialog-body [editButton]='true' (callBack)="openEdit($event)"></disruption-asset-preview-dialog-body>
+              <creative-brand-project-list-preview [document]='document'></creative-brand-project-list-preview>
           </preview-dialog>
         </ng-template>
   `,
