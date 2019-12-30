@@ -54,8 +54,10 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         operationName: 'javascript.provideAssetType_Audio',
         placeholder: 'Please select asset type',
         required: true,
+        document: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
+        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
