@@ -16,6 +16,10 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
     super(nuxeoApi);
   }
 
+  protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc.uid, this.getDocType());
+  }
+
   protected getAccordionSettings(): {} {
     return {
       '+ Agency Credits': [],

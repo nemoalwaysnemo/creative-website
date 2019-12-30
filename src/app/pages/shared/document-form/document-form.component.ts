@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angu
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
-import { Observable, forkJoin, Subject } from 'rxjs';
+import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services';
 
 @Component({
@@ -34,6 +34,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private documentModel: DocumentModel;
 
+  protected subscription: Subscription = new Subscription();
+
+  private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
   private fileMultiUpload: boolean;
 
   @Input() placeholder: string;
@@ -44,18 +48,14 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() loading: boolean = false;
 
+  @Input() settings: DynamicFormControlModel[] = [];
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
-      this.documentModel = this.checkfiles(doc);
+      doc = this.checkfiles(doc);
       this.formMode = doc.uid ? 'edit' : 'create';
-    }
-  }
-
-  @Input()
-  set settings(settings: any[]) {
-    if (settings) {
-      this.prepareForm(settings);
+      this.document$.next(doc);
     }
   }
 
@@ -69,26 +69,27 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
-
+    this.onDocumentChanged();
   }
 
   ngOnInit(): void {
+
   }
 
   ngOnDestroy(): void {
-
+    this.subscription.unsubscribe();
   }
 
   onBlur(event: any): void {
-    console.log(`BLUR event on ${event.model.id}: `, event);
+    // console.log(`BLUR event on ${event.model.id}: `, event);
   }
 
   onChange(event: any): void {
-    console.log(`CHANGE event on ${event.model.id}: `, event);
+    // console.log(`CHANGE event on ${event.model.id}: `, event);
   }
 
   onFocus(event: any): void {
-    console.log(`FOCUS event on ${event.model.id}: `, event);
+    // console.log(`FOCUS event on ${event.model.id}: `, event);
   }
 
   onCustomEvent(event: any): void {
@@ -159,17 +160,26 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.formGroup = this.createFormGroup(this.formModel);
   }
 
-  private prepareForm(settings: DynamicFormControlModel[]) {
-    const models = this.performSettings(settings);
-    if (this.documentModel) {
+  private prepareForm(doc: DocumentModel, settings: DynamicFormControlModel[]) {
+    if (doc) {
+      const models = this.performSettings(settings);
       models.forEach((model: DynamicFormControlModel) => {
-        const modelValue = this.documentModel.get(model.id);
-        if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, this.documentModel); }
-        if (model.document) { model.document = this.documentModel; }
+        const modelValue = doc.get(model.id);
+        if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc); }
+        if (model.document) { model.document = doc; }
         model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
       });
       this.createForm(models);
     }
+  }
+
+  private onDocumentChanged(): void {
+    const subscription = this.document$.pipe(
+    ).subscribe((doc: DocumentModel) => {
+      this.documentModel = doc;
+      this.prepareForm(doc, this.settings);
+    });
+    this.subscription.add(subscription);
   }
 
   private save(): void {

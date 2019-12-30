@@ -16,6 +16,10 @@ export class CreativeUsageRightsStockComponent extends AbstractDocumentFormCompo
     super(nuxeoApi);
   }
 
+  protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc.uid, this.getDocType());
+  }
+
   protected getSettings(): object[] {
     return [
       new DynamicInputModel({
