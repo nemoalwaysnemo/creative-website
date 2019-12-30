@@ -1,8 +1,8 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, forwardRef, Input, EventEmitter, Output } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'option-tag',
@@ -15,16 +15,20 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
   }],
 })
 export class OptionTagComponent implements ControlValueAccessor {
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  disabled = true;
+
+  visible: boolean = true;
+
+  selectable: boolean = true;
+
+  addOnBlur: boolean = true;
+
+  disabled: boolean = false;
+
+  tags: string[] = [];
 
   @Input() placeholder: string;
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  tags: string[] = [];
 
   private _onChange = (_) => { };
 
@@ -56,10 +60,11 @@ export class OptionTagComponent implements ControlValueAccessor {
   }
 
   remove(item: string): void {
-    const index = this.tags.indexOf(item);
-
-    if (index >= 0) {
-      this.tags.splice(index, 1);
+    if (!this.disabled) {
+      const index = this.tags.indexOf(item);
+      if (index >= 0) {
+        this.tags.splice(index, 1);
+      }
     }
   }
 
@@ -74,4 +79,9 @@ export class OptionTagComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this._onTouched = fn;
   }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
 }

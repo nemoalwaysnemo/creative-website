@@ -1,10 +1,9 @@
 import { Component, Input, forwardRef, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OptionModel } from '../option-select/option-select.interface';
-import { NuxeoAutomations, NuxeoApiService, NuxeoResponse, NuxeoPagination, DocumentModel, DirectoryEntry } from '@core/api';
+import { NuxeoAutomations, NuxeoApiService, NuxeoPagination, DocumentModel, DirectoryEntry } from '@core/api';
 import { Subscription, Observable, of as observableOf, Subject, BehaviorSubject } from 'rxjs';
-import { tap, takeWhile, debounceTime, distinctUntilChanged, switchMap, share, map, filter } from 'rxjs/operators';
-import { ThemeSwitcherComponent } from '@theme/components';
+import { tap, debounceTime, distinctUntilChanged, switchMap, share, map, filter, concatMap } from 'rxjs/operators';
 
 class Suggestion {
   readonly displayLabel: string = '';
@@ -49,8 +48,6 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() placeholder: string;
 
-  @Input() directoryName: string;
-
   @Input() searchUserGroup: boolean = false;
 
   @Input() contains: boolean = true;
@@ -59,11 +56,17 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() initSearch: boolean = true;
 
-  @Input() providerName: string;
+  @Input() directoryName: string; // vocabulary
 
-  @Input() contentViewProvider: string;
+  @Input() providerName: string; // document page-provider
+
+  @Input() operationName: string; // operation
+
+  @Input() contentViewProvider: string; // content view page-provider
 
   @Input() multiple: boolean;
+
+  @Input() afterSearch: Function = (options: OptionModel[]): Observable<OptionModel[]> => observableOf(options);
 
   private stack: string[] = [];
 
@@ -86,7 +89,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   ngOnInit() {
     if (this.suggestion === true) {
-      this.onSearchSuggestions();
+      this.onSearchTriggered();
       if (this.initSearch) {
         this.filter$.next('');
       }
@@ -143,13 +146,15 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     return res;
   }
 
-  private onSearchSuggestions(): void {
+  private onSearchTriggered(): void {
     const subscription = this.filter$.pipe(
       filter((searchTerm: string) => searchTerm !== null),
       debounceTime(300),
+      filter(_ => !this.disabled),
       distinctUntilChanged(),
       tap(() => this.loading$.next(true)),
       switchMap((searchTerm: string) => this.getSuggestions(searchTerm, this.document, this.pageSize)),
+      concatMap((options: OptionModel[]) => this.afterSearch(options)),
       share(),
     ).subscribe((res: OptionModel[]) => {
       this.options$.next(res);
@@ -185,11 +190,17 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   private getContentViewDocumentSuggestions(providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
     return this.getDocumentModels(NuxeoAutomations.ContentViewPageProvider, providerName, searchTerm, input, pageSize);
   }
+
   private getDirectoryEntries(directoryName: string): void {
-    this.loading$.next(true);
-    const subscription = this.nuxeoApi.directory(directoryName).pipe(map((res: DirectoryEntry[]) => res.map((entry: DirectoryEntry) => new OptionModel({ label: entry.label, value: entry.id }))))
-      .subscribe((res: OptionModel[]) => {
-        this.options$.next(res);
+    const subscription = this.nuxeoApi.directory(directoryName)
+      .pipe(
+        filter(_ => !this.disabled),
+        tap(_ => this.loading$.next(true)),
+        map((res: DirectoryEntry[]) => res.map((entry: DirectoryEntry) => new OptionModel({ label: entry.label, value: entry.id }))),
+        concatMap((options: OptionModel[]) => this.afterSearch(options)),
+      )
+      .subscribe((options: OptionModel[]) => {
+        this.options$.next(options);
         this.loading$.next(false);
       });
     this.subscription.add(subscription);

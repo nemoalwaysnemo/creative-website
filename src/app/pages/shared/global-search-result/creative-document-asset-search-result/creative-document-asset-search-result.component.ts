@@ -73,7 +73,7 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]) => {
+  listViewBuilder: Function = (docs: DocumentModel[]): any => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({

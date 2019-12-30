@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
+import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'creative-asset-image-form',
@@ -43,6 +43,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         label: 'Brand',
         placeholder: 'Brand',
         required: true,
+        disabled: true,
         validators: {
           required: null,
         },
@@ -96,6 +97,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         directoryName: 'GLOBAL_Agencies',
         placeholder: 'Please select agency',
         required: true,
+        disabled: true,
         validators: {
           required: null,
         },
@@ -109,6 +111,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Please select country',
         required: true,
+        disabled: true,
         validators: {
           required: null,
         },

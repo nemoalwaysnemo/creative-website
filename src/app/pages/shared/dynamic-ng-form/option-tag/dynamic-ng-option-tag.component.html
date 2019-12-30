@@ -3,6 +3,7 @@
     [formControlName]="model.id"
     [id]="elementId"
     [placeholder]="model.placeholder"
+    [attr.disabled]="model.disabled"
     [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
     (blur)="onBlur($event)"
     (change)="onChange($event)"

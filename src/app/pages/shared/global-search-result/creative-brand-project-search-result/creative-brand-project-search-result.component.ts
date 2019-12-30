@@ -74,7 +74,7 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]) => {
+  listViewBuilder: Function = (docs: DocumentModel[]): any => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
