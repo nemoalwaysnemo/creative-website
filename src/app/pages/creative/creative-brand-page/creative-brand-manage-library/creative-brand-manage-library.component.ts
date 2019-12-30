@@ -22,7 +22,7 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     private toastrService: NbToastrService,
-    ) {
+  ) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -63,12 +63,8 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
         directoryName: 'App-Library-Folder-Types',
         placeholder: 'Folder Type',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:description',

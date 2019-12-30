@@ -42,23 +42,15 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         providerName: 'App-Library-PageProvider-Campaigns',
         placeholder: 'select a value',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:jobnumber',
         label: 'Job Number',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',

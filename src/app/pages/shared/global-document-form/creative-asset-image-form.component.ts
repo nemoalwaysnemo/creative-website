@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
+import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'creative-asset-image-form',
@@ -44,12 +45,17 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         placeholder: 'Brand',
         required: true,
         disabled: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        operationName: 'javascript.provideAssetType_Audio',
+        placeholder: 'Please select asset type',
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
@@ -57,12 +63,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         directoryName: 'GLOBAL_Industries',
         placeholder: 'Please select industry',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -70,12 +72,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         placeholder: 'Workshop Date',
         readonly: true,
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
@@ -83,12 +81,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Please select country',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -98,12 +92,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         placeholder: 'Please select agency',
         required: true,
         disabled: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
@@ -112,12 +102,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         placeholder: 'Please select country',
         required: true,
         disabled: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
@@ -125,12 +111,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         directoryName: 'App-Backslash-Categories',
         placeholder: 'Please select category',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
@@ -138,12 +120,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         directoryName: 'App-Edges-Edges',
         placeholder: 'Please select edges',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:description',
@@ -151,12 +129,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         formMode: 'edit',
         placeholder: 'description',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'dc:creator',
@@ -164,12 +138,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         formMode: 'edit',
         placeholder: 'Author',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

@@ -1,7 +1,7 @@
 import { Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { of as observableOf, Observable, Subscription, Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 export interface DocumentModelForm {
   mode: string;
@@ -68,7 +68,10 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   }
 
   protected initializeDocument(uuid: string, docType: string): Observable<DocumentModel> {
-    return this.nuxeoApi.operation(NuxeoAutomations.InitializeDocument, { type: docType }, uuid, { schemas: '*' });
+    return this.nuxeoApi.operation(NuxeoAutomations.InitializeDocument, { type: docType }, uuid, { schemas: '*' })
+      .pipe(
+        tap((doc: DocumentModel) => doc.parentRef = uuid),
+      );
   }
 
   protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {

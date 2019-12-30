@@ -68,6 +68,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() afterSearch: Function = (options: OptionModel[]): Observable<OptionModel[]> => observableOf(options);
 
+  @Input() onResponsed: Function = (res: any): any => res;
+
   private stack: string[] = [];
 
   private suggestions = [];
@@ -131,11 +133,13 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private getSuggestions(searchTerm: string, doc?: DocumentModel, pageSize: number = 20): Observable<OptionModel[]> {
     let res: Observable<OptionModel[]>;
-    const uuid = doc ? doc.uid : null;
+    const parentRef = doc ? doc.parentRef : null;
     if (this.providerName) {
-      res = this.getDocumentSuggestions(this.providerName, searchTerm, uuid, pageSize);
-    } else if (this.contentViewProvider) {
-      res = this.getContentViewDocumentSuggestions(this.contentViewProvider, searchTerm, uuid, pageSize);
+      res = this.getDocumentSuggestions(this.providerName, searchTerm, null, pageSize);
+    } else if (this.operationName) { // search parent's properties
+      res = this.getOperationSuggestions(this.operationName, searchTerm, parentRef);
+    } else if (this.contentViewProvider) { // search parent's properties
+      res = this.getContentViewDocumentSuggestions(this.contentViewProvider, searchTerm, parentRef, pageSize);
     } else if (this.directoryName) {
       res = this.getDirectorySuggestions(this.directoryName, searchTerm, this.contains);
     } else if (this.searchUserGroup) {
@@ -189,6 +193,10 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private getContentViewDocumentSuggestions(providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
     return this.getDocumentModels(NuxeoAutomations.ContentViewPageProvider, providerName, searchTerm, input, pageSize);
+  }
+
+  private getOperationSuggestions(operationName: string, searchTerm: string, input: string): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(operationName, { docId: input, searchTerm }, input).pipe(map((res: any) => this.onResponsed.call(this, res)));
   }
 
   private getDirectoryEntries(directoryName: string): void {

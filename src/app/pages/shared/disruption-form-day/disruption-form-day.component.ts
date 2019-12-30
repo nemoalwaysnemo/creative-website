@@ -32,12 +32,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         label: 'Brand',
         placeholder: 'Brand',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
@@ -45,12 +41,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         directoryName: 'GLOBAL_Industries',
         placeholder: 'Please select industry',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -58,12 +50,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         placeholder: 'Workshop Date',
         readonly: true,
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
@@ -71,12 +59,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Please select country',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -85,12 +69,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         directoryName: 'GLOBAL_Agencies',
         placeholder: 'Please select agency',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
@@ -98,12 +78,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Please select country',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
@@ -111,12 +87,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         directoryName: 'App-Backslash-Categories',
         placeholder: 'Please select category',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
@@ -124,12 +96,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         directoryName: 'App-Edges-Edges',
         placeholder: 'Please select edges',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:description',
@@ -137,12 +105,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         formMode: 'edit',
         placeholder: 'description',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'dc:creator',
@@ -150,12 +114,8 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         formMode: 'edit',
         placeholder: 'Author',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
