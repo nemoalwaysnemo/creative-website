@@ -46,7 +46,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() accordions: any;
 
-  @Input() loading: boolean = false;
+  @Input() loading: boolean = true;
 
   @Input() settings: DynamicFormControlModel[] = [];
 
@@ -176,6 +176,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private onDocumentChanged(): void {
     const subscription = this.document$.pipe(
     ).subscribe((doc: DocumentModel) => {
+      this.loading = false;
       this.documentModel = doc;
       this.prepareForm(doc, this.settings);
     });
