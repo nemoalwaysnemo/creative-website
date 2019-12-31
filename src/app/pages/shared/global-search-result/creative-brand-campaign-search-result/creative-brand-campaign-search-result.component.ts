@@ -45,7 +45,7 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: doc,
+        title: doc.title,
         edges: doc.get('app_Edges:Tags_edges').join(', '),
       }));
     }
