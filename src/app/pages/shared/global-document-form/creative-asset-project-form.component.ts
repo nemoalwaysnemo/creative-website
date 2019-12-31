@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'creative-project-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [loading]="loading" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)" (onCanceled)="canceled($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)" (onCanceled)="canceled($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends AbstractDocumentFormComponent {
 

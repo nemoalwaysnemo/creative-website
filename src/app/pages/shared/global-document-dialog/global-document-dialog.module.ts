@@ -4,7 +4,6 @@ import { ThemeModule } from '@theme/theme.module';
 import { NbDialogModule } from '@core/nebular/theme';
 import { GlobalDocumentDialogService } from './global-document-dialog.service';
 import { DocumentFormDialogComponent } from './document-form-dialog/document-form-dialog.component';
-import { GLOBAL_DOCUMENT_FORMS } from '../global-document-form';
 
 const COMPONENTS = [
   DocumentFormDialogComponent,
@@ -21,9 +20,6 @@ const COMPONENTS = [
   ],
   exports: [
     ...COMPONENTS,
-  ],
-  entryComponents: [
-    ...GLOBAL_DOCUMENT_FORMS(),
   ],
 })
 export class GlobalDocumentDialogModule {

@@ -1,35 +1,8 @@
-import { Component, Input, TemplateRef} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
-import { ActivatedRoute } from '@angular/router';
-import { PreviewDialogService } from '@pages/shared/preview-dialog';
-
-@Component({
-  template: `
-        <a (click)="open(dialog, document)"> {{ document.title }} </a>
-        <ng-template #dialog>
-          <preview-dialog>
-              <creative-brand-campaign-list-preview [document]='document'></creative-brand-campaign-list-preview>
-          </preview-dialog>
-        </ng-template>
-  `,
-})
-export class CreativeBrandCampaignRowRenderComponent {
-  constructor(
-    private dialogService: PreviewDialogService,
-  ) {
-  }
-  document: DocumentModel;
-  @Input()
-  set value(value: any) {
-    this.document = value;
-  }
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, { title: 'Brand Projects' });
-  }
-}
 
 @Component({
   selector: 'creative-brand-campaign-search-result',
@@ -52,8 +25,6 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
 
   @Input() hideEmpty: boolean = false;
 
-  parentId: string = this.activatedRoute.snapshot.params.id;
-
   listViewSettings: any;
 
   private defaultSettings: any = {
@@ -61,8 +32,6 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
       title: {
         title: 'Title',
         sort: false,
-        type: 'custom',
-        renderComponent: CreativeBrandCampaignRowRenderComponent,
       },
       edges: {
         title: 'Edges',
@@ -83,10 +52,7 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
     return items;
   }
 
-  constructor(
-    protected queryParamsService: SearchQueryParamsService,
-    protected activatedRoute: ActivatedRoute,
-    ) {
+  constructor(protected queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);
   }
 

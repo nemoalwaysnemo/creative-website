@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { OptionModel } from '../option-select/option-select.interface';

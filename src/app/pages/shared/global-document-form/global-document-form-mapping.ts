@@ -12,6 +12,7 @@ import { DisruptionDayFolderFormComponent } from './disruption-day-folder-form.c
 import { DisruptionBrilliantThinkingFormComponent } from './disruption-brilliant-thinking-form.compoent';
 import { DisruptionDayAssetFormComponent } from './disruption-day-asset-form-component';
 import { DisruptionHowTosAssetFormComponent } from './disruption-how-tos-asset-form.compoent';
+
 export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_ASSET_IMAGE_FORM: CreativeAssetImageFormComponent,
   CREATIVE_ASSET_VIDEO_FORM: CreativeAssetVideoFormComponent,
@@ -28,7 +29,3 @@ export const GLOBAL_DOCUMENT_FORM = {
   DISRUPTION_DAY_ASSET_FORM: DisruptionDayAssetFormComponent,
   DISRUPTION_HOW_TOS_ASSET_FORM: DisruptionHowTosAssetFormComponent,
 };
-
-export function GLOBAL_DOCUMENT_FORMS(): any[] {
-  return Object.values(GLOBAL_DOCUMENT_FORM);
-}

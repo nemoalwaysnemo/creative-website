@@ -1,36 +1,9 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
-import { ActivatedRoute } from '@angular/router';
-import { PreviewDialogService } from '@pages/shared/preview-dialog';
-
-@Component({
-  template: `
-        <a (click)="open(dialog, document)"> {{ document.title }} </a>
-        <ng-template #dialog>
-          <preview-dialog>
-              <creative-brand-project-list-preview [document]='document'></creative-brand-project-list-preview>
-          </preview-dialog>
-        </ng-template>
-  `,
-})
-export class CreativeBrandProjectRowRenderComponent {
-  constructor(
-    private dialogService: PreviewDialogService,
-  ) {
-  }
-  document: DocumentModel;
-  @Input()
-  set value(value: any) {
-    this.document = value;
-  }
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, { title: 'Brand Projects' });
-  }
-}
 
 @Component({
   selector: 'creative-brand-project-search-result',
@@ -48,10 +21,10 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
   }
 
   @Input() layout: string;
-  @Input() resultHeader: string;
-  @Input() hideEmpty: boolean = false;
 
-  parentId: string = this.activatedRoute.snapshot.params.id;
+  @Input() resultHeader: string;
+
+  @Input() hideEmpty: boolean = false;
 
   listViewSettings: any;
 
@@ -60,8 +33,6 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
       title: {
         title: 'Title',
         sort: false,
-        type: 'custom',
-        renderComponent: CreativeBrandProjectRowRenderComponent,
       },
       live_date: {
         title: 'Live Date',
@@ -80,19 +51,14 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc,
-        live_date: this.datepipe.transform(doc.get('The_Loupe_Rights:first-airing'), 'dd/MM/yyyy'),
+        live_date: doc.get('The_Loupe_Rights:first-airing') ? new DatePipe('en-US').transform(doc.get('The_Loupe_Rights:first-airing'), 'yyyy-MM-dd') : null,
         job_number: doc.get('The_Loupe_Main:jobnumber'),
       }));
     }
     return items;
   }
 
-  constructor(
-    private dialogService: PreviewDialogService,
-    protected queryParamsService: SearchQueryParamsService,
-    protected activatedRoute: ActivatedRoute,
-    protected datepipe: DatePipe,
-  ) {
+  constructor(protected queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);
   }
 

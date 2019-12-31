@@ -12,15 +12,13 @@ import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document
 import { CreativeMyBrandSearchResultComponent } from './creative-my-brand-search-result/creative-my-brand-search-result.component';
 import { CreativePopularBrandSearchResultComponent, CreativePopularBrandRowRenderComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
 import { CreativeUsageRightsSearchResultComponent } from './creative-usage-rights-search-result/creative-usage-rights-search-result.component';
-import { CreativeBrandCampaignSearchResultComponent, CreativeBrandCampaignRowRenderComponent} from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
-import { CreativeBrandProjectSearchResultComponent, CreativeBrandProjectRowRenderComponent } from './creative-brand-project-search-result/creative-brand-project-search-result.component';
+import { CreativeBrandCampaignSearchResultComponent} from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
+import { CreativeBrandProjectSearchResultComponent } from './creative-brand-project-search-result/creative-brand-project-search-result.component';
 import { CreativeDocumentAssetSearchResultComponent, CreativeDocumentAssetRowRenderComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
 import { CreativeMyBrandAssetSearchResultComponent, CreativeBrandRowRenderComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
 import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
 import { DisruptionRoadmapEditDialogComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmap-edit-form-body/disruption-roadmap-edit-dialog-body.component';
-import { CreativeBrandCampaignListPreviewComponent } from './creative-brand-campaign-search-result/creative-brand-campaign-list-preview/creative-brand-campaign-list-preview.component';
-import { CreativeBrandProjectListPreviewComponent } from './creative-brand-project-search-result/creative-brand-project-list-preview/creative-brand-project-list-preview.component';
 import { DisruptionThinkingEditDialogComponent } from './disruption-thinking-asset-search-result/disruption-thinking-edit-form-body/disruption-thinking-edit-dialog-body.component';
 import { DisruptionDaysAssetSearchResultComponent } from './disruption-days-asset-search-result/disruption-days-asset-search-result.component';
 import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-asset-search-result/disruption-theory-asset-search-result.component';
@@ -50,8 +48,6 @@ const COMPONENTS = [
   CreativeUsageRightsSearchResultComponent,
   CreativeBrandCampaignSearchResultComponent,
   CreativeBrandProjectSearchResultComponent,
-  CreativeBrandCampaignRowRenderComponent,
-  CreativeBrandProjectRowRenderComponent,
   CreativeDocumentAssetSearchResultComponent,
   CreativeMyAgencyAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
@@ -59,8 +55,6 @@ const COMPONENTS = [
   DisruptionThinkingAssetSearchResultComponent,
   DisruptionRoadmapsAssetSearchResultComponent,
   DisruptionRoadmapEditDialogComponent,
-  CreativeBrandCampaignListPreviewComponent,
-  CreativeBrandProjectListPreviewComponent,
   DisruptionThinkingEditDialogComponent,
   DisruptionFolderDayAssetSearchResultComponent,
   DisruptionFolderTheoryAssetSearchResultComponent,
@@ -89,8 +83,6 @@ const COMPONENTS = [
     InfiniteScrollModule,
   ],
   entryComponents: [
-    CreativeBrandCampaignRowRenderComponent,
-    CreativeBrandProjectRowRenderComponent,
     CreativeDocumentAssetRowRenderComponent,
     CreativeBrandRowRenderComponent,
     CreativePopularBrandRowRenderComponent,
