@@ -1,10 +1,16 @@
-import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
+import { BackslashPageComponent } from './backslash/backslash-page.component';
+
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
+    {
+      path: 'backslash',
+      component: BackslashPageComponent,
+    },
     {
       path: 'creative',
       loadChildren: () => import('./creative/creative-page.module').then(m => m.CreativePageModule),
