@@ -77,14 +77,13 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
         operationName: 'javascript.provideAssetType_Image',
-        placeholder: 'Please select asset type',
+        placeholder: 'What is this asset?',
         multiple: false,
         document: true,
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        hiddenFn: (doc: DocumentModel): boolean => (doc.type !== 'App-Library-Image'),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicDatepickerDirectiveModel<string>({
@@ -100,6 +99,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         },
         hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
       }),
+      // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Media Usage Types',
@@ -172,7 +172,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicCheckboxModel({
         id: 'app_global:networkshare',
         label: 'Share with TBWA\\Collective',
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:networkshare'),
+        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:networkshare'),
       }),
       // #{currentDocument.getPropertyValue('app_global:collections')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
@@ -203,6 +203,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       // Agency Credits
+      // all items  #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
       new DynamicInputModel({
         id: 'The_Loupe_Credits:accountDirector',
         label: 'Account Director',
@@ -276,6 +277,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         accordionTab: '+ Agency Credits',
       }),
       // backslash
+      // all items #{currentDocument.getPropertyValue('app_global:backslash')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Category',
@@ -284,7 +286,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         required: false,
         accordionTab: '+ Backslash',
       }),
-      new DynamicOptionTagModel({
+      new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
         directoryName: 'App-Edges-Edges',
@@ -293,6 +295,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         accordionTab: '+ Backslash',
       }),
       // Usage Rights
+      // all items #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       // #{currentDocument.getPropertyValue('app_global:UsageRights_globalref')=="0" ? 'hidden' : 'edit'}
       new DynamicCheckboxModel({
         id: 'app_global:UsageRights_globalref',

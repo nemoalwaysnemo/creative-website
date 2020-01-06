@@ -72,19 +72,18 @@ export class CreativeAssetVideoFormComponent extends AbstractDocumentFormCompone
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
-      // #{changeableDocument.type == 'App-Library-Image' ? 'edit' : 'hidden'}
+      // #{changeableDocument.type == 'App-Library-Video' ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
-        operationName: 'javascript.provideAssetType_Image',
-        placeholder: 'Please select asset type',
+        operationName: 'javascript.provideAssetType_Video',
+        placeholder: 'What is this asset?',
         multiple: false,
         document: true,
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        hiddenFn: (doc: DocumentModel): boolean => (doc.type !== 'App-Library-Image'),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicDatepickerDirectiveModel<string>({
@@ -100,6 +99,7 @@ export class CreativeAssetVideoFormComponent extends AbstractDocumentFormCompone
         },
         hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
       }),
+      // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Media Usage Types',
@@ -131,7 +131,6 @@ export class CreativeAssetVideoFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Main:spotLength',
         label: 'Spot Length',
         maxLength: 50,
-        hiddenFn: (doc: DocumentModel): boolean => (doc.type !== 'App-Library-Video'),
       }),
       new DynamicInputModel({
         id: 'dc:description',
@@ -172,7 +171,7 @@ export class CreativeAssetVideoFormComponent extends AbstractDocumentFormCompone
       new DynamicCheckboxModel({
         id: 'app_global:networkshare',
         label: 'Share with TBWA\\Collective',
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:networkshare'),
+        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:networkshare'),
       }),
       // #{currentDocument.getPropertyValue('app_global:collections')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
@@ -284,7 +283,7 @@ export class CreativeAssetVideoFormComponent extends AbstractDocumentFormCompone
         required: false,
         accordionTab: '+ Backslash',
       }),
-      new DynamicOptionTagModel({
+      new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
         directoryName: 'App-Edges-Edges',
