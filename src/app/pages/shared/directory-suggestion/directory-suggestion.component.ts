@@ -197,7 +197,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   private getOperationSuggestions(operationName: string, searchTerm: string, input: string): Observable<OptionModel[]> {
-    return this.nuxeoApi.operation(operationName, { docId: input, searchTerm }, input, { schemas: '*' }).pipe(map((res: any) => this.onResponsed.call(this, res)));
+    return this.nuxeoApi.operation(operationName, { docId: input, searchTerm }, input).pipe(map((res: any) => this.onResponsed.call(this, res)));
   }
 
   private getDirectoryEntries(directoryName: string): void {
