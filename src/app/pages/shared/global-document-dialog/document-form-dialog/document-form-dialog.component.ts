@@ -11,9 +11,6 @@ import { SearchQueryParamsService } from '@pages/shared/services/search-query-pa
 })
 export class DocumentFormDialogComponent extends AbstractDocumentFormDialogComponent {
 
-  @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-  @Output() createdSuccess: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-
   constructor(
     protected dialogService: GlobalDocumentDialogService,
     protected componentFactoryResolver: ComponentFactoryResolver,

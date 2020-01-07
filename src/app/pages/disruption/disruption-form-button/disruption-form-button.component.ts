@@ -39,9 +39,6 @@ export class DisruptionFormButtonComponent {
     this.globalDocumentDialogService.open(dialog, this.document);
   }
 
-  onCreated(doc: DocumentModel): void {
-  }
-
   private getFormComponent(type: string): Type<DocumentModelForm> {
     let formComponent;
     switch (type) {

@@ -63,7 +63,4 @@ export class BrilliantThinkingComponent extends AbstractDocumentViewComponent im
     this.previewDialogService.open(dialog, this.document);
   }
 
-  onCreated(doc: DocumentModel): void {
-    this.refresh();
-  }
 }
