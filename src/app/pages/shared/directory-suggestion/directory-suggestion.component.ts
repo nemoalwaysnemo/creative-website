@@ -192,11 +192,12 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   private getContentViewDocumentSuggestions(providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
-    return this.getDocumentModels(NuxeoAutomations.ContentViewPageProvider, providerName, searchTerm, input, pageSize);
+    return this.nuxeoApi.operation(NuxeoAutomations.ContentViewPageProvider, { providerName, queryParams: searchTerm, pageSize }, input)
+      .pipe(map((res: NuxeoPagination) => res.entries.map((doc: DocumentModel) => new OptionModel({ label: doc.title, value: doc.uid }))));
   }
 
   private getOperationSuggestions(operationName: string, searchTerm: string, input: string): Observable<OptionModel[]> {
-    return this.nuxeoApi.operation(operationName, { docId: input, searchTerm }, input).pipe(map((res: any) => this.onResponsed.call(this, res)));
+    return this.nuxeoApi.operation(operationName, { docId: input, searchTerm }, input, { schemas: '*' }).pipe(map((res: any) => this.onResponsed.call(this, res)));
   }
 
   private getDirectoryEntries(directoryName: string): void {
