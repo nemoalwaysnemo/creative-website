@@ -3,8 +3,12 @@
     <div class="dialog_title">
       <h5><a (click)="close()"><img [src]="closeBtnImage()"></a>{{title}}</h5>
     </div>
+    <div *ngIf="onResponsed">
+      {{ response_words }}
+    </div>
     <div class="form">
-      <ng-template #dynamicTarget></ng-template>
+      <ng-template #dynamicTarget>
+      </ng-template>
     </div>
   </div>
 </div>

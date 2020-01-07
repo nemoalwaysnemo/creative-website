@@ -67,6 +67,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
   @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
   @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+  @Output() callback: EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel | {} }>
+    = new EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel }>();
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
     this.onDocumentChanged();
@@ -110,7 +112,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onCancel($event: any): void {
-    this.onCanceled.next(this.documentModel);
+    this.callback.emit({ action: 'cancel', message: '', doc: {} });
+    // this.onCanceled.next(this.documentModel);
   }
 
   private checkfiles(doc: DocumentModel): DocumentModel {
@@ -192,7 +195,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       documents = [this.documentModel];
     }
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
-      this.onCreated.next(models);
+      this.callback.next({ action: 'created', message: 'created successfully!', doc: models });
+      this.onCreated.next(models); // this can be delete after our dialog refactor all done
     });
   }
 
@@ -202,7 +206,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       properties = this.updateAttachedFiles(properties);
     }
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
-      this.onUpdated.next(model);
+      this.callback.next({ action: 'updated', message: 'updated successfully!', doc: model });
+      this.onUpdated.next(model); // this can be delete after our dialog refactor all done
     });
   }
 

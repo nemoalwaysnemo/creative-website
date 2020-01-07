@@ -5,7 +5,7 @@ import { NuxeoApiService, DocumentModel } from '@core/api';
 
 @Component({
   selector: 'disruption-brilliant-thinking-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="canceled($event)" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="canceled($event)" (onCreated)="created($event)" (onUpdated)="updated($event)" (callback)="callback($event)" ></document-form>`,
 })
 export class DisruptionBrilliantThinkingFormComponent extends AbstractDocumentFormComponent {
   protected documentType: string = 'App-Disruption-Asset';

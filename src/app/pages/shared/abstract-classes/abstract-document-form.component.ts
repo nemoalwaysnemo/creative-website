@@ -41,6 +41,9 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
+  @Output() onCallback: EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel | {} }>
+    = new EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel }>();
+
   protected subscription: Subscription = new Subscription();
 
   protected documentType: string;
@@ -102,6 +105,9 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.onCanceled.next(doc);
   }
 
+  public callback(callback): void {
+    this.onCallback.next(callback);
+  }
   protected onDocumentChanged(): void {
     const subscription = this.document$.pipe(
       switchMap((doc: DocumentModel) => this.beforeSetDocument(doc)),

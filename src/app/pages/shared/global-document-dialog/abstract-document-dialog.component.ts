@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { Environment } from '@environment/environment';
-
+import { SearchQueryParamsService } from '@pages/shared/services/search-query-params.service';
 export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestroy {
 
   @Input() document: DocumentModel;
@@ -11,10 +11,10 @@ export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestr
   @Input() title: string = 'Global Dialog';
 
   @Output() callBack: EventEmitter<{ type: string, value: any }> = new EventEmitter<{ type: string, value: any }>();
+  @Output() onCreated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   protected subscription: Subscription = new Subscription();
-
-  constructor(protected dialogService: GlobalDocumentDialogService) {
+  constructor(protected dialogService: GlobalDocumentDialogService, protected queryParamsService: SearchQueryParamsService) {
     this.onDocumentChanged();
     this.registerListeners();
   }
@@ -50,6 +50,10 @@ export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestr
     return this.assetPath('assets/images/preview_logo.png');
   }
 
+  public refresh(): void {
+    this.queryParamsService.refresh();
+  }
+
   protected onOpen(): void { }
 
   protected onClose(): void { }
@@ -72,5 +76,4 @@ export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestr
     this.dialogService.onOpen().subscribe(_ => { this.onOpen(); });
     this.dialogService.onClose().subscribe(_ => { this.onClose(); });
   }
-
 }

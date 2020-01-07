@@ -3,7 +3,8 @@ import { AbstractDocumentDialogComponent } from './abstract-document-dialog.comp
 import { GlobalDocumentDialogService } from './global-document-dialog.service';
 import { DocumentModelForm } from '../abstract-classes/abstract-document-form.component';
 import { DocumentModel } from '@core/api';
-
+import { timer } from 'rxjs';
+import { SearchQueryParamsService } from '@pages/shared/services/search-query-params.service';
 export abstract class AbstractDocumentFormDialogComponent extends AbstractDocumentDialogComponent implements DocumentModelForm {
 
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
@@ -14,13 +15,18 @@ export abstract class AbstractDocumentFormDialogComponent extends AbstractDocume
 
   @Input() component: Type<DocumentModelForm>;
 
+  onResponsed: boolean = false;
+
+  response_words: string;
+
   protected customComponent: ComponentRef<any>;
 
   constructor(
     protected dialogService: GlobalDocumentDialogService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected queryParamsService: SearchQueryParamsService,
   ) {
-    super(dialogService);
+    super(dialogService, queryParamsService);
   }
 
   protected onInit(): void {
@@ -46,12 +52,15 @@ export abstract class AbstractDocumentFormDialogComponent extends AbstractDocume
   }
 
   protected subscribeEventEmitters() {
-    this.customComponent.instance.onCanceled.subscribe(_ => {
-      this.close();
-    });
-    this.customComponent.instance.onCreated.subscribe(_ => {
-    });
-    this.customComponent.instance.onUpdated.subscribe(_ => {
+    this.customComponent.instance.onCallback.subscribe(res => {
+      if (res.action === 'cancel') {
+        this.close();
+      } else if (res.action === 'create' || 'update') {
+        this.onResponsed = true;
+        this.response_words = res.message;
+        timer(2000).subscribe(_ => this.close());
+        this.refresh();
+      }
     });
   }
 }
