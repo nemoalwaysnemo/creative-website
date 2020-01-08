@@ -9,6 +9,12 @@ export interface DocumentModelForm {
   document: DocumentModel;
 }
 
+export interface CallbackModel {
+  action: 'cancel' | 'created' | 'updated';
+  message: string;
+  doc: DocumentModel | {};
+}
+
 export abstract class AbstractDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
 
   document$: Subject<DocumentModel> = new Subject<DocumentModel>();
@@ -41,8 +47,7 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
-  @Output() onCallback: EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel | {} }>
-    = new EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel }>();
+  @Output() onCallback: EventEmitter<CallbackModel> = new EventEmitter<CallbackModel>();
 
   protected subscription: Subscription = new Subscription();
 
@@ -105,7 +110,7 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.onCanceled.next(doc);
   }
 
-  public callback(callback): void {
+  public callback(callback: CallbackModel): void {
     this.onCallback.next(callback);
   }
   protected onDocumentChanged(): void {

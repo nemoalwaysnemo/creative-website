@@ -3,9 +3,9 @@
     <div class="dialog_title">
       <h5><a (click)="close()"><img [src]="closeBtnImage()"></a>{{title}}</h5>
     </div>
-    <div *ngIf="onResponsed">
+    <nb-alert *ngIf="onResponsed" [status]="success">
       {{ response_words }}
-    </div>
+    </nb-alert>
     <div class="form">
       <ng-template #dynamicTarget>
       </ng-template>
