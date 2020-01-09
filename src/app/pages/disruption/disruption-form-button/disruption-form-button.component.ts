@@ -20,7 +20,7 @@ export class DisruptionFormButtonComponent {
   @Input() title: string;
 
   @Input()
-  set type(type: 'roadmap' | 'day' | 'day asset' | 'how tos asset' | 'brilliant thinking') {
+  set type(type: 'roadmap' | 'day' | 'day asset' | 'brilliant thinking') {
     this.component = this.getFormComponent(type);
   }
 
@@ -47,6 +47,9 @@ export class DisruptionFormButtonComponent {
         break;
       case 'day':
         formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM;
+        break;
+      case 'day asset':
+        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM;
         break;
       case 'brilliant thinking':
         formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM;
