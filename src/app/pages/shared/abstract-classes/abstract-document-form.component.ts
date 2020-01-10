@@ -128,8 +128,8 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.accordions = this.getAccordionSettings();
   }
 
-  protected getAccordionSettings(): {} {
-    return {};
+  protected getAccordionSettings(): any[] {
+    return [];
   }
 
   protected abstract getSettings(): any[];

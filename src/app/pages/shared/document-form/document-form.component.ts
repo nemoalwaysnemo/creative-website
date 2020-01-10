@@ -16,6 +16,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   formLayout: DynamicFormLayout;
 
+  accordionList: any[] = [];
+
   formGroup: FormGroup;
 
   submitted: boolean = false;
@@ -44,7 +46,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() dynamicModelIndex: number[] = [];
 
-  @Input() accordions: any;
+  @Input() accordions: any[] = [];
 
   @Input() loading: boolean = true;
 
@@ -150,6 +152,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return this.formService.createFormGroup(formModel);
   }
 
+  private performAccordions(doc: DocumentModel, accordions: any = []): void {
+    this.accordionList = (accordions || []).filter((item: any) => !item.visibleFn || item.visibleFn.call(this, doc));
+  }
+
   private performSettings(settings: DynamicFormControlModel[]): DynamicFormControlModel[] {
     const uploadModel = settings.find((v) => (v instanceof DynamicBatchUploadModel));
     this.uploadFieldName = uploadModel ? uploadModel.id : this.uploadFieldName;
@@ -165,6 +171,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private prepareForm(doc: DocumentModel, settings: DynamicFormControlModel[]) {
     if (doc) {
+      settings = settings.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn.call(this, doc));
       const models = this.performSettings(settings);
       models.forEach((model: DynamicFormControlModel) => {
         const modelValue = doc.get(model.id);
@@ -181,6 +188,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     ).subscribe((doc: DocumentModel) => {
       this.loading = false;
       this.documentModel = doc;
+      this.performAccordions(doc, this.accordions);
       this.prepareForm(doc, this.settings);
     });
     this.subscription.add(subscription);

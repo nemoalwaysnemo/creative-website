@@ -21,12 +21,21 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
     return this.initializeDocument(doc.uid, this.getDocType());
   }
 
-  protected getAccordionSettings(): {} {
-    return {
-      '+ Agency Credits': [],
-      '+ Backslash': [],
-      '+ Usage Rights': [],
-    };
+  protected getAccordionSettings(): any[] {
+    return [
+      {
+        name: '+ Agency Credits',
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+      },
+      {
+        name: '+ Backslash',
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+      },
+      {
+        name: '+ Usage Rights',
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+      },
+    ];
   }
 
   protected getSettings(): object[] {
@@ -107,8 +116,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         placeholder: 'where is this used?',
         required: true,
         document: true,
-        validators: {required: null},
-        errorMessages: {required: '{{label}} is required'},
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
       }),

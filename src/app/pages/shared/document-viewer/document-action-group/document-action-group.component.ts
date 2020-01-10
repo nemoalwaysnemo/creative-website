@@ -46,7 +46,7 @@ export class DocumentActionGroupComponent {
       doc.hasPermission(NuxeoPermission.ReadWrite),
       doc.hasPermission(NuxeoPermission.Everything),
       this.userService.getCurrentUserInfo().pipe(
-        concatMap((user: UserModel) => doc.getParentProperty('app_global:download_mainfile').pipe(
+        concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
           map((permission: boolean) => user.hasGroup(NuxeoUserGroups.Everyone) && permission === true),
         )),
       ), (one, two, three) => {

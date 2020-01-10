@@ -21,12 +21,21 @@ export class CreativeAssetAudioFormComponent extends AbstractDocumentFormCompone
     return this.initializeDocument(doc.uid, this.getDocType());
   }
 
-  protected getAccordionSettings(): {} {
-    return {
-      '+ Agency Credits': [],
-      '+ Backslash': [],
-      '+ Usage Rights': [],
-    };
+  protected getAccordionSettings(): any[] {
+    return [
+      {
+        name: '+ Agency Credits',
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+      },
+      {
+        name: '+ Backslash',
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+      },
+      {
+        name: '+ Usage Rights',
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+      },
+    ];
   }
 
   protected getSettings(): object[] {
