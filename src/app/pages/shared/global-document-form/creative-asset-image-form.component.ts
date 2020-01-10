@@ -24,16 +24,19 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
   protected getAccordionSettings(): any[] {
     return [
       {
+        // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
         name: '+ Agency Credits',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:campaign_mgt'),
       },
       {
+        // #{currentDocument.getPropertyValue('app_global:backslash')=="0" ? 'hidden' : 'edit'}
         name: '+ Backslash',
         visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
       },
       {
+        // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
         name: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
       },
     ];
   }
@@ -70,7 +73,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         errorMessages: {
           required: '{{label}} is required',
         },
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -92,13 +95,14 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
-        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
         label: 'Live date / publishing',
         readonly: true,
+        defaultValue: (new Date()),
         required: true,
         validators: {
           required: null,
@@ -106,7 +110,15 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         errorMessages: {
           required: '{{label}} is required',
         },
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+      }),
+      // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_Rights:first-airing',
+        label: 'Live date / publishing',
+        required: false,
+        readonly: true,
+        visibleFn: (doc: DocumentModel): boolean => !doc.get('app_global:UsageRights'),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
@@ -119,7 +131,18 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+      }),
+      // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Rights:contract_mediatypes',
+        label: 'Media Usage Types',
+        operationName: 'javascript.provideURmediatypes',
+        placeholder: 'where is this used?',
+        required: false,
+        document: true,
+        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        visibleFn: (doc: DocumentModel): boolean => !doc.get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',
@@ -133,14 +156,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         label: 'Region',
         operationName: 'javascript.provideRegions',
         placeholder: 'Regions this assets was produced for..',
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global_fields:enable_region'),
-      }),
-      // #{changeableDocument.type == 'App-Library-Video' ? 'edit' : 'hidden'}
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:spotLength',
-        label: 'Spot Length',
-        maxLength: 50,
-        hiddenFn: (doc: DocumentModel): boolean => (doc.type !== 'App-Library-Video'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_region'),
       }),
       new DynamicInputModel({
         id: 'dc:description',
@@ -150,44 +166,44 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicInputModel({
         id: 'The_Loupe_Main:jobnumber',
         label: 'Job Number',
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel): boolean => !doc.get('app_global:campaign_mgt'),
       }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_po_number_internal')=="0" ? 'hidden' : 'edit'}
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:po_number_internal',
         label: 'PO Internal',
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global_fields:enable_po_number_internal'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_po_number_internal'),
       }),
       // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'edit' : 'hidden'}
       new DynamicInputModel({
         id: 'The_Loupe_Main:campaign',
         label: 'Project / Campaign',
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel): boolean => !doc.get('app_global:campaign_mgt'),
       }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_productyear')=="0" ? 'hidden' : 'edit'}
       new DynamicInputModel({
         id: 'The_Loupe_Product_Info:productYear2',
         label: 'Product Year',
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global_fields:enable_productyear'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_productyear'),
       }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_productlist')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:productModel',
         label: 'Products',
         operationName: 'javascript.provideProducts',
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global_fields:enable_productlist'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_productlist'),
       }),
       // #{currentDocument.getPropertyValue('app_global:networkshare')=="0" ? 'hidden' : 'edit'}
       new DynamicCheckboxModel({
         id: 'app_global:networkshare',
         label: 'Share with TBWA\\Collective',
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:networkshare'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:networkshare'),
       }),
       // #{currentDocument.getPropertyValue('app_global:collections')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
         id: 'collectionMember:collectionIds',
         label: 'Collections',
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:collections'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:collections'),
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
@@ -310,7 +326,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         id: 'app_global:UsageRights_globalref',
         label: 'Global Contract Reference',
         accordionTab: '+ Usage Rights',
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:UsageRights_globalref'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights_globalref'),
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_talent_contract',
@@ -385,13 +401,16 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         layoutPosition: 'right',
       }),
       // #{currentDocument.getPropertyValue('app_global:brand_activation')=="0" ? 'edit' : 'hidden'}
-      new DynamicOptionTagModel({
+      new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         required: false,
         placeholder: 'Brand',
         layoutPosition: 'right',
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:brand_activation'),
+        document: true,
+        operationName: 'javascript.provideBrands',
+        visibleFn: (doc: DocumentModel): boolean => !doc.get('app_global:brand_activation'),
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
