@@ -18,6 +18,7 @@ const routes: Routes = [
 
 const config: ExtraOptions = {
   useHash: true,
+  enableTracing: false,
   anchorScrolling: 'enabled',
   onSameUrlNavigation: 'reload',
   scrollPositionRestoration: 'disabled',

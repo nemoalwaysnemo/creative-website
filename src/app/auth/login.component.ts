@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   private clearRequestedUrl(): void {
-    this.cookieService.delete('requestedUrl');
+    this.cookieService.delete('requestedUrl', '/');
   }
 
   private redirect(result: NbAuthResult): void {
