@@ -334,11 +334,12 @@ export class NuxeoUploadResponse {
 }
 
 export enum NuxeoAutomations {
-  CreativeGetDocumentURStatus = 'Creative.GetDocumentAllURStatus',
+  GetDocumentURStatus = 'Creative.GetDocumentAllURStatus',
   DirectorySuggestEntries = 'Directory.SuggestEntries',
   UserGroupSuggestion = 'UserGroup.Suggestion',
   RepositoryPageProvider = 'Repository.PageProvider',
   DirectoryEntries = 'Directory.Entries',
+  GetDocument = 'Creative.GetDocument',
   DocumentCreate = 'Document.Create',
   GetFavorite = 'Favorite.Fetch',
   AddFavorite = 'Document.AddToFavorites',
