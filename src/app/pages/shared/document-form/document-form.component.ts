@@ -278,9 +278,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   hideControls(): void {
     if (this.formMode === 'create') {
       const type = this.fileMultiUpload ? 'delete' : 'hide';
-      this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
-        this.modelOperation.next({ id: 'dc:title', type: type });
-      });
+      this.modelOperation.next({ id: 'dc:title', type: type });
     }
   }
 
