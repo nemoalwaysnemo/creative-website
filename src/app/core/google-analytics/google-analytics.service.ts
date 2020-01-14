@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ReplaySubject, Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, map, tap, concatMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, tap, concatMap, filter } from 'rxjs/operators';
 import { removeUselessObject, isDocumentUID } from '@core/services';
 import { NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { Environment } from '@environment/environment';
+import { NbAuthService } from '@core/base-auth';
 
 declare let dataLayer: any;
 
@@ -35,6 +36,7 @@ export class GoogleAnalyticsService {
     private router: Router,
     private titleService: Title,
     private nuxeoApi: NuxeoApiService,
+    private authService: NbAuthService,
     private activatedRoute: ActivatedRoute,
   ) {
     // The dataLayer needs to be initialized
@@ -47,11 +49,14 @@ export class GoogleAnalyticsService {
   }
 
   startTracking(): void {
-    this.getUserDigest().pipe(
-      concatMap(_ => this.event$),
-    ).subscribe((event: GtmEvent) => {
-      this.pushLayer(event);
-    });
+    this.authService.isAuthenticated()
+      .pipe(
+        filter(authenticated => authenticated),
+        concatMap(_ => this.getUserDigest()),
+        concatMap(_ => this.event$),
+      ).subscribe((event: GtmEvent) => {
+        this.pushLayer(event);
+      });
   }
 
   pageTrack(): void {
