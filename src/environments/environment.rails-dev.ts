@@ -4,9 +4,10 @@ export const Environment = {
   homePath: '/p/creative',
   appName: 'Creative Library',
   nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
-  backslashAppUrl: '/backslash',
+  backslashAppUrl: 'https://library-staging.factory.tools/nuxeo/edges',
   assetPath: 'LibraryWebUI/',
-  oauth2CallBackPath: 'http://localhost:3000/',
+  // oauth2CallBackPath: 'http://localhost:3000/',
+  oauth2CallBackPath: 'http://tbwa-library-website-stg-tbwa-library-website-stg.fb2d.factorytools.openshiftapps.com/',
   production: true,
 };
 
