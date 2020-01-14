@@ -217,6 +217,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     let properties = this.filterPropertie(this.formGroup.value);
     if (this.uploadState === 'uploaded') {
       properties = this.updateAttachedFiles(properties);
+      if (properties['files:files'] === null) {
+        delete properties['files:files'];
+      }
     }
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
       this.callback.next({ action: 'updated', message: 'updated successfully!', doc: model });

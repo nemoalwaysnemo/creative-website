@@ -135,15 +135,6 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         placeholder: 'Drop Logo/Image here!',
         acceptTypes: 'image/*,.pdf',
       }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
-      }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
@@ -155,7 +146,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         layoutPosition: 'bottom',
         formMode: 'edit',
         showInputs: false,
-        multiUpload: true,
+        multiUpload: false,
       }),
     ];
   }
