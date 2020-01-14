@@ -201,6 +201,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       documents = this.attachFiles(this.documentModel, this.formGroup.value[this.uploadFieldName]);
     } else {
       documents = [this.documentModel];
+      documents.forEach(doc => {
+        if (doc.properties['files:files'] === null) {
+          delete doc.properties['files:files'];
+        }
+      });
     }
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
       this.callback.next({ action: 'created', message: 'created successfully!', doc: models });
