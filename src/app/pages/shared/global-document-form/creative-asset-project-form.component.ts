@@ -24,7 +24,7 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
     return [
       {
         name: '+ Agency Credits',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:campaign_mgt'),
       },
       {
         name: '+ Backslash',
@@ -32,7 +32,7 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       },
       {
         name: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
       },
     ];
   }

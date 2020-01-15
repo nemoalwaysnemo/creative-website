@@ -4,7 +4,7 @@ import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/ab
 import { NuxeoApiService, DocumentModel } from '@core/api';
 
 @Component({
-  selector: 'disruption-roadmap-form',
+  selector: 'disruption-how-tos-asset-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="canceled($event)" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
 })
 export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComponent {

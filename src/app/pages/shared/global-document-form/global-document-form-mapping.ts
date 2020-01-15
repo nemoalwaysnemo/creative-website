@@ -7,11 +7,11 @@ import { CreativeUsageRightsPhotoComponent } from './creative-usage-rights-photo
 import { CreativeUsageRightsStockComponent } from './creative-usage-rights-stock-form.component';
 import { CreativeCampaignFormComponent } from './creative-asset-campaign-form.component';
 import { CreativeProjectFormComponent } from './creative-asset-project-form.component';
-import { DisruptionRoadmapFormComponent } from './disruption-roadmap-form.compoent';
-import { DisruptionDayFolderFormComponent } from './disruption-day-folder-form.compoent';
+import { DisruptionRoadmapFormComponent } from './disruption-roadmap-form.component';
+import { DisruptionDayFolderFormComponent } from './disruption-day-folder-form.component';
 import { DisruptionBrilliantThinkingFormComponent } from './disruption-brilliant-thinking-form.compoent';
 import { DisruptionDayAssetFormComponent } from './disruption-day-asset-form-component';
-import { DisruptionHowTosAssetFormComponent } from './disruption-how-tos-asset-form.compoent';
+import { DisruptionHowTosAssetFormComponent } from './disruption-how-tos-asset-form.component';
 
 export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_ASSET_IMAGE_FORM: CreativeAssetImageFormComponent,
