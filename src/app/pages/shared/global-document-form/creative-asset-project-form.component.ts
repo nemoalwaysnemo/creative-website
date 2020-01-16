@@ -17,22 +17,22 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
   }
 
   protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
-    return this.initializeDocument(doc.uid, this.getDocType());
+    return this.initializeDocument(doc, this.getDocType());
   }
 
   protected getAccordionSettings(): any[] {
     return [
       {
         name: '+ Agency Credits',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
       },
       {
         name: '+ Backslash',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:backslash'),
       },
       {
         name: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
       },
     ];
   }

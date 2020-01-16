@@ -17,7 +17,7 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
   }
 
   protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
-    return this.initializeDocument(doc.uid, this.getDocType());
+    return this.initializeDocument(doc, this.getDocType());
   }
 
   protected getSettings(): object[] {

@@ -110,6 +110,14 @@ export class DocumentModel extends Base {
     return this._repository.fetch(uid, options);
   }
 
+  setParent(doc: DocumentModel): void {
+    this._parent = doc;
+  }
+
+  getParent(): DocumentModel {
+    return this._parent;
+  }
+
   getParentPropertyByOperation(propertyName: string): Observable<any> {
     if (this._parent) {
       return observableOf(this._parent.get(propertyName));

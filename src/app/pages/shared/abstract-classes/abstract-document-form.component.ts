@@ -75,10 +75,13 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     }
   }
 
-  protected initializeDocument(uuid: string, docType: string): Observable<DocumentModel> {
-    return this.nuxeoApi.operation(NuxeoAutomations.InitializeDocument, { type: docType }, uuid, { schemas: '*' })
+  protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
+    return this.nuxeoApi.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
       .pipe(
-        tap((doc: DocumentModel) => doc.parentRef = uuid),
+        tap((doc: DocumentModel) => {
+          doc.setParent(parent);
+          doc.parentRef = parent.uid;
+        }),
       );
   }
 

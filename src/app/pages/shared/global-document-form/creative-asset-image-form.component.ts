@@ -18,7 +18,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
   }
 
   protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
-    return this.initializeDocument(doc.uid, this.getDocType());
+    return this.initializeDocument(doc, this.getDocType());
   }
 
   protected getAccordionSettings(): any[] {
@@ -26,17 +26,17 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       {
         // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
         name: '+ Agency Credits',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
       },
       {
         // #{currentDocument.getPropertyValue('app_global:backslash')=="0" ? 'hidden' : 'edit'}
         name: '+ Backslash',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:backslash'),
       },
       {
         // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
         name: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
       },
     ];
   }
@@ -73,7 +73,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         errorMessages: {
           required: '{{label}} is required',
         },
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -110,7 +110,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         errorMessages: {
           required: '{{label}} is required',
         },
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicDatepickerDirectiveModel<string>({
@@ -131,7 +131,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
