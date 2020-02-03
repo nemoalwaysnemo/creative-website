@@ -34,6 +34,7 @@ export enum NUXEO_META_INFO {
   CREATIVE_FOLDER_TYPE = '["App-Library-Folder"]',
   CREATIVE_PROJECT_TYPE = '["App-Library-Project"]',
   CREATIVE_CAMPAIGN_TYPE = '["App-Library-Campaign"]',
+  CREATIVE_CAMPAIGN_FOLDER_TYPE = '["App-Library-Campaign-Mgt-Folder"]',
   CREATIVE_UR_FOLDER_TYPE = '["App-Library-UR-Folder"]',
   CREATIVE_BRAND_FOLDER_TYPE = '["Brand Folder"]',
   CREATIVE_SELECTED_BRAND_TYPE = '["App-Library-Selected-Brand"]',

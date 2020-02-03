@@ -14,6 +14,8 @@ export class CreativeBrandProjectComponent extends AbstractDocumentViewComponent
 
   documents: DocumentModel[];
 
+  target: DocumentModel;
+
   baseParams$: Subject<any> = new Subject<any>();
 
   layout: string = 'creative_brand_project full-width';
@@ -42,6 +44,12 @@ export class CreativeBrandProjectComponent extends AbstractDocumentViewComponent
     this.document = doc;
     if (doc) {
       this.baseParams$.next(this.buildCampaignParams(doc));
+      this.getTargetDocumentModel({
+        pageSize: 1,
+        currentPageIndex: 0,
+        ecm_path: doc.path,
+        ecm_primaryType: NUXEO_META_INFO.CREATIVE_CAMPAIGN_FOLDER_TYPE,
+      }).subscribe((target: DocumentModel) => this.target = target);
     }
   }
 

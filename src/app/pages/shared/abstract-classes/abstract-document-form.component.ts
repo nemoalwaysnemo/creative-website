@@ -80,6 +80,7 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
       .pipe(
         tap((doc: DocumentModel) => {
           doc.setParent(parent);
+          doc.path = parent.uid;
           doc.parentRef = parent.uid;
         }),
       );
