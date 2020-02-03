@@ -7,7 +7,7 @@ import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'creative-asset-audio-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)" (onCanceled)="canceled($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="callback($event)"></document-form>`,
 })
 export class CreativeAssetAudioFormComponent extends AbstractDocumentFormComponent {
 

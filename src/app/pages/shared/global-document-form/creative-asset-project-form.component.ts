@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'creative-project-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (onCreated)="created($event)" (onUpdated)="updated($event)" (onCanceled)="canceled($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="callback($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends AbstractDocumentFormComponent {
 
@@ -48,7 +48,8 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:campaign',
         label: 'Search Campaign',
-        providerName: 'App-Library-PageProvider-Campaigns',
+        document: true,
+        contentViewProvider: 'App-Library-PageProvider-Campaigns',
         placeholder: 'select a value',
         required: true,
         validators: { required: null },

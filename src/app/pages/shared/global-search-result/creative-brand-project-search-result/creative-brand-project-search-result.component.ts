@@ -50,7 +50,7 @@ export class CreativeBrandProjectSearchResultComponent extends AbstractSearchRes
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: doc,
+        title: doc.title,
         live_date: doc.get('The_Loupe_Rights:first-airing') ? new DatePipe('en-US').transform(doc.get('The_Loupe_Rights:first-airing'), 'yyyy-MM-dd') : null,
         job_number: doc.get('The_Loupe_Main:jobnumber'),
       }));
