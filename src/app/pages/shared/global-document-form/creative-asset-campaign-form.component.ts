@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { Observable } from 'rxjs';
 
@@ -137,6 +137,11 @@ export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent
         directoryName: 'GLOBAL_Countries',
         placeholder: 'Default Country for new assets produced under this campaign,',
         required: false,
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:set_defaults',
+        label: 'Set Defaults',
+        readOnly: true,
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',
