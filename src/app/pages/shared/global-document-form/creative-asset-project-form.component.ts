@@ -24,15 +24,15 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
     return [
       {
         name: '+ Agency Credits',
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       },
       {
         name: '+ Backslash',
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:backslash'),
       },
       {
         name: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:UsageRights'),
       },
     ];
   }
@@ -50,7 +50,7 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         label: 'Search Campaign',
         document: true,
         contentViewProvider: 'App-Library-PageProvider-Campaigns',
-        placeholder: 'select a value',
+        placeholder: 'Select a value',
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
@@ -66,7 +66,7 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         id: 'The_Loupe_Rights:asset_countries',
         label: 'Default Asset Country',
         directoryName: 'GLOBAL_Countries',
-        placeholder: 'select a value',
+        placeholder: 'Select a value',
         required: false,
       }),
       // Agency Credits

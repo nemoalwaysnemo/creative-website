@@ -41,7 +41,7 @@ export class CreativeBrandProjectComponent extends AbstractDocumentViewComponent
   }
 
   protected setCurrentDocument(doc?: DocumentModel): void {
-    this.document = doc;
+    this.document = doc; // brand
     if (doc) {
       this.baseParams$.next(this.buildCampaignParams(doc));
       this.getTargetDocumentModel({
@@ -49,7 +49,10 @@ export class CreativeBrandProjectComponent extends AbstractDocumentViewComponent
         currentPageIndex: 0,
         ecm_path: doc.path,
         ecm_primaryType: NUXEO_META_INFO.CREATIVE_CAMPAIGN_FOLDER_TYPE,
-      }).subscribe((target: DocumentModel) => this.target = target);
+      }).subscribe((target: DocumentModel) => {
+        this.target = target;
+        this.target.setParent(doc);
+      });
     }
   }
 
