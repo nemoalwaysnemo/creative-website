@@ -3,7 +3,7 @@ import { NuxeoApiService, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { Observable } from 'rxjs';
-
+import { OptionModel } from '../option-select/option-select.interface';
 @Component({
   selector: 'creative-usage-rights-music-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
@@ -24,110 +24,81 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
     return [
       new DynamicInputModel({
         id: 'dc:title',
-        label: 'Title',
-        maxLength: 50,
-        placeholder: 'Title',
+        label: 'Music Company',
         autoComplete: 'off',
-        required: true,
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          minLength: 'At least 4 characters',
-        },
       }),
-      new DynamicOptionTagModel({
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Rights:contract_type',
+        label: 'Contract Type',
+        placeholder: 'Select a value',
+        directoryName: 'App-Library-UR-Music-contract-types',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:jobtitle',
+        label: 'Search Project',
+        document: true,
+        contentViewProvider: 'App-Library-PageProvider-Campaigns',
+        required: false,
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:campaign',
+        label: 'Campaign/Project',
+        autoComplete: 'off',
+        required: false,
+        visibleFn: (doc: DocumentModel): boolean => !doc.getParent().getParent().get('app_global:campaign_mgt'),
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:po_number_internal',
+        label: 'PO Number',
+        placeholder: 'Workshop Date',
+        required: false,
+      }),
+
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:comment',
+        label: 'Comment',
+        required: false,
+      }),
+
+      new DynamicInputModel({
+        id: 'The_Loupe_Rights:contact_client',
+        label: 'Contact Client',
+        required: false,
+      }),
+
+      // new DynamicInputModel({
+      //   id: 'The_Loupe_Main:brand',
+      //   label: 'Brand',
+      //   required: false,
+      // }),
+
+      new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
+        required: false,
         placeholder: 'Brand',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        document: true,
+        operationName: 'javascript.provideBrands',
+        visibleFn: (doc: DocumentModel): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:industry',
-        label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Workshop Date',
-        placeholder: 'Workshop Date',
-        readonly: true,
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Relevant_Country',
-        label: 'Geography',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
+
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        multiple: false,
-        directoryName: 'GLOBAL_Agencies',
-        placeholder: 'Please select agency',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        required: false,
+        directoryName: 'App-Library-UR-Music-contract-types',
       }),
+
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
+        label: 'Country',
+        required: false,
+        multiple: true,
         directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:backslash_category',
-        label: 'Backslash Category',
-        directoryName: 'App-Backslash-Categories',
-        placeholder: 'Please select category',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Tags_edges',
-        label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:description',
-        label: 'Description',
-        formMode: 'edit',
-        placeholder: 'description',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicInputModel({
-        id: 'dc:creator',
-        label: 'Author',
-        formMode: 'edit',
-        placeholder: 'Author',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
+
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',

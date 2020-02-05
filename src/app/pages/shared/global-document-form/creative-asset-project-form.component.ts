@@ -227,12 +227,12 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         required: false,
         accordionTab: '+ Usage Rights',
       }),
-      new DynamicInputModel({
-        id: 'HBC_usage_rights:Font',
-        label: 'Font',
-        required: false,
-        accordionTab: '+ Usage Rights',
-      }),
+      // new DynamicInputModel({
+      //   id: 'HBC_usage_rights:Font',
+      //   label: 'Font',
+      //   required: false,
+      //   accordionTab: '+ Usage Rights',
+      // }),
     ];
   }
 
