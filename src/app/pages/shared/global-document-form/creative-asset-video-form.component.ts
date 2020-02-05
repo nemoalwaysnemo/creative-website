@@ -203,11 +203,11 @@ export class CreativeAssetVideoFormComponent extends AbstractDocumentFormCompone
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:networkshare'),
       }),
       // #{currentDocument.getPropertyValue('app_global:collections')=="0" ? 'hidden' : 'edit'}
-      new DynamicSuggestionModel<string>({
-        id: 'collectionMember:collectionIds',
-        label: 'Collections',
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:collections'),
-      }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'collectionMember:collectionIds',
+      //   label: 'Collections',
+      //   visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:collections'),
+      // }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
