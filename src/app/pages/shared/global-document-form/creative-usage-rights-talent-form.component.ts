@@ -3,12 +3,12 @@ import { NuxeoApiService, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { Observable } from 'rxjs';
-
+import { OptionModel } from '../option-select/option-select.interface';
 @Component({
-  selector: 'creative-usage-rights-model-form',
+  selector: 'creative-usage-rights-talent-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
 })
-export class CreativeUsageRightsModelComponent extends AbstractDocumentFormComponent {
+export class CreativeUsageRightsTalentComponent extends AbstractDocumentFormComponent {
 
   protected documentType: string = 'App-Library-UsageRights-Talent';
 
@@ -24,7 +24,7 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
     return [
       new DynamicInputModel({
         id: 'dc:title',
-        label: 'Title',
+        label: 'Talent Name',
         maxLength: 50,
         placeholder: 'Title',
         autoComplete: 'off',
@@ -35,98 +35,99 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
         },
         errorMessages: {
           required: '{{label}} is required',
-          minLength: 'At least 4 characters',
         },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Rights:contract_type',
+        label: 'Contract Type',
+        placeholder: 'Select a value',
+        directoryName: 'App-Library-UR-Music-contract-types',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Talent:talent_agency',
+        label: 'Talent Agency',
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Talent:address',
+        label: 'Talent Agency Address',
+        required: false,
+      }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'The_Loupe_Main:jobtitle',
+      //   label: 'Project Number',
+      //   document: true,
+      //   contentViewProvider: 'App-Library-PageProvider-Projects-UR-create',
+      //   placeholder: 'Select a Value',
+      //   required: true,
+      //   validators: { required: null },
+      //   errorMessages: { required: '{{label}} is required' },
+      // }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:po_number_internal',
+        label: 'PO Number',
+        required: false,
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Talent:talent_agency_contact',
+        label: 'Talent Agency Contact',
+        required: false,
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         placeholder: 'Brand',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        disabled: true,
+        readOnly: true,
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:industry',
-        label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Workshop Date',
-        placeholder: 'Workshop Date',
-        readonly: true,
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Relevant_Country',
-        label: 'Geography',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
+      new DynamicOptionTagModel({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        multiple: false,
-        directoryName: 'GLOBAL_Agencies',
-        placeholder: 'Please select agency',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        placeholder: 'Agency',
+        disabled: true,
+        readOnly: true,
       }),
-      new DynamicSuggestionModel<string>({
+      new DynamicOptionTagModel({
         id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
+        label: 'Country',
+        placeholder: 'Country',
+        disabled: true,
+        readOnly: true,
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Rights:contact_client',
+        label: 'Contact Client',
+        required: false,
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'media_usage_type',
+        label: 'Media Usage Types',
+        required: false,
+        placeholder: 'select a value',
+        document: true,
+        operationName: 'javascript.provideURmediatypes',
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'start_airing_date',
+        label: 'Start Airing Date',
+        readonly: true,
+        required: false,
+      }),
+      new DynamicInputModel({
+        id: 'contract_duration',
+        label: 'Duration (months)',
+        required: false,
+      }),
+
+      new DynamicSuggestionModel<string>({
+        id: 'contract_countries',
+        label: 'Countries',
+        required: false,
+        multiple: true,
         directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:backslash_category',
-        label: 'Backslash Category',
-        directoryName: 'App-Backslash-Categories',
-        placeholder: 'Please select category',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Tags_edges',
-        label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:description',
-        label: 'Description',
-        formMode: 'edit',
-        placeholder: 'description',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicInputModel({
-        id: 'dc:creator',
-        label: 'Author',
-        formMode: 'edit',
-        placeholder: 'Author',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
