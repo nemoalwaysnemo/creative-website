@@ -5,10 +5,10 @@ import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/ab
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
 @Component({
-  selector: 'creative-usage-rights-talent-form',
+  selector: 'creative-usage-rights-model-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
 })
-export class CreativeUsageRightsTalentComponent extends AbstractDocumentFormComponent {
+export class CreativeUsageRightsModelComponent extends AbstractDocumentFormComponent {
 
   protected documentType: string = 'App-Library-UsageRights-Talent';
 

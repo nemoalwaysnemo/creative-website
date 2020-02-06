@@ -1,7 +1,7 @@
 import { CreativeAssetImageFormComponent } from './creative-asset-image-form.component';
 import { CreativeAssetVideoFormComponent } from './creative-asset-video-form.component';
 import { CreativeAssetAudioFormComponent } from './creative-asset-audio-form.component';
-import { CreativeUsageRightsTalentComponent } from './creative-usage-rights-talent-form.component';
+import { CreativeUsageRightsModelComponent } from './creative-usage-rights-model-form.component';
 import { CreativeUsageRightsMusicComponent } from './creative-usage-rights-music-form.component';
 import { CreativeUsageRightsPhotoComponent } from './creative-usage-rights-photo-form.component';
 import { CreativeUsageRightsStockComponent } from './creative-usage-rights-stock-form.component';
@@ -20,7 +20,7 @@ export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_USAGE_RIGHTS_MUSIC_FORM: CreativeUsageRightsMusicComponent,
   CREATIVE_USAGE_RIGHTS_PHOTO_FORM: CreativeUsageRightsPhotoComponent,
   CREATIVE_USAGE_RIGHTS_STOCK_FORM: CreativeUsageRightsStockComponent,
-  CREATIVE_USAGE_RIGHTS_TALENT_FORM: CreativeUsageRightsTalentComponent,
+  CREATIVE_USAGE_RIGHTS_MODEL_FORM: CreativeUsageRightsModelComponent,
   CREATIVE_CAMPAIGN_FORM: CreativeCampaignFormComponent,
   CREATIVE_PROJECT_FORM: CreativeProjectFormComponent,
   DISRUPTION_ROADMAP_FORM: DisruptionRoadmapFormComponent,

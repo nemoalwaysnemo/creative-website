@@ -20,7 +20,7 @@ export class CreativeBrandFormButtonComponent {
   @Input() title: string;
 
   @Input()
-  set type(type: 'image' | 'video' | 'audio' | 'model' | 'music' | 'photo' | 'stock' | 'talent' | 'campaign' | 'project') {
+  set type(type: 'image' | 'video' | 'audio' | 'model' | 'music' | 'photo' | 'stock' | 'campaign' | 'project') {
     this.component = this.getFormComponent(type);
   }
 
@@ -55,6 +55,9 @@ export class CreativeBrandFormButtonComponent {
       case 'audio':
         formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_AUDIO_FORM;
         break;
+      case 'model':
+        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MODEL_FORM;
+        break;
       case 'music':
         formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MUSIC_FORM;
         break;
@@ -63,9 +66,6 @@ export class CreativeBrandFormButtonComponent {
         break;
       case 'stock':
         formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_STOCK_FORM;
-        break;
-      case 'talent':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_TALENT_FORM;
         break;
       case 'campaign':
         formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM;
