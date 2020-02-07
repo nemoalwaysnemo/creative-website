@@ -59,6 +59,7 @@ export class CreativeBrandProjectComponent extends AbstractDocumentViewComponent
   protected buildCampaignParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_PROJECT_TYPE,
+      ecm_mixinType: '["HiddenInNavigation"]',
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
