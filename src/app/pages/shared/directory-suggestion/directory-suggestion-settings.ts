@@ -11,7 +11,7 @@ export class SuggestionSettings {
   readonly contains: boolean = true;
   readonly suggestion: boolean = true;
   readonly initSearch: boolean = true;
-  readonly multiple: boolean = false;
+  readonly multiple: boolean = true;
   readonly providerType: string;
   readonly providerName: string;
   readonly pageSize: number = 20;

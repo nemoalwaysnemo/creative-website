@@ -9,11 +9,3 @@
 </global-search-form>
 <disruption-folder-view [loading]="loading" [document]="document" [assetUrl]="'/p/disruption/Disruption Days/day/'" [deleteRedirect]="deleteRedirect"></disruption-folder-view>
 <disruption-folder-day-asset-search-result [folderId]="document?.uid"></disruption-folder-day-asset-search-result>
-
-<ng-template #dialog>
-  <preview-dialog>
-    <disruption-form-days-folder-body (createdSuccess)="onCreated($event)">
-      <preview-dialog-alert></preview-dialog-alert>
-    </disruption-form-days-folder-body>
-  </preview-dialog>
-</ng-template>

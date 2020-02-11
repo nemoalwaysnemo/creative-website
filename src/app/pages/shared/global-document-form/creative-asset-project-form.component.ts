@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
-
+import { OptionModel } from '../option-select/option-select.interface';
 @Component({
   selector: 'creative-project-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="callback($event)"></document-form>`,
@@ -180,12 +180,20 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         required: false,
         accordionTab: '+ Usage Rights',
       }),
-      new DynamicOptionTagModel({
+      new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Media Usage Types',
-        placeholder: 'select Media Usage Type of asset',
-        // directoryName: 'App-Edges-Edges',
-        required: false,
+        required: true,
+        document: true,
+        settings: {
+          placeholder: 'Where is this used?',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideURmediatypes',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        visibleFn: (doc: DocumentModel): boolean => !doc.getParent().get('app_global:UsageRights'),
         accordionTab: '+ Usage Rights',
       }),
       new DynamicCheckboxModel({
@@ -196,7 +204,6 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Talent:Contract-Model-IDs',
         label: 'Talent Contracts',
-        // providerName: 'App-Lib-UR-PageProvider-Talent-Project-create',
         document: true,
         required: false,
         accordionTab: '+ Usage Rights',
@@ -214,7 +221,6 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Talent:Contract-Music-IDs',
         label: 'Music Contracts',
-        // providerName: 'App-Lib-UR-PageProvider-Music-Project-create',
         document: true,
         required: false,
         accordionTab: '+ Usage Rights',
@@ -232,7 +238,6 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Talent:Contract-Photographer-IDs',
         label: 'Photographer Contracts',
-        // providerName: 'App-Lib-UR-PageProvider-Photographer-Project-create',
         document: true,
         required: false,
         accordionTab: '+ Usage Rights',
@@ -250,7 +255,6 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Talent:Contract-Stock-IDs',
         label: 'Stock/Illustration Contracts',
-        // providerName: 'App-Lib-UR-PageProvider-Stock-Project-create',
         document: true,
         required: false,
         accordionTab: '+ Usage Rights',
