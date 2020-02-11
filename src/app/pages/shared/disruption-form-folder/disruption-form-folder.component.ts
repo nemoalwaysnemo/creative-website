@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
-
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'disruption-form-folder',
@@ -37,8 +37,11 @@ export class DisruptionFormFolderComponent extends AbstractDisruptionForm {
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Leave blank to copy from Disruption Day',
+        settings: {
+          placeholder: 'Leave blank to copy from Disruption Day',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -49,28 +52,40 @@ export class DisruptionFormFolderComponent extends AbstractDisruptionForm {
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        directoryName: 'GLOBAL_Agencies',
-        multiple: false,
-        placeholder: 'Leave blank to copy from Disruption Day',
+        settings: {
+          multiple: false,
+          placeholder: 'Leave blank to copy from Disruption Day',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Leave blank to copy from Disruption Day',
+        settings: {
+          placeholder: 'Leave blank to copy from Disruption Day',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
-        directoryName: 'App-Backslash-Categories',
         formMode: 'edit',
-        placeholder: 'Please select category',
+        settings: {
+          placeholder: 'Please select category',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Leave blank to copy from Disruption Day',
+        settings: {
+          placeholder: 'Leave blank to copy from Disruption Day',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:description',

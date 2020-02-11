@@ -5,6 +5,7 @@ import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { NbToastrService } from '@core/nebular/theme';
+import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'creative-brand-manage-library',
@@ -60,9 +61,12 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:folder_type',
         label: 'Folder Type',
-        directoryName: 'App-Library-Folder-Types',
-        placeholder: 'Folder Type',
         required: true,
+        settings: {
+          placeholder: 'Folder Type',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-Folder-Types',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
@@ -90,15 +94,21 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        multiple: false,
-        directoryName: 'GLOBAL_Agencies',
-        placeholder: 'Please select agency',
+        settings: {
+          multiple: false,
+          placeholder: 'Please select agency',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:HyperionCode',
@@ -127,8 +137,11 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
+        settings: {
+          placeholder: 'Please select industry',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'app_global:set_defaults',
@@ -177,8 +190,11 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
+        settings: {
+          placeholder: 'Please select edges',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'app_global:networkshare',

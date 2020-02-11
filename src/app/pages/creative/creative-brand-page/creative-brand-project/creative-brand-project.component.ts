@@ -43,7 +43,7 @@ export class CreativeBrandProjectComponent extends AbstractDocumentViewComponent
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc; // brand
     if (doc) {
-      this.baseParams$.next(this.buildCampaignParams(doc));
+      this.baseParams$.next(this.buildProjectParams(doc));
       this.getTargetDocumentModel({
         pageSize: 1,
         currentPageIndex: 0,
@@ -56,7 +56,7 @@ export class CreativeBrandProjectComponent extends AbstractDocumentViewComponent
     }
   }
 
-  protected buildCampaignParams(doc?: DocumentModel): any {
+  protected buildProjectParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_PROJECT_TYPE,
       ecm_mixinType: '["HiddenInNavigation"]',

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
+import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'creative-brand-manage-list',
@@ -125,8 +126,11 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
+        settings: {
+          placeholder: 'Please select industry',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
       }),
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:region',
@@ -138,27 +142,37 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
         label: 'Librarians',
-        initSearch: false,
-        searchUserGroup: true,
-        placeholder: 'Please select librarians',
+        settings: {
+          initSearch: false,
+          placeholder: 'Please select librarians',
+          providerType: SuggestionSettings.USER_GROUP,
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_owners',
         label: 'Library Owners',
-        initSearch: false,
-        searchUserGroup: true,
-        placeholder: 'Please select Library Owners',
+        settings: {
+          initSearch: false,
+          placeholder: 'Please select Library Owners',
+          providerType: SuggestionSettings.USER_GROUP,
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Usage Rights Media Usage Types',
-        directoryName: 'App-Library-UR-contract-mediatypes',
+        settings: {
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-UR-contract-mediatypes',
+        },
         hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:UsageRights'),
       }),
       new DynamicOptionTagModel<string>({
@@ -171,17 +185,26 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettypes_image',
         label: 'Image Asset Types',
-        directoryName: 'App-Library-MediaTypes-Image',
+        settings: {
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-MediaTypes-Image',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettypes_video',
         label: 'Video Asset Types',
-        directoryName: 'App-Library-MediaTypes-Video',
+        settings: {
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-MediaTypes-Video',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettypes_audio',
         label: 'Audio Asset Types',
-        directoryName: 'App-Library-MediaTypes-Audio',
+        settings: {
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-MediaTypes-Audio',
+        },
       }),
     ];
   }

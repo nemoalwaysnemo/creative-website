@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { OptionModel } from '../option-select/option-select.interface';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'creative-asset-image-form',
@@ -63,16 +64,15 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',
         label: 'Search Project',
-        placeholder: 'Search Project',
         document: true,
-        contentViewProvider: 'App-Library-PageProvider-Projects',
         required: true,
-        validators: {
-          required: null,
+        settings: {
+          placeholder: 'Search Project',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Library-PageProvider-Projects',
         },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required'},
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
@@ -88,11 +88,14 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
-        operationName: 'javascript.provideAssetType_Image',
-        placeholder: 'What is this asset?',
-        multiple: false,
         document: true,
         required: true,
+        settings: {
+          multiple: false,
+          placeholder: 'What is this asset?',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideAssetType_Image',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
@@ -104,12 +107,8 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         readonly: true,
         defaultValue: (new Date()),
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required'},
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
@@ -124,10 +123,13 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Media Usage Types',
-        operationName: 'javascript.provideURmediatypes',
-        placeholder: 'where is this used?',
         required: true,
         document: true,
+        settings: {
+          placeholder: 'Where is this used?',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideURmediatypes',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
@@ -137,25 +139,34 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Media Usage Types',
-        operationName: 'javascript.provideURmediatypes',
-        placeholder: 'where is this used?',
         required: false,
         document: true,
+        settings: {
+          placeholder: 'Where is this used?',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideURmediatypes',
+        },
         onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (doc: DocumentModel): boolean => !doc.getParent().get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',
         label: 'Asset Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'leave blank to copy from agency\\brand',
+        settings: {
+          placeholder: 'Leave blank to copy from agency\\brand',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_region')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:region',
         label: 'Region',
-        operationName: 'javascript.provideRegions',
-        placeholder: 'Regions this assets was produced for..',
+        settings: {
+          placeholder: 'Regions this assets was produced for..',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideRegions',
+        },
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global_fields:enable_region'),
       }),
       new DynamicInputModel({
@@ -190,7 +201,10 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:productModel',
         label: 'Products',
-        operationName: 'javascript.provideProducts',
+        settings: {
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideProducts',
+        },
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global_fields:enable_productlist'),
       }),
       // #{currentDocument.getPropertyValue('app_global:networkshare')=="0" ? 'hidden' : 'edit'}
@@ -324,18 +338,24 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Category',
-        directoryName: 'App-Backslash-Categories',
-        placeholder: 'Leave blank to copy from campaign.',
         required: false,
         accordionTab: '+ Backslash',
+        settings: {
+          placeholder: 'Leave blank to copy from campaign.',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Leave blank to copy from campaign.',
         required: false,
         accordionTab: '+ Backslash',
+        settings: {
+          placeholder: 'Leave blank to copy from campaign.',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
       }),
       // Usage Rights
       // all items #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
@@ -355,10 +375,13 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Talent:Contract-Model-IDs',
         label: 'Talent Contracts',
         document: true,
-        contentViewProvider: 'App-Lib-UR-PageProvider-Talent',
-        placeholder: 'Leave blank to copy from project.',
         required: false,
         accordionTab: '+ Usage Rights',
+        settings: {
+          placeholder: 'Leave blank to copy from project.',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Lib-UR-PageProvider-Talent',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_music_contract',
@@ -369,10 +392,13 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Talent:Contract-Music-IDs',
         label: 'Music Contracts',
         document: true,
-        contentViewProvider: 'App-Lib-UR-PageProvider-Music',
-        placeholder: 'Leave blank to copy from project.',
         required: false,
         accordionTab: '+ Usage Rights',
+        settings: {
+          placeholder: 'Leave blank to copy from project.',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Lib-UR-PageProvider-Music',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_photographer_contract',
@@ -383,10 +409,13 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Talent:Contract-Photographer-IDs',
         label: 'Photographer Contracts',
         document: true,
-        contentViewProvider: 'App-Lib-UR-PageProvider-Photographer',
-        placeholder: 'Leave blank to copy from project.',
         required: false,
         accordionTab: '+ Usage Rights',
+        settings: {
+          placeholder: 'Leave blank to copy from project.',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Lib-UR-PageProvider-Photographer',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_stock_contract',
@@ -397,10 +426,13 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Talent:Contract-Stock-IDs',
         label: 'Stock Contracts',
         document: true,
-        contentViewProvider: 'App-Lib-UR-PageProvider-Stock',
-        placeholder: 'Leave blank to copy from project.',
         required: false,
         accordionTab: '+ Usage Rights',
+        settings: {
+          placeholder: 'Leave blank to copy from project.',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Lib-UR-PageProvider-Stock',
+        },
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',
@@ -413,37 +445,49 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
         disabled: true,
         layoutPosition: 'right',
+        settings: {
+          placeholder: 'Please select industry',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
       }),
       // #{currentDocument.getPropertyValue('app_global:brand_activation')=="0" ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         required: false,
-        placeholder: 'Brand',
         layoutPosition: 'right',
         document: true,
-        operationName: 'javascript.provideBrands',
+        settings: {
+          placeholder: 'Brand',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideBrands',
+        },
         visibleFn: (doc: DocumentModel): boolean => !doc.getParent().get('app_global:brand_activation'),
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        multiple: false,
-        directoryName: 'GLOBAL_Agencies',
-        placeholder: 'Please select agency',
         layoutPosition: 'right',
+        settings: {
+          multiple: false,
+          placeholder: 'Please select agency',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
         layoutPosition: 'right',
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
     ];
   }

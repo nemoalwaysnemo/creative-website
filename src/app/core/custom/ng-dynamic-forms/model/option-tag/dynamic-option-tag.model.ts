@@ -6,33 +6,16 @@ import { DynamicFormValueControlModelConfig, DynamicFormValueControlModel } from
 export const DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG = 'OPTION_TAG';
 
 export interface DynamicOptionTagModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
-
   placeholder?: string;
-  directoryName?: string;
-  contains?: boolean
-  suggestion?: boolean;
-  providerName?: string;
-  contentViewProvider?: string;
 }
 
 export class DynamicOptionTagModel<T> extends DynamicFormValueControlModel<T> {
 
   @serializable() placeholder: string;
-  @serializable() directoryName: string;
-  @serializable() providerName: string;
-  @serializable() contentViewProvider: string;
-  @serializable() suggestion: boolean;
-  @serializable() contains: boolean;
-
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG;
 
   constructor(config: DynamicOptionTagModelConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
-    this.suggestion = isBoolean(config.suggestion) ? config.suggestion : true;
-    this.contains = isBoolean(config.contains) ? config.contains : false;
-    this.contentViewProvider = config.contentViewProvider || null;
-    this.directoryName = config.directoryName || null;
-    this.providerName = config.providerName || null;
     this.placeholder = config.placeholder || '';
   }
 }

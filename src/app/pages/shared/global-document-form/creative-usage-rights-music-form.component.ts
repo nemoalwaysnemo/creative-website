@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
-import { Observable } from 'rxjs';
+import { AbstractDocumentFormComponent } from '../abstract-classes/abstract-document-form.component';
 import { OptionModel } from '../option-select/option-select.interface';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+
 @Component({
   selector: 'creative-usage-rights-music-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
@@ -30,23 +32,26 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_type',
         label: 'Contract Type',
-        placeholder: 'Select a value',
-        directoryName: 'App-Library-UR-Music-contract-types',
+        settings: {
+          placeholder: 'Please select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-UR-Music-contract-types',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',
         label: 'Search Project',
-        placeholder: 'Search Project',
-        multiple: true,
         required: true,
         document: true,
-        contentViewProvider: 'App-Library-PageProvider-Projects-UR-create',
-        validators: {
-          required: null,
+        settings: {
+          multiple: true,
+          placeholder: 'Search Project',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Library-PageProvider-Projects-UR-create',
+          inputTarget: (doc: DocumentModel): string => doc.getParent().getParent().uid,
         },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required'},
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicInputModel({
@@ -76,10 +81,13 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
+        settings: {
+          placeholder: 'Brand',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideBrands',
+        },
         required: false,
-        placeholder: 'Brand',
         document: true,
-        operationName: 'javascript.provideBrands',
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
@@ -87,14 +95,22 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
         required: false,
-        directoryName: 'App-Library-UR-Music-contract-types',
+        settings: {
+          placeholder: 'Agency',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-UR-Music-contract-types',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Country',
         required: false,
-        multiple: true,
-        directoryName: 'GLOBAL_Countries',
+        settings: {
+          multiple: true,
+          placeholder: 'Country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicInputModel({
         id: 'item',
@@ -105,9 +121,12 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
         id: 'media_usage_type',
         label: 'Media Usage Types',
         required: false,
-        placeholder: 'select a value',
         document: true,
-        operationName: 'javascript.provideURmediatypes',
+        settings: {
+          placeholder: 'Please select a value',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideURmediatypes',
+        },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicDatepickerDirectiveModel<string>({
@@ -126,8 +145,12 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
         id: 'contract_countries',
         label: 'Countries',
         required: false,
-        multiple: true,
-        directoryName: 'GLOBAL_Countries',
+        settings: {
+          multiple: true,
+          placeholder: 'Please select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'active_media_usage',

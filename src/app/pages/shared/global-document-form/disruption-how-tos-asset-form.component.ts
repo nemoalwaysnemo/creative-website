@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
-import { NuxeoApiService, DocumentModel } from '@core/api';
+import { NuxeoApiService } from '@core/api';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'disruption-how-tos-asset-form',
@@ -42,9 +43,12 @@ export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComp
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
         required: true,
+        settings: {
+          placeholder: 'Please select industry',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
@@ -71,37 +75,49 @@ export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComp
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        directoryName: 'GLOBAL_Agencies',
-        multiple: false,
-        placeholder: 'Please select agency',
         required: true,
+        settings: {
+          multiple: false,
+          placeholder: 'Please select agency',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
         required: true,
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
-        directoryName: 'App-Backslash-Categories',
         formMode: 'edit',
-        placeholder: 'Please select category',
         required: true,
+        settings: {
+          placeholder: 'Please select category',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
+        settings: {
+          placeholder: 'Please select edges',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:description',

@@ -4,6 +4,8 @@ import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, Dyn
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+
 @Component({
   selector: 'creative-usage-rights-photo-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
@@ -28,12 +30,8 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         maxLength: 50,
         placeholder: 'Title',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required'},
       }),
       // new DynamicSuggestionModel<string>({
       //   id: 'The_Loupe_Main:jobtitle',
@@ -88,9 +86,12 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         required: false,
-        placeholder: 'Brand',
         document: true,
-        operationName: 'javascript.provideBrands',
+        settings: {
+          placeholder: 'Brand',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideBrands',
+        },
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
@@ -98,14 +99,20 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
         required: false,
-        directoryName: 'App-Library-UR-Music-contract-types',
+        settings: {
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-UR-Music-contract-types',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Country',
         required: false,
-        multiple: true,
-        directoryName: 'GLOBAL_Countries',
+        settings: {
+          multiple: true,
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicInputModel({
         id: 'item',
@@ -116,9 +123,12 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         id: 'media_usage_type',
         label: 'Media Usage Types',
         required: false,
-        placeholder: 'select a value',
         document: true,
-        operationName: 'javascript.provideURmediatypes',
+        settings: {
+          placeholder: 'select a value',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideURmediatypes',
+        },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicDatepickerDirectiveModel<string>({
@@ -137,8 +147,11 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         id: 'contract_countries',
         label: 'Countries',
         required: false,
-        multiple: true,
-        directoryName: 'GLOBAL_Countries',
+        settings: {
+          multiple: true,
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'active_media_usage',

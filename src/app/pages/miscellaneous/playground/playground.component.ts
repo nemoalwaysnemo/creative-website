@@ -3,6 +3,7 @@ import { DocumentModel, DocumentRepository } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDatePickerModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { PreviewDialogService } from '@pages/shared';
 import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/option-tag/dynamic-option-tag.model';
+import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'playground',
@@ -82,45 +83,66 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
         label: 'Librarians',
-        initSearch: false,
-        searchUserGroup: true,
-        placeholder: 'Please select user/group',
+        settings: {
+          initSearch: false,
+          placeholder: 'Please select user/group',
+          providerType: SuggestionSettings.USER_GROUP,
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
+        settings: {
+          placeholder: 'Please select industry',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
         label: 'Geography',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        directoryName: 'GLOBAL_Agencies',
-        placeholder: 'Please select agency',
+        settings: {
+          multiple: false,
+          placeholder: 'Please select agency',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
-        directoryName: 'App-Backslash-Categories',
-        placeholder: 'Please select category',
+        settings: {
+          placeholder: 'Please select category',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
+        settings: {
+          placeholder: 'Please select edges',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

@@ -4,6 +4,8 @@ import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, Dyn
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+
 @Component({
   selector: 'creative-usage-rights-model-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
@@ -40,8 +42,11 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_type',
         label: 'Contract Type',
-        placeholder: 'Select a value',
-        directoryName: 'App-Library-UR-Music-contract-types',
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-UR-Music-contract-types',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Talent:talent_agency',
@@ -105,9 +110,12 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
         id: 'media_usage_type',
         label: 'Media Usage Types',
         required: false,
-        placeholder: 'select a value',
         document: true,
-        operationName: 'javascript.provideURmediatypes',
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideURmediatypes',
+        },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicDatepickerDirectiveModel<string>({
@@ -126,8 +134,11 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
         id: 'contract_countries',
         label: 'Countries',
         required: false,
-        multiple: true,
-        directoryName: 'GLOBAL_Countries',
+        settings: {
+          multiple: true,
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

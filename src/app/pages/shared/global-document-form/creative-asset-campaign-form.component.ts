@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -49,18 +50,24 @@ export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
-        directoryName: 'App-Backslash-Categories',
-        placeholder: 'Select a value',
         required: false,
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Select a value',
         required: true,
-        validators: {required: null},
-        errorMessages: {required: '{{label}} is required'},
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       // CREDITS
       new DynamicInputModel({
@@ -122,9 +129,12 @@ export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
         label: 'Campaign Geography',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
         required: false,
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -136,9 +146,12 @@ export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',
         label: 'Default Asset Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Default Country for new assets produced under this campaign,',
         required: false,
+        settings: {
+          placeholder: 'Default Country for new assets produced under this campaign.',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'app_global:set_defaults',
@@ -157,27 +170,36 @@ export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
         disabled: true,
         readOnly: true,
         layoutPosition: 'right',
+        settings: {
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        multiple: false,
-        directoryName: 'GLOBAL_Agencies',
         readOnly: true,
         disabled: true,
         layoutPosition: 'right',
+        settings: {
+          multiple: false,
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Country',
-        directoryName: 'GLOBAL_Countries',
         readOnly: true,
         disabled: true,
         layoutPosition: 'right',
+        settings: {
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
     ];
   }

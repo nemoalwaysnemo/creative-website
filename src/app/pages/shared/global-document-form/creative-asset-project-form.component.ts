@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
+import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
-import { Observable } from 'rxjs';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'creative-project-form',
@@ -49,9 +50,12 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         id: 'The_Loupe_Main:campaign',
         label: 'Search Campaign',
         document: true,
-        contentViewProvider: 'App-Library-PageProvider-Campaigns',
-        placeholder: 'Select a value',
         required: true,
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Library-PageProvider-Campaigns',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
@@ -65,9 +69,12 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',
         label: 'Default Asset Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Select a value',
         required: false,
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
       }),
       // Agency Credits
       new DynamicInputModel({
@@ -146,18 +153,24 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Category',
-        directoryName: 'App-Backslash-Categories',
-        placeholder: 'Leave blank to copy from campaign.',
         required: false,
         accordionTab: '+ Backslash',
+        settings: {
+          placeholder: 'Leave blank to copy from campaign.',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
       }),
-      new DynamicOptionTagModel({
+      new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Leave blank to copy from campaign.',
         required: false,
         accordionTab: '+ Backslash',
+        settings: {
+          placeholder: 'Leave blank to copy from campaign.',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
       }),
       // Usage Rights
       new DynamicDatepickerDirectiveModel<string>({
@@ -184,9 +197,14 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         id: 'The_Loupe_Talent:Contract-Model-IDs',
         label: 'Talent Contracts',
         // providerName: 'App-Lib-UR-PageProvider-Talent-Project-create',
-        placeholder: 'select contract',
+        document: true,
         required: false,
         accordionTab: '+ Usage Rights',
+        settings: {
+          placeholder: 'Please select contract',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Lib-UR-PageProvider-Talent-Project-create',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_music_contract',
@@ -197,9 +215,14 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         id: 'The_Loupe_Talent:Contract-Music-IDs',
         label: 'Music Contracts',
         // providerName: 'App-Lib-UR-PageProvider-Music-Project-create',
-        placeholder: 'select contract',
+        document: true,
         required: false,
         accordionTab: '+ Usage Rights',
+        settings: {
+          placeholder: 'Please select contract',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Lib-UR-PageProvider-Music-Project-create',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_photographer_contract',
@@ -210,9 +233,14 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         id: 'The_Loupe_Talent:Contract-Photographer-IDs',
         label: 'Photographer Contracts',
         // providerName: 'App-Lib-UR-PageProvider-Photographer-Project-create',
-        placeholder: 'select contract',
+        document: true,
         required: false,
         accordionTab: '+ Usage Rights',
+        settings: {
+          placeholder: 'Please select contract',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Lib-UR-PageProvider-Photographer-Project-create',
+        },
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_stock_contract',
@@ -223,9 +251,14 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         id: 'The_Loupe_Talent:Contract-Stock-IDs',
         label: 'Stock/Illustration Contracts',
         // providerName: 'App-Lib-UR-PageProvider-Stock-Project-create',
-        placeholder: 'select contract',
+        document: true,
         required: false,
         accordionTab: '+ Usage Rights',
+        settings: {
+          placeholder: 'Please select contract',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Lib-UR-PageProvider-Stock-Project-create',
+        },
       }),
       // new DynamicInputModel({
       //   id: 'HBC_usage_rights:Font',
