@@ -3,6 +3,7 @@ import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'creative-brand-campaign-search-result',
@@ -33,9 +34,12 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
         title: 'Title',
         sort: false,
       },
-      edges: {
-        title: 'Edges',
+      startDate: {
+        title: 'Start Date',
         sort: false,
+        valuePrepareFunction: (value: any) => {
+          return value ? new DatePipe('en-US').transform(value, 'yyyy-MM-dd') : null;
+        },
       },
     },
   };
@@ -46,7 +50,7 @@ export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchRe
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc.title,
-        edges: doc.get('app_Edges:Tags_edges').join(', '),
+        startDate: doc.get('The_Loupe_ProdCredits:production_date'),
       }));
     }
     return items;

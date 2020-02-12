@@ -217,8 +217,16 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
         label: 'Allow Download of Attachments',
       }),
       new DynamicCheckboxModel({
+        id: 'app_global:asset_request',
+        label: 'enable Asset Requests',
+      }),
+      new DynamicCheckboxModel({
         id: 'app_global:collections',
         label: 'enable Collections',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Delivery:disclaimer',
+        label: 'Download Disclaimer',
       }),
       new DynamicCheckboxModel({
         id: 'app_global:UsageRights',

@@ -139,7 +139,6 @@ export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Campaign Start',
-        defaultValue: (new Date()),
         readonly: true,
         required: false,
       }),
@@ -157,6 +156,7 @@ export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent
         id: 'app_global:set_defaults',
         label: 'Set Defaults',
         readOnly: true,
+        disabled: true,
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',

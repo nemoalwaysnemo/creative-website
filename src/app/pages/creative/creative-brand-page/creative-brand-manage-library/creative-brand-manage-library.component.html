@@ -12,7 +12,7 @@
         <h4>Description</h4><span>{{ document.get('The_Loupe_Main:description') }}</span>
       </div>
       <div class="showcase-area">
-        <h4>Folder Image</h4><img style="width: 200px;height: 200px;" [src]="document.thumbnailUrl">
+        <h4>Folder Image</h4><div [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></div>
       </div>
       <div class="showcase-area">
         <h4>Agency</h4><span>{{ document.get('The_Loupe_Main:agency') }}</span>
@@ -45,10 +45,10 @@
         <h4>enable Library Showcase Tab</h4><span>{{document.get('app_global:showcase_tab') === true ? 'Yes' : 'No'}}</span>
       </div>
     </div>
-    <h3>Configure listings for this folder</h3><br>
+    <h3>LIST MANAGEMENT</h3><br>
     <div class="one-row">
       <div class="showcase-area">
-        <h4>enable List Management</h4><span>{{document.get('app_global:app_global:manage_lists') === true ? 'Yes' : 'No'}}</span>
+        <h4>enable List Management</h4><span>{{document.get('app_global:manage_lists') === true ? 'Yes' : 'No'}}</span>
       </div>
       <div class="showcase-area">
         <h4>enable Brand Management</h4><span>{{document.get('app_global:brand_activation') === true ? 'Yes' : 'No'}}</span>
@@ -94,7 +94,13 @@
         <h4>Allow Download of Attachments</h4><span>{{document.get('app_global:download_attachments') === true ? 'Yes' : 'No'}}</span>
       </div>
       <div class="showcase-area">
+        <h4>enable Asset Requests</h4><span>{{document.get('app_global:asset_request') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
         <h4>enable Collections</h4><span>{{document.get('app_global:collections') === true ? 'Yes' : 'No'}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Download Disclaimer</h4><span>{{document.get('The_Loupe_Delivery:disclaimer')}}</span>
       </div>
       <div class="showcase-area">
         <h4>enable Usage Rights</h4><span>{{document.get('app_global:UsageRights') === true ? 'Yes' : 'No'}}</span>
