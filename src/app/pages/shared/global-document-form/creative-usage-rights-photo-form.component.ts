@@ -33,16 +33,19 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         validators: { required: null },
         errorMessages: { required: '{{label}} is required'},
       }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'The_Loupe_Main:jobtitle',
-      //   label: 'Project Number',
-      //   document: true,
-      //   contentViewProvider: 'App-Library-PageProvider-Projects-UR-create',
-      //   placeholder: 'Select a Value',
-      //   required: true,
-      //   validators: { required: null },
-      //   errorMessages: { required: '{{label}} is required' },
-      // }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:jobtitle',
+        label: 'Project Number',
+        document: true,
+        required: false,
+        settings: {
+          placeholder: 'Search Project',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Library-PageProvider-Projects-UR-create',
+          inputTarget: (doc: DocumentModel): string => doc.getParent().getParent().uid,
+        },
+        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+      }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:campaign',
         label: 'Campaign/Project',
@@ -75,10 +78,11 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         label: 'Address',
         required: false,
       }),
-      new DynamicInputModel({
+      new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         required: false,
+        document: true,
         placeholder: 'Brand',
         visibleFn: (doc: DocumentModel): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
       }),
@@ -100,8 +104,9 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         label: 'Agency',
         required: false,
         settings: {
+          multiple: false,
           providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Library-UR-Music-contract-types',
+          providerName: 'GLOBAL_Agencies',
         },
       }),
       new DynamicSuggestionModel<string>({
@@ -117,45 +122,62 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
       new DynamicInputModel({
         id: 'item',
         label: 'Photographer',
-        required: false,
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'media_usage_type',
         label: 'Media Usage Types',
-        required: false,
+        required: true,
         document: true,
         settings: {
           placeholder: 'select a value',
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideURmediatypes',
         },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'start_airing_date',
         label: 'Start Airing Date',
         readonly: true,
-        required: false,
+        defaultValue: (new Date()),
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'contract_duration',
         label: 'Duration (months)',
-        required: false,
+        required: true,
+        validators: {
+          required: null,
+          pattern: /^[0-9]*[1-9][0-9]*$/,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          pattern: 'Must positive integer',
+        },
       }),
-
       new DynamicSuggestionModel<string>({
         id: 'contract_countries',
         label: 'Countries',
-        required: false,
+        required: true,
         settings: {
           multiple: true,
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',
         },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicCheckboxModel({
         id: 'active_media_usage',
         label: 'Active Media Usage',
+        required: false,
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

@@ -70,6 +70,10 @@ export class CreativeUsageRightsStockComponent extends AbstractDocumentFormCompo
         placeholder: 'Comments',
         autoComplete: 'off',
       }),
+      new DynamicOptionTagModel<string>({
+        id: 'The_Loupe_Rights:contact_client',
+        label: 'Contact Client',
+      }),
       new DynamicInputModel({
         id: 'The_Loupe_Talent:talent_agency',
         label: 'Provider Name',
@@ -165,6 +169,16 @@ export class CreativeUsageRightsStockComponent extends AbstractDocumentFormCompo
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
+      // #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('brand_activation')=="0" ? 'edit' : 'hidden'}
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        required: false,
+        document: true,
+        placeholder: 'Brand',
+        layoutPosition: 'right',
+        visibleFn: (doc: DocumentModel): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
+      }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
@@ -181,7 +195,6 @@ export class CreativeUsageRightsStockComponent extends AbstractDocumentFormCompo
         label: 'Country',
         layoutPosition: 'right',
         settings: {
-          multiple: false,
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',

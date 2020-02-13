@@ -27,7 +27,17 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Music Company',
+        maxLength: 50,
+        placeholder: 'Title',
         autoComplete: 'off',
+        required: true,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_type',
@@ -41,7 +51,6 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',
         label: 'Search Project',
-        required: true,
         document: true,
         settings: {
           multiple: true,
@@ -50,8 +59,6 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
           providerName: 'App-Library-PageProvider-Projects-UR-create',
           inputTarget: (doc: DocumentModel): string => doc.getParent().getParent().uid,
         },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required'},
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicInputModel({
@@ -66,18 +73,24 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
         label: 'PO Number',
         required: false,
       }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Rights:contact_client',
-        label: 'Contact Client',
-        required: false,
-      }),
-
       new DynamicInputModel({
         id: 'The_Loupe_Main:comment',
         label: 'Comment',
         required: false,
       }),
-
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Rights:contact_client',
+        label: 'Contact Client',
+        required: false,
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        required: false,
+        document: true,
+        placeholder: 'Brand',
+        visibleFn: (doc: DocumentModel): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
+      }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
@@ -96,9 +109,10 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
         label: 'Agency',
         required: false,
         settings: {
+          multiple: false,
           placeholder: 'Agency',
           providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Library-UR-Music-contract-types',
+          providerName: 'GLOBAL_Agencies',
         },
       }),
       new DynamicSuggestionModel<string>({
@@ -120,13 +134,15 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
       new DynamicSuggestionModel<string>({
         id: 'media_usage_type',
         label: 'Media Usage Types',
-        required: false,
+        required: true,
         document: true,
         settings: {
           placeholder: 'Please select a value',
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideURmediatypes',
         },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicDatepickerDirectiveModel<string>({
@@ -140,7 +156,6 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
         label: 'Duration (months)',
         required: false,
       }),
-
       new DynamicSuggestionModel<string>({
         id: 'contract_countries',
         label: 'Countries',
