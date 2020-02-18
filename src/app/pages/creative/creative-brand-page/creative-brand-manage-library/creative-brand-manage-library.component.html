@@ -12,7 +12,7 @@
         <h4>Description</h4><span>{{ document.get('The_Loupe_Main:description') }}</span>
       </div>
       <div class="showcase-area">
-        <h4>Folder Image</h4><div [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></div>
+        <h4>Folder Image</h4><img style="width: 200px;height: 200px;" [src]="document.thumbnailUrl">
       </div>
       <div class="showcase-area">
         <h4>Agency</h4><span>{{ document.get('The_Loupe_Main:agency') }}</span>

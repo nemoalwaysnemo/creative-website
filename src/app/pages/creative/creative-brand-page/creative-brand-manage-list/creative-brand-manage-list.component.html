@@ -37,18 +37,18 @@
     </div>
     <div class="one-row-low">
       <div class="showcase-area">
-        <h4>Default Asset Country</h4><span>{{document.get('The_Loupe_Main:country')}}</span>
+        <h4>Default Asset Country</h4><span>{{document.get('The_Loupe_Rights:asset_countries')}}</span>
       </div>
     </div>
     <h3>Configure listings for this folder</h3>
     <div class="one-row-medium" *ngIf="document.get('app_global:UsageRights')">
       <div class="showcase-area">
-        <h4>Usage Rights Media Usage Types</h4><span>{{document.get('The_Loupe_Rights:contract_mediatypes')}}</span>
+        <h4>Make First Airing Mandatory</h4><span>{{document.get('app_global:UsageRights_enable_firstairing_mandatory')}}</span>
       </div>
     </div>
-    <div class="one-row-medium">
-      <div class="showcase-area" *ngIf="document.get('app_global_fields:enable_productlist')">
-        <h4>Product</h4><span>{{document.get('The_Loupe_Main:productModel')}}</span>
+    <div class="one-row-medium" *ngIf="document.get('app_global:UsageRights')">
+      <div class="showcase-area">
+        <h4>Usage Rights Media Usage Types</h4><span>{{document.get('The_Loupe_Rights:contract_mediatypes')}}</span>
       </div>
     </div>
     <div class="one-row-medium">
@@ -64,6 +64,11 @@
     <div class="one-row-medium">
       <div class="showcase-area">
         <h4>Audio Asset Types</h4><span>{{document.get('The_Loupe_Main:assettypes_audio')}}</span>
+      </div>
+    </div>
+    <div class="one-row-medium">
+      <div class="showcase-area" *ngIf="document.get('app_global_fields:enable_productlist')">
+        <h4>Product</h4><span>{{document.get('The_Loupe_Main:productModel')}}</span>
       </div>
     </div>
     <button (click)="changeView()">EDIT</button>

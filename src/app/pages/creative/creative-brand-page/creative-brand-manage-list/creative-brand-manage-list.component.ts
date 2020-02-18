@@ -3,8 +3,9 @@ import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
+import { NbToastrService } from '@core/nebular/theme';
 
 @Component({
   selector: 'creative-brand-manage-list',
@@ -20,7 +21,9 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
+    protected queryParamsService: SearchQueryParamsService,
+    private toastrService: NbToastrService,
+  ) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -33,8 +36,10 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
   }
 
   onUpdated(doc: any): void {
-    this.refresh();
+    this.toastrService.success('success', `${doc.title} update success`);
+    this.changeView();
   }
+
   protected getFormLayout(): any {
     return {
       'dc:title': {
@@ -121,7 +126,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         label: 'Brand',
         placeholder: 'Brand',
         required: false,
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:brand_activation'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:brand_activation'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
@@ -134,10 +139,10 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
       }),
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:region',
-        label: 'Region',
+        label: 'Regions',
         placeholder: 'Please add region',
         required: false,
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global_fields:enable_region'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_region'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
@@ -158,29 +163,28 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         },
       }),
       new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
+        id: 'The_Loupe_Rights:asset_countries',
+        label: 'Default Asset Country',
         settings: {
-          placeholder: 'Please select country',
+          placeholder: 'Select default country for all new assets in this library.',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',
         },
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:UsageRights_enable_firstairing_mandatory',
+        label: 'Make First Airing Mandatory',
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Usage Rights Media Usage Types',
         settings: {
+          placeholder: 'Media Usage Types available for all assets in this library folder',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-UR-contract-mediatypes',
         },
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global:UsageRights'),
-      }),
-      new DynamicOptionTagModel<string>({
-        id: 'The_Loupe_Main:productModel',
-        label: 'Product',
-        placeholder: 'Please add product',
-        required: false,
-        hiddenFn: (doc: DocumentModel): boolean => !doc.get('app_global_fields:enable_productlist'),
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettypes_image',
@@ -205,6 +209,13 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-MediaTypes-Audio',
         },
+      }),
+      new DynamicOptionTagModel<string>({
+        id: 'The_Loupe_Main:productModel',
+        label: 'Product',
+        placeholder: 'Please add product',
+        required: false,
+        visibleFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_productlist'),
       }),
     ];
   }

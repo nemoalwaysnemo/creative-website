@@ -25,15 +25,15 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
     return [
       {
         name: '+ Agency Credits',
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+        // visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       },
       {
         name: '+ Backslash',
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:backslash'),
+        // visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:backslash'),
       },
       {
         name: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:UsageRights'),
+        // visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:UsageRights'),
       },
     ];
   }
@@ -44,7 +44,15 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         id: 'dc:title',
         label: 'Project Name',
         autoComplete: 'off',
-        required: false,
+        required: true,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:campaign',
@@ -52,6 +60,7 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         document: true,
         required: true,
         settings: {
+          multiple: false,
           placeholder: 'Select a value',
           providerType: SuggestionSettings.CONTENT_VIEW,
           providerName: 'App-Library-PageProvider-Campaigns',
@@ -71,9 +80,62 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
         label: 'Default Asset Country',
         required: false,
         settings: {
-          placeholder: 'Select a value',
+          placeholder: 'Leave blank to copy from campaign...',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        disabled: true,
+        required: false,
+        document: true,
+        settings: {
+          placeholder: 'Brand',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideBrands',
+        },
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:agency',
+        label: 'Agency',
+        disabled: true,
+        required: false,
+        settings: {
+          multiple: false,
+          placeholder: 'Leave blank to copy from agency/campaign',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:country',
+        label: 'Country',
+        disabled: true,
+        settings: {
+          placeholder: 'Leave blank to copy from agency/campaign',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:clientName',
+        label: 'Client',
+        required: false,
+        placeholder: 'Client',
+        readOnly: true,
+        disabled: true,
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:industry',
+        label: 'Industry',
+        disabled: true,
+        settings: {
+          placeholder: 'Please select industry',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
         },
       }),
       // Agency Credits
@@ -183,17 +245,14 @@ export class CreativeProjectFormComponent extends AbstractDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Media Usage Types',
-        required: true,
+        required: false,
         document: true,
         settings: {
-          placeholder: 'Where is this used?',
+          placeholder: 'Select Media Usage Type of asset',
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideURmediatypes',
         },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        visibleFn: (doc: DocumentModel): boolean => !doc.getParent().get('app_global:UsageRights'),
         accordionTab: '+ Usage Rights',
       }),
       new DynamicCheckboxModel({
