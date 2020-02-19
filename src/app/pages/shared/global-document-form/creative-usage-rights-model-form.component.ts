@@ -72,7 +72,6 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
           placeholder: 'Select a value',
           providerType: SuggestionSettings.CONTENT_VIEW,
           providerName: 'App-Library-PageProvider-Projects-UR-create',
-          inputTarget: (doc: DocumentModel): string => doc.getParent().getParent().uid,
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },

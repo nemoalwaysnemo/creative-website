@@ -57,7 +57,6 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
           placeholder: 'Search Project',
           providerType: SuggestionSettings.CONTENT_VIEW,
           providerName: 'App-Library-PageProvider-Projects-UR-create',
-          inputTarget: (doc: DocumentModel): string => doc.getParent().getParent().uid,
         },
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
