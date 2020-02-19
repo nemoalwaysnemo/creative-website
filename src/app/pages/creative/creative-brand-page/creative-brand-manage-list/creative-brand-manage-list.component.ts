@@ -193,6 +193,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-MediaTypes-Image',
         },
+        parentOnly: true,
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettypes_video',

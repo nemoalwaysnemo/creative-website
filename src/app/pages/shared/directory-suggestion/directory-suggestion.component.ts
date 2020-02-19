@@ -39,6 +39,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() settings: SuggestionSettings = new SuggestionSettings();
 
+  @Input() parentOnly: boolean;
+
   @Input() afterSearch: Function = (options: OptionModel[]): Observable<OptionModel[]> => observableOf(options);
 
   @Input() onResponsed: Function = (res: any): any => res;
@@ -225,7 +227,9 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     const suggestion = new SuggestionItem(res);
     this.stack.push(suggestion.displayLabel);
     this.suggestions.push({ id: this.stack.join('/'), label: suggestion.displayLabel, deep: 'deep_' + (this.stack.length - 1) });
-    suggestion.children.forEach(child => { this.suggestionsIterator(child); });
+    if (!this.parentOnly) {
+      suggestion.children.forEach(child => { this.suggestionsIterator(child); });
+    }
     this.stack.pop();
     return this.suggestions;
   }
