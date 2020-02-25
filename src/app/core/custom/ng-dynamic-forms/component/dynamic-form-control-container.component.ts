@@ -161,6 +161,10 @@ export abstract class DynamicFormControlContainerComponent implements OnChanges,
       this.layoutService.getEndTemplate(this.model, this.templates) : undefined;
   }
 
+  get isRequired(): boolean {
+    return (this.model as DynamicFormValueControlModel<any>).required;
+  }
+
   getClass(context: DynamicFormControlLayoutContext, place: DynamicFormControlLayoutPlace): string {
     return this.layoutService.getClass(this.controlLayout, context, place);
   }

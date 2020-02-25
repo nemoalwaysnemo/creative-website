@@ -87,6 +87,6 @@ export class DynamicFormComponentService {
   }
 
   getCustomComponentType(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
-    return isFunction(this.DYNAMIC_FORM_CONTROL_MAP_FN) ? this.DYNAMIC_FORM_CONTROL_MAP_FN(model) : null;
+    return isFunction(this._DYNAMIC_FORM_CONTROL_MAP_FN) ? this._DYNAMIC_FORM_CONTROL_MAP_FN(model) : null;
   }
 }

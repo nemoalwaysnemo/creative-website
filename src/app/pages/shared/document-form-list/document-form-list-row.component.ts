@@ -14,8 +14,8 @@ export class DocumentFormListRowComponent extends DynamicFormArrayComponent {
 
   @Output() blur: EventEmitter<any> = new EventEmitter();
   @Output() change: EventEmitter<any> = new EventEmitter();
-  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   constructor(protected layoutService: DynamicFormLayoutService, protected validationService: DynamicFormValidationService) {
     super(layoutService, validationService);
