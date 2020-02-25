@@ -205,11 +205,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         }
       });
     }
-    console.log(1111, this.formGroup.value);
-    // this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
-    //   this.callback.next({ action: 'created', message: 'created successfully!', doc: models });
-    //   this.onCreated.next(models); // this can be delete after our dialog refactor all done
-    // });
+    this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
+      this.callback.next({ action: 'created', message: 'created successfully!', doc: models });
+      this.onCreated.next(models); // this can be delete after our dialog refactor all done
+    });
   }
 
   private update(): void {

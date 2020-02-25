@@ -81,7 +81,7 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
   }
 
   writeValue(val: any): void {
-    console.log(9999, this.formGroup.value);
+
   }
 
   registerOnChange(fn: any): void {
@@ -99,7 +99,6 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
   onAddRow(): void {
     const list = this.formGroup.controls[this.modelId] as FormArray;
     this.formService.addFormArrayGroup(list, this.formArrayModel);
-    console.log(4444, this.formGroupModels, this.formGroup.value);
   }
 
   getColumns(): number {
