@@ -3,28 +3,32 @@ import { FormGroup } from '@angular/forms';
 import { NgbDatepicker, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
+  DynamicFormControlCustomEvent,
+  DynamicFormControlLayout,
   DynamicFormLayout,
   DynamicFormLayoutService,
-  DynamicFormValidationService,
   DynamicFormControlComponent,
+  DynamicFormValidationService,
 } from '@core/custom';
 
 @Component({
   selector: 'dynamic-ng-datepicker',
   templateUrl: './dynamic-ng-datepicker.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DynamicNGDatePickerComponent extends DynamicFormControlComponent {
 
+  @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicDatePickerModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter();
   @Output() change: EventEmitter<any> = new EventEmitter();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild(NgbDatepicker, { static: true }) ngbDatePicker: NgbDatepicker;
+  @ViewChild(NgbDatepicker, { static: false }) ngbDatePicker: NgbDatepicker;
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,

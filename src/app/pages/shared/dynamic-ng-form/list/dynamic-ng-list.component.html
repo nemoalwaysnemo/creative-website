@@ -1,0 +1,15 @@
+<ng-container [formGroup]="group">
+  <document-form-list
+      [formControlName]="model.id"
+      [id]="elementId"
+      [modelId]="model.id"
+      [document]="model.document"
+      [settings]="model.items"
+      [attr.disabled]="model.disabled"
+      [required]="model.required"
+      [tabindex]="model.tabIndex"
+      (blur)="onBlur($event)"
+      (change)="onChange($event)"
+      (focus)="onFocus($event)">
+  </document-form-list>
+</ng-container>

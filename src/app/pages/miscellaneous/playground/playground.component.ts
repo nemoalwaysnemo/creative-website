@@ -1,9 +1,9 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DocumentModel, DocumentRepository } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDatePickerModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
-import { PreviewDialogService } from '@pages/shared';
-import { DynamicOptionTagModel } from '@core/custom/ng-dynamic-forms/model/option-tag/dynamic-option-tag.model';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicFormArrayModel } from '@core/custom';
+import { PreviewDialogService, OptionModel } from '@pages/shared';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
+import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'playground',
@@ -44,144 +44,121 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private update(): void {
-    this.documentRepository.get('c4e41076-c38f-4f8a-848b-8ba45e114530').subscribe((doc: DocumentModel) => {
-      this.document = doc;
-      this.settings = this.getSettings();
-    });
+    this.documentRepository.get('b5dace6f-3042-48f8-9ef7-36e0197f1dee')
+      .pipe(
+        concatMap((parent: DocumentModel) =>
+          this.documentRepository.get('c4724199-d769-422a-8d7b-b0351e85fb09').pipe(
+            map((doc: DocumentModel) => {
+              doc.setParent(parent);
+              return doc;
+            }),
+          ),
+        ),
+      )
+      .subscribe((doc: DocumentModel) => {
+        this.document = doc;
+        this.settings = this.getSettings();
+      });
   }
 
   private getSettings(): object[] {
     return [
-      new DynamicInputModel({
-        id: 'dc:title',
-        label: 'Title',
-        maxLength: 50,
-        placeholder: 'Title',
-        autoComplete: 'off',
+      // new DynamicInputModel({
+      //   id: 'dc:title',
+      //   label: 'Title',
+      //   maxLength: 50,
+      //   placeholder: 'Title',
+      //   autoComplete: 'off',
+      //   required: false,
+      //   validators: {
+      //     required: null,
+      //     minLength: 4,
+      //   },
+      //   errorMessages: {
+      //     required: '{{label}} is required',
+      //     minLength: 'At least 4 characters',
+      //   },
+      //   hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+      // }),
+      // new DynamicFormArrayModel({
+      //   id: 'formList',
+      //   groupFactory: () => [
+      //     new DynamicInputModel({
+      //       id: 'item',
+      //       label: 'item name',
+      //       maxLength: 50,
+      //       placeholder: 'item',
+      //       autoComplete: 'off',
+      //       required: true,
+      //       validators: {
+      //         required: null,
+      //         minLength: 4,
+      //       },
+      //       errorMessages: {
+      //         required: '{{label}} is required',
+      //         minLength: 'At least 4 characters',
+      //       },
+      //     }),
+      //   ],
+      // }),
+      new DynamicListModel({
+        id: 'The_Loupe_Rights:contract_items_usage_types',
+        label: 'Contract Items',
         required: false,
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          minLength: 'At least 4 characters',
-        },
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
-      }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand',
-        placeholder: 'Brand',
-        required: false,
-      }),
-      new DynamicDatePickerModel({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Production Date',
-        placeholder: 'Production Date',
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:library_librarians',
-        label: 'Librarians',
-        settings: {
-          initSearch: false,
-          placeholder: 'Please select user/group',
-          providerType: SuggestionSettings.USER_GROUP,
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:industry',
-        label: 'Industry',
-        settings: {
-          placeholder: 'Please select industry',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Industries',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Relevant_Country',
-        label: 'Geography',
-        settings: {
-          placeholder: 'Please select country',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:agency',
-        label: 'Agency',
-        settings: {
-          multiple: false,
-          placeholder: 'Please select agency',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Agencies',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
-        settings: {
-          placeholder: 'Please select country',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:backslash_category',
-        label: 'Backslash Category',
-        settings: {
-          placeholder: 'Please select category',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Backslash-Categories',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Tags_edges',
-        label: 'Edges',
-        settings: {
-          placeholder: 'Please select edges',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Edges-Edges',
-        },
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'create',
-        uploadType: 'asset',
-        layoutPosition: 'right',
-        queueLimit: 25,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'edit',
-        uploadType: 'asset',
-        layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.key,.ppt,.zip,.doc,.xls,.mp4',
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'create',
-        multiUpload: true,
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'edit',
-        multiUpload: false,
+        document: true,
+        items: [
+          new DynamicInputModel({
+            id: 'item',
+            label: 'item name',
+            maxLength: 50,
+            placeholder: 'item',
+            autoComplete: 'off',
+            required: true,
+            validators: {
+              required: null,
+              minLength: 4,
+            },
+            errorMessages: {
+              required: '{{label}} is required',
+              minLength: 'At least 4 characters',
+            },
+            hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+          }),
+          new DynamicSuggestionModel<string>({
+            id: 'media_usage_type',
+            label: 'Media Usage Types',
+            required: true,
+            document: true,
+            settings: {
+              placeholder: 'Where is this used?',
+              providerType: SuggestionSettings.OPERATION,
+              providerName: 'javascript.provideURmediatypes',
+            },
+            validators: { required: null },
+            errorMessages: { required: '{{label}} is required' },
+            onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+            // visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
+          }),
+          new DynamicSuggestionModel<string>({
+            id: 'contract_countries',
+            label: 'Country',
+            required: true,
+            settings: {
+              placeholder: 'Country',
+              providerType: SuggestionSettings.DIRECTORY,
+              providerName: 'GLOBAL_Countries',
+            },
+          }),
+          new DynamicDatepickerDirectiveModel<string>({
+            id: 'start_airing_date',
+            label: 'Production Date',
+            readonly: true,
+            defaultValue: (new Date()),
+            required: true,
+            validators: { required: null },
+            errorMessages: { required: '{{label}} is required' },
+          }),
+        ],
       }),
     ];
   }

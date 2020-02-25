@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewCh
 import { FormGroup } from '@angular/forms';
 import { NgbTimepicker, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DynamicFormControlLayout,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
@@ -16,8 +17,9 @@ import {
 })
 export class DynamicNGTimePickerComponent extends DynamicFormControlComponent {
 
+  @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicTimePickerModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter();

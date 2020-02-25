@@ -1,15 +1,15 @@
 export * from './component/dynamic-form-array.component';
-export * from './component/dynamic-form-component';
+export * from './component/dynamic-form.component';
+export * from './component/dynamic-form-group.component';
 export * from './component/dynamic-form-control-container.component';
-export * from './component/dynamic-form-control.event';
+export * from './component/dynamic-form-control-event';
 export * from './component/dynamic-form-control.component';
-export * from './component/dynamic-form-control.interface';
-export * from './component/dynamic-templateable-form-control.component';
-export * from './component/dynamic-templateable-form-control.interface';
+export * from './component/dynamic-form-control-interface';
+export * from './component/dynamic-form-control-with-template.component';
+export * from './component/dynamic-form-control-with-template-interface';
 
 export * from './decorator/serializable.decorator';
 
-export * from './directive/dynamic-id.directive';
 export * from './directive/dynamic-list.directive';
 export * from './directive/dynamic-template.directive';
 
@@ -39,6 +39,7 @@ export * from './model/switch/dynamic-switch.model';
 export * from './model/textarea/dynamic-textarea.model';
 export * from './model/timepicker/dynamic-timepicker.model';
 export * from './model/suggestion/dynamic-suggestion.model';
+export * from './model/list/dynamic-list.model';
 export * from './model/option-tag/dynamic-option-tag.model';
 export * from './model/batch-upload/batch-upload.model';
 export * from './model/drag-drop-file-zone/drag-drop-file-zone.model';
@@ -49,16 +50,18 @@ export * from './model/misc/dynamic-form-control-path.model';
 export * from './model/misc/dynamic-form-control-relation.model';
 export * from './model/misc/dynamic-form-control-validation.model';
 
-export * from './service/dynamic-form.service';
-export * from './service/dynamic-form-layout.service';
-export * from './service/dynamic-form-validation.service';
-export * from './service/dynamic-form-instances.service';
+export * from './service/dynamic-form-relation-matchers';
+export * from './service/dynamic-form-validation-matchers';
+export * from './service/dynamic-form-validators';
 
-export * from './service/dynamic-form.validators';
+export * from './service/dynamic-form.service';
+export * from './service/dynamic-form-component.service';
+export * from './service/dynamic-form-layout.service';
+export * from './service/dynamic-form-relation.service';
+export * from './service/dynamic-form-validation.service';
 
 export * from './utils/autofill.utils';
 export * from './utils/core.utils';
 export * from './utils/json.utils';
-export * from './utils/relation.utils';
 
 export * from './core.module';

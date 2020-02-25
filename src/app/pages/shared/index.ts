@@ -7,6 +7,7 @@ export * from './batch-file-upload/batch-file-upload.module';
 export * from './directory-suggestion/directory-suggestion.module';
 export * from './document-viewer/document-viewer.module';
 export * from './document-form/document-form.module';
+export * from './document-form-list/document-form-list.module';
 export * from './global-search-form/global-search-form.module';
 export * from './global-search-filter/global-search-filter.module';
 export * from './global-search-result/global-search-result.module';

@@ -1,15 +1,14 @@
 <div class="layout-left left {{formClass}}">
   <dynamic-ng-form-control *ngFor="let model of layoutLeft; trackBy: trackByFn"
-                          [group]="formGroup"
+                          [group]="group"
                           [hidden]="model.hidden"
-                          [layout]="formLayout"
+                          [layout]="layout"
                           [model]="model"
-                          [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
                           [templates]="templates"
-                          (blur)="onEvent($event, 'blur')"
-                          (change)="onEvent($event, 'change')"
-                          (focus)="onEvent($event, 'focus')"
-                          (customEvent)="onEvent($event, 'custom')">
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"
+                          (customEvent)="onCustomEvent($event, customEvent)">
   </dynamic-ng-form-control>
 </div>
 
@@ -19,11 +18,10 @@
         <nb-accordion-item class="accordion-item">
           <nb-accordion-item-header class="accordion-item-header"><span>{{ accordion['accordionTabName'] }}</span></nb-accordion-item-header>
           <nb-accordion-item-body>
-            <dynamic-ng-form-control *ngFor="let model of accordion['modelsContents']; trackBy: trackByFn" [group]="formGroup"
-            [hidden]="model.hidden" [layout]="formLayout" [model]="model"
-            [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]" [templates]="templates"
-            (blur)="onEvent($event, 'blur')" (change)="onEvent($event, 'change')" (focus)="onEvent($event, 'focus')"
-            (customEvent)="onEvent($event, 'custom')">
+            <dynamic-ng-form-control *ngFor="let model of accordion['modelsContents']; trackBy: trackByFn" [group]="group"
+            [hidden]="model.hidden" [layout]="layout" [model]="model" [templates]="templates"
+            (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)"
+            (customEvent)="onCustomEvent($event, customEvent)">
           </dynamic-ng-form-control>
           </nb-accordion-item-body>
         </nb-accordion-item>
@@ -41,11 +39,11 @@
         <nb-accordion-item class="accordion-item">
           <nb-accordion-item-header class="accordion-item-header"><span>{{ accordion['accordionTabName'] }}</span></nb-accordion-item-header>
           <nb-accordion-item-body>
-            <dynamic-ng-form-control *ngFor="let model of accordion['modelsContents']; trackBy: trackByFn" [group]="formGroup"
-            [hidden]="model.hidden" [layout]="formLayout" [model]="model"
+            <dynamic-ng-form-control *ngFor="let model of accordion['modelsContents']; trackBy: trackByFn" [group]="group"
+            [hidden]="model.hidden" [layout]="layout" [model]="model"
             [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]" [templates]="templates"
-            (blur)="onEvent($event, 'blur')" (change)="onEvent($event, 'change')" (focus)="onEvent($event, 'focus')"
-            (customEvent)="onEvent($event, 'custom')">
+            (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)"
+            (customEvent)="onCustomEvent($event, customEvent)">
           </dynamic-ng-form-control>
           </nb-accordion-item-body>
         </nb-accordion-item>
@@ -56,30 +54,28 @@
 
 <div class="layout-right right">
   <dynamic-ng-form-control *ngFor="let model of layoutRight; trackBy: trackByFn"
-                          [group]="formGroup"
+                          [group]="group"
                           [hidden]="model.hidden"
-                          [layout]="formLayout"
+                          [layout]="layout"
                           [model]="model"
-                          [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
                           [templates]="templates"
-                          (blur)="onEvent($event, 'blur')"
-                          (change)="onEvent($event, 'change')"
-                          (focus)="onEvent($event, 'focus')"
-                          (customEvent)="onEvent($event, 'custom')">
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"
+                          (customEvent)="onCustomEvent($event, customEvent)">
   </dynamic-ng-form-control>
 </div>
 <div class="clear"></div>
 <div class="layout-bottom">
   <dynamic-ng-form-control *ngFor="let model of layoutBottom; trackBy: trackByFn"
-                          [group]="formGroup"
+                          [group]="group"
                           [hidden]="model.hidden"
-                          [layout]="formLayout"
+                          [layout]="layout"
                           [model]="model"
-                          [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
                           [templates]="templates"
-                          (blur)="onEvent($event, 'blur')"
-                          (change)="onEvent($event, 'change')"
-                          (focus)="onEvent($event, 'focus')"
-                          (customEvent)="onEvent($event, 'custom')">
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"
+                          (customEvent)="onCustomEvent($event, customEvent)">
   </dynamic-ng-form-control>
 </div>

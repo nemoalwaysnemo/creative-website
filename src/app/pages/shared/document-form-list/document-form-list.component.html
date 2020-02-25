@@ -1,0 +1,23 @@
+<ng-container [formGroup]="formGroup">
+  <div class="document-form-list">
+    <table>
+      <tbody>
+        <document-form-list-row *ngFor="let groupModel of formGroupModels; let idx = index" role="group"
+          [model]="groupModel"
+          [group]="formGroup"
+          (blur)="onEvent($event, 'blur')"
+          (change)="onEvent($event, 'change')"
+          (focus)="onEvent($event, 'focus')"
+          (customEvent)="onEvent($event, 'custom')">
+        </document-form-list-row>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td nowrap [attr.colspan]="getColumns()">
+            <button nbButton outline class="btn btn-success btn-xs" status="primary" (click)="onAddRow()">Add</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</ng-container>
