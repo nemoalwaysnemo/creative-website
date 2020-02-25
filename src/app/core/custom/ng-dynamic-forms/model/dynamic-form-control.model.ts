@@ -79,7 +79,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.controlTooltip = config.controlTooltip || null;
     this.layout = layout;
     this.document = config.document;
-    this.defaultValue = config.defaultValue;
+    this.defaultValue = config.defaultValue || null;
     this.name = config.name || config.id;
     this.relation = Array.isArray(config.relation) ? config.relation : [];
     this.updateOn = isString(config.updateOn) ? config.updateOn : null;

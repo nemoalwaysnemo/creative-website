@@ -1,0 +1,19 @@
+<ng-container [formGroup]="group">
+  <tr *ngFor="let groupModel of model.groups; let idx = index" role="group">
+    <td nowrap *ngFor="let _model of groupModel.group">
+      <document-form-list-cell
+        [context]="groupModel"
+        [group]="array.at(idx)"
+        [hidden]="_model.hidden"
+        [model]="_model"
+        (blur)="onBlur($event)"
+        (change)="onChange($event)"
+        (focus)="onFocus($event)"
+        (customEvent)="onCustomEvent($event, 'custom')">
+      </document-form-list-cell>
+    </td>
+    <td nowrap>
+      <button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="onRemoveRow(idx)">Delete</button>
+    </td>
+  </tr>
+</ng-container>

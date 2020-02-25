@@ -24,6 +24,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
   layoutBottom: DynamicFormModel = [];
   layoutAccordion: any = [];
 
+
   @Input()
   set modelOperation(operation: any) {
     operation.subscribe(opt => {

@@ -29,6 +29,7 @@ import { DynamicValidatorsConfig } from '../model/misc/dynamic-form-control-vali
 import { maskFromString, parseReviver } from '../utils/json.utils';
 import { isString } from '../utils/core.utils';
 import { DynamicDragDropFileZoneModel, DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE } from '../model/drag-drop-file-zone/drag-drop-file-zone.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_LIST, DynamicListModel } from '../model/list/dynamic-list.model';
 
 @Injectable({
   providedIn: 'root',
@@ -37,10 +38,7 @@ export class DynamicFormService {
 
   constructor(private validationService: DynamicFormValidationService) { }
 
-  private createAbstractControlOptions(validatorsConfig: DynamicValidatorsConfig | null = null,
-                                       asyncValidatorsConfig: DynamicValidatorsConfig | null = null,
-                                       updateOn: any | null = null): AbstractControlOptions {
-
+  private createAbstractControlOptions(validatorsConfig: DynamicValidatorsConfig | null = null, asyncValidatorsConfig: DynamicValidatorsConfig | null = null, updateOn: any | null = null): AbstractControlOptions {
     return {
       asyncValidators: asyncValidatorsConfig !== null ? this.validationService.getAsyncValidators(asyncValidatorsConfig) : null,
       validators: validatorsConfig !== null ? this.validationService.getValidators(validatorsConfig) : null,
@@ -49,23 +47,17 @@ export class DynamicFormService {
   }
 
   createFormArray(formArrayModel: DynamicFormArrayModel): FormArray {
-    const controls: AbstractControl[] = [],
-      options = this.createAbstractControlOptions(formArrayModel.validators, formArrayModel.asyncValidators,
-        formArrayModel.updateOn);
-
+    const controls: AbstractControl[] = [];
+    const options = this.createAbstractControlOptions(formArrayModel.validators, formArrayModel.asyncValidators, formArrayModel.updateOn);
     for (let index = 0; index < formArrayModel.size; index++) {
-
-      const groupModel = formArrayModel.get(index),
-        groupOptions = this.createAbstractControlOptions(formArrayModel.groupValidators,
-          formArrayModel.groupAsyncValidators, formArrayModel.updateOn);
-
+      const groupModel = formArrayModel.get(index);
+      const groupOptions = this.createAbstractControlOptions(formArrayModel.groupValidators, formArrayModel.groupAsyncValidators, formArrayModel.updateOn);
       controls.push(this.createFormGroup(groupModel.group, groupOptions, groupModel));
     }
     return new FormArray(controls, options);
   }
 
-  createFormGroup(formModel: DynamicFormModel, options: AbstractControlOptions | null = null,
-                  parent: DynamicPathable | null = null): FormGroup {
+  createFormGroup(formModel: DynamicFormModel, options: AbstractControlOptions | null = null, parent: DynamicPathable | null = null): FormGroup {
 
     const controls: { [controlId: string]: AbstractControl; } = {};
     formModel.forEach(model => {
@@ -126,11 +118,9 @@ export class DynamicFormService {
     }
   }
 
-  insertFormGroupControl(index: number, formGroup: FormGroup, formModel: DynamicUnionFormModel,
-                         ...models: DynamicFormModel): void {
-
-    const parent = formModel instanceof DynamicFormGroupModel ? formModel : null,
-      controls = this.createFormGroup(models, null, parent).controls;
+  insertFormGroupControl(index: number, formGroup: FormGroup, formModel: DynamicUnionFormModel, ...models: DynamicFormModel): void {
+    const parent = formModel instanceof DynamicFormGroupModel ? formModel : null;
+    const controls = this.createFormGroup(models, null, parent).controls;
 
     Object.keys(controls).forEach((controlName, idx) => {
       const controlModel = models[idx];
@@ -143,7 +133,6 @@ export class DynamicFormService {
     });
   }
 
-
   removeFormGroupControl(index: number, formGroup: FormGroup, formModel: DynamicUnionFormModel): void {
     if (formModel instanceof DynamicFormGroupModel) {
       formGroup.removeControl(formModel.get(index).id);
@@ -154,18 +143,15 @@ export class DynamicFormService {
     }
   }
 
-
   addFormArrayGroup(formArray: FormArray, formArrayModel: DynamicFormArrayModel): void {
     const groupModel = formArrayModel.addGroup();
     formArray.push(this.createFormGroup(groupModel.group, null, groupModel));
   }
 
-
   insertFormArrayGroup(index: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel): void {
     const groupModel = formArrayModel.insertGroup(index);
     formArray.insert(index, this.createFormGroup(groupModel.group, null, groupModel));
   }
-
 
   moveFormArrayGroup(index: number, step: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel): void {
 
@@ -224,29 +210,22 @@ export class DynamicFormService {
 
   fromJSON(json: string | object[]): DynamicFormModel | never {
 
-    const formModelJSON = isString(json) ? JSON.parse(json, parseReviver) : json,
-      formModel: DynamicFormModel = [];
+    const formModelJSON = isString(json) ? JSON.parse(json, parseReviver) : json;
+    const formModel: DynamicFormModel = [];
 
     formModelJSON.forEach((model: any) => {
-
       const layout = model.layout || null;
-
       switch (model.type) {
-
         case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
           const formArrayModel = model as DynamicFormArrayModel;
-
           if (Array.isArray(formArrayModel.groups)) {
-
             formArrayModel.groups.forEach((groupModel: DynamicFormArrayGroupModel) => {
               groupModel.group = this.fromJSON(groupModel.group) as DynamicFormModel;
             });
           }
-
           formArrayModel.groupFactory = () => {
             return this.fromJSON(formArrayModel.groupPrototype);
           };
-
           formModel.push(new DynamicFormArrayModel(model, layout));
           break;
 
@@ -283,13 +262,11 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_INPUT:
           const inputModel = model as DynamicInputModel;
-
           if (inputModel.mask !== null) {
             if (!(inputModel.mask instanceof Function)) {
               inputModel.mask = maskFromString(inputModel.mask as string);
             }
           }
-
           formModel.push(new DynamicInputModel(model, layout));
           break;
 
@@ -323,6 +300,10 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION:
           formModel.push(new DynamicSuggestionModel(model, layout));
+          break;
+
+        case DYNAMIC_FORM_CONTROL_TYPE_LIST:
+          formModel.push(new DynamicListModel(model, layout));
           break;
 
         case DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD:

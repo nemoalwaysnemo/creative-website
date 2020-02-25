@@ -9,14 +9,12 @@ export const DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION = 'SUGGESTION';
 
 export interface DynamicSuggestionModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
   settings: any;
-  parentOnly?: boolean;
   afterSearch?: Function;
   onResponsed?: Function;
 }
 
 export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() settings: any;
-  @serializable() parentOnly: boolean;
   @serializable() afterSearch: Function;
   @serializable() onResponsed: Function;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION;
@@ -24,7 +22,6 @@ export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
   constructor(config: DynamicSuggestionModelConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.settings = new SuggestionSettings(config.settings || {});
-    this.parentOnly = Boolean(config.parentOnly);
     this.afterSearch = isFunction(config.afterSearch) ? config.afterSearch : (options: any[]): Observable<any[]> => observableOf(options);
     this.onResponsed = isFunction(config.onResponsed) ? config.onResponsed : (res: any): any => res;
   }

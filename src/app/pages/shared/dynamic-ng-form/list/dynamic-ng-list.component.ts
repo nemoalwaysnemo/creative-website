@@ -1,33 +1,31 @@
-import { Component, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  DynamicFormArrayComponent,
-  DynamicFormArrayModel,
-  DynamicFormControlCustomEvent,
+  DynamicFormControlComponent,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicTemplateDirective,
+  DynamicListModel,
 } from '@core/custom';
 
 @Component({
-  selector: 'dynamic-ng-form-array',
-  templateUrl: './dynamic-ng-form-array.component.html',
+  selector: 'dynamic-ng-list',
+  templateUrl: './dynamic-ng-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicNGFormArrayComponent extends DynamicFormArrayComponent {
+export class DynamicNGListComponent extends DynamicFormControlComponent {
 
   @Input() group: FormGroup;
   @Input() layout: DynamicFormLayout;
-  @Input() model: DynamicFormArrayModel;
-  @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
+  @Input() model: DynamicListModel<string>;
 
   @Output() blur: EventEmitter<any> = new EventEmitter();
   @Output() change: EventEmitter<any> = new EventEmitter();
-  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService) {
+
     super(layoutService, validationService);
   }
 }

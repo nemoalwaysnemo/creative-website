@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel } from '@core/custom';
 import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services';
 
@@ -26,8 +26,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
-  dynamicModels: DynamicFormControlModel[] = [];
-
   modelOperation: Subject<{ id: string, type: string }> = new Subject();
 
   private formMode: 'create' | 'edit';
@@ -50,7 +48,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() loading: boolean = true;
 
-  @Input() settings: DynamicFormControlModel[] = [];
+  @Input() settings: DynamicFormModel = [];
 
   @Input()
   set document(doc: DocumentModel) {
@@ -207,10 +205,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         }
       });
     }
-    this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
-      this.callback.next({ action: 'created', message: 'created successfully!', doc: models });
-      this.onCreated.next(models); // this can be delete after our dialog refactor all done
-    });
+    console.log(1111, this.formGroup.value);
+    // this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
+    //   this.callback.next({ action: 'created', message: 'created successfully!', doc: models });
+    //   this.onCreated.next(models); // this can be delete after our dialog refactor all done
+    // });
   }
 
   private update(): void {
