@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
-  DynamicFormLayout,
+  DynamicFormControlLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicSuggestionModel,
@@ -16,7 +16,7 @@ import {
 export class DynamicNGSuggestionComponent extends DynamicFormControlComponent {
 
   @Input() group: FormGroup;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicSuggestionModel<string>;
 
   @Output() blur: EventEmitter<any> = new EventEmitter();

@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DynamicFormControlModel, DynamicFormControlModelConfig } from './dynamic-form-control.model';
 import { DynamicFormControlLayout } from './misc/dynamic-form-control-layout.model';
 import { serializable } from '../decorator/serializable.decorator';
@@ -19,34 +19,35 @@ export abstract class DynamicFormValueControlModel<T> extends DynamicFormControl
   @serializable() hint: string | null;
   @serializable() required: boolean;
   @serializable() tabIndex: number | null;
-  @serializable('value') _value: T | null;
-  valueUpdates: Subject<T>;
+  @serializable('value') private _value: T | null;
+
+  private readonly value$: BehaviorSubject<T>;
+
+  readonly valueChanges: Observable<T>;
 
   protected constructor(config: DynamicFormValueControlModelConfig<T>, layout?: DynamicFormControlLayout) {
+
     super(config, layout);
+
     this.additional = isObject(config.additional) ? config.additional : null;
     this.hint = config.hint || null;
     this.required = isBoolean(config.required) ? config.required : false;
-    this.requiredUpdates.subscribe(required => this.required = required);
     this.tabIndex = config.tabIndex || null;
-    this.value = config.value !== null && config.value !== undefined ? config.value : null;
-    this.valueUpdates = new Subject<T>();
-    this.valueUpdates.subscribe((value: T) => this.value = value);
-  }
 
-  set value(value: T | null) {
-    this._value = value;
+    this.value$ = new BehaviorSubject(config.value !== null && config.value !== undefined ? config.value : null);
+    this.value$.subscribe(value => this._value = value);
+    this.valueChanges = this.value$.asObservable();
   }
 
   get value(): T | null {
-    return this._value;
+    return this.value$.getValue();
   }
 
-  get isRequired(): boolean {
-    return this.required;
+  set value(value: T | null) {
+    this.value$.next(value);
   }
 
-  getAdditional(key: string, defaultValue?: any): any {
+  getAdditional(key: string, defaultValue?: any | null): any {
     return this.additional !== null && this.additional.hasOwnProperty(key) ? this.additional[key] : defaultValue;
   }
 }

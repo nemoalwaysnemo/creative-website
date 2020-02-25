@@ -1,13 +1,22 @@
-import { Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  DynamicFormComponent,
+  DynamicFormComponent, DynamicFormComponentService,
   DynamicFormControlEvent,
-  DynamicFormModel,
   DynamicFormLayout,
-  DynamicFormLayoutService,
-  DynamicFormService,
+  DynamicFormModel,
   DynamicTemplateDirective,
+  DynamicFormService,
   DynamicFormControlModel,
 } from '@core/custom';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
@@ -16,14 +25,17 @@ import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-contro
   selector: 'dynamic-ng-form',
   styleUrls: ['./dynamic-ng-form.component.scss'],
   templateUrl: './dynamic-ng-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicNGFormComponent extends DynamicFormComponent {
 
   layoutLeft: DynamicFormModel = [];
-  layoutRight: DynamicFormModel = [];
-  layoutBottom: DynamicFormModel = [];
-  layoutAccordion: any = [];
 
+  layoutRight: DynamicFormModel = [];
+
+  layoutBottom: DynamicFormModel = [];
+
+  layoutAccordion: any = [];
 
   @Input()
   set modelOperation(operation: any) {
@@ -39,7 +51,8 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   @Input() formClass: string;
 
-  @Input('group') formGroup: FormGroup;
+  @Input() group: FormGroup;
+
   @Input('accordions')
   set accordionsStructure(accordions: any[]) {
     if (accordions) {
@@ -71,7 +84,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
       }
     });
   }
-  @Input('layout') formLayout: DynamicFormLayout;
+  @Input() layout: DynamicFormLayout;
 
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -81,8 +94,10 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
   @ContentChildren(DynamicTemplateDirective) templates: QueryList<DynamicTemplateDirective>;
   @ViewChildren(DynamicNGFormControlContainerComponent) components: QueryList<DynamicNGFormControlContainerComponent>;
 
-  constructor(protected formService: DynamicFormService, protected layoutService: DynamicFormLayoutService) {
-    super(formService, layoutService);
+  constructor(protected formService: DynamicFormService,
+              protected changeDetectorRef: ChangeDetectorRef,
+              protected componentService: DynamicFormComponentService) {
+    super(changeDetectorRef, componentService);
   }
 
   deleteModel(id: string): void {
@@ -91,7 +106,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
         return model.id === id;
       });
       if (index > -1) {
-        this.formService.removeFormGroupControl(index, this.formGroup, models);
+        this.formService.removeFormGroupControl(index, this.group, models);
       }
     });
   }

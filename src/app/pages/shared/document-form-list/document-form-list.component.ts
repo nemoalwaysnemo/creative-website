@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChildren, QueryList } from '@angular/core';
+import { Component, forwardRef, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, FormArray } from '@angular/forms';
 import { DocumentModel } from '@core/api';
 import { Subscription, Subject } from 'rxjs';
@@ -7,11 +7,10 @@ import {
   DynamicFormModel,
   DynamicFormService,
   DynamicFormComponent,
-  DynamicFormLayoutService,
   DynamicFormControlEvent,
   DynamicFormArrayModel,
+  DynamicFormComponentService,
 } from '../../../core/custom/ng-dynamic-forms';
-import { DynamicNGFormControlContainerComponent } from '../dynamic-ng-form/dynamic-ng-form-control-container.component';
 
 @Component({
   selector: 'document-form-list',
@@ -67,10 +66,11 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
-  constructor(protected formService: DynamicFormService, protected layoutService: DynamicFormLayoutService) {
-    super(formService, layoutService);
+  constructor(protected formService: DynamicFormService, protected changeDetectorRef: ChangeDetectorRef, protected componentService: DynamicFormComponentService) {
+    super(changeDetectorRef, componentService);
     this.onDocumentChanged();
   }
+
 
   ngOnInit(): void {
 

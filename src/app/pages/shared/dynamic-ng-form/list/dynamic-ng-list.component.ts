@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
-  DynamicFormLayout,
+  DynamicFormControlLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicListModel,
@@ -16,7 +16,7 @@ import {
 export class DynamicNGListComponent extends DynamicFormControlComponent {
 
   @Input() group: FormGroup;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicListModel<string>;
 
   @Output() blur: EventEmitter<any> = new EventEmitter();

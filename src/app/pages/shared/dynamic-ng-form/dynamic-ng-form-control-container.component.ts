@@ -1,8 +1,10 @@
 import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ContentChildren,
   EventEmitter,
+  HostBinding,
   Input,
   Output,
   QueryList,
@@ -13,13 +15,14 @@ import {
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayGroupModel,
+  DynamicFormComponentService,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormInstancesService,
   DynamicFormLayout,
   DynamicFormLayoutService,
+  DynamicFormRelationService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@core/custom';
@@ -28,15 +31,19 @@ import { ngBootstrapUIFormControlMapFn } from './dynamic-ng-form-field';
 @Component({
   selector: 'dynamic-ng-form-control',
   templateUrl: './dynamic-ng-form-control-container.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicNGFormControlContainerComponent extends DynamicFormControlContainerComponent {
 
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
-  @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
 
-  @Input() asBootstrapFormGroup: boolean = true;
+  @HostBinding('class') klass = '';
+
+  @Input() asBootstrapFormGroup = true;
   @Input() context: DynamicFormArrayGroupModel | null = null;
   @Input() group: FormGroup;
+  @Input() hostClass: string[];
+  @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
   @Input() layout: DynamicFormLayout;
   @Input() model: DynamicFormControlModel;
 
@@ -45,16 +52,19 @@ export class DynamicNGFormControlContainerComponent extends DynamicFormControlCo
   @Output() focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
-  @ViewChild('componentViewContainer', { static: true, read: ViewContainerRef }) componentViewContainerRef: ViewContainerRef;
+  @ViewChild('componentViewContainer', { read: ViewContainerRef, static: true }) componentViewContainerRef: ViewContainerRef;
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver,
+  constructor(protected changeDetectorRef: ChangeDetectorRef,
+              protected componentFactoryResolver: ComponentFactoryResolver,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              protected dynamicFormInstancesService: DynamicFormInstancesService) {
-    super(componentFactoryResolver, layoutService, validationService, dynamicFormInstancesService);
+              protected componentService: DynamicFormComponentService,
+              protected relationService: DynamicFormRelationService) {
+
+    super(changeDetectorRef, componentFactoryResolver, layoutService, validationService, componentService, relationService);
   }
 
   get componentType(): Type<DynamicFormControl> | null {
-    return ngBootstrapUIFormControlMapFn(this.model) || this.layoutService.getCustomComponentType(this.model);
+    return this.componentService.getCustomComponentType(this.model) || ngBootstrapUIFormControlMapFn(this.model);
   }
 }

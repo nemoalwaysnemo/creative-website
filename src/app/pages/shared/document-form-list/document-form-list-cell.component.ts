@@ -1,9 +1,9 @@
-import { Component, forwardRef, ComponentFactoryResolver } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
 import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicFormInstancesService,
+  DynamicFormComponentService,
+  DynamicFormRelationService,
 } from '../../../core/custom/ng-dynamic-forms';
 import { DynamicNGFormControlContainerComponent } from '../dynamic-ng-form/dynamic-ng-form-control-container.component';
 
@@ -13,11 +13,13 @@ import { DynamicNGFormControlContainerComponent } from '../dynamic-ng-form/dynam
 })
 export class DocumentFormListCellComponent extends DynamicNGFormControlContainerComponent {
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver,
+  constructor(protected changeDetectorRef: ChangeDetectorRef,
+              protected componentFactoryResolver: ComponentFactoryResolver,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              protected dynamicFormInstancesService: DynamicFormInstancesService) {
-    super(componentFactoryResolver, layoutService, validationService, dynamicFormInstancesService);
-  }
+              protected componentService: DynamicFormComponentService,
+              protected relationService: DynamicFormRelationService) {
 
+    super(changeDetectorRef, componentFactoryResolver, layoutService, validationService, componentService, relationService);
+  }
 }
