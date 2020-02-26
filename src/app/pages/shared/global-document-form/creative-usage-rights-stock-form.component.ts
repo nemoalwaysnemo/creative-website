@@ -92,6 +92,7 @@ export class CreativeUsageRightsStockComponent extends AbstractDocumentFormCompo
       new DynamicListModel({
         id: 'The_Loupe_Rights:contract_items_usage_types',
         label: 'Contract Items',
+        layoutPosition: 'bottom',
         required: false,
         items: [
           new DynamicInputModel({
