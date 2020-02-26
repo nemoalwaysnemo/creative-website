@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DocumentModel, DocumentRepository } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicFormArrayModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { PreviewDialogService, OptionModel } from '@pages/shared';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 import { concatMap, map } from 'rxjs/operators';
@@ -127,6 +127,17 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
               providerName: 'GLOBAL_Countries',
             },
           }),
+          new DynamicInputModel({
+            id: 'contract_duration',
+            label: 'Duration',
+            placeholder: 'month',
+            required: true,
+            validators: { required: null, minLength: 1 },
+            errorMessages: {
+              required: '{{label}} is required',
+              minLength: 'At least 1 characters',
+            },
+          }),
           new DynamicDatepickerDirectiveModel<string>({
             id: 'start_airing_date',
             label: 'Production Date',
@@ -135,6 +146,10 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
             required: true,
             validators: { required: null },
             errorMessages: { required: '{{label}} is required' },
+          }),
+          new DynamicCheckboxModel({
+            id: 'active_media_usage',
+            label: 'Active',
           }),
         ],
       }),
