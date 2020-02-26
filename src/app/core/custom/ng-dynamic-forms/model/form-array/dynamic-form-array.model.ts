@@ -106,13 +106,11 @@ export class DynamicFormArrayModel extends DynamicFormControlModel {
   }
 
   moveGroup(index: number, step: number): void {
-
     this.groups.splice(index + step, 0, ...this.groups.splice(index, 1));
     this.updateGroupIndex();
   }
 
   removeGroup(index: number): void {
-
     this.groups.splice(index, 1);
     this.updateGroupIndex();
   }

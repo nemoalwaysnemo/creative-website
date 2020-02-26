@@ -2,8 +2,8 @@
   <div class="document-form-list">
     <table>
       <tbody>
-        <document-form-list-row *ngFor="let groupModel of formGroupModels; let idx = index" role="group"
-          [model]="groupModel"
+        <document-form-list-row
+          [arrayModel]="formArrayModel"
           [group]="formGroup"
           (blur)="onBlur($event)"
           (change)="onChange($event)"
@@ -13,8 +13,8 @@
       </tbody>
       <tfoot>
         <tr>
-          <td nowrap [attr.colspan]="getColumns()">
-            <button nbButton outline class="btn btn-success btn-xs" status="primary" (click)="onAddRow()">Add</button>
+          <td [attr.colspan]="getColumns()">
+            <button nbButton outline class="btn btn-success btn-xs" status="primary" [disabled]="disabled" (click)="onAddRow()">Add</button>
           </td>
         </tr>
       </tfoot>

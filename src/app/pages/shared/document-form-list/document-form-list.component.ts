@@ -1,9 +1,6 @@
-import { Component, forwardRef, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
+import { Component, forwardRef, Input, Output, EventEmitter, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, FormArray } from '@angular/forms';
-import { DocumentModel } from '@core/api';
-import { Subscription, Subject } from 'rxjs';
 import {
-  DynamicFormControlModel,
   DynamicFormModel,
   DynamicFormService,
   DynamicFormComponent,
@@ -11,6 +8,8 @@ import {
   DynamicFormArrayModel,
   DynamicFormComponentService,
 } from '../../../core/custom/ng-dynamic-forms';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'document-form-list',
@@ -30,14 +29,6 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
 
   @Input() settings: DynamicFormModel = [];
 
-  @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      this.formMode = doc.uid ? 'edit' : 'create';
-      this.document$.next(doc);
-    }
-  }
-
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -48,29 +39,19 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
 
   formGroup: FormGroup;
 
-  formGroupModels: DynamicFormModel = [];
+  formArrayModel: DynamicFormArrayModel;
 
-  private formArrayModel: DynamicFormArrayModel;
-
-  private formMode: 'create' | 'edit';
-
-  private disabled: boolean = false;
+  disabled: boolean = false;
 
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
 
-  private documentModel: DocumentModel;
-
-  protected subscription: Subscription = new Subscription();
-
-  private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+  private subscription: Subscription = new Subscription();
 
   constructor(protected formService: DynamicFormService, protected changeDetectorRef: ChangeDetectorRef, protected componentService: DynamicFormComponentService) {
     super(changeDetectorRef, componentService);
-    this.onDocumentChanged();
   }
-
 
   ngOnInit(): void {
 
@@ -80,8 +61,8 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
     this.subscription.unsubscribe();
   }
 
-  writeValue(val: any): void {
-
+  writeValue(values: any[]): void {
+    this.createForm(this.settings, values);
   }
 
   registerOnChange(fn: any): void {
@@ -97,50 +78,30 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
   }
 
   onAddRow(): void {
-    const list = this.formGroup.controls[this.modelId] as FormArray;
-    this.formService.addFormArrayGroup(list, this.formArrayModel);
+    const formArrayControl = this.formService.findControlByModel<FormArray>(this.formArrayModel, this.formGroup);
+    this.formService.addFormArrayGroup(formArrayControl, this.formArrayModel);
+    this.formService.detectChanges();
   }
 
   getColumns(): number {
     return this.settings.length + 1;
   }
 
-  private getFormArrayModel(settings: DynamicFormModel): DynamicFormArrayModel {
+  private getFormArrayModel(settings: DynamicFormModel, rows: number = 1): DynamicFormArrayModel {
     return this.formArrayModel || (this.formArrayModel = new DynamicFormArrayModel({
       id: this.modelId,
+      initialCount: rows,
       groupFactory: () => settings,
     }));
   }
 
-  private onDocumentChanged(): void {
-    const subscription = this.document$.pipe(
-    ).subscribe((doc: DocumentModel) => {
-      this.loading = false;
-      this.documentModel = doc;
-      const settings = this.performSettings(doc, this.settings);
-      this.formGroupModels = this.formService.fromJSON([this.getFormArrayModel(settings)]);
-      this.formGroup = this.formService.createFormGroup(this.formGroupModels);
-    });
-    this.subscription.add(subscription);
-  }
-
-  private createForm(settings: DynamicFormModel): FormGroup {
-    const model = this.formService.fromJSON(settings);
-    return this.formService.createFormGroup(model);
-  }
-
-  private performSettings(doc: DocumentModel, settings: DynamicFormModel): DynamicFormModel {
-    let formModel = settings.filter((v) => v.formMode === null || v.formMode === this.formMode);
-    if (doc) {
-      formModel = formModel.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn.call(this, doc));
-      formModel.forEach((model: DynamicFormControlModel) => {
-        const modelValue = doc.get(model.id);
-        if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc); }
-        if (model.document) { model.document = doc; }
-        model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
-      });
-    }
-    return formModel;
+  private createForm(settings: DynamicFormModel, values: any[] = []): void {
+    const rows = values && values.length > 0 ? values.length : 1;
+    const models = [this.getFormArrayModel(settings, rows)];
+    const formGroupModels = this.formService.fromJSON(models);
+    this.formGroup = this.formService.createFormGroup(formGroupModels);
+    if (rows > 0) { this.formGroup.get(this.modelId).patchValue(values, { onlySelf: true, emitEvent: false }); }
+    this.subscription = this.formGroup.get(this.modelId).valueChanges.pipe(debounceTime(300)).subscribe(val => { this._onChange(val); });
   }
 
 }

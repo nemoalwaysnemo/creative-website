@@ -234,7 +234,6 @@ export class DynamicFormService {
   }
 
   removeFormArrayGroup(index: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel): void {
-
     formArray.removeAt(index);
     formArrayModel.removeGroup(index);
   }

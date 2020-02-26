@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services';
 
@@ -12,7 +12,7 @@ import { deepExtend } from '@core/services';
 })
 export class DocumentFormComponent implements OnInit, OnDestroy {
 
-  formModel: DynamicFormControlModel[];
+  formModel: DynamicFormModel;
 
   formLayout: DynamicFormLayout;
 
@@ -142,11 +142,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return properties;
   }
 
-  private createFormModel(settings: string | any[]): DynamicFormControlModel[] {
+  private createFormModel(settings: string | any[]): DynamicFormModel {
     return this.formService.fromJSON(settings);
   }
 
-  private createFormGroup(formModel: DynamicFormControlModel[]): FormGroup {
+  private createFormGroup(formModel: DynamicFormModel): FormGroup {
     return this.formService.createFormGroup(formModel);
   }
 
@@ -154,7 +154,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.accordionList = (accordions || []).filter((item: any) => !item.visibleFn || item.visibleFn.call(this, doc));
   }
 
-  private performSettings(settings: DynamicFormControlModel[]): DynamicFormControlModel[] {
+  private prepareSettings(settings: DynamicFormModel): DynamicFormModel {
     const uploadModel = settings.find((v) => (v instanceof DynamicBatchUploadModel));
     this.uploadFieldName = uploadModel ? uploadModel.id : this.uploadFieldName;
     const model = settings.find(m => (m instanceof DynamicBatchUploadModel) && m.formMode === 'create');
@@ -162,23 +162,31 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return settings.filter((v) => v.formMode === null || v.formMode === this.formMode);
   }
 
-  private createForm(settings: DynamicFormControlModel[]): void {
-    this.formModel = this.createFormModel(settings);
-    this.formGroup = this.createFormGroup(this.formModel);
+  private performSettings(doc: DocumentModel, settings: DynamicFormModel) {
+    settings.forEach((model: DynamicFormControlModel) => {
+      const modelValue = doc.get(model.id);
+      if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc); }
+      if (model.document) { model.document = doc; }
+      model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
+      if (model instanceof DynamicListModel) {
+        this.performSettings(doc, model.items);
+      }
+    });
+    return settings;
   }
 
-  private prepareForm(doc: DocumentModel, settings: DynamicFormControlModel[]) {
+  private prepareForm(doc: DocumentModel, settings: DynamicFormModel) {
     if (doc) {
       settings = settings.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn.call(this, doc));
-      const models = this.performSettings(settings);
-      models.forEach((model: DynamicFormControlModel) => {
-        const modelValue = doc.get(model.id);
-        if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc); }
-        if (model.document) { model.document = doc; }
-        model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
-      });
+      let models = this.prepareSettings(settings);
+      models = this.performSettings(doc, models);
       this.createForm(models);
     }
+  }
+
+  private createForm(settings: DynamicFormModel): void {
+    this.formModel = this.createFormModel(settings);
+    this.formGroup = this.createFormGroup(this.formModel);
   }
 
   private onDocumentChanged(): void {

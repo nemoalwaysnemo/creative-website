@@ -63,49 +63,27 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   private getSettings(): object[] {
     return [
-      // new DynamicInputModel({
-      //   id: 'dc:title',
-      //   label: 'Title',
-      //   maxLength: 50,
-      //   placeholder: 'Title',
-      //   autoComplete: 'off',
-      //   required: false,
-      //   validators: {
-      //     required: null,
-      //     minLength: 4,
-      //   },
-      //   errorMessages: {
-      //     required: '{{label}} is required',
-      //     minLength: 'At least 4 characters',
-      //   },
-      //   hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
-      // }),
-      // new DynamicFormArrayModel({
-      //   id: 'formList',
-      //   groupFactory: () => [
-      //     new DynamicInputModel({
-      //       id: 'item',
-      //       label: 'item name',
-      //       maxLength: 50,
-      //       placeholder: 'item',
-      //       autoComplete: 'off',
-      //       required: true,
-      //       validators: {
-      //         required: null,
-      //         minLength: 4,
-      //       },
-      //       errorMessages: {
-      //         required: '{{label}} is required',
-      //         minLength: 'At least 4 characters',
-      //       },
-      //     }),
-      //   ],
-      // }),
+      new DynamicInputModel({
+        id: 'dc:title',
+        label: 'Title',
+        maxLength: 50,
+        placeholder: 'Title',
+        autoComplete: 'off',
+        required: false,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
+        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+      }),
       new DynamicListModel({
         id: 'The_Loupe_Rights:contract_items_usage_types',
         label: 'Contract Items',
         required: false,
-        document: true,
         items: [
           new DynamicInputModel({
             id: 'item',
