@@ -76,6 +76,9 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
         id: 'The_Loupe_Main:comment',
         label: 'Comment',
         required: false,
+        maxLength: 50,
+        placeholder: 'Comments',
+        autoComplete: 'off',
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Rights:contact_client',
@@ -145,7 +148,7 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
               required: '{{label}} is required',
               minLength: 'At least 4 characters',
             },
-            hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+            // hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
           }),
           new DynamicSuggestionModel<string>({
             id: 'media_usage_type',
@@ -165,23 +168,36 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
             id: 'start_airing_date',
             label: 'Start Airing Date',
             readonly: true,
-            required: false,
+            required: true,
+            defaultValue: (new Date()),
+            validators: { required: null },
+            errorMessages: { required: '{{label}} is required' },
           }),
           new DynamicInputModel({
             id: 'contract_duration',
             label: 'Duration (months)',
-            required: false,
+            required: true,
+            validators: {
+              required: null,
+              pattern: /^[0-9]*[1-9][0-9]*$/,
+            },
+            errorMessages: {
+              required: '{{label}} is required',
+              pattern: 'Must positive integer',
+            },
           }),
           new DynamicSuggestionModel<string>({
             id: 'contract_countries',
             label: 'Countries',
-            required: false,
+            required: true,
             settings: {
               multiple: true,
               placeholder: 'Please select a value',
               providerType: SuggestionSettings.DIRECTORY,
               providerName: 'GLOBAL_Countries',
             },
+            validators: { required: null },
+            errorMessages: { required: '{{label}} is required' },
           }),
           new DynamicCheckboxModel({
             id: 'active_media_usage',

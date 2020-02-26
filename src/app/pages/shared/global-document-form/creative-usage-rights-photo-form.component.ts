@@ -58,9 +58,12 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         required: false,
       }),
       new DynamicInputModel({
-        id: 'HBC_general:Comments',
+        id: 'The_Loupe_Main:comment',
         label: 'Comment',
         required: false,
+        maxLength: 50,
+        placeholder: 'Comments',
+        autoComplete: 'off',
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Rights:contact_client',
@@ -138,7 +141,7 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
               required: '{{label}} is required',
               minLength: 'At least 4 characters',
             },
-            hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+            // hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
           }),
           new DynamicSuggestionModel<string>({
             id: 'media_usage_type',
@@ -192,7 +195,6 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
           new DynamicCheckboxModel({
             id: 'active_media_usage',
             label: 'Active Media Usage',
-            required: false,
           }),
         ],
       }),

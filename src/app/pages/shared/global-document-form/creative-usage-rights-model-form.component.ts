@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
@@ -8,7 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 
 @Component({
   selector: 'creative-usage-rights-model-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCreated)="created($event)" (onUpdated)="updated($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="callback($event)"></document-form>`,
 })
 export class CreativeUsageRightsModelComponent extends AbstractDocumentFormComponent {
 
@@ -120,53 +120,80 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
         required: false,
         placeholder: 'email',
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'media_usage_type',
-        label: 'Media Usage Types',
-        required: true,
-        document: true,
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.OPERATION,
-          providerName: 'javascript.provideURmediatypes',
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'start_airing_date',
-        label: 'Start Airing Date',
-        readonly: true,
-        required: true,
-        defaultValue: (new Date()),
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicInputModel({
-        id: 'contract_duration',
-        label: 'Duration (months)',
-        required: true,
-        validators: {
-          required: null,
-          pattern: /^[0-9]*[1-9][0-9]*$/,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          pattern: 'Must positive integer',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'contract_countries',
-        label: 'Countries',
-        required: true,
-        settings: {
-          multiple: true,
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+      new DynamicListModel({
+        id: 'The_Loupe_Rights:contract_items_usage_types',
+        label: 'Contract Items',
+        required: false,
+        items: [
+          // new DynamicInputModel({
+          //   id: 'item',
+          //   label: 'Talent',
+          //   maxLength: 50,
+          //   placeholder: 'item',
+          //   autoComplete: 'off',
+          //   required: true,
+          //   validators: {
+          //     required: null,
+          //     minLength: 4,
+          //   },
+          //   errorMessages: {
+          //     required: '{{label}} is required',
+          //     minLength: 'At least 4 characters',
+          //   },
+          // }),
+          new DynamicSuggestionModel<string>({
+            id: 'media_usage_type',
+            label: 'Media Usage Types',
+            required: true,
+            document: true,
+            settings: {
+              placeholder: 'Select a value',
+              providerType: SuggestionSettings.OPERATION,
+              providerName: 'javascript.provideURmediatypes',
+            },
+            validators: { required: null },
+            errorMessages: { required: '{{label}} is required' },
+            onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+          }),
+          new DynamicDatepickerDirectiveModel<string>({
+            id: 'start_airing_date',
+            label: 'Start Airing Date',
+            readonly: true,
+            required: true,
+            defaultValue: (new Date()),
+            validators: { required: null },
+            errorMessages: { required: '{{label}} is required' },
+          }),
+          new DynamicInputModel({
+            id: 'contract_duration',
+            label: 'Duration (months)',
+            required: true,
+            validators: {
+              required: null,
+              pattern: /^[0-9]*[1-9][0-9]*$/,
+            },
+            errorMessages: {
+              required: '{{label}} is required',
+              pattern: 'Must positive integer',
+            },
+          }),
+          new DynamicSuggestionModel<string>({
+            id: 'contract_countries',
+            label: 'Countries',
+            required: true,
+            settings: {
+              multiple: true,
+              providerType: SuggestionSettings.DIRECTORY,
+              providerName: 'GLOBAL_Countries',
+            },
+            validators: { required: null },
+            errorMessages: { required: '{{label}} is required' },
+          }),
+          // new DynamicCheckboxModel({
+          //   id: 'active_media_usage',
+          //   label: 'Active Media Usage',
+          // }),
+        ],
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
