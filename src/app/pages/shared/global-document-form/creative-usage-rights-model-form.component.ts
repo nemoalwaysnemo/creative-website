@@ -79,7 +79,7 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:po_number_internal',
         label: 'PO Number',
-        required: false,
+        required: true,
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Talent:talent_agency_contact',
@@ -195,46 +195,6 @@ export class CreativeUsageRightsModelComponent extends AbstractDocumentFormCompo
           //   label: 'Active Media Usage',
           // }),
         ],
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'create',
-        uploadType: 'asset',
-        layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*,.pdf',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'edit',
-        uploadType: 'asset',
-        layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*,.pdf',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'create',
-        multiUpload: false,
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
       }),
     ];
   }

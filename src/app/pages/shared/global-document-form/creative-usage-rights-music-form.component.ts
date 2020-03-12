@@ -42,6 +42,7 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_type',
         label: 'Contract Type',
+        required: true,
         settings: {
           placeholder: 'Please select a value',
           providerType: SuggestionSettings.DIRECTORY,
@@ -50,7 +51,8 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',
-        label: 'Search Project',
+        label: 'Project Number',
+        required: true,
         document: true,
         settings: {
           multiple: true,
@@ -70,7 +72,7 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:po_number_internal',
         label: 'PO Number',
-        required: false,
+        required: true,
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:comment',

@@ -37,7 +37,7 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         id: 'The_Loupe_Main:jobtitle',
         label: 'Project Number',
         document: true,
-        required: false,
+        required: true,
         settings: {
           placeholder: 'Search Project',
           providerType: SuggestionSettings.CONTENT_VIEW,
@@ -55,7 +55,7 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:po_number_internal',
         label: 'PO Number',
-        required: false,
+        required: true,
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:comment',
