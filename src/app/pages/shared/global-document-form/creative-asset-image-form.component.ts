@@ -132,7 +132,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
-        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
@@ -146,7 +146,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideURmediatypes',
         },
-        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (doc: DocumentModel): boolean => !doc.getParent().get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
@@ -168,7 +168,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideRegions',
         },
-        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global_fields:enable_region'),
       }),
       new DynamicInputModel({
@@ -208,7 +208,7 @@ export class CreativeAssetImageFormComponent extends AbstractDocumentFormCompone
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideProducts',
         },
-        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global_fields:enable_productlist'),
       }),
       // #{currentDocument.getPropertyValue('app_global:networkshare')=="0" ? 'hidden' : 'edit'}
