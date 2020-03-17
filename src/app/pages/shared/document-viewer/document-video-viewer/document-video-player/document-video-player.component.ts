@@ -1,8 +1,8 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentVideoViewerService } from '../document-video-viewer.service';
 import { VgAPI } from 'videogular2/compiled/core';
-import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
+import { CookieService } from '@core/services';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -50,7 +50,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
       (res) => {
         const presentVolume = res.target.volume;
         setVolume(presentVolume);
-        this.cookieService.set('defaultVolume', presentVolume.toString(), 3600, '/');
+        this.cookieService.set('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'None');
       });
     if (this.autoPlay) {
       this.api.play();

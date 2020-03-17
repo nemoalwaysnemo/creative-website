@@ -9,7 +9,7 @@ export const Environment = {
   // nuxeoUrl: 'http://100.122.3.142:8080/nuxeo/',
   nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
   backslashAppUrl: 'https://library-staging.factory.tools/nuxeo/edges',
-  oauth2CallBackPath: 'http://localhost:4200/#/',
+  oauth2CallBackPath: 'https://localhost:4200/#/',
   assetPath: '',
   production: false,
 };
