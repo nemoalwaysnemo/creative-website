@@ -1,5 +1,5 @@
 <creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
-<div class="creative-brand-asset" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+<div class="creative-brand-asset" [nbSpinner]="loading" nbSpinnerStatus="disabled" style="margin-top:45px">
   <global-search-form [filters]="filters" [baseParams]="baseParams$ | async">
     <ng-container *ngIf="isOnDevMode()" class="group-right">
       <div class="global-search-form-buttons">
