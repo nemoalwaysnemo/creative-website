@@ -14,8 +14,8 @@
         [loading]="loading$ | async"
         [typeahead]="filter$"
         [virtualScroll]="true"
-        (change)="onChange($event)"
         [(ngModel)]="selectedItems"
+        (change)="onChange($event)"
         (blur)="onBlur($event)"
       >
         <ng-template ng-label-tmp let-item="item" let-clear="clear">
@@ -38,10 +38,10 @@
         bindLabel="label"
         bindValue="value"
         clearAllText="Clear"
-        [loading]="loading$ | async"
         [virtualScroll]="true"
-        (change)="onChange($event)"
+        [loading]="loading$ | async"
         [(ngModel)]="selectedItems"
+        (change)="onChange($event)"
         (blur)="onBlur($event)"
       >
       <ng-template ng-option-tmp let-item="item">

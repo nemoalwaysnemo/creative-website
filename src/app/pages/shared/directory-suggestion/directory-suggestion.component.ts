@@ -57,7 +57,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   constructor(private nuxeoApi: NuxeoApiService) { }
 
-  onChange(event: any) {
+  onChange(event: any): void {
     if (Array.isArray(event)) {
       this._onChange(event.map(x => x.value));
     } else {
@@ -66,11 +66,11 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     }
   }
 
-  onBlur(event: any) {
+  onBlur(event: any): void {
     if ((this.selectedItems.length < 1 && this.selectedItems) || !this.selectedItems) this._onTouched();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.settings.suggestion === true) {
       this.onSearchTriggered();
       if (this.settings.initSearch) {
@@ -81,7 +81,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

@@ -13,6 +13,20 @@ export class OptionModel {
   }
 }
 
+export class OptionSettings {
+  [key: string]: any;
+  placeholder: string = 'Please select value';
+  closeOnSelect: boolean = false;
+  iteration: boolean = false;
+  bufferSize: number = 50;
+  options: OptionModel[] = [];
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+}
+
+
 export class ItemNode {
   constructor(
     public value: string,
@@ -51,13 +65,10 @@ export class ItemNode {
 }
 
 export class ItemTree {
-  constructor(
-    public cut: string,
-  ) { }
+  constructor(public cut: string) { }
   private nodes: ItemNode[] = [];
   private parentNode: ItemNode;
   private node: ItemNode;
-
   private _models: OptionModel[] = [];
   private deep: number = 0;
 

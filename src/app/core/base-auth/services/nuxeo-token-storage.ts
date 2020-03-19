@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from '../../services';
 import { NbTokenStorage, NbAuthTokenParceler, NbAuthToken } from '../services';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class NuxeoTokenStorage extends NbTokenStorage {
 
   set(token: NbAuthToken) {
     const raw = this.parceler.wrap(token);
-    this.cookieService.set(this.key, raw, token.getTokenExpDate(), '/');
+    this.cookieService.set(this.key, raw, token.getTokenExpDate(), '/', undefined, true, 'Lax');
   }
 
   clear() {

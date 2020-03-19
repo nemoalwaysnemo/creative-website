@@ -1,7 +1,7 @@
 import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { AggregateModel } from '@core/api';
-import { OptionModel } from '../option-select/option-select.interface';
+import { OptionModel, OptionSettings } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'global-search-filter',
@@ -17,7 +17,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
 
   aggregateModel: any = {};
 
-  aggregates: AggregateModel[] = [];
+  optionSettings: OptionSettings[] = [];
 
   closeOnSelect: boolean = true;
 
@@ -29,7 +29,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
 
   @Input('aggregateModels')
   set setAggregateModels(models: AggregateModel[]) {
-    this.aggregates = this.buildAggregates(models);
+    this.optionSettings = this.buildOptionSettings(models);
   }
 
   @Output() selected: EventEmitter<any> = new EventEmitter();
@@ -66,21 +66,22 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
     this.preventHideDoc.emit(true);
   }
 
-  private buildAggregates(models: AggregateModel[]): any[] {
-    const aggregates = [];
+  private buildOptionSettings(models: AggregateModel[]): OptionSettings[] {
+    const settings: OptionSettings[] = [];
     for (const model of models) {
       const options = [];
       const id = model.id;
       const placeholder = model.placeholder;
+      const bufferSize = model.bufferSize;
       const iteration = model.iteration;
       for (const bucket of model.extendedBuckets) {
-        if (model.filterValue && model.filterValue.call(this, bucket)) {
+        if (model.filterValueFn && model.filterValueFn.call(this, bucket)) {
           options.push(this.buildOptionModel(bucket, model.optionLabels));
         }
       }
-      aggregates.push({ id, placeholder, options, iteration });
+      settings.push(new OptionSettings({ id, placeholder, options, iteration, bufferSize }));
     }
-    return aggregates;
+    return settings;
   }
 
   private buildOptionModel(agg: any = {}, labels: any = {}): OptionModel {

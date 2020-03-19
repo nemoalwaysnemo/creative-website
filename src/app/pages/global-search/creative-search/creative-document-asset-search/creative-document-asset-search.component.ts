@@ -32,7 +32,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
-    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', convertTitle: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
     new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
@@ -42,7 +42,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
 
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
     if (res.action === 'afterSearch') {
-      return this.advanceSearch.requestTitleByIds(res.response, ['The_Loupe_Main:campaign']).pipe(
+      return this.advanceSearch.requestTitleByUIDs(res.response, ['The_Loupe_Main:campaign']).pipe(
         map((response: NuxeoPagination) => { res.response = response; return res; }),
       );
     }

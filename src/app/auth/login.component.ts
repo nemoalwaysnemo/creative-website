@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NbAuthService, NbAuthResult } from '@core/base-auth/services';
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from '@core/services';
 import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';

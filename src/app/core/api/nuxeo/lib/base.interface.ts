@@ -1,4 +1,4 @@
-import { join, deepExtend, isDocumentUID } from '../../../services';
+import { join } from '../../../services';
 import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';
@@ -48,10 +48,9 @@ export class AggregateModel {
   readonly properties: {};
   readonly field: string;
   readonly type: string;
-  readonly IDKeys: string[] = [];
-  filterValue: Function = (bucket: any): boolean => true;
+  bufferSize?: number;
+  filterValueFn: Function = (bucket: any): boolean => true;
   iteration: boolean = false;
-  convertTitle: boolean = false;
   optionLabels: any = {};
   placeholder: string;
   label: string;
@@ -59,36 +58,17 @@ export class AggregateModel {
   constructor(data: any = {}) {
     this.entityType = data['entity-type'];
     Object.assign(this, data);
-    this.buckets.forEach((value: { docCount: number, key: string }) => {
-      if (isDocumentUID(value.key)) {
-        this.IDKeys.push(value.key);
-      }
-    });
   }
 
-  replaceIDWithName(list: { id: string, name: string }): void {
-    if (this.IDKeys.length > 0) {
-      this.replaceBuckets(this.buckets, list);
-      this.replaceBuckets(this.extendedBuckets, list);
-    }
-  }
-
-  private replaceBuckets(buckets: any[], list: { id: string, name: string }): void {
-    buckets.forEach((bucket: any) => {
-      if (isDocumentUID(bucket.key) && list[bucket.key]) {
-        bucket.label = list[bucket.key];
-      }
-    });
-  }
 }
 
 export class SearchFilterModel {
   readonly key: string;
   readonly placeholder: string;
   readonly iteration?: boolean = false;
-  readonly convertTitle?: boolean = false;
   readonly optionLabels?: any = {};
-  readonly filterValue: Function = (bucket: any): boolean => true;
+  readonly bufferSize?: number = 50;
+  readonly filterValueFn: Function = (bucket: any): boolean => true;
   constructor(data: any = {}) {
     Object.assign(this, data);
   }
@@ -99,15 +79,15 @@ export function filterAggregates(filters: SearchFilterModel[] = [], models: Aggr
   const aggregates: AggregateModel[] = [];
   filters.forEach((filter: SearchFilterModel) => {
     if (numberOfModels === 0) {
-      aggregates.push(new AggregateModel({ label: filter.placeholder, placeholder: filter.placeholder, convertTitle: filter.convertTitle, iteration: filter.iteration, optionLabels: filter.optionLabels }));
+      aggregates.push(new AggregateModel({ label: filter.placeholder, placeholder: filter.placeholder, iteration: filter.iteration, optionLabels: filter.optionLabels }));
     } else {
-      const agg: AggregateModel = models.filter((x: AggregateModel) => x.id === filter.key).shift();
+      const agg: AggregateModel = models.find((x: AggregateModel) => x.id === filter.key);
       if (agg) {
         agg.label = filter.placeholder;
+        agg.bufferSize = filter.bufferSize;
         agg.placeholder = filter.placeholder;
-        agg.convertTitle = filter.convertTitle;
         agg.iteration = filter.iteration;
-        agg.filterValue = filter.filterValue;
+        agg.filterValueFn = filter.filterValueFn;
         agg.optionLabels = filter.optionLabels;
         aggregates.push(agg);
       }

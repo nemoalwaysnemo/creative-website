@@ -132,7 +132,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return doc;
   }
 
-  private filterPropertie(formValue: any = {}) {
+  private filterPropertie(formValue: any = {}): any {
     const properties = deepExtend({}, formValue);
     Object.keys(properties).forEach((key: string) => {
       if (!key.includes(':')) {
@@ -162,7 +162,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return settings.filter((v) => v.formMode === null || v.formMode === this.formMode);
   }
 
-  private performSettings(doc: DocumentModel, settings: DynamicFormModel) {
+  private performSettings(doc: DocumentModel, settings: DynamicFormModel): DynamicFormModel {
     settings.forEach((model: DynamicFormControlModel) => {
       const modelValue = doc.get(model.id);
       if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc); }
@@ -175,7 +175,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return settings;
   }
 
-  private prepareForm(doc: DocumentModel, settings: DynamicFormModel) {
+  private prepareForm(doc: DocumentModel, settings: DynamicFormModel): void {
     if (doc) {
       settings = settings.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn.call(this, doc));
       let models = this.prepareSettings(settings);

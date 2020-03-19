@@ -3,7 +3,7 @@ import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { NbAuthService } from './auth.service';
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from '../../services';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private setRequestedUrl(url: string): void {
-    return this.cookieService.set('requestedUrl', url, 3600, '/');
+    return this.cookieService.set('requestedUrl', url, 3600, '/', undefined, true, 'Lax');
   }
 
   private getRequestedUrl(): string {

@@ -123,7 +123,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tbwa-creative-website:build"
+            "browserTarget": "tbwa-creative-website:build",
+            "sslKey": "cert/ssl.local-key.pem",
+            "sslCert": "cert/ssl.local.pem",
+            "ssl": true
           },
           "configurations": {
             "production": {

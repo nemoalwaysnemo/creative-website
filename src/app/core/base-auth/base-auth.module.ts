@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpRequest } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from '../services';
 import { NbSecurityModule, NbRoleProvider } from '@core/nebular/security';
 import { BaseAuthInterceptor } from './services/base-auth-interceptor';
 import { NuxeoTokenStorage } from './services/nuxeo-token-storage';
