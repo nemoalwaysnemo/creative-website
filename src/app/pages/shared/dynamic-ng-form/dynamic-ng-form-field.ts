@@ -1,19 +1,19 @@
 import { Type } from '@angular/core';
 import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+  DynamicFormControl,
+  DynamicDatePickerModel,
+  DynamicFormControlModel,
+  // DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  // DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DYNAMIC_FORM_CONTROL_TYPE_INPUT,
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
   DYNAMIC_FORM_CONTROL_TYPE_RATING,
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicFormControl,
-  DynamicDatePickerModel,
-  DynamicFormControlModel,
   DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION,
   DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD,
   DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG,
@@ -25,8 +25,8 @@ import { DynamicNGCheckboxComponent } from './checkbox/dynamic-ng-checkbox.compo
 import { DynamicNGCheckboxGroupComponent } from './checkbox-group/dynamic-ng-checkbox-group.component';
 import { DynamicNGCalendarComponent } from './calendar/dynamic-ng-calendar.component';
 import { DynamicNGDatePickerComponent } from './datepicker/dynamic-ng-datepicker.component';
-import { DynamicNGFormArrayComponent } from './form-array/dynamic-ng-form-array.component';
-import { DynamicNGFormGroupComponent } from './form-group/dynamic-ng-form-group.component';
+// import { DynamicNGFormArrayComponent } from './form-array/dynamic-ng-form-array.component';
+// import { DynamicNGFormGroupComponent } from './form-group/dynamic-ng-form-group.component';
 import { DynamicNGInputComponent } from './input/dynamic-ng-input.component';
 import { DynamicNGRadioGroupComponent } from './radio-group/dynamic-ng-radio-group.component';
 import { DynamicNGRatingComponent } from './rating/dynamic-ng-rating.component';
@@ -42,8 +42,8 @@ import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
 
 export function ngBootstrapUIFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
-    case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
-      return DynamicNGFormArrayComponent;
+    // case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
+      // return DynamicNGFormArrayComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX:
       return DynamicNGCheckboxComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP:
@@ -51,8 +51,8 @@ export function ngBootstrapUIFormControlMapFn(model: DynamicFormControlModel): T
     case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
       const datePickerModel = model as DynamicDatePickerModel;
       return datePickerModel.inline ? DynamicNGCalendarComponent : DynamicNGDatePickerComponent;
-    case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
-      return DynamicNGFormGroupComponent;
+    // case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
+      // return DynamicNGFormGroupComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_INPUT:
       return DynamicNGInputComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP:

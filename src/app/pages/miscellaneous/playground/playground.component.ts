@@ -44,10 +44,10 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private update(): void {
-    this.documentRepository.get('b5dace6f-3042-48f8-9ef7-36e0197f1dee')
+    this.documentRepository.get('36d9c0a8-8ed0-470e-a331-6712411da7bc/')
       .pipe(
         concatMap((parent: DocumentModel) =>
-          this.documentRepository.get('c4724199-d769-422a-8d7b-b0351e85fb09').pipe(
+          this.documentRepository.get('d2ba1dc8-59f4-4142-a5cf-9afa626809d1').pipe(
             map((doc: DocumentModel) => {
               doc.setParent(parent);
               return doc;
