@@ -3,13 +3,14 @@ import { DocumentModel } from '@core/api';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services';
+import { AbstractBaseDocumentViewComponent } from '@pages/shared/abstract-classes/abstract-base-document-view.component';
 
 @Component({
   selector: 'creative-brand-info-view',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-brand-info-vew.component.html',
 })
-export class CreativeBrandInfoViewComponent implements OnInit, OnDestroy {
+export class CreativeBrandInfoViewComponent extends AbstractBaseDocumentViewComponent {
 
   @Input() loading: boolean;
 
@@ -20,14 +21,11 @@ export class CreativeBrandInfoViewComponent implements OnInit, OnDestroy {
   tabs: any[] = [];
 
   constructor(protected activatedRoute: ActivatedRoute) {
-
+    super();
   }
 
-  ngOnInit(): void {
+  onInit(): void {
     this.parseTabRoute();
-  }
-
-  ngOnDestroy(): void {
   }
 
   protected parseTabRoute(): void {

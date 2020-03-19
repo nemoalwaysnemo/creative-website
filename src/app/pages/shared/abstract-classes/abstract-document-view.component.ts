@@ -1,12 +1,13 @@
 import { OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoPagination, AdvanceSearch, NuxeoRequestOptions, NuxeoPageProviderParams } from '@core/api';
 import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
-import { Observable, Subscription, of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs';
 import { isDocumentUID } from '@core/services';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { AbstractBaseDocumentViewComponent } from './abstract-base-document-view.component';
 
-export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy {
+export abstract class AbstractDocumentViewComponent extends AbstractBaseDocumentViewComponent {
 
   document: DocumentModel;
 
@@ -16,13 +17,12 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
 
   protected primaryKey: string = 'id';
 
-  protected subscription: Subscription = new Subscription();
-
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
   ) {
+    super();
   }
 
   onInit() {
@@ -31,14 +31,6 @@ export abstract class AbstractDocumentViewComponent implements OnInit, OnDestroy
 
   onDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.onInit();
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

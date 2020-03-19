@@ -2,12 +2,12 @@
 export const Environment = {
   title: 'Know\\edge',
   homePath: '/p/creative',
-  appName: 'Creative Library Dev (LTS 2019)',
+  appName: 'Creative Library',
   nuxeoUrl: '/nuxeo/',
   backslashAppUrl: '/nuxeo/edges',
   assetPath: '/nuxeo/LibraryWebUI/',
   oauth2CallBackPath: '/nuxeo/site/LibraryWebUI/#/',
-  production: true,
+  production: false,
 };
 
 export enum NUXEO_PATH_INFO {
