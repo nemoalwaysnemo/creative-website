@@ -16,9 +16,12 @@ export class PaginationComponent implements OnChanges, OnInit {
   @Output() changePage = new EventEmitter<any>();
 
   private pages: any[] = [];
+
   private currentPage: number = 1;
+
   private totalPage: number = 0;
-  private pageSize: number;
+
+  private pageSize: number = 20;
 
   private subscription: Subscription = new Subscription();
 
@@ -26,8 +29,7 @@ export class PaginationComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.subscription = this.dataSource.onChanged().subscribe(_ => {
       this.currentPage = parseInt(this.activatedRoute.snapshot.queryParams.currentPageIndex, 10) + 1 || 1;
-      this.pageSize = this.dataSource.pagingInfo.perPage;
-      this.totalPage = this.dataSource.pagingInfo.numberOfPages;
+      this.totalPage = Math.ceil(this.dataSource.pagingInfo.totalSize / this.pageSize);
       this.initPages();
     });
   }
