@@ -679,7 +679,7 @@ preview-dialog {
 }
 .dialog_body {
   nb-accordion-item-body .item-body {
-    min-height: 0;
-    line-height: 20px;
+    min-height: 0!important;
+    line-height: 20px!important;
   }
 }
