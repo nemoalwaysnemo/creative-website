@@ -677,3 +677,9 @@ preview-dialog {
     }
   }
 }
+.dialog_body {
+  nb-accordion-item-body .item-body {
+    min-height: 0;
+    line-height: 20px;
+  }
+}
