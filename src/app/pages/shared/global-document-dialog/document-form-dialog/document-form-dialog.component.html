@@ -1,7 +1,8 @@
 <div class="global-document-dialog">
   <div class="dialog_body">
     <div class="dialog_title">
-      <h5><a (click)="close()"><img [src]="closeBtnImage()"></a>{{title}}</h5>
+      <a (click)="close()"><img [src]="closeBtnImage()"></a>
+      <h5>{{title}}</h5>
     </div>
     <nb-alert *ngIf="onResponsed" [status]="success">
       {{ response_words }}

@@ -1,6 +1,6 @@
 <creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
-  <div *ngIf="document && !showForm" class="document">
+  <div *ngIf="document && !showForm">
     <div class="one-row">
       <div class="showcase-area">
         <h4>Title</h4><span>{{ document.title }}</span>
@@ -45,7 +45,7 @@
         <h4>enable Library Showcase Tab</h4><span>{{document.get('app_global:showcase_tab') === true ? 'Yes' : 'No'}}</span>
       </div>
     </div>
-    <h3>LIST MANAGEMENT</h3><br>
+    <h3>LIST MANAGEMENT</h3>
     <div class="one-row">
       <div class="showcase-area">
         <h4>enable List Management</h4><span>{{document.get('app_global:manage_lists') === true ? 'Yes' : 'No'}}</span>
@@ -118,7 +118,7 @@
         <h4>enable Project Completion Reports</h4><span>{{document.get('app_global:app_global:completion_report') === true ? 'Yes' : 'No'}}</span>
       </div>
     </div>
-    <h3>CUSTOM FIELD MANAGEMENT</h3><br>
+    <h3>CUSTOM FIELD MANAGEMENT</h3>
     <div class="one-row">
       <div class="showcase-area">
         <h4>enable Region</h4><span>{{document.get('app_global_fields:enable_region') === true ? 'Yes' : 'No'}}</span>
@@ -139,7 +139,7 @@
         <h4>enable PO Number Vendor</h4><span>{{document.get('app_global_fields:enable_po_number_vendor') === true ? 'Yes' : 'No'}}</span>
       </div>
     </div>
-    <h3>FEATURE MANAGEMENT FOR CLIENTS</h3><br>
+    <h3>FEATURE MANAGEMENT FOR CLIENTS</h3>
     <div class="one-row">
       <div class="showcase-area">
         <h4>enable Usage Rights For Clients</h4><span>{{document.get('app_global:UsageRights_for_clients') === true ? 'Yes' : 'No'}}</span>

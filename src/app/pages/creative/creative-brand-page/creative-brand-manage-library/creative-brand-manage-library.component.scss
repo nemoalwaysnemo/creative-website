@@ -1,15 +1,30 @@
-.showcase-area {
-    width: 1600px;
+h3 {
+	width: calc(100% - 60px);
+	margin-left: 60px;
+	margin-top: 30px;
+	margin-bottom: 10px;
 }
 .one-row {
-    width: 1600px;
-    min-height: 240px;
+	width: calc(100% - 120px);
+    margin: 10px auto;
+    border: solid 1px #cccccc;
+    padding: 10px 20px;
+    box-sizing: border-box;
+	> .showcase-area {
+		display: inline-block;
+		vertical-align: top;
+		width: 33.333333%;
+    margin: 0 0 20px;
+	}
+	&:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
 }
-.one-row-low {
-    width: 1600px;
-    min-height: 55px;
-}
-.one-row-medium {
-    width: 1600px;
-    min-height: 80px;
+.btn { margin-left: 60px; }
+document-form {
+	display: block;
+	width: calc(100% - 120px);
+	margin: 0 auto;
 }
