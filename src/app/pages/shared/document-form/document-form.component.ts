@@ -247,16 +247,24 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
     return files.map((res: NuxeoUploadResponse) => {
-      const _m = deepExtend({}, doc);
-      _m.properties = _m._properties;
-      delete _m._properties;
-      _m.properties['file:content'] = res.batchBlob;
+      const model = this.newDocumentModel(doc).attachBatchBlob(res.batchBlob);
       if (!!res.title) {
-        _m.properties['dc:title'] = res.title;
+        model.properties['dc:title'] = res.title;
       }
-      delete _m.properties['files:files'];
-      return _m;
+      delete model.properties['files:files'];
+      return model;
     });
+  }
+
+  private newDocumentModel(doc: DocumentModel): DocumentModel {
+    const list: string[] = ['title', 'uid', 'path', 'type', '_properties'];
+    const keys: string[] = Object.keys(doc);
+    for (const key of keys) {
+      if (!list.includes(key)) {
+        delete doc[key];
+      }
+    }
+    return new DocumentModel(deepExtend({}, doc));
   }
 
   private updateAttachedFiles(properties: any): any {
