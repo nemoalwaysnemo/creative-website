@@ -1,6 +1,6 @@
 export const TAB_CONFIG: any[] = [
   {
-    title: 'Asset',
+    title: 'Assets',
     route: '/p/creative/brand/:id/asset',
   },
   {
@@ -12,11 +12,11 @@ export const TAB_CONFIG: any[] = [
     route: '/p/creative/brand/:id/usageRights',
   },
   {
-    title: 'Campaign',
+    title: 'Campaigns',
     route: '/p/creative/brand/:id/campaign',
   },
   {
-    title: 'Project',
+    title: 'Projects',
     route: '/p/creative/brand/:id/project',
   },
   {
@@ -24,7 +24,7 @@ export const TAB_CONFIG: any[] = [
     route: '/p/creative/brand/:id/library',
   },
   {
-    title: 'Manage List',
+    title: 'Manage Lists',
     route: '/p/creative/brand/:id/folder',
   },
 ];

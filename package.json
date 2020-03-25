@@ -19,7 +19,7 @@
     "build:serve": "ng build --c=local-dev && yarn serve",
     "lint": "ng lint",
     "lint:fix": "ng lint tbwa-creative-website --fix",
-    "lint:styles": "stylelint ./src/**/*.scss",
+    "lint:styles": "stylelint ./src/**/*.scss --fix",
     "lint:ci": "yarn lint && yarn lint:styles",
     "release:changelog": "yarn conventional-changelog -p angular -i CHANGELOG.md -s",
     "release:version": "standard-version",

@@ -12,7 +12,7 @@
         <h4>Description</h4><span>{{ document.get('The_Loupe_Main:description') }}</span>
       </div>
       <div class="showcase-area">
-        <h4>Folder Image</h4><img style="width: 200px;height: 200px;" [src]="document.thumbnailUrl">
+        <h4>Folder Image</h4><img style="width:250px;" [src]="document.thumbnailUrl">
       </div>
       <div class="showcase-area">
         <h4>Agency</h4><span>{{ document.get('The_Loupe_Main:agency') }}</span>
@@ -165,11 +165,10 @@
       <div class="showcase-area">
         <h4>enable Collections For Clients</h4><span>{{document.get('app_global:collections_for_clients') === true ? 'Yes' : 'No'}}</span>
       </div>
-    </div>  
+    </div>
     <button nbButton outline class="btn btn-success" (click)="changeView()">Edit</button>
   </div>
-
   <div *ngIf="document && showForm" class="document">
-      <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onUpdated)="onUpdated($event)" (onCanceled)="onCanceled($event)"></document-form>
-    </div>
+    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onUpdated)="onUpdated($event)" (onCanceled)="onCanceled($event)"></document-form>
+  </div>
 </div>

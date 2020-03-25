@@ -75,13 +75,6 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
         label: 'Description',
         placeholder: 'description',
       }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
-      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'edit',
@@ -90,6 +83,13 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
         queueLimit: 1,
         placeholder: 'Drop Logo/Image here!',
         acceptTypes: 'image/*',
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'right',
+        formMode: 'edit',
+        showInputs: false,
+        multiUpload: true,
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',

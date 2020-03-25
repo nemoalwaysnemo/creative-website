@@ -678,8 +678,14 @@ preview-dialog {
   }
 }
 .dialog_body {
-  nb-accordion-item-body .item-body {
-    min-height: 0!important;
-    line-height: 20px!important;
+  nb-accordion-item-body {
+    .item-body {
+      min-height: 0 !important;
+      line-height: 20px !important;
+    }
+
+    .form-check {
+      padding-left: 0;
+    }
   }
 }

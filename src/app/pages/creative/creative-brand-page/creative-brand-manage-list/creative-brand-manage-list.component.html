@@ -6,7 +6,7 @@
         <h4>Folder Name</h4><span>{{document.title}}</span>
       </div>
       <div class="showcase-area">
-        <h4>Folder Image</h4><img style="width: 200px;height: 200px;" [src]="document.thumbnailUrl">
+        <h4>Folder Image</h4><img style="width:250px;" [src]="document.thumbnailUrl">
       </div>
     </div>
     <div class="one-row">
@@ -66,15 +66,14 @@
         <h4>Audio Asset Types</h4><span>{{document.get('The_Loupe_Main:assettypes_audio')}}</span>
       </div>
     </div>
-    <div class="one-row">
-      <div class="showcase-area" *ngIf="document.get('app_global_fields:enable_productlist')">
+    <div class="one-row" *ngIf="document.get('app_global_fields:enable_productlist')">
+      <div class="showcase-area">
         <h4>Product</h4><span>{{document.get('The_Loupe_Main:productModel')}}</span>
       </div>
     </div>
     <button (click)="changeView()" class="btn btn-success">EDIT</button>
   </div>
   <div *ngIf="document && showForm" class="document">
-    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="onCanceled($event)"
-    (onUpdated)="onUpdated($event)"></document-form>
+    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="onCanceled($event)" (onUpdated)="onUpdated($event)"></document-form>
   </div>
 </div>
