@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -18,7 +18,7 @@ export class IntelligenceHomeComponent implements OnInit, OnDestroy {
 
   placeholder = 'Search for marketing reports, data, research...';
 
-  folders: any[];
+  folders: DocumentModel[] = [];
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
