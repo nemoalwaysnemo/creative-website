@@ -12,7 +12,8 @@
             </tr>
             <tr>
               <td>{{ documentModel.get('The_Loupe_Main:description') }}</td>
-              <td>{{ documentModel.get('app_Edges:disruption_type') }}</td>
+              <td *ngIf="isDisruptionAsset(documentModel)">{{ documentModel.get('app_Edges:disruption_type') }}</td>
+              <td *ngIf="isIntelligenceAsset(documentModel)">{{ documentModel.get('app_Edges:intelligence_type') }}</td>
             </tr>
             <tr>
               <th>Industry</th>
