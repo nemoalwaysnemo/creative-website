@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, Type, ViewContainerRef } from '@angular/core';
+import { Component, Input, Type } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';

@@ -49,7 +49,9 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
-    this.showButton = doc.type !== 'App-Disruption-Day-Asset';
+    if (doc) {
+      this.showButton = doc.type !== 'App-Disruption-Day-Asset';
+    }
 
     if (this.showFolderView(doc)) {
       this.searchFolder(doc);
