@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from '../abstract-classes/abstract-document-form.component';
-import { NuxeoApiService } from '@core/api';
+import { NuxeoApiService, DocumentModel } from '@core/api';
+import { Observable, of as observableOf } from 'rxjs';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
@@ -12,6 +13,10 @@ export class DisruptionDayAssetFormComponent extends AbstractDocumentFormCompone
   protected documentType: string = 'App-Disruption-Day-Asset';
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
+  }
+
+  protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc, this.getDocType());
   }
 
   protected getSettings(): object[] {
