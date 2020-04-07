@@ -11,6 +11,10 @@ const routes: Routes = [{
       loadChildren: () => import('./creative-search/creative-search.module').then(m => m.CreativeSearchModule),
     },
     {
+      path: 'backslash',
+      loadChildren: () => import('./backslash-search/backslash-search.module').then(m => m.BackslashSearchModule),
+    },
+    {
       path: 'disruption',
       loadChildren: () => import('./disruption-search/disruption-search.module').then(m => m.DisruptionSearchModule),
     },

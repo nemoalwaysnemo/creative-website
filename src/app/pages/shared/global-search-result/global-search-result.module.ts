@@ -35,6 +35,7 @@ import { AllFavoritesAssetSearchResultComponent } from './all-favorites-asset-se
 import { FavoriteBackslashAssetSearchResultComponent } from './favorite-backslash-asset-search-result/favorite-backslash-asset-search-result.component';
 import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-search-result/favorite-brand-asset-search-result.component';
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
+import { BackslashDocumentAssetSearchResultComponent } from './backslash-document-asset-search-result/backslash-document-asset-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const COMPONENTS = [
@@ -50,6 +51,7 @@ const COMPONENTS = [
   CreativeBrandProjectSearchResultComponent,
   CreativeDocumentAssetSearchResultComponent,
   CreativeMyAgencyAssetSearchResultComponent,
+  BackslashDocumentAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
   DisruptionTheoryAssetSearchResultComponent,
   DisruptionThinkingAssetSearchResultComponent,
