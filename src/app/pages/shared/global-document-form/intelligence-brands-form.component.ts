@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from '@pages/shared/abstract-classes/abstract-document-form.component';
+import { AbstractDocumentFormComponent } from '../abstract-classes/abstract-document-form.component';
 
 @Component({
   selector: 'intelligence-brands-form',
@@ -49,7 +49,7 @@ export class IntelligenceBrandsFormComponent extends AbstractDocumentFormCompone
         formMode: 'create',
         uploadType: 'asset',
         layoutPosition: 'left',
-        queueLimit: 25,
+        queueLimit: 1,
         placeholder: 'Drop Image/PDF here!',
         acceptTypes: 'image/*,.pdf',
       }),
@@ -67,7 +67,7 @@ export class IntelligenceBrandsFormComponent extends AbstractDocumentFormCompone
         formMode: 'edit',
         uploadType: 'attachment',
         layoutPosition: 'left',
-        queueLimit: 20,
+        queueLimit: 1,
         placeholder: 'Drop to upload attachment',
         acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
@@ -75,14 +75,14 @@ export class IntelligenceBrandsFormComponent extends AbstractDocumentFormCompone
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
         showInputs: false,
-        multiUpload: true,
+        multiUpload: false,
       }),
     ];
   }

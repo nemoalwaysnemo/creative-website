@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { Subscription } from 'rxjs';
 import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 @Component({
@@ -10,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './intelligence-home.component.html',
 })
 export class IntelligenceHomeComponent extends AbstractDocumentViewComponent implements OnInit, OnDestroy {
-  // private subscription: Subscription = new Subscription();
   loading: boolean = true;
 
   headline = 'All brains on deck.';
@@ -43,15 +41,15 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
     ecm_fulltext: '',
   };
 
-  folderParams: any = {
-    pageSize: 20,
+  private folderParams: any = {
+    pageSize: 3,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_FOLDER_TYPE,
   };
 
-  brandsParams: any = {
-    pageSize: 20,
+  private brandsParams: any = {
+    pageSize: 15,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_BRANDS_TYPE,
