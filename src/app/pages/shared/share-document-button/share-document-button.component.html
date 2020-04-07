@@ -1,8 +1,7 @@
 <div class="dialog_body">
   <div class="text_content">
     <label for="filterbox">Share: </label>
-    <input id="filterbox" value="{{currentUrl}}" #inputTarget autocomplete="off" class="inline-middle form-control"
-      style="width: 100%;" placeholder="" autocapitalize="none" spellcheck="false" autocorrect="off" autofocus>
+    <input id="filterbox" value="{{currentUrl}}" #inputTarget autocomplete="off" class="inline-middle form-control" style="width: 100%;" placeholder="" autocapitalize="none" spellcheck="false" autocorrect="off" autofocus>
   </div>
   <div class="action_content">
     <button [ngxClipboard]="inputTarget" (cbOnSuccess)="onCopy($event)" class="btn btn-success">{{btn}}</button>
