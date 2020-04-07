@@ -29,7 +29,6 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
   onInit() {
     super.onInit();
     this.performForm();
-    this.parseTabRoute();
   }
 
   protected abstract getSettings(): any[];
@@ -60,25 +59,12 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
     ).pipe(share());
   }
 
-  protected parseTabRoute(): void {
-    if (this.tabs.length === 0) {
-      const params: any = this.activatedRoute.snapshot.params;
-      for (const config of this.tabConfig) {
-        const tab: any = { title: config['title'], route: config['route'] };
-        for (const key of ['type', 'id']) {
-          tab['route'] = tab.route.replace(`:${key}`, params[key]);
-        }
-        this.tabs.push(tab);
-      }
-    }
-  }
-
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_AGENCY_AND_BRAND_FOLDER_TYPE,
     };
   }

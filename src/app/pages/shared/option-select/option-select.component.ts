@@ -1,7 +1,12 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, OnInit, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { OptionModel, ItemTree } from './option-select.interface';
+import { Subject, BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import { OptionModel, ItemTree, OptionSettings } from './option-select.interface';
+import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
+import { isDocumentUID } from '@core/services';
+import { map, concatMap } from 'rxjs/operators';
+
+export type TitleMap = Map<string, string>;
 
 @Component({
   selector: 'option-select',
@@ -13,47 +18,47 @@ import { OptionModel, ItemTree } from './option-select.interface';
     multi: true,
   }],
 })
-export class OptionSelectComponent implements ControlValueAccessor {
+export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
   disabled: boolean = false;
 
   loading: boolean = false;
 
-  options$: BehaviorSubject<OptionModel[]>;
+  options$: BehaviorSubject<OptionModel[]> = new BehaviorSubject<OptionModel[]>([]);
 
   filter$ = new Subject<string>();
 
   selectedItems: OptionModel[] = [];
 
+  configs: OptionSettings = new OptionSettings();
+
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
 
-  @Input() iteration: boolean = false;
+  private options: OptionModel[] = [];
+
+  private beforeRequestSize: number = 10;
+
+  private subscription: Subscription = new Subscription();
 
   @Input()
-  set items(items: OptionModel[]) {
-    if (items) {
-      if (this.iteration) {
-        const tree = new ItemTree('/');
-        items.forEach(item => {
-          tree.addNodes(item.value, item.label);
-        });
-        tree.plantingTree();
-        items = tree.models.length > 0 ? tree.models : items;
-      }
-      this.options$.next(items);
-    }
+  set settings(settings: OptionSettings) {
+    this.loading = true;
+    this.performSettings(settings);
+    this.performOptions(this.options);
   }
-
-  @Input() closeOnSelect: boolean = false;
-
-  @Input() placeholder: string;
 
   @Output() selected: EventEmitter<OptionModel[]> = new EventEmitter();
 
-  constructor() {
-    this.options$ = new BehaviorSubject<OptionModel[]>([]);
+  constructor(private advanceSearch: AdvanceSearch) {
+  }
+
+  ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onChange(event: OptionModel[]): void {
@@ -87,6 +92,19 @@ export class OptionSelectComponent implements ControlValueAccessor {
   onRemove(event: OptionModel): void {
   }
 
+  onScroll({ end }): void {
+    if (this.loading || this.options.length <= this.getCurrentOptions().length) {
+      return;
+    }
+    if (end + this.beforeRequestSize >= this.getCurrentOptions().length) {
+      this.requestMoreOptions();
+    }
+  }
+
+  onScrollToEnd(): void {
+    this.requestMoreOptions();
+  }
+
   writeValue(value: any): void {
     this.selectedItems = (value === null || value === undefined || value === '' ? [] : value);
   }
@@ -101,6 +119,84 @@ export class OptionSelectComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  private getCurrentOptions(): OptionModel[] {
+    return this.options$.value;
+  }
+
+  private performItems(settings: OptionSettings): OptionModel[] {
+    let options = settings.options;
+    delete settings['options'];
+    if (settings.iteration && options) {
+      const tree = new ItemTree('/');
+      options.forEach(item => { tree.addNodes(item.value, item.label); });
+      tree.plantingTree();
+      options = tree.models.length > 0 ? tree.models : options;
+    }
+    return options;
+  }
+
+  private performSettings(settings: OptionSettings): void {
+    this.options = this.performItems(settings);
+    this.configs = settings;
+  }
+
+  private getOptionUids(items: OptionModel[]): string[] {
+    return items.filter((x: OptionModel) => isDocumentUID(x.label)).map((x: OptionModel) => x.value);
+  }
+
+  private performOptions(items: OptionModel[]): void {
+    const uids = this.getOptionUids(items);
+    if (uids.length === 0) {
+      this.updateOptions(items);
+      items.length = 0;
+    } else if (uids.length <= this.configs.bufferSize) {
+      this.getAndUpdateOptions(uids, items.splice(0, items.length));
+    } else if (uids.length > this.configs.bufferSize) {
+      const options = items.splice(0, this.configs.bufferSize);
+      this.getAndUpdateOptions(this.getOptionUids(options), options);
+    }
+  }
+
+  private getAndUpdateOptions(uids: string[], items: OptionModel[]): void {
+    this.subscription = this.requestTitleByUIDs(uids).pipe(
+      concatMap((mapping: any) => observableOf(this.replaceTitle(mapping, items))),
+    ).subscribe((options: OptionModel[]) => {
+      this.updateOptions(options);
+    });
+  }
+
+  private replaceTitle(mapping: any, items: OptionModel[]): OptionModel[] {
+    items.forEach((item: OptionModel) => {
+      if (mapping[item.value]) {
+        item.label = item.label.replace(item.value, mapping[item.value]);
+      }
+    });
+    return items;
+  }
+
+  private updateOptions(options: OptionModel[]): void {
+    options = this.getCurrentOptions().concat(options);
+    this.options$.next(options);
+    this.loading = false;
+  }
+
+  private requestMoreOptions(): void {
+    if (this.options.length !== 0) {
+      this.loading = true;
+      this.performOptions(this.options);
+    }
+  }
+
+  private requestTitleByUIDs(uids: string[]): Observable<any> {
+    return this.advanceSearch.requestByUIDs(uids).pipe(
+      map((res: NuxeoPagination) => {
+        const mapping = [];
+        res.entries.forEach((doc: DocumentModel) => { mapping[doc.uid] = doc.title; });
+        return mapping;
+      }),
+    );
   }
 
 }

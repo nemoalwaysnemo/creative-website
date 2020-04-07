@@ -201,7 +201,8 @@ body {
   }
   &.my_agency,
   &.my_brand,
-  &.my_brand_asset_search,
+  &.creative_brand_asset,
+  &.creative_brand_showcase,
   &.my_agency_asset_search {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
@@ -225,7 +226,7 @@ body {
         width: calc((100% - 60px * 3) / 3);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
       }
       float: left;
@@ -254,7 +255,7 @@ body {
           height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
         @include media-breakpoint-up(xxxl) {
-          // > 1600px 
+          // > 1600px
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
         a {
@@ -293,7 +294,7 @@ body {
         width: calc((100% - 60px * 4) / 4);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
       }
       float: left;
@@ -322,7 +323,7 @@ body {
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
         @include media-breakpoint-up(xxxl) {
-          // > 1600px 
+          // > 1600px
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
       }
@@ -343,7 +344,7 @@ body {
         width: calc((100% - 60px * 3) / 3);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 3) / 3);
       }
       float: left;
@@ -364,7 +365,7 @@ body {
           height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
         @include media-breakpoint-up(xxxl) {
-          // > 1600px 
+          // > 1600px
           height: calc((100vw - 60px * 4) / 3 * 9 / 16);
         }
       }
@@ -413,7 +414,7 @@ body {
         width: calc((100% - 60px * 4) / 4);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
       }
       float: left;
@@ -442,7 +443,7 @@ body {
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
         @include media-breakpoint-up(xxxl) {
-          // > 1600px 
+          // > 1600px
           height: calc((100vw - 60px * 5) / 4 * 9 / 16);
         }
         a {
@@ -493,7 +494,7 @@ body {
         height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 3) / 3);
         height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
@@ -574,7 +575,7 @@ body {
         height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
         height: calc((100vw - 60px * 5) / 4 * 9 / 16);
       }
@@ -606,7 +607,7 @@ body {
         height: calc((100vw - 60px * 4) / 3 * 9 / 16);
       }
       @include media-breakpoint-up(xxxl) {
-      	// > 1600px 
+      	// > 1600px
         width: calc((100% - 60px * 4) / 4);
         height: calc((100vw - 60px * 5) / 4 * 9 / 16);
       }
@@ -656,4 +657,35 @@ preview-dialog {
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-label {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
   font-size: 12px;
+}
+.gcl-theme-default nb-accordion {
+  box-shadow: none!important;
+  .form-check-label {
+    display: block;
+    cursor: pointer;
+    .form-check-input {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+    }
+    > span {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px;
+      line-height: 12px;
+    }
+  }
+}
+.dialog_body {
+  nb-accordion-item-body {
+    .item-body {
+      min-height: 0 !important;
+      line-height: 20px !important;
+    }
+
+    .form-check {
+      padding-left: 0;
+    }
+  }
 }

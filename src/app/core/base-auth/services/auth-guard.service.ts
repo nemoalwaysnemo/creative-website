@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private setRequestedUrl(url: string): void {
-    return this.cookieService.set('requestedUrl', url, 3600, '/', undefined, true, 'None');
+    return this.cookieService.set('requestedUrl', url, 3600, '/', undefined, true, 'Lax');
   }
 
   private getRequestedUrl(): string {

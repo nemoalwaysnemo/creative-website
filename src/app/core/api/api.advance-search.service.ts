@@ -12,23 +12,15 @@ export class AdvanceSearch extends AbstractPageProvider {
     super(nuxeoApi);
   }
 
-  requestIDsOfAggregates(models: AggregateModel[]): Observable<AggregateModel[]> {
-    let ids = [];
-    models.filter((model: AggregateModel) => model.convertTitle).forEach((model: AggregateModel) => { ids = ids.concat(model.IDKeys); });
-    if (ids.length > 0) {
-      return this.request(new NuxeoPageProviderParams({ ecm_uuid: `["${ids.join('", "')}"]`, pageSize: ids.length })).pipe(
-        map((response: NuxeoPagination) => {
-          const list: any = {};
-          response.entries.forEach((doc: DocumentModel) => { list[doc.uid] = doc.title; });
-          models.forEach((model: AggregateModel) => { model.replaceIDWithName(list); });
-          return models;
-        }),
-      );
-    }
-    return observableOf(models);
+  requestByUIDs(uids: string[]): Observable<NuxeoPagination> {
+    const params = {
+      pageSize: uids.length,
+      ecm_uuid: `["${uids.join('", "')}"]`,
+    };
+    return this.request(new NuxeoPageProviderParams(params), new NuxeoRequestOptions({ schemas: ['dublincore'] }));
   }
 
-  requestTitleByIds(res: NuxeoPagination, properties: string[]): Observable<NuxeoPagination> {
+  requestTitleByUIDs(res: NuxeoPagination, properties: string[]): Observable<NuxeoPagination> {
     let ids = [];
     const listNew: any = {};
     properties.forEach((pro: string) => {

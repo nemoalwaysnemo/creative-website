@@ -1,0 +1,25 @@
+<ng-container [formGroup]="group">
+  <tr>
+    <th *ngFor="let header of headers">
+      <span *ngIf="header.required" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</span>{{header.label}}
+    </th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let groupModel of model.groups; let idx = index" role="group">
+    <td *ngFor="let _model of groupModel.group">
+      <document-form-list-cell
+        [context]="groupModel"
+        [group]="array.at(idx)"
+        [hidden]="_model.hidden"
+        [model]="_model"
+        (blur)="onBlur($event)"
+        (change)="onChange($event)"
+        (focus)="onFocus($event)"
+        (customEvent)="onCustomEvent($event, customEvent)">
+      </document-form-list-cell>
+    </td>
+    <td>
+      <button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="onRemoveRow(idx)">Delete</button>
+    </td>
+  </tr>
+</ng-container>

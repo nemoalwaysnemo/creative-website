@@ -3,9 +3,10 @@
     <ng-container *ngSwitchCase="getViewType() === 'suggestion'">
       <ng-select
         [items]="options$ | async"
-        [placeholder]="placeholder"
+        [placeholder]="settings.placeholder"
         [selectOnTab]="true"
-        [multiple]="multiple"
+        [disabled]="disabled"
+        [multiple]="settings.multiple"
         [hideSelected]="true"
         bindLabel="label"
         bindValue="value"
@@ -13,13 +14,13 @@
         [loading]="loading$ | async"
         [typeahead]="filter$"
         [virtualScroll]="true"
-        (change)="onChange($event)"
         [(ngModel)]="selectedItems"
+        (change)="onChange($event)"
         (blur)="onBlur($event)"
       >
         <ng-template ng-label-tmp let-item="item" let-clear="clear">
           <span class="ng-value-icon left" (click)="clear.call(this, item);" aria-hidden="true">×</span>
-          <span class="ng-value-label">{{item.deep ? item.label : item.value}}</span>
+          <span class="ng-value-label">{{item.deep || isDisplayLabel() ? item.label : item.value}}</span>
         </ng-template>
         <ng-template ng-option-tmp let-item="item">
           <div class="{{item.deep}}">{{item.label}}</div>
@@ -29,17 +30,18 @@
     <ng-container *ngSwitchCase="getViewType() === 'list'">
       <ng-select
         [items]="options$ | async"
-        [placeholder]="placeholder"
+        [placeholder]="settings.placeholder"
         [selectOnTab]="true"
-        [multiple]="multiple"
+        [disabled]="disabled"
+        [multiple]="settings.multiple"
         [hideSelected]="true"
         bindLabel="label"
         bindValue="value"
         clearAllText="Clear"
-        [loading]="loading$ | async"
         [virtualScroll]="true"
-        (change)="onChange($event)"
+        [loading]="loading$ | async"
         [(ngModel)]="selectedItems"
+        (change)="onChange($event)"
         (blur)="onBlur($event)"
       >
       <ng-template ng-option-tmp let-item="item">

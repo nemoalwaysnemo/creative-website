@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewCh
 import { FormGroup } from '@angular/forms';
 import { NgbRating, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DynamicFormControlCustomEvent,
+  DynamicFormControlLayout,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
@@ -16,12 +18,14 @@ import {
 })
 export class DynamicNGRatingComponent extends DynamicFormControlComponent {
 
+  @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicRatingModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter();
   @Output() change: EventEmitter<any> = new EventEmitter();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
   @ViewChild(NgbRating, { static: true }) ngbRating: NgbRating;
@@ -29,6 +33,7 @@ export class DynamicNGRatingComponent extends DynamicFormControlComponent {
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
               public config: NgbRatingConfig) {
+
     super(layoutService, validationService);
   }
 }

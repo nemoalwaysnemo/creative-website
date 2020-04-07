@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AdvanceSearch } from '@core/api';
 import { OptionSelectComponent } from './option-select.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -15,6 +16,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
   ],
   declarations: [
     OptionSelectComponent,
+  ],
+  providers: [
+    AdvanceSearch,
   ],
 })
 export class OptionSelectModule {

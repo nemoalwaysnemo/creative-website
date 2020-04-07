@@ -5,11 +5,10 @@ import { DocumentListViewItem } from '../../document-list-view/document-list-vie
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
-
 @Component({
   template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>`,
 })
-export class CreativeRowRenderComponent {
+export class CreativeDocumentAssetRowRenderComponent {
   @Input() value: { title: string, uid: string };
 }
 
@@ -28,7 +27,7 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
     }
   }
 
-  @Input() layout: string = 'quarter';
+  @Input() layout: string;
 
   @Input() resultHeader: string;
 
@@ -42,7 +41,7 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
         title: 'Title',
         sort: false,
         type: 'custom',
-        renderComponent: CreativeRowRenderComponent,
+        renderComponent: CreativeDocumentAssetRowRenderComponent,
       },
       brand: {
         title: 'Brand',
@@ -64,7 +63,7 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
         sort: false,
       },
       artDirector: {
-        title: 'Art Director ',
+        title: 'Art Director',
         sort: false,
       },
       jobNRUR: {
@@ -74,7 +73,7 @@ export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchRe
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]) => {
+  listViewBuilder: Function = (docs: DocumentModel[]): any => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({

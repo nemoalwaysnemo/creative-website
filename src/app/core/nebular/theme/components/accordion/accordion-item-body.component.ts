@@ -29,7 +29,7 @@ const accordionItemBodyTrigger = trigger('accordionItemBody', [
   state(
     'expanded',
     style({
-      overflow: 'hidden',
+      overflow: 'visible',
       visibility: 'visible',
     }),
   ),

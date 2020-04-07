@@ -1,12 +1,12 @@
 import { Component, Input, forwardRef, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OptionModel } from '../option-select/option-select.interface';
-import { NuxeoAutomations, NuxeoApiService, NuxeoResponse, NuxeoPagination, DocumentModel, DirectoryEntry } from '@core/api';
+import { SuggestionSettings } from './directory-suggestion-settings';
+import { NuxeoAutomations, NuxeoApiService, NuxeoPagination, DocumentModel, DirectoryEntry } from '@core/api';
 import { Subscription, Observable, of as observableOf, Subject, BehaviorSubject } from 'rxjs';
-import { tap, takeWhile, debounceTime, distinctUntilChanged, switchMap, share, map, filter } from 'rxjs/operators';
-import { ThemeSwitcherComponent } from '@theme/components';
+import { tap, debounceTime, distinctUntilChanged, switchMap, share, map, filter, concatMap } from 'rxjs/operators';
 
-class Suggestion {
+class SuggestionItem {
   readonly displayLabel: string = '';
   readonly children: any[] = [];
   constructor({ displayLabel, children }) {
@@ -35,6 +35,18 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   selectedItems: OptionModel[] = [];
 
+  @Input() document: DocumentModel;
+
+  @Input() settings: SuggestionSettings = new SuggestionSettings();
+
+  @Input() afterSearch: Function = (options: OptionModel[]): Observable<OptionModel[]> => observableOf(options);
+
+  @Input() onResponsed: Function = (res: any): any => res;
+
+  private stack: string[] = [];
+
+  private suggestions = [];
+
   private disabled: boolean = false;
 
   private _onChange = (_) => { };
@@ -43,29 +55,9 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private subscription: Subscription = new Subscription();
 
-  @Input() placeholder: string;
-
-  @Input() directoryName: string;
-
-  @Input() searchUserGroup: boolean = false;
-
-  @Input() contains: boolean = true;
-
-  @Input() suggestion: boolean = true;
-
-  @Input() initSearch: boolean = true;
-
-  @Input() providerName: string;
-
-  @Input() multiple: boolean;
-
-  private stack: string[] = [];
-
-  private suggestions = [];
-
   constructor(private nuxeoApi: NuxeoApiService) { }
 
-  onChange(event: any) {
+  onChange(event: any): void {
     if (Array.isArray(event)) {
       this._onChange(event.map(x => x.value));
     } else {
@@ -74,22 +66,22 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     }
   }
 
-  onBlur(event: any) {
+  onBlur(event: any): void {
     if ((this.selectedItems.length < 1 && this.selectedItems) || !this.selectedItems) this._onTouched();
   }
 
-  ngOnInit() {
-    if (this.suggestion === true) {
-      this.onSearchSuggestions();
-      if (this.initSearch) {
+  ngOnInit(): void {
+    if (this.settings.suggestion === true) {
+      this.onSearchTriggered();
+      if (this.settings.initSearch) {
         this.filter$.next('');
       }
     } else {
-      this.getDirectoryEntries(this.directoryName);
+      this.getDirectoryEntries(this.settings.providerName);
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
@@ -112,7 +104,11 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   getViewType(): string {
-    return this.suggestion ? 'suggestion' : 'list';
+    return this.settings.suggestion ? 'suggestion' : 'list';
+  }
+
+  isDisplayLabel(): boolean {
+    return this.settings.providerType === SuggestionSettings.CONTENT_VIEW;
   }
 
   private buildDefaultOptions(value: string[]): void {
@@ -120,13 +116,26 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     this.options$.next(option.map(x => new OptionModel({ label: x, value: x })));
   }
 
-  private getSuggestions(searchTerm: string): Observable<OptionModel[]> {
+  private getInputTargetValue(doc: DocumentModel, settings: SuggestionSettings): string {
+    if (!doc) {
+      throw new Error(`current document is null!.`);
+    }
+    return settings.inputTarget.call(this, doc);
+  }
+
+  private getSuggestions(searchTerm: string, doc: DocumentModel, settings: SuggestionSettings): Observable<OptionModel[]> {
     let res: Observable<OptionModel[]>;
-    if (this.providerName) {
-      res = this.getDocumentSuggestions(this.providerName, searchTerm);
-    } else if (this.directoryName) {
-      res = this.getDirectorySuggestions(this.directoryName, searchTerm, this.contains);
-    } else if (this.searchUserGroup) {
+    if (settings.providerType === SuggestionSettings.PROVIDER) {
+      res = this.getDocumentSuggestions(this.settings.providerName, searchTerm, null, settings.pageSize);
+    } else if (settings.providerType === SuggestionSettings.OPERATION) { // search parent's properties
+      const target = this.getInputTargetValue(doc, settings);
+      res = this.getOperationSuggestions(this.settings.providerName, searchTerm, target);
+    } else if (settings.providerType === SuggestionSettings.CONTENT_VIEW) { // search parent's properties
+      const target = this.getInputTargetValue(doc, settings);
+      res = this.getContentViewDocumentSuggestions(this.settings.providerName, searchTerm, target, settings.pageSize);
+    } else if (settings.providerType === SuggestionSettings.DIRECTORY) {
+      res = this.getDirectorySuggestions(this.settings.providerName, searchTerm, this.settings.contains);
+    } else if (settings.providerType === SuggestionSettings.USER_GROUP) {
       res = this.getUserGroupSuggestions(searchTerm);
     } else {
       res = observableOf([]);
@@ -134,13 +143,15 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     return res;
   }
 
-  private onSearchSuggestions(): void {
+  private onSearchTriggered(): void {
     const subscription = this.filter$.pipe(
       filter((searchTerm: string) => searchTerm !== null),
       debounceTime(300),
+      filter(_ => !this.disabled),
       distinctUntilChanged(),
       tap(() => this.loading$.next(true)),
-      switchMap((searchTerm: string) => this.getSuggestions(searchTerm)),
+      switchMap((searchTerm: string) => this.getSuggestions(searchTerm, this.document, this.settings)),
+      concatMap((options: OptionModel[]) => this.afterSearch(options)),
       share(),
     ).subscribe((res: OptionModel[]) => {
       this.options$.next(res);
@@ -164,16 +175,34 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       );
   }
 
-  private getDocumentSuggestions(providerName: string, searchTerm: string, pageSize: number = 20): Observable<OptionModel[]> {
-    return this.nuxeoApi.operation(NuxeoAutomations.RepositoryPageProvider, { providerName, searchTerm, pageSize })
+  private getDocumentModels(operationName: string, providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(operationName, { providerName, searchTerm, pageSize }, input)
       .pipe(map((res: NuxeoPagination) => res.entries.map((doc: DocumentModel) => new OptionModel({ label: doc.title, value: doc.uid }))));
   }
 
+  private getDocumentSuggestions(providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
+    return this.getDocumentModels(NuxeoAutomations.RepositoryPageProvider, providerName, searchTerm, input, pageSize);
+  }
+
+  private getContentViewDocumentSuggestions(providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(NuxeoAutomations.ContentViewPageProvider, { providerName, searchTerm, pageSize }, input)
+      .pipe(map((res: NuxeoPagination) => res.entries.map((doc: DocumentModel) => new OptionModel({ label: doc.title, value: doc.uid }))));
+  }
+
+  private getOperationSuggestions(operationName: string, searchTerm: string, input: string): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(operationName, { docId: input, searchTerm }, input).pipe(map((res: any) => this.onResponsed.call(this, res)));
+  }
+
   private getDirectoryEntries(directoryName: string): void {
-    this.loading$.next(true);
-    const subscription = this.nuxeoApi.directory(directoryName).pipe(map((res: DirectoryEntry[]) => res.map((entry: DirectoryEntry) => new OptionModel({ label: entry.label, value: entry.id }))))
-      .subscribe((res: OptionModel[]) => {
-        this.options$.next(res);
+    const subscription = this.nuxeoApi.directory(directoryName)
+      .pipe(
+        filter(_ => !this.disabled),
+        tap(_ => this.loading$.next(true)),
+        map((res: DirectoryEntry[]) => res.map((entry: DirectoryEntry) => new OptionModel({ label: entry.label, value: entry.id }))),
+        concatMap((options: OptionModel[]) => this.afterSearch(options)),
+      )
+      .subscribe((options: OptionModel[]) => {
+        this.options$.next(options);
         this.loading$.next(false);
       });
     this.subscription.add(subscription);
@@ -193,10 +222,12 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   private suggestionsIterator(res: any): any[] {
-    const suggestion = new Suggestion(res);
+    const suggestion = new SuggestionItem(res);
     this.stack.push(suggestion.displayLabel);
     this.suggestions.push({ id: this.stack.join('/'), label: suggestion.displayLabel, deep: 'deep_' + (this.stack.length - 1) });
-    suggestion.children.forEach(child => { this.suggestionsIterator(child); });
+    if (!this.settings.parentOnly) {
+      suggestion.children.forEach(child => { this.suggestionsIterator(child); });
+    }
     this.stack.pop();
     return this.suggestions;
   }

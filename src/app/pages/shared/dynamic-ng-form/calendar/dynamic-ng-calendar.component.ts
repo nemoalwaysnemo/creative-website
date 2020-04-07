@@ -3,10 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { NgbDatepicker, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
+  DynamicFormControlComponent,
+  DynamicFormControlLayout,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicFormControlComponent,
 } from '@core/custom';
 
 @Component({
@@ -16,8 +17,9 @@ import {
 })
 export class DynamicNGCalendarComponent extends DynamicFormControlComponent {
 
+  @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicDatePickerModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter();

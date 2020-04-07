@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges, EventEmitter, Output, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout } from '@core/custom';
-import { Observable, forkJoin, Subject } from 'rxjs';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
+import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services';
 
 @Component({
@@ -10,11 +10,13 @@ import { deepExtend } from '@core/services';
   styleUrls: ['./document-form.component.scss'],
   templateUrl: './document-form.component.html',
 })
-export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
+export class DocumentFormComponent implements OnInit, OnDestroy {
 
-  formModel: DynamicFormControlModel[];
+  formModel: DynamicFormModel;
 
   formLayout: DynamicFormLayout;
+
+  accordionList: any[] = [];
 
   formGroup: FormGroup;
 
@@ -24,8 +26,6 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
-  dynamicModels: DynamicFormControlModel[] = [];
-
   modelOperation: Subject<{ id: string, type: string }> = new Subject();
 
   private formMode: 'create' | 'edit';
@@ -34,24 +34,28 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private documentModel: DocumentModel;
 
+  protected subscription: Subscription = new Subscription();
+
+  private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
   private fileMultiUpload: boolean;
 
   @Input() placeholder: string;
 
   @Input() dynamicModelIndex: number[] = [];
 
+  @Input() accordions: any[] = [];
+
+  @Input() loading: boolean = true;
+
+  @Input() settings: DynamicFormModel = [];
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
-      this.documentModel = this.checkfiles(doc);
+      doc = this.checkfiles(doc);
       this.formMode = doc.uid ? 'edit' : 'create';
-    }
-  }
-
-  @Input()
-  set settings(settings: any[]) {
-    if (settings) {
-      this.prepareForm(settings);
+      this.document$.next(doc);
     }
   }
 
@@ -63,33 +67,31 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
   @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
   @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+  @Output() callback: EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel | {} }>
+    = new EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel }>();
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
-
+    this.onDocumentChanged();
   }
 
   ngOnInit(): void {
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-
   ngOnDestroy(): void {
-
+    this.subscription.unsubscribe();
   }
 
   onBlur(event: any): void {
-    console.log(`BLUR event on ${event.model.id}: `, event);
+    // console.log(`BLUR event on ${event.model.id}: `, event);
   }
 
   onChange(event: any): void {
-    console.log(`CHANGE event on ${event.model.id}: `, event);
+    // console.log(`CHANGE event on ${event.model.id}: `, event);
   }
 
   onFocus(event: any): void {
-    console.log(`FOCUS event on ${event.model.id}: `, event);
+    // console.log(`FOCUS event on ${event.model.id}: `, event);
   }
 
   onCustomEvent(event: any): void {
@@ -110,10 +112,11 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onCancel($event: any): void {
-    this.onCanceled.next(this.documentModel);
+    this.callback.emit({ action: 'cancel', message: '', doc: {} });
+    // this.onCanceled.next(this.documentModel);
   }
 
-  checkfiles(doc: DocumentModel): DocumentModel {
+  private checkfiles(doc: DocumentModel): DocumentModel {
     const files = doc.get('files:files');
     let flag = false;
     if (!!files) {
@@ -129,7 +132,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     return doc;
   }
 
-  private filterPropertie(formValue: any = {}) {
+  private filterPropertie(formValue: any = {}): any {
     const properties = deepExtend({}, formValue);
     Object.keys(properties).forEach((key: string) => {
       if (!key.includes(':')) {
@@ -139,15 +142,19 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     return properties;
   }
 
-  private createFormModel(settings: string | any[]): DynamicFormControlModel[] {
+  private createFormModel(settings: string | any[]): DynamicFormModel {
     return this.formService.fromJSON(settings);
   }
 
-  private createFormGroup(formModel: DynamicFormControlModel[]): FormGroup {
+  private createFormGroup(formModel: DynamicFormModel): FormGroup {
     return this.formService.createFormGroup(formModel);
   }
 
-  private performSettings(settings: DynamicFormControlModel[]): any[] {
+  private performAccordions(doc: DocumentModel, accordions: any = []): void {
+    this.accordionList = (accordions || []).filter((item: any) => !item.visibleFn || item.visibleFn.call(this, doc));
+  }
+
+  private prepareSettings(settings: DynamicFormModel): DynamicFormModel {
     const uploadModel = settings.find((v) => (v instanceof DynamicBatchUploadModel));
     this.uploadFieldName = uploadModel ? uploadModel.id : this.uploadFieldName;
     const model = settings.find(m => (m instanceof DynamicBatchUploadModel) && m.formMode === 'create');
@@ -155,20 +162,42 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
     return settings.filter((v) => v.formMode === null || v.formMode === this.formMode);
   }
 
-  private createForm(settings: DynamicFormControlModel[]): void {
+  private performSettings(doc: DocumentModel, settings: DynamicFormModel): DynamicFormModel {
+    settings.forEach((model: DynamicFormControlModel) => {
+      const modelValue = doc.get(model.id);
+      if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc); }
+      if (model.document) { model.document = doc; }
+      model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
+      if (model instanceof DynamicListModel) {
+        this.performSettings(doc, model.items);
+      }
+    });
+    return settings;
+  }
+
+  private prepareForm(doc: DocumentModel, settings: DynamicFormModel): void {
+    if (doc) {
+      settings = settings.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn.call(this, doc));
+      let models = this.prepareSettings(settings);
+      models = this.performSettings(doc, models);
+      this.createForm(models);
+    }
+  }
+
+  private createForm(settings: DynamicFormModel): void {
     this.formModel = this.createFormModel(settings);
     this.formGroup = this.createFormGroup(this.formModel);
   }
 
-  private prepareForm(settings: DynamicFormControlModel[]) {
-    const opts = this.performSettings(settings);
-    if (this.documentModel) {
-      opts.forEach(opt => {
-        if (opt.hiddenFn) { opt.hidden = opt.hiddenFn.call(this, this.documentModel); }
-        opt.value = this.documentModel.get(opt.id);
-      });
-      this.createForm(opts);
-    }
+  private onDocumentChanged(): void {
+    const subscription = this.document$.pipe(
+    ).subscribe((doc: DocumentModel) => {
+      this.loading = false;
+      this.documentModel = doc;
+      this.performAccordions(doc, this.accordions);
+      this.prepareForm(doc, this.settings);
+    });
+    this.subscription.add(subscription);
   }
 
   private save(): void {
@@ -183,23 +212,24 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
           delete doc.properties['files:files'];
         }
       });
-
     }
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
-      this.onCreated.next(models);
+      this.callback.next({ action: 'created', message: 'created successfully!', doc: models });
+      this.onCreated.next(models); // this can be delete after our dialog refactor all done
     });
   }
 
   private update(): void {
     let properties = this.filterPropertie(this.formGroup.value);
-    if (properties['files:files'] === null) {
-      delete properties['files:files'];
-    }
     if (this.uploadState === 'uploaded') {
       properties = this.updateAttachedFiles(properties);
+      if (properties['files:files'] === null) {
+        delete properties['files:files'];
+      }
     }
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
-      this.onUpdated.next(model);
+      this.callback.next({ action: 'updated', message: 'updated successfully!', doc: model });
+      this.onUpdated.next(model); // this can be delete after our dialog refactor all done
     });
   }
 
@@ -217,13 +247,24 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
     return files.map((res: NuxeoUploadResponse) => {
-      const model = new DocumentModel(deepExtend({}, doc)).attachBatchBlob(res.batchBlob);
+      const model = this.newDocumentModel(doc).attachBatchBlob(res.batchBlob);
       if (!!res.title) {
         model.properties['dc:title'] = res.title;
       }
       delete model.properties['files:files'];
       return model;
     });
+  }
+
+  private newDocumentModel(doc: DocumentModel): DocumentModel {
+    const list: string[] = ['title', 'uid', 'path', 'type', '_properties'];
+    const keys: string[] = Object.keys(doc);
+    for (const key of keys) {
+      if (!list.includes(key)) {
+        delete doc[key];
+      }
+    }
+    return new DocumentModel(deepExtend({}, doc));
   }
 
   private updateAttachedFiles(properties: any): any {
@@ -262,9 +303,7 @@ export class DocumentFormComponent implements OnInit, OnChanges, OnDestroy {
   hideControls(): void {
     if (this.formMode === 'create') {
       const type = this.fileMultiUpload ? 'delete' : 'hide';
-      this.dynamicModelIndex.sort().forEach((modelIndex: number, index: number) => {
-        this.modelOperation.next({ id: 'dc:title', type: type });
-      });
+      this.modelOperation.next({ id: 'dc:title', type: type });
     }
   }
 

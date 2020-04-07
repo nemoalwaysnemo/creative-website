@@ -1,0 +1,23 @@
+<ng-container [formGroup]="formGroup">
+  <div class="document-form-list">
+    <table>
+      <tbody>
+        <document-form-list-row
+          [arrayModel]="formArrayModel"
+          [group]="formGroup"
+          (blur)="onBlur($event)"
+          (change)="onChange($event)"
+          (focus)="onFocus($event)"
+          (customEvent)="onCustomEvent($event, customEvent)">
+        </document-form-list-row>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td [attr.colspan]="getColumns()">
+            <button nbButton outline class="btn btn-success btn-xs" status="primary" [disabled]="disabled" (click)="onAddRow()">Add</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</ng-container>

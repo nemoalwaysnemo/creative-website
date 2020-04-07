@@ -6,6 +6,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { OptionTagModule } from '../option-tag/option-tag.module';
 import { DatepickerDirectiveModule } from '../datepicker-directive/datepicker-directive.module';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
+import { DocumentFormListModule } from '../document-form-list/document-form-list.module';
 import { NgbDatepickerModule, NgbButtonsModule, NgbTimepickerModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
 import { DynamicNGFormComponent } from './dynamic-ng-form.component';
@@ -24,9 +25,12 @@ import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
+import { NbAccordionModule } from '../../../core/nebular/theme/components/accordion/accordion.module';
+import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
 
 @NgModule({
   imports: [
+    NbAccordionModule,
     CommonModule,
     ReactiveFormsModule,
     NgbButtonsModule,
@@ -34,8 +38,9 @@ import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dy
     NgbRatingModule,
     NgbTimepickerModule,
     TextMaskModule,
-    DirectorySuggestionModule,
     OptionTagModule,
+    DocumentFormListModule,
+    DirectorySuggestionModule,
     DatepickerDirectiveModule,
     DynamicFormsCoreModule.forRoot(),
   ],
@@ -55,6 +60,7 @@ import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dy
     DynamicNGTextAreaComponent,
     DynamicNGTimePickerComponent,
     DynamicNGSuggestionComponent,
+    DynamicNGListComponent,
     DynamicNGOptionTagComponent,
     DynamicNGDatepickerDirectiveComponent,
   ],
@@ -72,6 +78,7 @@ import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dy
     DynamicNGTextAreaComponent,
     DynamicNGTimePickerComponent,
     DynamicNGSuggestionComponent,
+    DynamicNGListComponent,
     DynamicNGOptionTagComponent,
     DynamicNGDatepickerDirectiveComponent,
   ],
@@ -92,6 +99,7 @@ import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dy
     DynamicNGTextAreaComponent,
     DynamicNGTimePickerComponent,
     DynamicNGSuggestionComponent,
+    DynamicNGListComponent,
     DynamicNGOptionTagComponent,
     DynamicNGDatepickerDirectiveComponent,
   ],

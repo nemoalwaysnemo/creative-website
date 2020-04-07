@@ -110,12 +110,20 @@ export class DocumentModel extends Base {
     return this._repository.fetch(uid, options);
   }
 
+  setParent(doc: DocumentModel): void {
+    this._parent = doc;
+  }
+
+  getParent(): DocumentModel {
+    return this._parent;
+  }
+
   getParentPropertyByOperation(propertyName: string): Observable<any> {
     if (this._parent) {
       return observableOf(this._parent.get(propertyName));
     }
     const op = this._nuxeo.operation(NuxeoAutomations.GetDocument);
-    return op.params({ 'uuid': this.parentRef }).execute().pipe(
+    return op.schemas('*').params({ 'uuid': this.parentRef }).execute().pipe(
       tap((doc: DocumentModel) => { this._parent = doc; }),
       map((doc: DocumentModel) => doc.get(propertyName)),
     );

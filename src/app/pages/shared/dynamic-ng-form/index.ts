@@ -10,10 +10,8 @@ export * from './rating/dynamic-ng-rating.component';
 export * from './select/dynamic-ng-select.component';
 export * from './textarea/dynamic-ng-textarea.component';
 export * from './timepicker/dynamic-ng-timepicker.component';
-
 export * from './batch-upload/dynamic-ng-batch-upload.component';
 export * from './suggestion/dynamic-ng-suggestion.component';
-
 export * from './dynamic-ng-form.component';
 export * from './dynamic-ng-form-control-container.component';
 export * from './dynamic-ng-form-ui.module';

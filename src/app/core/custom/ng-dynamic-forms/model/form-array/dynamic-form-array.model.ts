@@ -72,13 +72,10 @@ export class DynamicFormArrayModel extends DynamicFormControlModel {
     this.initialCount = isNumber(config.initialCount) ? config.initialCount : 1;
 
     if (Array.isArray(config.groups)) {
-
       config.groups.forEach((arrayGroup, index) => {
         this.groups.push(new DynamicFormArrayGroupModel(this, arrayGroup.group, arrayGroup.index || index));
       });
-
     } else {
-
       for (let index = 0; index < this.initialCount; index++) {
         this.addGroup();
       }
@@ -102,24 +99,24 @@ export class DynamicFormArrayModel extends DynamicFormControlModel {
   }
 
   insertGroup(index: number): DynamicFormArrayGroupModel {
-
     const group = new DynamicFormArrayGroupModel(this, this.groupFactory());
-
     this.groups.splice(index, 0, group);
     this.updateGroupIndex();
-
     return group;
   }
 
   moveGroup(index: number, step: number): void {
-
     this.groups.splice(index + step, 0, ...this.groups.splice(index, 1));
     this.updateGroupIndex();
   }
 
   removeGroup(index: number): void {
-
     this.groups.splice(index, 1);
+    this.updateGroupIndex();
+  }
+
+  clear(): void {
+    this.groups.splice(0);
     this.updateGroupIndex();
   }
 }

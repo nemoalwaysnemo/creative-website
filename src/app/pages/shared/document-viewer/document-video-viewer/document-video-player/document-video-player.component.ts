@@ -50,7 +50,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
       (res) => {
         const presentVolume = res.target.volume;
         setVolume(presentVolume);
-        this.cookieService.set('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'None');
+        this.cookieService.set('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'Lax');
       });
     if (this.autoPlay) {
       this.api.play();

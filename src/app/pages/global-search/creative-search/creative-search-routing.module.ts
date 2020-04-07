@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CreativeSearchComponent } from './creative-search.component';
 import { CreativeDocumentAssetSearchComponent } from './creative-document-asset-search/creative-document-asset-search.component';
 import { CreativeMyBrandSearchComponent } from './creative-my-brand-search/creative-my-brand-search.component';
-import { CreativeMyBrandAssetSearchComponent } from './creative-my-brand-asset-search/creative-my-brand-asset-search.component';
 import { CreativePopularBrandSearchComponent } from './creative-popular-brand-search/creative-popular-brand-search.component';
 import { CreativePopularBrandAssetSearchComponent } from './creative-popular-brand-asset-search/creative-popular-brand-asset-search.component';
 import { CreativeMyAgencySearchComponent } from './creative-my-agency-search/creative-my-agency-search.component';
@@ -18,12 +17,8 @@ const routes: Routes = [{
       component: CreativeDocumentAssetSearchComponent,
     },
     {
-      path: 'myBrand',
+      path: 'brand',
       component: CreativeMyBrandSearchComponent,
-    },
-    {
-      path: 'myBrandAsset/:id',
-      component: CreativeMyBrandAssetSearchComponent,
     },
     {
       path: 'popularBrand',

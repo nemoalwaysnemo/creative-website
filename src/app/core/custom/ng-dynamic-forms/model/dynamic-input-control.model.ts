@@ -12,7 +12,6 @@ export interface DynamicInputControlModelConfig<T> extends DynamicFormValueContr
   minLength?: number;
   placeholder?: string;
   prefix?: string;
-  readOnly?: boolean;
   spellCheck?: boolean;
   suffix?: string;
 }
@@ -25,7 +24,6 @@ export abstract class DynamicInputControlModel<T> extends DynamicFormValueContro
   @serializable() minLength: number | null;
   @serializable() placeholder: string;
   @serializable() prefix: string | null;
-  @serializable() readOnly: boolean;
   @serializable() spellCheck: boolean;
   @serializable() suffix: string | null;
 
@@ -39,7 +37,6 @@ export abstract class DynamicInputControlModel<T> extends DynamicFormValueContro
     this.minLength = isNumber(config.minLength) ? config.minLength : null;
     this.placeholder = config.placeholder || '';
     this.prefix = config.prefix || null;
-    this.readOnly = isBoolean(config.readOnly) ? config.readOnly : false;
     this.spellCheck = isBoolean(config.spellCheck) ? config.spellCheck : false;
     this.suffix = config.suffix || null;
   }

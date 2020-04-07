@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleAnalyticsService } from '@core/google-analytics';
 import { PageTitleService } from '@core/page-title';
 import { ViewportScroller } from '@angular/common';
-import { Router, Scroll, Event } from '@angular/router';
+import { Router, Scroll, Event, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'tbwa-gcl',
+  selector: 'library-web-ui',
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
@@ -16,19 +16,18 @@ export class AppComponent implements OnInit {
     private viewportScroller: ViewportScroller,
     private pageTitleService: PageTitleService,
     private googleAnalytics: GoogleAnalyticsService) {
-    router.events.pipe(
+    this.router.events.pipe(
       filter((e: Event) => e instanceof Scroll),
       map((e: Event) => e as Scroll),
     ).subscribe(e => {
       if (e.position) {
         // backward navigation
-        viewportScroller.scrollToPosition(e.position);
+        this.viewportScroller.scrollToPosition(e.position);
       } else if (e.anchor) {
         // anchor navigation
-        viewportScroller.scrollToAnchor(e.anchor);
-      } else if (!e.routerEvent.url.includes('currentPageIndex')) {
-        // forward navigation
-        viewportScroller.scrollToPosition([0, 0]);
+        this.viewportScroller.scrollToAnchor(e.anchor);
+      } else if (this.isScrollToTop(e.routerEvent)) {
+        this.viewportScroller.scrollToPosition([0, 0]);
       }
     });
   }
@@ -36,6 +35,10 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.pageTitleService.titleTrack();
     this.googleAnalytics.pageTrack();
+  }
+
+  private isScrollToTop(e: NavigationEnd): boolean {
+    return !e.url.includes('currentPageIndex') && !e.url.includes('q=') && !e.url.includes('_agg=');
   }
 
 }

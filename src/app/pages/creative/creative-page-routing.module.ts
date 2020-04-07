@@ -1,10 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CreativeHomeComponent } from './creative-home/creative-home.component';
-import { CreativeAssetComponent } from './creative-asset/creative-asset.component';
 import { CreativePageComponent } from './creative-page.component';
-import { FolderManageComponent } from './folder-manage/folder-manage.component';
-import { LibraryManageComponent } from './library-manage/library-manage.component';
+import { CreativeHomePageComponent } from './creative-home-page/creative-home-page.component';
+import { CreativeAssetPageComponent } from './creative-asset-page/creative-asset-page.component';
+import { CreativeBrandAssetComponent } from './creative-brand-page/creative-brand-asset/creative-brand-asset.component';
+import { CreativeBrandShowcaseComponent } from './creative-brand-page/creative-brand-showcase/creative-brand-showcase.component';
+import { CreativeBrandCampaignComponent } from './creative-brand-page/creative-brand-campaign/creative-brand-campaign.component';
+import { CreativeBrandProjectComponent } from './creative-brand-page/creative-brand-project/creative-brand-project.component';
+import { CreativeBrandUsageRightsComponent } from './creative-brand-page/creative-brand-usage-rights/creative-brand-usage-rights.component';
+import { CreativeBrandManageListComponent } from './creative-brand-page/creative-brand-manage-list/creative-brand-manage-list.component';
+import { CreativeBrandManageLibraryComponent } from './creative-brand-page/creative-brand-manage-library/creative-brand-manage-library.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,19 +17,39 @@ const routes: Routes = [{
   children: [
     {
       path: 'home',
-      component: CreativeHomeComponent,
+      component: CreativeHomePageComponent,
     },
     {
       path: 'asset/:id',
-      component: CreativeAssetComponent,
+      component: CreativeAssetPageComponent,
     },
     {
-      path: ':type/:id/folder',
-      component: FolderManageComponent,
+      path: 'brand/:id/asset',
+      component: CreativeBrandAssetComponent,
     },
     {
-      path: ':type/:id/library',
-      component: LibraryManageComponent,
+      path: 'brand/:id/showcase',
+      component: CreativeBrandShowcaseComponent,
+    },
+    {
+      path: 'brand/:id/campaign',
+      component: CreativeBrandCampaignComponent,
+    },
+    {
+      path: 'brand/:id/project',
+      component: CreativeBrandProjectComponent,
+    },
+    {
+      path: 'brand/:id/usageRights',
+      component: CreativeBrandUsageRightsComponent,
+    },
+    {
+      path: 'brand/:id/folder',
+      component: CreativeBrandManageListComponent,
+    },
+    {
+      path: 'brand/:id/library',
+      component: CreativeBrandManageLibraryComponent,
     },
     {
       path: '',

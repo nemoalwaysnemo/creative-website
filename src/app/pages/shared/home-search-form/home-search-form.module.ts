@@ -8,6 +8,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 import { GlobalSearchFilterModule } from '../global-search-filter/global-search-filter.module';
 import { SharedDirectiveModule } from '../directives/shared-directive.module';
+
 @NgModule({
   imports: [
     CommonModule,

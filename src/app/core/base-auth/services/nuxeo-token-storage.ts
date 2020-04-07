@@ -18,7 +18,7 @@ export class NuxeoTokenStorage extends NbTokenStorage {
 
   set(token: NbAuthToken) {
     const raw = this.parceler.wrap(token);
-    this.cookieService.set(this.key, raw, token.getTokenExpDate(), '/', undefined, true, 'None');
+    this.cookieService.set(this.key, raw, token.getTokenExpDate(), '/', undefined, true, 'Lax');
   }
 
   clear() {

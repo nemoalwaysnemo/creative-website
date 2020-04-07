@@ -1,28 +1,31 @@
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DynamicFormControlLayout } from './misc/dynamic-form-control-layout.model';
 import { DynamicPathable } from './misc/dynamic-form-control-path.model';
-import { DynamicFormControlRelationGroup } from './misc/dynamic-form-control-relation.model';
-import { DynamicValidatorsConfig } from './misc/dynamic-form-control-validation.model';
+import { DynamicFormControlRelation } from './misc/dynamic-form-control-relation.model';
+import { DynamicFormHook, DynamicValidatorsConfig } from './misc/dynamic-form-control-validation.model';
 import { serializable, serialize } from '../decorator/serializable.decorator';
 import { isBoolean, isObject, isString } from '../utils/core.utils';
 
 export interface DynamicFormControlModelConfig {
-
   asyncValidators?: DynamicValidatorsConfig;
   disabled?: boolean;
   errorMessages?: DynamicValidatorsConfig;
   hidden?: boolean;
+  readOnly?: boolean;
   hiddenFn?: Function;
+  visibleFn?: Function;
   id: string;
   label?: string;
   formMode?: string;
   layoutPosition?: string;
-  selfClass?: string;
+  accordionTab?: string;
   labelTooltip?: string;
   controlTooltip?: string;
   name?: string;
-  relation?: DynamicFormControlRelationGroup[];
-  updateOn?: any;
+  document?: any;
+  defaultValue?: any;
+  relations?: DynamicFormControlRelation[];
+  updateOn?: DynamicFormHook;
   validators?: DynamicValidatorsConfig;
 }
 
@@ -30,24 +33,31 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
 
   @serializable() asyncValidators: DynamicValidatorsConfig | null;
   @serializable('disabled') _disabled: boolean;
-  disabledUpdates: Subject<boolean>;
   @serializable() errorMessages: DynamicValidatorsConfig | null;
   @serializable() hidden: boolean;
+  @serializable() readOnly: boolean;
   @serializable() hiddenFn: Function = (doc: any): boolean => false;
+  @serializable() visibleFn: Function = (doc: any): boolean => true;
   @serializable() id: string;
   @serializable() label: string | null;
   @serializable() labelTooltip: string | null;
   @serializable() formMode: string | null;
   @serializable() layoutPosition: string | 'left';
+  @serializable() accordionTab: string | null;
   @serializable() controlTooltip: string | null;
-  @serializable() selfClass: string | null;
   @serializable() layout: DynamicFormControlLayout | null;
   @serializable() name: string;
+  @serializable() value: any;
+  @serializable() document: any;
+  @serializable() defaultValue: any;
   parent: DynamicPathable | null = null;
-  @serializable() relation: DynamicFormControlRelationGroup[];
-  @serializable() updateOn: any | null;
-  requiredUpdates: Subject<boolean>;
+  @serializable() relations: DynamicFormControlRelation[];
+  @serializable() updateOn: DynamicFormHook | null;
   @serializable() validators: DynamicValidatorsConfig | null;
+
+  private readonly disabled$: BehaviorSubject<boolean>;
+
+  readonly disabledChanges: Observable<boolean>;
 
   abstract readonly type: string;
 
@@ -56,39 +66,35 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.asyncValidators = config.asyncValidators || null;
     this.errorMessages = config.errorMessages || null;
     this.hidden = isBoolean(config.hidden) ? config.hidden : false;
+    this.readOnly = isBoolean(config.readOnly) ? config.readOnly : false;
     this.hiddenFn = config.hiddenFn || null;
+    this.visibleFn = config.visibleFn || null;
     this.id = config.id;
     this.label = config.label || null;
     this.formMode = config.formMode || null;
     this.layoutPosition = config.layoutPosition || 'left';
-    this.selfClass = config.selfClass || null;
+    this.accordionTab = config.accordionTab || null;
     this.labelTooltip = config.labelTooltip || null;
     this.controlTooltip = config.controlTooltip || null;
     this.layout = layout;
+    this.document = config.document;
+    this.defaultValue = config.defaultValue || null;
     this.name = config.name || config.id;
-    this.relation = Array.isArray(config.relation) ? config.relation : [];
+    this.relations = Array.isArray(config.relations) ? config.relations : [];
     this.updateOn = isString(config.updateOn) ? config.updateOn : null;
     this.validators = config.validators || null;
 
-    this.disabled = isBoolean(config.disabled) ? config.disabled : false;
-    this.disabledUpdates = new Subject<boolean>();
-    this.disabledUpdates.subscribe(disabled => this.disabled = disabled);
-    this.requiredUpdates = new Subject<boolean>();
-    this.requiredUpdates.subscribe(required => {
-      if (required) {
-        this.validators ? this.validators = { ...this.validators, required: null } : this.validators = { required: null };
-      } else {
-        this.validators ? delete this.validators['required'] : undefined;
-      }
-    });
+    this.disabled$ = new BehaviorSubject(isBoolean(config.disabled) ? config.disabled : false);
+    this.disabled$.subscribe(disabled => this._disabled = disabled);
+    this.disabledChanges = this.disabled$.asObservable();
   }
 
   get disabled(): boolean {
-    return this._disabled;
+    return this.disabled$.getValue();
   }
 
-  set disabled(value: boolean) {
-    this._disabled = value;
+  set disabled(disabled: boolean) {
+    this.disabled$.next(disabled);
   }
 
   get hasErrorMessages(): boolean {

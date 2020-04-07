@@ -1,44 +1,29 @@
 import { DynamicFormControlLayout } from '../misc/dynamic-form-control-layout.model';
 import { serializable } from '../../decorator/serializable.decorator';
-import { isBoolean } from '../../utils/core.utils';
+import { isFunction } from '../../utils/core.utils';
+import { Observable, of as observableOf } from 'rxjs';
 import { DynamicFormValueControlModelConfig, DynamicFormValueControlModel } from '../dynamic-form-value-control.model';
+import { SuggestionSettings } from '../../../../../pages/shared/directory-suggestion/directory-suggestion-settings';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION = 'SUGGESTION';
 
 export interface DynamicSuggestionModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
-
-  placeholder?: string;
-  directoryName?: string;
-  searchUserGroup?: boolean
-  contains?: boolean
-  suggestion?: boolean;
-  initSearch?: boolean;
-  providerName?: string;
-  multiple?: boolean;
+  settings: any;
+  afterSearch?: Function;
+  onResponsed?: Function;
 }
 
 export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
-
-  @serializable() placeholder: string;
-  @serializable() directoryName: string;
-  @serializable() providerName: string;
-  @serializable() searchUserGroup: boolean;
-  @serializable() suggestion: boolean;
-  @serializable() initSearch: boolean;
-  @serializable() contains: boolean;
-  @serializable() multiple: boolean;
-
+  @serializable() settings: any;
+  @serializable() afterSearch: Function;
+  @serializable() onResponsed: Function;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION;
 
   constructor(config: DynamicSuggestionModelConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
-    this.suggestion = isBoolean(config.suggestion) ? config.suggestion : true;
-    this.initSearch = isBoolean(config.initSearch) ? config.initSearch : true;
-    this.contains = isBoolean(config.contains) ? config.contains : true;
-    this.searchUserGroup = isBoolean(config.searchUserGroup) ? config.searchUserGroup : true;
-    this.directoryName = config.directoryName || null;
-    this.providerName = config.providerName || null;
-    this.placeholder = config.placeholder || '';
-    this.multiple = isBoolean(config.multiple) ? config.multiple : true;
+    this.settings = new SuggestionSettings(config.settings || {});
+    this.defaultValue = this.settings.multiple ? [] : null;
+    this.afterSearch = isFunction(config.afterSearch) ? config.afterSearch : (options: any[]): Observable<any[]> => observableOf(options);
+    this.onResponsed = isFunction(config.onResponsed) ? config.onResponsed : (res: any): any => res;
   }
 }

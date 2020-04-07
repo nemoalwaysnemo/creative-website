@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDisruptionForm } from '../abstract-classes/abstract-disruption-form.component';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'disruption-form-brilliant-thinking',
@@ -32,25 +33,20 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         label: 'Brand',
         placeholder: 'Brand',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        directoryName: 'GLOBAL_Industries',
-        placeholder: 'Please select industry',
         required: true,
-        validators: {
-          required: null,
+        settings: {
+          placeholder: 'Please select industry',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
         },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -59,108 +55,93 @@ export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruption
         placeholder: 'Published',
         readonly: true,
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Published',
         formMode: 'create',
-        default: (new Date()),
+        defaultValue: (new Date()),
         placeholder: 'Published',
         readonly: true,
         required: true,
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
         label: 'Geography',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
         required: true,
-        validators: {
-          required: null,
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
         },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        directoryName: 'GLOBAL_Agencies',
-        multiple: false,
-        placeholder: 'Please select agency',
         required: true,
-        validators: {
-          required: null,
+        settings: {
+          multiple: false,
+          placeholder: 'Please select agency',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
         },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
-        directoryName: 'GLOBAL_Countries',
-        placeholder: 'Please select country',
         required: true,
-        validators: {
-          required: null,
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
         },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
-        directoryName: 'App-Backslash-Categories',
         formMode: 'edit',
-        placeholder: 'Please select category',
         required: true,
-        validators: {
-          required: null,
+        settings: {
+          placeholder: 'Please select category',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
         },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
-        directoryName: 'App-Edges-Edges',
-        placeholder: 'Please select edges',
+        settings: {
+          placeholder: 'Please select edges',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:description',
         label: 'Description',
         placeholder: 'description',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'dc:creator',
         label: 'Author',
         placeholder: 'Author',
         required: true,
-        validators: {
-          required: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

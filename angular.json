@@ -127,7 +127,6 @@
             "sslKey": "cert/ssl.local-key.pem",
             "sslCert": "cert/ssl.local.pem",
             "ssl": true
-
           },
           "configurations": {
             "production": {
@@ -178,14 +177,5 @@
       }
     }
   },
-  "defaultProject": "tbwa-creative-website",
-  "schematics": {
-    "@schematics/angular:component": {
-      "prefix": "tbwa",
-      "styleext": "scss"
-    },
-    "@schematics/angular:directive": {
-      "prefix": "tbwa"
-    }
-  }
+  "defaultProject": "tbwa-creative-website"
 }

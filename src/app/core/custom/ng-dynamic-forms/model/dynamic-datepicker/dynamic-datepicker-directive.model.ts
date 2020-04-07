@@ -8,21 +8,18 @@ export const DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE = 'DATEPICKER_DIRECT
 export interface DynamicDatepickerDirectiveModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
   placeholder?: string;
   readonly?: boolean;
-  default?: any;
 }
 
 export class DynamicDatepickerDirectiveModel<T> extends DynamicFormValueControlModel<T> {
 
   @serializable() placeholder: string;
-  @serializable() default: string | Date;
+  @serializable() defaultValue: string | Date;
   @serializable() readonly: boolean;
-
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE;
 
   constructor(config: DynamicDatepickerDirectiveModelConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.placeholder = config.placeholder || '';
-    this.default = config.default;
     this.readonly = isBoolean(config.readonly) ? config.readonly : false;
   }
 }

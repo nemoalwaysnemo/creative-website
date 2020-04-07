@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DynamicIdDirective } from './directive/dynamic-id.directive';
 import { DynamicListDirective } from './directive/dynamic-list.directive';
 import { DynamicTemplateDirective } from './directive/dynamic-template.directive';
 import { DynamicFormService } from './service/dynamic-form.service';
 import { DynamicFormLayoutService } from './service/dynamic-form-layout.service';
 import { DynamicFormValidationService } from './service/dynamic-form-validation.service';
-import { DynamicFormInstancesService } from './service/dynamic-form-instances.service';
+import { DynamicFormComponentService } from './service/dynamic-form-component.service';
+import { DynamicFormRelationService } from './service/dynamic-form-relation.service';
 
 @NgModule({
   imports: [
@@ -15,18 +15,17 @@ import { DynamicFormInstancesService } from './service/dynamic-form-instances.se
     ReactiveFormsModule,
   ],
   declarations: [
-    DynamicIdDirective,
     DynamicListDirective,
     DynamicTemplateDirective,
   ],
   exports: [
-    DynamicIdDirective,
     DynamicListDirective,
     DynamicTemplateDirective,
   ],
 })
 export class DynamicFormsCoreModule {
 
+  /*@deprecated*/
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
       ngModule: DynamicFormsCoreModule,
@@ -34,7 +33,8 @@ export class DynamicFormsCoreModule {
         DynamicFormService,
         DynamicFormLayoutService,
         DynamicFormValidationService,
-        DynamicFormInstancesService,
+        DynamicFormComponentService,
+        DynamicFormRelationService,
       ],
     };
   }

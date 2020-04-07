@@ -1,0 +1,5 @@
+<creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
+<div class="creative-brand-showcase" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+  <global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
+  <creative-document-asset-search-result [layout]="layout"></creative-document-asset-search-result>
+</div>

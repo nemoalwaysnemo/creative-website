@@ -19,6 +19,8 @@ import {
   DocumentFormModule,
   HomeSearchFormModule,
   ShareDocumentButtonModule,
+  GlobalDocumentDialogModule,
+  GlobalDocumentFormModule,
 } from './';
 
 const EXPORTS = [
@@ -41,10 +43,13 @@ const EXPORTS = [
   DocumentFormModule,
   DirectorySuggestionModule,
   ShareDocumentButtonModule,
+  GlobalDocumentDialogModule,
+  GlobalDocumentFormModule,
 ];
 
 const PROVIDERS = [
   ...PreviewDialogModule.forRoot().providers,
+  ...GlobalDocumentDialogModule.forRoot().providers,
 ];
 
 @NgModule({

@@ -1,0 +1,79 @@
+<creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="document && !showForm" class="document">
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Folder Name</h4><span>{{document.title}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Folder Image</h4><img style="width:250px;" [src]="document.thumbnailUrl">
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Client</h4><span>{{document.get('The_Loupe_Main:clientName')}}</span>
+      </div>
+      <div class="showcase-area" *ngIf="document.get('app_global:brand_activation')">
+        <h4>Brand</h4><span>{{document.get('The_Loupe_Main:brand')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Industry</h4><span>{{document.get('app_Edges:industry')}}</span>
+      </div>
+    </div>
+    <div class="one-row" *ngIf="document.get('app_global_fields:enable_region')">
+      <div class="showcase-area">
+        <h4>Region</h4><span>{{document.get('The_Loupe_Main:region')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Librarians</h4><span>{{document.get('The_Loupe_Main:library_librarians')}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Library Owners</h4><span>{{document.get('The_Loupe_Main:library_owners')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Default Asset Country</h4><span>{{document.get('The_Loupe_Rights:asset_countries')}}</span>
+      </div>
+    </div>
+    <h3>Configure listings for this folder</h3>
+    <div class="one-row" *ngIf="document.get('app_global:UsageRights')">
+      <div class="showcase-area">
+        <h4>Make First Airing Mandatory</h4><span>{{document.get('app_global:UsageRights_enable_firstairing_mandatory')}}</span>
+      </div>
+    </div>
+    <div class="one-row" *ngIf="document.get('app_global:UsageRights')">
+      <div class="showcase-area">
+        <h4>Usage Rights Media Usage Types</h4><span>{{document.get('The_Loupe_Rights:contract_mediatypes')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Image Asset Types</h4><span>{{document.get('The_Loupe_Main:assettypes_image')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Video Asset Types</h4><span>{{document.get('The_Loupe_Main:assettypes_video')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Audio Asset Types</h4><span>{{document.get('The_Loupe_Main:assettypes_audio')}}</span>
+      </div>
+    </div>
+    <div class="one-row" *ngIf="document.get('app_global_fields:enable_productlist')">
+      <div class="showcase-area">
+        <h4>Product</h4><span>{{document.get('The_Loupe_Main:productModel')}}</span>
+      </div>
+    </div>
+    <button (click)="changeView()" class="btn btn-success">EDIT</button>
+  </div>
+  <div *ngIf="document && showForm" class="document">
+    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onCanceled)="onCanceled($event)" (onUpdated)="onUpdated($event)"></document-form>
+  </div>
+</div>

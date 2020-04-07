@@ -48,13 +48,13 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
 
   callback(message: { type, value }): void {
     if (message.type === 'success') {
-      this.reflash(message.value);
+      this.refresh(message.value);
     } else if (message.type === 'back') {
       this.showEdit = message.value;
     }
   }
 
-  reflash(doc: any): void {
+  refresh(doc: any): void {
     this.dialogService.setDocument(doc);
     this.queryParamsService.refresh();
   }

@@ -1,0 +1,16 @@
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
+  <div class="property-section">
+    <div class="property-intro inline-top">
+      <div *ngIf="document" [ngStyle]="{'background-image': 'url('+document.filePath+')'}"></div>
+      <!-- <img src="{{document?.filePath}}" /> -->
+    </div>
+    <div class="property-info inline-top">
+      <h1 [title]="document?.get('The_Loupe_Main:brand').join(', ')">{{document?.get('The_Loupe_Main:brand').join(', ')}}</h1>
+      <ul>
+        <!-- <li><b>Client:</b> {{document?.get('The_Loupe_Main:clientName')}}</li> -->
+        <li><b>Agency:</b> {{document?.get('The_Loupe_Main:agency')}}</li>
+      </ul>
+    </div>
+    <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }" style="padding: 0;"></nb-route-tabset>
+  </div>
+</div>

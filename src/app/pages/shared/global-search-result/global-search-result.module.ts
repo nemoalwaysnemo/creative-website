@@ -10,10 +10,13 @@ import { DocumentViewerModule } from '../document-viewer/document-viewer.module'
 import { GlobalSearchResultComponent } from './global-search-result.component';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 import { CreativeMyBrandSearchResultComponent } from './creative-my-brand-search-result/creative-my-brand-search-result.component';
-import { CreativePopularBrandSearchResultComponent, PopularBrandRowRenderComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
-import { CreativeDocumentAssetSearchResultComponent, CreativeRowRenderComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
+import { CreativePopularBrandSearchResultComponent, CreativePopularBrandRowRenderComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
+import { CreativeUsageRightsSearchResultComponent } from './creative-usage-rights-search-result/creative-usage-rights-search-result.component';
+import { CreativeBrandCampaignSearchResultComponent} from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
+import { CreativeBrandProjectSearchResultComponent } from './creative-brand-project-search-result/creative-brand-project-search-result.component';
+import { CreativeDocumentAssetSearchResultComponent, CreativeDocumentAssetRowRenderComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
-import { CreativeMyBrandAssetSearchResultComponent, MyBrandRowRenderComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
+import { CreativeMyBrandAssetSearchResultComponent, CreativeBrandRowRenderComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
 import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
 import { DisruptionRoadmapEditDialogComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmap-edit-form-body/disruption-roadmap-edit-dialog-body.component';
 import { DisruptionThinkingEditDialogComponent } from './disruption-thinking-asset-search-result/disruption-thinking-edit-form-body/disruption-thinking-edit-dialog-body.component';
@@ -26,12 +29,12 @@ import { DisruptionFormRoadmapModule } from '../disruption-form-roadmap/disrupti
 import { DisruptionFormTheoryModule } from '../disruption-form-theory/disruption-form-theory.module';
 import { DisruptionFormBrilliantThinkingModule } from '../disruption-form-brilliant-thinking/disruption-form-brilliant-thinking.module';
 import { DisruptionDocumentAssetSearchResultComponent } from './disruption-document-asset-search-result/disruption-document-asset-search-result.component';
+import { DisruptionFolderTheoryAssetSearchResultComponent } from './disruption-folder-theory-asset-search-result/disruption-folder-theory-asset-search-result.component';
+import { CreativeMyAgencyAssetSearchResultComponent } from './creative-my-agency-asset-search-result/creative-my-agency-asset-search-result.component';
 import { AllFavoritesAssetSearchResultComponent } from './all-favorites-asset-search-result/all-favorites-asset-search-result.component';
 import { FavoriteBackslashAssetSearchResultComponent } from './favorite-backslash-asset-search-result/favorite-backslash-asset-search-result.component';
 import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-search-result/favorite-brand-asset-search-result.component';
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
-import { DisruptionFolderTheoryAssetSearchResultComponent } from './disruption-folder-theory-asset-search-result/disruption-folder-theory-asset-search-result.component';
-import { CreativeMyAgencyAssetSearchResultComponent } from './creative-my-agency-asset-search-result/creative-my-agency-asset-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const COMPONENTS = [
@@ -39,9 +42,12 @@ const COMPONENTS = [
   CreativeMyBrandSearchResultComponent,
   CreativeMyBrandAssetSearchResultComponent,
   CreativePopularBrandSearchResultComponent,
-  CreativeRowRenderComponent,
-  MyBrandRowRenderComponent,
-  PopularBrandRowRenderComponent,
+  CreativeBrandRowRenderComponent,
+  CreativeDocumentAssetRowRenderComponent,
+  CreativePopularBrandRowRenderComponent,
+  CreativeUsageRightsSearchResultComponent,
+  CreativeBrandCampaignSearchResultComponent,
+  CreativeBrandProjectSearchResultComponent,
   CreativeDocumentAssetSearchResultComponent,
   CreativeMyAgencyAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
@@ -77,9 +83,9 @@ const COMPONENTS = [
     InfiniteScrollModule,
   ],
   entryComponents: [
-    CreativeRowRenderComponent,
-    MyBrandRowRenderComponent,
-    PopularBrandRowRenderComponent,
+    CreativeDocumentAssetRowRenderComponent,
+    CreativeBrandRowRenderComponent,
+    CreativePopularBrandRowRenderComponent,
   ],
   declarations: [
     ...COMPONENTS,

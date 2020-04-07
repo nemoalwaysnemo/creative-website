@@ -34,7 +34,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'County', iteration: true }),
+    // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
     // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     // new SearchFilterModel({ key: 'the_loupe_main_clientName_agg', placeholder: 'Client' }),
     // new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
@@ -91,7 +91,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
       ecm_fulltext: '',
       currentPageIndex: 0,
       the_loupe_main_companycode: user.get('companycode'), // 05001002
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_AGENCY_FOLDER_TYPE,
     };
     return new NuxeoPageProviderParams(params);
@@ -106,7 +106,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
       pageSize: 20,
       the_loupe_main_companycode: user.companycode,
       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPES,
+      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
       ecm_fulltext: '',
       currentPageIndex: 0,
