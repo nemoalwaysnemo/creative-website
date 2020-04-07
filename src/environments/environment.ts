@@ -58,6 +58,8 @@ export enum NUXEO_META_INFO {
   DISRUPTION_AWARD_ASSET_TYPE = '["App-Disruption-Awards-Asset"]',
   DISRUPTION_AWARD_FOLDER_TYPE = '["App-Disruption-Awards-Folder"]',
   INTELLIGENCE_FOLDER_TYPE = '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder"]',
+  INTELLIGENCE_BASE_FOLDER_TYPE = '["App-Intelligence-Folder"]',
+  INTELLIGENCE_BRANDS_TYPE = '["App-Intelligence-Brands-Folder"]',
   INTELLIGENCE_INDUSTRY_TYPE = '["App-Intelligence-Industry"]',
   INTELLIGENCE_ASSET_TYPE = '["App-Intelligence-Asset"]',
   INTELLIGENCE_ALL_FOLDERS = '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder", "App-Intelligence-Industry"]',
