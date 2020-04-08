@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { BaseDialogBody } from '../../base-dialog-body';
 import { PreviewDialogService } from '../../preview-dialog.service';
-import { NuxeoPermission } from '@core/api';
+import { NuxeoPermission, DocumentModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
+import { NUXEO_META_INFO } from '@environment/environment';
+import { getDocumentTypes } from '@core/services';
 
 @Component({
   selector: 'disruption-asset-preview-dialog-body',
@@ -44,5 +46,13 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
 
   openDeleteDialog(): void {
     this.callBack.next({ type: 'openDelete', value: true });
+  }
+
+  isDisruptionAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
+  }
+
+  isIntelligenceAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
   }
 }
