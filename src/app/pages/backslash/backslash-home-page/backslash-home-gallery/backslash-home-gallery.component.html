@@ -1,3 +1,6 @@
 <div class="home-gallery">
-  <picture-gallery [assetUrl]="'/p/backslash/asset/'" [galleryItems]="galleryItems" [gallerySettings]="gallerySettings" [galleryType]="'backslash'"></picture-gallery>
+  <picture-gallery [assetUrl]="'/p/backslash/asset/'" [galleryItems]="galleryItems" [gallerySettings]="gallerySettings" [galleryType]="'backslash'" [customTemplate]="customTemplate"></picture-gallery>
 </div>
+<ng-template #customTemplate let-data="data">
+  <i class="item-info">i</i>
+</ng-template>

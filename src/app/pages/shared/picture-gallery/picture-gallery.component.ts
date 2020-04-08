@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services';
@@ -15,15 +15,19 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
   queryParams: Params[] = [];
 
   @Input() assetUrl: string;
+
   @Input() galleryType: string = 'creative';
+
+  @Input() customTemplate: TemplateRef<any>;
+
   @Input() gallerySettings: GalleryConfig;
+
   @Input('galleryItems')
   set setItems(galleryItems: GalleryItem[]) {
     if (galleryItems) {
       this.options$.next(galleryItems);
     }
   }
-
 
   private galleryId = 'pictureGallery';
 

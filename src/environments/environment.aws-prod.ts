@@ -40,6 +40,7 @@ export enum NUXEO_META_INFO {
   CREATIVE_AGENCY_FOLDER_TYPE = '["Agency Folder"]',
   CREATIVE_AGENCY_AND_BRAND_FOLDER_TYPE = '["Brand Folder", "Agency Folder"]',
   CREATIVE_UR_CONTRACT_TYPES = '["App-Library-UsageRights-Talent", "App-Library-UsageRights-Music", "App-Library-UsageRights-Photographer", "App-Library-UsageRights-Stock"]',
+  BACKSLASH_ARTICLE_VIDEO_TYPES = '["App-Backslash-Article", "App-Backslash-Video"]',
   DISRUPTION_DAYS_TYPE = '["App-Disruption-Day"]',
   DISRUPTION_DAY_ASSET_TYPES = '["App-Disruption-Asset", "App-Disruption-Day-Asset"]',
   DISRUPTION_ROADMAP_TYPE = '["App-Disruption-Roadmap-Asset"]',

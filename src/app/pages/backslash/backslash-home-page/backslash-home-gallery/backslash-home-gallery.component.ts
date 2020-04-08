@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   galleryItems: any = [];
+
   gallerySettings: any = {
     playerInterval: 5000,
     autoPlay: true,
@@ -21,9 +22,10 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   };
 
   private params: any = {
-    pageSize: 10,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_AWARD_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
+    pageSize: 8,
+    app_edges_active_article: true,
+    ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.BACKSLASH_ARTICLE_VIDEO_TYPES,
   };
 
   private subscription: Subscription = new Subscription();

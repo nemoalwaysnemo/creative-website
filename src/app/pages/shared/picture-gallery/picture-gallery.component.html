@@ -1,12 +1,11 @@
-<gallery id="pictureGallery" [thumbTemplate]="thumbTemplate" [itemTemplate]="itemTemplate"
-  (customEvent)="onCustomEvent($event)"></gallery>
+<gallery id="pictureGallery" [thumbTemplate]="thumbTemplate" [itemTemplate]="itemTemplate" (customEvent)="onCustomEvent($event)"></gallery>
 <ng-template #thumbTemplate let-type="type">
   <span *ngIf="type === 'video'" class="item-type">
     <i class="fas fa-play"></i>
   </span>
 </ng-template>
 <ng-template #itemTemplate let-index="index" let-type="type" let-data="data" let-currIndex="currIndex">
-  <a *ngIf="galleryType === 'disruption' && !!data.outerLink" href= {{data.outerLink}}>
+  <a *ngIf="galleryType === 'disruption' && !!data.outerLink" href={{data.outerLink}}>
     <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
   </a>
   <a *ngIf="galleryType === 'disruption' && !data.outerLink" href="javascript:void(0)">
@@ -15,5 +14,12 @@
   <a *ngIf="galleryType === 'creative'" [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]">
     <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
   </a>
+  <a *ngIf="galleryType === 'backslash'" [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]">
+    <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
+  </a>
+  <div *ngIf="customTemplate" class="custom-template">
+    <ng-container *ngTemplateOutlet="customTemplate; context: { index: this.index, data: this.data }">
+    </ng-container>
+  </div>
   <span class="item-description">{{data.description}}</span>
 </ng-template>
