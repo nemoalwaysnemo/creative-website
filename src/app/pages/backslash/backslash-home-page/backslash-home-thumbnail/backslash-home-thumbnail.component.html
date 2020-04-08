@@ -1,15 +1,4 @@
-<div class="agency-thumbnail">
-  <a [routerLink]="['/p/search/backslash/asset']" class="see_all right">See all</a>
-  <div class="clear"></div>
-  <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
+<div class="backslash-home-search">
+  <global-search-form [filters]="filters" [defaultParams]="defaultParams"></global-search-form>
+  <backslash-document-asset-search-result [layout]="layout" [selectedView]="currentView"></backslash-document-asset-search-result>
 </div>
-<div class="clear"></div>
-<ng-template #thumbnailItemView let-doc="doc">
-  <div class="backslash">
-    <h4>{{doc.title}}</h4>
-    <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
-    <div class="image-holder">
-      <a [title]="doc.title" [routerLink]="['/p/backslash/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
-    </div>
-  </div>
-</ng-template>
