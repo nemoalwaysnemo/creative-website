@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
+import { DocumentBackslashInfoComponent } from '@pages/shared/document-backslash-info/document-backslash-info.component';
 
 @Component({
   selector: 'backslash-home-gallery',
@@ -9,6 +10,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './backslash-home-gallery.component.html',
 })
 export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
+
+  customComponent = DocumentBackslashInfoComponent;
+
+  galleryEvent: string = 'play';
 
   galleryItems: any = [];
 
@@ -43,14 +48,27 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  onStatusChanged(event: string) {
+    switch (event) {
+      case 'show':
+        this.galleryEvent = 'stop';
+        break;
+      case 'hide':
+        this.galleryEvent = 'play';
+        break;
+      default:
+        break;
+    }
+  }
+
   private getItems(entiries: DocumentModel[]) {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getCarouselVideoSources(), thumb: entry.attachedImage, poster: entry.attachedImage, title: entry.title, uid: entry.uid, description: entry.get('dc:description') });
+        imgArray.push({ src: entry.getCarouselVideoSources(), thumb: entry.attachedImage, poster: entry.attachedImage, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), doc: entry });
       } else if (entry.isPicture()) {
         const url = entry.attachedImage;
-        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid, description: entry.get('dc:description') });
+        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), doc: entry });
       } else {
       }
     }

@@ -1,0 +1,20 @@
+<ng-container *ngIf="document">
+  <div class="text_content">
+    <div class="controls">
+      <h2 class="left">{{ document.title }}</h2>
+      <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+      <div class="clear"></div>
+    </div>
+    <ng-container *ngIf="moreInfo">
+      <p>
+        Title: {{ document.title }}<br>
+        Brand: {{ document.get('The_Loupe_Main:brand') }}<br>
+        Description: {{ document.get('The_Loupe_Main:description') }}<br>
+        Edge: {{ document.get('app_Edges:Tags_edges').join(', ') }}
+      </p>
+    </ng-container>
+  </div>
+</ng-container>
+<ng-template #popContent>
+  <share-document-button></share-document-button>
+</ng-template>

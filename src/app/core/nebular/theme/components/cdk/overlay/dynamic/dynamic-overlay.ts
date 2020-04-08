@@ -21,6 +21,7 @@ export interface NbDynamicOverlayController {
 @Injectable()
 export class NbDynamicOverlay {
 
+  event$: Subject<string> = new Subject();
   protected ref: NbOverlayRef;
   protected container: ComponentRef<NbRenderableContainer>;
   protected componentType: Type<NbRenderableContainer>;
@@ -111,17 +112,17 @@ export class NbDynamicOverlay {
     if (!this.ref) {
       this.createOverlay();
     }
-
     this.renderContainer();
+    this.event$.next('show');
   }
 
   hide() {
     if (!this.ref) {
       return;
     }
-
     this.ref.detach();
     this.container = null;
+    this.event$.next('hide');
   }
 
   toggle() {

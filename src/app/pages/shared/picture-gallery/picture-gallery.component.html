@@ -11,14 +11,11 @@
   <a *ngIf="galleryType === 'disruption' && !data.outerLink" href="javascript:void(0)">
     <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
   </a>
-  <a *ngIf="galleryType === 'creative'" [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]">
-    <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
-  </a>
-  <a *ngIf="galleryType === 'backslash'" [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]">
+  <a *ngIf="galleryType === 'creative' || galleryType === 'backslash'" [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]">
     <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
   </a>
   <div *ngIf="customTemplate" class="custom-template">
-    <ng-container *ngTemplateOutlet="customTemplate; context: { index: this.index, data: this.data }">
+    <ng-container *ngTemplateOutlet="customTemplate; context: { doc: data.doc }">
     </ng-container>
   </div>
   <span class="item-description">{{data.description}}</span>

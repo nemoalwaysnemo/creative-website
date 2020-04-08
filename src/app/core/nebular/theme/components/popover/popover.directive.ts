@@ -10,7 +10,7 @@ import {
   ElementRef,
   Input,
   OnChanges,
-  OnDestroy, OnInit,
+  OnDestroy, OnInit, EventEmitter, Output,
 } from '@angular/core';
 
 import {
@@ -165,6 +165,8 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
   @Input('nbPopoverTrigger')
   trigger: NbTrigger = NbTrigger.CLICK;
 
+  @Output() statusChanged: EventEmitter<string> = new EventEmitter();
+
   private dynamicOverlay: NbDynamicOverlay;
 
   constructor(private hostRef: ElementRef,
@@ -182,13 +184,12 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
   }
 
   ngAfterViewInit() {
-    this.dynamicOverlay = this.configureDynamicOverlay()
-      .build();
+    this.dynamicOverlay = this.configureDynamicOverlay().build();
+    this.dynamicOverlay.event$.subscribe(_ => this.statusChanged.emit(_));
   }
 
   rebuild() {
-    this.dynamicOverlay = this.configureDynamicOverlay()
-      .rebuild();
+    this.dynamicOverlay = this.configureDynamicOverlay().rebuild();
   }
 
   show() {
