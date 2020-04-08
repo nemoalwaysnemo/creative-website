@@ -64,6 +64,7 @@
         color: #000000;
         box-sizing: border-box;
         &:hover { text-decoration: none; }
+        &:focus { outline: 0; }
         // display: flex;
         // position: relative;
         // text-decoration: none;

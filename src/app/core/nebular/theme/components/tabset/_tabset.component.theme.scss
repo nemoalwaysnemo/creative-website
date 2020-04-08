@@ -31,7 +31,7 @@
           &:hover {
             color: nb-theme(tabs-fg-heading);
           }
-
+          &:focus { outline: 0; }
           &::before {
             $color-right: nb-theme(tabs-selected);
             $color-left: adjust-hue(

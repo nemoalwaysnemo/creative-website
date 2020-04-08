@@ -48,7 +48,7 @@
       color: #000000;
       box-sizing: border-box;
       &:hover { text-decoration: none; }
-
+      &:focus { outline: 0; }
       // &::before {
       //   display: none;
       //   position: absolute;
