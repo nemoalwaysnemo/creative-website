@@ -49,16 +49,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   onStatusChanged(event: string) {
-    switch (event) {
-      case 'show':
-        this.galleryEvent = 'stop';
-        break;
-      case 'hide':
-        this.galleryEvent = 'play';
-        break;
-      default:
-        break;
-    }
+    this.galleryEvent = event === 'show' ? 'stop' : 'play';
   }
 
   private getItems(entiries: DocumentModel[]) {

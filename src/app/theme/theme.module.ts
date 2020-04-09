@@ -39,7 +39,7 @@ import {
   TimingPipe,
 } from './pipes';
 import {
-  CreativeLayoutComponent,
+  LibraryLayoutComponent,
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 
@@ -51,18 +51,18 @@ const NB_MODULES = [
   NbTabsetModule,
   NbRouteTabsetModule,
   NbMenuModule,
-  NbUserModule,
-  NbActionsModule,
-  // NbSidebarModule,
+  // NbUserModule,
+  // NbActionsModule,
+  NbSidebarModule,
   NbPopoverModule,
   // NbContextMenuModule,
   NgbModule,
-  NbSecurityModule, // *nbIsGranted directive,
+  // NbSecurityModule, // *nbIsGranted directive,
   // NbListModule,
   NbToastrModule,
   NbAccordionModule,
   NbDialogModule,
-  NbWindowModule,
+  // NbWindowModule,
   NbAlertModule,
   NbSpinnerModule,
   NbTooltipModule,
@@ -75,7 +75,7 @@ const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
   ThemeSettingsComponent,
-  CreativeLayoutComponent,
+  LibraryLayoutComponent,
 ];
 
 const ENTRY_COMPONENTS = [

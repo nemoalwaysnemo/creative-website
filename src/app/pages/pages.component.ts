@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'site-pages',
+  selector: 'library-ui-pages',
   styleUrls: ['pages.component.scss'],
   template: `
-    <creative-layout>
+    <library-ui-layout>
       <router-outlet></router-outlet>
-    </creative-layout>
+    </library-ui-layout>
   `,
 })
-export class PagesComponent implements OnInit {
-  constructor() { }
-  ngOnInit() {
+export class PagesComponent {
+
+  constructor() {
+    this.setGoogleAnalytics();
+  }
+
+  private setGoogleAnalytics(): void {
     if (window['dataLayer']) {
       window['dataLayer'].push({ 'event': 'optimize.activate' });
     }

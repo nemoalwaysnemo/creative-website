@@ -179,7 +179,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     this._indexChange$.unsubscribe();
     this._playingChange$.unsubscribe();
     this._playerListener$.unsubscribe();
-    if (this.destroyRef) {
+    if (this.destroyRef && this.galleryRef) {
       this.galleryRef.destroy();
     }
   }

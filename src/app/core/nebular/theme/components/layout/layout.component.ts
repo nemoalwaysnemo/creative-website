@@ -104,18 +104,12 @@ export class NbLayoutColumnComponent {
     </nav>
   `,
 })
-export class NbLayoutHeaderComponent implements AfterViewInit {
-  h: number = 0;
+export class NbLayoutHeaderComponent {
+
   @HostBinding('class.fixed') fixedValue: boolean;
   @HostBinding('class.subheader') subheaderValue: boolean;
 
   @ViewChild('header', { static: true })
-  private el: ElementRef;
-  constructor(protected scrollService: NbLayoutScrollService,
-              private elementRef: ElementRef,
-              private renderer: Renderer2,
-  ) {
-  }
 
   /**
    * Makes the header sticky to the top of the nb-layout.
@@ -137,30 +131,7 @@ export class NbLayoutHeaderComponent implements AfterViewInit {
     this.fixedValue = false;
     // this.layout.withSubheader = this.subheaderValue;
   }
-  ngAfterViewInit() {
-    //   this.scrollService.onScroll()
-    //     .pipe(
-    //       map(() => window.pageYOffset),
-    //       pairwise(),
-    //       map(([y1, y2]) => {
-    //         y1 = y1 > 0 ? y1 : 0;
-    //         y2 = y2 > 0 ? y2 : 0;
-    //         return y1 - y2;
-    //       }),
-    //   )
-    //     .subscribe(y => {
-    //       const offsetY = this.h + y;
-    //       if (offsetY < - 78) {
-    //         this.h = - 78;
-    //       } else if (offsetY > 0) {
-    //         this.h = 0;
-    //       } else {
-    //         this.h = offsetY;
-    //       }
-    //       // this.h += y;
-    //       this.renderer.setStyle(this.el.nativeElement, 'top', this.h + 'px');
-    //     });
-  }
+
 }
 
 /**
