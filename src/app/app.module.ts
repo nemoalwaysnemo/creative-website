@@ -11,6 +11,7 @@ import { GoogleAnalyticsModule } from '@core/google-analytics';
 import { CacheService } from '@core/services';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
     CoreModule.forRoot(),
     GoogleAnalyticsModule.forRoot(),
     DeviceDetectorModule.forRoot(),
+    NgxPermissionsModule.forRoot(),
   ],
   bootstrap: [AppComponent],
   providers: [

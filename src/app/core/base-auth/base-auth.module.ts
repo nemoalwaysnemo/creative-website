@@ -6,10 +6,11 @@ import { BaseAuthInterceptor } from './services/base-auth-interceptor';
 import { NuxeoTokenStorage } from './services/nuxeo-token-storage';
 import { of as observableOf } from 'rxjs';
 import { NbOAuth2AuthStrategy, NbOAuth2ClientAuthMethod, NbOAuth2ResponseType, NbOAuth2GrantType } from './strategies';
-import { NbAuthOAuth2Token, NbTokenStorage, AuthGuard } from './services';
+import { NbAuthOAuth2Token, NbTokenStorage } from './services';
 import { NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from './base-auth.options';
 import { Environment } from '@environment/environment';
 import { NbAuthModule } from './auth.module';
+import { AuthGuard } from './services/auth-guard.service';
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
   getRole() {

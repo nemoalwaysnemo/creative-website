@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel, NuxeoUserGroups } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services';
 import { PreviewDialogService } from '../preview-dialog/preview-dialog.service';
@@ -75,7 +75,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
     return this.userService.getCurrentUserInfo().pipe(
       concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
-        map((permission: boolean) => user.hasGroup(NuxeoUserGroups.Everyone) && permission === true),
+        map((permission: boolean) => user.canAccess() && permission === true),
       )),
       share(),
     );

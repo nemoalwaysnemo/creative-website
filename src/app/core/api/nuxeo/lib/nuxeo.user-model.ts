@@ -1,3 +1,4 @@
+import { NuxeoUserGroups, UserRole } from '../../../acl/acl.interface';
 
 export class UserModel {
   private _properties: any = {};
@@ -24,6 +25,25 @@ export class UserModel {
 
   hasGroup(groupName: string): boolean {
     return (this.get('groups') || []).includes(groupName);
+  }
+
+  isAdmin(): boolean {
+    return this.hasGroup(NuxeoUserGroups.Admin);
+  }
+
+  canAccess(): boolean {
+    return this.hasGroup(NuxeoUserGroups.Everyone);
+  }
+
+  getRole(): any {
+    const groups = this.get('groups').join(',');
+    if (groups.includes('-CN-Dalian-')) {
+      return UserRole.Developer;
+    } else if (this.isAdmin()) {
+      return UserRole.Admin;
+    } else if (this.canAccess()) {
+      return UserRole.Client;
+    }
   }
 
 }

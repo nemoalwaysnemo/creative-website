@@ -17,7 +17,6 @@ import {
   NuxeoPagination,
   BatchUpload,
   DirectoryEntry,
-  NuxeoResponse,
 } from './lib';
 
 @Injectable()
