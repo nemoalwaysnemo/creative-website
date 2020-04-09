@@ -4,8 +4,8 @@ export enum NuxeoUserGroups {
 }
 
 export enum UserPermission {
-  Management = 'MANAGEMENT',
-  Dev = 'DEVELOP',
+  Mgt = 'MGT',
+  Dev = 'DEV',
   View = 'VIEW',
 }
 
@@ -16,10 +16,10 @@ export const UserRole = {
   },
   Admin: {
     name: NuxeoUserGroups.Admin,
-    permissions: [UserPermission.View, UserPermission.Management],
+    permissions: [UserPermission.View, UserPermission.Mgt],
   },
   Developer: {
     name: 'Dev-User',
-    permissions: [UserPermission.View, UserPermission.Management, UserPermission.Dev],
+    permissions: [UserPermission.View, UserPermission.Mgt, UserPermission.Dev],
   },
 };

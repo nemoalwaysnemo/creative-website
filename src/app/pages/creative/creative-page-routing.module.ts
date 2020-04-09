@@ -39,7 +39,7 @@ const routes: Routes = [{
       canActivate: [NgxPermissionsGuard],
       data: {
         permissions: {
-          only: UserPermission.Management,
+          only: UserPermission.Mgt,
           redirectTo: 'home',
         },
       },
@@ -50,7 +50,7 @@ const routes: Routes = [{
       canActivate: [NgxPermissionsGuard],
       data: {
         permissions: {
-          only: UserPermission.Management,
+          only: UserPermission.Mgt,
           redirectTo: 'home',
         },
       },
@@ -61,7 +61,7 @@ const routes: Routes = [{
       canActivate: [NgxPermissionsGuard],
       data: {
         permissions: {
-          only: UserPermission.Management,
+          only: UserPermission.Mgt,
           redirectTo: 'home',
         },
       },
@@ -72,7 +72,7 @@ const routes: Routes = [{
       canActivate: [NgxPermissionsGuard],
       data: {
         permissions: {
-          only: UserPermission.Management,
+          only: UserPermission.Mgt,
           redirectTo: 'home',
         },
       },
@@ -83,7 +83,7 @@ const routes: Routes = [{
       canActivate: [NgxPermissionsGuard],
       data: {
         permissions: {
-          only: UserPermission.Management,
+          only: UserPermission.Mgt,
           redirectTo: 'home',
         },
       },

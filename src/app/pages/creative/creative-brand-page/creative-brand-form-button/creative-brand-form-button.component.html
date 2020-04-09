@@ -1,4 +1,6 @@
-<button *ngIf="addChildrenPermission$ | async" type="button" (click)="openForm(dialog)" class="icon_btn" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="{{title}}">{{title}}</button>
-<ng-template #dialog>
-  <document-form-dialog [document]="document" [component]="component" [title]="title"></document-form-dialog>
-</ng-template>
+<div class="form-button-group" *ngxPermissionsOnly="['MGT']">
+  <button *ngIf="addChildrenPermission$ | async" type="button" (click)="openForm(dialog)" class="icon_btn" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="{{title}}">{{title}}</button>
+  <ng-template #dialog>
+    <document-form-dialog [document]="document" [component]="component" [title]="title"></document-form-dialog>
+  </ng-template>
+</div>
