@@ -243,7 +243,7 @@ export function getPathPartOfUrl(url: string): string {
 export function parseTabRoute(tabConfig: any[], routeParams): any[] {
   const tabs: any[] = [];
   for (const config of tabConfig) {
-    const tab: any = { title: config['title'], route: config['route'] };
+    const tab: any = { title: config['title'], route: config['route'], acl: config['acl'] };
     for (const key of ['type', 'id']) {
       tab['route'] = tab.route.replace(`:${key}`, routeParams[key]);
     }

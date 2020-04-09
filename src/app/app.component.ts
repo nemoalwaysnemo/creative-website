@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'library-web-ui',
-  template: '<router-outlet></router-outlet>',
+  template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent implements OnInit {
 

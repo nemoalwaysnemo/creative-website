@@ -63,6 +63,7 @@
     "ngx-device-detector": "1.4.1",
     "ngx-drag-scroll": "^8.0.0-beta.2",
     "ngx-infinite-scroll": "^8.0.1",
+    "ngx-permissions": "^7.0.3",
     "ngx-pipes": "^2.7.3",
     "ngx-scrollbar": "^7.2.1-beta.0",
     "pace-js": "1.0.2",

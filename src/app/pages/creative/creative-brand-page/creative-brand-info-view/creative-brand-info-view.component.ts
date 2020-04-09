@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services';
-import { AbstractBaseDocumentViewComponent } from '@pages/shared/abstract-classes/abstract-base-document-view.component';
+import { ACLService } from '@core/acl';
+import { AbstractBaseDocumentViewComponent } from '../../../shared/abstract-classes/abstract-base-document-view.component';
 
 @Component({
   selector: 'creative-brand-info-view',
@@ -20,7 +21,7 @@ export class CreativeBrandInfoViewComponent extends AbstractBaseDocumentViewComp
 
   tabs: any[] = [];
 
-  constructor(protected activatedRoute: ActivatedRoute) {
+  constructor(protected activatedRoute: ActivatedRoute, private aclService: ACLService) {
     super();
   }
 
@@ -30,7 +31,10 @@ export class CreativeBrandInfoViewComponent extends AbstractBaseDocumentViewComp
 
   protected parseTabRoute(): void {
     if (this.tabs.length === 0) {
-      this.tabs = parseTabRoute(this.tabConfig, this.activatedRoute.snapshot.params);
+      const tabs = parseTabRoute(this.tabConfig, this.activatedRoute.snapshot.params);
+      this.aclService.filterRouterTabs(tabs).subscribe((r: any[]) => {
+        this.tabs = r;
+      });
     }
   }
 

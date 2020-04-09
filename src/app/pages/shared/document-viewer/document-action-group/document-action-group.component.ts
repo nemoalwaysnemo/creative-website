@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { concatMap, map, share, tap } from 'rxjs/operators';
-import { DocumentModel, UserService, UserModel, NuxeoUserGroups, NuxeoPermission } from '@core/api';
+import { DocumentModel, UserService, UserModel, NuxeoPermission } from '@core/api';
 import { getDocumentTypes } from '@core/services';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -47,7 +47,7 @@ export class DocumentActionGroupComponent {
       doc.hasPermission(NuxeoPermission.Everything),
       this.userService.getCurrentUserInfo().pipe(
         concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
-          map((permission: boolean) => user.hasGroup(NuxeoUserGroups.Everyone) && permission === true),
+          map((permission: boolean) => user.canAccess() && permission === true),
         )),
       ), (one, two, three) => {
         return one || two || three;

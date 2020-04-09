@@ -21,8 +21,4 @@ export abstract class AbstractBaseDocumentViewComponent implements OnInit, OnDes
     this.onDestroy();
   }
 
-  isOnDevMode(): boolean {
-    return !Environment.production;
-  }
-
 }

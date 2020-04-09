@@ -330,7 +330,3 @@ export enum NuxeoAutomations {
   GetAccessTokenInfo = 'TBWA.GetAccessTokenInfo',
   MoveToTrash = 'Document.Trash',
 }
-
-export enum NuxeoUserGroups {
-  Everyone = 'Everyone-o-tbwa-AUTOPOP',
-}
