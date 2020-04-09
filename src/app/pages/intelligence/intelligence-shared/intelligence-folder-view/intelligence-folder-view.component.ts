@@ -10,7 +10,7 @@ import { DocumentModel } from '@core/api';
 })
 export class IntelligenceFolderViewComponent {
 
-  folderType: string[] = ['App-Intelligence-Consumer-Folder', 'App-Intelligence-Industry-Folder', 'App-Intelligence-Marketing-Folder'];
+  folderType: string[] = ['App-Intelligence-Consumer-Folder', 'App-Intelligence-Industry-Folder', 'App-Intelligence-Marketing-Folder', 'App-Intelligence-Brands-Folder'];
 
   isShow: boolean = false;
 

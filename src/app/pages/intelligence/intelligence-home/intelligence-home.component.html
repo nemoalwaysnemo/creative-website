@@ -15,13 +15,6 @@
         [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
     </div>
   </div>
-  <div class="clear"></div>
-</div>
-<div class="global-search-form-buttons" style="padding-left: 60px;">
-  <intelligence-form-button [parent]="document" [type]="'brands folder'" [title]="'New Brand Folder'">
-  </intelligence-form-button>
-</div>
-<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results intelligence_home">
   <div *ngFor="let document of brands" class="thumbnail-view-item">
     <div class="description">
       <h1 [title]="document.title"><a [routerLink]="['/p/intelligence/folder', document.uid]">{{document.title}}</a>

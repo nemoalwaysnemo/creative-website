@@ -62,7 +62,7 @@ export enum NUXEO_META_INFO {
   INTELLIGENCE_BRANDS_TYPE = '["App-Intelligence-Brands-Folder"]',
   INTELLIGENCE_INDUSTRY_TYPE = '["App-Intelligence-Industry"]',
   INTELLIGENCE_ASSET_TYPE = '["App-Intelligence-Asset"]',
-  INTELLIGENCE_ALL_FOLDERS = '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder", "App-Intelligence-Industry"]',
+  INTELLIGENCE_ALL_FOLDERS = '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder", "App-Intelligence-Brands-Folder"]',
   FRONTPAGE_BANNER_TYPE = '["App-Library-Image"]',
   BACKSLASH_ASSET_PAGE_PROVIDER = 'creative_website_backslash_related_assets',
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',

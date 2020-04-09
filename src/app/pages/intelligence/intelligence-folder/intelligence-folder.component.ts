@@ -72,6 +72,8 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
         return 'Consumer';
       case 'App-Intelligence-Marketing-Folder':
         return 'Marketing';
+      case 'App-Intelligence-Brands-Folder':
+        return 'Brands';
       case 'App-Intelligence-Industry':
         return 'IndustryAsset';
       default:
@@ -88,6 +90,8 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
       case 'Consumer':
         return this.buildConsumerAndMarketingParams(doc);
       case 'Marketing':
+        return this.buildConsumerAndMarketingParams(doc);
+      case 'Brands':
         return this.buildConsumerAndMarketingParams(doc);
       default:
         return {};
