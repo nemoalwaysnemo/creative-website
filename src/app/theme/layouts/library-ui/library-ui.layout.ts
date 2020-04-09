@@ -14,7 +14,7 @@ import { StateService } from '@core/services/state.service';
 
 @Component({
   selector: 'library-ui-layout',
-  styleUrls: ['./creative.layout.scss'],
+  styleUrls: ['./library-ui.layout.scss'],
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
 
