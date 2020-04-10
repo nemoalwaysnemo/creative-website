@@ -9,7 +9,6 @@ import { SharedServiceModule } from '../services/shared-service.module';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { GlobalSearchResultComponent } from './global-search-result.component';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
-import { CreativeMyBrandSearchResultComponent } from './creative-my-brand-search-result/creative-my-brand-search-result.component';
 import { CreativePopularBrandSearchResultComponent, CreativePopularBrandRowRenderComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
 import { CreativeUsageRightsSearchResultComponent } from './creative-usage-rights-search-result/creative-usage-rights-search-result.component';
 import { CreativeBrandCampaignSearchResultComponent} from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
@@ -39,7 +38,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
-  CreativeMyBrandSearchResultComponent,
   CreativeMyBrandAssetSearchResultComponent,
   CreativePopularBrandSearchResultComponent,
   CreativeBrandRowRenderComponent,

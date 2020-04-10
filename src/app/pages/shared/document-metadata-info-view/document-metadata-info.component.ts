@@ -169,6 +169,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   goBrandFolder(): void {
-    this.router.navigate(['p/redirect'], { queryParams: { url: `/p/search/creative/myBrandAsset/${this.documentModel.parentRef}` } });
+    this.router.navigate(['p/redirect'], { queryParams: { url: `/p/creative/brand/${this.documentModel.parentRef}/asset` } });
   }
 }

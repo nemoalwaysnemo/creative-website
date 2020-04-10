@@ -5,7 +5,7 @@ import { DocumentListViewItem } from '../../document-list-view/document-list-vie
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
-  template: `<a [routerLink]="['/p/search/creative/myBrandAsset', value.uid]">{{ value.title }}</a>`,
+  template: `<a [routerLink]="['/p/creative/brand', value.uid, 'asset']">{{ value.title }}</a>`,
 })
 export class CreativeBrandRowRenderComponent {
   @Input() value: { title: string, uid: string };
