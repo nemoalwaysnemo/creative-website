@@ -1,17 +1,20 @@
-<ng-container *ngIf="document">
-  <div class="text_content">
+<ng-container *ngIf="doc">
+  <div class="text_content" [nbSpinner]="loading" nbSpinnerStatus="disabled">
     <div class="controls">
-      <h2 class="left">{{ document.title }}</h2>
+      <img [src]="previewBtnImage()" class="inline-middle">
+      <h2 class="inline-middle">{{ doc.title }}</h2>
       <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
       <div class="clear"></div>
     </div>
-    <ng-container *ngIf="moreInfo">
-      <p>
-        Title: {{ document.title }}<br>
-        Brand: {{ document.get('The_Loupe_Main:brand') }}<br>
-        Description: {{ document.get('The_Loupe_Main:description') }}<br>
-        Edge: {{ document.get('app_Edges:Tags_edges').join(', ') }}
-      </p>
+    <ng-container *ngIf="moreInfo && backslashEdges && backslashEdges.length !== 0">
+      <ul>
+        <li *ngFor="let edge of backslashEdges">
+          <button nbTooltip="{{edge.get('dc:description') || edge.title}}" nbTooltipPlacement="right">
+            <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" style="width:56px; height:50px;">
+          </button>
+        </li>
+      </ul>
+      <h4 class="inline-middle">{{ doc.get('dc:description') }}</h4>
     </ng-container>
   </div>
 </ng-container>
