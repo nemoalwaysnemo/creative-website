@@ -13,7 +13,6 @@ import { ACLModule } from '@core/acl';
   ],
   declarations: [
     PagesComponent,
-    BackslashPageComponent,
   ],
 })
 export class PagesModule {

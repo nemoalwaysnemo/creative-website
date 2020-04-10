@@ -1,0 +1,15 @@
+<ng-container *ngIf="resultHeader">
+  <h1 class="title" style="margin-left: 60px;">{{resultHeader}}</h1>
+</ng-container>
+<div class="agency-thumbnail">
+  <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [listViewBuilder]="listViewBuilder" [listViewSettings]="listViewSettings" [selectedView]="currentView" [hideEmpty]="hideEmpty" [layout]="layout"></global-search-result>
+</div>
+<ng-template #thumbnailView let-doc="doc">
+  <div class="backslash">
+    <h4>{{doc.title}}</h4>
+    <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
+    <div class="image-holder">
+      <a [title]="doc.title" [routerLink]="['/p/backslash/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+    </div>
+  </div>
+</ng-template>

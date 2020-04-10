@@ -1,0 +1,8 @@
+<div class="home-gallery">
+  <picture-gallery [assetUrl]="'/p/backslash/asset/'" [galleryItems]="galleryItems" [gallerySettings]="gallerySettings" [galleryType]="'backslash'" [customEvent]="galleryEvent" [customTemplate]="customTemplate"></picture-gallery>
+</div>
+<ng-template #customTemplate let-doc="doc">
+  <div class="popover-container">
+    <span class="item-info" [nbPopover]="customComponent" [nbPopoverContext]="{document: doc}" nbPopoverPlacement="bottom" (statusChanged)="onStatusChanged($event)">i</span>
+  </div>
+</ng-template>

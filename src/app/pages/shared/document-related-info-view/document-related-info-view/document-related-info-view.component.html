@@ -28,7 +28,7 @@
     <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
     <!-- <a (click)="open(backslashDialog, doc, 'Backslash')"><img src="{{doc.thumbnailUrl}}" [alt]="doc.title" class="thumbnail-img"></a> -->
     <div class="image-holder">
-      <a [title]="doc.title" (click)=" open(backslashDialog, doc, 'Backslash')" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a [title]="doc.title" (click)="open(backslashDialog, doc, 'Backslash')" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
   </div>
   <ng-template #backslashDialog>

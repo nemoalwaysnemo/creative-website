@@ -3,6 +3,7 @@ export * from './document-metadata-info-view/document-metadata-info.module';
 export * from './document-related-agency-view/document-related-agency.module';
 export * from './document-related-info-view/document-related-info.module';
 export * from './document-related-project/document-related-project.module';
+export * from './document-backslash-info/document-backslash-info.module';
 export * from './batch-file-upload/batch-file-upload.module';
 export * from './directory-suggestion/directory-suggestion.module';
 export * from './document-viewer/document-viewer.module';

@@ -96,7 +96,7 @@ export class NbDynamicOverlayHandler {
     return this;
   }
 
-  build() {
+  build(): NbDynamicOverlay {
     if (!this._componentType || !this._host) {
       throw Error(`NbDynamicOverlayHandler: at least 'componentType' and 'host' should be
       passed before building a dynamic overlay.`);
@@ -114,7 +114,7 @@ export class NbDynamicOverlayHandler {
     return this.dynamicOverlay;
   }
 
-  rebuild() {
+  rebuild(): NbDynamicOverlay {
     /**
      * we should not throw here
      * as we use rebuilt in lifecycle hooks
@@ -184,13 +184,11 @@ export class NbDynamicOverlayHandler {
 
     triggerStrategy.show$.pipe(
       takeUntil(this.disconnect$),
-    )
-      .subscribe(() => dynamicOverlay.show());
+    ).subscribe(() => dynamicOverlay.show());
 
     triggerStrategy.hide$.pipe(
       takeUntil(this.disconnect$),
-    )
-      .subscribe(() => dynamicOverlay.hide());
+    ).subscribe(() => dynamicOverlay.hide());
   }
 
   protected isContainerRerenderRequired() {
