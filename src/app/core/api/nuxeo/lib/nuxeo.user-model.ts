@@ -37,7 +37,7 @@ export class UserModel {
 
   getRole(): any {
     const groups = this.get('groups').join(',');
-    if (groups.includes('-CN-Dalian-')) {
+    if (groups.includes('-CN-Dalian-') || groups.includes('-IN-Noida-')) {
       return UserRole.Developer;
     } else if (this.isAdmin()) {
       return UserRole.Admin;

@@ -42,8 +42,9 @@ import {
   LibraryLayoutComponent,
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
+import { ACLModule } from '@core/acl';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, RouterModule];
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, ACLModule];
 
 const NB_MODULES = [
   NbCardModule,

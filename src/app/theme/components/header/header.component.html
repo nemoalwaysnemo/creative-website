@@ -10,7 +10,8 @@
   </div>
   <div class="main-nav">
     <a [routerLink]="['/p/creative']" [ngClass]="{'active': selectLayout('creative')}">Creative Library</a>
-    <a [routerLink]="['/p/backslash']" [ngClass]="{'active': selectLayout('backslash')}">Backslash</a>
+    <a [routerLink]="['/p/backslash/home']" [ngClass]="{'active': selectLayout('backslash')}" *ngxPermissionsOnly="['MGT']">Backslash</a>
+    <a [routerLink]="['/p/backslash/edges']" [ngClass]="{'active': selectLayout('backslash')}" *ngxPermissionsExcept="['MGT']">Backslash</a>
     <a [routerLink]="['/p/disruption']" [ngClass]="{'active': selectLayout('disruption')}">Disruption</a>
     <a [routerLink]="['/p/intelligence']" [ngClass]="{'active': selectLayout('intelligence')}">Intelligence</a>
   </div>
