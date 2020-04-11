@@ -29,7 +29,7 @@ export class CreativeBrandShowcaseComponent extends AbstractDocumentViewComponen
 
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc;
-    // this.baseParams$.next(this.buildAssetsParams(doc));
+    this.baseParams$.next(this.buildAssetsParams(doc));
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -43,6 +43,7 @@ export class CreativeBrandShowcaseComponent extends AbstractDocumentViewComponen
   protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      app_global_networkshare: true,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
