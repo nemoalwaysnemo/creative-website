@@ -68,6 +68,4 @@ export enum NUXEO_META_INFO {
   BACKSLASH_ASSET_PAGE_PROVIDER = 'creative_website_backslash_related_assets',
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',
   INTELLIGENCE_ASSET_PAGE_PROVIDER = 'creative_website_intelligence_related_assets',
-  USER_COLLECTION_PAGE_PROVIDER = 'creative_website_user_collections',
-  USER_COLLECTION_MEMBERS_PAGE_PROVIDER = 'creative_website_user_collection_members',
 }

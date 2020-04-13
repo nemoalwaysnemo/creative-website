@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
@@ -44,7 +44,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_mixinType: '["HiddenInNavigation"]',
+    ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
   };
@@ -99,7 +99,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
         currentPageIndex: 0,
         pageSize: ids.length,
         ecm_uuid: `["${ids.join('", "')}"]`,
-        ecm_mixinType: '["HiddenInNavigation"]',
+        ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
         ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
       };

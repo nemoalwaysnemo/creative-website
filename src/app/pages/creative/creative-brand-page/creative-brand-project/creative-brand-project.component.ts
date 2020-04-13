@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AdvanceSearch, DocumentModel, SearchFilterModel } from '@core/api';
+import { AdvanceSearch, DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { Subject } from 'rxjs';
@@ -59,7 +59,7 @@ export class CreativeBrandProjectComponent extends AbstractDocumentViewComponent
   protected buildProjectParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.CREATIVE_PROJECT_TYPE,
-      ecm_mixinType: '["HiddenInNavigation"]',
+      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
