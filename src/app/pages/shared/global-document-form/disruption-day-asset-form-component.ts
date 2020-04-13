@@ -40,14 +40,14 @@ export class DisruptionDayAssetFormComponent extends AbstractDocumentFormCompone
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
-        placeholder: 'Leave blank to copy from Disruption Day',
+        placeholder: '',
         required: false,
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
         settings: {
-          placeholder: 'Leave blank to copy from Disruption Day',
+          placeholder: '',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Industries',
         },
@@ -63,7 +63,7 @@ export class DisruptionDayAssetFormComponent extends AbstractDocumentFormCompone
         label: 'Agency',
         settings: {
           multiple: false,
-          placeholder: 'Leave blank to copy from Disruption Day',
+          placeholder: '',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Agencies',
         },
@@ -72,7 +72,7 @@ export class DisruptionDayAssetFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
         settings: {
-          placeholder: 'Leave blank to copy from Disruption Day',
+          placeholder: '',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',
         },
@@ -91,7 +91,7 @@ export class DisruptionDayAssetFormComponent extends AbstractDocumentFormCompone
         id: 'app_Edges:Tags_edges',
         label: 'Edges',
         settings: {
-          placeholder: 'Leave blank to copy from Disruption Day',
+          placeholder: '',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
         },
