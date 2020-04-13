@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoEnricher, SearchFilterModel } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoEnricher, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
@@ -46,7 +46,7 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_mixinType: '["HiddenInNavigation"]',
+      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
     };

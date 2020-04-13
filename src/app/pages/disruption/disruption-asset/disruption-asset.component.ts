@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AdvanceSearch, DocumentModel, NuxeoPagination } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoPagination, NuxeoPageProviderConstants } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
@@ -28,7 +28,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
   disruptionDayParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_mixinType: '["HiddenInNavigation"]',
+    ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
   };

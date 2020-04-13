@@ -14,5 +14,6 @@
     <a [routerLink]="['/p/backslash/edges']" [ngClass]="{'active': selectLayout('backslash')}" *ngxPermissionsExcept="['MGT']">Backslash</a>
     <a [routerLink]="['/p/disruption']" [ngClass]="{'active': selectLayout('disruption')}">Disruption</a>
     <a [routerLink]="['/p/intelligence']" [ngClass]="{'active': selectLayout('intelligence')}">Intelligence</a>
+    <a [routerLink]="['/p/favorite']" [ngClass]="{'active': selectLayout('favorite')}" *ngxPermissionsOnly="['DEV']">Favorite</a>
   </div>
 </div>

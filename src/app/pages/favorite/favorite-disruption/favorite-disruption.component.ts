@@ -1,32 +1,19 @@
-
-import { Component, OnInit } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
-import { PreviewDialogService, SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DocumentModel, AdvanceSearch, UserService, SearchFilterModel } from '@core/api';
+import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+import { AbstractFavoriteDocumentViewComponent } from '../abstract-favorite-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'favorite-disruption',
   templateUrl: './favorite-disruption.component.html',
   styleUrls: ['./favorite-disruption.component.scss'],
 })
-export class FavoriteDisruptionComponent extends AbstractDocumentViewComponent implements OnInit {
-
-  defaultParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
-  };
+export class FavoriteDisruptionComponent extends AbstractFavoriteDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
-
-  parentDocument: DocumentModel;
-
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
@@ -37,37 +24,23 @@ export class FavoriteDisruptionComponent extends AbstractDocumentViewComponent i
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
-    protected previewDialogService: PreviewDialogService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    protected previewDialogService: PreviewDialogService,
+    protected userService: UserService) {
+    super(advanceSearch, activatedRoute, queryParamsService, previewDialogService, userService);
   }
 
-  ngOnInit() {
-    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
-    this.subscription.add(subscription);
-  }
-
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.parentDocument);
-  }
-
-  onCreated(doc: DocumentModel): void {
-    this.queryParamsService.refresh();
-  }
-
-  protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
-    if (doc) {
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
-    }
-  }
-
-  protected getCurrentDocumentSearchParams(): object {
-    return {
-      pageSize: 1,
+  protected buildAssetsParams(doc: DocumentModel): any {
+    const params = {
+      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ASSET_TYPE,
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_FOLDER_TYPE,
+      pageSize: 20,
+      ecm_fulltext: '',
     };
+    if (doc) {
+      params['collectionIds_any'] = `["${doc.uid}"]`;
+    }
+    return params;
   }
 
 }

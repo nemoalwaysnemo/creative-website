@@ -96,11 +96,15 @@ export function filterAggregates(filters: SearchFilterModel[] = [], models: Aggr
   return aggregates;
 }
 
+export enum NuxeoPageProviderConstants {
+  HiddenInNavigation = '["HiddenInNavigation"]',
+  Collection = 'Collection',
+  Favorites = 'Favorites',
+}
+
 export enum NuxeoQuickFilters {
   Alphabetically = 'Alphabetically',
   ProductionDate = 'ProductionDate',
-  // ShowInNavigation = 'ShowInNavigation',
-  // HiddenInNavigation = 'HiddenInNavigation',
   BackslashEdgePage = 'BackslashEdgePage',
 }
 
@@ -163,7 +167,7 @@ export class NuxeoPageProviderParams {
   ecm_path?: string;
   sortBy?: string;
   sortOrder?: string;
-  ecm_mixinType_not_in?: string = '["HiddenInNavigation"]';
+  ecm_mixinType_not_in?: string = NuxeoPageProviderConstants.HiddenInNavigation;
   highlight?: string = 'dc:title.fulltext,ecm:binarytext,dc:description.fulltext,ecm:tag,note:note.fulltext,file:content.name';
   quickFilters?: string = `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
   keyword?: string;

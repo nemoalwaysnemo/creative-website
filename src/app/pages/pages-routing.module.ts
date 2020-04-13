@@ -31,6 +31,10 @@ const routes: Routes = [{
       loadChildren: () => import('./global-search/global-search-page.module').then(m => m.GlobalSearchPageModule),
     },
     {
+      path: 'favorite',
+      loadChildren: () => import('./favorite/favorite-page.module').then(m => m.FavoritePageModule),
+    },
+    {
       path: 'redirect',
       loadChildren: () => import('./miscellaneous/redirect/redirect.module').then(m => m.RedirectModule),
     },

@@ -2,11 +2,10 @@
 <ng-template #thumbnailView let-doc="doc">
   <div class="thumbnail-view-item">
     <div class="image-holder">
-      <a [routerLink]="['', '']" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
-      <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption Days/day', doc.uid]">{{doc.title}}</a></h1>
-      <h4 class="year">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
+      <h1 [title]="doc.title">{{doc.title}}</h1>
       <div class="line"></div>
       <h4 class="agency">{{doc.get('The_Loupe_Main:agency')}}</h4>
     </div>
