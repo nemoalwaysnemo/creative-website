@@ -26,7 +26,6 @@ export class OptionSettings {
   }
 }
 
-
 export class ItemNode {
   constructor(
     public value: string,

@@ -2,8 +2,8 @@ import { OnInit, OnDestroy, Input } from '@angular/core';
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
-import { filter, debounceTime, distinctUntilChanged, switchMap, delay, map, startWith, pairwise, merge, skipUntil } from 'rxjs/operators';
-import { AdvanceSearch, AggregateModel, filterAggregates, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
+import { filter, debounceTime, distinctUntilChanged, switchMap, delay, map, startWith, pairwise, merge, skipUntil, tap } from 'rxjs/operators';
+import { AdvanceSearch, AggregateModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel, NuxeoPagination } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { removeUselessObject, getPathPartOfUrl } from '@core/services';
 import { GoogleAnalyticsService } from '@core/google-analytics';
@@ -92,7 +92,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.buildSearchFilter([]);
+
   }
 
   ngOnDestroy(): void {
@@ -245,8 +245,14 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected hasFilterQueryParams(queryParams: {}): boolean {
-    return Object.keys(queryParams).some((key) => key.includes('_agg'));
+  protected hasFilterQueryParams(params: NuxeoPageProviderParams): boolean {
+    return Object.keys(params).some((key) => key.includes('_agg'));
+  }
+
+  protected performFilterButton(event: string, params: NuxeoPageProviderParams): void {
+    if (['onPageInitialized', 'onParentChanged'].includes(event)) {
+      this.showFilter = this.hasFilterQueryParams(params);
+    }
   }
 
   protected checkPageChanged(info: PageChangedInfo): boolean {
@@ -280,7 +286,6 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
       if (info.initial) {
         this.setDefaultParams(info.queryParams);
         this.onPageQueryParamsChanged(info, 'onPageInitialized');
-        this.showFilter = this.hasFilterQueryParams(info.queryParams);
       } else {
         this.onPageQueryParamsChanged(info);
       }
@@ -317,14 +322,14 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     }
     const searchParams = removeUselessObject(params.params, ['q', 'id', 'folder']);
     this.googleAnalyticsService.searchTrack({ 'event_category': 'Search', 'event_action': event, 'event_label': event });
-    return this.search(searchParams);
+    return this.search(searchParams, { event: params.event });
   }
 
-  protected search(queryParams: any = {}): Observable<SearchResponse> {
+  protected search(queryParams: any = {}, extra: { [key: string]: any } = {}): Observable<SearchResponse> {
     const params = new NuxeoPageProviderParams(this.queryParamsService.buildSearchParams(queryParams));
     const options = new NuxeoRequestOptions({ skipAggregates: false });
     const { searchParams, opts } = this.beforeSearch.call(this, params, options);
-    return this.advanceSearch.search(searchParams, opts);
+    return this.advanceSearch.search(searchParams, opts, extra);
   }
 
   protected triggerSearch(searchParams: any = {}, event: string, defaultValue: any = {}): void {
@@ -348,17 +353,23 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   protected onAfterSearch(): void {
     const subscription = this.advanceSearch.onSearch().pipe(
       filter(({ action }) => action === 'afterSearch'),
-    ).subscribe(({ response }) => {
-      const aggregateModels = this.advanceSearch.buildAggregateModels(response);
-      this.buildSearchFilter(aggregateModels);
+      tap(({ response }) => this.buildSearchFilter(response)),
+      tap((res: SearchResponse) => this.onAfterSearchEvent(res)),
+    ).subscribe(({ searchParams, extra }) => {
+      this.performFilterButton(extra.event, searchParams);
       this.submitted = false;
       this.hasAggs = true;
     });
     this.subscription.add(subscription);
   }
 
-  protected buildSearchFilter(aggregateModels: AggregateModel[] = []): void {
-    this.aggregateModels$.next(filterAggregates(this.filters, aggregateModels));
+  protected onAfterSearchEvent(res: SearchResponse): void {
+
+  }
+
+  protected buildSearchFilter(response: NuxeoPagination): void {
+    const aggregateModels = this.advanceSearch.buildAggregateModels(response);
+    this.aggregateModels$.next(aggregateModels);
   }
 
 }

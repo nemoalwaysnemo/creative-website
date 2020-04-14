@@ -1,6 +1,6 @@
-import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, forwardRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { AggregateModel } from '@core/api';
+import { AggregateModel, SearchFilterModel } from '@core/api';
 import { OptionModel, OptionSettings } from '../option-select/option-select.interface';
 
 @Component({
@@ -13,7 +13,7 @@ import { OptionModel, OptionSettings } from '../option-select/option-select.inte
     multi: true,
   }],
 })
-export class GlobalSearchFilterComponent implements ControlValueAccessor {
+export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChanges {
 
   aggregateModel: any = {};
 
@@ -27,14 +27,21 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
 
   private _onTouched = () => { };
 
-  @Input('aggregateModels')
-  set setAggregateModels(models: AggregateModel[]) {
-    this.optionSettings = this.buildOptionSettings(models);
-  }
+  @Input() aggregateModels: AggregateModel[] = [];
+
+  @Input() filterSettings: SearchFilterModel[] = [];
 
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
   @Output() preventHideDoc: EventEmitter<any> = new EventEmitter();
+
+  ngOnChanges(c: SimpleChanges) {
+    if (c.filterSettings && c.aggregateModels) {
+      this.optionSettings = this.buildAggOptionSettings(c.filterSettings.currentValue, c.aggregateModels.currentValue);
+    } else if (c.filterSettings) {
+      this.optionSettings = this.buildDefaultOptionSettings(c.filterSettings.currentValue);
+    }
+  }
 
   onModelChange(): void {
     this._onChange(this.aggregateModel);
@@ -42,6 +49,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
   }
 
   onChange(): void {
+
   }
 
   writeValue(value: any): void {
@@ -62,25 +70,32 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
-  preventHide() {
+  preventHide(): void {
     this.preventHideDoc.emit(true);
   }
 
-  private buildOptionSettings(models: AggregateModel[]): OptionSettings[] {
+  private buildDefaultOptionSettings(filters: SearchFilterModel[]): OptionSettings[] {
+    return (filters || []).map((f: SearchFilterModel) => new OptionSettings({ id: f.key, placeholder: f.placeholder, bufferSize: f.bufferSize }));
+  }
+
+  private buildAggOptionSettings(filters: SearchFilterModel[] = [], models: AggregateModel[] = []): OptionSettings[] {
     const settings: OptionSettings[] = [];
-    for (const model of models) {
-      const options = [];
-      const id = model.id;
-      const placeholder = model.placeholder;
-      const bufferSize = model.bufferSize;
-      const iteration = model.iteration;
-      for (const bucket of model.extendedBuckets) {
-        if (model.filterValueFn && model.filterValueFn.call(this, bucket)) {
-          options.push(this.buildOptionModel(bucket, model.optionLabels));
+    filters.forEach((filter: SearchFilterModel) => {
+      const agg: AggregateModel = models.find((x: AggregateModel) => x.id === filter.key);
+      if (agg) {
+        const options = [];
+        const id = agg.id;
+        const placeholder = filter.placeholder;
+        const bufferSize = filter.bufferSize;
+        const iteration = filter.iteration;
+        for (const bucket of agg.extendedBuckets) {
+          if (filter.filterValueFn && filter.filterValueFn.call(this, bucket)) {
+            options.push(this.buildOptionModel(bucket, filter.optionLabels));
+          }
         }
+        settings.push(new OptionSettings({ id, placeholder, options, iteration, bufferSize }));
       }
-      settings.push(new OptionSettings({ id, placeholder, options, iteration, bufferSize }));
-    }
+    });
     return settings;
   }
 

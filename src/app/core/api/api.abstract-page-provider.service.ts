@@ -12,6 +12,7 @@ import {
 export class SearchResponse {
   response: NuxeoPagination;
   readonly searchParams: NuxeoPageProviderParams;
+  readonly extra: { [key: string]: any } = {};
   readonly action: string;
   constructor(response: any = {}) {
     Object.assign(this, response);
@@ -30,9 +31,9 @@ export abstract class AbstractPageProvider extends AbstractBaseSearchService {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
-  search(searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions()): Observable<SearchResponse> {
-    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, action: 'beforeSearch' })).pipe(
-      concat(this.request(searchParams, opts).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, action: 'afterSearch' }))))),
+  search(searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), extra: { [key: string]: any } = {}): Observable<SearchResponse> {
+    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, extra, action: 'beforeSearch' })).pipe(
+      concat(this.request(searchParams, opts).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, extra, action: 'afterSearch' }))))),
       tap((res: SearchResponse) => this.entries$.next(res)),
       share(),
     );
