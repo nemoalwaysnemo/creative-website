@@ -74,28 +74,6 @@ export class SearchFilterModel {
   }
 }
 
-export function filterAggregates(filters: SearchFilterModel[] = [], models: AggregateModel[] = []): AggregateModel[] {
-  const numberOfModels: number = models.length;
-  const aggregates: AggregateModel[] = [];
-  filters.forEach((filter: SearchFilterModel) => {
-    if (numberOfModels === 0) {
-      aggregates.push(new AggregateModel({ label: filter.placeholder, placeholder: filter.placeholder, iteration: filter.iteration, optionLabels: filter.optionLabels }));
-    } else {
-      const agg: AggregateModel = models.find((x: AggregateModel) => x.id === filter.key);
-      if (agg) {
-        agg.label = filter.placeholder;
-        agg.bufferSize = filter.bufferSize;
-        agg.placeholder = filter.placeholder;
-        agg.iteration = filter.iteration;
-        agg.filterValueFn = filter.filterValueFn;
-        agg.optionLabels = filter.optionLabels;
-        aggregates.push(agg);
-      }
-    }
-  });
-  return aggregates;
-}
-
 export enum NuxeoPageProviderConstants {
   HiddenInNavigation = '["HiddenInNavigation"]',
   Collection = 'Collection',

@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
 import { GoogleAnalyticsService } from '@core/google-analytics';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractSearchFormComponent, SearchParams } from '../global-search-form/abstract-search-form.component';
+import { AbstractSearchFormComponent } from '../global-search-form/abstract-search-form.component';
 
 @Component({
   selector: 'home-search-form',
@@ -81,8 +80,15 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
     return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
   }
 
-  preventHide(pre: boolean) {
+  preventHide(pre: boolean): void {
     this.preventDocHide = pre;
+  }
+
+  toggleFilter(): void {
+    if (!this.submitted) {
+      this.showFilter = !this.showFilter;
+    }
+    this.preventDocHide = true;
   }
 
   private matchAssetUrl(doc: DocumentModel): string {
@@ -93,26 +99,12 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
     this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
-  toggleFilter(): void {
-    if (!this.submitted) {
-      this.showFilter = !this.showFilter;
-    }
-    this.preventDocHide = true;
+  protected onAfterSearchEvent(res: SearchResponse): void {
+    this.results = res.response.entries;
+    const searchText = res.searchParams.ecm_fulltext;
+    const searchFilter = this.hasFilterQueryParams(res.searchParams);
+    this.isInitialSearch = !(searchText || searchFilter);
+    this.isInitialSearch ? this.hide() : this.show();
   }
 
-  protected onSearchPerformed(): void {
-    const subscription = this.search$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      filter((params: SearchParams) => params.params && Object.keys(params.params).length > 0),
-      switchMap((params: SearchParams) => this.performSearch(params)),
-    ).subscribe((res: SearchResponse) => {
-      this.results = res.response.entries;
-      const searchText = !!res.searchParams['ecm_fulltext'];
-      const searchFilter = Object.keys(res.searchParams).filter((key: string) => key.includes('_agg')).some((agg: string) => !!this.filters[agg]);
-      this.isInitialSearch = !(searchText || searchFilter);
-      this.isInitialSearch ? this.hide() : this.show();
-    });
-    this.subscription.add(subscription);
-  }
 }
