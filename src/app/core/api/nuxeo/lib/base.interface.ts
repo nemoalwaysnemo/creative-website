@@ -48,12 +48,6 @@ export class AggregateModel {
   readonly properties: {};
   readonly field: string;
   readonly type: string;
-  bufferSize?: number;
-  filterValueFn: Function = (bucket: any): boolean => true;
-  iteration: boolean = false;
-  optionLabels: any = {};
-  placeholder: string;
-  label: string;
 
   constructor(data: any = {}) {
     this.entityType = data['entity-type'];
@@ -68,7 +62,9 @@ export class SearchFilterModel {
   readonly iteration?: boolean = false;
   readonly optionLabels?: any = {};
   readonly bufferSize?: number = 50;
+  readonly visibleFn: Function = (searchParams: NuxeoPageProviderParams): boolean => true;
   readonly filterValueFn: Function = (bucket: any): boolean => true;
+
   constructor(data: any = {}) {
     Object.assign(this, data);
   }
@@ -160,6 +156,15 @@ export class NuxeoPageProviderParams {
   hasKeyword(): boolean {
     return !!this.ecm_fulltext || !!this.keyword;
   }
+
+  hasFilters(): boolean {
+    return this.hasFilter('_agg');
+  }
+
+  hasFilter(agg: string): boolean {
+    return Object.getOwnPropertyNames(this).some((key: string) => key.includes(agg));
+  }
+
 }
 
 export class NuxeoRequestOptions {
@@ -230,6 +235,11 @@ export class NuxeoPagination {
     this.errorMessage = response.errorMessage || '';
     this.hasError = response.hasError || false;
   }
+
+  buildAggregateModels(): AggregateModel[] {
+    return Object.values(this.aggregations).map((agg: any) => new AggregateModel(agg));
+  }
+
 }
 
 export class NuxeoBlob {

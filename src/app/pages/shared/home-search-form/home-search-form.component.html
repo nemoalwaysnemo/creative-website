@@ -15,7 +15,7 @@
   </div>
   <div class="clear"></div>
   <ng-container *ngIf="hasFilters() && showFilter">
-    <global-search-filter formControlName="aggregates" [filterSettings]="filters" [aggregateModels]="aggregateModels$ | async" [disableControl]="submitted" (selected)="onFilterSelected($event)" (preventHideDoc)="preventHide($event)">
+    <global-search-filter formControlName="aggregates" [filterSettings]="filters" [searchResponse]="searchResponse$ | async" [disableControl]="submitted" (selected)="onFilterSelected($event)" (preventHideDoc)="preventHide($event)">
     </global-search-filter>
   </ng-container>
 </form>
