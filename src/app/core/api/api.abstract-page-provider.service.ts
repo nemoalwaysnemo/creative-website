@@ -6,7 +6,6 @@ import {
   NuxeoPagination,
   NuxeoPageProviderParams,
   NuxeoRequestOptions,
-  AggregateModel,
 } from './nuxeo';
 
 export class SearchResponse {
@@ -47,10 +46,6 @@ export abstract class AbstractPageProvider extends AbstractBaseSearchService {
 
   onSearch(): Observable<SearchResponse> {
     return this.entries$.pipe(share());
-  }
-
-  buildAggregateModels(response: NuxeoPagination): AggregateModel[] {
-    return Object.values(response.aggregations).map((agg: any) => new AggregateModel(agg));
   }
 
   protected execute(url: string, queryParams: any = {}, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {

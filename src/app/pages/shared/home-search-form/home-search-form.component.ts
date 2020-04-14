@@ -102,7 +102,7 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
   protected onAfterSearchEvent(res: SearchResponse): void {
     this.results = res.response.entries;
     const searchText = res.searchParams.ecm_fulltext;
-    const searchFilter = this.hasFilterQueryParams(res.searchParams);
+    const searchFilter = res.searchParams.hasFilters();
     this.isInitialSearch = !(searchText || searchFilter);
     this.isInitialSearch ? this.hide() : this.show();
   }

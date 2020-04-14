@@ -3,7 +3,7 @@ import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
 import { filter, debounceTime, distinctUntilChanged, switchMap, delay, map, startWith, pairwise, merge, skipUntil, tap } from 'rxjs/operators';
-import { AdvanceSearch, AggregateModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel, NuxeoPagination } from '@core/api';
+import { AdvanceSearch, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { removeUselessObject, getPathPartOfUrl } from '@core/services';
 import { GoogleAnalyticsService } from '@core/google-analytics';
@@ -38,7 +38,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   hasAggs: boolean = false;
 
-  aggregateModels$ = new BehaviorSubject<AggregateModel[]>([]);
+  searchResponse$ = new BehaviorSubject<SearchResponse>(null);
 
   protected subscription: Subscription = new Subscription();
 
@@ -245,13 +245,9 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected hasFilterQueryParams(params: NuxeoPageProviderParams): boolean {
-    return Object.keys(params).some((key) => key.includes('_agg'));
-  }
-
   protected performFilterButton(event: string, params: NuxeoPageProviderParams): void {
     if (['onPageInitialized', 'onParentChanged'].includes(event)) {
-      this.showFilter = this.hasFilterQueryParams(params);
+      this.showFilter = params.hasFilters();
     }
   }
 
@@ -353,8 +349,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   protected onAfterSearch(): void {
     const subscription = this.advanceSearch.onSearch().pipe(
       filter(({ action }) => action === 'afterSearch'),
-      tap(({ response }) => this.buildSearchFilter(response)),
-      tap((res: SearchResponse) => this.onAfterSearchEvent(res)),
+      tap((res: SearchResponse) => {
+        this.buildSearchFilter(res);
+        this.onAfterSearchEvent(res);
+      }),
     ).subscribe(({ searchParams, extra }) => {
       this.performFilterButton(extra.event, searchParams);
       this.submitted = false;
@@ -367,9 +365,8 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   }
 
-  protected buildSearchFilter(response: NuxeoPagination): void {
-    const aggregateModels = this.advanceSearch.buildAggregateModels(response);
-    this.aggregateModels$.next(aggregateModels);
+  protected buildSearchFilter(response: SearchResponse): void {
+    this.searchResponse$.next(response);
   }
 
 }

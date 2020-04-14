@@ -1,6 +1,6 @@
 import { Component, Input, forwardRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { AggregateModel, SearchFilterModel } from '@core/api';
+import { AggregateModel, SearchFilterModel, SearchResponse } from '@core/api';
 import { OptionModel, OptionSettings } from '../option-select/option-select.interface';
 
 @Component({
@@ -27,6 +27,8 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   private _onTouched = () => { };
 
+  @Input() searchResponse: SearchResponse;
+
   @Input() aggregateModels: AggregateModel[] = [];
 
   @Input() filterSettings: SearchFilterModel[] = [];
@@ -35,11 +37,15 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   @Output() preventHideDoc: EventEmitter<any> = new EventEmitter();
 
-  ngOnChanges(c: SimpleChanges) {
-    if (c.filterSettings && c.aggregateModels) {
-      this.optionSettings = this.buildAggOptionSettings(c.filterSettings.currentValue, c.aggregateModels.currentValue);
-    } else if (c.filterSettings) {
-      this.optionSettings = this.buildDefaultOptionSettings(c.filterSettings.currentValue);
+  ngOnChanges(c: SimpleChanges): void {
+    if (this.filterSettings) {
+      if (c.aggregateModels) {
+        this.optionSettings = this.buildAggOptionSettings(this.filterSettings, c.aggregateModels.currentValue);
+      } else if (c.searchResponse) {
+        this.optionSettings = this.buildDynamicOptionSettings(this.filterSettings, c.searchResponse.currentValue);
+      } else {
+        this.optionSettings = this.buildDefaultOptionSettings(this.filterSettings);
+      }
     }
   }
 
@@ -76,6 +82,11 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   private buildDefaultOptionSettings(filters: SearchFilterModel[]): OptionSettings[] {
     return (filters || []).map((f: SearchFilterModel) => new OptionSettings({ id: f.key, placeholder: f.placeholder, bufferSize: f.bufferSize }));
+  }
+
+  private buildDynamicOptionSettings(filters: SearchFilterModel[] = [], search: SearchResponse): OptionSettings[] {
+    const visiableFilters = filters.filter((x: SearchFilterModel) => x.visibleFn.call(this, search.searchParams));
+    return this.buildAggOptionSettings(visiableFilters, search.response.buildAggregateModels());
   }
 
   private buildAggOptionSettings(filters: SearchFilterModel[] = [], models: AggregateModel[] = []): OptionSettings[] {
