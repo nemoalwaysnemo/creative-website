@@ -9,15 +9,26 @@
     <ng-container *ngIf="moreInfo && backslashEdges && backslashEdges.length !== 0">
       <ul>
         <li *ngFor="let edge of backslashEdges">
-          <button nbTooltip="{{edge.get('dc:description') || edge.title}}" nbTooltipPlacement="right">
-            <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" style="width:56px; height:50px;">
+          <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }" class="share"
+             nbPopoverTrigger="hover">
+            <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" style="width:56px; height:50px;">
           </button>
         </li>
       </ul>
       <h4 class="inline-middle">{{ doc.get('dc:description') }}</h4>
+      <p>
+        Edge: {{ doc.get('app_Edges:Tags_edges') }}<br>
+        Spottor: {{ doc.get('app_Edges:Spotter') }}<br>
+        Geography: {{ doc.get('app_Edges:Relevant_Country').join(', ') }}<br>
+      </p>
     </ng-container>
   </div>
 </ng-container>
 <ng-template #popContent>
   <share-document-button></share-document-button>
 </ng-template>
+
+<ng-template #edgeContent let-data>
+  <div>{{ data.text.get('dc:description') }}</div>
+</ng-template>
+    
