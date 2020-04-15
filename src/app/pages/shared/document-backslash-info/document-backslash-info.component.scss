@@ -1,0 +1,49 @@
+.text_content {
+  margin: 10px 15px;
+  .controls {
+    img {
+      width: 85px;
+      margin-right: 25px;
+    }
+    button {
+      border: none;
+      background: none;
+      font-size: 20px;
+      font-weight: 500;
+      margin-left: auto;
+      align-self: start;
+    }
+  }
+
+  .info {
+    .edges {
+      ul {
+        padding-left: 0.5rem;
+        button {
+          border: none;
+          background: none;
+
+          .edge-img {
+            margin: 20px 0;
+            width: 70px;
+            height: 78px;
+            -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+          }
+        }
+      }
+    }
+    .more-info {
+      margin-left: 25px;
+      p {
+        margin-bottom: 0;
+        color: black;
+        font-size: 15px;
+        &.description {
+          font-size: 12px;
+        }
+      }
+
+    }
+  }
+}

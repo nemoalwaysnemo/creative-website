@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./document-backslash-info.component.scss'],
   templateUrl: './document-backslash-info.component.html',
 })
+
 export class DocumentBackslashInfoComponent implements OnDestroy {
 
   protected subscription: Subscription = new Subscription();
@@ -56,6 +57,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
+
       this.loading = true;
       const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
         this.loading = false;
