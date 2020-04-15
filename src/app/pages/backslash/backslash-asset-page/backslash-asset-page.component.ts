@@ -1,29 +1,42 @@
-import { Component } from '@angular/core';
-import { AdvanceSearch, NuxeoEnricher } from '@core/api';
+import { Component, AfterViewChecked } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AdvanceSearch, NuxeoEnricher, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'backslash-asset-page',
   styleUrls: ['./backslash-asset-page.component.scss'],
   templateUrl: './backslash-asset-page.component.html',
 })
-export class BackslashAssetPageComponent extends AbstractDocumentViewComponent {
+export class BackslashAssetPageComponent extends AbstractDocumentViewComponent implements AfterViewChecked {
 
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
+    protected queryParamsService: SearchQueryParamsService,
+    private router: Router) {
     super(advanceSearch, activatedRoute, queryParamsService);
+  }
+
+  ngAfterViewChecked() {
+    const header = document.querySelector('nb-layout-header');
+    const document_action_group = document.querySelector('.document-action-group');
+    if (typeof(header) !== 'undefined' && header !== null) {
+      header.setAttribute('style', 'display:none');
+      header.classList.remove('fixed');
+    }
+    if (typeof(document_action_group) !== 'undefined' && document_action_group !== null) {
+      document_action_group.setAttribute('style', 'display:none');
+    }
   }
 
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+      ecm_primaryType: NUXEO_META_INFO.BACKSLASH_ARTICLE_VIDEO_TYPES,
     };
   }
 
@@ -42,14 +55,10 @@ export class BackslashAssetPageComponent extends AbstractDocumentViewComponent {
     };
   }
 
-  hasReleatedBrands(): boolean {
-    const brands = this.document.get('The_Loupe_Main:brand');
-    return brands && brands.length > 0;
+  navigateToBackslashHome() {
+    const header = document.querySelector('nb-layout-header');
+    header.setAttribute('style', 'display:block');
+    header.classList.add('fixed');
+    this.router.navigate(['/p/backslash/home']);
   }
-
-  hasReleatedAgency(): boolean {
-    const agency = this.document.get('The_Loupe_Main:agency');
-    return agency !== '' || agency !== null;
-  }
-
 }
