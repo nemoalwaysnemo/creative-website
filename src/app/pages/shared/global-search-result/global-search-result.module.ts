@@ -36,7 +36,7 @@ import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
 import { BackslashDocumentAssetSearchResultComponent } from './backslash-document-asset-search-result/backslash-document-asset-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
+import { DocumentBackslashInfoModule } from '../document-backslash-info/document-backslash-info.module';
 const COMPONENTS = [
   GlobalSearchResultComponent,
   CreativeMyBrandAssetSearchResultComponent,
@@ -81,6 +81,7 @@ const COMPONENTS = [
     DisruptionFormTheoryModule,
     DisruptionFormBrilliantThinkingModule,
     InfiniteScrollModule,
+    DocumentBackslashInfoModule,
   ],
   entryComponents: [
     CreativeDocumentAssetRowRenderComponent,

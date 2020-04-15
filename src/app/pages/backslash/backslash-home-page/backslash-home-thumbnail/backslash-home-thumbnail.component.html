@@ -1,4 +1,20 @@
 <div class="backslash-home-search">
-  <global-search-form [filters]="filters" [defaultParams]="defaultParams"></global-search-form>
-  <backslash-document-asset-search-result [layout]="layout" [selectedView]="currentView"></backslash-document-asset-search-result>
+  <global-search-form [filters]="filters" [defaultParams]="defaultParams">
+    <ng-container class="group-left">
+      <div class="search-filters global-search-filters left">
+        <button type="button" class="advanced-filters-trigger icon_btn share_padding" nbPopoverPlacement="bottom"
+          [nbPopover]="popContent" title="Share">Share</button>
+      </div>
+    </ng-container>
+    <ng-container class="group-right">
+      <div class="search-filters global-search-filters right redirect_margin">
+        <button type="button" (click)="redirect_to_old()" class="advanced-filters-trigger icon_btn share_padding" title="Redirect">Redirect</button>
+      </div>
+    </ng-container>
+  </global-search-form>
+  <backslash-document-asset-search-result [layout]="layout" [selectedView]="currentView">
+  </backslash-document-asset-search-result>
 </div>
+<ng-template #popContent>
+  <share-document-button></share-document-button>
+</ng-template>

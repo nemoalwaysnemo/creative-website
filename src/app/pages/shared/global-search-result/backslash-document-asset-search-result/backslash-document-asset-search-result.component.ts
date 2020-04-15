@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
-
+import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
 @Component({
   selector: 'backslash-document-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
@@ -47,11 +47,15 @@ export class BackslashDocumentAssetSearchResultComponent extends AbstractSearchR
     return items;
   }
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
+  constructor(protected queryParamsService: SearchQueryParamsService, private dialogService: PreviewDialogService) {
     super(queryParamsService);
   }
 
   protected onInit(): void {
     this.onQueryParamsChanged();
+  }
+
+  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
+    this.dialogService.open(dialog, doc);
   }
 }

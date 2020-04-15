@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchFilterModel } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO, Environment } from '@environment/environment';
 
 @Component({
   selector: 'backslash-home-thumbnail',
@@ -8,7 +8,6 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './backslash-home-thumbnail.component.html',
 })
 export class BackslashHomeThumbnailComponent {
-
   layout: string = 's-results my_agency dates full-width backslash_asset_search';
 
   currentView: string = 'thumbnailView';
@@ -29,5 +28,9 @@ export class BackslashHomeThumbnailComponent {
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
+
+  redirect_to_old(): void {
+    window.location.href = Environment.backslashAppUrl;
+  }
 
 }
