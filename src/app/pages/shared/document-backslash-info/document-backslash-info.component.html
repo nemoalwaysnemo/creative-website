@@ -36,5 +36,8 @@
 </ng-template>
 
 <ng-template #edgeContent let-data>
-  <div>{{ data.text.get('dc:description') }}</div>
+  <div class="edgeHover">
+    <h5>{{ data.text.get('dc:title') }}</h5>
+    <p>{{ data.text.get('dc:description') }}</p>
+  </div>
 </ng-template>
