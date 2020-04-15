@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'library-ui-pages',
@@ -11,13 +13,14 @@ import { Component } from '@angular/core';
 })
 export class PagesComponent {
 
-  constructor() {
-    this.setGoogleAnalytics();
+  constructor(private router: Router) {
+    this.setGoogleAnalyticsTrack();
   }
 
-  private setGoogleAnalytics(): void {
+  private setGoogleAnalyticsTrack(): void {
     if (window['dataLayer']) {
       window['dataLayer'].push({ 'event': 'optimize.activate' });
     }
   }
+
 }
