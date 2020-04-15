@@ -5,7 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import {
-  NbActionsModule,
   NbCardModule,
   NbLayoutModule,
   NbMenuModule,
@@ -13,34 +12,17 @@ import {
   NbSidebarModule,
   NbTabsetModule,
   NbThemeModule,
-  NbUserModule,
   NbPopoverModule,
   NbAccordionModule,
   NbDialogModule,
-  NbWindowModule,
   NbToastrModule,
   NbAlertModule,
   NbSpinnerModule,
   NbTooltipModule,
 } from '@core/nebular/theme';
 
-import { NbSecurityModule } from '@core/nebular/security';
-
-import {
-  FooterComponent,
-  HeaderComponent,
-  ThemeSettingsComponent,
-  SwitcherComponent,
-  ThemeSwitcherComponent,
-  ThemeSwitcherListComponent,
-} from './components';
-import {
-  PluralPipe,
-  TimingPipe,
-} from './pipes';
-import {
-  LibraryLayoutComponent,
-} from './layouts';
+import { FooterComponent, HeaderComponent } from './components';
+import { LibraryLayoutComponent } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { ACLModule } from '@core/acl';
 
@@ -52,61 +34,35 @@ const NB_MODULES = [
   NbTabsetModule,
   NbRouteTabsetModule,
   NbMenuModule,
-  // NbUserModule,
-  // NbActionsModule,
   NbSidebarModule,
   NbPopoverModule,
-  // NbContextMenuModule,
   NgbModule,
-  // NbSecurityModule, // *nbIsGranted directive,
-  // NbListModule,
   NbToastrModule,
   NbAccordionModule,
   NbDialogModule,
-  // NbWindowModule,
   NbAlertModule,
   NbSpinnerModule,
   NbTooltipModule,
 ];
 
 const COMPONENTS = [
-  SwitcherComponent,
-  ThemeSwitcherComponent,
-  ThemeSwitcherListComponent,
   HeaderComponent,
   FooterComponent,
-  ThemeSettingsComponent,
   LibraryLayoutComponent,
 ];
 
-const ENTRY_COMPONENTS = [
-  ThemeSwitcherListComponent,
-];
-
-const PIPES = [
-  PluralPipe,
-  TimingPipe,
-];
-
 const NB_THEME_PROVIDERS = [
-  ...NbThemeModule.forRoot(
-    {
-      name: 'default',
-    },
-    [DEFAULT_THEME],
-  ).providers,
+  ...NbThemeModule.forRoot({ name: 'default' }, [DEFAULT_THEME]).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
   ...NbDialogModule.forRoot().providers,
-  ...NbWindowModule.forRoot().providers,
   ...NbToastrModule.forRoot().providers,
 ];
 
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES],
-  exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES],
-  entryComponents: [...ENTRY_COMPONENTS],
+  exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS],
+  declarations: [...COMPONENTS],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {

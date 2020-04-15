@@ -16,6 +16,19 @@ export class AppComponent implements OnInit {
     private viewportScroller: ViewportScroller,
     private pageTitleService: PageTitleService,
     private googleAnalytics: GoogleAnalyticsService) {
+    this.performScrolling();
+  }
+
+  ngOnInit(): void {
+    this.pageTitleService.titleTrack();
+    this.googleAnalytics.pageTrack();
+  }
+
+  private isScrollToTop(e: NavigationEnd): boolean {
+    return !e.url.includes('currentPageIndex') && !e.url.includes('q=') && !e.url.includes('_agg=');
+  }
+
+  private performScrolling(): void {
     this.router.events.pipe(
       filter((e: Event) => e instanceof Scroll),
       map((e: Event) => e as Scroll),
@@ -30,15 +43,6 @@ export class AppComponent implements OnInit {
         this.viewportScroller.scrollToPosition([0, 0]);
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.pageTitleService.titleTrack();
-    this.googleAnalytics.pageTrack();
-  }
-
-  private isScrollToTop(e: NavigationEnd): boolean {
-    return !e.url.includes('currentPageIndex') && !e.url.includes('q=') && !e.url.includes('_agg=');
   }
 
 }
