@@ -8,7 +8,7 @@ import { ACLModule } from '@core/acl';
   imports: [
     ThemeModule,
     PagesRoutingModule,
-    ACLModule.forRoot(),
+    ACLModule,
   ],
   declarations: [
     PagesComponent,

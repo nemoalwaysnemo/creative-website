@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ACLService } from './acl.service';
 
@@ -6,17 +6,13 @@ import { ACLService } from './acl.service';
   imports: [
     NgxPermissionsModule.forChild(),
   ],
+  providers: [
+    ACLService,
+  ],
   exports: [
     NgxPermissionsModule,
   ],
 })
 export class ACLModule {
-  static forRoot(): ModuleWithProviders {
-    return <ModuleWithProviders>{
-      ngModule: ACLModule,
-      providers: [
-        ACLService,
-      ],
-    };
-  }
+
 }
