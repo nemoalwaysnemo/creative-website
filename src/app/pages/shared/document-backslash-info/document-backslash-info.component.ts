@@ -16,6 +16,10 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   loading: boolean = true;
 
+  @Input() isGallery: boolean = false;
+
+  @Input() currentUrl: string = window.location.href;
+
   @Input() moreInfo: boolean = true;
 
   @Input() doc: DocumentModel;
@@ -24,6 +28,12 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
     if (doc) {
       this.doc = doc;
       this.buildBackslashEdges(this.doc);
+    }
+  }
+
+  @Input() set gallery(isGallery: boolean) {
+    if (isGallery && this.doc) {
+      this.currentUrl = this.buildShareUrl(this.doc.uid);
     }
   }
 
@@ -65,5 +75,9 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
   private getEdgesAggParams(doc: DocumentModel): string {
     const edges = doc.get('app_Edges:Tags_edges');
     return edges.length !== 0 ? `["${edges.join('", "')}"]` : '';
+  }
+
+  private buildShareUrl(uid: string): string {
+    return this.currentUrl.replace('/home', '/asset/' + uid);
   }
 }
