@@ -6,20 +6,17 @@
       <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
       <div class="clear"></div>
     </div>
-
     <div class="info" *ngIf="moreInfo">
       <div class="edges d-flex">
         <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
-
-            <ul>
-              <li *ngFor="let edge of backslashEdges">
-                <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }" class="share"
-                   nbPopoverTrigger="hover">
-                  <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" class="edge-img">
-                </button>
-              </li>
-            </ul>
-
+          <ul>
+            <li *ngFor="let edge of backslashEdges">
+              <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }"
+                class="share"  nbPopoverTrigger="hover">
+                <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" class="edge-img">
+              </button>
+            </li>
+          </ul>
         </ng-container>
         <div class="more-info">
           <p class="description">{{ doc.get('dc:description') }}</p><br>
