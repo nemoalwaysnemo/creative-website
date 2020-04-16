@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { timer } from 'rxjs';
 
 @Component({
@@ -6,11 +6,24 @@ import { timer } from 'rxjs';
   templateUrl: './share-document-button.component.html',
   styleUrls: ['./share-document-button.component.scss'],
 })
-export class ShareDocumentButtonComponent {
+export class ShareDocumentButtonComponent implements AfterViewInit {
+
+  btn: string = 'Copy';
 
   @Input() currentUrl: string = window.location.href;
 
-  btn: string = 'Copy';
+  @ViewChild('inputTarget', { static: true }) inputElement: ElementRef<HTMLInputElement>;
+
+  ngAfterViewInit() {
+    this.focusInput();
+  }
+
+  focusInput() {
+    if (this.inputElement) {
+      this.inputElement.nativeElement.focus();
+      this.inputElement.nativeElement.select();
+    }
+  }
 
   onCopy(event: any): void {
     this.btn = 'Done';

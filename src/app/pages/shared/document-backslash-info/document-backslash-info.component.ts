@@ -17,9 +17,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   loading: boolean = true;
 
-  @Input() isGallery: boolean = false;
-
-  @Input() currentUrl: string = window.location.href;
+  @Input() currentUrl: string;
 
   @Input() moreInfo: boolean = true;
 
@@ -29,11 +27,6 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
     if (doc) {
       this.doc = doc;
       this.buildBackslashEdges(this.doc);
-    }
-  }
-
-  @Input() set gallery(isGallery: boolean) {
-    if (isGallery && this.doc) {
       this.currentUrl = this.buildShareUrl(this.doc.uid);
     }
   }
@@ -80,6 +73,8 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
   }
 
   private buildShareUrl(uid: string): string {
-    return this.currentUrl.replace('/home', '/asset/' + uid);
+    this.currentUrl = window.location.href;
+    const shareUrl = '/asset/' + uid;
+    return this.currentUrl.indexOf('/home') > 0 ? this.currentUrl.split('/home')[0] + shareUrl : this.currentUrl;
   }
 }
