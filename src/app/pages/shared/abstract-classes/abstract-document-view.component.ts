@@ -62,16 +62,12 @@ export abstract class AbstractDocumentViewComponent extends AbstractBaseDocument
         distinctUntilChanged(),
         switchMap(paramMap => this.getDocumentModel(paramMap.get(primaryKey), params, opts)),
         map((res: NuxeoPagination) => res.entries.shift()),
-        tap((doc: DocumentModel) => {
-          if (!doc) { this.redirectTo404(); }
-        }),
       );
   }
 
   protected searchCurrentDocument(params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
     return this.getTargetDocumentModel(params, opts).pipe(
       tap((doc: DocumentModel) => {
-        if (!doc) { this.redirectTo404(); }
         this.loading = false;
         this.setCurrentDocument(doc);
       }),

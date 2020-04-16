@@ -3,6 +3,6 @@
 </div>
 <ng-template #customTemplate let-doc="doc">
   <div class="popover-container">
-    <span class="item-info" [nbPopover]="customComponent" [nbPopoverContext]="{document: doc, gallery: 'true'}" nbPopoverPlacement="bottom" (statusChanged)="onStatusChanged($event)">i</span>
+    <span class="item-info" [nbPopover]="customComponent" [nbPopoverContext]="{document: doc, gallery: 'true'}" [nbPopoverPlacement]="bottom" (statusChanged)="onStatusChanged($event)">i</span>
   </div>
 </ng-template>

@@ -14,7 +14,9 @@
   <a *ngIf="galleryType === 'creative' || galleryType === 'backslash'" [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]">
     <span class="item-text" (click)="onClick(index)">{{data.title}}</span>
   </a>
-  <span class="item-description">{{data.description}}</span>
+  <ng-container *ngIf="galleryType !== 'backslash'">
+    <span class="item-description">{{data.description}}</span>
+  </ng-container>
   <div *ngIf="customTemplate" class="custom-template">
     <ng-container *ngTemplateOutlet="customTemplate; context: { doc: data.doc }">
     </ng-container>
