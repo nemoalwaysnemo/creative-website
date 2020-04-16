@@ -4,7 +4,7 @@ import { BaseDialogBody } from '../../base-dialog-body';
 
 @Component({
   selector: 'backslash-home-asset-preview-dialog-body',
-  styleUrls: ['./backslash-home-asset-preview-dialog-body.component.scss'],
+  styleUrls: ['../preview-dialog-body.scss'],
   templateUrl: './backslash-home-asset-preview-dialog-body.component.html',
 })
 export class BackslashHomeAssetPreviewDialogBodyComponent extends BaseDialogBody {
