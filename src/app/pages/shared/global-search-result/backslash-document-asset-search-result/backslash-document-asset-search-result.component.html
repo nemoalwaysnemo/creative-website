@@ -20,6 +20,7 @@
   </div>
   <ng-template #backslashDialog>
     <preview-dialog>
+      <document-viewer [document]="doc" [showAction]="false"></document-viewer>
       <document-backslash-info [document]="doc"></document-backslash-info>
     </preview-dialog>
   </ng-template>
