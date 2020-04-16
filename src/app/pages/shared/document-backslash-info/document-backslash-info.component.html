@@ -1,27 +1,34 @@
 <ng-container *ngIf="doc">
   <div class="text_content" [nbSpinner]="loading" nbSpinnerStatus="disabled">
-    <div class="controls">
-      <img [src]="previewBtnImage()" class="inline-middle">
-      <h2 class="inline-middle">{{ doc.title }}</h2>
+    <div class="controls d-flex">
+      <img [src]="previewBtnImage()">
+      <h2>{{ doc.title }}</h2>
       <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
       <div class="clear"></div>
     </div>
-    <ng-container *ngIf="moreInfo && backslashEdges && backslashEdges.length !== 0">
-      <ul>
-        <li *ngFor="let edge of backslashEdges">
-          <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }" class="share"
-             nbPopoverTrigger="hover">
-            <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" style="width:56px; height:50px;">
-          </button>
-        </li>
-      </ul>
-      <h4 class="inline-middle">{{ doc.get('dc:description') }}</h4>
-      <p>
-        Edge: {{ doc.get('app_Edges:Tags_edges') }}<br>
-        Spottor: {{ doc.get('app_Edges:Spotter') }}<br>
-        Geography: {{ doc.get('app_Edges:Relevant_Country').join(', ') }}<br>
-      </p>
-    </ng-container>
+
+    <div class="info" *ngIf="moreInfo">
+      <div class="edges d-flex">
+        <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
+
+            <ul>
+              <li *ngFor="let edge of backslashEdges">
+                <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }" class="share"
+                   nbPopoverTrigger="hover">
+                  <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" class="edge-img">
+                </button>
+              </li>
+            </ul>
+
+        </ng-container>
+        <div class="more-info">
+          <p class="description">{{ doc.get('dc:description') }}</p><br>
+          <p><b>Edges: </b>{{ doc.get('app_Edges:Tags_edges') }}</p>
+          <p><b>Spotter: </b>{{ doc.get('app_Edges:Spotter') }}</p>
+          <p><b>Geography: </b>{{ doc.get('app_Edges:Relevant_Country').join(', ') }}</p><br>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-container>
 <ng-template #popContent>
@@ -29,6 +36,8 @@
 </ng-template>
 
 <ng-template #edgeContent let-data>
-  <div>{{ data.text.get('dc:description') }}</div>
+  <div class="edgeHover">
+    <h5>{{ data.text.get('dc:title') }}</h5>
+    <p>{{ data.text.get('dc:description') }}</p>
+  </div>
 </ng-template>
-    
