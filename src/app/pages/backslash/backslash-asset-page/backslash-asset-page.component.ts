@@ -21,13 +21,9 @@ export class BackslashAssetPageComponent extends AbstractDocumentViewComponent i
 
   ngAfterViewChecked() {
     const header = document.querySelector('nb-layout-header');
-    const document_action_group = document.querySelector('.document-action-group');
     if (typeof(header) !== 'undefined' && header !== null) {
       header.setAttribute('style', 'display:none');
       header.classList.remove('fixed');
-    }
-    if (typeof(document_action_group) !== 'undefined' && document_action_group !== null) {
-      document_action_group.setAttribute('style', 'display:none');
     }
   }
 
