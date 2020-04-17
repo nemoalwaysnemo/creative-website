@@ -1,4 +1,4 @@
-import { deepExtend } from '@core/services';
+import { deepExtend } from '@core/services/helpers';
 
 export const LIST_VIEW_SETTINGS: any = {
   actions: null,

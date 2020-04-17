@@ -1,4 +1,4 @@
-import { deepExtend } from '../services';
+import { deepExtend } from '../services/helpers';
 import { NuxeoApiService, NuxeoRequestOptions, NuxeoPageProviderParams } from './nuxeo';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 

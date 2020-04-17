@@ -2,7 +2,7 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@core/nebular/theme';
 import { Observable, Subject, timer } from 'rxjs';
 import { share, filter } from 'rxjs/operators';
-import { GoogleAnalyticsService } from '@core/google-analytics';
+import { GoogleAnalyticsService } from '@core/services';
 import { DocumentModel } from '@core/api';
 
 export class DocumentDialogEvent {

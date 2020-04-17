@@ -25,8 +25,9 @@ export class NbPositionHelper {
   }
 
   toLogicalPosition(position: NbGlobalPosition): NbGlobalLogicalPosition {
-    if (Object.values(NbGlobalLogicalPosition).includes(position)) {
-      return position as NbGlobalLogicalPosition;
+    const p = position as NbGlobalLogicalPosition;
+    if (Object.values(NbGlobalLogicalPosition).includes(p)) {
+      return p;
     }
 
     if (this.layoutDirection.isLtr()) {
@@ -37,8 +38,9 @@ export class NbPositionHelper {
   }
 
   toPhysicalPosition(position: NbGlobalPosition): NbGlobalPhysicalPosition {
-    if (Object.values(NbGlobalPhysicalPosition).includes(position)) {
-      return position as NbGlobalPhysicalPosition;
+    const p = position as NbGlobalPhysicalPosition;
+    if (Object.values(NbGlobalPhysicalPosition).includes(p)) {
+      return p;
     }
 
     if (this.layoutDirection.isLtr()) {

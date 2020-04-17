@@ -1,5 +1,5 @@
 import { Base } from './base.api';
-import { join } from '../../../services';
+import { join } from '../../../services/helpers';
 import { DocumentModel } from './nuxeo.document-model';
 import { Observable } from 'rxjs';
 

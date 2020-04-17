@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
-import { deepExtend } from '@core/services';
+import { deepExtend } from '@core/services/helpers';
 
 @Component({
   selector: 'document-form',

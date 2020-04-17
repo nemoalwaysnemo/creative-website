@@ -1,4 +1,4 @@
-import { join, encodePath } from '../../../services';
+import { join, encodePath } from '../../../services/helpers';
 import { NuxeoResponse, NuxeoBlob } from './base.interface';
 import { Observable } from 'rxjs';
 import { Base } from './base.api';
