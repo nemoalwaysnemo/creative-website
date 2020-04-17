@@ -31,6 +31,7 @@ export class CreativeUsageRightsStockComponent extends AbstractDocumentFormCompo
         placeholder: 'Stock Provider Name',
         autoComplete: 'off',
         required: true,
+        hidden: true,
         validators: {
           required: null,
           minLength: 4,

@@ -19,6 +19,7 @@ export class DisruptionFormDayComponent extends AbstractDisruptionForm {
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
+        hidden: true,
         validators: {
           required: null,
           minLength: 4,
