@@ -2,36 +2,37 @@
 	display: inline-block;
 	vertical-align: middle;
 }
-.dialog_body {
-  max-height: 800px;
-  // overflow: auto;
-	.dialog_title {
-		height: 80px;
-		padding: 24px 0;
-		box-sizing: border-box;
-		background-color: #000000;
-		a {
+.dialog_title {
+	height: 80px;
+	padding: 24px 0;
+	box-sizing: border-box;
+	background-color: #000000;
+	a {
+		display: block;
+		width: 32px;
+		height: 32px;
+		margin-left: 25px;
+		img {
 			display: block;
-			width: 32px;
-			height: 32px;
-			margin-left: 25px;
-			img {
-				display: block;
-        width: 100%;
-        cursor: pointer;
-			}
-		}
-		h1 {
-			margin: 0;
-	    color: #ffffff;
-	    font-size: 23px;
-	    height: 32px;
-	    line-height: 32px;
-	    display: block;
-	    width: 100%;
-	    margin-left: -25px;
+			width: 100%;
+			cursor: pointer;
 		}
 	}
+	h1 {
+		margin: 0;
+		color: #ffffff;
+		font-size: 23px;
+		height: 32px;
+		line-height: 32px;
+		display: block;
+		width: 100%;
+		margin-left: -25px;
+	}
+}
+.dialog_body {
+  height: 80vh;
+  overflow: auto;
+	
 	.media {
 		// padding: 0 144px;
 		box-sizing: border-box;

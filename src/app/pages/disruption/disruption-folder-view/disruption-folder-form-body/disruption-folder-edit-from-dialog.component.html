@@ -1,15 +1,15 @@
+<div class="dialog_title">
+  <h5>
+    <a (click)="close()"><img [src]="closeBtnImage()"></a>
+    <ng-container *ngIf="typeIs('howtos')">
+      Edit How Tos
+    </ng-container>
+    <ng-container *ngIf="typeIs('day')">
+      Edit Day
+    </ng-container>
+  </h5>
+</div>
 <div class="dialog_body">
-  <div class="dialog_title">
-    <h5>
-      <a (click)="close()"><img [src]="closeBtnImage()"></a>
-      <ng-container *ngIf="typeIs('howtos')">
-        Edit How Tos
-      </ng-container>
-      <ng-container *ngIf="typeIs('day')">
-        Edit Day
-      </ng-container>
-    </h5>
-  </div>
   <ng-content></ng-content>
   <ng-container *ngIf="document && typeIs('day')">
     <div class="form">

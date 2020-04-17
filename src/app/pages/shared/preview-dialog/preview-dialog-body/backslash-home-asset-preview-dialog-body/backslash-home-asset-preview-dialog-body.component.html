@@ -1,7 +1,7 @@
+<div class="dialog_title">
+  <a (click)="close()"><img [src]="closeBtnImage()"></a>
+</div>
 <div class="dialog_body">
-  <div class="dialog_title">
-    <a (click)="close()"><img [src]="closeBtnImage()"></a>
-  </div>
   <ng-container *ngIf="document">
     <div class="media">
       <document-viewer [document]="document" [showAction]="false"></document-viewer>

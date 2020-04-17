@@ -1,9 +1,9 @@
+<div class="dialog_title text-center">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1>{{title}}</h1>
+  <div class="clear"></div>
+</div>
 <div class="dialog_body">
-  <div class="dialog_title text-center">
-    <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
-    <h1>{{title}}</h1>
-    <div class="clear"></div>
-  </div>
   <ng-container *ngIf="document">
     <div class="media">
       <document-viewer [document]="document" [storyboard]="storyboard" [layout]="dialogLayout"></document-viewer>

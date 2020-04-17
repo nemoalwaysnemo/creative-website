@@ -3,43 +3,42 @@
   vertical-align: middle;
 }
 
-.dialog_body {
-  max-height: 800px;
-  overflow: auto;
+.dialog_title {
+  height: 80px;
+  padding: 24px 30px;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 32px;
+  background: #000000;
 
-  .dialog_title {
-    height: 80px;
-    padding: 24px 0;
-    box-sizing: border-box;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: auto 32px;
-    background: #000000;
-
-    h5 {
-      color: #ffffff;
-      text-align: center;
-      line-height: 32px;
-      margin: 0 64px 0 32px;
-    }
-
-    a {
-      display: block;
-      width: 32px;
-      height: 32px;
-      float: left;
-
-      img {
-        display: block;
-        width: 100%;
-        cursor: pointer;
-      }
-    }
+  h5 {
+    color: #ffffff;
+    text-align: center;
+    line-height: 32px;
   }
 
+  a {
+    display: block;
+    width: 32px;
+    height: 32px;
+    float: left;
+
+    img {
+      display: block;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
+
+.dialog_body {
+  height: 80vh;
+  overflow: auto;
+  background-color: #ffffff;
+
   .form {
-    // height: 80vh;
-    // overflow: auto;
+    width: 100%;
     padding: 10px 20px;
   }
 

@@ -2,30 +2,30 @@
 	display: inline-block;
 	vertical-align: middle;
 }
-.dialog_body {
-	height: 100%;
-  overflow: auto;
-	.dialog_title {
-		height: 80px;
-		padding: 24px 0;
-		box-sizing: border-box;
-		background-image: url('/assets/images/backslash_logo.png');
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-size: auto 32px;
-		background-color: #000000;
-		a {
+.dialog_title {
+	height: 80px;
+	padding: 24px 0;
+	box-sizing: border-box;
+	background-image: url('/assets/images/backslash_logo.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: auto 32px;
+	background-color: #000000;
+	a {
+		display: block;
+		width: 32px;
+		height: 32px;
+		margin-left: 25px;
+		img {
 			display: block;
-			width: 32px;
-			height: 32px;
-			margin-left: 25px;
-			img {
-				display: block;
-        width: 100%;
-        cursor: pointer;
-			}
+			width: 100%;
+			cursor: pointer;
 		}
 	}
+}
+.dialog_body {
+	height: 80vh;
+  overflow: auto;
 	.media {
 		// padding: 0 144px;
 		box-sizing: border-box;

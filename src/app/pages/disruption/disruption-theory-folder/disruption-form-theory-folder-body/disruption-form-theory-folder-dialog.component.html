@@ -1,10 +1,10 @@
+<div class="dialog_title">
+  <h5>
+    <a (click)="close()"><img [src]="closeBtnImage()"></a>
+    Disruption How Tos
+  </h5>
+</div>
 <div class="dialog_body">
-  <div class="dialog_title">
-    <h5>
-      <a (click)="close()"><img [src]="closeBtnImage()"></a>
-      Disruption How Tos
-    </h5>
-  </div>
   <ng-content></ng-content>
   <ng-container *ngIf="document">
     <div class="form">
