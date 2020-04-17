@@ -13,7 +13,7 @@ export class BackslashDocumentAssetSearchComponent implements OnInit, OnDestroy 
 
   resultHeader: string;
 
-  layout: string = 'backslash_asset_search';
+  layout: string = 's-results my_agency dates full-width backslash_asset_search';
 
   currentView: string = 'thumbnailView';
 
