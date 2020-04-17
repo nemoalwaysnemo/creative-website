@@ -1,4 +1,4 @@
-import { join } from '../../../services';
+import { join } from '../../../services/helpers';
 import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';

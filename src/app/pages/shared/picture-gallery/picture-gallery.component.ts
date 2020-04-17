@@ -1,7 +1,7 @@
 import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { deepExtend } from '@core/services';
+import { deepExtend } from '@core/services/helpers';
 import { Params } from '@angular/router';
 
 @Component({

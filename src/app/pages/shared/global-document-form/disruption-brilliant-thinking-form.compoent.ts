@@ -23,6 +23,7 @@ export class DisruptionBrilliantThinkingFormComponent extends AbstractDocumentFo
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
+        hidden: true,
         validators: {
           required: null,
           minLength: 4,

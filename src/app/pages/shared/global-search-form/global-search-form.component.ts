@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { AdvanceSearch } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { GoogleAnalyticsService } from '@core/google-analytics';
+import { GoogleAnalyticsService } from '@core/services';
 import { AbstractSearchFormComponent } from './abstract-search-form.component';
 
 @Component({

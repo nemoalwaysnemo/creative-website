@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { concatMap, map, share, tap } from 'rxjs/operators';
 import { DocumentModel, UserService, UserModel, NuxeoPermission } from '@core/api';
-import { getDocumentTypes } from '@core/services';
+import { getDocumentTypes } from '@core/services/helpers';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({

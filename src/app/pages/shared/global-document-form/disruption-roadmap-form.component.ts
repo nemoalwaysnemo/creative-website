@@ -23,6 +23,7 @@ export class DisruptionRoadmapFormComponent extends AbstractDocumentFormComponen
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
+        hidden: true,
         validators: {
           required: null,
           minLength: 4,

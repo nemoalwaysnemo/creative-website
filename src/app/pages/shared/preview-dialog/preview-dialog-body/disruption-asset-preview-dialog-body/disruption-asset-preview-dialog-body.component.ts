@@ -4,7 +4,7 @@ import { PreviewDialogService } from '../../preview-dialog.service';
 import { NuxeoPermission, DocumentModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { getDocumentTypes } from '@core/services';
+import { getDocumentTypes } from '@core/services/helpers';
 
 @Component({
   selector: 'disruption-asset-preview-dialog-body',

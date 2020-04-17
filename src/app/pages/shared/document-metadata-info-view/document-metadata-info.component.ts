@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { getDocumentTypes } from '@core/services';
+import { getDocumentTypes } from '@core/services/helpers';
 import { PreviewDialogService } from '../preview-dialog/preview-dialog.service';
 import { Router } from '@angular/router';
 import { concatMap, map, share } from 'rxjs/operators';

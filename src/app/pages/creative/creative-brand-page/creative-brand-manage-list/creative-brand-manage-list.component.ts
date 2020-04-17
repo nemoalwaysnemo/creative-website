@@ -90,6 +90,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         placeholder: 'Title',
         autoComplete: 'off',
         required: false,
+        hidden: true,
         validators: {
           required: null,
           minLength: 4,

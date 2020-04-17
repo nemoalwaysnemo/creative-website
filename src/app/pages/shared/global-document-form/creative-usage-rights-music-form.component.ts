@@ -31,6 +31,7 @@ export class CreativeUsageRightsMusicComponent extends AbstractDocumentFormCompo
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
+        hidden: true,
         validators: {
           required: null,
           minLength: 4,

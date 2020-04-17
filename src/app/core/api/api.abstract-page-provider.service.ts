@@ -1,7 +1,7 @@
 import { Observable, of as observableOf, Subject } from 'rxjs';
 import { share, concat, map, tap } from 'rxjs/operators';
 import { AbstractBaseSearchService } from './api.abstract-base-search.service';
-import { join } from '../services';
+import { join } from '../services/helpers';
 import {
   NuxeoPagination,
   NuxeoPageProviderParams,

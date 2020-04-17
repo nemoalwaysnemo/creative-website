@@ -1,12 +1,13 @@
-<div class="document" style="padding: 69px 0 0;" [nbSpinner]="loading" nbSpinnerStatus="disabled">
-  <div class="property-section">
-    <div class="property-intro inline-top">
-      <div [ngStyle]="{'background-image': 'url('+doc?.thumbnailUrl+')'}"></div>
-      <!-- <img src="{{doc?.thumbnailUrl}}" class="thumbnail-img"> -->
-    </div>
-    <div class="property-info inline-top">
-      <h1>{{ doc?.title }}</h1>
-      <button *ngIf="isShow" type="button" (click)="backToParent()" class="icon_btn left">Back to parent</button>
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="doc" class="document" style="padding: 69px 0 0;">
+    <div class="property-section">
+      <div class="property-intro inline-top">
+        <div [ngStyle]="{'background-image': 'url('+doc?.thumbnailUrl+')'}"></div>
+      </div>
+      <div class="property-info inline-top">
+        <h1>{{ doc?.title }}</h1>
+        <button *ngIf="isShow" type="button" (click)="backToParent()" class="icon_btn left">Back to parent</button>
+      </div>
     </div>
   </div>
 </div>

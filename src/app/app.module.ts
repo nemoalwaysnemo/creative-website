@@ -7,7 +7,6 @@ import { CoreModule } from '@core/core.module';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { ThemeModule } from '@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GoogleAnalyticsModule } from '@core/google-analytics';
 import { CacheService } from '@core/services';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,9 +20,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
+    CoreModule,
     ThemeModule.forRoot(),
-    CoreModule.forRoot(),
-    GoogleAnalyticsModule.forRoot(),
     DeviceDetectorModule.forRoot(),
     NgxPermissionsModule.forRoot(),
   ],

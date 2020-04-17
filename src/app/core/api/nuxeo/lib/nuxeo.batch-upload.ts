@@ -2,7 +2,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { of as observableOf, Observable, Subject } from 'rxjs';
 import { map, concatMap, tap } from 'rxjs/operators';
 import { Base } from './base.api';
-import { join } from '../../../services';
+import { join } from '../../../services/helpers';
 import { NuxeoUploadResponse, BatchBlob, NuxeoBlob } from './base.interface';
 
 

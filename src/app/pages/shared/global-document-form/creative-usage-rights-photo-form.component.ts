@@ -30,6 +30,7 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
         maxLength: 50,
         placeholder: 'Title',
         required: true,
+        hidden: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),

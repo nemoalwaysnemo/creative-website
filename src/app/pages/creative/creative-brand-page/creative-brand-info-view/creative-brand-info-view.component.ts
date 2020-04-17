@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { ActivatedRoute } from '@angular/router';
-import { parseTabRoute } from '@core/services';
+import { parseTabRoute } from '@core/services/helpers';
 import { ACLService } from '@core/acl';
 import { AbstractBaseDocumentViewComponent } from '../../../shared/abstract-classes/abstract-base-document-view.component';
 

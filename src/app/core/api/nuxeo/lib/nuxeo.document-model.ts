@@ -1,5 +1,5 @@
 import { Base } from './base.api';
-import { join, deepExtend } from '../../../services';
+import { join, deepExtend } from '../../../services/helpers';
 import { NuxeoEnricher, BatchBlob, NuxeoAutomations } from './base.interface';
 import { of as observableOf, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';

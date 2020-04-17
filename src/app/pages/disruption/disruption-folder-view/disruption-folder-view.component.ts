@@ -4,7 +4,7 @@ import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { getDocumentTypes } from '@core/services';
+import { getDocumentTypes } from '@core/services/helpers';
 
 @Component({
   selector: 'disruption-folder-view',

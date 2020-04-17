@@ -3,10 +3,11 @@ import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ReplaySubject, Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, map, tap, concatMap, filter } from 'rxjs/operators';
-import { removeUselessObject, isDocumentUID } from '@core/services';
-import { NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { removeUselessObject, isDocumentUID } from '../services/helpers';
+import { NbAuthService } from '../base-auth/services';
+import { NuxeoApiService } from '../api/nuxeo/nuxeo.api.service';
+import { NuxeoAutomations } from '../api/nuxeo/lib/base.interface';
 import { Environment } from '@environment/environment';
-import { NbAuthService } from '@core/base-auth';
 
 declare let dataLayer: any;
 
@@ -25,7 +26,9 @@ export class GtmEvent {
   }
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GoogleAnalyticsService {
 
   private userId: string;

@@ -19,7 +19,9 @@ import {
   DirectoryEntry,
 } from './lib';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NuxeoApiService {
 
   private _nuxeo: Nuxeo;

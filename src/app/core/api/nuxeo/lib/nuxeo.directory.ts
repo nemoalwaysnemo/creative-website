@@ -1,5 +1,5 @@
 import { Base } from './base.api';
-import { join } from '../../../services';
+import { join } from '../../../services/helpers';
 import { Observable } from 'rxjs';
 import { DirectoryEntry } from './nuxeo.directory-entry';
 import { tap, map } from 'rxjs/operators';
