@@ -5,8 +5,8 @@ import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
 import { filter, debounceTime, distinctUntilChanged, switchMap, delay, map, startWith, pairwise, merge, skipUntil, tap } from 'rxjs/operators';
 import { AdvanceSearch, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { removeUselessObject, getPathPartOfUrl } from '@core/services';
-import { GoogleAnalyticsService } from '@core/google-analytics';
+import { removeUselessObject, getPathPartOfUrl } from '@core/services/helpers';
+import { GoogleAnalyticsService } from '@core/services';
 
 export class PageChangedInfo {
   readonly initial: boolean;

@@ -4,7 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Environment } from '@environment/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class PageTitleService {
 
   constructor(

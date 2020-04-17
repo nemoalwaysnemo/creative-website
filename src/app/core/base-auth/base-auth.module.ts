@@ -60,7 +60,6 @@ export const NUXEO_AUTH_SERVICES = [
     NbAuthModule,
   ],
 })
-
 export class BaseAuthModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{

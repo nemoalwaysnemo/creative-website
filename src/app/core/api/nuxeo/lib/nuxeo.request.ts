@@ -1,5 +1,5 @@
 import { Base } from './base.api';
-import { join, encodePath } from '../../../services';
+import { join, encodePath } from '../../../services/helpers';
 import { Observable } from 'rxjs';
 import { NuxeoResponse } from './base.interface';
 

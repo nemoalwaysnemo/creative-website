@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject, BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { OptionModel, ItemTree, OptionSettings } from './option-select.interface';
 import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
-import { isDocumentUID } from '@core/services';
+import { isDocumentUID } from '@core/services/helpers';
 import { map, concatMap } from 'rxjs/operators';
 
 export type TitleMap = Map<string, string>;

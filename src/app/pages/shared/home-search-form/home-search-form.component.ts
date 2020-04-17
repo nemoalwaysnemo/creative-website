@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
-import { GoogleAnalyticsService } from '@core/google-analytics';
+import { GoogleAnalyticsService } from '@core/services';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { AbstractSearchFormComponent } from '../global-search-form/abstract-search-form.component';
 

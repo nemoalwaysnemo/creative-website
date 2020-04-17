@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleAnalyticsService } from '@core/google-analytics';
-import { PageTitleService } from '@core/page-title';
 import { ViewportScroller } from '@angular/common';
 import { Router, Scroll, Event, NavigationEnd } from '@angular/router';
+import { PageTitleService, GoogleAnalyticsService } from '@core/services';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
