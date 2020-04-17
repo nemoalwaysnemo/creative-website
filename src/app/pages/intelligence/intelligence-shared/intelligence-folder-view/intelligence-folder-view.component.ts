@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentModel } from '@core/api';
 
@@ -6,35 +6,35 @@ import { DocumentModel } from '@core/api';
   selector: 'intelligence-folder-view',
   styleUrls: ['./intelligence-folder-view.component.scss'],
   templateUrl: './intelligence-folder-view.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IntelligenceFolderViewComponent {
 
-  folderType: string[] = ['App-Intelligence-Consumer-Folder', 'App-Intelligence-Industry-Folder', 'App-Intelligence-Marketing-Folder', 'App-Intelligence-Brands-Folder'];
-
   isShow: boolean = false;
+
+  doc: DocumentModel;
 
   @Input() loading: boolean;
 
-  @Input() doc: DocumentModel;
-
-  @Input() set document(doc: DocumentModel) {
+  @Input()
+  set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
       this.isShow = this.showBackToParent(doc.type);
     }
   }
 
-  constructor(
-    private router: Router,
-  ) { }
+  private folderType: string[] = ['App-Intelligence-Consumer-Folder', 'App-Intelligence-Industry-Folder', 'App-Intelligence-Marketing-Folder', 'App-Intelligence-Brands-Folder'];
 
-  showBackToParent(type: string): boolean {
-    return this.folderType.indexOf(type) < 0 ? true : false;
+  constructor(private router: Router) {
+
   }
 
   backToParent(): void {
     this.router.navigate(['p/redirect'], { queryParams: { url: `/p/intelligence/folder/${this.doc.parentRef}` } });
+  }
+
+  private showBackToParent(type: string): boolean {
+    return !this.folderType.includes(type);
   }
 
 }
