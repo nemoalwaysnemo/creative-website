@@ -7,7 +7,9 @@ interface CacheContent {
   value: any;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CacheService {
 
   private cache: Map<string, CacheContent> = new Map<string, CacheContent>();
