@@ -3,7 +3,9 @@ import { filterParams, selectObjectByKeys } from '@core/services/helpers';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SearchQueryParamsService {
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }

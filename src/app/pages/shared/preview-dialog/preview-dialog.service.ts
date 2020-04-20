@@ -5,7 +5,9 @@ import { share } from 'rxjs/operators';
 import { GoogleAnalyticsService } from '@core/services';
 import { DocumentModel } from '@core/api';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class PreviewDialogService {
 
   private ref: any;

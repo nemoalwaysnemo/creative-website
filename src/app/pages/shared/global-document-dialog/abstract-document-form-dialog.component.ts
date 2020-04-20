@@ -1,10 +1,10 @@
-import { Component, Input, Output, EventEmitter, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, Type } from '@angular/core';
+import { Input, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, Type } from '@angular/core';
 import { AbstractDocumentDialogComponent } from './abstract-document-dialog.component';
 import { GlobalDocumentDialogService } from './global-document-dialog.service';
 import { DocumentModelForm } from '../abstract-classes/abstract-document-form.component';
-import { DocumentModel } from '@core/api';
+import { SearchQueryParamsService } from '../../shared/services/search-query-params.service';
 import { timer } from 'rxjs';
-import { SearchQueryParamsService } from '@pages/shared/services/search-query-params.service';
+
 export abstract class AbstractDocumentFormDialogComponent extends AbstractDocumentDialogComponent implements DocumentModelForm {
 
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;

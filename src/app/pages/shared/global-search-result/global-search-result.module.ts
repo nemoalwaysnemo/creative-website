@@ -5,13 +5,12 @@ import { ThemeModule } from '@theme/theme.module';
 import { PreviewDialogModule } from '../preview-dialog';
 import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
 import { PaginationModule } from '../pagination/pagination.module';
-import { SharedServiceModule } from '../services/shared-service.module';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { GlobalSearchResultComponent } from './global-search-result.component';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 import { CreativePopularBrandSearchResultComponent, CreativePopularBrandRowRenderComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
 import { CreativeUsageRightsSearchResultComponent } from './creative-usage-rights-search-result/creative-usage-rights-search-result.component';
-import { CreativeBrandCampaignSearchResultComponent} from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
+import { CreativeBrandCampaignSearchResultComponent } from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
 import { CreativeBrandProjectSearchResultComponent } from './creative-brand-project-search-result/creative-brand-project-search-result.component';
 import { CreativeDocumentAssetSearchResultComponent, CreativeDocumentAssetRowRenderComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
@@ -37,6 +36,7 @@ import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disrupt
 import { BackslashDocumentAssetSearchResultComponent } from './backslash-document-asset-search-result/backslash-document-asset-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DocumentBackslashInfoModule } from '../document-backslash-info/document-backslash-info.module';
+
 const COMPONENTS = [
   GlobalSearchResultComponent,
   CreativeMyBrandAssetSearchResultComponent,
@@ -93,10 +93,6 @@ const COMPONENTS = [
   ],
   exports: [
     ...COMPONENTS,
-  ],
-  providers: [
-    ...PreviewDialogModule.forRoot().providers,
-    ...SharedServiceModule.forRoot().providers,
   ],
 })
 export class GlobalSearchResultModule { }

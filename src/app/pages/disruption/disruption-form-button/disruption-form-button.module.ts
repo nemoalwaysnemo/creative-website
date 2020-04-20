@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { DisruptionFormButtonComponent } from './disruption-form-button.component';
-import { SharedModule } from '@pages/shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -13,9 +13,6 @@ import { SharedModule } from '@pages/shared/shared.module';
   ],
   exports: [
     DisruptionFormButtonComponent,
-  ],
-  providers: [
-    SharedModule.forRoot().providers,
   ],
 })
 

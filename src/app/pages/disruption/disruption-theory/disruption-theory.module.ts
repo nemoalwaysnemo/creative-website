@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { SharedModule } from '@pages/shared/shared.module';
 import { DisruptionTheoryComponent } from './disruption-theory.component';
-import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule } from '@pages/shared';
+import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule } from '../../shared';
 
 @NgModule({
   imports: [
@@ -13,9 +12,6 @@ import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule }
   ],
   declarations: [
     DisruptionTheoryComponent,
-  ],
-  providers: [
-    SharedModule.forRoot().providers,
   ],
 })
 export class DisruptionTheoryModule { }

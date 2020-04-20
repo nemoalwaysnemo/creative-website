@@ -1,9 +1,10 @@
 import { OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
+import { SearchQueryParamsService } from '../../shared/services/search-query-params.service';
 import { DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
-import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { Environment } from '@environment/environment';
-import { SearchQueryParamsService } from '@pages/shared/services/search-query-params.service';
+
 export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestroy {
 
   @Input() document: DocumentModel;
@@ -11,9 +12,11 @@ export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestr
   @Input() title: string = 'Global Dialog';
 
   @Output() callBack: EventEmitter<{ type: string, value: any }> = new EventEmitter<{ type: string, value: any }>();
+
   @Output() onCreated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
 
   protected subscription: Subscription = new Subscription();
+
   constructor(protected dialogService: GlobalDocumentDialogService, protected queryParamsService: SearchQueryParamsService) {
     this.onDocumentChanged();
     this.registerListeners();
