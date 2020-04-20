@@ -6,7 +6,9 @@ import { NbAuthService } from './auth.service';
 import { CookieService } from '../../services';
 import { ACLService } from '@core/acl/acl.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthGuard implements CanActivate, CanActivateChild {
 
   private authenticated: boolean = false;
