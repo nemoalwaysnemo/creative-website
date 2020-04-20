@@ -23,7 +23,6 @@ export class DisruptionDayFolderFormComponent extends AbstractDocumentFormCompon
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
-        hidden: true,
         validators: {
           required: null,
           minLength: 4,
