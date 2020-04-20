@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DocumentModel, AdvanceSearch, SearchFilterModel } from '@core/api';
+import { DocumentModel, AdvanceSearch, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -17,7 +17,7 @@ export class CreativeBrandAssetComponent extends AbstractDocumentViewComponent {
   layout: string = 'creative_brand_asset full-width';
 
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign' }),
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoPageProviderParams): boolean => searchParams.hasFilter('the_loupe_main_assettype_agg') }),
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];

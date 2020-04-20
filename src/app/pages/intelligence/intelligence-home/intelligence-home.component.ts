@@ -30,7 +30,7 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
     new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Backslash Category' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign' }),
+    // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoPageProviderParams): boolean => searchParams.hasFilter('the_loupe_main_brand_agg') }),
   ];
 
   defaultParams: any = {
