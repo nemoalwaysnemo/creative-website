@@ -11,9 +11,13 @@ import { DocumentBackslashInfoComponent } from '@pages/shared/document-backslash
 })
 export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
-  customComponent = DocumentBackslashInfoComponent;
-
   galleryEvent: string = 'play';
+
+  showInfo: boolean = false;
+
+  playStatus: boolean = false;
+
+  document: DocumentModel;
 
   galleryItems: any = [];
 
@@ -48,8 +52,14 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onStatusChanged(event: string) {
-    this.galleryEvent = event === 'show' ? 'stop' : 'play';
+  onPlayingChange(e: any): void {
+    this.playStatus = (e && e.isPlaying === true) ? false : true;
+    this.showInfo = this.showInfo && this.playStatus;
+    this.onStatusChanged();
+  }
+
+  onStatusChanged() {
+    this.galleryEvent = this.showInfo === true ? 'stop' : 'play';
   }
 
   private getItems(entiries: DocumentModel[]) {
@@ -69,4 +79,11 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   hasVideoContent(entry: DocumentModel) {
     return entry.getVideoSources().length > 0;
   }
+
+  toggleInfo(doc: DocumentModel): void {
+    this.showInfo = !this.showInfo;
+    this.onStatusChanged();
+    this.document = doc;
+  }
+
 }

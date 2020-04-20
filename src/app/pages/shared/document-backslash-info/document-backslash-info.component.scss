@@ -1,4 +1,6 @@
 .text_content {
+  height: 70vh;
+  overflow: auto;
   margin: 10px 15px;
   .controls {
     img {
@@ -16,6 +18,7 @@
   }
 
   .info {
+    margin-left: -6px;
     .edges {
       ul {
         padding-left: 0.5rem;
@@ -48,4 +51,5 @@
 }
 .edgeHover {
   margin: 10px;
+  width: 80vw;
 }
