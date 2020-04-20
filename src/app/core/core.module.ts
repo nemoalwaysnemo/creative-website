@@ -5,7 +5,7 @@ import { APIModule } from './api';
 @NgModule({
   imports: [
     APIModule,
-    BaseAuthModule.forRoot(),
+    BaseAuthModule,
   ],
 })
 export class CoreModule {
