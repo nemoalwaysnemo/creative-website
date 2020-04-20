@@ -125,6 +125,10 @@ export class NuxeoApiOptions {
   production: boolean;
   appName: string;
   assetPath: string;
+
+  constructor(opts: any = {}) {
+    Object.assign(this, opts);
+  }
 }
 
 export class NuxeoResponse {
