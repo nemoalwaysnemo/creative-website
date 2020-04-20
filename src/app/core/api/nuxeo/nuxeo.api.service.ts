@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NUXEO_ENV } from './nuxeo.options';
+import { NUXEO_ENV } from './nuxeo.config';
 import { Nuxeo } from './lib/nuxeo.api';
 import { Observable, Subject } from 'rxjs';
 import { Md5 } from 'ts-md5/dist/md5';

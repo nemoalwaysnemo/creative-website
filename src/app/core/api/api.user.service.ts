@@ -7,7 +7,9 @@ import { UserModel, DocumentModel, NuxeoAutomations } from './nuxeo/lib';
 import { AbstractBaseSearchService } from './api.abstract-base-search.service';
 import { NbAuthService, NbAuthToken } from '../base-auth/services';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService extends AbstractBaseSearchService {
 
   constructor(

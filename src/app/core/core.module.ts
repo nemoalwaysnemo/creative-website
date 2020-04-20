@@ -4,7 +4,7 @@ import { APIModule } from './api';
 
 @NgModule({
   imports: [
-    APIModule.forRoot(),
+    APIModule,
     BaseAuthModule.forRoot(),
   ],
 })

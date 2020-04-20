@@ -5,7 +5,9 @@ import { of as observableOf, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DocumentModel } from './nuxeo/lib';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AdvanceSearch extends AbstractPageProvider {
 
   constructor(protected nuxeoApi: NuxeoApiService) {

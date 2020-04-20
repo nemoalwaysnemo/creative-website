@@ -4,7 +4,9 @@ import { NuxeoApiService, NuxeoRequestOptions } from '@core/api/nuxeo';
 import { DocumentModel } from './nuxeo/lib';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class DocumentRepository extends AbstractBaseSearchService {
 
   private defaultRepository: string;
