@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { CreativeBrandFormButtonComponent } from './creative-brand-form-button.component';
-import { SharedModule } from '@pages/shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { ACLModule } from '@core/acl';
 
 @NgModule({
@@ -15,9 +15,6 @@ import { ACLModule } from '@core/acl';
   ],
   exports: [
     CreativeBrandFormButtonComponent,
-  ],
-  providers: [
-    SharedModule.forRoot().providers,
   ],
 })
 

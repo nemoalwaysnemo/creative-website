@@ -22,9 +22,6 @@ import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document
   exports: [
     DocumentRelatedInfoComponent,
   ],
-  providers: [
-    PreviewDialogModule.forRoot().providers,
-  ],
 })
 export class DocumentRelatedInfoComponentModule {
 }

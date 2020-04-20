@@ -12,7 +12,9 @@ export class DocumentDialogEvent {
   readonly options?: any = {};
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GlobalDocumentDialogService {
 
   private event$: Subject<DocumentDialogEvent> = new Subject<DocumentDialogEvent>();

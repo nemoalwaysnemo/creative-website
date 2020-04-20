@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedDirectiveModule } from './directives/shared-directive.module';
@@ -49,23 +49,11 @@ const EXPORTS = [
   GlobalDocumentFormModule,
 ];
 
-const PROVIDERS = [
-  ...PreviewDialogModule.forRoot().providers,
-  ...GlobalDocumentDialogModule.forRoot().providers,
-];
-
 @NgModule({
   exports: [
     ...EXPORTS,
   ],
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
-    return <ModuleWithProviders>{
-      ngModule: SharedModule,
-      providers: [
-        ...PROVIDERS,
-      ],
-    };
-  }
+
 }
