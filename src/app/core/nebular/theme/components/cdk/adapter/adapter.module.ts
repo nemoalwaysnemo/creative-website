@@ -9,8 +9,8 @@ import { NbBlockScrollStrategyAdapter, NbScrollStrategyOptions } from './block-s
 
 @NgModule({})
 export class NbCdkAdapterModule {
-  static forRoot(): ModuleWithProviders {
-    return <ModuleWithProviders>{
+  static forRoot(): ModuleWithProviders<NbCdkAdapterModule> {
+    return {
       ngModule: NbCdkAdapterModule,
       providers: [
         NbViewportRulerAdapter,

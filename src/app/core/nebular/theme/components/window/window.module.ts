@@ -16,8 +16,8 @@ import { NB_WINDOW_CONFIG, NbWindowConfig } from './window.options';
   entryComponents: [NbWindowsContainerComponent, NbWindowComponent],
 })
 export class NbWindowModule {
-  static forRoot(defaultConfig?: Partial<NbWindowConfig>) {
-    return <ModuleWithProviders>{
+  static forRoot(defaultConfig?: Partial<NbWindowConfig>): ModuleWithProviders<NbWindowModule> {
+    return {
       ngModule: NbWindowModule,
       providers: [
         NbWindowService,
@@ -26,8 +26,8 @@ export class NbWindowModule {
     };
   }
 
-  static forChild(defaultConfig?: Partial<NbWindowConfig>) {
-    return <ModuleWithProviders>{
+  static forChild(defaultConfig?: Partial<NbWindowConfig>): ModuleWithProviders<NbWindowModule> {
+    return {
       ngModule: NbWindowModule,
       providers: [
         NbWindowService,
