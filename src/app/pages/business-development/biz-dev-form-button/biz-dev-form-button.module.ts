@@ -15,5 +15,4 @@ import { SharedModule } from '../../shared/shared.module';
     BizDevFormButtonComponent,
   ],
 })
-
-export class DisruptionFormButtonModule { }
+export class BizDevFormButtonModule { }

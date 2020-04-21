@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, Type, ViewContainerRef } from '@angular/core';
+import { Component, Input, Type } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
@@ -20,7 +20,7 @@ export class BizDevFormButtonComponent {
   @Input() title: string;
 
   @Input()
-  set type(type: 'roadmap' | 'day' | 'day asset' | 'brilliant thinking') {
+  set type(type: 'case' | 'case asset' | 'thought' | 'thought asset') {
     this.component = this.getFormComponent(type);
   }
 
@@ -42,17 +42,17 @@ export class BizDevFormButtonComponent {
   private getFormComponent(type: string): Type<DocumentModelForm> {
     let formComponent;
     switch (type) {
-      case 'roadmap':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+      case 'case':
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_FORM;
         break;
-      case 'day':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM;
+      case 'case asset':
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_ASSET_FORM;
         break;
-      case 'day asset':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM;
+      case 'thought':
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FORM;
         break;
-      case 'brilliant thinking':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM;
+      case 'thought asset':
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM;
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
