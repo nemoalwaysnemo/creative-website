@@ -7,23 +7,24 @@
       <div class="clear"></div>
     </div>
     <div class="info" *ngIf="moreInfo">
-      <div class="edges d-flex">
-        <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
+      <div class="edges">
           <ul>
+        <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
             <li *ngFor="let edge of backslashEdges">
               <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }"
                 class="share"  nbPopoverTrigger="hover">
                 <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" class="edge-img">
               </button>
             </li>
-          </ul>
         </ng-container>
+          </ul>
         <div class="more-info">
           <p class="description">{{ doc.get('dc:description') }}</p><br>
           <p><b>Edges: </b>{{ doc.get('app_Edges:Tags_edges') }}</p>
           <p><b>Spotter: </b>{{ doc.get('app_Edges:Spotter') }}</p>
           <p><b>Geography: </b>{{ doc.get('app_Edges:Relevant_Country').join(', ') }}</p><br>
         </div>
+        <div class="clear"></div>
       </div>
     </div>
   </div>
