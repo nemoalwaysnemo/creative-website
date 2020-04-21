@@ -1,15 +1,19 @@
 .text_content {
-  margin: 10px 15px;
+  padding: 30px 80px 0;
   .controls {
     img {
-      width: 85px;
+      width: 70px;
       margin-right: 25px;
+    }
+    h2 {
+      width: calc(100% - 70px - 25px - 70px);
     }
     button {
       border: none;
       background: none;
       font-size: 20px;
       font-weight: 500;
+      margin-top: 8px;
       margin-left: auto;
       align-self: start;
     }
@@ -18,11 +22,16 @@
   .info {
     .edges {
       ul {
-        padding-left: 0.5rem;
+        padding-left: 0;
+        min-height: 240px;
+        max-height: 300px;
+        overflow: auto;
+        width: 80px;
+        float: left;
         button {
           border: none;
           background: none;
-
+          padding: 0;
           .edge-img {
             margin: 20px 0;
             width: 70px;
@@ -34,13 +43,19 @@
       }
     }
     .more-info {
-      margin-left: 25px;
+      float: left;
+      width: calc(100% - 95px);
+      margin-left: 15px;
+      margin-top: 20px;
       p {
         margin-bottom: 0;
         color: black;
         font-size: 15px;
+        line-height: 24px;
         &.description {
+          width: 90%;
           font-size: 12px;
+          line-height: 20px;
         }
       }
     }
@@ -48,4 +63,6 @@
 }
 .edgeHover {
   margin: 10px;
+  max-width: 50vw;
+  min-width: 30vw;
 }

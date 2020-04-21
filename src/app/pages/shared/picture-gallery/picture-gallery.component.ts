@@ -1,5 +1,5 @@
-import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
-import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
+import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy, TemplateRef, Output, EventEmitter } from '@angular/core';
+import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, GalleryState } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services/helpers';
 import { Params } from '@angular/router';
@@ -33,6 +33,8 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
       this.options$.next(galleryItems);
     }
   }
+
+  @Output() playingChang = new EventEmitter<GalleryState>();
 
   galleryRef: GalleryRef;
 
@@ -69,6 +71,10 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
   onCustomEvent(e: any): void {
     const { itemIndex, event } = e;
     this.videoPlayers[itemIndex] = event.player;
+  }
+
+  onPlayingChange(e: any): void {
+    this.playingChang.emit(e);
   }
 
   onClick(i: number): void {
