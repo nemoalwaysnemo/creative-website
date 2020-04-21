@@ -5,8 +5,8 @@ import { NbFocusTrapFactoryService } from './focus-trap';
 
 @NgModule({})
 export class NbA11yModule {
-  static forRoot() {
-    return <ModuleWithProviders>{
+  static forRoot(): ModuleWithProviders<NbA11yModule> {
+    return {
       ngModule: NbA11yModule,
       providers: [NbFocusTrapFactoryService],
     };

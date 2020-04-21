@@ -1,0 +1,11 @@
+@import '../../../theme/styles/themes';
+
+.icon_btn {
+  &.new_theory { padding-left: 13px; }
+}
+preview-dialog {
+  display: block;
+  // width: 190vh;
+  border-radius: 10px;
+  background: #ffffff;
+}

@@ -14,7 +14,7 @@ export class GlobalSearchResultComponent extends AbstractGlobalSearchResultCompo
 
   @Input() hasPagination: boolean = true;
 
-  @Input() layout: string = 'disruption_home';
+  @Input() layout: string = 'disruption-home';
 
   @Input() hideEmpty: boolean = false;
 

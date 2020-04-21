@@ -272,7 +272,8 @@ body {
       }
     }
   }
-  &.disruption_home {
+  &.biz-dev-home,
+  &.disruption-home {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
       	// < 768px
@@ -330,7 +331,7 @@ body {
       }
     }
   }
-  &.intelligence_home {
+  &.intelligence-home {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
       	// < 768px
@@ -372,8 +373,9 @@ body {
       }
     }
   }
-  &.disruption_home,
-  &.intelligence_home {
+  &.biz-dev-home,
+  &.disruption-home,
+  &.intelligence-home {
     .image-holder {
       a {
         transition: all 0.5s;

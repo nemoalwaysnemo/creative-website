@@ -8,7 +8,7 @@ import { getDocumentTypes } from '@core/services/helpers';
 
 @Component({
   selector: 'disruption-folder-view',
-  styleUrls: ['../../../theme/styles/disruption-folder.scss'],
+  styleUrls: ['../../../theme/styles/document-folder-view.scss'],
   templateUrl: './disruption-folder-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -24,6 +24,9 @@ export enum NUXEO_PATH_INFO {
   DISRUPTION_THINKING_PATH = '/know-edge/Disruption/Brilliant Thinking/',
   DISRUPTION_AWARD_FOLDER_PATH = '/know-edge/Disruption/Disruption Awards/Carousel/',
   INTELLIGENCE_BASE_FOLDER_PATH = '/know-edge/Intelligence/',
+  BIZ_DEV_BASE_FOLDER_PATH = '/know-edge/Business Development/',
+  BIZ_DEV_CASE_STUDIES_FOLDER_PATH = '/know-edge/Business Development/Case Studies/',
+  BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH = '/know-edge/Business Development/Thought Leadership/',
   FRONTPAGE_BANNER_PATH = '/Creative/1. GCL Frontpage/Banners/',
 }
 
@@ -60,6 +63,12 @@ export enum NUXEO_META_INFO {
   INTELLIGENCE_INDUSTRY_TYPE = '["App-Intelligence-Industry"]',
   INTELLIGENCE_ASSET_TYPE = '["App-Intelligence-Asset"]',
   INTELLIGENCE_ALL_FOLDERS = '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder", "App-Intelligence-Industry", "App-Intelligence-Brands-Folder"]',
+  BIZ_DEV_CASE_STUDIES_FOLDER_TYPE = '["App-BizDev-Case-Studies-Folder"]',
+  BIZ_DEV_CASE_STUDIES_SUB_FOLDER_TYPE = '["App-BizDev-CaseStudy-Folder", "App-BizDev-CaseStudy-Asset"]',
+  BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_TYPE = '["App-BizDev-ThoughtLeadership-Folder"]',
+  BIZ_DEV_THOUGHT_LEADERSHIP_SUB_FOLDER_TYPE = '["App-BizDev-Thought-Folder", "App-BizDev-Thought-Asset"]',
+  BIZ_DEV_FOLDER_TYPE = '["App-BizDev-Case-Studies-Folder", "App-BizDev-ThoughtLeadership-Folder", "App-BizDev-Folder"]',
+  BIZ_DEV_SEARCH_TYPE = '["App-BizDev-CaseStudy-Folder", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Folder", "App-BizDev-Thought-Asset"]',
   FRONTPAGE_BANNER_TYPE = '["App-Library-Image"]',
   BACKSLASH_ASSET_PAGE_PROVIDER = 'creative_website_backslash_related_assets',
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',

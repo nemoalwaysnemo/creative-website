@@ -36,8 +36,8 @@ export function noOpInterceptorFilter(request: HttpRequest<any>): boolean {
 
 @NgModule()
 export class NbAuthModule {
-  static forRoot(nbAuthOptions?: NbAuthOptions): ModuleWithProviders {
-    return <ModuleWithProviders>{
+  static forRoot(nbAuthOptions?: NbAuthOptions): ModuleWithProviders<NbAuthModule> {
+    return {
       ngModule: NbAuthModule,
       providers: [
         { provide: NB_AUTH_USER_OPTIONS, useValue: nbAuthOptions },

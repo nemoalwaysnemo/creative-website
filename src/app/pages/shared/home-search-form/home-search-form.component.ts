@@ -30,7 +30,7 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
 
   @Input() headline: string;
 
-  @Input() extraHeadline: string = '';
+  @Input() extraHeadline: string;
 
   @Input() subHead: string;
 

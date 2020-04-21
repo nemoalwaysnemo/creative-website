@@ -1,8 +1,8 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
   <section class="filter-wrapper" [ngStyle]="{'background-image': 'url('+backgroudUrl+')'}">
-    <h1 class="headline">{{ this.headline }}</h1>
-    <h1 class="extraHeadline">{{ this.extraHeadline }}</h1>
-    <h4>{{ this.subHead }}</h4>
+    <h1 class="headline" *ngIf="headline">{{ headline }}</h1>
+    <h1 class="extraHeadline" *ngIf="extraHeadline">{{ extraHeadline }}</h1>
+    <h4>{{ subHead }}</h4>
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
       <input class="keyword" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
       <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>

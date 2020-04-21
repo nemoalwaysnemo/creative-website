@@ -26,8 +26,8 @@ import { DynamicFormRelationService } from './service/dynamic-form-relation.serv
 export class DynamicFormsCoreModule {
 
   /*@deprecated*/
-  static forRoot(): ModuleWithProviders {
-    return <ModuleWithProviders>{
+  static forRoot(): ModuleWithProviders<DynamicFormsCoreModule> {
+    return {
       ngModule: DynamicFormsCoreModule,
       providers: [
         DynamicFormService,

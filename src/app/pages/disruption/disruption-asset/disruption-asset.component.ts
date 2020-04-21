@@ -21,7 +21,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
 
   assetUrlMapping: object = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
-    'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder/',
+    'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder',
     '*': '/p/disruption/asset',
   };
 

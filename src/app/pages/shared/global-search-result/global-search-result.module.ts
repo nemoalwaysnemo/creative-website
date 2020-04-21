@@ -36,6 +36,11 @@ import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disrupt
 import { BackslashDocumentAssetSearchResultComponent } from './backslash-document-asset-search-result/backslash-document-asset-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DocumentBackslashInfoModule } from '../document-backslash-info/document-backslash-info.module';
+import { BizDevCaseStudyAssetSearchResultComponent } from './biz-dev-case-study-asset-search-result/biz-dev-case-study-asset-search-result.component';
+import { BizDevCaseStudyFolderAssetSearchResultComponent } from './biz-dev-case-study-folder-asset-search-result/biz-dev-case-study-folder-asset-search-result.component';
+import { BizDevThoughtLeadershipAssetSearchResultComponent } from './biz-dev-thought-leadership-asset-search-result/biz-dev-thought-leadership-asset-search-result.component';
+import { BizDevThoughtLeadershipFolderAssetSearchResultComponent } from './biz-dev-thought-leadership-folder-asset-search-result/biz-dev-thought-leadership-folder-asset-search-result.component';
+import { BizDevDocumentAssetSearchResultComponent } from './biz-dev-document-asset-search-result/biz-dev-document-asset-search-result.component';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -61,6 +66,11 @@ const COMPONENTS = [
   DisruptionDocumentAssetSearchResultComponent,
   IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
+  BizDevDocumentAssetSearchResultComponent,
+  BizDevCaseStudyAssetSearchResultComponent,
+  BizDevCaseStudyFolderAssetSearchResultComponent,
+  BizDevThoughtLeadershipAssetSearchResultComponent,
+  BizDevThoughtLeadershipFolderAssetSearchResultComponent,
   AllFavoritesAssetSearchResultComponent,
   FavoriteBackslashAssetSearchResultComponent,
   FavoriteBrandAssetSearchResultComponent,
