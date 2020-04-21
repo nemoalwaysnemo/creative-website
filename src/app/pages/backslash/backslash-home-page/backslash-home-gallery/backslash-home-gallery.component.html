@@ -1,6 +1,6 @@
 <div class="home-gallery">
   <picture-gallery [assetUrl]="'/p/backslash/asset/'" [galleryItems]="galleryItems" [gallerySettings]="gallerySettings"
-    [galleryType]="'backslash'" (playingChang)="onPlayingChange($event)"
+    [galleryType]="'backslash'" (playingChange)="onPlayingChange($event)"
     [customEvent]="galleryEvent" [customTemplate]="customTemplate"></picture-gallery>
 </div>
 <ng-template #customTemplate let-doc="doc">

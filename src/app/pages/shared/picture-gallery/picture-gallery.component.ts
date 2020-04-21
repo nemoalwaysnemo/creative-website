@@ -34,7 +34,7 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  @Output() playingChang = new EventEmitter<GalleryState>();
+  @Output() playingChange = new EventEmitter<GalleryState>();
 
   galleryRef: GalleryRef;
 
@@ -74,7 +74,7 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   onPlayingChange(e: any): void {
-    this.playingChang.emit(e);
+    this.playingChange.emit(e);
   }
 
   onClick(i: number): void {

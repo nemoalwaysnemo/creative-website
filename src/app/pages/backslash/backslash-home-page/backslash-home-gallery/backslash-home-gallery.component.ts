@@ -60,7 +60,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.toggleFlag();
   }
 
-  onStatusChanged() {
+  onStatusChanged(): void {
     this.galleryEvent = this.showInfo === true ? 'stop' : 'play';
   }
 
@@ -68,7 +68,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.btn = this.showInfo === true ? 'x' : 'i';
   }
 
-  private getItems(entiries: DocumentModel[]) {
+  private getItems(entiries: DocumentModel[]): any[] {
     const imgArray = new Array();
     for (const entry of entiries) {
       if (entry.isVideo() && this.hasVideoContent(entry)) {
@@ -82,7 +82,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     return imgArray;
   }
 
-  hasVideoContent(entry: DocumentModel) {
+  hasVideoContent(entry: DocumentModel): boolean {
     return entry.getVideoSources().length > 0;
   }
 
