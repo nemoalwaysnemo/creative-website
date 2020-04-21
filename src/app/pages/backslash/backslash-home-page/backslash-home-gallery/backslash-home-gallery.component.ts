@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
-import { DocumentBackslashInfoComponent } from '@pages/shared/document-backslash-info/document-backslash-info.component';
 
 @Component({
   selector: 'backslash-home-gallery',
@@ -12,6 +11,8 @@ import { DocumentBackslashInfoComponent } from '@pages/shared/document-backslash
 export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   galleryEvent: string = 'play';
+
+  btn: string = 'i';
 
   showInfo: boolean = false;
 
@@ -56,10 +57,15 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.playStatus = (e && e.isPlaying === true) ? false : true;
     this.showInfo = this.showInfo && this.playStatus;
     this.onStatusChanged();
+    this.toggleFlag();
   }
 
   onStatusChanged() {
     this.galleryEvent = this.showInfo === true ? 'stop' : 'play';
+  }
+
+  toggleFlag(): void {
+    this.btn = this.showInfo === true ? 'x' : 'i';
   }
 
   private getItems(entiries: DocumentModel[]) {
@@ -83,6 +89,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   toggleInfo(doc: DocumentModel): void {
     this.showInfo = !this.showInfo;
     this.onStatusChanged();
+    this.toggleFlag();
     this.document = doc;
   }
 
