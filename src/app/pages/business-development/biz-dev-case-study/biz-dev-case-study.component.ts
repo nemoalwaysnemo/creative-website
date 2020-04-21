@@ -41,7 +41,7 @@ export class BizDevCaseStudyComponent extends AbstractDocumentViewComponent impl
     }
   }
 
-  protected getCurrentDocumentSearchParams(): object {
+  protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,

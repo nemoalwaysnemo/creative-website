@@ -50,7 +50,7 @@ export class BrilliantThinkingComponent extends AbstractDocumentViewComponent im
     }
   }
 
-  protected getCurrentDocumentSearchParams(): object {
+  protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,
