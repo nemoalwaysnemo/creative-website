@@ -7,12 +7,12 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services/helpers';
 
 @Component({
-  selector: 'disruption-folder-view',
+  selector: 'biz-dev-folder-view',
   styleUrls: ['../../../theme/styles/document-folder-view.scss'],
-  templateUrl: './disruption-folder-view.component.html',
+  templateUrl: './biz-dev-folder-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DisruptionFolderViewComponent {
+export class BizDevFolderViewComponent {
 
   @Input() loading: boolean;
   showEdit: string = 'edit';

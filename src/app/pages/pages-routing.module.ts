@@ -23,6 +23,10 @@ const routes: Routes = [{
       loadChildren: () => import('./intelligence/intelligence-page.module').then(m => m.IntelligencePageModule),
     },
     {
+      path: 'business-development',
+      loadChildren: () => import('./business-development/business-development-page.module').then(m => m.BusinessDevelopmentPageModule),
+    },
+    {
       path: 'search',
       loadChildren: () => import('./global-search/global-search-page.module').then(m => m.GlobalSearchPageModule),
     },

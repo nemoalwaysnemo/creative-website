@@ -1,13 +1,13 @@
 <div class="disruption-home-form">
-  <home-search-form [assetUrlMapping]="assetUrlMapping" [redirectUrl]="'/p/search/disruption/asset/'" [headline]="headline" 
-  [extraHeadline]="extraHeadline" [subHead]="subHead" [placeholder]="placeholder" [filters]="filters" 
+  <home-search-form [assetUrlMapping]="assetUrlMapping" [redirectUrl]="'/p/search/disruption/asset/'" [headline]="headline"
+  [extraHeadline]="extraHeadline" [subHead]="subHead" [placeholder]="placeholder" [filters]="filters"
   [defaultParams]="defaultParams">
   </home-search-form>
 </div>
-<div>
+<div class="disruption-home-gallery">
   <disruption-home-gallery></disruption-home-gallery>
 </div>
-<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption_home">
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption-home">
   <div *ngFor="let document of folders" class="thumbnail-view-item">
     <div class="description">
       <h1 [title]="document.title"><a [routerLink]="['/p/disruption', document.title]">{{document.title}}</a></h1>
