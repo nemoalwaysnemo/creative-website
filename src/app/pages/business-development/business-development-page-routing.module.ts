@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BizDevPageComponent } from './business-development-page.component';
 import { BizDevHomeComponent } from './biz-dev-home/biz-dev-home.component';
+import { BizDevAssetComponent } from './biz-dev-asset/biz-dev-asset.component';
 import { BizDevCaseStudyComponent } from './biz-dev-case-study/biz-dev-case-study.component';
 import { BizDevCaseStudyFolderComponent } from './biz-dev-case-study-folder/biz-dev-case-study-folder.component';
 import { BizDevThoughtLeadershipComponent } from './biz-dev-thought-leadership/biz-dev-thought-leadership.component';
@@ -14,6 +15,10 @@ const routes: Routes = [{
     {
       path: 'home',
       component: BizDevHomeComponent,
+    },
+    {
+      path: 'asset/:id',
+      component: BizDevAssetComponent,
     },
     {
       path: 'Case Studies',

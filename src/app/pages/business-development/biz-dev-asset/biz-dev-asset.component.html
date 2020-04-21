@@ -1,0 +1,22 @@
+<ng-container *ngIf="showFolderView(document) && folder">
+  <biz-dev-folder-view [showButton]="showButton" [loading]="folderLoading" [document]="folder" [backAssetFlag]="backAssetFlag" [assetUrlMapping]="assetUrlMapping" [ngStyle]="{'margin-top': '30px', 'display': 'block'}"></biz-dev-folder-view>
+</ng-container>
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="document" class="document">
+    <section class="general">
+      <div class="showcase left">
+        <document-viewer [document]="document"></document-viewer>
+      </div>
+      <div class="general_info left">
+        <document-metadata-info [document]="document" [deleteRedirect]="deleteRedirect"></document-metadata-info>
+      </div>
+      <div class="clear"></div>
+    </section>
+    <section class="additional_info">
+      <document-additional-info [document]="document"></document-additional-info>
+    </section>
+    <section class="related">
+      <document-related-info [document]="document"></document-related-info>
+    </section>
+  </div>
+</div>
