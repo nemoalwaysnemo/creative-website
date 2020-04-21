@@ -17,31 +17,24 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
 
-  headline: string = 'You name it.';
+  headline: string = 'Go get them, Tiger!';
 
-  extraHeadline: string = 'We\'ve disrupted it.';
+  extraHeadline: string;
 
-  subHead: string = 'Find the who, what, where, when, why and how of our process.';
+  subHead: string = 'Find everything you need to grow our business!';
 
-  placeholder: string = 'Search for roadmaps, disruption days and how-tos...';
+  placeholder: string = 'Search for anything...';
 
   assetUrlMapping: object = {
-    'App-Disruption-Day': '/p/disruption/Disruption Days/day',
-    'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder/',
-    '*': '/p/disruption/asset',
+    'App-BizDev-CaseStudy-Folder': '/p/business-development/Case Studies/folder/',
+    'App-BizDev-Thought-Folder': '/p/business-development/Thought Leadership/folder/',
+    '*': '/p/business-development/asset',
   };
 
   folders: any[];
 
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
-    new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
-    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoPageProviderParams): boolean => searchParams.hasFilter('the_loupe_main_brand_agg') }),
-    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
-    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
-    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
   defaultParams: any = {
@@ -49,6 +42,7 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_HOME_SEARCH_FOLDER_TYPE,
   };
 
   folderParams: any = {
