@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'biz-dev-pages',
+  selector: 'biz-dev-search-page',
   template: `
     <router-outlet></router-outlet>
   `,
 })
-export class BusinessDevelopmentPageComponent {
+export class BusinessDevelopmentSearchComponent {
 }

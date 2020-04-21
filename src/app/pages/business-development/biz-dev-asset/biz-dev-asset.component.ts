@@ -20,8 +20,8 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent {
   backAssetFlag: boolean = false;
 
   assetUrlMapping: object = {
-    'App-BizDev-CaseStudy-Folder': '/p/business-development/Case Studies/folder/',
-    'App-BizDev-Thought-Folder': '/p/business-development/Thought Leadership/folder/',
+    'App-BizDev-CaseStudy-Folder': '/p/business-development/Case Studies/folder',
+    'App-BizDev-Thought-Folder': '/p/business-development/Thought Leadership/folder',
     '*': '/p/business-development/asset',
   };
 

@@ -72,7 +72,7 @@ export enum NUXEO_META_INFO {
   BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_TYPE = '["App-BizDev-ThoughtLeadership-Folder"]',
   BIZ_DEV_THOUGHT_LEADERSHIP_SUB_FOLDER_TYPE = '["App-BizDev-Thought-Folder", "App-BizDev-Thought-Asset"]',
   BIZ_DEV_FOLDER_TYPE = '["App-BizDev-Case-Studies-Folder", "App-BizDev-ThoughtLeadership-Folder", "App-BizDev-Folder"]',
-  BIZ_DEV_HOME_SEARCH_FOLDER_TYPE = '["App-BizDev-Case-Studies-Folder", "App-BizDev-ThoughtLeadership-Folder", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset"]',
+  BIZ_DEV_SEARCH_TYPE = '["App-BizDev-CaseStudy-Folder", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Folder", "App-BizDev-Thought-Asset"]',
   FRONTPAGE_BANNER_TYPE = '["App-Library-Image"]',
   BACKSLASH_ASSET_PAGE_PROVIDER = 'creative_website_backslash_related_assets',
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',

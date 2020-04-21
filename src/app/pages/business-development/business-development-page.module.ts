@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { BizDevHomeModule } from './biz-dev-home/biz-dev-home.module';
-import { BizDevPageComponent } from './business-development-page.component';
+import { BusinessDevelopmentPageComponent } from './business-development-page.component';
 import { BusinessDevelopmentPageRoutingModule } from './business-development-page-routing.module';
 import { BizDevCaseStudyModule } from './biz-dev-case-study/biz-dev-case-study.module';
 import { BizDevCaseStudyFolderModule } from './biz-dev-case-study-folder/biz-dev-case-study-folder.module';
@@ -21,7 +21,7 @@ import { BizDevAssetModule } from './biz-dev-asset/biz-dev-asset.module';
     BusinessDevelopmentPageRoutingModule,
   ],
   declarations: [
-    BizDevPageComponent,
+    BusinessDevelopmentPageComponent,
   ],
 })
 export class BusinessDevelopmentPageModule {

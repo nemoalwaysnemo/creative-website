@@ -22,6 +22,10 @@ const routes: Routes = [{
       path: 'intelligence',
       loadChildren: () => import('./intelligence-search/intelligence-search.module').then(m => m.IntelligenceSearchModule),
     },
+    {
+      path: 'business-development',
+      loadChildren: () => import('./business-development-search/business-development-search.module').then(m => m.BusinessDevelopmentSearchModule),
+    },
   ],
 }];
 

@@ -40,6 +40,7 @@ import { BizDevCaseStudyAssetSearchResultComponent } from './biz-dev-case-study-
 import { BizDevCaseStudyFolderAssetSearchResultComponent } from './biz-dev-case-study-folder-asset-search-result/biz-dev-case-study-folder-asset-search-result.component';
 import { BizDevThoughtLeadershipAssetSearchResultComponent } from './biz-dev-thought-leadership-asset-search-result/biz-dev-thought-leadership-asset-search-result.component';
 import { BizDevThoughtLeadershipFolderAssetSearchResultComponent } from './biz-dev-thought-leadership-folder-asset-search-result/biz-dev-thought-leadership-folder-asset-search-result.component';
+import { BizDevDocumentAssetSearchResultComponent } from './biz-dev-document-asset-search-result/biz-dev-document-asset-search-result.component';
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
@@ -65,6 +66,7 @@ const COMPONENTS = [
   DisruptionDocumentAssetSearchResultComponent,
   IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
+  BizDevDocumentAssetSearchResultComponent,
   BizDevCaseStudyAssetSearchResultComponent,
   BizDevCaseStudyFolderAssetSearchResultComponent,
   BizDevThoughtLeadershipAssetSearchResultComponent,
