@@ -1,10 +1,10 @@
 import { DocumentModel, NuxeoPagination, AdvanceSearch, NuxeoRequestOptions } from '@core/api';
 import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { isDocumentUID } from '@core/services/helpers';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { AbstractBaseDocumentViewComponent } from './abstract-base-document-view.component';
+import { Observable } from 'rxjs';
 
 export abstract class AbstractDocumentViewComponent extends AbstractBaseDocumentViewComponent {
 

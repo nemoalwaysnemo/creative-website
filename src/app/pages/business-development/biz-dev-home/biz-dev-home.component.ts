@@ -1,8 +1,9 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, forkJoin } from 'rxjs';
 import { TAB_CONFIG } from '../business-development-tab-config';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'biz-dev-home',
@@ -31,7 +32,7 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
     '*': '/p/business-development/asset',
   };
 
-  folders: any[];
+  folders: DocumentModel[] = [];
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
@@ -45,7 +46,14 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_SEARCH_TYPE,
   };
 
-  folderParams: any = {
+  subFolderParams: any = {
+    pageSize: 10,
+    currentPageIndex: 0,
+    ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_SUB_FOLDER_TYPES,
+  };
+
+  baseFolderParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
@@ -57,20 +65,29 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.search(this.folderParams);
+    this.performFolders();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  private search(params: {}): void {
-    const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
-      .subscribe((res: NuxeoPagination) => {
-        this.folders = res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title));
-        this.loading = false;
-      });
-    this.subscription.add(subscription);
+  private performFolders(): void {
+    forkJoin(
+      this.search(this.subFolderParams),
+      this.search(this.baseFolderParams),
+    ).pipe(
+      map((docsList: DocumentModel[][]) => [].concat.apply([], docsList)),
+    ).subscribe((docs: DocumentModel[]) => {
+      this.folders = docs;
+      this.loading = false;
+    });
+  }
+
+  private search(params: {}): Observable<DocumentModel[]> {
+    return this.advanceSearch.request(new NuxeoPageProviderParams(params)).pipe(
+      map((res: NuxeoPagination) => res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title))),
+    );
   }
 
 }

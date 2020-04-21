@@ -23,7 +23,7 @@ export abstract class AbstractFavoriteDocumentViewComponent extends AbstractDocu
     this.subscription.add(subscription);
   }
 
-  protected getCurrentDocumentSearchParams(): object {
+  protected getCurrentDocumentSearchParams(): any {
     return {};
   }
 

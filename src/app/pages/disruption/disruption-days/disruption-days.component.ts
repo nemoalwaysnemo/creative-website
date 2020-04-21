@@ -69,7 +69,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
     }
   }
 
-  protected getCurrentDocumentSearchParams(): object {
+  protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,

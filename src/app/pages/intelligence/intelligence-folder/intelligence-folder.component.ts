@@ -55,7 +55,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
     }
   }
 
-  protected getCurrentDocumentSearchParams(): object {
+  protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,
