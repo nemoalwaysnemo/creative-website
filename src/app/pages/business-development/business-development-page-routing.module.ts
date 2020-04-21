@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { BizDevPageComponent } from './business-development-page.component';
+import { BusinessDevelopmentPageComponent } from './business-development-page.component';
 import { BizDevHomeComponent } from './biz-dev-home/biz-dev-home.component';
 import { BizDevAssetComponent } from './biz-dev-asset/biz-dev-asset.component';
 import { BizDevCaseStudyComponent } from './biz-dev-case-study/biz-dev-case-study.component';
@@ -10,7 +10,7 @@ import { BizDevThoughtLeadershipFolderComponent } from './biz-dev-thought-leader
 
 const routes: Routes = [{
   path: '',
-  component: BizDevPageComponent,
+  component: BusinessDevelopmentPageComponent,
   children: [
     {
       path: 'home',

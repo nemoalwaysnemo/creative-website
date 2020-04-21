@@ -8,7 +8,7 @@ import { Environment } from '@environment/environment';
     <iframe [src]="iframeUrl" height="100%" width="100%" frameBorder="0"></iframe>
   `,
 })
-export class BusinessDevelopmentRemotePageComponent {
+export class BizDevRemotePageComponent {
 
   iframeUrl: SafeResourceUrl;
 

@@ -27,7 +27,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   assetUrlMapping: object = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
-    'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder/',
+    'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder',
     '*': '/p/disruption/asset',
   };
 
