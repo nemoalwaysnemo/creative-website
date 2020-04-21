@@ -17,6 +17,10 @@ import {
   DisruptionDayAssetFormComponent,
   DisruptionHowTosAssetFormComponent,
   IntelligenceBrandsFormComponent,
+  BizDevCaseFolderFormComponent,
+  BizDevCaseAssetFormComponent,
+  BizDevThoughtFolderFormComponent,
+  BizDevThoughtAssetFormComponent,
 } from '../global-document-form';
 
 const COMPONENTS = [
@@ -35,6 +39,10 @@ const COMPONENTS = [
   DisruptionDayAssetFormComponent,
   DisruptionHowTosAssetFormComponent,
   IntelligenceBrandsFormComponent,
+  BizDevCaseFolderFormComponent,
+  BizDevCaseAssetFormComponent,
+  BizDevThoughtFolderFormComponent,
+  BizDevThoughtAssetFormComponent,
 ];
 
 @NgModule({

@@ -14,3 +14,7 @@ export * from './disruption-brilliant-thinking-form.compoent';
 export * from './disruption-day-asset-form-component';
 export * from './disruption-how-tos-asset-form.component';
 export * from './intelligence-brands-form.component';
+export * from './biz-dev-case-folder-form.component';
+export * from './biz-dev-case-asset-form.component';
+export * from './biz-dev-thought-folder-form.component';
+export * from './biz-dev-thought-asset-form.component';
