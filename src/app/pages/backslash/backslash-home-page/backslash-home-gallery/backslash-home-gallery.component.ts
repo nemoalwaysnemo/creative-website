@@ -12,7 +12,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   galleryEvent: string = 'play';
 
-  btn: string = 'i';
+  status: string = 'closed';
 
   showInfo: boolean = false;
 
@@ -57,15 +57,15 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.playStatus = (e && e.isPlaying === true) ? false : true;
     this.showInfo = this.showInfo && this.playStatus;
     this.onStatusChanged();
-    this.toggleFlag();
+    this.toggleStatus();
   }
 
   onStatusChanged() {
     this.galleryEvent = this.showInfo === true ? 'stop' : 'play';
   }
 
-  toggleFlag(): void {
-    this.btn = this.showInfo === true ? 'x' : 'i';
+  toggleStatus(): void {
+    this.status = this.showInfo === true ? 'opened' : 'closed';
   }
 
   private getItems(entiries: DocumentModel[]) {
@@ -89,7 +89,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   toggleInfo(doc: DocumentModel): void {
     this.showInfo = !this.showInfo;
     this.onStatusChanged();
-    this.toggleFlag();
+    this.toggleStatus();
     this.document = doc;
   }
 
