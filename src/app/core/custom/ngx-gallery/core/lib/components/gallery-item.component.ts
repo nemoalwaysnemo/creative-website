@@ -17,7 +17,7 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
                        (error)="error.emit($event)"></gallery-image>
 
         <div class="g-template g-item-template">
-          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
+          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: index, currIndex: currIndex, type: type, data: data }">
           </ng-container>
         </div>
 
@@ -32,7 +32,7 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
                        (customEvent)="customEvent.emit($event)"></gallery-video>
 
         <div class="g-template g-item-template">
-          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
+          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: index, currIndex: currIndex, type: type, data: data }">
           </ng-container>
         </div>
 
@@ -48,7 +48,7 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
       <ng-container *ngSwitchDefault>
 
         <div class="g-template g-item-template">
-          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }">
+          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: index, currIndex: currIndex, type: type, data: data }">
           </ng-container>
         </div>
 
