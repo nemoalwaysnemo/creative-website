@@ -60,80 +60,15 @@
 }
 
 .popover-container {
-	text-align: center;
-	font-weight: 700;
-	background: #000000;
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	background: url('/assets/images/info.png') no-repeat center center;
 	cursor: pointer;
-	@media only screen and (max-width: 900px) {
-		// < 900px
-		width: 50px;
-    height: 50px;
-    line-height: 46px;
-    border-radius: 25px;
-    font-size: 35px;
-    border: solid 3px #ffffff;
+	&.closed {
+		background: url('/assets/images/info.png') no-repeat center center;
 	}
-	@media screen and (min-width: 900px) and (max-width: 1000px) {
-		//900px - 1000px
-		width: 50px;
-    height: 50px;
-    line-height: 46px;
-    border-radius: 25px;
-    font-size: 35px;
-    border: solid 3px #ffffff;
-	}
-	@media screen and (min-width: 1000px) and (max-width: 1200px) {
-		// 1101px - 1200px
-		width: 50px;
-    height: 50px;
-    line-height: 46px;
-    border-radius: 25px;
-    font-size: 35px;
-    border: solid 3px #ffffff;
-	}
-	@media screen and (min-width: 1200px) and (max-width: 1300px) {
-		// 1201px - 1300px
-		width: 60px;
-		height: 60px;
-		line-height: 52px;
-		border-radius: 30px;
-		font-size: 40px;
-		border: solid 3px #ffffff;
-	}
-	@media screen and (min-width: 1300px) and (max-width: 1400px) {
-		// 1301px - 1400px
-		width: 60px;
-		height: 60px;
-		line-height: 52px;
-		border-radius: 30px;
-		font-size: 40px;
-		border: solid 3px #ffffff;
-	}
-	@media screen and (min-width: 1400px) and (max-width: 1500px) {
-		// 1401px - 1500px
-		width: 60px;
-		height: 60px;
-		line-height: 52px;
-		border-radius: 30px;
-		font-size: 40px;
-		border: solid 3px #ffffff;
-	}
-	@media screen and (min-width: 1500px) and (max-width: 1600px) {
-		// 1501px - 1600px
-		width: 80px;
-		height: 80px;
-		line-height: 72px;
-		border-radius: 40px;
-		font-size: 60px;
-		border: solid 5px #ffffff;
-	}
-	@include media-breakpoint-up(xxxl) {
-		// > 1600px 
-		width: 80px;
-		height: 80px;
-		line-height: 72px;
-		border-radius: 40px;
-		font-size: 60px;
-		border: solid 5px #ffffff;
+	&.opened {
+		background: url('/assets/images/close2.png') no-repeat center center;
 	}
 }
