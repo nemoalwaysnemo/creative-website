@@ -14,7 +14,7 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   queryParams: Params[] = [];
 
-  displayTitle: boolean = true;
+  displayTitle: boolean = false;
 
   @Input() assetUrl: string;
 
@@ -72,7 +72,7 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   onCustomEvent(e: any): void {
     const { itemIndex, event } = e;
-    this.displayTitle = event.api.getDefaultMedia().state !== 'playing';
+    // this.displayTitle = event.api.getDefaultMedia().state !== 'playing';
     this.videoPlayers[itemIndex] = event.player;
   }
 

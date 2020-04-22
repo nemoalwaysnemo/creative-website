@@ -62,8 +62,8 @@ import { RequestCache, RequestCacheWithMap } from './services/cache.service';
   ],
 })
 export class GalleryModule {
-  static withConfig(config: GalleryConfig): ModuleWithProviders {
 
+  static withConfig(config: GalleryConfig): ModuleWithProviders<GalleryModule> {
     return {
       ngModule: GalleryModule,
       providers: [
