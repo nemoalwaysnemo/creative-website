@@ -5,6 +5,7 @@ import { SearchQueryParamsService } from '../services/search-query-params.servic
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { AbstractBaseDocumentViewComponent } from './abstract-base-document-view.component';
 import { Observable } from 'rxjs';
+import { Environment } from '@environment/environment';
 
 export abstract class AbstractDocumentViewComponent extends AbstractBaseDocumentViewComponent {
 
@@ -30,6 +31,10 @@ export abstract class AbstractDocumentViewComponent extends AbstractBaseDocument
 
   onDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  assetPath(src: string): string {
+    return Environment.assetPath + src;
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
