@@ -1,9 +1,9 @@
 import { Component, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
-import { AdvanceSearch, NuxeoEnricher, DocumentModel } from '@core/api';
+import { AdvanceSearch, NuxeoEnricher } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-asset-page',
@@ -18,24 +18,24 @@ export class BackslashAssetPageComponent extends AbstractDocumentViewComponent i
     protected queryParamsService: SearchQueryParamsService,
     private router: Router) {
     super(advanceSearch, activatedRoute, queryParamsService);
-    this.routeEvent(router);
+    this.onRouterChange();
   }
 
-  routeEvent(router) {
-    this.subscription = router.events
-      .subscribe(e => {
-        if (e instanceof NavigationStart) {
-          if (e.url.split('/')[3] !== 'asset') {
-            const header = document.querySelector('nb-layout-header');
-            header.setAttribute('style', 'display:block');
-            header.classList.add('fixed');
-          }
-        }
-      });
+  private onRouterChange(): void {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationStart),
+    ).subscribe((e: NavigationStart) => {
+      if (!e.url.includes('/asset/')) {
+        const header = document.querySelector('nb-layout-header');
+        header.setAttribute('style', 'display:block');
+        header.classList.add('fixed');
+      }
+    });
   }
+
   ngAfterViewChecked() {
     const header = document.querySelector('nb-layout-header');
-    if (typeof(header) !== 'undefined' && header !== null) {
+    if (typeof (header) !== 'undefined' && header !== null) {
       header.setAttribute('style', 'display:none');
       header.classList.remove('fixed');
     }
