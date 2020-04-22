@@ -10,5 +10,6 @@ export const TAB_CONFIG: any[] = [
   {
     title: '10x',
     route: '/p/business-development/10x',
+    hidden: true,
   },
 ];

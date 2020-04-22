@@ -240,14 +240,18 @@ export function getPathPartOfUrl(url: string): string {
   return url.match(/.*?(?=[?;#]|$)/)[0];
 }
 
-export function parseTabRoute(tabConfig: any[], routeParams): any[] {
+export function parseTabRoute(tabConfig: any[], routeParams?: any): any[] {
   const tabs: any[] = [];
   for (const config of tabConfig) {
-    const tab: any = { title: config['title'], route: config['route'], acl: config['acl'] };
-    for (const key of ['type', 'id']) {
-      tab['route'] = tab.route.replace(`:${key}`, routeParams[key]);
+    if (config.hidden === undefined || !config.hidden) {
+      const tab: any = { title: config.title, route: config.route, acl: config.acl };
+      if (routeParams) {
+        for (const key of ['type', 'id']) {
+          tab.route = tab.route.replace(`:${key}`, routeParams[key]);
+        }
+      }
+      tabs.push(tab);
     }
-    tabs.push(tab);
   }
   return tabs;
 }
