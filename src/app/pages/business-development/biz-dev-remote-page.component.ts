@@ -8,11 +8,19 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-remote-page',
-  template: `<iframe [src]="iframeUrl" height="100%" width="100%" frameBorder="0"></iframe>`,
+  template: `
+    <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+      <ng-container *ngIf="iframeUrl">
+        <iframe [src]="iframeUrl" height="100%" width="100%" frameBorder="0"></iframe>
+      </ng-container>
+    </div>
+  `,
 })
 export class BizDevRemotePageComponent extends AbstractDocumentViewComponent implements OnInit {
 
   iframeUrl: SafeResourceUrl;
+
+  loading: boolean = true;
 
   constructor(
     protected advanceSearch: AdvanceSearch,
@@ -48,6 +56,7 @@ export class BizDevRemotePageComponent extends AbstractDocumentViewComponent imp
   private buildIframeUrl(doc: DocumentModel): void {
     const url = doc.get('The_Loupe_Main:url');
     if (url) {
+      this.loading = false;
       this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     } else {
       this.redirectTo404();
