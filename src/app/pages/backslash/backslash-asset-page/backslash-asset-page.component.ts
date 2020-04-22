@@ -1,15 +1,16 @@
-import { Component, AfterViewChecked } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AdvanceSearch, NuxeoEnricher, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'backslash-asset-page',
   styleUrls: ['./backslash-asset-page.component.scss'],
   templateUrl: './backslash-asset-page.component.html',
 })
-export class BackslashAssetPageComponent extends AbstractDocumentViewComponent implements AfterViewChecked {
+export class BackslashAssetPageComponent extends AbstractDocumentViewComponent implements AfterViewChecked, OnDestroy {
 
   constructor(
     protected advanceSearch: AdvanceSearch,
@@ -17,14 +18,31 @@ export class BackslashAssetPageComponent extends AbstractDocumentViewComponent i
     protected queryParamsService: SearchQueryParamsService,
     private router: Router) {
     super(advanceSearch, activatedRoute, queryParamsService);
+    this.routeEvent(router);
   }
 
+  routeEvent(router) {
+    this.subscription = router.events
+      .subscribe(e => {
+        if (e instanceof NavigationStart) {
+          if (e.url.split('/')[3] !== 'asset') {
+            const header = document.querySelector('nb-layout-header');
+            header.setAttribute('style', 'display:block');
+            header.classList.add('fixed');
+          }
+        }
+      });
+  }
   ngAfterViewChecked() {
     const header = document.querySelector('nb-layout-header');
     if (typeof(header) !== 'undefined' && header !== null) {
       header.setAttribute('style', 'display:none');
       header.classList.remove('fixed');
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -49,12 +67,5 @@ export class BackslashAssetPageComponent extends AbstractDocumentViewComponent i
         ],
       },
     };
-  }
-
-  navigateToBackslashHome() {
-    const header = document.querySelector('nb-layout-header');
-    header.setAttribute('style', 'display:block');
-    header.classList.add('fixed');
-    this.router.navigate(['/p/backslash/home']);
   }
 }
