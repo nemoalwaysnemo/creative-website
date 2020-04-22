@@ -38,8 +38,8 @@ export class AppComponent implements OnInit {
       } else if (e.anchor) {
         // anchor navigation
         this.viewportScroller.scrollToAnchor(e.anchor);
-      } else if (this.isScrollToTop(e.routerEvent)) {
-        this.viewportScroller.scrollToPosition([0, 0]);
+      // } else if (this.isScrollToTop(e.routerEvent)) {
+      //   this.viewportScroller.scrollToPosition([0, 0]);
       }
     });
   }
