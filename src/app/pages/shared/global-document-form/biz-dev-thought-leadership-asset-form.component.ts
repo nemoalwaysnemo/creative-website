@@ -7,10 +7,10 @@ import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
-  selector: 'biz-dev-thought-folder-form',
+  selector: 'biz-dev-thought-leadership-asset-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="callback($event)"></document-form>`,
 })
-export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormComponent {
+export class BizDevThoughtLeadershipAssetFormComponent extends AbstractDocumentFormComponent {
 
   protected documentType: string = 'App-Library-Audio';
 

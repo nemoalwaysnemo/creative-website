@@ -7,10 +7,10 @@ import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
-  selector: 'biz-dev-case-asset-form',
+  selector: 'biz-dev-case-studies-asset-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="callback($event)"></document-form>`,
 })
-export class BizDevCaseAssetFormComponent extends AbstractDocumentFormComponent {
+export class BizDevCaseStudiesAssetFormComponent extends AbstractDocumentFormComponent {
 
   protected documentType: string = 'App-Library-Audio';
 

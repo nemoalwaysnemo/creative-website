@@ -43,16 +43,16 @@ export class BizDevFormButtonComponent {
     let formComponent;
     switch (type) {
       case 'case':
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_FORM;
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDIES_FOLDER_FORM;
         break;
       case 'case asset':
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_ASSET_FORM;
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDIES_ASSET_FORM;
         break;
       case 'thought':
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FORM;
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_FORM;
         break;
       case 'thought asset':
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM;
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_LEADERSHIP_ASSET_FORM;
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
