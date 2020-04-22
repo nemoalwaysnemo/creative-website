@@ -1,7 +1,7 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="document" class="document">
     <div class="page_title">
-      <a (click)="navigateToBackslashHome()"><img src="/assets/images/backslash_logo.png"></a>
+      <a (click)="navigateToBackslashHome()"><img [src]="assetPath('assets/images/backslash_logo.png')"></a>
     </div>
     <div class="showcase">
       <section class="media">
