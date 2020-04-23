@@ -12,6 +12,8 @@ export class BackslashHomeThumbnailComponent {
 
   currentView: string = 'thumbnailView';
 
+  oldBackslashUrl = Environment.backslashAppUrl;
+
   defaultParams: any = {
     currentPageIndex: 0,
     pageSize: 20,
@@ -30,9 +32,5 @@ export class BackslashHomeThumbnailComponent {
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
   ];
-
-  redirect_to_old(): void {
-    window.location.href = Environment.backslashAppUrl;
-  }
 
 }
