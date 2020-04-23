@@ -7,6 +7,7 @@
     }
     h2 {
       width: calc(100% - 70px - 25px - 70px);
+      font-size: calc(28px * 1.25);
     }
     button {
       border: none;
@@ -50,12 +51,12 @@
       p {
         margin-bottom: 0;
         color: black;
-        font-size: 15px;
-        line-height: 24px;
+        font-size: calc(15px * 1.25);
+        line-height: calc(24px * 1.25);
         &.description {
           width: 90%;
-          font-size: 15px;
-          line-height: 20px;
+          font-size: calc(15px * 1.25);
+          line-height: calc(20px * 1.25);
         }
       }
     }
@@ -65,4 +66,6 @@
   margin: 10px;
   max-width: 700px;
   min-width: 200px;
+  h5 { font-size: calc(17.5px * 1.25); }
+  p { font-size: calc(14px * 1.25); }
 }
