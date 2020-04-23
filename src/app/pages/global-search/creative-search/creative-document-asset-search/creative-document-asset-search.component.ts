@@ -69,7 +69,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
   private setResultHeader(): void {
     const subscription = this.queryParamsService.onQueryParamsChanged().subscribe((params: Params) => {
       if (params.hasOwnProperty('app_global_networkshare')) {
-        this.resultHeader = `Best of TBWA\\Worldwide`;
+        this.resultHeader = `Best of TBWA\\`;
       } else {
         this.resultHeader = '';
       }

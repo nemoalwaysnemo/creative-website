@@ -3,6 +3,9 @@ import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterMo
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'disruption-home',
   styleUrls: ['./intelligence-home.component.scss'],
@@ -66,8 +69,25 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
   ngOnInit() {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
-    this.searchFixedFolders(this.folderParams);
-    this.searchBrandsFolders(this.brandsParams);
+    this.searchFolders();
+  }
+
+  private searchFolders(): void {
+    forkJoin(
+      this.search(this.folderParams),
+      this.search(this.brandsParams),
+    ).pipe(
+      map((docsList: DocumentModel[][]) => [].concat.apply([], docsList)),
+    ).subscribe((docs: DocumentModel[]) => {
+      this.folders = docs;
+      this.loading = false;
+    });
+  }
+
+  private search(params: {}): Observable<DocumentModel[]> {
+    return this.advanceSearch.request(new NuxeoPageProviderParams(params)).pipe(
+      map((res: NuxeoPagination) => res.entries),
+    );
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -91,20 +111,4 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
     this.subscription.unsubscribe();
   }
 
-  private searchFixedFolders(params: {}): void {
-    const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
-      .subscribe((res: NuxeoPagination) => {
-        this.folders = res.entries;
-        this.loading = false;
-      });
-    this.subscription.add(subscription);
-  }
-  private searchBrandsFolders(params: {}): void {
-    const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
-      .subscribe((res: NuxeoPagination) => {
-        this.brands = res.entries;
-        this.loading = false;
-      });
-    this.subscription.add(subscription);
-  }
 }

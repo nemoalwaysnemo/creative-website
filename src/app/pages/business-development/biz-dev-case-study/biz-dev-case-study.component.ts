@@ -4,6 +4,7 @@ import { AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterMode
 import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../business-development-tab-config';
+import { parseTabRoute } from '@core/services/helpers';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,7 +16,7 @@ export class BizDevCaseStudyComponent extends AbstractDocumentViewComponent impl
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  tabs: any[] = TAB_CONFIG;
+  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
