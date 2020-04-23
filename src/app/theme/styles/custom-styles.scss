@@ -189,6 +189,10 @@ body {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      a {
+        color: #2a2a2a;
+        &:hover { text-decoration: none; }
+      }
     }
     .image-holder {
       a {
