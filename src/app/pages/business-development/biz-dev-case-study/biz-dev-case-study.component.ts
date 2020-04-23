@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../business-development-tab-config';
@@ -47,7 +47,7 @@ export class BizDevCaseStudyComponent extends AbstractDocumentViewComponent impl
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path_eq: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE,
     };
   }
 
@@ -56,6 +56,7 @@ export class BizDevCaseStudyComponent extends AbstractDocumentViewComponent impl
       pageSize: 20,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_SUB_FOLDER_TYPE,
     };
