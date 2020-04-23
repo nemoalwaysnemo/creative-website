@@ -11,7 +11,7 @@ export class CreativeHomePageComponent {
 
   headline: string = 'This is how we kill boring.';
 
-  subHead: string = 'Our entire collection of disruptive work is all right here.';
+  subHead: string = 'Our most disruptive work is all right here.';
 
   placeholder: string = 'Search for campaigns by title, agency, brand, client...';
 
