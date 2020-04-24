@@ -165,12 +165,12 @@
         </metadata-edit-form-dialog-body>
       </ng-container>
       <ng-container *ngSwitchCase="'deleteSoft'">
-        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callBack)="callback($event)" [isSoftDel]="true">
+        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callback)="callback.emit($event)" [isSoftDel]="true">
           <preview-dialog-alert></preview-dialog-alert>
         </delete-dialog-body>
       </ng-container>
       <ng-container *ngSwitchCase="'delete'">
-        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callBack)="callback($event)">
+        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callback)="callback.emit($event)">
           <preview-dialog-alert></preview-dialog-alert>
         </delete-dialog-body>
       </ng-container>

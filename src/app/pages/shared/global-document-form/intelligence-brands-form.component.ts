@@ -6,7 +6,7 @@ import { AbstractDocumentFormComponent } from '../abstract-classes/abstract-docu
 
 @Component({
   selector: 'intelligence-brands-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="callback($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
 export class IntelligenceBrandsFormComponent extends AbstractDocumentFormComponent {
 

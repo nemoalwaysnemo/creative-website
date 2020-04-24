@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormDailogBody } from '@pages/shared/preview-dialog/dailog-bodys/form_dailog_body';
+import { FormDailogBodyComponent } from '@pages/shared/preview-dialog/dailog-bodys/form_dailog_body-component';
 import { PreviewDialogService } from '@pages/shared';
 
 @Component({
@@ -7,7 +7,7 @@ import { PreviewDialogService } from '@pages/shared';
   styleUrls: ['./disruption-folder-edit-from-dialog.component.scss'],
   templateUrl: './disruption-folder-edit-from-dialog.component.html',
 })
-export class DisruptionFormFolderEditDialogComponent extends FormDailogBody {
+export class DisruptionFormFolderEditDialogComponent extends FormDailogBodyComponent {
 
   private documentType: string;
 

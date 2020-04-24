@@ -85,8 +85,4 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
     this.previewDialogService.open(dialog, this.document);
   }
 
-  onCreated(doc: DocumentModel): void {
-    this.refresh();
-  }
-
 }

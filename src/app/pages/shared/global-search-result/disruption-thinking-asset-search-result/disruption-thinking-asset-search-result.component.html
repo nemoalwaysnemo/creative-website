@@ -10,18 +10,18 @@
     <preview-dialog>
       <ng-container [ngSwitch]="showEdit">
         <ng-container *ngSwitchCase="'preview'">
-          <disruption-asset-preview-dialog-body [editButton]='true' (callBack)="openEdit($event)" [moreInfo]='true' [previewButton]='true'>
+          <disruption-asset-preview-dialog-body [editButton]='true' (callback)="openEdit($event)" [moreInfo]='true' [previewButton]='true'>
           </disruption-asset-preview-dialog-body>
         </ng-container>
 
         <ng-container *ngSwitchCase="'edit'">
-          <disruption-thinking-edit-dialog-body (updatedSuccess)="onUpdate($event)" (callBack)="callback($event)">
+          <disruption-thinking-edit-dialog-body (updatedSuccess)="onUpdate($event)" (callback)="callback.emit($event)">
             <preview-dialog-alert></preview-dialog-alert>
           </disruption-thinking-edit-dialog-body>
         </ng-container>
 
         <ng-container *ngSwitchCase="'delete'">
-          <delete-dialog-body (callBack)="callback($event)" [deleteRedirect]="deleteRedirect" [backButton]="backButton" [isSoftDel]="true">
+          <delete-dialog-body (callback)="callback.emit($event)" [deleteRedirect]="deleteRedirect" [backButton]="backButton" [isSoftDel]="true">
             <preview-dialog-alert></preview-dialog-alert>
           </delete-dialog-body>
         </ng-container>

@@ -1,18 +1,17 @@
-import { OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { PreviewDialogService } from './preview-dialog.service';
 import { Subscription } from 'rxjs';
+import { PreviewDialogService } from './preview-dialog.service';
+import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { Environment } from '@environment/environment';
 
-export abstract class BaseDialogBody implements OnInit, OnDestroy {
+export abstract class BaseDialogBodyComponent implements OnInit, OnDestroy {
 
   document: DocumentModel;
 
   dialogLayout: string = 'dialogSlides';
 
   storyboard: boolean = false;
-
-  @Output() callBack: EventEmitter<{ type: string, value: any }> = new EventEmitter<{ type: string, value: any }>();
 
   protected subscription: Subscription = new Subscription();
 
@@ -28,6 +27,10 @@ export abstract class BaseDialogBody implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+  // onCallback(callback: DocumentFormEvent): void {
+
+  // }
 
   close(): void {
     this.dialogService.close();

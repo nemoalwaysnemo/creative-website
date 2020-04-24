@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseDialogBody } from '@pages/shared/preview-dialog/base-dialog-body';
+import { BaseDialogBodyComponent } from '@pages/shared/preview-dialog/base-dialog-body-component';
 import { PreviewDialogService } from '@pages/shared';
 
 @Component({
@@ -7,7 +7,7 @@ import { PreviewDialogService } from '@pages/shared';
   styleUrls: ['./form-dialog.component.scss'],
   templateUrl: './form-dialog.component.html',
 })
-export class FormDialogComponent extends BaseDialogBody {
+export class FormDialogComponent extends BaseDialogBodyComponent {
 
   constructor(protected dialogService: PreviewDialogService) {
     super(dialogService);

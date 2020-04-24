@@ -108,8 +108,4 @@ export class BizDevThoughtLeadershipFolderComponent extends AbstractDocumentView
     this.previewDialogService.open(dialog, this.document);
   }
 
-  onCreated(doc: DocumentModel): void {
-    this.refresh();
-  }
-
 }

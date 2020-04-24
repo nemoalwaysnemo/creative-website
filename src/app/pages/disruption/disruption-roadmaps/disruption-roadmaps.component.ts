@@ -64,7 +64,4 @@ export class DisruptionRoadmapsComponent extends AbstractDocumentViewComponent i
     this.previewDialogService.open(dialog, this.document);
   }
 
-  onCreated(doc: DocumentModel): void {
-    this.refresh();
-  }
 }

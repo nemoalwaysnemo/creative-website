@@ -4,11 +4,7 @@
 </div>
 <div class="global-document-dialog">
   <div class="dialog_body">
-    <nb-alert *ngIf="onResponsed" [status]="success">
-      {{ response_words }}
-    </nb-alert>
-    <div class="form">
-      <ng-template #dynamicTarget></ng-template>
-    </div>
+    <nb-alert *ngIf="formCallbackEvent" [status]="formCallbackEvent.type">{{ formCallbackEvent.message.content }}</nb-alert>
+    <div class="form"><ng-template #dynamicTarget></ng-template></div>
   </div>
 </div>

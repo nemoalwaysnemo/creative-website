@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { PreviewDialogService } from '../preview-dialog.service';
-import { BaseDialogBody } from '../base-dialog-body';
+import { BaseDialogBodyComponent } from '../base-dialog-body-component';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentModel } from '@core/api';
 import { DocumentViewService } from '@pages/shared/services/document-view.service';
@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
   templateUrl: './delete-dialog-body.component.html',
 })
 
-export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit {
+export class DeleteDialogBodyComponent extends BaseDialogBodyComponent implements OnInit {
   constructor(protected dialogService: PreviewDialogService,
               private documentViewService: DocumentViewService,
               private router: Router,
@@ -66,7 +66,7 @@ export class DeleteDialogBodyComponent extends BaseDialogBody implements OnInit 
 
   back(): void {
     if (this.backButton) {
-      this.callBack.next({ type: 'back', value: 'preview' });
+      // this.callback.next({ type: 'back', value: 'preview' });
     } else {
       this.close();
     }

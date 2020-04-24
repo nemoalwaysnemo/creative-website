@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormDailogBody } from '@pages/shared/preview-dialog/dailog-bodys/form_dailog_body';
+import { FormDailogBodyComponent } from '@pages/shared/preview-dialog/dailog-bodys/form_dailog_body-component';
 import { PreviewDialogService } from '../../../preview-dialog';
 import { DocumentViewService } from '@pages/shared/services/document-view.service';
 
@@ -8,7 +8,7 @@ import { DocumentViewService } from '@pages/shared/services/document-view.servic
   styleUrls: ['./disruption-roadmap-edit-dialog-body.component.scss'],
   templateUrl: './disruption-roadmap-edit-dialog-body.component.html',
 })
-export class DisruptionRoadmapEditDialogComponent extends FormDailogBody {
+export class DisruptionRoadmapEditDialogComponent extends FormDailogBodyComponent {
 
   title: string;
 
@@ -24,12 +24,12 @@ export class DisruptionRoadmapEditDialogComponent extends FormDailogBody {
 
   onUpdated(doc: any): void {
     this.showMessage('success' , `${doc.title} update success`);
-    this.callBack.next({type: 'success', value: doc});
+    // this.callback.next({type: 'success', value: doc});
     this.dialogService.delayed(this.updatedSuccess, doc);
   }
 
   back(): void {
-    this.callBack.next({type: 'back', value: 'preview'});
+    // this.callback.next({type: 'back', value: 'preview'});
   }
 
 }

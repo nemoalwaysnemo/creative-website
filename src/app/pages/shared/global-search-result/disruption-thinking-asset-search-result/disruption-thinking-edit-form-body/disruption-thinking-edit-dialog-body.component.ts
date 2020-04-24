@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormDailogBody } from '@pages/shared/preview-dialog/dailog-bodys/form_dailog_body';
+import { FormDailogBodyComponent } from '@pages/shared/preview-dialog/dailog-bodys/form_dailog_body-component';
 import { PreviewDialogService } from '../../../preview-dialog';
 
 @Component({
@@ -7,7 +7,7 @@ import { PreviewDialogService } from '../../../preview-dialog';
   styleUrls: ['./disruption-thinking-edit-dialog-body.component.scss'],
   templateUrl: './disruption-thinking-edit-dialog-body.component.html',
 })
-export class DisruptionThinkingEditDialogComponent extends FormDailogBody {
+export class DisruptionThinkingEditDialogComponent extends FormDailogBodyComponent {
 
   title: string;
 
@@ -23,12 +23,12 @@ export class DisruptionThinkingEditDialogComponent extends FormDailogBody {
 
   onUpdated(doc: any): void {
     this.showMessage('success', `${doc.title} update success`);
-    this.callBack.next({ type: 'success', value: doc });
+    // this.callback.next({ type: 'success', value: doc });
     this.dialogService.delayed(this.updatedSuccess, doc);
   }
 
   back(): void {
-    this.callBack.next({ type: 'back', value: 'preview' });
+    // this.callback.next({ type: 'back', value: 'preview' });
   }
 
 }

@@ -8,7 +8,7 @@
   <ng-content></ng-content>
   <ng-container *ngIf="document">
     <div class="form">
-      <disruption-form-theory [document]="document" (onCreated)="onCreated($event)"></disruption-form-theory>
+      <disruption-form-theory [document]="document" (callback)="onCallback($event)"></disruption-form-theory>
     </div>
   </ng-container>
 </div>

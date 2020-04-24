@@ -7,7 +7,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 
 @Component({
   selector: 'biz-dev-case-studies-folder-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="callback($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
 export class BizDevCaseStudiesFolderFormComponent extends AbstractDocumentFormComponent {
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormDailogBody } from '../../preview-dialog/dailog-bodys/form_dailog_body';
+import { FormDailogBodyComponent } from '../../preview-dialog/dailog-bodys/form_dailog_body-component';
 import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
 
 enum assetTypes {
@@ -16,7 +16,7 @@ enum assetTypes {
   templateUrl: './metadata-edit-form-dialog.component.html',
 })
 
-export class MetadataEditFormDialogComponent extends FormDailogBody {
+export class MetadataEditFormDialogComponent extends FormDailogBodyComponent {
 
   readonly assetTypes = assetTypes;
 

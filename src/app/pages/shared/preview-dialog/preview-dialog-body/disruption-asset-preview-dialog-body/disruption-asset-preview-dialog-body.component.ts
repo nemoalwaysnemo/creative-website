@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { BaseDialogBody } from '../../base-dialog-body';
+import { BaseDialogBodyComponent } from '../../base-dialog-body-component';
 import { PreviewDialogService } from '../../preview-dialog.service';
 import { NuxeoPermission, DocumentModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
@@ -11,7 +11,7 @@ import { getDocumentTypes } from '@core/services/helpers';
   styleUrls: ['../preview-dialog-body.scss'],
   templateUrl: './disruption-asset-preview-dialog-body.component.html',
 })
-export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
+export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBodyComponent {
 
   title: string;
 
@@ -41,11 +41,11 @@ export class DisruptionAssetPreviewDialogBodyComponent extends BaseDialogBody {
   }
 
   openEditDialog(): void {
-    this.callBack.next({ type: 'openEdit', value: true });
+    // this.callback.next({ type: 'openEdit', value: true });
   }
 
   openDeleteDialog(): void {
-    this.callBack.next({ type: 'openDelete', value: true });
+    // this.callback.next({ type: 'openDelete', value: true });
   }
 
   isDisruptionAsset(doc: DocumentModel): boolean {

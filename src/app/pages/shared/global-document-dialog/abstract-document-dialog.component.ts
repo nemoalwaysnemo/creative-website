@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { OnInit, OnDestroy, Input, Type, ComponentRef, ViewContainerRef, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../../shared/services/search-query-params.service';
 import { DocumentModel } from '@core/api';
@@ -11,13 +11,21 @@ export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestr
 
   @Input() title: string = 'Global Dialog';
 
-  @Output() callBack: EventEmitter<{ type: string, value: any }> = new EventEmitter<{ type: string, value: any }>();
+  @Input() component: Type<any>;
 
-  @Output() onCreated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+  @Output() event$: EventEmitter<DocumentDialogEvent> = new EventEmitter<DocumentDialogEvent>();
+
+  @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
+
+  protected customComponent: ComponentRef<any>;
 
   protected subscription: Subscription = new Subscription();
 
-  constructor(protected dialogService: GlobalDocumentDialogService, protected queryParamsService: SearchQueryParamsService) {
+  constructor(
+    protected dialogService: GlobalDocumentDialogService,
+    protected queryParamsService: SearchQueryParamsService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+  ) {
     this.onDocumentChanged();
     this.registerListeners();
   }
@@ -28,13 +36,6 @@ export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestr
 
   ngOnDestroy() {
     this.onDestroy();
-  }
-
-  protected onInit(): void {
-  }
-
-  protected onDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   close(): void {
@@ -53,15 +54,37 @@ export abstract class AbstractDocumentDialogComponent implements OnInit, OnDestr
     return this.assetPath('assets/images/preview_logo.png');
   }
 
-  public refresh(): void {
+  refresh(): void {
     this.queryParamsService.refresh();
+  }
+
+  selectView(name: string): void {
+    this.event$.next({ name: 'viewChanged', message: 'View Changed', doc: this.document, options: { view: name } });
+  }
+
+  protected createCustomComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    return dynamicTarget.createComponent(componentFactory);
+  }
+
+  protected abstract createComponent(): void;
+
+  protected onInit(): void {
+    this.createComponent();
+  }
+
+  protected onDestroy(): void {
+    if (this.customComponent) {
+      this.customComponent.destroy();
+    }
+    this.subscription.unsubscribe();
   }
 
   protected onOpen(): void { }
 
   protected onClose(): void { }
 
-  protected onDocumentChange(data: any): void { }
+  protected onDocumentChange(event: DocumentDialogEvent): void { }
 
   protected assetPath(src: string): string {
     return Environment.assetPath + src;

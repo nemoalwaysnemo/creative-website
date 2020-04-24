@@ -1,8 +1,8 @@
-import { BaseDialogBody } from '../base-dialog-body';
-import { PreviewDialogService } from '../preview-dialog.service';
 import { Output, EventEmitter } from '@angular/core';
+import { BaseDialogBodyComponent } from '../base-dialog-body-component';
+import { PreviewDialogService } from '../preview-dialog.service';
 
-export abstract class FormDailogBody extends BaseDialogBody {
+export abstract class FormDailogBodyComponent extends BaseDialogBodyComponent {
 
   @Output() createdSuccess: EventEmitter<any> = new EventEmitter();
   @Output() updatedSuccess: EventEmitter<any> = new EventEmitter();

@@ -8,7 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 
 @Component({
   selector: 'creative-asset-image-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="callback($event)"></document-form>`,
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetImageFormComponent extends AbstractDocumentFormComponent {
 

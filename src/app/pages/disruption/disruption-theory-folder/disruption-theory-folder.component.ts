@@ -107,8 +107,4 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
     this.previewDialogService.open(dialog, this.document);
   }
 
-  onCreated(doc: DocumentModel): void {
-    this.refresh();
-  }
-
 }

@@ -1,5 +1,4 @@
-<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled"
-  [ngStyle]="loading ? {'min-height': '150px'} : {}">
+<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="doc" class="property-section">
     <a [routerLink]="[getAssetUrl(doc),  doc.uid]" class="property-intro inline-top">
       <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
@@ -16,10 +15,10 @@
       <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
 
       <ng-container *ngIf="doc.type === 'App-Disruption-Day' && backAssetFlag">
-          <button type="button" [routerLink]="[getAssetUrl(doc), doc.uid]" class="icon_btn left">Back to parent</button>
+        <button type="button" [routerLink]="[getAssetUrl(doc), doc.uid]" class="icon_btn left">Back to parent</button>
       </ng-container>
       <ng-container *ngIf="!backAssetFlag">
-          <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
+        <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
       </ng-container>
       <ng-container *ngIf="writePermission$ | async">
         <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn left">Edit</button>
@@ -28,7 +27,7 @@
         <button type="button" (click)="openDialog(dialog, 'delete')" class="icon_btn left">Delete</button>
       </ng-container>
       <ng-container *ngIf="isDisruptionAsset(doc) && deletePermission$ | async">
-          <button type="button" (click)="openDialog(dialog, 'deleteSoft')" class="icon_btn left">Delete</button>
+        <button type="button" (click)="openDialog(dialog, 'deleteSoft')" class="icon_btn left">Delete</button>
       </ng-container>
       <div class="clear"></div>
     </div>
@@ -39,22 +38,22 @@
 
     <ng-container [ngSwitch]="showEdit">
       <ng-container *ngSwitchCase="'edit'">
-        <disruption-folder-edit-from-body (updatedSuccess)="onUpdate($event)">
+        <disruption-folder-edit-from-body (callback)="onCallback($event)">
           <preview-dialog-alert></preview-dialog-alert>
         </disruption-folder-edit-from-body>
       </ng-container>
 
       <ng-container *ngSwitchCase="'delete'">
-        <delete-dialog-body [deleteRedirect]= "deleteRedirect" (callBack)="callback($event)">
+        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callback)="onCallback($event)">
           <preview-dialog-alert></preview-dialog-alert>
         </delete-dialog-body>
       </ng-container>
 
       <ng-container *ngSwitchCase="'deleteSoft'">
-          <delete-dialog-body [deleteRedirect]= "deleteRedirect" (callBack)="callback($event)" [isSoftDel]="true">
-            <preview-dialog-alert></preview-dialog-alert>
-          </delete-dialog-body>
-        </ng-container>
+        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callback)="onCallback($event)" [isSoftDel]="true">
+          <preview-dialog-alert></preview-dialog-alert>
+        </delete-dialog-body>
+      </ng-container>
     </ng-container>
 
   </preview-dialog>

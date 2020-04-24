@@ -1,18 +1,12 @@
 import { Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { of as observableOf, Observable, Subscription, Subject } from 'rxjs';
+import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { switchMap, tap } from 'rxjs/operators';
 
 export interface DocumentModelForm {
   mode: string;
-  docType: string;
   document: DocumentModel;
-}
-
-export interface CallbackModel {
-  action: 'cancel' | 'created' | 'updated';
-  message: string;
-  doc: DocumentModel | {};
 }
 
 export abstract class AbstractDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
@@ -41,13 +35,7 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   @Input() mode: 'create' | 'edit' = 'create';
 
-  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
-
-  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-
-  @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-
-  @Output() onCallback: EventEmitter<CallbackModel> = new EventEmitter<CallbackModel>();
+  @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   protected subscription: Subscription = new Subscription();
 
@@ -73,6 +61,10 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     if (doc) {
       this.document$.next(doc);
     }
+  }
+
+  onCallback(callback: DocumentFormEvent): void {
+    this.callback.next(callback);
   }
 
   protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
@@ -102,21 +94,6 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.subscription.unsubscribe();
   }
 
-  public created(doc: DocumentModel[]): void {
-    this.onCreated.next(doc);
-  }
-
-  public updated(doc: DocumentModel): void {
-    this.onUpdated.next(doc);
-  }
-
-  public canceled(doc: DocumentModel): void {
-    this.onCanceled.next(doc);
-  }
-
-  public callback(callback: CallbackModel): void {
-    this.onCallback.next(callback);
-  }
   protected onDocumentChanged(): void {
     const subscription = this.document$.pipe(
       switchMap((doc: DocumentModel) => this.beforeSetDocument(doc)),
