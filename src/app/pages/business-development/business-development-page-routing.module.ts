@@ -30,6 +30,10 @@ const routes: Routes = [{
       component: BizDevCaseStudyFolderComponent,
     },
     {
+      path: 'Case Studies/folder/:folder/asset/:id',
+      component: BizDevAssetComponent,
+    },
+    {
       path: 'Thought Leadership',
       component: BizDevThoughtLeadershipComponent,
     },
