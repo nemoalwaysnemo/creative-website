@@ -56,7 +56,7 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
       pageSize: 20,
       currentPageIndex: 0,
       ecm_fulltext: '',
-      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_SUB_FOLDER_TYPE,
     };
