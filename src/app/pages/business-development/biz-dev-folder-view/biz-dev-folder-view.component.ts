@@ -77,24 +77,15 @@ export class BizDevFolderViewComponent {
 
   protected goBackInfo(type: string): any {
     switch (type) {
-      case 'App-Disruption-Theory-Folder':
+      case 'App-BizDev-Thought-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-          'urlRootPath': '/p/disruption/Disruption How Tos',
-          'urlParentPath': '/p/disruption/Disruption How Tos/folder/',
-        };
-      case 'App-Disruption-Day':
-        return {
-          'rootPath': NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-          'urlRootPath': '/p/disruption/Disruption Days',
-          'urlParentPath': '/p/disruption/Disruption Days/day/',
+          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+          'urlRootPath': '/p/business-development/Thought Leadership/',
+          'urlParentPath': '/p/business-development/Thought Leadership/folder/',
         };
       default:
         return {};
     }
   }
 
-  isDisruptionAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
-  }
 }

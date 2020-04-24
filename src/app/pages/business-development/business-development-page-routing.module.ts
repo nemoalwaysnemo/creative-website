@@ -38,6 +38,15 @@ const routes: Routes = [{
       component: BizDevThoughtLeadershipFolderComponent,
     },
     {
+      path: 'Thought Leadership/asset/:id',
+      component: BizDevAssetComponent,
+    },
+    {
+      path: 'Thought Leadership/folder/:id/asset/:id',
+      component: BizDevAssetComponent,
+    },
+
+    {
       path: '10x',
       component: BizDevRemotePageComponent,
     },
