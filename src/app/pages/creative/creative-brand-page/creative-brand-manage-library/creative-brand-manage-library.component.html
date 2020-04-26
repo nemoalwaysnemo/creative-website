@@ -169,6 +169,6 @@
     <button nbButton outline class="btn btn-success" (click)="changeView()">Edit</button>
   </div>
   <div *ngIf="document && showForm" class="document">
-    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (onUpdated)="onUpdated($event)" (onCanceled)="onCanceled($event)"></document-form>
+    <document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
   </div>
 </div>

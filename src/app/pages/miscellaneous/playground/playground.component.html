@@ -1,14 +1,11 @@
 <nb-card>
   <nb-card-body>
     <div>
-      <a href="javascript:void(0)" (click)="openForm(dialog)" class="icon_btn">New Day</a>
+      <a href="javascript:void(0)" (click)="openDialog(dialog)" class="icon_btn">New Day</a>
       <document-form [document]="document" [settings]="settings" [layout]="getFormLayout()"></document-form>
     </div>
   </nb-card-body>
 </nb-card>
 
 <ng-template #dialog>
-  <preview-dialog>
-    <form-body></form-body>
-  </preview-dialog>
 </ng-template>

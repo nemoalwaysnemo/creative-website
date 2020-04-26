@@ -1,12 +1,12 @@
 import { Component, Input, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { concatMap, map, share } from 'rxjs/operators';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
+import { getDocumentTypes, parseCountry } from '@core/services/helpers';
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { getDocumentTypes } from '@core/services/helpers';
-import { PreviewDialogService } from '../preview-dialog/preview-dialog.service';
-import { Router } from '@angular/router';
-import { concatMap, map, share } from 'rxjs/operators';
 
 @Component({
   selector: 'document-metadata-info',
@@ -64,7 +64,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     private nuxeoApi: NuxeoApiService,
     private userService: UserService,
     private location: Location,
-    private previewDialogService: PreviewDialogService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
     private router: Router,
   ) { }
 
@@ -106,16 +106,16 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   parseCountry(list: string[]) {
-    return list.map((x) => x.split('/').pop()).join(', ');
+    return parseCountry(list);
   }
 
   goBack() {
     this.location.back();
   }
 
-  openForm(dialog: any, type: string): void {
+  openDialog(dialog: any, type: string): void {
     this.dialogType = type;
-    this.previewDialogService.open(dialog, this.documentModel);
+    this.globalDocumentDialogService.open(dialog);
   }
 
   onUpdated(document: DocumentModel): void {

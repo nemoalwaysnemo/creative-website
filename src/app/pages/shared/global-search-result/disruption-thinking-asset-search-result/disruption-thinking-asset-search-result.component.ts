@@ -1,8 +1,8 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { PreviewDialogService } from '@pages/shared/preview-dialog';
-import { SearchQueryParamsService } from '@pages/shared/services/search-query-params.service';
 import { Router } from '@angular/router';
+import { DocumentModel } from '@core/api';
+import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 
 @Component({
   selector: 'disruption-thinking-asset-search-result',
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
 
   constructor(
-    private dialogService: PreviewDialogService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
     private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
@@ -22,15 +22,14 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
   showEdit: string = 'preview';
 
   ngOnInit() {
-    this.dialogService.onClose().subscribe(_ => {
-      this.showEdit = 'preview';
-    });
-    this.deleteRedirect = this.router.url;
-
+    // this.dialogService.onClose().subscribe(_ => {
+    //   this.showEdit = 'preview';
+    // });
+    // this.deleteRedirect = this.router.url;
   }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, { title: 'Brilliant Thinking' });
+    // this.globalDocumentDialogService.open(dialog, doc, { title: 'Brilliant Thinking' });
   }
 
   openEdit(event): void {
@@ -55,7 +54,7 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
   }
 
   refresh(doc: any): void {
-    this.dialogService.setDocument(doc);
+    // this.dialogService.setDocument(doc);
     this.queryParamsService.refresh();
   }
 }

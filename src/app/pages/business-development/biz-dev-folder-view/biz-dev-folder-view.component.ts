@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+import { SearchQueryParamsService } from '@pages/shared';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
@@ -40,7 +40,6 @@ export class BizDevFolderViewComponent {
   deletePermission$: Observable<boolean> = observableOf(false);
 
   constructor(
-    protected previewDialogService: PreviewDialogService,
     protected queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
@@ -54,8 +53,6 @@ export class BizDevFolderViewComponent {
   }
 
   openDialog(dialog: any, type): void {
-    this.showEdit = type;
-    this.previewDialogService.open(dialog, this.doc, { type: this.doc.type });
   }
 
   onUpdate(doc: DocumentModel): void {

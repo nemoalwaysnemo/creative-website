@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -62,7 +62,7 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
-    protected previewDialogService: PreviewDialogService) {
+    protected globalDocumentDialogService: GlobalDocumentDialogService) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -103,8 +103,8 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
     };
   }
 
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.document);
+  openDialog(dialog: any): void {
+    this.globalDocumentDialogService.open(dialog, this.document);
   }
 
   ngOnDestroy() {

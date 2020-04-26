@@ -8,6 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
   templateUrl: './disruption-form-brilliant-thinking.component.html',
 })
 export class DisruptionFormBrilliantThinkingComponent extends AbstractDisruptionForm {
+
   protected parentType = AbstractDisruptionForm.THINKING;
 
   protected getSettings(): object[] {

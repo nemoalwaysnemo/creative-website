@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AdvanceSearch } from '@core/api';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { GoogleAnalyticsService } from '@core/services';
+import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { AbstractSearchFormComponent } from './abstract-search-form.component';
 
 @Component({

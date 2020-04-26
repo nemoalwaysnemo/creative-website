@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { filterParams, selectObjectByKeys } from '@core/services/helpers';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class SearchQueryParamsService {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private location: Location, private activatedRoute: ActivatedRoute) { }
 
   buildQueryParams(formValue: any = {}, allowedParams: string[] = []): any {
     formValue.q = formValue.ecm_fulltext ? formValue.ecm_fulltext : '';
@@ -54,6 +55,10 @@ export class SearchQueryParamsService {
 
   navigate(commands: any[], extras?: NavigationExtras): Promise<boolean> {
     return this.router.navigate(commands, extras);
+  }
+
+  historyBack(): void {
+    this.location.back();
   }
 
   redirectTo403(): void {

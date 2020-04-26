@@ -8,6 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
   templateUrl: './disruption-form-theory.component.html',
 })
 export class DisruptionFormTheoryComponent extends AbstractDisruptionForm {
+
   protected parentType = AbstractDisruptionForm.THEORY;
 
   protected getSettings(): object[] {

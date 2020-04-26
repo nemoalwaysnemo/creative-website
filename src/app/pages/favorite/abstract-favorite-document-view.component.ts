@@ -3,7 +3,7 @@ import { DocumentModel, AdvanceSearch, UserService } from '@core/api';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { PreviewDialogService, SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
+import { GlobalDocumentDialogService, SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 
 export abstract class AbstractFavoriteDocumentViewComponent extends AbstractDocumentViewComponent implements OnInit {
 
@@ -13,7 +13,7 @@ export abstract class AbstractFavoriteDocumentViewComponent extends AbstractDocu
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
-    protected previewDialogService: PreviewDialogService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected userService: UserService) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }

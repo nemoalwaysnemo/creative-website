@@ -1,11 +1,17 @@
 import { OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DocumentModel } from '@core/api';
+import { DocumentFormEvent } from '../document-form/document-form.interface';
 
 export abstract class AbstractDisruptionForm implements OnInit {
+
   static THINKING = 'App-Disruption-Asset';
+
   static DAY = 'App-Disruption-Day';
+
   static DAY_ASSET = 'App-Disruption-Day-Asset';
+
   static ROADMAP = 'App-Disruption-Roadmap-Asset';
+
   static THEORY = 'App-Disruption-Theory-Asset';
 
   parentDocument: DocumentModel;
@@ -29,8 +35,7 @@ export abstract class AbstractDisruptionForm implements OnInit {
     }
   }
 
-  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
-  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
+  @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   constructor() { }
 
@@ -40,14 +45,6 @@ export abstract class AbstractDisruptionForm implements OnInit {
       this.defaultValue();
     }
     console.info(`[${this.mode}] => [${this.parentType}]`);
-  }
-
-  public created(docs: DocumentModel[]): void {
-    this.onCreated.next(docs);
-  }
-
-  public updated(doc: DocumentModel): void {
-    this.onUpdated.next(doc);
   }
 
   protected performForm(): void {

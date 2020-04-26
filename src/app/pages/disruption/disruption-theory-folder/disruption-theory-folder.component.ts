@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoEnricher, SearchFilterModel } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
+import { AbstractDocumentViewComponent, SearchQueryParamsService, GlobalDocumentDialogService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -28,7 +28,7 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
-    protected previewDialogService: PreviewDialogService) {
+    protected globalDocumentDialogService: GlobalDocumentDialogService) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -103,12 +103,8 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
     return params;
   }
 
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.document);
-  }
-
-  onCreated(doc: DocumentModel): void {
-    this.refresh();
+  openDialog(dialog: any): void {
+    this.globalDocumentDialogService.open(dialog, this.document);
   }
 
 }

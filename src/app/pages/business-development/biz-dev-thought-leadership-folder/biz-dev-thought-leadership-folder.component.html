@@ -1,6 +1,6 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <global-search-form [filters]="filters" [baseParams]="baseParams$ | async">
-  <button *ngIf="addChildrenPermission$ | async" type="button" (click)="openForm(dialog)" class="icon_btn new_day group-left" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Asset">New Asset</button>
+  <button *ngIf="addChildrenPermission$ | async" type="button" (click)="openDialog(dialog)" class="icon_btn new_day group-left" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Asset">New Asset</button>
 </global-search-form>
 <biz-dev-folder-view [loading]="loading" [document]="document" [assetUrl]="'/p/business-development/Thought Leadership/folder/'"></biz-dev-folder-view>
 <biz-dev-thought-leadership-folder-asset-search-result [folderId]="document?.uid"></biz-dev-thought-leadership-folder-asset-search-result>
