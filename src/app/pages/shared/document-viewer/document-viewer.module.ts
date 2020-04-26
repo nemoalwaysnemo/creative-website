@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ThemeModule } from '@theme/theme.module';
+import { DragScrollModule } from 'ngx-drag-scroll';
+import { DocumentViewerComponent } from './document-viewer.component';
 import { DocumentPdfViewerComponent } from './document-pdf-viewer/document-pdf-viewer.component';
 import { DocumentImageViewerComponent } from './document-image-viewer/document-image-viewer.component';
 import { DocumentVideoViewerComponent } from './document-video-viewer/document-video-viewer.component';
@@ -8,15 +11,12 @@ import { DocumentVideoStoryboardComponent } from './document-video-viewer/docume
 import { DocumentAudioViewerComponent } from './document-audio-viewer/document-audio-viewer.component';
 import { DocumentActionGroupComponent } from './document-action-group/document-action-group.component';
 import { DocumentRelatedCampaignComponent } from './document-related-campaign/document-related-campaign.component';
-import { ThemeModule } from '@theme/theme.module';
-import { DocumentViewerComponent } from './document-viewer.component';
 import { DocumentVideoViewerService } from './document-video-viewer/document-video-viewer.service';
+import { ShareDocumentButtonModule } from '../share-document-button/share-document-button.module';
 import { VgCoreModule } from 'videogular2/compiled/core';
 import { VgControlsModule } from 'videogular2/compiled/controls';
 import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
 import { VgBufferingModule } from 'videogular2/compiled/buffering';
-import { DragScrollModule } from 'ngx-drag-scroll';
-import { ShareDocumentButtonModule } from '../share-document-button/share-document-button.module';
 
 @NgModule({
   imports: [

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
-import { PreviewDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { ActivatedRoute } from '@angular/router';
@@ -34,7 +34,7 @@ export class BrilliantThinkingComponent extends AbstractDocumentViewComponent im
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
-    protected previewDialogService: PreviewDialogService) {
+    protected globalDocumentDialogService: GlobalDocumentDialogService) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -59,8 +59,7 @@ export class BrilliantThinkingComponent extends AbstractDocumentViewComponent im
     };
   }
 
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.document);
+  openDialog(dialog: any): void {
   }
 
 }

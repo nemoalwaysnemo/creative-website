@@ -1,11 +1,11 @@
 import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
+import { TabInfo } from '../document-related-info.component';
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters } from '@core/api';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
-import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
-import { TabInfo } from '../document-related-info.component';
 
 @Component({
   selector: 'document-related-info-view',
@@ -54,7 +54,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private advanceSearch: AdvanceSearch,
-    private dialogService: PreviewDialogService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
   ngOnInit() {
@@ -67,7 +67,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   }
 
   open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, { title: type });
+    // this.globalDocumentDialogService.open(dialog, doc, { title: type });
   }
 
   onKeyup(event: KeyboardEvent) {

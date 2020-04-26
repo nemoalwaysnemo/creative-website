@@ -7,24 +7,5 @@
     <h1 [title]="doc.title">{{doc.title}}</h1>
   </div>
   <ng-template #dialog>
-    <preview-dialog>
-      <ng-container [ngSwitch]="showEdit">
-        <ng-container *ngSwitchCase="'preview'">
-          <disruption-asset-preview-dialog-body [editButton]='true' (callback)="openEdit($event)"></disruption-asset-preview-dialog-body>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'edit'">
-          <disruption-roadmap-edit-dialog-body (updatedSuccess)="onUpdate($event)" (callback)="callback.emit($event)">
-            <preview-dialog-alert></preview-dialog-alert>
-          </disruption-roadmap-edit-dialog-body>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'delete'">
-          <delete-dialog-body (callback)="callback.emit($event)" [deleteRedirect]="deleteRedirect" [backButton]="backButton" [isSoftDel]="true">
-              <preview-dialog-alert></preview-dialog-alert>
-          </delete-dialog-body>
-        </ng-container>
-      </ng-container>
-    </preview-dialog>
   </ng-template>
 </ng-template>

@@ -3,7 +3,9 @@ import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
-import { PreviewDialogService } from '../../preview-dialog/preview-dialog.service';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+
 @Component({
   selector: 'backslash-document-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
@@ -27,6 +29,8 @@ export class BackslashDocumentAssetSearchResultComponent extends AbstractSearchR
 
   listViewSettings: any;
 
+  previewDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.BACKSLASH_HOME_ASSET_PREIVEW;
+
   private defaultSettings: any = {
     columns: {
       title: {
@@ -47,7 +51,7 @@ export class BackslashDocumentAssetSearchResultComponent extends AbstractSearchR
     return items;
   }
 
-  constructor(protected queryParamsService: SearchQueryParamsService, private dialogService: PreviewDialogService) {
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService, queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);
   }
 
@@ -55,7 +59,7 @@ export class BackslashDocumentAssetSearchResultComponent extends AbstractSearchR
     this.onQueryParamsChanged();
   }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc);
+  openDialog(dialog: TemplateRef<any>) {
+    this.globalDocumentDialogService.open(dialog);
   }
 }

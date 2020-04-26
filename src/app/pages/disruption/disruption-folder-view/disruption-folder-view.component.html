@@ -34,27 +34,4 @@
   </div>
 </div>
 <ng-template #dialog>
-  <preview-dialog>
-
-    <ng-container [ngSwitch]="showEdit">
-      <ng-container *ngSwitchCase="'edit'">
-        <disruption-folder-edit-from-body (callback)="onCallback($event)">
-          <preview-dialog-alert></preview-dialog-alert>
-        </disruption-folder-edit-from-body>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'delete'">
-        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callback)="onCallback($event)">
-          <preview-dialog-alert></preview-dialog-alert>
-        </delete-dialog-body>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'deleteSoft'">
-        <delete-dialog-body [deleteRedirect]="deleteRedirect" (callback)="onCallback($event)" [isSoftDel]="true">
-          <preview-dialog-alert></preview-dialog-alert>
-        </delete-dialog-body>
-      </ng-container>
-    </ng-container>
-
-  </preview-dialog>
 </ng-template>

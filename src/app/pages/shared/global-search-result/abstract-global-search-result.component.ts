@@ -1,9 +1,9 @@
 import { Input } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
-import { PaginationDataSource } from '../pagination/pagination-data-source';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
+import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { AbstractSearchResultComponent } from './abstract-search-result.component';
+import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { concatMap } from 'rxjs/operators';
 
 export abstract class AbstractGlobalSearchResultComponent extends AbstractSearchResultComponent {

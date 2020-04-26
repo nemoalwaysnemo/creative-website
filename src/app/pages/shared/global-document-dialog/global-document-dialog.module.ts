@@ -3,26 +3,28 @@ import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { NbDialogModule } from '@core/nebular/theme';
 import { GlobalDocumentDialogComponent } from './global-document-dialog.component';
-import { DocumentFormDialogComponent } from './document-form-dialog/document-form-dialog.component';
-import { DocumentPreviewDialogComponent } from './document-preview-dialog/document-preview-dialog.component';
-import { DocumentGeneralDialogComponent } from './document-general-dialog/document-general-dialog.component';
+import { DocumentDialogFormComponent } from './document-dialog-form/document-dialog-form.component';
+import { DocumentDialogPreviewComponent } from './document-dialog-preview/document-dialog-preview.component';
+import { DocumentDialogGeneralComponent } from './document-dialog-general/document-dialog-general.component';
+import { GlobalDocumentDialogTemplateModule } from './document-dialog-template/global-document-dialog-template.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ThemeModule,
     NbDialogModule.forChild(),
+    GlobalDocumentDialogTemplateModule,
   ],
   declarations: [
-    DocumentFormDialogComponent,
-    DocumentPreviewDialogComponent,
-    DocumentGeneralDialogComponent,
+    DocumentDialogFormComponent,
+    DocumentDialogPreviewComponent,
+    DocumentDialogGeneralComponent,
     GlobalDocumentDialogComponent,
   ],
   entryComponents: [
-    DocumentFormDialogComponent,
-    DocumentPreviewDialogComponent,
-    DocumentGeneralDialogComponent,
+    DocumentDialogFormComponent,
+    DocumentDialogPreviewComponent,
+    DocumentDialogGeneralComponent,
   ],
   exports: [
     GlobalDocumentDialogComponent,

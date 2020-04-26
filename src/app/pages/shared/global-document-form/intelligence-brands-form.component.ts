@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from '../abstract-classes/abstract-document-form.component';
+import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 
 @Component({
   selector: 'intelligence-brands-form',

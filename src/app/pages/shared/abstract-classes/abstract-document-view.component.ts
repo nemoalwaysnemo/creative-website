@@ -1,8 +1,8 @@
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearch, NuxeoRequestOptions } from '@core/api';
 import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
+import { isDocumentUID, parseCountry } from '@core/services/helpers';
 import { Observable } from 'rxjs';
-import { isDocumentUID } from '@core/services/helpers';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { AbstractBaseDocumentViewComponent } from './abstract-base-document-view.component';
@@ -113,7 +113,7 @@ export abstract class AbstractDocumentViewComponent extends AbstractBaseDocument
   }
 
   protected parseCountry(list: string[]): string {
-    return list.map((x) => x.split('/').pop()).join(', ');
+    return parseCountry(list);
   }
 
 }

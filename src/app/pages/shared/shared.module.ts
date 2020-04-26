@@ -15,12 +15,10 @@ import {
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
   BatchFileUploadModule,
-  PreviewDialogModule,
   DirectorySuggestionModule,
   DocumentFormModule,
   HomeSearchFormModule,
   ShareDocumentButtonModule,
-  GlobalDocumentDialogModule,
   GlobalDocumentFormModule,
 } from './';
 
@@ -41,11 +39,9 @@ const EXPORTS = [
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
   DocumentRelatedProjectModule,
-  PreviewDialogModule,
   DocumentFormModule,
   DirectorySuggestionModule,
   ShareDocumentButtonModule,
-  GlobalDocumentDialogModule,
   GlobalDocumentFormModule,
 ];
 

@@ -17,7 +17,7 @@ export class DocumentDialogEvent {
 })
 export class GlobalDocumentDialogService {
 
-  private event$: Subject<DocumentDialogEvent> = new Subject<DocumentDialogEvent>();
+  private event: Subject<DocumentDialogEvent> = new Subject<DocumentDialogEvent>();
 
   private options: any = {};
 
@@ -25,9 +25,19 @@ export class GlobalDocumentDialogService {
 
   }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, options: any = {}): void {
+  onEvent(name?: string): Observable<DocumentDialogEvent> {
+    return (name ? this.event.pipe(filter((e: DocumentDialogEvent) => e.name === name)) : this.event).pipe(share());
+  }
+
+  triggerEvent(event: DocumentDialogEvent): this {
+    this.event.next(event);
+    return this;
+  }
+
+  open(dialog: TemplateRef<any>, options: any = {}): void {
     this.options = options;
     this.dialogService.open(dialog);
+    this.triggerEvent({ name: 'open', message: 'Open' });
     // this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': doc.uid });
   }
 
@@ -43,12 +53,17 @@ export class GlobalDocumentDialogService {
     return this.dialogService.onClose();
   }
 
-  setDocument(doc: DocumentModel, options: any = this.options): void {
-    this.event$.next({ name: 'documentChanged', message: 'Document Changed', doc, options });
+  selectView(name: string): void {
+    this.triggerEvent({ name: 'viewChanged', message: 'View Changed', options: { view: name } });
+  }
+
+  setDocument(doc: DocumentModel, options: any = {}): this {
+    this.triggerEvent({ name: 'documentChanged', message: 'Document Changed', doc, options });
+    return this;
   }
 
   onDocumentChanged(): Observable<DocumentDialogEvent> {
-    return this.event$.pipe(
+    return this.event.pipe(
       filter((e: DocumentDialogEvent) => e.name === 'documentChanged'),
       share(),
     );

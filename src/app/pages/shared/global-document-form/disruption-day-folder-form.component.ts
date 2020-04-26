@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from '../abstract-classes/abstract-document-form.component';
+import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 import { NuxeoApiService } from '@core/api';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
