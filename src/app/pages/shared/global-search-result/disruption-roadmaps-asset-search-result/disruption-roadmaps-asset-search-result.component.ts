@@ -1,6 +1,7 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Router } from '@angular/router';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 
@@ -17,9 +18,17 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
     private router: Router,
   ) { }
 
+  dialogMetada: any = {
+
+  };
+
   deleteRedirect: string;
+
   showEdit: string = 'preview';
+
   backButton: boolean = false;
+
+  previewComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
 
   ngOnInit() {
     // this.dialogService.onClose().subscribe(_ => {
@@ -28,8 +37,8 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
     // this.deleteRedirect = this.router.url;
   }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    // this.globalDocumentDialogService.open(dialog, doc, { title: 'Disruption Roadmaps' });
+  openDialog(dialog: TemplateRef<any>) {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   openEdit(event: any): void {

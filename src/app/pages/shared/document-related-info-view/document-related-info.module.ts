@@ -5,12 +5,14 @@ import { ThemeModule } from '@theme/theme.module';
 import { DocumentRelatedInfoComponent } from './document-related-info.component';
 import { DocumentRelatedInfoViewComponent } from './document-related-info-view/document-related-info-view.component';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
+import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ThemeModule,
     NgPipesModule,
+    GlobalDocumentDialogModule,
     DocumentThumbnailViewModule,
   ],
   declarations: [

@@ -1,6 +1,6 @@
 <div class="video-viewer {{styleName}}">
   <document-video-player [videoSources]="videoSources" [poster]="poster" [autoPlay]="autoPlay"></document-video-player>
-  <ng-container *ngIf="storyboard">
+  <ng-container *ngIf="enableStoryboard">
     <document-video-storyboard [document]="documentModel"></document-video-storyboard>
   </ng-container>
 </div>

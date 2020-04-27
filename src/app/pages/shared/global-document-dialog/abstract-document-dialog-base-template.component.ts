@@ -6,17 +6,31 @@ import { DocumentModel } from '@core/api';
 import { Subscription, timer } from 'rxjs';
 import { Environment } from '@environment/environment';
 
-export abstract class AbstractDocumentDialogTemplateComponent implements OnInit, OnDestroy {
+export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
+
+  document: DocumentModel;
+
+  @Input()
+  set metadata(metadata: any) {
+    if (metadata) {
+      this.settings = Object.assign({}, this.settings, metadata);
+    }
+  }
 
   @Input() redirectUrl: string;
 
-  @Input() document: DocumentModel;
-
   @Input() title: string = 'Global Dialog';
+
+  @Input()
+  set documentModel(doc: DocumentModel) {
+    this.setDocument(doc);
+  }
 
   @Output() callback: EventEmitter<DocumentDialogEvent> = new EventEmitter<DocumentDialogEvent>();
 
   protected subscription: Subscription = new Subscription();
+
+  protected settings: any = {};
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -32,6 +46,10 @@ export abstract class AbstractDocumentDialogTemplateComponent implements OnInit,
 
   ngOnDestroy() {
     this.onDestroy();
+  }
+
+  getSettings(): any {
+    return this.settings;
   }
 
   confirm(doc: DocumentModel, refresh: boolean = true, delay: number = 0): void {
@@ -57,16 +75,16 @@ export abstract class AbstractDocumentDialogTemplateComponent implements OnInit,
     if (this.redirectUrl) {
       this.navigate([this.redirectUrl]);
     } else {
-      this.refresh();
+      this.queryParamsService.refresh();
     }
   }
 
   navigate(commands: any[], extras?: NavigationExtras): void {
-    if (commands) {
-      this.queryParamsService.navigate(commands, extras);
-    } else {
-      this.queryParamsService.refresh();
-    }
+    this.queryParamsService.navigate(commands, extras);
+  }
+
+  assetPath(src: string): string {
+    return Environment.assetPath + src;
   }
 
   closeBtnImage(): string {
@@ -77,15 +95,17 @@ export abstract class AbstractDocumentDialogTemplateComponent implements OnInit,
     return this.assetPath('assets/images/back_icon_white.png');
   }
 
-  previewBtnImage(): string {
-    return this.assetPath('assets/images/preview_logo.png');
-  }
-
   protected onInit(): void {
   }
 
   protected onDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  protected setDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.document = doc;
+    }
   }
 
   protected onOpen(): void { }
@@ -97,10 +117,6 @@ export abstract class AbstractDocumentDialogTemplateComponent implements OnInit,
   protected onCancelled(): void { }
 
   protected onDocumentChange(event: DocumentDialogEvent): void { }
-
-  protected assetPath(src: string): string {
-    return Environment.assetPath + src;
-  }
 
   private onDocumentChanged(): void {
     const subscription = this.globalDocumentDialogService.onDocumentChanged().subscribe((e: DocumentDialogEvent) => {

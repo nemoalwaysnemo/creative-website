@@ -13,8 +13,6 @@ import { timer } from 'rxjs';
 })
 export class DocumentDialogFormComponent extends AbstractDocumentDialogContainerComponent implements DocumentModelForm {
 
-  @Input() mode: 'create' | 'edit' = 'create';
-
   formCallbackEvent: DocumentFormEvent;
 
   constructor(
@@ -33,7 +31,7 @@ export class DocumentDialogFormComponent extends AbstractDocumentDialogContainer
   protected createComponent(): void {
     if (!this.customComponent) {
       this.customComponent = this.createCustomComponent(this.dynamicTarget, this.component);
-      this.customComponent.instance.mode = this.mode;
+      this.customComponent.instance.metadata = this.metadata;
       this.customComponent.instance.documentModel = this.document;
     }
   }

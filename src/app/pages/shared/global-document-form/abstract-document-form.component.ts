@@ -5,7 +5,7 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { switchMap, tap } from 'rxjs/operators';
 
 export interface DocumentModelForm {
-  mode: string;
+  metadata: any;
   document: DocumentModel;
 }
 
@@ -27,19 +27,17 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   }
 
   @Input()
-  set docType(docType: string) {
-    if (docType) {
-      this.documentType = docType;
-    }
+  set metadata(metadata: any) {
+    this.performMetadata(metadata);
   }
-
-  @Input() mode: 'create' | 'edit' = 'create';
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   protected subscription: Subscription = new Subscription();
 
   protected documentType: string;
+
+  protected mode: 'create' | 'edit' = 'create';
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     this.onDocumentChanged();
@@ -67,6 +65,12 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.callback.next(callback);
   }
 
+  protected performMetadata(metadata: any): void {
+    if (metadata && metadata.mode) {
+      this.mode = metadata.mode;
+    }
+  }
+
   protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
     return this.nuxeoApi.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
       .pipe(
@@ -79,9 +83,14 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   }
 
   protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
-    if (this.mode === 'create') {
-      return observableOf(doc.newInstance(this.getDocType()));
-    }
+    return this.mode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
+  }
+
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+    return observableOf(doc.newInstance(this.getDocType()));
+  }
+
+  protected beforeOnEdit(doc: DocumentModel): Observable<DocumentModel> {
     return observableOf(doc);
   }
 

@@ -12,7 +12,7 @@ export class DocumentViewerComponent {
 
   @Input() autoPlay: boolean = true;
 
-  @Input() storyboard: boolean = false;
+  @Input() enableStoryboard: boolean = false;
 
   @Input() layout: 'dialogSlides' | 'slides' = 'slides';
 
@@ -21,6 +21,7 @@ export class DocumentViewerComponent {
   @Input() showRelated: boolean = false;
 
   @Input() showAction: boolean = true;
+
   getDocumentViewer(doc: DocumentModel): string {
     let type = 'unkonw';
     if (doc) {

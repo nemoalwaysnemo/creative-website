@@ -3,11 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { NbDialogModule } from '@core/nebular/theme';
 import { DocumentViewerModule } from '../../document-viewer/document-viewer.module';
+import { ShareDocumentButtonModule } from '../../share-document-button/share-document-button.module';
 import { BackslashHomeAssetDialogPreviewComponent } from './backslash-home-asset-preview/backslash-home-asset-preview.component';
 import { DocumentBackslashInfoModule } from '../../../shared/document-backslash-info/document-backslash-info.module';
+import { RelatedBackslashAssetDialogPreviewComponent } from './related-backslash-asset-preview/related-backslash-asset-preview.component';
+import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-preview/disruption-asset-preview.component';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
+  RelatedBackslashAssetDialogPreviewComponent,
+  DisruptionAssetPreviewDialogComponent,
 ];
 
 @NgModule({
@@ -15,6 +20,7 @@ const COMPONENTS = [
     CommonModule,
     ThemeModule,
     DocumentViewerModule,
+    ShareDocumentButtonModule,
     DocumentBackslashInfoModule,
     NbDialogModule.forChild(),
   ],

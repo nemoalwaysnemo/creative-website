@@ -17,7 +17,7 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
     super(nuxeoApi);
   }
 
-  protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 

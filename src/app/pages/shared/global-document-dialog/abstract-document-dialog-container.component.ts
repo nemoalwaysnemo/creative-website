@@ -1,15 +1,11 @@
 import { Input, Type, ComponentRef, ViewContainerRef, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
-import { AbstractDocumentDialogTemplateComponent } from './abstract-document-dialog-template.component';
+import { AbstractDocumentDialogBaseTemplateComponent } from './abstract-document-dialog-base-template.component';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 
-export abstract class AbstractDocumentDialogContainerComponent extends AbstractDocumentDialogTemplateComponent {
-
-  @Input() document: DocumentModel;
-
-  @Input() title: string = 'Global Dialog';
+export abstract class AbstractDocumentDialogContainerComponent extends AbstractDocumentDialogBaseTemplateComponent {
 
   @Input() component: Type<any>;
 
