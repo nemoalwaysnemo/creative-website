@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef, OnInit } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
-import { DocumentViewService } from '@pages/shared/services/document-view.service';
+import { DocumentViewService } from '../services/document-view.service';
 @Component({
   selector: 'document-thumbnail-view',
   styleUrls: ['./document-thumbnail-view.component.scss'],

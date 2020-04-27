@@ -35,8 +35,8 @@ export class BizDevFormButtonComponent {
   constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
   }
 
-  openForm(dialog: any): void {
-    this.globalDocumentDialogService.open(dialog, this.document);
+  openDialog(dialog: any): void {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   private getFormComponent(type: string): Type<DocumentModelForm> {

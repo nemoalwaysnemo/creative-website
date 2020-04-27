@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearch, UserService, SearchFilterModel } from '@core/api';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
 import { AbstractFavoriteDocumentViewComponent } from '../abstract-favorite-document-view.component';
 import { TAB_CONFIG } from '../favorite-tab-config';
 
@@ -23,9 +23,9 @@ export class AllFavoritesComponent extends AbstractFavoriteDocumentViewComponent
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
-    protected previewDialogService: PreviewDialogService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected userService: UserService) {
-    super(advanceSearch, activatedRoute, queryParamsService, previewDialogService, userService);
+    super(advanceSearch, activatedRoute, queryParamsService, globalDocumentDialogService, userService);
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {

@@ -8,6 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
   templateUrl: './disruption-form-roadmap.component.html',
 })
 export class DisruptionFormRoadmapComponent extends AbstractDisruptionForm {
+
   protected parentType = AbstractDisruptionForm.ROADMAP;
 
   protected getSettings(): object[] {

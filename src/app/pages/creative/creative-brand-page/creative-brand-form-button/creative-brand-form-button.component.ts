@@ -35,12 +35,8 @@ export class CreativeBrandFormButtonComponent {
   constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
   }
 
-  openForm(dialog: any): void {
-    this.globalDocumentDialogService.open(dialog, this.document);
-  }
-
-  onCreated(doc: DocumentModel): void {
-
+  openDialog(dialog: any): void {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   private getFormComponent(type: string): Type<DocumentModelForm> {

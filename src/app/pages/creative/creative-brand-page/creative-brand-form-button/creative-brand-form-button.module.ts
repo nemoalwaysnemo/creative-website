@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { CreativeBrandFormButtonComponent } from './creative-brand-form-button.component';
-import { SharedModule } from '../../../shared/shared.module';
 import { ACLModule } from '@core/acl';
+import { GlobalDocumentDialogModule } from '@pages/shared';
+import { CreativeBrandFormButtonComponent } from './creative-brand-form-button.component';
 
 @NgModule({
   imports: [
     ThemeModule,
-    SharedModule,
     ACLModule,
+    GlobalDocumentDialogModule,
   ],
   declarations: [
     CreativeBrandFormButtonComponent,

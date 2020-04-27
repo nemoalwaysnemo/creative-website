@@ -4,6 +4,7 @@ import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/ap
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services/helpers';
+import { DocumentFormEvent } from './document-form.interface';
 
 @Component({
   selector: 'document-form',
@@ -64,11 +65,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.formLayout = layout;
   }
 
-  @Output() onCreated: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
-  @Output() onUpdated: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-  @Output() onCanceled: EventEmitter<DocumentModel> = new EventEmitter<DocumentModel>();
-  @Output() callback: EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel | {} }>
-    = new EventEmitter<{ action: 'cancel' | 'created' | 'updated', message: any, doc: DocumentModel }>();
+  @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
     this.onDocumentChanged();
@@ -112,8 +109,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onCancel($event: any): void {
-    this.callback.emit({ action: 'cancel', message: '', doc: {} });
-    // this.onCanceled.next(this.documentModel);
+    this.callback.emit({ action: 'canceled', message: { type: 'info', content: '' }, doc: this.documentModel });
   }
 
   private checkfiles(doc: DocumentModel): DocumentModel {
@@ -214,8 +210,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       });
     }
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
-      this.callback.next({ action: 'created', message: 'created successfully!', doc: models });
-      this.onCreated.next(models); // this can be delete after our dialog refactor all done
+      this.callback.next({ action: 'created', message: { type: 'success', content: 'created successfully!' }, doc: models });
     });
   }
 
@@ -228,8 +223,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       }
     }
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
-      this.callback.next({ action: 'updated', message: 'updated successfully!', doc: model });
-      this.onUpdated.next(model); // this can be delete after our dialog refactor all done
+      this.callback.next({ action: 'updated', message: { type: 'success', content: 'updated successfully!' }, doc: model });
     });
   }
 

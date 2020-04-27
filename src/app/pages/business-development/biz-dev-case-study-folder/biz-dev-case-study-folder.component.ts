@@ -28,8 +28,7 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
-    protected previewDialogService: PreviewDialogService) {
+    protected queryParamsService: SearchQueryParamsService) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -106,12 +105,7 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
     return params;
   }
 
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.document);
-  }
-
-  onCreated(doc: DocumentModel): void {
-    this.refresh();
+  openDialog(dialog: any): void {
   }
 
 }

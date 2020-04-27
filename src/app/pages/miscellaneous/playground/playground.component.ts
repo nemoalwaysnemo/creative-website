@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DocumentModel, DocumentRepository } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
-import { PreviewDialogService, OptionModel } from '@pages/shared';
+import { GlobalDocumentDialogService, OptionModel } from '@pages/shared';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 import { concatMap, map } from 'rxjs/operators';
 
@@ -16,7 +16,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   document: DocumentModel;
 
-  constructor(private documentRepository: DocumentRepository, private previewDialogService: PreviewDialogService) {
+  constructor(private documentRepository: DocumentRepository, private globalDocumentDialogService: GlobalDocumentDialogService) {
 
   }
   ngOnInit(): void {
@@ -32,8 +32,8 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.document, { subDocTypes: ['App-Library-Image'] });
+  openDialog(dialog: any): void {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   private create(): void {
