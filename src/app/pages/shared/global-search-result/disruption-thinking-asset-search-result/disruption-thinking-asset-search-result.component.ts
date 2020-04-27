@@ -1,6 +1,7 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentModel } from '@core/api';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 
@@ -18,8 +19,12 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
   ) { }
 
   deleteRedirect: string;
+
   backButton: boolean = false;
+
   showEdit: string = 'preview';
+
+  previewComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
 
   ngOnInit() {
     // this.dialogService.onClose().subscribe(_ => {
@@ -28,8 +33,8 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
     // this.deleteRedirect = this.router.url;
   }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    // this.globalDocumentDialogService.open(dialog, doc, { title: 'Brilliant Thinking' });
+  openDialog(dialog: TemplateRef<any>): void {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   openEdit(event): void {

@@ -1,49 +1,48 @@
-import { Component, Input } from '@angular/core';
-import { NuxeoPermission, DocumentModel } from '@core/api';
+import { Component } from '@angular/core';
+import { DocumentModel, NuxeoPermission } from '@core/api';
+import { getDocumentTypes } from '@core/services/helpers';
+import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
+import { SearchQueryParamsService } from '../../../services/search-query-params.service';
+import { AbstractDocumentDialogPreviewTemplateComponent } from '../../abstract-document-dialog-preview-template.component';
 import { Observable, of as observableOf } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
-import { getDocumentTypes } from '@core/services/helpers';
 
 @Component({
-  selector: 'disruption-asset-preview-dialog-body',
-  styleUrls: ['../preview-dialog-body.scss'],
-  templateUrl: './disruption-asset-preview-dialog-body.component.html',
+  selector: 'disruption-asset-preview',
+  styleUrls: ['../global-document-dialog-template.scss'],
+  templateUrl: './disruption-asset-preview.component.html',
 })
-export class DisruptionAssetPreviewDialogBodyComponent  {
+export class DisruptionAssetPreviewDialogComponent extends AbstractDocumentDialogPreviewTemplateComponent {
 
-  title: string;
+  attachments: { type: string, url: string, title: string }[] = [];
 
   writePermission$: Observable<boolean> = observableOf(false);
 
   deletePermission$: Observable<boolean> = observableOf(false);
 
-  @Input() moreInfo: boolean = false;
-
-  @Input() editButton: boolean = false;
-
-  @Input() deleteButton: boolean = true;
-
-  @Input() previewButton: boolean = false;
-
-  attachments: { type: string, url: string, title: string }[] = [];
-
-  // constructor(protected dialogService: GlobalDocumentDialogService) {
-    // super(dialogService);
-  // }
-
-  protected initDocument(res: any) {
-    this.title = res.options.title;
-    // this.writePermission$ = this.editButton && this.document.hasPermission(NuxeoPermission.Write);
-    // this.deletePermission$ = this.deleteButton && this.document.hasPermission(NuxeoPermission.Delete);
-    // this.attachments = this.document.getAttachmentList();
+  constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    protected queryParamsService: SearchQueryParamsService,
+  ) {
+    super(globalDocumentDialogService, queryParamsService);
   }
 
-  openEditDialog(): void {
-    // this.callback.next({ type: 'openEdit', value: true });
+  protected setDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.document = doc;
+      this.attachments = this.document.getAttachmentList();
+      this.writePermission$ = this.document.hasPermission(NuxeoPermission.Write);
+      this.deletePermission$ = this.document.hasPermission(NuxeoPermission.Delete);
+    }
   }
 
-  openDeleteDialog(): void {
-    // this.callback.next({ type: 'openDelete', value: true });
+  protected getPreviewSettings(): any {
+    return {
+      moreInfo: false,
+      enableEdit: false,
+      enablePreview: false,
+      enableDeletion: false,
+    };
   }
 
   isDisruptionAsset(doc: DocumentModel): boolean {

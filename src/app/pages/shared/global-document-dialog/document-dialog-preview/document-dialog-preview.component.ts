@@ -25,6 +25,7 @@ export class DocumentDialogPreviewComponent extends AbstractDocumentDialogContai
   protected createComponent(): void {
     if (!this.customComponent) {
       this.customComponent = this.createCustomComponent(this.dynamicTarget, this.component);
+      this.customComponent.instance.metadata = this.metadata;
       this.customComponent.instance.document = this.document;
     }
   }

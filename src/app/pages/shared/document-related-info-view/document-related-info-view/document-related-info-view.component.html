@@ -22,39 +22,44 @@
   <div class="clear"></div>
 </ng-template>
 <document-thumbnail-view [loading]="loading" [layout]="'my_agency dates full-width'" [noResultText]="noResultText" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
+
 <ng-template #backslashThumbnailItemView let-doc="doc">
   <div class="backslash">
     <h4>{{doc.title}}</h4>
     <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
-    <!-- <a (click)="open(backslashDialog, doc, 'Backslash')"><img src="{{doc.thumbnailUrl}}" [alt]="doc.title" class="thumbnail-img"></a> -->
     <div class="image-holder">
-      <a [title]="doc.title" (click)="open(backslashDialog, doc, 'Backslash')" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a [title]="doc.title" (click)="openDialog(backslashDialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
   </div>
   <ng-template #backslashDialog>
+    <global-document-dialog [type]="'preview'" [previewComponent]="backslashDialogComponent" [documentModel]="doc"></global-document-dialog>
   </ng-template>
 </ng-template>
+
 <ng-template #disruptionThumbnailItemView let-doc="doc">
   <div class="disruption">
     <div class="image-holder">
-      <a (click)="open(disruptionDialog, doc, 'Disruption')" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a (click)="openDialog(disruptionDialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
       <h1 [title]="doc.title">{{doc.title}}</h1>
     </div>
   </div>
   <ng-template #disruptionDialog>
+    <global-document-dialog [type]="'preview'" [previewComponent]="disruptionDialogComponent" [documentModel]="doc"></global-document-dialog>
   </ng-template>
 </ng-template>
+
 <ng-template #intelligenceThumbnailItemView let-doc="doc">
   <div class="intelligence">
     <div class="image-holder">
-      <a (click)="open(intelligenceDialog, doc, 'Intelligence')" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a (click)="openDialog(intelligenceDialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
       <h1 [title]="doc.title">{{doc.title}}</h1>
     </div>
   </div>
   <ng-template #intelligenceDialog>
+    <global-document-dialog [type]="'preview'" [previewComponent]="intelligenceComponent" [documentModel]="doc"></global-document-dialog>
   </ng-template>
 </ng-template>

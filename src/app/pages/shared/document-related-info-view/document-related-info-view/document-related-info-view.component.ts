@@ -1,10 +1,11 @@
 import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { TabInfo } from '../document-related-info.component';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters } from '@core/api';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
+import { TabInfo } from '../document-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
@@ -52,6 +53,12 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   noResultText: string;
 
+  backslashDialogComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_BACKSLASH_ASSET_PREIVEW;
+
+  disruptionDialogComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
+
+  intelligenceComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
+
   constructor(
     private advanceSearch: AdvanceSearch,
     private globalDocumentDialogService: GlobalDocumentDialogService,
@@ -66,17 +73,17 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    // this.globalDocumentDialogService.open(dialog, doc, { title: type });
+  openDialog(dialog: TemplateRef<any>): void {
+    this.globalDocumentDialogService.open(dialog);
   }
 
-  onKeyup(event: KeyboardEvent) {
+  onKeyup(event: KeyboardEvent): void {
     this.search$.next(this.getSearchParams(this.document));
     event.preventDefault();
     event.stopImmediatePropagation();
   }
 
-  getBackslashEdgeUrl(name: string) {
+  getBackslashEdgeUrl(name: string): string {
     return Environment.backslashAppUrl + `/#/list/edge/${name}/`;
   }
 

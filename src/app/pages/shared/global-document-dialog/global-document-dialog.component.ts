@@ -25,8 +25,6 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
 
   @Input() generalComponent: Type<any>;
 
-  @Input() data: any;
-
   currentView: 'preview' | 'form' | 'general';
 
   @ViewChild('previewTarget', { static: true, read: ViewContainerRef }) previewTarget: ViewContainerRef;
@@ -74,24 +72,18 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
   }
 
   protected createFormComponent(): void {
-    const component = this.buildComponent('form', DocumentDialogFormComponent);
-    if (component) {
-      this.formComponentRef.instance.mode = (this.data || { mode: 'create' }).mode;
-    }
+    this.buildComponent('form', DocumentDialogFormComponent);
   }
 
   protected createGeneralComponent(): void {
-    const component = this.buildComponent('general', DocumentDialogGeneralComponent);
-    if (component) {
-      this.customComponent.instance.callback.subscribe((e: DocumentDialogEvent) => {
-      });
-    }
+    this.buildComponent('general', DocumentDialogGeneralComponent);
   }
 
   protected buildComponent(type: string, component: Type<any>): ComponentRef<any> {
     if (!this[`${type}ComponentRef`] && this[`${type}Component`]) {
       this[`${type}ComponentRef`] = this.createCustomComponent(this[`${type}Target`], component);
       this[`${type}ComponentRef`].instance.title = this.title;
+      this[`${type}ComponentRef`].instance.metadata = this.metadata;
       this[`${type}ComponentRef`].instance.document = this.document;
       this[`${type}ComponentRef`].instance.component = this[`${type}Component`];
     }

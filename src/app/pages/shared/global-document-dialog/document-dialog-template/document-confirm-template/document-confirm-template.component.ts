@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { AbstractDocumentDialogTemplateComponent } from '../../abstract-document-dialog-template.component';
+import { Component } from '@angular/core';
+import { AbstractDocumentDialogBaseTemplateComponent } from '../../abstract-document-dialog-base-template.component';
 import { SearchQueryParamsService } from '../../../../shared/services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 
@@ -8,7 +8,7 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
   styleUrls: ['./document-confirm-template.component.scss'],
   templateUrl: './document-confirm-template.component.html',
 })
-export class DocumentConfirmDialogComponent extends AbstractDocumentDialogTemplateComponent {
+export class DocumentConfirmDialogComponent extends AbstractDocumentDialogBaseTemplateComponent {
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

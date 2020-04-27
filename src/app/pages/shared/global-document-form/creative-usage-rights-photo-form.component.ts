@@ -18,7 +18,7 @@ export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormCompo
     super(nuxeoApi);
   }
 
-  protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 
