@@ -9,7 +9,7 @@ import { CreativeCampaignFormComponent } from './creative-asset-campaign-form.co
 import { CreativeProjectFormComponent } from './creative-asset-project-form.component';
 import { DisruptionRoadmapFormComponent } from './disruption-roadmap-form.component';
 import { DisruptionDayFolderFormComponent } from './disruption-day-folder-form.component';
-import { DisruptionBrilliantThinkingFormComponent } from './disruption-brilliant-thinking-form.compoent';
+import { DisruptionBrilliantThinkingFormComponent } from './disruption-brilliant-thinking-form.component';
 import { DisruptionDayAssetFormComponent } from './disruption-day-asset-form-component';
 import { DisruptionHowTosAssetFormComponent } from './disruption-how-tos-asset-form.component';
 import { IntelligenceBrandsFormComponent } from './intelligence-brands-form.component';

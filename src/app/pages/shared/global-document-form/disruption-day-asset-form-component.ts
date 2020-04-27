@@ -10,7 +10,9 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionDayAssetFormComponent extends AbstractDocumentFormComponent {
+
   protected documentType: string = 'App-Disruption-Day-Asset';
+
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
   }

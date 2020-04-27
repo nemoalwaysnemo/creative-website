@@ -3,15 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NbSpinnerModule } from '@core/nebular/theme';
 import { DisruptionFolderViewComponent } from './disruption-folder-view.component';
-import { GlobalDocumentDialogModule, DisruptionFormDayModule, DisruptionFormTheoryModule } from '@pages/shared';
+import { GlobalDocumentDialogModule } from '@pages/shared';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NbSpinnerModule,
-    DisruptionFormDayModule,
-    DisruptionFormTheoryModule,
     GlobalDocumentDialogModule,
   ],
   declarations: [
