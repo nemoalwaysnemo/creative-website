@@ -1,0 +1,13 @@
+<div class="dialog-title">
+  <a (click)="close()"><img [src]="closeBtnImage()"></a>
+</div>
+<div class="dialog-body">
+  <ng-container *ngIf="document">
+    <div class="media">
+      <document-viewer [document]="document" [enableActions]="false"></document-viewer>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <document-backslash-info [document]="document"></document-backslash-info>
+  </ng-container>
+</div>

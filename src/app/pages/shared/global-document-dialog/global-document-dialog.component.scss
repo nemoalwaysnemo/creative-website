@@ -17,10 +17,10 @@
   vertical-align: middle;
 }
 
-.dialog_body {
+.dialog-body {
   max-height: 800px;
   // overflow: auto;
-  .dialog_title {
+  .dialog-title {
     height: 80px;
     padding: 24px 0;
     box-sizing: border-box;
@@ -56,7 +56,7 @@
       width: 100%;
     }
   }
-  .text_content {
+  .text-content {
     background: #ffffff;
     .controls {
       width: 100%;

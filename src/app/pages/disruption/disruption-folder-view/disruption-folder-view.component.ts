@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { PreviewDialogService, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
@@ -40,7 +40,7 @@ export class DisruptionFolderViewComponent {
   deletePermission$: Observable<boolean> = observableOf(false);
 
   constructor(
-    protected previewDialogService: PreviewDialogService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
@@ -55,7 +55,7 @@ export class DisruptionFolderViewComponent {
 
   openDialog(dialog: any, type): void {
     this.showEdit = type;
-    this.previewDialogService.open(dialog, this.doc, { type: this.doc.type });
+    this.globalDocumentDialogService.open(dialog, this.doc);
   }
 
   onUpdate(doc: DocumentModel): void {

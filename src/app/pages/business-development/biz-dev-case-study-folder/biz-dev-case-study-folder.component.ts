@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoEnricher, SearchFilterModel } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService, PreviewDialogService } from '@pages/shared';
+import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
@@ -28,8 +28,7 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
-    protected previewDialogService: PreviewDialogService) {
+    protected queryParamsService: SearchQueryParamsService) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -60,17 +59,17 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
+      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
     };
   }
 
   protected buildAssetsParams(doc?: DocumentModel): any {
-    if (doc.type === 'App-Disruption-Theory-Folder') {
+    if (doc.type === 'App-BizDev-CaseStudy-Folder') {
       if (doc.hasFolderishChild) {
         return this.buildSubFolderParams(doc);
       } else {
-        return this.buildTheoryAssetParams(doc);
+        return this.buildCaseAssetParams(doc);
       }
     }
     return {};
@@ -78,8 +77,8 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
 
   protected buildSubFolderParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
+      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
@@ -90,10 +89,12 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
     return params;
   }
 
-  protected buildTheoryAssetParams(doc?: DocumentModel): any {
+  protected buildCaseAssetParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      ecm_mixinType_not_in: '', // override
+      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,
+      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
@@ -104,12 +105,7 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
     return params;
   }
 
-  openForm(dialog: any): void {
-    this.previewDialogService.open(dialog, this.document);
-  }
-
-  onCreated(doc: DocumentModel): void {
-    this.refresh();
+  openDialog(dialog: any): void {
   }
 
 }

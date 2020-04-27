@@ -25,7 +25,7 @@ export class DocumentVideoViewerComponent {
 
   @Input() autoPlay: boolean = false;
 
-  @Input() storyboard: boolean = true;
+  @Input() enableStoryboard: boolean = true;
 
   private buildVideoInfo(doc: DocumentModel): void {
     this.poster = doc.videoPoster;

@@ -1,8 +1,9 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { PreviewDialogService } from '@pages/shared/preview-dialog';
-import { SearchQueryParamsService } from '@pages/shared/services/search-query-params.service';
 import { Router } from '@angular/router';
+import { DocumentModel } from '@core/api';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
+import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 
 @Component({
   selector: 'disruption-thinking-asset-search-result',
@@ -12,25 +13,28 @@ import { Router } from '@angular/router';
 export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
 
   constructor(
-    private dialogService: PreviewDialogService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
     private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 
   deleteRedirect: string;
+
   backButton: boolean = false;
+
   showEdit: string = 'preview';
 
-  ngOnInit() {
-    this.dialogService.onClose().subscribe(_ => {
-      this.showEdit = 'preview';
-    });
-    this.deleteRedirect = this.router.url;
+  previewComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
 
+  ngOnInit() {
+    // this.dialogService.onClose().subscribe(_ => {
+    //   this.showEdit = 'preview';
+    // });
+    // this.deleteRedirect = this.router.url;
   }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, { title: 'Brilliant Thinking' });
+  openDialog(dialog: TemplateRef<any>): void {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   openEdit(event): void {
@@ -55,7 +59,7 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
   }
 
   refresh(doc: any): void {
-    this.dialogService.setDocument(doc);
+    // this.dialogService.setDocument(doc);
     this.queryParamsService.refresh();
   }
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { GlobalSearchFormModule, GlobalSearchResultModule, PreviewDialogModule } from '@pages/shared';
+import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { FavoriteDisruptionComponent } from './favorite-disruption.component';
 
 @NgModule({
@@ -8,7 +8,6 @@ import { FavoriteDisruptionComponent } from './favorite-disruption.component';
     ThemeModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
-    PreviewDialogModule,
   ],
   declarations: [
     FavoriteDisruptionComponent,

@@ -1,8 +1,9 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { PreviewDialogService } from '@pages/shared/preview-dialog';
-import { SearchQueryParamsService } from '@pages/shared/services/search-query-params.service';
 import { Router } from '@angular/router';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
+import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 
 @Component({
   selector: 'disruption-roadmaps-asset-search-result',
@@ -12,24 +13,32 @@ import { Router } from '@angular/router';
 export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
 
   constructor(
-    private dialogService: PreviewDialogService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
     private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 
+  dialogMetada: any = {
+
+  };
+
   deleteRedirect: string;
+
   showEdit: string = 'preview';
+
   backButton: boolean = false;
 
+  previewComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
+
   ngOnInit() {
-    this.dialogService.onClose().subscribe(_ => {
-      this.showEdit = 'preview';
-    });
-    this.deleteRedirect = this.router.url;
+    // this.dialogService.onClose().subscribe(_ => {
+    //   this.showEdit = 'preview';
+    // });
+    // this.deleteRedirect = this.router.url;
   }
 
-  open(dialog: TemplateRef<any>, doc: DocumentModel, type: string) {
-    this.dialogService.open(dialog, doc, { title: 'Disruption Roadmaps' });
+  openDialog(dialog: TemplateRef<any>) {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   openEdit(event: any): void {
@@ -54,7 +63,7 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
   }
 
   reflash(doc: any): void {
-    this.dialogService.setDocument(doc);
+    // this.dialogService.setDocument(doc);
     this.queryParamsService.refresh();
   }
 }
