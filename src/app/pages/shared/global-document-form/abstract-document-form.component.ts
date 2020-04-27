@@ -26,10 +26,7 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.setFormDocument(doc);
   }
 
-  @Input()
-  set metadata(metadata: any) {
-    this.performMetadata(metadata);
-  }
+  @Input() metadata: any;
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
@@ -37,7 +34,7 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   protected documentType: string;
 
-  protected mode: 'create' | 'edit' = 'create';
+  protected formMode: 'create' | 'edit';
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     this.onDocumentChanged();
@@ -58,17 +55,12 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   setFormDocument(doc: DocumentModel): void {
     if (doc) {
       this.document$.next(doc);
+      this.formMode = doc.uid ? 'edit' : 'create';
     }
   }
 
   onCallback(callback: DocumentFormEvent): void {
     this.callback.next(callback);
-  }
-
-  protected performMetadata(metadata: any): void {
-    if (metadata && metadata.mode) {
-      this.mode = metadata.mode;
-    }
   }
 
   protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
@@ -83,7 +75,7 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   }
 
   protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
-    return this.mode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
+    return this.formMode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {

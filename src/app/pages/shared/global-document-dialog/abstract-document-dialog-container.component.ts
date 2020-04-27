@@ -30,7 +30,7 @@ export abstract class AbstractDocumentDialogContainerComponent extends AbstractD
     return dynamicTarget.createComponent(componentFactory);
   }
 
-  protected abstract createComponent(): void;
+  protected abstract createComponent(type?: string): void;
 
   protected onInit(): void {
     this.createComponent();

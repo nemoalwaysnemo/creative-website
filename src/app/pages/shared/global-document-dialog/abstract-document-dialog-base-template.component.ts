@@ -1,9 +1,10 @@
 import { OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { NavigationExtras } from '@angular/router';
 import { DocumentModel } from '@core/api';
-import { Subscription, timer } from 'rxjs';
+import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
+import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { Subscription, timer, Subject, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Environment } from '@environment/environment';
 
 export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
@@ -30,6 +31,8 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
 
   protected subscription: Subscription = new Subscription();
 
+  private lifeCycle$ = new Subject<string>();
+
   protected settings: any = {};
 
   constructor(
@@ -42,6 +45,7 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
 
   ngOnInit() {
     this.onInit();
+    this.lifeCycle$.next('onInit');
   }
 
   ngOnDestroy() {
@@ -96,6 +100,7 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
   }
 
   protected onInit(): void {
+
   }
 
   protected onDestroy(): void {
@@ -108,9 +113,9 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
     }
   }
 
-  protected onOpen(): void { }
+  protected onOpen(e: DocumentDialogEvent): void { }
 
-  protected onClose(): void { }
+  protected onClose(e: DocumentDialogEvent): void { }
 
   protected onConfirmed(doc: DocumentModel): void { }
 
@@ -127,8 +132,13 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
   }
 
   private registerListeners(): void {
-    this.globalDocumentDialogService.onOpen().subscribe(_ => { this.onOpen(); });
-    this.globalDocumentDialogService.onClose().subscribe(_ => { this.onClose(); });
+    const a = zip(
+      this.globalDocumentDialogService.onOpen(),
+      this.lifeCycle$,
+    ).pipe(map(_ => _.shift())).subscribe((e: DocumentDialogEvent) => { this.onOpen(e); });
+    const b = this.globalDocumentDialogService.onClose().subscribe((e: DocumentDialogEvent) => { this.onClose(e); });
+    this.subscription.add(a);
+    this.subscription.add(b);
   }
 
 }

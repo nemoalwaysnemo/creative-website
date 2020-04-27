@@ -104,7 +104,7 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
   }
 
   openDialog(dialog: any): void {
-    this.globalDocumentDialogService.open(dialog, this.document);
+    this.globalDocumentDialogService.open(dialog);
   }
 
   ngOnDestroy() {

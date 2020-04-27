@@ -104,7 +104,7 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
   }
 
   openDialog(dialog: any): void {
-    this.globalDocumentDialogService.open(dialog, this.document);
+    this.globalDocumentDialogService.open(dialog);
   }
 
 }
