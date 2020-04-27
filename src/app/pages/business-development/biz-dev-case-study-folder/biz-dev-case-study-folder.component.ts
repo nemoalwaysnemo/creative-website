@@ -92,7 +92,8 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
 
   protected buildCaseAssetParams(doc?: DocumentModel): any {
     const params = {
-      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,
