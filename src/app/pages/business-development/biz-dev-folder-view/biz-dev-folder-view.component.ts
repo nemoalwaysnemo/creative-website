@@ -80,6 +80,12 @@ export class BizDevFolderViewComponent {
           'urlRootPath': '/p/business-development/Thought Leadership/',
           'urlParentPath': '/p/business-development/Thought Leadership/folder/',
         };
+      case 'App-BizDev-CaseStudy-Folder':
+        return {
+          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
+          'urlRootPath': '/p/business-development/Case Studies/',
+          'urlParentPath': '/p/business-development/Case Studies/folder/',
+        };
       default:
         return {};
     }
