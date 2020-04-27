@@ -6,7 +6,7 @@
         [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
     </ng-container>
     <ng-container *ngIf="doc.type == 'App-BizDev-CaseStudy-Asset'">
-      <a [routerLink]="['/p/business-development/Case Studies/asset/', doc.uid]" [queryParams]="queryParams"
+      <a [routerLink]="['/p/business-development/Case Studies/folder/'+ folderId +'/asset/', doc.uid]" [queryParams]="queryParams"
         [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
     </ng-container>
   </div>

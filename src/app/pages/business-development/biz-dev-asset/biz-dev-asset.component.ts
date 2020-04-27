@@ -20,8 +20,10 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent implemen
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
+    ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_ALL_FOLDER_TYPES,
+    // ecm_mixinType_not_in: '', // override
+    // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
   };
 
   constructor(
@@ -44,8 +46,8 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent implemen
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,
+      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
+      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE,
       // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       ecm_mixinType_not_in: '', // override
     };
