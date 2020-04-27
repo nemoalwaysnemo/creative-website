@@ -93,6 +93,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return doc && getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
   }
 
+  isBizDevAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE).includes(doc.type);
+  }
+
   toggleJob(doc: DocumentModel) {
     if (this.jobTitle === undefined && this.hasJobValue(doc)) {
       this.advanceSearch.request(this.getRequestParams(doc))
