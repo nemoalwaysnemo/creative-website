@@ -16,4 +16,5 @@ export class BizDevThoughtLeadershipAssetSearchResultComponent extends AbstractS
   protected onInit(): void {
     this.onQueryParamsChanged();
   }
+
 }
