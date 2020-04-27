@@ -82,7 +82,7 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
   }
 
   openDialog(dialog: any): void {
-    this.globalDocumentDialogService.open(dialog, this.document);
+    this.globalDocumentDialogService.open(dialog);
   }
 
 }

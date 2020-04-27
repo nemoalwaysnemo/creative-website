@@ -110,7 +110,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
   }
 
   openDialog(dialog: any): void {
-    this.globalDocumentDialogService.open(dialog, this.document);
+    this.globalDocumentDialogService.open(dialog);
   }
 
   onCreated(docs: DocumentModel[]): void {

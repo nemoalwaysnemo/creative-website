@@ -2,7 +2,6 @@
   <div *ngIf="doc" class="property-section">
     <a [routerLink]="[getAssetUrl(doc),  doc.uid]" class="property-intro inline-top">
       <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
-      <!-- <img src="{{doc.thumbnailUrl}}" class="thumbnail-img"> -->
     </a>
     <div class="property-info inline-top">
       <h1>{{ doc.title }}</h1>
@@ -21,17 +20,15 @@
         <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
       </ng-container>
       <ng-container *ngIf="writePermission$ | async">
-        <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn left">Edit</button>
+        <button type="button" (click)="openDialog(dialog)" class="icon_btn left">Edit</button>
       </ng-container>
       <ng-container *ngIf="!isDisruptionAsset(doc) && deletePermission$ | async">
-        <button type="button" (click)="openDialog(dialog, 'delete')" class="icon_btn left">Delete</button>
-      </ng-container>
-      <ng-container *ngIf="isDisruptionAsset(doc) && deletePermission$ | async">
-        <button type="button" (click)="openDialog(dialog, 'deleteSoft')" class="icon_btn left">Delete</button>
+        <button type="button" (click)="openDialog(dialog)" class="icon_btn left">Delete</button>
       </ng-container>
       <div class="clear"></div>
     </div>
   </div>
 </div>
 <ng-template #dialog>
+  <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(doc)" [documentModel]="doc"></global-document-dialog>
 </ng-template>

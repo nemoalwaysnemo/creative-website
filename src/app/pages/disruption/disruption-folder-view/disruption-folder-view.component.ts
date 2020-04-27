@@ -5,6 +5,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services/helpers';
+import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 
 @Component({
   selector: 'disruption-folder-view',
@@ -15,14 +16,14 @@ import { getDocumentTypes } from '@core/services/helpers';
 export class DisruptionFolderViewComponent {
 
   @Input() loading: boolean;
-  showEdit: string = 'edit';
+
   @Input() deleteRedirect: string = '';
 
   @Input() assetUrl: string;
+
   @Input() backAssetFlag: boolean = false;
 
   @Input() assetUrlMapping: object = {};
-  @Input() doc: DocumentModel;
 
   @Input() showButton: boolean = true;
 
@@ -36,7 +37,12 @@ export class DisruptionFolderViewComponent {
     }
   }
 
+  doc: DocumentModel;
+
+  showEdit: string = 'edit';
+
   writePermission$: Observable<boolean> = observableOf(false);
+
   deletePermission$: Observable<boolean> = observableOf(false);
 
   constructor(
@@ -44,6 +50,18 @@ export class DisruptionFolderViewComponent {
     protected queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
+
+  isDisruptionAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
+  }
+
+  getDocumentFormComponent(doc: DocumentModel): any {
+    if (doc.type === 'App-Disruption-Day') {
+      return GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM;
+    } else if (doc.type === 'App-Disruption-Theory-Folder') {
+      return GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+    }
+  }
 
   getAssetUrl(doc: DocumentModel): string {
     return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
@@ -53,9 +71,9 @@ export class DisruptionFolderViewComponent {
     return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
   }
 
-  openDialog(dialog: any, type): void {
-    this.showEdit = type;
-    this.globalDocumentDialogService.open(dialog, this.doc);
+  openDialog(dialog: any, view: string): void {
+    this.showEdit = view;
+    this.globalDocumentDialogService.open(dialog);
   }
 
   onUpdate(doc: DocumentModel): void {
@@ -94,7 +112,5 @@ export class DisruptionFolderViewComponent {
     }
   }
 
-  isDisruptionAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
-  }
+
 }

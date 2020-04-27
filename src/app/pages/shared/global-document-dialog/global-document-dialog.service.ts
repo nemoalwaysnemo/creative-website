@@ -1,7 +1,7 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@core/nebular/theme';
 import { Observable, Subject, timer } from 'rxjs';
-import { share, filter } from 'rxjs/operators';
+import { share, filter, map } from 'rxjs/operators';
 import { GoogleAnalyticsService } from '@core/services';
 import { DocumentModel } from '@core/api';
 
@@ -9,7 +9,12 @@ export class DocumentDialogEvent {
   readonly name: string;
   readonly message?: string;
   readonly doc?: DocumentModel;
-  readonly options?: any = {};
+  readonly options?: DocumentDialogOption = {};
+}
+
+export interface DocumentDialogOption {
+  [key: string]: any;
+  view?: string;
 }
 
 @Injectable({
@@ -19,10 +24,34 @@ export class GlobalDocumentDialogService {
 
   private event: Subject<DocumentDialogEvent> = new Subject<DocumentDialogEvent>();
 
-  private options: any = {};
+  private options: DocumentDialogOption = {};
 
   constructor(private dialogService: NbDialogService, private googleAnalyticsService: GoogleAnalyticsService) {
 
+  }
+
+  open(dialog: TemplateRef<any>, options: DocumentDialogOption = {}): void {
+    this.options = options;
+    this.dialogService.open(dialog);
+    // this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': doc.uid });
+  }
+
+  close(): void {
+    this.dialogService.close();
+  }
+
+  onOpen(): Observable<DocumentDialogEvent> {
+    return this.dialogService.onOpen().pipe(
+      map(_ => ({ name: 'Opened', message: 'Opened', options: this.options })),
+      share(),
+    );
+  }
+
+  onClose(): Observable<any> {
+    return this.dialogService.onClose().pipe(
+      map(_ => ({ name: 'Closed', message: 'Closed', options: this.options })),
+      share(),
+    );
   }
 
   onEvent(name?: string): Observable<DocumentDialogEvent> {
@@ -34,37 +63,18 @@ export class GlobalDocumentDialogService {
     return this;
   }
 
-  open(dialog: TemplateRef<any>, options: any = {}): void {
-    this.options = options;
-    this.dialogService.open(dialog);
-    this.triggerEvent({ name: 'open', message: 'Open' });
-    // this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': doc.uid });
-  }
-
-  onOpen(): Observable<DocumentDialogEvent> {
-    return this.dialogService.onOpen();
-  }
-
-  close(): void {
-    this.dialogService.close();
-  }
-
-  onClose(): Observable<any> {
-    return this.dialogService.onClose();
-  }
-
   selectView(name: string): void {
-    this.triggerEvent({ name: 'viewChanged', message: 'View Changed', options: { view: name } });
+    this.triggerEvent({ name: 'ViewChanged', message: 'View Changed', options: { view: name } });
   }
 
   setDocument(doc: DocumentModel, options: any = {}): this {
-    this.triggerEvent({ name: 'documentChanged', message: 'Document Changed', doc, options });
+    this.triggerEvent({ name: 'DocumentChanged', message: 'Document Changed', doc, options });
     return this;
   }
 
   onDocumentChanged(): Observable<DocumentDialogEvent> {
     return this.event.pipe(
-      filter((e: DocumentDialogEvent) => e.name === 'documentChanged'),
+      filter((e: DocumentDialogEvent) => e.name === 'DocumentChanged'),
       share(),
     );
   }
