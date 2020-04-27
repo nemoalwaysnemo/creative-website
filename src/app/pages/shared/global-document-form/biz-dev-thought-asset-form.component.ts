@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
-  selector: 'biz-dev-case-studies-folder-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
+  selector: 'biz-dev-thought-asset-form',
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class BizDevCaseStudiesFolderFormComponent extends AbstractDocumentFormComponent {
+export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormComponent {
 
-  protected documentType: string = 'App-BizDev-CaseStudy-Folder';
+  protected documentType: string = 'App-BizDev-Thought-Asset';
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
@@ -43,87 +43,52 @@ export class BizDevCaseStudiesFolderFormComponent extends AbstractDocumentFormCo
       new DynamicInputModel({
         id: 'dc:description',
         label: 'Description',
-      }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand',
-        required: false,
-        placeholder: 'Brand',
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:industry',
-        label: 'Industry',
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Industries',
-        },
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Case Date (for sorting)',
+        label: 'Date',
         readonly: true,
         defaultValue: (new Date()),
-        required: false,
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Relevant_Country',
-        label: 'Relevant Geography',
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        readOnly: true,
+        disabled: true,
         required: false,
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:agency',
-        label: 'Agency',
-        required: false,
-        settings: {
-          multiple: false,
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Agencies',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
-        required: false,
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Tags_edges',
-        label: 'Backslash Edges',
-        required: false,
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Edges-Edges',
-        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
         uploadType: 'asset',
-        layoutPosition: 'right',
+        layoutPosition: 'left',
         queueLimit: 25,
         placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'image/*,.pdf',
+        acceptTypes: 'mage/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'edit',
         uploadType: 'asset',
-        layoutPosition: 'right',
+        layoutPosition: 'left',
         queueLimit: 1,
         placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'image/*,.pdf',
+        acceptTypes: 'mage/*,.pdf',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        layoutPosition: 'left',
+        queueLimit: 20,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
@@ -137,6 +102,93 @@ export class BizDevCaseStudiesFolderFormComponent extends AbstractDocumentFormCo
         formMode: 'edit',
         showInputs: false,
         multiUpload: true,
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        required: false,
+        placeholder: 'Brand',
+        layoutPosition: 'right',
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:clientName',
+        label: 'Client',
+        required: false,
+        placeholder: 'Client',
+        layoutPosition: 'right',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:industry',
+        label: 'Industry',
+        layoutPosition: 'right',
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Relevant_Country',
+        label: 'Relevant Geography',
+        required: false,
+        layoutPosition: 'right',
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:agency',
+        label: 'Agency',
+        required: false,
+        layoutPosition: 'right',
+        settings: {
+          multiple: false,
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:country',
+        label: 'Agency Country',
+        required: false,
+        layoutPosition: 'right',
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:backslash_category',
+        label: 'Backslash Category',
+        required: false,
+        layoutPosition: 'right',
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Tags_edges',
+        label: '\\Edges',
+        required: false,
+        layoutPosition: 'right',
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:set_defaults',
+        label: 'Set Defaults',
+        required: false,
+        readOnly: false,
+        disabled: false,
       }),
     ];
   }

@@ -6,12 +6,12 @@ import { AbstractDocumentFormComponent } from './abstract-document-form.componen
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
-  selector: 'biz-dev-thought-leadership-asset-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
+  selector: 'biz-dev-case-study-asset-form',
+  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class BizDevThoughtLeadershipAssetFormComponent extends AbstractDocumentFormComponent {
+export class BizDevCaseStudyAssetFormComponent extends AbstractDocumentFormComponent {
 
-  protected documentType: string = 'App-BizDev-Thought-Asset';
+  protected documentType: string = 'App-BizDev-CaseStudy-Asset';
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
@@ -61,6 +61,11 @@ export class BizDevThoughtLeadershipAssetFormComponent extends AbstractDocumentF
         label: 'Asset Type',
         readOnly: true,
         disabled: true,
+        required: false,
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:asset_request',
+        label: 'Download Requires Approval',
         required: false,
       }),
       new DynamicDragDropFileZoneModel<string>({
@@ -182,6 +187,13 @@ export class BizDevThoughtLeadershipAssetFormComponent extends AbstractDocumentF
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
         },
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:set_defaults',
+        label: 'Set Defaults',
+        required: false,
+        readOnly: false,
+        disabled: false,
       }),
     ];
   }
