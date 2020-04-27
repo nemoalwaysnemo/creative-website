@@ -12,9 +12,9 @@
             </tr>
             <tr>
               <td *ngIf="isDisruptionAsset(documentModel)">{{ documentModel.get('The_Loupe_Main:description') }}</td>
-              <td *ngIf="isIntelligenceAsset(documentModel)">{{ documentModel.get('dc:description') }}</td>
+              <td *ngIf="isIntelligenceAsset(documentModel) || isBizDevAsset(documentModel)">{{ documentModel.get('dc:description') }}</td>
               <td *ngIf="isDisruptionAsset(documentModel)">{{ documentModel.get('app_Edges:disruption_type') }}</td>
-              <td *ngIf="isBizDevAsset(documentModel)">{{ documentModel.get('app_Edges:intelligence_type') }}</td>
+              <td *ngIf="isIntelligenceAsset(documentModel)">{{ documentModel.get('app_Edges:intelligence_type') }}</td>
             </tr>
             <tr>
               <th>Industry</th>
@@ -29,7 +29,7 @@
               <th>Published</th>
             </tr>
             <tr>
-              <td *ngIf="isDisruptionAsset(documentModel)">{{ documentModel.get('dc:creator') }}</td>
+              <td *ngIf="isDisruptionAsset(documentModel) || isBizDevAsset(documentModel)">{{ documentModel.get('dc:creator') }}</td>
               <td *ngIf="isIntelligenceAsset(documentModel)">{{ documentModel.get('The_Loupe_Main:created_by') }}</td>
               <td>{{ documentModel.get('The_Loupe_ProdCredits:production_date') | date }}</td>
             </tr>
