@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoEnricher, SearchFilterModel } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoEnricher, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../business-development-tab-config';
@@ -91,8 +91,8 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
 
   protected buildCaseAssetParams(doc?: DocumentModel): any {
     const params = {
-      // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
-      ecm_mixinType_not_in: '', // override
+      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      // ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,

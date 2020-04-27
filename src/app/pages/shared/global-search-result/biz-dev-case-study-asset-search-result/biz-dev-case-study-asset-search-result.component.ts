@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
@@ -9,6 +9,7 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
 })
 export class BizDevCaseStudyAssetSearchResultComponent extends AbstractSearchResultComponent {
 
+  @Input() folderId: string;
   constructor(protected queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);
   }
