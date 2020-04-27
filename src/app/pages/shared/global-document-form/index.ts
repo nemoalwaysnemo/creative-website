@@ -10,7 +10,7 @@ export * from './creative-asset-campaign-form.component';
 export * from './creative-asset-project-form.component';
 export * from './disruption-roadmap-form.component';
 export * from './disruption-day-folder-form.component';
-export * from './disruption-brilliant-thinking-form.compoent';
+export * from './disruption-brilliant-thinking-form.component';
 export * from './disruption-day-asset-form-component';
 export * from './disruption-how-tos-asset-form.component';
 export * from './intelligence-brands-form.component';

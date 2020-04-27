@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 import { NuxeoApiService } from '@core/api';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 
 @Component({
   selector: 'disruption-brilliant-thinking-form',
   template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionBrilliantThinkingFormComponent extends AbstractDocumentFormComponent {
+
   protected documentType: string = 'App-Disruption-Asset';
+
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
   }

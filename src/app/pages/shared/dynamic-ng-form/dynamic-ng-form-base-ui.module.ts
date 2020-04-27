@@ -42,7 +42,7 @@ import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
     DocumentFormListModule,
     DirectorySuggestionModule,
     DatepickerDirectiveModule,
-    DynamicFormsCoreModule.forRoot(),
+    DynamicFormsCoreModule,
   ],
   declarations: [
     DynamicNGCalendarComponent,

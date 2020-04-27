@@ -64,4 +64,4 @@ export * from './utils/autofill.utils';
 export * from './utils/core.utils';
 export * from './utils/json.utils';
 
-export * from './core.module';
+export * from './ng-dynamic-forms.module';
