@@ -1,11 +1,13 @@
-<div class="dialog-title">
+<div class="dialog-title text-center">
   <a (click)="close()"><img [src]="closeBtnImage()"></a>
+  <h1>{{title}}</h1>
+  <a (click)="backToMainView()" *ngIf="mainViewChanged"><img [src]="backBtnImage()"></a>
 </div>
 <div class="dialog-body">
-  <div class="text-content">Are you sure you want to delete this document?</div>
+  <div class="text-title">Are you sure you want to delete this document?</div>
   <div class="text-content">{{document.title}}</div>
-  <div class="action_content">
-    <button (click)="confirm()" class="btn btn-success">Yes</button>
+  <div class="action-content">
+    <button (click)="delete()" class="btn btn-success">Yes</button>
     <button (click)="cancel()" class="btn btn-danger">Cancel</button>
   </div>
 </div>

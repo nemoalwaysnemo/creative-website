@@ -69,19 +69,4 @@ export class GlobalDocumentDialogService {
     this.triggerEvent({ name: 'ViewChanged', message: 'View Changed', options: { view: name, component, metadata } });
   }
 
-  setDocument(doc: DocumentModel, options: any = {}): this {
-    this.triggerEvent({ name: 'DocumentChanged', message: 'Document Changed', doc, options });
-    return this;
-  }
-
-  onDocumentChanged(): Observable<DocumentDialogEvent> {
-    return this.event.pipe(
-      filter((e: DocumentDialogEvent) => e.name === 'DocumentChanged'),
-      share(),
-    );
-  }
-
-  delayed(sub?: Subject<any>, message?: any, second: number = 3000): void {
-    timer(second).subscribe(_ => sub.next(message));
-  }
 }

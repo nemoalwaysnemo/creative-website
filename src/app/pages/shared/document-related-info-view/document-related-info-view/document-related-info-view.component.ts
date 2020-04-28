@@ -53,11 +53,11 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   noResultText: string;
 
-  backslashDialogComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_BACKSLASH_ASSET_PREIVEW;
+  backslashDialogComponent = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
 
-  disruptionDialogComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
+  disruptionDialogComponent = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
-  intelligenceComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
+  intelligenceComponent = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
   constructor(
     private advanceSearch: AdvanceSearch,

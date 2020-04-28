@@ -8,11 +8,15 @@ import { BackslashHomeAssetDialogPreviewComponent } from './backslash-home-asset
 import { DocumentBackslashInfoModule } from '../../../shared/document-backslash-info/document-backslash-info.module';
 import { RelatedBackslashAssetDialogPreviewComponent } from './related-backslash-asset-preview/related-backslash-asset-preview.component';
 import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-preview/disruption-asset-preview.component';
+import { DocumentDialogConfirmComponent } from './document-confirm-template/document-confirm-template.component';
+import { DocumentDialogDeletionComponent } from './document-deletion-template/document-deletion-template.component';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
   RelatedBackslashAssetDialogPreviewComponent,
   DisruptionAssetPreviewDialogComponent,
+  DocumentDialogConfirmComponent,
+  DocumentDialogDeletionComponent,
 ];
 
 @NgModule({

@@ -11,6 +11,8 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
 
   document: DocumentModel;
 
+  mainViewChanged = false;
+
   @Input() redirectUrl: string;
 
   @Input() title: string = 'Global Dialog';
@@ -39,7 +41,6 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
   ) {
-    this.onDocumentChanged();
     this.registerListeners();
   }
 
@@ -58,6 +59,10 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
 
   selectView(name: string, component: Type<any> = null, metadata: any = {}): void {
     this.globalDocumentDialogService.selectView(name, component, metadata);
+  }
+
+  backToMainView(): void {
+    this.globalDocumentDialogService.selectView(null);
   }
 
   confirm(refresh: boolean = true, delay: number = 0): void {
@@ -124,23 +129,14 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
     ).pipe(map((l: boolean[]) => l[0] && l[1]));
   }
 
-  protected onOpen(e: DocumentDialogEvent): void { }
+  protected onOpen(e: DocumentDialogEvent): void {
+  }
 
   protected onClose(e: DocumentDialogEvent): void { }
 
   protected onConfirmed(doc: DocumentModel): void { }
 
   protected onCancelled(): void { }
-
-  protected onDocumentChange(event: DocumentDialogEvent): void { }
-
-  private onDocumentChanged(): void {
-    const subscription = this.globalDocumentDialogService.onDocumentChanged().subscribe((e: DocumentDialogEvent) => {
-      this.document = e.doc;
-      this.onDocumentChange(e);
-    });
-    this.subscription.add(subscription);
-  }
 
   private registerListeners(): void {
     const a = zip(

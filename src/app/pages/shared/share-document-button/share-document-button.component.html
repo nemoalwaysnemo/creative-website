@@ -3,7 +3,7 @@
     <label for="filterbox">Share: </label>
     <input id="filterbox" value="{{currentUrl}}" #inputTarget autocomplete="off" class="inline-middle form-control" style="width: 100%;" placeholder="" autocapitalize="none" spellcheck="false" autocorrect="off" autofocus>
   </div>
-  <div class="action_content">
+  <div class="action-content">
     <button [ngxClipboard]="inputTarget" (cbOnSuccess)="onCopy($event)" class="btn btn-success">{{btn}}</button>
     <button (click)="onShareWorkplace()" class="btn btn-success">Share on Workplace</button>
   </div>

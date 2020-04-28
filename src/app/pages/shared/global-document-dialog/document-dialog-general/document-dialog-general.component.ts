@@ -18,7 +18,4 @@ export class DocumentDialogGeneralComponent extends AbstractDocumentDialogContai
     super(globalDocumentDialogService, queryParamsService, componentFactoryResolver);
   }
 
-  protected createComponent(): void {
-  }
-
 }
