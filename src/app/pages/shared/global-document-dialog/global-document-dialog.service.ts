@@ -1,4 +1,4 @@
-import { Injectable, TemplateRef } from '@angular/core';
+import { Injectable, TemplateRef, Type } from '@angular/core';
 import { NbDialogService } from '@core/nebular/theme';
 import { Observable, Subject, timer } from 'rxjs';
 import { share, filter, map } from 'rxjs/operators';
@@ -14,6 +14,8 @@ export class DocumentDialogEvent {
 
 export interface DocumentDialogOption {
   [key: string]: any;
+  component?: any;
+  metadata?: any;
   view?: string;
 }
 
@@ -63,8 +65,8 @@ export class GlobalDocumentDialogService {
     return this;
   }
 
-  selectView(name: string): void {
-    this.triggerEvent({ name: 'ViewChanged', message: 'View Changed', options: { view: name } });
+  selectView(name: string, component: Type<any> = null, metadata: any = {}): void {
+    this.triggerEvent({ name: 'ViewChanged', message: 'View Changed', options: { view: name, component, metadata } });
   }
 
   setDocument(doc: DocumentModel, options: any = {}): this {

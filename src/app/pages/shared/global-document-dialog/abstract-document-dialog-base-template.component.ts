@@ -1,22 +1,15 @@
-import { OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { OnInit, OnDestroy, Input, Output, EventEmitter, Type } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { DocumentModel } from '@core/api';
+import { map } from 'rxjs/operators';
+import { Subscription, timer, Subject, zip, forkJoin, of as observableOf, Observable } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { Subscription, timer, Subject, zip } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Environment } from '@environment/environment';
 
 export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   document: DocumentModel;
-
-  @Input()
-  set metadata(metadata: any) {
-    if (metadata) {
-      this.settings = Object.assign({}, this.settings, metadata);
-    }
-  }
 
   @Input() redirectUrl: string;
 
@@ -25,6 +18,13 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
   @Input()
   set documentModel(doc: DocumentModel) {
     this.setDocument(doc);
+  }
+
+  @Input()
+  set metadata(metadata: any) {
+    if (metadata) {
+      this.settings = Object.assign({}, this.settings, metadata);
+    }
   }
 
   @Output() callback: EventEmitter<DocumentDialogEvent> = new EventEmitter<DocumentDialogEvent>();
@@ -56,8 +56,12 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
     return this.settings;
   }
 
-  confirm(doc: DocumentModel, refresh: boolean = true, delay: number = 0): void {
-    this.onConfirmed(doc);
+  selectView(name: string, component: Type<any> = null, metadata: any = {}): void {
+    this.globalDocumentDialogService.selectView(name, component, metadata);
+  }
+
+  confirm(refresh: boolean = true, delay: number = 0): void {
+    this.onConfirmed(this.document);
     this.close(delay);
     if (refresh) {
       this.refresh();
@@ -111,6 +115,13 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
     if (doc) {
       this.document = doc;
     }
+  }
+
+  protected getDocumentPermission(doc: DocumentModel, name: string, extras: boolean): Observable<boolean> {
+    return forkJoin(
+      doc.hasPermission(name),
+      observableOf(extras),
+    ).pipe(map((l: boolean[]) => l[0] && l[1]));
   }
 
   protected onOpen(e: DocumentDialogEvent): void { }

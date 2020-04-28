@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 
 @Component({
   selector: 'disruption-roadmaps-asset-search-result',
@@ -18,10 +19,6 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
     private router: Router,
   ) { }
 
-  dialogMetada: any = {
-
-  };
-
   deleteRedirect: string;
 
   showEdit: string = 'preview';
@@ -29,6 +26,13 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
   backButton: boolean = false;
 
   previewComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
+
+  formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+
+  dialogMetadata: any = {
+    enableEdit: true,
+    enableDeletion: true,
+  };
 
   ngOnInit() {
     // this.dialogService.onClose().subscribe(_ => {

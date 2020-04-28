@@ -39,7 +39,7 @@ export abstract class AbstractDocumentViewComponent extends AbstractBaseDocument
   }
 
   onCallback(callback: DocumentFormEvent): void {
-    console.log(1111, callback);
+
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

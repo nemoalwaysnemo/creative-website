@@ -31,8 +31,8 @@ export class DisruptionAssetPreviewDialogComponent extends AbstractDocumentDialo
     if (doc) {
       this.document = doc;
       this.attachments = this.document.getAttachmentList();
-      this.writePermission$ = this.document.hasPermission(NuxeoPermission.Write);
-      this.deletePermission$ = this.document.hasPermission(NuxeoPermission.Delete);
+      this.writePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Write, this.getSettings().enableEdit);
+      this.deletePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Delete, this.getSettings().enableDeletion);
     }
   }
 
