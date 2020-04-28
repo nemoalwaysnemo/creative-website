@@ -11,10 +11,10 @@
 
   <ng-container *ngIf="doc.type === 'App-BizDev-Thought-Asset'">
     <div class="image-holder">
-      <a [routerLink]="['/p/business-development/Thought Leadership/asset/', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+      <a [routerLink]="[ '/p/business-development/Thought Leadership/folder/', folderId, 'asset', doc.uid ]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
     </div>
     <div class="description">
-      <h1 [title]="doc.title"><a [routerLink]="['/p/business-development/Thought Leadership/asset/', doc.uid]" [queryParams]="queryParams" >{{doc.title}}</a></h1>
+      <h1 [title]="doc.title"><a [routerLink]="['/p/business-development/Thought Leadership/folder/', folderId, 'asset', doc.uid ]" [queryParams]="queryParams" >{{doc.title}}</a></h1>
     </div>
   </ng-container>
 </ng-template>

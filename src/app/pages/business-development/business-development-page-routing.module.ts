@@ -42,10 +42,6 @@ const routes: Routes = [{
       component: BizDevThoughtLeadershipFolderComponent,
     },
     {
-      path: 'Thought Leadership/asset/:id',
-      component: BizDevAssetComponent,
-    },
-    {
       path: 'Thought Leadership/folder/:folder/asset/:id',
       component: BizDevAssetComponent,
     },
