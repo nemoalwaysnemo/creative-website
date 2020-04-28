@@ -47,14 +47,15 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(globalDocumentDialogService, queryParamsService, componentFactoryResolver);
+    this.subscribeEvents();
   }
 
-  selectView(view: string): void {
+  selectView(view: string, component?: Type<any>): void {
     const currentComponent: ComponentRef<any> = this[`${this.currentView}ComponentRef`];
     if (currentComponent) {
       currentComponent.destroy();
     }
-    this.createComponent(view);
+    this.createComponent(view, component);
     this.currentView = view;
   }
 
@@ -66,45 +67,51 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     this.selectView(e.options.view || this.dialogType);
   }
 
-  protected createComponent(type: string): void {
+  protected createComponent(type: string, component?: Type<any>): void {
     switch (type) {
       case 'preview':
-        this.createPreviewComponent();
+        this.createPreviewComponent(component);
         break;
       case 'form':
-        this.createFormComponent();
+        this.createFormComponent(component);
         break;
       case 'general':
-        this.createFormComponent();
+        this.createFormComponent(component);
         break;
       default:
         throw new Error(`Unknown Dialog view type: ${type}`);
     }
   }
 
-  protected createPreviewComponent(): void {
+  protected createPreviewComponent(component?: Type<any>): void {
     this.buildComponent('preview', DocumentDialogPreviewComponent);
   }
 
-  protected createFormComponent(): void {
+  protected createFormComponent(component?: Type<any>): void {
     this.buildComponent('form', DocumentDialogFormComponent);
   }
 
-  protected createGeneralComponent(): void {
+  protected createGeneralComponent(component?: Type<any>): void {
     this.buildComponent('general', DocumentDialogGeneralComponent);
   }
 
-  protected buildComponent(type: string, component: Type<any>): ComponentRef<any> {
+  protected buildComponent(type: string, componentContainer: Type<any>, component?: Type<any>): ComponentRef<any> {
     if (!this[`${type}ComponentRef`] && this[`${type}Component`]) {
-      this[`${type}ComponentRef`] = this.createCustomComponent(this[`${type}Target`], component);
-      this[`${type}ComponentRef`].instance.title = this.title;
-      this[`${type}ComponentRef`].instance.metadata = this.metadata;
-      this[`${type}ComponentRef`].instance.documentModel = this.document;
-      this[`${type}ComponentRef`].instance.component = this[`${type}Component`];
+      this[`${type}ComponentRef`] = this.createCustomComponent(this[`${type}Target`], componentContainer);
     } else if (!this[`${type}Component`]) {
       throw new Error(`Dialog injection component doesn't exist: ${type}`);
     }
+    this[`${type}ComponentRef`].instance.title = this.title;
+    this[`${type}ComponentRef`].instance.metadata = this.settings;
+    this[`${type}ComponentRef`].instance.documentModel = this.document;
+    this[`${type}ComponentRef`].instance.component = component || this[`${type}Component`];
     return this[`${type}ComponentRef`];
+  }
+
+  protected subscribeEvents(): void {
+    this.globalDocumentDialogService.onEvent('ViewChanged').subscribe((e: DocumentDialogEvent) => {
+      this.selectView(e.options.view, e.options.component);
+    });
   }
 
 }
