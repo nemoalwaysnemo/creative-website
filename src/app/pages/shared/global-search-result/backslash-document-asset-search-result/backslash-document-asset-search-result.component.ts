@@ -29,7 +29,7 @@ export class BackslashDocumentAssetSearchResultComponent extends AbstractSearchR
 
   listViewSettings: any;
 
-  previewDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.BACKSLASH_HOME_ASSET_PREIVEW;
+  previewDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET;
 
   private defaultSettings: any = {
     columns: {

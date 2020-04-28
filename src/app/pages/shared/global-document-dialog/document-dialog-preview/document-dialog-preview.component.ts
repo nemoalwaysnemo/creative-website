@@ -18,15 +18,4 @@ export class DocumentDialogPreviewComponent extends AbstractDocumentDialogContai
     super(globalDocumentDialogService, queryParamsService, componentFactoryResolver);
   }
 
-  protected onInit(): void {
-    this.createComponent();
-  }
-
-  protected createComponent(): void {
-    if (!this.customComponent) {
-      this.customComponent = this.createCustomComponent(this.dynamicTarget, this.component);
-    }
-    this.customComponent.instance.metadata = this.settings;
-    this.customComponent.instance.documentModel = this.document;
-  }
 }

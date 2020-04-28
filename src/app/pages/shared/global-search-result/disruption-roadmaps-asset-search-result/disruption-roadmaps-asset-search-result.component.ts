@@ -25,9 +25,11 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
 
   backButton: boolean = false;
 
-  previewComponent = GLOBAL_DOCUMENT_DIALOG.RELATED_DISRUPTION_ASSET_PREIVEW;
+  previewComponent = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
   formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+
+  generalComponent = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
 
   dialogMetadata: any = {
     enableEdit: true,

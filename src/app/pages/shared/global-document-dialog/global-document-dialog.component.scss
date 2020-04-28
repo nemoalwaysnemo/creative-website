@@ -1,6 +1,6 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 
-.global-document-dialog {
+.global-document-dialog-form {
 	@include media-breakpoint-down(lg) { //992px
     width: 840px;
   }

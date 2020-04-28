@@ -4,11 +4,11 @@ import { SearchQueryParamsService } from '../../../../shared/services/search-que
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 
 @Component({
-  selector: 'document-confirm-dialog',
-  styleUrls: ['./document-confirm-template.component.scss'],
+  selector: 'document-dialog-confirm',
+  styleUrls: ['../global-document-dialog-template.scss'],
   templateUrl: './document-confirm-template.component.html',
 })
-export class DocumentConfirmDialogComponent extends AbstractDocumentDialogBaseTemplateComponent {
+export class DocumentDialogConfirmComponent extends AbstractDocumentDialogBaseTemplateComponent {
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

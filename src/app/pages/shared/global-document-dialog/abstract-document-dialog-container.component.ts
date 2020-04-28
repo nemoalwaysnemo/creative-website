@@ -25,15 +25,22 @@ export abstract class AbstractDocumentDialogContainerComponent extends AbstractD
     super(globalDocumentDialogService, queryParamsService);
   }
 
+  protected onInit(): void {
+    this.createComponent();
+  }
+
   protected createCustomComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     return dynamicTarget.createComponent(componentFactory);
   }
 
-  protected abstract createComponent(type?: string): void;
-
-  protected onInit(): void {
-    this.createComponent();
+  protected createComponent(type?: string, component?: Type<any>): void {
+    if (!this.customComponent) {
+      this.customComponent = this.createCustomComponent(this.dynamicTarget, this.component);
+    }
+    this.customComponent.instance.metadata = this.settings;
+    this.customComponent.instance.documentModel = this.document;
+    this.customComponent.instance.mainViewChanged = this.mainViewChanged;
   }
 
   protected onDestroy(): void {
