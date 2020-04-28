@@ -1,8 +1,5 @@
-import { Component, TemplateRef, OnInit } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { Router } from '@angular/router';
+import { Component, TemplateRef } from '@angular/core';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 
@@ -11,19 +8,11 @@ import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './disruption-roadmaps-asset-search-result.component.html',
 })
-export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
+export class DisruptionRoadmapsAssetSearchResultComponent {
 
-  constructor(
-    private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
-    private router: Router,
-  ) { }
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {
 
-  deleteRedirect: string;
-
-  showEdit: string = 'preview';
-
-  backButton: boolean = false;
+  }
 
   previewComponent = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
@@ -36,40 +25,8 @@ export class DisruptionRoadmapsAssetSearchResultComponent implements OnInit {
     enableDeletion: true,
   };
 
-  ngOnInit() {
-    // this.dialogService.onClose().subscribe(_ => {
-    //   this.showEdit = 'preview';
-    // });
-    // this.deleteRedirect = this.router.url;
-  }
-
   openDialog(dialog: TemplateRef<any>) {
     this.globalDocumentDialogService.open(dialog);
   }
 
-  openEdit(event: any): void {
-    if (event.type === 'openEdit') {
-      this.showEdit = 'edit';
-    } else if (event.type === 'openDelete') {
-      this.backButton = true;
-      this.showEdit = 'delete';
-    }
-  }
-
-  onUpdate(doc: any): void {
-    this.showEdit = 'preview';
-  }
-
-  callback(message: { type, value }): void {
-    if (message.type === 'success') {
-      this.reflash(message.value);
-    } else if (message.type === 'back') {
-      this.showEdit = message.value;
-    }
-  }
-
-  reflash(doc: any): void {
-    // this.dialogService.setDocument(doc);
-    this.queryParamsService.refresh();
-  }
 }

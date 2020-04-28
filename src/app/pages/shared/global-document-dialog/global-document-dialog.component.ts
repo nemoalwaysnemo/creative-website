@@ -105,6 +105,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     this[`${type}ComponentRef`].instance.title = this.title;
     this[`${type}ComponentRef`].instance.metadata = this.settings;
     this[`${type}ComponentRef`].instance.documentModel = this.document;
+    this[`${type}ComponentRef`].instance.redirectUrl = this.redirectUrl;
     this[`${type}ComponentRef`].instance.mainViewChanged = this.mainViewChanged;
     this[`${type}ComponentRef`].instance.component = component || this[`${type}Component`];
     return this[`${type}ComponentRef`];
