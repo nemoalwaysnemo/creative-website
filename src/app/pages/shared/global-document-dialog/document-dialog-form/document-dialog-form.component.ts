@@ -34,6 +34,7 @@ export class DocumentDialogFormComponent extends AbstractDocumentDialogContainer
     }
     this.customComponent.instance.metadata = this.settings;
     this.customComponent.instance.documentModel = this.document;
+    this.customComponent.instance.redirectUrl = this.redirectUrl;
   }
 
   protected subscribeComponentEvent(): void {

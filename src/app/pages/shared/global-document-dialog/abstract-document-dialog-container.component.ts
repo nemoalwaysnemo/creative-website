@@ -40,6 +40,7 @@ export abstract class AbstractDocumentDialogContainerComponent extends AbstractD
     }
     this.customComponent.instance.metadata = this.settings;
     this.customComponent.instance.documentModel = this.document;
+    this.customComponent.instance.redirectUrl = this.redirectUrl;
     this.customComponent.instance.mainViewChanged = this.mainViewChanged;
   }
 
