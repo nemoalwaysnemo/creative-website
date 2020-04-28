@@ -26,6 +26,14 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent implemen
     // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
   };
 
+  assetUrlMapping: object = {
+    'App-BizDev-CaseStudy-Folder': '/p/business-development/Case Studies/folder',
+    'App-BizDev-Thought-Folder': '/p/business-development/Thought Leadership/folder',
+    'App-BizDev-ThoughtLeadership-Folder': '/p/business-development/Thought Leadership/',
+    'App-BizDev-Case-Studies-Folder': '/p/business-development/Case Studies/',
+    '*': '/p/business-development/asset',
+  };
+
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
