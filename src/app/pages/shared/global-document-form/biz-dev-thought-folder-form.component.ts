@@ -6,7 +6,7 @@ import { AbstractDocumentFormComponent } from './abstract-document-form.componen
 
 @Component({
   selector: 'biz-dev-thought-folder-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
 export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormComponent {
 

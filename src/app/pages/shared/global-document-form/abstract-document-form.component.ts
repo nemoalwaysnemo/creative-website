@@ -26,7 +26,10 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.setFormDocument(doc);
   }
 
-  @Input() metadata: any;
+  @Input()
+  set metadata(metadata: any) {
+    this.formMode = (metadata.formMode || 'create');
+  }
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
@@ -55,7 +58,6 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   setFormDocument(doc: DocumentModel): void {
     if (doc) {
       this.document$.next(doc);
-      this.formMode = doc.uid ? 'edit' : 'create';
     }
   }
 

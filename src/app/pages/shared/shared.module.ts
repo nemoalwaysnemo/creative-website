@@ -19,6 +19,7 @@ import {
   HomeSearchFormModule,
   ShareDocumentButtonModule,
   GlobalDocumentFormModule,
+  DocumentActionGroupModule,
 } from './';
 
 const EXPORTS = [
@@ -39,6 +40,7 @@ const EXPORTS = [
   DocumentViewerModule,
   DocumentFormModule,
   HomeSearchFormModule,
+  DocumentActionGroupModule,
   ShareDocumentButtonModule,
   GlobalDocumentFormModule,
 ];
