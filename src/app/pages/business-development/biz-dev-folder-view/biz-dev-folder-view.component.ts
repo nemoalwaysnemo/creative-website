@@ -1,10 +1,11 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services/helpers';
+import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 
 @Component({
   selector: 'biz-dev-folder-view',
@@ -40,6 +41,7 @@ export class BizDevFolderViewComponent {
   deletePermission$: Observable<boolean> = observableOf(false);
 
   constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
@@ -53,6 +55,20 @@ export class BizDevFolderViewComponent {
   }
 
   openDialog(dialog: any, type): void {
+    this.showEdit = type;
+    this.globalDocumentDialogService.open(dialog);
+  }
+
+  getDocumentFormComponent(doc: DocumentModel): any {
+    if (doc.type === 'App-BizDev-CaseStudy-Folder') {
+      return GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM;
+    } else if (doc.type === 'App-BizDev-Thought-Folder') {
+      return GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM;
+    }  else if (doc.type === 'App-BizDev-Case-Studies-Folder') {
+      return GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM;
+    }  else if (doc.type === 'App-BizDev-ThoughtLeadership-Folder') {
+      return GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM;
+    }
   }
 
   onUpdate(doc: DocumentModel): void {
