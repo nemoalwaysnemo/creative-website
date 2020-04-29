@@ -7,7 +7,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 import { OptionModel } from '../option-select/option-select.interface';
 @Component({
   selector: 'creative-project-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends AbstractDocumentFormComponent {
 

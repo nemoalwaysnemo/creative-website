@@ -14,13 +14,14 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
 
   }
 
-  previewComponent = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
+  previewComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
-  formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+  formComponent: any = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
 
-  generalComponent = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
+  generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
 
   dialogMetadata: any = {
+    formMode: 'edit',
     enableEdit: true,
     enableDeletion: true,
   };

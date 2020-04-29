@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'creative-asset-campaign-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent {
 

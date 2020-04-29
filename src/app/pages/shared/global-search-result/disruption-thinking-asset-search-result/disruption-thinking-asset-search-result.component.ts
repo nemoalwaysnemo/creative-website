@@ -24,7 +24,7 @@ export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
 
   showEdit: string = 'preview';
 
-  previewComponent = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
+  previewComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
   ngOnInit() {
     // this.dialogService.onClose().subscribe(_ => {

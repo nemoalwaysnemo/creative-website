@@ -1,11 +1,6 @@
-<nb-card>
-  <nb-card-body>
-    <div>
-      <a href="javascript:void(0)" (click)="openDialog(dialog)" class="icon_btn">New Day</a>
-      <document-form [document]="document" [settings]="settings" [layout]="getFormLayout()"></document-form>
-    </div>
-  </nb-card-body>
-</nb-card>
-
+<div class="playground">
+  <a href="javascript:void(0)" (click)="openDialog(dialog)" class="icon_btn">Download Request</a>
+</div>
 <ng-template #dialog>
+  <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="document"></global-document-dialog>
 </ng-template>

@@ -1,8 +1,9 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
-import { concatMap, map, share, tap } from 'rxjs/operators';
+import { concatMap, map, share } from 'rxjs/operators';
 import { DocumentModel, UserService, UserModel, NuxeoPermission } from '@core/api';
+import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { getDocumentTypes } from '@core/services/helpers';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -15,6 +16,8 @@ import { NUXEO_META_INFO } from '@environment/environment';
 export class DocumentActionGroupComponent {
 
   documentModel: DocumentModel;
+
+  generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DOWNLOAD_REQUEST;
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
@@ -39,6 +42,10 @@ export class DocumentActionGroupComponent {
 
   isCreativeAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(doc.type);
+  }
+
+  isBizDevCaseStudyAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
   }
 
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {

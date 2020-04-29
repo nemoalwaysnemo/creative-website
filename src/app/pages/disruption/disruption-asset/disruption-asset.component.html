@@ -1,11 +1,13 @@
 <ng-container *ngIf="showFolderView(document) && folder">
-  <disruption-folder-view [showButton]="showButton" [loading]="folderLoading" [document]="folder" [backAssetFlag]="backAssetFlag" [assetUrlMapping]="assetUrlMapping" [ngStyle]="{'margin-top': '30px', 'display': 'block'}"></disruption-folder-view>
+  <disruption-folder-view [showButton]="showButton" [loading]="folderLoading" [document]="folder" [backAssetFlag]="backAssetFlag" [assetUrlMapping]="assetUrlMapping" [ngStyle]="{'margin-top': '30px', 'display': 'block'}">
+  </disruption-folder-view>
 </ng-container>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="document" class="document">
     <section class="general">
       <div class="showcase left">
         <document-viewer [document]="document"></document-viewer>
+        <document-action-group [document]="document"></document-action-group>
       </div>
       <div class="general_info left">
         <document-metadata-info [document]="document" [deleteRedirect]="deleteRedirect"></document-metadata-info>

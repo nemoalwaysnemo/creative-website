@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentDialogConfirmComponent } from '../document-confirm-template/document-confirm-template.component';
+import { DocumentDialogConfirmationComponent } from '../document-confirmation-template/document-confirmation-template.component';
 import { SearchQueryParamsService } from '../../../../shared/services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentModel } from '@core/api';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['../global-document-dialog-template.scss'],
   templateUrl: './document-deletion-template.component.html',
 })
-export class DocumentDialogDeletionComponent extends DocumentDialogConfirmComponent {
+export class DocumentDialogDeletionComponent extends DocumentDialogConfirmationComponent {
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -19,7 +19,7 @@ export class DocumentDialogDeletionComponent extends DocumentDialogConfirmCompon
     super(globalDocumentDialogService, queryParamsService);
   }
 
-  protected delete(): void {
+  delete(): void {
     this.deleteDocument(this.document).subscribe(_ => {
       this.confirm(true, 300);
     });

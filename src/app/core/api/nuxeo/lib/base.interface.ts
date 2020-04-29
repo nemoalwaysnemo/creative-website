@@ -325,4 +325,5 @@ export enum NuxeoAutomations {
   TBWAUserDigest = 'TBWA.GetUserDigest',
   GetAccessTokenInfo = 'TBWA.GetAccessTokenInfo',
   MoveToTrash = 'Document.Trash',
+  DownloadRequest = 'App-BizDev-Asset-Download-Request-email',
 }

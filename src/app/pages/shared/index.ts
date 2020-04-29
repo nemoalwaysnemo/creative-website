@@ -20,6 +20,7 @@ export * from './abstract-classes/abstract-document-view.component';
 export * from './abstract-classes/abstract-document-manage.component';
 export * from './option-tag/option-tag.module';
 export * from './share-document-button/share-document-button.module';
+export * from './document-action-group/document-action-group.module';
 export * from './home-search-form/home-search-form.module';
 export * from './global-search-form/global-search-form.module';
 export * from './global-search-filter/global-search-filter.module';
