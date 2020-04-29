@@ -2,8 +2,9 @@
   <div *ngIf="document" class="document">
     <section class="general">
       <div class="showcase left">
-        <document-viewer [document]="document" [enableRelated]="true" [styleName]="'creative-asset'"></document-viewer>
-        <document-action-group [document]="document"></document-action-group>
+        <document-viewer [document]="document" [styleName]="'creative-asset'"></document-viewer>
+        <document-action-group [document]="document" [styleName]="'creative-asset'"></document-action-group>
+        <document-related-campaign [document]="document" [styleName]="'creative-asset'"></document-related-campaign>
       </div>
       <div class="general_info left">
         <document-metadata-info [document]="document"></document-metadata-info>
