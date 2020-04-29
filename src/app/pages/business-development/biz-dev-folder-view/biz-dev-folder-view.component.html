@@ -23,3 +23,6 @@
     </div>
   </div>
 </div>
+<ng-template #dialog>
+  <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(doc)" [documentModel]="doc"></global-document-dialog>
+</ng-template>
