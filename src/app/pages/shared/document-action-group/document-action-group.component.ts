@@ -1,10 +1,10 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
+import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
 import { DocumentModel, UserService, UserModel, NuxeoPermission } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
-import { getDocumentTypes } from '@core/services/helpers';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({

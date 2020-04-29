@@ -3,5 +3,4 @@
   <document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [document]="document" [styleName]="styleName"></document-image-viewer>
   <document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [document]="document" [styleName]="styleName" [enableStoryboard]="enableStoryboard" [autoPlay]="autoPlay"></document-video-viewer>
   <document-audio-viewer *ngSwitchCase="getDocumentViewer(document) === 'audio'" [document]="document" [styleName]="styleName"></document-audio-viewer>
-  <document-related-campaign *ngIf="enableRelated" [document]="document" [styleName]="styleName"></document-related-campaign>
 </div>
