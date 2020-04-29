@@ -12,6 +12,7 @@ import {
   DocumentBackslashInfoModule,
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
+  DocumentRelatedCampaignModule,
   DocumentRelatedProjectModule,
   BatchFileUploadModule,
   DirectorySuggestionModule,
@@ -19,6 +20,7 @@ import {
   HomeSearchFormModule,
   ShareDocumentButtonModule,
   GlobalDocumentFormModule,
+  DocumentActionGroupModule,
 } from './';
 
 const EXPORTS = [
@@ -33,12 +35,14 @@ const EXPORTS = [
   DocumentBackslashInfoModule,
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoComponentModule,
+  DocumentRelatedCampaignModule,
   DocumentRelatedProjectModule,
   DirectorySuggestionModule,
   BatchFileUploadModule,
   DocumentViewerModule,
   DocumentFormModule,
   HomeSearchFormModule,
+  DocumentActionGroupModule,
   ShareDocumentButtonModule,
   GlobalDocumentFormModule,
 ];

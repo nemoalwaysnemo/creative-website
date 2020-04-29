@@ -1,0 +1,18 @@
+<div class="dialog-title text-center">
+  <a (click)="close()"><img [src]="closeBtnImage()"></a>
+  <h1>{{title}}</h1>
+  <a (click)="backToMainView()" *ngIf="mainViewChanged"><img [src]="backBtnImage()"></a>
+</div>
+<div class="dialog-body">
+  <div class="text-title">Download Request</div>
+  <div class="text-content">The download of this document requires approval. Please let us know what you want to use this document for.</div>
+  <div class="text-form">
+    <form class="download-request-form" [formGroup]="formGroup" #form="ngForm" autocomplete="off" novalidate>
+      <textarea formControlName="content" required autofocus></textarea>
+    </form>
+  </div>
+  <div class="action-content">
+    <button (click)="submit()" class="btn btn-success">Submit</button>
+    <button (click)="cancel()" class="btn btn-danger">Cancel</button>
+  </div>
+</div>

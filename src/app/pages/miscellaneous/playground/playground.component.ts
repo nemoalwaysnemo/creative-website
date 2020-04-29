@@ -1,13 +1,13 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DocumentModel, DocumentRepository } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentDialogService, OptionModel } from '@pages/shared';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
+import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'playground',
-  styleUrls: ['./playground.component.scss'],
   templateUrl: './playground.component.html',
 })
 export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
@@ -16,12 +16,16 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   document: DocumentModel;
 
+  generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DOWNLOAD_REQUEST;
+
   constructor(private documentRepository: DocumentRepository, private globalDocumentDialogService: GlobalDocumentDialogService) {
 
   }
+
   ngOnInit(): void {
+    this.load('3b3a3694-67c6-4963-bfb7-9a276b95333d');
     // this.create();
-    this.update();
+    // this.update();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -34,6 +38,12 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   openDialog(dialog: any): void {
     this.globalDocumentDialogService.open(dialog);
+  }
+
+  private load(uid: string): void {
+    this.documentRepository.get(uid).subscribe((doc: DocumentModel) => {
+      this.document = doc;
+    });
   }
 
   private create(): void {

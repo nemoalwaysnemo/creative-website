@@ -5,6 +5,9 @@
   <ng-container *ngIf="downloadPermission$ | async">
     <a href="{{documentModel.previewUrl}}" class="preview right btn" title="Preview" target="_blank">Preview</a>
   </ng-container>
+  <ng-container *ngIf="isNeedSendDownloadRequest(documentModel)">
+    <a href="javascript:void(0)" (click)="openDialog(dialog)" class="download right btn">Download Request</a>
+  </ng-container>
   <a href="javascript:;" nbPopoverPlacement="bottom" [nbPopover]="popContent" title="Share" class="right btn">Share</a>
   <a href="javascript:void(0)" (click)="goBack()" class="back left btn" title="Back">Back</a>
   <div class="clear"></div>
@@ -12,4 +15,7 @@
 
 <ng-template #popContent>
   <share-document-button></share-document-button>
+</ng-template>
+<ng-template #dialog>
+  <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="documentModel"></global-document-dialog>
 </ng-template>

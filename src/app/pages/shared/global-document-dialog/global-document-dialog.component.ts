@@ -1,4 +1,5 @@
 import { Component, ComponentFactoryResolver, Type, Input, ComponentRef, ViewContainerRef, ViewChild } from '@angular/core';
+import { GoogleAnalyticsService } from '@core/services/google-analytics.service';
 import { AbstractDocumentDialogContainerComponent } from './abstract-document-dialog-container.component';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../../shared/services/search-query-params.service';
@@ -45,6 +46,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    private googleAnalyticsService: GoogleAnalyticsService,
   ) {
     super(globalDocumentDialogService, queryParamsService, componentFactoryResolver);
     this.subscribeEvents();
@@ -65,6 +67,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
 
   protected onOpen(e: DocumentDialogEvent): void {
     const view = e.options.view || this.dialogType;
+    this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': this.document.uid });
     this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', message: 'View Opened', options: { view } });
     this.selectView(view);
   }

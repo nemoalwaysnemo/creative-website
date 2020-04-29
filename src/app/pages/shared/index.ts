@@ -1,6 +1,7 @@
 export * from './document-additional-info-view/document-additional-info.module';
 export * from './document-metadata-info-view/document-metadata-info.module';
 export * from './document-related-agency-view/document-related-agency.module';
+export * from './document-related-campaign/document-related-campaign.module';
 export * from './document-related-info-view/document-related-info.module';
 export * from './document-related-project/document-related-project.module';
 export * from './document-backslash-info/document-backslash-info.module';
@@ -20,6 +21,7 @@ export * from './abstract-classes/abstract-document-view.component';
 export * from './abstract-classes/abstract-document-manage.component';
 export * from './option-tag/option-tag.module';
 export * from './share-document-button/share-document-button.module';
+export * from './document-action-group/document-action-group.module';
 export * from './home-search-form/home-search-form.module';
 export * from './global-search-form/global-search-form.module';
 export * from './global-search-filter/global-search-filter.module';

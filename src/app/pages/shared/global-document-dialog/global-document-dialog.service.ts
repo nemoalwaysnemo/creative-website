@@ -1,8 +1,7 @@
 import { Injectable, TemplateRef, Type } from '@angular/core';
 import { NbDialogService } from '@core/nebular/theme';
-import { Observable, Subject, timer } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { share, filter, map } from 'rxjs/operators';
-import { GoogleAnalyticsService } from '@core/services';
 import { DocumentModel } from '@core/api';
 
 export class DocumentDialogEvent {
@@ -28,14 +27,13 @@ export class GlobalDocumentDialogService {
 
   private options: DocumentDialogOption = {};
 
-  constructor(private dialogService: NbDialogService, private googleAnalyticsService: GoogleAnalyticsService) {
+  constructor(private dialogService: NbDialogService) {
 
   }
 
   open(dialog: TemplateRef<any>, options: DocumentDialogOption = {}): void {
     this.options = options;
     this.dialogService.open(dialog);
-    // this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': doc.uid });
   }
 
   close(): void {

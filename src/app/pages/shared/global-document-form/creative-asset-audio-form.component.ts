@@ -8,7 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 
 @Component({
   selector: 'creative-asset-audio-form',
-  template: `<document-form [document]="document" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetAudioFormComponent extends AbstractDocumentFormComponent {
 

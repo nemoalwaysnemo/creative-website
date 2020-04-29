@@ -29,8 +29,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   modelOperation: Subject<{ id: string, type: string }> = new Subject();
 
-  private formMode: 'create' | 'edit';
-
   private uploadFieldName: string;
 
   private documentModel: DocumentModel;
@@ -42,6 +40,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private fileMultiUpload: boolean;
 
   @Input() placeholder: string;
+
+  @Input() formMode: 'create' | 'edit' = 'create';
 
   @Input() dynamicModelIndex: number[] = [];
 
@@ -55,7 +55,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   set document(doc: DocumentModel) {
     if (doc) {
       doc = this.checkfiles(doc);
-      this.formMode = doc.uid ? 'edit' : 'create';
       this.document$.next(doc);
     }
   }

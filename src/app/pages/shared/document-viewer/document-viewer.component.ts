@@ -18,10 +18,6 @@ export class DocumentViewerComponent {
 
   @Input() styleName: string;
 
-  @Input() enableRelated: boolean = false;
-
-  @Input() enableActions: boolean = true;
-
   getDocumentViewer(doc: DocumentModel): string {
     let type = 'unkonw';
     if (doc) {

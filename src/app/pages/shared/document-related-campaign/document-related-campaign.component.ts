@@ -1,17 +1,21 @@
 
 import { Component, Input, ViewChild, OnDestroy } from '@angular/core';
 import { DragScrollComponent } from 'ngx-drag-scroll';
+import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 import { NUXEO_META_INFO } from '@environment/environment';
+
 @Component({
   selector: 'document-related-campaign',
   styleUrls: ['./document-related-campaign.component.scss'],
   templateUrl: './document-related-campaign.component.html',
 })
 export class DocumentRelatedCampaignComponent implements OnDestroy {
+
   loading: boolean = true;
+
+  relatedDocs: { type: any, source: any, uid: any }[] = [];
 
   private subscription: Subscription = new Subscription();
 
@@ -26,8 +30,6 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
 
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
 
-  relatedDocs: { type: any, source: any, uid: any }[] = [];
-
   constructor(
     private router: Router,
     private advanceSearch: AdvanceSearch,
@@ -41,9 +43,11 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
   getDocumentType(): string {
     return this.document ? this.document.type.toLowerCase() : '';
   }
-  redirectToDoc(doc: DocumentModel) {
+
+  redirectToDoc(doc: DocumentModel): void {
     this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/creative/asset/${doc.uid}` } });
   }
+
   private searchRelatedCampaign(doc: DocumentModel): void {
     const campaign = doc.get('The_Loupe_Main:campaign');
     if (campaign == null) {
@@ -66,7 +70,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
     }
   }
 
-  private wrapAsCarouselData(entries: DocumentModel[]) {
+  private wrapAsCarouselData(entries: DocumentModel[]): any[] {
     const carouselData = [];
     entries.forEach((entrie: DocumentModel) => {
       if (entrie.fileMimeType) {
@@ -80,11 +84,11 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
     return carouselData;
   }
 
-  moveLeft() {
+  moveLeft(): void {
     this.ds.moveLeft();
   }
 
-  moveRight() {
+  moveRight(): void {
     this.ds.moveRight();
   }
 

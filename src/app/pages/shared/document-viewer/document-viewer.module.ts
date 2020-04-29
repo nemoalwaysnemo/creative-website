@@ -9,10 +9,7 @@ import { DocumentVideoViewerComponent } from './document-video-viewer/document-v
 import { DocumentVideoPlayerComponent } from './document-video-viewer/document-video-player/document-video-player.component';
 import { DocumentVideoStoryboardComponent } from './document-video-viewer/document-video-storyboard/document-video-storyboard.component';
 import { DocumentAudioViewerComponent } from './document-audio-viewer/document-audio-viewer.component';
-import { DocumentActionGroupComponent } from './document-action-group/document-action-group.component';
-import { DocumentRelatedCampaignComponent } from './document-related-campaign/document-related-campaign.component';
 import { DocumentVideoViewerService } from './document-video-viewer/document-video-viewer.service';
-import { ShareDocumentButtonModule } from '../share-document-button/share-document-button.module';
 import { VgCoreModule } from 'videogular2/compiled/core';
 import { VgControlsModule } from 'videogular2/compiled/controls';
 import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
@@ -27,7 +24,6 @@ import { VgBufferingModule } from 'videogular2/compiled/buffering';
     VgOverlayPlayModule,
     VgBufferingModule,
     DragScrollModule,
-    ShareDocumentButtonModule,
   ],
   declarations: [
     DocumentPdfViewerComponent,
@@ -37,8 +33,6 @@ import { VgBufferingModule } from 'videogular2/compiled/buffering';
     DocumentVideoPlayerComponent,
     DocumentVideoStoryboardComponent,
     DocumentAudioViewerComponent,
-    DocumentActionGroupComponent,
-    DocumentRelatedCampaignComponent,
   ],
   exports: [
     DocumentViewerComponent,
