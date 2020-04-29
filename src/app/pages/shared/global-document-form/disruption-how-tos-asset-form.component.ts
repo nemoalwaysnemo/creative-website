@@ -9,7 +9,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComponent {
-  protected documentType: string = 'App-Disruption-Roadmap-Asset';
+  protected documentType: string = 'App-Disruption-Theory-Asset';
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
   }

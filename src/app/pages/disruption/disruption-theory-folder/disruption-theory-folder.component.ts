@@ -103,8 +103,4 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
     return params;
   }
 
-  openDialog(dialog: any): void {
-    this.globalDocumentDialogService.open(dialog);
-  }
-
 }

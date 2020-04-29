@@ -32,7 +32,7 @@
     </div>
   </div>
   <ng-template #backslashDialog>
-    <global-document-dialog [type]="'preview'" [previewComponent]="backslashDialogComponent" [documentModel]="doc"></global-document-dialog>
+    <global-document-dialog [type]="'preview'" [previewComponent]="backslashDialogComponent" [documentModel]="doc" [title]="backslashTitle"></global-document-dialog>
   </ng-template>
 </ng-template>
 
@@ -46,7 +46,7 @@
     </div>
   </div>
   <ng-template #disruptionDialog>
-    <global-document-dialog [type]="'preview'" [previewComponent]="disruptionDialogComponent" [documentModel]="doc"></global-document-dialog>
+    <global-document-dialog [type]="'preview'" [previewComponent]="disruptionDialogComponent" [documentModel]="doc" [metadata]="dialogMetadata" [title]="disruptionTitle"></global-document-dialog>
   </ng-template>
 </ng-template>
 
@@ -60,6 +60,6 @@
     </div>
   </div>
   <ng-template #intelligenceDialog>
-    <global-document-dialog [type]="'preview'" [previewComponent]="intelligenceComponent" [documentModel]="doc"></global-document-dialog>
+    <global-document-dialog [type]="'preview'" [previewComponent]="intelligenceComponent" [documentModel]="doc" [metadata]="dialogMetadata" [title]="intelligenceTitle"></global-document-dialog>
   </ng-template>
 </ng-template>

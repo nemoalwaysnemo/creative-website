@@ -52,14 +52,14 @@
           </tbody>
         </table>
         <ng-container *ngIf="writePermission$ | async">
-          <a href="javascript:;" (click)="openDialog(dialog, 'edit')" title="Edit" class="edit right icon_btn">Edit</a>
+          <a href="javascript:;" (click)="openDialog(dialogEdit)" title="Edit" class="edit right icon_btn">Edit</a>
         </ng-container>
-        <ng-container *ngIf="isDisruptionAsset(documentModel) && deletePermission$ | async">
-          <a href="javascript:;" (click)="openDialog(dialog, 'deleteSoft')" title="Delete" class="edit right icon_btn">Delete</a>
+        <ng-container *ngIf="(isDisruptionAsset(documentModel) || isIntelligenceAsset(documentModel)) && deletePermission$ | async">
+          <a href="javascript:;" (click)="openDialog(dialogDelete)" title="Delete" class="edit right icon_btn">Delete</a>
         </ng-container>
-        <ng-container *ngIf="isIntelligenceAsset(documentModel) && deletePermission$ | async">
+        <!-- <ng-container *ngIf="isIntelligenceAsset(documentModel) && deletePermission$ | async">
           <a href="javascript:;" (click)="openDialog(dialog, 'delete')" title="Delete" class="edit right icon_btn">Delete</a>
-        </ng-container>
+        </ng-container> -->
         <!-- <ng-container *ngIf="downloadPermission$ | async">
           <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
         </ng-container>
@@ -156,5 +156,11 @@
   </div>
 </div>
 
-<ng-template #dialog>
+<ng-template #dialogEdit>
+  <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(documentModel)"
+    [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="getFormTitle(documentModel)"></global-document-dialog>
+</ng-template>
+<ng-template #dialogDelete>
+  <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="documentModel"
+    [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
 </ng-template>

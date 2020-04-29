@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, Type, ViewContainerRef } from '@angular/core';
+import { Component, Input, Type } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
@@ -20,7 +20,7 @@ export class DisruptionFormButtonComponent {
   @Input() title: string;
 
   @Input()
-  set type(type: 'roadmap' | 'day' | 'day asset' | 'brilliant thinking') {
+  set type(type: 'roadmap' | 'day' | 'day asset' | 'theory asset' | 'brilliant thinking') {
     this.component = this.getFormComponent(type);
   }
 
@@ -50,6 +50,9 @@ export class DisruptionFormButtonComponent {
         break;
       case 'day asset':
         formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM;
+        break;
+      case 'theory asset':
+        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM;
         break;
       case 'brilliant thinking':
         formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM;

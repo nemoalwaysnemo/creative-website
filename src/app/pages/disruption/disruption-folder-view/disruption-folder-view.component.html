@@ -1,4 +1,5 @@
-<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled"
+  [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="doc" class="property-section">
     <a [routerLink]="[getAssetUrl(doc),  doc.uid]" class="property-intro inline-top">
       <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
@@ -20,15 +21,27 @@
         <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
       </ng-container>
       <ng-container *ngIf="writePermission$ | async">
-        <button type="button" (click)="openDialog(dialog)" class="icon_btn left">Edit</button>
+        <button type="button" (click)="openDialog(editDialog)" class="icon_btn left">Edit</button>
       </ng-container>
       <ng-container *ngIf="!isDisruptionAsset(doc) && deletePermission$ | async">
-        <button type="button" (click)="openDialog(dialog)" class="icon_btn left">Delete</button>
+        <button type="button" (click)="openDialog(deleteDialog)" class="icon_btn left">Delete</button>
+      </ng-container>
+      <ng-container *ngIf="isDisruptionAsset(doc) && deletePermission$ | async">
+        <button type="button" (click)="openDialog(softDeleteDialog)" class="icon_btn left">Delete</button>
       </ng-container>
       <div class="clear"></div>
     </div>
   </div>
 </div>
-<ng-template #dialog>
-  <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(doc)" [documentModel]="doc"></global-document-dialog>
+<ng-template #editDialog>
+  <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(doc)" [documentModel]="doc"
+    [metadata]="dialogMetadata" [title]="getFormTitle(doc)"></global-document-dialog>
+</ng-template>
+<ng-template #deleteDialog>
+  <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="documentModel"
+    [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
+</ng-template>
+<ng-template #softDeleteDialog>
+  <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="documentModel"
+    [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
 </ng-template>

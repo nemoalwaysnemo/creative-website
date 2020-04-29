@@ -1,11 +1,12 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentDialogService } from '@pages/shared';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
+import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
 
 @Component({
   selector: 'disruption-folder-view',
@@ -39,15 +40,22 @@ export class DisruptionFolderViewComponent {
 
   doc: DocumentModel;
 
-  showEdit: string = 'edit';
+  deletTitle: string = 'Delete';
+
+  generalComponent = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
 
   writePermission$: Observable<boolean> = observableOf(false);
 
   deletePermission$: Observable<boolean> = observableOf(false);
 
+  dialogMetadata: any = {
+    formMode: 'edit',
+    enableEdit: false,
+    enableDeletion: false,
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 
@@ -59,8 +67,23 @@ export class DisruptionFolderViewComponent {
     if (doc.type === 'App-Disruption-Day') {
       return GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM;
     } else if (doc.type === 'App-Disruption-Theory-Folder') {
-      return GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+      return GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM;
     }
+  }
+
+  getFormTitle(doc: DocumentModel): any {
+    let formTitle;
+    switch (doc.type) {
+      case 'App-Disruption-Day':
+        formTitle = 'Edit Day';
+        break;
+      case 'App-Disruption-Theory-Folder':
+        formTitle = 'Edit How Tos';
+        break;
+      default:
+        break;
+    }
+    return formTitle;
   }
 
   getAssetUrl(doc: DocumentModel): string {
@@ -71,13 +94,8 @@ export class DisruptionFolderViewComponent {
     return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
   }
 
-  openDialog(dialog: any, view: string): void {
-    this.showEdit = view;
+  openDialog(dialog: any): void {
     this.globalDocumentDialogService.open(dialog);
-  }
-
-  onUpdate(doc: DocumentModel): void {
-    this.router.navigate(['/p/redirect'], { queryParams: { url: decodeURI(this.router.url) } });
   }
 
   goBack(): void {

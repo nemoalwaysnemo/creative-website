@@ -1,9 +1,10 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { SearchQueryParamsService } from '@pages/shared';
+import { SearchQueryParamsService, GlobalDocumentDialogService } from '@pages/shared';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { Router } from '@angular/router';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { Router } from '@angular/router';
+import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 import { getDocumentTypes } from '@core/services/helpers';
 
 @Component({
@@ -15,13 +16,15 @@ import { getDocumentTypes } from '@core/services/helpers';
 export class BizDevFolderViewComponent {
 
   @Input() loading: boolean;
-  showEdit: string = 'edit';
+
   @Input() deleteRedirect: string = '';
 
   @Input() assetUrl: string;
+
   @Input() backAssetFlag: boolean = false;
 
   @Input() assetUrlMapping: object = {};
+
   @Input() doc: DocumentModel;
 
   @Input() showButton: boolean = true;
@@ -39,7 +42,14 @@ export class BizDevFolderViewComponent {
   writePermission$: Observable<boolean> = observableOf(false);
   deletePermission$: Observable<boolean> = observableOf(false);
 
+  dialogMetadata: any = {
+    formMode: 'edit',
+    enableEdit: false,
+    enableDeletion: false,
+  };
+
   constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
@@ -52,11 +62,35 @@ export class BizDevFolderViewComponent {
     return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
   }
 
-  openDialog(dialog: any, type): void {
+  isParentFolder(doc: DocumentModel): boolean {
+    return doc && (getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE).includes(doc.type) || getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE).includes(doc.type));
   }
 
-  onUpdate(doc: DocumentModel): void {
-    this.router.navigate(['/p/redirect'], { queryParams: { url: decodeURI(this.router.url) } });
+  getDocumentFormComponent(doc: DocumentModel): any {
+    if (doc.type === 'App-BizDev-CaseStudy-Folder') {
+      return GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM;
+    } else if (doc.type === 'App-BizDev-Thought-Folder') {
+      return GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM;
+    }
+  }
+
+  getFormTitle(doc: DocumentModel): any {
+    let formTitle;
+    switch (doc.type) {
+      case 'App-BizDev-CaseStudy-Folder':
+        formTitle = 'Edit Case Folder';
+        break;
+      case 'App-BizDev-Thought-Folder':
+        formTitle = 'Edit Thought Folder';
+        break;
+      default:
+        break;
+    }
+    return formTitle;
+  }
+
+  openDialog(dialog: any): void {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   goBack(): void {
@@ -84,7 +118,7 @@ export class BizDevFolderViewComponent {
     if ((NUXEO_META_INFO.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
       return [this.getAssetUrl(this.doc)];
     } else {
-      return [this.getAssetUrl(this.doc),  this.doc.uid];
+      return [this.getAssetUrl(this.doc), this.doc.uid];
     }
   }
   protected goBackInfo(type: string): any {

@@ -16,10 +16,15 @@
       <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
 
       <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
-      <ng-container *ngIf="writePermission$ | async">
-        <button type="button" (click)="openDialog(dialog, 'edit')" class="icon_btn left">Edit</button>
+      <ng-container *ngIf="!isParentFolder(doc) && writePermission$ | async">
+        <button type="button" (click)="openDialog(dialog)" class="icon_btn left">Edit</button>
       </ng-container>
       <div class="clear"></div>
     </div>
   </div>
 </div>
+
+<ng-template #dialog>
+  <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(doc)" [documentModel]="doc"
+    [metadata]="dialogMetadata" [title]="getFormTitle(doc)"></global-document-dialog>
+</ng-template>

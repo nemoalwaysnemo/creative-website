@@ -7,6 +7,8 @@ import { getDocumentTypes, parseCountry } from '@core/services/helpers';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
+import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
+import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 
 @Component({
   selector: 'document-metadata-info',
@@ -27,8 +29,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  showEdit: boolean = false;
-
   writePermission$: Observable<boolean> = observableOf(false);
 
   deletePermission$: Observable<boolean> = observableOf(false);
@@ -38,6 +38,16 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   documentModel: DocumentModel;
 
   dialogType: string = 'edit';
+
+  deleteTitle: string = 'Delete';
+
+  generalComponent = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
+
+  dialogMetadata: any = {
+    formMode: 'edit',
+    enableEdit: true,
+    enableDeletion: false,
+  };
 
   @Input() deleteRedirect: string = '';
   @Input()
@@ -97,6 +107,50 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE).includes(doc.type);
   }
 
+  getDocumentFormComponent(doc: DocumentModel): any {
+    let formComponent;
+    switch (doc.type) {
+      case 'App-Disruption-Day-Asset':
+        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM;
+        break;
+      case 'App-Disruption-Theory-Asset':
+        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM;
+        break;
+      case 'App-BizDev-CaseStudy-Asset':
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_ASSET_FORM;
+        break;
+      case 'App-BizDev-Thought-Asset':
+        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM;
+        break;
+      default:
+        break;
+    }
+
+    return formComponent;
+  }
+
+  getFormTitle(doc: DocumentModel): any {
+    let formTitle;
+    switch (doc.type) {
+      case 'App-Disruption-Day-Asset':
+        formTitle = 'Edit Disruption Day Asset';
+        break;
+      case 'App-Disruption-Theory-Asset':
+        formTitle = 'Edit Disruption How tos';
+        break;
+      case 'App-BizDev-CaseStudy-Asset':
+        formTitle = 'Edit Case Study';
+        break;
+      case 'App-BizDev-Thought-Asset':
+        formTitle = 'Edit Think Piece';
+        break;
+      default:
+        break;
+    }
+
+    return formTitle;
+  }
+
   toggleJob(doc: DocumentModel) {
     if (this.jobTitle === undefined && this.hasJobValue(doc)) {
       this.advanceSearch.request(this.getRequestParams(doc))
@@ -117,8 +171,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     this.location.back();
   }
 
-  openDialog(dialog: any, type: string): void {
-    this.dialogType = type;
+  openDialog(dialog: any): void {
     this.globalDocumentDialogService.open(dialog);
   }
 
