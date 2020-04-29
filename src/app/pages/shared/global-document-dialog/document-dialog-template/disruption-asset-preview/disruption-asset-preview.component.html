@@ -1,7 +1,8 @@
 <div class="dialog-title text-center">
-  <a (click)="close()"><img [src]="closeBtnImage()"></a>
-  <h1>{{title}}</h1>
-  <a (click)="backToMainView()" *ngIf="mainViewChanged"><img [src]="backBtnImage()"></a>
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1 class="left">{{title}}</h1>
+  <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
+  <div class="clear"></div>
 </div>
 <div class="dialog-body">
   <ng-container *ngIf="document">
@@ -10,7 +11,7 @@
     </div>
   </ng-container>
   <ng-container *ngIf="document">
-    <div class="text-content">
+    <div class="text-content" style="padding-top: 0;">
       <div class="controls">
         <h2 class="left">{{ document.get('The_Loupe_Main:brand')}}</h2>
         <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>

@@ -8,7 +8,7 @@ import { timer } from 'rxjs';
 
 @Component({
   selector: 'document-dialog-form',
-  styleUrls: ['./document-dialog-form.component.scss'],
+  styleUrls: ['../document-dialog-template/global-document-dialog-template.scss'],
   templateUrl: './document-dialog-form.component.html',
 })
 export class DocumentDialogFormComponent extends AbstractDocumentDialogContainerComponent implements DocumentModelForm {

@@ -1,17 +1,20 @@
-.inline-middle {
-	display: inline-block;
-	vertical-align: middle;
-}
 .dialog-title {
 	height: 80px;
 	padding: 24px 0;
 	box-sizing: border-box;
+	&.with_logo {
+		background-image: url('/assets/images/backslash_logo.png');
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: auto 32px;
+	}
 	background-color: #000000;
 	a {
 		display: block;
 		width: 32px;
 		height: 32px;
-		margin-left: 25px;
+		&.left { margin-left: 25px; }
+		&.right { margin-right: 25px; }
 		img {
 			display: block;
 			width: 100%;
@@ -19,28 +22,39 @@
 		}
 	}
 	h1 {
+		display: block;
+		width: calc(100% - 114px);
+		height: 32px;
+		line-height: 32px;
 		margin: 0;
 		color: #ffffff;
 		font-size: 23px;
-		height: 32px;
-		line-height: 32px;
-		display: block;
-		width: 100%;
-		margin-left: -25px;
 	}
 }
 .dialog-body {
-  height: 80vh;
+  max-height: 80vh;
   overflow: auto;
-
 	.media {
 		// padding: 0 144px;
 		box-sizing: border-box;
 		background-color: #000000;
 		document-viewer { width: 100%; }
 	}
+	.form {
+    width: 100%;
+    padding: 10px 20px;
+  }
 	.text-content {
-		background: #ffffff;
+		padding: 30px 0;
+		&.pure-text {
+			font-family: "Averta for TBWA W01 Semibold", helvetica, arial;
+			font-size: 24px;
+			padding: 30px;
+		}
+		img {
+			margin-left: 33px;
+			margin-right: 27px;
+		}
 		.controls {
 			width: 100%;
 			padding: 10px 0 0;
@@ -67,7 +81,12 @@
 		}
 		p {
 			width: calc(100% - 254px);
-			margin: 24px auto;
+			margin: 49px auto 0;
 		}
+	}
+	.action-content {
+		padding: 10px 30px;
+		box-sizing: border-box;
+		.btn { margin-right: 10px; }
 	}
 }
