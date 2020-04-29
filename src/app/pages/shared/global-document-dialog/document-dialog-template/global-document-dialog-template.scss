@@ -83,6 +83,13 @@
 			width: calc(100% - 254px);
 			margin: 49px auto 0;
 		}
+		.download-request-form {
+			textarea {
+				width: 100%;
+				min-height: 100px;
+				max-height: 300px;
+			}
+		}
 	}
 	.action-content {
 		padding: 10px 30px;
