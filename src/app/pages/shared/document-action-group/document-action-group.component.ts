@@ -4,14 +4,15 @@ import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
 import { DocumentModel, UserService, UserModel, NuxeoPermission } from '@core/api';
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { NUXEO_META_INFO } from '@environment/environment';
+import { SearchQueryParamsService } from '../services/search-query-params.service';
 
 @Component({
   selector: 'document-action-group',
   styleUrls: ['./document-action-group.component.scss'],
   templateUrl: './document-action-group.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentActionGroupComponent {
 
@@ -29,6 +30,8 @@ export class DocumentActionGroupComponent {
       this.documentModel = doc;
       if (this.isCreativeAsset(doc)) {
         this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
+      } else if (this.isBizDevCaseStudyAsset(doc)) {
+        this.downloadPermission$ = observableOf(doc.get('app_global:networkshare') === false);
       } else {
         this.downloadPermission$ = observableOf(true);
       }
@@ -37,8 +40,15 @@ export class DocumentActionGroupComponent {
 
   constructor(
     private userService: UserService,
-    private location: Location,
-  ) { }
+    private queryParamsService: SearchQueryParamsService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+
+  }
+
+  openDialog(dialog: any): void {
+    this.globalDocumentDialogService.open(dialog);
+  }
 
   isCreativeAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(doc.type);
@@ -46,6 +56,10 @@ export class DocumentActionGroupComponent {
 
   isBizDevCaseStudyAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
+  }
+
+  isNeedSendDownloadRequest(doc: DocumentModel): boolean {
+    return this.isBizDevCaseStudyAsset(doc) && doc.get('app_global:networkshare') === true;
   }
 
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
@@ -63,8 +77,8 @@ export class DocumentActionGroupComponent {
       );
   }
 
-  goBack() {
-    this.location.back();
+  goBack(): void {
+    this.queryParamsService.historyBack();
   }
 
 }
