@@ -8,7 +8,7 @@ import { BizDevCaseStudyFolderModule } from './biz-dev-case-study-folder/biz-dev
 import { BizDevThoughtLeadershipModule } from './biz-dev-thought-leadership/biz-dev-thought-leadership.module';
 import { BizDevThoughtLeadershipFolderModule } from './biz-dev-thought-leadership-folder/biz-dev-thought-leadership-folder.module';
 import { BizDevAssetModule } from './biz-dev-asset/biz-dev-asset.module';
-import { BizDevRemotePageModule } from './biz-dev-remote-page.module';
+import { BizDevRemotePageModule } from './biz-dev-remote-page/biz-dev-remote-page.module';
 
 @NgModule({
   imports: [

@@ -21,6 +21,8 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
 
   accordions: any = {};
 
+  formMode: 'create' | 'edit';
+
   @Input()
   set documentModel(doc: DocumentModel) {
     this.setFormDocument(doc);
@@ -36,8 +38,6 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   protected subscription: Subscription = new Subscription();
 
   protected documentType: string;
-
-  protected formMode: 'create' | 'edit';
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     this.onDocumentChanged();
