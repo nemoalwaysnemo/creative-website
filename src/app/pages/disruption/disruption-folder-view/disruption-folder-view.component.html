@@ -23,11 +23,8 @@
       <ng-container *ngIf="writePermission$ | async">
         <button type="button" (click)="openDialog(editDialog)" class="icon_btn left">Edit</button>
       </ng-container>
-      <ng-container *ngIf="!isDisruptionAsset(doc) && deletePermission$ | async">
+      <ng-container *ngIf="deletePermission$ | async">
         <button type="button" (click)="openDialog(deleteDialog)" class="icon_btn left">Delete</button>
-      </ng-container>
-      <ng-container *ngIf="isDisruptionAsset(doc) && deletePermission$ | async">
-        <button type="button" (click)="openDialog(softDeleteDialog)" class="icon_btn left">Delete</button>
       </ng-container>
       <div class="clear"></div>
     </div>
@@ -38,10 +35,6 @@
     [metadata]="dialogMetadata" [title]="getFormTitle(doc)"></global-document-dialog>
 </ng-template>
 <ng-template #deleteDialog>
-  <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="documentModel"
-    [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
-</ng-template>
-<ng-template #softDeleteDialog>
   <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="documentModel"
     [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
 </ng-template>
