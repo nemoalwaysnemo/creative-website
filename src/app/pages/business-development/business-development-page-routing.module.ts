@@ -2,7 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BusinessDevelopmentPageComponent } from './business-development-page.component';
 import { BizDevHomeComponent } from './biz-dev-home/biz-dev-home.component';
-import { BizDevRemotePageComponent } from './biz-dev-remote-page.component';
+import { BizDevRemotePageComponent } from './biz-dev-remote-page/biz-dev-remote-page.component';
 import { BizDevAssetComponent } from './biz-dev-asset/biz-dev-asset.component';
 import { BizDevCaseStudyComponent } from './biz-dev-case-study/biz-dev-case-study.component';
 import { BizDevCaseStudyFolderComponent } from './biz-dev-case-study-folder/biz-dev-case-study-folder.component';

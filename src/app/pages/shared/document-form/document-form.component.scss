@@ -1,4 +1,13 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
+
 .float-right {
-    float: right;
+  float: right;
+}
+
+.button-groups {
+  box-sizing: border-box;
+
+  .btn {
+    margin-right: 10px;
+  }
 }
