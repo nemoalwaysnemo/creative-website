@@ -27,7 +27,7 @@ export class BackslashDocumentAssetSearchResultComponent extends AbstractSearchR
 
   @Input() hideEmpty: boolean = false;
 
-  title: string = 'Backslash';
+  backslashTitle: string = 'Backslash';
 
   dialogMetadata: any = {
     enableEdit: false,

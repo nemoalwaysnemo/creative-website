@@ -2,7 +2,6 @@ import { Input, Type, ComponentRef, ViewContainerRef, ViewChild, ComponentFactor
 import { AbstractDocumentDialogBaseTemplateComponent } from './abstract-document-dialog-base-template.component';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 
 export abstract class AbstractDocumentDialogContainerComponent extends AbstractDocumentDialogBaseTemplateComponent {
