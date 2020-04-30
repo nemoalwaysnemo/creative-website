@@ -7,6 +7,6 @@
     <h1 [title]="doc.title">{{doc.title}}</h1>
   </div>
   <ng-template #dialog>
-    <global-document-dialog [type]="'preview'" [previewComponent]="previewComponent" [documentModel]="doc"></global-document-dialog>
+    <global-document-dialog [type]="'preview'" [previewComponent]="previewComponent" [formComponent]="formComponent" [generalComponent]="generalComponent" [documentModel]="doc" [title]="title" [metadata]="dialogMetadata"></global-document-dialog>
   </ng-template>
 </ng-template>

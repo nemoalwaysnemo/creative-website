@@ -113,7 +113,4 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
     this.globalDocumentDialogService.open(dialog);
   }
 
-  onCreated(docs: DocumentModel[]): void {
-    this.navigate([`/p/disruption/Disruption Days/day/${docs[0].uid}`]);
-  }
 }

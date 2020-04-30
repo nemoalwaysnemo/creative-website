@@ -27,6 +27,13 @@ export class BackslashDocumentAssetSearchResultComponent extends AbstractSearchR
 
   @Input() hideEmpty: boolean = false;
 
+  title: string = 'Backslash';
+
+  dialogMetadata: any = {
+    enableEdit: false,
+    enableDeletion: false,
+  };
+
   listViewSettings: any;
 
   previewDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET;

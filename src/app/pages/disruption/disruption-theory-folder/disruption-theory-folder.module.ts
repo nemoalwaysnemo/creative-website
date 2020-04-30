@@ -4,6 +4,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { DisruptionTheoryFolderComponent } from './disruption-theory-folder.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { DisruptionFolderViewModule } from '../disruption-folder-view/disruption-folder-view.module';
+import { DisruptionFormButtonModule } from '../disruption-form-button/disruption-form-button.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { DisruptionFolderViewModule } from '../disruption-folder-view/disruption
     GlobalSearchFormModule,
     GlobalSearchResultModule,
     DisruptionFolderViewModule,
+    DisruptionFormButtonModule,
   ],
   declarations: [
     DisruptionTheoryFolderComponent,

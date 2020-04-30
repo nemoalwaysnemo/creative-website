@@ -53,11 +53,24 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   noResultText: string;
 
+  dialogMetadata: any = {
+    enablePreview: true,
+    enableEdit: false,
+    enableDeletion: false,
+    moreInfo: true,
+  };
+
   backslashDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
 
   disruptionDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
   intelligenceComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
+
+  backslashTitle: string = 'Backslash';
+
+  disruptionTitle: string = 'Disruption';
+
+  intelligenceTitle: string = 'Intelligence';
 
   constructor(
     private advanceSearch: AdvanceSearch,
@@ -73,7 +86,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  openDialog(dialog: TemplateRef<any>): void {
+  openDialog(dialog: any): void {
     this.globalDocumentDialogService.open(dialog);
   }
 

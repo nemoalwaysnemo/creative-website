@@ -4,62 +4,37 @@ import { DocumentModel } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 
 @Component({
   selector: 'disruption-thinking-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './disruption-thinking-asset-search-result.component.html',
 })
-export class DisruptionThinkingAssetSearchResultComponent implements OnInit {
+export class DisruptionThinkingAssetSearchResultComponent {
 
-  constructor(
-    private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
-    private router: Router,
-  ) { }
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {
 
-  deleteRedirect: string;
+  }
 
-  backButton: boolean = false;
-
-  showEdit: string = 'preview';
+  title: string = 'Brilliant Thinking';
 
   previewComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
-  ngOnInit() {
-    // this.dialogService.onClose().subscribe(_ => {
-    //   this.showEdit = 'preview';
-    // });
-    // this.deleteRedirect = this.router.url;
-  }
+  formComponent: any = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM;
 
-  openDialog(dialog: TemplateRef<any>): void {
+  generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
+
+  dialogMetadata: any = {
+    formMode: 'edit',
+    enableEdit: true,
+    enableDeletion: true,
+    moreInfo: true,
+    enablePreview: true,
+  };
+
+  openDialog(dialog: TemplateRef<any>) {
     this.globalDocumentDialogService.open(dialog);
   }
 
-  openEdit(event): void {
-    if (event.type === 'openEdit') {
-      this.showEdit = 'edit';
-    } else if (event.type === 'openDelete') {
-      this.backButton = true;
-      this.showEdit = 'delete';
-    }
-  }
-
-  onUpdate(doc: any): void {
-    this.showEdit = 'preview';
-  }
-
-  callback(message: { type, value }): void {
-    if (message.type === 'success') {
-      this.refresh(message.value);
-    } else if (message.type === 'back') {
-      this.showEdit = message.value;
-    }
-  }
-
-  refresh(doc: any): void {
-    // this.dialogService.setDocument(doc);
-    this.queryParamsService.refresh();
-  }
 }

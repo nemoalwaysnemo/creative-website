@@ -14,6 +14,8 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
 
   }
 
+  title: string = 'Disruption Roadmaps';
+
   previewComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
   formComponent: any = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;

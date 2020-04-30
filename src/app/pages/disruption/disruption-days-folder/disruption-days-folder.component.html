@@ -1,6 +1,5 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <global-search-form [filters]="filters" [baseParams]="baseParams$ | async">
-  <!-- <button *ngIf="addChildrenPermission$ | async" type="button" (click)="openDialog(dialog)" class="icon_btn new_day group-left" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="New Asset">New Asset</button> -->
   <ng-container class="group-left">
     <div class="global-search-form-buttons">
       <disruption-form-button [parent]="document" [type]="'day asset'" [title]="'New Asset'"></disruption-form-button>

@@ -38,6 +38,7 @@ export abstract class AbstractDocumentDialogContainerComponent extends AbstractD
     if (!this.customComponent) {
       this.customComponent = this.createCustomComponent(this.dynamicTarget, this.component);
     }
+    this.customComponent.instance.title = this.title;
     this.customComponent.instance.metadata = this.settings;
     this.customComponent.instance.documentModel = this.document;
     this.customComponent.instance.redirectUrl = this.redirectUrl;

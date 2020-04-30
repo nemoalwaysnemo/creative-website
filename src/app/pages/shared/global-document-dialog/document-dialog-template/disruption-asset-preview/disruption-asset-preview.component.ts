@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
-import { getDocumentTypes } from '@core/services/helpers';
+import { getDocumentTypes, parseCountry } from '@core/services/helpers';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { SearchQueryParamsService } from '../../../services/search-query-params.service';
 import { AbstractDocumentDialogPreviewTemplateComponent } from '../../abstract-document-dialog-preview-template.component';
@@ -51,5 +51,9 @@ export class DisruptionAssetPreviewDialogComponent extends AbstractDocumentDialo
 
   isIntelligenceAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
+  }
+
+  parseCountry(list: string[]) {
+    return parseCountry(list);
   }
 }
