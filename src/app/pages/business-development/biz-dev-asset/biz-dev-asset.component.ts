@@ -4,6 +4,7 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../business-development-tab-config';
+import { parseTabRoute } from '@core/services/helpers';
 @Component({
   selector: 'biz-dev-asset',
   styleUrls: ['./biz-dev-asset.component.scss'],
@@ -15,15 +16,14 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent implemen
 
   folderLoading: boolean = true;
 
-  tabs: any[] = TAB_CONFIG;
+  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_ALL_FOLDER_TYPES,
-    // ecm_mixinType_not_in: '', // override
-    // ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+    ecm_mixinType_not_in: '',
   };
 
   assetUrlMapping: object = {
@@ -54,7 +54,7 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent implemen
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_mixinType_not_in: '', // override
+      ecm_mixinType_not_in: '',
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE,
     };

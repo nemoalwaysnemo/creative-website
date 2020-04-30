@@ -48,6 +48,7 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
       currentPageIndex: 0,
       ecm_path_eq: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE,
+      ecm_mixinType_not_in: '', // override
     };
   }
 
