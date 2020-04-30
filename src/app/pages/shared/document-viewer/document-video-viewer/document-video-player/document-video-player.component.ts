@@ -24,7 +24,8 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
   constructor(private seekTimeService: DocumentVideoViewerService,
               private cookieService: CookieService,
               private activatedRoute: ActivatedRoute,
-              private api: VgAPI) {
+              private api: VgAPI,
+  ) {
     this.subscription = this.seekTimeService.getTimeChanged().subscribe(
       res => {
         this.api.currentTime = res.time;
