@@ -68,7 +68,7 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         formMode: 'create',
         uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
+        queueLimit: 25,
         placeholder: 'Drop Image/PDF here!',
         acceptTypes: 'mage/*,.pdf',
       }),
@@ -94,7 +94,7 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: false,
+        multiUpload: true,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
