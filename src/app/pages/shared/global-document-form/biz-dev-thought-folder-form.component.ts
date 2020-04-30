@@ -56,7 +56,7 @@ export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormCompon
         formMode: 'create',
         uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 25,
+        queueLimit: 1,
         placeholder: 'Drop Image/PDF here!',
         acceptTypes: 'image/*,.pdf',
       }),
@@ -73,7 +73,7 @@ export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormCompon
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

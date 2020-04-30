@@ -10,6 +10,16 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 
+enum assetTypes {
+  roadmap = 'App-Disruption-Roadmap-Asset',
+  day = 'App-Disruption-Day',
+  day_asset = 'App-Disruption-Day-Asset',
+  theory = 'App-Disruption-Theory-Asset',
+  thinking = 'App-Disruption-Asset',
+  case_asset = 'App-BizDev-CaseStudy-Asset',
+  thought_asset = 'App-BizDev-Thought-Asset',
+}
+
 @Component({
   selector: 'document-metadata-info',
   styleUrls: ['./document-metadata-info.component.scss'],
@@ -110,44 +120,60 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   getDocumentFormComponent(doc: DocumentModel): any {
     let formComponent;
     switch (doc.type) {
-      case 'App-Disruption-Day-Asset':
+      case assetTypes.roadmap:
+        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+        break;
+      case assetTypes.day:
+        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM;
+        break;
+      case assetTypes.day_asset:
         formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM;
         break;
-      case 'App-Disruption-Theory-Asset':
+      case assetTypes.theory:
         formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM;
         break;
-      case 'App-BizDev-CaseStudy-Asset':
+      case assetTypes.thinking:
+        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM;
+        break;
+      case assetTypes.case_asset:
         formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_ASSET_FORM;
         break;
-      case 'App-BizDev-Thought-Asset':
+      case assetTypes.thought_asset:
         formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM;
         break;
       default:
         break;
     }
-
     return formComponent;
   }
 
   getFormTitle(doc: DocumentModel): any {
     let formTitle;
     switch (doc.type) {
-      case 'App-Disruption-Day-Asset':
+      case assetTypes.roadmap:
+        formTitle = 'Edit Disruption Roadmap';
+        break;
+      case assetTypes.day:
+        formTitle = 'Edit Disruption Day';
+        break;
+      case assetTypes.day_asset:
         formTitle = 'Edit Disruption Day Asset';
         break;
-      case 'App-Disruption-Theory-Asset':
+      case assetTypes.theory:
         formTitle = 'Edit Disruption How tos';
         break;
-      case 'App-BizDev-CaseStudy-Asset':
+      case assetTypes.thinking:
+        formTitle = 'Edit Brilliant Thinking';
+        break;
+      case assetTypes.case_asset:
         formTitle = 'Edit Case Study';
         break;
-      case 'App-BizDev-Thought-Asset':
+      case assetTypes.thought_asset:
         formTitle = 'Edit Think Piece';
         break;
       default:
         break;
     }
-
     return formTitle;
   }
 

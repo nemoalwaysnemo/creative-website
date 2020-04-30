@@ -67,8 +67,8 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'dragDropAssetZone',
         formMode: 'create',
         uploadType: 'asset',
-        layoutPosition: 'left',
-        queueLimit: 25,
+        layoutPosition: 'right',
+        queueLimit: 1,
         placeholder: 'Drop Image/PDF here!',
         acceptTypes: 'mage/*,.pdf',
       }),
@@ -76,7 +76,7 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'dragDropAssetZone',
         formMode: 'edit',
         uploadType: 'asset',
-        layoutPosition: 'left',
+        layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Image/PDF here!',
         acceptTypes: 'mage/*,.pdf',
@@ -85,7 +85,7 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'dragDropAttachmentZone',
         formMode: 'edit',
         uploadType: 'attachment',
-        layoutPosition: 'left',
+        layoutPosition: 'right',
         queueLimit: 20,
         placeholder: 'Drop to upload attachment',
         acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
@@ -94,7 +94,7 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
@@ -108,19 +108,16 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         label: 'Brand',
         required: false,
         placeholder: 'Brand',
-        layoutPosition: 'right',
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',
         label: 'Client',
         required: false,
         placeholder: 'Client',
-        layoutPosition: 'right',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        layoutPosition: 'right',
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
@@ -131,7 +128,6 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'app_Edges:Relevant_Country',
         label: 'Relevant Geography',
         required: false,
-        layoutPosition: 'right',
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
@@ -142,7 +138,6 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
         required: false,
-        layoutPosition: 'right',
         settings: {
           multiple: false,
           placeholder: 'Select a value',
@@ -154,7 +149,6 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'The_Loupe_Main:country',
         label: 'Agency Country',
         required: false,
-        layoutPosition: 'right',
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
@@ -165,7 +159,6 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
         required: false,
-        layoutPosition: 'right',
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
@@ -176,7 +169,6 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         id: 'app_Edges:Tags_edges',
         label: '\\Edges',
         required: false,
-        layoutPosition: 'right',
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
