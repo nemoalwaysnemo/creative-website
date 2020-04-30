@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
@@ -11,7 +11,6 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
   selector: 'biz-dev-folder-view',
   styleUrls: ['../../../theme/styles/document-folder-view.scss'],
   templateUrl: './biz-dev-folder-view.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BizDevFolderViewComponent {
 
@@ -40,6 +39,7 @@ export class BizDevFolderViewComponent {
   }
 
   writePermission$: Observable<boolean> = observableOf(false);
+
   deletePermission$: Observable<boolean> = observableOf(false);
 
   dialogMetadata: any = {
@@ -89,7 +89,7 @@ export class BizDevFolderViewComponent {
     return formTitle;
   }
 
-  openDialog(dialog: any): void {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 

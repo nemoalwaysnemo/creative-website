@@ -105,7 +105,4 @@ export class BizDevCaseStudyFolderComponent extends AbstractDocumentViewComponen
     return params;
   }
 
-  openDialog(dialog: any): void {
-  }
-
 }

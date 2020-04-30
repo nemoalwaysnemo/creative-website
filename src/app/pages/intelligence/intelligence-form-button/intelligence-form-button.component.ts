@@ -1,4 +1,4 @@
-import { Component, Input, Type } from '@angular/core';
+import { Component, Input, Type, TemplateRef } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
@@ -35,7 +35,7 @@ export class IntelligenceFormButtonComponent {
   constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
   }
 
-  openDialog(dialog: any): void {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 

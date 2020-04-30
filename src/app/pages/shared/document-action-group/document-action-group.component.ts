@@ -1,5 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
@@ -46,7 +45,7 @@ export class DocumentActionGroupComponent {
 
   }
 
-  openDialog(dialog: any): void {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 

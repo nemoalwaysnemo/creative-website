@@ -22,7 +22,7 @@ export class SearchQueryParamsService {
   }
 
   buildSearchParams(formValue: any = {}): any {
-    const values = filterParams(formValue, ['quickFilters']);
+    const values = filterParams(formValue, ['quickFilters', 'ecm_mixinType_not_in']);
     if (values.aggregates) {
       const keys = Object.keys(values.aggregates);
       if (keys.length > 0) {

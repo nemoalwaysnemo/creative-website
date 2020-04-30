@@ -59,7 +59,4 @@ export class DisruptionRoadmapsComponent extends AbstractDocumentViewComponent i
     };
   }
 
-  openDialog(dialog: any): void {
-  }
-
 }

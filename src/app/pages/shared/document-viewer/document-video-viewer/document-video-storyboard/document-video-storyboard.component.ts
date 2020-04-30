@@ -12,6 +12,7 @@ import { DocumentModel } from '@core/api';
 export class DocumentVideoStoryboardComponent implements OnInit {
 
   @Input() document: DocumentModel;
+
   storyboards: { source: any, time: number }[] = [];
 
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
@@ -29,26 +30,26 @@ export class DocumentVideoStoryboardComponent implements OnInit {
     return this.document ? this.document.type.toLowerCase() : '';
   }
 
-  moveLeft() {
+  moveLeft(): void {
     this.ds.moveLeft();
   }
 
-  moveRight() {
+  moveRight(): void {
     this.ds.moveRight();
   }
 
-  jumpToTimeline($event: any) {
+  jumpToTimeline($event: any): void {
     this.seekTime.setTime($event);
   }
 
-  timeToMinute(time: number) {
+  timeToMinute(time: number): string {
     const transformTime = parseInt(time.toString(), 10);
     const minutes = Math.floor(transformTime / 60);
     const seconds = transformTime - minutes * 60;
     return this.prefixInteger(minutes) + ' : ' + this.prefixInteger(seconds);
   }
 
-  prefixInteger(num) {
+  prefixInteger(num: number): any {
     return (Array(2).join('0') + num).slice(-2);
   }
 }

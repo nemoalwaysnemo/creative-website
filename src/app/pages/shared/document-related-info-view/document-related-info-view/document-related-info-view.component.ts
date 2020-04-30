@@ -86,7 +86,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  openDialog(dialog: any): void {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 

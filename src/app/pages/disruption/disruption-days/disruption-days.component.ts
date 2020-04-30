@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
-import { GlobalDocumentDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { ActivatedRoute } from '@angular/router';
@@ -52,8 +52,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
-    protected globalDocumentDialogService: GlobalDocumentDialogService) {
+    protected queryParamsService: SearchQueryParamsService) {
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
@@ -107,10 +106,6 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
     } else {
       return observableOf(res);
     }
-  }
-
-  openDialog(dialog: any): void {
-    this.globalDocumentDialogService.open(dialog);
   }
 
 }
