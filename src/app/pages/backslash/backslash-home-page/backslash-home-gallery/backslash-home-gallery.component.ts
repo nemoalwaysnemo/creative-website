@@ -69,21 +69,21 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   private getItems(entiries: DocumentModel[]): any[] {
-    const imgArray = new Array();
-    for (const entry of entiries) {
-      if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getCarouselVideoSources(), thumb: entry.attachedImage, poster: entry.attachedImage, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), doc: entry });
-      } else if (entry.isPicture()) {
-        const url = entry.attachedImage;
-        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), doc: entry });
+    const data = new Array();
+    for (const doc of entiries) {
+      if (doc.isVideo() && this.hasVideoContent(doc)) {
+        data.push({ src: doc.getCarouselVideoSources(), thumb: doc.thumbnailUrl, poster: doc.videoPoster, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+      } else if (doc.isPicture()) {
+        const url = doc.attachedImage;
+        data.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
       } else {
       }
     }
-    return imgArray;
+    return data;
   }
 
-  hasVideoContent(entry: DocumentModel): boolean {
-    return entry.getVideoSources().length > 0;
+  hasVideoContent(doc: DocumentModel): boolean {
+    return doc.getVideoSources().length > 0;
   }
 
   toggleInfo(doc: DocumentModel): void {
