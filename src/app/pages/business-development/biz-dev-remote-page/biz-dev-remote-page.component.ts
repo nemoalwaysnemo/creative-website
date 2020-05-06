@@ -9,7 +9,7 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 @Component({
   selector: 'biz-dev-remote-page',
   template: `
-    <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+    <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {'height': '100%'}">
       <ng-container *ngIf="iframeUrl">
         <iframe [src]="iframeUrl" height="100%" width="100%" frameBorder="0"></iframe>
       </ng-container>
