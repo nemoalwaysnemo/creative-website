@@ -9,6 +9,7 @@ export class SuggestionSettings {
 
   readonly placeholder: string = 'Please select value';
   readonly contains: boolean = true;
+  readonly filterParent: boolean = true;
   readonly suggestion: boolean = true;
   readonly initSearch: boolean = true;
   readonly multiple: boolean = true;
