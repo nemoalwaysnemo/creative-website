@@ -92,7 +92,13 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
   }
 
   private matchAssetUrl(doc: DocumentModel): string {
-    return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    if (doc.type === 'App-BizDev-CaseStudy-Asset') {
+      return `/p/business-development/Case Studies/folder/${doc.parentRef}/asset/`;
+    } else if (doc.type === 'App-BizDev-Thought-Asset') {
+      return `/p/business-development/Thought Leadership/folder/${doc.parentRef}/asset/`;
+    } else {
+     return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    }
   }
 
   private redirectToListPage(queryParams: {}): void {
