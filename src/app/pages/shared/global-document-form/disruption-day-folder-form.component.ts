@@ -60,6 +60,7 @@ export class DisruptionDayFolderFormComponent extends AbstractDocumentFormCompon
         placeholder: 'Workshop Date',
         readonly: true,
         required: true,
+        defaultValue: (new Date()),
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),

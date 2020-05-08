@@ -30,7 +30,6 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
-        hidden: true,
         validators: {
           required: null,
           minLength: 4,

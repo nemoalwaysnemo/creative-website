@@ -288,7 +288,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
           minLength: 4,
         },
         errorMessages: {
-          required: '{{label}} is required',
+          required: '{{placeholder}} is required',
           minLength: 'At least 4 characters',
         },
       }),
