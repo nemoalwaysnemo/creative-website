@@ -134,7 +134,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       const target = this.getInputTargetValue(doc, settings);
       res = this.getContentViewDocumentSuggestions(this.settings.providerName, searchTerm, target, settings.pageSize);
     } else if (settings.providerType === SuggestionSettings.DIRECTORY) {
-      res = this.getDirectorySuggestions(this.settings.providerName, searchTerm, this.settings.contains);
+      res = this.getDirectorySuggestions(searchTerm, this.settings);
     } else if (settings.providerType === SuggestionSettings.USER_GROUP) {
       res = this.getUserGroupSuggestions(searchTerm);
     } else {
@@ -160,8 +160,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     this.subscription.add(subscription);
   }
 
-  private getDirectorySuggestions(directoryName: string, searchTerm: string, contains: boolean = false): Observable<OptionModel[]> {
-    return this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName, searchTerm, contains })
+  private getDirectorySuggestions(searchTerm: string, settings: SuggestionSettings): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName: settings.providerName, searchTerm, contains: settings.contains, filterParent: settings.filterParent })
       .pipe(
         map((res: NuxeoPagination[]) => this.flatSuggestions(res)),
         map((res: any) => res.map((entry: any) => new OptionModel({ label: entry.label, value: entry.id, deep: entry.deep }))),
