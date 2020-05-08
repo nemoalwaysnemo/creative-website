@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
-import { Router, Scroll, Event, NavigationEnd } from '@angular/router';
+import { Router, Scroll, NavigationEnd } from '@angular/router';
 import { PageTitleService, GoogleAnalyticsService } from '@core/services';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, pairwise, withLatestFrom } from 'rxjs/operators';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'library-web-ui',
@@ -23,23 +24,34 @@ export class AppComponent implements OnInit {
     this.googleAnalytics.pageTrack();
   }
 
-  private isScrollToTop(e: NavigationEnd): boolean {
-    return !e.url.includes('currentPageIndex') && !e.url.includes('q=') && !e.url.includes('_agg=');
+  private isScrollToTop(e: NavigationEnd, previousUrl: string): boolean {
+    return e.url.includes('/asset/');
   }
 
   private performScrolling(): void {
-    this.router.events.pipe(
-      filter((e: Event) => e instanceof Scroll),
-      map((e: Event) => e as Scroll),
-    ).subscribe(e => {
-      if (e.position) {
+    const scrollEvents$ = this.router.events.pipe(
+      filter(event => event instanceof Scroll),
+      map(event => event as Scroll),
+    );
+    // Emits the previous URL after the router navigates to a new URL
+    const originUrl$ = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(event => event as NavigationEnd),
+      pairwise(),
+      map(navigationEvents => navigationEvents[0].url),
+    );
+    scrollEvents$.pipe(
+      withLatestFrom(originUrl$),
+    ).subscribe(([scrollEvent, originUrl]) => {
+      if (scrollEvent.position) {
         // backward navigation
-        this.viewportScroller.scrollToPosition(e.position);
-      } else if (e.anchor) {
+        this.viewportScroller.scrollToPosition(scrollEvent.position);
+      } else if (scrollEvent.anchor) {
         // anchor navigation
-        this.viewportScroller.scrollToAnchor(e.anchor);
-      // } else if (this.isScrollToTop(e.routerEvent)) {
-      //   this.viewportScroller.scrollToPosition([0, 0]);
+        this.viewportScroller.scrollToAnchor(scrollEvent.anchor);
+      } else if (this.isScrollToTop(scrollEvent.routerEvent, originUrl)) {
+        // forward navigation from non-modal route
+        timer(300).subscribe(() => { this.viewportScroller.scrollToPosition([0, 0]); });
       }
     });
   }

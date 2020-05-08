@@ -102,14 +102,12 @@ export class BizDevFolderViewComponent {
       const splitPath: string = this.doc.path.split(rootPath)[1];
       const childSplitPath: string[] = splitPath.split('/');
 
-      if (childSplitPath.length < 2) {
-        if (this.router.url.includes('/asset/')) {
-          this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlParentPath}${this.doc.uid}` } });
-        } else {
-          this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlRootPath}` } });
-        }
-      } else {
+      if (this.router.url.includes('/asset/')) {
         this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlParentPath}${this.doc.uid}` } });
+      } else if (childSplitPath.length < 2) {
+        this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlRootPath}` } });
+      } else {
+        this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlParentPath}${this.doc.parentRef}` } });
       }
     }
   }

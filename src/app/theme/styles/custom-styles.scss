@@ -276,7 +276,6 @@ body {
       }
     }
   }
-  &.biz-dev-home,
   &.disruption-home {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
@@ -335,6 +334,7 @@ body {
       }
     }
   }
+  &.biz-dev-home,
   &.intelligence-home {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
