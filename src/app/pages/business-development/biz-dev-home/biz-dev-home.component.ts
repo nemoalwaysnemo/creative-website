@@ -28,7 +28,9 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
 
   assetUrlMapping: object = {
     'App-BizDev-CaseStudy-Folder': '/p/business-development/Case Studies/folder',
+    'App-BizDev-CaseStudy-Asset': '/p/business-development/Case Studies/folder/:parentRef/asset',
     'App-BizDev-Thought-Folder': '/p/business-development/Thought Leadership/folder',
+    'App-BizDev-Thought-Asset': '/p/business-development/Thought Leadership/folder/:parentRef/asset',
     '*': '/p/business-development/asset',
   };
 
