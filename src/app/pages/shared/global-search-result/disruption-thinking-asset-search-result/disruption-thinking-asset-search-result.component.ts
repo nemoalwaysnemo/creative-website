@@ -16,6 +16,8 @@ export class DisruptionThinkingAssetSearchResultComponent {
 
   title: string = 'Brilliant Thinking';
 
+  redirectUrl: string = '/p/disruption/Brilliant Thinking';
+
   previewComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 
   formComponent: any = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM;

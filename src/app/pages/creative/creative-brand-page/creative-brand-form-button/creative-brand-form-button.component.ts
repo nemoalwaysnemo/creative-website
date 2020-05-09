@@ -3,6 +3,7 @@ import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
 import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'creative-brand-form-button',
@@ -16,6 +17,8 @@ export class CreativeBrandFormButtonComponent {
   component: Type<DocumentModelForm>;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
+
+  redirectUrl: string = this.router.url;
 
   @Input() title: string;
 
@@ -32,7 +35,10 @@ export class CreativeBrandFormButtonComponent {
     }
   }
 
-  constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
+  constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    private router: Router,
+    ) {
   }
 
   openDialog(dialog: TemplateRef<any>): void {

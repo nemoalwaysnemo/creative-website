@@ -16,6 +16,12 @@ export class DisruptionTheoryAssetComponent extends AbstractDocumentViewComponen
 
   folderLoading: boolean = true;
 
+  showButton: boolean = false;
+
+  assetUrl: string = '/p/disruption/Disruption How Tos/folder/';
+
+  deleteRedirectUrl: string;
+
   tabs: any[] = TAB_CONFIG;
 
   folderParams: any = {
@@ -56,6 +62,7 @@ export class DisruptionTheoryAssetComponent extends AbstractDocumentViewComponen
       this.getDocumentModel(folderId, this.folderParams).subscribe((res: NuxeoPagination) => {
         this.folderLoading = false;
         this.folder = res.entries.shift();
+        this.deleteRedirectUrl = this.assetUrl + this.folder.uid;
       });
     } else {
       this.folderLoading = false;

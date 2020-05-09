@@ -39,6 +39,10 @@ export class BizDevFormButtonComponent {
     this.globalDocumentDialogService.open(dialog);
   }
 
+  buildRedirectUrl(): string {
+    return window.location.href.split('#')[1].split('?')[0];
+  }
+
   private getFormComponent(type: string): Type<DocumentModelForm> {
     let formComponent;
     switch (type) {

@@ -32,9 +32,9 @@
 </div>
 <ng-template #editDialog>
   <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(doc)" [documentModel]="doc"
-    [metadata]="dialogMetadata" [title]="getFormTitle(doc)"></global-document-dialog>
+    [metadata]="dialogMetadata" [title]="getFormTitle(doc)" [redirectUrl]="editRedirectUrl"></global-document-dialog>
 </ng-template>
 <ng-template #deleteDialog>
   <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="doc"
-    [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
+    [metadata]="dialogMetadata" [title]="deleteTitle" [redirectUrl]="deleteRedirectUrl"></global-document-dialog>
 </ng-template>

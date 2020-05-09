@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { AdvanceSearch, DocumentModel, NuxeoPagination, NuxeoPageProviderConstants } from '@core/api';
+import { Component, OnInit } from '@angular/core';
+import { AdvanceSearch, DocumentModel, NuxeoPagination } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +15,10 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent implemen
   folder: DocumentModel;
 
   folderLoading: boolean = true;
+
+  showButton: boolean = false;
+
+  deleteRedirectUrl: string = '';
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
@@ -66,9 +70,15 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent implemen
       this.getDocumentModel(folderId, this.folderParams).subscribe((res: NuxeoPagination) => {
         this.folderLoading = false;
         this.folder = res.entries.shift();
+        this.deleteRedirectUrl = this.getDeleteRedirectUrl(this.folder);
       });
     } else {
       this.folderLoading = false;
     }
+  }
+
+  private getDeleteRedirectUrl(doc: DocumentModel): string {
+    return (['App-BizDev-ThoughtLeadership-Folder', 'App-BizDev-Case-Studies-Folder'].includes(doc.type))
+            ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
   }
 }

@@ -15,9 +15,11 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
 
   folderLoading: boolean = true;
 
-  showButton: boolean = true;
+  showButton: boolean = false;
 
   backAssetFlag: boolean = false;
+
+  deleteRedirectUrl: string;
 
   assetUrlMapping: object = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
@@ -72,6 +74,7 @@ export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
     this.getDocumentModel(doc.parentRef, this.getFolderParams(doc)).subscribe((res: NuxeoPagination) => {
       this.folderLoading = false;
       this.folder = res.entries.shift();
+      this.deleteRedirectUrl = this.assetUrlMapping[this.folder.type] + '/' + this.folder.uid;
     });
   }
 

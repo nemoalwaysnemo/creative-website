@@ -19,8 +19,6 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
-  deleteRedirect = '/p/disruption/Disruption Days';
-
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
