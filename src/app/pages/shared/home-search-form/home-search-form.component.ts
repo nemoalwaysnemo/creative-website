@@ -92,13 +92,9 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
   }
 
   private matchAssetUrl(doc: DocumentModel): string {
-    if (doc.type === 'App-BizDev-CaseStudy-Asset') {
-      return `/p/business-development/Case Studies/folder/${doc.parentRef}/asset/`;
-    } else if (doc.type === 'App-BizDev-Thought-Asset') {
-      return `/p/business-development/Thought Leadership/folder/${doc.parentRef}/asset/`;
-    } else {
-     return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
-    }
+    let url = this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    url = url.replace(':parentRef', doc.parentRef);
+    return url;
   }
 
   private redirectToListPage(queryParams: {}): void {
