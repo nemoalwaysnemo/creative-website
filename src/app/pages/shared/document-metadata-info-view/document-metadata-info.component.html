@@ -54,7 +54,7 @@
         <ng-container *ngIf="writePermission$ | async">
           <a href="javascript:;" (click)="openDialog(dialogEdit)" title="Edit" class="edit right icon_btn">Edit</a>
         </ng-container>
-        <ng-container *ngIf="(isDisruptionAsset(documentModel) || isIntelligenceAsset(documentModel)) && deletePermission$ | async">
+        <ng-container *ngIf="deletePermission$ | async">
           <a href="javascript:;" (click)="openDialog(dialogDelete)" title="Delete" class="edit right icon_btn">Delete</a>
         </ng-container>
         <!-- <ng-container *ngIf="isIntelligenceAsset(documentModel) && deletePermission$ | async">
@@ -158,9 +158,10 @@
 
 <ng-template #dialogEdit>
   <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(documentModel)"
-    [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="getFormTitle(documentModel)"></global-document-dialog>
+    [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="getFormTitle(documentModel)"
+    [redirectUrl]="editRedirectUrl"></global-document-dialog>
 </ng-template>
 <ng-template #dialogDelete>
   <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="documentModel"
-    [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
+    [metadata]="dialogMetadata" [title]="deleteTitle" [redirectUrl]="deleteRedirectUrl"></global-document-dialog>
 </ng-template>

@@ -3,6 +3,7 @@ import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
 import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'disruption-form-button',
@@ -16,6 +17,8 @@ export class DisruptionFormButtonComponent {
   component: Type<DocumentModelForm>;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
+
+  redirectUrl: string = this.router.url;
 
   @Input() title: string;
 
@@ -32,11 +35,18 @@ export class DisruptionFormButtonComponent {
     }
   }
 
-  constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
+  constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    private router: Router,
+    ) {
   }
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
+  }
+
+  buildRedirectUrl(): string {
+    return window.location.href.split('#')[1].split('?')[0];
   }
 
   private getFormComponent(type: string): Type<DocumentModelForm> {

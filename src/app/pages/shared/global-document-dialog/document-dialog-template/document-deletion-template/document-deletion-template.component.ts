@@ -21,7 +21,8 @@ export class DocumentDialogDeletionComponent extends DocumentDialogConfirmationC
 
   delete(): void {
     this.deleteDocument(this.document).subscribe(_ => {
-      this.confirm(true, 300);
+      this.confirm(false, 300);
+      this.moveRefresh();
     });
   }
 
@@ -29,4 +30,11 @@ export class DocumentDialogDeletionComponent extends DocumentDialogConfirmationC
     return model.moveToTrash();
   }
 
+  private moveRefresh(): void {
+    if (!this.redirectUrl) {
+      this.queryParamsService.historyBack();
+    } else {
+      this.refresh();
+    }
+  }
 }

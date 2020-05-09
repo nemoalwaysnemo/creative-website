@@ -18,7 +18,7 @@ export class DisruptionFolderViewComponent {
 
   @Input() loading: boolean;
 
-  @Input() deleteRedirect: string = '';
+  @Input() deleteRedirectUrl: string = '';
 
   @Input() assetUrl: string;
 
@@ -34,11 +34,14 @@ export class DisruptionFolderViewComponent {
       if (this.showButton) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = !doc.hasAnyContent ? this.doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
+        this.editRedirectUrl = this.getAssetUrl(this.doc) + this.doc.uid;
       }
     }
   }
 
   doc: DocumentModel;
+
+  editRedirectUrl: string = this.router.url;
 
   deletTitle: string = 'Delete';
 

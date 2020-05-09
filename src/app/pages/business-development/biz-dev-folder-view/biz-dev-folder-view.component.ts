@@ -1,11 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { SearchQueryParamsService, GlobalDocumentDialogService } from '@pages/shared';
+import { GlobalDocumentDialogService } from '@pages/shared';
 import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 import { getDocumentTypes } from '@core/services/helpers';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
 
 @Component({
   selector: 'biz-dev-folder-view',
@@ -16,7 +17,7 @@ export class BizDevFolderViewComponent {
 
   @Input() loading: boolean;
 
-  @Input() deleteRedirect: string = '';
+  @Input() deleteRedirectUrl: string = '';
 
   @Input() assetUrl: string;
 
@@ -34,9 +35,16 @@ export class BizDevFolderViewComponent {
       if (this.showButton) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = !doc.hasAnyContent ? this.doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
+        this.editRedirectUrl = this.getAssetUrl(this.doc) + this.doc.uid;
       }
     }
   }
+
+  deletTitle: string = 'Delete';
+
+  editRedirectUrl: string = this.router.url;
+
+  generalComponent = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
 
   writePermission$: Observable<boolean> = observableOf(false);
 
@@ -50,7 +58,6 @@ export class BizDevFolderViewComponent {
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 

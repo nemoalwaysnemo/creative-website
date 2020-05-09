@@ -1,5 +1,5 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-<biz-dev-folder-view [loading]="folderLoading" [document]="folder" [assetUrlMapping]="assetUrlMapping"></biz-dev-folder-view>
+<biz-dev-folder-view [loading]="folderLoading" [document]="folder" [showButton]="showButton" [assetUrlMapping]="assetUrlMapping"></biz-dev-folder-view>
 <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">
     <div class="showcase left">
@@ -7,7 +7,7 @@
       <document-action-group [document]="document"></document-action-group>
     </div>
     <div class="general_info left">
-      <document-metadata-info [document]="document"></document-metadata-info>
+      <document-metadata-info [document]="document" [deleteRedirectUrl]="deleteRedirectUrl"></document-metadata-info>
     </div>
     <div class="clear"></div>
   </section>

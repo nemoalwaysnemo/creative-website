@@ -1,11 +1,14 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <global-search-form [filters]="filters" [baseParams]="baseParams$ | async">
   <ng-container class="group-left">
-      <div class="global-search-form-buttons d-flex"  *ngIf="addChildrenPermission$ | async" >
-        <biz-dev-form-button [parent]="document" [type]="'thought'" [title]="'New Folder'"></biz-dev-form-button>
-        <biz-dev-form-button [parent]="document" [type]="'thought asset'" [title]="'New Think Piece'"></biz-dev-form-button>
-      </div>
+    <div class="global-search-form-buttons d-flex" *ngIf="addChildrenPermission$ | async">
+      <biz-dev-form-button [parent]="document" [type]="'thought'" [title]="'New Folder'"></biz-dev-form-button>
+      <biz-dev-form-button [parent]="document" [type]="'thought asset'" [title]="'New Think Piece'">
+      </biz-dev-form-button>
+    </div>
   </ng-container>
 </global-search-form>
-<biz-dev-folder-view [loading]="loading" [document]="document" [assetUrl]="'/p/business-development/Thought Leadership/folder/'"></biz-dev-folder-view>
+<biz-dev-folder-view [loading]="loading" [document]="document"
+  [assetUrl]="'/p/business-development/Thought Leadership/folder/'"
+  [deleteRedirectUrl]="'/p/business-development/Thought Leadership/'"></biz-dev-folder-view>
 <biz-dev-thought-leadership-folder-asset-search-result [folderId]="document?.uid"></biz-dev-thought-leadership-folder-asset-search-result>

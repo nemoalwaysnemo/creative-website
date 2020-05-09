@@ -47,7 +47,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   documentModel: DocumentModel;
 
-  dialogType: string = 'edit';
+  editRedirectUrl: string = this.router.url;
 
   deleteTitle: string = 'Delete';
 
@@ -59,7 +59,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     enableDeletion: false,
   };
 
-  @Input() deleteRedirect: string = '';
+  @Input() deleteRedirectUrl: string = '';
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
@@ -72,7 +72,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isBizDevAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -199,10 +199,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
-  }
-
-  onUpdated(document: DocumentModel): void {
-    this.router.navigate(['/p/redirect'], { queryParams: { url: decodeURI(this.router.url) } });
   }
 
   private getUsageRightsStatus(doc: DocumentModel): void {

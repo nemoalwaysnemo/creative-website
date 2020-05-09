@@ -6,5 +6,7 @@
     </div>
   </ng-container>
 </global-search-form>
-<disruption-folder-view [loading]="loading" [document]="document" [assetUrl]="'/p/disruption/Disruption Days/day/'" [deleteRedirect]="deleteRedirect"></disruption-folder-view>
+<disruption-folder-view [loading]="loading" [document]="document"
+  [assetUrl]="'/p/disruption/Disruption Days/day/'"
+  [deleteRedirectUrl]="'/p/disruption/Disruption Days'"></disruption-folder-view>
 <disruption-folder-day-asset-search-result [folderId]="document?.uid"></disruption-folder-day-asset-search-result>
