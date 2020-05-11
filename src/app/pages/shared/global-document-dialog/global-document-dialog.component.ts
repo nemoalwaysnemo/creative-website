@@ -115,7 +115,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
   }
 
   protected subscribeEvents(): void {
-    this.globalDocumentDialogService.onEvent('ViewChanged').subscribe((e: DocumentDialogEvent) => {
+    this.subscription = this.globalDocumentDialogService.onEvent('ViewChanged').subscribe((e: DocumentDialogEvent) => {
       const view = e.options.view || this.dialogType;
       this.mainViewChanged = this.dialogType !== view;
       this.selectView(view, e.options.component);

@@ -1,5 +1,7 @@
-import { Component, Input, TemplateRef, OnInit } from '@angular/core';
+import { Component, Input, TemplateRef, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
+import { Subscription } from 'rxjs';
+import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './document-thumbnail-view.service';
 
 @Component({
   selector: 'document-thumbnail-view',
@@ -20,7 +22,7 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
   </div>
   `,
 })
-export class DocumentThumbnailViewComponent implements OnInit {
+export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   documentList: DocumentModel[] = [];
 
@@ -39,11 +41,24 @@ export class DocumentThumbnailViewComponent implements OnInit {
     this.documentList = docs;
   }
 
-  constructor() {
+  private subscription: Subscription = new Subscription();
 
+  constructor(private thumbnailViewService: DocumentThumbnailViewService) {
+    this.subscribeEvents();
   }
 
   ngOnInit() {
 
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  protected subscribeEvents(): void {
+    this.subscription = this.thumbnailViewService.onEvent('SliderValueChanged').subscribe((e: DocumentThumbnailViewEvent) => {
+      console.log('SliderValueChanged', e);
+    });
+  }
+
 }

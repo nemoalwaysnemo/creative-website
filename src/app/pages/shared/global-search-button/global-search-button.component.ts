@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Options, ChangeContext } from 'ng5-slider';
+import { DocumentThumbnailViewService } from '../document-thumbnail-view/document-thumbnail-view.service';
 
 @Component({
   selector: 'global-search-button',
@@ -15,6 +16,8 @@ export class GlobalSearchButtonComponent {
   sliderStep = 1;
 
   sliderDefaultValue = 0;
+
+  enableSlider: boolean = true;
 
   sliderOptions: Options = {
     floor: 0,
@@ -35,14 +38,18 @@ export class GlobalSearchButtonComponent {
 
   @Output() onResultViewChanged: EventEmitter<string> = new EventEmitter();
 
+  constructor(private thumbnailViewService: DocumentThumbnailViewService) {
+
+  }
 
   changeResultView(view: string): void {
     this.currentView = view;
+    this.enableSlider = view === 'thumbnailView';
     this.onResultViewChanged.emit(view);
   }
 
   sliderValueChanged(event: ChangeContext): void {
-    console.log(1111, event);
+    this.thumbnailViewService.triggerEvent({ name: 'SliderValueChanged', payload: event });
   }
 
 }

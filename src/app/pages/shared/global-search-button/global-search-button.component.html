@@ -1,5 +1,5 @@
-<ng-container *ngIf="currentView === 'thumbnailView'">
-  <div class="button-group-slider">
+<ng-container *ngIf="enableSlider">
+  <div *ngxPermissionsOnly="['DEV']" class="button-group-slider">
     <ng5-slider class="image-zoom-slider" [(value)]="sliderDefaultValue" [options]="sliderOptions" (userChange)="sliderValueChanged($event)"></ng5-slider>
   </div>
 </ng-container>
