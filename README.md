@@ -18,7 +18,7 @@ After checking out the project,
 
 cd to the rep and run:
 
-    npm install 
+    yarn 
 
 This will install dependencies from angular.json to node_modules folder.
 Finally, run:
