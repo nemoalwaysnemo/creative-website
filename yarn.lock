@@ -3638,6 +3638,11 @@ detect-node@^2.0.4:
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.0.4.tgz#014ee8f8f669c5c58023da64b8179c083a28c46c"
   integrity sha512-ZIzRpLJrOj7jjP2miAtgqIfmzbxa4ZOr5jJc601zklsfEx9oTzmmj2nVpIPRpNlRTIh8lc1kyViIY7BWSGNmKw==
 
+detect-passive-events@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/detect-passive-events/-/detect-passive-events-1.0.4.tgz#6ed477e6e5bceb79079735dcd357789d37f9a91a"
+  integrity sha1-btR35uW863kHlzXc01d4nTf5qRo=
+
 dev-ip@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/dev-ip/-/dev-ip-1.0.1.tgz#a76a3ed1855be7a012bb8ac16cb80f3c00dc28f0"
@@ -6953,6 +6958,16 @@ ng2-completer@3.0.3:
   resolved "https://registry.yarnpkg.com/ng2-completer/-/ng2-completer-3.0.3.tgz#430b28ed066e0644f603921143a53f057cc24366"
   integrity sha512-ULt30zJhzX4jqZr2sT9KOCqYuqo5Qw7dR656Q9xdzQZhTQnRYXfDSc8bWMhXnItFFZvBNxEb6sFvZO+Bt0j3Kg==
 
+ng5-slider@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/ng5-slider/-/ng5-slider-1.2.4.tgz#2bbc110b73fbc00991e4ec73ac064a7b2efe4094"
+  integrity sha512-4EwMNaOwy0p0mjUjRHem6vq4ZIqFMkej66Vmky1PSMb3e9r10tF2m29kS94EDB9y4inYoEf3tVrZ3YXfd7R5ag==
+  dependencies:
+    detect-passive-events "^1.0.4"
+    rxjs "^5.5.6"
+    rxjs-compat "^6.5.2"
+    tslib "^1.7.1"
+
 ngx-clipboard@^12.3.1:
   version "12.3.1"
   resolved "https://registry.yarnpkg.com/ngx-clipboard/-/ngx-clipboard-12.3.1.tgz#565d73b946b10719242e532e748ad912cf8bc97a"
@@ -8711,6 +8726,11 @@ rx@4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
   integrity sha1-pfE/957zt0D+MKqAP7CfmIBdR4I=
+
+rxjs-compat@^6.5.2:
+  version "6.5.5"
+  resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.5.5.tgz#073c40510f29c45a2a5fc02dde87f8c3ad75f2c2"
+  integrity sha512-F42sssVbUyWH4vJswEo6m+Eh02xHv3q93n8S7nUJO58R7sbc3CvJIOts605zdaBhWa1xMB9aVSyqPqhQ5q3eXg==
 
 rxjs@6.4.0:
   version "6.4.0"

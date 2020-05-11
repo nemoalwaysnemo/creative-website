@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef, OnInit } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
-import { DocumentViewService } from '../services/document-view.service';
+
 @Component({
   selector: 'document-thumbnail-view',
   styleUrls: ['./document-thumbnail-view.component.scss'],
@@ -22,7 +22,6 @@ import { DocumentViewService } from '../services/document-view.service';
 })
 export class DocumentThumbnailViewComponent implements OnInit {
 
-  constructor(private documentViewService: DocumentViewService) { }
   documentList: DocumentModel[] = [];
 
   @Input() layout: string = 'quarter'; // 'half' | 'third' | 'quarter' | 'suggestion-inline';
@@ -40,10 +39,11 @@ export class DocumentThumbnailViewComponent implements OnInit {
     this.documentList = docs;
   }
 
+  constructor() {
+
+  }
+
   ngOnInit() {
-    this.documentViewService.onDeletedDoc()
-      .subscribe((res) => {
-        this.documentList = this.documentList.filter(function (el) { return el.uid !== res.uid; });
-      });
+
   }
 }
