@@ -1,4 +1,4 @@
 <global-search-form [filters]="filters" [defaultParams]="defaultParams">
-  <global-search-button class="group-right" (resultViewChange)="onResultViewChange($event)"></global-search-button>
+  <global-search-button class="group-right" (onResultViewChanged)="onResultViewChanged($event)"></global-search-button>
 </global-search-form>
 <creative-document-asset-search-result [afterSearch]="afterSearch" [layout]="layout" [resultHeader]="resultHeader" [selectedView]="currentView"></creative-document-asset-search-result>

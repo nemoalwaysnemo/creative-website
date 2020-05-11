@@ -30,7 +30,7 @@ export class CreativePopularBrandSearchComponent {
 
   currentView: string = 'thumbnailView';
 
-  onResultViewChange(name: string): void {
+  onResultViewChanged(name: string): void {
     this.currentView = name;
   }
 

@@ -1,6 +1,8 @@
-import { Component, Input, TemplateRef, OnInit } from '@angular/core';
+import { Component, Input, TemplateRef, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
-import { DocumentViewService } from '../services/document-view.service';
+import { Subscription } from 'rxjs';
+import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './document-thumbnail-view.service';
+
 @Component({
   selector: 'document-thumbnail-view',
   styleUrls: ['./document-thumbnail-view.component.scss'],
@@ -20,9 +22,8 @@ import { DocumentViewService } from '../services/document-view.service';
   </div>
   `,
 })
-export class DocumentThumbnailViewComponent implements OnInit {
+export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
-  constructor(private documentViewService: DocumentViewService) { }
   documentList: DocumentModel[] = [];
 
   @Input() layout: string = 'quarter'; // 'half' | 'third' | 'quarter' | 'suggestion-inline';
@@ -40,10 +41,24 @@ export class DocumentThumbnailViewComponent implements OnInit {
     this.documentList = docs;
   }
 
-  ngOnInit() {
-    this.documentViewService.onDeletedDoc()
-      .subscribe((res) => {
-        this.documentList = this.documentList.filter(function (el) { return el.uid !== res.uid; });
-      });
+  private subscription: Subscription = new Subscription();
+
+  constructor(private thumbnailViewService: DocumentThumbnailViewService) {
+    this.subscribeEvents();
   }
+
+  ngOnInit() {
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  protected subscribeEvents(): void {
+    this.subscription = this.thumbnailViewService.onEvent('SliderValueChanged').subscribe((e: DocumentThumbnailViewEvent) => {
+      console.log('SliderValueChanged', e);
+    });
+  }
+
 }

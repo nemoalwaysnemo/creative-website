@@ -62,7 +62,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onResultViewChange(name: string): void {
+  onResultViewChanged(name: string): void {
     this.currentView = name;
   }
 
