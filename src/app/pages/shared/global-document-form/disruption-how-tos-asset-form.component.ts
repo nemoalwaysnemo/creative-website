@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { NuxeoApiService, DocumentModel } from '@core/api';
+import { Observable } from 'rxjs';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from './abstract-document-form.component';
-import { NuxeoApiService } from '@core/api';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
@@ -9,9 +10,14 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComponent {
+
   protected documentType: string = 'App-Disruption-Theory-Asset';
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
+  }
+
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc, this.getDocType());
   }
 
   protected getSettings(): object[] {

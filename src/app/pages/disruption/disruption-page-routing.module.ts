@@ -53,7 +53,7 @@ const routes: Routes = [{
       component: DisruptionTheoryComponent,
     },
     {
-      path: 'Brilliant Thinking',
+      path: 'Things to Steal',
       component: BrilliantThinkingComponent,
     },
     {

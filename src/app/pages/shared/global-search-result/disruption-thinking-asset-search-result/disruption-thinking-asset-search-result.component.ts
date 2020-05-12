@@ -14,9 +14,9 @@ export class DisruptionThinkingAssetSearchResultComponent {
 
   }
 
-  title: string = 'Brilliant Thinking';
+  title: string = 'Things to Steal';
 
-  redirectUrl: string = '/p/disruption/Brilliant Thinking';
+  redirectUrl: string = '/p/disruption/Things to Steal';
 
   previewComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
 

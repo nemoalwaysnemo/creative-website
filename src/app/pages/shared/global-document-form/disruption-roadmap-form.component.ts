@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NuxeoApiService } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { NuxeoApiService, DocumentModel } from '@core/api';
+import { Observable } from 'rxjs';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
@@ -14,6 +15,10 @@ export class DisruptionRoadmapFormComponent extends AbstractDocumentFormComponen
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
+  }
+
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc, this.getDocType());
   }
 
   protected getSettings(): object[] {

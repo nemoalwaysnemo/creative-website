@@ -163,7 +163,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         formTitle = 'Edit Disruption How tos';
         break;
       case assetTypes.thinking:
-        formTitle = 'Edit Brilliant Thinking';
+        formTitle = 'Edit Things to Steal';
         break;
       case assetTypes.case_asset:
         formTitle = 'Edit Case Study';

@@ -12,7 +12,7 @@ export const TAB_CONFIG: any[] = [
       route: '/p/disruption/Disruption How Tos',
     },
     {
-      title: 'Brilliant Thinking',
-      route: '/p/disruption/Brilliant Thinking',
+      title: 'Things to Steal',
+      route: '/p/disruption/Things to Steal',
     },
   ];
