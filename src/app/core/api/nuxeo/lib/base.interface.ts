@@ -169,6 +169,10 @@ export class NuxeoPageProviderParams {
     return Object.getOwnPropertyNames(this).some((key: string) => key.includes(agg));
   }
 
+  get ecm_fulltext_wildcard(): string {
+    return `${this.ecm_fulltext}*`;
+  }
+
 }
 
 export class NuxeoRequestOptions {
