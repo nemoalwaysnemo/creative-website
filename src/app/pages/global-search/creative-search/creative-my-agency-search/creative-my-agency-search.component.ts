@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { Subject, timer, Observable } from 'rxjs';
-import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, NuxeoRequestOptions, UserModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, timer, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, UserModel, SearchFilterModel } from '@core/api';
+import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-my-agency-search',
@@ -80,7 +80,11 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
 
   protected searchCurrentAgency(): Observable<DocumentModel> {
     return this.userService.getCurrentUserInfo().pipe(
-      tap((user: UserModel) => this.userInfo = user.properties),
+      // tap((user: UserModel) => this.userInfo = user.properties),
+      tap((user: UserModel) => {
+        user.properties['companycode'] = '05001002';
+        this.userInfo = user.properties;
+      }),
       switchMap((user: UserModel) => this.searchCurrentDocument(this.getSearchParams(user))),
     );
   }

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { DocumentModel } from '@core/api';
+import { SearchQueryParamsService } from '@pages/shared';
 
 @Component({
   selector: 'intelligence-folder-view',
@@ -25,12 +25,12 @@ export class IntelligenceFolderViewComponent {
 
   private folderType: string[] = ['App-Intelligence-Consumer-Folder', 'App-Intelligence-Industry-Folder', 'App-Intelligence-Marketing-Folder', 'App-Intelligence-Brands-Folder'];
 
-  constructor(private router: Router) {
+  constructor(private queryParamsService: SearchQueryParamsService) {
 
   }
 
   backToParent(): void {
-    this.router.navigate(['p/redirect'], { queryParams: { url: `/p/intelligence/folder/${this.doc.parentRef}` } });
+    this.queryParamsService.navigate([`/p/intelligence/folder/${this.doc.parentRef}`]);
   }
 
   private showBackToParent(type: string): boolean {

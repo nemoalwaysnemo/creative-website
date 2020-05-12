@@ -4,7 +4,6 @@ import { MiscellaneousComponent } from './miscellaneous.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { PlaygroundComponent } from './playground/playground.component';
-import { RedirectComponent } from '@pages/miscellaneous/redirect/redirect.component';
 import { PermissionDeniedComponent } from './permission-denied/permission-denied.component';
 
 const routes: Routes = [{
@@ -32,10 +31,6 @@ const routes: Routes = [{
       component: NotFoundComponent,
       pathMatch: 'full',
     },
-    {
-      path: 'redirect',
-      component: RedirectComponent,
-    },
   ],
 }];
 
@@ -44,11 +39,3 @@ const routes: Routes = [{
   exports: [RouterModule],
 })
 export class MiscellaneousRoutingModule { }
-
-export const routedComponents = [
-  MiscellaneousComponent,
-  PlaygroundComponent,
-  NotFoundComponent,
-  ServerErrorComponent,
-  PermissionDeniedComponent,
-];

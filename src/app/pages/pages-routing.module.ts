@@ -35,10 +35,6 @@ const routes: Routes = [{
       loadChildren: () => import('./favorite/favorite-page.module').then(m => m.FavoritePageModule),
     },
     {
-      path: 'redirect',
-      loadChildren: () => import('./miscellaneous/redirect/redirect.module').then(m => m.RedirectModule),
-    },
-    {
       path: '',
       redirectTo: 'creative',
       pathMatch: 'full',

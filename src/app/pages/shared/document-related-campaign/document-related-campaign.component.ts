@@ -1,8 +1,8 @@
 
 import { Component, Input, ViewChild, OnDestroy } from '@angular/core';
 import { DragScrollComponent } from 'ngx-drag-scroll';
-import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination, AdvanceSearch } from '@core/api';
+import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { Subscription } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -31,8 +31,8 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
 
   constructor(
-    private router: Router,
     private advanceSearch: AdvanceSearch,
+    private queryParamsService: SearchQueryParamsService,
   ) {
   }
 
@@ -45,7 +45,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
   }
 
   redirectToDoc(doc: DocumentModel): void {
-    this.router.navigate(['/p/redirect'], { queryParams: { url: `/p/creative/asset/${doc.uid}` } });
+    this.queryParamsService.navigate([`/p/creative/asset/${doc.uid}`]);
   }
 
   private searchRelatedCampaign(doc: DocumentModel): void {
