@@ -45,6 +45,7 @@ export class DisruptionTheoryAssetComponent extends AbstractDocumentViewComponen
 
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
+    this.deleteRedirectUrl = this.assetUrl;
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -62,7 +63,9 @@ export class DisruptionTheoryAssetComponent extends AbstractDocumentViewComponen
       this.getDocumentModel(folderId, this.folderParams).subscribe((res: NuxeoPagination) => {
         this.folderLoading = false;
         this.folder = res.entries.shift();
-        this.deleteRedirectUrl = this.assetUrl + this.folder.uid;
+        if (this.folder) {
+          this.deleteRedirectUrl += this.folder.uid;
+        }
       });
     } else {
       this.folderLoading = false;

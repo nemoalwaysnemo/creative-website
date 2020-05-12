@@ -9,7 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class SearchQueryParamsService {
 
-  constructor(private router: Router, private location: Location, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private location: Location,
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
   buildQueryParams(formValue: any = {}, allowedParams: string[] = []): any {
     formValue.q = formValue.ecm_fulltext ? formValue.ecm_fulltext : '';
@@ -57,6 +61,11 @@ export class SearchQueryParamsService {
     return this.router.navigate(commands, extras);
   }
 
+  redirect(link: string): Promise<boolean> {
+    const url = decodeURI(link);
+    return this.router.navigate(['/p/redirect'], { queryParams: { url }, skipLocationChange: true });
+  }
+
   historyBack(): void {
     this.location.back();
   }
@@ -74,5 +83,6 @@ export class SearchQueryParamsService {
     delete queryParams['currentPageIndex'];
     this.changeQueryParams(queryParams, { type: 'reload' });
   }
+
 
 }

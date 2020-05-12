@@ -30,7 +30,7 @@ export class IntelligenceFolderViewComponent {
   }
 
   backToParent(): void {
-    this.queryParamsService.navigate([`/p/intelligence/folder/${this.doc.parentRef}`]);
+    this.queryParamsService.redirect(`/p/intelligence/folder/${this.doc.parentRef}`);
   }
 
   private showBackToParent(type: string): boolean {

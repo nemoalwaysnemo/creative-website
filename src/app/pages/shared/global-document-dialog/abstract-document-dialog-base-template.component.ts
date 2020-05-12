@@ -86,7 +86,7 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
 
   refresh(): void {
     if (this.redirectUrl) {
-      this.queryParamsService.navigate([decodeURI(this.redirectUrl)]);
+      this.queryParamsService.redirect(this.redirectUrl);
     } else {
       this.queryParamsService.refresh();
     }
