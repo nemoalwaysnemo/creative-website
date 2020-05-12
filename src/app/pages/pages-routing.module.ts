@@ -40,6 +40,10 @@ const routes: Routes = [{
       pathMatch: 'full',
     },
     {
+      path: 'redirect',
+      loadChildren: () => import('./miscellaneous/redirection/redirection.module').then(m => m.RedirectionModule),
+    },
+    {
       path: 'error',
       loadChildren: () => import('./miscellaneous/miscellaneous.module').then(m => m.MiscellaneousModule),
     },

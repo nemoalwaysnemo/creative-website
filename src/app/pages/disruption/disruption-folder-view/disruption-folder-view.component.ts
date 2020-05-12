@@ -109,9 +109,9 @@ export class DisruptionFolderViewComponent {
     const childSplitPath: string[] = splitPath.split('/');
 
     if (childSplitPath.length < 2) {
-      this.queryParamsService.navigate([`${parentInfo.urlRootPath}`]);
+      this.queryParamsService.redirect(`${parentInfo.urlRootPath}`);
     } else {
-      this.queryParamsService.navigate([`${parentInfo.urlParentPath}${this.doc.parentRef}`]);
+      this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.parentRef}`);
     }
   }
 

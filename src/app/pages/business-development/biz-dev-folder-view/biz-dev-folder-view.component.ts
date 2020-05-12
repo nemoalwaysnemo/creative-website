@@ -104,18 +104,18 @@ export class BizDevFolderViewComponent {
   goBack(): void {
     const parentInfo: any = this.goBackInfo(this.doc.type);
     if ((NUXEO_META_INFO.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
-      this.queryParamsService.navigate([parentInfo.urlRootPath]);
+      this.queryParamsService.redirect(parentInfo.urlRootPath);
     } else {
       const rootPath: string = parentInfo.rootPath;
       const splitPath: string = this.doc.path.split(rootPath)[1];
       const childSplitPath: string[] = splitPath.split('/');
 
       if (this.router.url.includes('/asset/')) {
-        this.queryParamsService.navigate([`${parentInfo.urlParentPath}${this.doc.uid}`]);
+        this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.uid}`);
       } else if (childSplitPath.length < 2) {
-        this.queryParamsService.navigate([`${parentInfo.urlRootPath}`]);
+        this.queryParamsService.redirect(`${parentInfo.urlRootPath}`);
       } else {
-        this.queryParamsService.navigate([`${parentInfo.urlParentPath}${this.doc.parentRef}`]);
+        this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.parentRef}`);
       }
     }
   }

@@ -246,10 +246,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   goAgencyFolder(): void {
     const agencyId = this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 3].uid;
-    this.queryParamsService.navigate([`/p/search/creative/myAgencyAsset/${agencyId}`]);
+    this.queryParamsService.redirect(`/p/search/creative/myAgencyAsset/${agencyId}`);
   }
 
   goBrandFolder(): void {
-    this.queryParamsService.navigate([`/p/creative/brand/${this.documentModel.parentRef}/asset`]);
+    this.queryParamsService.redirect(`/p/creative/brand/${this.documentModel.parentRef}/asset`);
   }
 }

@@ -45,7 +45,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
   }
 
   redirectToDoc(doc: DocumentModel): void {
-    this.queryParamsService.navigate([`/p/creative/asset/${doc.uid}`]);
+    this.queryParamsService.redirect(`/p/creative/asset/${doc.uid}`);
   }
 
   private searchRelatedCampaign(doc: DocumentModel): void {
