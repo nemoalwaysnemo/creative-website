@@ -1,14 +1,15 @@
 import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { concatMap, map, share } from 'rxjs/operators';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes, parseCountry } from '@core/services/helpers';
+import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 enum assetTypes {
   roadmap = 'App-Disruption-Roadmap-Asset',
@@ -85,6 +86,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     private userService: UserService,
     private location: Location,
     private globalDocumentDialogService: GlobalDocumentDialogService,
+    private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 
@@ -244,10 +246,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   goAgencyFolder(): void {
     const agencyId = this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 3].uid;
-    this.router.navigate(['p/redirect'], { queryParams: { url: `/p/search/creative/myAgencyAsset/${agencyId}` } });
+    this.queryParamsService.navigate([`/p/search/creative/myAgencyAsset/${agencyId}`]);
   }
 
   goBrandFolder(): void {
-    this.router.navigate(['p/redirect'], { queryParams: { url: `/p/creative/brand/${this.documentModel.parentRef}/asset` } });
+    this.queryParamsService.navigate([`/p/creative/brand/${this.documentModel.parentRef}/asset`]);
   }
 }

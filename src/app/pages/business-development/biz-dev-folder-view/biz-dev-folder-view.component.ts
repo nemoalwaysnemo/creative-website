@@ -1,12 +1,12 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
-import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService } from '@pages/shared';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 import { getDocumentTypes } from '@core/services/helpers';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { Observable, of as observableOf } from 'rxjs';
+import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
+import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-folder-view',
@@ -57,7 +57,8 @@ export class BizDevFolderViewComponent {
   };
 
   constructor(
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+    private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 
@@ -103,18 +104,18 @@ export class BizDevFolderViewComponent {
   goBack(): void {
     const parentInfo: any = this.goBackInfo(this.doc.type);
     if ((NUXEO_META_INFO.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
-      this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlRootPath}` } });
+      this.queryParamsService.navigate([parentInfo.urlRootPath]);
     } else {
       const rootPath: string = parentInfo.rootPath;
       const splitPath: string = this.doc.path.split(rootPath)[1];
       const childSplitPath: string[] = splitPath.split('/');
 
       if (this.router.url.includes('/asset/')) {
-        this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlParentPath}${this.doc.uid}` } });
+        this.queryParamsService.navigate([`${parentInfo.urlParentPath}${this.doc.uid}`]);
       } else if (childSplitPath.length < 2) {
-        this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlRootPath}` } });
+        this.queryParamsService.navigate([`${parentInfo.urlRootPath}`]);
       } else {
-        this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlParentPath}${this.doc.parentRef}` } });
+        this.queryParamsService.navigate([`${parentInfo.urlParentPath}${this.doc.parentRef}`]);
       }
     }
   }
@@ -126,7 +127,7 @@ export class BizDevFolderViewComponent {
       return [this.getAssetUrl(this.doc), this.doc.uid];
     }
   }
-  protected goBackInfo(type: string): any {
+  private goBackInfo(type: string): any {
     switch (type) {
       case 'App-BizDev-Thought-Folder':
         return {

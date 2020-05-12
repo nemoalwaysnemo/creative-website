@@ -1,12 +1,12 @@
 import { Component, Input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
-import { GlobalDocumentDialogService } from '@pages/shared';
+import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
+import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { Router } from '@angular/router';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { getDocumentTypes } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'disruption-folder-view',
@@ -58,7 +58,8 @@ export class DisruptionFolderViewComponent {
   };
 
   constructor(
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+    private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 
@@ -108,9 +109,9 @@ export class DisruptionFolderViewComponent {
     const childSplitPath: string[] = splitPath.split('/');
 
     if (childSplitPath.length < 2) {
-      this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlRootPath}` } });
+      this.queryParamsService.navigate([`${parentInfo.urlRootPath}`]);
     } else {
-      this.router.navigate(['p/redirect'], { queryParams: { url: `${parentInfo.urlParentPath}${this.doc.parentRef}` } });
+      this.queryParamsService.navigate([`${parentInfo.urlParentPath}${this.doc.parentRef}`]);
     }
   }
 
