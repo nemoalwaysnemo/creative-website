@@ -52,7 +52,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   };
 
   folderParams: any = {
-    pageSize: 10,
+    pageSize: 50,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_FOLDER_TYPE,
