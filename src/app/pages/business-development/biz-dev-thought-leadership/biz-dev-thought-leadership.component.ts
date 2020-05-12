@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoRequestOptions, NuxeoEnricher } from '@core/api';
 import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../business-development-tab-config';
@@ -23,6 +23,15 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
   ];
 
+  beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
+    if (searchParams.hasKeyword()) {
+      searchParams = this.buildSearchAssetsParams(searchParams);
+      opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
+    }
+    return { searchParams, opts };
+  }
+
+
   constructor(
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
@@ -33,6 +42,19 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
   ngOnInit() {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
+  }
+
+  // get all matched assets and their parent folders
+  protected buildSearchAssetsParams(queryParams: NuxeoPageProviderParams): NuxeoPageProviderParams {
+    const params = {
+      pageSize: 20,
+      currentPageIndex: 0,
+      ecm_mixinType_not_in: '',
+      ecm_fulltext: queryParams.ecm_fulltext_wildcard,
+      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_SUB_FOLDER_TYPE,
+    };
+    return new NuxeoPageProviderParams(params);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -58,12 +80,11 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
-      // ecm_path: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_SUB_FOLDER_TYPE,
     };
     if (doc) {
-      // params['ecm_parentId'] = doc.uid
-      params['ecm_path'] = doc.path;
+      params['ecm_parentId'] = doc.uid;
     }
     return new NuxeoPageProviderParams(params);
   }
