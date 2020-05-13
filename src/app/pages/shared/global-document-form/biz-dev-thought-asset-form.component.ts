@@ -49,7 +49,7 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Date',
+        label: 'Workshop Date',
         readonly: true,
         defaultValue: (new Date()),
         required: true,
@@ -149,7 +149,7 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         layoutPosition: 'right',
         queueLimit: 25,
         placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'mage/*,.pdf',
+        acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -158,7 +158,7 @@ export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormCompone
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'mage/*,.pdf',
+        acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',
