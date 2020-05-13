@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { SearchQueryParamsService } from '../../../services/search-query-params.service';
 import { AbstractDocumentDialogPreviewTemplateComponent } from '../../abstract-document-dialog-preview-template.component';
@@ -10,7 +10,7 @@ import { NUXEO_PATH_INFO } from '@environment/environment';
   styleUrls: ['../global-document-dialog-template.scss', './related-backslash-asset-preview.component.scss'],
   templateUrl: './related-backslash-asset-preview.component.html',
 })
-export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumentDialogPreviewTemplateComponent implements OnInit {
+export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumentDialogPreviewTemplateComponent {
 
   backslashEdges: DocumentModel[] = [];
 
@@ -22,7 +22,8 @@ export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumen
     super(globalDocumentDialogService, queryParamsService);
   }
 
-  ngOnInit() {
+  protected onInit(): void {
+    console.log(111, this.document);
     this.buildBackslashEdges(this.document);
   }
 
@@ -44,7 +45,6 @@ export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumen
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
-
       const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
         this.backslashEdges = res.entries;
       });
