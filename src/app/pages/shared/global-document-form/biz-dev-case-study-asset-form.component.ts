@@ -154,7 +154,7 @@ export class BizDevCaseStudyAssetFormComponent extends AbstractDocumentFormCompo
         layoutPosition: 'right',
         queueLimit: 25,
         placeholder: 'Drop Image/PDF/Video File(s) here!',
-        acceptTypes: 'mage/*,.pdf,.mp4',
+        acceptTypes: 'image/*,.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -163,7 +163,7 @@ export class BizDevCaseStudyAssetFormComponent extends AbstractDocumentFormCompo
         layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Image/PDF/Video File(s) here!',
-        acceptTypes: 'mage/*,.pdf,.mp4',
+        acceptTypes: 'image/*,.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',

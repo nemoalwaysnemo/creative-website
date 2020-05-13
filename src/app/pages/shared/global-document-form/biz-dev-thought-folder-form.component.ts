@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicBatchUploadModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'biz-dev-thought-folder-form',
@@ -41,14 +42,104 @@ export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormCompon
       new DynamicInputModel({
         id: 'dc:description',
         label: 'Description',
-        required: false,
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Production Date (for sorting)',
+        label: 'Workshop Date',
         readonly: true,
         defaultValue: (new Date()),
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        readOnly: true,
+        disabled: true,
         required: false,
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        required: false,
+        placeholder: 'Brand',
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:clientName',
+        label: 'Client',
+        required: false,
+        placeholder: 'Client',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:industry',
+        label: 'Industry',
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Industries',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Relevant_Country',
+        label: 'Relevant Geography',
+        required: false,
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:agency',
+        label: 'Agency',
+        required: false,
+        settings: {
+          multiple: false,
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:country',
+        label: 'Agency Country',
+        required: false,
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Countries',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:backslash_category',
+        label: 'Backslash Category',
+        required: false,
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Tags_edges',
+        label: '\\Edges',
+        required: false,
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:set_defaults',
+        label: 'Set Defaults',
+        required: false,
+        readOnly: false,
+        disabled: false,
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -67,6 +158,15 @@ export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormCompon
         queueLimit: 1,
         placeholder: 'Drop Image/PDF here!',
         acceptTypes: 'image/*,.pdf',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        layoutPosition: 'right',
+        queueLimit: 20,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

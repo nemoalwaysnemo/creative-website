@@ -26,7 +26,6 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
-      opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
     }
     return { searchParams, opts };
   }
