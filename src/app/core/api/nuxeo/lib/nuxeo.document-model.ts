@@ -43,10 +43,10 @@ export class DocumentModel extends Base {
     }, options);
   }
 
-  delete(opts: any = {}): Observable<DocumentModel> {
-    const options = this._computeOptions(opts);
-    return this._repository.delete(this.path);
-  }
+  // delete(opts: any = {}): Observable<DocumentModel> {
+  //   const options = this._computeOptions(opts);
+  //   return this._repository.delete(this.path);
+  // }
 
   moveToTrash(params: any = {}): Observable<DocumentModel> {
     const input = `doc:${this.uid}`;

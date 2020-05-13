@@ -60,6 +60,8 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() showQuery: boolean = true;
 
+  @Input() pageProvider: string = 'creative_website_search';
+
   @Input() placeholder: string = 'Search for...';
 
   @Input() filters: SearchFilterModel[] = [];
@@ -325,7 +327,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     const params = new NuxeoPageProviderParams(this.queryParamsService.buildSearchParams(queryParams));
     const options = new NuxeoRequestOptions({ skipAggregates: false });
     const { searchParams, opts } = this.beforeSearch.call(this, params, options);
-    return this.advanceSearch.search(searchParams, opts, extra);
+    return this.advanceSearch.search(this.pageProvider, searchParams, opts, extra);
   }
 
   protected triggerSearch(searchParams: any = {}, event: string, defaultValue: any = {}): void {

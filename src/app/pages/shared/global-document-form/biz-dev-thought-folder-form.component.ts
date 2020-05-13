@@ -48,7 +48,7 @@ export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormCompon
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Workshop Date',
+        label: 'Date',
         readonly: true,
         defaultValue: (new Date()),
         required: true,
