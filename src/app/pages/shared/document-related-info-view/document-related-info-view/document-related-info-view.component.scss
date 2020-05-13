@@ -40,28 +40,46 @@ ul {
 	height: 63px;
 	margin-bottom: 37px;
 	padding-left: 30px!important;
+
 	li {
 		float: left;
 		a {
 			font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-			display: block;
 			height: 63px;
 			line-height: 63px;
 			font-size: 20px;
 			color: #000000;
+			display: flex;
 			&:hover { text-decoration: none; }
-			img {
-				float: left;
-				width: 56px;
-				height: 63px;
-				-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-				clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-				margin-right: 20px;
+
+			button {
+			border: none;
+			background: none;
+			padding: 0;
+			line-height: 63px;
+				img {
+					float: left;
+					width: 56px;
+					height: 63px;
+					-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+					clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+					margin-right: 20px;
+					}
+				}
 			}
 		}
-	}
 	li + li { margin-left: 62px; }
 }
+
+.edgeHover {
+	margin-left: 50px;
+  margin: 10px;
+  max-width: 40vw;
+  min-width: 10vw;
+  h5 { font-size: calc(17.5px * 1.25); }
+  p { font-size: calc(14px * 1.25); }
+}
+
 backslash-asset-preview-dialog-body {
 	display: block;
 }
