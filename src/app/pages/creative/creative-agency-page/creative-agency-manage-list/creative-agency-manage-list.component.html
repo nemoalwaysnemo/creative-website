@@ -1,4 +1,4 @@
-<creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
+<creative-agency-info-view [loading]="loading" [document]="document"></creative-agency-info-view>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="document && !showForm" class="document">
     <div class="one-row">
@@ -21,9 +21,7 @@
       <div class="showcase-area">
         <h4>Industry</h4><span>{{document.get('app_Edges:industry')}}</span>
       </div>
-    </div>
-    <div class="one-row" *ngIf="document.get('app_global_fields:enable_region')">
-      <div class="showcase-area">
+      <div class="showcase-area" *ngIf="document.get('app_global_fields:enable_region')">
         <h4>Region</h4><span>{{document.get('The_Loupe_Main:region')}}</span>
       </div>
     </div>
@@ -43,7 +41,8 @@
     <h3>Configure listings for this folder</h3>
     <div class="one-row" *ngIf="document.get('app_global:UsageRights')">
       <div class="showcase-area">
-        <h4>Make First Airing Mandatory</h4><span>{{document.get('app_global:UsageRights_enable_firstairing_mandatory')}}</span>
+        <h4>Make First Airing Mandatory</h4>
+        <span>{{document.get('app_global:UsageRights_enable_firstairing_mandatory')}}</span>
       </div>
     </div>
     <div class="one-row" *ngIf="document.get('app_global:UsageRights')">
@@ -68,12 +67,13 @@
     </div>
     <div class="one-row" *ngIf="document.get('app_global_fields:enable_productlist')">
       <div class="showcase-area">
-        <h4>Product</h4><span>{{document.get('The_Loupe_Main:productModel')}}</span>
+        <h4>Products</h4><span>{{document.get('The_Loupe_Main:productModel')}}</span>
       </div>
     </div>
     <button (click)="changeView()" class="btn btn-success">EDIT</button>
   </div>
   <div *ngIf="document && showForm" class="document">
-    <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
+    <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout"
+      (callback)="onCallback($event)"></document-form>
   </div>
 </div>

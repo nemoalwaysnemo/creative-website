@@ -60,12 +60,16 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     enableDeletion: false,
   };
 
+  libraryFolder: any = [];
+
   @Input() deleteRedirectUrl: string = '';
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
       this.loading = false;
       this.documentModel = doc;
+      this.libraryFolder = this.documentModel.breadcrumb.filter((document: DocumentModel) => document.type === 'App-Library-Folder');
+
       if (this.isCreativeAsset(doc)) {
         this.getUsageRightsStatus(doc);
         // this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
@@ -233,11 +237,11 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   hasAgencyFolder(): boolean {
-    return this.documentModel.breadcrumb && this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 3] ? true : false;
+    return this.libraryFolder && this.libraryFolder[this.libraryFolder.length - 2] ? true : false;
   }
 
   hasBrandFolder(): boolean {
-    return this.documentModel.breadcrumb && this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 2] ? true : false;
+    return this.libraryFolder && this.libraryFolder[this.libraryFolder.length - 1] ? true : false;
   }
 
   hasFilter(): boolean {
@@ -245,11 +249,12 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   goAgencyFolder(): void {
-    const agencyId = this.documentModel.breadcrumb[this.documentModel.breadcrumb.length - 3].uid;
-    this.queryParamsService.redirect(`/p/search/creative/myAgencyAsset/${agencyId}`);
+    const agencyId = this.libraryFolder[this.libraryFolder.length - 2].uid;
+    this.queryParamsService.navigate([`/p/creative/agency/${agencyId}/showcase`]);
   }
 
   goBrandFolder(): void {
-    this.queryParamsService.redirect(`/p/creative/brand/${this.documentModel.parentRef}/asset`);
+    const brandId = this.libraryFolder[this.libraryFolder.length - 1].uid;
+    this.queryParamsService.navigate([`/p/creative/brand/${brandId}/asset`]);
   }
 }

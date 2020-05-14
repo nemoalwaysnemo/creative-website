@@ -208,6 +208,8 @@ body {
   &.my_brand,
   &.creative_brand_asset,
   &.creative_brand_showcase,
+  &.creative_agency_asset,
+  &.creative_agency_showcase,
   &.my_agency_asset_search {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {

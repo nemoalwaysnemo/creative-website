@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { TAB_CONFIG } from '../creative-brand-tab-config';
+import { TAB_CONFIG } from '../creative-agency-tab-config';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { NbToastrService } from '@core/nebular/theme';
@@ -9,11 +9,11 @@ import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory
 import { DocumentFormEvent } from '@pages/shared/document-form/document-form.interface';
 
 @Component({
-  selector: 'creative-brand-manage-library',
-  styleUrls: ['./creative-brand-manage-library.component.scss'],
-  templateUrl: './creative-brand-manage-library.component.html',
+  selector: 'creative-agency-manage-library',
+  styleUrls: ['./creative-agency-manage-library.component.scss'],
+  templateUrl: './creative-agency-manage-library.component.html',
 })
-export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageComponent {
+export class CreativeAgencyManageLibraryComponent extends AbstractDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 
@@ -81,25 +81,9 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
         errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
-        id: 'The_Loupe_Main:description',
+        id: 'dc:description',
         label: 'Description',
         placeholder: 'description',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'edit',
-        uploadType: 'asset',
-        layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*',
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'right',
-        formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -243,6 +227,10 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
         label: 'enable Usage Rights',
       }),
       new DynamicCheckboxModel({
+        id: 'app_global:UsageRights_enable_firstairing_mandatory',
+        label: 'enable  First Airing Mandatory',
+      }),
+      new DynamicCheckboxModel({
         id: 'app_global:UsageRights_globalref',
         label: 'enable Global Contract Reference',
       }),
@@ -313,6 +301,22 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
       new DynamicCheckboxModel({
         id: 'app_global:collections_for_clients',
         label: 'enable Collections For Clients',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        layoutPosition: 'right',
+        queueLimit: 1,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'image/*',
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'bottom',
+        formMode: 'edit',
+        showInputs: false,
+        multiUpload: true,
       }),
     ];
   }

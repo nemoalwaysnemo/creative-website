@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { TAB_CONFIG } from '../creative-brand-tab-config';
+import { TAB_CONFIG } from '../creative-agency-tab-config';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
@@ -9,11 +9,11 @@ import { NbToastrService } from '@core/nebular/theme';
 import { DocumentFormEvent } from '@pages/shared/document-form/document-form.interface';
 
 @Component({
-  selector: 'creative-brand-manage-list',
-  styleUrls: ['./creative-brand-manage-list.component.scss'],
-  templateUrl: './creative-brand-manage-list.component.html',
+  selector: 'creative-agency-manage-list',
+  styleUrls: ['./creative-agency-manage-list.component.scss'],
+  templateUrl: './creative-agency-manage-list.component.html',
 })
-export class CreativeBrandManageListComponent extends AbstractDocumentManageComponent {
+export class CreativeAgencyManageListComponent extends AbstractDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 
@@ -108,22 +108,6 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
           minLength: 'At least 4 characters',
         },
       }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'edit',
-        uploadType: 'asset',
-        layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*',
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'right',
-        formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
-      }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',
         label: 'Client',
@@ -141,7 +125,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         id: 'app_Edges:industry',
         label: 'Industry',
         settings: {
-          placeholder: 'Please select industry',
+          placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Industries',
         },
@@ -149,7 +133,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:region',
         label: 'Regions',
-        placeholder: 'Please add region',
+        placeholder: 'Select a value',
         required: false,
         visibleFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_region'),
       }),
@@ -158,7 +142,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         label: 'Librarians',
         settings: {
           initSearch: false,
-          placeholder: 'Please select librarians',
+          placeholder: 'Select a value',
           providerType: SuggestionSettings.USER_GROUP,
         },
       }),
@@ -167,7 +151,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         label: 'Library Owners',
         settings: {
           initSearch: false,
-          placeholder: 'Please select Library Owners',
+          placeholder: 'Select a value',
           providerType: SuggestionSettings.USER_GROUP,
         },
       }),
@@ -200,6 +184,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         label: 'Image Asset Types',
         settings: {
           parentOnly: true,
+          placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-MediaTypes-Image',
         },
@@ -208,6 +193,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         id: 'The_Loupe_Main:assettypes_video',
         label: 'Video Asset Types',
         settings: {
+          placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-MediaTypes-Video',
         },
@@ -216,16 +202,33 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
         id: 'The_Loupe_Main:assettypes_audio',
         label: 'Audio Asset Types',
         settings: {
+          placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-MediaTypes-Audio',
         },
       }),
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:productModel',
-        label: 'Product',
+        label: 'Products',
         placeholder: 'Please add product',
         required: false,
         visibleFn: (doc: DocumentModel): boolean => doc.get('app_global_fields:enable_productlist'),
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        layoutPosition: 'right',
+        queueLimit: 1,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'image/*',
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'bottom',
+        formMode: 'edit',
+        showInputs: false,
+        multiUpload: true,
       }),
     ];
   }
