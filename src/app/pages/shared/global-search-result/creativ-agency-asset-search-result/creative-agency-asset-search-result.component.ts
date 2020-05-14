@@ -21,7 +21,7 @@ export class CreativeAgencyAssetSearchResultComponent extends AbstractSearchResu
 
   @Input() resultHeader: string;
 
-  @Input() layout: string = 'brand full-width';
+  @Input() layout: string = 'my_brand full-width';
 
   listViewSettings: any;
 
