@@ -11,9 +11,28 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
 })
 export class CreativeAgencyAssetSearchResultComponent extends AbstractSearchResultComponent {
 
+  @Input()
+  set selectedView(name: string) {
+    this.currentView = name;
+    if (!this.listViewSettings) {
+      this.listViewSettings = this.defaultSettings;
+    }
+  }
+
   @Input() resultHeader: string;
 
   @Input() layout: string = 'brand full-width';
+
+  listViewSettings: any;
+
+  private defaultSettings: any = {
+    columns: {
+      title: {
+        title: 'Title',
+        sort: false,
+      },
+    },
+  };
 
   listViewBuilder: Function = (docs: DocumentModel[]): any => {
     const items = [];
