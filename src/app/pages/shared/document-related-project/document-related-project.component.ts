@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class DocumentRelatedProjectComponent implements OnDestroy {
 
-  layout: string = 'my_agency full-width';
+  layout: string = 'agency full-width';
 
   documentModel: DocumentModel;
 

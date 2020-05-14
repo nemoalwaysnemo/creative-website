@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
@@ -10,6 +10,10 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
   templateUrl: './creative-agency-asset-search-result.component.html',
 })
 export class CreativeAgencyAssetSearchResultComponent extends AbstractSearchResultComponent {
+
+  @Input() resultHeader: string;
+
+  @Input() layout: string = 'brand full-width';
 
   listViewBuilder: Function = (docs: DocumentModel[]): any => {
     const items = [];
