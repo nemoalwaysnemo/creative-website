@@ -46,8 +46,10 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',
         label: 'Client',
-        required: false,
+        required: true,
         placeholder: 'Client',
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
@@ -130,12 +132,14 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
         label: 'Download Approvers',
-        required: false,
+        required: true,
         settings: {
           initSearch: false,
           placeholder: 'Select a value',
           providerType: SuggestionSettings.USER_GROUP,
         },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
