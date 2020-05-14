@@ -204,13 +204,12 @@ body {
       }
     }
   }
-  &.my_agency,
-  &.my_brand,
+  &.agency,
+  &.brand,
   &.creative_brand_asset,
   &.creative_brand_showcase,
   &.creative_agency_brand,
-  &.creative_agency_showcase,
-  &.my_agency_asset_search {
+  &.creative_agency_showcase{
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
       	// < 768px
