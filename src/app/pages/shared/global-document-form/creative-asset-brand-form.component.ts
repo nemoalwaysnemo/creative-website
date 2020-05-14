@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
-import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'disruption-how-tos-asset-form',
+  selector: 'creative-asset-brand-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComponent {
+export class CreativeAssetBrandFormComponent extends AbstractDocumentFormComponent {
 
-  protected documentType: string = 'App-Disruption-Theory-Asset';
+  protected documentType: string = 'App-Library-Folder';
+
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
   }
@@ -24,12 +25,11 @@ export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComp
     return [
       new DynamicInputModel({
         id: 'dc:title',
-        label: 'Title',
+        label: 'Brand/Folder Name',
         maxLength: 50,
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
-        hidden: true,
         validators: {
           required: null,
           minLength: 4,
@@ -40,10 +40,22 @@ export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComp
         },
       }),
       new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand',
-        placeholder: 'Brand',
+        id: 'The_Loupe_Main:clientName',
+        label: 'Client',
+        placeholder: 'Client',
         required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Tags_edges',
+        label: 'Edges',
+        required: true,
+        settings: {
+          placeholder: 'Talk to your Backslash spotter or planners about Edges for this brand.',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
@@ -52,106 +64,113 @@ export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComp
         label: 'Industry',
         required: true,
         settings: {
-          placeholder: 'Please select industry',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Industries',
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Published',
-        formMode: 'edit',
-        defaultValue: (new Date()),
-        placeholder: 'Published',
-        readonly: true,
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:accountDirector',
+        label: 'Account Director',
+        autoComplete: 'off',
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Published',
-        formMode: 'create',
-        defaultValue: (new Date()),
-        placeholder: 'Published',
-        readonly: true,
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:creativeDirector',
+        label: 'Creative Director',
+        autoComplete: 'off',
         required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:artDirector',
+        label: 'Art Director',
+        autoComplete: 'off',
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:copyWriter',
+        label: 'Copy Writer',
+        autoComplete: 'off',
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:broadcastProducer',
+        label: 'Broadcast Producer',
+        autoComplete: 'off',
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:printProducer',
+        label: 'Print Producer',
+        autoComplete: 'off',
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:digitalProducer',
+        label: 'Digital Producer',
+        autoComplete: 'off',
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:projectManager',
+        label: 'Project Manager',
+        autoComplete: 'off',
+        required: true,
+        validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
-        required: true,
+        readOnly: true,
+        disabled: true,
         settings: {
           multiple: false,
-          placeholder: 'Please select agency',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Agencies',
         },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
-        required: true,
+        label: 'Country',
+        readOnly: true,
+        disabled: true,
         settings: {
-          placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',
         },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:backslash_category',
-        label: 'Backslash Category',
-        formMode: 'edit',
-        required: true,
-        settings: {
-          placeholder: 'Please select category',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Backslash-Categories',
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Tags_edges',
-        label: 'Edges',
-        settings: {
-          placeholder: 'Please select edges',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Edges-Edges',
-        },
       }),
       new DynamicInputModel({
-        id: 'The_Loupe_Main:description',
-        label: 'Description',
-        formMode: 'edit',
-        placeholder: 'description',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicInputModel({
-        id: 'dc:creator',
-        label: 'Author',
-        placeholder: 'Author',
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        id: 'The_Loupe_Main:CompanyCode',
+        label: 'Company Code',
+        readOnly: true,
+        disabled: true,
+        autoComplete: 'off',
+        required: false,
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
         uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 25,
-        placeholder: 'Drop PDF File(s) here!',
-        acceptTypes: '.pdf',
+        queueLimit: 1,
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -159,23 +178,14 @@ export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComp
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop PDF File(s) here!',
-        acceptTypes: '.pdf',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+        placeholder: 'Drop Logo/Image here!',
+        acceptTypes: 'image/*',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

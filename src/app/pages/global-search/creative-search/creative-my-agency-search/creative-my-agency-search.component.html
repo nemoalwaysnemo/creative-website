@@ -1,36 +1,12 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
-  <div class="property-section" *ngIf="document">
-    <div class="property-intro inline-top">
-      <div [ngStyle]="{'background-image': 'url('+document?.thumbnailUrl+')'}"></div>
-      <!-- <img src="{{document?.thumbnailUrl}}" /> -->
-    </div>
-    <div class="property-info inline-top">
-      <h1>{{document?.get('The_Loupe_Main:agency')}}</h1>
-      <ul>
-        <li><b>Country:</b> {{parseCountry(document?.get('The_Loupe_Main:country'))}}</li>
-      </ul>
-      <div class="button-group">
-        <ng-container [ngSwitch]="showType">
-          <ng-container *ngSwitchCase="'showcase'">
-            <button type="button" class="btn" (click)="toggleBtn()" title="My Brands">My Brands</button>
-          </ng-container>
-          <ng-container *ngSwitchCase="'brands'">
-            <button type="button" class="btn" (click)="toggleBtn()" title="Showcase">Showcase</button>
-          </ng-container>
-          <!-- <button type="button" class="btn" title="Create Brand">Create Brand</button>
-          <button type="button" class="btn" title="Manage">Manage</button> -->
-        </ng-container>
-      </div>
-    </div>
-  </div>
   <div class="not_found_section" *ngIf="hideEmpty&&!document">
     <div>
       <div class="not_found_icon inline-top"></div>
       <div class="not_found_description inline-top">
         <h1>Agency Not Found …Yet</h1>
         <p>
-          Oh no. Your agency is not in our Global Creative Library.<br/>
-          No sweat, reach out and we’ll get this disruptive ship sailing.<br/><br/>
+          Oh no. Your agency is not in our Global Creative Library.<br />
+          No sweat, reach out and we’ll get this disruptive ship sailing.<br /><br />
           Please use this form to contact us.
         </p>
         <a href="{{startUrl}}" title="Start Here" target="_blank" class="btn">Start Here</a>
@@ -38,15 +14,3 @@
     </div>
   </div>
 </div>
-<global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput"></global-search-form>
-<ng-container [ngSwitch]="showType">
-  <ng-container *ngSwitchCase="'brands'">
-    <creative-my-brand-asset-search-result [layout]="layout" [resultHeader]="resultHeader">
-    </creative-my-brand-asset-search-result>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="'showcase'">
-    <creative-document-asset-search-result [layout]="layout" [resultHeader]="resultHeader" [hideEmpty]="hideEmpty">
-    </creative-document-asset-search-result>
-  </ng-container>
-</ng-container>

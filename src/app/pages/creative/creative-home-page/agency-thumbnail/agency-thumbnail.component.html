@@ -1,7 +1,7 @@
 <div class="agency-thumbnail">
   <h1 class="left">Best of TBWA\</h1>
   <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}" class="see_all right">See all</a>
-  <a *ngIf="!!myAgencyFlag" [routerLink]="['/p/search/creative/myAgency']" class="see_all right" >My agency</a>
+  <a *ngIf="!!myAgencyFlag" [routerLink]="['/p/search/creative/agency']" class="see_all right" >My agency</a>
   <div class="clear"></div>
   <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 </div>

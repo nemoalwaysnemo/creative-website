@@ -29,12 +29,8 @@ const routes: Routes = [{
       component: CreativePopularBrandAssetSearchComponent,
     },
     {
-      path: 'myAgency',
+      path: 'agency',
       component: CreativeMyAgencySearchComponent,
-    },
-    {
-      path: 'myAgencyAsset/:id',
-      component: CreativeMyAgencyAssetSearchComponent,
     },
   ],
 }];

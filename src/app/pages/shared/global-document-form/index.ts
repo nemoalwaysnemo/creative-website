@@ -2,6 +2,7 @@ export * from './global-document-form-mapping';
 export * from './creative-asset-image-form.component';
 export * from './creative-asset-video-form.component';
 export * from './creative-asset-audio-form.component';
+export * from './creative-asset-brand-form.component';
 export * from './creative-usage-rights-model-form.component';
 export * from './creative-usage-rights-music-form.component';
 export * from './creative-usage-rights-photo-form.component';
