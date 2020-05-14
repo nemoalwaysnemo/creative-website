@@ -30,7 +30,7 @@ export class DocumentActionGroupComponent {
       if (this.isCreativeAsset(doc)) {
         this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
       } else if (this.isBizDevCaseStudyAsset(doc)) {
-        this.downloadPermission$ = observableOf(doc.get('app_global:networkshare') === false);
+        this.downloadPermission$ = observableOf(doc.get('app_global:asset_request') === false);
       } else {
         this.downloadPermission$ = observableOf(true);
       }
@@ -58,7 +58,7 @@ export class DocumentActionGroupComponent {
   }
 
   isNeedSendDownloadRequest(doc: DocumentModel): boolean {
-    return this.isBizDevCaseStudyAsset(doc) && doc.get('app_global:networkshare') === true;
+    return this.isBizDevCaseStudyAsset(doc) && doc.get('app_global:asset_request') === true;
   }
 
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {

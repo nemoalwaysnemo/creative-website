@@ -14,7 +14,7 @@ import { CreativeBrandCampaignSearchResultComponent } from './creative-brand-cam
 import { CreativeBrandProjectSearchResultComponent } from './creative-brand-project-search-result/creative-brand-project-search-result.component';
 import { CreativeDocumentAssetSearchResultComponent, CreativeDocumentAssetRowRenderComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
-import { CreativeMyBrandAssetSearchResultComponent, CreativeBrandRowRenderComponent } from './creative-my-brand-asset-search-result/creative-my-brand-asset-search-result.component';
+import { CreativeBrandAssetSearchResultComponent, CreativeBrandRowRenderComponent } from './creative-brand-asset-search-result/creative-brand-asset-search-result.component';
 import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
 import { DisruptionDaysAssetSearchResultComponent } from './disruption-days-asset-search-result/disruption-days-asset-search-result.component';
 import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-asset-search-result/disruption-theory-asset-search-result.component';
@@ -23,7 +23,7 @@ import { DisruptionFolderDayAssetSearchResultComponent } from './disruption-fold
 import { IntelligenceIndustrySearchResultComponent } from './intelligence-industry-search-result/intelligence-industry-search-result.component';
 import { DisruptionDocumentAssetSearchResultComponent } from './disruption-document-asset-search-result/disruption-document-asset-search-result.component';
 import { DisruptionFolderTheoryAssetSearchResultComponent } from './disruption-folder-theory-asset-search-result/disruption-folder-theory-asset-search-result.component';
-import { CreativeMyAgencyAssetSearchResultComponent } from './creative-my-agency-asset-search-result/creative-my-agency-asset-search-result.component';
+import { CreativeAgencyAssetSearchResultComponent } from './creativ-agency-asset-search-result/creative-agency-asset-search-result.component';
 import { AllFavoritesAssetSearchResultComponent } from './all-favorites-asset-search-result/all-favorites-asset-search-result.component';
 import { FavoriteBackslashAssetSearchResultComponent } from './favorite-backslash-asset-search-result/favorite-backslash-asset-search-result.component';
 import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-search-result/favorite-brand-asset-search-result.component';
@@ -38,7 +38,7 @@ import { GlobalDocumentDialogModule } from '../global-document-dialog/global-doc
 
 const COMPONENTS = [
   GlobalSearchResultComponent,
-  CreativeMyBrandAssetSearchResultComponent,
+  CreativeBrandAssetSearchResultComponent,
   CreativePopularBrandSearchResultComponent,
   CreativeBrandRowRenderComponent,
   CreativeDocumentAssetRowRenderComponent,
@@ -47,7 +47,7 @@ const COMPONENTS = [
   CreativeBrandCampaignSearchResultComponent,
   CreativeBrandProjectSearchResultComponent,
   CreativeDocumentAssetSearchResultComponent,
-  CreativeMyAgencyAssetSearchResultComponent,
+  CreativeAgencyAssetSearchResultComponent,
   BackslashDocumentAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
   DisruptionTheoryAssetSearchResultComponent,

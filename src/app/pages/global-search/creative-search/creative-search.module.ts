@@ -5,7 +5,8 @@ import { CreativeSearchComponent } from './creative-search.component';
 import { CreativeSearchRoutingModule } from './creative-search-routing.module';
 import { CreativeDocumentAssetSearchComponent } from './creative-document-asset-search/creative-document-asset-search.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
-import { CreativeMyBrandSearchComponent } from './creative-my-brand-search/creative-my-brand-search.component';
+import { CreativeBrandSearchComponent } from './creative-brand-search/creative-brand-search.component';
+import { CreativeAgencySearchComponent } from './creative-agency-search/creative-agency-search.component';
 import { CreativePopularBrandSearchComponent } from './creative-popular-brand-search/creative-popular-brand-search.component';
 import { CreativePopularBrandAssetSearchComponent } from './creative-popular-brand-asset-search/creative-popular-brand-asset-search.component';
 import { GlobalSearchButtonModule } from '@pages/shared/global-search-button/global-search-button.module';
@@ -21,8 +22,9 @@ import { GlobalSearchButtonModule } from '@pages/shared/global-search-button/glo
   ],
   declarations: [
     CreativeSearchComponent,
+    CreativeBrandSearchComponent,
+    CreativeAgencySearchComponent,
     CreativeDocumentAssetSearchComponent,
-    CreativeMyBrandSearchComponent,
     CreativePopularBrandSearchComponent,
     CreativePopularBrandAssetSearchComponent,
 

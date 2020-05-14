@@ -12,11 +12,11 @@ export class CreativeBrandRowRenderComponent {
 }
 
 @Component({
-  selector: 'creative-my-brand-asset-search-result',
+  selector: 'creative-brand-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
-  templateUrl: './creative-my-brand-asset-search-result.component.html',
+  templateUrl: './creative-brand-asset-search-result.component.html',
 })
-export class CreativeMyBrandAssetSearchResultComponent extends AbstractSearchResultComponent {
+export class CreativeBrandAssetSearchResultComponent extends AbstractSearchResultComponent {
 
   @Input()
   set selectedView(name: string) {

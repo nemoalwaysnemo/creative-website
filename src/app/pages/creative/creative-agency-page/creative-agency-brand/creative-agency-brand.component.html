@@ -2,10 +2,10 @@
 <div class="creative-agency-asset" [nbSpinner]="loading" nbSpinnerStatus="disabled" style="margin-top:45px">
   <global-search-form [filters]="filters" [baseParams]="baseParams$ | async">
     <ng-container class="group-right">
-      <!-- <div class="global-search-form-buttons">
+      <div class="global-search-form-buttons">
         <creative-agency-form-button [parent]="document" [type]="'brand'" [title]="'New Brand'"></creative-agency-form-button>
-      </div> -->
+      </div>
     </ng-container>
   </global-search-form>
-  <creative-document-asset-search-result [layout]="layout"></creative-document-asset-search-result>
+  <creative-brand-asset-search-result [layout]="layout"></creative-brand-asset-search-result>
 </div>

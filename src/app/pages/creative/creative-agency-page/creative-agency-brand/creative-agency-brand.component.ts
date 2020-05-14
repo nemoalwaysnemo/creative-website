@@ -6,15 +6,15 @@ import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'creative-agency-asset',
+  selector: 'creative-agency-brand',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
-  templateUrl: './creative-agency-asset.component.html',
+  templateUrl: './creative-agency-brand.component.html',
 })
-export class CreativeAgencyAssetComponent extends AbstractDocumentViewComponent implements OnInit {
+export class CreativeAgencyBrandComponent extends AbstractDocumentViewComponent implements OnInit {
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'creative_agency_asset full-width';
+  layout: string = 'creative_agency_brand full-width';
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoPageProviderParams): boolean => searchParams.hasFilter('the_loupe_main_brand_agg') }),

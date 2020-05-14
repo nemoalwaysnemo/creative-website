@@ -8,7 +8,9 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
   templateUrl: './biz-dev-thought-leadership-asset-search-result.component.html',
 })
 export class BizDevThoughtLeadershipAssetSearchResultComponent extends AbstractSearchResultComponent {
+
   @Input() folderId: string;
+
   constructor(protected queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);
   }

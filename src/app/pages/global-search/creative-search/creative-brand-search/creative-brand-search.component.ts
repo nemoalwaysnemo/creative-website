@@ -3,11 +3,11 @@ import { NUXEO_META_INFO } from '@environment/environment';
 import { SearchFilterModel } from '@core/api';
 
 @Component({
-  selector: 'creative-my-brand-search',
-  styleUrls: ['./creative-my-brand-search.component.scss'],
-  templateUrl: './creative-my-brand-search.component.html',
+  selector: 'creative-brand-search',
+  styleUrls: ['./creative-brand-search.component.scss'],
+  templateUrl: './creative-brand-search.component.html',
 })
-export class CreativeMyBrandSearchComponent {
+export class CreativeBrandSearchComponent {
 
   defaultParams: any = {
     the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
