@@ -19,8 +19,8 @@ export class CreativeAgencySearchComponent {
   };
 
   filters: SearchFilterModel[] = [
-    // new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
     // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     // new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoPageProviderParams): boolean => searchParams.hasFilter('the_loupe_main_agency_agg') }),
@@ -28,9 +28,5 @@ export class CreativeAgencySearchComponent {
   ];
 
   currentView: string = 'thumbnailView';
-
-  onResultViewChanged(name: string): void {
-    this.currentView = name;
-  }
 
 }

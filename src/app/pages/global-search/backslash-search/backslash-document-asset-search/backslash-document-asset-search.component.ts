@@ -13,9 +13,7 @@ export class BackslashDocumentAssetSearchComponent implements OnInit, OnDestroy 
 
   resultHeader: string;
 
-  layout: string = 's-results agency dates full-width backslash_asset_search';
-
-  currentView: string = 'thumbnailView';
+  layout: string = 's-results brand dates full-width backslash_asset_search';
 
   defaultParams: any = {
     currentPageIndex: 0,
