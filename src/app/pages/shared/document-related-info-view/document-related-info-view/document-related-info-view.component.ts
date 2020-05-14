@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
@@ -72,6 +72,40 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   intelligenceTitle: string = 'Intelligence';
 
+  layout: string = 'my_agency_asset_search full-width';
+
+  baseParams$: Subject<any> = new Subject<any>();
+
+  pageProvider: string = '';
+
+  backslashFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
+    new SearchFilterModel({ key: 'app_edges_backslash_type', placeholder: 'Type' }),
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    new SearchFilterModel({ key: 'app_edges_relevant_country', placeholder: 'Geography', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
+  ];
+  disruptionFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    // country
+    // industry
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
+  intelligenceFilters: SearchFilterModel[] = [
+    // industry
+    // countgry
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    // intelligence type
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    // backslash category
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
+
+  filters: SearchFilterModel[] = [];
+
   constructor(
     private advanceSearch: AdvanceSearch,
     private globalDocumentDialogService: GlobalDocumentDialogService,
@@ -91,6 +125,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   }
 
   onKeyup(event: KeyboardEvent): void {
+    // this.baseParams$.next(this.getSearchParams(this.document));
     this.search$.next(this.getSearchParams(this.document));
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -108,12 +143,15 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         case 'backslash':
           this.buildBackslashEdges(info.document);
           this.thumbnailItemView = this.backslashItemView;
+          this.filters = this.backslashFilters;
           break;
-        case 'disruption':
+          case 'disruption':
           this.thumbnailItemView = this.disruptionItemView;
+          this.filters = this.disruptionFilters;
           break;
-        case 'intelligence':
+          case 'intelligence':
           this.thumbnailItemView = this.intelligenceItemView;
+          this.filters = this.intelligenceFilters;
           break;
         default:
           break;
@@ -122,6 +160,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.documents = [];
       }
       if (this.documents.length === 0) {
+        // this.baseParams$.next(this.getSearchParams(this.document));
         this.search$.next(this.getSearchParams(info.document));
       }
 
@@ -138,6 +177,12 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.loading = true;
       }),
       mergeMap((mapping) => {
+        console.log(mapping, 123123);
+        // console.log(Object.assign({}, mapping.params, { provider: mapping.provider}));
+
+        // console.log(Object.assign(mapping.params, mapping.provider));
+        this.pageProvider = mapping.provider;
+        this.baseParams$.next(mapping.params);
         return this.advanceSearch.request(mapping.params, null, mapping.provider);
       }),
     ).subscribe((res: NuxeoPagination) => {

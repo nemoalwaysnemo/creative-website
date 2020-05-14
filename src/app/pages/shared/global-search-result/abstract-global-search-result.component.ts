@@ -69,11 +69,11 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   }
 
   onScrollDown(): void {
-    if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
-      const pageIndex: string = this.queryParamsService.getSnapshotQueryParamMap().get('currentPageIndex');
-      const currentPageIndex: number = parseInt(pageIndex || '0', 10) + 1;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
-    }
+    // if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
+    //   const pageIndex: string = this.queryParamsService.getSnapshotQueryParamMap().get('currentPageIndex');
+    //   const currentPageIndex: number = parseInt(pageIndex || '0', 10) + 1;
+    //   this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
+    // }
   }
 
   protected handleResponse(res: SearchResponse): void {
