@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { CreativeAgencyAssetComponent } from './creative-agency-asset.component';
+import { CreativeAgencyBrandComponent } from './creative-agency-brand.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { CreativeAgencyInfoViewModule } from '../creative-agency-info-view/creative-agency-info-view.module';
 import { CreativeAgencyFormButtonModule } from '../creative-agency-form-button/creative-agency-form-button.module';
@@ -16,7 +16,7 @@ import { CreativeAgencyFormButtonModule } from '../creative-agency-form-button/c
     CreativeAgencyFormButtonModule,
   ],
   declarations: [
-    CreativeAgencyAssetComponent,
+    CreativeAgencyBrandComponent,
   ],
 })
-export class CreativeAgencyAssetModule { }
+export class CreativeAgencyBrandModule { }

@@ -23,7 +23,6 @@ export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumen
   }
 
   protected onInit(): void {
-    console.log(111, this.document);
     this.buildBackslashEdges(this.document);
   }
 

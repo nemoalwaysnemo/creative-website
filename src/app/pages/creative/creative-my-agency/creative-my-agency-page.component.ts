@@ -26,16 +26,16 @@ export class CreativeMyAgencyPageComponent extends AbstractDocumentViewComponent
 
     this.searchCurrentAgency().subscribe((doc: DocumentModel) => {
       if (doc) {
-        this.redirectAgencyAsset(doc.uid);
+        this.redirectToAgency(doc.uid);
       }
     });
   }
 
-  onInit() {
+  onInit(): void {
   }
 
-  private redirectAgencyAsset(uid: string): void {
-    this.queryParamsService.navigate(['/p/creative/agency/' + uid + '/showcase']);
+  private redirectToAgency(uid: string): void {
+    this.queryParamsService.navigate(['/p/creative/agency/' + uid + '/brand']);
   }
 
   protected setCurrentDocument(doc?: DocumentModel): void {

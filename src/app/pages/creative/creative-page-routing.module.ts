@@ -12,7 +12,7 @@ import { CreativeBrandProjectComponent } from './creative-brand-page/creative-br
 import { CreativeBrandUsageRightsComponent } from './creative-brand-page/creative-brand-usage-rights/creative-brand-usage-rights.component';
 import { CreativeBrandManageListComponent } from './creative-brand-page/creative-brand-manage-list/creative-brand-manage-list.component';
 import { CreativeBrandManageLibraryComponent } from './creative-brand-page/creative-brand-manage-library/creative-brand-manage-library.component';
-import { CreativeAgencyAssetComponent } from './creative-agency-page/creative-agency-asset/creative-agency-asset.component';
+import { CreativeAgencyBrandComponent } from './creative-agency-page/creative-agency-brand/creative-agency-brand.component';
 import { CreativeAgencyShowcaseComponent } from './creative-agency-page/creative-agency-showcase/creative-agency-showcase.component';
 import { CreativeAgencyManageLibraryComponent } from './creative-agency-page/creative-agency-manage-library/creative-agency-manage-library.component';
 import { CreativeAgencyManageListComponent } from './creative-agency-page/creative-agency-manage-list/creative-agency-manage-list.component';
@@ -99,8 +99,8 @@ const routes: Routes = [{
       component: CreativeMyAgencyPageComponent,
     },
     {
-      path: 'agency/:id/asset',
-      component: CreativeAgencyAssetComponent,
+      path: 'agency/:id/brand',
+      component: CreativeAgencyBrandComponent,
     },
     {
       path: 'agency/:id/showcase',

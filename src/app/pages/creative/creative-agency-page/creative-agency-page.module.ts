@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { CommonModule } from '@angular/common';
 import { CreativeAgencyPageComponent } from './creative-agency-page.component';
-import { CreativeAgencyAssetModule } from './creative-agency-asset/creative-agency-asset.module';
+import { CreativeAgencyBrandModule } from './creative-agency-brand/creative-agency-brand.module';
 import { CreativeAgencyShowcaseModule } from './creative-agency-showcase/creative-agency-showcase.module';
 import { CreativeAgencyListManageModule } from './creative-agency-manage-list/creative-agency-manage-list.module';
 import { CreativeAgencyManageLibraryModule } from './creative-agency-manage-library/creative-agency-manage-library.module';
@@ -11,7 +11,7 @@ import { CreativeAgencyManageLibraryModule } from './creative-agency-manage-libr
   imports: [
     ThemeModule,
     CommonModule,
-    CreativeAgencyAssetModule,
+    CreativeAgencyBrandModule,
     CreativeAgencyShowcaseModule,
     CreativeAgencyListManageModule,
     CreativeAgencyManageLibraryModule,

@@ -1,0 +1,11 @@
+@import '../../../../core/nebular/theme/styles/global/breakpoints';
+
+.inline-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.button-group {
+  width: calc(100% - 76px);
+  margin: 0 auto;
+}

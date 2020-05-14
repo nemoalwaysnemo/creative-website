@@ -3,7 +3,7 @@ import { UserPermission } from '@core/acl';
 export const TAB_CONFIG: any[] = [
   {
     title: 'Brands',
-    route: '/p/creative/agency/:id/asset',
+    route: '/p/creative/agency/:id/brand',
   },
   {
     title: 'Showcase',
