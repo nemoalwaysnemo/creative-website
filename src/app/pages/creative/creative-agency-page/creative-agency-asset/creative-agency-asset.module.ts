@@ -18,8 +18,5 @@ import { CreativeAgencyFormButtonModule } from '../creative-agency-form-button/c
   declarations: [
     CreativeAgencyAssetComponent,
   ],
-  exports: [
-    CreativeAgencyAssetComponent,
-  ],
 })
 export class CreativeAgencyAssetModule { }

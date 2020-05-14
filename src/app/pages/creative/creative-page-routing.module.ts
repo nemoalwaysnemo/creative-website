@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { UserPermission } from '@core/acl';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { CreativePageComponent } from './creative-page.component';
 import { CreativeHomePageComponent } from './creative-home-page/creative-home-page.component';
@@ -15,7 +16,8 @@ import { CreativeAgencyAssetComponent } from './creative-agency-page/creative-ag
 import { CreativeAgencyShowcaseComponent } from './creative-agency-page/creative-agency-showcase/creative-agency-showcase.component';
 import { CreativeAgencyManageLibraryComponent } from './creative-agency-page/creative-agency-manage-library/creative-agency-manage-library.component';
 import { CreativeAgencyManageListComponent } from './creative-agency-page/creative-agency-manage-list/creative-agency-manage-list.component';
-import { UserPermission } from '@core/acl';
+import { CreativeMyAgencyPageComponent } from './creative-my-agency/creative-my-agency-page.component';
+
 
 const routes: Routes = [{
   path: '',
@@ -91,6 +93,10 @@ const routes: Routes = [{
           redirectTo: 'home',
         },
       },
+    },
+    {
+      path: 'agency',
+      component: CreativeMyAgencyPageComponent,
     },
     {
       path: 'agency/:id/asset',
