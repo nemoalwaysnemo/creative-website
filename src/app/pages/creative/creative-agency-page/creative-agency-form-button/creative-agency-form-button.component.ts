@@ -38,7 +38,7 @@ export class CreativeAgencyFormButtonComponent {
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     private router: Router,
-    ) {
+  ) {
   }
 
   openDialog(dialog: TemplateRef<any>): void {

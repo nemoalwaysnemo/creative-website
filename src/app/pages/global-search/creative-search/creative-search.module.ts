@@ -8,9 +8,7 @@ import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared'
 import { CreativeMyBrandSearchComponent } from './creative-my-brand-search/creative-my-brand-search.component';
 import { CreativePopularBrandSearchComponent } from './creative-popular-brand-search/creative-popular-brand-search.component';
 import { CreativePopularBrandAssetSearchComponent } from './creative-popular-brand-asset-search/creative-popular-brand-asset-search.component';
-import { CreativeMyAgencyAssetSearchComponent } from './creative-my-agency-asset-search/creative-my-agency-asset-search.component';
 import { GlobalSearchButtonModule } from '@pages/shared/global-search-button/global-search-button.module';
-import { CreativeMyAgencySearchComponent } from './creative-my-agency-search/creative-my-agency-search.component';
 
 @NgModule({
   imports: [
@@ -27,8 +25,6 @@ import { CreativeMyAgencySearchComponent } from './creative-my-agency-search/cre
     CreativeMyBrandSearchComponent,
     CreativePopularBrandSearchComponent,
     CreativePopularBrandAssetSearchComponent,
-    CreativeMyAgencyAssetSearchComponent,
-    CreativeMyAgencySearchComponent,
 
   ],
 })

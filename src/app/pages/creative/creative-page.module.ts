@@ -5,6 +5,7 @@ import { CreativePageRoutingModule } from './creative-page-routing.module';
 import { CreativeAssetPageModule } from './creative-asset-page/creative-asset-page.module';
 import { CreativeBrandPageModule } from './creative-brand-page/creative-brand-page.module';
 import { CreativeAgencyPageModule } from './creative-agency-page/creative-agency-page.module';
+import { CreativeMyAgencyPageModule } from './creative-my-agency/creative-my-agency-page.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { CreativeAgencyPageModule } from './creative-agency-page/creative-agency
     CreativeAssetPageModule,
     CreativeBrandPageModule,
     CreativeAgencyPageModule,
+    CreativeMyAgencyPageModule,
     CreativePageRoutingModule,
   ],
   declarations: [

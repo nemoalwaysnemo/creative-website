@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { NUXEO_META_INFO } from '@environment/environment';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { Observable } from 'rxjs';
-import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'creative-my-agency-search',
-  templateUrl: './creative-my-agency-search.component.html',
-  styleUrls: ['./creative-my-agency-search.component.scss'],
+  selector: 'creative-my-agency-page',
+  templateUrl: './creative-my-agency-page.component.html',
+  styleUrls: ['./creative-my-agency-page.component.scss'],
 })
-export class CreativeMyAgencySearchComponent extends AbstractDocumentViewComponent implements OnInit {
+export class CreativeMyAgencyPageComponent extends AbstractDocumentViewComponent {
 
   hideEmpty: boolean = false;
 
@@ -23,9 +23,7 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
     super(advanceSearch, activatedRoute, queryParamsService);
-  }
 
-  ngOnInit() {
     this.searchCurrentAgency().subscribe((doc: DocumentModel) => {
       if (doc) {
         this.redirectAgencyAsset(doc.uid);
@@ -33,7 +31,10 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     });
   }
 
-  redirectAgencyAsset(uid: string): void {
+  onInit() {
+  }
+
+  private redirectAgencyAsset(uid: string): void {
     this.queryParamsService.navigate(['/p/creative/agency/' + uid + '/showcase']);
   }
 
@@ -44,8 +45,9 @@ export class CreativeMyAgencySearchComponent extends AbstractDocumentViewCompone
     }
   }
 
-  protected searchCurrentAgency(): Observable<DocumentModel> {
+  private searchCurrentAgency(): Observable<DocumentModel> {
     return this.userService.getCurrentUserInfo().pipe(
+      // tap((user: UserModel) => { user.properties['companycode'] = '05001002'; }),
       switchMap((user: UserModel) => this.searchCurrentDocument(this.getSearchParams(user))),
     );
   }
