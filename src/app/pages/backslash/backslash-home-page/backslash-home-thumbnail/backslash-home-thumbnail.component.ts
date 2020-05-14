@@ -8,7 +8,7 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO, Environment } from '@environment/envi
   templateUrl: './backslash-home-thumbnail.component.html',
 })
 export class BackslashHomeThumbnailComponent {
-  layout: string = 's-results agency dates full-width backslash_asset_search';
+  layout: string = 's-results my_agency dates full-width backslash_asset_search';
 
   currentView: string = 'thumbnailView';
 
