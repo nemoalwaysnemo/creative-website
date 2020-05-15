@@ -100,8 +100,12 @@ export abstract class AbstractDocumentViewComponent extends AbstractBaseDocument
     this.subscription.add(subscription);
   }
 
-  protected refresh(): void {
-    this.queryParamsService.refresh();
+  protected refresh(redirectUrl?: string): void {
+    if (redirectUrl) {
+      this.queryParamsService.redirect(redirectUrl);
+    } else {
+      this.queryParamsService.refresh();
+    }
   }
 
   protected redirectTo404(): void {

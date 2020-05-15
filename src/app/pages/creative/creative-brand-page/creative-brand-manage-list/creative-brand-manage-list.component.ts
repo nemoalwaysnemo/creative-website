@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel } from '@core/api';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
@@ -19,7 +19,10 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
 
   showForm: boolean = false;
 
+  redirectUrl: string = this.router.url;
+
   constructor(
+    private router: Router,
     protected advanceSearch: AdvanceSearch,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
@@ -38,12 +41,12 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
 
   updateForm(doc: any): void {
     this.toastrService.success('success', `${doc.title} update success`);
-    this.changeView();
   }
 
   onCallback(callback: DocumentFormEvent): void {
     if (callback.action === 'Updated') {
       this.updateForm(callback.doc);
+      this.refresh(this.redirectUrl);
     } else if (callback.action === 'Canceled') {
       this.canceleForm();
     }
@@ -119,7 +122,7 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
-        layoutPosition: 'right',
+        layoutPosition: 'bottom',
         formMode: 'edit',
         showInputs: false,
         multiUpload: true,
