@@ -13,6 +13,8 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
 
   mainViewChanged = false;
 
+  callbackEvent: DocumentDialogEvent;
+
   @Input() redirectUrl: string;
 
   @Input() title: string = 'Global Dialog';
@@ -84,9 +86,9 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
     });
   }
 
-  refresh(): void {
-    if (this.redirectUrl) {
-      this.queryParamsService.redirect(this.redirectUrl);
+  refresh(redirectUrl?: string): void {
+    if (redirectUrl || this.redirectUrl) {
+      this.queryParamsService.redirect(redirectUrl || this.redirectUrl);
     } else {
       this.queryParamsService.refresh();
     }
@@ -132,7 +134,9 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
   protected onOpen(e: DocumentDialogEvent): void {
   }
 
-  protected onClose(e: DocumentDialogEvent): void { }
+  protected onClose(e: DocumentDialogEvent): void {
+    this.callbackEvent = null;
+  }
 
   protected onConfirmed(doc: DocumentModel): void { }
 
@@ -144,8 +148,10 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
       this.lifeCycle$,
     ).pipe(map(_ => _.shift())).subscribe((e: DocumentDialogEvent) => { this.onOpen(e); });
     const b = this.globalDocumentDialogService.onClose().subscribe((e: DocumentDialogEvent) => { this.onClose(e); });
+    const c = this.globalDocumentDialogService.onEventType('callback').subscribe((e: DocumentDialogEvent) => { this.callbackEvent = e; });
     this.subscription.add(a);
     this.subscription.add(b);
+    this.subscription.add(c);
   }
 
 }

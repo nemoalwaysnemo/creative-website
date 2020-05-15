@@ -68,7 +68,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
   protected onOpen(e: DocumentDialogEvent): void {
     const view = e.options.view || this.dialogType;
     this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': this.document.uid });
-    this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', message: 'View Opened', options: { view } });
+    this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', type: 'built-in', messageContent: 'View Opened', options: { view } });
     this.selectView(view);
   }
 
@@ -115,7 +115,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
   }
 
   protected subscribeEvents(): void {
-    this.subscription = this.globalDocumentDialogService.onEvent('ViewChanged').subscribe((e: DocumentDialogEvent) => {
+    this.subscription = this.globalDocumentDialogService.onEventName('ViewChanged').subscribe((e: DocumentDialogEvent) => {
       const view = e.options.view || this.dialogType;
       this.mainViewChanged = this.dialogType !== view;
       this.selectView(view, e.options.component);

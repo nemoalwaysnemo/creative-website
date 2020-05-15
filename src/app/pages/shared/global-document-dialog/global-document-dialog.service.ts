@@ -6,8 +6,11 @@ import { DocumentModel } from '@core/api';
 
 export class DocumentDialogEvent {
   readonly name: string;
-  readonly message?: string;
-  readonly doc?: DocumentModel;
+  readonly type: string;
+  readonly messageType?: string;
+  readonly messageTitle?: string;
+  readonly messageContent?: string;
+  readonly doc?: DocumentModel | DocumentModel[];
   readonly options?: DocumentDialogOption = {};
 }
 
@@ -42,20 +45,24 @@ export class GlobalDocumentDialogService {
 
   onOpen(): Observable<DocumentDialogEvent> {
     return this.dialogService.onOpen().pipe(
-      map(_ => ({ name: 'Opened', message: 'Opened', options: this.options })),
+      map(_ => ({ name: 'Opened', type: 'built-in', message: 'Opened', options: this.options })),
       share(),
     );
   }
 
-  onClose(): Observable<any> {
+  onClose(): Observable<DocumentDialogEvent> {
     return this.dialogService.onClose().pipe(
-      map(_ => ({ name: 'Closed', message: 'Closed', options: this.options })),
+      map(_ => ({ name: 'Closed', type: 'built-in', message: 'Closed', options: this.options })),
       share(),
     );
   }
 
-  onEvent(name?: string): Observable<DocumentDialogEvent> {
+  onEventName(name?: string): Observable<DocumentDialogEvent> {
     return (name ? this.event.pipe(filter((e: DocumentDialogEvent) => e.name === name)) : this.event).pipe(share());
+  }
+
+  onEventType(type: string): Observable<DocumentDialogEvent> {
+    return this.event.pipe(filter((e: DocumentDialogEvent) => e.type === type)).pipe(share());
   }
 
   triggerEvent(event: DocumentDialogEvent): this {
@@ -64,7 +71,7 @@ export class GlobalDocumentDialogService {
   }
 
   selectView(name: string, component: Type<any> = null, metadata: any = {}): void {
-    this.triggerEvent({ name: 'ViewChanged', message: 'View Changed', options: { view: name, component, metadata } });
+    this.triggerEvent({ name: 'ViewChanged', type: 'built-in', messageContent: 'View Changed', options: { view: name, component, metadata } });
   }
 
 }

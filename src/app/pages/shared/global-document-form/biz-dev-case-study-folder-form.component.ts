@@ -118,6 +118,18 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
         errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
+        id: 'app_Edges:backslash_category',
+        label: 'Backslash Category',
+        required: true,
+        settings: {
+          placeholder: 'Select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
         label: 'Backslash Edges',
         settings: {
