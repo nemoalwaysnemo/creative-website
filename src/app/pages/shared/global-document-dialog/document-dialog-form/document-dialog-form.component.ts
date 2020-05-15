@@ -13,8 +13,6 @@ import { timer } from 'rxjs';
 })
 export class DocumentDialogFormComponent extends AbstractDocumentDialogContainerComponent implements DocumentModelForm {
 
-  formCallbackEvent: DocumentFormEvent;
-
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
@@ -40,10 +38,10 @@ export class DocumentDialogFormComponent extends AbstractDocumentDialogContainer
   protected subscribeComponentEvent(): void {
     if (this.customComponent) {
       this.customComponent.instance.callback.subscribe((e: DocumentFormEvent) => {
-        this.formCallbackEvent = e;
-        if (e.action === 'canceled') {
+        this.globalDocumentDialogService.triggerEvent({ name: `Form${e.action}`, type: 'callback', messageType: e.messageType, messageContent: e.messageContent, options: { doc: e.doc } });
+        if (e.action === 'Canceled') {
           this.close();
-        } else if (['created', 'updated'].includes(e.action)) {
+        } else if (['Created', 'Updated'].includes(e.action)) {
           timer(2000).subscribe(_ => {
             this.close();
             this.refresh();

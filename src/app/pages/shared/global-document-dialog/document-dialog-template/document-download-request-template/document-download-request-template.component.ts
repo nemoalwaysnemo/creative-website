@@ -24,9 +24,9 @@ export class DocumentDownloadRequestComponent extends DocumentDialogConfirmation
   }
 
   submit(): void {
-    const { content } = this.formGroup.getRawValue();
-    if (content.trim()) {
-      this.setRequest(this.document, content);
+    const reason = this.formGroup.controls['reason'];
+    if (reason.valid && reason.value.trim()) {
+      this.setRequest(this.document, reason.value);
     }
   }
 
@@ -35,11 +35,16 @@ export class DocumentDownloadRequestComponent extends DocumentDialogConfirmation
   }
 
   private buildForm(): void {
-    this.formGroup = this.formBuilder.group({ content: ['', Validators.required] });
+    this.formGroup = this.formBuilder.group({ reason: ['', [Validators.required, Validators.minLength(10)]] });
   }
 
   private setRequest(doc: DocumentModel, message: string): void {
-    const subscription = this.nuxeoApi.operation(NuxeoAutomations.DownloadRequest, { 'uuid': doc.uid, message }).subscribe();
+    const subscription = this.nuxeoApi.operation(NuxeoAutomations.DownloadRequest, { 'uuid': doc.uid, message }).subscribe((res: DocumentModel) => {
+      const messageType = res.uid ? 'success' : 'error';
+      const messageContent = res.uid ? 'The request has been successfully sent!' : 'Request failed to send, please try again';
+      this.globalDocumentDialogService.triggerEvent({ name: `DocumentDownloadRequest`, type: 'callback', messageType, messageContent });
+      this.close(3000);
+    });
     this.subscription.add(subscription);
   }
 }

@@ -108,7 +108,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onCancel($event: any): void {
-    this.callback.emit({ action: 'canceled', message: { type: 'info', content: '' }, doc: this.documentModel });
+    this.callback.emit({ action: 'Canceled', messageType: 'info', messageContent: '', doc: this.documentModel });
   }
 
   private checkfiles(doc: DocumentModel): DocumentModel {
@@ -209,7 +209,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       });
     }
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
-      this.callback.next({ action: 'created', message: { type: 'success', content: 'created successfully!' }, doc: models });
+      this.callback.next({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models });
     });
   }
 
@@ -222,7 +222,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       }
     }
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
-      this.callback.next({ action: 'updated', message: { type: 'success', content: 'updated successfully!' }, doc: model });
+      this.callback.next({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model });
     });
   }
 

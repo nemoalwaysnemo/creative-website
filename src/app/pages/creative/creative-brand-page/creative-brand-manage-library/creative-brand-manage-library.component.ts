@@ -42,9 +42,9 @@ export class CreativeBrandManageLibraryComponent extends AbstractDocumentManageC
   }
 
   onCallback(callback: DocumentFormEvent): void {
-    if (callback.action === 'updated') {
+    if (callback.action === 'Updated') {
       this.updateForm(callback.doc);
-    } else if (callback.action === 'canceled') {
+    } else if (callback.action === 'Canceled') {
       this.canceleForm();
     }
   }
