@@ -68,11 +68,11 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
     private advanceSearch: AdvanceSearch) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.performFolders();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

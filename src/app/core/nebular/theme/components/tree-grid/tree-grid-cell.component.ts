@@ -90,7 +90,7 @@ export class NbTreeGridCellDirective extends NbCellDirective implements OnInit, 
     this.elementRef = elementRef;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       const style = this.window.getComputedStyle(this.elementRef.nativeElement);
       this.initialLeftPadding = style.paddingLeft;
@@ -105,7 +105,7 @@ export class NbTreeGridCellDirective extends NbCellDirective implements OnInit, 
       .subscribe(() => this.cd.detectChanges());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 
@@ -171,7 +171,7 @@ export class NbTreeGridHeaderCellDirective extends NbHeaderCellDirective impleme
     this.tree = tree as NbTreeGridComponent<any>;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.columnService.onColumnsChange()
       .pipe(
         takeWhile(() => this.alive),
@@ -180,7 +180,7 @@ export class NbTreeGridHeaderCellDirective extends NbHeaderCellDirective impleme
       .subscribe(() => this.cd.detectChanges());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 }
@@ -215,7 +215,7 @@ export class NbTreeGridFooterCellDirective extends NbFooterCellDirective impleme
     this.tree = tree as NbTreeGridComponent<any>;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.columnService.onColumnsChange()
       .pipe(
         takeWhile(() => this.alive),
@@ -224,7 +224,7 @@ export class NbTreeGridFooterCellDirective extends NbFooterCellDirective impleme
       .subscribe(() => this.cd.detectChanges());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 }

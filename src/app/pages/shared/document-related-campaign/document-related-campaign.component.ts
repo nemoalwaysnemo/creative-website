@@ -36,7 +36,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
   ) {
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

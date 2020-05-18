@@ -107,7 +107,7 @@ export class NbTooltipDirective implements OnInit, OnChanges, AfterViewInit, OnD
               private dynamicOverlayHandler: NbDynamicOverlayHandler) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dynamicOverlayHandler
       .host(this.hostRef)
       .componentType(NbTooltipComponent)
@@ -140,7 +140,7 @@ export class NbTooltipDirective implements OnInit, OnChanges, AfterViewInit, OnD
     this.dynamicOverlay.toggle();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.dynamicOverlayHandler.destroy();
   }
 

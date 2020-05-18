@@ -108,7 +108,7 @@ export class NbSpinnerDirective implements OnInit {
               private directiveElement: ElementRef) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(NbSpinnerComponent);
     if (this.shouldShow) {
       this.show();

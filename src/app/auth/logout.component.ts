@@ -18,7 +18,7 @@ export class LogoutComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.autoLogout();
   }
 

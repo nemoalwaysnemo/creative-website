@@ -99,7 +99,7 @@ export abstract class DynamicFormControlContainerComponent implements OnChanges,
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
 
     this.destroyFormControlComponent();
     this.unsubscribe();

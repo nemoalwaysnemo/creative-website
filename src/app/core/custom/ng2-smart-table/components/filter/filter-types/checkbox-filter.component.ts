@@ -21,7 +21,7 @@ export class CheckboxFilterComponent extends DefaultFilter implements OnInit {
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.changesSubscription = this.inputControl.valueChanges
       .pipe(debounceTime(this.delay))
       .subscribe((checked: boolean) => {

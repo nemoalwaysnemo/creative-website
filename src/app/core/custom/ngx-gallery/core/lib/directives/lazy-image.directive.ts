@@ -35,7 +35,7 @@ export class LazyImageDirective implements OnChanges, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._loaderSub$.unsubscribe();
     this._imageLoader$.complete();
   }

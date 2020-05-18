@@ -27,12 +27,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private menuService: NbMenuService, private userService: UserService) {
 
   }
-  ngOnInit() {
+  ngOnInit(): void {
     this.getUser();
     this.updateHeaderTitle();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

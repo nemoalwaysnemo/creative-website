@@ -43,11 +43,11 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     this.onDocumentChanged();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.onInit();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.onDestroy();
   }
 

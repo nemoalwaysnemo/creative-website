@@ -43,13 +43,13 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   constructor(private advanceSearch: AdvanceSearch) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription = this.advanceSearch.request(this.params).subscribe((res: NuxeoPagination) => {
       this.galleryItems = this.getItems(res.entries);
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

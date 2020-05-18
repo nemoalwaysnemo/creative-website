@@ -57,13 +57,13 @@ export class NbToastrContainerComponent implements OnInit, OnDestroy {
               protected positionHelper: NbPositionHelper) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.layoutDirection.onDirectionChange()
       .pipe(takeWhile(() => this.alive))
       .subscribe(() => this.onDirectionChange());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 

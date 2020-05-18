@@ -70,7 +70,7 @@ export class NbCalendarMonthPickerComponent<D, T> implements OnInit {
     return this.size === NbCalendarSize.LARGE;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initMonths();
   }
 

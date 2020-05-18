@@ -38,7 +38,7 @@ export class NbFilterInputDirective extends NbFilterDirective implements OnInit,
    */
   @Input() debounceTime: number = 200;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.search$
       .pipe(
         takeWhile(() => this.alive),
@@ -49,7 +49,7 @@ export class NbFilterInputDirective extends NbFilterDirective implements OnInit,
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
     this.search$.complete();
   }

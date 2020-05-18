@@ -48,7 +48,7 @@ export class LibraryLayoutComponent implements OnInit, OnDestroy {
               private sidebarService: NbSidebarService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.sidebarService.onHideAllBarsonSidebar()
       .subscribe((data: { close: boolean }) => {
@@ -81,7 +81,7 @@ export class LibraryLayoutComponent implements OnInit, OnDestroy {
     //   .subscribe(theme => this.currentTheme = theme.name);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }

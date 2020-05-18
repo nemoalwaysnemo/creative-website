@@ -31,7 +31,7 @@ export class GalleryIframeComponent implements OnInit {
   constructor(private _sanitizer: DomSanitizer) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.iframeSrc = this._sanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
 }

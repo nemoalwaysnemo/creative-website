@@ -86,7 +86,7 @@ export class NbBaseCalendarComponent<D, T> implements OnInit {
   constructor(protected dateService: NbDateService<D>) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.visibleDate) {
       this.visibleDate = this.dateService.today();
     }

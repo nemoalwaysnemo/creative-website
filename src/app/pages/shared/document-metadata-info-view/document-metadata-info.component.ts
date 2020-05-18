@@ -94,7 +94,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     private router: Router,
   ) { }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

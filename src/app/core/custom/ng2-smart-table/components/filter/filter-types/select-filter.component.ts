@@ -27,7 +27,7 @@ export class SelectFilterComponent extends DefaultFilter implements OnInit {
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.inputControl.valueChanges
       .pipe(
         skip(1),

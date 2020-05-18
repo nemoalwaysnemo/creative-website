@@ -40,7 +40,7 @@ export class CustomFilterComponent extends FilterDefault implements OnChanges, O
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.customComponent) {
       this.customComponent.destroy();
     }

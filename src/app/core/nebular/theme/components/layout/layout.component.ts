@@ -466,7 +466,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     this.afterViewInit$.next(true);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
     this.unregisterAsOverlayContainer();
   }

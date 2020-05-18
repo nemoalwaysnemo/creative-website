@@ -67,7 +67,7 @@ export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
       .subscribe(isExpanded => this.toggleState = isExpanded ? NbToggleStates.Expanded : NbToggleStates.Collapsed);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 
@@ -240,7 +240,7 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
               private router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.menuInternalService.prepareItems(this.items);
 
     this.menuInternalService
@@ -319,7 +319,7 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.menuInternalService.itemClick(item, this.tag);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 

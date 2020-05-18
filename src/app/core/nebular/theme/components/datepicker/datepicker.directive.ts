@@ -313,7 +313,7 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
     return this.input.value;
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 
