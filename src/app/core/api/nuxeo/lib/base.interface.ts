@@ -186,8 +186,10 @@ export class NuxeoRequestOptions {
       NuxeoEnricher.document.HIGHLIGHT,
       NuxeoEnricher.document.THUMBNAIL,
       NuxeoEnricher.document.FAVORITES,
-      // NuxeoEnricher.document.BREADCRUMB,
+      NuxeoEnricher.document.BREADCRUMB,
       NuxeoEnricher.document.PERMISSIONS,
+      NuxeoEnricher.document.HAS_CONTENT,
+      NuxeoEnricher.document.HAS_FOLDERISH_CHILD,
     ],
   };
 
