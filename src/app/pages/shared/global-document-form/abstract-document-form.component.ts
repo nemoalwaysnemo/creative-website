@@ -62,7 +62,11 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
   }
 
   onCallback(callback: DocumentFormEvent): void {
-    this.callback.next(callback);
+    this.callback.next(this.beforeOnCallback(callback));
+  }
+
+  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
+    return callback;
   }
 
   protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {

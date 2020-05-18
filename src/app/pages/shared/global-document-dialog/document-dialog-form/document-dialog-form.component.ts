@@ -44,7 +44,7 @@ export class DocumentDialogFormComponent extends AbstractDocumentDialogContainer
         } else if (['Created', 'Updated'].includes(e.action)) {
           timer(2000).subscribe(_ => {
             this.close();
-            this.refresh();
+            this.refresh(e.getRedirectUrl(e.doc));
           });
         }
       });

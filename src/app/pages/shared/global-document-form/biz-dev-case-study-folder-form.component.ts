@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { DocumentFormEvent } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'biz-dev-case-study-folder-form',
@@ -19,6 +20,13 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
+    if (callback.action === 'Created') {
+      callback.redirectUrl = '/p/business-development/Case%20Studies/folder/:uid';
+    }
+    return callback;
   }
 
   protected getSettings(): object[] {
