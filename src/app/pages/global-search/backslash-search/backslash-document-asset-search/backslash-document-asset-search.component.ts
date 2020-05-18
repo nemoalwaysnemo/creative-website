@@ -41,7 +41,7 @@ export class BackslashDocumentAssetSearchComponent implements OnInit, OnDestroy 
     protected queryParamsService: SearchQueryParamsService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   ngOnDestroy(): void {

@@ -124,7 +124,7 @@ export class NbAccordionItemComponent implements OnInit, OnChanges, OnDestroy {
     !this.disabled && (this.collapsed = true);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.accordion.openCloseItems
       .pipe(takeWhile(() => this.alive))
       .subscribe(collapsed => {
@@ -136,7 +136,7 @@ export class NbAccordionItemComponent implements OnInit, OnChanges, OnDestroy {
     this.accordionItemInvalidate.next(true);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
     this.accordionItemInvalidate.complete();
   }

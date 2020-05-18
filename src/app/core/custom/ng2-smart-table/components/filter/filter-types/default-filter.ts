@@ -23,7 +23,7 @@ export class DefaultFilter implements Filter, OnDestroy {
   @Input() column: Column;
   @Output() filter = new EventEmitter<string>();
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.changesSubscription) {
       this.changesSubscription.unsubscribe();
     }

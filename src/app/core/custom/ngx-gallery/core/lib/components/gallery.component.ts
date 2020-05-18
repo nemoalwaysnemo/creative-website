@@ -141,7 +141,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Get gallery instance by id
     if (this.skipInitConfig) {
       this.galleryRef = this._gallery.ref(this.id);
@@ -172,7 +172,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._itemClick$.unsubscribe();
     this._thumbClick$.unsubscribe();
     this._itemChange$.unsubscribe();

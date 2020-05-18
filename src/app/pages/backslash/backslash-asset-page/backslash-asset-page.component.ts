@@ -41,7 +41,7 @@ export class BackslashAssetPageComponent extends AbstractDocumentViewComponent i
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

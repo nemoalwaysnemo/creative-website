@@ -54,7 +54,7 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

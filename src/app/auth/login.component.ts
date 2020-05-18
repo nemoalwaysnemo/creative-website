@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.autoLogin();
   }
 

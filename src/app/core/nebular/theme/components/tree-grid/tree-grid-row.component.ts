@@ -74,7 +74,7 @@ export class NbTreeGridRowComponent extends NbRowComponent implements OnDestroy 
     this.tree = tree as NbTreeGridComponent<any>;
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.doubleClick$.complete();
   }
 }

@@ -48,11 +48,11 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     // this.filters.push({name: 'mimeType', fn: this._mimeTypeFilter})
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     delete this.fileElm; // faster memory release of dom element
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.selectable) {
       this.enableSelecting();
     }

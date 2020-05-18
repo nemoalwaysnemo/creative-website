@@ -61,13 +61,13 @@ export class NbAccordionItemBodyComponent implements OnInit, OnDestroy {
     return this.accordionItem.collapsed ? 'collapsed' : 'expanded';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.accordionItem.accordionItemInvalidate
       .pipe(takeWhile(() => this.alive))
       .subscribe(() => this.cd.markForCheck());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 }

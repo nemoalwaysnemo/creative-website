@@ -54,10 +54,10 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
   constructor(private advanceSearch: AdvanceSearch) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

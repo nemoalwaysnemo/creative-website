@@ -30,7 +30,7 @@ export class GalleryNavComponent implements OnInit {
   constructor(private _sanitizer: DomSanitizer) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.navIcon = this._sanitizer.bypassSecurityTrustHtml(this.config.navIcon);
   }
 }

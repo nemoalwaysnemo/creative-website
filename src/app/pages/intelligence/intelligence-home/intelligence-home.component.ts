@@ -66,7 +66,7 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
     this.searchFolders();
@@ -107,7 +107,7 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
     this.globalDocumentDialogService.open(dialog);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

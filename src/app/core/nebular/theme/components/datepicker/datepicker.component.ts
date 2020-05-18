@@ -210,7 +210,7 @@ export abstract class NbBasePicker<D, T, P>
 
   protected abstract get pickerValueChange(): Observable<T>;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.checkFormat();
   }
 
@@ -224,7 +224,7 @@ export abstract class NbBasePicker<D, T, P>
     this.init$.next();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
     this.hide();
     this.init$.complete();

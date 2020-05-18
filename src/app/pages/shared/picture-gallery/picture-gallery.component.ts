@@ -54,12 +54,12 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
     this.galleryRef = this.gallery.ref(this.galleryId);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscribeEvents();
     this.subscribeOptions();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

@@ -19,7 +19,7 @@ export class RedirectionComponent implements OnDestroy {
     ).subscribe();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

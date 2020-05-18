@@ -102,7 +102,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.subscription.add(subscription);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

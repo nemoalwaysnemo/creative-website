@@ -15,7 +15,7 @@ export class DocumentAdditionalInfoComponent implements OnInit {
 
   attachments: { type: any, url: any, title: any }[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(this.document.type)) {
       this.docType = 'Disruption';
       this.attachments = this.document.getAttachmentList();

@@ -20,7 +20,7 @@ export class TapClickDirective implements OnInit, OnDestroy {
   constructor(private _el: ElementRef) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activateClickEvent();
   }
 
@@ -42,7 +42,7 @@ export class TapClickDirective implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this._hammer) {
       this._hammer.destroy();
     }

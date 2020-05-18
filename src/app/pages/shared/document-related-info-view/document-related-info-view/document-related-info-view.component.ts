@@ -77,12 +77,12 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.onSearch();
     this.onChangeTab();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

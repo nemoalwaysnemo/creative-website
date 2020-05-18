@@ -19,7 +19,7 @@ export class DocumentVideoStoryboardComponent implements OnInit {
 
   constructor(private seekTime: DocumentVideoViewerService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const storyData = this.document.get('vid:storyboard') || [];
     this.storyboards = storyData.map((source) => {
       return { source: source.content.data, time: source.timecode, minutes: this.timeToMinute(source.timecode) };

@@ -57,7 +57,7 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
 
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

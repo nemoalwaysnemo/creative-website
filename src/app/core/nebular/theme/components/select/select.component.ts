@@ -317,7 +317,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
     return this.selectionModel[0].content;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createOverlay();
   }
 
@@ -342,7 +342,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
     this.subscribeOnSelectionChange();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
 
     this.ref.dispose();

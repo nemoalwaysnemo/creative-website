@@ -62,11 +62,11 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     private advanceSearch: AdvanceSearch) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.search(this.folderParams);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

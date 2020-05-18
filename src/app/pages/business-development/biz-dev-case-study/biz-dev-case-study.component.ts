@@ -37,7 +37,7 @@ export class BizDevCaseStudyComponent extends AbstractDocumentViewComponent impl
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
   }

@@ -26,7 +26,7 @@ export class CustomViewComponent implements OnInit, OnDestroy {
   constructor(private resolver: ComponentFactoryResolver) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.cell && !this.customComponent) {
       this.createCustomComponent();
       this.callOnComponentInit();
@@ -34,7 +34,7 @@ export class CustomViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.customComponent) {
       this.customComponent.destroy();
     }

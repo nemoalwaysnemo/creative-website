@@ -10,8 +10,8 @@ import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './docu
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
     <ng-container *ngIf="documentList && documentList.length !== 0">
       <div class="s-results {{layout}}">
-        <div *ngFor="let document of documentList; let i=index" class="thumbnail-view-item">
-          <ng-template #itemTpl [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
+        <div *ngFor="let document of documentList; let i=index" [selectable]="document" [dataType]="'document-thumbnail-view'" class="thumbnail-view-item">
+          <ng-template #itemTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
         </div>
         <div class="clear"></div>
       </div>
@@ -47,7 +47,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
     this.subscribeEvents();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 

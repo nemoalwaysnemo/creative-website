@@ -40,7 +40,7 @@ export class CustomEditComponent extends EditCellDefault implements OnChanges, O
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.customComponent) {
       this.customComponent.destroy();
     }

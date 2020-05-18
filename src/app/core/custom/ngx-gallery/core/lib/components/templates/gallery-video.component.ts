@@ -40,7 +40,7 @@ export class GalleryVideoComponent implements OnInit {
 
   @ViewChild('video', { static: true }) video: ElementRef;
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.src instanceof Array) {
       // If video has multiple sources
       this.videoSources = [...this.src];

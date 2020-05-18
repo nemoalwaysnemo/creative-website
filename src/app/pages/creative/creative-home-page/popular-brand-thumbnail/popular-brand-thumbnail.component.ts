@@ -25,7 +25,7 @@ export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
 
   constructor(private advanceSearch: AdvanceSearch) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription = this.advanceSearch.request(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;
@@ -33,7 +33,7 @@ export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }

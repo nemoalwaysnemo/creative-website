@@ -294,7 +294,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.hideSidebarIn5s();
     this.mediaQuerySubscription = this.onMediaQueryChanges();
     this.sidebarService.onToggle()
@@ -336,7 +336,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
     if (this.mediaQuerySubscription) {
       this.mediaQuerySubscription.unsubscribe();

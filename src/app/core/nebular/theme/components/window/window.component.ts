@@ -85,7 +85,7 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
     protected renderer: Renderer2,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.focusTrap = this.focusTrapFactory.create(this.elementRef.nativeElement);
     this.focusTrap.blurPreviouslyFocusedElement();
     this.focusTrap.focusInitialElement();
@@ -107,7 +107,7 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.focusTrap) {
       this.focusTrap.restoreFocus();
     }

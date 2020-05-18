@@ -65,7 +65,7 @@ export class NbOptionComponent<T> implements OnDestroy {
               protected cd: ChangeDetectorRef) {
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 
@@ -119,4 +119,3 @@ export class NbOptionComponent<T> implements OnDestroy {
     this.cd.detectChanges();
   }
 }
-

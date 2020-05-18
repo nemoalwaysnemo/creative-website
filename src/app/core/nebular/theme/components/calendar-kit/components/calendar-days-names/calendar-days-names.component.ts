@@ -24,7 +24,7 @@ export class NbCalendarDaysNamesComponent<D> implements OnInit {
   constructor(private dateService: NbDateService<D>) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const days: NbCalendarDay[] = this.createDaysNames();
     this.days = this.shiftStartOfWeek(days);
   }

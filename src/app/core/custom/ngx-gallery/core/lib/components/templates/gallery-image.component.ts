@@ -108,7 +108,7 @@ export class GalleryImageComponent implements OnInit, OnDestroy {
   constructor(private _sanitizer: DomSanitizer) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.loadingIcon) {
       this.loaderTemplate = this._sanitizer.bypassSecurityTrustHtml(this.loadingIcon);
     }
@@ -117,7 +117,7 @@ export class GalleryImageComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._state.complete();
   }
 
