@@ -54,18 +54,4 @@ export class BackslashAssetPageComponent extends AbstractDocumentViewComponent i
     };
   }
 
-  protected getCurrentDocumentRequestParams(): any {
-    return {
-      enrichers: {
-        document: [
-          NuxeoEnricher.document.PREVIEW,
-          NuxeoEnricher.document.HIGHLIGHT,
-          NuxeoEnricher.document.THUMBNAIL,
-          NuxeoEnricher.document.FAVORITES,
-          NuxeoEnricher.document.PERMISSIONS,
-          NuxeoEnricher.document.BREADCRUMB,
-        ],
-      },
-    };
-  }
 }

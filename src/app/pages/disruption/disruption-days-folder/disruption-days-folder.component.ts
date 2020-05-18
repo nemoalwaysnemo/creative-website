@@ -50,21 +50,6 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
     };
   }
 
-  protected getCurrentDocumentRequestParams(): any {
-    return {
-      enrichers: {
-        document: [
-          NuxeoEnricher.document.PREVIEW,
-          NuxeoEnricher.document.THUMBNAIL,
-          NuxeoEnricher.document.FAVORITES,
-          NuxeoEnricher.document.PERMISSIONS,
-          NuxeoEnricher.document.HAS_FOLDERISH_CHILD,
-          NuxeoEnricher.document.HAS_CONTENT,
-        ],
-      },
-    };
-  }
-
   protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,

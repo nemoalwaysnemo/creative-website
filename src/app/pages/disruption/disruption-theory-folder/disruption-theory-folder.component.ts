@@ -40,21 +40,6 @@ export class DisruptionTheoryFolderComponent extends AbstractDocumentViewCompone
     }
   }
 
-  protected getCurrentDocumentRequestParams(): any {
-    return {
-      enrichers: {
-        document: [
-          NuxeoEnricher.document.PREVIEW,
-          NuxeoEnricher.document.THUMBNAIL,
-          NuxeoEnricher.document.FAVORITES,
-          NuxeoEnricher.document.PERMISSIONS,
-          NuxeoEnricher.document.HAS_FOLDERISH_CHILD,
-          // NuxeoEnricher.document.HAS_CONTENT,
-        ],
-      },
-    };
-  }
-
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,

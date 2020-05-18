@@ -27,21 +27,6 @@ export class CreativeAssetPageComponent extends AbstractDocumentViewComponent {
     };
   }
 
-  protected getCurrentDocumentRequestParams(): any {
-    return {
-      enrichers: {
-        document: [
-          NuxeoEnricher.document.PREVIEW,
-          NuxeoEnricher.document.HIGHLIGHT,
-          NuxeoEnricher.document.THUMBNAIL,
-          NuxeoEnricher.document.FAVORITES,
-          NuxeoEnricher.document.PERMISSIONS,
-          NuxeoEnricher.document.BREADCRUMB,
-        ],
-      },
-    };
-  }
-
   hasReleatedBrands(): boolean {
     const brands = this.document.get('The_Loupe_Main:brand');
     return brands && brands.length > 0;
