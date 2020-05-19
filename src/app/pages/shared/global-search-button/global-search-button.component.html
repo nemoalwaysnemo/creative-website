@@ -4,7 +4,6 @@
   </div> -->
 </ng-container>
 <div class="button-group-buttons">
-  <button (click)="clearSelectedItems()" class="grid_view_trigger icon_btn left" [ngClass]="{'btn-active': currentView === 'thumbnailView'}" title="Clear Selected Items">Clear Selected Items</button>
   <button (click)="changeResultView('thumbnailView')" class="grid_view_trigger icon_btn left" [ngClass]="{'btn-active': currentView === 'thumbnailView'}" title="Grid View">Grid</button>
   <button (click)="changeResultView('listView')" class="list_view_trigger icon_btn left" [ngClass]="{'btn-active': currentView ==='listView'}" title="List View">List</button>
 </div>
