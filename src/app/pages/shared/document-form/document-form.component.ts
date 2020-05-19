@@ -241,7 +241,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
     return files.map((res: NuxeoUploadResponse) => {
       const model = this.newDocumentModel(doc).attachBatchBlob(res.batchBlob);
-      if (!!res.title) {
+      if (!!res.title && this.fileMultiUpload) {
         model.properties['dc:title'] = res.title;
       }
       delete model.properties['files:files'];
@@ -295,7 +295,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   hideControls(): void {
     if (this.formMode === 'create') {
-      const type = this.fileMultiUpload ? 'delete' : 'hide';
+      const type = this.fileMultiUpload ? 'delete' : 'show';
       this.modelOperation.next({ id: 'dc:title', type: type });
     }
   }
