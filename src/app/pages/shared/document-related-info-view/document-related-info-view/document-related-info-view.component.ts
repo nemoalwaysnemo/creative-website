@@ -7,6 +7,8 @@ import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { TabInfo } from '../document-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
+import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
+import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
   selector: 'document-related-info-view',
@@ -76,7 +78,11 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   baseParams$: Subject<any> = new Subject<any>();
 
+  researchParams$: Subject<any> = new Subject<any>();
+
   pageProvider: string = '';
+
+  pageSize: number = 8;
 
   backslashFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
@@ -90,17 +96,17 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   disruptionFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    // country
-    // industry
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
   intelligenceFilters: SearchFilterModel[] = [
-    // industry
-    // countgry
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
-    // intelligence type
+    new SearchFilterModel({ key: 'app_Edges:intelligence_type', placeholder: 'Intelligence Type' }),
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    // backslash category
+    new SearchFilterModel({ key: 'app_Edges:backslash_category', placeholder: 'Backslash Category' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
@@ -109,6 +115,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   constructor(
     private advanceSearch: AdvanceSearch,
     private globalDocumentDialogService: GlobalDocumentDialogService,
+    private queryParamsService: SearchQueryParamsService,
   ) { }
 
   ngOnInit() {
@@ -124,13 +131,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.globalDocumentDialogService.open(dialog);
   }
 
-  onKeyup(event: KeyboardEvent): void {
-    // this.baseParams$.next(this.getSearchParams(this.document));
-    this.search$.next(this.getSearchParams(this.document));
-    event.preventDefault();
-    event.stopImmediatePropagation();
-  }
-
   getBackslashEdgeUrl(name: string): string {
     return Environment.backslashAppUrl + `/#/list/edge/${name}/`;
   }
@@ -139,17 +139,18 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     const subscription = this.tabInfo$.pipe(
       filter((info: TabInfo) => info.document && info.tabItem.name === this.item.name),
     ).subscribe((info: TabInfo) => {
+      this.pageSize = 8;
       switch (info.tabItem.layout) {
         case 'backslash':
           this.buildBackslashEdges(info.document);
           this.thumbnailItemView = this.backslashItemView;
           this.filters = this.backslashFilters;
           break;
-          case 'disruption':
+        case 'disruption':
           this.thumbnailItemView = this.disruptionItemView;
           this.filters = this.disruptionFilters;
           break;
-          case 'intelligence':
+        case 'intelligence':
           this.thumbnailItemView = this.intelligenceItemView;
           this.filters = this.intelligenceFilters;
           break;
@@ -160,7 +161,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.documents = [];
       }
       if (this.documents.length === 0) {
-        // this.baseParams$.next(this.getSearchParams(this.document));
+        this.queryParamsService.changeQueryParams();
         this.search$.next(this.getSearchParams(info.document));
       }
 
@@ -176,24 +177,20 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
       tap(_ => {
         this.loading = true;
       }),
-      mergeMap((mapping) => {
-        console.log(mapping, 123123);
-        // console.log(Object.assign({}, mapping.params, { provider: mapping.provider}));
-
-        // console.log(Object.assign(mapping.params, mapping.provider));
-        this.pageProvider = mapping.provider;
-        this.baseParams$.next(mapping.params);
-        return this.advanceSearch.request(mapping.params, null, mapping.provider);
-      }),
-    ).subscribe((res: NuxeoPagination) => {
-      this.loading = false;
-      this.documents = res.entries;
+    ).subscribe((res: any) => {
+      this.pageProvider = res.provider;
+      this.baseParams$.next(res.params);
     });
     this.subscription.add(subscription);
   }
 
+  loadMore(): void {
+    this.pageSize += 8;
+    this.researchParams$.next({ pageSize: this.pageSize});
+  }
+
   private getSearchParams(doc: DocumentModel): any {
-    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_not_eq: doc.uid }, this.item.params);
+    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_not_eq: doc.uid}, this.item.params);
     if (this.item.hasOwnProperty('paramsMapping')) {
       const keys = Object.keys(this.item.paramsMapping);
       for (const key of keys) {
