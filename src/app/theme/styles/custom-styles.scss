@@ -698,16 +698,19 @@ preview-dialog {
   }
 }
 selectable-checkbox {
-  display: block;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  top: 10px;
-  left: 10px;
-  cursor: pointer;
-  background: url('/assets/images/checkbox-unchecked.png') no-repeat top left;
+  > div {
+    display: none;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    background: url('/assets/images/checkbox-unchecked.png') no-repeat top left;
+    &.item-selectable-enabled { display: block; }
+  }
   &.item-selected {
-    background: url('/assets/images/checkbox-checked.png') no-repeat top left;
+    > div { background: url('/assets/images/checkbox-checked.png') no-repeat top left; }
   }
   .visually-hidden { opacity: 0; }
 }
