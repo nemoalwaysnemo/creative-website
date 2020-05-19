@@ -712,5 +712,9 @@ selectable-checkbox {
   &.item-selected {
     > div { background: url('/assets/images/checkbox-checked.png') no-repeat top left; }
   }
-  .visually-hidden { opacity: 0; }
+  .native-input {
+    width: 30px;
+    height: 30px;
+    &.visually-hidden { opacity: 0; }
+  }
 }
