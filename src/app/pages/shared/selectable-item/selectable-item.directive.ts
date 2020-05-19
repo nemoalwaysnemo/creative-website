@@ -2,8 +2,11 @@ import { Directive, ElementRef, Input, OnInit, ComponentFactoryResolver, Compone
 import { DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { SelectableItemComponent } from './selectable-item.component';
+import { SelectableItemSettings } from './selectable-item.interface';
 
-@Directive({ selector: '[selectable]' })
+@Directive({
+  selector: '[selectable]',
+})
 export class SelectableItemDirective implements OnInit, OnDestroy {
 
   document: DocumentModel;
@@ -16,20 +19,21 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
 
   @Input() selected: boolean = false;
 
-  @Input() selector: string;
-
-  @Input() dataType: string = 'default';
-
-  @Input() enableCheckBox: boolean = true;
-
   @Input()
   set selectable(doc: DocumentModel) {
     this.document = doc;
   }
 
+  @Input()
+  set settings(settings: SelectableItemSettings) {
+    if (settings) {
+      this.selectableSettings = settings;
+    }
+  }
+
   @HostBinding('class.item-selected')
   get isSelected(): boolean {
-    return this.selected;
+    return this.selectableSettings.enableSelectable && this.selected;
   }
 
   @HostListener('click', ['$event'])
@@ -37,10 +41,12 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
     event.preventDefault();
     event.stopImmediatePropagation();
     const target = event.target as HTMLElement;
-    if (!this.selector || (this.selector && target.closest(this.selector))) {
+    if (this.selectableSettings.enableSelectable && (!this.selectableSettings.selector || (this.selectableSettings.selector && target.closest(this.selectableSettings.selector)))) {
       this.toggleCheckboxStatus();
     }
   }
+
+  private selectableSettings: SelectableItemSettings = new SelectableItemSettings();
 
   private subscription: Subscription = new Subscription();
 
@@ -53,7 +59,9 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.createComponent();
+    if (this.selectableSettings.enableSelectable) {
+      this.createComponent();
+    }
   }
 
   ngOnDestroy(): void {
@@ -81,8 +89,8 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
   private setInstanceInputs(instance: SelectableItemComponent): void {
     instance.disabled = this.disabled;
     instance.selected = this.selected;
-    instance.dataType = this.dataType;
-    instance.enableCheckBox = this.enableCheckBox;
+    instance.dataType = this.selectableSettings.dataType;
+    instance.enableCheckBox = this.selectableSettings.enableCheckBox;
     typeof this.document !== 'undefined' && (instance.document = this.document);
     this.subscription = instance.onSelected.subscribe((selected: boolean) => this.selected = selected);
   }

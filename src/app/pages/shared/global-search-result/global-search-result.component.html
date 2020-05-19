@@ -3,7 +3,7 @@
   <div class="clear"></div>
   <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
   <ng-template #thumbnailView>
-    <document-thumbnail-view [loading]="loading" [templateRef]="templateRef" [documents]="documents" [layout]="layout" [hideEmpty]="hideEmpty"></document-thumbnail-view>
+    <document-thumbnail-view [loading]="loading" [templateRef]="templateRef" [documents]="documents" [layout]="layout" [hideEmpty]="hideEmpty" [selectableSettings]="selectableSettings"></document-thumbnail-view>
   </ng-template>
   <ng-template #listView>
     <document-list-view [loading]="loading" [settings]="listViewSetting" [documents]="listDocuments"></document-list-view>

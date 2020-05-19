@@ -46,7 +46,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
     protected componentFactoryResolver: ComponentFactoryResolver,
-    private googleAnalyticsService: GoogleAnalyticsService,
+    protected googleAnalyticsService: GoogleAnalyticsService,
   ) {
     super(globalDocumentDialogService, queryParamsService, componentFactoryResolver);
     this.subscribeEvents();
@@ -67,8 +67,8 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
 
   protected onOpen(e: DocumentDialogEvent): void {
     const view = e.options.view || this.dialogType;
-    this.googleAnalyticsService.eventTrack({ 'event_category': 'PopupPreview', 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': this.document.uid });
     this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', type: 'built-in', messageContent: 'View Opened', options: { view } });
+    this.googleAnalyticsEventTrack(e);
     this.selectView(view);
   }
 
@@ -120,6 +120,18 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
       this.mainViewChanged = this.dialogType !== view;
       this.selectView(view, e.options.component);
     });
+  }
+
+  protected googleAnalyticsEventTrack(e: DocumentDialogEvent): void {
+    const type = e.options.view || this.dialogType;
+    let category = 'PopupPreview';
+    if (type === 'form') {
+      category = 'PopupForm';
+    } else if (type === 'general') {
+      category = 'PopupDialog';
+    }
+    this.googleAnalyticsService.eventTrack({ 'event_category': category, 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': this.document.uid });
+
   }
 
 }
