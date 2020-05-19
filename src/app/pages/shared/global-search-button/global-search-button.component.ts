@@ -39,15 +39,8 @@ export class GlobalSearchButtonComponent {
 
   @Output() onResultViewChanged: EventEmitter<string> = new EventEmitter();
 
-  constructor(
-    private thumbnailViewService: DocumentThumbnailViewService,
-    private selectableItemService: SelectableItemService,
-  ) {
+  constructor(private thumbnailViewService: DocumentThumbnailViewService) {
 
-  }
-
-  clearSelectedItems(): void {
-    this.selectableItemService.clear();
   }
 
   changeResultView(view: string): void {
