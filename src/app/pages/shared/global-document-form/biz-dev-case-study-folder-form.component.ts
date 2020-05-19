@@ -24,7 +24,7 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
 
   protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
     if (callback.action === 'Created') {
-      callback.redirectUrl = '/p/business-development/Case%20Studies/folder/:uid';
+      callback.redirectUrl = '/p/business-development/Case Studies/folder/:uid';
     }
     return callback;
   }
@@ -34,7 +34,7 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
@@ -183,6 +183,7 @@ export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComp
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
+        showInputs: false,
         multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({

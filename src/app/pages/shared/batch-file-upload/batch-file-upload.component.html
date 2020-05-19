@@ -13,13 +13,13 @@
           </thead>
           <tbody>
               <tr *ngFor="let item of attachments; let i=index">
-                <td nowrap><strong>{{ item.file.name }}</strong></td>
+                <td nowrap title="{{item.file.name}}"><strong>{{ parseFileName(item.file.name) }}</strong></td>
                 <td *ngIf="showInputs"></td>
                 <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB, 100%</td>
                 <td nowrap><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOneAttachmen(i)" [disabled]="uploading || uploaded">Delete</button></td>
               </tr>
               <tr *ngFor="let item of files; let i=index">
-                <td nowrap><strong>{{ item.fileName }}</strong></td>
+                <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
                 <td *ngIf="showInputs">
                   <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [model]="formModels[i]" [layout]="formLayout" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)"></dynamic-ng-form>
                 </td>
