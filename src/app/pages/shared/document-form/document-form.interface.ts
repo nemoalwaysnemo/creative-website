@@ -13,7 +13,7 @@ export class DocumentFormEvent {
 
   getRedirectUrl(doc: DocumentModel | DocumentModel[]): string {
     if (doc) {
-      return this.redirectUrl ? this.redirectUrl.replace(':uuid', this.getDoc(doc).uid) : '';
+      return this.redirectUrl ? this.redirectUrl.replace(':uid', this.getDoc(doc).uid) : '';
     }
     return '';
   }

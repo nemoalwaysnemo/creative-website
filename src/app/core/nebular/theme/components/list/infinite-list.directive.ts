@@ -134,7 +134,7 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
     this.getContainerDimensions().subscribe(dimentions => this.checkPosition(dimentions));
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 

@@ -109,7 +109,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
     this.updateSlider({ value: 0, active: false });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.config.gestures && typeof Hammer !== 'undefined') {
 
       const direction = this.config.slidingDirection === SlidingDirection.Horizontal
@@ -154,7 +154,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
     setTimeout(() => this.updateSlider({ value: 0, active: false }));
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this._hammer) {
       this._hammer.destroy();
     }

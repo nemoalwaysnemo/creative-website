@@ -202,7 +202,7 @@ export class NbTreeGridComponent<T> extends NbTable<NbTreeGridPresentationNode<T
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     super.ngOnDestroy();
     this.alive = false;
   }

@@ -102,7 +102,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.subscription.add(subscription);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
@@ -196,12 +196,18 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     return this.files.filter((res: NuxeoUploadResponse) => res).length > 0;
   }
 
+  parseFileName(name: string): string {
+    return name.length > 35 ? name.substr(0, 10) + '...' + name.substr(-15) : name;
+  }
+
   private onUpload(): void {
     const subscription = this.blobs$.pipe(
       mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob)),
     ).subscribe((res: NuxeoUploadResponse) => {
       this.updateFileResponse(res);
-      this.performSubForm(res);
+      if (this.isMultiUpload()) {
+        this.performSubForm(res);
+      }
     });
     this.subscription.add(subscription);
   }
@@ -279,7 +285,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     return [
       new DynamicInputModel({
         id: `${res.fileIdx}_title`,
-        maxLength: 50,
+        maxLength: 150,
         placeholder: `Asset title`,
         autoComplete: 'off',
         required: false,

@@ -41,11 +41,11 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   constructor(private advanceSearch: AdvanceSearch) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getItems();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

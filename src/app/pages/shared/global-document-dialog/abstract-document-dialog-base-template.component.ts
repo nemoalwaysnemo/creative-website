@@ -46,12 +46,12 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
     this.registerListeners();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.onInit();
     this.lifeCycle$.next('onInit');
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.onDestroy();
   }
 

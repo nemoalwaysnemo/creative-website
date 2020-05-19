@@ -93,7 +93,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     this._freeModeCurrentOffset = 0;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.config.gestures && !this.config.disableThumb && typeof Hammer !== 'undefined') {
 
       let direction: number;
@@ -126,7 +126,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this._hammer) {
       this._hammer.destroy();
     }

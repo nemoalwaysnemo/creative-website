@@ -33,7 +33,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   constructor(private advanceSearch: AdvanceSearch) { }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

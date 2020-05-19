@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { DocumentFormEvent } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'biz-dev-thought-folder-form',
@@ -21,12 +22,19 @@ export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormCompon
     return this.initializeDocument(doc, this.getDocType());
   }
 
+  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
+    if (callback.action === 'Created') {
+      callback.redirectUrl = '/p/business-development/Thought Leadership/folder/:uid';
+    }
+    return callback;
+  }
+
   protected getSettings(): object[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
@@ -179,6 +187,7 @@ export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormCompon
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
+        showInputs: false,
         multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({

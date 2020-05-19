@@ -1,8 +1,7 @@
-.dates {
-  // width: 100%;
-  > div {
-    // width: 25%;
-    // box-sizing: border-box;
-    // padding: 0 41px 49px 0;
+.thumbnail-view-item {
+  position: relative;
+  transition: 0.1s;
+  &.item-selected {
+    outline: solid 5px #fecc26;
   }
 }

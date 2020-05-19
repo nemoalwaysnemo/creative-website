@@ -160,7 +160,7 @@ export class NbContextMenuDirective implements NbDynamicOverlayController, OnCha
               private dynamicOverlayHandler: NbDynamicOverlayHandler) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dynamicOverlayHandler
       .host(this.hostRef)
       .componentType(NbContextMenuComponent);
@@ -193,7 +193,7 @@ export class NbContextMenuDirective implements NbDynamicOverlayController, OnCha
     this.dynamicOverlay.toggle();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.dynamicOverlayHandler.destroy();
   }
 

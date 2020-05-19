@@ -30,12 +30,12 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
   constructor(private advanceSearch: AdvanceSearch, private userService: UserService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.search(this.params);
     this.getMyAgency();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

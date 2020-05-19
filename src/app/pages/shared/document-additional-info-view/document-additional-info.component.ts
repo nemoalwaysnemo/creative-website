@@ -5,7 +5,6 @@ import { GlobalDocumentDialogService } from '../global-document-dialog/global-do
 import { getDocumentTypes } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 
-
 @Component({
   selector: 'document-additional-info',
   styleUrls: ['./document-additional-info.component.scss'],
@@ -25,7 +24,7 @@ export class DocumentAdditionalInfoComponent implements OnInit {
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(this.document.type)) {
       this.docType = 'Disruption';
       this.attachments = this.document.getAttachmentList();

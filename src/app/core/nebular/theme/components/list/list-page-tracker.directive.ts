@@ -67,7 +67,7 @@ export class NbListPageTrackerDirective implements AfterViewInit, OnDestroy {
       .subscribe(() => this.observeItems());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.observer.disconnect && this.observer.disconnect();
   }
 

@@ -40,7 +40,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
 
   constructor(private advanceSearch: AdvanceSearch) { }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

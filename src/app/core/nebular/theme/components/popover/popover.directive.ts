@@ -173,7 +173,7 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
               private dynamicOverlayHandler: NbDynamicOverlayHandler) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dynamicOverlayHandler
       .host(this.hostRef)
       .componentType(NbPopoverComponent);
@@ -204,7 +204,7 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
     this.dynamicOverlay.toggle();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.dynamicOverlayHandler.destroy();
   }
 

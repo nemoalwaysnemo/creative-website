@@ -126,7 +126,7 @@ export class NbRadioGroupComponent implements AfterContentInit, OnDestroy, Contr
     this.subscribeOnRadiosBlur();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 

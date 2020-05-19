@@ -4,6 +4,7 @@ import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, Dynam
 import { AbstractDocumentFormComponent } from './abstract-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { Observable } from 'rxjs';
+import { DocumentFormEvent } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'creative-asset-brand-form',
@@ -26,7 +27,7 @@ export class CreativeAssetBrandFormComponent extends AbstractDocumentFormCompone
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Brand/Folder Name',
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
@@ -185,6 +186,7 @@ export class CreativeAssetBrandFormComponent extends AbstractDocumentFormCompone
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
+        showInputs: false,
         multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({

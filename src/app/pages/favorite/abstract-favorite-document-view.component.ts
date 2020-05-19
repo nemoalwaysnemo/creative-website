@@ -18,7 +18,7 @@ export abstract class AbstractFavoriteDocumentViewComponent extends AbstractDocu
     super(advanceSearch, activatedRoute, queryParamsService);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const subscription = this.getFavoriteDocument().subscribe();
     this.subscription.add(subscription);
   }

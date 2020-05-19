@@ -49,7 +49,7 @@ export class StateService implements OnDestroy {
     this.updateSidebarIcons(directionService.getDirection());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.alive = false;
   }
 

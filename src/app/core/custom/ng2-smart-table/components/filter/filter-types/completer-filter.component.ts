@@ -26,7 +26,7 @@ export class CompleterFilterComponent extends DefaultFilter implements OnInit {
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const config = this.column.getFilterConfig().completer;
     config.dataService = this.completerService.local(config.data, config.searchFields, config.titleField);
     config.dataService.descriptionField(config.descriptionField);

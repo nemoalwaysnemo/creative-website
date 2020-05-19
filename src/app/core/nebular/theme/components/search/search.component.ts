@@ -262,7 +262,7 @@ export class NbSearchComponent implements OnInit, OnDestroy {
     private changeDetector: ChangeDetectorRef,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.router.events
       .pipe(
         takeWhile(() => this.alive),
@@ -285,7 +285,7 @@ export class NbSearchComponent implements OnInit, OnDestroy {
       .subscribe(() => this.hideSearch());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.overlayRef && this.overlayRef.hasAttached()) {
       this.removeLayoutClasses();
       this.overlayRef.detach();

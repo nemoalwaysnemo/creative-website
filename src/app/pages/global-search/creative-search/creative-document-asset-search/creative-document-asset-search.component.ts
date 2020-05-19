@@ -54,7 +54,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
     protected queryParamsService: SearchQueryParamsService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.setResultHeader();
   }
 

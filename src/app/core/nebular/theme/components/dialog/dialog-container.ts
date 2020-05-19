@@ -35,7 +35,7 @@ export class NbDialogContainerComponent implements OnInit, OnDestroy {
               protected focusTrapFactory: NbFocusTrapFactoryService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.config.autoFocus) {
       this.focusTrap = this.focusTrapFactory.create(this.elementRef.nativeElement);
       this.focusTrap.blurPreviouslyFocusedElement();
@@ -43,7 +43,7 @@ export class NbDialogContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.config.autoFocus && this.focusTrap) {
       this.focusTrap.restoreFocus();
     }
