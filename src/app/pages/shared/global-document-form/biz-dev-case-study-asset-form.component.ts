@@ -29,7 +29,7 @@ export class BizDevCaseStudyAssetFormComponent extends AbstractDocumentFormCompo
         maxLength: 50,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: true,
+        required: false,
         hidden: true,
         validators: {
           required: null,
