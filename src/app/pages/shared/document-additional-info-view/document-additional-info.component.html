@@ -9,35 +9,35 @@
             <tbody>
               <tr>
                 <th>Account Director:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td>{{document.get('The_Loupe_Credits:accountDirector')}}</td>
+                <td>{{documentModel.get('The_Loupe_Credits:accountDirector')}}</td>
               </tr>
               <tr>
                 <th>Creative Director:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td>{{document.get('The_Loupe_Credits:creativeDirector')}}</td>
+                <td>{{documentModel.get('The_Loupe_Credits:creativeDirector')}}</td>
               </tr>
               <tr>
                 <th>Art Director:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td>{{document.get('The_Loupe_Credits:artProducer')}}</td>
+                <td>{{documentModel.get('The_Loupe_Credits:artProducer')}}</td>
               </tr>
               <tr>
                 <th>Copy Writer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td>{{document.get('The_Loupe_Credits:copyWriter')}}</td>
+                <td>{{documentModel.get('The_Loupe_Credits:copyWriter')}}</td>
               </tr>
               <tr>
                 <th>Broadcast Producer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td>{{document.get('The_Loupe_Credits:broadcastProducer')}}</td>
+                <td>{{documentModel.get('The_Loupe_Credits:broadcastProducer')}}</td>
               </tr>
               <tr>
                 <th>Print Producer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td>{{document.get('The_Loupe_Credits:printProducer')}}</td>
+                <td>{{documentModel.get('The_Loupe_Credits:printProducer')}}</td>
               </tr>
               <tr>
                 <th>Digital Producer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td>{{document.get('The_Loupe_Credits:digitalProducer')}}</td>
+                <td>{{documentModel.get('The_Loupe_Credits:digitalProducer')}}</td>
               </tr>
               <tr>
                 <th>Project Manager:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td>{{document.get('The_Loupe_Credits:projectManager')}}</td>
+                <td>{{documentModel.get('The_Loupe_Credits:projectManager')}}</td>
               </tr>
             </tbody>
           </table>
@@ -48,14 +48,13 @@
   <ng-container *ngSwitchCase="'Disruption'">
     <nb-accordion class="accordion">
       <nb-accordion-item class="accordion-item">
-        <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span>
-        </nb-accordion-item-header>
+        <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
         <nb-accordion-item-body class="accordion-item-body">
           <table>
             <tbody *ngFor="let attachment of attachments">
               <tr>
                 <th>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td><a href="{{ attachment.url }}"> Download </a></td>
+                <td><a href="{{ attachment.url }}">Download</a></td>
               </tr>
             </tbody>
           </table>
@@ -66,27 +65,27 @@
   <ng-container *ngSwitchCase="'Business-Development'">
     <nb-accordion class="accordion">
       <nb-accordion-item class="accordion-item">
-        <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span>
-        </nb-accordion-item-header>
+        <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
         <nb-accordion-item-body class="accordion-item-body">
-          <table>
-            <tbody *ngFor="let attachment of attachments">
-              <tr>
-                <th>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <ng-container *ngIf="isNeedSendDownloadRequest(document); else download">
-                  <td><a href="javascript:void(0)" (click)="openDialog(dialog)">Download Request</a></td>
-                </ng-container>
-                <ng-template #download>
-                  <td><a href="{{ attachment.url }}"> Download </a></td>
-                </ng-template>
-              </tr>
-            </tbody>
-          </table>
+          <ng-container *ngIf="isNeedSendDownloadRequest(documentModel)">
+            <div class="asset-download-request"><a href="javascript:void(0)" (click)="openDialog(dialog)" class="download btn">Download Request</a></div>
+          </ng-container>
+          <ng-container *ngIf="downloadPermission$ | async">
+            <table>
+              <tbody *ngFor="let attachment of attachments">
+                <tr>
+                  <th>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                  <td><a href="{{ attachment.url }}">Download</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
-  </ng-container>
 
-<ng-template #dialog>
-  <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="document" [title]="'Download Request'"></global-document-dialog>
-</ng-template>
+    <ng-template #dialog>
+      <global-document-dialog [type]="'general'" [generalComponent]="generalComponent" [documentModel]="documentModel" [title]="'Download Request'"></global-document-dialog>
+    </ng-template>
+  </ng-container>
+</ng-container>
