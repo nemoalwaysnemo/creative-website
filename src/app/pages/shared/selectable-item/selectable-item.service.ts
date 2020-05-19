@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ComponentRef } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { filter, share } from 'rxjs/operators';
 import { DocumentModel } from '@core/api';
@@ -7,6 +7,7 @@ export class SelectableItemEvent {
   readonly doc: DocumentModel;
   readonly type: string;
   readonly selected: boolean; // added or removed
+  readonly component: ComponentRef<any>;
   collection: DocumentModel[];
 
   constructor(data: any = {}) {
@@ -19,7 +20,7 @@ export class SelectableItemEvent {
 })
 export class SelectableItemService {
 
-  private documents: DocumentModel[] = [];
+  private selectedItems: { [key: string]: ComponentRef<any> } = {};
 
   private event = new Subject<SelectableItemEvent>();
 
@@ -34,16 +35,17 @@ export class SelectableItemService {
 
   change(event: SelectableItemEvent): void {
     if (event.selected) {
-      this.documents.push(event.doc);
+      this.selectedItems[event.doc.uid] = event.component;
     } else {
-      this.documents.splice(this.documents.findIndex((d: DocumentModel) => d.uid === event.doc.uid), 1);
+      delete this.selectedItems[event.doc.uid];
     }
-    event.collection = this.documents;
+    event.collection = Object.values(this.selectedItems).map((i: any) => i.document);
     this.triggerEvent(event);
   }
 
   clear(): void {
-    this.documents = [];
+    Object.values(this.selectedItems).forEach((c: any) => c.onChecked(false));
+    this.selectedItems = {};
   }
 
 }

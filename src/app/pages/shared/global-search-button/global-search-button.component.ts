@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Options, ChangeContext } from 'ng5-slider';
+import { SelectableItemService } from '../selectable-item/selectable-item.service';
 import { DocumentThumbnailViewService } from '../document-thumbnail-view/document-thumbnail-view.service';
 
 @Component({
@@ -38,8 +39,15 @@ export class GlobalSearchButtonComponent {
 
   @Output() onResultViewChanged: EventEmitter<string> = new EventEmitter();
 
-  constructor(private thumbnailViewService: DocumentThumbnailViewService) {
+  constructor(
+    private thumbnailViewService: DocumentThumbnailViewService,
+    private selectableItemService: SelectableItemService,
+  ) {
 
+  }
+
+  clearSelectedItems(): void {
+    this.selectableItemService.clear();
   }
 
   changeResultView(view: string): void {
