@@ -5,7 +5,7 @@ import { DocumentModel } from '@core/api';
 @Component({
   selector: 'selectable-checkbox',
   template: `
-    <div [ngStyle]="enableCheckBox ? {'display': 'block'} : {'display': 'none'}">
+    <div [ngClass]="{'item-selectable-enabled': enableCheckBox}" [ngStyle]="enableCheckBox ? {'display': 'block'} : {'display': 'none'}">
       <nb-checkbox [checked]="selected" [disabled]="disabled" [status]="status" (checkedChange)="onChecked($event)"></nb-checkbox>
     </div>
   `,

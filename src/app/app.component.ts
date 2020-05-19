@@ -15,13 +15,13 @@ export class AppComponent implements OnInit {
     private router: Router,
     private viewportScroller: ViewportScroller,
     private pageTitleService: PageTitleService,
-    private googleAnalytics: GoogleAnalyticsService) {
+    private googleAnalyticsService: GoogleAnalyticsService) {
     this.performScrolling();
   }
 
   ngOnInit(): void {
     this.pageTitleService.titleTrack();
-    this.googleAnalytics.pageTrack();
+    this.googleAnalyticsService.pageViewTrack();
   }
 
   private isScrollToTop(e: NavigationEnd, previousUrl: string): boolean {
