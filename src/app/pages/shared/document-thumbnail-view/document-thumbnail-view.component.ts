@@ -43,6 +43,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
   set selectableSettings(settings: SelectableItemSettings) {
     this.selectableItemSettings = (settings || new SelectableItemSettings({ selector: '.description' }));
     this.selectableItemSettings.dataType = 'thumbnail-view';
+    this.selectableItemSettings.enableSelectable = true;
   }
 
   @Input()

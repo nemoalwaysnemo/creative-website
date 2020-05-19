@@ -38,7 +38,7 @@ export class SelectableItemComponent {
   onChecked(checked: boolean): void {
     this.selected = checked;
     this.onSelected.emit(checked);
-    this.selectableItemService.change(new SelectableItemEvent({ doc: this.document, type: this.dataType, selected: checked }));
+    this.selectableItemService.change(new SelectableItemEvent({ doc: this.document, type: this.dataType, selected: checked, component: this }));
   }
 
   toggleChecked(): void {
