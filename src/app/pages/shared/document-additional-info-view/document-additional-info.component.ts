@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-additional-info',
@@ -12,7 +13,9 @@ import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 })
 export class DocumentAdditionalInfoComponent implements OnInit {
 
-  @Input() document: DocumentModel;
+  documentModel: DocumentModel;
+
+  downloadPermission$: Observable<boolean> = observableOf(false);
 
   docType: string;
 
@@ -20,31 +23,48 @@ export class DocumentAdditionalInfoComponent implements OnInit {
 
   generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DOWNLOAD_REQUEST;
 
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.documentModel = doc;
+      this.performDocument(doc);
+    }
+  }
+
   constructor(
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
   ngOnInit(): void {
-    if (NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(this.document.type)) {
-      this.docType = 'Disruption';
-      this.attachments = this.document.getAttachmentList();
-    } else if (NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE.includes(this.document.type)) {
-      this.docType = 'Business-Development';
-      this.attachments = this.document.getAttachmentList();
-    } else if (NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(this.document.type)) {
-      this.docType = 'Creative';
-    }
+
   }
 
-  private openDialog(dialog: TemplateRef<any>): void {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 
-  private isNeedSendDownloadRequest(doc: DocumentModel): boolean {
+  isNeedSendDownloadRequest(doc: DocumentModel): boolean {
     return this.isBizDevCaseStudyAsset(doc) && doc.get('app_global:asset_request') === true;
   }
 
   private isBizDevCaseStudyAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
+  }
+
+  private performDocument(doc: DocumentModel): void {
+    if (this.isBizDevCaseStudyAsset(doc)) {
+      this.downloadPermission$ = observableOf(doc.get('app_global:asset_request') === false);
+    } else {
+      this.downloadPermission$ = observableOf(true);
+    }
+    if (NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
+      this.docType = 'Disruption';
+      this.attachments = doc.getAttachmentList();
+    } else if (NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE.includes(doc.type)) {
+      this.docType = 'Business-Development';
+      this.attachments = doc.getAttachmentList();
+    } else if (NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
+      this.docType = 'Creative';
+    }
   }
 }
