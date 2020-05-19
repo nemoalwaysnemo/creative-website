@@ -698,13 +698,13 @@ preview-dialog {
   }
 }
 selectable-checkbox {
+  position: absolute;
+  top: 10px;
+  left: 10px;
   > div {
     display: none;
-    position: absolute;
     width: 30px;
     height: 30px;
-    top: 10px;
-    left: 10px;
     cursor: pointer;
     background: url('/assets/images/checkbox-unchecked.png') no-repeat top left;
     &.item-selectable-enabled { display: block; }
