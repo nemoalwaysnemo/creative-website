@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subject, Observable, of as observableOf } from 'rxjs';
+import { ReplaySubject, Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, map, tap, concatMap, filter } from 'rxjs/operators';
 import { removeUselessObject, isDocumentUID } from '../services/helpers';
 import { NuxeoAutomations } from '../api/nuxeo/lib/base.interface';
@@ -34,7 +34,7 @@ export class GoogleAnalyticsService {
 
   private userId: string;
 
-  private event$: Subject<GtmEvent> = new Subject<GtmEvent>();
+  private event$ = new ReplaySubject<Partial<GtmEvent>>(10);
 
   constructor(
     private router: Router,
@@ -83,7 +83,7 @@ export class GoogleAnalyticsService {
         'event_category': e.event_category || 'Search',
         'event_action': e.event_action || 'Search',
         'event_label': e.event_label || e.event_action,
-        'event_value': `/#${url}`,
+        'event_value': `${url}`,
       });
       event = removeUselessObject(event, ['queryParams']);
       this.eventTrack(event);
@@ -105,7 +105,7 @@ export class GoogleAnalyticsService {
     const event = {
       'event': 'google-analytics-pageview',
       'page_location': (() => document.location).call(this),
-      'page_path': `#${e.url}`,
+      'page_path': `${e.url}`,
       'page_title': e.title,
     };
     this.event$.next(event);
@@ -113,6 +113,7 @@ export class GoogleAnalyticsService {
 
   private pushLayer(layer: any = {}) {
     if (typeof dataLayer !== 'undefined' && dataLayer) {
+      layer = this.setDimensionModuleName(layer);
       layer = this.setDimensionUserId(layer);
       layer = this.setDimensionDocId(layer);
       dataLayer.push(layer);
@@ -145,9 +146,22 @@ export class GoogleAnalyticsService {
     return event;
   }
 
+  private setDimensionModuleName(event: any = {}): any {
+    const moduleName = this.getModuleName();
+    if (!event['dimensions.moduleName']) {
+      event['dimensions.moduleName'] = moduleName;
+    }
+    return event;
+  }
+
   private getPrimaryKey(): string {
     const list = this.router.url.split('/').filter(x => isDocumentUID(x));
     return list.pop();
+  }
+
+  private getModuleName(): string {
+    const path = this.router.url.split('/p/').pop();
+    return path ? path.split('/').shift() : 'default';
   }
 
 }
