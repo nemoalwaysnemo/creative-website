@@ -5,7 +5,7 @@ import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-docum
 import { SearchQueryParamsService } from '../../shared/services/search-query-params.service';
 import { DocumentDialogFormComponent } from './document-dialog-form/document-dialog-form.component';
 import { DocumentDialogPreviewComponent } from './document-dialog-preview/document-dialog-preview.component';
-import { DocumentDialogGeneralComponent } from './document-dialog-general/document-dialog-general.component';
+import { DocumentDialogCustomComponent } from './document-dialog-custom/document-dialog-custom.component';
 
 @Component({
   selector: 'global-document-dialog',
@@ -15,7 +15,7 @@ import { DocumentDialogGeneralComponent } from './document-dialog-general/docume
 export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContainerComponent {
 
   @Input()
-  set type(type: 'preview' | 'form' | 'general') {
+  set type(type: 'preview' | 'form' | 'custom') {
     this.dialogType = type;
     this.currentView = type;
   }
@@ -24,13 +24,13 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
 
   @Input() formComponent: Type<any>;
 
-  @Input() generalComponent: Type<any>;
+  @Input() customComponent: Type<any>;
 
   @ViewChild('previewTarget', { static: true, read: ViewContainerRef }) previewTarget: ViewContainerRef;
 
   @ViewChild('formTarget', { static: true, read: ViewContainerRef }) formTarget: ViewContainerRef;
 
-  @ViewChild('generalTarget', { static: true, read: ViewContainerRef }) generalTarget: ViewContainerRef;
+  @ViewChild('customTarget', { static: true, read: ViewContainerRef }) customTarget: ViewContainerRef;
 
   protected currentView: string;
 
@@ -40,7 +40,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
 
   protected previewComponentRef: ComponentRef<any>;
 
-  protected generalComponentRef: ComponentRef<any>;
+  protected customComponentRef: ComponentRef<any>;
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -80,7 +80,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
       case 'form':
         this.createFormComponent(component);
         break;
-      case 'general':
+      case 'custom':
         this.createGeneralComponent(component);
         break;
       default:
@@ -97,14 +97,14 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
   }
 
   protected createGeneralComponent(component?: Type<any>): void {
-    this.buildComponent('general', DocumentDialogGeneralComponent, component);
+    this.buildComponent('custom', DocumentDialogCustomComponent, component);
   }
 
   protected buildComponent(type: string, componentContainer: Type<any>, component?: Type<any>): ComponentRef<any> {
     if (!this[`${type}Component`]) {
       throw new Error(`Dialog injection component doesn't exist: ${type}`);
     }
-    this[`${type}ComponentRef`] = this.createCustomComponent(this[`${type}Target`], componentContainer);
+    this[`${type}ComponentRef`] = this.createDynamicComponent(this[`${type}Target`], componentContainer);
     this[`${type}ComponentRef`].instance.title = this.title;
     this[`${type}ComponentRef`].instance.metadata = this.settings;
     this[`${type}ComponentRef`].instance.documentModel = this.document;
@@ -127,11 +127,10 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     let category = 'PopupPreview';
     if (type === 'form') {
       category = 'PopupForm';
-    } else if (type === 'general') {
+    } else if (type === 'custom') {
       category = 'PopupDialog';
     }
     this.googleAnalyticsService.eventTrack({ 'event_category': category, 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': this.document.uid });
-
   }
 
 }

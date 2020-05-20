@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'library-ui-pages',
@@ -13,7 +11,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 })
 export class PagesComponent {
 
-  constructor(private router: Router) {
+  constructor() {
     this.setGoogleAnalyticsTrack();
   }
 

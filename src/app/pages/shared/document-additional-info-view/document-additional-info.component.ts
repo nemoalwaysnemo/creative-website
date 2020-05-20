@@ -21,7 +21,7 @@ export class DocumentAdditionalInfoComponent implements OnInit {
 
   attachments: { type: any, url: any, title: any }[] = [];
 
-  generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DOWNLOAD_REQUEST;
+  customComponent: any = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST;
 
   @Input()
   set document(doc: DocumentModel) {

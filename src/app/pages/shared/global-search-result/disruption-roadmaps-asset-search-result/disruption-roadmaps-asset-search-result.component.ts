@@ -22,7 +22,7 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
 
   formComponent: any = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
 
-  generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
+  customComponent: any = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION;
 
   dialogMetadata: any = {
     formMode: 'edit',

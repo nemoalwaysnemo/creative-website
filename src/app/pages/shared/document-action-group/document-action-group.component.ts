@@ -17,7 +17,7 @@ export class DocumentActionGroupComponent {
 
   documentModel: DocumentModel;
 
-  generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DOWNLOAD_REQUEST;
+  customComponent: any = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST;
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 

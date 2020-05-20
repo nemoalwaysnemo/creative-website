@@ -12,7 +12,7 @@ export abstract class AbstractDocumentDialogContainerComponent extends AbstractD
 
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
 
-  protected customComponent: ComponentRef<any>;
+  protected dynamicComponent: ComponentRef<any>;
 
   protected subscription: Subscription = new Subscription();
 
@@ -28,25 +28,25 @@ export abstract class AbstractDocumentDialogContainerComponent extends AbstractD
     this.createComponent();
   }
 
-  protected createCustomComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
+  protected createDynamicComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     return dynamicTarget.createComponent(componentFactory);
   }
 
   protected createComponent(type?: string, component?: Type<any>): void {
-    if (!this.customComponent) {
-      this.customComponent = this.createCustomComponent(this.dynamicTarget, this.component);
+    if (!this.dynamicComponent) {
+      this.dynamicComponent = this.createDynamicComponent(this.dynamicTarget, this.component);
     }
-    this.customComponent.instance.title = this.title;
-    this.customComponent.instance.metadata = this.settings;
-    this.customComponent.instance.documentModel = this.document;
-    this.customComponent.instance.redirectUrl = this.redirectUrl;
-    this.customComponent.instance.mainViewChanged = this.mainViewChanged;
+    this.dynamicComponent.instance.title = this.title;
+    this.dynamicComponent.instance.metadata = this.settings;
+    this.dynamicComponent.instance.documentModel = this.document;
+    this.dynamicComponent.instance.redirectUrl = this.redirectUrl;
+    this.dynamicComponent.instance.mainViewChanged = this.mainViewChanged;
   }
 
   protected onDestroy(): void {
-    if (this.customComponent) {
-      this.customComponent.destroy();
+    if (this.dynamicComponent) {
+      this.dynamicComponent.destroy();
     }
     this.subscription.unsubscribe();
   }

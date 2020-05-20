@@ -5,7 +5,7 @@ import { NbDialogModule } from '@core/nebular/theme';
 import { GlobalDocumentDialogComponent } from './global-document-dialog.component';
 import { DocumentDialogFormComponent } from './document-dialog-form/document-dialog-form.component';
 import { DocumentDialogPreviewComponent } from './document-dialog-preview/document-dialog-preview.component';
-import { DocumentDialogGeneralComponent } from './document-dialog-general/document-dialog-general.component';
+import { DocumentDialogCustomComponent } from './document-dialog-custom/document-dialog-custom.component';
 import { GlobalDocumentDialogTemplateModule } from './document-dialog-template/global-document-dialog-template.module';
 
 @NgModule({
@@ -18,13 +18,13 @@ import { GlobalDocumentDialogTemplateModule } from './document-dialog-template/g
   declarations: [
     DocumentDialogFormComponent,
     DocumentDialogPreviewComponent,
-    DocumentDialogGeneralComponent,
+    DocumentDialogCustomComponent,
     GlobalDocumentDialogComponent,
   ],
   entryComponents: [
     DocumentDialogFormComponent,
     DocumentDialogPreviewComponent,
-    DocumentDialogGeneralComponent,
+    DocumentDialogCustomComponent,
   ],
   exports: [
     GlobalDocumentDialogComponent,

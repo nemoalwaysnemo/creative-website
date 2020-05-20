@@ -44,7 +44,7 @@ export class BizDevFolderViewComponent {
 
   editRedirectUrl: string = this.router.url;
 
-  generalComponent = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
+  customComponent = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION;
 
   writePermission$: Observable<boolean> = observableOf(false);
 

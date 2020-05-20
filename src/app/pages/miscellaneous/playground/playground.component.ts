@@ -16,7 +16,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   document: DocumentModel;
 
-  generalComponent: any = GLOBAL_DOCUMENT_DIALOG.GENERAL_DOWNLOAD_REQUEST;
+  customComponent: any = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST;
 
   constructor(private documentRepository: DocumentRepository, private globalDocumentDialogService: GlobalDocumentDialogService) {
 

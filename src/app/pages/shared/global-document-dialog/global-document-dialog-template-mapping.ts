@@ -9,7 +9,7 @@ export const GLOBAL_DOCUMENT_DIALOG = {
   PREIVEW_BACKSLASH_HOME_ASSET: BackslashHomeAssetDialogPreviewComponent,
   PREIVEW_RELATED_BACKSLASH_ASSET: RelatedBackslashAssetDialogPreviewComponent,
   PREIVEW_RELATED_DISRUPTION_ASSET: DisruptionAssetPreviewDialogComponent,
-  GENERAL_CONFIRMATION: DocumentDialogConfirmationComponent,
-  GENERAL_DOWNLOAD_REQUEST: DocumentDownloadRequestComponent,
-  GENERAL_DELETION: DocumentDialogDeletionComponent,
+  CUSTOM_CONFIRMATION: DocumentDialogConfirmationComponent,
+  CUSTOM_DOWNLOAD_REQUEST: DocumentDownloadRequestComponent,
+  CUSTOM_DELETION: DocumentDialogDeletionComponent,
 };
