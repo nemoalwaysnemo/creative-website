@@ -7,7 +7,7 @@ export const Environment = {
   backslashAppUrl: '/nuxeo/edges',
   assetPath: '/nuxeo/LibraryWebUI/',
   oauth2CallBackPath: '/nuxeo/site/LibraryWebUI/#/',
-  production: false,
+  production: true,
 };
 
 export enum NUXEO_PATH_INFO {
