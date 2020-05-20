@@ -4,7 +4,7 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
 import { AbstractGlobalSearchResultComponent } from '../abstract-global-search-result.component';
 
 @Component({
-  selector: 'creative-asset-related-blackslash-search-result',
+  selector: 'creative-asset-related-search-result',
   styleUrls: ['./creative-asset-related-search-result.component.scss'],
   templateUrl: './creative-asset-related-search-result.component.html',
 })
