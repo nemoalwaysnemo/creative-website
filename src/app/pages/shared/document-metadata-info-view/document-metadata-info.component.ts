@@ -52,7 +52,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   deleteTitle: string = 'Delete';
 
-  generalComponent = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
+  customComponent = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION;
 
   dialogMetadata: any = {
     formMode: 'edit',

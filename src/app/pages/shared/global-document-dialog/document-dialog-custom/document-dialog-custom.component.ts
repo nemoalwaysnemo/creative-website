@@ -4,11 +4,11 @@ import { GlobalDocumentDialogService } from '../global-document-dialog.service';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
-  selector: 'document-dialog-general',
-  styleUrls: ['./document-dialog-general.component.scss'],
-  templateUrl: './document-dialog-general.component.html',
+  selector: 'document-dialog-custom',
+  styleUrls: ['./document-dialog-custom.component.scss'],
+  templateUrl: './document-dialog-custom.component.html',
 })
-export class DocumentDialogGeneralComponent extends AbstractDocumentDialogContainerComponent {
+export class DocumentDialogCustomComponent extends AbstractDocumentDialogContainerComponent {
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

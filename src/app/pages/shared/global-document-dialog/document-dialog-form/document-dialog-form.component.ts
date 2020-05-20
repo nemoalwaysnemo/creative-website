@@ -27,17 +27,17 @@ export class DocumentDialogFormComponent extends AbstractDocumentDialogContainer
   }
 
   protected createComponent(): void {
-    if (!this.customComponent) {
-      this.customComponent = this.createCustomComponent(this.dynamicTarget, this.component);
+    if (!this.dynamicComponent) {
+      this.dynamicComponent = this.createDynamicComponent(this.dynamicTarget, this.component);
     }
-    this.customComponent.instance.metadata = this.settings;
-    this.customComponent.instance.documentModel = this.document;
-    this.customComponent.instance.redirectUrl = this.redirectUrl;
+    this.dynamicComponent.instance.metadata = this.settings;
+    this.dynamicComponent.instance.documentModel = this.document;
+    this.dynamicComponent.instance.redirectUrl = this.redirectUrl;
   }
 
   protected subscribeComponentEvent(): void {
-    if (this.customComponent) {
-      this.customComponent.instance.callback.subscribe((e: DocumentFormEvent) => {
+    if (this.dynamicComponent) {
+      this.dynamicComponent.instance.callback.subscribe((e: DocumentFormEvent) => {
         this.globalDocumentDialogService.triggerEvent({ name: `Form${e.action}`, type: 'callback', messageType: e.messageType, messageContent: e.messageContent, options: { doc: e.doc } });
         if (e.action === 'Canceled') {
           this.close();

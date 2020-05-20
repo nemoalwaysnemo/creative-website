@@ -45,7 +45,7 @@ export class DisruptionFolderViewComponent {
 
   deletTitle: string = 'Delete';
 
-  generalComponent = GLOBAL_DOCUMENT_DIALOG.GENERAL_DELETION;
+  customComponent = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION;
 
   writePermission$: Observable<boolean> = observableOf(false);
 
