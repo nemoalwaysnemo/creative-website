@@ -1,4 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { GoogleAnalyticsService } from '@core/services';
+import { DocumentModel } from '@core/api';
 import { timer } from 'rxjs';
 
 @Component({
@@ -10,9 +12,14 @@ export class ShareDocumentButtonComponent implements AfterViewInit {
 
   btn: string = 'Copy';
 
+  @Input() document: DocumentModel;
+
   @Input() currentUrl: string = window.location.href;
 
   @ViewChild('inputTarget', { static: true }) inputElement: ElementRef<HTMLInputElement>;
+
+  constructor(private googleAnalyticsService: GoogleAnalyticsService) {
+  }
 
   ngAfterViewInit() {
     this.focusInput();
@@ -33,13 +40,14 @@ export class ShareDocumentButtonComponent implements AfterViewInit {
   }
 
   onShareWorkplace(): void {
-    const url = 'https://work.facebook.com/sharer.php?display=popup&u=' + this.getShareUrl();
+    const url = 'https://work.facebook.com/sharer.php?display=popup&u=' + this.getShareUrl(this.currentUrl);
     const options = 'toolbar=0,status=0,resizable=1,width=626,height=436';
     window.open(url, 'sharer', options);
+    this.googleAnalyticsService.eventTrack({ 'event_category': 'Share', 'event_action': 'Share On Workplace', 'event_label': 'Share On Workplace', 'event_value': this.document.uid, 'dimensions.docId': this.document.uid });
   }
 
-  private getShareUrl(): string {
-    return encodeURIComponent(this.currentUrl);
+  private getShareUrl(url: string): string {
+    return encodeURIComponent(url);
   }
 
 }

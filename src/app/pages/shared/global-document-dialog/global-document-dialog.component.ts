@@ -113,7 +113,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     } else if (type === 'custom') {
       category = 'PopupCustom';
     }
-    this.googleAnalyticsService.eventTrack({ 'event_category': category, 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': this.document.uid });
+    this.googleAnalyticsService.eventTrack({ 'event_category': category, 'event_action': 'Open', 'event_label': 'Open', 'event_value': this.document.uid, 'dimensions.docId': this.document.uid });
   }
 
 }

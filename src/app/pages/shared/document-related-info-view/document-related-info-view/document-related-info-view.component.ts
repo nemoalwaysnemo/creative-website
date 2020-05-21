@@ -1,16 +1,15 @@
 import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { filter, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
+import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 import { DocumentModelForm } from '../../global-document-form/abstract-document-form.component';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { TabInfo } from '../document-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
-import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
   selector: 'document-related-info-view',
@@ -74,7 +73,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  researchParams$: Subject<any> = new Subject<any>();
+  searchMoreParams$: Subject<any> = new Subject<any>();
 
   pageProvider: string = '';
 
@@ -200,11 +199,11 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   loadMore(): void {
     this.pageSize += 8;
-    this.researchParams$.next({ pageSize: this.pageSize});
+    this.searchMoreParams$.next({ pageSize: this.pageSize });
   }
 
   private getSearchParams(doc: DocumentModel): any {
-    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_not_eq: doc.uid}, this.item.params);
+    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_not_eq: doc.uid }, this.item.params);
     if (this.item.hasOwnProperty('paramsMapping')) {
       const keys = Object.keys(this.item.paramsMapping);
       for (const key of keys) {

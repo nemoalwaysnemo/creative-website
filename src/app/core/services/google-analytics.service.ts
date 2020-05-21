@@ -87,6 +87,8 @@ export class GoogleAnalyticsService {
       });
       event = removeUselessObject(event, ['queryParams']);
       this.eventTrack(event);
+      delete event['event'];
+      this.eventTrack(event);
     }
   }
 
@@ -96,7 +98,7 @@ export class GoogleAnalyticsService {
       'event_category': e.event_category || 'GA-Track',
       'event_action': e.event_action,
       'event_label': e.event_label,
-      'event_value': e.value,
+      'event_value': e.event_value,
     }, e);
     this.event$.next(event);
   }
