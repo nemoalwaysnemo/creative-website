@@ -3,7 +3,7 @@
 <div class="clear"></div>
 <ng-container *ngIf="item.layout === 'backslash'; then backslashEdgesView"></ng-container>
 <creative-asset-related-search-result [layout]="layout" [templateRef]="thumbnailItemView"></creative-asset-related-search-result>
-<a (click)="loadMore()">load more</a>
+<a (click)="loadMore()" class="load_more">load more...</a>
 
 <ng-template #backslashEdgesView>
   <h3>\Edges</h3>

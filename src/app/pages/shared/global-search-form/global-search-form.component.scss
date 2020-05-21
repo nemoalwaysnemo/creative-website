@@ -3,7 +3,8 @@
   margin-bottom: 32px;
   .search-input {
     display: block;
-    margin: 0 27px 28px 60px;
+    &.left { margin: 0 27px 28px 60px; }
+    &.right { margin: 0 27px 28px 0; }
 
     input {
       font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
