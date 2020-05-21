@@ -53,6 +53,8 @@ export class DisruptionAssetPreviewDialogComponent extends AbstractDocumentDialo
     if (doc.type === 'App-Disruption-Roadmap-Asset') {
       name = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM.NAME;
     } else if (doc.type === 'App-Disruption-Theory-Asset') {
+      name = GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM.NAME;
+    } else if (doc.type === 'App-Disruption-Asset') {
       name = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM.NAME;
     }
     return name;
