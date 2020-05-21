@@ -43,7 +43,7 @@ export class ShareDocumentButtonComponent implements AfterViewInit {
     const url = 'https://work.facebook.com/sharer.php?display=popup&u=' + this.getShareUrl(this.currentUrl);
     const options = 'toolbar=0,status=0,resizable=1,width=626,height=436';
     window.open(url, 'sharer', options);
-    this.googleAnalyticsService.eventTrack({ 'event_category': 'Share', 'event_action': 'Share On Workplace', 'event_label': 'Share On Workplace', 'event_value': this.document.uid, 'dimensions.docId': this.document.uid });
+    this.googleAnalyticsService.trackEvent({ 'event_category': 'Share', 'event_action': 'Share On Workplace', 'event_label': 'Share On Workplace', 'event_value': this.document.uid, 'dimensions.docId': this.document.uid });
   }
 
   private getShareUrl(url: string): string {

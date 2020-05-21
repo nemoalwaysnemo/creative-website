@@ -73,7 +73,7 @@ export class GoogleAnalyticsService {
     });
   }
 
-  searchTrack(e: any = {}): void {
+  trackSearch(e: any = {}): void {
     const httpParams = new HttpParams({ fromObject: e.queryParams || {} });
     const queryParams = httpParams.toString();
     if (queryParams) {
@@ -86,13 +86,13 @@ export class GoogleAnalyticsService {
         'event_value': `${url}`,
       });
       event = removeUselessObject(event, ['queryParams']);
-      this.eventTrack(event);
+      this.trackEvent(event);
       delete event['event'];
-      this.eventTrack(event);
+      this.trackEvent(event);
     }
   }
 
-  eventTrack(e: any = {}): void {
+  trackEvent(e: any = {}): void {
     const event = Object.assign({}, {
       'event': e.event || 'google-analytics-tracking',
       'event_category': e.event_category || 'GA-Track',

@@ -56,7 +56,7 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     const componentName = e.options.componentName;
     const component = e.options.component || this.mainComponent;
     this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', type: 'built-in', messageContent: 'View Opened', options: { componentName, component } });
-    this.googleAnalyticsEventTrack(component.COMPONENT_TYPE);
+    this.googleAnalyticsTrackEvent(component.COMPONENT_TYPE);
     this.selectView(componentName, component);
   }
 
@@ -106,14 +106,14 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     });
   }
 
-  protected googleAnalyticsEventTrack(type: string): void {
+  protected googleAnalyticsTrackEvent(type: string): void {
     let category = 'PopupPreview';
     if (type === 'form') {
       category = 'PopupForm';
     } else if (type === 'custom') {
       category = 'PopupCustom';
     }
-    this.googleAnalyticsService.eventTrack({ 'event_category': category, 'event_action': 'Open', 'event_label': 'Open', 'event_value': this.document.uid, 'dimensions.docId': this.document.uid });
+    this.googleAnalyticsService.trackEvent({ 'event_category': category, 'event_action': 'Dialog Open', 'event_label': 'Dialog Open', 'event_value': this.document.uid, 'dimensions.docId': this.document.uid });
   }
 
 }

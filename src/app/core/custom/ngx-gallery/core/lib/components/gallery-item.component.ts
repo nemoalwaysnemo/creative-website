@@ -29,7 +29,7 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
                        [poster]="data.poster"
                        [pause]="currIndex !== index"
                        (error)="error.emit($event)"
-                       (customEvent)="customEvent.emit($event)"></gallery-video>
+                       (customEvent)="onCustomEvent($event)"></gallery-video>
 
         <div class="g-template g-item-template">
           <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: index, currIndex: currIndex, type: type, data: data }">
@@ -94,6 +94,11 @@ export class GalleryItemComponent {
       default:
         return this.currIndex === this.index || this.currIndex === this.index - 1 || this.currIndex === this.index + 1;
     }
+  }
+
+  onCustomEvent(event: any): void {
+    event['uid'] = this.data.uid;
+    this.customEvent.emit(event);
   }
 
 }

@@ -334,7 +334,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    this.googleAnalyticsEventTrack(event);
+    this.googleAnalyticsTrackEvent(event);
     const searchParams = removeUselessObject(params.params, ['q', 'id', 'folder']);
     return this.search(searchParams, { event: params.event });
   }
@@ -350,10 +350,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     this.search$.next(new SearchParams(searchParams, event, defaultValue));
   }
 
-  protected googleAnalyticsEventTrack(event: string): void {
+  protected googleAnalyticsTrackEvent(event: string): void {
     if (['PageInitialized', 'SearchTermChanged', 'FormFilterChanged'].includes(event)) {
       const queryParams = this.buildQueryParams();
-      this.googleAnalyticsService.searchTrack({ 'event_category': 'Search', 'event_action': event, 'event_label': event, queryParams });
+      this.googleAnalyticsService.trackSearch({ 'event_category': 'Search', 'event_action': event, 'event_label': event, queryParams });
     }
   }
 

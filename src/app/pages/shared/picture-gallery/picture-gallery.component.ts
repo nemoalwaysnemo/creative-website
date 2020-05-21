@@ -1,6 +1,7 @@
 import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, GalleryState } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { GoogleAnalyticsService } from '@core/services';
 import { deepExtend } from '@core/services/helpers';
 import { Params } from '@angular/router';
 
@@ -50,7 +51,11 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   private event$: BehaviorSubject<string> = new BehaviorSubject<string>('play');
 
-  constructor(private gallery: Gallery, @Inject(GALLERY_CONFIG) private options) {
+  constructor(
+    private gallery: Gallery,
+    @Inject(GALLERY_CONFIG) private options,
+    private googleAnalyticsService: GoogleAnalyticsService,
+  ) {
     this.galleryRef = this.gallery.ref(this.galleryId);
   }
 
@@ -72,8 +77,12 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   onCustomEvent(e: any): void {
     const { itemIndex, event } = e;
-    // this.displayTitle = event.api.getDefaultMedia().state !== 'playing';
-    this.videoPlayers[itemIndex] = event.player;
+    if (event.type === 'video') {
+      const state = event.api.getDefaultMedia().state;
+      this.googleAnalyticsService.trackEvent({ 'event_category': 'Video', 'event_action': `Video ${state}`, 'event_label': `Video ${state}`, 'event_value': event.uid, 'dimensions.docId': event.uid });
+      // this.displayTitle = event.api.getDefaultMedia().state !== 'playing';
+      this.videoPlayers[itemIndex] = event.player;
+    }
   }
 
   onPlayingChange(e: any): void {
