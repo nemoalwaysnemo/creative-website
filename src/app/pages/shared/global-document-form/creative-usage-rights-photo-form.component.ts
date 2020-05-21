@@ -12,6 +12,8 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class CreativeUsageRightsPhotoComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'ur-photo-form';
+
   protected documentType: string = 'App-Library-UsageRights-Photographer';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

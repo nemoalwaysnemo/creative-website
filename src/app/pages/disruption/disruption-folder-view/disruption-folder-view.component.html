@@ -1,5 +1,4 @@
-<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled"
-  [ngStyle]="loading ? {'min-height': '150px'} : {}">
+<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="doc" class="property-section">
     <a [routerLink]="[getAssetUrl(doc),  doc.uid]" class="property-intro inline-top">
       <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
@@ -31,10 +30,8 @@
   </div>
 </div>
 <ng-template #editDialog>
-  <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(doc)" [documentModel]="doc"
-    [metadata]="dialogMetadata" [title]="getFormTitle(doc)" [redirectUrl]="editRedirectUrl"></global-document-dialog>
+  <global-document-dialog [settings]="getDialogFormSettings(doc)" [documentModel]="doc" [metadata]="dialogMetadata" [title]="getFormTitle(doc)" [redirectUrl]="editRedirectUrl"></global-document-dialog>
 </ng-template>
 <ng-template #deleteDialog>
-  <global-document-dialog [type]="'custom'" [customComponent]="customComponent" [documentModel]="doc"
-    [metadata]="dialogMetadata" [title]="deleteTitle" [redirectUrl]="deleteRedirectUrl"></global-document-dialog>
+  <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [title]="deleteTitle" [redirectUrl]="deleteRedirectUrl"></global-document-dialog>
 </ng-template>

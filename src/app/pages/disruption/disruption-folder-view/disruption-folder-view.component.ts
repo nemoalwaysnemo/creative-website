@@ -1,11 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
-import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
+import { Component, Input, ChangeDetectionStrategy, TemplateRef, Type } from '@angular/core';
+import { GlobalDocumentDialogService, SearchQueryParamsService, DocumentModelForm } from '@pages/shared';
 import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes } from '@core/services/helpers';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
-import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
+import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
+import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -45,11 +46,11 @@ export class DisruptionFolderViewComponent {
 
   deletTitle: string = 'Delete';
 
-  customComponent = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION;
-
   writePermission$: Observable<boolean> = observableOf(false);
 
   deletePermission$: Observable<boolean> = observableOf(false);
+
+  deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION] });
 
   dialogMetadata: any = {
     formMode: 'edit',
@@ -67,16 +68,18 @@ export class DisruptionFolderViewComponent {
     return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
   }
 
-  getDocumentFormComponent(doc: DocumentModel): any {
+  getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
     if (doc.type === 'App-Disruption-Day') {
-      return GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM;
+      components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM);
     } else if (doc.type === 'App-Disruption-Theory-Folder') {
-      return GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM;
+      components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM);
     }
+    return new GlobalDocumentDialogSettings({ components });
   }
 
   getFormTitle(doc: DocumentModel): any {
-    let formTitle;
+    let formTitle: string;
     switch (doc.type) {
       case 'App-Disruption-Day':
         formTitle = 'Edit Day';

@@ -16,9 +16,9 @@ export class DocumentDialogEvent {
 
 export interface DocumentDialogOption {
   [key: string]: any;
+  componentName?: string;
   component?: any;
   metadata?: any;
-  view?: string;
 }
 
 @Injectable({
@@ -70,8 +70,8 @@ export class GlobalDocumentDialogService {
     return this;
   }
 
-  selectView(name: string, component: Type<any> = null, metadata: any = {}): void {
-    this.triggerEvent({ name: 'ViewChanged', type: 'built-in', messageContent: 'View Changed', options: { view: name, component, metadata } });
+  selectView(componentName: string, component: Type<any> = null, metadata: any = {}): void {
+    this.triggerEvent({ name: 'ViewChanged', type: 'built-in', messageContent: 'View Changed', options: { componentName, component, metadata } });
   }
 
 }

@@ -1,12 +1,13 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
-import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
+import { GlobalDocumentDialogService, SearchQueryParamsService, DocumentModelForm } from '../../shared';
+import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'biz-dev-folder-view',
@@ -44,11 +45,11 @@ export class BizDevFolderViewComponent {
 
   editRedirectUrl: string = this.router.url;
 
-  customComponent = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION;
-
   writePermission$: Observable<boolean> = observableOf(false);
 
   deletePermission$: Observable<boolean> = observableOf(false);
+
+  deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION] });
 
   dialogMetadata: any = {
     formMode: 'edit',
@@ -74,12 +75,14 @@ export class BizDevFolderViewComponent {
     return doc && (getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE).includes(doc.type) || getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE).includes(doc.type));
   }
 
-  getDocumentFormComponent(doc: DocumentModel): any {
+  getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
     if (doc.type === 'App-BizDev-CaseStudy-Folder') {
-      return GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM;
+      components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM);
     } else if (doc.type === 'App-BizDev-Thought-Folder') {
-      return GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM;
+      components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM);
     }
+    return new GlobalDocumentDialogSettings({ components });
   }
 
   getFormTitle(doc: DocumentModel): any {
@@ -127,6 +130,7 @@ export class BizDevFolderViewComponent {
       return [this.getAssetUrl(this.doc), this.doc.uid];
     }
   }
+
   private goBackInfo(type: string): any {
     switch (type) {
       case 'App-BizDev-Thought-Folder':

@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'creative-campaign-form';
+
   protected documentType: string = 'App-Library-Campaign';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

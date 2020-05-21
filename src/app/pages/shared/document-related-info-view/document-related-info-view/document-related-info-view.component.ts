@@ -1,9 +1,11 @@
-import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
+import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
-import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
+import { DocumentModelForm } from '../../global-document-form/abstract-document-form.component';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { TabInfo } from '../document-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
@@ -60,12 +62,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     moreInfo: true,
   };
 
-  backslashDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
-
-  disruptionDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
-
-  intelligenceComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
-
   backslashTitle: string = 'Backslash';
 
   disruptionTitle: string = 'Disruption';
@@ -98,6 +94,24 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   getBackslashEdgeUrl(name: string): string {
     return Environment.backslashAppUrl + `/#/list/edge/${name}/`;
+  }
+
+  getDialogSettings(type: string): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
+    switch (type) {
+      case 'backslash':
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET);
+        break;
+      case 'disruption':
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        break;
+      case 'intelligence':
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        break;
+      default:
+        break;
+    }
+    return new GlobalDocumentDialogSettings({ components });
   }
 
   private onChangeTab(): void {

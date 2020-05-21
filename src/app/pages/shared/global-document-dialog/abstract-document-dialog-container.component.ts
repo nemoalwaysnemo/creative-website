@@ -25,7 +25,7 @@ export abstract class AbstractDocumentDialogContainerComponent extends AbstractD
   }
 
   protected onInit(): void {
-    this.createComponent();
+    this.createComponent(this.component);
   }
 
   protected createDynamicComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
@@ -33,12 +33,12 @@ export abstract class AbstractDocumentDialogContainerComponent extends AbstractD
     return dynamicTarget.createComponent(componentFactory);
   }
 
-  protected createComponent(type?: string, component?: Type<any>): void {
+  protected createComponent(component: Type<any>): void {
     if (!this.dynamicComponent) {
-      this.dynamicComponent = this.createDynamicComponent(this.dynamicTarget, this.component);
+      this.dynamicComponent = this.createDynamicComponent(this.dynamicTarget, component);
     }
     this.dynamicComponent.instance.title = this.title;
-    this.dynamicComponent.instance.metadata = this.settings;
+    this.dynamicComponent.instance.metadata = this.dialogSettings;
     this.dynamicComponent.instance.documentModel = this.document;
     this.dynamicComponent.instance.redirectUrl = this.redirectUrl;
     this.dynamicComponent.instance.mainViewChanged = this.mainViewChanged;

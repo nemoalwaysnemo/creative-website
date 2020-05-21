@@ -12,6 +12,8 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
 })
 export class BizDevThoughtFolderFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'thought-folder-form';
+
   protected documentType: string = 'App-BizDev-Thought-Folder';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

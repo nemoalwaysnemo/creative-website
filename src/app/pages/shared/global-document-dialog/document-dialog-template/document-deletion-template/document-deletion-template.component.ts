@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import { DocumentDialogConfirmationComponent } from '../document-confirmation-template/document-confirmation-template.component';
-import { SearchQueryParamsService } from '../../../../shared/services/search-query-params.service';
-import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
+import { AbstractDocumentDialogCustomTemplateComponent } from '../../abstract-document-dialog-custom-template.component';
+import { SearchQueryParamsService } from '../../../../shared/services/search-query-params.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 
 @Component({
   selector: 'document-dialog-deletion',
   styleUrls: ['../global-document-dialog-template.scss'],
   templateUrl: './document-deletion-template.component.html',
 })
-export class DocumentDialogDeletionComponent extends DocumentDialogConfirmationComponent {
+export class DocumentDialogDeletionComponent extends AbstractDocumentDialogCustomTemplateComponent {
+
+  static readonly NAME: string = 'document-dialog-deletion';
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

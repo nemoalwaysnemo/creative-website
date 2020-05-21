@@ -12,6 +12,8 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class CreativeAssetAudioFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'creative-audio-form';
+
   protected documentType: string = 'App-Library-Audio';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

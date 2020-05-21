@@ -12,6 +12,8 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class CreativeAssetVideoFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'creative-video-form';
+
   protected documentType: string = 'App-Library-Video';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

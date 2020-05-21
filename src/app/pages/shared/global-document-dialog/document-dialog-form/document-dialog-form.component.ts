@@ -22,17 +22,8 @@ export class DocumentDialogFormComponent extends AbstractDocumentDialogContainer
   }
 
   protected onInit(): void {
-    this.createComponent();
+    super.createComponent(this.component);
     this.subscribeComponentEvent();
-  }
-
-  protected createComponent(): void {
-    if (!this.dynamicComponent) {
-      this.dynamicComponent = this.createDynamicComponent(this.dynamicTarget, this.component);
-    }
-    this.dynamicComponent.instance.metadata = this.settings;
-    this.dynamicComponent.instance.documentModel = this.document;
-    this.dynamicComponent.instance.redirectUrl = this.redirectUrl;
   }
 
   protected subscribeComponentEvent(): void {

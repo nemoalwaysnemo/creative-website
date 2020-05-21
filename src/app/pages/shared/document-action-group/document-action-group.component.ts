@@ -5,8 +5,9 @@ import { concatMap, map, share } from 'rxjs/operators';
 import { DocumentModel, UserService, UserModel, NuxeoPermission } from '@core/api';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
-import { NUXEO_META_INFO } from '@environment/environment';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-action-group',
@@ -17,7 +18,7 @@ export class DocumentActionGroupComponent {
 
   documentModel: DocumentModel;
 
-  customComponent: any = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST;
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 

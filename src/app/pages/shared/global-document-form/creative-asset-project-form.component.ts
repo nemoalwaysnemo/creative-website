@@ -6,10 +6,12 @@ import { AbstractDocumentFormComponent } from './abstract-document-form.componen
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { OptionModel } from '../option-select/option-select.interface';
 @Component({
-  selector: 'creative-project-form',
+  selector: 'creative-asset-project-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends AbstractDocumentFormComponent {
+
+  static readonly NAME: string = 'creative-project-form';
 
   protected documentType: string = 'App-Library-Project';
 

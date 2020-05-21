@@ -27,7 +27,7 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
   @Input()
   set metadata(metadata: any) {
     if (metadata) {
-      this.settings = Object.assign({}, this.settings, metadata);
+      this.dialogSettings = Object.assign({}, this.dialogSettings, metadata);
     }
   }
 
@@ -37,7 +37,7 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
 
   private lifeCycle$ = new Subject<string>();
 
-  protected settings: any = {};
+  protected dialogSettings: any = {};
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -55,8 +55,8 @@ export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnI
     this.onDestroy();
   }
 
-  getSettings(): any {
-    return this.settings;
+  getDialogSettings(): any {
+    return this.dialogSettings;
   }
 
   selectView(name: string, component: Type<any> = null, metadata: any = {}): void {

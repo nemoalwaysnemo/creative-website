@@ -11,6 +11,8 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class DisruptionBrilliantThinkingFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'brilliant-thinking-form';
+
   protected documentType: string = 'App-Disruption-Asset';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

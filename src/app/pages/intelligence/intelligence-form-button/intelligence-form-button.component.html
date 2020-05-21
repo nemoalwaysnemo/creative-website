@@ -1,4 +1,4 @@
 <button *ngIf="addChildrenPermission$ | async" type="button" (click)="openDialog(dialog)" class="icon_btn" [ngClass]="{'btn-disabled': !document }" [disabled]="!document" title="{{title}}">{{title}}</button>
 <ng-template #dialog>
-  <global-document-dialog [type]="'form'" [formComponent]="component" [documentModel]="document" [title]="title"></global-document-dialog>
+  <global-document-dialog [settings]="dialogSettings" [documentModel]="document" [title]="title"></global-document-dialog>
 </ng-template>

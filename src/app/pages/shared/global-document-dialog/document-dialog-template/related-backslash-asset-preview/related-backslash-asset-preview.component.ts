@@ -12,6 +12,8 @@ import { NUXEO_PATH_INFO } from '@environment/environment';
 })
 export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumentDialogPreviewTemplateComponent {
 
+  static readonly NAME: string = 'related-backslash-asset-preview';
+
   backslashEdges: DocumentModel[] = [];
 
   constructor(

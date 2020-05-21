@@ -1,9 +1,10 @@
 import { Component, Input, Type, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
-import { Router } from '@angular/router';
+import { GlobalDocumentDialogService, DocumentModelForm } from '../../../shared';
+import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
+import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'creative-brand-form-button',
@@ -14,7 +15,7 @@ export class CreativeBrandFormButtonComponent {
 
   document: DocumentModel;
 
-  component: Type<DocumentModelForm>;
+  dialogSettings: GlobalDocumentDialogSettings;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
@@ -24,7 +25,7 @@ export class CreativeBrandFormButtonComponent {
 
   @Input()
   set type(type: 'image' | 'video' | 'audio' | 'model' | 'music' | 'photo' | 'stock' | 'campaign' | 'project') {
-    this.component = this.getFormComponent(type);
+    this.dialogSettings = this.getDialogFormSettings(type);
   }
 
   @Input()
@@ -38,47 +39,47 @@ export class CreativeBrandFormButtonComponent {
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     private router: Router,
-    ) {
+  ) {
   }
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 
-  private getFormComponent(type: string): Type<DocumentModelForm> {
-    let formComponent;
+  private getDialogFormSettings(type: string): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
     switch (type) {
       case 'image':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_IMAGE_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_IMAGE_FORM);
         break;
       case 'video':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_VIDEO_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_VIDEO_FORM);
         break;
       case 'audio':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_AUDIO_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_AUDIO_FORM);
         break;
       case 'model':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MODEL_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MODEL_FORM);
         break;
       case 'music':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MUSIC_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MUSIC_FORM);
         break;
       case 'photo':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_PHOTO_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_PHOTO_FORM);
         break;
       case 'stock':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_STOCK_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_STOCK_FORM);
         break;
       case 'campaign':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM);
         break;
       case 'project':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
     }
-    return formComponent;
+    return new GlobalDocumentDialogSettings({ components });
   }
 
 }
