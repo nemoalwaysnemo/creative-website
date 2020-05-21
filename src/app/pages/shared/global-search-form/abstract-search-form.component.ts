@@ -83,6 +83,13 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  @Input()
+  set researchParams(params: any) {
+    if (params) {
+      this.research(params);
+    }
+  }
+
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
@@ -199,6 +206,12 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   protected onFilterChanged(aggregateModel: any = {}): void {
     const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), { aggregates: aggregateModel });
     this.triggerSearch(params, 'onFilterChanged');
+  }
+
+  protected research(researchParams: any): void {
+    const queryValues = this.buildFormValues(this.queryParamsService.getSnapshotQueryParams());
+    const params = Object.assign({}, this.getSearchParams(), this.getFormValue(), queryValues, researchParams);
+    this.triggerSearch(params, 'research');
   }
 
   protected onSearchPerformed(): void {

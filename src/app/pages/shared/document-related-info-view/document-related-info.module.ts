@@ -6,6 +6,8 @@ import { DocumentRelatedInfoComponent } from './document-related-info.component'
 import { DocumentRelatedInfoViewComponent } from './document-related-info-view/document-related-info-view.component';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
+import { GlobalSearchFormModule } from '../global-search-form/global-search-form.module';
+import { GlobalSearchResultModule } from '../global-search-result/global-search-result.module';
 
 @NgModule({
   imports: [
@@ -14,6 +16,8 @@ import { GlobalDocumentDialogModule } from '../global-document-dialog/global-doc
     NgPipesModule,
     GlobalDocumentDialogModule,
     DocumentThumbnailViewModule,
+    GlobalSearchFormModule,
+    GlobalSearchResultModule,
   ],
   declarations: [
     DocumentRelatedInfoComponent,

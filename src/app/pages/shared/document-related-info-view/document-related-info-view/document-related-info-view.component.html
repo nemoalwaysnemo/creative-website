@@ -1,7 +1,6 @@
 <h2 class="left">{{item.name}}</h2>
-<div class="search_area right">
-  <input [formControl]="queryField" (keyup)="onKeyup($event)" type="text" class="keyword" placeholder="Search for..">
-</div>
+<global-search-form [researchParams]="researchParams$ | async" [filters]="filters" [baseParams]="baseParams$ | async" [pageProvider]="pageProvider"></global-search-form>
+<!-- <global-search-result [layout]="layout" [templateRef]="thumbnailItemView"></global-search-result> -->
 <div class="clear"></div>
 <ng-container *ngIf="item.layout === 'backslash'; then backslashEdgesView"></ng-container>
 <ng-template #backslashEdgesView>
@@ -32,7 +31,10 @@
   </ng-container>
   <div class="clear"></div>
 </ng-template>
-<document-thumbnail-view [loading]="loading" [layout]="'my_agency dates full-width'" [noResultText]="noResultText" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
+<creative-asset-related-search-result [layout]="layout" [templateRef]="thumbnailItemView"></creative-asset-related-search-result>
+  <a (click)="loadMore()">load more</a>
+
+<!-- <document-thumbnail-view [loading]="loading" [layout]="'my_agency dates full-width'" [noResultText]="noResultText" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view> -->
 
 <ng-template #backslashThumbnailItemView let-doc="doc">
   <div class="backslash">

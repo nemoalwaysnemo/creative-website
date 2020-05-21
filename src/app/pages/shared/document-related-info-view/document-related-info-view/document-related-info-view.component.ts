@@ -2,13 +2,15 @@ import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } fro
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter, mergeMap, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters } from '@core/api';
+import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 import { DocumentModelForm } from '../../global-document-form/abstract-document-form.component';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { TabInfo } from '../document-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
+import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
+import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
   selector: 'document-related-info-view',
@@ -68,9 +70,48 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   intelligenceTitle: string = 'Intelligence';
 
+  layout: string = 'my_agency_asset_search full-width';
+
+  baseParams$: Subject<any> = new Subject<any>();
+
+  researchParams$: Subject<any> = new Subject<any>();
+
+  pageProvider: string = '';
+
+  pageSize: number = 8;
+
+  backslashFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
+    new SearchFilterModel({ key: 'app_edges_backslash_type', placeholder: 'Type' }),
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    new SearchFilterModel({ key: 'app_edges_relevant_country', placeholder: 'Geography', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
+  ];
+  disruptionFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
+  intelligenceFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    new SearchFilterModel({ key: 'app_Edges:intelligence_type', placeholder: 'Intelligence Type' }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'app_Edges:backslash_category', placeholder: 'Backslash Category' }),
+    new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
+  ];
+
+  filters: SearchFilterModel[] = [];
+
   constructor(
     private advanceSearch: AdvanceSearch,
     private globalDocumentDialogService: GlobalDocumentDialogService,
+    private queryParamsService: SearchQueryParamsService,
   ) { }
 
   ngOnInit(): void {
@@ -84,12 +125,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
-  }
-
-  onKeyup(event: KeyboardEvent): void {
-    this.search$.next(this.getSearchParams(this.document));
-    event.preventDefault();
-    event.stopImmediatePropagation();
   }
 
   getBackslashEdgeUrl(name: string): string {
@@ -118,16 +153,20 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     const subscription = this.tabInfo$.pipe(
       filter((info: TabInfo) => info.document && info.tabItem.name === this.item.name),
     ).subscribe((info: TabInfo) => {
+      this.pageSize = 8;
       switch (info.tabItem.layout) {
         case 'backslash':
           this.buildBackslashEdges(info.document);
           this.thumbnailItemView = this.backslashItemView;
+          this.filters = this.backslashFilters;
           break;
         case 'disruption':
           this.thumbnailItemView = this.disruptionItemView;
+          this.filters = this.disruptionFilters;
           break;
         case 'intelligence':
           this.thumbnailItemView = this.intelligenceItemView;
+          this.filters = this.intelligenceFilters;
           break;
         default:
           break;
@@ -136,6 +175,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.documents = [];
       }
       if (this.documents.length === 0) {
+        this.queryParamsService.changeQueryParams();
         this.search$.next(this.getSearchParams(info.document));
       }
 
@@ -151,18 +191,20 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
       tap(_ => {
         this.loading = true;
       }),
-      mergeMap((mapping) => {
-        return this.advanceSearch.request(mapping.params, null, mapping.provider);
-      }),
-    ).subscribe((res: NuxeoPagination) => {
-      this.loading = false;
-      this.documents = res.entries;
+    ).subscribe((res: any) => {
+      this.pageProvider = res.provider;
+      this.baseParams$.next(res.params);
     });
     this.subscription.add(subscription);
   }
 
+  loadMore(): void {
+    this.pageSize += 8;
+    this.researchParams$.next({ pageSize: this.pageSize});
+  }
+
   private getSearchParams(doc: DocumentModel): any {
-    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_not_eq: doc.uid }, this.item.params);
+    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_not_eq: doc.uid}, this.item.params);
     if (this.item.hasOwnProperty('paramsMapping')) {
       const keys = Object.keys(this.item.paramsMapping);
       for (const key of keys) {
