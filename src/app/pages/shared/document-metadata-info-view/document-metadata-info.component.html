@@ -15,6 +15,7 @@
               <td *ngIf="isIntelligenceAsset(documentModel) || isBizDevAsset(documentModel)">{{ documentModel.get('dc:description') }}</td>
               <td *ngIf="isDisruptionAsset(documentModel)">{{ documentModel.get('app_Edges:disruption_type') }}</td>
               <td *ngIf="isIntelligenceAsset(documentModel)">{{ documentModel.get('app_Edges:intelligence_type') }}</td>
+              <td *ngIf="isBizDevAsset(documentModel)">{{ documentModel.get('The_Loupe_Main:assettype') }}</td>
             </tr>
             <tr>
               <th>Industry</th>
