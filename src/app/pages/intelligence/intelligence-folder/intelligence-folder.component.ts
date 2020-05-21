@@ -17,10 +17,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
-  ];
+  filters: SearchFilterModel[] = [];
 
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {
@@ -51,6 +48,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
     this.document = doc;
     if (doc) {
       this.documentType = this.getCurrentAssetType(doc);
+      this.setFilters();
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
     }
   }
@@ -191,6 +189,21 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
       }
     });
     return industries;
+  }
+
+  private setFilters(): void {
+    if (this.documentType === 'Brands') {
+      this.filters = [
+        new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+        new SearchFilterModel({ key: 'app_edges_relevant_country', placeholder: 'Geography', iteration: true }),
+        new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+      ];
+    } else {
+      this.filters = [
+        new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+        new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+      ];
+    }
   }
 
 }
