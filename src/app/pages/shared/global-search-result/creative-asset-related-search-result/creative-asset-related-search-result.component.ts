@@ -12,10 +12,6 @@ export class CreativeAssetRelatedSearchResultComponent extends AbstractGlobalSea
 
   @Input() templateRef: TemplateRef<any>;
 
-  @Input() hasPagination: boolean = true;
-
-  @Input() layout: string = 'disruption-home';
-
   @Input() hideEmpty: boolean = false;
 
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {

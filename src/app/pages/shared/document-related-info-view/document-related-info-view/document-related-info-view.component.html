@@ -2,7 +2,7 @@
 <global-search-form [searchMoreParams]="searchMoreParams$ | async" [baseParams]="baseParams$ | async" [filters]="filters" [pageProvider]="pageProvider" [buttonPosition]="'right'"></global-search-form>
 <div class="clear"></div>
 <ng-container *ngIf="item.layout === 'backslash'; then backslashEdgesView"></ng-container>
-<creative-asset-related-search-result [layout]="layout" [templateRef]="thumbnailItemView"></creative-asset-related-search-result>
+<creative-asset-related-search-result [templateRef]="thumbnailItemView"></creative-asset-related-search-result>
 <a (click)="loadMore()" class="load_more">load more...</a>
 
 <ng-template #backslashEdgesView>

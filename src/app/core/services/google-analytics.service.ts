@@ -118,6 +118,7 @@ export class GoogleAnalyticsService {
       layer = this.setDimensionModuleName(layer);
       layer = this.setDimensionUserId(layer);
       layer = this.setDimensionDocId(layer);
+      layer = this.setDisplayedLabel(layer);
       dataLayer.push(layer);
     }
   }
@@ -153,6 +154,12 @@ export class GoogleAnalyticsService {
     if (!event['dimensions.moduleName']) {
       event['dimensions.moduleName'] = moduleName;
     }
+    return event;
+  }
+
+  private setDisplayedLabel(event: any = {}): any {
+    const moduleName = this.getModuleName();
+    event['event_label'] = `${moduleName} | ${event['event_label']}`;
     return event;
   }
 

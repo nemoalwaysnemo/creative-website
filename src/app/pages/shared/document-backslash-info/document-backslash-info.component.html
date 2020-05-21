@@ -8,16 +8,15 @@
     </div>
     <div class="info" *ngIf="moreInfo">
       <div class="edges">
-          <ul>
-        <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
+        <ul>
+          <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
             <li *ngFor="let edge of backslashEdges">
-              <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }"
-                class="share"  nbPopoverTrigger="hover">
+              <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }" class="share" nbPopoverTrigger="hover">
                 <img src="{{edge.thumbnailUrl}}" [alt]="edge.title" class="edge-img">
               </button>
             </li>
-        </ng-container>
-          </ul>
+          </ng-container>
+        </ul>
         <div class="more-info">
           <p class="description">{{ doc.get('dc:description') }}</p><br><br>
           <p><b>Edges: </b>{{ doc.get('app_Edges:Tags_edges') }}</p>
