@@ -41,7 +41,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumen
     const edgesParams = this.getEdgesAggParams(doc);
     if (edgesParams) {
       const params: any = {
-        app_edges_active_article: true,
+        // app_edges_active_article: true,
         app_edges_tags_edges: edgesParams,
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
