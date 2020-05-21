@@ -14,7 +14,7 @@
 </div>
 
 <ng-template #popContent>
-  <share-document-button></share-document-button>
+  <share-document-button [document]="documentModel"></share-document-button>
 </ng-template>
 <ng-template #dialog>
   <global-document-dialog [settings]="dialogSettings" [documentModel]="documentModel" [title]="'Download Request'"></global-document-dialog>
