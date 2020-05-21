@@ -69,8 +69,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   intelligenceTitle: string = 'Intelligence';
 
-  layout: string = 'my_agency_asset_search full-width';
-
   baseParams$: Subject<any> = new Subject<any>();
 
   searchMoreParams$: Subject<any> = new Subject<any>();

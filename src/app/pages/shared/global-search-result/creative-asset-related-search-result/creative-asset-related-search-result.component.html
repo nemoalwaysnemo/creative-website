@@ -1,9 +1,6 @@
 <div class="search-results">
   <h1 *ngIf="!!searchParams.ecm_fulltext" class="left">Results for "{{searchParams.ecm_fulltext}}" ({{totalResults}})</h1>
   <div class="clear"></div>
-  <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
-  <ng-template #thumbnailView>
-    <document-thumbnail-view [loading]="loading" [layout]="'my_agency dates full-width'" [templateRef]="templateRef" [documents]="documents"></document-thumbnail-view>
-  </ng-template>
+  <document-thumbnail-view [loading]="loading" [layout]="'my_agency dates full-width'" [templateRef]="templateRef" [documents]="documents"></document-thumbnail-view>
 </div>
 <div class="clear"></div>
