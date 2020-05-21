@@ -56,11 +56,11 @@ export class GalleryVideoComponent implements OnInit {
     const events = defaultMedia.subscriptions;
 
     events.playing.subscribe(() => {
-      this.customEvent.emit({ api: this.api, player: this.getPlayer() });
+      this.customEvent.emit({ type: 'video', api: this.api, player: this.getPlayer() });
     });
 
     events.pause.subscribe(() => {
-      this.customEvent.emit({ api: this.api, player: this.getPlayer() });
+      this.customEvent.emit({ type: 'video', api: this.api, player: this.getPlayer() });
     });
 
   }

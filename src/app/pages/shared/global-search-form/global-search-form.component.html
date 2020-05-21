@@ -1,13 +1,13 @@
 <form class="global-search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
-  <div class="right">
+  <div [ngClass]="buttonPosition">
     <ng-container *ngIf="isShowInput()">
-      <div class="search-input global-search-input right">
+      <div [ngClass]="['search-input', 'global-search-input', buttonPosition]">
         <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
       </div>
     </ng-container>
-  
+
     <ng-container *ngIf="hasFilters()">
-      <div class="search-filters global-search-filters right">
+      <div [ngClass]="['search-filters', 'global-search-filters', buttonPosition]">
         <button type="button" (click)="toggleFilter()" class="advanced-filters-trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filter</button>
       </div>
     </ng-container>
@@ -17,14 +17,14 @@
     <div class="search-filters left">
       <ng-content select=".group-left"></ng-content>
     </div>
-  
+
     <div class="button-groups right">
       <ng-content select=".group-right"></ng-content>
     </div>
   </div>
 
   <div class="clear"></div>
-  
+
   <ng-container *ngIf="hasFilters() && showFilter">
     <global-search-filter formControlName="aggregates" [filterSettings]="filters" [searchResponse]="searchResponse$ | async" [disableControl]="submitted" (selected)="onFilterSelected($event)"></global-search-filter>
   </ng-container>

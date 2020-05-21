@@ -15,6 +15,8 @@ export class GlobalSearchFormComponent extends AbstractSearchFormComponent {
 
   @Input() showInput: boolean = true;
 
+  @Input() buttonPosition: string = 'left';
+
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
