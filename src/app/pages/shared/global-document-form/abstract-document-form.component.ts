@@ -11,6 +11,8 @@ export interface DocumentModelForm {
 
 export abstract class AbstractDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
 
+  static readonly COMPONENT_TYPE: string = 'form';
+
   document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
   document: DocumentModel;

@@ -25,26 +25,23 @@ h1 {
     }
   }
 }
-.asset-download-request {
-  .btn {
-    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-    font-size: 15px;
-    display: block;
-    text-transform: none;
-    text-align: left;
+.download-btn {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  font-size: 15px;
+  display: block;
+  text-transform: none;
+  text-align: left;
+  color: #000000;
+  border: none;
+  cursor: pointer !important;
+  &:focus, .focus,
+  &:hover, .hover,
+  &:active, .active {
+    outline: 0;
+    box-shadow: none;
     color: #000000;
-    border: none;
-    cursor: pointer !important;
-    &:focus, .focus,
-    &:hover, .hover,
-    &:active, .active {
-      outline: 0;
-      box-shadow: none;
-      color: #000000;
-    }
-    &:hover {
-      text-decoration: none;
-    }
   }
-
+  &:hover {
+    text-decoration: none;
+  }
 }

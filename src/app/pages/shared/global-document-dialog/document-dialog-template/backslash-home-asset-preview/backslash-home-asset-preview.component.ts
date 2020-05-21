@@ -10,12 +10,13 @@ import { AbstractDocumentDialogPreviewTemplateComponent } from '../../abstract-d
 })
 export class BackslashHomeAssetDialogPreviewComponent extends AbstractDocumentDialogPreviewTemplateComponent {
 
+  static readonly NAME: string = 'backslash-home-asset-preview';
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
   ) {
     super(globalDocumentDialogService, queryParamsService);
   }
-
 
 }

@@ -12,6 +12,8 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class CreativeUsageRightsStockComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'ur-stock-form';
+
   protected documentType: string = 'App-Library-UsageRights-Stock';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

@@ -2,5 +2,5 @@
   <a href="javascript:void(0)" (click)="openDialog(dialog)" class="icon_btn">Download Request</a>
 </div>
 <ng-template #dialog>
-  <global-document-dialog [type]="'custom'" [customComponent]="customComponent" [documentModel]="document"></global-document-dialog>
+  <global-document-dialog [settings]="dialogSettings" [documentModel]="document"></global-document-dialog>
 </ng-template>

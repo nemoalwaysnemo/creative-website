@@ -1,9 +1,10 @@
 import { Component, Input, Type, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
-import { Router } from '@angular/router';
+import { GlobalDocumentDialogService, DocumentModelForm } from '../../../shared';
+import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
+import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'creative-agency-form-button',
@@ -14,7 +15,7 @@ export class CreativeAgencyFormButtonComponent {
 
   document: DocumentModel;
 
-  component: Type<DocumentModelForm>;
+  dialogSettings: GlobalDocumentDialogSettings;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
@@ -24,7 +25,7 @@ export class CreativeAgencyFormButtonComponent {
 
   @Input()
   set type(type: 'brand') {
-    this.component = this.getFormComponent(type);
+    this.dialogSettings = this.getDialogFormSettings(type);
   }
 
   @Input()
@@ -45,16 +46,16 @@ export class CreativeAgencyFormButtonComponent {
     this.globalDocumentDialogService.open(dialog);
   }
 
-  private getFormComponent(type: string): Type<DocumentModelForm> {
-    let formComponent;
+  private getDialogFormSettings(type: string): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
     switch (type) {
       case 'brand':
-        formComponent = GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_BRAND_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_BRAND_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
     }
-    return formComponent;
+    return new GlobalDocumentDialogSettings({ components });
   }
 
 }

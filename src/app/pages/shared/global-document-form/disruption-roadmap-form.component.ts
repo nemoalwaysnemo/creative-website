@@ -11,6 +11,8 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class DisruptionRoadmapFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'roadmap-form';
+
   protected documentType: string = 'App-Disruption-Roadmap-Asset';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

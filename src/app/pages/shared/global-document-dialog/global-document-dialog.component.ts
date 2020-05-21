@@ -4,8 +4,8 @@ import { AbstractDocumentDialogContainerComponent } from './abstract-document-di
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../../shared/services/search-query-params.service';
 import { DocumentDialogFormComponent } from './document-dialog-form/document-dialog-form.component';
-import { DocumentDialogPreviewComponent } from './document-dialog-preview/document-dialog-preview.component';
 import { DocumentDialogCustomComponent } from './document-dialog-custom/document-dialog-custom.component';
+import { GlobalDocumentDialogSettings } from './global-document-dialog.interface';
 
 @Component({
   selector: 'global-document-dialog',
@@ -15,32 +15,20 @@ import { DocumentDialogCustomComponent } from './document-dialog-custom/document
 export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContainerComponent {
 
   @Input()
-  set type(type: 'preview' | 'form' | 'custom') {
-    this.dialogType = type;
-    this.currentView = type;
+  set settings(settings: GlobalDocumentDialogSettings) {
+    if (settings) {
+      this.components = settings.components;
+      this.mainComponent = settings.main || settings.components[0];
+    }
   }
 
-  @Input() previewComponent: Type<any>;
+  @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
 
-  @Input() formComponent: Type<any>;
+  protected components: Type<any>[] = [];
 
-  @Input() customComponent: Type<any>;
+  protected mainComponent: any;
 
-  @ViewChild('previewTarget', { static: true, read: ViewContainerRef }) previewTarget: ViewContainerRef;
-
-  @ViewChild('formTarget', { static: true, read: ViewContainerRef }) formTarget: ViewContainerRef;
-
-  @ViewChild('customTarget', { static: true, read: ViewContainerRef }) customTarget: ViewContainerRef;
-
-  protected currentView: string;
-
-  protected dialogType: string;
-
-  protected formComponentRef: ComponentRef<any>;
-
-  protected previewComponentRef: ComponentRef<any>;
-
-  protected customComponentRef: ComponentRef<any>;
+  protected dynamicComponentRef: ComponentRef<any>;
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -52,13 +40,12 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
     this.subscribeEvents();
   }
 
-  selectView(view: string, component?: Type<any>): void {
-    const currentComponent: ComponentRef<any> = this[`${this.currentView}ComponentRef`];
-    if (currentComponent) {
-      currentComponent.destroy();
+  selectView(name: string, component?: Type<any>): void {
+    if (this.dynamicComponentRef) {
+      this.dynamicComponentRef.destroy();
     }
-    this.createComponent(view, component);
-    this.currentView = view;
+    component = component || this.getComponentByName(name);
+    this.createComponent(component);
   }
 
   protected onInit(): void {
@@ -66,69 +53,65 @@ export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContain
   }
 
   protected onOpen(e: DocumentDialogEvent): void {
-    const view = e.options.view || this.dialogType;
-    this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', type: 'built-in', messageContent: 'View Opened', options: { view } });
-    this.googleAnalyticsEventTrack(e);
-    this.selectView(view);
+    const componentName = e.options.componentName;
+    const component = e.options.component || this.mainComponent;
+    this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', type: 'built-in', messageContent: 'View Opened', options: { componentName, component } });
+    this.googleAnalyticsEventTrack(component.COMPONENT_TYPE);
+    this.selectView(componentName, component);
   }
 
-  protected createComponent(type: string, component?: Type<any>): void {
+  protected getComponentByName(name: string): Type<any> {
+    return this.components.filter((x: any) => x.NAME === name).shift();
+  }
+
+  protected createComponent(component: any): void {
+    const type: string = component.COMPONENT_TYPE;
     switch (type) {
-      case 'preview':
-        this.createPreviewComponent(component);
-        break;
       case 'form':
         this.createFormComponent(component);
         break;
       case 'custom':
-        this.createGeneralComponent(component);
+        this.createCustomComponent(component);
         break;
       default:
         throw new Error(`Unknown Dialog view type: ${type}`);
     }
   }
 
-  protected createPreviewComponent(component?: Type<any>): void {
-    this.buildComponent('preview', DocumentDialogPreviewComponent, component);
+  protected createFormComponent(component: Type<any>): void {
+    this.buildComponent(DocumentDialogFormComponent, component);
   }
 
-  protected createFormComponent(component?: Type<any>): void {
-    this.buildComponent('form', DocumentDialogFormComponent, component);
+  protected createCustomComponent(component: Type<any>): void {
+    this.buildComponent(DocumentDialogCustomComponent, component);
   }
 
-  protected createGeneralComponent(component?: Type<any>): void {
-    this.buildComponent('custom', DocumentDialogCustomComponent, component);
-  }
-
-  protected buildComponent(type: string, componentContainer: Type<any>, component?: Type<any>): ComponentRef<any> {
-    if (!this[`${type}Component`]) {
-      throw new Error(`Dialog injection component doesn't exist: ${type}`);
-    }
-    this[`${type}ComponentRef`] = this.createDynamicComponent(this[`${type}Target`], componentContainer);
-    this[`${type}ComponentRef`].instance.title = this.title;
-    this[`${type}ComponentRef`].instance.metadata = this.settings;
-    this[`${type}ComponentRef`].instance.documentModel = this.document;
-    this[`${type}ComponentRef`].instance.redirectUrl = this.redirectUrl;
-    this[`${type}ComponentRef`].instance.mainViewChanged = this.mainViewChanged;
-    this[`${type}ComponentRef`].instance.component = component || this[`${type}Component`];
-    return this[`${type}ComponentRef`];
+  protected buildComponent(componentContainer: Type<any>, component: Type<any>): void {
+    this.dynamicComponentRef = this.createDynamicComponent(this.dynamicTarget, componentContainer);
+    this.dynamicComponentRef.instance.title = this.title;
+    this.dynamicComponentRef.instance.metadata = this.dialogSettings;
+    this.dynamicComponentRef.instance.documentModel = this.document;
+    this.dynamicComponentRef.instance.redirectUrl = this.redirectUrl;
+    this.dynamicComponentRef.instance.mainViewChanged = this.mainViewChanged;
+    this.dynamicComponentRef.instance.component = component;
   }
 
   protected subscribeEvents(): void {
     this.subscription = this.globalDocumentDialogService.onEventName('ViewChanged').subscribe((e: DocumentDialogEvent) => {
-      const view = e.options.view || this.dialogType;
-      this.mainViewChanged = this.dialogType !== view;
-      this.selectView(view, e.options.component);
+      const main = this.mainComponent.NAME;
+      const name = e.options.componentName || main;
+      const component = name === main ? this.mainComponent : e.options.component;
+      this.mainViewChanged = main !== name;
+      this.selectView(name, component);
     });
   }
 
-  protected googleAnalyticsEventTrack(e: DocumentDialogEvent): void {
-    const type = e.options.view || this.dialogType;
+  protected googleAnalyticsEventTrack(type: string): void {
     let category = 'PopupPreview';
     if (type === 'form') {
       category = 'PopupForm';
     } else if (type === 'custom') {
-      category = 'PopupDialog';
+      category = 'PopupCustom';
     }
     this.googleAnalyticsService.eventTrack({ 'event_category': category, 'event_action': 'Open', 'event_label': 'Open', 'dimensions.docId': this.document.uid });
   }

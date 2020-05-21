@@ -7,9 +7,6 @@
     <h1 [title]="doc.title">{{doc.title}}</h1>
   </div>
   <ng-template #dialog>
-    <global-document-dialog [type]="'preview'" [previewComponent]="previewComponent" [formComponent]="formComponent"
-      [customComponent]="customComponent" [documentModel]="doc" [metadata]="dialogMetadata" [title]="title"
-      [redirectUrl]="redirectUrl">
-    </global-document-dialog>
+    <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [title]="title" [redirectUrl]="redirectUrl"></global-document-dialog>
   </ng-template>
 </ng-template>

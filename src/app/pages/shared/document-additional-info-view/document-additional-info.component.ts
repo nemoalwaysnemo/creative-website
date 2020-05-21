@@ -4,6 +4,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -21,7 +22,7 @@ export class DocumentAdditionalInfoComponent implements OnInit {
 
   attachments: { type: any, url: any, title: any }[] = [];
 
-  customComponent: any = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST;
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
   @Input()
   set document(doc: DocumentModel) {

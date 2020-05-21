@@ -12,6 +12,8 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
 })
 export class CreativeAssetBrandFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'creative-brand-form';
+
   protected documentType: string = 'App-Library-Folder';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

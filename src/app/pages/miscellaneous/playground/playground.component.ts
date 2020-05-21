@@ -1,10 +1,11 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
 import { DocumentModel, DocumentRepository } from '@core/api';
-import { GlobalDocumentDialogService, OptionModel } from '@pages/shared';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
-import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
-import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 import { concatMap, map } from 'rxjs/operators';
+import { GlobalDocumentDialogService, OptionModel } from '../../shared';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
+import { SuggestionSettings } from '../../shared/directory-suggestion/directory-suggestion-settings';
+import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'playground',
@@ -16,7 +17,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   document: DocumentModel;
 
-  customComponent: any = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST;
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
   constructor(private documentRepository: DocumentRepository, private globalDocumentDialogService: GlobalDocumentDialogService) {
 

@@ -1,11 +1,13 @@
-import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, Input, OnDestroy, TemplateRef, Type } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { concatMap, map, share } from 'rxjs/operators';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes, parseCountry } from '@core/services/helpers';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentModelForm } from '../global-document-form/abstract-document-form.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
@@ -52,7 +54,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   deleteTitle: string = 'Delete';
 
-  customComponent = GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION;
+  deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION] });
 
   dialogMetadata: any = {
     formMode: 'edit',
@@ -63,6 +65,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   libraryFolder: any = [];
 
   @Input() deleteRedirectUrl: string = '';
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
@@ -123,34 +126,34 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE).includes(doc.type);
   }
 
-  getDocumentFormComponent(doc: DocumentModel): any {
-    let formComponent;
+  getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
     switch (doc.type) {
       case assetTypes.roadmap:
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM);
         break;
       case assetTypes.day:
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM);
         break;
       case assetTypes.day_asset:
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM);
         break;
       case assetTypes.theory:
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM);
         break;
       case assetTypes.thinking:
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM);
         break;
       case assetTypes.case_asset:
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_ASSET_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_ASSET_FORM);
         break;
       case assetTypes.thought_asset:
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM);
         break;
       default:
         break;
     }
-    return formComponent;
+    return new GlobalDocumentDialogSettings({ components });
   }
 
   getFormTitle(doc: DocumentModel): any {

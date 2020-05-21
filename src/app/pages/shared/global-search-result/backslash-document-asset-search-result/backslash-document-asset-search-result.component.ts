@@ -3,8 +3,9 @@ import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { AbstractSearchResultComponent } from '../abstract-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
-import { GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'backslash-document-asset-search-result',
@@ -36,7 +37,7 @@ export class BackslashDocumentAssetSearchResultComponent extends AbstractSearchR
 
   listViewSettings: any;
 
-  previewDialogComponent: any = GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET;
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET] });
 
   private defaultSettings: any = {
     columns: {

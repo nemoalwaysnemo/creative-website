@@ -12,8 +12,7 @@
       <ul>
         <li *ngFor="let doc of backslashEdges">
           <a [href]="getBackslashEdgeUrl(doc.title)" title="{{doc.title}}" target="_blank">
-            <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: doc }"
-              class="share" nbPopoverTrigger="hover">
+            <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: doc }" class="share"  nbPopoverTrigger="hover">
               <img src="{{doc.thumbnailUrl}}" [alt]="doc.title">
             </button>
             {{doc.title}}
@@ -44,7 +43,7 @@
     </div>
   </div>
   <ng-template #backslashDialog>
-    <global-document-dialog [type]="'preview'" [previewComponent]="backslashDialogComponent" [documentModel]="doc" [title]="backslashTitle"></global-document-dialog>
+    <global-document-dialog [settings]="getDialogSettings('backslash')" [documentModel]="doc" [title]="backslashTitle"></global-document-dialog>
   </ng-template>
 </ng-template>
 
@@ -58,7 +57,7 @@
     </div>
   </div>
   <ng-template #disruptionDialog>
-    <global-document-dialog [type]="'preview'" [previewComponent]="disruptionDialogComponent" [documentModel]="doc" [metadata]="dialogMetadata" [title]="disruptionTitle"></global-document-dialog>
+    <global-document-dialog [settings]="getDialogSettings('disruption')" [documentModel]="doc" [metadata]="dialogMetadata" [title]="disruptionTitle"></global-document-dialog>
   </ng-template>
 </ng-template>
 
@@ -72,6 +71,6 @@
     </div>
   </div>
   <ng-template #intelligenceDialog>
-    <global-document-dialog [type]="'preview'" [previewComponent]="intelligenceComponent" [documentModel]="doc" [metadata]="dialogMetadata" [title]="intelligenceTitle"></global-document-dialog>
+    <global-document-dialog [settings]="getDialogSettings('intelligence')" [documentModel]="doc" [metadata]="dialogMetadata" [title]="intelligenceTitle"></global-document-dialog>
   </ng-template>
 </ng-template>

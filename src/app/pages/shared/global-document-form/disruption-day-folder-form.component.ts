@@ -12,6 +12,8 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
 })
 export class DisruptionDayFolderFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'day-folder-form';
+
   protected documentType: string = 'App-Disruption-Day';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

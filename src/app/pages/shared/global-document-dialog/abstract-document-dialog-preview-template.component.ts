@@ -1,18 +1,18 @@
 import { Input } from '@angular/core';
 import { GlobalDocumentDialogService } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractDocumentDialogBaseTemplateComponent } from './abstract-document-dialog-base-template.component';
+import { AbstractDocumentDialogCustomTemplateComponent } from './abstract-document-dialog-custom-template.component';
 
-export abstract class AbstractDocumentDialogPreviewTemplateComponent extends AbstractDocumentDialogBaseTemplateComponent {
+export abstract class AbstractDocumentDialogPreviewTemplateComponent extends AbstractDocumentDialogCustomTemplateComponent {
 
   @Input()
   set metadata(metadata: any) {
     if (metadata) {
-      this.settings = Object.assign({}, this.settings, this.getPreviewSettings(), metadata);
+      this.dialogSettings = Object.assign({}, this.dialogSettings, this.getPreviewSettings(), metadata);
     }
   }
 
-  protected settings: any = {
+  protected dialogSettings: any = {
     docViewerLayout: 'dialogSlides',
   };
 

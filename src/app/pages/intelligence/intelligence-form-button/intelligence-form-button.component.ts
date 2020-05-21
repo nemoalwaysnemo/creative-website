@@ -1,8 +1,9 @@
 import { Component, Input, Type, TemplateRef } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
+import { GlobalDocumentDialogService, DocumentModelForm } from '../../shared';
+import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
+import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'intelligence-form-button',
@@ -13,7 +14,7 @@ export class IntelligenceFormButtonComponent {
 
   document: DocumentModel;
 
-  component: Type<DocumentModelForm>;
+  dialogSettings: GlobalDocumentDialogSettings;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
@@ -21,7 +22,7 @@ export class IntelligenceFormButtonComponent {
 
   @Input()
   set type(type: 'brands folder') {
-    this.component = this.getFormComponent(type);
+    this.dialogSettings = this.getDialogFormSettings(type);
   }
 
   @Input()
@@ -39,16 +40,16 @@ export class IntelligenceFormButtonComponent {
     this.globalDocumentDialogService.open(dialog);
   }
 
-  private getFormComponent(type: string): Type<DocumentModelForm> {
-    let formComponent;
+  private getDialogFormSettings(type: string): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
     switch (type) {
       case 'brands folder':
-        formComponent = GLOBAL_DOCUMENT_FORM.INTELLIGENCE_BRANDS_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.INTELLIGENCE_BRANDS_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
     }
-    return formComponent;
+    return new GlobalDocumentDialogSettings({ components });
   }
 
 }

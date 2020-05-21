@@ -12,6 +12,8 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
 })
 export class BizDevCaseStudyFolderFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'case-study-folder-form';
+
   protected documentType: string = 'App-BizDev-CaseStudy-Folder';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

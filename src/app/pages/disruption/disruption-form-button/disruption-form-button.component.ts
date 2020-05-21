@@ -1,9 +1,10 @@
 import { Component, Input, Type, TemplateRef } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 import { Router } from '@angular/router';
+import { GlobalDocumentDialogService, DocumentModelForm } from '../../shared';
+import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
+import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'disruption-form-button',
@@ -14,7 +15,7 @@ export class DisruptionFormButtonComponent {
 
   document: DocumentModel;
 
-  component: Type<DocumentModelForm>;
+  dialogSettings: GlobalDocumentDialogSettings;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
@@ -24,7 +25,7 @@ export class DisruptionFormButtonComponent {
 
   @Input()
   set type(type: 'roadmap' | 'day' | 'day asset' | 'theory asset' | 'brilliant thinking') {
-    this.component = this.getFormComponent(type);
+    this.dialogSettings = this.getDialogFormSettings(type);
   }
 
   @Input()
@@ -38,7 +39,7 @@ export class DisruptionFormButtonComponent {
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     private router: Router,
-    ) {
+  ) {
   }
 
   openDialog(dialog: TemplateRef<any>): void {
@@ -49,28 +50,28 @@ export class DisruptionFormButtonComponent {
     return window.location.href.split('#')[1].split('?')[0];
   }
 
-  private getFormComponent(type: string): Type<DocumentModelForm> {
-    let formComponent;
+  private getDialogFormSettings(type: string): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
     switch (type) {
       case 'roadmap':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM);
         break;
       case 'day':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM);
         break;
       case 'day asset':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM);
         break;
       case 'theory asset':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM);
         break;
       case 'brilliant thinking':
-        formComponent = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
     }
-    return formComponent;
+    return new GlobalDocumentDialogSettings({ components });
   }
 
 }

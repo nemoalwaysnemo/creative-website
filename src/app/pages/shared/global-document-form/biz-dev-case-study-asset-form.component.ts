@@ -11,6 +11,8 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class BizDevCaseStudyAssetFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'case-study-asset-form';
+
   protected documentType: string = 'App-BizDev-CaseStudy-Asset';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

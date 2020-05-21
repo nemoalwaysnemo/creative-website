@@ -11,7 +11,10 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class DisruptionHowTosAssetFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'how-tos-asset-form';
+
   protected documentType: string = 'App-Disruption-Theory-Asset';
+
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
   }

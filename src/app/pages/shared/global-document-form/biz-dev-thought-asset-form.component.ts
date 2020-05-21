@@ -11,6 +11,8 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 })
 export class BizDevThoughtAssetFormComponent extends AbstractDocumentFormComponent {
 
+  static readonly NAME: string = 'thought-asset-form';
+
   protected documentType: string = 'App-BizDev-Thought-Asset';
 
   constructor(protected nuxeoApi: NuxeoApiService) {

@@ -53,8 +53,7 @@
           <table>
             <tbody *ngFor="let attachment of attachments">
               <tr>
-                <th>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <td><a href="{{ attachment.url }}">Download</a></td>
+                <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
               </tr>
             </tbody>
           </table>
@@ -68,14 +67,21 @@
         <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
         <nb-accordion-item-body class="accordion-item-body">
           <ng-container *ngIf="isNeedSendDownloadRequest(documentModel)">
-            <div class="asset-download-request"><a href="javascript:void(0)" (click)="openDialog(dialog)" class="download btn">Download Request</a></div>
+            <table>
+              <tbody *ngFor="let attachment of attachments">
+                <tr>
+                  <td>
+                    <a href="javascript:void(0)" (click)="openDialog(dialog)" class="download-btn">{{ attachment.title }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </ng-container>
           <ng-container *ngIf="downloadPermission$ | async">
             <table>
               <tbody *ngFor="let attachment of attachments">
                 <tr>
-                  <th>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                  <td><a href="{{ attachment.url }}">Download</a></td>
+                  <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
                 </tr>
               </tbody>
             </table>
@@ -85,7 +91,7 @@
     </nb-accordion>
 
     <ng-template #dialog>
-      <global-document-dialog [type]="'custom'" [customComponent]="customComponent" [documentModel]="documentModel" [title]="'Download Request'"></global-document-dialog>
+      <global-document-dialog [settings]="dialogSettings" [documentModel]="documentModel" [title]="'Download Request'"></global-document-dialog>
     </ng-template>
   </ng-container>
 </ng-container>

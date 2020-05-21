@@ -1,8 +1,9 @@
 import { Component, Input, Type, TemplateRef } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, DocumentModelForm } from '@pages/shared';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
+import { GlobalDocumentDialogService, DocumentModelForm } from '../../shared';
+import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
+import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'biz-dev-form-button',
@@ -13,7 +14,7 @@ export class BizDevFormButtonComponent {
 
   document: DocumentModel;
 
-  component: Type<DocumentModelForm>;
+  dialogSettings: GlobalDocumentDialogSettings;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
@@ -21,7 +22,7 @@ export class BizDevFormButtonComponent {
 
   @Input()
   set type(type: 'case' | 'case asset' | 'thought' | 'thought asset') {
-    this.component = this.getFormComponent(type);
+    this.dialogSettings = this.getFormSettings(type);
   }
 
   @Input()
@@ -43,25 +44,25 @@ export class BizDevFormButtonComponent {
     return window.location.href.split('#')[1].split('?')[0];
   }
 
-  private getFormComponent(type: string): Type<DocumentModelForm> {
-    let formComponent;
+  private getFormSettings(type: string): GlobalDocumentDialogSettings {
+    const components: Type<DocumentModelForm>[] = [];
     switch (type) {
       case 'case':
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM);
         break;
       case 'case asset':
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_ASSET_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_ASSET_FORM);
         break;
       case 'thought':
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM);
         break;
       case 'thought asset':
-        formComponent = GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM;
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
     }
-    return formComponent;
+    return new GlobalDocumentDialogSettings({ components });
   }
 
 }

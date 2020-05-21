@@ -52,10 +52,10 @@
           </tbody>
         </table>
         <ng-container *ngIf="deletePermission$ | async">
-          <a href="javascript:;" (click)="openDialog(dialogDelete)" title="Delete" class="delete right icon_btn">Delete</a>
+          <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete" class="delete right icon_btn">Delete</a>
         </ng-container>
         <ng-container *ngIf="writePermission$ | async">
-          <a href="javascript:;" (click)="openDialog(dialogEdit)" title="Edit" class="edit right icon_btn">Edit</a>
+          <a href="javascript:;" (click)="openDialog(editDialog)" title="Edit" class="edit right icon_btn">Edit</a>
         </ng-container>
         <!-- <ng-container *ngIf="isIntelligenceAsset(documentModel) && deletePermission$ | async">
           <a href="javascript:;" (click)="openDialog(dialog, 'delete')" title="Delete" class="edit right icon_btn">Delete</a>
@@ -71,7 +71,7 @@
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
         <h1>{{documentModel.title}}</h1>
         <h2><a *ngIf="documentModel.parentRef && hasBrand() && !hasFilter() && hasBrandFolder()" href="javascript:void(0)" (click)="goBrandFolder();" class="">{{documentModel.get('The_Loupe_Main:brand')}}</a>
-            <ng-container *ngIf="documentModel.parentRef && hasBrand() && hasFilter() || !hasBrandFolder()">{{documentModel.get('The_Loupe_Main:brand')}}</ng-container>
+          <ng-container *ngIf="documentModel.parentRef && hasBrand() && hasFilter() || !hasBrandFolder()">{{documentModel.get('The_Loupe_Main:brand')}}</ng-container>
         </h2>
         <h4>About</h4>
         <p>{{documentModel.get('dc:description')}}</p>
@@ -156,12 +156,9 @@
   </div>
 </div>
 
-<ng-template #dialogEdit>
-  <global-document-dialog [type]="'form'" [formComponent]="getDocumentFormComponent(documentModel)"
-    [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="getFormTitle(documentModel)"
-    [redirectUrl]="editRedirectUrl"></global-document-dialog>
+<ng-template #editDialog>
+  <global-document-dialog [settings]="getDialogFormSettings(documentModel)" [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="getFormTitle(documentModel)" [redirectUrl]="editRedirectUrl"></global-document-dialog>
 </ng-template>
-<ng-template #dialogDelete>
-  <global-document-dialog [type]="'custom'" [customComponent]="customComponent" [documentModel]="documentModel"
-    [metadata]="dialogMetadata" [title]="deleteTitle" [redirectUrl]="deleteRedirectUrl"></global-document-dialog>
+<ng-template #deleteDialog>
+  <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="deleteTitle" [redirectUrl]="deleteRedirectUrl"></global-document-dialog>
 </ng-template>

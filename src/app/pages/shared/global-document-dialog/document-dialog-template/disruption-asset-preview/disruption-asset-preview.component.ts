@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { getDocumentTypes, parseCountry } from '@core/services/helpers';
+import { Observable, of as observableOf } from 'rxjs';
+import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { SearchQueryParamsService } from '../../../services/search-query-params.service';
 import { AbstractDocumentDialogPreviewTemplateComponent } from '../../abstract-document-dialog-preview-template.component';
-import { Observable, of as observableOf } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -13,6 +14,8 @@ import { NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './disruption-asset-preview.component.html',
 })
 export class DisruptionAssetPreviewDialogComponent extends AbstractDocumentDialogPreviewTemplateComponent {
+
+  static readonly NAME: string = 'disruption-asset-preview';
 
   attachments: { type: string, url: string, title: string }[] = [];
 
@@ -31,8 +34,8 @@ export class DisruptionAssetPreviewDialogComponent extends AbstractDocumentDialo
     if (doc) {
       this.document = doc;
       this.attachments = this.document.getAttachmentList();
-      this.writePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Write, this.getSettings().enableEdit);
-      this.deletePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Delete, this.getSettings().enableDeletion);
+      this.writePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Write, this.getDialogSettings().enableEdit);
+      this.deletePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Delete, this.getDialogSettings().enableDeletion);
     }
   }
 
@@ -43,6 +46,16 @@ export class DisruptionAssetPreviewDialogComponent extends AbstractDocumentDialo
       enablePreview: false,
       enableDeletion: false,
     };
+  }
+
+  getDialogTemplateName(doc: DocumentModel): string {
+    let name: string = '';
+    if (doc.type === 'App-Disruption-Roadmap-Asset') {
+      name = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM.NAME;
+    } else if (doc.type === 'App-Disruption-Theory-Asset') {
+      name = GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM.NAME;
+    }
+    return name;
   }
 
   isDisruptionAsset(doc: DocumentModel): boolean {
