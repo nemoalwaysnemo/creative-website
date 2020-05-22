@@ -11,7 +11,6 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   PLATFORM_ID,
-  HostListener,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, Subscription, fromEvent } from 'rxjs';
@@ -81,14 +80,6 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   @Output() error = new EventEmitter<GalleryError>();
 
   @Output() customEvent = new EventEmitter<any>();
-
-  @HostListener('touchmove', ['$event'])
-  onTouchMove(event: TouchEvent | any): void {
-    if (event) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }
-  }
 
   /** Item zoom */
   get zoom() {
