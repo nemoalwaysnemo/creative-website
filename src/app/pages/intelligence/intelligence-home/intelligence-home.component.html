@@ -1,7 +1,5 @@
 <div class="intelligence-home-form">
-  <home-search-form [assetUrl]="'/p/intelligence/asset/'" [redirectUrl]="'/p/search/intelligence/asset/'"
-    [headline]="headline" [subHead]="subHead" [placeholder]="placeholder" [filters]="filters"
-    [defaultParams]="defaultParams">
+  <home-search-form [assetUrl]="'/p/intelligence/asset/'" [redirectUrl]="'/p/search/intelligence/asset/'" [headline]="headline" [subHead]="subHead" [settings]="searchFormSettings" [filters]="filters" [defaultParams]="defaultParams">
   </home-search-form>
 </div>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results intelligence-home">
@@ -11,8 +9,7 @@
       </h1>
     </div>
     <div class="image-holder">
-      <a [routerLink]="['/p/intelligence/folder', document.uid]"
-        [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+      <a [routerLink]="['/p/intelligence/folder', document.uid]" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
     </div>
   </div>
   <div class="clear"></div>

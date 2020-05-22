@@ -1,6 +1,6 @@
 <creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
 <div class="creative-brand-project">
-  <global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [showInput]="showInput">
+  <global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [settings]="searchFormSettings">
     <ng-container class="group-right">
       <div class="global-search-form-buttons">
         <creative-brand-form-button [parent]="target" [type]="'project'" [title]="'New Project'"></creative-brand-form-button>

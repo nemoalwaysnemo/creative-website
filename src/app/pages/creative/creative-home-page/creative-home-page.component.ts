@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { GlobalSearchFormSettings } from '@pages/shared';
 
 @Component({
   selector: 'creative-home-page',
@@ -12,8 +13,6 @@ export class CreativeHomePageComponent {
   headline: string = 'This is how we kill boring.';
 
   subHead: string = 'Our most disruptive work is all right here.';
-
-  placeholder: string = 'Search for campaigns by title, agency, brand, client...';
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
@@ -33,5 +32,10 @@ export class CreativeHomePageComponent {
     currentPageIndex: 0,
     ecm_fulltext: '',
   };
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    placeholder: 'Search for campaigns by title, agency, brand, client...',
+    enableQueryParams: false,
+  });
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentDialogService, AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentDialogService, AbstractDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,13 +12,12 @@ import { map } from 'rxjs/operators';
   templateUrl: './intelligence-home.component.html',
 })
 export class IntelligenceHomeComponent extends AbstractDocumentViewComponent implements OnInit, OnDestroy {
+
   loading: boolean = true;
 
   headline = 'All brains on deck.';
 
   subHead = 'Before we disrupt, we do our homework.';
-
-  placeholder = 'Search for marketing reports, data, research...';
 
   folders: DocumentModel[] = [];
 
@@ -35,6 +34,11 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
     // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoPageProviderParams): boolean => searchParams.hasFilter('the_loupe_main_brand_agg') }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    placeholder: 'Search for marketing reports, data, research...',
+    enableQueryParams: false,
+  });
 
   defaultParams: any = {
     pageSize: 20,

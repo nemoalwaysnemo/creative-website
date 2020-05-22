@@ -13,10 +13,6 @@ import { AbstractSearchFormComponent } from './abstract-search-form.component';
 })
 export class GlobalSearchFormComponent extends AbstractSearchFormComponent {
 
-  @Input() showInput: boolean = true;
-
-  @Input() buttonPosition: string = 'left';
-
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
@@ -31,10 +27,6 @@ export class GlobalSearchFormComponent extends AbstractSearchFormComponent {
       queryParamsService,
       googleAnalyticsService,
     );
-  }
-
-  isShowInput(): boolean {
-    return this.showInput;
   }
 
 }

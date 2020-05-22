@@ -6,6 +6,7 @@ import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters, Searc
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
+import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { DocumentModelForm } from '../../global-document-form/abstract-document-form.component';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { TabInfo } from '../document-related-info.component';
@@ -73,7 +74,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   searchMoreParams$: Subject<any> = new Subject<any>();
 
-  pageProvider: string = '';
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: true, searchGroupPosition: 'right' });
 
   pageSize: number = 8;
 
@@ -189,7 +190,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.loading = true;
       }),
     ).subscribe((res: any) => {
-      this.pageProvider = res.provider;
+      this.searchFormSettings.pageProvider = res.provider;
       this.baseParams$.next(res.params);
     });
     this.subscription.add(subscription);

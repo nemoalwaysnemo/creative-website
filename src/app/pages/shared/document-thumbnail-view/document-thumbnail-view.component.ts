@@ -11,7 +11,7 @@ import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './docu
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
     <ng-container *ngIf="documentList && documentList.length !== 0">
       <div class="s-results {{layout}}">
-        <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" class="thumbnail-view-item">
+        <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass]">
           <ng-template #itemTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
         </div>
         <div class="clear"></div>
@@ -26,6 +26,8 @@ import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './docu
 export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   documentList: DocumentModel[] = [];
+
+  sliderClass: string = '';
 
   selectableItemSettings: SelectableItemSettings;
 
@@ -66,7 +68,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   protected subscribeEvents(): void {
     this.subscription = this.thumbnailViewService.onEvent('SliderValueChanged').subscribe((e: DocumentThumbnailViewEvent) => {
-      console.log('SliderValueChanged', e);
+      this.sliderClass = e.payload.className || '';
     });
   }
 

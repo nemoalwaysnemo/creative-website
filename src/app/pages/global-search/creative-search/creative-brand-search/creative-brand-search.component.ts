@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { SearchFilterModel } from '@core/api';
+import { GlobalSearchFormSettings } from '@pages/shared';
 
 @Component({
   selector: 'creative-brand-search',
@@ -28,6 +29,8 @@ export class CreativeBrandSearchComponent {
   ];
 
   currentView: string = 'thumbnailView';
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ buttonGroupPosition: 'right' });
 
   onResultViewChanged(name: string): void {
     this.currentView = name;
