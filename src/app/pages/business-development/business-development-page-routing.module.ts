@@ -45,7 +45,6 @@ const routes: Routes = [{
       path: 'Thought Leadership/folder/:folder/asset/:id',
       component: BizDevAssetComponent,
     },
-
     {
       path: '10x',
       component: BizDevRemotePageComponent,

@@ -28,6 +28,7 @@ export enum NUXEO_PATH_INFO {
   BIZ_DEV_10X_FOLDER_PATH = '/know-edge/Business Development/10x/',
   BIZ_DEV_CASE_STUDIES_FOLDER_PATH = '/know-edge/Business Development/Case Studies/',
   BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH = '/know-edge/Business Development/Thought Leadership/',
+  INNOVATION_BASE_FOLDER_PATH = '/know-edge/Innovation',
   FRONTPAGE_BANNER_PATH = '/Creative/1. GCL Frontpage/Banners/',
 }
 
