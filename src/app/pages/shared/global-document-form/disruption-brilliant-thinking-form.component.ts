@@ -67,7 +67,7 @@ export class DisruptionBrilliantThinkingFormComponent extends AbstractDocumentFo
         label: 'Published',
         formMode: 'edit',
         placeholder: 'Published',
-        readonly: true,
+        readonly: false,
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },

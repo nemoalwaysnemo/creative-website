@@ -32,8 +32,11 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
   }
 
   inputChange(event: any) {
-    if (event.target.value === '') {
+    const date_input = event.target.value;
+    if (date_input === '') {
       this._onChange(null);
+    } else if (date_input !== this.value) {
+      this._onChange(new Date(date_input));
     }
   }
 
