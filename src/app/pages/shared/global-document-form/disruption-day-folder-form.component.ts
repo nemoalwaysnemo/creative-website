@@ -164,7 +164,7 @@ export class DisruptionDayFolderFormComponent extends AbstractDocumentFormCompon
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
+        placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
         acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
