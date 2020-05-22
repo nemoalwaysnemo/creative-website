@@ -74,7 +74,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   searchMoreParams$: Subject<any> = new Subject<any>();
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: true, searchGroupPosition: 'right' });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: true, searchGroupPosition: 'right', enableQueryParams: false });
 
   pageSize: number = 8;
 
@@ -173,19 +173,12 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.documents = [];
       }
       if (this.documents.length === 0) {
-        if (this.checkParams()) {
-          this.queryParamsService.changeQueryParams();
-        }
         this.search$.next(this.getSearchParams(info.document));
       }
 
       this.noResultText = 'No related ' + info.tabItem.name + ' found';
     });
     this.subscription.add(subscription);
-  }
-
-  private checkParams(): boolean {
-    return this.queryParamsService.getSnapshotQueryParamMap().keys.length > 0;
   }
 
   private onSearch(): void {

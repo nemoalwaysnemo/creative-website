@@ -25,9 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   private isScrollToTop(e: NavigationEnd, previousUrl: string): boolean {
-    const pre = previousUrl.includes('_agg=') || previousUrl.includes('q=');
-    const now = e.url.includes('_agg=') || e.url.includes('q=');
-    return e.url.includes('/asset/') && !now && !pre;
+    return e.url.includes('/asset/');
   }
 
   private performScrolling(): void {
