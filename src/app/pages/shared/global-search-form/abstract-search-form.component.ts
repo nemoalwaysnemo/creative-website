@@ -6,6 +6,7 @@ import { filter, debounceTime, distinctUntilChanged, switchMap, delay, map, star
 import { AdvanceSearch, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { removeUselessObject, getPathPartOfUrl } from '@core/services/helpers';
+import { GlobalSearchFormSettings } from './global-search-form.interface';
 import { GoogleAnalyticsService } from '@core/services';
 
 export class PageChangedInfo {
@@ -38,6 +39,8 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   hasAggs: boolean = false;
 
+  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
+
   searchResponse$ = new BehaviorSubject<SearchResponse>(null);
 
   protected subscription: Subscription = new Subscription();
@@ -58,15 +61,16 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected searchParams: any = {};
 
-  @Input() showQuery: boolean = true;
-
-  @Input() pageProvider: string = 'creative_website_search';
-
-  @Input() placeholder: string = 'Search for...';
-
   @Input() filters: SearchFilterModel[] = [];
 
   @Input() beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
+
+  @Input()
+  set settings(settings: GlobalSearchFormSettings) {
+    if (settings) {
+      this.formSettings = settings;
+    }
+  }
 
   @Input()
   set defaultParams(params: any) {
@@ -254,7 +258,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected changeQueryParams(type: string): void {
-    if (this.showQuery) {
+    if (this.formSettings.enableQueryParams) {
       const queryParams = Object.assign({}, this.buildQueryParams());
       this.queryParamsService.changeQueryParams(queryParams, { type: type });
     }
@@ -343,7 +347,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     const params = new NuxeoPageProviderParams(this.queryParamsService.buildSearchParams(queryParams));
     const options = new NuxeoRequestOptions({ skipAggregates: false });
     const { searchParams, opts } = this.beforeSearch.call(this, params, options);
-    return this.advanceSearch.search(this.pageProvider, searchParams, opts, extra);
+    return this.advanceSearch.search(this.formSettings.pageProvider, searchParams, opts, extra);
   }
 
   protected triggerSearch(searchParams: any = {}, event: string, defaultValue: any = {}): void {

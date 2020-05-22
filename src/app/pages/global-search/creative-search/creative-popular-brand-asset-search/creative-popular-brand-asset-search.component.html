@@ -2,7 +2,6 @@
   <div class="property-section">
     <div class="property-intro inline-top">
       <div *ngIf="document" [ngStyle]="{'background-image': 'url('+document.filePath+')'}"></div>
-      <!-- <img src="{{document?.filePath}}" /> -->
     </div>
     <div class="property-info inline-top">
       <h1>{{document?.get('dc:title')}}</h1>
@@ -10,13 +9,6 @@
         <!-- <li><b>Client:</b> {{document?.get('The_Loupe_Main:clientName')}}</li> -->
         <li><b>Agency:</b> {{document?.get('The_Loupe_Main:agency')}}</li>
       </ul>
-      <!-- <div class="button-group">
-        <button class="btn">Jobs</button>
-        <button class="btn">Campalgns</button>
-        <button class="btn">UR</button>
-        <button class="btn">Upload</button>
-        <button class="btn">Manage Library</button>
-      </div> -->
     </div>
   </div>
 </div>

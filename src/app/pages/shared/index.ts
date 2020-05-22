@@ -24,6 +24,7 @@ export * from './share-document-button/share-document-button.module';
 export * from './document-action-group/document-action-group.module';
 export * from './home-search-form/home-search-form.module';
 export * from './global-search-form/global-search-form.module';
+export * from './global-search-form/global-search-form.interface';
 export * from './global-search-filter/global-search-filter.module';
 export * from './global-search-result/global-search-result.module';
 export * from './global-document-dialog/global-document-dialog.module';

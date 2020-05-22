@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
+import { SearchQueryParamsService, AbstractDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { Subject } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -22,7 +22,7 @@ export class CreativeBrandCampaignComponent extends AbstractDocumentViewComponen
 
   filters: SearchFilterModel[] = [];
 
-  showInput: boolean = false;
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: false });
 
   constructor(
     protected advanceSearch: AdvanceSearch,

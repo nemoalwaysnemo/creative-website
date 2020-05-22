@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { GlobalSearchFormSettings } from '@pages/shared';
 
 @Component({
   selector: 'disruption-home',
@@ -23,8 +24,6 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   subHead: string = 'Find the who, what, where, when, why and how of our process.';
 
-  placeholder: string = 'Search for roadmaps, disruption days and how-tos...';
-
   assetUrlMapping: object = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
     'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder',
@@ -44,6 +43,11 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    placeholder: 'Search for roadmaps, disruption days and how-tos...',
+    enableQueryParams: false,
+  });
+
   defaultParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
@@ -51,7 +55,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
   };
 
-  folderParams: any = {
+  private folderParams: any = {
     pageSize: 50,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,

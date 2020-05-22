@@ -1,26 +1,24 @@
 <form class="global-search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
-  <div [ngClass]="buttonPosition">
-    <ng-container *ngIf="isShowInput()">
-      <div [ngClass]="['search-input', 'global-search-input', buttonPosition]">
-        <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
+  <div [ngClass]="['search-group', formSettings.searchGroupPosition]">
+    <ng-container *ngIf="formSettings.enableSearchInput">
+      <div [ngClass]="['search-input', 'global-search-input', formSettings.searchGroupPosition]">
+        <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
       </div>
     </ng-container>
 
     <ng-container *ngIf="hasFilters()">
-      <div [ngClass]="['search-filters', 'global-search-filters', buttonPosition]">
+      <div [ngClass]="['search-filters', 'global-search-filters', formSettings.searchGroupPosition]">
         <button type="button" (click)="toggleFilter()" class="advanced-filters-trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filter</button>
       </div>
     </ng-container>
   </div>
 
-  <div class="left">
-    <div class="search-filters left">
-      <ng-content select=".group-left"></ng-content>
-    </div>
+  <div class="search-filters left">
+    <ng-content select=".group-left"></ng-content>
+  </div>
 
-    <div class="button-groups right">
-      <ng-content select=".group-right"></ng-content>
-    </div>
+  <div class="button-groups right">
+    <ng-content select=".group-right"></ng-content>
   </div>
 
   <div class="clear"></div>

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch, SearchFilterModel } from '@core/api';
 import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalSearchFormSettings } from '@pages/shared/global-search-form/global-search-form.interface';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -18,7 +19,7 @@ export class CreativeAgencyShowcaseComponent extends AbstractDocumentViewCompone
 
   filters: SearchFilterModel[] = [];
 
-  showInput: boolean = false;
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: false });
 
   constructor(
     protected advanceSearch: AdvanceSearch,

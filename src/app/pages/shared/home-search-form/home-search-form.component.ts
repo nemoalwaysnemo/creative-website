@@ -5,6 +5,7 @@ import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { AbstractSearchFormComponent } from '../global-search-form/abstract-search-form.component';
+import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 
 @Component({
   selector: 'home-search-form',
@@ -40,7 +41,7 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
 
   @Input() redirectUrl: string;
 
-  @Input() showQuery: boolean = false;
+  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableQueryParams: false });
 
   constructor(
     protected router: Router,

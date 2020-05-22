@@ -1,7 +1,6 @@
 <div class="biz-dev-home-form">
-  <home-search-form [assetUrlMapping]="assetUrlMapping" [redirectUrl]="'/p/search/business-development/asset/'" [headline]="headline"
-  [extraHeadline]="extraHeadline" [subHead]="subHead" [placeholder]="placeholder" [filters]="filters"
-  [defaultParams]="defaultParams">
+  <home-search-form [assetUrlMapping]="assetUrlMapping" [redirectUrl]="'/p/search/business-development/asset/'" [headline]="headline" [extraHeadline]="extraHeadline" [subHead]="subHead" [settings]="searchFormSettings" [filters]="filters"
+    [defaultParams]="defaultParams">
   </home-search-form>
 </div>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results biz-dev-home">

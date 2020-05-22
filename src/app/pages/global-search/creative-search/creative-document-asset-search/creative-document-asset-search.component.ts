@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
-import { SearchQueryParamsService } from '@pages/shared';
+import { SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { AdvanceSearch, SearchResponse, NuxeoPagination, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -38,7 +38,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
-  private subscription: Subscription = new Subscription();
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ buttonGroupPosition: 'right' });
 
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
     if (res.action === 'afterSearch') {
@@ -48,6 +48,8 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
     }
     return observableOf(res);
   }
+
+  private subscription: Subscription = new Subscription();
 
   constructor(
     protected advanceSearch: AdvanceSearch,
