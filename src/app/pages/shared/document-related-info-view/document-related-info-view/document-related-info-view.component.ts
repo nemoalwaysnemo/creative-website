@@ -173,13 +173,19 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.documents = [];
       }
       if (this.documents.length === 0) {
-        this.queryParamsService.changeQueryParams();
+        if (this.checkParams()) {
+          this.queryParamsService.changeQueryParams();
+        }
         this.search$.next(this.getSearchParams(info.document));
       }
 
       this.noResultText = 'No related ' + info.tabItem.name + ' found';
     });
     this.subscription.add(subscription);
+  }
+
+  private checkParams(): boolean {
+    return this.queryParamsService.getSnapshotQueryParamMap().keys.length > 0;
   }
 
   private onSearch(): void {
