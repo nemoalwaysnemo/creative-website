@@ -25,6 +25,9 @@
           </ul>
         </ng-container>
         <p>{{ document.get('dc:description') }}</p>
+        <p><b>Edges: </b>{{ document.get('app_Edges:Tags_edges') }}<br>
+          <b>Spotter: </b>{{ document.get('app_Edges:Spotter') }}<br>
+          <b>Geography: </b>{{ document.get('app_Edges:Relevant_Country').join(', ') }}</p>
       </div>
     </div>
   </ng-container>
