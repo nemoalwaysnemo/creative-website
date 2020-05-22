@@ -20,12 +20,9 @@ import { GalleryThumbComponent } from './components/gallery-thumb.component';
 import { GalleryImageComponent } from './components/templates/gallery-image.component';
 import { GalleryVideoComponent } from './components/templates/gallery-video.component';
 import { GalleryIframeComponent } from './components/templates/gallery-iframe.component';
-import { RadialProgressComponent } from './components/templates/radial-progress.component';
 
 import { LazyImageDirective } from './directives/lazy-image.directive';
 import { TapClickDirective } from './directives/tap-click.directive';
-import { CachingInterceptor } from './services/cache.interceptor';
-import { RequestCache, RequestCacheWithMap } from './services/cache.service';
 
 @NgModule({
   imports: [
@@ -33,10 +30,6 @@ import { RequestCache, RequestCacheWithMap } from './services/cache.service';
     HttpClientModule,
     VgCoreModule,
     VgOverlayPlayModule,
-  ],
-  providers: [
-    { provide: RequestCache, useClass: RequestCacheWithMap },
-    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
   ],
   declarations: [
     GalleryComponent,
@@ -51,7 +44,6 @@ import { RequestCache, RequestCacheWithMap } from './services/cache.service';
     GalleryImageComponent,
     GalleryVideoComponent,
     GalleryIframeComponent,
-    RadialProgressComponent,
     LazyImageDirective,
     TapClickDirective,
   ],
