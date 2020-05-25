@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel, NuxeoPagination, NuxeoPageProviderConstants } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./disruption-asset.component.scss'],
   templateUrl: './disruption-asset.component.html',
 })
-export class DisruptionAssetComponent extends AbstractDocumentViewComponent {
+export class DisruptionAssetComponent extends GlobalDocumentViewComponent {
 
   folder: DocumentModel;
 

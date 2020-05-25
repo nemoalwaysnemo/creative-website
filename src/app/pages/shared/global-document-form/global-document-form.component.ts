@@ -9,7 +9,7 @@ export interface DocumentModelForm {
   document: DocumentModel;
 }
 
-export abstract class AbstractDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
+export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
 
   static readonly COMPONENT_TYPE: string = 'form';
 
@@ -122,6 +122,10 @@ export abstract class AbstractDocumentFormComponent implements DocumentModelForm
     return [];
   }
 
-  protected abstract getSettings(): any[];
-  protected abstract getFormLayout(): any;
+  protected getSettings(): any[] {
+    return [];
+  }
+  protected getFormLayout(): any {
+    return {};
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, ComponentFactoryResolver } from '@angular/core';
-import { AbstractDocumentDialogContainerComponent } from '../abstract-document-dialog-container.component';
+import { DocumentDialogContainerComponent } from '../document-dialog-container.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog.service';
-import { DocumentModelForm } from '../../global-document-form/abstract-document-form.component';
+import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { DocumentFormEvent } from '../../document-form/document-form.interface';
 import { timer } from 'rxjs';
@@ -11,7 +11,7 @@ import { timer } from 'rxjs';
   styleUrls: ['../document-dialog-template/global-document-dialog-template.scss'],
   templateUrl: './document-dialog-form.component.html',
 })
-export class DocumentDialogFormComponent extends AbstractDocumentDialogContainerComponent implements DocumentModelForm {
+export class DocumentDialogFormComponent extends DocumentDialogContainerComponent implements DocumentModelForm {
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

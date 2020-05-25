@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentDialogService, AbstractDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentDialogService, GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./intelligence-home.component.scss'],
   templateUrl: './intelligence-home.component.html',
 })
-export class IntelligenceHomeComponent extends AbstractDocumentViewComponent implements OnInit, OnDestroy {
+export class IntelligenceHomeComponent extends GlobalDocumentViewComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
 

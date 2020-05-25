@@ -1,9 +1,12 @@
-import { Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GlobalDocumentDialogService } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractDocumentDialogCustomTemplateComponent } from './abstract-document-dialog-custom-template.component';
+import { DocumentDialogCustomTemplateComponent } from './document-dialog-custom-template.component';
 
-export abstract class AbstractDocumentDialogPreviewTemplateComponent extends AbstractDocumentDialogCustomTemplateComponent {
+@Component({
+  template: '',
+})
+export class DocumentDialogPreviewTemplateComponent extends DocumentDialogCustomTemplateComponent {
 
   @Input()
   set metadata(metadata: any) {

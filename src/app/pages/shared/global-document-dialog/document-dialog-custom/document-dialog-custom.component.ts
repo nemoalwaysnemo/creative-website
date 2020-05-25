@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
-import { AbstractDocumentDialogContainerComponent } from '../abstract-document-dialog-container.component';
+import { DocumentDialogContainerComponent } from '../document-dialog-container.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog.service';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
@@ -8,7 +8,7 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
   styleUrls: ['./document-dialog-custom.component.scss'],
   templateUrl: './document-dialog-custom.component.html',
 })
-export class DocumentDialogCustomComponent extends AbstractDocumentDialogContainerComponent {
+export class DocumentDialogCustomComponent extends DocumentDialogContainerComponent {
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { Observable } from 'rxjs';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
@@ -10,7 +10,7 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
   selector: 'creative-asset-brand-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class CreativeAssetBrandFormComponent extends AbstractDocumentFormComponent {
+export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'creative-brand-form';
 

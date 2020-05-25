@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoEnricher, NuxeoRequestOptions } from '@core/api';
-import { SearchQueryParamsService, AbstractDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./biz-dev-case-study.component.scss'],
   templateUrl: './biz-dev-case-study.component.html',
 })
-export class BizDevCaseStudyComponent extends AbstractDocumentViewComponent implements OnInit {
+export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implements OnInit {
 
   baseParams$: Subject<any> = new Subject<any>();
 

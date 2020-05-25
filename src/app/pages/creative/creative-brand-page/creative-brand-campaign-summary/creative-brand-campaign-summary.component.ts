@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { SearchQueryParamsService, AbstractDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { Subject } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -10,7 +10,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './creative-brand-campaign-summary.component.html',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
 })
-export class CreativeBrandCampaignSummaryComponent extends AbstractDocumentViewComponent {
+export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewComponent {
 
   documents: DocumentModel[];
 

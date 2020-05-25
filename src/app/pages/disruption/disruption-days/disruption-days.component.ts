@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -12,7 +12,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
   styleUrls: ['./disruption-days.component.scss'],
   templateUrl: './disruption-days.component.html',
 })
-export class DisruptionDaysComponent extends AbstractDocumentViewComponent implements OnInit {
+export class DisruptionDaysComponent extends GlobalDocumentViewComponent implements OnInit {
 
   tabs: any[] = TAB_CONFIG;
 

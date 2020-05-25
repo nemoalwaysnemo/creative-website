@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TAB_CONFIG } from '../creative-agency-tab-config';
-import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
+import { BaseDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 import { NbToastrService } from '@core/nebular/theme';
@@ -13,7 +13,7 @@ import { DocumentFormEvent } from '@pages/shared/document-form/document-form.int
   styleUrls: ['./creative-agency-manage-list.component.scss'],
   templateUrl: './creative-agency-manage-list.component.html',
 })
-export class CreativeAgencyManageListComponent extends AbstractDocumentManageComponent {
+export class CreativeAgencyManageListComponent extends BaseDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 

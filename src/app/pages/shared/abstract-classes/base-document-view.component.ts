@@ -1,8 +1,7 @@
 import { OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Environment } from '@environment/environment';
 
-export abstract class AbstractBaseDocumentViewComponent implements OnInit, OnDestroy {
+export class BaseDocumentViewComponent implements OnInit, OnDestroy {
 
   protected subscription: Subscription = new Subscription();
 

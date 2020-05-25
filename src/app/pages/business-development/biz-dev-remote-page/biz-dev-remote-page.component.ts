@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AbstractDocumentViewComponent } from '@pages/shared/abstract-classes/abstract-document-view.component';
+import { GlobalDocumentViewComponent } from '@pages/shared/abstract-classes/global-document-view.component';
 import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { SearchQueryParamsService } from '@pages/shared';
@@ -16,7 +16,7 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
     </div>
   `,
 })
-export class BizDevRemotePageComponent extends AbstractDocumentViewComponent implements OnInit {
+export class BizDevRemotePageComponent extends GlobalDocumentViewComponent implements OnInit {
 
   iframeUrl: SafeResourceUrl;
 

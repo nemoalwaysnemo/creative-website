@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AdvanceSearch, DocumentModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel } from '@core/api';
-import { SearchQueryParamsService, AbstractDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -12,7 +12,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
   styleUrls: ['./disruption-theory.component.scss'],
   templateUrl: './disruption-theory.component.html',
 })
-export class DisruptionTheoryComponent extends AbstractDocumentViewComponent implements OnInit {
+export class DisruptionTheoryComponent extends GlobalDocumentViewComponent implements OnInit {
 
   baseParams$: Subject<any> = new Subject<any>();
 

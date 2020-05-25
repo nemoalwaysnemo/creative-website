@@ -6,7 +6,7 @@ import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters, Searc
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
-import { DocumentModelForm } from '../../global-document-form/abstract-document-form.component';
+import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { TabInfo } from '../document-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';

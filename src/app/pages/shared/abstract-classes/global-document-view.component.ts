@@ -5,10 +5,10 @@ import { isDocumentUID, parseCountry } from '@core/services/helpers';
 import { Observable } from 'rxjs';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractBaseDocumentViewComponent } from './abstract-base-document-view.component';
+import { BaseDocumentViewComponent } from './base-document-view.component';
 import { Environment } from '@environment/environment';
 
-export abstract class AbstractDocumentViewComponent extends AbstractBaseDocumentViewComponent {
+export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   document: DocumentModel;
 
@@ -50,7 +50,9 @@ export abstract class AbstractDocumentViewComponent extends AbstractBaseDocument
     this.redirectTo404();
   }
 
-  protected abstract getCurrentDocumentSearchParams(): object;
+  protected getCurrentDocumentSearchParams(): object {
+    return {};
+  }
 
   protected getCurrentDocumentRequestParams(): NuxeoRequestOptions {
     return null;

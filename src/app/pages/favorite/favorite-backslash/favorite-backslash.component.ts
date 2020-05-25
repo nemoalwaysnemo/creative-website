@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearch, UserService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
-import { AbstractFavoriteDocumentViewComponent } from '../abstract-favorite-document-view.component';
+import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
 
@@ -11,7 +11,7 @@ import { TAB_CONFIG } from '../favorite-tab-config';
   templateUrl: './favorite-backslash.component.html',
   styleUrls: ['./favorite-backslash.component.scss'],
 })
-export class FavoriteBackslashComponent extends AbstractFavoriteDocumentViewComponent {
+export class FavoriteBackslashComponent extends BaseFavoriteDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearch, SearchFilterModel } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -10,7 +10,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-brand-usage-rights.component.html',
 })
-export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewComponent {
+export class CreativeBrandUsageRightsComponent extends GlobalDocumentViewComponent {
 
   documents: DocumentModel[];
 

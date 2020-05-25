@@ -1,12 +1,12 @@
 import { AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractDocumentViewComponent } from './abstract-document-view.component';
+import { GlobalDocumentViewComponent } from './global-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, of as observableOf } from 'rxjs';
 import { share } from 'rxjs/operators';
 
-export abstract class AbstractDocumentManageComponent extends AbstractDocumentViewComponent {
+export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = [];
 
@@ -31,8 +31,12 @@ export abstract class AbstractDocumentManageComponent extends AbstractDocumentVi
     this.performForm();
   }
 
-  protected abstract getSettings(): any[];
-  protected abstract getFormLayout(): any;
+  protected getSettings(): any[] {
+    return [];
+  }
+  protected getFormLayout(): any {
+    return {};
+  }
 
   protected performForm(): void {
     this.settings = this.getSettings();
