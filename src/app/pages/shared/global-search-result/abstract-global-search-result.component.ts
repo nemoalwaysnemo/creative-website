@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
@@ -35,6 +35,8 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
 
+  @Output() onResponse = new EventEmitter<SearchResponse>();
+
   constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);
   }
@@ -53,6 +55,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
       } else {
         this.loading = false;
         this.searchParams = res.searchParams;
+        this.onResponse.emit(res);
         this.handleResponse(res);
       }
     });
