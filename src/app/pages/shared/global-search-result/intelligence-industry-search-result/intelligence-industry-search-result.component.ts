@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SearchResponse } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { AbstractSearchResultComponent } from '../abstract-search-result.component';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './intelligence-industry-search-result.component.html',
 })
-export class IntelligenceIndustrySearchResultComponent extends AbstractSearchResultComponent {
+export class IntelligenceIndustrySearchResultComponent extends BaseSearchResultComponent {
 
   @Input() folderId: string;
 

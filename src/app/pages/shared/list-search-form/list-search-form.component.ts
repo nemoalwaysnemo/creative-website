@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { GoogleAnalyticsService } from '@core/services';
 import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractSearchFormComponent } from '../global-search-form/abstract-search-form.component';
+import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 
 @Component({
@@ -12,7 +12,7 @@ import { GlobalSearchFormSettings } from '../global-search-form/global-search-fo
   templateUrl: './list-search-form.component.html',
   styleUrls: ['./list-search-form.component.scss'],
 })
-export class ListSearchFormComponent extends AbstractSearchFormComponent {
+export class ListSearchFormComponent extends BaseSearchFormComponent {
 
   documents: DocumentModel[] = [];
 

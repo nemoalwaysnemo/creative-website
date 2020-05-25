@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { ThemeModule } from '@theme/theme.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PaginationModule } from '../pagination/pagination.module';
+import { BaseSearchResultComponent } from './base-search-result.component';
+import { BaseGlobalSearchResultComponent } from './base-global-search-result.component';
 import { GlobalSearchResultComponent } from './global-search-result.component';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
@@ -38,7 +40,9 @@ import { BizDevDocumentAssetSearchResultComponent } from './biz-dev-document-ass
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
 
 const COMPONENTS = [
+  BaseSearchResultComponent,
   GlobalSearchResultComponent,
+  BaseGlobalSearchResultComponent,
   CreativeBrandAssetSearchResultComponent,
   CreativeAssetRelatedSearchResultComponent,
   CreativePopularBrandSearchResultComponent,

@@ -32,7 +32,7 @@ export class SearchParams {
 @Component({
   template: '',
 })
-export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
+export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   searchForm: FormGroup;
 
