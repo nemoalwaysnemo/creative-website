@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, Input } from '@angular/core';
+import { OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
@@ -93,6 +93,8 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
       this.searchMore(params);
     }
   }
+
+  @Output() onSearch = new EventEmitter<SearchResponse>();
 
   constructor(
     protected router: Router,
@@ -368,9 +370,10 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   protected onBeforeSearch(): void {
     const subscription = this.advanceSearch.onSearch().pipe(
-      filter(({ action }) => action === 'beforeSearch'),
-    ).subscribe((_: any) => {
+      filter((res: SearchResponse) => res.action === 'beforeSearch'),
+    ).subscribe((res: SearchResponse) => {
       this.submitted = true;
+      this.onSearch.emit(res);
     });
     this.subscription.add(subscription);
   }
