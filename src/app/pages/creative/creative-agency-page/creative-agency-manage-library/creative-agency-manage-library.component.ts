@@ -3,7 +3,7 @@ import { AdvanceSearch, DocumentModel } from '@core/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TAB_CONFIG } from '../creative-agency-tab-config';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
-import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
+import { BaseDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { NbToastrService } from '@core/nebular/theme';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 import { DocumentFormEvent } from '@pages/shared/document-form/document-form.interface';
@@ -13,7 +13,7 @@ import { DocumentFormEvent } from '@pages/shared/document-form/document-form.int
   styleUrls: ['./creative-agency-manage-library.component.scss'],
   templateUrl: './creative-agency-manage-library.component.html',
 })
-export class CreativeAgencyManageLibraryComponent extends AbstractDocumentManageComponent {
+export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 

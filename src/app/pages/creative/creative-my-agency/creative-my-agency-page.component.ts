@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -11,7 +11,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './creative-my-agency-page.component.html',
   styleUrls: ['./creative-my-agency-page.component.scss'],
 })
-export class CreativeMyAgencyPageComponent extends AbstractDocumentViewComponent {
+export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
 
   hideEmpty: boolean = false;
 

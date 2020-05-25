@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, Type, Input, ComponentRef, ViewContainerRef, ViewChild } from '@angular/core';
 import { GoogleAnalyticsService } from '@core/services/google-analytics.service';
-import { AbstractDocumentDialogContainerComponent } from './abstract-document-dialog-container.component';
+import { DocumentDialogContainerComponent } from './document-dialog-container.component';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../../shared/services/search-query-params.service';
 import { DocumentDialogFormComponent } from './document-dialog-form/document-dialog-form.component';
@@ -12,7 +12,7 @@ import { GlobalDocumentDialogSettings } from './global-document-dialog.interface
   styleUrls: ['./global-document-dialog.component.scss'],
   templateUrl: './global-document-dialog.component.html',
 })
-export class GlobalDocumentDialogComponent extends AbstractDocumentDialogContainerComponent {
+export class GlobalDocumentDialogComponent extends DocumentDialogContainerComponent {
 
   @Input()
   set settings(settings: GlobalDocumentDialogSettings) {

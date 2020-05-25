@@ -2,14 +2,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractSearchResultComponent } from './abstract-search-result.component';
+import { BaseSearchResultComponent } from './base-search-result.component';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { concatMap } from 'rxjs/operators';
 
 @Component({
   template: '',
 })
-export abstract class AbstractGlobalSearchResultComponent extends AbstractSearchResultComponent {
+export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   loading: boolean = false;
 

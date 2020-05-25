@@ -5,7 +5,7 @@ import { concatMap, map, share } from 'rxjs/operators';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes, parseCountry } from '@core/services/helpers';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { DocumentModelForm } from '../global-document-form/abstract-document-form.component';
+import { DocumentModelForm } from '../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';

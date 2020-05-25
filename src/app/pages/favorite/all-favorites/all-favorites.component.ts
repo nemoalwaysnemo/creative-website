@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearch, UserService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
-import { AbstractFavoriteDocumentViewComponent } from '../abstract-favorite-document-view.component';
+import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
 import { TAB_CONFIG } from '../favorite-tab-config';
 
 @Component({
@@ -10,7 +10,7 @@ import { TAB_CONFIG } from '../favorite-tab-config';
   templateUrl: './all-favorites.component.html',
   styleUrls: ['./all-favorites.component.scss'],
 })
-export class AllFavoritesComponent extends AbstractFavoriteDocumentViewComponent {
+export class AllFavoritesComponent extends BaseFavoriteDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
 

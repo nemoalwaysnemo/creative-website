@@ -4,14 +4,14 @@ import { TAB_CONFIG } from '../creative-agency-tab-config';
 import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute, parseCountry } from '@core/services/helpers';
 import { ACLService } from '@core/acl';
-import { AbstractBaseDocumentViewComponent } from '../../../shared/abstract-classes/abstract-base-document-view.component';
+import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 
 @Component({
   selector: 'creative-agency-info-view',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-agency-info-vew.component.html',
 })
-export class CreativeAgencyInfoViewComponent extends AbstractBaseDocumentViewComponent {
+export class CreativeAgencyInfoViewComponent extends BaseDocumentViewComponent {
 
   @Input() loading: boolean;
 

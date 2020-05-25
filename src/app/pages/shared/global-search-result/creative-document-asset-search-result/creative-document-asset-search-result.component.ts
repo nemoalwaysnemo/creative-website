@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
-import { AbstractSearchResultComponent } from '../abstract-search-result.component';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class CreativeDocumentAssetRowRenderComponent {
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-document-asset-search-result.component.html',
 })
-export class CreativeDocumentAssetSearchResultComponent extends AbstractSearchResultComponent {
+export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResultComponent {
 
   @Input()
   set selectedView(name: string) {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AdvanceSearch, NuxeoEnricher } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./creative-asset-page.component.scss'],
   templateUrl: './creative-asset-page.component.html',
 })
-export class CreativeAssetPageComponent extends AbstractDocumentViewComponent {
+export class CreativeAssetPageComponent extends GlobalDocumentViewComponent {
 
   constructor(
     protected advanceSearch: AdvanceSearch,

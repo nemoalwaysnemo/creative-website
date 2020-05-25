@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { SearchQueryParamsService } from '../../../services/search-query-params.service';
-import { AbstractDocumentDialogPreviewTemplateComponent } from '../../abstract-document-dialog-preview-template.component';
+import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearch } from '@core/api';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
@@ -10,7 +10,7 @@ import { NUXEO_PATH_INFO } from '@environment/environment';
   styleUrls: ['../global-document-dialog-template.scss', './related-backslash-asset-preview.component.scss'],
   templateUrl: './related-backslash-asset-preview.component.html',
 })
-export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumentDialogPreviewTemplateComponent {
+export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogPreviewTemplateComponent {
 
   static readonly NAME: string = 'related-backslash-asset-preview';
 

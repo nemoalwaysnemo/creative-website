@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
 import { AdvanceSearch, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -11,7 +11,7 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
   styleUrls: ['./intelligence-folder.component.scss'],
   templateUrl: './intelligence-folder.component.html',
 })
-export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
+export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
 
   documentType: string;
 

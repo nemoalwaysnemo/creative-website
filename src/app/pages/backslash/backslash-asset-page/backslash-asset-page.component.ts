@@ -2,7 +2,7 @@ import { Component, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AdvanceSearch, NuxeoEnricher } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./backslash-asset-page.component.scss'],
   templateUrl: './backslash-asset-page.component.html',
 })
-export class BackslashAssetPageComponent extends AbstractDocumentViewComponent implements AfterViewChecked, OnDestroy {
+export class BackslashAssetPageComponent extends GlobalDocumentViewComponent implements AfterViewChecked, OnDestroy {
 
   constructor(
     protected advanceSearch: AdvanceSearch,

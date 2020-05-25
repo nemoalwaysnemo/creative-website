@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AbstractSearchResultComponent } from '../abstract-search-result.component';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './biz-dev-case-study-asset-search-result.component.html',
 })
-export class BizDevCaseStudyAssetSearchResultComponent extends AbstractSearchResultComponent {
+export class BizDevCaseStudyAssetSearchResultComponent extends BaseSearchResultComponent {
 
   @Input() folderId: string;
   constructor(protected queryParamsService: SearchQueryParamsService) {

@@ -7,7 +7,7 @@ import { Params } from '@angular/router';
 @Component({
   template: '',
 })
-export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy {
+export class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   currentView: string = 'thumbnailView';
 
@@ -40,7 +40,9 @@ export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy
     return doc[this.thumbnailType];
   }
 
-  protected abstract onInit(): void;
+  protected onInit(): void {
+
+  }
 
   protected onDestroy(): void {
     this.subscription.unsubscribe();

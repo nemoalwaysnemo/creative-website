@@ -1,8 +1,12 @@
+import { Component } from '@angular/core';
 import { GlobalDocumentDialogService } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractDocumentDialogBaseTemplateComponent } from './abstract-document-dialog-base-template.component';
+import { DocumentDialogBaseTemplateComponent } from './document-dialog-base-template.component';
 
-export abstract class AbstractDocumentDialogCustomTemplateComponent extends AbstractDocumentDialogBaseTemplateComponent {
+@Component({
+  template: '',
+})
+export class DocumentDialogCustomTemplateComponent extends DocumentDialogBaseTemplateComponent {
 
   static readonly COMPONENT_TYPE: string = 'custom';
 

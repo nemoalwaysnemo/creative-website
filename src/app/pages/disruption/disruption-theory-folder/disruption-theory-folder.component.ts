@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearch, NuxeoPermission, SearchFilterModel } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -11,7 +11,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
   styleUrls: ['./disruption-theory-folder.component.scss'],
   templateUrl: './disruption-theory-folder.component.html',
 })
-export class DisruptionTheoryFolderComponent extends AbstractDocumentViewComponent {
+export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
 

@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, Input, Output, EventEmitter, Type } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, Type } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { DocumentModel } from '@core/api';
 import { map } from 'rxjs/operators';
@@ -7,7 +7,10 @@ import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-docum
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { Environment } from '@environment/environment';
 
-export abstract class AbstractDocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
+@Component({
+  template: '',
+})
+export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   document: DocumentModel;
 

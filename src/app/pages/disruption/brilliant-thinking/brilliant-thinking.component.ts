@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -11,7 +11,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
   styleUrls: ['./brilliant-thinking.component.scss'],
   templateUrl: './brilliant-thinking.component.html',
 })
-export class BrilliantThinkingComponent extends AbstractDocumentViewComponent implements OnInit {
+export class BrilliantThinkingComponent extends GlobalDocumentViewComponent implements OnInit {
 
   tabs: any[] = TAB_CONFIG;
 

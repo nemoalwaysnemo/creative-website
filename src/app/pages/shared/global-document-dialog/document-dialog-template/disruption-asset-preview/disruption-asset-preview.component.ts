@@ -5,7 +5,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { SearchQueryParamsService } from '../../../services/search-query-params.service';
-import { AbstractDocumentDialogPreviewTemplateComponent } from '../../abstract-document-dialog-preview-template.component';
+import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -13,7 +13,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
   styleUrls: ['../global-document-dialog-template.scss'],
   templateUrl: './disruption-asset-preview.component.html',
 })
-export class DisruptionAssetPreviewDialogComponent extends AbstractDocumentDialogPreviewTemplateComponent {
+export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
   static readonly NAME: string = 'disruption-asset-preview';
 
