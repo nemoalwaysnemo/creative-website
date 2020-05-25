@@ -1,9 +1,12 @@
-import { Output, EventEmitter, Input } from '@angular/core';
+import { Output, EventEmitter, Input, Component } from '@angular/core';
 
 import { Column } from '../../lib/data-set/column';
 import { DataSource } from '../../lib/data-source/data-source';
 
-export class FilterDefault {
+@Component({
+  template: '',
+})
+export class FilterDefaultComponent {
 
   @Input() column: Column;
   @Input() source: DataSource;

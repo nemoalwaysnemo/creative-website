@@ -1,5 +1,5 @@
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
-import { FilterDefault } from './filter-default';
+import { FilterDefaultComponent } from './filter-default';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -24,7 +24,7 @@ import { Subscription } from 'rxjs';
       </div>
     `,
 })
-export class FilterComponent extends FilterDefault implements OnChanges {
+export class FilterComponent extends FilterDefaultComponent implements OnChanges {
   query: string = '';
   protected dataChangedSub: Subscription;
 

@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
-
-import {FilterDefault} from './filter-default';
+import { Component, Input } from '@angular/core';
+import { FilterDefaultComponent } from './filter-default';
 
 @Component({
   selector: 'default-table-filter',
@@ -33,6 +32,6 @@ import {FilterDefault} from './filter-default';
     </ng-container>
   `,
 })
-export class DefaultFilterComponent extends FilterDefault {
+export class DefaultTableFilterComponent extends FilterDefaultComponent {
   @Input() query: string;
 }
