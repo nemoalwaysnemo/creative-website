@@ -63,7 +63,9 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_FOLDER_TYPE,
   };
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ placeholder: 'Search for anything...', enableQueryParams: false });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    placeholder: 'Search for anything...',
+  });
 
   constructor(
     private advanceSearch: AdvanceSearch) {

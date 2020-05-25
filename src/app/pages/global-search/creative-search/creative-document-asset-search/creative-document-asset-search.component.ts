@@ -38,7 +38,9 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ buttonGroupPosition: 'right' });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
     if (res.action === 'afterSearch') {

@@ -45,7 +45,6 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for roadmaps, disruption days and how-tos...',
-    enableQueryParams: false,
   });
 
   defaultParams: any = {

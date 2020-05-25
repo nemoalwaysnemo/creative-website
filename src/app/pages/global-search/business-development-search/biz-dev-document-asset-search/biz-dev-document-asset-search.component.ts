@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { SearchFilterModel } from '@core/api';
+import { GlobalSearchFormSettings } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-document-asset-search',
@@ -20,4 +21,9 @@ export class BizDevDocumentAssetSearchComponent {
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
+
 }

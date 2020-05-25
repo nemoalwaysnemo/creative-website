@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoRequestOptions, NuxeoEnricher } from '@core/api';
-import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
+import { SearchQueryParamsService, AbstractDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
@@ -22,6 +22,10 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {

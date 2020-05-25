@@ -1,9 +1,12 @@
-import { Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { SearchResponse, DocumentModel } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { Params } from '@angular/router';
 
+@Component({
+  template: '',
+})
 export abstract class AbstractSearchResultComponent implements OnInit, OnDestroy {
 
   currentView: string = 'thumbnailView';

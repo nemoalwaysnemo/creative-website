@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearch, UserService, SearchFilterModel } from '@core/api';
-import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentDialogService, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { AbstractFavoriteDocumentViewComponent } from '../abstract-favorite-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
@@ -19,6 +19,10 @@ export class FavoriteDisruptionComponent extends AbstractFavoriteDocumentViewCom
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   constructor(
     protected advanceSearch: AdvanceSearch,

@@ -6,11 +6,11 @@ import { Subject } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'creative-brand-campaign',
-  templateUrl: './creative-brand-campaign.component.html',
+  selector: 'creative-brand-campaign-summary',
+  templateUrl: './creative-brand-campaign-summary.component.html',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
 })
-export class CreativeBrandCampaignComponent extends AbstractDocumentViewComponent {
+export class CreativeBrandCampaignSummaryComponent extends AbstractDocumentViewComponent {
 
   documents: DocumentModel[];
 
@@ -22,10 +22,7 @@ export class CreativeBrandCampaignComponent extends AbstractDocumentViewComponen
 
   filters: SearchFilterModel[] = [];
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    enableSearchInput: false,
-    enableQueryParams: true,
-  });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   constructor(
     protected advanceSearch: AdvanceSearch,

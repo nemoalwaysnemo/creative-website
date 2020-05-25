@@ -35,7 +35,6 @@ export class CreativeHomePageComponent {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for campaigns by title, agency, brand, client...',
-    enableQueryParams: false,
   });
 
 }

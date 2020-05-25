@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DocumentModel, AdvanceSearch, SearchFilterModel, AggregateModel, NuxeoPageProviderParams } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { DocumentModel, AdvanceSearch, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { AbstractDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
@@ -25,6 +25,10 @@ export class CreativePopularBrandAssetSearchComponent extends AbstractDocumentVi
     new SearchFilterModel({ key: 'the_loupe_prodCredits_production_date_agg', placeholder: 'Year', filterValueFn: (bucket: any) => bucket.docCount > 0 }),
     new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { 'true': 'Yes', 'false': 'No' } }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   constructor(
     protected advanceSearch: AdvanceSearch,

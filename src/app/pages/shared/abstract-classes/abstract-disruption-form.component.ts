@@ -54,8 +54,8 @@ export abstract class AbstractDisruptionForm implements OnInit {
 
   private defaultValue() {
     const settings = this.getSettings();
-    settings.filter(setting => !!setting.default && setting.formMode !== 'edit').forEach(setting => {
-      this.parentDocument.properties[setting.id] = setting.default;
+    settings.filter(opt => !!opt.default && opt.formMode !== 'edit').forEach(opt => {
+      this.parentDocument.properties[opt.id] = opt.default;
     });
   }
 
