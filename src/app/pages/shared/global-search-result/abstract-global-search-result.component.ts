@@ -1,4 +1,4 @@
-import { Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
@@ -6,6 +6,9 @@ import { AbstractSearchResultComponent } from './abstract-search-result.componen
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { concatMap } from 'rxjs/operators';
 
+@Component({
+  template: '',
+})
 export abstract class AbstractGlobalSearchResultComponent extends AbstractSearchResultComponent {
 
   loading: boolean = false;
@@ -18,7 +21,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   totalResults: number = 0;
 
-  listViewSetting: any = {};
+  listViewOptions: any = {};
 
   paginationService: PaginationDataSource = new PaginationDataSource();
 
@@ -29,7 +32,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   @Input()
   set listViewSettings(settings: any) {
     if (settings) {
-      this.listViewSetting = settings;
+      this.listViewOptions = settings;
     }
   }
 

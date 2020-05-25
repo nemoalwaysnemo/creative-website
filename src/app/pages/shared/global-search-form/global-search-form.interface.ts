@@ -1,7 +1,7 @@
 
 export class GlobalSearchFormSettings {
 
-  enableQueryParams: boolean = true;
+  enableQueryParams: boolean = false;
 
   enableSearchInput: boolean = true;
 

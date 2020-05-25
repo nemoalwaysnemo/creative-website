@@ -7,6 +7,7 @@ import { CreativeBrandShowcaseModule } from './creative-brand-showcase/creative-
 import { CreativeBrandUsageRightsModule } from './creative-brand-usage-rights/creative-brand-usage-rights.module';
 import { CreativeBrandListManageModule } from './creative-brand-manage-list/creative-brand-manage-list.module';
 import { CreativeBrandManageLibraryModule } from './creative-brand-manage-library/creative-brand-manage-library.module';
+import { CreativeBrandCampaignSummaryModule } from './creative-brand-campaign-summary/creative-brand-campaign-summary.module';
 import { CreativeBrandCampaignModule } from './creative-brand-campaign/creative-brand-campaign.module';
 import { CreativeBrandProjectModule } from './creative-brand-project/creative-brand-project.module';
 
@@ -21,6 +22,7 @@ import { CreativeBrandProjectModule } from './creative-brand-project/creative-br
     CreativeBrandUsageRightsModule,
     CreativeBrandListManageModule,
     CreativeBrandManageLibraryModule,
+    CreativeBrandCampaignSummaryModule,
   ],
   declarations: [
     CreativeBrandPageComponent,

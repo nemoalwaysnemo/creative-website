@@ -37,7 +37,6 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for marketing reports, data, research...',
-    enableQueryParams: false,
   });
 
   defaultParams: any = {

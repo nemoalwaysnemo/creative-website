@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { SearchFilterModel } from '@core/api';
+import { GlobalSearchFormSettings } from '@pages/shared';
 
 @Component({
   selector: 'creative-agency-search',
@@ -28,5 +29,9 @@ export class CreativeAgencySearchComponent {
   ];
 
   currentView: string = 'thumbnailView';
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
 }

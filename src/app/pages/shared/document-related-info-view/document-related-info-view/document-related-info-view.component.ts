@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
@@ -74,7 +73,9 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   searchMoreParams$: Subject<any> = new Subject<any>();
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: true, searchGroupPosition: 'right', enableQueryParams: false });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    searchGroupPosition: 'right',
+  });
 
   pageSize: number = 8;
 
@@ -109,7 +110,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   constructor(
     private advanceSearch: AdvanceSearch,
     private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
   ) { }
 
   ngOnInit(): void {

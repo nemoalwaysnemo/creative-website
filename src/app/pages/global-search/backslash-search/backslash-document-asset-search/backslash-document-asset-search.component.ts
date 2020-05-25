@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
-import { SearchQueryParamsService } from '@pages/shared';
+import { SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { AdvanceSearch, SearchFilterModel } from '@core/api';
 import { Subscription } from 'rxjs';
 
@@ -33,6 +33,10 @@ export class BackslashDocumentAssetSearchComponent implements OnInit, OnDestroy 
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   private subscription: Subscription = new Subscription();
 

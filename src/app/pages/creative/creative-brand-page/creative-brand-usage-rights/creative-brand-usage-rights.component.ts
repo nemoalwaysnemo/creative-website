@@ -22,7 +22,10 @@ export class CreativeBrandUsageRightsComponent extends AbstractDocumentViewCompo
 
   filters: SearchFilterModel[] = [];
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: false });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableSearchInput: false,
+    enableQueryParams: true,
+  });
 
   constructor(
     protected advanceSearch: AdvanceSearch,

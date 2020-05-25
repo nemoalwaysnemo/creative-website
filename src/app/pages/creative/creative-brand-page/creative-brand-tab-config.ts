@@ -11,8 +11,13 @@ export const TAB_CONFIG: any[] = [
   },
   {
     title: 'Usage Rights',
-    route: '/p/creative/brand/:id/usageRights',
+    route: '/p/creative/brand/:id/usage rights',
     acl: [UserPermission.Mgt],
+  },
+  {
+    title: 'Campaigns',
+    route: '/p/creative/brand/:id/campaign summary',
+    acl: [UserPermission.Dev],
   },
   {
     title: 'Campaigns',

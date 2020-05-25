@@ -1,5 +1,5 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-<global-search-form [filters]="filters" [baseParams]="baseParams$ | async">
+<global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [settings]="searchFormSettings">
   <ng-container class="group-left">
     <div class="global-search-form-buttons d-flex" *ngIf="addChildrenPermission$ | async">
       <biz-dev-form-button [parent]="document" [type]="'case'" [title]="'New Folder'"></biz-dev-form-button>

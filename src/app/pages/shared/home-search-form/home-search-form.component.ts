@@ -21,8 +21,6 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
 
   layout: string = 'suggestion-inline';
 
-  loading: boolean = false;
-
   private preventDocHide: boolean = false;
 
   private isInitialSearch: boolean = true;
@@ -41,7 +39,7 @@ export class HomeSearchFormComponent extends AbstractSearchFormComponent {
 
   @Input() redirectUrl: string;
 
-  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableQueryParams: false });
+  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   constructor(
     protected router: Router,

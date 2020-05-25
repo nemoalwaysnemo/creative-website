@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable } from 'rxjs';
@@ -29,6 +29,9 @@ export class SearchParams {
   }
 }
 
+@Component({
+  template: '',
+})
 export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
 
   searchForm: FormGroup;
@@ -38,6 +41,8 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
   showFilter: boolean = false;
 
   hasAggs: boolean = false;
+
+  loading: boolean = false;
 
   formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
@@ -373,6 +378,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
       filter((res: SearchResponse) => res.action === 'beforeSearch'),
     ).subscribe((res: SearchResponse) => {
       this.submitted = true;
+      this.loading = true;
       this.onSearch.emit(res);
     });
     this.subscription.add(subscription);
@@ -388,6 +394,7 @@ export abstract class AbstractSearchFormComponent implements OnInit, OnDestroy {
     ).subscribe(({ searchParams, extra }) => {
       this.performFilterButton(extra.event, searchParams);
       this.submitted = false;
+      this.loading = false;
       this.hasAggs = true;
     });
     this.subscription.add(subscription);

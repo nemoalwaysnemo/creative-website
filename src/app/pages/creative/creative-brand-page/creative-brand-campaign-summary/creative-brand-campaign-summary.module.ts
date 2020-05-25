@@ -1,22 +1,19 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '@pages/shared/shared.module';
-import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { ThemeModule } from '@theme/theme.module';
+import { ListSearchFormModule } from '@pages/shared';
+import { CreativeBrandCampaignSummaryComponent } from './creative-brand-campaign-summary.component';
 import { CreativeBrandInfoViewModule } from '../creative-brand-info-view/creative-brand-info-view.module';
-import { CreativeBrandCampaignComponent } from './creative-brand-campaign.component';
 import { CreativeBrandFormButtonModule } from '../creative-brand-form-button/creative-brand-form-button.module';
 
 @NgModule({
   imports: [
     ThemeModule,
-    SharedModule,
-    GlobalSearchFormModule,
-    GlobalSearchResultModule,
+    ListSearchFormModule,
     CreativeBrandInfoViewModule,
     CreativeBrandFormButtonModule,
   ],
   declarations: [
-    CreativeBrandCampaignComponent,
+    CreativeBrandCampaignSummaryComponent,
   ],
 })
-export class CreativeBrandCampaignModule { }
+export class CreativeBrandCampaignSummaryModule { }
