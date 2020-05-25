@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { DefaultFilter } from './default-filter';
+import { DefaultFilterComponent } from './default-filter';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -12,7 +12,7 @@ import { debounceTime } from 'rxjs/operators';
                 (click)="resetFilter($event)">{{column.getFilterConfig()?.resetText || 'reset'}}</a>
   `,
 })
-export class CheckboxFilterComponent extends DefaultFilter implements OnInit {
+export class CheckboxFilterComponent extends DefaultFilterComponent implements OnInit {
 
   filterActive: boolean = false;
   inputControl = new FormControl();

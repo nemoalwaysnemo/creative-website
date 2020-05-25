@@ -2,7 +2,10 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 import { Cell } from '../../../lib/data-set/cell';
 
-export class EditCellDefault {
+@Component({
+  template: '',
+})
+export class EditCellDefaultComponent {
 
   @Input() cell: Cell;
   @Input() inputClass: string = '';

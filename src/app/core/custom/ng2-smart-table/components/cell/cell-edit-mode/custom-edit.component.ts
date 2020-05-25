@@ -8,8 +8,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 
-import { EditCellDefault } from './edit-cell-default';
-import { Cell } from '../../../lib/data-set/cell';
+import { EditCellDefaultComponent } from './edit-cell-default';
 
 @Component({
   selector: 'table-cell-custom-editor',
@@ -17,10 +16,10 @@ import { Cell } from '../../../lib/data-set/cell';
     <ng-template #dynamicTarget></ng-template>
   `,
 })
-export class CustomEditComponent extends EditCellDefault implements OnChanges, OnDestroy {
+export class CustomEditComponent extends EditCellDefaultComponent implements OnChanges, OnDestroy {
 
   customComponent: any;
-  @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: any;
+  @ViewChild('dynamicTarget', { read: ViewContainerRef, static: true }) dynamicTarget: any;
 
   constructor(private resolver: ComponentFactoryResolver) {
     super();

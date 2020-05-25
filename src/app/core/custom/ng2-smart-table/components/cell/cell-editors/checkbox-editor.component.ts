@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DefaultEditor } from './default-editor';
+import { DefaultEditorComponent } from './default-editor';
 
 @Component({
   selector: 'checkbox-editor',
@@ -16,7 +16,7 @@ import { DefaultEditor } from './default-editor';
            (change)="onChange($event)">
     `,
 })
-export class CheckboxEditorComponent extends DefaultEditor {
+export class CheckboxEditorComponent extends DefaultEditorComponent {
 
   constructor() {
     super();

@@ -22,7 +22,7 @@ export class Ng2SmartTableTheadComponent implements OnChanges {
   isHideHeader: boolean;
   isHideSubHeader: boolean;
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.isHideHeader = this.grid.getSetting('hideHeader');
     this.isHideSubHeader = this.grid.getSetting('hideSubHeader');
   }
