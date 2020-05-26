@@ -1,4 +1,4 @@
-import { AdvanceSearch, DocumentModel, NuxeoPermission } from '@core/api';
+import { AdvanceSearchService, DocumentModel, NuxeoPermission } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { GlobalDocumentViewComponent } from './global-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
@@ -19,11 +19,11 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
   protected tabConfig: any[];
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
   ) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   onInit() {

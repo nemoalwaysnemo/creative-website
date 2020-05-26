@@ -1,5 +1,5 @@
 import { OnInit } from '@angular/core';
-import { DocumentModel, AdvanceSearch, UserService } from '@core/api';
+import { DocumentModel, AdvanceSearchService, UserService } from '@core/api';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -10,12 +10,12 @@ export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewCompone
   baseParams$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected userService: UserService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {

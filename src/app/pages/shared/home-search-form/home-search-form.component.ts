@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DocumentModel, AdvanceSearch, SearchResponse } from '@core/api';
-import { GoogleAnalyticsService } from '@core/services';
+import { Observable, of as observableOf } from 'rxjs';
+import { DocumentModel, SearchResponse } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
+import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 
 @Component({
   selector: 'home-search-form',
@@ -39,21 +40,21 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
 
   @Input() redirectUrl: string;
 
-  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
+  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'home-search-form',
+  });
 
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
-    protected advanceSearch: AdvanceSearch,
-    protected googleAnalyticsService: GoogleAnalyticsService,
     protected queryParamsService: SearchQueryParamsService,
+    protected globalSearchFormService: GlobalSearchFormService,
   ) {
     super(
       router,
       formBuilder,
-      advanceSearch,
       queryParamsService,
-      googleAnalyticsService,
+      globalSearchFormService,
     );
   }
 
@@ -100,12 +101,14 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
     this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
-  protected onAfterSearchEvent(res: SearchResponse): void {
-    this.results = res.response.entries;
-    const searchText = res.searchParams.ecm_fulltext;
-    const searchFilter = res.searchParams.hasFilters();
-    this.isInitialSearch = !(searchText || searchFilter);
-    this.isInitialSearch ? this.hide() : this.show();
+  protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
+    if (res.extra.source === this.formSettings.source) {
+      this.results = res.response.entries;
+      const searchText = res.searchParams.ecm_fulltext;
+      const searchFilter = res.searchParams.hasFilters();
+      this.isInitialSearch = !(searchText || searchFilter);
+      this.isInitialSearch ? this.hide() : this.show();
+    }
+    return observableOf(res);
   }
-
 }

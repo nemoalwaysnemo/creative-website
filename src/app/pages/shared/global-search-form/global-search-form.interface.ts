@@ -9,6 +9,8 @@ export class GlobalSearchFormSettings {
 
   buttonGroupPosition: string = 'left';
 
+  source: string = 'global-search-form';
+
   placeholder: string = 'Search for...';
 
   pageProvider: string = 'creative_website_search';

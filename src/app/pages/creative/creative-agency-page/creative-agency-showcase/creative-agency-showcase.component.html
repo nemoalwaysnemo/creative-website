@@ -1,5 +1,5 @@
 <creative-agency-info-view [loading]="loading" [document]="document"></creative-agency-info-view>
 <div class="creative-brand-showcase" [nbSpinner]="loading" nbSpinnerStatus="disabled">
-  <global-search-form [filters]="filters" [baseParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
+  <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
   <creative-document-asset-search-result [layout]="layout"></creative-document-asset-search-result>
 </div>

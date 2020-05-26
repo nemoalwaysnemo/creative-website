@@ -1,10 +1,32 @@
 <creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
 <div class="creative-brand-campaign-summary">
-  <list-search-form [filters]="filters" [baseParams]="baseParams$ | async" [settings]="searchFormSettings">
-    <ng-container class="group-right">
-      <div class="global-search-form-buttons">
-        <creative-brand-form-button [parent]="target" [type]="'campaign'" [title]="'New'"></creative-brand-form-button>
-      </div>
-    </ng-container>
-  </list-search-form>
+  <div class="creative-brand-campaign">
+    <list-search-form [filters]="filters" [searchParams]="baseParamsCampaign$ | async" [settings]="searchFormSettingsCampaign" [listViewSettings]="listViewSettingsCampaign" [listViewBuilder]="listViewBuilderCampaign"
+      (onSelected)="onSelectedCampaign($event)">
+      <ng-container class="group-right">
+        <div class="global-search-form-buttons">
+          <creative-brand-form-button [parent]="target" [type]="'campaign'" [title]="'New'"></creative-brand-form-button>
+        </div>
+      </ng-container>
+    </list-search-form>
+  </div>
+  <div class="creative-brand-project">
+    <list-search-form [filters]="filters" [searchParams]="baseParamsProject$ | async" [settings]="searchFormSettingsProject" [listViewSettings]="listViewSettingsProject" [listViewBuilder]="listViewBuilderProject"
+      (onSelected)="onSelectedProject($event)">
+      <ng-container class="group-right">
+        <div class="global-search-form-buttons">
+          <creative-brand-form-button [parent]="target" [type]="'project'" [title]="'New'"></creative-brand-form-button>
+        </div>
+      </ng-container>
+    </list-search-form>
+  </div>
+  <div class="creative-brand-campaign-asset">
+    <list-search-form [filters]="filters" [searchParams]="baseParamsAsset$ | async" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset">
+      <ng-container class="group-right">
+        <div class="global-search-form-buttons">
+          <creative-brand-form-button [parent]="target" [type]="'campaign'" [title]="'New'"></creative-brand-form-button>
+        </div>
+      </ng-container>
+    </list-search-form>
+  </div>
 </div>

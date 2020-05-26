@@ -21,12 +21,12 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   @Input() autoPlay: boolean;
 
-  constructor(private seekTimeService: DocumentVideoViewerService,
+  constructor(private documentVideoViewerService: DocumentVideoViewerService,
               private cookieService: CookieService,
               private activatedRoute: ActivatedRoute,
               private api: VgAPI,
   ) {
-    this.subscription = this.seekTimeService.getTimeChanged().subscribe(
+    this.subscription = this.documentVideoViewerService.getTimeChanged().subscribe(
       res => {
         this.api.currentTime = res.time;
         this.api.play();

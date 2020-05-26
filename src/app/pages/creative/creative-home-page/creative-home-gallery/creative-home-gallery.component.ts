@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
+import { NuxeoPagination, DocumentModel, AdvanceSearchService } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -28,11 +28,11 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private advanceSearch: AdvanceSearch) {
+  constructor(private advanceSearchService: AdvanceSearchService) {
   }
 
   ngOnInit(): void {
-    this.subscription = this.advanceSearch.request(this.params).subscribe((res: NuxeoPagination) => {
+    this.subscription = this.advanceSearchService.request(this.params).subscribe((res: NuxeoPagination) => {
       this.galleryItems = this.getItems(res.entries);
     });
   }

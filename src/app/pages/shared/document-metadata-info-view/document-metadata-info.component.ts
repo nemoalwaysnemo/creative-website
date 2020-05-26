@@ -8,7 +8,7 @@ import { SearchQueryParamsService } from '../services/search-query-params.servic
 import { DocumentModelForm } from '../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
+import { DocumentModel, AdvanceSearchService, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -88,7 +88,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   constructor(
-    private advanceSearch: AdvanceSearch,
+    private advanceSearchService: AdvanceSearchService,
     private nuxeoApi: NuxeoApiService,
     private userService: UserService,
     private location: Location,
@@ -188,7 +188,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   toggleJob(doc: DocumentModel) {
     if (this.jobTitle === undefined && this.hasJobValue(doc)) {
-      this.advanceSearch.request(this.getRequestParams(doc))
+      this.advanceSearchService.request(this.getRequestParams(doc))
         .subscribe((res: NuxeoPagination) => {
           this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
           this.jobLoading = false;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DocumentModel, AdvanceSearch, SearchFilterModel } from '@core/api';
+import { DocumentModel, AdvanceSearchService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -24,10 +24,10 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
   });
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   protected setCurrentDocument(doc?: DocumentModel): void {

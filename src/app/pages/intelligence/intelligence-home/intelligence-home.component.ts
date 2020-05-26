@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
+import { NuxeoPagination, AdvanceSearchService, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { GlobalDocumentDialogService, GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
@@ -62,11 +62,11 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent imple
   };
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected globalDocumentDialogService: GlobalDocumentDialogService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {
@@ -88,7 +88,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent imple
   }
 
   private search(params: {}): Observable<DocumentModel[]> {
-    return this.advanceSearch.request(new NuxeoPageProviderParams(params)).pipe(
+    return this.advanceSearchService.request(new NuxeoPageProviderParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries),
     );
   }

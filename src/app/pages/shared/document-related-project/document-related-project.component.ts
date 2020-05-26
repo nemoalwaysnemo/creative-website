@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
+import { AdvanceSearchService, NuxeoPagination, DocumentModel } from '@core/api';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -38,7 +38,7 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
     }
   }
 
-  constructor(private advanceSearch: AdvanceSearch) { }
+  constructor(private advanceSearchService: AdvanceSearchService) { }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -49,7 +49,7 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
       this.loading = true;
       this.params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
       this.params.ecm_uuid_not_eq = doc.uid;
-      const subscription = this.advanceSearch.request(this.params)
+      const subscription = this.advanceSearchService.request(this.params)
         .subscribe((res: NuxeoPagination) => {
           this.loading = false;
           this.documents = res.entries;

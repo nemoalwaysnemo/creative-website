@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
+import { AdvanceSearchService, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -19,10 +19,10 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
 
   constructor(
     private userService: UserService,
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
 
     this.searchCurrentAgency().subscribe((doc: DocumentModel) => {
       if (doc) {
