@@ -23,6 +23,10 @@ const routes: Routes = [{
       loadChildren: () => import('./intelligence/intelligence-page.module').then(m => m.IntelligencePageModule),
     },
     {
+      path: 'innovation',
+      loadChildren: () => import('./innovation/innovation-page.module').then(m => m.InnovationPageModule),
+    },
+    {
       path: 'business-development',
       loadChildren: () => import('./business-development/business-development-page.module').then(m => m.BusinessDevelopmentPageModule),
     },
