@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AdvanceSearch, DocumentModel, SearchFilterModel } from '@core/api';
+import { AdvanceSearchService, DocumentModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
 import { Subject } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -16,20 +16,103 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
 
   target: DocumentModel;
 
-  baseParams$: Subject<any> = new Subject<any>();
+  baseParamsCampaign$: Subject<any> = new Subject<any>();
+
+  baseParamsProject$: Subject<any> = new Subject<any>();
+
+  baseParamsAsset$: Subject<any> = new Subject<any>();
 
   layout: string = 'creative_brand_campaign full-width';
 
   filters: SearchFilterModel[] = [];
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
+  searchFormSettingsCampaign: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'list-search-form-campaign',
+    enableQueryParams: true,
+  });
+
+  searchFormSettingsProject: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'list-search-form-campaign-project',
+  });
+
+  searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'list-search-form-campaign-asset',
+  });
+
+  listViewSettingsCampaign: any = {
+    columns: {
+      title: {
+        title: 'Title',
+        sort: false,
+      },
+    },
+  };
+
+  listViewSettingsProject: any = {
+    columns: {
+      title: {
+        title: 'Title',
+        sort: false,
+      },
+    },
+  };
+
+  listViewSettingsAsset: any = {
+    columns: {
+      title: {
+        title: 'Title',
+        sort: false,
+      },
+    },
+  };
+
+  listViewBuilderCampaign: Function = (docs: DocumentModel[]): any => {
+    const items = [];
+    for (const doc of docs) {
+      items.push(new DocumentListViewItem({
+        uid: doc.uid,
+        title: doc.title,
+      }));
+    }
+    return items;
+  }
+
+  listViewBuilderProject: Function = (docs: DocumentModel[]): any => {
+    const items = [];
+    for (const doc of docs) {
+      items.push(new DocumentListViewItem({
+        uid: doc.uid,
+        title: doc.title,
+      }));
+    }
+    return items;
+  }
+
+  listViewBuilderAsset: Function = (docs: DocumentModel[]): any => {
+    const items = [];
+    for (const doc of docs) {
+      items.push(new DocumentListViewItem({
+        uid: doc.uid,
+        title: doc.title,
+      }));
+    }
+    return items;
+  }
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
   ) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
+  }
+
+  onSelectedCampaign(row: any): void {
+
+  }
+
+  onSelectedProject(row: any): void {
+
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -43,7 +126,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   protected setCurrentDocument(doc?: DocumentModel): void {
     this.document = doc;
     if (doc) {
-      this.baseParams$.next(this.buildCampaignParams(doc));
+      this.baseParamsCampaign$.next(this.buildCampaignParams(doc));
       this.getTargetDocumentModel({
         pageSize: 1,
         currentPageIndex: 0,
@@ -68,5 +151,6 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     }
     return params;
   }
+
 
 }

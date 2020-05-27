@@ -1,8 +1,8 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { AdvanceSearch } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { SelectableItemSettings } from '../selectable-item/selectable-item.interface';
 import { BaseGlobalSearchResultComponent } from './base-global-search-result.component';
+import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 
 @Component({
   selector: 'global-search-result',
@@ -21,8 +21,11 @@ export class GlobalSearchResultComponent extends BaseGlobalSearchResultComponent
 
   @Input() selectableSettings: SelectableItemSettings;
 
-  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, queryParamsService);
+  constructor(
+    protected queryParamsService: SearchQueryParamsService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
+    super(queryParamsService, globalSearchFormService);
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel, AdvanceSearch, UserService, SearchFilterModel } from '@core/api';
+import { DocumentModel, AdvanceSearchService, UserService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
@@ -25,12 +25,12 @@ export class FavoriteBackslashComponent extends BaseFavoriteDocumentViewComponen
   });
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected userService: UserService) {
-    super(advanceSearch, activatedRoute, queryParamsService, globalDocumentDialogService, userService);
+    super(advanceSearchService, activatedRoute, queryParamsService, globalDocumentDialogService, userService);
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {

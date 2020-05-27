@@ -2,7 +2,7 @@ import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } fro
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
+import { DocumentModel, AdvanceSearchService, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
@@ -108,7 +108,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   filters: SearchFilterModel[] = [];
 
   constructor(
-    private advanceSearch: AdvanceSearch,
+    private advanceSearchService: AdvanceSearchService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
@@ -227,7 +227,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
       this.edgeLoading = true;
-      const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
+      const subscription = this.advanceSearchService.request(params).subscribe((res: NuxeoPagination) => {
         this.edgeLoading = false;
         this.backslashEdges = res.entries;
       });

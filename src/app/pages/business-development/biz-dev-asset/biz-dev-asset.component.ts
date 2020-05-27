@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdvanceSearch, DocumentModel, NuxeoPagination } from '@core/api';
+import { AdvanceSearchService, DocumentModel, NuxeoPagination } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
@@ -39,10 +39,10 @@ export class BizDevAssetComponent extends GlobalDocumentViewComponent implements
   };
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {

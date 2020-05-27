@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { AdvanceSearch } from '@core/api';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { BaseGlobalSearchResultComponent } from '../base-global-search-result.component';
+import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
 
 @Component({
   selector: 'creative-asset-related-search-result',
@@ -14,8 +14,11 @@ export class CreativeAssetRelatedSearchResultComponent extends BaseGlobalSearchR
 
   @Input() hideEmpty: boolean = false;
 
-  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, queryParamsService);
+  constructor(
+    protected queryParamsService: SearchQueryParamsService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
+    super(queryParamsService, globalSearchFormService);
   }
 
 }

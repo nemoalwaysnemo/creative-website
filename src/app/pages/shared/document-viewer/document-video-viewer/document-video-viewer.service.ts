@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class DocumentVideoViewerService {
+
   private timePlaying = new Subject<{ time: number }>();
 
   getTimeChanged(): Observable<any> {

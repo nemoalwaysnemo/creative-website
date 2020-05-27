@@ -1,6 +1,6 @@
 import { Component, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
-import { AdvanceSearch, NuxeoEnricher } from '@core/api';
+import { AdvanceSearchService } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { filter } from 'rxjs/operators';
@@ -13,11 +13,11 @@ import { filter } from 'rxjs/operators';
 export class BackslashAssetPageComponent extends GlobalDocumentViewComponent implements AfterViewChecked, OnDestroy {
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     private router: Router) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
     this.onRouterChange();
   }
 

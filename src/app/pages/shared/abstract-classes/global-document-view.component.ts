@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
-import { DocumentModel, NuxeoPagination, AdvanceSearch, NuxeoRequestOptions } from '@core/api';
+import { DocumentModel, NuxeoPagination, AdvanceSearchService, NuxeoRequestOptions } from '@core/api';
 import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
 import { isDocumentUID, parseCountry } from '@core/services/helpers';
 import { Observable } from 'rxjs';
@@ -19,7 +19,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   protected primaryKey: string = 'id';
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
   ) {
@@ -59,7 +59,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected getDocumentModel(uid: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {
-    return this.advanceSearch.request(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }), opts);
+    return this.advanceSearchService.request(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }), opts);
   }
 
   protected getCurrentDocument(primaryKey: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
@@ -87,7 +87,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected getTargetDocumentModel(params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
-    return this.advanceSearch.request(params, opts)
+    return this.advanceSearchService.request(params, opts)
       .pipe(
         map((res: NuxeoPagination) => res.entries.shift()),
       );

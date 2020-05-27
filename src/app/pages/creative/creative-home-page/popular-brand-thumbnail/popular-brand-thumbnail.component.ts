@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearch } from '@core/api';
+import { NuxeoPagination, DocumentModel, AdvanceSearchService } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -23,10 +23,10 @@ export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
   };
 
-  constructor(private advanceSearch: AdvanceSearch) { }
+  constructor(private advanceSearchService: AdvanceSearchService) { }
 
   ngOnInit(): void {
-    this.subscription = this.advanceSearch.request(this.params)
+    this.subscription = this.advanceSearchService.request(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;
         this.loading = false;

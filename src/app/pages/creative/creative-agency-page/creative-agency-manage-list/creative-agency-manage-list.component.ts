@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AdvanceSearch, DocumentModel } from '@core/api';
+import { AdvanceSearchService, DocumentModel } from '@core/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TAB_CONFIG } from '../creative-agency-tab-config';
 import { BaseDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
@@ -23,12 +23,12 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
 
   constructor(
     private router: Router,
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     private toastrService: NbToastrService,
   ) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   changeView() {

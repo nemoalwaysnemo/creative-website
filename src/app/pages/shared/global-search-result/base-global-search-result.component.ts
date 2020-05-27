@@ -1,10 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
+import { DocumentModel, NuxeoPageProviderParams, SearchResponse } from '@core/api';
+import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { BaseSearchResultComponent } from './base-search-result.component';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, filter } from 'rxjs/operators';
 
 @Component({
   template: '',
@@ -29,6 +30,8 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   hasNextPage: boolean = false;
 
+  private searchResponse: SearchResponse;
+
   @Input()
   set listViewSettings(settings: any) {
     if (settings) {
@@ -36,11 +39,14 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     }
   }
 
-  @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
+  @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
 
   @Output() onResponse = new EventEmitter<SearchResponse>();
 
-  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
+  constructor(
+    protected queryParamsService: SearchQueryParamsService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
     super(queryParamsService);
   }
 
@@ -50,7 +56,8 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   }
 
   protected onSearch(): void {
-    const subscription = this.advanceSearch.onSearch().pipe(
+    const subscription = this.globalSearchFormService.onSearch().pipe(
+      filter((res: SearchResponse) => res.extra.source === 'global-search-form'),
       concatMap((res: SearchResponse) => this.afterSearch(res)),
     ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {
@@ -66,32 +73,27 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   }
 
   protected onPageChanged(): void {
-    const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
+    const subscription = this.paginationService.onPageChanged().subscribe((info: any) => {
       this.documents = [];
-      const currentPageIndex = pageInfo.currentPageIndex;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge');
+      this.globalSearchFormService.changePageIndex(info.currentPageIndex);
     });
     this.subscription.add(subscription);
   }
 
   onScrollDown(): void {
+    console.log(11111, this.currentView === 'thumbnailView', !this.loading, this.hasNextPage);
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
-      const pageIndex: string = this.queryParamsService.getSnapshotQueryParamMap().get('currentPageIndex');
-      const currentPageIndex: number = parseInt(pageIndex || '0', 10) + 1;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
+      const pageIndex: number = this.searchResponse.response.currentPageIndex;
+      this.globalSearchFormService.changePageIndex(pageIndex + 1);
     }
   }
 
   protected handleResponse(res: SearchResponse): void {
+    this.searchResponse = res;
     this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    if (this.queryParamsService.getSnapshotQueryParamMap().has('currentPageIndex')) {
-      this.documents = this.documents.concat(res.response.entries);
-    } else {
-      this.documents = res.response.entries;
-    }
-    const offset = res.searchParams.pageSize % 20 === 0 ? -20 : - (res.searchParams.pageSize % 20 === 0);
-    this.listDocuments = this.listViewBuilder(res.response.entries.slice(offset));
+    this.documents = res.response.entries;
+    this.listDocuments = this.listViewBuilder(res.response.entries);
   }
 }

@@ -1,6 +1,6 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { GlobalSearchFormSettings } from '@pages/shared';
@@ -62,7 +62,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private advanceSearch: AdvanceSearch) {
+    private advanceSearchService: AdvanceSearchService) {
   }
 
   ngOnInit(): void {
@@ -74,7 +74,7 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
   }
 
   private search(params: {}): void {
-    const subscription = this.advanceSearch.request(new NuxeoPageProviderParams(params))
+    const subscription = this.advanceSearchService.request(new NuxeoPageProviderParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.folders = res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title));
         this.loading = false;

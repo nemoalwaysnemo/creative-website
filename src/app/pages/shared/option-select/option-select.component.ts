@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, forwardRef, OnInit, OnDestroy }
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject, BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { OptionModel, ItemTree, OptionSettings } from './option-select.interface';
-import { AdvanceSearch, NuxeoPagination, DocumentModel } from '@core/api';
+import { AdvanceSearchService, NuxeoPagination, DocumentModel } from '@core/api';
 import { isDocumentUID } from '@core/services/helpers';
 import { map, concatMap } from 'rxjs/operators';
 
@@ -51,7 +51,7 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
 
   @Output() selected: EventEmitter<OptionModel[]> = new EventEmitter();
 
-  constructor(private advanceSearch: AdvanceSearch) {
+  constructor(private advanceSearchService: AdvanceSearchService) {
   }
 
   ngOnInit(): void {
@@ -190,7 +190,7 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   private requestTitleByUIDs(uids: string[]): Observable<any> {
-    return this.advanceSearch.requestByUIDs(uids).pipe(
+    return this.advanceSearchService.requestByUIDs(uids).pipe(
       map((res: NuxeoPagination) => {
         const mapping = [];
         res.entries.forEach((doc: DocumentModel) => { mapping[doc.uid] = doc.title; });

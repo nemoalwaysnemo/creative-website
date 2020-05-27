@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AdvanceSearch, DocumentModel, SearchFilterModel } from '@core/api';
+import { AdvanceSearchService, DocumentModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { Subject } from 'rxjs';
@@ -28,11 +28,11 @@ export class CreativeBrandCampaignComponent extends GlobalDocumentViewComponent 
   });
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
   ) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   protected getCurrentDocumentSearchParams(): any {

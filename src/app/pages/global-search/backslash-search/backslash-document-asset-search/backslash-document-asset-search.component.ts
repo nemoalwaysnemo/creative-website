@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
-import { AdvanceSearch, SearchFilterModel } from '@core/api';
+import { AdvanceSearchService, SearchFilterModel } from '@core/api';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -41,7 +41,7 @@ export class BackslashDocumentAssetSearchComponent implements OnInit, OnDestroy 
   private subscription: Subscription = new Subscription();
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected queryParamsService: SearchQueryParamsService) {
   }
 
