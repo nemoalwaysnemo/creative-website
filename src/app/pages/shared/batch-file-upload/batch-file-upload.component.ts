@@ -272,13 +272,16 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
       formModels.forEach(formModel => {
         this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
         const value = {};
-        const reg = /\.\w+$/;
-        const filename = res.fileName.replace(reg, '');
+        const filename = this.filterFileName(res.fileName);
         value[`${res.fileIdx}_title`] = filename;
         this.formGroups[res.fileIdx].patchValue(value);
         this.setFileTitle(`${res.fileIdx}_title`, filename);
       });
     }
+  }
+
+  private filterFileName(name: string): string {
+    return name.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\.\w+$/, '');
   }
 
   private fileInput(res: NuxeoUploadResponse): Object[] {
