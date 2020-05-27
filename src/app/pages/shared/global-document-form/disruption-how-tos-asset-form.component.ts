@@ -31,7 +31,8 @@ export class DisruptionHowTosAssetFormComponent extends GlobalDocumentFormCompon
         maxLength: 50,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: true,
+        required: false,
+        formMode: 'create',
         hidden: true,
         validators: {
           required: null,

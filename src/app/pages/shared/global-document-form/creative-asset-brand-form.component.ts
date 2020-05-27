@@ -24,6 +24,13 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
     return this.initializeDocument(doc, this.getDocType());
   }
 
+  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
+    if (callback.action === 'Created') {
+      callback.redirectUrl = 'p/creative/brand/:uid/asset';
+    }
+    return callback;
+  }
+
   protected getSettings(): object[] {
     return [
       new DynamicInputModel({
@@ -172,7 +179,7 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
+        placeholder: 'Drop Brand Logo here (16:9)!',
         acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
@@ -181,7 +188,7 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
+        placeholder: 'Drop Brand Logo here (16:9)!',
         acceptTypes: 'image/*',
       }),
       new DynamicBatchUploadModel<string>({
@@ -190,6 +197,7 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         formMode: 'create',
         showInputs: false,
         multiUpload: false,
+        required: true,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
@@ -197,6 +205,7 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         formMode: 'edit',
         showInputs: false,
         multiUpload: true,
+        required: true,
       }),
     ];
   }

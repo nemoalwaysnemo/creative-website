@@ -302,9 +302,12 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   setTitle(res: NuxeoUploadResponse): void {
     if (this.formMode === 'create' && !this.fileMultiUpload && !this.formGroup.value['dc:title']) {
-      const reg = /\.\w+$/;
-      const title = res.fileName.replace(reg, '');
+      const title = this.filterFileName(res.fileName);
       this.formGroup.patchValue({ 'dc:title': title });
     }
+  }
+
+  private filterFileName(name: string): string {
+    return name.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\.\w+$/, '');
   }
 }
