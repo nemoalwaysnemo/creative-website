@@ -1,6 +1,6 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { Subscription, Observable, forkJoin } from 'rxjs';
 import { TAB_CONFIG } from '../innovation-tab-config';
 import { map } from 'rxjs/operators';
@@ -66,7 +66,7 @@ export class InnovationHomeComponent implements OnInit, OnDestroy {
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ placeholder: 'Search for anything...', enableQueryParams: false });
 
   constructor(
-    private advanceSearch: AdvanceSearch) {
+    private advanceSearchService: AdvanceSearchService) {
   }
 
   ngOnInit(): void {
@@ -90,7 +90,7 @@ export class InnovationHomeComponent implements OnInit, OnDestroy {
   }
 
   private search(params: {}): Observable<DocumentModel[]> {
-    return this.advanceSearch.request(new NuxeoPageProviderParams(params)).pipe(
+    return this.advanceSearchService.request(new NuxeoPageProviderParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title))),
     );
   }
