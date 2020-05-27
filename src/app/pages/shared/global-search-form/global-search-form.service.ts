@@ -43,7 +43,7 @@ export class GlobalSearchFormService {
   }
 
   changePageIndex(currentPageIndex: number): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: {}, override: { currentPageIndex } }));
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex }, override: {} }));
   }
 
   search(searchParams: any = {}, override: any = {}): void {

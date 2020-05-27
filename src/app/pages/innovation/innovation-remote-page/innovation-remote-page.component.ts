@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AbstractDocumentViewComponent } from '@pages/shared/abstract-classes/abstract-document-view.component';
-import { AdvanceSearch, DocumentModel } from '@core/api';
+import { GlobalDocumentViewComponent } from '@pages/shared/abstract-classes/global-document-view.component';
+import { AdvanceSearchService, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
@@ -16,18 +16,18 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
     </div>
   `,
 })
-export class InnovationRemotePageComponent extends AbstractDocumentViewComponent implements OnInit {
+export class InnovationRemotePageComponent extends GlobalDocumentViewComponent implements OnInit {
 
   iframeUrl: SafeResourceUrl;
 
   loading: boolean = true;
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     private sanitizer: DomSanitizer) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {
