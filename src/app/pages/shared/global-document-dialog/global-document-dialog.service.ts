@@ -58,7 +58,7 @@ export class GlobalDocumentDialogService {
   }
 
   onEventName(name?: string): Observable<DocumentDialogEvent> {
-    return (name ? this.event.pipe(filter((e: DocumentDialogEvent) => e.name === name)) : this.event).pipe(share());
+    return this.event.pipe(filter((e: DocumentDialogEvent) => name ? e.name === name : true)).pipe(share());
   }
 
   onEventType(type: string): Observable<DocumentDialogEvent> {

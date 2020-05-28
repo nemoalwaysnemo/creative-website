@@ -48,7 +48,7 @@ export class GlobalSearchFormService {
   }
 
   search(searchParams: any = {}, metadata: any = {}): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearch', searchParams, metadata }));
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams, metadata }));
   }
 
   private googleAnalyticsTrackEvent(event: string): void {

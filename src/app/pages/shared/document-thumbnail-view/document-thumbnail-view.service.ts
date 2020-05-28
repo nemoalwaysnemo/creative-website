@@ -21,7 +21,7 @@ export class DocumentThumbnailViewService {
   }
 
   onEvent(name?: string): Observable<DocumentThumbnailViewEvent> {
-    return (name ? this.event.pipe(filter((e: DocumentThumbnailViewEvent) => e.name === name)) : this.event).pipe(share());
+    return this.event.pipe(filter((e: DocumentThumbnailViewEvent) => name ? e.name === name : true)).pipe(share());
   }
 
 }
