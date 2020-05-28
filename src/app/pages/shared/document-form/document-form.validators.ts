@@ -33,6 +33,6 @@ export function customAsyncFormGroupValidator(formGroup: FormGroup): Promise<Val
 
 export function dateFormatValidator(control: FormControl) {
   let hasError = false;
-  (control.value && (control.value === 'Invalid Date')) ? (hasError = true) : (hasError = false);
+  (control.value && (control.value.toString() === 'Invalid Date')) ? (hasError = true) : (hasError = false);
   return hasError ? {dateFormatValidator: true} : null;
 }

@@ -76,7 +76,7 @@ export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent 
         },
         errorMessages: {
           required: '{{label}} is required',
-          dateFormatValidator: 'Invalid {{label}}. Format should be MMM D, YYYY',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
       }),
       new DynamicDatepickerDirectiveModel<string>({
