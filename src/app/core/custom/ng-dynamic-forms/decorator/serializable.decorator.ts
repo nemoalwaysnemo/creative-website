@@ -18,13 +18,18 @@ export function serializable(name?: string): (target: any, key: string) => void 
 }
 
 export function getSerializables(target: any): SerializableProperty[] {
+
   const serializables = [];
+
   for (const key in target) {
+
     const metadata = Reflect.getMetadata(METADATA_KEY_SERIALIZABLE, target, key);
+
     if (metadata) {
       serializables.push(metadata);
     }
   }
+
   return serializables;
 }
 
