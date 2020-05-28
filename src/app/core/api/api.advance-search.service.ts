@@ -9,7 +9,7 @@ import { NuxeoPagination, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoApi
 export class SearchResponse {
   response: NuxeoPagination;
   readonly searchParams: NuxeoPageProviderParams;
-  readonly extra: { [key: string]: any } = {};
+  readonly metadata: { [key: string]: any } = {};
   readonly action: string;
   constructor(response: any = {}) {
     Object.assign(this, response);
@@ -35,9 +35,9 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
-  search(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), extra: { [key: string]: any } = {}): Observable<SearchResponse> {
-    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, extra, action: 'beforeSearch' })).pipe(
-      concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, extra, action: 'afterSearch' }))))),
+  search(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: { [key: string]: any } = {}): Observable<SearchResponse> {
+    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, metadata, action: 'beforeSearch' })).pipe(
+      concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, metadata, action: 'afterSearch' }))))),
       tap((res: SearchResponse) => this.entries$.next(res)),
       share(),
     );
@@ -50,7 +50,7 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
   }
 
   onSearch(source?: string): Observable<SearchResponse> {
-    return (source ? this.entries$.pipe(filter((e: SearchResponse) => e.extra.source === source)) : this.entries$).pipe(share());
+    return (source ? this.entries$.pipe(filter((e: SearchResponse) => e.metadata.source === source)) : this.entries$).pipe(share());
   }
 
   requestByUIDs(uids: string[]): Observable<NuxeoPagination> {

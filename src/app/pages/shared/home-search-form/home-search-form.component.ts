@@ -102,7 +102,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
-    if (res.extra.source === this.formSettings.source) {
+    if (res.metadata.source === this.formSettings.source) {
       this.results = res.response.entries;
       const searchText = res.searchParams.ecm_fulltext;
       const searchFilter = res.searchParams.hasFilters();

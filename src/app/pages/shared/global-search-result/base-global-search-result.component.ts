@@ -57,7 +57,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   protected onSearch(): void {
     const subscription = this.globalSearchFormService.onSearch().pipe(
-      filter((res: SearchResponse) => res.extra.source === 'global-search-form'),
+      filter((res: SearchResponse) => res.metadata.source === 'global-search-form'),
       concatMap((res: SearchResponse) => this.afterSearch(res)),
     ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {
@@ -75,16 +75,15 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((info: any) => {
       this.documents = [];
-      this.globalSearchFormService.changePageIndex(info.currentPageIndex);
+      this.globalSearchFormService.changePageIndex(info.currentPageIndex, { actionType: 'pagination' });
     });
     this.subscription.add(subscription);
   }
 
   onScrollDown(): void {
-    console.log(11111, this.currentView === 'thumbnailView', !this.loading, this.hasNextPage);
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
       const pageIndex: number = this.searchResponse.response.currentPageIndex;
-      this.globalSearchFormService.changePageIndex(pageIndex + 1);
+      this.globalSearchFormService.changePageIndex(pageIndex + 1, { actionType: 'onScrollDown' });
     }
   }
 
@@ -93,7 +92,12 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    this.documents = res.response.entries;
-    this.listDocuments = this.listViewBuilder(res.response.entries);
+    if (res.metadata.actionType === 'onScrollDown') {
+      this.documents = this.documents.concat(res.response.entries);
+    } else {
+      this.documents = res.response.entries;
+    }
+    const offset = res.searchParams.pageSize % 20 === 0 ? -20 : - (res.searchParams.pageSize % 20 === 0);
+    this.listDocuments = this.listViewBuilder(res.response.entries.slice(offset));
   }
 }

@@ -57,7 +57,7 @@ export class ListSearchFormComponent extends BaseSearchFormComponent {
   }
 
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
-    if (res.extra.source === this.formSettings.source) {
+    if (res.metadata.source === this.formSettings.source) {
       this.documents = this.listViewBuilder(res.response.entries);
     }
     return observableOf(res);

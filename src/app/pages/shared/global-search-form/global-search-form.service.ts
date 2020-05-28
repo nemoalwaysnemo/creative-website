@@ -6,6 +6,7 @@ import { GoogleAnalyticsService } from '@core/services';
 
 export class GlobalSearchFormEvent {
   [key: string]: any;
+  readonly metadata: any = {};
   readonly name: string;
 
   constructor(data: any = {}) {
@@ -25,8 +26,8 @@ export class GlobalSearchFormService {
     private googleAnalyticsService: GoogleAnalyticsService) {
   }
 
-  advanceSearch(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), extra: { [key: string]: any } = {}): Observable<SearchResponse> {
-    return this.advanceSearchService.search(provider, searchParams, opts, extra);
+  advanceSearch(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: any = {}): Observable<SearchResponse> {
+    return this.advanceSearchService.search(provider, searchParams, opts, metadata);
   }
 
   onSearch(): Observable<SearchResponse> {
@@ -42,12 +43,12 @@ export class GlobalSearchFormService {
     return this;
   }
 
-  changePageIndex(currentPageIndex: number): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex }, override: {} }));
+  changePageIndex(currentPageIndex: number, metadata: any = {}): void {
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex }, metadata }));
   }
 
-  search(searchParams: any = {}, override: any = {}): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearch', searchParams, override }));
+  search(searchParams: any = {}, metadata: any = {}): void {
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearch', searchParams, metadata }));
   }
 
   private googleAnalyticsTrackEvent(event: string): void {
