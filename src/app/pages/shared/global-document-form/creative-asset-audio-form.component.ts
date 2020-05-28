@@ -81,11 +81,28 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Production Date',
+        formMode: 'create',
         readonly: true,
         defaultValue: (new Date()),
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Production Date',
+        formMode: 'edit',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: true,
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       // #{changeableDocument.type == 'App-Library-Audio' ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({

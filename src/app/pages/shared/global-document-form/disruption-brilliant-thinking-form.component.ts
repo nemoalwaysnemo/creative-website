@@ -68,10 +68,16 @@ export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentForm
         label: 'Published',
         formMode: 'edit',
         placeholder: 'Published',
-        readonly: true,
+        readonly: false,
         required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',

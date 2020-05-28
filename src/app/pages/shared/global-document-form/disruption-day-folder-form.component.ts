@@ -72,12 +72,30 @@ export class DisruptionDayFolderFormComponent extends GlobalDocumentFormComponen
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Workshop Date',
+        formMode: 'create',
         placeholder: 'Workshop Date',
         readonly: true,
         required: true,
         defaultValue: (new Date()),
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Workshop Date',
+        formMode: 'edit',
+        placeholder: 'Workshop Date',
+        readonly: false,
+        required: true,
+        defaultValue: (new Date()),
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
@@ -164,7 +182,7 @@ export class DisruptionDayFolderFormComponent extends GlobalDocumentFormComponen
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
+        placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
         acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
