@@ -250,7 +250,6 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       this.setInputSearchParams(searchParams);
       this.setDefaultSearchParams(queryParams);
       this.onSearchParamsChanged(searchParams, 'onPageInitialized');
-      console.log(333333, searchParams);
     });
     this.subscription.add(subscription);
   }

@@ -22,6 +22,8 @@ import {
   BizDevCaseStudyAssetFormComponent,
   BizDevThoughtFolderFormComponent,
   BizDevThoughtAssetFormComponent,
+  InnovationAssetFormComponent,
+  InnovationFolderFormComponent,
 } from '../global-document-form';
 
 const COMPONENTS = [
@@ -45,6 +47,8 @@ const COMPONENTS = [
   BizDevCaseStudyAssetFormComponent,
   BizDevThoughtFolderFormComponent,
   BizDevThoughtAssetFormComponent,
+  InnovationAssetFormComponent,
+  InnovationFolderFormComponent,
 ];
 
 @NgModule({

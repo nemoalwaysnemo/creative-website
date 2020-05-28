@@ -39,6 +39,8 @@ import { BizDevThoughtLeadershipFolderAssetSearchResultComponent } from './biz-d
 import { BizDevDocumentAssetSearchResultComponent } from './biz-dev-document-asset-search-result/biz-dev-document-asset-search-result.component';
 import { InnovationAssetSearchResultComponent } from './innovation-document-asset-search-result/innovation-document-asset-search-result.component';
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
+import { InnovationAssetSearchResultComponent } from './innovation-asset-search-result/innovation-asset-search-result.component';
+import { InnovationFolderAssetSearchResultComponent } from './innovation-folder-asset-search-result/innovation-folder-asset-search-result.component';
 
 const COMPONENTS = [
   BaseSearchResultComponent,
@@ -75,6 +77,8 @@ const COMPONENTS = [
   FavoriteBackslashAssetSearchResultComponent,
   FavoriteBrandAssetSearchResultComponent,
   FavoriteDisruptionAssetSearchResultComponent,
+  InnovationAssetSearchResultComponent,
+  InnovationFolderAssetSearchResultComponent,
 ];
 
 @NgModule({

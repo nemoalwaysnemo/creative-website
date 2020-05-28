@@ -1,0 +1,10 @@
+<nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
+<global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
+  <ng-container class="group-left">
+    <div class="global-search-form-buttons d-flex">
+      <innovation-form-button [parent]="document" [type]="'folder'" [title]="'New Folder'"></innovation-form-button>
+      <innovation-form-button [parent]="document" [type]="'asset'" [title]="'New Presentation'"></innovation-form-button>
+    </div>
+  </ng-container>
+</global-search-form>
+<innovation-asset-search-result [folderId]="document?.uid"></innovation-asset-search-result>

@@ -1,7 +1,7 @@
 export const TAB_CONFIG: any[] = [
   {
     title: 'NEXT',
-    route: '/p/innovation/Next',
+    route: '/p/innovation/NEXT',
   },
   {
     title: 'Things to Steal',

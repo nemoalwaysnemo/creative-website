@@ -18,6 +18,8 @@ import { BizDevCaseStudyFolderFormComponent } from './biz-dev-case-study-folder-
 import { BizDevCaseStudyAssetFormComponent } from './biz-dev-case-study-asset-form.component';
 import { BizDevThoughtFolderFormComponent } from './biz-dev-thought-folder-form.component';
 import { BizDevThoughtAssetFormComponent } from './biz-dev-thought-asset-form.component';
+import { InnovationAssetFormComponent } from './innovation-asset-form.component';
+import { InnovationFolderFormComponent } from './innovation-folder-form.component';
 
 export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_ASSET_IMAGE_FORM: CreativeAssetImageFormComponent,
@@ -40,4 +42,6 @@ export const GLOBAL_DOCUMENT_FORM = {
   BIZ_DEV_CASE_STUDY_ASSET_FORM: BizDevCaseStudyAssetFormComponent,
   BIZ_DEV_THOUGHT_FOLDER_FORM: BizDevThoughtFolderFormComponent,
   BIZ_DEV_THOUGHT_ASSET_FORM: BizDevThoughtAssetFormComponent,
+  INNOVATION_FOLDER_FORM: InnovationFolderFormComponent,
+  INNOVATION_ASSET_FORM: InnovationAssetFormComponent,
 };
