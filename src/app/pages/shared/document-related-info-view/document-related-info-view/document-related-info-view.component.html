@@ -2,8 +2,8 @@
 <global-search-form [searchParams]="baseParams$ | async" [filters]="filters" [settings]="searchFormSettings"></global-search-form>
 <div class="clear"></div>
 <ng-container *ngIf="item.layout === 'backslash'; then backslashEdgesView"></ng-container>
-<creative-asset-related-search-result [templateRef]="thumbnailItemView"></creative-asset-related-search-result>
-<a (click)="loadMore()" class="load_more">load more...</a>
+<creative-asset-related-search-result (onResponse)="onResponse($event)" [templateRef]="thumbnailItemView"></creative-asset-related-search-result>
+<a *ngIf="nextPageAvailable" (click)="loadMore()" class="load_more">load more...</a>
 
 <ng-template #backslashEdgesView>
   <h3>\Edges</h3>

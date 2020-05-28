@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -77,6 +77,8 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     searchGroupPosition: 'right',
   });
 
+  nextPageAvailable: boolean = false;
+
   pageSize: number = 8;
 
   backslashFilters: SearchFilterModel[] = [
@@ -115,6 +117,10 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.onSearch();
     this.onChangeTab();
+  }
+
+  onResponse($even): void {
+    this.nextPageAvailable = $even.response.isNextPageAvailable;
   }
 
   ngOnDestroy(): void {
