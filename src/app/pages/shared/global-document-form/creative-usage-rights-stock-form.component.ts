@@ -145,11 +145,28 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
           new DynamicDatepickerDirectiveModel<string>({
             id: 'start_airing_date',
             label: 'Start Airing Date',
+            formMode: 'create',
             readonly: true,
             defaultValue: (new Date()),
             required: true,
             validators: { required: null },
             errorMessages: { required: '{{label}} is required' },
+          }),
+          new DynamicDatepickerDirectiveModel<string>({
+            id: 'start_airing_date',
+            label: 'Start Airing Date',
+            formMode: 'edit',
+            readonly: false,
+            defaultValue: (new Date()),
+            required: true,
+            validators: {
+              required: null,
+              dateFormatValidator: null,
+            },
+            errorMessages: {
+              required: '{{label}} is required',
+              dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+            },
           }),
           new DynamicInputModel({
             id: 'contract_duration',

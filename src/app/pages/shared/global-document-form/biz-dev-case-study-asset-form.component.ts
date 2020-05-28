@@ -50,11 +50,28 @@ export class BizDevCaseStudyAssetFormComponent extends GlobalDocumentFormCompone
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Date',
+        formMode: 'create',
         readonly: true,
         defaultValue: (new Date()),
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Date',
+        formMode: 'edit',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: true,
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',

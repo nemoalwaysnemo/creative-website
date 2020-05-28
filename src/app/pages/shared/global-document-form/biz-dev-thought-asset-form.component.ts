@@ -50,11 +50,28 @@ export class BizDevThoughtAssetFormComponent extends GlobalDocumentFormComponent
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Date',
+        formMode: 'create',
         readonly: true,
         defaultValue: (new Date()),
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Date',
+        formMode: 'edit',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: true,
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
@@ -158,8 +175,8 @@ export class BizDevThoughtAssetFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'image/*,.pdf',
+        placeholder: 'Drop Image/PDF/Video File here!',
+        acceptTypes: 'image/*,.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -167,8 +184,8 @@ export class BizDevThoughtAssetFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'image/*,.pdf',
+        placeholder: 'Drop Image/PDF/Video File here!',
+        acceptTypes: 'image/*,.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',

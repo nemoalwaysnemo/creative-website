@@ -69,9 +69,16 @@ export class DisruptionDayAssetFormComponent extends GlobalDocumentFormComponent
         formMode: 'edit',
         placeholder: 'Published',
         required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
+
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
         label: 'Agency',
