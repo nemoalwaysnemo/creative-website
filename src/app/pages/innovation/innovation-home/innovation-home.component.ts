@@ -26,18 +26,10 @@ export class InnovationHomeComponent implements OnInit, OnDestroy {
   subHead: string = 'Material to help inspire and accelerate innovation';
 
   assetUrlMapping: object = {
-    'App-Innovation-Folder': this.folderMap,
-    'App-Innovation-Asset': this.folderMap,
+    'App-Innovation-Folder': this.documentMap,
+    'App-Innovation-Asset': this.documentMap,
     '*': '/p/innovation/asset',
   };
-
-  folderMap(doc: DocumentModel) {
-    if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/NEXT')) {
-      return '/p/innovation/NEXT/';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/Things to Steal')) {
-      return '/p/innovation/Things to Steal/';
-    }
-  }
 
   folders: DocumentModel[] = [];
 
@@ -98,4 +90,16 @@ export class InnovationHomeComponent implements OnInit, OnDestroy {
     );
   }
 
+  documentMap(doc: DocumentModel): string {
+    let url;
+    if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/NEXT')) {
+      url = '/p/innovation/NEXT/folder';
+    } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/Things to Steal')) {
+      url = '/p/innovation/Things to Steal/folder';
+    }
+    if (doc.type === 'App-Innovation-Asset') {
+      url = url + '/:parentRef/asset';
+    }
+    return url;
+  }
 }
