@@ -95,8 +95,14 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
         readonly: false,
         defaultValue: (new Date()),
         required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Format should be MMM D, YYYY',
+        },
       }),
       // #{changeableDocument.type == 'App-Library-Audio' ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({

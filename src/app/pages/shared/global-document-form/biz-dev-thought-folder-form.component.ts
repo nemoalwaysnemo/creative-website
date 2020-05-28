@@ -70,8 +70,14 @@ export class BizDevThoughtFolderFormComponent extends GlobalDocumentFormComponen
         readonly: false,
         defaultValue: (new Date()),
         required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Format should be MMM D, YYYY',
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
