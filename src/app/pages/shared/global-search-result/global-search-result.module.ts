@@ -37,6 +37,7 @@ import { BizDevCaseStudyFolderAssetSearchResultComponent } from './biz-dev-case-
 import { BizDevThoughtLeadershipAssetSearchResultComponent } from './biz-dev-thought-leadership-asset-search-result/biz-dev-thought-leadership-asset-search-result.component';
 import { BizDevThoughtLeadershipFolderAssetSearchResultComponent } from './biz-dev-thought-leadership-folder-asset-search-result/biz-dev-thought-leadership-folder-asset-search-result.component';
 import { BizDevDocumentAssetSearchResultComponent } from './biz-dev-document-asset-search-result/biz-dev-document-asset-search-result.component';
+import { InnovationAssetSearchResultComponent } from './innovation-document-asset-search-result/innovation-document-asset-search-result.component';
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
 
 const COMPONENTS = [
@@ -69,6 +70,7 @@ const COMPONENTS = [
   BizDevCaseStudyFolderAssetSearchResultComponent,
   BizDevThoughtLeadershipAssetSearchResultComponent,
   BizDevThoughtLeadershipFolderAssetSearchResultComponent,
+  InnovationAssetSearchResultComponent,
   AllFavoritesAssetSearchResultComponent,
   FavoriteBackslashAssetSearchResultComponent,
   FavoriteBrandAssetSearchResultComponent,

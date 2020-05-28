@@ -26,6 +26,10 @@ const routes: Routes = [{
       path: 'business-development',
       loadChildren: () => import('./business-development-search/business-development-search.module').then(m => m.BusinessDevelopmentSearchModule),
     },
+    {
+      path: 'innovation',
+      loadChildren: () => import('./innovation-search/innovation-search.module').then(m => m.InnovationSearchModule),
+    },
   ],
 }];
 
