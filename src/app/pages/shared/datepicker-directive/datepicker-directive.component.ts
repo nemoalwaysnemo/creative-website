@@ -13,6 +13,7 @@ import { NullTemplateVisitor } from '@angular/compiler';
     multi: true,
   }],
 })
+
 export class DatepickerDirectiveComponent implements ControlValueAccessor {
   date: any = '';
   value: any = '';
@@ -36,7 +37,8 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
     if (date_input === '') {
       this._onChange(null);
     } else if (date_input !== this.value) {
-      this._onChange(new Date(date_input));
+      const validDateExp = /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) ([1-9]|[1-2][0-9]|(3)[0-1]), (?:19[7-9]\d|2\d{3})/i;
+      (validDateExp.test(date_input)) ? this._onChange(new Date(date_input)) : this._onChange(new Date(''));
     }
   }
 
@@ -45,7 +47,8 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
   }
 
   onBlur(event: any) {
-    if ((this.value && this.value.length < 1) || !this.value) this._onTouched();
+    // if ((this.value && this.value.length < 1) || !this.value) this._onTouched();
+    this._onTouched();
   }
 
   registerOnChange(fn: any): void {

@@ -7,6 +7,7 @@ import { CoreModule } from '@core/core.module';
 import { ThemeModule } from '@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DocumentFormModule } from './pages/shared/document-form/document-form.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     AppRoutingModule,
     CoreModule,
+    DocumentFormModule,
     ThemeModule.forRoot(),
   ],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn, FormControl } from '@angular/forms';
 
 export function customValidator(control: AbstractControl): ValidationErrors | null {
   const hasError = control.value ? (control.value as string).startsWith('abc') : false;
@@ -29,4 +29,10 @@ export function customAsyncFormGroupValidator(formGroup: FormGroup): Promise<Val
     console.log('async validation');
     resolve(null);
   });
+}
+
+export function dateFormatValidator(control: FormControl) {
+  let hasError = false;
+  (control.value && (control.value === 'Invalid Date')) ? (hasError = true) : (hasError = false);
+  return hasError ? {dateFormatValidator: true} : null;
 }
