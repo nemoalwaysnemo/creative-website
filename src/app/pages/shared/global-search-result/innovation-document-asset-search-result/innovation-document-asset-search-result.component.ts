@@ -7,7 +7,7 @@ import { DocumentModel } from '@core/api';
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './innovation-document-asset-search-result.component.html',
 })
-export class InnovationAssetSearchResultComponent {
+export class InnovationDocumentAssetSearchResultComponent {
 
   getAssetUrl(doc: DocumentModel): string {
     let url;
