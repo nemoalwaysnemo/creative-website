@@ -1,0 +1,17 @@
+<global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch"></global-search-result>
+<ng-template #thumbnailView let-doc="doc">
+  <div class="image-holder">
+    <ng-container *ngIf="doc.type == 'App-Innovation-Folder' && !isParentFolder(doc)">
+      <a [routerLink]="[folderUrl, doc.uid]" [queryParams]="queryParams"
+        [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+    </ng-container>
+    <ng-container *ngIf="doc.type == 'App-Innnovation-Asset'">
+      <a [routerLink]="[folderUrl + folderId +'/asset/', doc.uid]" [queryParams]="queryParams"
+        [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+    </ng-container>
+  </div>
+  <div class="description">
+    <h1 [title]="doc.title"><a [routerLink]="[folderUrl, doc.uid]"
+        [queryParams]="queryParams">{{doc.title}}</a></h1>
+  </div>
+</ng-template>
