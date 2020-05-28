@@ -92,7 +92,12 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   private matchAssetUrl(doc: DocumentModel): string {
-    let url = this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    let url = '';
+    if (this.assetUrlMapping[doc.type] instanceof Function) {
+      url = this.assetUrlMapping[doc.type].call(this, doc);
+    } else {
+      url = this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    }
     url = url.replace(':parentRef', doc.parentRef);
     return url;
   }
