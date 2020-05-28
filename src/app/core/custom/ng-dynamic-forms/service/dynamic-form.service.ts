@@ -234,6 +234,7 @@ export class DynamicFormService {
   }
 
   removeFormArrayGroup(index: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel): void {
+
     formArray.removeAt(index);
     formArrayModel.removeGroup(index);
   }
@@ -298,18 +299,25 @@ export class DynamicFormService {
     const formModel: DynamicFormModel = [];
 
     formModelJSON.forEach((model: any) => {
+
       const layout = model.layout || null;
+
       switch (model.type) {
+
         case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
           const formArrayModel = model as DynamicFormArrayModel;
+
           if (Array.isArray(formArrayModel.groups)) {
+
             formArrayModel.groups.forEach((groupModel: DynamicFormArrayGroupModel) => {
               groupModel.group = this.fromJSON(groupModel.group) as DynamicFormModel;
             });
           }
+
           formArrayModel.groupFactory = () => {
             return this.fromJSON(formArrayModel.groupPrototype);
           };
+
           formModel.push(new DynamicFormArrayModel(model, layout));
           break;
 
@@ -346,11 +354,13 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_INPUT:
           const inputModel = model as DynamicInputModel;
+
           if (inputModel.mask !== null) {
             if (!(inputModel.mask instanceof Function)) {
               inputModel.mask = maskFromString(inputModel.mask as string);
             }
           }
+
           formModel.push(new DynamicInputModel(model, layout));
           break;
 
