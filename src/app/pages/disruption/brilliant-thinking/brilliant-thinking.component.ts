@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { AdvanceSearchService, DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'disruption-brilliant-thinking-page',
   styleUrls: ['./brilliant-thinking.component.scss'],
   templateUrl: './brilliant-thinking.component.html',
 })
-export class BrilliantThinkingComponent extends AbstractDocumentViewComponent implements OnInit {
+export class BrilliantThinkingComponent extends GlobalDocumentViewComponent implements OnInit {
 
   tabs: any[] = TAB_CONFIG;
 
@@ -30,11 +30,15 @@ export class BrilliantThinkingComponent extends AbstractDocumentViewComponent im
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
   };
 
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
+
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { Subscription, Observable, forkJoin } from 'rxjs';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { map } from 'rxjs/operators';
@@ -63,10 +63,12 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_FOLDER_TYPE,
   };
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ placeholder: 'Search for anything...', enableQueryParams: false });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    placeholder: 'Search for anything...',
+  });
 
   constructor(
-    private advanceSearch: AdvanceSearch) {
+    private advanceSearchService: AdvanceSearchService) {
   }
 
   ngOnInit(): void {
@@ -90,7 +92,7 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
   }
 
   private search(params: {}): Observable<DocumentModel[]> {
-    return this.advanceSearch.request(new NuxeoPageProviderParams(params)).pipe(
+    return this.advanceSearchService.request(new NuxeoPageProviderParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title))),
     );
   }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DocumentModel, AdvanceSearch, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { DocumentModel, AdvanceSearchService, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -10,7 +10,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-brand-asset.component.html',
 })
-export class CreativeBrandAssetComponent extends AbstractDocumentViewComponent {
+export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 
@@ -22,11 +22,15 @@ export class CreativeBrandAssetComponent extends AbstractDocumentViewComponent {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
+
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   protected setCurrentDocument(doc?: DocumentModel): void {

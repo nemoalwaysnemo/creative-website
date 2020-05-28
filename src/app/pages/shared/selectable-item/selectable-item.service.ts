@@ -30,7 +30,7 @@ export class SelectableItemService {
   }
 
   onEvent(dataType?: string): Observable<SelectableItemEvent> {
-    return (dataType ? this.event.pipe(filter((e: SelectableItemEvent) => e.type === dataType)) : this.event).pipe(share());
+    return this.event.pipe(filter((e: SelectableItemEvent) => dataType ? e.type === dataType : true)).pipe(share());
   }
 
   change(event: SelectableItemEvent): void {

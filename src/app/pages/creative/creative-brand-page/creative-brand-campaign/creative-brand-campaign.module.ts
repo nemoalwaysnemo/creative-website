@@ -12,8 +12,8 @@ import { CreativeBrandFormButtonModule } from '../creative-brand-form-button/cre
     SharedModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
-    CreativeBrandFormButtonModule,
     CreativeBrandInfoViewModule,
+    CreativeBrandFormButtonModule,
   ],
   declarations: [
     CreativeBrandCampaignComponent,

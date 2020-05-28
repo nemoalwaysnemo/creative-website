@@ -1,21 +1,21 @@
 import { OnInit } from '@angular/core';
-import { DocumentModel, AdvanceSearch, UserService } from '@core/api';
+import { DocumentModel, AdvanceSearchService, UserService } from '@core/api';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalDocumentDialogService, SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
+import { GlobalDocumentDialogService, SearchQueryParamsService, GlobalDocumentViewComponent } from '@pages/shared';
 
-export abstract class AbstractFavoriteDocumentViewComponent extends AbstractDocumentViewComponent implements OnInit {
+export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewComponent implements OnInit {
 
   baseParams$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected userService: UserService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {
@@ -42,6 +42,8 @@ export abstract class AbstractFavoriteDocumentViewComponent extends AbstractDocu
     );
   }
 
-  protected abstract buildAssetsParams(doc: DocumentModel): object;
+  protected buildAssetsParams(doc: DocumentModel): object {
+    return {};
+  }
 
 }

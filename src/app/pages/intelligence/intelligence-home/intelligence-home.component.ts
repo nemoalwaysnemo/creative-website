@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
-import { NuxeoPagination, AdvanceSearch, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
+import { NuxeoPagination, AdvanceSearchService, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentDialogService, AbstractDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentDialogService, GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./intelligence-home.component.scss'],
   templateUrl: './intelligence-home.component.html',
 })
-export class IntelligenceHomeComponent extends AbstractDocumentViewComponent implements OnInit, OnDestroy {
+export class IntelligenceHomeComponent extends GlobalDocumentViewComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
 
@@ -37,7 +37,6 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for marketing reports, data, research...',
-    enableQueryParams: false,
   });
 
   defaultParams: any = {
@@ -63,11 +62,11 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
   };
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected globalDocumentDialogService: GlobalDocumentDialogService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {
@@ -89,7 +88,7 @@ export class IntelligenceHomeComponent extends AbstractDocumentViewComponent imp
   }
 
   private search(params: {}): Observable<DocumentModel[]> {
-    return this.advanceSearch.request(new NuxeoPageProviderParams(params)).pipe(
+    return this.advanceSearchService.request(new NuxeoPageProviderParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries),
     );
   }

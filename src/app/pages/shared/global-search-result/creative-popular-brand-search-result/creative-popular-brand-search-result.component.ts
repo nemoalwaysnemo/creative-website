@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { AbstractSearchResultComponent } from '../abstract-search-result.component';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
@@ -16,7 +16,7 @@ export class CreativePopularBrandRowRenderComponent {
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-popular-brand-search-result.component.html',
 })
-export class CreativePopularBrandSearchResultComponent extends AbstractSearchResultComponent {
+export class CreativePopularBrandSearchResultComponent extends BaseSearchResultComponent {
 
   @Input()
   set selectedView(name: string) {

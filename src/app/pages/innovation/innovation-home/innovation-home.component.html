@@ -1,0 +1,16 @@
+<div class="biz-dev-home-form">
+  <home-search-form [assetUrlMapping]="assetUrlMapping" [redirectUrl]="'/p/search/innovation/asset/'" [headline]="headline" [extraHeadline]="extraHeadline" [subHead]="subHead" [settings]="searchFormSettings" [filters]="filters"
+    [searchParams]="defaultParams">
+  </home-search-form>
+</div>
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results biz-dev-home">
+  <div *ngFor="let document of folders" class="thumbnail-view-item">
+    <div class="description">
+      <h1 [title]="document.title"><a [routerLink]="['/p/innovation', document.title]">{{document.title}}</a></h1>
+    </div>
+    <div class="image-holder">
+      <a [routerLink]="['/p/innovation', document.title]" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>

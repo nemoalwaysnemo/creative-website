@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AdvanceSearch, DocumentModel, SearchFilterModel } from '@core/api';
+import { AdvanceSearchService, DocumentModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { SearchQueryParamsService, AbstractDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { Subject } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -10,7 +10,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './creative-brand-campaign.component.html',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
 })
-export class CreativeBrandCampaignComponent extends AbstractDocumentViewComponent {
+export class CreativeBrandCampaignComponent extends GlobalDocumentViewComponent {
 
   documents: DocumentModel[];
 
@@ -22,14 +22,17 @@ export class CreativeBrandCampaignComponent extends AbstractDocumentViewComponen
 
   filters: SearchFilterModel[] = [];
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: false });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableSearchInput: false,
+    enableQueryParams: true,
+  });
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
   ) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   protected getCurrentDocumentSearchParams(): any {

@@ -31,7 +31,9 @@ export class CreativePopularBrandSearchComponent {
 
   currentView: string = 'thumbnailView';
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ buttonGroupPosition: 'right' });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   onResultViewChanged(name: string): void {
     this.currentView = name;

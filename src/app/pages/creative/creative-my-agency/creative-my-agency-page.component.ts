@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
-import { AdvanceSearch, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
+import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { AdvanceSearchService, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -11,7 +11,7 @@ import { NUXEO_META_INFO } from '@environment/environment';
   templateUrl: './creative-my-agency-page.component.html',
   styleUrls: ['./creative-my-agency-page.component.scss'],
 })
-export class CreativeMyAgencyPageComponent extends AbstractDocumentViewComponent {
+export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
 
   hideEmpty: boolean = false;
 
@@ -19,10 +19,10 @@ export class CreativeMyAgencyPageComponent extends AbstractDocumentViewComponent
 
   constructor(
     private userService: UserService,
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
 
     this.searchCurrentAgency().subscribe((doc: DocumentModel) => {
       if (doc) {

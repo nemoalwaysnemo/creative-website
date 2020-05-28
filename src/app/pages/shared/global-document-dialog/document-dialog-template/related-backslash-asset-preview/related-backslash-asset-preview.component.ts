@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { SearchQueryParamsService } from '../../../services/search-query-params.service';
-import { AbstractDocumentDialogPreviewTemplateComponent } from '../../abstract-document-dialog-preview-template.component';
-import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearch } from '@core/api';
+import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearchService } from '@core/api';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
@@ -10,7 +10,7 @@ import { NUXEO_PATH_INFO } from '@environment/environment';
   styleUrls: ['../global-document-dialog-template.scss', './related-backslash-asset-preview.component.scss'],
   templateUrl: './related-backslash-asset-preview.component.html',
 })
-export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumentDialogPreviewTemplateComponent {
+export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogPreviewTemplateComponent {
 
   static readonly NAME: string = 'related-backslash-asset-preview';
 
@@ -19,7 +19,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumen
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected queryParamsService: SearchQueryParamsService,
-    private advanceSearch: AdvanceSearch,
+    private advanceSearchService: AdvanceSearchService,
   ) {
     super(globalDocumentDialogService, queryParamsService);
   }
@@ -46,7 +46,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends AbstractDocumen
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
-      const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
+      const subscription = this.advanceSearchService.request(params).subscribe((res: NuxeoPagination) => {
         this.backslashEdges = res.entries;
       });
       this.subscription.add(subscription);

@@ -6,9 +6,6 @@ import { ACLService } from './acl.service';
   imports: [
     NgxPermissionsModule.forChild(),
   ],
-  providers: [
-    ACLService,
-  ],
   exports: [
     NgxPermissionsModule,
   ],

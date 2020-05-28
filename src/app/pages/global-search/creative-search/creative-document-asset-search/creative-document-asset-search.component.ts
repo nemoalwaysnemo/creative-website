@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
-import { AdvanceSearch, SearchResponse, NuxeoPagination, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { AdvanceSearchService, SearchResponse, NuxeoPagination, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Params } from '@angular/router';
@@ -38,11 +38,13 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ buttonGroupPosition: 'right' });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
     if (res.action === 'afterSearch') {
-      return this.advanceSearch.requestTitleByUIDs(res.response, ['The_Loupe_Main:campaign']).pipe(
+      return this.advanceSearchService.requestTitleByUIDs(res.response, ['The_Loupe_Main:campaign']).pipe(
         map((response: NuxeoPagination) => { res.response = response; return res; }),
       );
     }
@@ -52,7 +54,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected queryParamsService: SearchQueryParamsService) {
   }
 

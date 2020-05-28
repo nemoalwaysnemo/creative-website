@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 
 @Component({
   selector: 'intelligence-brands-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class IntelligenceBrandsFormComponent extends AbstractDocumentFormComponent {
+export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent {
 
   protected documentType: string = 'App-Intelligence-Brands-Folder';
 

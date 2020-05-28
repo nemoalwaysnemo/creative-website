@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, timer } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoRequestOptions, NuxeoEnricher } from '@core/api';
-import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
+import { AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoRequestOptions, NuxeoEnricher } from '@core/api';
+import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./biz-dev-thought-leadership.component.scss'],
   templateUrl: './biz-dev-thought-leadership.component.html',
 })
-export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewComponent implements OnInit {
+export class BizDevThoughtLeadershipComponent extends GlobalDocumentViewComponent implements OnInit {
 
   baseParams$: Subject<any> = new Subject<any>();
 
@@ -23,6 +23,10 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
   ];
 
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
+
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
@@ -32,10 +36,10 @@ export class BizDevThoughtLeadershipComponent extends AbstractDocumentViewCompon
 
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {

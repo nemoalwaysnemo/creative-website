@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { map } from 'rxjs/operators';
+import { AdvanceSearchService, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'disruption-page',
   styleUrls: ['./disruption-days.component.scss'],
   templateUrl: './disruption-days.component.html',
 })
-export class DisruptionDaysComponent extends AbstractDocumentViewComponent implements OnInit {
+export class DisruptionDaysComponent extends GlobalDocumentViewComponent implements OnInit {
 
   tabs: any[] = TAB_CONFIG;
 
@@ -22,6 +22,10 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
@@ -50,10 +54,10 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
   };
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {
@@ -102,7 +106,7 @@ export class DisruptionDaysComponent extends AbstractDocumentViewComponent imple
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
         ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
       };
-      return this.advanceSearch.request(new NuxeoPageProviderParams(params));
+      return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
     } else {
       return observableOf(res);
     }

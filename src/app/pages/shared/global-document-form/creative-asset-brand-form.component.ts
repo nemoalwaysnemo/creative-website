@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { Observable } from 'rxjs';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
@@ -10,7 +10,7 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
   selector: 'creative-asset-brand-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class CreativeAssetBrandFormComponent extends AbstractDocumentFormComponent {
+export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'creative-brand-form';
 
@@ -22,6 +22,13 @@ export class CreativeAssetBrandFormComponent extends AbstractDocumentFormCompone
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
+    if (callback.action === 'Created') {
+      callback.redirectUrl = 'p/creative/brand/:uid/asset';
+    }
+    return callback;
   }
 
   protected getSettings(): object[] {
@@ -172,7 +179,7 @@ export class CreativeAssetBrandFormComponent extends AbstractDocumentFormCompone
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
+        placeholder: 'Drop Brand Logo here (16:9)!',
         acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
@@ -181,7 +188,7 @@ export class CreativeAssetBrandFormComponent extends AbstractDocumentFormCompone
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
+        placeholder: 'Drop Brand Logo here (16:9)!',
         acceptTypes: 'image/*',
       }),
       new DynamicBatchUploadModel<string>({
@@ -190,6 +197,7 @@ export class CreativeAssetBrandFormComponent extends AbstractDocumentFormCompone
         formMode: 'create',
         showInputs: false,
         multiUpload: false,
+        required: true,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
@@ -197,6 +205,7 @@ export class CreativeAssetBrandFormComponent extends AbstractDocumentFormCompone
         formMode: 'edit',
         showInputs: false,
         multiUpload: true,
+        required: true,
       }),
     ];
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AdvanceSearch, DocumentModel, NuxeoPagination } from '@core/api';
+import { AdvanceSearchService, DocumentModel, NuxeoPagination } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
@@ -10,7 +10,7 @@ import { parseTabRoute } from '@core/services/helpers';
   styleUrls: ['./biz-dev-asset.component.scss'],
   templateUrl: './biz-dev-asset.component.html',
 })
-export class BizDevAssetComponent extends AbstractDocumentViewComponent implements OnInit {
+export class BizDevAssetComponent extends GlobalDocumentViewComponent implements OnInit {
 
   folder: DocumentModel;
 
@@ -39,10 +39,10 @@ export class BizDevAssetComponent extends AbstractDocumentViewComponent implemen
   };
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {

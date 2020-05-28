@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel, AdvanceSearch, NuxeoPagination } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { DocumentModel, AdvanceSearchService, NuxeoPagination } from '@core/api';
+import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -10,7 +10,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
   styleUrls: ['./disruption-theory-asset.component.scss'],
   templateUrl: './disruption-theory-asset.component.html',
 })
-export class DisruptionTheoryAssetComponent extends AbstractDocumentViewComponent implements OnInit {
+export class DisruptionTheoryAssetComponent extends GlobalDocumentViewComponent implements OnInit {
 
   folder: DocumentModel;
 
@@ -32,10 +32,10 @@ export class DisruptionTheoryAssetComponent extends AbstractDocumentViewComponen
   };
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, AdvanceSearch, NuxeoPermission, NuxeoEnricher, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
-import { AbstractDocumentViewComponent, SearchQueryParamsService, GlobalDocumentDialogService } from '@pages/shared';
+import { DocumentModel, AdvanceSearchService, NuxeoPermission, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -11,7 +11,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
   styleUrls: ['./disruption-days-folder.component.scss'],
   templateUrl: './disruption-days-folder.component.html',
 })
-export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent {
+export class DisruptionDaysFolderComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
 
@@ -24,12 +24,16 @@ export class DisruptionDaysFolderComponent extends AbstractDocumentViewComponent
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
   ];
 
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
+
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected globalDocumentDialogService: GlobalDocumentDialogService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

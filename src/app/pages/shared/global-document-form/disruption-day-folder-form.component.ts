@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
 
@@ -10,7 +10,7 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
   selector: 'disruption-day-folder-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class DisruptionDayFolderFormComponent extends AbstractDocumentFormComponent {
+export class DisruptionDayFolderFormComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'day-folder-form';
 

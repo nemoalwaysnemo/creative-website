@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
-import { AbstractSearchResultComponent } from '../abstract-search-result.component';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 import { DatePipe } from '@angular/common';
 
@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './creative-brand-campaign-search-result.component.html',
 })
-export class CreativeBrandCampaignSearchResultComponent extends AbstractSearchResultComponent {
+export class CreativeBrandCampaignSearchResultComponent extends BaseSearchResultComponent {
 
   @Input()
   set selectedView(name: string) {

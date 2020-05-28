@@ -1,10 +1,13 @@
-import { Input, Type, ComponentRef, ViewContainerRef, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
-import { AbstractDocumentDialogBaseTemplateComponent } from './abstract-document-dialog-base-template.component';
+import { Component, Input, Type, ComponentRef, ViewContainerRef, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
+import { DocumentDialogBaseTemplateComponent } from './document-dialog-base-template.component';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { Subscription } from 'rxjs';
 
-export abstract class AbstractDocumentDialogContainerComponent extends AbstractDocumentDialogBaseTemplateComponent {
+@Component({
+  template: '',
+})
+export class DocumentDialogContainerComponent extends DocumentDialogBaseTemplateComponent {
 
   @Input() component: Type<any>;
 

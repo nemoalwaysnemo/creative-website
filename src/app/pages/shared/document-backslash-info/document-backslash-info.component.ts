@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearch } from '@core/api';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearchService } from '@core/api';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -31,7 +31,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
     }
   }
 
-  constructor(private advanceSearch: AdvanceSearch) { }
+  constructor(private advanceSearchService: AdvanceSearchService) { }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -52,7 +52,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
       };
 
       this.loading = true;
-      const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
+      const subscription = this.advanceSearchService.request(params).subscribe((res: NuxeoPagination) => {
         this.loading = false;
         this.backslashEdges = res.entries;
       });

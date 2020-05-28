@@ -17,7 +17,7 @@ export class DocumentVideoStoryboardComponent implements OnInit {
 
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
 
-  constructor(private seekTime: DocumentVideoViewerService) { }
+  constructor(private documentVideoViewerService: DocumentVideoViewerService) { }
 
   ngOnInit(): void {
     const storyData = this.document.get('vid:storyboard') || [];
@@ -39,7 +39,7 @@ export class DocumentVideoStoryboardComponent implements OnInit {
   }
 
   jumpToTimeline($event: any): void {
-    this.seekTime.setTime($event);
+    this.documentVideoViewerService.setTime($event);
   }
 
   timeToMinute(time: number): string {

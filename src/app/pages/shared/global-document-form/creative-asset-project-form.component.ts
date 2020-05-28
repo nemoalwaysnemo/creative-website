@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { OptionModel } from '../option-select/option-select.interface';
 @Component({
   selector: 'creative-asset-project-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
-export class CreativeProjectFormComponent extends AbstractDocumentFormComponent {
+export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'creative-project-form';
 

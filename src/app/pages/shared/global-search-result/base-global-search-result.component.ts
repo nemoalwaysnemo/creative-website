@@ -1,12 +1,16 @@
-import { Input } from '@angular/core';
-import { DocumentModel, AdvanceSearch, NuxeoPageProviderParams, SearchResponse } from '@core/api';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DocumentModel, NuxeoPageProviderParams, SearchResponse } from '@core/api';
+import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { AbstractSearchResultComponent } from './abstract-search-result.component';
+import { BaseSearchResultComponent } from './base-search-result.component';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, filter } from 'rxjs/operators';
 
-export abstract class AbstractGlobalSearchResultComponent extends AbstractSearchResultComponent {
+@Component({
+  template: '',
+})
+export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   loading: boolean = false;
 
@@ -18,7 +22,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   totalResults: number = 0;
 
-  listViewSetting: any = {};
+  listViewOptions: any = {};
 
   paginationService: PaginationDataSource = new PaginationDataSource();
 
@@ -26,16 +30,23 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
 
   hasNextPage: boolean = false;
 
+  private searchResponse: SearchResponse;
+
   @Input()
   set listViewSettings(settings: any) {
     if (settings) {
-      this.listViewSetting = settings;
+      this.listViewOptions = settings;
     }
   }
 
-  @Input() listViewBuilder: Function = (documents: DocumentModel[]) => { };
+  @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
 
-  constructor(protected advanceSearch: AdvanceSearch, protected queryParamsService: SearchQueryParamsService) {
+  @Output() onResponse = new EventEmitter<SearchResponse>();
+
+  constructor(
+    protected queryParamsService: SearchQueryParamsService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
     super(queryParamsService);
   }
 
@@ -45,7 +56,8 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   }
 
   protected onSearch(): void {
-    const subscription = this.advanceSearch.onSearch().pipe(
+    const subscription = this.globalSearchFormService.onSearch().pipe(
+      filter((res: SearchResponse) => res.metadata.source === 'global-search-form'),
       concatMap((res: SearchResponse) => this.afterSearch(res)),
     ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {
@@ -53,6 +65,7 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
       } else {
         this.loading = false;
         this.searchParams = res.searchParams;
+        this.onResponse.emit(res);
         this.handleResponse(res);
       }
     });
@@ -60,27 +73,26 @@ export abstract class AbstractGlobalSearchResultComponent extends AbstractSearch
   }
 
   protected onPageChanged(): void {
-    const subscription = this.paginationService.onPageChanged().subscribe((pageInfo: any) => {
+    const subscription = this.paginationService.onPageChanged().subscribe((info: any) => {
       this.documents = [];
-      const currentPageIndex = pageInfo.currentPageIndex;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'pagination' }, 'merge');
+      this.globalSearchFormService.changePageIndex(info.currentPageIndex, { actionType: 'pagination' });
     });
     this.subscription.add(subscription);
   }
 
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
-      const pageIndex: string = this.queryParamsService.getSnapshotQueryParamMap().get('currentPageIndex');
-      const currentPageIndex: number = parseInt(pageIndex || '0', 10) + 1;
-      this.queryParamsService.changeQueryParams({ currentPageIndex }, { type: 'scroll' }, 'merge');
+      const pageIndex: number = this.searchResponse.response.currentPageIndex;
+      this.globalSearchFormService.changePageIndex(pageIndex + 1, { actionType: 'onScrollDown' });
     }
   }
 
   protected handleResponse(res: SearchResponse): void {
+    this.searchResponse = res;
     this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    if (this.queryParamsService.getSnapshotQueryParamMap().has('currentPageIndex')) {
+    if (res.metadata.actionType === 'onScrollDown') {
       this.documents = this.documents.concat(res.response.entries);
     } else {
       this.documents = res.response.entries;

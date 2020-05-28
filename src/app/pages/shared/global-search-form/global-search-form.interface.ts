@@ -1,13 +1,15 @@
 
 export class GlobalSearchFormSettings {
 
-  enableQueryParams: boolean = true;
+  enableQueryParams: boolean = false;
 
   enableSearchInput: boolean = true;
 
   searchGroupPosition: string = 'left';
 
   buttonGroupPosition: string = 'left';
+
+  source: string = 'global-search-form';
 
   placeholder: string = 'Search for...';
 

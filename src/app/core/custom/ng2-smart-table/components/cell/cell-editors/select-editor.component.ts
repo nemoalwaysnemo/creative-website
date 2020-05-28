@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DefaultEditor } from './default-editor';
+import { DefaultEditorComponent } from './default-editor';
 
 @Component({
   selector: 'select-editor',
@@ -20,7 +20,7 @@ import { DefaultEditor } from './default-editor';
     </select>
     `,
 })
-export class SelectEditorComponent extends DefaultEditor {
+export class SelectEditorComponent extends DefaultEditorComponent {
 
   constructor() {
     super();

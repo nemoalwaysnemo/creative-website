@@ -2,12 +2,11 @@ import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } fro
 import { FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { DocumentModel, AdvanceSearch, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentModel, AdvanceSearchService, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
-import { DocumentModelForm } from '../../global-document-form/abstract-document-form.component';
+import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { TabInfo } from '../document-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
@@ -74,7 +73,9 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   searchMoreParams$: Subject<any> = new Subject<any>();
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ enableSearchInput: true, searchGroupPosition: 'right', enableQueryParams: false });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    searchGroupPosition: 'right',
+  });
 
   pageSize: number = 8;
 
@@ -107,9 +108,8 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   filters: SearchFilterModel[] = [];
 
   constructor(
-    private advanceSearch: AdvanceSearch,
+    private advanceSearchService: AdvanceSearchService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
   ) { }
 
   ngOnInit(): void {
@@ -227,7 +227,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
       this.edgeLoading = true;
-      const subscription = this.advanceSearch.request(params).subscribe((res: NuxeoPagination) => {
+      const subscription = this.advanceSearchService.request(params).subscribe((res: NuxeoPagination) => {
         this.edgeLoading = false;
         this.backslashEdges = res.entries;
       });

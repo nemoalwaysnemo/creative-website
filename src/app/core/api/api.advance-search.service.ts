@@ -1,17 +1,56 @@
 import { Injectable } from '@angular/core';
-import { NuxeoApiService, NuxeoPageProviderParams, NuxeoPagination, AggregateModel, NuxeoRequestOptions } from './nuxeo';
-import { AbstractPageProvider } from './api.abstract-page-provider.service';
-import { of as observableOf, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of as observableOf, Subject } from 'rxjs';
+import { share, concat, map, tap, filter } from 'rxjs/operators';
 import { DocumentModel } from './nuxeo/lib';
+import { join } from '../services/helpers';
+import { AbstractBaseSearchService } from './api.abstract-base-search.service';
+import { NuxeoPagination, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
+
+export class SearchResponse {
+  response: NuxeoPagination;
+  readonly searchParams: NuxeoPageProviderParams;
+  readonly metadata: { [key: string]: any } = {};
+  readonly action: string;
+  constructor(response: any = {}) {
+    Object.assign(this, response);
+  }
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class AdvanceSearch extends AbstractPageProvider {
+export class AdvanceSearchService extends AbstractBaseSearchService {
+
+  protected endPoint: string = 'search';
+
+  protected provider: string = 'creative_website_search';
+
+  protected entries$ = new Subject<SearchResponse>();
 
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
+  }
+
+  protected getRequestUrl(provider?: string): string {
+    return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
+  }
+
+  search(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: { [key: string]: any } = {}): Observable<SearchResponse> {
+    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, metadata, action: 'beforeSearch' })).pipe(
+      concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, metadata, action: 'afterSearch' }))))),
+      tap((res: SearchResponse) => this.entries$.next(res)),
+      share(),
+    );
+  }
+
+  request(searchParams?: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider: string = this.provider): Observable<NuxeoPagination> {
+    const params = this.getRequestParams(searchParams);
+    const options = this.getRequestOptions(opts);
+    return this.execute(this.getRequestUrl(provider), params, options);
+  }
+
+  onSearch(source?: string): Observable<SearchResponse> {
+    return (source ? this.entries$.pipe(filter((e: SearchResponse) => e.metadata.source === source)) : this.entries$).pipe(share());
   }
 
   requestByUIDs(uids: string[]): Observable<NuxeoPagination> {
@@ -60,4 +99,9 @@ export class AdvanceSearch extends AbstractPageProvider {
     }
     return observableOf(res);
   }
+
+  protected execute(url: string, queryParams: any = {}, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
+    return this.nuxeoApi.pageProvider(url, queryParams, opts);
+  }
+
 }

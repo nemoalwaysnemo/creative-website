@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel } from '@core/api';
-import { SearchQueryParamsService, AbstractDocumentViewComponent } from '@pages/shared';
+import { map } from 'rxjs/operators';
+import { AdvanceSearchService, DocumentModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel } from '@core/api';
+import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'disruption-theory-page',
   styleUrls: ['./disruption-theory.component.scss'],
   templateUrl: './disruption-theory.component.html',
 })
-export class DisruptionTheoryComponent extends AbstractDocumentViewComponent implements OnInit {
+export class DisruptionTheoryComponent extends GlobalDocumentViewComponent implements OnInit {
 
   baseParams$: Subject<any> = new Subject<any>();
 
@@ -22,6 +22,10 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
@@ -41,10 +45,10 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
   }
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   ngOnInit(): void {
@@ -108,7 +112,7 @@ export class DisruptionTheoryComponent extends AbstractDocumentViewComponent imp
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
         ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
       };
-      return this.advanceSearch.request(new NuxeoPageProviderParams(params));
+      return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
     } else {
       return observableOf(res);
     }

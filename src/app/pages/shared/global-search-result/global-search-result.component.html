@@ -6,7 +6,7 @@
     <document-thumbnail-view [loading]="loading" [templateRef]="templateRef" [documents]="documents" [layout]="layout" [hideEmpty]="hideEmpty" [selectableSettings]="selectableSettings"></document-thumbnail-view>
   </ng-template>
   <ng-template #listView>
-    <document-list-view [loading]="loading" [settings]="listViewSetting" [documents]="listDocuments"></document-list-view>
+    <document-list-view [loading]="loading" [settings]="listViewOptions" [documents]="listDocuments"></document-list-view>
   </ng-template>
 </div>
 <div *ngIf="hasPagination" class="search-pagination">

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel, AdvanceSearch, UserService, SearchFilterModel } from '@core/api';
-import { GlobalDocumentDialogService, SearchQueryParamsService } from '@pages/shared';
-import { AbstractFavoriteDocumentViewComponent } from '../abstract-favorite-document-view.component';
+import { DocumentModel, AdvanceSearchService, UserService, SearchFilterModel } from '@core/api';
+import { GlobalDocumentDialogService, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
 import { TAB_CONFIG } from '../favorite-tab-config';
 
 @Component({
@@ -10,7 +10,7 @@ import { TAB_CONFIG } from '../favorite-tab-config';
   templateUrl: './all-favorites.component.html',
   styleUrls: ['./all-favorites.component.scss'],
 })
-export class AllFavoritesComponent extends AbstractFavoriteDocumentViewComponent {
+export class AllFavoritesComponent extends BaseFavoriteDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
 
@@ -19,13 +19,17 @@ export class AllFavoritesComponent extends AbstractFavoriteDocumentViewComponent
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
   ];
 
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
+
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected userService: UserService) {
-    super(advanceSearch, activatedRoute, queryParamsService, globalDocumentDialogService, userService);
+    super(advanceSearchService, activatedRoute, queryParamsService, globalDocumentDialogService, userService);
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {

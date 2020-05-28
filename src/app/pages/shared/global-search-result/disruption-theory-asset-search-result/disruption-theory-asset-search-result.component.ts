@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractSearchResultComponent } from '../abstract-search-result.component';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 import { SearchQueryParamsService } from '../../services/search-query-params.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
   styleUrls: ['../thumbnail-view.scss'],
   templateUrl: './disruption-theory-asset-search-result.component.html',
 })
-export class DisruptionTheoryAssetSearchResultComponent extends AbstractSearchResultComponent {
+export class DisruptionTheoryAssetSearchResultComponent extends BaseSearchResultComponent {
 
   constructor(protected queryParamsService: SearchQueryParamsService) {
     super(queryParamsService);

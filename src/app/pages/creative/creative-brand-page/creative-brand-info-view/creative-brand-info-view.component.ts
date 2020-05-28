@@ -4,14 +4,14 @@ import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { ACLService } from '@core/acl';
-import { AbstractBaseDocumentViewComponent } from '../../../shared/abstract-classes/abstract-base-document-view.component';
+import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 
 @Component({
   selector: 'creative-brand-info-view',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-brand-info-vew.component.html',
 })
-export class CreativeBrandInfoViewComponent extends AbstractBaseDocumentViewComponent {
+export class CreativeBrandInfoViewComponent extends BaseDocumentViewComponent {
 
   @Input() loading: boolean;
 

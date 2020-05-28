@@ -1,23 +1,27 @@
 import { Component } from '@angular/core';
-import { Subject, timer, Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearch, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { AbstractDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
+import { AdvanceSearchService, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
+import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'intelligence-folder',
   styleUrls: ['./intelligence-folder.component.scss'],
   templateUrl: './intelligence-folder.component.html',
 })
-export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
+export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
 
   documentType: string;
 
   baseParams$: Subject<any> = new Subject<any>();
 
   filters: SearchFilterModel[] = [];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {
@@ -38,10 +42,10 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
   }
 
   constructor(
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -156,7 +160,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
           currentPageIndex: 0,
           pageSize: 1000,
         };
-        return this.advanceSearch.request(new NuxeoPageProviderParams(params));
+        return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
       }
     }
     return observableOf(res.response);
@@ -175,7 +179,7 @@ export class IntelligenceFolderComponent extends AbstractDocumentViewComponent {
           ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
           quickFilters: NuxeoQuickFilters.Alphabetically,
         };
-        return this.advanceSearch.request(new NuxeoPageProviderParams(params));
+        return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
       }
     }
     return observableOf(res);

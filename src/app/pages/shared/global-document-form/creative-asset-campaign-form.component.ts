@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   selector: 'creative-asset-campaign-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class CreativeCampaignFormComponent extends AbstractDocumentFormComponent {
+export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'creative-campaign-form';
 

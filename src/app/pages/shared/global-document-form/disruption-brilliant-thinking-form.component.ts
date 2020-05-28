@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'disruption-brilliant-thinking-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class DisruptionBrilliantThinkingFormComponent extends AbstractDocumentFormComponent {
+export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'brilliant-thinking-form';
 
@@ -31,7 +31,8 @@ export class DisruptionBrilliantThinkingFormComponent extends AbstractDocumentFo
         maxLength: 50,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: true,
+        required: false,
+        formMode: 'create',
         hidden: true,
         validators: {
           required: null,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
-import { AbstractDocumentFormComponent } from './abstract-document-form.component';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
@@ -10,7 +10,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
   selector: 'creative-asset-image-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
-export class CreativeAssetImageFormComponent extends AbstractDocumentFormComponent {
+export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'creative-image-form';
 

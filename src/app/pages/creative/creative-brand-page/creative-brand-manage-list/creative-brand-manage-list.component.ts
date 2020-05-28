@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AdvanceSearch, DocumentModel } from '@core/api';
+import { AdvanceSearchService, DocumentModel } from '@core/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
-import { AbstractDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
+import { BaseDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 import { NbToastrService } from '@core/nebular/theme';
@@ -13,7 +13,7 @@ import { DocumentFormEvent } from '@pages/shared/document-form/document-form.int
   styleUrls: ['./creative-brand-manage-list.component.scss'],
   templateUrl: './creative-brand-manage-list.component.html',
 })
-export class CreativeBrandManageListComponent extends AbstractDocumentManageComponent {
+export class CreativeBrandManageListComponent extends BaseDocumentManageComponent {
 
   protected tabConfig: any[] = TAB_CONFIG;
 
@@ -23,12 +23,12 @@ export class CreativeBrandManageListComponent extends AbstractDocumentManageComp
 
   constructor(
     private router: Router,
-    protected advanceSearch: AdvanceSearch,
+    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService,
     private toastrService: NbToastrService,
   ) {
-    super(advanceSearch, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, queryParamsService);
   }
 
   changeView() {
