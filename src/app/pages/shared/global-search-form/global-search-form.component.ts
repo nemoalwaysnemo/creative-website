@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AdvanceSearchService } from '@core/api';
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { BaseSearchFormComponent } from './base-search-form.component';
 import { GlobalSearchFormService } from './global-search-form.service';
