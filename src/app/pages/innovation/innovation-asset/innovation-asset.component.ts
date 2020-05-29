@@ -82,9 +82,8 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
     } else if (doc.path === (NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/Things to Steal')) {
       url = '/p/innovation/Things to Steal';
     } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH) || doc.path.includes(NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH)) {
-      url = this.assetUrlMapping[doc.type] + '/' + doc.uid;
+      url = this.assetUrlMapping[doc.type].call(this, doc) + '/' + doc.uid;
     }
-
     return url;
   }
 
