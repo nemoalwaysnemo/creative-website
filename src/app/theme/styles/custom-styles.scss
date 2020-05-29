@@ -171,10 +171,6 @@ body {
           line-height: 30px;
         }
       }
-    
-      &.test-class {
-        
-      }
     }
   }
   &.dates {
@@ -483,10 +479,10 @@ body {
       }
       &.half-size {
         .description {
-          > h1 { 
-            margin:10px 5px 10px 0; 
+          > h1 {
+            margin:10px 5px 10px 0;
             font-size:16px;
-            
+
           }
         }
       }

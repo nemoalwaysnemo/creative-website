@@ -1,6 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Options, ChangeContext } from 'ng5-slider';
-import { SelectableItemService } from '../selectable-item/selectable-item.service';
 import { DocumentThumbnailViewService } from '../document-thumbnail-view/document-thumbnail-view.service';
 
 @Component({
@@ -18,8 +17,6 @@ export class GlobalSearchButtonComponent {
 
   sliderDefaultValue = 0;
 
-  enableSlider: boolean = true;
-
   sliderOptions: Options = {
     floor: 0,
     ceil: 1,
@@ -36,6 +33,10 @@ export class GlobalSearchButtonComponent {
   };
 
   currentView: string = 'thumbnailView';
+
+  @Input() enableSlider: boolean = false;
+
+  @Input() enableViewSwitcher: boolean = false;
 
   @Output() onResultViewChanged: EventEmitter<string> = new EventEmitter();
 

@@ -5,6 +5,7 @@ import { CreativeBrandAssetComponent } from './creative-brand-asset.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { CreativeBrandInfoViewModule } from '../creative-brand-info-view/creative-brand-info-view.module';
 import { CreativeBrandFormButtonModule } from '../creative-brand-form-button/creative-brand-form-button.module';
+import { GlobalSearchButtonModule } from '../../../shared/global-search-button/global-search-button.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { CreativeBrandFormButtonModule } from '../creative-brand-form-button/cre
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    GlobalSearchButtonModule,
     CreativeBrandInfoViewModule,
     CreativeBrandFormButtonModule,
   ],
