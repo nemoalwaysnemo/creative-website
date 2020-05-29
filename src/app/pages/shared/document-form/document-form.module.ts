@@ -5,6 +5,7 @@ import { ReactiveFormsModule, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angula
 import { DynamicFormsNGUIModule } from '../dynamic-ng-form';
 import { DocumentFormComponent } from './document-form.component';
 import { customValidator, customDateRangeValidator, customAsyncFormGroupValidator, dateFormatValidator } from './document-form.validators';
+import { Validator, DYNAMIC_VALIDATORS, ValidatorFactory } from './../../../core/custom/ng-dynamic-forms/service/dynamic-form-validators';
 
 const COMPONENTS = [DocumentFormComponent];
 
@@ -41,6 +42,12 @@ const COMPONENTS = [DocumentFormComponent];
       provide: NG_VALIDATORS,
       useValue: dateFormatValidator,
       multi: true,
+    },
+    {
+      provide: DYNAMIC_VALIDATORS,
+      useValue: new Map<string, Validator | ValidatorFactory>([
+        ['dateFor/matValidator', dateFormatValidator],
+      ]),
     },
   ],
 })
