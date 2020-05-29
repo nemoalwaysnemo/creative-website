@@ -6,6 +6,7 @@ import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchForm
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../innovation-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
+import { ConstantPool } from '@angular/compiler';
 
 @Component({
   selector: 'innovation-folder',
@@ -48,7 +49,6 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
       this.addChildrenPermission$ = !doc.hasFolderishChild ? doc.hasPermission(NuxeoPermission.AddChildren) : observableOf(false);
-      this.deleteRedirectUrl = this.buildRedirectUrl();
       this.assetUrl = this.buildRedirectUrl();
     }
   }
@@ -111,7 +111,16 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   }
 
   protected buildRedirectUrl(): string {
-    return window.location.href.split('#')[1].split('?')[0];
+    let path;
+    const url = decodeURI(window.location.href.split('#')[1].split('?')[0]);
+    if (url.includes('/NEXT')) {
+      path = '/p/innovation/NEXT/folder/';
+      this.deleteRedirectUrl = '/p/innovation/NEXT/';
+    } else if (url.includes('/Things to Steal')) {
+      path = '/p/innovation/Things to Steal/folder/';
+      this.deleteRedirectUrl = '/p/innovation/Things to Steal/';
+    }
+    return path;
   }
 
 }
