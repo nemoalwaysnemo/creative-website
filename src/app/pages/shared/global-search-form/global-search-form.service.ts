@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of as observableOf, Observable, Subject } from 'rxjs';
 import { map, filter, share } from 'rxjs/operators';
-import { AdvanceSearchService, NuxeoPageProviderParams, NuxeoRequestOptions, SearchResponse } from '@core/api';
+import { AdvanceSearchService, NuxeoPageProviderParams, NuxeoRequestOptions, SearchResponse, NuxeoPagination } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
 
 export class GlobalSearchFormEvent {
@@ -26,6 +26,10 @@ export class GlobalSearchFormService {
     private googleAnalyticsService: GoogleAnalyticsService) {
   }
 
+  request(searchParams: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
+    return this.advanceSearchService.request(searchParams, opts, provider);
+  }
+
   advanceSearch(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: any = {}): Observable<SearchResponse> {
     return this.advanceSearchService.search(provider, searchParams, opts, metadata);
   }
@@ -43,8 +47,8 @@ export class GlobalSearchFormService {
     return this;
   }
 
-  changePageIndex(currentPageIndex: number, metadata: any = {}): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex }, metadata }));
+  changePageIndex(currentPageIndex: number, pageSize: number = 20, metadata: any = {}): void {
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex, pageSize }, metadata }));
   }
 
   search(searchParams: any = {}, metadata: any = {}): void {

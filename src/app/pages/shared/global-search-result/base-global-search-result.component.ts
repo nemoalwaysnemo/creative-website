@@ -5,7 +5,7 @@ import { DocumentListViewItem } from '../document-list-view/document-list-view.i
 import { SearchQueryParamsService } from '../services/search-query-params.service';
 import { BaseSearchResultComponent } from './base-search-result.component';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
-import { concatMap, filter } from 'rxjs/operators';
+import { concatMap, filter, tap } from 'rxjs/operators';
 
 @Component({
   template: '',
@@ -30,7 +30,9 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   hasNextPage: boolean = false;
 
-  private searchResponse: SearchResponse;
+  protected searchResponse: SearchResponse;
+
+  @Input() append: boolean = false;
 
   @Input()
   set listViewSettings(settings: any) {
@@ -39,9 +41,11 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     }
   }
 
+  @Input() onSearchFilter: Function = (res: SearchResponse): boolean => res.metadata.source === 'global-search-form';
+
   @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
 
-  @Output() onResponse = new EventEmitter<SearchResponse>();
+  @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   constructor(
     protected queryParamsService: SearchQueryParamsService,
@@ -57,7 +61,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   protected onSearch(): void {
     const subscription = this.globalSearchFormService.onSearch().pipe(
-      filter((res: SearchResponse) => res.metadata.source === 'global-search-form'),
+      filter((res: SearchResponse) => this.onSearchFilter.call(this, res)),
       concatMap((res: SearchResponse) => this.afterSearch(res)),
     ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {
@@ -75,7 +79,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((info: any) => {
       this.documents = [];
-      this.globalSearchFormService.changePageIndex(info.currentPageIndex, { actionType: 'pagination' });
+      this.globalSearchFormService.changePageIndex(info.currentPageIndex, 20);
     });
     this.subscription.add(subscription);
   }
@@ -83,7 +87,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
       const pageIndex: number = this.searchResponse.response.currentPageIndex;
-      this.globalSearchFormService.changePageIndex(pageIndex + 1, { actionType: 'onScrollDown' });
+      this.globalSearchFormService.changePageIndex(pageIndex + 1, 20, { append: true });
     }
   }
 
@@ -92,7 +96,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    if (res.metadata.actionType === 'onScrollDown') {
+    if (this.append === true || res.metadata.append) {
       this.documents = this.documents.concat(res.response.entries);
     } else {
       this.documents = res.response.entries;

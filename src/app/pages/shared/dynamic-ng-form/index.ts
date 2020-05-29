@@ -8,6 +8,7 @@ export * from './input/dynamic-ng-input.component';
 export * from './radio-group/dynamic-ng-radio-group.component';
 export * from './rating/dynamic-ng-rating.component';
 export * from './select/dynamic-ng-select.component';
+export * from './switch/dynamic-ng-switch.component';
 export * from './textarea/dynamic-ng-textarea.component';
 export * from './timepicker/dynamic-ng-timepicker.component';
 export * from './batch-upload/dynamic-ng-batch-upload.component';

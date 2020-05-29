@@ -15,7 +15,9 @@ const COMPONENTS = [DocumentFormComponent];
     ReactiveFormsModule,
     DynamicFormsNGUIModule,
   ],
-  declarations: [...COMPONENTS],
+  declarations: [
+    ...COMPONENTS,
+  ],
   exports: [
     ...COMPONENTS,
   ],

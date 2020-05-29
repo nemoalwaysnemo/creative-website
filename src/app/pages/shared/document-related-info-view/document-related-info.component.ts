@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
@@ -26,7 +26,6 @@ export class DocumentRelatedInfoComponent {
     {
       name: 'Backslash',
       layout: 'backslash',
-      icon: 'nb-person',
       params: {
         pageSize: 8,
         app_edges_active_article: true,
@@ -40,7 +39,6 @@ export class DocumentRelatedInfoComponent {
     {
       name: 'Disruption',
       layout: 'disruption',
-      icon: 'nb-person',
       params: {
         pageSize: 8,
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
@@ -55,7 +53,6 @@ export class DocumentRelatedInfoComponent {
     {
       name: 'Intelligence',
       layout: 'intelligence',
-      icon: 'nb-person',
       params: {
         pageSize: 8,
         ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
@@ -71,9 +68,9 @@ export class DocumentRelatedInfoComponent {
 
   tabInfo$ = new Subject<TabInfo>();
 
-  private currentTab: any;
-
   doc: DocumentModel;
+
+  currentTab: any;
 
   constructor() {
     this.currentTab = this.tabItems[0];
@@ -83,7 +80,7 @@ export class DocumentRelatedInfoComponent {
   set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
-      setTimeout(() => { this.tabInfo$.next(new TabInfo('docChanged', this.currentTab, doc)); }, 0);
+      timer(0).subscribe(() => { this.tabInfo$.next(new TabInfo('docChanged', this.currentTab, doc)); });
     }
   }
 

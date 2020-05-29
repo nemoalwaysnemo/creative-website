@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { filterParams, selectObjectByKeys } from '@core/services/helpers';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -37,8 +37,8 @@ export class SearchQueryParamsService {
     return values;
   }
 
-  changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = '', skipLocationChange: boolean = false): void {
-    this.navigate([], { relativeTo: this.activatedRoute, queryParams, queryParamsHandling, skipLocationChange, state });
+  changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = '', skipLocationChange: boolean = false): Observable<boolean> {
+    return from(this.navigate([], { relativeTo: this.activatedRoute, queryParams, queryParamsHandling, skipLocationChange, state }));
   }
 
   clearQueryParams(): void {
@@ -79,9 +79,9 @@ export class SearchQueryParamsService {
   }
 
   refresh(): void {
-    const queryParams = Object.assign({ reload: true }, this.getSnapshotQueryParams());
+    const queryParams = this.getSnapshotQueryParams();
     delete queryParams['currentPageIndex'];
-    this.changeQueryParams(queryParams, { type: 'reload' });
+    this.changeQueryParams(queryParams);
   }
 
 

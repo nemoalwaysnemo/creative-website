@@ -17,16 +17,17 @@ import { DynamicNGDatePickerComponent } from './datepicker/dynamic-ng-datepicker
 import { DynamicNGFormArrayComponent } from './form-array/dynamic-ng-form-array.component';
 import { DynamicNGFormGroupComponent } from './form-group/dynamic-ng-form-group.component';
 import { DynamicNGInputComponent } from './input/dynamic-ng-input.component';
+import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
 import { DynamicNGRadioGroupComponent } from './radio-group/dynamic-ng-radio-group.component';
 import { DynamicNGRatingComponent } from './rating/dynamic-ng-rating.component';
 import { DynamicNGSelectComponent } from './select/dynamic-ng-select.component';
+import { DynamicNGSwitchComponent } from './switch/dynamic-ng-switch.component';
 import { DynamicNGTextAreaComponent } from './textarea/dynamic-ng-textarea.component';
 import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker.component';
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 import { NbAccordionModule } from '../../../core/nebular/theme/components/accordion/accordion.module';
-import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
     DynamicFormsCoreModule,
   ],
   declarations: [
+    DynamicNGSwitchComponent,
     DynamicNGCalendarComponent,
     DynamicNGCheckboxComponent,
     DynamicNGCheckboxGroupComponent,
@@ -65,6 +67,7 @@ import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
     DynamicNGDatepickerDirectiveComponent,
   ],
   entryComponents: [
+    DynamicNGSwitchComponent,
     DynamicNGCalendarComponent,
     DynamicNGCheckboxComponent,
     DynamicNGCheckboxGroupComponent,
