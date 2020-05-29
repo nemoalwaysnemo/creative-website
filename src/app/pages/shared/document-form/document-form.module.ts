@@ -46,7 +46,7 @@ const COMPONENTS = [DocumentFormComponent];
     {
       provide: DYNAMIC_VALIDATORS,
       useValue: new Map<string, Validator | ValidatorFactory>([
-        ['dateFor/matValidator', dateFormatValidator],
+        ['dateFormatValidator', dateFormatValidator],
       ]),
     },
   ],
