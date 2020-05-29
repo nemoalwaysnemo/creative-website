@@ -1,10 +1,10 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
-import { Subscription, Observable, forkJoin } from 'rxjs';
-import { TAB_CONFIG } from '../innovation-tab-config';
+import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GlobalSearchFormSettings } from '@pages/shared';
+import { TAB_CONFIG } from '../innovation-tab-config';
 
 @Component({
   selector: 'innovation-home',

@@ -84,5 +84,8 @@ export class SearchQueryParamsService {
     this.changeQueryParams(queryParams);
   }
 
+  getCurrentUrl(): string {
+    return this.router.url;
+  }
 
 }
