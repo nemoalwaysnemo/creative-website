@@ -72,7 +72,13 @@ export class InnovationFolderViewComponent {
   }
 
   private matchAssetUrl(doc: DocumentModel): string {
-    return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    let url = '';
+    if (this.assetUrlMapping[doc.type] instanceof Function) {
+      url = this.assetUrlMapping[doc.type].call(this, doc);
+    } else {
+      url = this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    }
+    return url;
   }
 
   isParentFolder(doc: DocumentModel): boolean {
@@ -85,18 +91,7 @@ export class InnovationFolderViewComponent {
 
   goBack(): void {
     const url = this.getAssetUrl(this.doc);
-    const parentInfo: any = this.goBackInfo(url);
-    const rootPath: string = parentInfo.rootPath;
-    const splitPath: string = this.doc.path.split(rootPath)[1];
-    const childSplitPath: string[] = splitPath.split('/');
-
-    if (url.includes('/asset/')) {
-      this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.uid}`);
-    } else if (childSplitPath.length < 2) {
-      this.queryParamsService.redirect(`${parentInfo.urlRootPath}`);
-    } else {
-      this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.parentRef}`);
-    }
+    this.queryParamsService.redirect(url.split('/folder')[0]);
   }
 
   toImageParentDocument(): any {
