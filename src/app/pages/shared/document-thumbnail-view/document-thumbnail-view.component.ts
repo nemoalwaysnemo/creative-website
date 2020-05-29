@@ -68,7 +68,13 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   protected subscribeEvents(): void {
     this.subscription = this.thumbnailViewService.onEvent('SliderValueChanged').subscribe((e: DocumentThumbnailViewEvent) => {
-      this.sliderClass = e.payload.className || '';
+      console.log(e.payload.value)
+      if (e.payload.value == 1 ){
+        this.sliderClass = e.payload.className || 'half-size';
+      } else {
+        this.sliderClass = e.payload.className || '';
+      }
+      
     });
   }
 

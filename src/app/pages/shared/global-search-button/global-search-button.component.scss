@@ -36,3 +36,55 @@
     cursor: auto;
   }
 }
+.button-group-slider  {
+  width:120px;
+  height:auto;
+  float:left;
+  margin:0 10px;
+  top: -9px;
+  position: relative;
+}
+
+// We need to use ::ng-deep to overcome view encapsulation
+::ng-deep {
+  .button-group-slider .ng5-slider .ng5-slider-bar {
+    background: #000;
+    height: 2px;
+  }
+
+  .button-group-slider .ng5-slider .ng5-slider-pointer {
+    width: 15px;
+    height: 15px;
+    top: -7px; /* to remove the default positioning */
+    bottom: 0;
+    background-color: #333;
+    border-radius: 0;
+  }
+
+  .button-group-slider .ng5-slider .ng5-slider-pointer:after {
+    display: none;
+  }
+
+  .button-group-slider .ng5-slider .ng5-slider-bubble {
+    bottom: 14px;
+    display: none;
+  }
+
+/*  .button-group-slider .ng5-slider .ng5-slider-limit {
+    font-weight: bold;
+    color: #000;
+  }*/
+
+  .button-group-slider .ng5-slider .ng5-slider-tick {
+    width: 1px;
+    height: 10px;
+    margin-left: 4px;
+    border-radius: 0;
+    background: #ffe4d1;
+    top: -1px;
+  }
+
+  .button-group-slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+    background: #000;
+  }
+}
