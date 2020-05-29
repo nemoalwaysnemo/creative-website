@@ -36,7 +36,7 @@
     cursor: auto;
   }
 }
-.button-group-slider  {
+.button-group-slider {
   width:120px;
   height:auto;
   float:left;
@@ -61,7 +61,7 @@
     border-radius: 0;
   }
 
-  .button-group-slider .ng5-slider .ng5-slider-pointer:after {
+  .button-group-slider .ng5-slider .ng5-slider-pointer::after {
     display: none;
   }
 

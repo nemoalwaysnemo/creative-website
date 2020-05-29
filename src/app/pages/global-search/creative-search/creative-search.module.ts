@@ -9,7 +9,7 @@ import { CreativeBrandSearchComponent } from './creative-brand-search/creative-b
 import { CreativeAgencySearchComponent } from './creative-agency-search/creative-agency-search.component';
 import { CreativePopularBrandSearchComponent } from './creative-popular-brand-search/creative-popular-brand-search.component';
 import { CreativePopularBrandAssetSearchComponent } from './creative-popular-brand-asset-search/creative-popular-brand-asset-search.component';
-import { GlobalSearchButtonModule } from '@pages/shared/global-search-button/global-search-button.module';
+import { GlobalSearchButtonModule } from '../../shared/global-search-button/global-search-button.module';
 
 @NgModule({
   imports: [
