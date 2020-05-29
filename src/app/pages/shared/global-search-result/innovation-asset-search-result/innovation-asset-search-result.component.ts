@@ -17,7 +17,7 @@ export class InnovationAssetSearchResultComponent extends BaseSearchResultCompon
   @Input()
   set assetUrl(url: string) {
     if (url) {
-      this.folderUrl = url;
+      this.folderUrl = decodeURI(url);
     }
   }
 

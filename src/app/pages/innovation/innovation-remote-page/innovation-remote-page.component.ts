@@ -50,12 +50,13 @@ export class InnovationRemotePageComponent extends GlobalDocumentViewComponent i
       ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
       ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
       ecm_path_eq: NUXEO_PATH_INFO.INNOVATION_10X_FOLDER_PATH,
+      ecm_fulltext: '',
+      ecm_mixinType_not_in: '',
     };
   }
 
   private buildIframeUrl(doc: DocumentModel): void {
     const url = doc.get('The_Loupe_Main:url');
-    console.info('url---', url);
     if (url) {
       this.loading = false;
       this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NuxeoApiService, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
+import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder-form',
@@ -16,19 +17,32 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
 
   protected documentType: string = 'App-Innovation-Folder';
 
+  protected documentPath: string;
+
   constructor(protected nuxeoApi: NuxeoApiService) {
     super(nuxeoApi);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+    this.buildDocumentPath(doc);
     return this.initializeDocument(doc, this.getDocType());
   }
 
   protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
     if (callback.action === 'Created') {
-      callback.redirectUrl = '/p/innovation/Next/folder/:uid';
+      callback.redirectUrl = this.documentPath + '/:uid';
     }
     return callback;
+  }
+
+  protected buildDocumentPath(doc: DocumentModel): void {
+    if (doc) {
+      if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/NEXT')) {
+        this.documentPath = '/p/innovation/NEXT/folder';
+      } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/Things to Steal')) {
+        this.documentPath = '/p/innovation/Things to Steal/folder';
+      }
+    }
   }
 
   protected getSettings(): object[] {
@@ -53,54 +67,25 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
         id: 'dc:description',
         label: 'Description',
       }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:clientName',
-        label: 'Client',
-        required: true,
-        placeholder: 'Client',
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand',
-        required: true,
-        placeholder: 'Brand',
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:industry',
-        label: 'Industry',
-        required: true,
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Industries',
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Case Date (for sorting)',
+        label: 'Date',
         readonly: true,
         defaultValue: (new Date()),
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        required: false,
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Relevant_Country',
-        label: 'Relevant Geography',
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
-        },
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        readOnly: true,
+        disabled: true,
         required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicInputModel({
+        id: 'dc:creator',
+        label: 'Author',
+        placeholder: 'Author',
+        required: false,
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -111,57 +96,59 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Agencies',
         },
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        required: false,
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
+        label: 'Country',
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',
         },
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        required: false,
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        required: false,
+        placeholder: 'Brand',
       }),
       new DynamicSuggestionModel<string>({
-        id: 'app_Edges:backslash_category',
-        label: 'Backslash Category',
-        required: true,
+        id: 'app_Edges:industry',
+        label: 'Industry',
+        required: false,
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Backslash-Categories',
+          providerName: 'GLOBAL_Industries',
         },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
-        label: 'Backslash Edges',
+        label: 'Edges',
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
         },
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+        required: false,
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:library_librarians',
-        label: 'Download Approvers',
-        required: true,
-        settings: {
-          initSearch: false,
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.USER_GROUP,
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+      new DynamicCheckboxModel({
+        id: 'app_global:networkshare',
+        label: 'Enable external App iframe',
+      }),
+      new DynamicInputModel({
+        id: 'dc:creator',
+        label: 'external Application URL',
+        placeholder: 'external Application URL',
+        required: false,
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:set_defaults',
+        label: 'Set Defaults',
+        disabled: true,
+        readOnly: true,
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

@@ -5,8 +5,8 @@
       <a [routerLink]="[folderUrl, doc.uid]" [queryParams]="queryParams"
         [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
     </ng-container>
-    <ng-container *ngIf="doc.type == 'App-Innnovation-Asset'">
-      <a [routerLink]="[folderUrl + folderId +'/asset/', doc.uid]" [queryParams]="queryParams"
+    <ng-container *ngIf="doc.type == 'App-Innovation-Asset'">
+      <a [routerLink]="[folderUrl + folderId + '/asset/', doc.uid]" [queryParams]="queryParams"
         [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
     </ng-container>
   </div>

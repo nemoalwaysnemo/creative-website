@@ -5,6 +5,7 @@ import { InnovationHomeComponent } from './innovation-home/innovation-home.compo
 import { InnovationRemotePageComponent } from './innovation-remote-page/innovation-remote-page.component';
 import { InnovationFolderComponent } from './innovation-folder/innovation-folder.component';
 import { InnovationListComponent } from './innovation-list/innovation-list.component';
+import { InnovationAssetComponent } from './innovation-asset/innovation-asset.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,6 +14,10 @@ const routes: Routes = [{
     {
       path: 'home',
       component: InnovationHomeComponent,
+    },
+    {
+      path: 'asset/:id',
+      component: InnovationAssetComponent,
     },
     {
       path: 'NEXT',
@@ -29,6 +34,14 @@ const routes: Routes = [{
     {
       path: 'Things to Steal/folder/:id',
       component: InnovationFolderComponent,
+    },
+    {
+      path: 'NEXT/folder/:folder/asset/:id',
+      component: InnovationAssetComponent,
+    },
+    {
+      path: 'Things to Steal/folder/:folder/asset/:id',
+      component: InnovationAssetComponent,
     },
     {
       path: '10x',

@@ -26,7 +26,7 @@
 </div>
 
 <ng-template #editDialog>
-  <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [title]="getFormTitle(doc)" [redirectUrl]="editRedirectUrl"></global-document-dialog>
+  <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [title]="editTitle" [redirectUrl]="editRedirectUrl"></global-document-dialog>
 </ng-template>
 <ng-template #deleteDialog>
   <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [title]="deleteTitle" [redirectUrl]="deleteRedirectUrl"></global-document-dialog>

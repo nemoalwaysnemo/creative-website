@@ -6,6 +6,7 @@ import { InnovationPageRoutingModule } from './innovation-page-routing.module';
 import { InnovationRemotePageModule } from './innovation-remote-page/innovation-remote-page.module';
 import { InnovationListModule } from './innovation-list/innovation-list.module';
 import { InnovationFolderModule } from './innovation-folder/innovation-folder.module';
+import { InnovationAssetModule } from './innovation-asset/innovation-asset.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { InnovationFolderModule } from './innovation-folder/innovation-folder.mo
     InnovationPageRoutingModule,
     InnovationListModule,
     InnovationFolderModule,
+    InnovationAssetModule,
   ],
   declarations: [
     InnovationPageComponent,

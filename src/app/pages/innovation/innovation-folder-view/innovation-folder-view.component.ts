@@ -84,12 +84,15 @@ export class InnovationFolderViewComponent {
   }
 
   goBack(): void {
-    const parentInfo: any = this.goBackInfo(this.getAssetUrl(this.doc));
+    const url = this.getAssetUrl(this.doc);
+    const parentInfo: any = this.goBackInfo(url);
     const rootPath: string = parentInfo.rootPath;
     const splitPath: string = this.doc.path.split(rootPath)[1];
     const childSplitPath: string[] = splitPath.split('/');
 
-    if (childSplitPath.length < 2) {
+    if (url.includes('/asset/')) {
+      this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.uid}`);
+    } else if (childSplitPath.length < 2) {
       this.queryParamsService.redirect(`${parentInfo.urlRootPath}`);
     } else {
       this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.parentRef}`);
@@ -104,39 +107,20 @@ export class InnovationFolderViewComponent {
     }
   }
 
-  private goBackInfo(type: string): any {
-    // if () {
-
-    // }
-
-
-    switch (type) {
-      case 'App-BizDev-Thought-Folder':
-        return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Thought Leadership/',
-          'urlParentPath': '/p/business-development/Thought Leadership/folder/',
-        };
-      case 'App-BizDev-CaseStudy-Folder':
-        return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Case Studies/',
-          'urlParentPath': '/p/business-development/Case Studies/folder/',
-        };
-      case 'App-BizDev-ThoughtLeadership-Folder':
-        return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Thought Leadership/',
-          'urlParentPath': '/p/business-development/Thought Leadership/',
-        };
-      case 'App-BizDev-Case-Studies-Folder':
-        return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Case Studies/',
-          'urlParentPath': '/p/business-development/Case Studies/',
-        };
-      default:
-        return {};
+  private goBackInfo(url: string): any {
+    url = decodeURI(url);
+    if (url.includes('/NEXT')) {
+      return {
+        'rootPath': NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH,
+        'urlRootPath': '/p/innovation/NEXT/',
+        'urlParentPath': '/p/innovation/NEXT/folder/',
+      };
+    } else if (url.includes('/Things to Steal')) {
+      return {
+        'rootPath': NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH,
+        'urlRootPath': '/p/innovation/Things to steal/',
+        'urlParentPath': '/p/innovation/Things to steal/folder/',
+      };
     }
   }
 

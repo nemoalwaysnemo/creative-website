@@ -20,6 +20,8 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
 
   currentUrl: string = this.router.url;
 
+  assetUrl: string;
+
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
@@ -67,6 +69,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
     this.document = doc;
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
+      this.assetUrl = this.buildRedirectUrl() + '/folder/';
     }
   }
 
@@ -100,7 +103,19 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
   }
 
   protected setPath(): string {
-    return this.currentUrl.includes('/NEXT') ? NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH : NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
+    let path;
+    const url = decodeURI(this.currentUrl);
+    if (url.includes('/NEXT')) {
+      path = NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH;
+    } else if (url.includes('/Things to Steal')) {
+      path = NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
+    }
+
+    return path;
+  }
+
+  protected buildRedirectUrl(): string {
+    return this.currentUrl.split('?')[0];
   }
 
 }
