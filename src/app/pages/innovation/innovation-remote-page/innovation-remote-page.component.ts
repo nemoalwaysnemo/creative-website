@@ -44,12 +44,14 @@ export class InnovationRemotePageComponent extends GlobalDocumentViewComponent i
 
   protected getCurrentDocumentSearchParams(): any {
     return {
-      pageSize: 1,
+      pageSize: 10,
       currentPageIndex: 0,
       app_global_ext_app_iframe: true,
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_FOLDER_TYPE,
-      ecm_path_eq: NUXEO_PATH_INFO.BIZ_DEV_10X_FOLDER_PATH,
+      ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
+      ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
+      ecm_path_eq: NUXEO_PATH_INFO.INNOVATION_10X_FOLDER_PATH,
+      ecm_fulltext: '',
+      ecm_mixinType_not_in: '',
     };
   }
 

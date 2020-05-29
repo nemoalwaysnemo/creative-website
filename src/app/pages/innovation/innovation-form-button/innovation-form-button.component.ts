@@ -21,7 +21,7 @@ export class InnovationFormButtonComponent {
   @Input() title: string;
 
   @Input()
-  set type(type: 'Next' | 'Things to Steal' | '10x') {
+  set type(type: 'folder' | 'asset') {
     this.dialogSettings = this.getFormSettings(type);
   }
 
@@ -47,14 +47,11 @@ export class InnovationFormButtonComponent {
   private getFormSettings(type: string): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
     switch (type) {
-      case 'Next':
-        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM);
+      case 'folder':
+        components.push(GLOBAL_DOCUMENT_FORM.INNOVATION_FOLDER_FORM);
         break;
-      case 'Things to Steal':
-        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_ASSET_FORM);
-        break;
-      case '10x':
-        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM);
+      case 'asset':
+        components.push(GLOBAL_DOCUMENT_FORM.INNOVATION_ASSET_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);

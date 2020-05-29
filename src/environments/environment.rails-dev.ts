@@ -30,6 +30,9 @@ export enum NUXEO_PATH_INFO {
   BIZ_DEV_CASE_STUDIES_FOLDER_PATH = '/know-edge/Business Development/Case Studies/',
   BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH = '/know-edge/Business Development/Thought Leadership/',
   INNOVATION_BASE_FOLDER_PATH = '/know-edge/Innovation',
+  INNOVATION_10X_FOLDER_PATH = '/know-edge/Innovation/10x/',
+  INNOVATION_NEXT_FOLDER_PATH = '/know-edge/Innovation/Next/',
+  INNOVATION_THINGS_TO_STEAL_FOLDER_PATH = '/know-edge/Innovation/Things to Steal/',
   FRONTPAGE_BANNER_PATH = '/Creative/1. GCL Frontpage/Banners/',
 }
 
@@ -79,6 +82,9 @@ export enum NUXEO_META_INFO {
   BIZ_DEV_FOLDER_TYPE = '["App-BizDev-Folder"]',
   BIZ_DEV_ASSET_TYPE = '["App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset"]',
   BIZ_DEV_ALL_FOLDER_TYPES = '["App-BizDev-Case-Studies-Folder", "App-BizDev-ThoughtLeadership-Folder", "App-BizDev-Folder", "App-BizDev-Thought-Folder", "App-BizDev-CaseStudy-Folder"]',
+  INNOVATION_FOLDER_TYPE = '["App-Innovation-Folder"]',
+  INNOVATION_ASSET_TYPE = '["App-Innovation-Asset"]',
+  INNOVATION_SEARCH_TYPE = '["App-Innovation-Folder", "App-Innovation-Asset"]',
   FRONTPAGE_BANNER_TYPE = '["App-Library-Image"]',
   BACKSLASH_ASSET_PAGE_PROVIDER = 'creative_website_backslash_related_assets',
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',

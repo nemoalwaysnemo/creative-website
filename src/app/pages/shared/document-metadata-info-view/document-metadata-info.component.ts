@@ -21,6 +21,7 @@ enum assetTypes {
   thinking = 'App-Disruption-Asset',
   case_asset = 'App-BizDev-CaseStudy-Asset',
   thought_asset = 'App-BizDev-Thought-Asset',
+  innovation_asset = 'App-Innovation-Asset',
 }
 
 @Component({
@@ -80,7 +81,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isBizDevAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -126,6 +127,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE).includes(doc.type);
   }
 
+  isInnovationAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_META_INFO.INNOVATION_ASSET_TYPE).includes(doc.type);
+  }
+
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
     switch (doc.type) {
@@ -149,6 +154,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case assetTypes.thought_asset:
         components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM);
+        break;
+      case assetTypes.innovation_asset:
+        components.push(GLOBAL_DOCUMENT_FORM.INNOVATION_ASSET_FORM);
         break;
       default:
         break;
@@ -179,6 +187,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case assetTypes.thought_asset:
         formTitle = 'Edit Think Piece';
+        break;
+      case assetTypes.innovation_asset:
+        formTitle = 'Edit Asset';
         break;
       default:
         break;

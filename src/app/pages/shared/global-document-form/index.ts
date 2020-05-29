@@ -19,3 +19,5 @@ export * from './biz-dev-case-study-folder-form.component';
 export * from './biz-dev-case-study-asset-form.component';
 export * from './biz-dev-thought-folder-form.component';
 export * from './biz-dev-thought-asset-form.component';
+export * from './innovation-folder-form.component';
+export * from './innovation-asset-form.component';
