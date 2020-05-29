@@ -37,7 +37,7 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
     if (date_input === '') {
       this._onChange(null);
     } else if (date_input !== this.value) {
-      const validDateExp = /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) ([1-9]|[1-2][0-9]|(3)[0-1]), (?:19[7-9]\d|2\d{3})/i;
+      const validDateExp = /(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) ([1-9]|[1-2][0-9]|(3)[0-1]), (?:19[0-9]\d|2\d{3})$/i;
       (validDateExp.test(date_input)) ? this._onChange(new Date(date_input)) : this._onChange(new Date(''));
     }
   }

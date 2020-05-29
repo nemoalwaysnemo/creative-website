@@ -64,10 +64,25 @@ export class InnovationAssetFormComponent extends GlobalDocumentFormComponent {
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
+        formMode: 'create',
         label: 'Date',
         readonly: true,
         defaultValue: (new Date()),
         required: false,
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        formMode: 'edit',
+        label: 'Date',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: false,
+        validators: {
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
