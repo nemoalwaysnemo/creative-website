@@ -92,9 +92,10 @@ export class NbTabComponent {
    * @returns {boolean}
    */
   @Input()
-  get active() {
+  get active(): boolean {
     return this.activeValue;
   }
+
   set active(val: boolean) {
     this.activeValue = convertToBoolProperty(val);
     if (this.activeValue) {
@@ -261,7 +262,7 @@ export class NbTabsetComponent implements AfterContentInit {
    * Emits when tab is selected
    * @type EventEmitter<any>
    */
-  @Output() changeTab = new EventEmitter<any>();
+  @Output() changeTab: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private route: ActivatedRoute,
               private changeDetectorRef: ChangeDetectorRef) {

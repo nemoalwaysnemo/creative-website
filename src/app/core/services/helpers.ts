@@ -259,3 +259,7 @@ export function parseTabRoute(tabConfig: any[], routeParams?: any): any[] {
 export function parseCountry(list: string[]): string {
   return list.map((x) => x.split('/').pop()).join(', ');
 }
+
+export function objHasValue(obj: any = {}): boolean {
+  return obj && Object.keys(obj).length > 0;
+}

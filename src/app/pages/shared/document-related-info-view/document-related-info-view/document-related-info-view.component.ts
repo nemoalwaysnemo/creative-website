@@ -1,11 +1,11 @@
-import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
-import { filter, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { DocumentModel, AdvanceSearchService, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
+import { filter, tap } from 'rxjs/operators';
+import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel, SearchResponse } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
+import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { TabInfo } from '../document-related-info.component';
@@ -36,23 +36,19 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   private tabInfo$ = new Subject<TabInfo>();
 
-  private search$: Subject<any> = new Subject<any>();
-
-  protected subscription: Subscription = new Subscription();
-
-  loading: boolean = true;
+  private subscription: Subscription = new Subscription();
 
   thumbnailItemView: TemplateRef<any>;
 
   edgeLoading: boolean = true;
+
+  append: boolean = false;
 
   document: DocumentModel;
 
   documents: DocumentModel[] = [];
 
   backslashEdges: DocumentModel[] = [];
-
-  queryField: FormControl = new FormControl();
 
   noResultText: string;
 
@@ -71,15 +67,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  searchMoreParams$: Subject<any> = new Subject<any>();
-
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    searchGroupPosition: 'right',
-  });
-
-  nextPageAvailable: boolean = false;
-
-  pageSize: number = 8;
+  searchFormSettings: GlobalSearchFormSettings;
 
   backslashFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
@@ -110,17 +98,12 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   filters: SearchFilterModel[] = [];
 
   constructor(
-    private advanceSearchService: AdvanceSearchService,
+    private globalSearchFormService: GlobalSearchFormService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
   ngOnInit(): void {
-    this.onSearch();
     this.onChangeTab();
-  }
-
-  onResponse($even): void {
-    this.nextPageAvailable = $even.response.isNextPageAvailable;
   }
 
   ngOnDestroy(): void {
@@ -153,11 +136,22 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     return new GlobalDocumentDialogSettings({ components });
   }
 
+  onLoadMore(res: SearchResponse): void {
+    this.append = true;
+    const params = this.getSearchParams(this.document, this.item);
+    params['currentPageIndex'] = res.response.currentPageIndex + 1;
+    params['pageSize'] = 8;
+    this.baseParams$.next(params);
+  }
+
   private onChangeTab(): void {
     const subscription = this.tabInfo$.pipe(
       filter((info: TabInfo) => info.document && info.tabItem.name === this.item.name),
     ).subscribe((info: TabInfo) => {
-      this.pageSize = 8;
+      this.append = false;
+      if (info.type === 'docChanged') {
+        this.documents = [];
+      }
       switch (info.tabItem.layout) {
         case 'backslash':
           this.buildBackslashEdges(info.document);
@@ -175,47 +169,33 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         default:
           break;
       }
-      if (info.type === 'docChanged') {
-        this.documents = [];
-      }
       if (this.documents.length === 0) {
-        this.search$.next(this.getSearchParams(info.document));
+        this.triggerSerach(info.document, this.item);
       }
-
       this.noResultText = 'No related ' + info.tabItem.name + ' found';
     });
     this.subscription.add(subscription);
   }
 
-  private onSearch(): void {
-    const subscription = this.search$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      tap(_ => {
-        this.loading = true;
-      }),
-    ).subscribe((res: any) => {
-      this.searchFormSettings.pageProvider = res.provider;
-      this.baseParams$.next(res.params);
+  private triggerSerach(doc: DocumentModel, item: any): void {
+    this.searchFormSettings = new GlobalSearchFormSettings({
+      source: 'document-related-info',
+      searchGroupPosition: 'right',
+      pageProvider: item.provider,
     });
-    this.subscription.add(subscription);
+    this.baseParams$.next(this.getSearchParams(doc, item));
   }
 
-  loadMore(): void {
-    this.pageSize += 8;
-    this.searchMoreParams$.next({ pageSize: this.pageSize });
-  }
-
-  private getSearchParams(doc: DocumentModel): any {
-    const params = Object.assign({ ecm_fulltext: this.queryField.value, ecm_uuid_not_eq: doc.uid }, this.item.params);
-    if (this.item.hasOwnProperty('paramsMapping')) {
-      const keys = Object.keys(this.item.paramsMapping);
+  private getSearchParams(doc: DocumentModel, item: any): any {
+    const params = Object.assign({ ecm_uuid_not_eq: doc.uid }, item.params);
+    if (item.hasOwnProperty('paramsMapping')) {
+      const keys = Object.keys(item.paramsMapping);
       for (const key of keys) {
-        const value = doc.get(this.item.paramsMapping[key]);
+        const value = doc.get(item.paramsMapping[key]);
         params[key] = typeof value === 'string' || !value ? `"${value}"` : `"${value.join('", "')}"`;
       }
     }
-    return { params, provider: this.item.provider };
+    return params;
   }
 
   private getEdgesAggParams(doc: DocumentModel): string {
@@ -233,7 +213,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
       this.edgeLoading = true;
-      const subscription = this.advanceSearchService.request(params).subscribe((res: NuxeoPagination) => {
+      const subscription = this.globalSearchFormService.request(params).subscribe((res: NuxeoPagination) => {
         this.edgeLoading = false;
         this.backslashEdges = res.entries;
       });

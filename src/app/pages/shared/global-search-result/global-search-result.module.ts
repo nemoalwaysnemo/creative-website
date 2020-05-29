@@ -10,7 +10,7 @@ import { GlobalSearchResultComponent } from './global-search-result.component';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
-import { CreativeAssetRelatedSearchResultComponent} from './creative-asset-related-search-result/creative-asset-related-search-result.component' ;
+import { GlobalLoadMoreSearchResultComponent} from './global-load-more-search-result/global-load-more-search-result.component';
 import { CreativePopularBrandSearchResultComponent, CreativePopularBrandRowRenderComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
 import { CreativeUsageRightsSearchResultComponent } from './creative-usage-rights-search-result/creative-usage-rights-search-result.component';
 import { CreativeBrandCampaignSearchResultComponent } from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
@@ -43,8 +43,8 @@ const COMPONENTS = [
   BaseSearchResultComponent,
   GlobalSearchResultComponent,
   BaseGlobalSearchResultComponent,
+  GlobalLoadMoreSearchResultComponent,
   CreativeBrandAssetSearchResultComponent,
-  CreativeAssetRelatedSearchResultComponent,
   CreativePopularBrandSearchResultComponent,
   CreativeBrandRowRenderComponent,
   CreativeDocumentAssetRowRenderComponent,

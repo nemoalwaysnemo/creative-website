@@ -1,0 +1,19 @@
+.search-results {
+  > h1 {
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+    margin-left: 30px;
+    margin-top: 0;
+  }
+}
+.load-more {
+  font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
+  display: block;
+  width: 140px;
+  height: 30px;
+  margin: 20px auto;
+  font-size: 20px;
+  text-align: center;
+  text-transform: capitalize;
+  color: #2a2a2a;
+  cursor: pointer;
+}
