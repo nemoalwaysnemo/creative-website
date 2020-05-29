@@ -21,7 +21,7 @@ enum assetTypes {
   thinking = 'App-Disruption-Asset',
   case_asset = 'App-BizDev-CaseStudy-Asset',
   thought_asset = 'App-BizDev-Thought-Asset',
-  innovation_asset = 'App-innovation-Asset',
+  innovation_asset = 'App-Innovation-Asset',
 }
 
 @Component({

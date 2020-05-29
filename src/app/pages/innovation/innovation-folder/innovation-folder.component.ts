@@ -49,7 +49,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
       this.addChildrenPermission$ = !doc.hasFolderishChild ? doc.hasPermission(NuxeoPermission.AddChildren) : observableOf(false);
       this.deleteRedirectUrl = this.buildRedirectUrl();
-      this.assetUrl = this.deleteRedirectUrl + '/folder/';
+      this.assetUrl = this.buildRedirectUrl();
     }
   }
 

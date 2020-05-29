@@ -79,13 +79,13 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
         label: 'Asset Type',
         readOnly: true,
         disabled: true,
-        required: true,
-      }),
-      new DynamicInputModel({
-        id: 'dc:creator',
-        label: 'Author',
-        placeholder: 'Author',
         required: false,
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:created_by',
+        label: 'Author',
+        required: false,
+        placeholder: 'Author',
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -135,11 +135,11 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
         required: false,
       }),
       new DynamicCheckboxModel({
-        id: 'app_global:networkshare',
+        id: 'app_global:ext_app_iframe',
         label: 'Enable external App iframe',
       }),
       new DynamicInputModel({
-        id: 'dc:creator',
+        id: 'The_Loupe_Main:url',
         label: 'external Application URL',
         placeholder: 'external Application URL',
         required: false,

@@ -76,8 +76,16 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
   }
 
   private getDeleteRedirectUrl(doc: DocumentModel): string {
-    return (['App-BizDev-ThoughtLeadership-Folder', 'App-BizDev-Case-Studies-Folder'].includes(doc.type))
-            ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
+    let url;
+    if (doc.path === (NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/NEXT')) {
+      url = '/p/innovation/NEXT';
+    } else if (doc.path === (NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/Things to Steal')) {
+      url = '/p/innovation/Things to Steal';
+    } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH) || doc.path.includes(NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH)) {
+      url = this.assetUrlMapping[doc.type] + '/' + doc.uid;
+    }
+
+    return url;
   }
 
   documentMap(doc: DocumentModel): string {
