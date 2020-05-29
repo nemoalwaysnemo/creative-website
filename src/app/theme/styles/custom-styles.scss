@@ -171,6 +171,10 @@ body {
           line-height: 30px;
         }
       }
+    
+      &.test-class {
+        
+      }
     }
   }
   &.dates {
@@ -474,7 +478,17 @@ body {
       float: none;
       margin: 0 0 30px;
       .description {
+        padding:0 2px;
         > h1 { margin: 20px 0 15px; }
+      }
+      &.half-size {
+        .description {
+          > h1 { 
+            margin:10px 5px 10px 0; 
+            font-size:16px;
+            
+          }
+        }
       }
     }
   }

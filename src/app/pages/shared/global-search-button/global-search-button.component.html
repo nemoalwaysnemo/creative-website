@@ -1,9 +1,10 @@
-<ng-container *ngIf="enableSlider">
-  <!-- <div *ngxPermissionsOnly="['DEV']" class="button-group-slider">
-    <ng5-slider class="image-zoom-slider" [(value)]="sliderDefaultValue" [options]="sliderOptions" (userChange)="sliderValueChanged($event)"></ng5-slider>
-  </div> -->
-</ng-container>
+
 <div class="button-group-buttons">
+	<ng-container *ngIf="enableSlider">
+	  <div *ngxPermissionsOnly="['DEV']" class="button-group-slider">
+	    <ng5-slider class="image-zoom-slider" [(value)]="sliderDefaultValue" [options]="sliderOptions" (userChange)="sliderValueChanged($event)"></ng5-slider>
+	  </div>
+	</ng-container>
   <button (click)="changeResultView('thumbnailView')" class="grid_view_trigger icon_btn left" [ngClass]="{'btn-active': currentView === 'thumbnailView'}" title="Grid View">Grid</button>
   <button (click)="changeResultView('listView')" class="list_view_trigger icon_btn left" [ngClass]="{'btn-active': currentView ==='listView'}" title="List View">List</button>
 </div>
