@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, timer } from 'rxjs';
-import { AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoEnricher, NuxeoRequestOptions } from '@core/api';
+import { Subject, Observable, of as observableOf, timer } from 'rxjs';
+import { AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoEnricher, NuxeoRequestOptions, NuxeoPermission } from '@core/api';
 import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../innovation-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-list',
@@ -14,11 +14,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class InnovationListComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  addChildrenPermission$: Observable<boolean> = observableOf(false);
+
   baseParams$: Subject<any> = new Subject<any>();
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
-
-  currentUrl: string = this.router.url;
 
   assetUrl: string;
 
@@ -39,7 +39,6 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
   }
 
   constructor(
-    private router: Router,
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
@@ -58,7 +57,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       currentPageIndex: 0,
       ecm_mixinType_not_in: '',
       ecm_fulltext: queryParams.ecm_fulltext_wildcard,
-      ecm_path: this.setPath(),
+      ecm_path: this.getPath(),
       ecm_primaryType: NUXEO_META_INFO.INNOVATION_SEARCH_TYPE,
     };
 
@@ -68,8 +67,9 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
   protected setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
     if (doc) {
+      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
       timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
-      this.assetUrl = this.buildRedirectUrl() + '/folder/';
+      this.assetUrl = this.getRedirectUrl();
     }
   }
 
@@ -79,7 +79,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
-      ecm_path_eq: this.setPath(),
+      ecm_path_eq: this.getPath(),
       ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
     };
 
@@ -92,7 +92,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
-      ecm_path: this.setPath(),
+      ecm_path: this.getPath(),
       ecm_primaryType: NUXEO_META_INFO.INNOVATION_SEARCH_TYPE,
     };
 
@@ -102,20 +102,19 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
     return new NuxeoPageProviderParams(params);
   }
 
-  protected setPath(): string {
-    let path;
-    const url = decodeURI(this.currentUrl);
+  protected getPath(): string {
+    let path: string;
+    const url = decodeURI(this.queryParamsService.getCurrentUrl());
     if (url.includes('/NEXT')) {
       path = NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH;
     } else if (url.includes('/Things to Steal')) {
       path = NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
     }
-
     return path;
   }
 
-  protected buildRedirectUrl(): string {
-    return this.currentUrl.split('?')[0];
+  protected getRedirectUrl(): string {
+    return this.queryParamsService.getCurrentUrl().split('?')[0] + '/folder/';
   }
 
 }

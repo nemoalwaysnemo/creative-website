@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearchService, NuxeoPermission, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../innovation-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
-import { ConstantPool } from '@angular/compiler';
+import { TAB_CONFIG } from '../innovation-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder',
@@ -18,8 +17,6 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   baseParams$: Subject<any> = new Subject<any>();
-
-  currentUrl: string = this.router.url;
 
   assetUrl: string;
 
@@ -37,7 +34,6 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   });
 
   constructor(
-    private router: Router,
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected queryParamsService: SearchQueryParamsService) {
@@ -59,7 +55,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
-      ecm_path: this.setPath(),
+      ecm_path: this.getPath(),
       ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
     };
 
@@ -80,7 +76,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   protected buildSubFolderParams(doc?: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
-      ecm_path: this.setPath(),
+      ecm_path: this.getPath(),
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
@@ -95,7 +91,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
     const params = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_META_INFO.INNOVATION_ASSET_TYPE,
-      ecm_path: this.setPath(),
+      ecm_path: this.getPath(),
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
@@ -106,8 +102,8 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
     return params;
   }
 
-  protected setPath(): string {
-    return this.currentUrl.includes('/NEXT') ? NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH : NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
+  protected getPath(): string {
+    return this.queryParamsService.getCurrentUrl().includes('/NEXT') ? NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH : NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
   }
 
   protected buildRedirectUrl(): string {
