@@ -10,6 +10,7 @@ import { DocumentModel } from '@core/api';
 export class InnovationDocumentAssetSearchResultComponent {
 
   getAssetUrl(doc: DocumentModel): string {
+    if (doc.type !== 'App-Innovation-Folder' && doc.type !== 'App-Innovation-Asset') { return '/p/innovation/asset'; }
     let url;
     if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/NEXT')) {
       url = '/p/innovation/NEXT/folder';
@@ -18,8 +19,6 @@ export class InnovationDocumentAssetSearchResultComponent {
     }
     if (doc.type === 'App-Innovation-Asset') {
       url = `${url}/${doc.parentRef}/asset`;
-    } else {
-      url = '/p/innovation/asset';
     }
     return url;
   }
