@@ -104,7 +104,7 @@ export class InnovationFolderViewComponent {
   }
 
   toImageParentDocument(): any {
-    this.goBack();
+    // this.goBack();
   }
 
   private goBackInfo(url: string): any {
