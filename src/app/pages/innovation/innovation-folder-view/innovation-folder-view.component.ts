@@ -89,17 +89,22 @@ export class InnovationFolderViewComponent {
     this.globalDocumentDialogService.open(dialog);
   }
 
+  inBaseFolder(): boolean {
+    return this.doc.path.search(/\/NEXT$|\/Things to Steal$/) !== -1;
+  }
+
   goBack(): void {
-    const url = this.getAssetUrl(this.doc);
-    this.queryParamsService.redirect(url.split('/folder')[0]);
+    const url = this.router.url;
+    const assetReg = /asset\/[0-9,a-z]{8}(-[0-9,a-z]{4}){3}-[0-9,a-z]{12}$/;
+    if (url.search(assetReg) === -1 || this.inBaseFolder()) {
+      this.queryParamsService.redirect(url.split('/folder')[0]);
+    } else {
+      this.queryParamsService.redirect(url.split('/asset')[0]);
+    }
   }
 
   toImageParentDocument(): any {
-    if ((NUXEO_META_INFO.INNOVATION_FOLDER_TYPE).includes(this.doc.type)) {
-      return [this.getAssetUrl(this.doc)];
-    } else {
-      return [this.getAssetUrl(this.doc), this.doc.uid];
-    }
+    this.goBack();
   }
 
   private goBackInfo(url: string): any {
