@@ -17,7 +17,7 @@ export class InnovationAssetSearchResultComponent extends BaseSearchResultCompon
   @Input()
   set assetUrl(url: string) {
     if (url) {
-      this.folderUrl = decodeURI(url);
+      this.folderUrl = this.getUrl(url);
     }
   }
 
@@ -27,6 +27,18 @@ export class InnovationAssetSearchResultComponent extends BaseSearchResultCompon
 
   protected onInit(): void {
     this.onQueryParamsChanged();
+  }
+
+  protected getUrl(url: string): string {
+    let path;
+    url = decodeURI(url);
+    if (url.includes('/NEXT')) {
+      path = '/p/innovation/NEXT/folder/';
+    } else if (url.includes('/Things to Steal')) {
+      path = '/p/innovation/Things to Steal/folder/';
+    }
+
+    return path;
   }
 
   isParentFolder(doc): boolean {
