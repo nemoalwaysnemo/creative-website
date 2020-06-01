@@ -90,11 +90,11 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   constructor(
     private advanceSearchService: AdvanceSearchService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+    private queryParamsService: SearchQueryParamsService,
     private nuxeoApi: NuxeoApiService,
     private userService: UserService,
     private location: Location,
-    private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
     private router: Router,
   ) { }
 

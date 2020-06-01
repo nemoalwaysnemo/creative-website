@@ -31,6 +31,7 @@ export class GlobalSearchFormService {
   }
 
   advanceSearch(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: any = {}): Observable<SearchResponse> {
+    // this.googleAnalyticsTrackEvent();
     return this.advanceSearchService.search(provider, searchParams, opts, metadata);
   }
 
@@ -47,6 +48,7 @@ export class GlobalSearchFormService {
     return this;
   }
 
+
   changePageIndex(currentPageIndex: number, pageSize: number = 20, metadata: any = {}): void {
     this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex, pageSize }, metadata }));
   }
@@ -56,10 +58,8 @@ export class GlobalSearchFormService {
   }
 
   private googleAnalyticsTrackEvent(event: string): void {
-    if (['PageInitialized', 'SearchTermChanged', 'FormFilterChanged'].includes(event)) {
       // const queryParams = this.buildQueryParams();
       // this.googleAnalyticsService.trackSearch({ 'event_category': 'Search', 'event_action': event, 'event_label': event, queryParams });
-    }
   }
 
 }

@@ -1,12 +1,13 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { getDocumentTypes } from '@core/services/helpers';
-import { Observable, of as observableOf, combineLatest } from 'rxjs';
-import { concatMap, map, share } from 'rxjs/operators';
-import { DocumentModel, UserService, UserModel, NuxeoPermission } from '@core/api';
-import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
-import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { Observable, of as observableOf, combineLatest, Subscription } from 'rxjs';
+import { concatMap, map, share, filter } from 'rxjs/operators';
+import { DocumentModel, UserService, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
+import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -18,11 +19,19 @@ export class DocumentActionGroupComponent {
 
   documentModel: DocumentModel;
 
+  videoCurrentTime: number | null = null;
+
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
+
+  writePermission$: Observable<boolean> = observableOf(false);
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
+  protected subscription: Subscription = new Subscription();
+
   @Input() styleName: string;
+
+  @Input() enableThumbnailCreation: boolean = false;
 
   @Input()
   set document(doc: DocumentModel) {
@@ -35,15 +44,18 @@ export class DocumentActionGroupComponent {
       } else {
         this.downloadPermission$ = observableOf(true);
       }
+      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
     }
   }
 
   constructor(
     private userService: UserService,
+    private nuxeoApi: NuxeoApiService,
     private queryParamsService: SearchQueryParamsService,
+    private documentVideoViewerService: DocumentVideoViewerService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-
+    this.subscribeServiceEvent();
   }
 
   openDialog(dialog: TemplateRef<any>): void {
@@ -81,4 +93,26 @@ export class DocumentActionGroupComponent {
     this.queryParamsService.historyBack();
   }
 
+  newThumbnail(currentTime: number): void {
+    if (typeof currentTime === 'number') {
+      const duration = (currentTime * 10).toString();
+      const subscription = this.nuxeoApi.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.documentModel.uid).subscribe((doc: DocumentModel) => {
+        this.queryParamsService.refresh();
+      });
+      this.subscription.add(subscription);
+    }
+  }
+
+  protected subscribeServiceEvent(): void {
+    const subscription = this.documentVideoViewerService.onEvent().pipe(
+      filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPlaying', 'videPause'].includes(e.name)),
+    ).subscribe((e: DocumentVideoEvent) => {
+      if (e.name === 'videPause') {
+        this.videoCurrentTime = e.currentTime;
+      } else if ('videoPlaying') {
+        this.videoCurrentTime = null;
+      }
+    });
+    this.subscription.add(subscription);
+  }
 }
