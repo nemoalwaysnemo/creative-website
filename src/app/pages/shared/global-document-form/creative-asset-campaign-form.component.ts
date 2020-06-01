@@ -141,8 +141,14 @@ export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Campaign Start',
-        readonly: true,
+        readonly: false,
         required: false,
+        validators: {
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',

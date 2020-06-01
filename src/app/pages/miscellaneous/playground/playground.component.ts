@@ -152,11 +152,17 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           new DynamicDatepickerDirectiveModel<string>({
             id: 'start_airing_date',
             label: 'Production Date',
-            readonly: true,
+            readonly: false,
             defaultValue: (new Date()),
             required: true,
-            validators: { required: null },
-            errorMessages: { required: '{{label}} is required' },
+            validators: {
+              required: null,
+              dateFormatValidator: null,
+            },
+            errorMessages: {
+              required: '{{label}} is required',
+              dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+            },
           }),
           new DynamicCheckboxModel({
             id: 'active_media_usage',

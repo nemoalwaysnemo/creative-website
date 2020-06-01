@@ -85,9 +85,16 @@ export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentForm
         formMode: 'create',
         defaultValue: (new Date()),
         placeholder: 'Published',
-        readonly: true,
+        readonly: false,
         required: true,
-        errorMessages: { required: '{{label}} is required' },
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',

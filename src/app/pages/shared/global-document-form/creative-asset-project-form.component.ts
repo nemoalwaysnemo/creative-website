@@ -240,9 +240,15 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
         label: 'First-Airing',
-        readonly: true,
+        readonly: false,
         required: false,
         accordionTab: '+ Usage Rights',
+        validators: {
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
