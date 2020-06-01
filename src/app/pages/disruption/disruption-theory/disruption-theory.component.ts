@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AdvanceSearchService, DocumentModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel } from '@core/api';
-import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -47,8 +47,8 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
     }

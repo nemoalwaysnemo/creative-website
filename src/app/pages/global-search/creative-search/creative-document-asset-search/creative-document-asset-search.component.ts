@@ -1,17 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
-import { SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
-import { AdvanceSearchService, SearchResponse, NuxeoPagination, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component } from '@angular/core';
 import { Params } from '@angular/router';
+import { DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { AdvanceSearchService, SearchResponse, NuxeoPagination, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
+import { Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-document-asset-search',
   styleUrls: ['./creative-document-asset-search.component.scss'],
   templateUrl: './creative-document-asset-search.component.html',
 })
-export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
+export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewComponent {
 
   resultHeader: string;
 
@@ -51,19 +52,13 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
     return observableOf(res);
   }
 
-  private subscription: Subscription = new Subscription();
-
-  constructor(
-    protected advanceSearchService: AdvanceSearchService,
-    protected queryParamsService: SearchQueryParamsService) {
+  constructor(protected advanceSearchService: AdvanceSearchService, protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
-  ngOnInit(): void {
+  onInit(): void {
+    super.onInit();
     this.setResultHeader();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   onResultViewChanged(name: string): void {
@@ -71,7 +66,7 @@ export class CreativeDocumentAssetSearchComponent implements OnInit, OnDestroy {
   }
 
   private setResultHeader(): void {
-    const subscription = this.queryParamsService.onQueryParamsChanged().subscribe((params: Params) => {
+    const subscription = this.documentPageService.onQueryParamsChanged().subscribe((params: Params) => {
       if (params.hasOwnProperty('app_global_networkshare')) {
         this.resultHeader = `Best of TBWA\\`;
       } else {

@@ -2,7 +2,7 @@
 import { Component, Input, ViewChild, OnDestroy } from '@angular/core';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination, AdvanceSearchService } from '@core/api';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -32,7 +32,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
 
   constructor(
     private advanceSearchService: AdvanceSearchService,
-    private queryParamsService: SearchQueryParamsService,
+    private documentPageService: DocumentPageService,
   ) {
   }
 
@@ -45,7 +45,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
   }
 
   redirectToDoc(doc: DocumentModel): void {
-    this.queryParamsService.redirect(`/p/creative/asset/${doc.uid}`);
+    this.documentPageService.redirect(`/p/creative/asset/${doc.uid}`);
   }
 
   private searchRelatedCampaign(doc: DocumentModel): void {

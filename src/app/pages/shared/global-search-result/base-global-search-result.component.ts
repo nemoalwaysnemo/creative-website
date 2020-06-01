@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentModel, NuxeoPageProviderParams, SearchResponse } from '@core/api';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { BaseSearchResultComponent } from './base-search-result.component';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { concatMap, filter, tap } from 'rxjs/operators';
@@ -48,10 +48,10 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   constructor(
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected globalSearchFormService: GlobalSearchFormService,
   ) {
-    super(queryParamsService);
+    super(documentPageService);
   }
 
   protected onInit(): void {

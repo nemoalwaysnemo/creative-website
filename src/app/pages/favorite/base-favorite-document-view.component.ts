@@ -1,24 +1,27 @@
-import { OnInit } from '@angular/core';
-import { DocumentModel, AdvanceSearchService, UserService } from '@core/api';
-import { tap } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalDocumentDialogService, SearchQueryParamsService, GlobalDocumentViewComponent } from '@pages/shared';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { DocumentModel, AdvanceSearchService, UserService } from '@core/api';
+import { GlobalDocumentDialogService, DocumentPageService, GlobalDocumentViewComponent } from '@pages/shared';
 
-export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewComponent implements OnInit {
+@Component({
+  template: '',
+})
+export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewComponent {
 
   baseParams$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected userService: UserService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
-  ngOnInit(): void {
+  onInit(): void {
     const subscription = this.getFavoriteDocument().subscribe();
     this.subscription.add(subscription);
   }
@@ -28,6 +31,7 @@ export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewCompone
   }
 
   protected setCurrentDocument(doc: DocumentModel) {
+    this.documentPageService.setCurrentDocument(doc);
     if (doc) {
       this.baseParams$.next(this.buildAssetsParams(doc));
     }

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, SearchQueryParamsService, DocumentModelForm } from '../../shared';
+import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
@@ -59,7 +59,7 @@ export class BizDevFolderViewComponent {
 
   constructor(
     private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
+    private documentPageService: DocumentPageService,
     private router: Router,
   ) { }
 
@@ -107,18 +107,18 @@ export class BizDevFolderViewComponent {
   goBack(): void {
     const parentInfo: any = this.goBackInfo(this.doc.type);
     if ((NUXEO_META_INFO.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
-      this.queryParamsService.redirect(parentInfo.urlRootPath);
+      this.documentPageService.redirect(parentInfo.urlRootPath);
     } else {
       const rootPath: string = parentInfo.rootPath;
       const splitPath: string = this.doc.path.split(rootPath)[1];
       const childSplitPath: string[] = splitPath.split('/');
 
       if (this.router.url.includes('/asset/')) {
-        this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.uid}`);
+        this.documentPageService.redirect(`${parentInfo.urlParentPath}${this.doc.uid}`);
       } else if (childSplitPath.length < 2) {
-        this.queryParamsService.redirect(`${parentInfo.urlRootPath}`);
+        this.documentPageService.redirect(`${parentInfo.urlRootPath}`);
       } else {
-        this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.parentRef}`);
+        this.documentPageService.redirect(`${parentInfo.urlParentPath}${this.doc.parentRef}`);
       }
     }
   }

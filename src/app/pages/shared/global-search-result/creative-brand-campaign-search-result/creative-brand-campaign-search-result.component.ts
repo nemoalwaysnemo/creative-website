@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -56,8 +56,8 @@ export class CreativeBrandCampaignSearchResultComponent extends BaseSearchResult
     return items;
   }
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
-    super(queryParamsService);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected onInit(): void {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { AdvanceSearchService, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -21,8 +21,8 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
     private userService: UserService,
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
 
     this.searchCurrentAgency().subscribe((doc: DocumentModel) => {
       if (doc) {
@@ -32,14 +32,15 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
   }
 
   onInit(): void {
+    this.documentPageService.setCurrentDocument(null);
   }
 
   private redirectToAgency(uid: string): void {
-    this.queryParamsService.navigate(['/p/creative/agency/' + uid + '/brand']);
+    this.documentPageService.navigate(['/p/creative/agency/' + uid + '/brand']);
   }
 
   protected setCurrentDocument(doc?: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (!doc) {
       this.hideEmpty = true;
     }

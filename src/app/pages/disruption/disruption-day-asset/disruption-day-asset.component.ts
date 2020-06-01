@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, NuxeoPagination, NuxeoPageProviderConstants } from '@core/api';
-import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -37,17 +37,13 @@ export class DisruptionDayAssetComponent extends GlobalDocumentViewComponent imp
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
     this.onInit();
     this.searchFolder();
-  }
-
-  protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
   }
 
   protected getCurrentDocumentSearchParams(): any {

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
   template: `<a [routerLink]="['/p/search/creative/popularBrandAsset', value.uid]">{{ value.title }}</a>`,
@@ -57,8 +57,8 @@ export class CreativePopularBrandSearchResultComponent extends BaseSearchResultC
     return items;
   }
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
-    super(queryParamsService);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
 

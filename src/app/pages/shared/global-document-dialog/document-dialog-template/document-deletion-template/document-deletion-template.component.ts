@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
-import { SearchQueryParamsService } from '../../../../shared/services/search-query-params.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 
 @Component({
@@ -16,9 +16,9 @@ export class DocumentDialogDeletionComponent extends DocumentDialogCustomTemplat
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
   ) {
-    super(globalDocumentDialogService, queryParamsService);
+    super(globalDocumentDialogService, documentPageService);
   }
 
   delete(): void {
@@ -34,7 +34,7 @@ export class DocumentDialogDeletionComponent extends DocumentDialogCustomTemplat
 
   private moveRefresh(): void {
     if (!this.redirectUrl) {
-      this.queryParamsService.historyBack();
+      this.documentPageService.historyBack();
     } else {
       this.refresh();
     }

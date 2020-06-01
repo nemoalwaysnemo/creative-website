@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
 import { AdvanceSearchService, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
-import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -44,12 +44,12 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       this.documentType = this.getCurrentAssetType(doc);
       this.setFilters();

@@ -1,7 +1,7 @@
 import { Component, Input, Type, ComponentRef, ViewContainerRef, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
 import { DocumentDialogBaseTemplateComponent } from './document-dialog-base-template.component';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -21,10 +21,10 @@ export class DocumentDialogContainerComponent extends DocumentDialogBaseTemplate
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
-    super(globalDocumentDialogService, queryParamsService);
+    super(globalDocumentDialogService, documentPageService);
   }
 
   protected onInit(): void {

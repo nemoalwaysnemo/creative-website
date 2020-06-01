@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { Title } from '@angular/platform-browser';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { ReplaySubject, Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, map, tap, concatMap, filter } from 'rxjs/operators';
-import { removeUselessObject, isDocumentUID } from '../services/helpers';
+import { map, tap, concatMap, filter } from 'rxjs/operators';
+import { isDocumentUID, removeUselessObject } from '../services/helpers';
 import { NuxeoAutomations } from '../api/nuxeo/lib/base.interface';
 import { NuxeoApiService } from '../api/nuxeo/nuxeo.api.service';
 import { NbAuthService } from '../base-auth/services';
@@ -38,7 +37,6 @@ export class GoogleAnalyticsService {
 
   constructor(
     private router: Router,
-    private titleService: Title,
     private nuxeoApi: NuxeoApiService,
     private authService: NbAuthService,
   ) {
@@ -60,17 +58,6 @@ export class GoogleAnalyticsService {
       ).subscribe((event: GtmEvent) => {
         this.pushLayer(event);
       });
-  }
-
-  pageViewTrack(): void {
-    this.router.events.pipe(
-      distinctUntilChanged(),
-      filter(event => event instanceof NavigationEnd),
-    ).subscribe((event: NavigationEnd) => {
-      if (!(event.url.includes('q=') || event.url.includes('_agg='))) {
-        this.trackPageView({ url: event.url, title: this.titleService.getTitle() });
-      }
-    });
   }
 
   trackSearch(e: any = {}): void {
@@ -103,7 +90,7 @@ export class GoogleAnalyticsService {
     this.event$.next(event);
   }
 
-  private trackPageView(e: any = {}): void {
+  trackPageView(e: any = {}): void {
     const event = {
       'event': 'google-analytics-pageview',
       'page_location': (() => document.location).call(this),

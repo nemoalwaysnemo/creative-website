@@ -1,19 +1,18 @@
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
-import { Subscription, Observable, forkJoin } from 'rxjs';
-import { TAB_CONFIG } from '../business-development-tab-config';
+import { Component } from '@angular/core';
+import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GlobalSearchFormSettings } from '@pages/shared';
+import { TAB_CONFIG } from '../business-development-tab-config';
+import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-home',
   styleUrls: ['./biz-dev-home.component.scss'],
   templateUrl: './biz-dev-home.component.html',
 })
-export class BizDevHomeComponent implements OnInit, OnDestroy {
-
-  private subscription: Subscription = new Subscription();
+export class BizDevHomeComponent extends BaseDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
 
@@ -67,16 +66,13 @@ export class BizDevHomeComponent implements OnInit, OnDestroy {
     placeholder: 'Search for anything...',
   });
 
-  constructor(
-    private advanceSearchService: AdvanceSearchService) {
+  constructor(private advanceSearchService: AdvanceSearchService, protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
-  ngOnInit(): void {
+  onInit(): void {
+    super.onInit();
     this.performFolders();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   private performFolders(): void {

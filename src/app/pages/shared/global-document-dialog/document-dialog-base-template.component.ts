@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 import { map } from 'rxjs/operators';
 import { Subscription, timer, Subject, zip, forkJoin, of as observableOf, Observable } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { Environment } from '@environment/environment';
 
 @Component({
@@ -44,7 +44,7 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
   ) {
     this.registerListeners();
   }
@@ -91,14 +91,14 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   refresh(redirectUrl?: string): void {
     if (redirectUrl || this.redirectUrl) {
-      this.queryParamsService.redirect(redirectUrl || this.redirectUrl);
+      this.documentPageService.redirect(redirectUrl || this.redirectUrl);
     } else {
-      this.queryParamsService.refresh();
+      this.documentPageService.refresh();
     }
   }
 
   navigate(commands: any[], extras?: NavigationExtras): void {
-    this.queryParamsService.navigate(commands, extras);
+    this.documentPageService.navigate(commands, extras);
   }
 
   assetPath(src: string): string {

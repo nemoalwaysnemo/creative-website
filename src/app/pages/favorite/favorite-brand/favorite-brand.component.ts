@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, UserService, SearchFilterModel } from '@core/api';
-import { GlobalDocumentDialogService, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentDialogService, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
@@ -26,10 +26,10 @@ export class FavoriteBrandComponent extends BaseFavoriteDocumentViewComponent {
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected userService: UserService) {
-    super(advanceSearchService, activatedRoute, queryParamsService, globalDocumentDialogService, userService);
+    super(advanceSearchService, activatedRoute, documentPageService, globalDocumentDialogService, userService);
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {

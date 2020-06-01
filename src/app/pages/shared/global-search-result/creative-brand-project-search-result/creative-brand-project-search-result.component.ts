@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
   selector: 'creative-brand-project-search-result',
@@ -58,8 +58,8 @@ export class CreativeBrandProjectSearchResultComponent extends BaseSearchResultC
     return items;
   }
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
-    super(queryParamsService);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected onInit(): void {

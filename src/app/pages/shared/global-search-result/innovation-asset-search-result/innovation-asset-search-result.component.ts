@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BaseSearchResultComponent } from '../base-search-result.component';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
@@ -21,8 +21,8 @@ export class InnovationAssetSearchResultComponent extends BaseSearchResultCompon
     }
   }
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
-    super(queryParamsService);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected onInit(): void {

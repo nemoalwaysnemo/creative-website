@@ -2,7 +2,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
@@ -59,8 +59,8 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
     return items;
   }
 
-  constructor(private globalDocumentDialogService: GlobalDocumentDialogService, queryParamsService: SearchQueryParamsService) {
-    super(queryParamsService);
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService, documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected onInit(): void {

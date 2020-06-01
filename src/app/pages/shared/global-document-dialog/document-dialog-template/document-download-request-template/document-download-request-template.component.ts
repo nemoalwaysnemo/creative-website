@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NuxeoApiService, NuxeoAutomations, DocumentModel } from '@core/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
-import { SearchQueryParamsService } from '../../../../shared/services/search-query-params.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 
 @Component({
@@ -18,11 +18,11 @@ export class DocumentDownloadRequestComponent extends DocumentDialogCustomTempla
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected formBuilder: FormBuilder,
     protected nuxeoApi: NuxeoApiService,
   ) {
-    super(globalDocumentDialogService, queryParamsService);
+    super(globalDocumentDialogService, documentPageService);
   }
 
   submit(): void {

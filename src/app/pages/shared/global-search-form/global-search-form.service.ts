@@ -31,7 +31,7 @@ export class GlobalSearchFormService {
   }
 
   advanceSearch(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: any = {}): Observable<SearchResponse> {
-    // this.googleAnalyticsTrackEvent();
+    this.googleAnalyticsTrackEvent(metadata);
     return this.advanceSearchService.search(provider, searchParams, opts, metadata);
   }
 
@@ -57,9 +57,8 @@ export class GlobalSearchFormService {
     this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams, metadata }));
   }
 
-  private googleAnalyticsTrackEvent(event: string): void {
-      // const queryParams = this.buildQueryParams();
-      // this.googleAnalyticsService.trackSearch({ 'event_category': 'Search', 'event_action': event, 'event_label': event, queryParams });
+  private googleAnalyticsTrackEvent(metadata: any): void {
+    this.googleAnalyticsService.trackSearch({ 'event_category': 'Search', 'event_action': event, 'event_label': metadata.event, queryParams: metadata.searchParams });
   }
 
 }

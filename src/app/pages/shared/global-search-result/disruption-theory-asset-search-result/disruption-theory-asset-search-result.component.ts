@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseSearchResultComponent } from '../base-search-result.component';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
   selector: 'disruption-theory-asset-search-result',
@@ -9,8 +9,8 @@ import { SearchQueryParamsService } from '../../services/search-query-params.ser
 })
 export class DisruptionTheoryAssetSearchResultComponent extends BaseSearchResultComponent {
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
-    super(queryParamsService);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected onInit(): void {

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { SearchFilterModel } from '@core/api';
-import { GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'intelligence-document-asset-search',
   templateUrl: './intelligence-document-asset-search.component.html',
 })
-export class IntelligenceDocumentAssetSearchComponent {
+export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewComponent {
 
   defaultParams: any = {
     ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
@@ -30,4 +31,8 @@ export class IntelligenceDocumentAssetSearchComponent {
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     enableQueryParams: true,
   });
+
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
+  }
 }

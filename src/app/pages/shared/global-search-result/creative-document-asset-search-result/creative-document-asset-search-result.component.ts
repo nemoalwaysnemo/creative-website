@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
   template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>`,
@@ -90,8 +90,8 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
     return items;
   }
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
-    super(queryParamsService);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected onInit(): void {

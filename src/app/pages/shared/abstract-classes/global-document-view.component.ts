@@ -1,13 +1,17 @@
+import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearchService, NuxeoRequestOptions } from '@core/api';
 import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
 import { isDocumentUID, parseCountry } from '@core/services/helpers';
 import { Observable } from 'rxjs';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { BaseDocumentViewComponent } from './base-document-view.component';
 import { Environment } from '@environment/environment';
 
+@Component({
+  template: '',
+})
 export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   document: DocumentModel;
@@ -21,9 +25,9 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
   ) {
-    super();
+    super(documentPageService);
   }
 
   onInit() {
@@ -43,6 +47,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
+    this.documentPageService.setCurrentDocument(doc);
     this.document = doc;
   }
 
@@ -104,18 +109,18 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   protected refresh(redirectUrl?: string): void {
     if (redirectUrl) {
-      this.queryParamsService.redirect(redirectUrl);
+      this.documentPageService.redirect(redirectUrl);
     } else {
-      this.queryParamsService.refresh();
+      this.documentPageService.refresh();
     }
   }
 
   protected redirectTo404(): void {
-    this.queryParamsService.redirectTo404();
+    this.documentPageService.redirectTo404();
   }
 
   protected navigate(commands: any[], extras?: NavigationExtras): Promise<boolean> {
-    return this.queryParamsService.navigate(commands, extras);
+    return this.documentPageService.navigate(commands, extras);
   }
 
   protected parseCountry(list: string[]): string {

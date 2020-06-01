@@ -2,7 +2,7 @@ import { Component, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AdvanceSearchService } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -15,9 +15,9 @@ export class BackslashAssetPageComponent extends GlobalDocumentViewComponent imp
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     private router: Router) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, documentPageService);
     this.onRouterChange();
   }
 

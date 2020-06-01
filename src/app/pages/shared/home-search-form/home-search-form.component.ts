@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, SearchResponse } from '@core/api';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
@@ -47,13 +47,13 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected globalSearchFormService: GlobalSearchFormService,
   ) {
     super(
       router,
       formBuilder,
-      queryParamsService,
+      documentPageService,
       globalSearchFormService,
     );
   }

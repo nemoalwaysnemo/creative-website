@@ -1,7 +1,7 @@
 import { Subject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CookieService } from '@core/services';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 import { filter, share } from 'rxjs/operators';
 import { DocumentModel } from '@core/api';
 
@@ -20,7 +20,7 @@ export class DocumentVideoViewerService {
 
   private event: Subject<DocumentVideoEvent> = new Subject<DocumentVideoEvent>();
 
-  constructor(private cookieService: CookieService, private queryParamsService: SearchQueryParamsService) {
+  constructor(private cookieService: CookieService, private documentPageService: DocumentPageService) {
   }
 
   getCookie(key: string): string {
@@ -40,7 +40,7 @@ export class DocumentVideoViewerService {
   }
 
   getQueryParams(key: string): string {
-    return this.queryParamsService.getSnapshotQueryParams()[key];
+    return this.documentPageService.getSnapshotQueryParams()[key];
   }
 
   onEvent(name?: string): Observable<DocumentVideoEvent> {
