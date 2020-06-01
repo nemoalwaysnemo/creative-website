@@ -32,6 +32,7 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
     formMode: 'edit',
     enableEdit: true,
     enableDeletion: true,
+    moreInfo: true,
   };
 
   openDialog(dialog: TemplateRef<any>) {
