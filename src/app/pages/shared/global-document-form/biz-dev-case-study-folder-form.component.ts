@@ -84,17 +84,6 @@ export class BizDevCaseStudyFolderFormComponent extends GlobalDocumentFormCompon
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Case Date (for sorting)',
-        formMode: 'create',
-        readonly: true,
-        defaultValue: (new Date()),
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Case Date (for sorting)',
-        formMode: 'edit',
         readonly: false,
         defaultValue: (new Date()),
         required: true,

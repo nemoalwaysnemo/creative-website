@@ -83,7 +83,6 @@ export class DisruptionHowTosAssetFormComponent extends GlobalDocumentFormCompon
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Published',
-        formMode: 'edit',
         defaultValue: (new Date()),
         placeholder: 'Published',
         readonly: false,
@@ -96,16 +95,6 @@ export class DisruptionHowTosAssetFormComponent extends GlobalDocumentFormCompon
           required: '{{label}} is required',
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Published',
-        formMode: 'create',
-        defaultValue: (new Date()),
-        placeholder: 'Published',
-        readonly: true,
-        required: true,
-        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',

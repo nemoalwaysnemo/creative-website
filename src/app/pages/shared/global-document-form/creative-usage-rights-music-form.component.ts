@@ -173,17 +173,6 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
           new DynamicDatepickerDirectiveModel<string>({
             id: 'start_airing_date',
             label: 'Start Airing Date',
-            formMode: 'create',
-            readonly: true,
-            required: true,
-            defaultValue: (new Date()),
-            validators: { required: null },
-            errorMessages: { required: '{{label}} is required' },
-          }),
-          new DynamicDatepickerDirectiveModel<string>({
-            id: 'start_airing_date',
-            label: 'Start Airing Date',
-            formMode: 'edit',
             readonly: false,
             required: true,
             defaultValue: (new Date()),

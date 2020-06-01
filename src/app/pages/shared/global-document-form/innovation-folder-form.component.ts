@@ -69,15 +69,6 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
-        formMode: 'create',
-        label: 'Date',
-        readonly: true,
-        defaultValue: (new Date()),
-        required: false,
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        formMode: 'edit',
         label: 'Date',
         readonly: false,
         defaultValue: (new Date()),
@@ -171,7 +162,7 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Image/PDF here!',
+        placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
         acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({

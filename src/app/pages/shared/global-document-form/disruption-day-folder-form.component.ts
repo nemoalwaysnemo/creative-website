@@ -72,18 +72,6 @@ export class DisruptionDayFolderFormComponent extends GlobalDocumentFormComponen
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Workshop Date',
-        formMode: 'create',
-        placeholder: 'Workshop Date',
-        readonly: true,
-        required: true,
-        defaultValue: (new Date()),
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Workshop Date',
-        formMode: 'edit',
         placeholder: 'Workshop Date',
         readonly: false,
         required: true,

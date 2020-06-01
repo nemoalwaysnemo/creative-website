@@ -81,17 +81,6 @@ export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Production Date',
-        formMode: 'create',
-        readonly: true,
-        defaultValue: (new Date()),
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Production Date',
-        formMode: 'edit',
         readonly: false,
         defaultValue: (new Date()),
         required: true,
@@ -124,11 +113,17 @@ export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
         label: 'Live date / publishing',
-        readonly: true,
+        readonly: false,
         defaultValue: (new Date()),
         required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required'},
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
@@ -136,7 +131,13 @@ export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent
         id: 'The_Loupe_Rights:first-airing',
         label: 'Live date / publishing',
         required: false,
-        readonly: true,
+        readonly: false,
+        validators: {
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
         visibleFn: (doc: DocumentModel): boolean => !doc.getParent().get('app_global:UsageRights'),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
