@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CreativeAssetPageComponent extends GlobalDocumentViewComponent {
 
+  enableThumbnailCreation: boolean = true;
+
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,

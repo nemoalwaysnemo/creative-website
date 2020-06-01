@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentVideoViewerService } from '../document-video-viewer.service';
+import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-video-viewer.service';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DocumentModel } from '@core/api';
 
@@ -38,8 +38,8 @@ export class DocumentVideoStoryboardComponent implements OnInit {
     this.ds.moveRight();
   }
 
-  jumpToTimeline($event: any): void {
-    this.documentVideoViewerService.setTime($event);
+  jumpToTimeline(currentTime: any): void {
+    this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'currentTimeChanged', currentTime }));
   }
 
   timeToMinute(time: number): string {

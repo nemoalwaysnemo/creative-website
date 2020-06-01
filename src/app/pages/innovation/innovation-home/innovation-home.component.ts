@@ -26,8 +26,8 @@ export class InnovationHomeComponent implements OnInit, OnDestroy {
   subHead: string = 'Material to help inspire and accelerate innovation';
 
   assetUrlMapping: object = {
-    'App-Innovation-Folder': this.documentMap,
-    'App-Innovation-Asset': this.documentMap,
+    'App-Innovation-Folder': this.documentMapFunc,
+    'App-Innovation-Asset': this.documentMapFunc,
     '*': '/p/innovation/asset',
   };
 
@@ -74,7 +74,10 @@ export class InnovationHomeComponent implements OnInit, OnDestroy {
       map((res: NuxeoPagination) => {
         const docs = [];
         this.tabs.forEach(x => {
-          docs.push(res.entries.find(doc => doc.title === x.title));
+          const folder = res.entries.find(doc => doc.title === x.title);
+          if (folder) {
+            docs.push(folder);
+          }
         });
         return docs;
       }),
@@ -84,14 +87,8 @@ export class InnovationHomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  private search(params: {}): Observable<DocumentModel[]> {
-    return this.advanceSearchService.request(new NuxeoPageProviderParams(params)).pipe(
-      map((res: NuxeoPagination) => res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title))),
-    );
-  }
-
-  documentMap(doc: DocumentModel): string {
-    let url;
+  documentMapFunc(doc: DocumentModel): string {
+    let url: string;
     if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/NEXT')) {
       url = '/p/innovation/NEXT/folder';
     } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/Things to Steal')) {
