@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
-import { SearchQueryParamsService } from '../../../services/search-query-params.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 
 @Component({
@@ -14,9 +14,9 @@ export class DocumentDialogConfirmationComponent extends DocumentDialogCustomTem
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
   ) {
-    super(globalDocumentDialogService, queryParamsService);
+    super(globalDocumentDialogService, documentPageService);
   }
 
 }

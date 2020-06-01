@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { AdvanceSearchService, DocumentModel, NuxeoPermission, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
-import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { ActivatedRoute } from '@angular/router';
@@ -38,8 +38,8 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
     }

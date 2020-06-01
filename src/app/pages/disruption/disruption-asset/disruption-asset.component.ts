@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AdvanceSearchService, DocumentModel, NuxeoPagination, NuxeoPageProviderConstants } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -45,16 +45,15 @@ export class DisruptionAssetComponent extends GlobalDocumentViewComponent {
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       this.showButton = doc.type !== 'App-Disruption-Day-Asset';
     }
-
     if (this.showFolderView(doc)) {
       this.searchFolder(doc);
     }

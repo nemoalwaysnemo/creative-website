@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdvanceSearchService, DocumentModel, NuxeoPagination } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
@@ -41,17 +41,13 @@ export class BizDevAssetComponent extends GlobalDocumentViewComponent implements
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
     this.onInit();
     this.searchFolder();
-  }
-
-  protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
   }
 
   protected getCurrentDocumentSearchParams(): any {

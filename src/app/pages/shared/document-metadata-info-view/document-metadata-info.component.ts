@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { concatMap, map, share } from 'rxjs/operators';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes, parseCountry } from '@core/services/helpers';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { DocumentModelForm } from '../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
@@ -91,7 +91,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   constructor(
     private advanceSearchService: AdvanceSearchService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
+    private documentPageService: DocumentPageService,
     private nuxeoApi: NuxeoApiService,
     private userService: UserService,
     private location: Location,
@@ -264,11 +264,11 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   goAgencyFolder(): void {
     const agencyId = this.libraryFolder[this.libraryFolder.length - 2].uid;
-    this.queryParamsService.navigate([`/p/creative/agency/${agencyId}/brand`]);
+    this.documentPageService.navigate([`/p/creative/agency/${agencyId}/brand`]);
   }
 
   goBrandFolder(): void {
     const brandId = this.libraryFolder[this.libraryFolder.length - 1].uid;
-    this.queryParamsService.navigate([`/p/creative/brand/${brandId}/asset`]);
+    this.documentPageService.navigate([`/p/creative/brand/${brandId}/asset`]);
   }
 }

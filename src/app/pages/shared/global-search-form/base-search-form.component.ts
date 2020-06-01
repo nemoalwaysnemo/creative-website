@@ -5,8 +5,8 @@ import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf,
 import { filter, debounceTime, distinctUntilChanged, switchMap, map, startWith, pairwise, concatMap, tap, takeWhile } from 'rxjs/operators';
 import { SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { GlobalSearchFormService, GlobalSearchFormEvent } from './global-search-form.service';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { removeUselessObject, getPathPartOfUrl, objHasValue } from '@core/services/helpers';
+import { DocumentPageService } from '../services/document-page.service';
+import { removeUselessObject, getPathPartOfUrl, objHasValue, selectObjectByKeys, filterParams } from '@core/services/helpers';
 import { GlobalSearchFormSettings } from './global-search-form.interface';
 
 export class SearchParams {
@@ -85,7 +85,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected globalSearchFormService: GlobalSearchFormService,
   ) {
     this.onInit();
@@ -211,13 +211,35 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected buildQueryParams(): any {
-    return this.queryParamsService.buildQueryParams(this.getFormValue(), ['q', 'aggregates', 'currentPageIndex'].concat(this.allowedLinkParams));
+    return this.buildQueryParamsValue(this.getFormValue(), ['q', 'aggregates', 'currentPageIndex'].concat(this.allowedLinkParams));
+  }
+
+  protected buildQueryParamsValue(formValue: any = {}, allowedParams: string[] = []): any {
+    formValue.q = formValue.ecm_fulltext ? formValue.ecm_fulltext : '';
+    formValue = selectObjectByKeys(formValue, allowedParams);
+    if (formValue.aggregates) {
+      Object.keys(formValue.aggregates).forEach((key) => { formValue[key] = formValue.aggregates[key]; });
+      delete formValue.aggregates;
+    }
+    return filterParams(formValue);
+  }
+
+  protected buildSearchParamsValue(formValue: any = {}): any {
+    const values = filterParams(formValue, ['quickFilters', 'ecm_mixinType_not_in']);
+    if (values.aggregates) {
+      const keys = Object.keys(values.aggregates);
+      if (keys.length > 0) {
+        keys.filter((key) => values.aggregates[key].length > 0).forEach((key) => { values[key] = `["${values.aggregates[key].join('", "')}"]`; });
+      }
+      delete values.aggregates;
+    }
+    return values;
   }
 
   protected changeQueryParams(): void {
     if (this.formSettings.enableQueryParams) {
       this.enableQueryParamsChange = false;
-      this.queryParamsService.changeQueryParams(this.buildQueryParams()).subscribe(_ => {
+      this.documentPageService.changeQueryParams(this.buildQueryParams()).subscribe(_ => {
         this.enableQueryParamsChange = true;
       });
     }
@@ -244,7 +266,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected onInputParamsChanged(): void {
     const subscription = this.searchParams$.pipe(
-      map((searchParams: any) => ({ searchParams, queryParams: this.queryParamsService.getSnapshotQueryParams() })),
+      map((searchParams: any) => ({ searchParams, queryParams: this.documentPageService.getSnapshotQueryParams() })),
     ).subscribe((data: any) => {
       this.setInputSearchParams(data.searchParams);
       this.setDefaultFormParams(data.queryParams);
@@ -256,7 +278,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected onQueryParamsChanged(): void {
     const subscription = zip(
       this.onInitialCurrentPage(),
-      this.queryParamsService.onQueryParamsChanged(),
+      this.documentPageService.onQueryParamsChanged(),
     ).pipe(
       filter((list: any[]) => this.formSettings.enableQueryParams && this.enableQueryParamsChange && !list[0]),
     ).subscribe(([_, queryParams]: [boolean, Params]) => {
@@ -305,11 +327,12 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     const searchParams = removeUselessObject(params.params, ['q', 'id', 'folder']);
     params.metadata['event'] = params.event;
     params.metadata['source'] = this.formSettings.source;
+    params.metadata['searchParams'] = this.buildQueryParams();
     return this.search(searchParams, params.metadata);
   }
 
   protected search(queryParams: any = {}, metadata: any = {}): Observable<SearchResponse> {
-    const params = new NuxeoPageProviderParams(this.queryParamsService.buildSearchParams(queryParams));
+    const params = new NuxeoPageProviderParams(this.buildSearchParamsValue(queryParams));
     const options = new NuxeoRequestOptions({ skipAggregates: false });
     const { searchParams, opts } = this.beforeSearch.call(this, params, options);
     return this.globalSearchFormService.advanceSearch(this.formSettings.pageProvider, searchParams, opts, metadata);

@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { SelectableItemSettings } from '../selectable-item/selectable-item.interface';
 import { BaseGlobalSearchResultComponent } from './base-global-search-result.component';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
@@ -22,10 +22,10 @@ export class GlobalSearchResultComponent extends BaseGlobalSearchResultComponent
   @Input() selectableSettings: SelectableItemSettings;
 
   constructor(
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected globalSearchFormService: GlobalSearchFormService,
   ) {
-    super(queryParamsService, globalSearchFormService);
+    super(documentPageService, globalSearchFormService);
   }
 
 }

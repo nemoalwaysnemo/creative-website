@@ -4,7 +4,7 @@ import { getDocumentTypes, parseCountry } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
-import { SearchQueryParamsService } from '../../../services/search-query-params.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { NUXEO_META_INFO } from '@environment/environment';
 
@@ -25,9 +25,9 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
   ) {
-    super(globalDocumentDialogService, queryParamsService);
+    super(globalDocumentDialogService, documentPageService);
   }
 
   protected setDocument(doc: DocumentModel): void {

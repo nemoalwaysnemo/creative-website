@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
-import { GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 
 @Component({
   selector: 'creative-home-page',
   styleUrls: ['./creative-home-page.component.scss'],
   templateUrl: './creative-home-page.component.html',
 })
-export class CreativeHomePageComponent {
+export class CreativeHomePageComponent extends BaseDocumentViewComponent {
 
   headline: string = 'This is how we kill boring.';
 
@@ -36,5 +37,9 @@ export class CreativeHomePageComponent {
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for campaigns by title, agency, brand, client...',
   });
+
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
+  }
 
 }

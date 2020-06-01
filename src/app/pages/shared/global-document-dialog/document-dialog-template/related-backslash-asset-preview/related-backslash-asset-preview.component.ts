@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
-import { SearchQueryParamsService } from '../../../services/search-query-params.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearchService } from '@core/api';
 import { NUXEO_PATH_INFO } from '@environment/environment';
@@ -18,10 +18,10 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     private advanceSearchService: AdvanceSearchService,
   ) {
-    super(globalDocumentDialogService, queryParamsService);
+    super(globalDocumentDialogService, documentPageService);
   }
 
   protected onInit(): void {

@@ -1,18 +1,16 @@
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
-import { Subscription } from 'rxjs';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 
 @Component({
   selector: 'disruption-home',
   styleUrls: ['./disruption-home.component.scss'],
   templateUrl: './disruption-home.component.html',
 })
-export class DisruptionHomeComponent implements OnInit, OnDestroy {
-
-  private subscription: Subscription = new Subscription();
+export class DisruptionHomeComponent extends BaseDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
 
@@ -61,16 +59,13 @@ export class DisruptionHomeComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_META_INFO.DISRUPTION_FOLDER_TYPE,
   };
 
-  constructor(
-    private advanceSearchService: AdvanceSearchService) {
+  constructor(private advanceSearchService: AdvanceSearchService, protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
-  ngOnInit(): void {
+  onInit(): void {
+    super.onInit();
     this.search(this.folderParams);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   private search(params: {}): void {

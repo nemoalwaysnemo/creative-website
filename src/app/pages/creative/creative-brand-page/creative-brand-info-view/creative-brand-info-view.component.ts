@@ -2,8 +2,9 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { ActivatedRoute } from '@angular/router';
-import { parseTabRoute } from '@core/services/helpers';
 import { ACLService } from '@core/acl';
+import { DocumentPageService } from '@pages/shared';
+import { parseTabRoute } from '@core/services/helpers';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 
 @Component({
@@ -21,11 +22,12 @@ export class CreativeBrandInfoViewComponent extends BaseDocumentViewComponent {
 
   tabs: any[] = [];
 
-  constructor(protected activatedRoute: ActivatedRoute, private aclService: ACLService) {
-    super();
+  constructor(protected activatedRoute: ActivatedRoute, private aclService: ACLService, protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   onInit(): void {
+    super.onInit();
     this.parseTabRoute();
   }
 

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, SearchQueryParamsService, DocumentModelForm } from '../../shared';
+import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
@@ -63,7 +63,7 @@ export class InnovationFolderViewComponent {
 
   constructor(
     private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
+    private documentPageService: DocumentPageService,
     private router: Router,
   ) { }
 
@@ -97,9 +97,9 @@ export class InnovationFolderViewComponent {
     const url = this.router.url;
     const assetReg = /asset\/[0-9,a-z]{8}(-[0-9,a-z]{4}){3}-[0-9,a-z]{12}$/;
     if (url.search(assetReg) === -1 || this.inBaseFolder()) {
-      this.queryParamsService.redirect(url.split('/folder')[0]);
+      this.documentPageService.redirect(url.split('/folder')[0]);
     } else {
-      this.queryParamsService.redirect(url.split('/asset')[0]);
+      this.documentPageService.redirect(url.split('/asset')[0]);
     }
   }
 

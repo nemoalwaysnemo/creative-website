@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, NuxeoPagination } from '@core/api';
-import { GlobalDocumentViewComponent, SearchQueryParamsService } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -34,8 +34,8 @@ export class DisruptionTheoryAssetComponent extends GlobalDocumentViewComponent 
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class DisruptionTheoryAssetComponent extends GlobalDocumentViewComponent 
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     this.deleteRedirectUrl = this.assetUrl;
   }
 

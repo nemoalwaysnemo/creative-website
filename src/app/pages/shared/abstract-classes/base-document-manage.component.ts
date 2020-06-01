@@ -1,11 +1,15 @@
-import { AdvanceSearchService, DocumentModel, NuxeoPermission } from '@core/api';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
-import { GlobalDocumentViewComponent } from './global-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, of as observableOf } from 'rxjs';
 import { share } from 'rxjs/operators';
+import { AdvanceSearchService, DocumentModel, NuxeoPermission } from '@core/api';
+import { DocumentPageService } from '../services/document-page.service';
+import { GlobalDocumentViewComponent } from './global-document-view.component';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
+@Component({
+  template: '',
+})
 export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = [];
@@ -21,12 +25,12 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
   ) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
-  onInit() {
+  onInit(): void {
     super.onInit();
     this.performForm();
   }
@@ -44,12 +48,12 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       this.managePermission$ = this.hasPermission(doc);
       this.managePermission$.subscribe((hasPermission: boolean) => {
         if (!hasPermission) {
-          this.queryParamsService.redirectTo403();
+          this.documentPageService.redirectTo403();
         }
       });
     }

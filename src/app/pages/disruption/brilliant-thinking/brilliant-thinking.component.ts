@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { AdvanceSearchService, DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
-import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -37,8 +37,8 @@ export class BrilliantThinkingComponent extends GlobalDocumentViewComponent impl
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class BrilliantThinkingComponent extends GlobalDocumentViewComponent impl
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
     }

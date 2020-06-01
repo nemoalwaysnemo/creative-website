@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { SearchFilterModel } from '@core/api';
-import { GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
+import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-popular-brand-search',
   styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
   templateUrl: './creative-popular-brand-search.component.html',
 })
-export class CreativePopularBrandSearchComponent {
+export class CreativePopularBrandSearchComponent extends BaseDocumentViewComponent {
 
   layout: string = 'popular_brand_search full-width';
 
@@ -37,6 +38,10 @@ export class CreativePopularBrandSearchComponent {
 
   onResultViewChanged(name: string): void {
     this.currentView = name;
+  }
+
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
 }

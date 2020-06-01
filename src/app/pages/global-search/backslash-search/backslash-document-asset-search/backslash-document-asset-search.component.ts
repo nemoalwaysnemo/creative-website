@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
+import { DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { SearchFilterModel } from '@core/api';
+import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
-import { SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
-import { AdvanceSearchService, SearchFilterModel } from '@core/api';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'backslash-document-asset-search',
   styleUrls: ['./backslash-document-asset-search.component.scss'],
   templateUrl: './backslash-document-asset-search.component.html',
 })
-export class BackslashDocumentAssetSearchComponent implements OnInit, OnDestroy {
+export class BackslashDocumentAssetSearchComponent extends BaseDocumentViewComponent {
 
   resultHeader: string;
 
@@ -38,18 +38,8 @@ export class BackslashDocumentAssetSearchComponent implements OnInit, OnDestroy 
     enableQueryParams: true,
   });
 
-  private subscription: Subscription = new Subscription();
-
-  constructor(
-    protected advanceSearchService: AdvanceSearchService,
-    protected queryParamsService: SearchQueryParamsService) {
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
 }

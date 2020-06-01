@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentDialogContainerComponent } from '../document-dialog-container.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog.service';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
   selector: 'document-dialog-custom',
@@ -12,10 +12,10 @@ export class DocumentDialogCustomComponent extends DocumentDialogContainerCompon
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
-    super(globalDocumentDialogService, queryParamsService, componentFactoryResolver);
+    super(globalDocumentDialogService, documentPageService, componentFactoryResolver);
   }
 
 }

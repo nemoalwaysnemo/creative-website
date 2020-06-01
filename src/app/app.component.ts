@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { Router, Scroll, NavigationEnd } from '@angular/router';
-import { PageTitleService, GoogleAnalyticsService } from '@core/services';
+import { DocumentPageService } from '@pages/shared';
 import { filter, map, pairwise, withLatestFrom } from 'rxjs/operators';
 import { timer } from 'rxjs';
 
@@ -14,14 +14,12 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private viewportScroller: ViewportScroller,
-    private pageTitleService: PageTitleService,
-    private googleAnalyticsService: GoogleAnalyticsService) {
+    private documentPageService: DocumentPageService) {
     this.performScrolling();
   }
 
   ngOnInit(): void {
-    this.pageTitleService.titleTrack();
-    this.googleAnalyticsService.pageViewTrack();
+    this.documentPageService.trackTitle();
   }
 
   private isScrollToTop(e: NavigationEnd, previousUrl: string): boolean {

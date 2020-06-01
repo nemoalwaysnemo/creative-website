@@ -2,7 +2,7 @@ import { Component, Input, ComponentFactoryResolver } from '@angular/core';
 import { DocumentDialogContainerComponent } from '../document-dialog-container.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog.service';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 import { DocumentFormEvent } from '../../document-form/document-form.interface';
 import { timer } from 'rxjs';
 
@@ -15,10 +15,10 @@ export class DocumentDialogFormComponent extends DocumentDialogContainerComponen
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
-    super(globalDocumentDialogService, queryParamsService, componentFactoryResolver);
+    super(globalDocumentDialogService, documentPageService, componentFactoryResolver);
   }
 
   protected onInit(): void {

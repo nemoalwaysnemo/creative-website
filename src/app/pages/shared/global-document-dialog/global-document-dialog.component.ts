@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver, Type, Input, ComponentRef, ViewCon
 import { GoogleAnalyticsService } from '@core/services/google-analytics.service';
 import { DocumentDialogContainerComponent } from './document-dialog-container.component';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
-import { SearchQueryParamsService } from '../../shared/services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { DocumentDialogFormComponent } from './document-dialog-form/document-dialog-form.component';
 import { DocumentDialogCustomComponent } from './document-dialog-custom/document-dialog-custom.component';
 import { GlobalDocumentDialogSettings } from './global-document-dialog.interface';
@@ -32,11 +32,11 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected googleAnalyticsService: GoogleAnalyticsService,
   ) {
-    super(globalDocumentDialogService, queryParamsService, componentFactoryResolver);
+    super(globalDocumentDialogService, documentPageService, componentFactoryResolver);
     this.subscribeEvents();
   }
 

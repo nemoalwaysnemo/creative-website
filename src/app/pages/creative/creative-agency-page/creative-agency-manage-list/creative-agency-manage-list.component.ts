@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AdvanceSearchService, DocumentModel } from '@core/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TAB_CONFIG } from '../creative-agency-tab-config';
-import { BaseDocumentManageComponent, SearchQueryParamsService } from '@pages/shared';
+import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 import { NbToastrService } from '@core/nebular/theme';
@@ -25,10 +25,10 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
     private router: Router,
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     private toastrService: NbToastrService,
   ) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   changeView() {

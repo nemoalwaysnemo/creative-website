@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { SearchResponse, DocumentModel } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { Params } from '@angular/router';
 
 @Component({
@@ -24,7 +24,7 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
+  constructor(protected documentPageService: DocumentPageService) {
 
   }
 
@@ -49,7 +49,7 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
   }
 
   protected onQueryParamsChanged(): void {
-    const subscription = this.queryParamsService.onQueryParamsChanged().subscribe((params: Params) => {
+    const subscription = this.documentPageService.onQueryParamsChanged().subscribe((params: Params) => {
       this.queryParams = params;
     });
     this.subscription.add(subscription);

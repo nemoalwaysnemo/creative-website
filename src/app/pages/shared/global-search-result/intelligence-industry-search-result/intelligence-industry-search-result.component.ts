@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { SearchResponse } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { BaseSearchResultComponent } from '../base-search-result.component';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
   selector: 'intelligence-industry-search-result',
@@ -15,8 +15,8 @@ export class IntelligenceIndustrySearchResultComponent extends BaseSearchResultC
 
   @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
-  constructor(protected queryParamsService: SearchQueryParamsService) {
-    super(queryParamsService);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected onInit(): void {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchQueryParamsService } from '../../../../shared/services/search-query-params.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 
@@ -14,9 +14,9 @@ export class BackslashHomeAssetDialogPreviewComponent extends DocumentDialogPrev
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
   ) {
-    super(globalDocumentDialogService, queryParamsService);
+    super(globalDocumentDialogService, documentPageService);
   }
 
 }

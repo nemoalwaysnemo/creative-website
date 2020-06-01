@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoEnricher, NuxeoRequestOptions, NuxeoPermission } from '@core/api';
-import { SearchQueryParamsService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { TAB_CONFIG } from '../innovation-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
 import { ActivatedRoute } from '@angular/router';
@@ -41,8 +41,8 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
       timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
@@ -104,7 +104,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
 
   protected getPath(): string {
     let path: string;
-    const url = decodeURI(this.queryParamsService.getCurrentUrl());
+    const url = decodeURI(this.documentPageService.getCurrentUrl());
     if (url.includes('/NEXT')) {
       path = NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH;
     } else if (url.includes('/Things to Steal')) {
@@ -114,7 +114,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
   }
 
   protected getRedirectUrl(): string {
-    return this.queryParamsService.getCurrentUrl().split('?')[0] + '/folder/';
+    return this.documentPageService.getCurrentUrl().split('?')[0] + '/folder/';
   }
 
 }

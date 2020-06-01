@@ -5,7 +5,7 @@ import { concatMap, map, share, filter } from 'rxjs/operators';
 import { DocumentModel, UserService, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
-import { SearchQueryParamsService } from '../services/search-query-params.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
 import { NUXEO_META_INFO } from '@environment/environment';
@@ -51,7 +51,7 @@ export class DocumentActionGroupComponent {
   constructor(
     private userService: UserService,
     private nuxeoApi: NuxeoApiService,
-    private queryParamsService: SearchQueryParamsService,
+    private documentPageService: DocumentPageService,
     private documentVideoViewerService: DocumentVideoViewerService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
@@ -90,14 +90,14 @@ export class DocumentActionGroupComponent {
   }
 
   goBack(): void {
-    this.queryParamsService.historyBack();
+    this.documentPageService.historyBack();
   }
 
   newThumbnail(currentTime: number): void {
     if (typeof currentTime === 'number') {
       const duration = (currentTime * 10).toString();
       const subscription = this.nuxeoApi.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.documentModel.uid).subscribe((doc: DocumentModel) => {
-        this.queryParamsService.refresh();
+        this.documentPageService.refresh();
       });
       this.subscription.add(subscription);
     }

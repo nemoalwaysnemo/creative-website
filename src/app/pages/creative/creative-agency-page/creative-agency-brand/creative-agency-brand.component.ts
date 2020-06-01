@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearchService, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
-import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -30,12 +30,12 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc?: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       this.baseParams$.next(this.buildAssetsParams(doc));
     }

@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { SearchResponse } from '@core/api/api.advance-search.service';
-import { SearchQueryParamsService } from '../../services/search-query-params.service';
+import { DocumentPageService } from '../../services/document-page.service';
 import { BaseGlobalSearchResultComponent } from '../base-global-search-result.component';
 import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
 
@@ -18,10 +18,10 @@ export class GlobalLoadMoreSearchResultComponent extends BaseGlobalSearchResultC
   @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   constructor(
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected globalSearchFormService: GlobalSearchFormService,
   ) {
-    super(queryParamsService, globalSearchFormService);
+    super(documentPageService, globalSearchFormService);
   }
 
   loadMore(): void {

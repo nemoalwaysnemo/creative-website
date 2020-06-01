@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearchService, NuxeoPermission, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
-import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../innovation-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
@@ -36,12 +36,12 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    protected documentPageService: DocumentPageService) {
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
       this.addChildrenPermission$ = !doc.hasFolderishChild ? doc.hasPermission(NuxeoPermission.AddChildren) : observableOf(false);
@@ -103,7 +103,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   }
 
   protected getPath(): string {
-    return this.queryParamsService.getCurrentUrl().includes('/NEXT') ? NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH : NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
+    return this.documentPageService.getCurrentUrl().includes('/NEXT') ? NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH : NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
   }
 
   protected buildRedirectUrl(): string {

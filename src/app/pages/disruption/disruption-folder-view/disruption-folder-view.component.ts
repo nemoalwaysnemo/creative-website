@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, TemplateRef, Type } from '@angular/core';
-import { GlobalDocumentDialogService, SearchQueryParamsService, DocumentModelForm } from '@pages/shared';
+import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '@pages/shared';
 import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
@@ -60,7 +60,7 @@ export class DisruptionFolderViewComponent {
 
   constructor(
     private globalDocumentDialogService: GlobalDocumentDialogService,
-    private queryParamsService: SearchQueryParamsService,
+    private documentPageService: DocumentPageService,
     private router: Router,
   ) { }
 
@@ -112,9 +112,9 @@ export class DisruptionFolderViewComponent {
     const childSplitPath: string[] = splitPath.split('/');
 
     if (childSplitPath.length < 2) {
-      this.queryParamsService.redirect(`${parentInfo.urlRootPath}`);
+      this.documentPageService.redirect(`${parentInfo.urlRootPath}`);
     } else {
-      this.queryParamsService.redirect(`${parentInfo.urlParentPath}${this.doc.parentRef}`);
+      this.documentPageService.redirect(`${parentInfo.urlParentPath}${this.doc.parentRef}`);
     }
   }
 

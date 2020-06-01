@@ -6,6 +6,7 @@ import { FavoritePageComponent } from './favorite-page.component';
 import { FavoriteBackslashModule } from './favorite-backslash/favorite-backslash.module';
 import { FavoriteBrandModule } from './favorite-brand/favorite-brand.module';
 import { FavoriteDisruptionModule } from './favorite-disruption/favorite-disruption.module';
+import { BaseFavoriteDocumentViewComponent } from './base-favorite-document-view.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { FavoriteDisruptionModule } from './favorite-disruption/favorite-disrupt
   ],
   declarations: [
     FavoritePageComponent,
+    BaseFavoriteDocumentViewComponent,
   ],
 })
 export class FavoritePageModule { }

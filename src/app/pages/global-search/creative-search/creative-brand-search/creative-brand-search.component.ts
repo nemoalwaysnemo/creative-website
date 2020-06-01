@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { NUXEO_META_INFO } from '@environment/environment';
 import { SearchFilterModel } from '@core/api';
-import { GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
+import { NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-search',
   styleUrls: ['./creative-brand-search.component.scss'],
   templateUrl: './creative-brand-search.component.html',
 })
-export class CreativeBrandSearchComponent {
+export class CreativeBrandSearchComponent extends BaseDocumentViewComponent {
 
   defaultParams: any = {
     the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
@@ -36,6 +37,10 @@ export class CreativeBrandSearchComponent {
 
   onResultViewChanged(name: string): void {
     this.currentView = name;
+  }
+
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearchService, NuxeoPermission, SearchFilterModel } from '@core/api';
-import { GlobalDocumentViewComponent, SearchQueryParamsService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
 
@@ -31,13 +31,13 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     protected globalDocumentDialogService: GlobalDocumentDialogService) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
       this.addChildrenPermission$ = !doc.hasFolderishChild ? doc.hasPermission(NuxeoPermission.AddChildren) : observableOf(false);

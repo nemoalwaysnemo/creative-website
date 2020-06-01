@@ -3,7 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { GlobalDocumentViewComponent } from '@pages/shared/abstract-classes/global-document-view.component';
 import { AdvanceSearchService, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { SearchQueryParamsService } from '@pages/shared';
+import { DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 
 @Component({
@@ -25,9 +25,9 @@ export class BizDevRemotePageComponent extends GlobalDocumentViewComponent imple
   constructor(
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected queryParamsService: SearchQueryParamsService,
+    protected documentPageService: DocumentPageService,
     private sanitizer: DomSanitizer) {
-    super(advanceSearchService, activatedRoute, queryParamsService);
+    super(advanceSearchService, activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class BizDevRemotePageComponent extends GlobalDocumentViewComponent imple
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.document = doc;
+    super.setCurrentDocument(doc);
     if (doc) {
       this.buildIframeUrl(doc);
     }
