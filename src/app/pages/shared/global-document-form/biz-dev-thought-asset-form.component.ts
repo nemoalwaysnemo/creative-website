@@ -28,12 +28,29 @@ export class BizDevThoughtAssetFormComponent extends GlobalDocumentFormComponent
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
         required: false,
-        formMode: 'create',
         hidden: true,
+        formMode: 'create',
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
+      }),
+      new DynamicInputModel({
+        id: 'dc:title',
+        label: 'Title',
+        maxLength: 150,
+        placeholder: 'Title',
+        autoComplete: 'off',
+        required: true,
+        formMode: 'edit',
         validators: {
           required: null,
           minLength: 4,

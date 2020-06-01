@@ -66,6 +66,9 @@ export class DocumentAdditionalInfoComponent implements OnInit {
       this.attachments = doc.getAttachmentList();
     } else if (NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
       this.docType = 'Creative';
+    } else if (NUXEO_META_INFO.INNOVATION_ASSET_TYPE.includes(doc.type)) {
+      this.docType = 'Innovation';
+      this.attachments = doc.getAttachmentList();
     }
   }
 }
