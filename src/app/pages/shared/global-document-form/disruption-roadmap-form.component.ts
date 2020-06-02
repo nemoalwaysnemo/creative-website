@@ -169,11 +169,11 @@ export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent 
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
-      new DynamicInputModel({
-        id: 'dc:creator',
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:created_by',
         label: 'Author',
-        placeholder: 'Author',
         required: true,
+        placeholder: 'Author',
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),

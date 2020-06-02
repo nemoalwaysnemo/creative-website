@@ -36,7 +36,7 @@
           Industry: {{ document.get('app_Edges:industry') }}<br>
           Geography: {{ parseCountry(document.get('app_Edges:Relevant_Country')) }}<br>
           <ng-container *ngIf="isDisruptionAsset(document)">
-            Author: {{ document.get('dc:creator') }}<br>
+            Author: {{ document.get('The_Loupe_Main:created_by') }}<br>
           </ng-container>
           <ng-container *ngIf="isIntelligenceAsset(document)">
             Author: {{ document.get('The_Loupe_Main:created_by') }}<br>

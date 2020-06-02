@@ -175,6 +175,14 @@ export class BizDevCaseStudyAssetFormComponent extends GlobalDocumentFormCompone
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:created_by',
+        label: 'Author',
+        required: true,
+        placeholder: 'Author',
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
       new DynamicCheckboxModel({
         id: 'app_global:asset_request',
         label: 'Download Requires Approval',

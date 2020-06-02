@@ -30,8 +30,8 @@
               <th>Published</th>
             </tr>
             <tr>
-              <td *ngIf="isDisruptionAsset(documentModel) || isBizDevAsset(documentModel)">{{ documentModel.get('dc:creator') }}</td>
-              <td *ngIf="isIntelligenceAsset(documentModel) || isInnovationAsset(documentModel)">{{ documentModel.get('The_Loupe_Main:created_by') }}</td>
+              <!-- <td *ngIf="isDisruptionAsset(documentModel)">{{ documentModel.get('dc:creator') }}</td> -->
+              <td>{{ documentModel.get('The_Loupe_Main:created_by') }}</td>
               <td>{{ documentModel.get('The_Loupe_ProdCredits:production_date') | date }}</td>
             </tr>
             <tr>
