@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { AdvanceSearchService, DocumentModel } from '@core/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
-import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
+import { BaseDocumentManageComponent, DocumentPageService, NbToastStatus } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
-import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
-import { NbToastrService } from '@core/nebular/theme';
-import { DocumentFormEvent } from '@pages/shared/document-form/document-form.interface';
+import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
+import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
 
 @Component({
   selector: 'creative-brand-manage-list',
@@ -26,7 +25,6 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
     protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
-    private toastrService: NbToastrService,
   ) {
     super(advanceSearchService, activatedRoute, documentPageService);
   }
@@ -40,7 +38,7 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
   }
 
   updateForm(doc: any): void {
-    this.toastrService.success('success', `${doc.title} update success`);
+    this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', NbToastStatus.SUCCESS);
   }
 
   onCallback(callback: DocumentFormEvent): void {

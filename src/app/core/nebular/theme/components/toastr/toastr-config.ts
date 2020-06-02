@@ -39,7 +39,7 @@ export class NbToastrConfig {
   /**
    * Determines render icon or not.
    * */
-  hasIcon: boolean = true;
+  hasIcon: boolean = false;
   /**
    * Icon class that can be provided to render custom icon.
    * */

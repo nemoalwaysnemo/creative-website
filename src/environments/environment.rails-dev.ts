@@ -31,7 +31,7 @@ export enum NUXEO_PATH_INFO {
   BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH = '/know-edge/Business Development/Thought Leadership/',
   INNOVATION_BASE_FOLDER_PATH = '/know-edge/Innovation',
   INNOVATION_10X_FOLDER_PATH = '/know-edge/Innovation/10x/',
-  INNOVATION_NEXT_FOLDER_PATH = '/know-edge/Innovation/Next/',
+  INNOVATION_NEXT_FOLDER_PATH = '/know-edge/Innovation/NEXT/',
   INNOVATION_THINGS_TO_STEAL_FOLDER_PATH = '/know-edge/Innovation/Things to Steal/',
   FRONTPAGE_BANNER_PATH = '/Creative/1. GCL Frontpage/Banners/',
 }

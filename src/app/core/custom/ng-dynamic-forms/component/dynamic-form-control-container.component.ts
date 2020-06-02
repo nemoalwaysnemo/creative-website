@@ -1,4 +1,5 @@
 import {
+  Component,
   ChangeDetectorRef,
   ComponentFactoryResolver,
   ComponentRef,
@@ -45,7 +46,10 @@ import { DynamicFormRelationService } from '../service/dynamic-form-relation.ser
 import { DynamicFormGroupComponent } from './dynamic-form-group.component';
 import { DynamicFormArrayComponent } from './dynamic-form-array.component';
 
-export abstract class DynamicFormControlContainerComponent implements OnChanges, OnDestroy {
+@Component({
+  template: '',
+})
+export class DynamicFormControlContainerComponent implements OnChanges, OnDestroy {
 
   private _hasFocus = false;
 
@@ -72,12 +76,12 @@ export abstract class DynamicFormControlContainerComponent implements OnChanges,
   protected controlLayout: DynamicFormControlLayout;
   protected subscriptions: Subscription[] = [];
 
-  protected constructor(protected changeDetectorRef: ChangeDetectorRef,
-                        protected componentFactoryResolver: ComponentFactoryResolver,
-                        protected layoutService: DynamicFormLayoutService,
-                        protected validationService: DynamicFormValidationService,
-                        protected componentService: DynamicFormComponentService,
-                        protected relationService: DynamicFormRelationService) {
+  constructor(protected changeDetectorRef: ChangeDetectorRef,
+              protected componentFactoryResolver: ComponentFactoryResolver,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService,
+              protected componentService: DynamicFormComponentService,
+              protected relationService: DynamicFormRelationService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -105,7 +109,9 @@ export abstract class DynamicFormControlContainerComponent implements OnChanges,
     this.unsubscribe();
   }
 
-  abstract get componentType(): Type<DynamicFormControl> | null;
+  get componentType(): Type<DynamicFormControl> | null {
+    return null;
+  }
 
   get id(): string {
     return this.layoutService.getElementId(this.model);

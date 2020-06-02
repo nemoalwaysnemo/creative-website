@@ -137,7 +137,9 @@ import { NbDialogContainerComponent } from './dialog-container';
  * and then hit space any times. Multiple same dialogs will be opened.
  * @stacked-example(Auto focus, dialog/dialog-auto-focus.component)
  * */
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NbDialogService {
   constructor(@Inject(NB_DOCUMENT) protected document,
               @Inject(NB_DIALOG_CONFIG) protected globalConfig,
