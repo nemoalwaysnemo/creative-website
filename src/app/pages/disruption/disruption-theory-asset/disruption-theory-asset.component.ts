@@ -18,6 +18,8 @@ export class DisruptionTheoryAssetComponent extends GlobalDocumentViewComponent 
 
   showButton: boolean = false;
 
+  enableThumbnailCreation: boolean = true;
+
   assetUrl: string = '/p/disruption/Disruption How Tos/folder/';
 
   deleteRedirectUrl: string;

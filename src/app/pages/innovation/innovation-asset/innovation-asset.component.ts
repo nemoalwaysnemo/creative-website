@@ -18,6 +18,8 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
 
   showButton: boolean = false;
 
+  enableThumbnailCreation: boolean = true;
+
   deleteRedirectUrl: string = '';
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);

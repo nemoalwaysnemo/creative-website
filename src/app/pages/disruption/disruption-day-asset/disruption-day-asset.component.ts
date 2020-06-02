@@ -22,6 +22,8 @@ export class DisruptionDayAssetComponent extends GlobalDocumentViewComponent imp
 
   backAssetFlag: boolean = true;
 
+  enableThumbnailCreation: boolean = true;
+
   assetUrl: string = '/p/disruption/Disruption Days/day/';
 
   deleteRedirectUrl: string;

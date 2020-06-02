@@ -18,6 +18,8 @@ export class BizDevAssetComponent extends GlobalDocumentViewComponent implements
 
   showButton: boolean = false;
 
+  enableThumbnailCreation: boolean = true;
+
   deleteRedirectUrl: string = '';
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);

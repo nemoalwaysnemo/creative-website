@@ -19,6 +19,8 @@ export class DisruptionAssetComponent extends GlobalDocumentViewComponent {
 
   backAssetFlag: boolean = false;
 
+  enableThumbnailCreation: boolean = true;
+
   deleteRedirectUrl: string;
 
   assetUrlMapping: object = {
