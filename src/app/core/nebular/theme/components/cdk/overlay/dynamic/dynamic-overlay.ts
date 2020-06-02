@@ -12,10 +12,10 @@ import { createContainer, NbOverlayContent, NbOverlayService, patch } from '../o
 import { NbOverlayRef } from '../mapping';
 
 export interface NbDynamicOverlayController {
-  show();
-  hide();
-  toggle();
-  rebuild();
+  show(): void;
+  hide(): void;
+  toggle(): void;
+  rebuild(): void;
 }
 
 @Injectable()

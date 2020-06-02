@@ -15,7 +15,7 @@ import {
 import {
   NbComponentPortal,
   NbOverlayContainerComponent,
-  NbPositionedContainer,
+  NbPositionedContainerComponent,
   NbRenderableContainer,
   NbTemplatePortal,
 } from '../cdk';
@@ -40,14 +40,14 @@ import {
     <nb-overlay-container></nb-overlay-container>
   `,
 })
-export class NbPopoverComponent extends NbPositionedContainer implements NbRenderableContainer {
+export class NbPopoverComponent extends NbPositionedContainerComponent implements NbRenderableContainer {
   @ViewChild(NbOverlayContainerComponent, { static: true }) overlayContainer: NbOverlayContainerComponent;
 
   @Input() content: any;
   @Input() context: Object;
   @Input() cfr: ComponentFactoryResolver;
 
-  renderContent() {
+  renderContent(): void {
     this.detachContent();
     this.attachContent();
   }

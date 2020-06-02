@@ -6,7 +6,7 @@
 
 import { Component, ComponentRef, ViewChild } from '@angular/core';
 
-import { NbComponentPortal, NbOverlayContainerComponent, NbPositionedContainer } from '../cdk';
+import { NbComponentPortal, NbOverlayContainerComponent, NbPositionedContainerComponent } from '../cdk';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { NbComponentPortal, NbOverlayContainerComponent, NbPositionedContainer }
     <nb-overlay-container></nb-overlay-container>
   `,
 })
-export class NbDatepickerContainerComponent extends NbPositionedContainer {
+export class NbDatepickerContainerComponent extends NbPositionedContainerComponent {
   @ViewChild(NbOverlayContainerComponent, { static: true }) overlayContainer: NbOverlayContainerComponent;
 
   attach<T>(portal: NbComponentPortal<T>): ComponentRef<T> {

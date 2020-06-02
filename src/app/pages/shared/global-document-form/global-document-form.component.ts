@@ -1,4 +1,4 @@
-import { Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { of as observableOf, Observable, Subscription, Subject } from 'rxjs';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
@@ -9,6 +9,9 @@ export interface DocumentModelForm {
   document: DocumentModel;
 }
 
+@Component({
+  template: ``,
+})
 export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
 
   static readonly COMPONENT_TYPE: string = 'form';

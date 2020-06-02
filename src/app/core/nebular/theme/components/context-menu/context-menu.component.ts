@@ -7,7 +7,7 @@
 import { Component, Input } from '@angular/core';
 
 import { NbMenuItem } from '../../components/menu/menu.service';
-import { NbPositionedContainer, NbRenderableContainer } from '../cdk';
+import { NbPositionedContainerComponent, NbRenderableContainer } from '../cdk';
 
 /**
  * Context menu component used as content within NbContextMenuDirective.
@@ -26,18 +26,17 @@ import { NbPositionedContainer, NbRenderableContainer } from '../cdk';
     <nb-menu class="context-menu" [items]="context.items" [tag]="context.tag"></nb-menu>
   `,
 })
-export class NbContextMenuComponent extends NbPositionedContainer implements NbRenderableContainer {
+export class NbContextMenuComponent extends NbPositionedContainerComponent implements NbRenderableContainer {
 
   @Input() items: NbMenuItem[] = [];
   @Input() tag: string;
 
-  @Input()
-  context: { items: NbMenuItem[], tag?: string } = { items: [] };
+  @Input() context: { items: NbMenuItem[], tag?: string } = { items: [] };
 
 
   /**
    * The method is empty since we don't need to do anything additionally
    * render is handled by change detection
    */
-  renderContent() {}
+  renderContent(): void {}
 }
