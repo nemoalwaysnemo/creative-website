@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { DocumentFormModule } from '../document-form/document-form.module';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
 import {
   CreativeAssetImageFormComponent,
   CreativeAssetVideoFormComponent,
@@ -49,6 +50,7 @@ const COMPONENTS = [
   BizDevThoughtAssetFormComponent,
   InnovationAssetFormComponent,
   InnovationFolderFormComponent,
+  GlobalDocumentFormComponent,
 ];
 
 @NgModule({

@@ -12,17 +12,31 @@ import { NbOverlayModule } from '../cdk';
 import { NbCalendarModule } from '../calendar/calendar.module';
 import { NbCalendarComponent } from '../calendar/calendar.component';
 import { NbDatepickerContainerComponent } from './datepicker-container.component';
-import { NbDatepickerComponent, NbRangepickerComponent } from './datepicker.component';
+import { NbDatepickerComponent, NbRangepickerComponent, NbBasePickerComponent } from './datepicker.component';
 import { NbCalendarRangeComponent } from '../calendar/calendar-range.component';
 import { NbCalendarRangeModule } from '../calendar/calendar-range.module';
 import { NbDateAdapterService, NbRangeAdapterService } from './datepicker-adapter';
 
-
 @NgModule({
-  imports: [NbOverlayModule, NbCalendarModule, NbCalendarRangeModule],
-  exports: [NbDatepickerDirective, NbDatepickerComponent, NbRangepickerComponent],
-  declarations: [NbDatepickerDirective, NbDatepickerContainerComponent, NbDatepickerComponent, NbRangepickerComponent],
-  entryComponents: [NbCalendarComponent, NbCalendarRangeComponent, NbDatepickerContainerComponent],
+  imports: [
+    NbOverlayModule,
+    NbCalendarModule,
+    NbCalendarRangeModule,
+  ],
+  exports: [
+    NbDatepickerDirective, NbDatepickerComponent, NbRangepickerComponent],
+  declarations: [
+    NbDatepickerDirective,
+    NbDatepickerContainerComponent,
+    NbDatepickerComponent,
+    NbRangepickerComponent,
+    NbBasePickerComponent,
+  ],
+  entryComponents: [
+    NbCalendarComponent,
+    NbCalendarRangeComponent,
+    NbDatepickerContainerComponent,
+  ],
 })
 export class NbDatepickerModule {
   static forRoot(): ModuleWithProviders<NbDatepickerModule> {

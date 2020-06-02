@@ -51,11 +51,13 @@ import { NB_DATE_SERVICE_OPTIONS, NbDatepicker, NbPickerValidatorConfig } from '
 
 
 /**
- * The `NbBasePicker` component concentrates overlay manipulation logic.
+ * The `NbBasePickerComponent` component concentrates overlay manipulation logic.
  * */
-export abstract class NbBasePicker<D, T, P>
-                extends NbDatepicker<T>
-                implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+@Component({
+  template: ``,
+})
+export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+
   /**
    * Datepicker date format. Can be used only with date adapters (moment, date-fns) since native date
    * object doesn't support formatting.
@@ -123,7 +125,7 @@ export abstract class NbBasePicker<D, T, P>
   /**
    * Calendar component class that has to be instantiated inside overlay.
    * */
-  protected abstract pickerClass: Type<P>;
+  protected pickerClass: Type<P>;
 
   /**
    * Overlay reference object.
@@ -208,7 +210,9 @@ export abstract class NbBasePicker<D, T, P>
     return this.blur$.asObservable();
   }
 
-  protected abstract get pickerValueChange(): Observable<T>;
+  protected get pickerValueChange(): Observable<T> {
+    return null;
+  }
 
   ngOnInit(): void {
     this.checkFormat();
@@ -247,7 +251,7 @@ export abstract class NbBasePicker<D, T, P>
     return { min: this.min, max: this.max, filter: this.filter };
   }
 
-  show() {
+  show(): void {
     if (!this.ref) {
       this.createOverlay();
     }
@@ -259,7 +263,7 @@ export abstract class NbBasePicker<D, T, P>
     return this.hideOnSelect && !!this.value;
   }
 
-  hide() {
+  hide(): void {
     if (this.ref) {
       this.ref.detach();
     }
@@ -273,7 +277,17 @@ export abstract class NbBasePicker<D, T, P>
     }
   }
 
-  protected abstract writeQueue();
+  get value(): T {
+    return null;
+  }
+
+  set value(value: T) {
+
+  }
+
+  protected writeQueue(): void {
+
+  }
 
   protected createOverlay() {
     this.positionStrategy = this.createPositionStrategy();
@@ -371,7 +385,7 @@ export abstract class NbBasePicker<D, T, P>
   selector: 'nb-datepicker',
   template: '',
 })
-export class NbDatepickerComponent<D> extends NbBasePicker<D, D, NbCalendarComponent<D>> {
+export class NbDatepickerComponent<D> extends NbBasePickerComponent<D, D, NbCalendarComponent<D>> {
   protected pickerClass: Type<NbCalendarComponent<D>> = NbCalendarComponent;
 
   /**
@@ -426,7 +440,7 @@ export class NbDatepickerComponent<D> extends NbBasePicker<D, D, NbCalendarCompo
   selector: 'nb-rangepicker',
   template: '',
 })
-export class NbRangepickerComponent<D> extends NbBasePicker<D, NbCalendarRange<D>, NbCalendarRangeComponent<D>> {
+export class NbRangepickerComponent<D> extends NbBasePickerComponent<D, NbCalendarRange<D>, NbCalendarRangeComponent<D>> {
   protected pickerClass: Type<NbCalendarRangeComponent<D>> = NbCalendarRangeComponent;
 
   /**

@@ -52,14 +52,12 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class NbTooltipComponent implements NbRenderableContainer {
 
-  @Input()
-  content: string;
+  @Input() content: string;
 
   /**
    * Popover position relatively host element.
    * */
-  @Input()
-  position: NbPosition = NbPosition.TOP;
+  @Input() position: NbPosition = NbPosition.TOP;
 
   @HostBinding('class')
   get binding() {
@@ -82,5 +80,5 @@ export class NbTooltipComponent implements NbRenderableContainer {
    * The method is empty since we don't need to do anything additionally
    * render is handled by change detection
    */
-  renderContent() {}
+  renderContent(): void {}
 }

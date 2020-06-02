@@ -98,16 +98,16 @@ export abstract class NbDatepicker<T> {
   /**
    * Attaches datepicker to the native input element.
    * */
-  abstract attach(hostRef: ElementRef);
+  abstract attach(hostRef: ElementRef): void;
 
   /**
    * Returns validator configuration based on the input properties.
    * */
   abstract getValidatorConfig(): NbPickerValidatorConfig<T>;
 
-  abstract show();
+  abstract show(): void;
 
-  abstract hide();
+  abstract hide(): void;
 
   abstract shouldHide(): boolean;
 

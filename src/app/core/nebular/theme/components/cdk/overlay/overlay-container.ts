@@ -22,10 +22,13 @@ export interface NbRenderableContainer {
    * ngOnChanges hook will be triggered only if we update content or context properties
    * through template property binding syntax. But in our case we're updating these properties programmatically.
    * */
-  renderContent();
+  renderContent(): void;
 }
 
-export abstract class NbPositionedContainer {
+@Component({
+  template: ``,
+})
+export class NbPositionedContainerComponent {
   @Input() position: NbPosition;
 
   @HostBinding('class.nb-overlay-top')
