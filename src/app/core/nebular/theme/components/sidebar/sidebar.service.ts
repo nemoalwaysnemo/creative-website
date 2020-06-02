@@ -17,7 +17,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
  * Allows you to change sidebar state dynamically from any part of the app:
  * @stacked-example(Sidebar State, sidebar/sidebar-toggle.component)
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NbSidebarService {
   constructor(private deviceService: DeviceDetectorService) { }
   private toggle$ = new Subject<{ compact: boolean, tag: string }>();

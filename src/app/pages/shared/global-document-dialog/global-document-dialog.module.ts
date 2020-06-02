@@ -15,7 +15,6 @@ import { GlobalDocumentDialogTemplateModule } from './document-dialog-template/g
   imports: [
     CommonModule,
     ThemeModule,
-    NbDialogModule.forChild(),
     GlobalDocumentDialogTemplateModule,
   ],
   declarations: [

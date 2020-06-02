@@ -1,8 +1,8 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule } from '@angular/router';
 
 import {
   NbCardModule,
@@ -53,7 +53,6 @@ const COMPONENTS = [
 
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot({ name: 'default' }, [DEFAULT_THEME]).providers,
-  ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
   ...NbDialogModule.forRoot().providers,
   ...NbToastrModule.forRoot().providers,

@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { DynamicFormControl } from './dynamic-form-control-interface';
 import { DynamicFormControlCustomEvent } from './dynamic-form-control-event';
@@ -16,7 +16,10 @@ import {
 } from '../service/dynamic-form-layout.service';
 import { isString } from '../utils/core.utils';
 
-export abstract class DynamicFormControlComponent implements DynamicFormControl {
+@Component({
+  template: '',
+})
+export class DynamicFormControlComponent implements DynamicFormControl {
 
   private _hasFocus = false;
 
@@ -31,7 +34,7 @@ export abstract class DynamicFormControlComponent implements DynamicFormControl 
   customEvent: EventEmitter<DynamicFormControlCustomEvent>;
   focus: EventEmitter<any>;
 
-  protected constructor(protected layoutService: DynamicFormLayoutService, protected validationService: DynamicFormValidationService) {
+  constructor(protected layoutService: DynamicFormLayoutService, protected validationService: DynamicFormValidationService) {
   }
 
   get control(): AbstractControl | never {

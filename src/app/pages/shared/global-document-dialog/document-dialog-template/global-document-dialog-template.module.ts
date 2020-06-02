@@ -30,7 +30,6 @@ const COMPONENTS = [
     DocumentViewerModule,
     ShareDocumentButtonModule,
     DocumentBackslashInfoModule,
-    NbDialogModule.forChild(),
   ],
   declarations: [
     ...COMPONENTS,

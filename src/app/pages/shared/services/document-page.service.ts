@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { NbToastrService } from '@core/nebular/theme';
+import { NbToastStatus } from '@core/nebular/theme/components/toastr/model';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd } from '@angular/router';
-import { Observable, from, Subject, zip } from 'rxjs';
+import { Observable, from, Subject, zip, timer } from 'rxjs';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
 import { GoogleAnalyticsService } from '@core/services';
 import { DocumentModel } from '@core/api';
 import { Environment } from '@environment/environment';
+
+export * from '@core/nebular/theme/components/toastr/model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +24,7 @@ export class DocumentPageService {
     private location: Location,
     private titleService: Title,
     private activatedRoute: ActivatedRoute,
+    private toastrService: NbToastrService,
     private googleAnalyticsService: GoogleAnalyticsService,
   ) { }
 
@@ -40,6 +45,10 @@ export class DocumentPageService {
 
   setCurrentDocument(doc: DocumentModel): void {
     this.document$.next(doc);
+  }
+
+  notify(message: string, title: string, status: NbToastStatus = NbToastStatus.INFO): void {
+    this.toastrService.show(message, title, { status });
   }
 
   changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = '', skipLocationChange: boolean = false): Observable<boolean> {
@@ -83,10 +92,12 @@ export class DocumentPageService {
     this.router.navigate(['/p/error/404']);
   }
 
-  refresh(): void {
-    const queryParams = this.getSnapshotQueryParams();
-    delete queryParams['currentPageIndex'];
-    this.changeQueryParams(queryParams);
+  refresh(delay: number = 0): void {
+    timer(delay).subscribe(_ => {
+      const queryParams = this.getSnapshotQueryParams();
+      delete queryParams['currentPageIndex'];
+      this.changeQueryParams(queryParams);
+    });
   }
 
   getCurrentUrl(): string {

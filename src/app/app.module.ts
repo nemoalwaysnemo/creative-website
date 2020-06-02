@@ -14,9 +14,8 @@ import { DocumentFormModule } from './pages/shared/document-form/document-form.m
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
     CoreModule,
+    AppRoutingModule,
     DocumentFormModule,
     ThemeModule.forRoot(),
   ],
