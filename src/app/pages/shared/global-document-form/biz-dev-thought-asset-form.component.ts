@@ -175,6 +175,14 @@ export class BizDevThoughtAssetFormComponent extends GlobalDocumentFormComponent
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:created_by',
+        label: 'Author',
+        required: true,
+        placeholder: 'Author',
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',

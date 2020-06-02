@@ -150,12 +150,6 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
         placeholder: 'external Application URL',
         required: false,
       }),
-      new DynamicCheckboxModel({
-        id: 'app_global:set_defaults',
-        label: 'Set Defaults',
-        disabled: true,
-        readOnly: true,
-      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
