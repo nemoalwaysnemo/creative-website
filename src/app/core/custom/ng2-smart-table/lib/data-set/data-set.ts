@@ -14,11 +14,10 @@ export class DataSet {
   constructor(data: any[] = [], protected columnSettings: Object) {
     this.createColumns(columnSettings);
     this.setData(data);
-
     this.createNewRow();
   }
 
-  setData(data: any[]) {
+  setData(data: any[]): void {
     this.data = data;
     this.createRows();
   }
@@ -43,7 +42,7 @@ export class DataSet {
     return this.rows.find((row: Row) => row.getData() === data);
   }
 
-  deselectAll() {
+  deselectAll(): void {
     this.rows.forEach((row) => {
       row.isSelected = false;
     });
@@ -91,11 +90,11 @@ export class DataSet {
     }
   }
 
-  willSelectFirstRow() {
+  willSelectFirstRow(): void {
     this.willSelect = 'first';
   }
 
-  willSelectLastRow() {
+  willSelectLastRow(): void {
     this.willSelect = 'last';
   }
 
@@ -118,7 +117,7 @@ export class DataSet {
     return this.selectedRow;
   }
 
-  createNewRow() {
+  createNewRow(): void {
     this.newRow = new Row(-1, {}, this);
     this.newRow.isInEditing = true;
   }
@@ -128,7 +127,7 @@ export class DataSet {
    * @param settings
    * @private
    */
-  createColumns(settings: any) {
+  createColumns(settings: any): void {
     for (const id in settings) {
       if (settings.hasOwnProperty(id)) {
         this.columns.push(new Column(id, settings[id], this));
@@ -140,7 +139,7 @@ export class DataSet {
    * Create rows based on current data prepared in data source
    * @private
    */
-  createRows() {
+  createRows(): void {
     this.rows = [];
     this.data.forEach((el, index) => {
       this.rows.push(new Row(index, el, this));

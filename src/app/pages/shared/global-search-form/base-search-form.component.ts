@@ -324,6 +324,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+    this.patchFormValue({ currentPageIndex: 0 });
     const searchParams = removeUselessObject(params.params, ['q', 'id', 'folder']);
     params.metadata['event'] = params.event;
     params.metadata['source'] = this.formSettings.source;

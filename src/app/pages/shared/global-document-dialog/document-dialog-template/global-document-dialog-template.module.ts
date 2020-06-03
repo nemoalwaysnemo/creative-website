@@ -9,17 +9,19 @@ import { BackslashHomeAssetDialogPreviewComponent } from './backslash-home-asset
 import { DocumentBackslashInfoModule } from '../../../shared/document-backslash-info/document-backslash-info.module';
 import { RelatedBackslashAssetDialogPreviewComponent } from './related-backslash-asset-preview/related-backslash-asset-preview.component';
 import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-preview/disruption-asset-preview.component';
-import { DocumentDialogConfirmationComponent } from './document-confirmation-template/document-confirmation-template.component';
-import { DocumentDialogDeletionComponent } from './document-deletion-template/document-deletion-template.component';
-import { DocumentDownloadRequestComponent } from './document-download-request-template/document-download-request-template.component';
+import { DocumentDialogConfirmationTemplateComponent } from './document-confirmation-template/document-confirmation-template.component';
+import { DocumentDialogDeletionTemplateComponent } from './document-deletion-template/document-deletion-template.component';
+import { DocumentDownloadRequestTemplateComponent } from './document-download-request-template/document-download-request-template.component';
+import { CreativeProjectAssetTemplateComponent } from './creative-project-asset-template/creative-project-asset-template.component';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
   RelatedBackslashAssetDialogPreviewComponent,
   DisruptionAssetPreviewDialogComponent,
-  DocumentDialogConfirmationComponent,
-  DocumentDialogDeletionComponent,
-  DocumentDownloadRequestComponent,
+  DocumentDialogConfirmationTemplateComponent,
+  DocumentDialogDeletionTemplateComponent,
+  DocumentDownloadRequestTemplateComponent,
+  CreativeProjectAssetTemplateComponent,
 ];
 
 @NgModule({
