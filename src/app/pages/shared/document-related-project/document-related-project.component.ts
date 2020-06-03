@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
-import { Subject, Subscription } from 'rxjs';
-import { AdvanceSearchService, NuxeoPagination, DocumentModel, SearchResponse } from '@core/api';
+import { Subject, timer } from 'rxjs';
+import { DocumentModel, SearchResponse } from '@core/api';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 
 @Component({
@@ -9,7 +9,7 @@ import { GlobalSearchFormSettings } from '../global-search-form/global-search-fo
   styleUrls: ['./document-related-project.component.scss'],
   templateUrl: './document-related-project.component.html',
 })
-export class DocumentRelatedProjectComponent implements OnDestroy {
+export class DocumentRelatedProjectComponent {
 
   layout: string = 'my_agency full-width';
 
@@ -17,15 +17,17 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
 
   append: boolean = true;
 
-  baseParams$: Subject<any> = new Subject<any>();
-
-  searchFormSettings: GlobalSearchFormSettings;
-
   documents: DocumentModel[];
 
   noResultText: string = 'No more assets';
 
-  private subscription: Subscription = new Subscription();
+  baseParams$: Subject<any> = new Subject<any>();
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'document-related-project',
+    searchGroupPosition: 'left',
+    enableSearchInput: false,
+  });
 
   private params: any = {
     pageSize: 4,
@@ -39,18 +41,12 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
   set document(doc: DocumentModel) {
     if (doc) {
       this.documentModel = doc;
-      this.search();
+      this.search(doc);
     }
   }
 
-  constructor(private advanceSearchService: AdvanceSearchService) {
-    this.baseParams$.subscribe(p => {
-      console.log('pppp', p);
-    });
-   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  search(doc: DocumentModel): void {
+    timer(0).subscribe(() => { this.baseParams$.next(this.getSearchParams(doc)); });
   }
 
   onLoadMore(res: SearchResponse): void {
@@ -58,7 +54,6 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
     const params = this.getSearchParams(this.documentModel);
     params['currentPageIndex'] = res.response.currentPageIndex + 1;
     params['pageSize'] = 8;
-    console.log(1231);
     this.baseParams$.next(params);
   }
 
@@ -69,19 +64,8 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
     return params;
   }
 
-  search(): void {
-    this.searchFormSettings = new GlobalSearchFormSettings({
-      source: 'document-related-project',
-      searchGroupPosition: 'left',
-    });
-    console.log(222, this.getSearchParams(this.documentModel));
-
-    this.baseParams$.next(this.getSearchParams(this.documentModel));
-  }
-
   onSearchFilter(res: SearchResponse): boolean {
-    console.log(11, res);
-
     return res.metadata.source === 'document-related-project';
   }
+
 }

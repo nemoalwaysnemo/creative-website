@@ -50,7 +50,10 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
   }
 
   onSearch(source?: string): Observable<SearchResponse> {
-    return (source ? this.entries$.pipe(filter((e: SearchResponse) => e.metadata.source === source)) : this.entries$).pipe(share());
+    return this.entries$.pipe(
+      filter((e: SearchResponse) => source ? e.metadata.source === source : true),
+      share(),
+    );
   }
 
   requestByUIDs(uids: string[]): Observable<NuxeoPagination> {

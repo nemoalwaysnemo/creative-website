@@ -75,8 +75,6 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   @Input()
   set searchParams(params: any) {
-    console.log(33, params);
-
     if (objHasValue(params)) {
       this.searchParams$.next(params);
     }

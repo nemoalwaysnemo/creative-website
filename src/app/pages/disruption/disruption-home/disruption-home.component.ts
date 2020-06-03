@@ -20,7 +20,7 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
 
   extraHeadline: string = 'We\'ve disrupted it.';
 
-  subHead: string = 'Find the who, what, where, when, why and how of our process.';
+  subHead: string = 'Find the who, what, where, when, why and how of our methodology.';
 
   assetUrlMapping: object = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',

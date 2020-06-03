@@ -179,7 +179,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   private triggerSerach(doc: DocumentModel, item: any): void {
     this.searchFormSettings = new GlobalSearchFormSettings({
-      source: 'document-related-info',
+      source: 'document-load-more',
       searchGroupPosition: 'right',
       pageProvider: item.provider,
     });
