@@ -15,6 +15,7 @@ export class Column {
   editor: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
   filter: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
   renderComponent: any = null;
+  renderComponentData: any = {};
   compareFunction: Function;
   valuePrepareFunction: Function;
   filterFunction: Function;
@@ -52,7 +53,7 @@ export class Column {
     return this.filter && this.filter.config;
   }
 
-  protected process() {
+  protected process(): void {
     this.title = this.settings['title'];
     this.class = this.settings['class'];
     this.width = this.settings['width'];
@@ -60,6 +61,7 @@ export class Column {
     this.editor = this.settings['editor'];
     this.filter = this.settings['filter'];
     this.renderComponent = this.settings['renderComponent'];
+    this.renderComponentData = this.settings['renderComponentData'];
 
     this.isFilterable = typeof this.settings['filter'] === 'undefined' ? true : !!this.settings['filter'];
     this.defaultSortDirection = ['asc', 'desc']

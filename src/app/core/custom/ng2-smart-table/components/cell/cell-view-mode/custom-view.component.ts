@@ -20,7 +20,9 @@ import { ViewCell } from './view-cell';
 export class CustomViewComponent implements OnInit, OnDestroy {
 
   customComponent: any;
+
   @Input() cell: Cell;
+
   @ViewChild('dynamicTarget', { read: ViewContainerRef, static: true }) dynamicTarget: any;
 
   constructor(private resolver: ComponentFactoryResolver) {
@@ -40,17 +42,17 @@ export class CustomViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected createCustomComponent() {
+  protected createCustomComponent(): void {
     const componentFactory = this.resolver.resolveComponentFactory(this.cell.getColumn().renderComponent);
     this.customComponent = this.dynamicTarget.createComponent(componentFactory);
   }
 
-  protected callOnComponentInit() {
+  protected callOnComponentInit(): void {
     const onComponentInitFunction = this.cell.getColumn().getOnComponentInitFunction();
     onComponentInitFunction && onComponentInitFunction(this.customComponent.instance);
   }
 
-  protected patchInstance() {
+  protected patchInstance(): void {
     Object.assign(this.customComponent.instance, this.getPatch());
   }
 
@@ -58,6 +60,7 @@ export class CustomViewComponent implements OnInit, OnDestroy {
     return {
       value: this.cell.getValue(),
       rowData: this.cell.getRow().getData(),
+      settings: this.cell.getColumn().renderComponentData,
     };
   }
 }
