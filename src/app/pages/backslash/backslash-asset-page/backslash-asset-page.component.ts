@@ -1,9 +1,9 @@
 import { Component, AfterViewChecked, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
-import { AdvanceSearchService } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { filter } from 'rxjs/operators';
+import { AdvanceSearchService } from '@core/api';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-asset-page',
@@ -50,7 +50,7 @@ export class BackslashAssetPageComponent extends GlobalDocumentViewComponent imp
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.BACKSLASH_ARTICLE_VIDEO_TYPES,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES,
     };
   }
 

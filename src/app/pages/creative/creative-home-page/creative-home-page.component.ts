@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-home-page',
@@ -29,7 +29,7 @@ export class CreativeHomePageComponent extends BaseDocumentViewComponent {
   defaultParams: any = {
     pageSize: 10,
     ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
     currentPageIndex: 0,
     ecm_fulltext: '',
   };

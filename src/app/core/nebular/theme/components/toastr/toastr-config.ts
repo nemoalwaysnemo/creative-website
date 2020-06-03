@@ -6,8 +6,8 @@
 
 import { InjectionToken } from '@angular/core';
 
-import { NbToastStatus } from './model';
 import { NbGlobalLogicalPosition, NbGlobalPosition } from '../cdk';
+import { NbComponentStatus } from '../component-status';
 
 
 export const NB_TOASTR_CONFIG = new InjectionToken<NbToastrConfig>('Default toastr options');
@@ -23,7 +23,7 @@ export class NbToastrConfig {
   /**
    * Status chooses color scheme for the toast.
    * */
-  status: NbToastStatus = NbToastStatus.PRIMARY;
+  status: string | NbComponentStatus = 'primary';
   /**
    * Duration is timeout between toast appears and disappears.
    * */
@@ -48,11 +48,11 @@ export class NbToastrConfig {
    * Toast status icon-class mapping.
    * */
   protected icons = {
-    [NbToastStatus.DANGER]: 'nb-danger',
-    [NbToastStatus.SUCCESS]: 'nb-checkmark-circle',
-    [NbToastStatus.INFO]: 'nb-help',
-    [NbToastStatus.WARNING]: 'nb-alert',
-    [NbToastStatus.PRIMARY]: 'nb-email',
+    ['danger']: 'nb-danger',
+    ['success']: 'nb-checkmark-circle',
+    ['info']: 'nb-help',
+    ['warning']: 'nb-alert',
+    ['primary']: 'nb-email',
   };
 
   constructor(config: Partial<NbToastrConfig>) {
@@ -62,7 +62,7 @@ export class NbToastrConfig {
 
   protected patchIcon(config: Partial<NbToastrConfig>) {
     if (!('icon' in config)) {
-      config.icon = this.icons[config.status || NbToastStatus.PRIMARY];
+      config.icon = this.icons[config.status || 'primary'];
     }
   }
 }

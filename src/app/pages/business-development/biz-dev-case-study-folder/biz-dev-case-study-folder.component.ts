@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearchService, NuxeoPermission, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { TAB_CONFIG } from '../business-development-tab-config';
 import { parseTabRoute } from '@core/services/helpers';
+import { TAB_CONFIG } from '../business-development-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-case-study-folder',
@@ -49,7 +49,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
       ecm_mixinType_not_in: '',
     };
   }
@@ -67,7 +67,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
 
   protected buildSubFolderParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
@@ -82,7 +82,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
   protected buildCaseAssetParams(doc?: DocumentModel): any {
     const params = {
       ecm_mixinType_not_in: '', // override
-      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,

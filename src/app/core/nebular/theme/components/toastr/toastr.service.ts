@@ -17,16 +17,15 @@ import {
 } from '../cdk';
 import { NbToastrContainerComponent } from './toastr-container.component';
 import { NB_TOASTR_CONFIG, NbToastrConfig } from './toastr-config';
-import { NbToast, NbToastStatus } from './model';
+import { NbToast } from './model';
 import { NbToastComponent } from './toast.component';
 import { NB_DOCUMENT } from '../../theme.options';
 
 export class NbToastRef {
-  constructor(private toastContainer: NbToastContainer,
-              private toast: NbToast) {
+  constructor(private toastContainer: NbToastContainer, private toast: NbToast) {
   }
 
-  close() {
+  close(): void {
     this.toastContainer.destroy(this.toast);
   }
 }
@@ -41,7 +40,8 @@ export class NbToastContainer {
 
   constructor(protected position: NbGlobalPosition,
               protected containerRef: ComponentRef<NbToastrContainerComponent>,
-              protected positionHelper: NbPositionHelper) {
+              protected positionHelper: NbPositionHelper,
+  ) {
   }
 
   attach(toast: NbToast): NbToastRef {
@@ -119,7 +119,8 @@ export class NbToastrContainerRegistry {
               protected positionBuilder: NbPositionBuilderService,
               protected positionHelper: NbPositionHelper,
               protected cfr: ComponentFactoryResolver,
-              @Inject(NB_DOCUMENT) protected document: any) {
+              @Inject(NB_DOCUMENT) protected document: any,
+  ) {
   }
 
   get(position: NbGlobalPosition): NbToastContainer {
@@ -217,8 +218,7 @@ export class NbToastrContainerRegistry {
   providedIn: 'root',
 })
 export class NbToastrService {
-  constructor(@Inject(NB_TOASTR_CONFIG) protected globalConfig: NbToastrConfig,
-              protected containerRegistry: NbToastrContainerRegistry) {
+  constructor(@Inject(NB_TOASTR_CONFIG) protected globalConfig: NbToastrConfig, protected containerRegistry: NbToastrContainerRegistry) {
   }
 
   /**
@@ -235,41 +235,41 @@ export class NbToastrService {
    * Shows success toast with message, title and user config.
    * */
   success(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
-    return this.show(message, title, { ...config, status: NbToastStatus.SUCCESS });
+    return this.show(message, title, { ...config, status: 'success' });
   }
 
   /**
    * Shows info toast with message, title and user config.
    * */
   info(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
-    return this.show(message, title, { ...config, status: NbToastStatus.INFO });
+    return this.show(message, title, { ...config, status: 'info' });
   }
 
   /**
    * Shows warning toast with message, title and user config.
    * */
   warning(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
-    return this.show(message, title, { ...config, status: NbToastStatus.WARNING });
+    return this.show(message, title, { ...config, status: 'warning' });
   }
 
   /**
    * Shows primary toast with message, title and user config.
    * */
   primary(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
-    return this.show(message, title, { ...config, status: NbToastStatus.PRIMARY });
+    return this.show(message, title, { ...config, status: 'primary' });
   }
 
   /**
    * Shows danger toast with message, title and user config.
    * */
   danger(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
-    return this.show(message, title, { ...config, status: NbToastStatus.DANGER });
+    return this.show(message, title, { ...config, status: 'danger' });
   }
 
   /**
    * Shows default toast with message, title and user config.
    * */
   default(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
-    return this.show(message, title, { ...config, status: NbToastStatus.DEFAULT });
+    return this.show(message, title, { ...config, status: 'basic' });
   }
 }

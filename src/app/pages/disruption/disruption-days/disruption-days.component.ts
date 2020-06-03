@@ -4,8 +4,8 @@ import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AdvanceSearchService, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-page',
@@ -50,7 +50,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
     ecm_fulltext: '',
     ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
   };
 
   constructor(
@@ -77,7 +77,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_FOLDER_TYPE,
     };
   }
 
@@ -88,7 +88,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
       currentPageIndex: 0,
       ecm_fulltext: queryParams.ecm_fulltext,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAY_ASSET_TYPES,
     };
     return new NuxeoPageProviderParams(params);
   }
@@ -104,7 +104,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
         ecm_uuid: `["${ids.join('", "')}"]`,
         ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-        ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+        ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
       };
       return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
     } else {

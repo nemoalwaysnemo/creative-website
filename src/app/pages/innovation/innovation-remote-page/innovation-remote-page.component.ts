@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { GlobalDocumentViewComponent } from '@pages/shared/abstract-classes/global-document-view.component';
-import { AdvanceSearchService, DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { AdvanceSearchService, DocumentModel } from '@core/api';
 import { DocumentPageService } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { GlobalDocumentViewComponent } from '../../shared/abstract-classes/global-document-view.component';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-remote-page',
@@ -48,7 +48,7 @@ export class InnovationRemotePageComponent extends GlobalDocumentViewComponent i
       currentPageIndex: 0,
       app_global_ext_app_iframe: true,
       ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
       ecm_path_eq: NUXEO_PATH_INFO.INNOVATION_10X_FOLDER_PATH,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',

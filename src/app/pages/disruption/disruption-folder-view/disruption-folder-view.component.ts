@@ -7,7 +7,7 @@ import { getDocumentTypes } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
 import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-folder-view',
@@ -65,7 +65,7 @@ export class DisruptionFolderViewComponent {
   ) { }
 
   isDisruptionAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE).includes(doc.type);
   }
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {

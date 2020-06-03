@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, UserService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'favorite-brand',
@@ -34,8 +34,8 @@ export class FavoriteBrandComponent extends BaseFavoriteDocumentViewComponent {
 
   protected buildAssetsParams(doc: DocumentModel): any {
     const params = {
-      the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
+      the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_BRAND_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,

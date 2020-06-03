@@ -1,13 +1,13 @@
 import { Component, Input, TemplateRef, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
-import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
+import { getDocumentTypes } from '@core/services/helpers';
 import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-folder-view',
@@ -72,7 +72,7 @@ export class BizDevFolderViewComponent {
   }
 
   isParentFolder(doc: DocumentModel): boolean {
-    return doc && (getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE).includes(doc.type) || getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE).includes(doc.type));
+    return doc && (getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE).includes(doc.type) || getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE).includes(doc.type));
   }
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
@@ -106,7 +106,7 @@ export class BizDevFolderViewComponent {
 
   goBack(): void {
     const parentInfo: any = this.goBackInfo(this.doc.type);
-    if ((NUXEO_META_INFO.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
+    if ((NUXEO_DOC_TYPE.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
       this.documentPageService.redirect(parentInfo.urlRootPath);
     } else {
       const rootPath: string = parentInfo.rootPath;
@@ -124,7 +124,7 @@ export class BizDevFolderViewComponent {
   }
 
   toImageParentDocument(): any {
-    if ((NUXEO_META_INFO.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
+    if ((NUXEO_DOC_TYPE.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
       return [this.getAssetUrl(this.doc)];
     } else {
       return [this.getAssetUrl(this.doc), this.doc.uid];

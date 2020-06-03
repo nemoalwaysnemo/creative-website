@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { AdvanceSearchService, NuxeoPagination, DocumentModel } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -25,7 +25,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
   private params: any = {
     pageSize: 4,
     app_global_networkshare: true,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
     the_loupe_main_agency: '',
     ecm_uuid_not_eq: '',
   };

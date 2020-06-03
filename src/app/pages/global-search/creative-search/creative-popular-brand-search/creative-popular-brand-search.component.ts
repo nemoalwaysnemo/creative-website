@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SearchFilterModel } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-popular-brand-search',
@@ -15,7 +15,7 @@ export class CreativePopularBrandSearchComponent extends BaseDocumentViewCompone
 
   defaultParams: any = {
     ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_SELECTED_BRAND_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,
     currentPageIndex: 0,
     pageSize: 20,
     ecm_fulltext: '',

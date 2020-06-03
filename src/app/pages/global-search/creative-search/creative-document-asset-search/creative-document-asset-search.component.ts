@@ -5,7 +5,7 @@ import { AdvanceSearchService, SearchResponse, NuxeoPagination, SearchFilterMode
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-document-asset-search',
@@ -25,7 +25,7 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
     pageSize: 20,
     ecm_fulltext: '',
     ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   filters: SearchFilterModel[] = [

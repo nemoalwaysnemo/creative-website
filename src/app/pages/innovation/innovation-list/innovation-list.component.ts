@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants, NuxeoEnricher, NuxeoRequestOptions, NuxeoPermission } from '@core/api';
-import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
-import { TAB_CONFIG } from '../innovation-tab-config';
-import { parseTabRoute } from '@core/services/helpers';
 import { ActivatedRoute } from '@angular/router';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { Subject, Observable, of as observableOf, timer } from 'rxjs';
+import { AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPermission } from '@core/api';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { parseTabRoute } from '@core/services/helpers';
+import { TAB_CONFIG } from '../innovation-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-list',
@@ -58,7 +58,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       ecm_mixinType_not_in: '',
       ecm_fulltext: queryParams.ecm_fulltext_wildcard,
       ecm_path: this.getPath(),
-      ecm_primaryType: NUXEO_META_INFO.INNOVATION_SEARCH_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
     };
 
     return new NuxeoPageProviderParams(params);
@@ -80,7 +80,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
       ecm_path_eq: this.getPath(),
-      ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
     };
 
     return new NuxeoPageProviderParams(params);
@@ -93,7 +93,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
       ecm_path: this.getPath(),
-      ecm_primaryType: NUXEO_META_INFO.INNOVATION_SEARCH_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
     };
 
     if (doc) {

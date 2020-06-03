@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { AdvanceSearchService, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-my-agency-page',
@@ -59,8 +59,8 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
       ecm_fulltext: '',
       currentPageIndex: 0,
       the_loupe_main_companycode: user.get('companycode'), // 05001002
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
-      the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_AGENCY_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
+      the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     };
     return new NuxeoPageProviderParams(params);
   }

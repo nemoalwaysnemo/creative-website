@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { AdvanceSearchService, DocumentModel, NuxeoPermission, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { ActivatedRoute } from '@angular/router';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-roadmap-page',
@@ -26,7 +26,7 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
     quickFilters: NuxeoQuickFilters.Alphabetically,
   };
@@ -59,7 +59,7 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_ROADMAP_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_FOLDER_TYPE,
     };
   }
 

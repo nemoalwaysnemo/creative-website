@@ -2,15 +2,12 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { NbToastrService } from '@core/nebular/theme';
-import { NbToastStatus } from '@core/nebular/theme/components/toastr/model';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd } from '@angular/router';
 import { Observable, from, Subject, zip, timer } from 'rxjs';
 import { distinctUntilChanged, filter } from 'rxjs/operators';
 import { GoogleAnalyticsService } from '@core/services';
 import { DocumentModel } from '@core/api';
 import { Environment } from '@environment/environment';
-
-export * from '@core/nebular/theme/components/toastr/model';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +44,7 @@ export class DocumentPageService {
     this.document$.next(doc);
   }
 
-  notify(message: string, title: string, status: NbToastStatus = NbToastStatus.INFO): void {
+  notify(message: string, title: string, status: string = 'info'): void {
     this.toastrService.show(message, title, { status });
   }
 

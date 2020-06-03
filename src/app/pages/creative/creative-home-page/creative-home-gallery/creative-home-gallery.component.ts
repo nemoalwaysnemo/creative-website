@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearchService } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
+import { NuxeoPagination, DocumentModel, AdvanceSearchService } from '@core/api';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-home-gallery',
@@ -23,7 +23,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
   private params: any = {
     pageSize: 10,
     ecm_path: NUXEO_PATH_INFO.CREATIVE_AWARD_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
   };
 
   private subscription: Subscription = new Subscription();

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AdvanceSearchService, DocumentModel, NuxeoPagination } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
-import { TAB_CONFIG } from '../business-development-tab-config';
+import { AdvanceSearchService, DocumentModel, NuxeoPagination } from '@core/api';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
+import { TAB_CONFIG } from '../business-development-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+
 @Component({
   selector: 'biz-dev-asset',
   styleUrls: ['./biz-dev-asset.component.scss'],
@@ -28,7 +29,7 @@ export class BizDevAssetComponent extends GlobalDocumentViewComponent implements
     pageSize: 1,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_ALL_FOLDER_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_ALL_FOLDER_TYPES,
     ecm_mixinType_not_in: '',
   };
 
@@ -58,7 +59,7 @@ export class BizDevAssetComponent extends GlobalDocumentViewComponent implements
       currentPageIndex: 0,
       ecm_mixinType_not_in: '',
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE,
     };
   }
 
@@ -77,6 +78,6 @@ export class BizDevAssetComponent extends GlobalDocumentViewComponent implements
 
   private getDeleteRedirectUrl(doc: DocumentModel): string {
     return (['App-BizDev-ThoughtLeadership-Folder', 'App-BizDev-Case-Studies-Folder'].includes(doc.type))
-            ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
+      ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
   }
 }

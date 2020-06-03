@@ -11,7 +11,7 @@ import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-d
 import { DocumentModel, AdvanceSearchService, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 enum assetTypes {
   roadmap = 'App-Disruption-Roadmap-Asset',
@@ -112,23 +112,23 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   isCreativeAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(doc.type);
   }
 
   isDisruptionAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE).includes(doc.type);
   }
 
   isIntelligenceAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
   }
 
   isBizDevAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE).includes(doc.type);
   }
 
   isInnovationAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.INNOVATION_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE).includes(doc.type);
   }
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {

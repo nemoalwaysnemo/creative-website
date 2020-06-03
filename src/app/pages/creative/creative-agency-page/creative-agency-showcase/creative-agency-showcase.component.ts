@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearchService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { GlobalSearchFormSettings } from '@pages/shared/global-search-form/global-search-form.interface';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-agency-showcase',
@@ -39,13 +39,13 @@ export class CreativeAgencyShowcaseComponent extends GlobalDocumentViewComponent
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
     };
   }
 
   protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       app_global_networkshare: true,
       currentPageIndex: 0,
       pageSize: 20,

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AdvanceSearchService } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'intelligence-asset',
@@ -25,7 +25,7 @@ export class IntelligenceAssetComponent extends GlobalDocumentViewComponent {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
-      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
     };
   }
 

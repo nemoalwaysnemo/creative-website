@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 export class TabInfo {
   readonly type: string;
@@ -34,7 +34,7 @@ export class DocumentRelatedInfoComponent {
       paramsMapping: {
         'tagsEdgesAny': 'app_Edges:Tags_edges',
       },
-      provider: NUXEO_META_INFO.BACKSLASH_ASSET_PAGE_PROVIDER,
+      provider: NUXEO_DOC_TYPE.BACKSLASH_ASSET_PAGE_PROVIDER,
     },
     {
       name: 'Disruption',
@@ -48,7 +48,7 @@ export class DocumentRelatedInfoComponent {
         'industryAny': 'app_Edges:industry',
         'tagsEdgesAny': 'app_Edges:Tags_edges',
       },
-      provider: NUXEO_META_INFO.DISRUPTION_ASSET_PAGE_PROVIDER,
+      provider: NUXEO_DOC_TYPE.DISRUPTION_ASSET_PAGE_PROVIDER,
     },
     {
       name: 'Intelligence',
@@ -62,7 +62,7 @@ export class DocumentRelatedInfoComponent {
         'industryAny': 'app_Edges:industry',
         'tagsEdgesAny': 'app_Edges:Tags_edges',
       },
-      provider: NUXEO_META_INFO.INTELLIGENCE_ASSET_PAGE_PROVIDER,
+      provider: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_PAGE_PROVIDER,
     },
   ];
 

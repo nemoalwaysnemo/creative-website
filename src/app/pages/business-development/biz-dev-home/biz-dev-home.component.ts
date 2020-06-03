@@ -5,7 +5,7 @@ import { TAB_CONFIG } from '../business-development-tab-config';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-home',
@@ -44,14 +44,14 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
     ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_SEARCH_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_SEARCH_TYPE,
   };
 
   private subFolderParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_SUB_FOLDER_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_SUB_FOLDER_TYPES,
   };
 
   private baseFolderParams: any = {
@@ -59,7 +59,7 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
     currentPageIndex: 0,
     app_global_ext_app_iframe: true,
     ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_FOLDER_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_FOLDER_TYPE,
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({

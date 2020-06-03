@@ -6,7 +6,7 @@ import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-asset-preview',
@@ -61,11 +61,11 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
   }
 
   isDisruptionAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.DISRUPTION_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE).includes(doc.type);
   }
 
   isIntelligenceAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
   }
 
   parseCountry(list: string[]) {
