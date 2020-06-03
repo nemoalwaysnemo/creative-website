@@ -1,6 +1,9 @@
 <h1>See more {{documentModel.get('The_Loupe_Main:brand')}}</h1>
-<document-thumbnail-view [loading]="loading" [layout]="layout" [noResultText]="noResultText" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
-<ng-template #thumbnailItemView let-doc="doc">
+<global-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
+<global-load-more-search-result [templateRef]="documentView" [append]="append" (onLoadMore)="onLoadMore($event)" [onSearchFilter]="onSearchFilter"></global-load-more-search-result>
+<!-- <document-thumbnail-view [loading]="loading" [layout]="layout" [noResultText]="noResultText" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view> -->
+
+<ng-template #documentView let-doc="doc">
   <div class="image-holder">
     <a [routerLink]="['/p/creative/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
   </div>
