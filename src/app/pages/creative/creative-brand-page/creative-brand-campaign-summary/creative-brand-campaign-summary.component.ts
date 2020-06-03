@@ -150,7 +150,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     };
   }
 
-  protected setCurrentDocument(doc?: DocumentModel): void {
+  protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
       this.baseParamsCampaign$.next(this.buildCampaignParams(doc));

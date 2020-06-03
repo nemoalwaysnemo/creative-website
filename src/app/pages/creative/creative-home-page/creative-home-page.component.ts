@@ -42,4 +42,8 @@ export class CreativeHomePageComponent extends BaseDocumentViewComponent {
     super(documentPageService);
   }
 
+  onInit(): void {
+    this.setCurrentDocument(null);
+  }
+
 }

@@ -35,4 +35,8 @@ export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewCo
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
+
+  onInit(): void {
+    this.setCurrentDocument(null);
+  }
 }

@@ -57,7 +57,7 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
   }
 
   onInit(): void {
-    super.onInit();
+    this.setCurrentDocument(null);
     this.setResultHeader();
   }
 

@@ -71,7 +71,7 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    super.onInit();
+    this.setCurrentDocument(null);
     this.performFolders();
   }
 

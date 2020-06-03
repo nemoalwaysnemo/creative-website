@@ -27,7 +27,6 @@ export class CreativeBrandInfoViewComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    super.onInit();
     this.parseTabRoute();
   }
 
