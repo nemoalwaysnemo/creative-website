@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, AdvanceSearchService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-usage-rights',
@@ -37,8 +37,8 @@ export class CreativeBrandUsageRightsComponent extends GlobalDocumentViewCompone
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
-      the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
+      the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_BRAND_FOLDER_TYPE,
     };
   }
 
@@ -50,7 +50,7 @@ export class CreativeBrandUsageRightsComponent extends GlobalDocumentViewCompone
         pageSize: 1,
         currentPageIndex: 0,
         ecm_path: doc.path,
-        ecm_primaryType: NUXEO_META_INFO.CREATIVE_UR_FOLDER_TYPE,
+        ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_UR_FOLDER_TYPE,
       }).subscribe((target: DocumentModel) => {
         this.target = target;
         this.target.setParent(doc);
@@ -60,7 +60,7 @@ export class CreativeBrandUsageRightsComponent extends GlobalDocumentViewCompone
 
   protected buildContractParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_UR_CONTRACT_TYPES,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_UR_CONTRACT_TYPES,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',

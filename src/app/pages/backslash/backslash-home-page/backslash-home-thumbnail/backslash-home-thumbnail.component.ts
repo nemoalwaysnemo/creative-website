@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchFilterModel } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO, Environment } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/environment';
 
 @Component({
   selector: 'backslash-home-thumbnail',
@@ -20,7 +20,7 @@ export class BackslashHomeThumbnailComponent {
     ecm_fulltext: '',
     app_edges_active_article: true,
     ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BACKSLASH_ARTICLE_VIDEO_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES,
   };
 
   filters: SearchFilterModel[] = [

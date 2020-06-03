@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SearchFilterModel } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'intelligence-document-asset-search',
@@ -11,7 +11,7 @@ import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewComponent {
 
   defaultParams: any = {
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
     ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
     currentPageIndex: 0,
     pageSize: 20,

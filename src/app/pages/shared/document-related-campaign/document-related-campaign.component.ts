@@ -4,7 +4,7 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination, AdvanceSearchService } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-related-campaign',
@@ -57,7 +57,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
       const params: any = {
         pageSize: 25,
         currentPageIndex: 0,
-        ecm_primaryType: NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+        ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
         the_loupe_main_campaign: `["${campaign}"]`,
         ecm_uuid_not_eq: doc.uid,
       };

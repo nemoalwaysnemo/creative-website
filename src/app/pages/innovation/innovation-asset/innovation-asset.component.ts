@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AdvanceSearchService, DocumentModel, NuxeoPagination } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
-import { TAB_CONFIG } from '../innovation-tab-config';
+import { AdvanceSearchService, DocumentModel, NuxeoPagination } from '@core/api';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
+import { TAB_CONFIG } from '../innovation-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+
 @Component({
   selector: 'innovation-asset',
   styleUrls: ['./innovation-asset.component.scss'],
@@ -28,7 +29,7 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
     pageSize: 1,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
     ecm_mixinType_not_in: '',
   };
 
@@ -56,7 +57,7 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
       currentPageIndex: 0,
       ecm_mixinType_not_in: '',
       ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.INNOVATION_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE,
     };
   }
 

@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, AdvanceSearchService, NuxeoPermission, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-days-folder',
@@ -50,13 +50,13 @@ export class DisruptionDaysFolderComponent extends GlobalDocumentViewComponent {
       currentPageIndex: 0,
       ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAYS_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
     };
   }
 
   protected buildAssetsParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_DAY_ASSET_TYPES,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAY_ASSET_TYPES,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
       currentPageIndex: 0,
       pageSize: 20,

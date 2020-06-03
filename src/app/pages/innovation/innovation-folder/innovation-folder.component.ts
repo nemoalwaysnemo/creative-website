@@ -5,7 +5,7 @@ import { DocumentModel, AdvanceSearchService, NuxeoPermission, SearchFilterModel
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../innovation-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder',
@@ -56,7 +56,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
       ecm_path: this.getPath(),
-      ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
     };
 
     return new NuxeoPageProviderParams(params);
@@ -75,7 +75,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
 
   protected buildSubFolderParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
       ecm_path: this.getPath(),
       currentPageIndex: 0,
       pageSize: 20,
@@ -90,7 +90,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   protected buildCaseAssetParams(doc?: DocumentModel): any {
     const params = {
       ecm_mixinType_not_in: '', // override
-      ecm_primaryType: NUXEO_META_INFO.INNOVATION_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE,
       ecm_path: this.getPath(),
       currentPageIndex: 0,
       pageSize: 20,

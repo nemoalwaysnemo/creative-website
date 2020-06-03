@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AdvanceSearchService, DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-project',
@@ -38,8 +38,8 @@ export class CreativeBrandProjectComponent extends GlobalDocumentViewComponent {
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_FOLDER_TYPE,
-      the_loupe_main_folder_type: NUXEO_META_INFO.CREATIVE_BRAND_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
+      the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_BRAND_FOLDER_TYPE,
     };
   }
 
@@ -51,7 +51,7 @@ export class CreativeBrandProjectComponent extends GlobalDocumentViewComponent {
         pageSize: 1,
         currentPageIndex: 0,
         ecm_path: doc.path,
-        ecm_primaryType: NUXEO_META_INFO.CREATIVE_CAMPAIGN_FOLDER_TYPE,
+        ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_CAMPAIGN_FOLDER_TYPE,
       }).subscribe((target: DocumentModel) => {
         this.target = target;
         this.target.setParent(doc);
@@ -61,7 +61,7 @@ export class CreativeBrandProjectComponent extends GlobalDocumentViewComponent {
 
   protected buildProjectParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.CREATIVE_PROJECT_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_PROJECT_TYPE,
       ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       currentPageIndex: 0,
       pageSize: 20,

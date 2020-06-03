@@ -5,10 +5,10 @@ import { concatMap, map, share, filter } from 'rxjs/operators';
 import { DocumentModel, UserService, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
-import { DocumentPageService, NbToastStatus } from '../services/document-page.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-action-group',
@@ -63,11 +63,11 @@ export class DocumentActionGroupComponent {
   }
 
   isCreativeAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES).includes(doc.type);
   }
 
   isBizDevCaseStudyAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
   }
 
   isNeedSendDownloadRequest(doc: DocumentModel): boolean {
@@ -97,7 +97,7 @@ export class DocumentActionGroupComponent {
     if (typeof currentTime === 'number') {
       const duration = (currentTime * 10).toString();
       const subscription = this.nuxeoApi.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.documentModel.uid).subscribe((doc: DocumentModel) => {
-        this.documentPageService.notify(`Video poster has been updated successfully!`, '', NbToastStatus.SUCCESS);
+        this.documentPageService.notify(`Video poster has been updated successfully!`, '', 'success');
         this.documentPageService.refresh(500);
       });
       this.subscription.add(subscription);

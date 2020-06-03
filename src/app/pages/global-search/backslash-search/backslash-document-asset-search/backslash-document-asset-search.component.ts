@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { SearchFilterModel } from '@core/api';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-document-asset-search',
@@ -21,7 +21,7 @@ export class BackslashDocumentAssetSearchComponent extends BaseDocumentViewCompo
     ecm_fulltext: '',
     app_edges_active_article: true,
     ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.BACKSLASH_ARTICLE_VIDEO_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES,
   };
 
   filters: SearchFilterModel[] = [

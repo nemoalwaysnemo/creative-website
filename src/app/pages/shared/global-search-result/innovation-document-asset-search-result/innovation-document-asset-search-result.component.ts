@@ -1,6 +1,6 @@
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
+import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-document-asset-search-result',

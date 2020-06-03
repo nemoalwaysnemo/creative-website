@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { AdvanceSearchService, DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-brilliant-thinking-page',
@@ -26,7 +26,7 @@ export class BrilliantThinkingComponent extends GlobalDocumentViewComponent impl
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THINKING_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
   };
 
@@ -58,7 +58,7 @@ export class BrilliantThinkingComponent extends GlobalDocumentViewComponent impl
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THINKING_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THINKING_FOLDER_TYPE,
     };
   }
 

@@ -4,8 +4,8 @@ import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AdvanceSearchService, DocumentModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-theory-page',
@@ -68,7 +68,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
     };
   }
   // get the default sub folders (second-level folders)
@@ -78,7 +78,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
     };
     if (doc) {
       params['ecm_parentId'] = doc.uid;
@@ -93,7 +93,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
       ecm_fulltext: queryParams.ecm_fulltext,
       ecm_mixinType_not_in: '["Folderish"]',
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-      ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_TYPE,
     };
     return new NuxeoPageProviderParams(params);
   }
@@ -110,7 +110,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
         pageSize: ids.length,
         ecm_uuid: `["${ids.join('", "')}"]`,
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-        ecm_primaryType: NUXEO_META_INFO.DISRUPTION_THEORY_FOLDER_TYPE,
+        ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
       };
       return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
     } else {

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { TAB_CONFIG } from '../innovation-tab-config';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { TAB_CONFIG } from '../innovation-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-home',
@@ -41,7 +41,7 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
     ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.INNOVATION_SEARCH_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
   };
 
   private baseFolderParams: any = {
@@ -50,7 +50,7 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
     ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.INNOVATION_FOLDER_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ placeholder: 'Search for anything...', enableQueryParams: false });

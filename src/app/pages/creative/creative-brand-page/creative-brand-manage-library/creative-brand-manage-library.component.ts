@@ -3,7 +3,7 @@ import { AdvanceSearchService } from '@core/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
-import { BaseDocumentManageComponent, DocumentPageService, NbToastStatus } from '@pages/shared';
+import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
 import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
 
@@ -38,7 +38,7 @@ export class CreativeBrandManageLibraryComponent extends BaseDocumentManageCompo
   }
 
   updateForm(doc: any): void {
-    this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', NbToastStatus.SUCCESS);
+    this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
   }
 
   onCallback(callback: DocumentFormEvent): void {

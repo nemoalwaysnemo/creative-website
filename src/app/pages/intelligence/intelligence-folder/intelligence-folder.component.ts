@@ -4,7 +4,7 @@ import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
 import { AdvanceSearchService, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'intelligence-folder',
@@ -62,7 +62,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ALL_FOLDERS,
+      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ALL_FOLDERS,
     };
   }
 
@@ -102,7 +102,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
 
   protected buildConsumerAndMarketingParams(doc?: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
@@ -117,7 +117,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   protected buildIndustryParams(doc: DocumentModel, keyword?: string): any {
     const params = {
       quickFilters: NuxeoQuickFilters.Alphabetically,
-      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 100,
@@ -135,7 +135,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   protected buildIndustryAssetsParams(doc?: DocumentModel): any {
     const params = {
       quickFilters: NuxeoQuickFilters.Alphabetically,
-      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
@@ -153,7 +153,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       if (industries.length > 0) {
         const params = {
           quickFilters: NuxeoQuickFilters.Alphabetically,
-          ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+          ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
           ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
           app_edges_industry_any: '["' + industries.join('", "') + '"]',
           ecm_fulltext: res.searchParams.keyword,
@@ -176,7 +176,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
           currentPageIndex: 0,
           app_edges_industry: `["${industries.join('", "')}"]`,
           ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-          ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_INDUSTRY_TYPE,
+          ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
           quickFilters: NuxeoQuickFilters.Alphabetically,
         };
         return this.advanceSearchService.request(new NuxeoPageProviderParams(params));

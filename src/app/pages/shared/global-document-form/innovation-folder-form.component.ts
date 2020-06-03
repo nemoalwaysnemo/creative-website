@@ -140,10 +140,6 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
         },
         required: false,
       }),
-      new DynamicCheckboxModel({
-        id: 'app_global:ext_app_iframe',
-        label: 'Enable external App iframe',
-      }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:url',
         label: 'external Application URL',

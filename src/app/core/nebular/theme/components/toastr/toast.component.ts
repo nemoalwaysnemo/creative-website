@@ -6,7 +6,7 @@
 
 import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
-import { NbToast, NbToastStatus } from './model';
+import { NbToast } from './model';
 
 
 /**
@@ -38,32 +38,32 @@ export class NbToastComponent {
 
   @HostBinding('class.success')
   get success(): boolean {
-    return this.toast.config.status === NbToastStatus.SUCCESS;
+    return this.toast.config.status === 'success';
   }
 
   @HostBinding('class.info')
   get info(): boolean {
-    return this.toast.config.status === NbToastStatus.INFO;
+    return this.toast.config.status === 'info';
   }
 
   @HostBinding('class.warning')
   get warning(): boolean {
-    return this.toast.config.status === NbToastStatus.WARNING;
+    return this.toast.config.status === 'warning';
   }
 
   @HostBinding('class.primary')
   get primary(): boolean {
-    return this.toast.config.status === NbToastStatus.PRIMARY;
+    return this.toast.config.status === 'primary';
   }
 
   @HostBinding('class.danger')
   get danger(): boolean {
-    return this.toast.config.status === NbToastStatus.DANGER;
+    return this.toast.config.status === 'danger';
   }
 
   @HostBinding('class.default')
   get default(): boolean {
-    return this.toast.config.status === NbToastStatus.DEFAULT;
+    return this.toast.config.status === 'basic';
   }
 
   @HostBinding('class.destroy-by-click')
@@ -73,7 +73,7 @@ export class NbToastComponent {
 
   @HostBinding('class.has-icon')
   get hasIcon(): boolean {
-    return this.toast.config.hasIcon && this.toast.config.status !== NbToastStatus.DEFAULT;
+    return this.toast.config.hasIcon && this.toast.config.status !== 'basic';
   }
 
   @HostBinding('class.custom-icon')

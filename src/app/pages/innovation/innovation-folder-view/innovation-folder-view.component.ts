@@ -1,13 +1,13 @@
 import { Component, Input, TemplateRef, Type } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { getDocumentTypes } from '@core/services/helpers';
-import { Observable, of as observableOf } from 'rxjs';
-import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '../../shared';
+import { GlobalDocumentDialogService, DocumentPageService } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder-view',
@@ -82,7 +82,7 @@ export class InnovationFolderViewComponent {
   }
 
   isParentFolder(doc: DocumentModel): boolean {
-    return doc && (getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE).includes(doc.type) || getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE).includes(doc.type));
+    return doc && (getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE).includes(doc.type) || getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE).includes(doc.type));
   }
 
   openDialog(dialog: TemplateRef<any>): void {

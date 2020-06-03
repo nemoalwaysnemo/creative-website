@@ -5,7 +5,7 @@ import { getDocumentTypes } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
-import { NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-additional-info',
@@ -49,7 +49,7 @@ export class DocumentAdditionalInfoComponent implements OnInit {
   }
 
   private isBizDevCaseStudyAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_META_INFO.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
   }
 
   private performDocument(doc: DocumentModel): void {
@@ -58,15 +58,15 @@ export class DocumentAdditionalInfoComponent implements OnInit {
     } else {
       this.downloadPermission$ = observableOf(true);
     }
-    if (NUXEO_META_INFO.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
+    if (NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
       this.docType = 'Disruption';
       this.attachments = doc.getAttachmentList();
-    } else if (NUXEO_META_INFO.BIZ_DEV_ASSET_TYPE.includes(doc.type)) {
+    } else if (NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE.includes(doc.type)) {
       this.docType = 'Business-Development';
       this.attachments = doc.getAttachmentList();
-    } else if (NUXEO_META_INFO.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
+    } else if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
       this.docType = 'Creative';
-    } else if (NUXEO_META_INFO.INNOVATION_ASSET_TYPE.includes(doc.type)) {
+    } else if (NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE.includes(doc.type)) {
       this.docType = 'Innovation';
       this.attachments = doc.getAttachmentList();
     }

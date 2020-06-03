@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, DocumentModel, AdvanceSearchService, NuxeoPageProviderParams } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 import { filter, map, concatMap } from 'rxjs/operators';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-home-gallery',
@@ -25,13 +25,13 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   private params: any = {
     pageSize: 10,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_AWARD_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_AWARD_ASSET_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_AWARD_ASSET_TYPE,
   };
 
   private gallerySwitch: any = {
     pageSize: 1,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_AWARD_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.DISRUPTION_AWARD_FOLDER_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_AWARD_FOLDER_TYPE,
   };
 
   showGallery: boolean = false;

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { GlobalDocumentViewComponent } from '@pages/shared/abstract-classes/global-document-view.component';
 import { AdvanceSearchService, DocumentModel } from '@core/api';
-import { ActivatedRoute } from '@angular/router';
 import { DocumentPageService } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-remote-page',
@@ -48,7 +48,7 @@ export class BizDevRemotePageComponent extends GlobalDocumentViewComponent imple
       currentPageIndex: 0,
       app_global_ext_app_iframe: true,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.BIZ_DEV_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_FOLDER_TYPE,
       ecm_path_eq: NUXEO_PATH_INFO.BIZ_DEV_10X_FOLDER_PATH,
     };
   }

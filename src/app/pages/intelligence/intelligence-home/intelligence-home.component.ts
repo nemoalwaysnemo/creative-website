@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
-import { NuxeoPagination, AdvanceSearchService, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_META_INFO } from '@environment/environment';
-import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NuxeoPagination, AdvanceSearchService, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
+import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-home',
@@ -43,7 +43,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent imple
     pageSize: 20,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_ASSET_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
     ecm_fulltext: '',
   };
 
@@ -51,14 +51,14 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent imple
     pageSize: 3,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_FOLDER_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_FOLDER_TYPE,
   };
 
   private brandsParams: any = {
     pageSize: 15,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_BRANDS_TYPE,
+    ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_BRANDS_TYPE,
   };
 
   constructor(
@@ -98,7 +98,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent imple
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_META_INFO.INTELLIGENCE_BASE_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_BASE_FOLDER_TYPE,
     };
   }
 

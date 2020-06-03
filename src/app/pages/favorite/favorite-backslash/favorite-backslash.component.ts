@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, UserService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
-import { NUXEO_META_INFO, NUXEO_PATH_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../favorite-tab-config';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'favorite-backslash',
@@ -35,7 +35,7 @@ export class FavoriteBackslashComponent extends BaseFavoriteDocumentViewComponen
 
   protected buildAssetsParams(doc: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_META_INFO.BACKSLASH_ARTICLE_VIDEO_TYPES,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
