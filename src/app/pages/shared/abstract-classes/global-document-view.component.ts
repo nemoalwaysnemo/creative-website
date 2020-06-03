@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, ParamMap } from '@angular/router';
 import { DocumentModel, NuxeoPagination, AdvanceSearchService, NuxeoRequestOptions } from '@core/api';
-import { tap, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
 import { isDocumentUID, parseCountry } from '@core/services/helpers';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
+import { tap, distinctUntilChanged, concatMap, map, filter } from 'rxjs/operators';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { BaseDocumentViewComponent } from './base-document-view.component';
@@ -30,11 +30,11 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
     super(documentPageService);
   }
 
-  onInit() {
+  onInit(): void {
     this.onParamsChanged();
   }
 
-  onDestroy() {
+  onDestroy(): void {
     this.subscription.unsubscribe();
   }
 
@@ -47,7 +47,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    this.documentPageService.setCurrentDocument(doc);
+    super.setCurrentDocument(doc);
     this.document = doc;
   }
 
@@ -70,15 +70,20 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   protected getCurrentDocument(primaryKey: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
     return this.activatedRoute.paramMap
       .pipe(
-        tap(paramMap => {
+        tap((paramMap: ParamMap) => {
           if (!isDocumentUID(paramMap.get(primaryKey))) {
             this.onInvalidDocumentUID(paramMap.get(primaryKey));
+            return false;
           }
         }),
-        filter(paramMap => (!this.document || this.document.uid !== paramMap.get(primaryKey)) && isDocumentUID(paramMap.get(primaryKey))),
+        filter((paramMap: ParamMap) => (!this.document || this.document.uid !== paramMap.get(primaryKey)) && isDocumentUID(paramMap.get(primaryKey))),
         distinctUntilChanged(),
-        switchMap(paramMap => this.getDocumentModel(paramMap.get(primaryKey), params, opts)),
-        map((res: NuxeoPagination) => res.entries.shift()),
+        concatMap((paramMap: ParamMap) => {
+          const doc: DocumentModel = this.documentPageService.getCurrentDocument();
+          return doc && doc.uid === paramMap.get(primaryKey) ? observableOf(doc) : this.getDocumentModel(paramMap.get(primaryKey), params, opts).pipe(
+            map((res: NuxeoPagination) => res.entries.shift()),
+          );
+        }),
       );
   }
 

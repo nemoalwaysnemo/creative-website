@@ -43,7 +43,7 @@ export class CreativeBrandProjectComponent extends GlobalDocumentViewComponent {
     };
   }
 
-  protected setCurrentDocument(doc?: DocumentModel): void {
+  protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc); // brand
     if (doc) {
       this.baseParams$.next(this.buildProjectParams(doc));

@@ -31,4 +31,7 @@ export class InnovationAssetSearchComponent extends BaseDocumentViewComponent {
     super(documentPageService);
   }
 
+  onInit(): void {
+    this.setCurrentDocument(null);
+  }
 }

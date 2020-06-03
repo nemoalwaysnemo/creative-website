@@ -31,7 +31,7 @@ export class CreativeAgencyShowcaseComponent extends GlobalDocumentViewComponent
     super(advanceSearchService, activatedRoute, documentPageService);
   }
 
-  protected setCurrentDocument(doc?: DocumentModel): void {
+  protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     this.baseParams$.next(this.buildAssetsParams(doc));
   }

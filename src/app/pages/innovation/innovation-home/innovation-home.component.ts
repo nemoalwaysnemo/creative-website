@@ -60,7 +60,7 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    super.onInit();
+    this.setCurrentDocument(null);
     this.performFolders();
   }
 

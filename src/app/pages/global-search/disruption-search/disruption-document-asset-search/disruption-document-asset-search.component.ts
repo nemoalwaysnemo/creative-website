@@ -35,4 +35,7 @@ export class DisruptionDocumentAssetSearchComponent extends BaseDocumentViewComp
     super(documentPageService);
   }
 
+  onInit(): void {
+    this.setCurrentDocument(null);
+  }
 }

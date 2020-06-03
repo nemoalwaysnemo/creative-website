@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { NbToastrService } from '@core/nebular/theme';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd } from '@angular/router';
 import { Observable, from, Subject, zip, timer } from 'rxjs';
-import { distinctUntilChanged, filter } from 'rxjs/operators';
+import { distinctUntilChanged, filter, withLatestFrom } from 'rxjs/operators';
 import { GoogleAnalyticsService } from '@core/services';
 import { DocumentModel } from '@core/api';
 import { Environment } from '@environment/environment';
@@ -13,6 +13,8 @@ import { Environment } from '@environment/environment';
   providedIn: 'root',
 })
 export class DocumentPageService {
+
+  private document: DocumentModel; // it should be the doc for current page. every component linked to the route should set this
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
@@ -26,13 +28,13 @@ export class DocumentPageService {
   ) { }
 
   trackTitle(): void {
-    zip(
-      this.document$,
-      this.router.events.pipe(
-        distinctUntilChanged(),
-        filter(event => event instanceof NavigationEnd),
+    this.document$.pipe(
+      withLatestFrom(
+        this.router.events.pipe(
+          distinctUntilChanged(),
+          filter(event => event instanceof NavigationEnd),
+        ),
       ),
-    ).pipe(
     ).subscribe(([doc, event]: [DocumentModel, NavigationEnd]) => {
       const title = this.getPageTitle(doc, event);
       this.titleService.setTitle(title);
@@ -41,7 +43,12 @@ export class DocumentPageService {
   }
 
   setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
     this.document$.next(doc);
+  }
+
+  getCurrentDocument(): DocumentModel {
+    return this.document;
   }
 
   notify(message: string, title: string, status: string = 'info'): void {

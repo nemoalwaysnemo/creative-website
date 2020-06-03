@@ -39,4 +39,7 @@ export class CreativeAgencySearchComponent extends BaseDocumentViewComponent {
     super(documentPageService);
   }
 
+  onInit(): void {
+    this.setCurrentDocument(null);
+  }
 }

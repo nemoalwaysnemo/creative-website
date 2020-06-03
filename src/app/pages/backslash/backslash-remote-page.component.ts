@@ -19,4 +19,8 @@ export class BackslashRemotePageComponent extends BaseDocumentViewComponent {
     this.iframeUrl = sanitizer.bypassSecurityTrustResourceUrl(Environment.backslashAppUrl);
   }
 
+  onInit(): void {
+    this.setCurrentDocument(null);
+  }
+
 }

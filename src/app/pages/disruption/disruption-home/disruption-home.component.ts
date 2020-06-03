@@ -64,7 +64,7 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    super.onInit();
+    this.setCurrentDocument(null);
     this.search(this.folderParams);
   }
 

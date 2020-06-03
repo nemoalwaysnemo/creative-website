@@ -34,7 +34,7 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
     super(advanceSearchService, activatedRoute, documentPageService);
   }
 
-  protected setCurrentDocument(doc?: DocumentModel): void {
+  protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
       this.baseParams$.next(this.buildAssetsParams(doc));

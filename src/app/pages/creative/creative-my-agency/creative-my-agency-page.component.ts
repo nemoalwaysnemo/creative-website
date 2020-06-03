@@ -39,7 +39,7 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
     this.documentPageService.navigate(['/p/creative/agency/' + uid + '/brand']);
   }
 
-  protected setCurrentDocument(doc?: DocumentModel): void {
+  protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (!doc) {
       this.hideEmpty = true;
