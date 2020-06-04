@@ -20,7 +20,7 @@
         </div>
         <div class="description">
           <h1 [title]="doc.title"><a [routerLink]="['/p/business-development/Thought Leadership/folder/', folderId, 'asset', doc.uid]">{{doc.title}}</a></h1>
-          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'"">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
+          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
           <span class="dot"></span>
           <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
           <div class="line"></div>
