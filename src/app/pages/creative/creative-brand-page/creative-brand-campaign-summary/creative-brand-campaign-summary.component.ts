@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DocumentModel, SearchFilterModel } from '@core/api';
+import { DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
 import { ListSearchResultRowButtonDialogComponent, ListSearchResultRowButtonSettings } from '../../../shared/list-search-form';
 import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog/global-document-dialog.interface';
@@ -48,7 +48,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
         title: 'Title',
         sort: false,
       },
-      button: {
+      action: {
         title: 'Action',
         sort: false,
         type: 'custom',
@@ -68,7 +68,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
         title: 'Title',
         sort: false,
       },
-      button: {
+      action: {
         title: 'Action',
         sort: false,
         type: 'custom',
@@ -97,7 +97,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc.title,
-        button: doc,
+        action: doc,
       }));
     }
     return items;
@@ -109,7 +109,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc.title,
-        button: doc,
+        action: doc,
       }));
     }
     return items;
@@ -134,11 +134,11 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   }
 
   onSelectedCampaign(row: any): void {
-
+    this.baseParamsProject$.next(this.buildProjectParams(this.document, row.isSelected ? row.data.action : null));
   }
 
   onSelectedProject(row: any): void {
-
+    this.baseParamsAsset$.next(this.buildAssetParams(this.document, row.isSelected ? row.data.action : null));
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -153,6 +153,8 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     super.setCurrentDocument(doc);
     if (doc) {
       this.baseParamsCampaign$.next(this.buildCampaignParams(doc));
+      this.baseParamsProject$.next(this.buildProjectParams(doc));
+      this.baseParamsAsset$.next(this.buildAssetParams(doc));
       this.getTargetDocumentModel({
         pageSize: 1,
         currentPageIndex: 0,
@@ -165,7 +167,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     }
   }
 
-  protected buildCampaignParams(doc?: DocumentModel): any {
+  protected buildCampaignParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_CAMPAIGN_TYPE,
       currentPageIndex: 0,
@@ -178,5 +180,37 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     return params;
   }
 
+  protected buildProjectParams(doc: DocumentModel, campaign?: DocumentModel): any {
+    const params = {
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_PROJECT_TYPE,
+      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      currentPageIndex: 0,
+      pageSize: 20,
+      ecm_fulltext: '',
+    };
+    if (doc) {
+      params['ecm_path'] = doc.path;
+    }
+    if (campaign) {
+      params['the_loupe_main_campaign'] = `["${campaign.uid}"]`;
+    }
+    return params;
+  }
+
+  protected buildAssetParams(doc: DocumentModel, campaign?: DocumentModel): any {
+    const params = {
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      currentPageIndex: 0,
+      pageSize: 20,
+      ecm_fulltext: '',
+    };
+    if (doc) {
+      params['ecm_path'] = doc.path;
+    }
+    if (campaign) {
+      params['the_loupe_main_campaign'] = `["${campaign.uid}"]`;
+    }
+    return params;
+  }
 
 }

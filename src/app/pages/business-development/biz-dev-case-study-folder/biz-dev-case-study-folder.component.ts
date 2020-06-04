@@ -54,7 +54,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
     };
   }
 
-  protected buildAssetsParams(doc?: DocumentModel): any {
+  protected buildAssetsParams(doc: DocumentModel): any {
     if (doc.type === 'App-BizDev-CaseStudy-Folder') {
       if (doc.hasFolderishChild) {
         return this.buildSubFolderParams(doc);
@@ -65,7 +65,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
     return {};
   }
 
-  protected buildSubFolderParams(doc?: DocumentModel): any {
+  protected buildSubFolderParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
@@ -79,7 +79,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
     return params;
   }
 
-  protected buildCaseAssetParams(doc?: DocumentModel): any {
+  protected buildCaseAssetParams(doc: DocumentModel): any {
     const params = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,

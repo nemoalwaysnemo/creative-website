@@ -51,7 +51,7 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
     return new NuxeoPageProviderParams(params);
   }
 
-  protected buildAssetsParams(doc?: DocumentModel): NuxeoPageProviderParams {
+  protected buildAssetsParams(doc: DocumentModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,

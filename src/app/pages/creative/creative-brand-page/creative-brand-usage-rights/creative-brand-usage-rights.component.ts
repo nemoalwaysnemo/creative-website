@@ -58,7 +58,7 @@ export class CreativeBrandUsageRightsComponent extends GlobalDocumentViewCompone
     }
   }
 
-  protected buildContractParams(doc?: DocumentModel): any {
+  protected buildContractParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_UR_CONTRACT_TYPES,
       currentPageIndex: 0,

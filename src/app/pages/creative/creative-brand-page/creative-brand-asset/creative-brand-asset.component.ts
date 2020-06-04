@@ -46,7 +46,7 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
     };
   }
 
-  protected buildAssetsParams(doc?: DocumentModel): any {
+  protected buildAssetsParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,

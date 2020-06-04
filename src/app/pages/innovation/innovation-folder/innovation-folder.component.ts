@@ -62,7 +62,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
     return new NuxeoPageProviderParams(params);
   }
 
-  protected buildAssetsParams(doc?: DocumentModel): any {
+  protected buildAssetsParams(doc: DocumentModel): any {
     const params = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,

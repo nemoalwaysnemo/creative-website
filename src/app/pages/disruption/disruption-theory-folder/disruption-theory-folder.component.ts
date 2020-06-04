@@ -53,7 +53,7 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
     };
   }
 
-  protected buildAssetsParams(doc?: DocumentModel): any {
+  protected buildAssetsParams(doc: DocumentModel): any {
     if (doc.type === 'App-Disruption-Theory-Folder') {
       if (doc.hasFolderishChild) {
         return this.buildSubFolderParams(doc);
@@ -64,7 +64,7 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
     return {};
   }
 
-  protected buildSubFolderParams(doc?: DocumentModel): any {
+  protected buildSubFolderParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
@@ -78,7 +78,7 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
     return params;
   }
 
-  protected buildTheoryAssetParams(doc?: DocumentModel): any {
+  protected buildTheoryAssetParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,

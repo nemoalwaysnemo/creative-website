@@ -72,7 +72,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
     };
   }
   // get the default sub folders (second-level folders)
-  protected buildDefaultAssetsParams(doc?: DocumentModel): NuxeoPageProviderParams {
+  protected buildDefaultAssetsParams(doc: DocumentModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
       currentPageIndex: 0,
