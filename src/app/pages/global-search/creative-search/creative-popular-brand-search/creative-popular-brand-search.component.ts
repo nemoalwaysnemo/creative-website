@@ -44,4 +44,7 @@ export class CreativePopularBrandSearchComponent extends BaseDocumentViewCompone
     super(documentPageService);
   }
 
+  onInit(): void {
+    this.setCurrentDocument();
+  }
 }

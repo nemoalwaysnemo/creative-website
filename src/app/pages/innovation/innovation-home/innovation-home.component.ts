@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
-import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 import { TAB_CONFIG } from '../innovation-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -45,27 +45,27 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
   };
 
   private baseFolderParams: any = {
-    pageSize: 10,
+    pageSize: 100,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_mixinType_not_in: '',
+    ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
     ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ placeholder: 'Search for anything...', enableQueryParams: false });
 
-  constructor(private advanceSearchService: AdvanceSearchService, protected documentPageService: DocumentPageService) {
+  constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
 
   onInit(): void {
-    super.onInit();
+    this.setCurrentDocument();
     this.performFolders();
   }
 
   private performFolders(): void {
-    this.advanceSearchService.request(new NuxeoPageProviderParams(this.baseFolderParams)).pipe(
+    this.documentPageService.advanceRequest(new NuxeoPageProviderParams(this.baseFolderParams)).pipe(
       map((res: NuxeoPagination) => {
         const docs = [];
         this.tabs.forEach(x => {

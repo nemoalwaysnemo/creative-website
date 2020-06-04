@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DocumentModel, AdvanceSearchService, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { DocumentModel, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -28,13 +28,13 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
   });
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
-  protected setCurrentDocument(doc?: DocumentModel): void {
+  protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
       this.baseParams$.next(this.buildAssetsParams(doc));

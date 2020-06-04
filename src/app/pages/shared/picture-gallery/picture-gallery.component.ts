@@ -79,7 +79,14 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
     const { itemIndex, event } = e;
     if (event.type === 'video') {
       const state = event.api.getDefaultMedia().state;
-      this.googleAnalyticsService.trackEvent({ 'event_category': 'Video', 'event_action': `Video ${state}`, 'event_label': `Video ${state}`, 'event_value': event.uid, 'dimensions.docId': event.uid });
+      this.googleAnalyticsService.trackEvent({
+        'event_category': 'Video',
+        'event_action': `Video ${state}`,
+        'event_label': `Video ${state} - ${event.title}`,
+        'event_value': event.uid,
+        'dimensions.docId': event.uid,
+        'dimensions.docTitle': event.title,
+      });
       // this.displayTitle = event.api.getDefaultMedia().state !== 'playing';
       this.videoPlayers[itemIndex] = event.player;
     }

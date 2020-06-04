@@ -4,13 +4,13 @@ import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 
 @Component({
-  selector: 'document-dialog-confirmation',
+  selector: 'document-dialog-confirmation-template',
   styleUrls: ['../global-document-dialog-template.scss'],
   templateUrl: './document-confirmation-template.component.html',
 })
-export class DocumentDialogConfirmationComponent extends DocumentDialogCustomTemplateComponent {
+export class DocumentDialogConfirmationTemplateComponent extends DocumentDialogCustomTemplateComponent {
 
-  static readonly NAME: string = 'document-dialog-confirmation';
+  static readonly NAME: string = 'document-dialog-confirmation-template';
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

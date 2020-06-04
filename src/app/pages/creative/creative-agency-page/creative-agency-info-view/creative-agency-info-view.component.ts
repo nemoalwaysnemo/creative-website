@@ -27,7 +27,6 @@ export class CreativeAgencyInfoViewComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    super.onInit();
     this.parseTabRoute();
   }
 

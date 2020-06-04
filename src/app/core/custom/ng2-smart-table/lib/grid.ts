@@ -42,7 +42,7 @@ export class Grid {
     return this.dataSet.newRow;
   }
 
-  setSettings(settings: Object) {
+  setSettings(settings: Object): void {
     this.settings = settings;
     this.dataSet = new DataSet([], this.getSetting('columns'));
 
@@ -55,7 +55,7 @@ export class Grid {
     return this.dataSet;
   }
 
-  setSource(source: DataSource) {
+  setSource(source: DataSource): void {
     this.source = this.prepareSource(source);
 
     this.source.onChanged().subscribe((changes: any) => this.processDataChange(changes));
@@ -78,11 +78,11 @@ export class Grid {
     return this.dataSet.getRows();
   }
 
-  selectRow(row: Row) {
+  selectRow(row: Row): void {
     this.dataSet.selectRow(row);
   }
 
-  multipleSelectRow(row: Row) {
+  multipleSelectRow(row: Row): void {
     this.dataSet.multipleSelectRow(row);
   }
 
@@ -90,7 +90,7 @@ export class Grid {
     return this.onSelectRowSource.asObservable();
   }
 
-  edit(row: Row) {
+  edit(row: Row): void {
     row.isInEditing = true;
   }
 
@@ -170,7 +170,7 @@ export class Grid {
     }
   }
 
-  processDataChange(changes: any) {
+  processDataChange(changes: any): void {
     if (this.shouldProcessChange(changes)) {
       this.dataSet.setData(changes['elements']);
       if (this.getSetting('selectMode') !== 'multi') {
@@ -237,7 +237,7 @@ export class Grid {
     return source;
   }
 
-  getInitialSort() {
+  getInitialSort(): void {
     const sortConf: any = {};
     this.getColumns().forEach((column: Column) => {
       if (column.isSortable && column.defaultSortDirection) {
@@ -254,7 +254,7 @@ export class Grid {
       .filter(r => r.isSelected);
   }
 
-  selectAllRows(status: any) {
+  selectAllRows(status: any): void {
     this.dataSet.getRows()
       .forEach(r => r.isSelected = status);
   }

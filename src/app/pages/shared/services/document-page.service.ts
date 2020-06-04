@@ -2,17 +2,19 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { NbToastrService } from '@core/nebular/theme';
+import { Observable, from, Subject, timer } from 'rxjs';
+import { distinctUntilChanged, filter, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd } from '@angular/router';
-import { Observable, from, Subject, zip, timer } from 'rxjs';
-import { distinctUntilChanged, filter } from 'rxjs/operators';
+import { DocumentModel, AdvanceSearchService, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
-import { DocumentModel } from '@core/api';
 import { Environment } from '@environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DocumentPageService {
+
+  private document: DocumentModel; // it should be the doc for current page. every component linked to the route should set this
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
@@ -22,30 +24,48 @@ export class DocumentPageService {
     private titleService: Title,
     private activatedRoute: ActivatedRoute,
     private toastrService: NbToastrService,
+    private advanceSearchService: AdvanceSearchService,
     private googleAnalyticsService: GoogleAnalyticsService,
   ) { }
 
-  trackTitle(): void {
-    zip(
-      this.document$,
-      this.router.events.pipe(
-        distinctUntilChanged(),
-        filter(event => event instanceof NavigationEnd),
+  googleAnalyticsTrackTitle(): void {
+    this.document$.pipe(
+      withLatestFrom(
+        this.router.events.pipe(
+          distinctUntilChanged(),
+          filter(event => event instanceof NavigationEnd),
+        ),
       ),
-    ).pipe(
     ).subscribe(([doc, event]: [DocumentModel, NavigationEnd]) => {
       const title = this.getPageTitle(doc, event);
       this.titleService.setTitle(title);
-      this.googleAnalyticsService.trackPageView({ url: event.url, title });
+      this.googleAnalyticsService.trackPageView({ url: event.url, title, doc });
     });
   }
 
+  googleAnalyticsTrackEvent(event: any): void {
+    this.googleAnalyticsService.trackEvent(event);
+  }
+
   setCurrentDocument(doc: DocumentModel): void {
+    this.document = doc;
     this.document$.next(doc);
+  }
+
+  getCurrentDocument(): DocumentModel {
+    return this.document;
   }
 
   notify(message: string, title: string, status: string = 'info'): void {
     this.toastrService.show(message, title, { status });
+  }
+
+  advanceRequest(searchParams: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
+    return this.advanceSearchService.request(searchParams, opts, provider);
+  }
+
+  advanceRequestTitleByUIDs(res: NuxeoPagination, properties: string[]): Observable<NuxeoPagination> {
+    return this.advanceSearchService.requestTitleByUIDs(res, properties);
   }
 
   changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = '', skipLocationChange: boolean = false): Observable<boolean> {

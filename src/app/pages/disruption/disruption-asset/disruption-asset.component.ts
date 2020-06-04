@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AdvanceSearchService, DocumentModel, NuxeoPagination, NuxeoPageProviderConstants } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { ActivatedRoute } from '@angular/router';
+import { DocumentModel, NuxeoPagination, NuxeoPageProviderConstants } from '@core/api';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -45,10 +45,10 @@ export class DisruptionAssetComponent extends GlobalDocumentViewComponent {
   };
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

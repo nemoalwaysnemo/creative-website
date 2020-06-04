@@ -12,4 +12,8 @@ export class BackslashHomePageComponent extends BaseDocumentViewComponent {
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
+
+  onInit(): void {
+    this.setCurrentDocument();
+  }
 }

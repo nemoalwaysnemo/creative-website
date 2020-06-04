@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Params } from '@angular/router';
-import { DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { AdvanceSearchService, SearchResponse, NuxeoPagination, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
-import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { SearchResponse, NuxeoPagination, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -45,19 +45,19 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
 
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
     if (res.action === 'afterSearch') {
-      return this.advanceSearchService.requestTitleByUIDs(res.response, ['The_Loupe_Main:campaign']).pipe(
+      return this.documentPageService.advanceRequestTitleByUIDs(res.response, ['The_Loupe_Main:campaign']).pipe(
         map((response: NuxeoPagination) => { res.response = response; return res; }),
       );
     }
     return observableOf(res);
   }
 
-  constructor(protected advanceSearchService: AdvanceSearchService, protected documentPageService: DocumentPageService) {
+  constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
 
   onInit(): void {
-    super.onInit();
+    this.setCurrentDocument();
     this.setResultHeader();
   }
 

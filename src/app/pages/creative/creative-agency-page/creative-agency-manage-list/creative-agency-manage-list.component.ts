@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { AdvanceSearchService, DocumentModel } from '@core/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { DocumentModel } from '@core/api';
+import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../creative-agency-tab-config';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
-import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
-import { NbToastrService } from '@core/nebular/theme';
-import { DocumentFormEvent } from '@pages/shared/document-form/document-form.interface';
+import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
+import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
 
 @Component({
   selector: 'creative-agency-manage-list',
@@ -19,19 +18,16 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
 
   showForm: boolean = false;
 
-  redirectUrl: string = this.router.url;
+  redirectUrl: string = this.documentPageService.getCurrentUrl();
 
   constructor(
-    private router: Router,
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
-    private toastrService: NbToastrService,
   ) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    super(activatedRoute, documentPageService);
   }
 
-  changeView() {
+  changeView(): void {
     this.showForm = !this.showForm;
   }
 
@@ -40,7 +36,7 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
   }
 
   updateForm(doc: any): void {
-    this.toastrService.success('success', `${doc.title} update success`);
+    this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
   }
 
   onCallback(callback: DocumentFormEvent): void {

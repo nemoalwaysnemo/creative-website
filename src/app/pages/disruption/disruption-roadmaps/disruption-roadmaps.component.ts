@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
-import { AdvanceSearchService, DocumentModel, NuxeoPermission, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
+import { DocumentModel, NuxeoPermission, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -36,10 +36,10 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
   });
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {

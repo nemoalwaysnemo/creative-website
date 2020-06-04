@@ -31,4 +31,7 @@ export class BizDevDocumentAssetSearchComponent extends BaseDocumentViewComponen
     super(documentPageService);
   }
 
+  onInit(): void {
+    this.setCurrentDocument();
+  }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, AdvanceSearchService, NuxeoPermission, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -29,11 +29,11 @@ export class DisruptionDaysFolderComponent extends GlobalDocumentViewComponent {
   });
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
-    protected globalDocumentDialogService: GlobalDocumentDialogService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

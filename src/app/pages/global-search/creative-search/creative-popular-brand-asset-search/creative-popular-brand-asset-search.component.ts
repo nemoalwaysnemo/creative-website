@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DocumentModel, AdvanceSearchService, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { DocumentModel, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -31,10 +31,10 @@ export class CreativePopularBrandAssetSearchComponent extends GlobalDocumentView
   });
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

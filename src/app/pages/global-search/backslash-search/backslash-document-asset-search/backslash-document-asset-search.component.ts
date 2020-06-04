@@ -42,4 +42,7 @@ export class BackslashDocumentAssetSearchComponent extends BaseDocumentViewCompo
     super(documentPageService);
   }
 
+  onInit(): void {
+    this.setCurrentDocument();
+  }
 }

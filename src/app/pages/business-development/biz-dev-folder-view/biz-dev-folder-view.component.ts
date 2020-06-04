@@ -1,5 +1,4 @@
 import { Component, Input, TemplateRef, Type } from '@angular/core';
-import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes } from '@core/services/helpers';
@@ -43,7 +42,7 @@ export class BizDevFolderViewComponent {
 
   deletTitle: string = 'Delete';
 
-  editRedirectUrl: string = this.router.url;
+  editRedirectUrl: string = this.documentPageService.getCurrentUrl();
 
   writePermission$: Observable<boolean> = observableOf(false);
 
@@ -58,9 +57,8 @@ export class BizDevFolderViewComponent {
   };
 
   constructor(
-    private globalDocumentDialogService: GlobalDocumentDialogService,
     private documentPageService: DocumentPageService,
-    private router: Router,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
   getAssetUrl(doc: DocumentModel): string {
@@ -113,7 +111,7 @@ export class BizDevFolderViewComponent {
       const splitPath: string = this.doc.path.split(rootPath)[1];
       const childSplitPath: string[] = splitPath.split('/');
 
-      if (this.router.url.includes('/asset/')) {
+      if (this.documentPageService.getCurrentUrl().includes('/asset/')) {
         this.documentPageService.redirect(`${parentInfo.urlParentPath}${this.doc.uid}`);
       } else if (childSplitPath.length < 2) {
         this.documentPageService.redirect(`${parentInfo.urlRootPath}`);

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
-import { AdvanceSearchService, DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -42,10 +42,10 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   }
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -160,7 +160,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
           currentPageIndex: 0,
           pageSize: 1000,
         };
-        return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
+        return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params));
       }
     }
     return observableOf(res.response);
@@ -179,7 +179,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
           ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
           quickFilters: NuxeoQuickFilters.Alphabetically,
         };
-        return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
+        return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params));
       }
     }
     return observableOf(res);

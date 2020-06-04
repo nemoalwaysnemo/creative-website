@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { AdvanceSearchService, DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -28,11 +28,10 @@ export class CreativeBrandProjectComponent extends GlobalDocumentViewComponent {
   });
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    super(activatedRoute, documentPageService);
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -43,7 +42,7 @@ export class CreativeBrandProjectComponent extends GlobalDocumentViewComponent {
     };
   }
 
-  protected setCurrentDocument(doc?: DocumentModel): void {
+  protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc); // brand
     if (doc) {
       this.baseParams$.next(this.buildProjectParams(doc));

@@ -1,6 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, TemplateRef, Type } from '@angular/core';
 import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '@pages/shared';
-import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes } from '@core/services/helpers';
@@ -42,7 +41,7 @@ export class DisruptionFolderViewComponent {
 
   doc: DocumentModel;
 
-  editRedirectUrl: string = this.router.url;
+  editRedirectUrl: string = this.documentPageService.getCurrentUrl();
 
   deletTitle: string = 'Delete';
 
@@ -61,7 +60,6 @@ export class DisruptionFolderViewComponent {
   constructor(
     private globalDocumentDialogService: GlobalDocumentDialogService,
     private documentPageService: DocumentPageService,
-    private router: Router,
   ) { }
 
   isDisruptionAsset(doc: DocumentModel): boolean {

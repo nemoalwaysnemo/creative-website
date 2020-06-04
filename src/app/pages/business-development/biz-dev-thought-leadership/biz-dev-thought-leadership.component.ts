@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
+import { DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../business-development-tab-config';
@@ -34,12 +34,11 @@ export class BizDevThoughtLeadershipComponent extends GlobalDocumentViewComponen
     return { searchParams, opts };
   }
 
-
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
