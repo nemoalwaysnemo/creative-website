@@ -32,7 +32,7 @@
             <tr>
               <!-- <td *ngIf="isDisruptionAsset(documentModel)">{{ documentModel.get('dc:creator') }}</td> -->
               <td>{{ documentModel.get('The_Loupe_Main:created_by') }}</td>
-              <td>{{ documentModel.get('The_Loupe_ProdCredits:production_date') | date }}</td>
+              <td>{{ documentModel.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
             </tr>
             <tr>
               <th>Backslash Category</th>
@@ -136,7 +136,7 @@
                     </li>
                     <li>
                       <h4>Expires on</h4>
-                      <span>{{usageRights.end_date ? (usageRights.end_date | date) : 'N/A'}}</span>
+                      <span>{{usageRights.end_date ? (usageRights.end_date | date:'MMM d, yyyy':'UTC') : 'N/A'}}</span>
                     </li>
                   </ul>
                 </ng-container>

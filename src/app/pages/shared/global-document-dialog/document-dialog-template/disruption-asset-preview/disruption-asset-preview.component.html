@@ -41,7 +41,7 @@
           <ng-container *ngIf="isIntelligenceAsset(document)">
             Author: {{ document.get('The_Loupe_Main:created_by') }}<br>
           </ng-container>
-          Published: {{ document.get('The_Loupe_ProdCredits:production_date') | date }}<br>
+          Published: {{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}<br>
           Edge Category: {{ document.get('app_Edges:backslash_category').join(', ') }}<br>
           Edge: {{ document.get('app_Edges:Tags_edges') }}
         </p>

@@ -5,7 +5,7 @@
   </div>
   <div class="description">
     <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption Days/day', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
-    <h4 class="year">{{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
+    <h4 class="year">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
     <div class="line"></div>
     <h4 class="agency">{{doc.get('The_Loupe_Main:agency')}}</h4>
   </div>
