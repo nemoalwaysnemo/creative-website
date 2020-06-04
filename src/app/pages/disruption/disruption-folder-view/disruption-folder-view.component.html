@@ -6,7 +6,7 @@
     <div class="property-info inline-top">
       <h1>{{ doc.title }}</h1>
       <br><br>
-      <div>Workshop Date: {{doc.get('The_Loupe_ProdCredits:production_date') | date}}</div>
+      <div>Workshop Date: {{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</div>
       <div>Industry: {{ doc.get('app_Edges:industry') }}</div>
       <div>Geography: {{ doc.get('app_Edges:Relevant_Country')}}</div>
       <div>Brand: {{ doc.get('The_Loupe_Main:brand')}}</div>

@@ -8,8 +8,8 @@
 <ng-template #thumbnailView let-doc="doc">
   <div class="backslash">
     <h4><a [routerLink]="['/p/backslash/asset', doc.uid]">{{doc.title}}</a></h4>
-    <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">
-      {{doc.get('The_Loupe_ProdCredits:production_date') | date}}</h4>
+    <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">
+      {{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
     <div class="image-holder">
       <a [title]="doc.title" (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>

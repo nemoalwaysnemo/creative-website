@@ -13,8 +13,8 @@
       <div class="description">
         <h1 [title]="doc.title">{{doc.title}}</h1>
         <div class="abs-pos">
-          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date">
-            {{doc.get('The_Loupe_ProdCredits:production_date') | date: 'yyyy'}}
+          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">
+            {{doc.get('The_Loupe_ProdCredits:production_date') | date:'yyyy':'UTC'}}
           </h4>
           <span class="dot"></span>
           <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
