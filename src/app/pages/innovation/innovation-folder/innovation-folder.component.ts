@@ -63,34 +63,9 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   }
 
   protected buildAssetsParams(doc?: DocumentModel): any {
-    if (doc.type === 'App-Innovation-Folder') {
-      if (doc.hasFolderishChild) {
-        return this.buildSubFolderParams(doc);
-      } else {
-        return this.buildCaseAssetParams(doc);
-      }
-    }
-    return {};
-  }
-
-  protected buildSubFolderParams(doc?: DocumentModel): any {
-    const params = {
-      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
-      ecm_path: this.getPath(),
-      currentPageIndex: 0,
-      pageSize: 20,
-      ecm_fulltext: '',
-    };
-    if (doc) {
-      params['ecm_parentId'] = doc.uid;
-    }
-    return params;
-  }
-
-  protected buildCaseAssetParams(doc?: DocumentModel): any {
     const params = {
       ecm_mixinType_not_in: '', // override
-      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
       ecm_path: this.getPath(),
       currentPageIndex: 0,
       pageSize: 20,
@@ -107,7 +82,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   }
 
   protected buildRedirectUrl(): string {
-    let path;
+    let path: string;
     const url = decodeURI(window.location.href.split('#')[1].split('?')[0]);
     if (url.includes('/NEXT')) {
       path = '/p/innovation/NEXT/folder/';

@@ -1,6 +1,6 @@
 <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="doc" class="property-section">
-    <a (click)="goBack()" class="property-intro inline-top">
+    <a href="javascript:;" (click)="goBack()" class="property-intro inline-top">
       <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
     </a>
     <div class="property-info inline-top">

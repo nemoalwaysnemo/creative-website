@@ -140,12 +140,6 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
         },
         required: false,
       }),
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:url',
-        label: 'external Application URL',
-        placeholder: 'external Application URL',
-        required: false,
-      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',

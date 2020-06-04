@@ -1,12 +1,11 @@
-import { Component, Input, TemplateRef, Type } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, NuxeoPermission } from '@core/api';
-import { getDocumentTypes } from '@core/services/helpers';
 import { GlobalDocumentDialogService, DocumentPageService } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
 import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder-view',
@@ -79,10 +78,6 @@ export class InnovationFolderViewComponent {
     return url;
   }
 
-  isParentFolder(doc: DocumentModel): boolean {
-    return doc && (getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE).includes(doc.type) || getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE).includes(doc.type));
-  }
-
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
@@ -91,35 +86,39 @@ export class InnovationFolderViewComponent {
     return this.doc.path.search(/\/NEXT$|\/Things to Steal$/) !== -1;
   }
 
+  isAsset(url: string): boolean {
+    return url.search(/asset\/[0-9,a-z]{8}(-[0-9,a-z]{4}){3}-[0-9,a-z]{12}$/) !== -1;
+  }
+
   goBack(): void {
-    const url = this.documentPageService.getCurrentUrl();
-    const assetReg = /asset\/[0-9,a-z]{8}(-[0-9,a-z]{4}){3}-[0-9,a-z]{12}$/;
-    if (url.search(assetReg) === -1 || this.inBaseFolder()) {
-      this.documentPageService.redirect(url.split('/folder')[0]);
+    if (this.inBaseFolder()) {
+      this.documentPageService.redirect(this.editRedirectUrl.split('/folder')[0]);
     } else {
-      this.documentPageService.redirect(url.split('/asset')[0]);
+      if (!this.isAsset(this.editRedirectUrl)) {
+        const rootPath: string = this.getPathInfo();
+        const splitPath: string = this.doc.path.split(rootPath)[1];
+        const childSplitPath: string[] = splitPath.split('/');
+        if (childSplitPath.length < 2) {
+          this.documentPageService.redirect(this.editRedirectUrl.split('/folder')[0]);
+        } else {
+          this.documentPageService.redirect(this.editRedirectUrl.split('/folder')[0] + '/folder/' + this.doc.parentRef);
+        }
+      } else {
+        this.documentPageService.redirect(this.editRedirectUrl.split('/asset')[0]);
+      }
+
     }
   }
 
-  toImageParentDocument(): any {
-    // this.goBack();
-  }
-
-  private goBackInfo(url: string): any {
-    url = decodeURI(url);
+  private getPathInfo(): any {
+    const url: string = decodeURI(this.editRedirectUrl);
+    let path: string;
     if (url.includes('/NEXT')) {
-      return {
-        'rootPath': NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH,
-        'urlRootPath': '/p/innovation/NEXT/',
-        'urlParentPath': '/p/innovation/NEXT/folder/',
-      };
+      path = NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH;
     } else if (url.includes('/Things to Steal')) {
-      return {
-        'rootPath': NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH,
-        'urlRootPath': '/p/innovation/Things to steal/',
-        'urlParentPath': '/p/innovation/Things to steal/folder/',
-      };
+      path = NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
     }
+    return path;
   }
 
 }
