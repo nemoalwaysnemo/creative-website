@@ -30,9 +30,7 @@ export class BaseDocumentViewComponent implements OnInit, OnDestroy {
   }
 
   protected setCurrentDocument(doc?: DocumentModel): void {
-    if (typeof doc !== 'undefined') {
-      this.documentPageService.setCurrentDocument(doc);
-    }
+    this.documentPageService.setCurrentDocument(doc);
   }
 
 }

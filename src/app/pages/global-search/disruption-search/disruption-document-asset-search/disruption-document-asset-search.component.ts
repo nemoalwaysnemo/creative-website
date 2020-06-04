@@ -36,6 +36,6 @@ export class DisruptionDocumentAssetSearchComponent extends BaseDocumentViewComp
   }
 
   onInit(): void {
-    this.setCurrentDocument(null);
+    this.setCurrentDocument();
   }
 }

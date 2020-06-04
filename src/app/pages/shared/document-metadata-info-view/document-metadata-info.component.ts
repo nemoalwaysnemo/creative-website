@@ -1,6 +1,4 @@
 import { Component, Input, OnDestroy, TemplateRef, Type } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 import { concatMap, map, share } from 'rxjs/operators';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes, parseCountry } from '@core/services/helpers';
@@ -8,7 +6,7 @@ import { DocumentPageService } from '../services/document-page.service';
 import { DocumentModelForm } from '../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
-import { DocumentModel, AdvanceSearchService, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -51,7 +49,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   documentModel: DocumentModel;
 
-  editRedirectUrl: string = this.router.url;
+  editRedirectUrl: string = this.documentPageService.getCurrentUrl();
 
   deleteTitle: string = 'Delete';
 
@@ -89,13 +87,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   constructor(
-    private advanceSearchService: AdvanceSearchService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
     private documentPageService: DocumentPageService,
     private nuxeoApi: NuxeoApiService,
     private userService: UserService,
-    private location: Location,
-    private router: Router,
   ) { }
 
   ngOnDestroy(): void {
@@ -199,7 +194,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   toggleJob(doc: DocumentModel) {
     if (this.jobTitle === undefined && this.hasJobValue(doc)) {
-      this.advanceSearchService.request(this.getRequestParams(doc))
+      this.documentPageService.advanceRequest(this.getRequestParams(doc))
         .subscribe((res: NuxeoPagination) => {
           this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
           this.jobLoading = false;
@@ -214,7 +209,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   goBack() {
-    this.location.back();
+    this.documentPageService.historyBack();
   }
 
   openDialog(dialog: TemplateRef<any>): void {

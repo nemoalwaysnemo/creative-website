@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NuxeoPagination, DocumentModel, AdvanceSearchService } from '@core/api';
+import { NuxeoPagination, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService } from '@pages/shared';
 
 @Component({
   selector: 'backslash-home-gallery',
@@ -40,11 +41,11 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private advanceSearchService: AdvanceSearchService) {
+  constructor(private documentPageService: DocumentPageService) {
   }
 
   ngOnInit(): void {
-    this.subscription = this.advanceSearchService.request(this.params).subscribe((res: NuxeoPagination) => {
+    this.subscription = this.documentPageService.advanceRequest(this.params).subscribe((res: NuxeoPagination) => {
       this.galleryItems = this.getItems(res.entries);
     });
   }
@@ -91,6 +92,16 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.onStatusChanged();
     this.toggleStatus();
     this.document = doc;
+    if (this.showInfo) {
+      this.documentPageService.googleAnalyticsTrackEvent({
+        'event_category': 'Gallery',
+        'event_action': `Gallery Item Preview`,
+        'event_label': `Gallery Item Preview - ${doc.title}`,
+        'event_value': doc.uid,
+        'dimensions.docId': doc.uid,
+        'dimensions.docTitle': doc.title,
+      });
+    }
   }
 
 }

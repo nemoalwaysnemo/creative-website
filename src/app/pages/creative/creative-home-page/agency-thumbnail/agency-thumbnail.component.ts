@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AdvanceSearchService, NuxeoPagination, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
+import { NuxeoPagination, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
+import { DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -28,7 +29,11 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
-  constructor(private advanceSearchService: AdvanceSearchService, private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    protected documentPageService: DocumentPageService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.search(this.params);
@@ -50,7 +55,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
   }
 
   private search(params: {}): void {
-    const subscription = this.advanceSearchService.request(new NuxeoPageProviderParams(params))
+    const subscription = this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;
         this.loading = false;

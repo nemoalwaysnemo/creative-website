@@ -229,7 +229,7 @@ export function removeUselessObject(p: object = {}, keys: string[] = []): any {
 }
 
 export function isDocumentUID(uid: string): boolean {
-  return uid && /[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/ig.test(uid);
+  return uid && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ig.test(uid);
 }
 
 export function getDocumentTypes(envTypes: string): string[] {

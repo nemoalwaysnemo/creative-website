@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AdvanceSearchService, DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -54,10 +54,10 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
   };
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {
@@ -106,7 +106,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
         ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
       };
-      return this.advanceSearchService.request(new NuxeoPageProviderParams(params));
+      return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params));
     } else {
       return observableOf(res);
     }

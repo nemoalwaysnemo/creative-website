@@ -1,5 +1,4 @@
 import { Component, Input, TemplateRef, Type } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { getDocumentTypes } from '@core/services/helpers';
@@ -45,7 +44,7 @@ export class InnovationFolderViewComponent {
 
   editTitle: string = 'Edit Folder';
 
-  editRedirectUrl: string = this.router.url;
+  editRedirectUrl: string = this.documentPageService.getCurrentUrl();
 
   writePermission$: Observable<boolean> = observableOf(false);
 
@@ -64,7 +63,6 @@ export class InnovationFolderViewComponent {
   constructor(
     private globalDocumentDialogService: GlobalDocumentDialogService,
     private documentPageService: DocumentPageService,
-    private router: Router,
   ) { }
 
   getAssetUrl(doc: DocumentModel): string {
@@ -94,7 +92,7 @@ export class InnovationFolderViewComponent {
   }
 
   goBack(): void {
-    const url = this.router.url;
+    const url = this.documentPageService.getCurrentUrl();
     const assetReg = /asset\/[0-9,a-z]{8}(-[0-9,a-z]{4}){3}-[0-9,a-z]{12}$/;
     if (url.search(assetReg) === -1 || this.inBaseFolder()) {
       this.documentPageService.redirect(url.split('/folder')[0]);

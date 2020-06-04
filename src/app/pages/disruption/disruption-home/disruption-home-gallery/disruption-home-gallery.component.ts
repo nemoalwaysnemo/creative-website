@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearchService, NuxeoPageProviderParams } from '@core/api';
+import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams } from '@core/api';
 import { Subscription } from 'rxjs';
 import { filter, map, concatMap } from 'rxjs/operators';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService } from '@pages/shared';
 
 @Component({
   selector: 'disruption-home-gallery',
@@ -38,7 +39,7 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private advanceSearchService: AdvanceSearchService) {
+  constructor(private documentPageService: DocumentPageService) {
   }
 
   ngOnInit(): void {
@@ -50,13 +51,13 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   private getItems(): void {
-    this.subscription = this.advanceSearchService.request(new NuxeoPageProviderParams(this.gallerySwitch)).pipe(
+    this.subscription = this.documentPageService.advanceRequest(new NuxeoPageProviderParams(this.gallerySwitch)).pipe(
       map((res: NuxeoPagination) => {
         this.showGallery = res.entries.length > 0 && (res.entries[0].get('app_global:enable_carousel') === true);
         return this.showGallery;
       }),
       filter((show: boolean) => show),
-      concatMap(_ => this.advanceSearchService.request(this.params)),
+      concatMap(_ => this.documentPageService.advanceRequest(this.params)),
     ).subscribe((res: NuxeoPagination) => {
       this.galleryItems = this.convertItems(res.entries);
     });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { of as observableOf, Observable, Subject } from 'rxjs';
-import { map, filter, share } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { filter, share } from 'rxjs/operators';
 import { AdvanceSearchService, NuxeoPageProviderParams, NuxeoRequestOptions, SearchResponse, NuxeoPagination } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
 
@@ -58,7 +58,12 @@ export class GlobalSearchFormService {
   }
 
   private googleAnalyticsTrackEvent(metadata: any): void {
-    this.googleAnalyticsService.trackSearch({ 'event_category': 'Search', 'event_action': event, 'event_label': metadata.event, queryParams: metadata.searchParams });
+    this.googleAnalyticsService.trackSearch({
+      'event_category': 'Search',
+      'event_action': `Search - ${metadata.event}`,
+      'event_label': `Search - ${metadata.event}`,
+      queryParams: metadata.searchParams,
+    });
   }
 
 }

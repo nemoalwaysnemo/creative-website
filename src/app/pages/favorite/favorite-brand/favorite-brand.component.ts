@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel, AdvanceSearchService, UserService, SearchFilterModel } from '@core/api';
+import { DocumentModel, UserService, SearchFilterModel } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
 import { TAB_CONFIG } from '../favorite-tab-config';
@@ -24,12 +24,12 @@ export class FavoriteBrandComponent extends BaseFavoriteDocumentViewComponent {
   });
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected userService: UserService) {
-    super(advanceSearchService, activatedRoute, documentPageService, globalDocumentDialogService, userService);
+  ) {
+    super(userService, activatedRoute, documentPageService, globalDocumentDialogService);
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {

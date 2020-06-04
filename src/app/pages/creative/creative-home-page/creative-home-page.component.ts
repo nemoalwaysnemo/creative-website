@@ -43,7 +43,7 @@ export class CreativeHomePageComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    this.setCurrentDocument(null);
+    this.setCurrentDocument();
   }
 
 }

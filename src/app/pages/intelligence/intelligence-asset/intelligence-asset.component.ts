@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AdvanceSearchService } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -14,10 +13,10 @@ export class IntelligenceAssetComponent extends GlobalDocumentViewComponent {
   enableThumbnailCreation: boolean = true;
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   protected getCurrentDocumentSearchParams(): any {
