@@ -100,7 +100,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     }
   }
 
-  protected buildConsumerAndMarketingParams(doc?: DocumentModel): any {
+  protected buildConsumerAndMarketingParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
@@ -132,7 +132,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     return new NuxeoPageProviderParams(params);
   }
 
-  protected buildIndustryAssetsParams(doc?: DocumentModel): any {
+  protected buildIndustryAssetsParams(doc: DocumentModel): any {
     const params = {
       quickFilters: NuxeoQuickFilters.Alphabetically,
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,

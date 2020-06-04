@@ -54,7 +54,7 @@ export class BizDevThoughtLeadershipFolderComponent extends GlobalDocumentViewCo
     };
   }
 
-  protected buildAssetsParams(doc?: DocumentModel): any {
+  protected buildAssetsParams(doc: DocumentModel): any {
     const params = {
       pageSize: 20,
       currentPageIndex: 0,

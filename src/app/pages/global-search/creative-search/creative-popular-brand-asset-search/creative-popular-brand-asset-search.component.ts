@@ -49,7 +49,7 @@ export class CreativePopularBrandAssetSearchComponent extends GlobalDocumentView
     };
   }
 
-  protected buildAssetsParams(doc?: DocumentModel): any {
+  protected buildAssetsParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,

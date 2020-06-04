@@ -75,7 +75,7 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
     };
   }
 
-  protected buildDefaultAssetsParams(doc?: DocumentModel): NuxeoPageProviderParams {
+  protected buildDefaultAssetsParams(doc: DocumentModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
       currentPageIndex: 0,

@@ -41,7 +41,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     }
   }
 
-  @Input() onSearchFilter: Function = (res: SearchResponse): boolean => res.metadata.source === 'global-search-form';
+  @Input() onSearchFilter: Function = (res: SearchResponse): boolean => res.source === 'global-search-form';
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
 

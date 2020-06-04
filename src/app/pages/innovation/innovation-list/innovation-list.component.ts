@@ -86,7 +86,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
     return new NuxeoPageProviderParams(params);
   }
 
-  protected buildDefaultAssetsParams(doc?: DocumentModel): NuxeoPageProviderParams {
+  protected buildDefaultAssetsParams(doc: DocumentModel): NuxeoPageProviderParams {
     const params = {
       pageSize: 20,
       currentPageIndex: 0,

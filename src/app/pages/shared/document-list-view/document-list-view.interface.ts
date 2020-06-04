@@ -16,7 +16,6 @@ export class DocumentListViewSettings {
 }
 
 export class DocumentListViewItem {
-
   [key: string]: any;
   readonly uid: string;
   readonly title: string;

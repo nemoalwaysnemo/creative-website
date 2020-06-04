@@ -54,7 +54,7 @@ export class DisruptionDaysFolderComponent extends GlobalDocumentViewComponent {
     };
   }
 
-  protected buildAssetsParams(doc?: DocumentModel): any {
+  protected buildAssetsParams(doc: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAY_ASSET_TYPES,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,

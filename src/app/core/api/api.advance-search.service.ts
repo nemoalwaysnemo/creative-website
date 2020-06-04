@@ -11,6 +11,7 @@ export class SearchResponse {
   readonly searchParams: NuxeoPageProviderParams;
   readonly metadata: { [key: string]: any } = {};
   readonly action: string;
+  readonly source: string;
   constructor(response: any = {}) {
     Object.assign(this, response);
   }
@@ -36,8 +37,8 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
   }
 
   search(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: { [key: string]: any } = {}): Observable<SearchResponse> {
-    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, metadata, action: 'beforeSearch' })).pipe(
-      concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, metadata, action: 'afterSearch' }))))),
+    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, metadata, source: metadata.source, action: 'beforeSearch' })).pipe(
+      concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, metadata, source: metadata.source, action: 'afterSearch' }))))),
       tap((res: SearchResponse) => this.entries$.next(res)),
       share(),
     );
@@ -50,7 +51,7 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
   }
 
   onSearch(source?: string): Observable<SearchResponse> {
-    return (source ? this.entries$.pipe(filter((e: SearchResponse) => e.metadata.source === source)) : this.entries$).pipe(share());
+    return this.entries$.pipe(filter((e: SearchResponse) => source ? e.source === source : true)).pipe(share());
   }
 
   requestByUIDs(uids: string[]): Observable<NuxeoPagination> {

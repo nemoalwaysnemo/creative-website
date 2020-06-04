@@ -350,7 +350,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected onBeforeSearch(): void {
     const subscription = this.globalSearchFormService.onSearch().pipe(
-      filter((res: SearchResponse) => res.action === 'beforeSearch'),
+      filter((res: SearchResponse) => res.action === 'beforeSearch' && res.source === this.formSettings.source),
     ).subscribe((res: SearchResponse) => {
       this.submitted = true;
       this.loading = true;
@@ -361,7 +361,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected onAfterSearch(): void {
     const subscription = this.globalSearchFormService.onSearch().pipe(
-      filter(({ action }) => action === 'afterSearch'),
+      filter((res: SearchResponse) => res.action === 'afterSearch' && res.source === this.formSettings.source),
       concatMap((res: SearchResponse) => this.buildSearchFilter(res)),
       concatMap((res: SearchResponse) => this.onAfterSearchEvent(res)),
     ).subscribe(({ searchParams, metadata }) => {
