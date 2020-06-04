@@ -24,11 +24,11 @@ export class BizDevCaseStudyFolderFormComponent extends GlobalDocumentFormCompon
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
-    if (callback.action === 'Created') {
-      callback.redirectUrl = '/p/business-development/Case Studies/folder/:uid';
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    if (event.action === 'Created') {
+      event.redirectUrl = '/p/business-development/Case Studies/folder/:uid';
     }
-    return callback;
+    return event;
   }
 
   protected getSettings(): object[] {

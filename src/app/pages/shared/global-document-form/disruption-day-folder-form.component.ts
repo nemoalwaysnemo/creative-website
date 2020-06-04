@@ -24,11 +24,11 @@ export class DisruptionDayFolderFormComponent extends GlobalDocumentFormComponen
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
-    if (callback.action === 'Created') {
-      callback.redirectUrl = '/p/disruption/Disruption Days/day/:uid';
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    if (event.action === 'Created') {
+      event.redirectUrl = '/p/disruption/Disruption Days/day/:uid';
     }
-    return callback;
+    return event;
   }
 
   protected getSettings(): object[] {

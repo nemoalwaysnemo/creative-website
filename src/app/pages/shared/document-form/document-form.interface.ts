@@ -5,7 +5,8 @@ export class DocumentFormEvent {
   messageType: 'info' | 'success' | 'warning' | 'error';
   messageContent: string;
   redirectUrl: string;
-  doc: DocumentModel | DocumentModel[];
+  docs: DocumentModel[] = [];
+  doc: DocumentModel;
 
   constructor(data: any = {}) {
     Object.assign(this, data);

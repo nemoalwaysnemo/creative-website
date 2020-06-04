@@ -41,7 +41,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
     return Environment.assetPath + src;
   }
 
-  onCallback(callback: DocumentFormEvent): void {
+  onCallback(event: DocumentFormEvent): void {
 
   }
 

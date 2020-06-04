@@ -24,11 +24,11 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
-    if (callback.action === 'Created') {
-      callback.redirectUrl = 'p/creative/brand/:uid/asset';
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    if (event.action === 'Created') {
+      event.redirectUrl = 'p/creative/brand/:uid/asset';
     }
-    return callback;
+    return event;
   }
 
   protected getSettings(): object[] {

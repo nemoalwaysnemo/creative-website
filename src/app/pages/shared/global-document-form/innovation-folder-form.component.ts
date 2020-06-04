@@ -28,11 +28,11 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
-    if (callback.action === 'Created') {
-      callback.redirectUrl = this.documentPath + '/:uid';
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    if (event.action === 'Created') {
+      event.redirectUrl = this.documentPath + '/:uid';
     }
-    return callback;
+    return event;
   }
 
   protected buildDocumentPath(doc: DocumentModel): void {

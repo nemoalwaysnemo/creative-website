@@ -66,12 +66,12 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     }
   }
 
-  onCallback(callback: DocumentFormEvent): void {
-    this.callback.next(this.beforeOnCallback(callback));
+  onCallback(event: DocumentFormEvent): void {
+    this.callback.next(this.beforeOnCallback(event));
   }
 
-  protected beforeOnCallback(callback: DocumentFormEvent): DocumentFormEvent {
-    return callback;
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    return event;
   }
 
   protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
