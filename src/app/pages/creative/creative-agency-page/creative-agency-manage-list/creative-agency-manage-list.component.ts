@@ -35,15 +35,16 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
     this.changeView();
   }
 
-  updateForm(doc: any): void {
+  updateForm(doc: DocumentModel): void {
+    this.documentPageService.updateCurrentDocument(doc);
     this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
   }
 
-  onCallback(callback: DocumentFormEvent): void {
-    if (callback.action === 'Updated') {
-      this.updateForm(callback.doc);
+  onCallback(event: DocumentFormEvent): void {
+    if (event.action === 'Updated') {
+      this.updateForm(event.doc);
       this.refresh(this.redirectUrl);
-    } else if (callback.action === 'Canceled') {
+    } else if (event.action === 'Canceled') {
       this.canceleForm();
     }
   }

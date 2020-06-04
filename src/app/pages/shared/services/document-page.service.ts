@@ -47,6 +47,12 @@ export class DocumentPageService {
     this.googleAnalyticsService.trackEvent(event);
   }
 
+  updateCurrentDocument(doc: DocumentModel): void {
+    if (doc && this.document && doc.uid === this.document.uid) {
+      this.document = doc;
+    }
+  }
+
   setCurrentDocument(doc: DocumentModel): void {
     this.document = doc;
     this.document$.next(doc);

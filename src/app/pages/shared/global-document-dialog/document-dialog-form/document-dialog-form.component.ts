@@ -1,4 +1,4 @@
-import { Component, Input, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentDialogContainerComponent } from '../document-dialog-container.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog.service';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
@@ -33,6 +33,7 @@ export class DocumentDialogFormComponent extends DocumentDialogContainerComponen
         if (e.action === 'Canceled') {
           this.close();
         } else if (['Created', 'Updated'].includes(e.action)) {
+          this.documentPageService.updateCurrentDocument(e.doc);
           timer(2000).subscribe(_ => {
             this.close();
             this.refresh(e.getRedirectUrl(e.doc));
