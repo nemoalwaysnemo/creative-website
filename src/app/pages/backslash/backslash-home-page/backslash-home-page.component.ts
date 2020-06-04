@@ -14,6 +14,6 @@ export class BackslashHomePageComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    this.setCurrentDocument(null);
+    this.setCurrentDocument();
   }
 }

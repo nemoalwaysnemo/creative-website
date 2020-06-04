@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { AdvanceSearchService, DocumentModel } from '@core/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../creative-agency-tab-config';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
-import { NbToastrService } from '@core/nebular/theme';
-import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
-import { DocumentFormEvent } from '@pages/shared/document-form/document-form.interface';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
+import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
 
 @Component({
   selector: 'creative-agency-manage-library',
@@ -15,23 +13,20 @@ import { DocumentFormEvent } from '@pages/shared/document-form/document-form.int
 })
 export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComponent {
 
-  protected tabConfig: any[] = TAB_CONFIG;
-
   showForm: boolean = false;
 
-  redirectUrl: string = this.router.url;
+  redirectUrl: string = this.documentPageService.getCurrentUrl();
+
+  protected tabConfig: any[] = TAB_CONFIG;
 
   constructor(
-    private router: Router,
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
-    private toastrService: NbToastrService,
   ) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    super(activatedRoute, documentPageService);
   }
 
-  changeView() {
+  changeView(): void {
     this.showForm = !this.showForm;
   }
 
@@ -40,7 +35,7 @@ export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComp
   }
 
   updateForm(doc: any): void {
-    this.toastrService.success('success', `${doc.title} update success`);
+    this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
   }
 
   onCallback(callback: DocumentFormEvent): void {

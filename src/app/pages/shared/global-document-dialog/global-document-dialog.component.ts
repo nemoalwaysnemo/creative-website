@@ -113,7 +113,14 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
     } else if (type === 'custom') {
       category = 'PopupCustom';
     }
-    this.googleAnalyticsService.trackEvent({ 'event_category': category, 'event_action': 'Dialog Open', 'event_label': 'Dialog Open', 'event_value': this.document.uid, 'dimensions.docId': this.document.uid });
+    this.googleAnalyticsService.trackEvent({
+      'event_category': category,
+      'event_action': 'Dialog Open',
+      'event_label': `Dialog Open | ${this.document.title}`,
+      'event_value': this.document.uid,
+      'dimensions.docId': this.document.uid,
+      'dimensions.docTitle': this.document.title,
+    });
   }
 
 }

@@ -81,7 +81,7 @@ export class GoogleAnalyticsService {
 
   trackEvent(e: any = {}): void {
     const event = Object.assign({}, {
-      'event': e.event || 'google-analytics-tracking',
+      'event': 'google-analytics-tracking',
       'event_category': e.event_category || 'GA-Track',
       'event_action': e.event_action,
       'event_label': e.event_label,
@@ -97,6 +97,10 @@ export class GoogleAnalyticsService {
       'page_path': `${e.url}`,
       'page_title': e.title,
     };
+    if (e.doc) {
+      event['dimensions.docId'] = e.doc.uid;
+      event['dimensions.docTitle'] = e.doc.title;
+    }
     this.event$.next(event);
   }
 
@@ -146,7 +150,9 @@ export class GoogleAnalyticsService {
 
   private setDisplayedLabel(event: any = {}): any {
     const moduleName = this.getModuleName();
-    event['event_label'] = `${moduleName} | ${event['event_label']}`;
+    if (event['event_label']) {
+      event['event_label'] = `${moduleName} | ${event['event_label']}`;
+    }
     return event;
   }
 
@@ -156,8 +162,12 @@ export class GoogleAnalyticsService {
   }
 
   private getModuleName(): string {
-    const path = this.router.url.split('/p/').pop();
-    return path ? path.split('/').shift() : 'default';
+    const list = this.router.url.split('/p/').pop().split('?').shift().split('/');
+    let title = list[0] || '';
+    if (list[0] === 'search') {
+      title = `${list[0]} | ${list[1]} | ${list[2]}`;
+    }
+    return title;
   }
 
 }

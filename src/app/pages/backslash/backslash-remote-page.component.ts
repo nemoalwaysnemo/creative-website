@@ -20,7 +20,7 @@ export class BackslashRemotePageComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    this.setCurrentDocument(null);
+    this.setCurrentDocument();
   }
 
 }

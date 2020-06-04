@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AdvanceSearchService, DocumentModel, SearchFilterModel } from '@core/api';
+import { DocumentModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { Subject } from 'rxjs';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -28,11 +28,10 @@ export class CreativeBrandCampaignComponent extends GlobalDocumentViewComponent 
   });
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    super(activatedRoute, documentPageService);
   }
 
   protected getCurrentDocumentSearchParams(): any {

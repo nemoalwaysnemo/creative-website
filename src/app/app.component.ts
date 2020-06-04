@@ -14,12 +14,13 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private viewportScroller: ViewportScroller,
-    private documentPageService: DocumentPageService) {
+    private documentPageService: DocumentPageService,
+  ) {
     this.performScrolling();
   }
 
   ngOnInit(): void {
-    this.documentPageService.trackTitle();
+    this.documentPageService.googleAnalyticsTrackTitle();
   }
 
   private isScrollToTop(e: NavigationEnd, previousUrl: string): boolean {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, ParamMap } from '@angular/router';
-import { DocumentModel, NuxeoPagination, AdvanceSearchService, NuxeoRequestOptions } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
 import { isDocumentUID, parseCountry } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { tap, distinctUntilChanged, concatMap, map, filter } from 'rxjs/operators';
@@ -23,7 +23,6 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   protected primaryKey: string = 'id';
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
@@ -64,7 +63,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected getDocumentModel(uid: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {
-    return this.advanceSearchService.request(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }), opts);
+    return this.documentPageService.advanceRequest(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }), opts);
   }
 
   protected getCurrentDocument(primaryKey: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
@@ -73,7 +72,6 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
         tap((paramMap: ParamMap) => {
           if (!isDocumentUID(paramMap.get(primaryKey))) {
             this.onInvalidDocumentUID(paramMap.get(primaryKey));
-            return false;
           }
         }),
         filter((paramMap: ParamMap) => (!this.document || this.document.uid !== paramMap.get(primaryKey)) && isDocumentUID(paramMap.get(primaryKey))),
@@ -97,7 +95,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected getTargetDocumentModel(params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
-    return this.advanceSearchService.request(params, opts)
+    return this.documentPageService.advanceRequest(params, opts)
       .pipe(
         map((res: NuxeoPagination) => res.entries.shift()),
       );

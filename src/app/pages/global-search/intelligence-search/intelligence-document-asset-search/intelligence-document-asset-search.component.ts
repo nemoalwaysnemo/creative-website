@@ -37,6 +37,6 @@ export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewCo
   }
 
   onInit(): void {
-    this.setCurrentDocument(null);
+    this.setCurrentDocument();
   }
 }

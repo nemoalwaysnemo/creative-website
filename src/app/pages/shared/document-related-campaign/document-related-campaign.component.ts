@@ -1,7 +1,7 @@
 
 import { Component, Input, ViewChild, OnDestroy } from '@angular/core';
 import { DragScrollComponent } from 'ngx-drag-scroll';
-import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination, AdvanceSearchService } from '@core/api';
+import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -30,10 +30,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
 
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
 
-  constructor(
-    private advanceSearchService: AdvanceSearchService,
-    private documentPageService: DocumentPageService,
-  ) {
+  constructor(private documentPageService: DocumentPageService) {
   }
 
   ngOnDestroy(): void {
@@ -61,7 +58,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
         the_loupe_main_campaign: `["${campaign}"]`,
         ecm_uuid_not_eq: doc.uid,
       };
-      const subscription = this.advanceSearchService.request(new NuxeoPageProviderParams(params))
+      const subscription = this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params))
         .subscribe((res: NuxeoPagination) => {
           this.relatedDocs = this.wrapAsCarouselData(res.entries);
           this.loading = false;

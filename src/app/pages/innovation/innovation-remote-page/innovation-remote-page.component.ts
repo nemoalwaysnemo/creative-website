@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AdvanceSearchService, DocumentModel } from '@core/api';
+import { DocumentModel } from '@core/api';
 import { DocumentPageService } from '@pages/shared';
 import { GlobalDocumentViewComponent } from '../../shared/abstract-classes/global-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -22,12 +22,13 @@ export class InnovationRemotePageComponent extends GlobalDocumentViewComponent i
 
   loading: boolean = true;
 
+
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
+    private sanitizer: DomSanitizer,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
-    private sanitizer: DomSanitizer) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {

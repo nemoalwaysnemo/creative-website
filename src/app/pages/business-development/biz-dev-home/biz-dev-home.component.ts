@@ -3,7 +3,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
-import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -66,12 +66,14 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
     placeholder: 'Search for anything...',
   });
 
-  constructor(private advanceSearchService: AdvanceSearchService, protected documentPageService: DocumentPageService) {
+  constructor(
+    protected documentPageService: DocumentPageService,
+  ) {
     super(documentPageService);
   }
 
   onInit(): void {
-    this.setCurrentDocument(null);
+    this.setCurrentDocument();
     this.performFolders();
   }
 
@@ -88,7 +90,7 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
   }
 
   private search(params: {}): Observable<DocumentModel[]> {
-    return this.advanceSearchService.request(new NuxeoPageProviderParams(params)).pipe(
+    return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title))),
     );
   }

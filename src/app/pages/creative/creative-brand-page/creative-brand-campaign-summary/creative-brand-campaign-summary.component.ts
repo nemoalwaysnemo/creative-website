@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { AdvanceSearchService, DocumentModel, SearchFilterModel } from '@core/api';
-import { ListSearchResultRowButtonDialogComponent, ListSearchResultRowButtonSettings } from '@pages/shared/list-search-form';
-import { GLOBAL_DOCUMENT_DIALOG } from '@pages/shared/global-document-dialog';
+import { DocumentModel, SearchFilterModel } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
+import { ListSearchResultRowButtonDialogComponent, ListSearchResultRowButtonSettings } from '../../../shared/list-search-form';
 import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog/global-document-dialog.interface';
+import { GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -127,11 +127,10 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   }
 
   constructor(
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    super(activatedRoute, documentPageService);
   }
 
   onSelectedCampaign(row: any): void {

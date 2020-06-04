@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NuxeoPagination, AdvanceSearchService, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
+import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams, SearchFilterModel } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 import { TAB_CONFIG } from '../disruption-tab-config';
@@ -59,17 +59,17 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_FOLDER_TYPE,
   };
 
-  constructor(private advanceSearchService: AdvanceSearchService, protected documentPageService: DocumentPageService) {
+  constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
 
   onInit(): void {
-    this.setCurrentDocument(null);
+    this.setCurrentDocument();
     this.search(this.folderParams);
   }
 
   private search(params: {}): void {
-    const subscription = this.advanceSearchService.request(new NuxeoPageProviderParams(params))
+    const subscription = this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.folders = res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title));
         this.loading = false;

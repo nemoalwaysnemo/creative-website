@@ -32,9 +32,9 @@ export class DocumentAdditionalInfoComponent implements OnInit {
     }
   }
 
-  constructor(
-    private globalDocumentDialogService: GlobalDocumentDialogService,
-  ) { }
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {
+
+  }
 
   ngOnInit(): void {
 

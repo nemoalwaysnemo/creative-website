@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearchService } from '@core/api';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPagination } from '@core/api';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
@@ -19,7 +19,6 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
-    private advanceSearchService: AdvanceSearchService,
   ) {
     super(globalDocumentDialogService, documentPageService);
   }
@@ -46,7 +45,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
-      const subscription = this.advanceSearchService.request(params).subscribe((res: NuxeoPagination) => {
+      const subscription = this.documentPageService.advanceRequest(params).subscribe((res: NuxeoPagination) => {
         this.backslashEdges = res.entries;
       });
       this.subscription.add(subscription);

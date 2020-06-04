@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AdvanceSearchService, DocumentModel } from '@core/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { DocumentModel } from '@core/api';
+import { ActivatedRoute } from '@angular/router';
 import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
@@ -14,22 +14,20 @@ import { DocumentFormEvent } from '../../../shared/document-form/document-form.i
 })
 export class CreativeBrandManageListComponent extends BaseDocumentManageComponent {
 
-  protected tabConfig: any[] = TAB_CONFIG;
-
   showForm: boolean = false;
 
-  redirectUrl: string = this.router.url;
+  redirectUrl: string = this.documentPageService.getCurrentUrl();
+
+  protected tabConfig: any[] = TAB_CONFIG;
 
   constructor(
-    private router: Router,
-    protected advanceSearchService: AdvanceSearchService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
-    super(advanceSearchService, activatedRoute, documentPageService);
+    super(activatedRoute, documentPageService);
   }
 
-  changeView() {
+  changeView(): void {
     this.showForm = !this.showForm;
   }
 

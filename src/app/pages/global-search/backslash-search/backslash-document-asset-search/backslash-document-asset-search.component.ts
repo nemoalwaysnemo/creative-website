@@ -43,6 +43,6 @@ export class BackslashDocumentAssetSearchComponent extends BaseDocumentViewCompo
   }
 
   onInit(): void {
-    this.setCurrentDocument(null);
+    this.setCurrentDocument();
   }
 }
