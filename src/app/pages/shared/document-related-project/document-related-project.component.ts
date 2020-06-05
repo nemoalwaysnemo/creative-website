@@ -1,26 +1,33 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { AdvanceSearchService, NuxeoPagination, DocumentModel } from '@core/api';
+import { Component, Input } from '@angular/core';
+import { Subject, timer } from 'rxjs';
+import { DocumentModel, SearchResponse } from '@core/api';
+import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'document-related-project',
   styleUrls: ['./document-related-project.component.scss'],
   templateUrl: './document-related-project.component.html',
 })
-export class DocumentRelatedProjectComponent implements OnDestroy {
+export class DocumentRelatedProjectComponent {
 
   layout: string = 'my_agency full-width';
 
   documentModel: DocumentModel;
 
-  loading: boolean = true;
+  append: boolean = true;
 
   documents: DocumentModel[];
 
   noResultText: string = 'No more assets';
 
-  private subscription: Subscription = new Subscription();
+  baseParams$: Subject<any> = new Subject<any>();
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'document-related-project',
+    searchGroupPosition: 'left',
+    enableSearchInput: false,
+  });
 
   private params: any = {
     pageSize: 4,
@@ -34,30 +41,30 @@ export class DocumentRelatedProjectComponent implements OnDestroy {
   set document(doc: DocumentModel) {
     if (doc) {
       this.documentModel = doc;
-      this.searchDocuments(doc);
+      this.search(doc);
     }
   }
 
-  constructor(private advanceSearchService: AdvanceSearchService) { }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  search(doc: DocumentModel): void {
+    timer(0).subscribe(() => { this.baseParams$.next(this.getSearchParams(doc)); });
   }
 
-  private searchDocuments(doc: DocumentModel): void {
-    if (doc.get('The_Loupe_Main:brand')[0] !== null) {
-      this.loading = true;
-      this.params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
-      this.params.ecm_uuid_not_eq = doc.uid;
-      const subscription = this.advanceSearchService.request(this.params)
-        .subscribe((res: NuxeoPagination) => {
-          this.loading = false;
-          this.documents = res.entries;
-        });
-      this.subscription.add(subscription);
-    } else {
-      this.loading = false;
-      this.documents = [];
-    }
+  onLoadMore(res: SearchResponse): void {
+    const params = this.getSearchParams(this.documentModel);
+    params['currentPageIndex'] = res.response.currentPageIndex + 1;
+    params['pageSize'] = 8;
+    this.baseParams$.next(params);
   }
+
+  getSearchParams(doc: DocumentModel): any {
+    const params = this.params;
+    params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
+    params.ecm_uuid_not_eq = doc.uid;
+    return params;
+  }
+
+  onSearchFilter(res: SearchResponse): boolean {
+    return res.source === 'document-related-project';
+  }
+
 }
