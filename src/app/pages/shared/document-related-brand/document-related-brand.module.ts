@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { DocumentRelatedProjectComponent } from './document-related-project.component';
+import { DocumentRelatedBrandComponent } from './document-related-brand.component';
 import { GlobalSearchFormModule } from '../global-search-form/global-search-form.module';
 import { GlobalSearchResultModule } from '../global-search-result/global-search-result.module';
 
@@ -13,11 +13,11 @@ import { GlobalSearchResultModule } from '../global-search-result/global-search-
     GlobalSearchResultModule,
   ],
   declarations: [
-    DocumentRelatedProjectComponent,
+    DocumentRelatedBrandComponent,
   ],
   exports: [
-    DocumentRelatedProjectComponent,
+    DocumentRelatedBrandComponent,
   ],
 })
-export class DocumentRelatedProjectModule {
+export class DocumentRelatedBrandModule {
 }
