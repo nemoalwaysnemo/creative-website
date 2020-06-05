@@ -5,11 +5,11 @@ import { GlobalSearchFormSettings } from '../global-search-form/global-search-fo
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'document-related-project',
-  styleUrls: ['./document-related-project.component.scss'],
-  templateUrl: './document-related-project.component.html',
+  selector: 'document-related-brand',
+  styleUrls: ['./document-related-brand.component.scss'],
+  templateUrl: './document-related-brand.component.html',
 })
-export class DocumentRelatedProjectComponent {
+export class DocumentRelatedBrandComponent {
 
   layout: string = 'my_agency full-width';
 
@@ -24,7 +24,7 @@ export class DocumentRelatedProjectComponent {
   baseParams$: Subject<any> = new Subject<any>();
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'document-related-project',
+    source: 'document-related-brand',
     searchGroupPosition: 'left',
     enableSearchInput: false,
   });
@@ -64,7 +64,7 @@ export class DocumentRelatedProjectComponent {
   }
 
   onSearchFilter(res: SearchResponse): boolean {
-    return res.source === 'document-related-project';
+    return res.source === 'document-related-brand';
   }
 
 }

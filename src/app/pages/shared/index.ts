@@ -3,7 +3,7 @@ export * from './document-metadata-info-view/document-metadata-info.module';
 export * from './document-related-agency-view/document-related-agency.module';
 export * from './document-related-campaign/document-related-campaign.module';
 export * from './document-related-info-view/document-related-info.module';
-export * from './document-related-project/document-related-project.module';
+export * from './document-related-brand/document-related-brand.module';
 export * from './document-backslash-info/document-backslash-info.module';
 export * from './directory-suggestion/directory-suggestion.module';
 export * from './datepicker-directive/datepicker-directive.module';
