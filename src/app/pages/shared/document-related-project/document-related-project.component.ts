@@ -60,7 +60,7 @@ export class DocumentRelatedProjectComponent {
     const params = this.params;
     params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
     params.ecm_uuid_not_eq = doc.uid;
-    return params;
+    return Object.assign({}, params);
   }
 
   onSearchFilter(res: SearchResponse): boolean {

@@ -25,7 +25,9 @@ export class GlobalLoadMoreSearchResultComponent extends BaseGlobalSearchResultC
   }
 
   loadMore(): void {
-    this.onLoadMore.emit(this.searchResponse);
+    if (!this.loading) {
+      this.onLoadMore.emit(this.searchResponse);
+    }
   }
 
 }
