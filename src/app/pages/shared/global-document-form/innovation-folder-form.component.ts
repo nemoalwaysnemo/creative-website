@@ -37,9 +37,9 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
 
   protected buildDocumentPath(doc: DocumentModel): void {
     if (doc) {
-      if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/NEXT')) {
+      if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
         this.documentPath = '/p/innovation/NEXT/folder';
-      } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + '/Things to Steal')) {
+      } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
         this.documentPath = '/p/innovation/Things to Steal/folder';
       }
     }
