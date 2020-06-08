@@ -27,7 +27,10 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
 
   layout: string = 'creative_brand_campaign full-width';
 
-  filters: SearchFilterModel[] = [];
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+  ];
 
   searchFormSettingsCampaign: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'list-search-form-campaign',

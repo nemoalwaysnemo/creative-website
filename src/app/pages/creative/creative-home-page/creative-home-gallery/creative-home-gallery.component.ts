@@ -13,6 +13,7 @@ import { parseCountry } from '@core/services/helpers';
 export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
   galleryItems: any = [];
+
   gallerySettings: any = {
     playerInterval: 5000,
     autoPlay: true,
@@ -28,8 +29,6 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
   showInfo: boolean = false;
 
-  playStatus: boolean = false;
-
   document: DocumentModel;
 
   currentUrl: string;
@@ -39,6 +38,8 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_PATH_INFO.CREATIVE_AWARD_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
   };
+
+  private playStatus: boolean = false;
 
   private subscription: Subscription = new Subscription();
 
@@ -70,7 +71,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     this.status = this.showInfo === true ? 'opened' : 'closed';
   }
 
-  private getItems(entiries: DocumentModel[]) {
+  private getItems(entiries: DocumentModel[]): any[] {
     const imgArray = new Array();
     for (const doc of entiries) {
       if (doc.isVideo() && this.hasVideoContent(doc)) {
@@ -78,13 +79,12 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
       } else if (doc.isPicture()) {
         const url = doc.attachedImage;
         imgArray.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
-      } else {
       }
     }
     return imgArray;
   }
 
-  hasVideoContent(doc: DocumentModel) {
+  hasVideoContent(doc: DocumentModel): boolean {
     return doc.getVideoSources().length > 0;
   }
 
