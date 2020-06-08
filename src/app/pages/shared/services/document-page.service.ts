@@ -135,7 +135,7 @@ export class DocumentPageService {
     const list: string[] = [];
     list.push(doc ? doc.title : '');
     list.push(this.getPagePrefixTitle(event));
-    list.push(Environment.title);
+    list.push(Environment.baseTitle);
     return list.filter((x: string) => x.trim()).join(' - ');
   }
 
