@@ -46,14 +46,15 @@ export class DocumentRelatedBrandComponent {
   }
 
   search(doc: DocumentModel): void {
-    timer(0).subscribe(() => { this.baseParams$.next(this.getSearchParams(doc)); });
+    timer(0).subscribe(() => {
+      this.baseParams$.next(this.getSearchParams(doc)); });
   }
 
   onLoadMore(res: SearchResponse): void {
     const params = this.getSearchParams(this.documentModel);
     params['currentPageIndex'] = res.response.currentPageIndex + 1;
-    params['pageSize'] = 8;
-    this.baseParams$.next(params);
+    params['pageSize'] = 4;
+    this.baseParams$.next(Object.assign({}, params));
   }
 
   getSearchParams(doc: DocumentModel): any {

@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { AdvanceSearchService, NuxeoPagination, DocumentModel } from '@core/api';
+import { AdvanceSearchService, NuxeoPagination, DocumentModel, SearchResponse } from '@core/api';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
-import { Subscription } from 'rxjs';
+import { Subject, timer, Subscription } from 'rxjs';
+import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 
 @Component({
   selector: 'document-related-agency',
@@ -20,7 +21,17 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
 
   noResultText: string = 'No more assets';
 
+  append: boolean = true;
+
   private subscription: Subscription = new Subscription();
+
+  baseParams$: Subject<any> = new Subject<any>();
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'document-related-agency',
+    searchGroupPosition: 'left',
+    enableSearchInput: false,
+  });
 
   private params: any = {
     pageSize: 4,
@@ -34,9 +45,16 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
   set document(doc: DocumentModel) {
     if (doc) {
       this.documentModel = doc;
-      this.searchDocuments(doc);
+      this.search(doc);
     }
   }
+
+  search(doc: DocumentModel): void {
+    timer(0).subscribe(() => {
+      this.baseParams$.next(this.getSearchParams(doc));
+    });
+  }
+
 
   constructor(private advanceSearchService: AdvanceSearchService) { }
 
@@ -44,16 +62,23 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  private searchDocuments(doc: DocumentModel): void {
-    this.loading = true;
-    this.params.the_loupe_main_agency = doc.get('The_Loupe_Main:agency');
-    this.params.the_loupe_main_brand_not_in = `["${doc.get('The_Loupe_Main:brand')}"]`;
-    this.params.ecm_uuid_not_eq = doc.uid;
-    const subscription = this.advanceSearchService.request(this.params)
-      .subscribe((res: NuxeoPagination) => {
-        this.loading = false;
-        this.documents = res.entries;
-      });
-    this.subscription.add(subscription);
+  getSearchParams(doc: DocumentModel): any {
+    const params = this.params;
+    params.the_loupe_main_agency = doc.get('The_Loupe_Main:agency');
+    params.the_loupe_main_brand_not_in = `["${doc.get('The_Loupe_Main:brand')}"]`;
+    params.ecm_uuid_not_eq = doc.uid;
+    return params;
+  }
+
+  onLoadMore(res: SearchResponse): void {
+    this.append = true;
+    const params = this.getSearchParams(this.documentModel);
+    params['currentPageIndex'] = res.response.currentPageIndex + 1;
+    params['pageSize'] = 4;
+    this.baseParams$.next(Object.assign({}, params));
+  }
+
+  onSearchFilter(res: SearchResponse): boolean {
+    return res.metadata.source === 'document-related-agency';
   }
 }

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DocumentRelatedAgencyComponent } from './document-related-agency.component';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
+import { GlobalSearchFormModule } from '../global-search-form/global-search-form.module';
+import { GlobalSearchResultModule } from '../global-search-result/global-search-result.module';
 
 @NgModule({
   imports: [
@@ -11,6 +13,8 @@ import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document
     RouterModule,
     NgPipesModule,
     DocumentThumbnailViewModule,
+    GlobalSearchFormModule,
+    GlobalSearchResultModule,
   ],
   declarations: [
     DocumentRelatedAgencyComponent,

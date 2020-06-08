@@ -1,5 +1,7 @@
 <h1>See more {{documentModel.get('The_Loupe_Main:agency')}}</h1>
-<document-thumbnail-view [loading]="loading" [layout]="layout" [noResultText]="noResultText" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
+<global-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
+<global-load-more-search-result [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" [onSearchFilter]="onSearchFilter"></global-load-more-search-result>
+
 <ng-template #thumbnailItemView let-doc="doc">
   <div class="image-holder">
     <a [routerLink]="['/p/creative/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
