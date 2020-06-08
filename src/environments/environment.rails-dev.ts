@@ -1,9 +1,8 @@
 export * from './meta-info';
 
 export const Environment = {
-  title: 'Know\\edge',
+  baseTitle: 'Know\\edge',
   homePath: '/p/creative',
-  appName: 'Creative Library',
   nuxeoUrl: 'https://library-staging.factory.tools/nuxeo/',
   backslashAppUrl: 'https://library-staging.factory.tools/nuxeo/edges',
   assetPath: 'LibraryWebUI/',

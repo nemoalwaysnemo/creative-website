@@ -2,9 +2,8 @@
 export * from './meta-info';
 
 export const Environment = {
-  title: 'Know\\edge',
+  baseTitle: 'Know\\edge',
   homePath: '/p/creative',
-  appName: 'Creative Library Dev',
   // nuxeoUrl: 'http://localhost:8080/nuxeo/',
   nuxeoUrl: 'https://library-dev.factory.tools/nuxeo/',
   // nuxeoUrl: 'https://library.factory.tools/nuxeo/',

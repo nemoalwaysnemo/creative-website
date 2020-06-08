@@ -251,6 +251,9 @@ export function parseTabRoute(tabConfig: any[], routeParams?: any): any[] {
       if (config.route) {
         tab['route'] = config.route;
       }
+      if (config.component) {
+        tab['component'] = config.component;
+      }
       if (routeParams) {
         for (const key of ['type', 'id']) {
           tab.route = tab.route.replace(`:${key}`, routeParams[key]);
