@@ -17,8 +17,6 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   showInfo: boolean = false;
 
-  playStatus: boolean = false;
-
   document: DocumentModel;
 
   galleryItems: any = [];
@@ -38,6 +36,8 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES,
   };
+
+  private playStatus: boolean = false;
 
   private subscription: Subscription = new Subscription();
 
@@ -77,7 +77,6 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
       } else if (doc.isPicture()) {
         const url = doc.attachedImage;
         data.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
-      } else {
       }
     }
     return data;
