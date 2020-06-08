@@ -1,3 +1,32 @@
 <div class="home-gallery">
-  <picture-gallery [assetUrl]="'/p/creative/asset/'" [galleryItems]="galleryItems" [gallerySettings]="gallerySettings" [galleryType]="'creative'"></picture-gallery>
+  <picture-gallery [assetUrl]="'/p/creative/asset/'" [galleryItems]="galleryItems" [gallerySettings]="gallerySettings"
+    [galleryType]="'creative'" (playingChange)="onPlayingChange($event)" [customEvent]="galleryEvent"
+    [customTemplate]="customTemplate"></picture-gallery>
 </div>
+<ng-template #customTemplate let-doc="doc">
+  <div class="popover-container {{status}}" (click)="toggleInfo(doc)"></div>
+</ng-template>
+
+<ng-container *ngIf="showInfo">
+  <div class="text-content" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+    <div class="controls">
+      <h2 class="left">{{ document.get('dc:title') }}</h2>
+      <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+      <div class="clear"></div>
+    </div>
+    <div class="info">
+      <div class="edges">
+        <div class="more-info">
+          <p class="description">{{ document.get('dc:description') }}</p><br><br>
+          <p><b>Brand: </b>{{ document.get('The_Loupe_Main:brand') }}</p>
+          <p><b>Agency: </b>{{ document.get('The_Loupe_Main:agency') }}</p>
+          <p><b>Country: </b>{{ parseCountry(document?.get('The_Loupe_Main:country')) }}</p><br>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #popContent>
+  <share-document-button [document]="document" [currentUrl]="currentUrl"></share-document-button>
+</ng-template>
