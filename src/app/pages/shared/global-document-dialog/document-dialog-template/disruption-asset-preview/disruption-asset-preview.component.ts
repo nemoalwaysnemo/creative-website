@@ -23,7 +23,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
 
   deletePermission$: Observable<boolean> = observableOf(false);
 
-  currentUrl: string = window.location.href;
+  currentUrl: string = this.documentPageService.getCurrentFullUrl();
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

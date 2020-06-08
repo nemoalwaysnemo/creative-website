@@ -127,6 +127,10 @@ export class DocumentPageService {
     return this.router.url;
   }
 
+  getCurrentFullUrl(): string {
+    return document.location.href;
+  }
+
   private getPageTitle(doc: DocumentModel, event: NavigationEnd): string {
     const list: string[] = [];
     list.push(doc ? doc.title : '');

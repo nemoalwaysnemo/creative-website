@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { Observable } from 'rxjs';
+import { NbMenuItem } from '@core/nebular/theme';
+import { parseTabRoute } from '@core/services/helpers';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
+import { TAB_CONFIG } from './creative-project-asset-template-tab-config';
 
 @Component({
   selector: 'creative-project-asset-template',
@@ -14,11 +15,21 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
 
   static readonly NAME: string = 'creative-project-asset-template';
 
+  tabs: any[] = parseTabRoute(TAB_CONFIG);
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+  }
+
+  onMenuClick(item: NbMenuItem): void {
+
+  }
+
+  protected onDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

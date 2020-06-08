@@ -17,11 +17,11 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   loading: boolean = true;
 
+  doc: DocumentModel;
+
   @Input() currentUrl: string;
 
   @Input() moreInfo: boolean = true;
-
-  @Input() doc: DocumentModel;
 
   @Input() set document(doc: DocumentModel) {
     if (doc) {

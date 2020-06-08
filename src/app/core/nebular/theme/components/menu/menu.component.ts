@@ -43,21 +43,21 @@ export enum NbToggleStates {
 export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
   @Input() menuItem = <NbMenuItem>null;
 
-  @Output() hoverItem = new EventEmitter<any>();
-  @Output() toggleSubMenu = new EventEmitter<any>();
-  @Output() selectItem = new EventEmitter<any>();
-  @Output() itemClick = new EventEmitter<any>();
+  @Output() hoverItem: EventEmitter<any> = new EventEmitter<any>();
+  @Output() toggleSubMenu: EventEmitter<any> = new EventEmitter<any>();
+  @Output() selectItem: EventEmitter<any> = new EventEmitter<any>();
+  @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
 
   private alive = true;
   toggleState: NbToggleStates;
 
-  constructor(private menuService: NbMenuService) {}
+  constructor(private menuService: NbMenuService) { }
 
-  ngDoCheck() {
+  ngDoCheck(): void {
     this.toggleState = this.menuItem.expanded ? NbToggleStates.Expanded : NbToggleStates.Collapsed;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.menuService.onSubmenuToggle()
       .pipe(
         takeWhile(() => this.alive),
@@ -71,19 +71,19 @@ export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
     this.alive = false;
   }
 
-  onToggleSubMenu(item: NbMenuItem) {
+  onToggleSubMenu(item: NbMenuItem): void {
     this.toggleSubMenu.emit(item);
   }
 
-  onHoverItem(item: NbMenuItem) {
+  onHoverItem(item: NbMenuItem): void {
     this.hoverItem.emit(item);
   }
 
-  onSelectItem(item: NbMenuItem) {
+  onSelectItem(item: NbMenuItem): void {
     this.selectItem.emit(item);
   }
 
-  onItemClick(item: NbMenuItem) {
+  onItemClick(item: NbMenuItem): void {
     this.itemClick.emit(item);
   }
 }
@@ -184,6 +184,7 @@ export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
     <ul class="menu-items">
       <ng-container *ngFor="let item of items">
         <li nbMenuItem *ngIf="!item.hidden"
+            [class.active]="item.active"
             [menuItem]="item"
             [class.menu-group]="item.group"
             (hoverItem)="onHoverItem($event)"
@@ -197,6 +198,7 @@ export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
   `,
 })
 export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
+
   @HostBinding('class.inverse') inverseValue: boolean;
 
   /**
@@ -232,12 +234,13 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.autoCollapseValue = convertToBoolProperty(val);
   }
 
+  @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
+
   private alive: boolean = true;
+
   private autoCollapseValue: boolean = false;
 
-  constructor(@Inject(NB_WINDOW) private window,
-              private menuInternalService: NbMenuInternalService,
-              private router: Router) {
+  constructor(@Inject(NB_WINDOW) private window, private menuInternalService: NbMenuInternalService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -287,22 +290,22 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     setTimeout(() => this.menuInternalService.selectFromUrl(this.items, this.tag, this.autoCollapseValue));
   }
 
-  onAddItem(data: { tag: string; items: NbMenuItem[] }) {
+  onAddItem(data: { tag: string; items: NbMenuItem[] }): void {
     this.items.push(...data.items);
 
     this.menuInternalService.prepareItems(this.items);
     this.menuInternalService.selectFromUrl(this.items, this.tag, this.autoCollapseValue);
   }
 
-  onHoverItem(item: NbMenuItem) {
+  onHoverItem(item: NbMenuItem): void {
     this.menuInternalService.itemHover(item, this.tag);
   }
 
-  onToggleSubMenu(item: NbMenuItem) {
+  onToggleSubMenu(item: NbMenuItem): void {
     if (this.autoCollapseValue) {
       this.menuInternalService.collapseAll(this.items, this.tag, item);
     }
@@ -311,11 +314,13 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // TODO: is not fired on page reload
-  onSelectItem(item: NbMenuItem) {
+  onSelectItem(item: NbMenuItem): void {
     this.menuInternalService.selectItem(item, this.items, this.autoCollapseValue, this.tag);
   }
 
-  onItemClick(item: NbMenuItem) {
+  onItemClick(item: NbMenuItem): void {
+    this.setItemActive(item);
+    this.itemClick.emit(item);
     this.menuInternalService.itemClick(item, this.tag);
   }
 
@@ -323,7 +328,21 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.alive = false;
   }
 
-  private navigateHome() {
+  private setItemActive(item: NbMenuItem): void {
+    this.setItemsInActive(this.items);
+    item.selected = true;
+  }
+
+  private setItemsInActive(items: NbMenuItem[]): void {
+    items.forEach((i: NbMenuItem) => {
+      i.selected = false;
+      if (i.children && i.children.length > 0) {
+        this.setItemsInActive(i.children);
+      }
+    });
+  }
+
+  private navigateHome(): void {
     const homeItem = this.getHomeItem(this.items);
 
     if (homeItem) {
@@ -337,7 +356,7 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private collapseAll() {
+  private collapseAll(): void {
     this.menuInternalService.collapseAll(this.items, this.tag);
   }
 
@@ -354,7 +373,7 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private compareTag(tag: string) {
+  private compareTag(tag: string): boolean {
     return !tag || tag === this.tag;
   }
 
