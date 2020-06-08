@@ -23,6 +23,8 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
 
   deletePermission$: Observable<boolean> = observableOf(false);
 
+  currentUrl: string = window.location.href;
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
@@ -36,6 +38,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
       this.attachments = this.document.getAttachmentList();
       this.writePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Write, this.getDialogSettings().enableEdit);
       this.deletePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Delete, this.getDialogSettings().enableDeletion);
+      this.currentUrl = this.currentUrl.split('/disruption')[0] + '/disruption/asset/' + doc.uid;
     }
   }
 
