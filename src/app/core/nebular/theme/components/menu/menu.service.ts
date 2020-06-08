@@ -33,6 +33,9 @@ const collapseAll$ = new ReplaySubject<{ tag: string }>(1);
  *
  */
 export class NbMenuItem {
+
+  [key: string]: any;
+
   /**
    * Item Title
    * @type {string}
@@ -99,9 +102,13 @@ export class NbMenuItem {
    *@type {Params}
    */
   queryParams?: Params;
+
   parent?: NbMenuItem;
+
   selected?: boolean;
+
   data?: any;
+
   fragment?: string;
 
   /**

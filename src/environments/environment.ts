@@ -33,7 +33,7 @@ export enum NUXEO_PATH_INFO {
   BIZ_DEV_10X_FOLDER_PATH = '/know-edge/Business Development/10x/',
   BIZ_DEV_CASE_STUDIES_FOLDER_PATH = '/know-edge/Business Development/Case Studies/',
   BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH = '/know-edge/Business Development/Thought Leadership/',
-  INNOVATION_BASE_FOLDER_PATH = '/know-edge/Innovation.1590029994160',
+  INNOVATION_BASE_FOLDER_PATH = '/know-edge/Innovation.1590029994160/',
   INNOVATION_10X_FOLDER_PATH = '/know-edge/Innovation.1590029994160/10x/',
   INNOVATION_NEXT_FOLDER_PATH = '/know-edge/Innovation.1590029994160/NEXT/',
   INNOVATION_THINGS_TO_STEAL_FOLDER_PATH = '/know-edge/Innovation.1590029994160/Things to Steal/',
