@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PaginationDataSource } from '../../shared/pagination/pagination-data-source';
-import { ActivatedRoute } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { PaginationDataSource } from './pagination-data-source';
+
 @Component({
   selector: 'table-pagination',
   styleUrls: ['./pagination.component.scss'],
@@ -13,8 +14,6 @@ export class PaginationComponent implements OnChanges, OnInit {
 
   @Input() dataSource: PaginationDataSource;
 
-  @Output() changePage = new EventEmitter<any>();
-
   private pages: any[] = [];
 
   private currentPage: number = 1;
@@ -25,17 +24,18 @@ export class PaginationComponent implements OnChanges, OnInit {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(protected activatedRoute: ActivatedRoute) { }
-
   ngOnInit(): void {
-    this.subscription = this.dataSource.onChanged().subscribe(_ => {
-      this.currentPage = parseInt(this.activatedRoute.snapshot.queryParams.currentPageIndex, 10) + 1 || 1;
-      this.totalPage = this.dataSource.pagingInfo.numberOfPages;
+    this.subscription = this.dataSource.onChanged().pipe(
+      filter((data: any) => data.action === 'load'),
+    ).subscribe((data: any) => {
+      this.currentPage = data.currentPageIndex + 1;
+      this.totalPage = data.totalPage;
+      this.pageSize = data.pageSize;
       this.initPages();
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.source) {
       if (!changes.source.firstChange) {
         this.subscription.unsubscribe();
@@ -44,13 +44,12 @@ export class PaginationComponent implements OnChanges, OnInit {
   }
 
   shouldShow(): boolean {
-    return this.dataSource.count() > this.pageSize;
+    return this.dataSource.totalSize() > this.pageSize;
   }
 
   paginate(page: number): boolean {
     this.currentPage = page;
-    this.dataSource.setPage(page - 1);
-    this.changePage.emit({ currentPageIndex: page - 1 });
+    this.dataSource.changePage(page - 1);
     return false;
   }
 
@@ -75,10 +74,10 @@ export class PaginationComponent implements OnChanges, OnInit {
   }
 
   getLast(): number {
-    return this.dataSource.pagingInfo.numberOfPages;
+    return this.totalPage;
   }
 
-  initPages() {
+  initPages(): void {
     if (this.shouldShow()) {
       this.pages = this.computePages(this.getPage(), this.getTotalPage());
     }
