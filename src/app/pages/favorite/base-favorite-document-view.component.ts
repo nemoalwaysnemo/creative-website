@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { DocumentModel, UserService } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService, GlobalDocumentViewComponent } from '@pages/shared';
@@ -34,7 +34,7 @@ export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewCompone
   protected setCurrentDocument(doc: DocumentModel) {
     this.documentPageService.setCurrentDocument(doc);
     if (doc) {
-      this.baseParams$.next(this.buildAssetsParams(doc));
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
     }
   }
 

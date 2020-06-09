@@ -170,14 +170,14 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
           break;
       }
       if (this.documents.length === 0) {
-        this.triggerSerach(info.document, this.item);
+        this.triggerSearch(info.document, this.item);
       }
       this.noResultText = 'No related ' + info.tabItem.name + ' found';
     });
     this.subscription.add(subscription);
   }
 
-  private triggerSerach(doc: DocumentModel, item: any): void {
+  private triggerSearch(doc: DocumentModel, item: any): void {
     this.searchFormSettings = new GlobalSearchFormSettings({
       source: 'document-load-more',
       searchGroupPosition: 'right',

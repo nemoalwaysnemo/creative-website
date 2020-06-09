@@ -49,17 +49,16 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
     }
   }
 
-  search(doc: DocumentModel): void {
-    timer(0).subscribe(() => {
-      this.baseParams$.next(this.getSearchParams(doc));
-    });
-  }
-
-
   constructor(private advanceSearchService: AdvanceSearchService) { }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  search(doc: DocumentModel): void {
+    if (doc) {
+      timer(0).subscribe(() => { this.baseParams$.next(this.getSearchParams(doc)); });
+    }
   }
 
   getSearchParams(doc: DocumentModel): any {

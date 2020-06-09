@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, SearchFilterModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -45,7 +45,7 @@ export class CreativeBrandCampaignComponent extends GlobalDocumentViewComponent 
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
-      this.baseParams$.next(this.buildCampaignParams(doc));
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildCampaignParams(doc)); });
       this.getTargetDocumentModel({
         pageSize: 1,
         currentPageIndex: 0,

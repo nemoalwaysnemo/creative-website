@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -31,7 +31,7 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
   }
 
   onInit(): void {
-    this.documentPageService.setCurrentDocument(null);
+
   }
 
   private redirectToAgency(uid: string): void {
