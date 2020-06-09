@@ -29,6 +29,7 @@ $theme: (
   color-info: #0088ff,
   color-warning: #ffa100,
   color-danger: #ff386a,
+  color-main: #fecc00,
 
   link-color: #00f9a6,
   link-color-hover: #14ffbe,
@@ -66,7 +67,7 @@ $theme: (
   popover-shadow: shadow,
 
   context-menu-active-bg: color-primary,
-  context-menu-border: color-primary,
+  context-menu-border: color-main,
 
   footer-height: header-height,
 

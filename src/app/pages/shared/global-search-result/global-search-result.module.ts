@@ -31,6 +31,7 @@ import { AllFavoritesAssetSearchResultComponent } from './all-favorites-asset-se
 import { FavoriteBackslashAssetSearchResultComponent } from './favorite-backslash-asset-search-result/favorite-backslash-asset-search-result.component';
 import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-search-result/favorite-brand-asset-search-result.component';
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
+import { FavoriteEdgeAssetSearchResultComponent } from './favorite-edge-asset-search-result/favorite-edge-asset-search-result.component';
 import { BackslashDocumentAssetSearchResultComponent } from './backslash-document-asset-search-result/backslash-document-asset-search-result.component';
 import { BizDevCaseStudyAssetSearchResultComponent } from './biz-dev-case-study-asset-search-result/biz-dev-case-study-asset-search-result.component';
 import { BizDevCaseStudyFolderAssetSearchResultComponent } from './biz-dev-case-study-folder-asset-search-result/biz-dev-case-study-folder-asset-search-result.component';
@@ -76,6 +77,7 @@ const COMPONENTS = [
   FavoriteBackslashAssetSearchResultComponent,
   FavoriteBrandAssetSearchResultComponent,
   FavoriteDisruptionAssetSearchResultComponent,
+  FavoriteEdgeAssetSearchResultComponent,
   InnovationDocumentAssetSearchResultComponent,
   InnovationAssetSearchResultComponent,
   InnovationFolderAssetSearchResultComponent,

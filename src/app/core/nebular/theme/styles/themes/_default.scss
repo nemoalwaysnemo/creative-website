@@ -52,6 +52,7 @@ $theme: (
   color-info: #4ca6ff,
   color-warning: #ffa100,
   color-danger: #ff4c6a,
+  color-main: #fecc00,
 
   // TODO: move to constants
   social-color-facebook: #3b5998,
@@ -250,8 +251,8 @@ $theme: (
   context-menu-fg: color-fg-heading,
   context-menu-bg: color-bg,
   context-menu-active-fg: color-white,
-  context-menu-active-bg: color-success,
-  context-menu-border: color-success,
+  context-menu-active-bg: user-fg-highlight,
+  context-menu-border: color-main,
   context-menu-border-radius: radius,
   context-menu-shadow: none,
   context-menu-arrow-size: 11px,

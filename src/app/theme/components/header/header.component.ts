@@ -17,10 +17,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   title: string;
 
-
   isOpen = true;
 
   sidebarClosed: boolean = false;
+
+  headerItems: any = [
+    { title: 'Favorite' },
+  ];
 
   private subscription: Subscription = new Subscription();
 
@@ -48,13 +51,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private updateHeaderTitle(): void {
-    const subscription = this.menuService.onItemSelect()
+    const subscription = this.menuService.onItemClick()
       .pipe(
         filter((menu: { tag: string, item: NbMenuItem }) => menu.tag === 'sidebar'),
         map((menu: { tag: string, item: NbMenuItem }) => menu.item),
       )
       .subscribe((item: NbMenuItem) => {
         this.title = item.title;
+        this.goPage(item.title);
       });
     this.subscription.add(subscription);
   }
@@ -63,4 +67,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.router.url.includes(`/${type}/`);
   }
 
+  goPage(title: string): void {
+    if (title === 'Favorite') {
+      this.router.navigate(['/p/favorite']);
+    }
+  }
 }
