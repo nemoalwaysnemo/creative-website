@@ -124,7 +124,7 @@ export class InnovationAssetFormComponent extends GlobalDocumentFormComponent {
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
+          providerName: 'GLOBAL_Geography_TBWA',
         },
       }),
       new DynamicOptionTagModel({
