@@ -102,7 +102,7 @@ export class BizDevCaseStudyFolderFormComponent extends GlobalDocumentFormCompon
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
+          providerName: 'GLOBAL_Geography_TBWA',
         },
         required: true,
         validators: { required: null },

@@ -120,7 +120,7 @@ export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentForm
         settings: {
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
+          providerName: 'GLOBAL_Geography_TBWA',
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
