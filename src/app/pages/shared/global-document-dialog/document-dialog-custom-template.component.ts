@@ -17,4 +17,8 @@ export class DocumentDialogCustomTemplateComponent extends DocumentDialogBaseTem
     super(globalDocumentDialogService, documentPageService);
   }
 
+  protected onInit(): void {
+    this.onOpen();
+  }
+
 }

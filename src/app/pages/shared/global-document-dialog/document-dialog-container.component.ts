@@ -50,6 +50,7 @@ export class DocumentDialogContainerComponent extends DocumentDialogBaseTemplate
   protected onDestroy(): void {
     if (this.dynamicComponent) {
       this.dynamicComponent.destroy();
+      this.dynamicComponent = null;
     }
     this.subscription.unsubscribe();
   }
