@@ -15,7 +15,7 @@ export class DocumentRelatedBrandComponent {
 
   documentModel: DocumentModel;
 
-  append: boolean = true;
+  append: boolean = false;
 
   documents: DocumentModel[];
 
@@ -40,6 +40,7 @@ export class DocumentRelatedBrandComponent {
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
+      this.append = false;
       this.documentModel = doc;
       this.search(doc);
     }

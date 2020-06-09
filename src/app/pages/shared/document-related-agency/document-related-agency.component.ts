@@ -21,7 +21,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
 
   noResultText: string = 'No more assets';
 
-  append: boolean = true;
+  append: boolean = false;
 
   private subscription: Subscription = new Subscription();
 
@@ -44,6 +44,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
+      this.append = false;
       this.documentModel = doc;
       this.search(doc);
     }
