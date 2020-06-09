@@ -4,42 +4,36 @@ import { NuxeoPagination } from '@core/api';
 
 export class PaginationDataSource {
 
-  private onChangedSource = new Subject<any>();
+  private event: Subject<any> = new Subject<any>();
+
   private pagination: NuxeoPagination = new NuxeoPagination();
 
   from(pagination: NuxeoPagination): void {
     this.pagination = pagination;
-    this.emitOnChanged('load');
+    this.triggerEvent('load', { currentPageIndex: pagination.currentPageIndex, totalPage: pagination.numberOfPages, pageSize: pagination.pageSize });
   }
 
-  count(): number {
+  totalSize(): number {
     return this.pagination.resultsCount;
   }
 
   onChanged(): Observable<any> {
-    return this.onChangedSource.asObservable();
+    return this.event;
   }
 
   onPageChanged(): Observable<any> {
-    return this.onChangedSource
+    return this.event
       .pipe(
-        filter(data => data.action === 'page'),
-        map(data => { delete data.action; return data; }),
+        filter((data: any) => data.action === 'page'),
+        map((data: any) => { delete data.action; return data; }),
       );
   }
 
-  get pagingInfo(): any {
-    return { page: this.pagination.currentPageIndex + 1, perPage: this.pagination.pageSize, currentPageSize: this.pagination.currentPageSize, numberOfPages: this.pagination.numberOfPages };
+  changePage(currentPageIndex: number): void {
+    this.triggerEvent('page', { currentPageIndex });
   }
 
-  setPage(page: number) {
-    this.emitOnChanged('page', page);
-  }
-
-  private emitOnChanged(action: string, page: number = 0): void {
-    this.onChangedSource.next({
-      action: action,
-      currentPageIndex: page,
-    });
+  private triggerEvent(action: string, opts: any = {}): void {
+    this.event.next(Object.assign({}, { action }, opts));
   }
 }

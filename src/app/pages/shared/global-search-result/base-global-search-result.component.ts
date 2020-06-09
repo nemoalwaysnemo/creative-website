@@ -5,7 +5,7 @@ import { DocumentListViewItem } from '../document-list-view/document-list-view.i
 import { DocumentPageService } from '../services/document-page.service';
 import { BaseSearchResultComponent } from './base-search-result.component';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
-import { concatMap, filter, tap } from 'rxjs/operators';
+import { concatMap, filter } from 'rxjs/operators';
 
 @Component({
   template: '',
