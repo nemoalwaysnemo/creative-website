@@ -5,7 +5,7 @@ import { NbTokenStorage, NbAuthTokenParceler, NbAuthToken } from '../services';
 @Injectable()
 export class NuxeoTokenStorage extends NbTokenStorage {
 
-  protected key = 'gcl_nuxeo_token';
+  protected key = 'knowledge_token';
 
   constructor(private parceler: NbAuthTokenParceler, private cookieService: CookieService) {
     super();

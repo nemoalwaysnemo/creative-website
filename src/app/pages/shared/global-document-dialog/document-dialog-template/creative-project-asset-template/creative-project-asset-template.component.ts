@@ -33,8 +33,8 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     this.changeView(item.component);
   }
 
-  protected onOpen(e: DocumentDialogEvent): void {
-    this.changeView(this.tabs[0]);
+  protected onOpen(): void {
+    this.changeView(this.tabs[0].component);
   }
 
   protected onDestroy(): void {

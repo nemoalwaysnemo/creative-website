@@ -8,6 +8,7 @@ import { CreativeProjectAssetCompletionReportTemplateComponent } from './creativ
 export const TAB_CONFIG: NbMenuItem[] = [
   {
     title: 'Deliverable',
+    selected: true,
     component: CreativeProjectAssetDeliverableTemplateComponent,
   },
   {

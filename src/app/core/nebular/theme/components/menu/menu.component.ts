@@ -184,7 +184,7 @@ export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
     <ul class="menu-items">
       <ng-container *ngFor="let item of items">
         <li nbMenuItem *ngIf="!item.hidden"
-            [class.active]="item.active"
+            [class.active]="item.selected"
             [menuItem]="item"
             [class.menu-group]="item.group"
             (hoverItem)="onHoverItem($event)"

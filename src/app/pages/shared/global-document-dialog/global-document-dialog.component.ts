@@ -43,6 +43,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
   selectView(name: string, component?: Type<any>): void {
     if (this.dynamicComponentRef) {
       this.dynamicComponentRef.destroy();
+      this.dynamicComponentRef = null;
     }
     component = component || this.getComponentByName(name);
     this.createComponent(component);

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, Type } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { DocumentModel } from '@core/api';
-import { map } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 import { Subscription, timer, Subject, zip, forkJoin, of as observableOf, Observable } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { DocumentPageService } from '../services/document-page.service';
@@ -134,7 +134,7 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     ).pipe(map((l: boolean[]) => l[0] && l[1]));
   }
 
-  protected onOpen(e: DocumentDialogEvent): void {
+  protected onOpen(e?: DocumentDialogEvent): void {
   }
 
   protected onClose(e: DocumentDialogEvent): void {
@@ -146,10 +146,10 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
   protected onCancelled(): void { }
 
   private registerListeners(): void {
-    const a = zip(
-      this.globalDocumentDialogService.onOpen(),
-      this.lifeCycle$,
-    ).pipe(map(_ => _.shift())).subscribe((e: DocumentDialogEvent) => { this.onOpen(e); });
+    const a = this.lifeCycle$.pipe(
+      withLatestFrom(this.globalDocumentDialogService.onOpen()),
+      map(_ => _.pop()),
+    ).subscribe((e: DocumentDialogEvent) => { this.onOpen(e); });
     const b = this.globalDocumentDialogService.onClose().subscribe((e: DocumentDialogEvent) => { this.onClose(e); });
     const c = this.globalDocumentDialogService.onEventType('callback').subscribe((e: DocumentDialogEvent) => { this.callbackEvent = e; });
     this.subscription.add(a);

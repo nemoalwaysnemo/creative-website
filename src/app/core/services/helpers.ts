@@ -244,16 +244,7 @@ export function parseTabRoute(tabConfig: any[], routeParams?: any): any[] {
   const tabs: any[] = [];
   for (const config of tabConfig) {
     if (config.hidden === undefined || !config.hidden) {
-      const tab: any = { title: config.title };
-      if (config.acl) {
-        tab['acl'] = config.acl;
-      }
-      if (config.route) {
-        tab['route'] = config.route;
-      }
-      if (config.component) {
-        tab['component'] = config.component;
-      }
+      const tab: any = Object.assign({}, config);
       if (routeParams) {
         for (const key of ['type', 'id']) {
           tab.route = tab.route.replace(`:${key}`, routeParams[key]);
