@@ -41,7 +41,7 @@ export class NbDialogConfig<D = any> {
   /**
    * Focuses dialog automatically after open if true.
    * */
-  autoFocus: boolean = true;
+  autoFocus: boolean = false;
 
   /**
    * Where the attached component should live in Angular's *logical* component tree.
