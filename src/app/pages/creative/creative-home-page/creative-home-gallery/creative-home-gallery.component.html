@@ -1,6 +1,5 @@
 <div class="home-gallery">
-  <picture-gallery [assetUrl]="'/p/creative/asset/'" [galleryItems]="galleryItems" [gallerySettings]="gallerySettings"
-    [galleryType]="'creative'" (playingChange)="onPlayingChange($event)" [customEvent]="galleryEvent"
+  <picture-gallery [assetUrl]="'/p/creative/asset/'" [galleryItems]="galleryItems" [gallerySettings]="gallerySettings" [galleryType]="'creative'" (playingChange)="onPlayingChange($event)" [customEvent]="galleryEvent"
     [customTemplate]="customTemplate"></picture-gallery>
 </div>
 <ng-template #customTemplate let-doc="doc">
