@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { GlobalSearchFormSettings } from '../../../shared/global-search-form/global-search-form.interface';
@@ -33,7 +33,9 @@ export class CreativeAgencyShowcaseComponent extends GlobalDocumentViewComponent
 
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
-    this.baseParams$.next(this.buildAssetsParams(doc));
+    if (doc) {
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+    }
   }
 
   protected getCurrentDocumentSearchParams(): any {

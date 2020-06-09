@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -35,7 +35,9 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
-    this.baseParams$.next(this.buildAssetsParams(doc));
+    if (doc) {
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+    }
   }
 
   protected getCurrentDocumentSearchParams(): any {

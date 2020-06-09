@@ -46,8 +46,9 @@ export class DocumentRelatedBrandComponent {
   }
 
   search(doc: DocumentModel): void {
-    timer(0).subscribe(() => {
-      this.baseParams$.next(this.getSearchParams(doc)); });
+    if (doc) {
+      timer(0).subscribe(() => { this.baseParams$.next(this.getSearchParams(doc)); });
+    }
   }
 
   onLoadMore(res: SearchResponse): void {
