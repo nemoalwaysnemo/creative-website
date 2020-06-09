@@ -24,6 +24,7 @@ export enum NUXEO_PATH_INFO {
   DISRUPTION_THEORY_PATH = '/know-edge/Disruption/Disruption Theory/',
   DISRUPTION_THINKING_PATH = '/know-edge/Disruption/Things to Steal/',
   DISRUPTION_AWARD_FOLDER_PATH = '/know-edge/Disruption/Disruption Awards/Carousel/',
+  EDGE_BASE_FOLDER_PATH = '/know-edge/-backslash/Edges/',
   INTELLIGENCE_BASE_FOLDER_PATH = '/know-edge/Intelligence/',
   BIZ_DEV_BASE_FOLDER_PATH = '/know-edge/Business Development/',
   BIZ_DEV_10X_FOLDER_PATH = '/know-edge/Business Development/10x/',

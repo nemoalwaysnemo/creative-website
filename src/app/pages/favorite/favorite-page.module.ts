@@ -6,6 +6,7 @@ import { FavoritePageComponent } from './favorite-page.component';
 import { FavoriteBackslashModule } from './favorite-backslash/favorite-backslash.module';
 import { FavoriteBrandModule } from './favorite-brand/favorite-brand.module';
 import { FavoriteDisruptionModule } from './favorite-disruption/favorite-disruption.module';
+import { FavoriteEdgeModule } from './favorite-edge/favorite-edge.module';
 import { BaseFavoriteDocumentViewComponent } from './base-favorite-document-view.component';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { BaseFavoriteDocumentViewComponent } from './base-favorite-document-view
     FavoriteBackslashModule,
     FavoriteBrandModule,
     FavoriteDisruptionModule,
+    FavoriteEdgeModule,
   ],
   declarations: [
     FavoritePageComponent,

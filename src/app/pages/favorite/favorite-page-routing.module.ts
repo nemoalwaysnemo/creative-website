@@ -5,6 +5,7 @@ import { AllFavoritesComponent } from './all-favorites/all-favorites.component';
 import { FavoriteBackslashComponent } from './favorite-backslash/favorite-backslash.component';
 import { FavoriteBrandComponent } from './favorite-brand/favorite-brand.component';
 import { FavoriteDisruptionComponent } from './favorite-disruption/favorite-disruption.component';
+import { FavoriteEdgeComponent } from './favorite-edge/favorite-edge.component';
 
 const routes: Routes = [{
   path: '',
@@ -25,6 +26,10 @@ const routes: Routes = [{
     {
       path: 'disruption',
       component: FavoriteDisruptionComponent,
+    },
+    {
+      path: 'edge',
+      component: FavoriteEdgeComponent,
     },
     {
       path: '',

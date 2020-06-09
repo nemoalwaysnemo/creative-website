@@ -1,11 +1,11 @@
 <div class="header-container">
   <div class="top-bar">
     <div class="left logo"></div>
-    <!-- <nb-actions size="medium" class="right">
+    <nb-actions size="medium" class="right" *ngxPermissionsOnly="['MGT']">
       <nb-action>
-        <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username"></nb-user>
+        <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username" [nbContextMenu]="headerItems" nbContextMenuTag="sidebar"></nb-user>
       </nb-action>
-    </nb-actions> -->
+    </nb-actions>
     <div class="clear"></div>
   </div>
   <div class="main-nav">
@@ -15,6 +15,5 @@
     <a [routerLink]="['/p/intelligence']" [ngClass]="{'active': selectLayout('intelligence')}">Intelligence</a>
     <a [routerLink]="['/p/business-development']" [ngClass]="{'active': selectLayout('business-development')}">Business Development</a>
     <a [routerLink]="['/p/innovation']" [ngClass]="{'active': selectLayout('innovation')}">Innovation</a>
-    <!-- <a [routerLink]="['/p/favorite']" [ngClass]="{'active': selectLayout('favorite')}" *ngxPermissionsOnly="['DEV']">Favorite</a> -->
   </div>
 </div>

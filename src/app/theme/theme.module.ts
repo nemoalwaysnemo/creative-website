@@ -19,6 +19,9 @@ import {
   NbAlertModule,
   NbSpinnerModule,
   NbTooltipModule,
+  NbUserModule,
+  NbActionsModule,
+  NbContextMenuModule,
 } from '@core/nebular/theme';
 
 import { FooterComponent, HeaderComponent } from './components';
@@ -43,6 +46,9 @@ const NB_MODULES = [
   NbAlertModule,
   NbSpinnerModule,
   NbTooltipModule,
+  NbUserModule,
+  NbActionsModule,
+  NbContextMenuModule,
 ];
 
 const COMPONENTS = [
