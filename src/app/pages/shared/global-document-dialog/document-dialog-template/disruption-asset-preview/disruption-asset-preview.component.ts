@@ -38,7 +38,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
       this.attachments = this.document.getAttachmentList();
       this.writePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Write, this.getDialogSettings().enableEdit);
       this.deletePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Delete, this.getDialogSettings().enableDeletion);
-      this.currentUrl = this.currentUrl.split('/disruption')[0] + '/disruption/asset/' + doc.uid;
+      this.currentUrl = this.buildShareUrl(doc);
     }
   }
 
@@ -73,5 +73,15 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
 
   parseCountry(list: string[]) {
     return parseCountry(list);
+  }
+
+  buildShareUrl(doc: DocumentModel): string {
+    let url: string = this.currentUrl.split('/p/')[0];
+    if (this.isIntelligenceAsset(doc)) {
+      url += '/p/intelligence/asset/' + doc.uid;
+    } else if (this.isDisruptionAsset(doc)) {
+      url += '/p/disruption/asset/' + doc.uid;
+    }
+    return url;
   }
 }
