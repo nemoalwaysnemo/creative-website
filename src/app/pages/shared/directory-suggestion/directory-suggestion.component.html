@@ -2,6 +2,7 @@
   <ng-container [ngSwitch]="true">
     <ng-container *ngSwitchCase="getViewType() === 'suggestion'">
       <ng-select
+        [addTag]="settings.addTag"
         [items]="options$ | async"
         [placeholder]="settings.placeholder"
         [selectOnTab]="true"

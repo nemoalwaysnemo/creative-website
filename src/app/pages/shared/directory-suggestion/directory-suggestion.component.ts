@@ -71,7 +71,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   ngOnInit(): void {
-    if (this.settings.suggestion === true) {
+    if (this.settings.viewType === 'suggestion') {
       this.onSearchTriggered();
       if (this.settings.initSearch) {
         this.filter$.next('');
@@ -104,7 +104,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   getViewType(): string {
-    return this.settings.suggestion ? 'suggestion' : 'list';
+    return this.settings.viewType;
   }
 
   isDisplayLabel(): boolean {
@@ -137,6 +137,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       res = this.getDirectorySuggestions(searchTerm, this.settings);
     } else if (settings.providerType === SuggestionSettings.USER_GROUP) {
       res = this.getUserGroupSuggestions(searchTerm);
+    } else if (settings.providerType === SuggestionSettings.TAG) {
+      res = this.getNuxeoTagSuggestions(searchTerm);
     } else {
       res = observableOf([]);
     }
@@ -175,6 +177,13 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       );
   }
 
+  private getNuxeoTagSuggestions(searchTerm: string): Observable<OptionModel[]> {
+    return this.nuxeoApi.operation(NuxeoAutomations.TagSuggestion, { searchTerm })
+      .pipe(
+        map((res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id }))),
+      );
+  }
+
   private getDocumentModels(operationName: string, providerName: string, searchTerm: string, input: string = null, pageSize: number = 20): Observable<OptionModel[]> {
     return this.nuxeoApi.operation(operationName, { providerName, searchTerm, pageSize }, input)
       .pipe(map((res: NuxeoPagination) => res.entries.map((doc: DocumentModel) => new OptionModel({ label: doc.title, value: doc.uid }))));
@@ -190,7 +199,11 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   private getOperationSuggestions(operationName: string, searchTerm: string, input: string): Observable<OptionModel[]> {
-    return this.nuxeoApi.operation(operationName, { docId: input, searchTerm }, input).pipe(map((res: any) => this.onResponsed.call(this, res)));
+    const params = { searchTerm };
+    if (input) {
+      params['docId'] = input;
+    }
+    return this.nuxeoApi.operation(operationName, params, input).pipe(map((res: any) => this.onResponsed.call(this, res)));
   }
 
   private getDirectoryEntries(directoryName: string): void {

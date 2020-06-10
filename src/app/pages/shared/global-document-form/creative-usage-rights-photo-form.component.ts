@@ -119,7 +119,6 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         label: 'Country',
         required: false,
         settings: {
-          multiple: true,
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',
         },
@@ -195,7 +194,6 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
             label: 'Countries',
             required: true,
             settings: {
-              multiple: true,
               providerType: SuggestionSettings.DIRECTORY,
               providerName: 'GLOBAL_Countries',
             },

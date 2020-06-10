@@ -47,7 +47,6 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
         label: 'Contract Type',
         required: true,
         settings: {
-          placeholder: 'Please select a value',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-UR-Music-contract-types',
         },
@@ -58,7 +57,6 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
         required: true,
         document: true,
         settings: {
-          multiple: true,
           placeholder: 'Search Project',
           providerType: SuggestionSettings.CONTENT_VIEW,
           providerName: 'App-Library-PageProvider-Projects-UR-create',
@@ -127,7 +125,6 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
         label: 'Country',
         required: false,
         settings: {
-          multiple: true,
           placeholder: 'Country',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Countries',
@@ -162,7 +159,6 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
             required: true,
             document: true,
             settings: {
-              placeholder: 'Please select a value',
               providerType: SuggestionSettings.OPERATION,
               providerName: 'javascript.provideURmediatypes',
             },
@@ -203,8 +199,6 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
             label: 'Countries',
             required: true,
             settings: {
-              multiple: true,
-              placeholder: 'Please select a value',
               providerType: SuggestionSettings.DIRECTORY,
               providerName: 'GLOBAL_Countries',
             },
