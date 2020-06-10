@@ -31,7 +31,7 @@ export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewCompone
     return {};
   }
 
-  protected setCurrentDocument(doc: DocumentModel) {
+  protected setCurrentDocument(doc: DocumentModel): void {
     this.documentPageService.setCurrentDocument(doc);
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });

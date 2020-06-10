@@ -319,6 +319,7 @@ export enum NuxeoAutomations {
   GetDocumentURStatus = 'Creative.GetDocumentAllURStatus',
   DirectorySuggestEntries = 'Directory.SuggestEntries',
   UserGroupSuggestion = 'UserGroup.Suggestion',
+  TagSuggestion = 'Tag.Suggestion',
   RepositoryPageProvider = 'Repository.PageProvider',
   ContentViewPageProvider = 'ContentView.PageProvider',
   InitializeDocument = 'Document.Initialize',
