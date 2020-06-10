@@ -6,11 +6,13 @@ export class SuggestionSettings {
   static readonly OPERATION: string = 'Operation'; // operation
   static readonly CONTENT_VIEW: string = 'ContentViewProvider'; // content view page-provider
   static readonly USER_GROUP: string = 'UserGroup'; // content view page-provider
+  static readonly TAG: string = 'Tag'; // nuxeo tag
 
+  readonly viewType: 'suggestion' | 'list' = 'suggestion';
   readonly placeholder: string = 'Please select value';
+  readonly addTag: boolean | Function = false;
   readonly contains: boolean = true;
   readonly filterParent: boolean = true;
-  readonly suggestion: boolean = true;
   readonly initSearch: boolean = true;
   readonly multiple: boolean = true;
   readonly parentOnly: boolean = false;

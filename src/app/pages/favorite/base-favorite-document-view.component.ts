@@ -12,7 +12,6 @@ export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewCompone
 
   baseParams$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-
   constructor(
     protected userService: UserService,
     protected activatedRoute: ActivatedRoute,

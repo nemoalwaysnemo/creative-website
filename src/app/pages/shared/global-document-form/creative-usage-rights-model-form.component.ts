@@ -191,7 +191,6 @@ export class CreativeUsageRightsModelComponent extends GlobalDocumentFormCompone
             label: 'Countries',
             required: true,
             settings: {
-              multiple: true,
               providerType: SuggestionSettings.DIRECTORY,
               providerName: 'GLOBAL_Countries',
             },
