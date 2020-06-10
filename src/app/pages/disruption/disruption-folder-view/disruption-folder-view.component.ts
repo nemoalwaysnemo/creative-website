@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy, TemplateRef, Type } from '@a
 import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '@pages/shared';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { getDocumentTypes } from '@core/services/helpers';
+import { getDocumentTypes, parseCountry } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
 import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
@@ -135,5 +135,8 @@ export class DisruptionFolderViewComponent {
     }
   }
 
+  parseCountry(list: string[]) {
+    return parseCountry(list);
+  }
 
 }

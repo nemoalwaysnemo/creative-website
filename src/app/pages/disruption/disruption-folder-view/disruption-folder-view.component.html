@@ -8,9 +8,9 @@
       <br><br>
       <div>Workshop Date: {{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</div>
       <div>Industry: {{ doc.get('app_Edges:industry') }}</div>
-      <div>Geography: {{ doc.get('app_Edges:Relevant_Country')}}</div>
-      <div>Brand: {{ doc.get('The_Loupe_Main:brand')}}</div>
-      <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
+      <div>Geography: {{ parseCountry(doc.get('app_Edges:Relevant_Country')) }}</div>
+      <div>Brand: {{ doc.get('The_Loupe_Main:brand') }}</div>
+      <div>Agency: {{ doc.get('The_Loupe_Main:agency') }}</div>
       <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
 
       <ng-container *ngIf="doc.type === 'App-Disruption-Day' && backAssetFlag">
