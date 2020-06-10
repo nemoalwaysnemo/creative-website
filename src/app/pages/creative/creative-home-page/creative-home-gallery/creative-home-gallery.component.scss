@@ -83,6 +83,7 @@
 		padding-left: 11px;
 		width: calc(100% - 70px - 25px - 70px);
 		font-size: calc(28px * 1.25);
+		font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
 	  }
 	  button {
 		border: none;
@@ -124,10 +125,12 @@
 		margin-left: 15px;
 		margin-top: 20px;
 		p {
+		  b { font-family: 'Averta for TBWA W01 Semibold', helvetica, arial; }
 		  margin-bottom: 0;
 		  color: black;
 		  font-size: calc(15px * 1.25);
 		  line-height: calc(24px * 1.25);
+		  font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
 		  &.description {
 			width: 90%;
 			font-size: calc(15px * 1.25);
