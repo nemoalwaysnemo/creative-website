@@ -1,5 +1,5 @@
 import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy, TemplateRef, Output, EventEmitter } from '@angular/core';
-import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, GalleryState } from '@core/custom/ngx-gallery/core/index';
+import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, GalleryState, GalleryItemType } from '@core/custom/ngx-gallery/core/index';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { GoogleAnalyticsService } from '@core/services';
 import { deepExtend } from '@core/services/helpers';
@@ -17,6 +17,8 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   displayTitle: boolean = false;
 
+  @Input() enableVideoAutoplay: boolean = false;
+
   @Input() assetUrl: string;
 
   @Input() galleryType: string = 'creative';
@@ -31,9 +33,9 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   @Input('galleryItems')
-  set setItems(galleryItems: GalleryItem[]) {
-    if (galleryItems) {
-      this.options$.next(galleryItems);
+  set setItems(items: GalleryItem[]) {
+    if (items) {
+      this.updateGalleryItems(items);
     }
   }
 
@@ -47,8 +49,6 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   private subscription: Subscription = new Subscription();
 
-  private options$: BehaviorSubject<GalleryItem[]> = new BehaviorSubject([]);
-
   private event$: BehaviorSubject<string> = new BehaviorSubject<string>('play');
 
   constructor(
@@ -61,14 +61,13 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
 
   ngOnInit(): void {
     this.subscribeEvents();
-    this.subscribeOptions();
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.gallerySettings) {
       const config = deepExtend(this.options, this.gallerySettings);
       this.galleryRef.setConfig(config);
@@ -78,11 +77,11 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
   onCustomEvent(e: any): void {
     const { itemIndex, event } = e;
     if (event.type === 'video') {
-      const state = event.api.getDefaultMedia().state;
+      this.videoAutoplayEnd(event); // End of video playback
       this.googleAnalyticsService.trackEvent({
         'event_category': 'Video',
-        'event_action': `Video ${state}`,
-        'event_label': `Video ${state} - ${event.title}`,
+        'event_action': `Video ${event.state}`,
+        'event_label': `Video ${event.state} - ${event.title}`,
         'event_value': event.uid,
         'dimensions.docId': event.uid,
         'dimensions.docTitle': event.title,
@@ -92,14 +91,40 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  onPlayingChange(e: any): void {
-    this.playingChange.emit(e);
+  onIndexChange(e: GalleryState): any {
+    this.videoAutoplayStart(e);
+  }
+
+  onPlayingChange(e: GalleryState): void {
+    if (e.items && e.items.length > 0) {
+      if (e.isPlaying) {
+        this.videoAutoplayStart(e);
+      }
+      this.playingChange.emit(e);
+    }
   }
 
   onClick(i: number): void {
     if (this.videoPlayers[i]) {
       const currentTime = this.videoPlayers[i].currentTime;
       this.queryParams[i] = { currentTime };
+    }
+  }
+
+  private videoAutoplayEnd(event: any = {}): void {
+    if (this.enableVideoAutoplay && event.state === 'ended') {
+      this.event$.next('next');
+      this.event$.next('play');
+    }
+  }
+
+  private videoAutoplayStart(state: GalleryState): void {
+    if (this.enableVideoAutoplay) {
+      const current = state.items[state.currIndex];
+      if (current && current.type === GalleryItemType.Video) {
+        this.event$.next('stop');
+        this.galleryRef.updateItem(state.currIndex, { videoAction: 'play' });
+      }
     }
   }
 
@@ -112,6 +137,12 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
         case 'stop':
           this.galleryRef.stop();
           break;
+        case 'next':
+          this.galleryRef.next();
+          break;
+        case 'prev':
+          this.galleryRef.prev();
+          break;
         default:
           this.galleryRef.play();
           break;
@@ -120,17 +151,15 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
     this.subscription.add(subscription);
   }
 
-  private subscribeOptions(): void {
-    const subscription = this.options$.subscribe((res: GalleryItem[]) => {
-      res.forEach((galleryItem: {}) => {
-        if (galleryItem['poster']) {
-          this.galleryRef.addVideo(galleryItem);
-        } else {
-          this.galleryRef.addImage(galleryItem);
-        }
-      });
-      this.galleryRef.play();
+  private updateGalleryItems(items: GalleryItem[]): void {
+    items.forEach((item: any) => {
+      if (item['poster']) {
+        this.galleryRef.addVideo(item);
+      } else {
+        this.galleryRef.addImage(item);
+      }
     });
-    this.subscription.add(subscription);
+    this.galleryRef.play();
   }
+
 }

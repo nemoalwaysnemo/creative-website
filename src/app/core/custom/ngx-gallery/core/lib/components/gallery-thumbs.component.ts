@@ -64,13 +64,13 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() config: GalleryConfig;
 
   /** Stream that emits when the active item should change */
-  @Output() action = new EventEmitter<string | number>();
+  @Output() action: EventEmitter<string | number> = new EventEmitter<string | number>();
 
   /** Stream that emits when thumb is clicked */
-  @Output() thumbClick = new EventEmitter<number>();
+  @Output() thumbClick: EventEmitter<number> = new EventEmitter<number>();
 
   /** Stream that emits when an error occurs */
-  @Output() error = new EventEmitter<GalleryError>();
+  @Output() error: EventEmitter<GalleryError> = new EventEmitter<GalleryError>();
 
   /** Host height */
   @HostBinding('style.height') height: string;

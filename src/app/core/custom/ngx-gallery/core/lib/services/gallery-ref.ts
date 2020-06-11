@@ -1,5 +1,5 @@
 import { BehaviorSubject, Subject, Observable, of, EMPTY } from 'rxjs';
-import { delay, filter, switchMap, tap } from 'rxjs/operators';
+import { delay, filter, switchMap, tap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { defaultState } from '../utils/gallery.default';
 import { GalleryError, GalleryItem, GalleryState } from '../models/gallery.model';
 import { GalleryConfig } from '../models/config.model';
@@ -7,7 +7,7 @@ import { GalleryAction } from '../models/constants';
 import { IframeItem, ImageItem, VideoItem, YoutubeItem } from '../components/templates/items.model';
 
 const filterActions = (actions: string[]) => {
-  return filter((state: GalleryState) => actions.indexOf(state.action) > -1);
+  return filter((state: GalleryState) => actions.includes(state.action));
 };
 
 export class GalleryRef {
@@ -37,22 +37,22 @@ export class GalleryRef {
 
   /** Stream that emits when gallery is initialized/reset */
   get initialized(): Observable<GalleryState> {
-    return this.state.pipe(filterActions([GalleryAction.INITIALIZED]));
+    return this.state.pipe(distinctUntilChanged(), debounceTime(100), filterActions([GalleryAction.INITIALIZED]));
   }
 
   /** Stream that emits when items is changed (items loaded, item added, item removed) */
   get itemsChanged(): Observable<GalleryState> {
-    return this.state.pipe(filterActions([GalleryAction.ITEMS_CHANGED]));
+    return this.state.pipe(distinctUntilChanged(), debounceTime(100), filterActions([GalleryAction.ITEMS_CHANGED]));
   }
 
   /** Stream that emits when current item is changed */
   get indexChanged(): Observable<GalleryState> {
-    return this.state.pipe(filterActions([GalleryAction.INDEX_CHANGED]));
+    return this.state.pipe(distinctUntilChanged(), debounceTime(100), filterActions([GalleryAction.INDEX_CHANGED]));
   }
 
   /** Stream that emits when the player should start or stop */
   get playingChanged(): Observable<GalleryState> {
-    return this.state.pipe(filterActions([GalleryAction.PLAY, GalleryAction.STOP]));
+    return this.state.pipe(distinctUntilChanged(), debounceTime(100), filterActions([GalleryAction.PLAY, GalleryAction.STOP]));
   }
 
   /** Stream that emits when the player should start or stop */
@@ -85,7 +85,7 @@ export class GalleryRef {
    * Set gallery state
    * @param state
    */
-  private setState(state: GalleryState) {
+  private setState(state: GalleryState): void {
     this._state.next({ ...this._state.value, ...state });
   }
 
@@ -93,7 +93,7 @@ export class GalleryRef {
    * Set gallery config
    * @param config
    */
-  setConfig(config: GalleryConfig) {
+  setConfig(config: GalleryConfig): void {
     this._config.next({ ...this._config.value, ...config });
   }
 
@@ -101,8 +101,7 @@ export class GalleryRef {
    * @param item - Gallery item object
    * @param active - Set the new item as current slide
    */
-  add(item: GalleryItem, active?: boolean) {
-
+  add(item: GalleryItem, active?: boolean): void {
     const items = [...this._state.value.items, item];
     this.setState({
       action: GalleryAction.ITEMS_CHANGED,
@@ -117,7 +116,7 @@ export class GalleryRef {
    * @param data
    * @param active
    */
-  addImage(data: any, active?: boolean) {
+  addImage(data: any, active?: boolean): void {
     this.add(new ImageItem(data), active);
   }
 
@@ -126,7 +125,7 @@ export class GalleryRef {
    * @param data
    * @param active
    */
-  addVideo(data: any, active?: boolean) {
+  addVideo(data: any, active?: boolean): void {
     this.add(new VideoItem(data), active);
   }
 
@@ -135,7 +134,7 @@ export class GalleryRef {
    * @param data
    * @param active
    */
-  addIframe(data: any, active?: boolean) {
+  addIframe(data: any, active?: boolean): void {
     this.add(new IframeItem(data), active);
   }
 
@@ -144,14 +143,25 @@ export class GalleryRef {
    * @param data
    * @param active
    */
-  addYoutube(data: any, active?: boolean) {
+  addYoutube(data: any, active?: boolean): void {
     this.add(new YoutubeItem(data), active);
+  }
+
+  updateItem(i: number, settings: any = {}): void {
+    const items = this._state.value.items;
+    items.forEach((item: GalleryItem, index: number) => {
+      item['settings'] = index === i ? settings : {};
+    });
+    this.setState({
+      action: GalleryAction.SETTINGS_CHANGED,
+      items: items,
+    });
   }
 
   /** Remove gallery item
    * @param i - Item index
    */
-  remove(i: number) {
+  remove(i: number): void {
     const items = [
       ...this._state.value.items.slice(0, i),
       ...this._state.value.items.slice(i + 1, this._state.value.items.length),
@@ -168,7 +178,7 @@ export class GalleryRef {
    * Load items and reset the state
    * @param items - Gallery images data
    */
-  load(items: GalleryItem[]) {
+  load(items: GalleryItem[]): void {
     if (items) {
       this.setState({
         action: GalleryAction.ITEMS_CHANGED,
@@ -183,7 +193,7 @@ export class GalleryRef {
    * Set active item
    * @param i - Active Index
    */
-  set(i: number) {
+  set(i: number): void {
     if (i !== this._state.value.currIndex) {
       this.setState({
         action: GalleryAction.INDEX_CHANGED,
@@ -197,7 +207,7 @@ export class GalleryRef {
   /**
    * Next item
    */
-  next() {
+  next(): void {
     if (this._state.value.hasNext) {
       this.set(this._state.value.currIndex + 1);
     } else if (this._config.value.loop) {
@@ -208,7 +218,7 @@ export class GalleryRef {
   /**
    * Prev item
    */
-  prev() {
+  prev(): void {
     if (this._state.value.hasPrev) {
       this.set(this._state.value.currIndex - 1);
     } else if (this._config.value.loop) {
@@ -220,7 +230,7 @@ export class GalleryRef {
    * Start gallery player
    * @param interval
    */
-  play(interval?: number) {
+  play(interval?: number): void {
     if (interval) {
       this.setConfig({ playerInterval: interval });
     }
@@ -230,21 +240,21 @@ export class GalleryRef {
   /**
    * Stop gallery player
    */
-  stop() {
+  stop(): void {
     this.setState({ action: GalleryAction.STOP, isPlaying: false });
   }
 
   /**
    * Reset gallery to initial state
    */
-  reset() {
+  reset(): void {
     this.setState(defaultState);
   }
 
   /**
    * Destroy gallery
    */
-  destroy() {
+  destroy(): void {
     this._state.complete();
     this._config.complete();
     this.itemClick.complete();

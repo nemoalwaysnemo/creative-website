@@ -17,6 +17,8 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   showInfo: boolean = false;
 
+  enableVideoAutoplay: boolean = true;
+
   document: DocumentModel;
 
   galleryItems: any = [];

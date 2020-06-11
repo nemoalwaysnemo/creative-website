@@ -2,7 +2,6 @@ import { Component, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/c
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-video-viewer.service';
 import { VgAPI } from 'videogular2/compiled/core';
 import { Subscription } from 'rxjs';
-import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'document-video-player',

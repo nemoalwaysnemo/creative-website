@@ -68,13 +68,13 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   /** Skip initializing the config with components inputs (Lightbox mode) */
   @Input() skipInitConfig = false;
 
-  @Output() itemClick = new EventEmitter<number>();
-  @Output() thumbClick = new EventEmitter<number>();
-  @Output() playingChange = new EventEmitter<GalleryState>();
-  @Output() indexChange = new EventEmitter<GalleryState>();
-  @Output() itemsChange = new EventEmitter<GalleryState>();
-  @Output() error = new EventEmitter<GalleryError>();
-  @Output() customEvent = new EventEmitter<any>();
+  @Output() itemClick: EventEmitter<number> = new EventEmitter<number>();
+  @Output() thumbClick: EventEmitter<number> = new EventEmitter<number>();
+  @Output() playingChange: EventEmitter<GalleryState> = new EventEmitter<GalleryState>();
+  @Output() indexChange: EventEmitter<GalleryState> = new EventEmitter<GalleryState>();
+  @Output() itemsChange: EventEmitter<GalleryState> = new EventEmitter<GalleryState>();
+  @Output() error: EventEmitter<GalleryError> = new EventEmitter<GalleryError>();
+  @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
   private _itemClick$: SubscriptionLike = Subscription.EMPTY;
   private _thumbClick$: SubscriptionLike = Subscription.EMPTY;
   private _itemChange$: SubscriptionLike = Subscription.EMPTY;
@@ -117,19 +117,17 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     switch (i) {
       case 'next':
         this.galleryRef.next();
-        this.galleryRef.play();
         break;
       case 'prev':
         this.galleryRef.prev();
-        this.galleryRef.play();
         break;
       default:
         this.galleryRef.set(<number>i);
-        this.galleryRef.play();
     }
+    this.galleryRef.play();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.galleryRef) {
       this.galleryRef.setConfig(this.getConfig());
 
@@ -182,79 +180,79 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onCustomEvent(e: any) {
+  onCustomEvent(e: any): void {
     const { event } = e;
     this.customEvent.emit(e);
-    if (event.api && event.api.getDefaultMedia().state === 'playing' || event.api.fsAPI.isFullscreen) {
+    if (event.api && event.api.getDefaultMedia().state === 'play' || event.api.fsAPI.isFullscreen) {
       this.galleryRef.stop();
     }
   }
 
-  onItemClick(i: number) {
+  onItemClick(i: number): void {
     this.itemClick.emit(i);
     this.galleryRef.itemClick.next(i);
   }
 
-  onThumbClick(i: number) {
+  onThumbClick(i: number): void {
     this.galleryRef.set(i);
     this.thumbClick.emit(i);
     this.galleryRef.thumbClick.next(i);
   }
 
-  onError(err: GalleryError) {
+  onError(err: GalleryError): void {
     this.error.emit(err);
     this.galleryRef.error.next(err);
   }
 
-  load(items: GalleryItem[]) {
+  load(items: GalleryItem[]): void {
     this.galleryRef.load(items);
   }
 
-  add(item: GalleryItem, active?: boolean) {
+  add(item: GalleryItem, active?: boolean): void {
     this.galleryRef.add(item, active);
   }
 
-  addImage(data: any, active?: boolean) {
+  addImage(data: any, active?: boolean): void {
     this.add(new ImageItem(data), active);
   }
 
-  addVideo(data: any, active?: boolean) {
+  addVideo(data: any, active?: boolean): void {
     this.add(new VideoItem(data), active);
   }
 
-  addIframe(data: any, active?: boolean) {
+  addIframe(data: any, active?: boolean): void {
     this.add(new IframeItem(data), active);
   }
 
-  addYoutube(data: any, active?: boolean) {
+  addYoutube(data: any, active?: boolean): void {
     this.add(new YoutubeItem(data), active);
   }
 
-  remove(i: number) {
+  remove(i: number): void {
     this.galleryRef.remove(i);
   }
 
-  next() {
+  next(): void {
     this.galleryRef.next();
   }
 
-  prev() {
+  prev(): void {
     this.galleryRef.prev();
   }
 
-  set(i: number) {
+  set(i: number): void {
     this.galleryRef.set(i);
   }
 
-  reset() {
+  reset(): void {
     this.galleryRef.reset();
   }
 
-  play(interval?: number) {
+  play(interval?: number): void {
     this.galleryRef.play(interval);
   }
 
-  stop() {
+  stop(): void {
     this.galleryRef.stop();
   }
 }

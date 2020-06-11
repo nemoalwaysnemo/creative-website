@@ -19,5 +19,5 @@ import { GalleryConfig } from '../models/config.model';
 export class GalleryDotsComponent {
   @Input() state: GalleryState;
   @Input() config: GalleryConfig;
-  @Output() action = new EventEmitter<number>();
+  @Output() action: EventEmitter<number> = new EventEmitter<number>();
 }
