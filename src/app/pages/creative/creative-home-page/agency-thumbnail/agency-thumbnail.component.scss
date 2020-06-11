@@ -9,6 +9,10 @@
 		font-family: 'Averta for TBWA W01 Black', helvetica, arial;
 		font-size: 35px;
 		margin: 0 0 44px 30px;
+		a {
+			color: #2a2a2a;
+			&:hover { text-decoration: none; }
+		}
 	}
 	.see_all {
 		font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
