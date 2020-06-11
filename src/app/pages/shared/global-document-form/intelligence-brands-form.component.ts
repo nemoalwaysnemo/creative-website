@@ -6,7 +6,7 @@ import { GlobalDocumentFormComponent } from './global-document-form.component';
 
 @Component({
   selector: 'intelligence-brands-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" (callback)="onCallback($event)"></document-form>`,
 })
 export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent {
 
@@ -87,28 +87,4 @@ export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent
       }),
     ];
   }
-
-  protected getFormLayout(): any {
-    return {
-      'dc:title': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'dc:description': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-    };
-  }
-
 }

@@ -49,47 +49,6 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
     }
   }
 
-  protected getFormLayout(): any {
-    return {
-      'dc:title': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:brand': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:industry': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:Relevant_Country': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-    };
-  }
-
   protected getSettings(): any[] {
     return [
       new DynamicInputModel({

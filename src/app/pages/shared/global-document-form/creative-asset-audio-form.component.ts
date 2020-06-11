@@ -8,7 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 
 @Component({
   selector: 'creative-asset-audio-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent {
 
@@ -534,82 +534,4 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
       }),
     ];
   }
-
-  protected getFormLayout(): any {
-    return {
-      'dc:title': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:brand': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:industry': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:description': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_ProdCredits:production_date': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:Relevant_Country': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:agency': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:country': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-    };
-  }
-
 }

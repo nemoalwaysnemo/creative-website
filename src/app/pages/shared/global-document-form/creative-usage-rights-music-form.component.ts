@@ -8,7 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 
 @Component({
   selector: 'creative-usage-rights-music-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormComponent {
 
@@ -29,7 +29,7 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Music Company',
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
@@ -40,6 +40,7 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
         },
         errorMessages: {
           required: '{{label}} is required',
+          minLength: 'At least 4 characters',
         },
       }),
       new DynamicSuggestionModel<string>({
@@ -50,6 +51,8 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-UR-Music-contract-types',
         },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',
@@ -61,6 +64,8 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
           providerType: SuggestionSettings.CONTENT_VIEW,
           providerName: 'App-Library-PageProvider-Projects-UR-create',
         },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
         visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicInputModel({
@@ -74,6 +79,8 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
         id: 'The_Loupe_Main:po_number_internal',
         label: 'PO Number',
         required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:comment',
@@ -253,91 +260,4 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
       }),
     ];
   }
-
-  protected getFormLayout(): any {
-    return {
-      'dc:title': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:brand': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:industry': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:description': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:backslash_category': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_ProdCredits:production_date': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:Relevant_Country': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:agency': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:country': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-    };
-  }
-
 }

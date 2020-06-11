@@ -8,7 +8,7 @@ import { SuggestionSettings } from '../directory-suggestion/directory-suggestion
 
 @Component({
   selector: 'creative-usage-rights-stock-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeUsageRightsStockComponent extends GlobalDocumentFormComponent {
 
@@ -29,7 +29,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Stock Provider Name',
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Stock Provider Name',
         autoComplete: 'off',
         required: true,
@@ -265,91 +265,4 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
       }),
     ];
   }
-
-  protected getFormLayout(): any {
-    return {
-      'dc:title': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:brand': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:industry': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:description': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:backslash_category': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_ProdCredits:production_date': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:Relevant_Country': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:agency': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'The_Loupe_Main:country': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-    };
-  }
-
 }
