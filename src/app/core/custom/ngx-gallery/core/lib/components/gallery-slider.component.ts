@@ -11,6 +11,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   PLATFORM_ID,
+  SimpleChanges,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, Subscription, fromEvent } from 'rxjs';
@@ -38,6 +39,7 @@ declare const Hammer: any;
                       [type]="item.type"
                       [config]="config"
                       [data]="item.data"
+                      [settings]="item.settings"
                       [currIndex]="state.currIndex"
                       [index]="i"
                       (customEvent)="customEvent.emit({itemIndex: i, event: $event})"
@@ -71,15 +73,15 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   @Input() config: GalleryConfig;
 
   /** Stream that emits when the active item should change */
-  @Output() action = new EventEmitter<string | number>();
+  @Output() action: EventEmitter<string | number> = new EventEmitter<string | number>();
 
   /** Stream that emits when item is clicked */
-  @Output() itemClick = new EventEmitter<number>();
+  @Output() itemClick: EventEmitter<number> = new EventEmitter<number>();
 
   /** Stream that emits when an error occurs */
-  @Output() error = new EventEmitter<GalleryError>();
+  @Output() error: EventEmitter<GalleryError> = new EventEmitter<GalleryError>();
 
-  @Output() customEvent = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
   /** Item zoom */
   get zoom() {
@@ -87,7 +89,6 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   constructor(private _el: ElementRef, private _zone: NgZone, @Inject(PLATFORM_ID) private platform: Object) {
-
     // Activate sliding worker
     this.sliderState$ = this._slidingWorker$.pipe(map((state: WorkerState) => ({
       style: this.getSliderStyles(state),
@@ -95,7 +96,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
     })));
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges): void {
     // Refresh the slider
     this.updateSlider({ value: 0, active: false });
   }
@@ -175,7 +176,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private verticalPan(e) {
+  private verticalPan(e): void {
     if (!(e.direction & Hammer.DIRECTION_UP && e.offsetDirection & Hammer.DIRECTION_VERTICAL)) {
       return;
     }
@@ -194,7 +195,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private horizontalPan(e) {
+  private horizontalPan(e): void {
     if (!(e.direction & Hammer.DIRECTION_HORIZONTAL && e.offsetDirection & Hammer.DIRECTION_HORIZONTAL)) {
       return;
     }
@@ -213,15 +214,15 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private next() {
+  private next(): void {
     this.action.emit('next');
   }
 
-  private prev() {
+  private prev(): void {
     this.action.emit('prev');
   }
 
-  private updateSlider(state: WorkerState) {
+  private updateSlider(state: WorkerState): void {
     const newState: WorkerState = { ...this._slidingWorker$.value, ...state };
     this._slidingWorker$.next(newState);
   }

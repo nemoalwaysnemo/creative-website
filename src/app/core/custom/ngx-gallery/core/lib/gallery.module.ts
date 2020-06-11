@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { VgCoreModule } from 'videogular2/compiled/core';
 import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';

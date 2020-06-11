@@ -22,7 +22,6 @@ import { RouterModule } from '@angular/router';
       useValue: {
         autoPlay: false,
         dots: false,
-        loadingMode: 'indeterminate',
       },
     },
   ],

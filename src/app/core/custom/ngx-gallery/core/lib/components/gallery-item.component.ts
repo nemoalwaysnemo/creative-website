@@ -13,7 +13,8 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
         <gallery-image [src]="data.src"
                        [loadingIcon]="config.loadingIcon"
                        [loadingError]="config.loadingError"
-                       (error)="error.emit($event)"></gallery-image>
+                       (error)="error.emit($event)">
+        </gallery-image>
 
         <div class="g-template g-item-template">
           <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: index, currIndex: currIndex, type: type, data: data }"></ng-container>
@@ -24,10 +25,13 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
       <ng-container *ngSwitchCase="Types.Video">
 
         <gallery-video [src]="data.src"
+                       [title]="data.title"
                        [poster]="data.poster"
-                       [pause]="currIndex !== index"
+                       [settings]="settings"
+                       [pause]="!isActive"
                        (error)="error.emit($event)"
-                       (customEvent)="onCustomEvent($event)"></gallery-video>
+                       (customEvent)="onCustomEvent($event)">
+        </gallery-video>
 
         <div class="g-template g-item-template">
           <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: index, currIndex: currIndex, type: type, data: data }"></ng-container>
@@ -37,10 +41,12 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
 
       <gallery-iframe *ngSwitchCase="Types.Youtube"
                       [src]="data.src"
-                      [pause]="currIndex !== index"></gallery-iframe>
+                      [pause]="!isActive">
+      </gallery-iframe>
 
       <gallery-iframe *ngSwitchCase="Types.Iframe"
-                      [src]="data.src"></gallery-iframe>
+                      [src]="data.src">
+      </gallery-iframe>
 
       <ng-container *ngSwitchDefault>
 
@@ -71,18 +77,21 @@ export class GalleryItemComponent {
   @Input() type: string;
 
   /** Item's data, this object contains the data required to display the content (e.g. src path) */
-  @Input() data: any;
+  @Input() data: any = {};
+
+  @Input() settings: any = {};
 
   /** Stream that emits when an error occurs */
-  @Output() error = new EventEmitter<Error>();
+  @Output() error: EventEmitter<Error> = new EventEmitter<Error>();
 
-  @Output() customEvent = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  @HostBinding('class.g-active-item') get isActive() {
+  @HostBinding('class.g-active-item')
+  get isActive(): boolean {
     return this.index === this.currIndex;
   }
 
-  get load() {
+  get load(): boolean {
     switch (this.config.loadingStrategy) {
       case LoadingStrategy.Preload:
         return true;

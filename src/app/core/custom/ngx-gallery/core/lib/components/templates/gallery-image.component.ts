@@ -83,7 +83,7 @@ export class GalleryImageComponent implements OnInit, OnDestroy {
   errorTemplate: SafeHtml;
 
   /** Stream that emits when an error occurs */
-  @Output() error = new EventEmitter<Error>();
+  @Output() error: EventEmitter<Error> = new EventEmitter<Error>();
   /** loading error */
   loadError: Error;
 

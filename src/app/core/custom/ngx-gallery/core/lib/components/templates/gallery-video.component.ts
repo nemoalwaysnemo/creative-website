@@ -7,38 +7,47 @@ import { VgAPI } from 'videogular2/compiled/core';
   template: `
     <vg-player (onPlayerReady)="onPlayerReady($event)">
       <vg-overlay-play vgFor="video"></vg-overlay-play>
-      <video [vgMedia]="video" #video id="video" preload="metadata" poster="{{poster}}" (error)="error.emit($event)">
-          <source *ngFor="let src of videoSources" src="{{src?.url}}" type="{{src?.type}}">
+      <video [vgMedia]="video" #video id="video" [preload]="preload" [poster]="poster" (error)="error.emit($event)">
+        <source *ngFor="let src of videoSources" src="{{src?.url}}" type="{{src?.type}}">
       </video>
     </vg-player>
   `,
 })
 export class GalleryVideoComponent implements OnInit {
 
-  api: VgAPI;
-
-  preload: string = 'auto';
-
-  videoSources: { url: string, type?: string }[];
-
   @Input() src: string | { url: string, type?: string }[];
 
   @Input() poster: string;
 
+  @Input() title: string;
+
   @Input('pause')
   set pauseVideo(shouldPause: boolean) {
-    const video: HTMLVideoElement = this.video.nativeElement;
+    const video: HTMLVideoElement = this.getPlayer();
     if (shouldPause && !video.paused) {
-      video.pause();
+      this.performSettings({ videoAction: 'pause' });
+    }
+  }
+
+  @Input()
+  set settings(settings: any) {
+    if (settings) {
+      this.performSettings(settings);
     }
   }
 
   /** Stream that emits when an error occurs */
-  @Output() error = new EventEmitter<Error>();
+  @Output() error: EventEmitter<Error> = new EventEmitter<Error>();
 
-  @Output() customEvent = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('video', { static: true }) video: ElementRef;
+
+  api: VgAPI;
+
+  preload: string = 'metadata';
+
+  videoSources: { url: string, type?: string }[];
 
   ngOnInit(): void {
     if (this.src instanceof Array) {
@@ -49,20 +58,40 @@ export class GalleryVideoComponent implements OnInit {
     }
   }
 
-  onPlayerReady(api: VgAPI) {
+  onPlayerReady(api: VgAPI): void {
     this.api = api;
 
     const defaultMedia = this.api.getDefaultMedia();
     const events = defaultMedia.subscriptions;
 
-    events.playing.subscribe(() => {
-      this.customEvent.emit({ type: 'video', api: this.api, player: this.getPlayer() });
+    events.play.subscribe(() => {
+      this.customEvent.emit({ type: 'video', state: 'play', api: this.api, player: this.getPlayer() });
     });
 
     events.pause.subscribe(() => {
-      this.customEvent.emit({ type: 'video', api: this.api, player: this.getPlayer() });
+      this.customEvent.emit({ type: 'video', state: 'pause', api: this.api, player: this.getPlayer() });
     });
 
+    events.ended.subscribe(() => {
+      this.customEvent.emit({ type: 'video', state: 'ended', api: this.api, player: this.getPlayer() });
+    });
+  }
+
+  private performSettings(settings: any = {}): void {
+    try {
+      switch (settings.videoAction) {
+        case 'play':
+          this.api.play();
+          break;
+        case 'pause':
+          this.api.pause();
+          break;
+        default:
+          break;
+      }
+    } catch (error) {
+
+    }
   }
 
   private getPlayer(): HTMLVideoElement {

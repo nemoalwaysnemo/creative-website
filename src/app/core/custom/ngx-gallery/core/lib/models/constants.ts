@@ -2,6 +2,7 @@ export enum GalleryAction {
   INITIALIZED = 'initialized',
   ITEMS_CHANGED = 'itemsChanged',
   INDEX_CHANGED = 'indexChanged',
+  SETTINGS_CHANGED = 'settingsChanged',
   PLAY = 'play',
   STOP = 'stop',
 }

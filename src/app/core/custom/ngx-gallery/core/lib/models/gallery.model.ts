@@ -12,6 +12,7 @@ export interface GalleryState {
 export interface GalleryItem {
   data?: any;
   type?: string;
+  settings?: any;
 }
 
 export interface GalleryError {

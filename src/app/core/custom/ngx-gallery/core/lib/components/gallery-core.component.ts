@@ -44,11 +44,11 @@ export class GalleryCoreComponent {
 
   @Input() state: GalleryState;
   @Input() config: GalleryConfig;
-  @Output() action = new EventEmitter<string | number>();
-  @Output() itemClick = new EventEmitter<number>();
-  @Output() thumbClick = new EventEmitter<number>();
-  @Output() error = new EventEmitter<GalleryError>();
-  @Output() customEvent = new EventEmitter<any>();
+  @Output() action: EventEmitter<string | number> = new EventEmitter<string | number>();
+  @Output() itemClick: EventEmitter<number> = new EventEmitter<number>();
+  @Output() thumbClick: EventEmitter<number> = new EventEmitter<number>();
+  @Output() error: EventEmitter<GalleryError> = new EventEmitter<GalleryError>();
+  @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
   /** Set thumbnails position */
   @HostBinding('attr.thumbPosition') get thumbPosition(): 'top' | 'left' | 'right' | 'bottom' {

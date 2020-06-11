@@ -1,4 +1,4 @@
-<gallery id="pictureGallery" [thumbTemplate]="thumbTemplate" (playingChange)="onPlayingChange($event)" [itemTemplate]="itemTemplate" (customEvent)="onCustomEvent($event)"></gallery>
+<gallery id="pictureGallery" [thumbTemplate]="thumbTemplate" (indexChange)="onIndexChange($event)" (playingChange)="onPlayingChange($event)" [itemTemplate]="itemTemplate" (customEvent)="onCustomEvent($event)"></gallery>
 <ng-template #thumbTemplate let-type="type">
   <span *ngIf="type === 'video'" class="item-type">
     <i class="fas fa-play"></i>
