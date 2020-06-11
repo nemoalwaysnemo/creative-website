@@ -1,5 +1,9 @@
 <div class="agency-thumbnail">
-  <h1 class="left">Best of TBWA\</h1>
+  <h1 class="left">
+    <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}">
+      Best of TBWA\
+    </a>
+  </h1>
   <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}" class="see_all right">See all</a>
   <a *ngIf="!!myAgencyFlag" [routerLink]="['/p/creative/agency']" class="see_all right">My agency</a>
   <div class="clear"></div>
