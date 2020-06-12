@@ -1,19 +1,34 @@
 import { Component } from '@angular/core';
-import { DocumentPageService } from '@pages/shared';
-import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
+import { ActivatedRoute } from '@angular/router';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalDocumentDialogService } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-home-page',
   styleUrls: ['./backslash-home-page.component.scss'],
   templateUrl: './backslash-home-page.component.html',
 })
-export class BackslashHomePageComponent extends BaseDocumentViewComponent {
+export class BackslashHomePageComponent extends GlobalDocumentViewComponent {
 
-  constructor(protected documentPageService: DocumentPageService) {
-    super(documentPageService);
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    protected documentPageService: DocumentPageService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   onInit(): void {
-    this.setCurrentDocument();
+    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
+    this.subscription.add(subscription);
+  }
+
+  protected getCurrentDocumentSearchParams(): any {
+    return {
+      pageSize: 1,
+      currentPageIndex: 0,
+      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_FOLDER_TYPE,
+    };
   }
 }

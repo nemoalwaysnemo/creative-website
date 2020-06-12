@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentPageService } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-home-gallery',
@@ -11,15 +11,22 @@ import { DocumentPageService } from '@pages/shared';
 })
 export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.enableVideoAutoplay = doc.get('app_global:carousel_autoplay');
+    }
+  }
+
   galleryEvent: string = 'play';
 
   status: string = 'closed';
 
   showInfo: boolean = false;
 
-  enableVideoAutoplay: boolean = true;
+  enableVideoAutoplay: boolean = false;
 
-  document: DocumentModel;
+  selectedDocument: DocumentModel;
 
   galleryItems: any = [];
 
@@ -90,9 +97,9 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   toggleInfo(doc: DocumentModel): void {
     this.showInfo = !this.showInfo;
+    this.selectedDocument = doc;
     this.onStatusChanged();
     this.toggleStatus();
-    this.document = doc;
     if (this.showInfo) {
       this.documentPageService.googleAnalyticsTrackEvent({
         'event_category': 'Gallery',

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   styleUrls: ['./intelligence-home.component.scss'],
   templateUrl: './intelligence-home.component.html',
 })
-export class IntelligenceHomeComponent extends GlobalDocumentViewComponent implements OnInit, OnDestroy {
+export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   loading: boolean = true;
 
@@ -69,7 +69,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent imple
     super(activatedRoute, documentPageService);
   }
 
-  ngOnInit(): void {
+  onInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
     this.searchFolders();
@@ -104,10 +104,6 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent imple
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

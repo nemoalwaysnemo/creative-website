@@ -33,10 +33,6 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
     this.onParamsChanged();
   }
 
-  onDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
   assetPath(src: string): string {
     return Environment.assetPath + src;
   }
