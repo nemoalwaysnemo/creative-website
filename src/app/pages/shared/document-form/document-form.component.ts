@@ -221,6 +221,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     //     doc.properties['app_Edges:intelligence_category'] = array_prop;
     //   }
     // });
+    documents.forEach(doc => {
+      doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map(tag => {
+        return {'label': tag, username: 'billy.zhang@tbwa.com'};
+      });
+    });
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
     });

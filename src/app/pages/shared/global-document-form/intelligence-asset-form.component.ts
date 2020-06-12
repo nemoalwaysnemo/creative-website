@@ -60,8 +60,6 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Asset-Type',
         },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
       }),
       // new DynamicRadioGroupModel<string>({
       //   id: 'The_Loupe_Main:assettype',
