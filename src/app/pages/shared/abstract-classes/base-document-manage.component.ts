@@ -37,13 +37,9 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
   protected getSettings(): any[] {
     return [];
   }
-  protected getFormLayout(): any {
-    return {};
-  }
 
   protected performForm(): void {
     this.settings = this.getSettings();
-    this.formLayout = this.getFormLayout();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

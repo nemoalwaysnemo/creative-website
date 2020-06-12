@@ -14,13 +14,13 @@ import {
   DynamicRadioGroupModel,
 } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 
 @Component({
-  selector: 'intelligence-documents-form',
+  selector: 'intelligence-asset-form',
   template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>`,
 })
-export class IntelligenceDocumentsFormComponent extends GlobalDocumentFormComponent {
+export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent {
 
   protected documentType: string = 'App-Intelligence-Asset';
 
@@ -317,38 +317,6 @@ export class IntelligenceDocumentsFormComponent extends GlobalDocumentFormCompon
         multiUpload: true,
       }),
     ];
-  }
-
-  protected getFormLayout(): any {
-    return {
-      'dc:title': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'dc:description': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-      'app_Edges:intelligence_type': {
-        element: {
-          container: 'p-0',
-          label: 'col-form-label',
-        },
-        grid: {
-          host: 'col-sm-4',
-        },
-      },
-    };
   }
 
 }

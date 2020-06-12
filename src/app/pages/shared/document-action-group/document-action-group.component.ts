@@ -2,7 +2,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf, combineLatest, Subscription } from 'rxjs';
 import { concatMap, map, share, filter } from 'rxjs/operators';
-import { DocumentModel, UserService, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { DocumentModel, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService } from '../services/document-page.service';
@@ -49,7 +49,6 @@ export class DocumentActionGroupComponent {
   }
 
   constructor(
-    private userService: UserService,
     private nuxeoApi: NuxeoApiService,
     private documentPageService: DocumentPageService,
     private documentVideoViewerService: DocumentVideoViewerService,
@@ -78,7 +77,7 @@ export class DocumentActionGroupComponent {
     return combineLatest(
       doc.hasPermission(NuxeoPermission.ReadWrite),
       doc.hasPermission(NuxeoPermission.Everything),
-      this.userService.getCurrentUserInfo().pipe(
+      this.documentPageService.getCurrentUserInfo().pipe(
         concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
           map((permission: boolean) => user.canAccess() && permission === true),
         )),

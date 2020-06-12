@@ -46,8 +46,8 @@ export class IntelligenceFormButtonComponent {
       case 'brands folder':
         components.push(GLOBAL_DOCUMENT_FORM.INTELLIGENCE_BRANDS_FORM);
         break;
-      case 'document':
-        components.push(GLOBAL_DOCUMENT_FORM.INTELLIGENCE_DOCUMENTS_FORM);
+      case 'asset':
+        components.push(GLOBAL_DOCUMENT_FORM.INTELLIGENCE_ASSET_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
