@@ -1,8 +1,8 @@
 import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
-import { map, find } from 'rxjs/operators';
-import { NuxeoPagination, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
+import { Observable, of as observableOf, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { NuxeoPagination, NuxeoPageProviderParams, SearchFilterModel, DocumentModel, NuxeoPermission } from '@core/api';
 import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -23,7 +23,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   brands: DocumentModel[] = [];
 
-  baseFolder: DocumentModel;
+  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
@@ -63,13 +63,6 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_BRANDS_TYPE,
   };
 
-  private baseParams: any = {
-    pageSize: 15,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_BASE_FOLDER_TYPE,
-  };
-
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
@@ -81,16 +74,14 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
   onInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
-    this.searchBaseFolder();
     this.searchFolders();
   }
 
-  private searchBaseFolder(): void {
-    this.search(this.baseParams).pipe(
-      map((docsList: DocumentModel[]) => docsList.find(doc => `${doc.path}/` === NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH)),
-    ).subscribe(doc => {
-        this.baseFolder = doc;
-    });
+  protected setCurrentDocument(doc: DocumentModel): void {
+    super.setCurrentDocument(doc);
+    if (doc) {
+      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.Write);
+    }
   }
 
   private searchFolders(): void {
@@ -115,7 +106,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_path_eq: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_BASE_FOLDER_TYPE,
     };
   }

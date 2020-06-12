@@ -5,7 +5,7 @@ import { NbToastrService } from '@core/nebular/theme';
 import { Observable, from, Subject, timer } from 'rxjs';
 import { distinctUntilChanged, filter, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd } from '@angular/router';
-import { DocumentModel, AdvanceSearchService, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
+import { DocumentModel, AdvanceSearchService, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
 import { Environment } from '@environment/environment';
 
@@ -22,6 +22,7 @@ export class DocumentPageService {
     private router: Router,
     private location: Location,
     private titleService: Title,
+    private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private toastrService: NbToastrService,
     private advanceSearchService: AdvanceSearchService,
@@ -60,6 +61,18 @@ export class DocumentPageService {
 
   getCurrentDocument(): DocumentModel {
     return this.document;
+  }
+
+  getCurrentUserInfo(): Observable<UserModel> {
+    return this.userService.getCurrentUserInfo();
+  }
+
+  getFavoriteDocument(): Observable<DocumentModel> {
+    return this.userService.getFavoriteDocument();
+  }
+
+  getCurrentUser(): Observable<UserModel> {
+    return this.userService.getCurrentUser();
   }
 
   notify(message: string, title: string, status: string = 'info'): void {

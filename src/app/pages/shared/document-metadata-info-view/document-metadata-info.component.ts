@@ -6,7 +6,7 @@ import { DocumentPageService } from '../services/document-page.service';
 import { DocumentModelForm } from '../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
-import { DocumentModel, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserService, UserModel } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserModel } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -90,7 +90,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     private globalDocumentDialogService: GlobalDocumentDialogService,
     private documentPageService: DocumentPageService,
     private nuxeoApi: NuxeoApiService,
-    private userService: UserService,
   ) { }
 
   ngOnDestroy(): void {
@@ -98,7 +97,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
-    return this.userService.getCurrentUserInfo().pipe(
+    return this.documentPageService.getCurrentUserInfo().pipe(
       concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
         map((permission: boolean) => user.canAccess() && permission === true),
       )),

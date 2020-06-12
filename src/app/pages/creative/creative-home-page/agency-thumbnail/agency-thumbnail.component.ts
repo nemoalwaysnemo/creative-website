@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NuxeoPagination, DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
+import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -30,7 +30,6 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private userService: UserService,
     protected documentPageService: DocumentPageService,
   ) {
   }
@@ -45,7 +44,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
   }
 
   getMyAgency(): void {
-    const subscription = this.userService.getCurrentUserInfo()
+    const subscription = this.documentPageService.getCurrentUserInfo()
       .subscribe((user: UserModel) => {
         if (user.get('companycode')) {
           this.myAgencyFlag = true;

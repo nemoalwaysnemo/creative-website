@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
-import { DocumentModel, UserService, NuxeoPageProviderParams, UserModel } from '@core/api';
+import { DocumentModel, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -18,7 +18,6 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
   startUrl: string = 'https://docs.google.com/forms/d/e/1FAIpQLSec80v5JjUkTTywVUq83U3V8t4sKDzlQnaZHU8A9Y5CYr3yCw/viewform';
 
   constructor(
-    private userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
@@ -46,7 +45,7 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
   }
 
   private searchCurrentAgency(): Observable<DocumentModel> {
-    return this.userService.getCurrentUserInfo().pipe(
+    return this.documentPageService.getCurrentUserInfo().pipe(
       // tap((user: UserModel) => { user.properties['companycode'] = '05001002'; }),
       switchMap((user: UserModel) => this.searchCurrentDocument(this.getSearchParams(user))),
     );

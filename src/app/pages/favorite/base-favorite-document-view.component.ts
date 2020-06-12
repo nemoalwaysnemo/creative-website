@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject, timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DocumentModel, UserService } from '@core/api';
+import { DocumentModel } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService, GlobalDocumentViewComponent } from '@pages/shared';
 
 @Component({
@@ -13,7 +13,6 @@ export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewCompone
   baseParams$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(
-    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -38,7 +37,7 @@ export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewCompone
   }
 
   protected getFavoriteDocument(): Observable<DocumentModel> {
-    return this.userService.getFavoriteDocument().pipe(
+    return this.documentPageService.getFavoriteDocument().pipe(
       tap((doc: DocumentModel) => {
         this.loading = false;
         this.setCurrentDocument(doc);
