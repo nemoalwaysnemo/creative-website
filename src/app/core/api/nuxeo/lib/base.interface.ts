@@ -178,7 +178,7 @@ export class NuxeoPageProviderParams {
 export class NuxeoRequestOptions {
   readonly [key: string]: any;
   readonly skipAggregates?: boolean = true;
-  readonly schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'app_global', 'app_global_fields', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'];
+  readonly schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'app_global', 'app_global_fields', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'];
   readonly enrichers?: {} = {
     document: [
       NuxeoEnricher.document.PREVIEW,

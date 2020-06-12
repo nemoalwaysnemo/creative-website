@@ -208,6 +208,19 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         }
       });
     }
+    // app_Edges:intelligence_category use chack box group
+    // documents.forEach(doc => {
+    //   if (doc.properties['app_Edges:intelligence_category']) {
+    //     const json_prop = doc.properties['app_Edges:intelligence_category'];
+    //     const array_prop = [];
+    //     Object.keys(json_prop).forEach(key => {
+    //       if (json_prop[key]) {
+    //         array_prop.push(key);
+    //       }
+    //     });
+    //     doc.properties['app_Edges:intelligence_category'] = array_prop;
+    //   }
+    // });
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
     });
