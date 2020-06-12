@@ -79,6 +79,10 @@ export class DocumentPageService {
     this.toastrService.show(message, title, { status });
   }
 
+  operation(id: string, params: any = {}, input: string = null, opts: any = null): Observable<any> {
+    return this.advanceSearchService.operation(id, params, input, opts);
+  }
+
   advanceRequest(searchParams: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
     return this.advanceSearchService.request(searchParams, opts, provider);
   }

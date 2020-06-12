@@ -64,6 +64,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.formLayout = layout;
   }
 
+  @Input() beforeSave: Function = (doc: DocumentModel): DocumentModel => doc;
+
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
@@ -208,19 +210,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         }
       });
     }
-    // app_Edges:intelligence_category use chack box group
-    // documents.forEach(doc => {
-    //   if (doc.properties['app_Edges:intelligence_category']) {
-    //     const json_prop = doc.properties['app_Edges:intelligence_category'];
-    //     const array_prop = [];
-    //     Object.keys(json_prop).forEach(key => {
-    //       if (json_prop[key]) {
-    //         array_prop.push(key);
-    //       }
-    //     });
-    //     doc.properties['app_Edges:intelligence_category'] = array_prop;
-    //   }
-    // });
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
     });
@@ -243,12 +232,12 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return forkJoin(documents.map(x => this.createDocument(x)));
   }
 
-  private createDocument(document: DocumentModel): Observable<DocumentModel> {
-    return this.documentRepository.create(document);
+  private createDocument(doc: DocumentModel): Observable<DocumentModel> {
+    return this.documentRepository.create(this.beforeSave.call(this, doc));
   }
 
-  private updateDocument(model: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    return model.set(properties).save();
+  private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {
+    return this.beforeSave.call(this, doc.set(properties)).save();
   }
 
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {

@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { NuxeoApiService, DocumentModel } from '@core/api';
+import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
+import { DocumentPageService } from '../services/document-page.service';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
 
@@ -19,8 +20,8 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
 
   protected documentPath: string;
 
-  constructor(protected nuxeoApi: NuxeoApiService) {
-    super(nuxeoApi);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
