@@ -2,7 +2,7 @@
   <home-search-form [assetUrl]="'/p/intelligence/asset/'" [redirectUrl]="'/p/search/intelligence/asset/'" [headline]="headline" [subHead]="subHead" [settings]="searchFormSettings" [filters]="filters" [searchParams]="defaultParams">
   </home-search-form>
 </div>
-<div class="intelligence-form-button" *ngIf="addChildrenPermission$ | async">
+<div class="intelligence-form-button right" *ngIf="addChildrenPermission$ | async">
   <intelligence-form-button [parent]="document" [type]="'asset'" [title]="'New Document'"></intelligence-form-button>
 </div>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results intelligence-home">

@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
-import { of as observableOf, Observable, Subscription, Subject } from 'rxjs';
+import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
+import { of as observableOf, Observable, Subscription, Subject, zip } from 'rxjs';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
-import { switchMap, tap } from 'rxjs/operators';
+import { DocumentPageService } from '../services/document-page.service';
+import { concatMap, tap } from 'rxjs/operators';
 
 export interface DocumentModelForm {
   metadata: any;
@@ -20,13 +21,15 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   document: DocumentModel;
 
-  formLayout: any = {};
+  currentUser: UserModel;
 
   settings: any[] = [];
 
   accordions: any = {};
 
   formMode: 'create' | 'edit';
+
+  beforeSave: Function = (doc: DocumentModel): DocumentModel => doc;
 
   @Input()
   set documentModel(doc: DocumentModel) {
@@ -44,7 +47,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected documentType: string;
 
-  constructor(protected nuxeoApi: NuxeoApiService) {
+  constructor(protected documentPageService: DocumentPageService) {
     this.onDocumentChanged();
   }
 
@@ -75,7 +78,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
-    return this.nuxeoApi.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
+    return this.documentPageService.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
       .pipe(
         tap((doc: DocumentModel) => {
           doc.setParent(parent);
@@ -107,9 +110,13 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected onDocumentChanged(): void {
-    const subscription = this.document$.pipe(
-      switchMap((doc: DocumentModel) => this.beforeSetDocument(doc)),
-    ).subscribe((doc: DocumentModel) => {
+    const subscription = zip(
+      this.documentPageService.getCurrentUserInfo(),
+      this.document$.pipe(
+        concatMap((doc: DocumentModel) => this.beforeSetDocument(doc)),
+      ),
+    ).subscribe(([user, doc]: [UserModel, DocumentModel]) => {
+      this.currentUser = user;
       this.document = doc;
     });
     this.subscription.add(subscription);

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { NuxeoApiService, DocumentModel } from '@core/api';
+import { DocumentModel } from '@core/api';
+import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
-import { Observable } from 'rxjs';
+import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'creative-asset-campaign-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
 
@@ -15,8 +16,8 @@ export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
 
   protected documentType: string = 'App-Library-Campaign';
 
-  constructor(protected nuxeoApi: NuxeoApiService) {
-    super(nuxeoApi);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {

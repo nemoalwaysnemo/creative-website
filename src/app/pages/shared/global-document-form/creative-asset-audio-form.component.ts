@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { NuxeoApiService, DocumentModel } from '@core/api';
+import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'creative-asset-audio-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [accordions]="accordions" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent {
 
@@ -16,8 +17,8 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
 
   protected documentType: string = 'App-Library-Audio';
 
-  constructor(protected nuxeoApi: NuxeoApiService) {
-    super(nuxeoApi);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {

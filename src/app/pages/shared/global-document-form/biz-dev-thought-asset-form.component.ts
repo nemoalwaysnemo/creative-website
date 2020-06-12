@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { NuxeoApiService, DocumentModel } from '@core/api';
+import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'biz-dev-thought-asset-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class BizDevThoughtAssetFormComponent extends GlobalDocumentFormComponent {
 
@@ -15,8 +16,8 @@ export class BizDevThoughtAssetFormComponent extends GlobalDocumentFormComponent
 
   protected documentType: string = 'App-BizDev-Thought-Asset';
 
-  constructor(protected nuxeoApi: NuxeoApiService) {
-    super(nuxeoApi);
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {

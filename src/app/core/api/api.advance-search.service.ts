@@ -36,6 +36,10 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
+  operation(id: string, params: any = {}, input: string = null, opts: any = null): Observable<any> {
+    return this.nuxeoApi.operation(id, params, input, opts);
+  }
+
   search(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: { [key: string]: any } = {}): Observable<SearchResponse> {
     return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, metadata, source: metadata.source, action: 'beforeSearch' })).pipe(
       concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, metadata, source: metadata.source, action: 'afterSearch' }))))),
