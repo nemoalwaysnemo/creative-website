@@ -11,15 +11,16 @@ import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
-enum assetTypes {
+enum AssetTypes {
   roadmap = 'App-Disruption-Roadmap-Asset',
   day = 'App-Disruption-Day',
-  day_asset = 'App-Disruption-Day-Asset',
+  dayAsset = 'App-Disruption-Day-Asset',
   theory = 'App-Disruption-Theory-Asset',
   thinking = 'App-Disruption-Asset',
-  case_asset = 'App-BizDev-CaseStudy-Asset',
-  thought_asset = 'App-BizDev-Thought-Asset',
-  innovation_asset = 'App-Innovation-Asset',
+  caseAsset = 'App-BizDev-CaseStudy-Asset',
+  thoughtAsset = 'App-BizDev-Thought-Asset',
+  innovationAsset = 'App-Innovation-Asset',
+  intelligenceAsset = 'App-Intelligence-Asset',
 }
 
 @Component({
@@ -79,7 +80,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -128,29 +129,32 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
     switch (doc.type) {
-      case assetTypes.roadmap:
+      case AssetTypes.roadmap:
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM);
         break;
-      case assetTypes.day:
+      case AssetTypes.day:
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_FORM);
         break;
-      case assetTypes.day_asset:
+      case AssetTypes.dayAsset:
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_DAY_ASSET_FORM);
         break;
-      case assetTypes.theory:
+      case AssetTypes.theory:
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM);
         break;
-      case assetTypes.thinking:
+      case AssetTypes.thinking:
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM);
         break;
-      case assetTypes.case_asset:
+      case AssetTypes.caseAsset:
         components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_ASSET_FORM);
         break;
-      case assetTypes.thought_asset:
+      case AssetTypes.thoughtAsset:
         components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM);
         break;
-      case assetTypes.innovation_asset:
+      case AssetTypes.innovationAsset:
         components.push(GLOBAL_DOCUMENT_FORM.INNOVATION_ASSET_FORM);
+        break;
+      case AssetTypes.intelligenceAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.INTELLIGENCE_ASSET_FORM);
         break;
       default:
         break;
@@ -161,28 +165,31 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   getFormTitle(doc: DocumentModel): any {
     let formTitle;
     switch (doc.type) {
-      case assetTypes.roadmap:
+      case AssetTypes.roadmap:
         formTitle = 'Edit Disruption Roadmap';
         break;
-      case assetTypes.day:
+      case AssetTypes.day:
         formTitle = 'Edit Disruption Day';
         break;
-      case assetTypes.day_asset:
+      case AssetTypes.dayAsset:
         formTitle = 'Edit Disruption Day Asset';
         break;
-      case assetTypes.theory:
+      case AssetTypes.theory:
         formTitle = 'Edit Disruption How tos';
         break;
-      case assetTypes.thinking:
+      case AssetTypes.thinking:
         formTitle = 'Edit Things to Steal';
         break;
-      case assetTypes.case_asset:
+      case AssetTypes.caseAsset:
         formTitle = 'Edit Case Study';
         break;
-      case assetTypes.thought_asset:
+      case AssetTypes.thoughtAsset:
         formTitle = 'Edit Think Piece';
         break;
-      case assetTypes.innovation_asset:
+      case AssetTypes.innovationAsset:
+        formTitle = 'Edit Asset';
+        break;
+      case AssetTypes.intelligenceAsset:
         formTitle = 'Edit Asset';
         break;
       default:

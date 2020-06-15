@@ -34,8 +34,6 @@ export class ListSearchFormComponent extends BaseSearchFormComponent {
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
 
-  @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
-
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -58,7 +56,6 @@ export class ListSearchFormComponent extends BaseSearchFormComponent {
 
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
     this.documents = this.listViewBuilder(res.response.entries);
-    this.onResponse.emit(res);
     return observableOf(res);
   }
 
