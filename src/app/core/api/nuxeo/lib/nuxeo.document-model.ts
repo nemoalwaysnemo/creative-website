@@ -11,7 +11,7 @@ export class DocumentModel extends Base {
   private _contextParameters: any;
   private _facets: string;
   private _repository: any;
-  private _parent: DocumentModel;
+  private cache: Map<string, DocumentModel> = new Map<string, DocumentModel>();
 
   uid: string;
   type: string;
@@ -110,33 +110,37 @@ export class DocumentModel extends Base {
     return this._repository.fetch(uid, options);
   }
 
-  setParent(doc: DocumentModel): void {
-    this._parent = doc;
+  setParent(doc: DocumentModel, key: string = 'parent'): void {
+    this.setCache(key, doc);
   }
 
-  getParent(): DocumentModel {
-    return this._parent;
+  getParent(key: string = 'parent'): DocumentModel {
+    return this.getCache(key);
   }
 
-  getParentPropertyByOperation(propertyName: string): Observable<any> {
-    if (this._parent) {
-      return observableOf(this._parent.get(propertyName));
+  getParentPropertyByOperation(propertyName: string, key: string = 'parent'): Observable<any> {
+    if (this.hasCache(key)) {
+      return observableOf(this.getParent(key).get(propertyName));
     }
     const op = this._nuxeo.operation(NuxeoAutomations.GetDocument);
     return op.schemas('*').params({ 'uuid': this.parentRef }).execute().pipe(
-      tap((doc: DocumentModel) => { this._parent = doc; }),
+      tap((doc: DocumentModel) => { this.setParent(doc, key); }),
       map((doc: DocumentModel) => doc.get(propertyName)),
     );
   }
 
-  getParentProperty(propertyName: string): Observable<any> {
-    if (this._parent) {
-      return observableOf(this._parent.get(propertyName));
+  getParentProperty(propertyName: string, key: string = 'parent'): Observable<any> {
+    if (this.hasCache(key)) {
+      return observableOf(this.getParent(key).get(propertyName));
     }
     return this.fetchDocument(this.parentRef).pipe(
-      tap((doc: DocumentModel) => { this._parent = doc; }),
+      tap((doc: DocumentModel) => { this.setParent(doc, key); }),
       map((doc: DocumentModel) => doc.get(propertyName)),
     );
+  }
+
+  filterParents(docType: string[]): DocumentModel[] {
+    return (this.breadcrumb || []).filter((doc: DocumentModel) => docType.includes(doc.type));
   }
 
   get hasAnyContent(): boolean {
@@ -192,7 +196,7 @@ export class DocumentModel extends Base {
 
   get breadcrumb(): DocumentModel[] {
     const documents = this.contextParameters && this.contextParameters.breadcrumb ? this.contextParameters.breadcrumb.entries : [];
-    return documents.map(doc => new DocumentModel(doc));
+    return documents.map((doc: DocumentModel) => new DocumentModel(doc));
   }
 
   get contextParameters(): any {
@@ -322,6 +326,18 @@ export class DocumentModel extends Base {
 
   private getDefaultThumbnail(): string {
     return this.assetPath + 'assets/images/no-thumbnail.png';
+  }
+
+  private getCache(key: string): DocumentModel {
+    return this.cache.get(key);
+  }
+
+  private setCache(key: string, value: any): void {
+    this.cache.set(key, value);
+  }
+
+  private hasCache(key: string): boolean {
+    return this.cache.has(key);
   }
 
 }

@@ -2,22 +2,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { objHasValue } from '@core/services/helpers';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
-import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
-
-export class ListSearchResultRowCustomViewSettings {
-
-  dialogTitle: string = ':docTitle';
-
-  enableClick: boolean = true;
-
-  viewType: 'button' | 'thumbnail' = 'button';
-
-  dialogSettings: GlobalDocumentDialogSettings;
-
-  constructor(data: any = {}) {
-    Object.assign(this, data);
-  }
-}
+import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 
 @Component({
   template: `
@@ -44,14 +29,14 @@ export class ListSearchResultRowCustomViewSettings {
     </ng-container>
   `,
 })
-export class ListSearchResultRowCustomViewComponent {
+export class ListSearchRowCustomDialogComponent {
 
-  options: ListSearchResultRowCustomViewSettings;
+  options: ListSearchRowCustomViewSettings;
 
   @Input() value: DocumentModel;
 
   @Input()
-  set settings(settings: ListSearchResultRowCustomViewSettings) {
+  set settings(settings: ListSearchRowCustomViewSettings) {
     if (objHasValue(settings)) {
       this.options = settings;
     }

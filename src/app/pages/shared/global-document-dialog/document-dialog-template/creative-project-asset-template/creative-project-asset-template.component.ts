@@ -1,9 +1,10 @@
 import { Component, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver, ComponentRef } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { parseTabRoute } from '@core/services/helpers';
+import { DocumentModel } from '@core/api';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { DocumentPageService } from '../../../services/document-page.service';
-import { GlobalDocumentDialogService, DocumentDialogEvent } from '../../global-document-dialog.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { TAB_CONFIG } from './creative-project-asset-template-tab-config';
 
 @Component({
@@ -40,6 +41,16 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
   protected onDestroy(): void {
     this.subscription.unsubscribe();
     this.clearDynamicComponent();
+  }
+
+  protected setDocument(doc: DocumentModel): void {
+    if (doc) {
+      const brand = doc.filterParents(['App-Library-Folder']).pop();
+      if (brand) {
+        doc.setParent(brand, 'brand');
+      }
+      this.document = doc;
+    }
   }
 
   private changeView(component: Type<any>): void {

@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'document-creative-project-info',
-  styleUrls: ['./document-creative-project-info.component.scss'],
+  styleUrls: ['../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-info.component.html',
 })
 export class DocumentCreativeProjectInfoComponent {

@@ -1,4 +1,3 @@
-export * from './document-creative-project-mgt/document-creative-project-mgt.module';
 export * from './document-additional-info-view/document-additional-info.module';
 export * from './document-metadata-info-view/document-metadata-info.module';
 export * from './document-related-agency/document-related-agency.module';
@@ -21,7 +20,6 @@ export * from './services/document-page.service';
 export * from './option-tag/option-tag.module';
 export * from './share-document-button/share-document-button.module';
 export * from './document-action-group/document-action-group.module';
-export * from './list-search-form/list-search-form.module';
 export * from './home-search-form/home-search-form.module';
 export * from './global-search-form/global-search-form.module';
 export * from './global-search-form/global-search-form.interface';
