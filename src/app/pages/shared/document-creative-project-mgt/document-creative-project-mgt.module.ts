@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { DocumentCreativeProjectInfoComponent } from './document-creative-project-info.component';
+import { DocumentCreativeProjectInfoComponent } from './document-creative-project-info/document-creative-project-info.component';
 
 @NgModule({
   imports: [
@@ -14,9 +14,6 @@ import { DocumentCreativeProjectInfoComponent } from './document-creative-projec
   exports: [
     DocumentCreativeProjectInfoComponent,
   ],
-  entryComponents: [
-    DocumentCreativeProjectInfoComponent,
-  ],
 })
-export class DocumentCreativeProjectInfoModule {
+export class DocumentCreativeProjectMgtModule {
 }

@@ -1,4 +1,4 @@
-export * from './document-creative-project-info/document-creative-project-info.module';
+export * from './document-creative-project-mgt/document-creative-project-mgt.module';
 export * from './document-additional-info-view/document-additional-info.module';
 export * from './document-metadata-info-view/document-metadata-info.module';
 export * from './document-related-agency/document-related-agency.module';
