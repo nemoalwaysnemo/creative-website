@@ -8,7 +8,7 @@ import { SharedDirectiveModule } from '../directives/shared-directive.module';
 import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
 import { GlobalSearchFilterModule } from '../global-search-filter/global-search-filter.module';
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
-import { ListSearchResultRowButtonDialogComponent } from './list-search-result-row-button-dialog-component';
+import { ListSearchResultRowCustomViewComponent } from './list-search-result-row-custom-view-component';
 
 @NgModule({
   imports: [
@@ -24,10 +24,10 @@ import { ListSearchResultRowButtonDialogComponent } from './list-search-result-r
   ],
   declarations: [
     ListSearchFormComponent,
-    ListSearchResultRowButtonDialogComponent,
+    ListSearchResultRowCustomViewComponent,
   ],
   entryComponents: [
-    ListSearchResultRowButtonDialogComponent,
+    ListSearchResultRowCustomViewComponent,
   ],
   exports: [
     ListSearchFormComponent,

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
-import { ListSearchResultRowButtonDialogComponent, ListSearchResultRowButtonSettings } from '../../../shared/list-search-form';
+import { ListSearchResultRowCustomViewComponent, ListSearchResultRowCustomViewSettings } from '../../../shared/list-search-form';
 import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog/global-document-dialog.interface';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -55,12 +55,10 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
         title: 'Action',
         sort: false,
         type: 'custom',
-        renderComponentData: new ListSearchResultRowButtonSettings({
-          dialogSettings: new GlobalDocumentDialogSettings({
-            components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_ASSET],
-          }),
+        renderComponentData: new ListSearchResultRowCustomViewSettings({
+          viewType: 'thumbnail',
         }),
-        renderComponent: ListSearchResultRowButtonDialogComponent,
+        renderComponent: ListSearchResultRowCustomViewComponent,
       },
     },
   };
@@ -75,12 +73,14 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
         title: 'Action',
         sort: false,
         type: 'custom',
-        renderComponentData: new ListSearchResultRowButtonSettings({
+        renderComponentData: new ListSearchResultRowCustomViewSettings({
+          viewType: 'button',
+          enableClick: true,
           dialogSettings: new GlobalDocumentDialogSettings({
             components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_ASSET],
           }),
         }),
-        renderComponent: ListSearchResultRowButtonDialogComponent,
+        renderComponent: ListSearchResultRowCustomViewComponent,
       },
     },
   };
@@ -90,6 +90,15 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
       title: {
         title: 'Title',
         sort: false,
+      },
+      action: {
+        title: 'Action',
+        sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchResultRowCustomViewSettings({
+          viewType: 'thumbnail',
+        }),
+        renderComponent: ListSearchResultRowCustomViewComponent,
       },
     },
   };
@@ -124,6 +133,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc.title,
+        action: doc,
       }));
     }
     return items;
