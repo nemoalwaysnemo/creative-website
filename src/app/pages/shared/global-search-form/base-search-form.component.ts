@@ -66,6 +66,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
 
+  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
+
   @Input()
   set settings(settings: GlobalSearchFormSettings) {
     if (objHasValue(settings)) {
@@ -80,19 +82,17 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Output() onSearch = new EventEmitter<SearchResponse>();
-
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
     protected documentPageService: DocumentPageService,
     protected globalSearchFormService: GlobalSearchFormService,
   ) {
-    this.onInit();
+    this.subscribeEvents();
   }
 
   ngOnInit(): void {
-
+    this.onInit();
   }
 
   ngOnDestroy(): void {
@@ -118,6 +118,10 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected onInit(): void {
+
+  }
+
+  protected subscribeEvents(): void {
     this.buildSearchForm();
     this.onSearchPerformed();
     this.onSearchTriggered();
@@ -354,7 +358,6 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     ).subscribe((res: SearchResponse) => {
       this.submitted = true;
       this.loading = true;
-      this.onSearch.emit(res);
     });
     this.subscription.add(subscription);
   }
@@ -363,6 +366,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     const subscription = this.globalSearchFormService.onSearch().pipe(
       filter((res: SearchResponse) => res.action === 'afterSearch' && res.source === this.formSettings.source),
       concatMap((res: SearchResponse) => this.buildSearchFilter(res)),
+      concatMap((res: SearchResponse) => this.afterSearch(res)),
       concatMap((res: SearchResponse) => this.onAfterSearchEvent(res)),
     ).subscribe(({ searchParams, metadata }) => {
       this.performFilterButton(metadata.event, searchParams);
