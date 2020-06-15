@@ -4,10 +4,10 @@ import { ThemeModule } from '@theme/theme.module';
 import { NbDialogModule } from '@core/nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DocumentViewerModule } from '../../document-viewer/document-viewer.module';
+import { DocumentCreativeProjectMgtModule } from '../../document-creative-project-mgt';
 import { ShareDocumentButtonModule } from '../../share-document-button/share-document-button.module';
 import { BackslashHomeAssetDialogPreviewComponent } from './backslash-home-asset-preview/backslash-home-asset-preview.component';
 import { DocumentBackslashInfoModule } from '../../document-backslash-info/document-backslash-info.module';
-import { DocumentCreativeProjectInfoModule } from '../../document-creative-project-info/document-creative-project-info.module';
 import { RelatedBackslashAssetDialogPreviewComponent } from './related-backslash-asset-preview/related-backslash-asset-preview.component';
 import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-preview/disruption-asset-preview.component';
 import { DocumentDialogConfirmationTemplateComponent } from './document-confirmation-template/document-confirmation-template.component';
@@ -45,7 +45,7 @@ const COMPONENTS = [
     DocumentViewerModule,
     ShareDocumentButtonModule,
     DocumentBackslashInfoModule,
-    DocumentCreativeProjectInfoModule,
+    DocumentCreativeProjectMgtModule,
   ],
   declarations: [
     ...COMPONENTS,
