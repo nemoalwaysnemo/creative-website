@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf, zip, timer } from 'rxjs';
-import { filter, debounceTime, distinctUntilChanged, switchMap, map, startWith, pairwise, concatMap, tap, takeWhile } from 'rxjs/operators';
+import { filter, debounceTime, distinctUntilChanged, switchMap, map, startWith, pairwise, concatMap } from 'rxjs/operators';
+import { removeUselessObject, getPathPartOfUrl, objHasValue, selectObjectByKeys, filterParams, convertToBoolean } from '@core/services/helpers';
 import { SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { GlobalSearchFormService, GlobalSearchFormEvent } from './global-search-form.service';
 import { DocumentPageService } from '../services/document-page.service';
-import { removeUselessObject, getPathPartOfUrl, objHasValue, selectObjectByKeys, filterParams } from '@core/services/helpers';
 import { GlobalSearchFormSettings } from './global-search-form.interface';
 
 export class SearchParams {
@@ -61,6 +61,10 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected allowedLinkParams: string[] = [
     'app_global_networkshare',
   ];
+
+  protected allowedSettingsParams: {} = {
+    'showFilter': convertToBoolean,
+  };
 
   @Input() filters: SearchFilterModel[] = [];
 
@@ -195,7 +199,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
   // set params to form
   protected setDefaultFormParams(params: any = {}): void {
-    if (params && Object.keys(params).length > 0) {
+    if (objHasValue(params)) {
       for (const key in params) {
         if (params.hasOwnProperty(key) && this.allowedLinkParams.includes(key)) {
           this.addControlToSearchForm(key, params[key]);
@@ -203,6 +207,18 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  protected performSettingsParams(params: any = {}): void {
+    if (objHasValue(params)) {
+      for (const key in params) {
+        const func = this.allowedSettingsParams[key];
+        if (func && params.hasOwnProperty(key)) {
+          this.formSettings[key] = func.call(this, params[key]);
+        }
+      }
+    }
+  }
+
   // cache params
   protected setInputSearchParams(params: any = {}): void {
     if (params) {
@@ -214,8 +230,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     return this.inputSearchParams;
   }
 
-  protected buildQueryParams(): any {
-    return this.buildQueryParamsValue(this.getFormValue(), ['q', 'aggregates', 'currentPageIndex'].concat(this.allowedLinkParams));
+  protected buildQueryParams(additionalParams: any = {}): any {
+    return Object.assign(additionalParams, this.buildQueryParamsValue(this.getFormValue(), ['q', 'aggregates', 'currentPageIndex'].concat(this.allowedLinkParams)));
   }
 
   protected buildQueryParamsValue(formValue: any = {}, allowedParams: string[] = []): any {
@@ -276,6 +292,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     ).subscribe((data: any) => {
       this.setInputSearchParams(data.searchParams);
       this.setDefaultFormParams(data.queryParams);
+      this.performSettingsParams(data.queryParams);
       this.onSearchParamsChanged(data.searchParams, data.queryParams, 'onSearchParamsInitialized');
     });
     this.subscription.add(subscription);
@@ -289,6 +306,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       filter((list: any[]) => this.formSettings.enableQueryParams && this.enableQueryParamsChange && !list[0]),
     ).subscribe(([_, queryParams]: [boolean, Params]) => {
       this.setDefaultFormParams(queryParams);
+      this.performSettingsParams(queryParams);
       this.onSearchParamsChanged({}, queryParams, 'onQueryParamsChanged');
     });
     this.subscription.add(subscription);
@@ -331,10 +349,11 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
         break;
     }
     this.patchFormValue({ currentPageIndex: 0 });
-    const searchParams = removeUselessObject(params.params, ['q', 'id', 'folder']);
+    const func = (k: string, v: any): boolean => (['q', 'id', 'folder'].includes(k) || this.allowedSettingsParams[k]);
+    const searchParams = removeUselessObject(params.params, func);
     params.metadata['event'] = params.event;
     params.metadata['source'] = this.formSettings.source;
-    params.metadata['searchParams'] = this.buildQueryParams();
+    params.metadata['searchParams'] = removeUselessObject(this.buildQueryParams(), func);
     return this.search(searchParams, params.metadata);
   }
 

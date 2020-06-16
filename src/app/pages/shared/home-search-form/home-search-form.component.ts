@@ -36,7 +36,9 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
 
   @Input() assetUrl: string;
 
-  @Input() assetUrlMapping: object = {};
+  @Input() assetUrlMapping: any = {};
+
+  @Input() openSearchFilter: boolean = false;
 
   @Input() redirectUrl: string;
 
@@ -70,7 +72,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   onKeyEnter(event: KeyboardEvent): void {
-    const params = this.buildQueryParams();
+    const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
     this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();

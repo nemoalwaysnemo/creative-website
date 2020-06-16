@@ -15,6 +15,8 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   loading: boolean = true;
 
+  openSearchFilter: boolean = true;
+
   headline = 'All brains on deck.';
 
   subHead = 'Before we disrupt, we do our homework.';
