@@ -199,7 +199,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     if (this.documentType === 'Brands') {
       this.filters = [
         new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
-        new SearchFilterModel({ key: 'app_edges_relevant_country', placeholder: 'Geography', iteration: true }),
+        new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
         new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
       ];
     } else {

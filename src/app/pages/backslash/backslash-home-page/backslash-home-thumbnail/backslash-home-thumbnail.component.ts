@@ -26,9 +26,9 @@ export class BackslashHomeThumbnailComponent {
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
-    new SearchFilterModel({ key: 'app_edges_backslash_type', placeholder: 'Type' }),
+    new SearchFilterModel({ key: 'app_edges_backslash_type_agg', placeholder: 'Type' }),
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
-    new SearchFilterModel({ key: 'app_edges_relevant_country', placeholder: 'Geography', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
   ];
