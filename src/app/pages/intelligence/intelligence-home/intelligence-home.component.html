@@ -5,6 +5,7 @@
 <div class="intelligence-form-button right" *ngIf="addChildrenPermission$ | async">
   <intelligence-form-button [parent]="document" [type]="'asset'" [title]="'New Document'"></intelligence-form-button>
 </div>
+<div class="clear"></div>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results intelligence-home">
   <div *ngFor="let doc of folders" class="thumbnail-view-item">
     <div class="description">
