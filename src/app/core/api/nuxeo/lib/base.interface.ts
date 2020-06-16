@@ -320,6 +320,7 @@ export enum NuxeoAutomations {
   DirectorySuggestEntries = 'Directory.SuggestEntries',
   UserGroupSuggestion = 'UserGroup.Suggestion',
   TagSuggestion = 'Tag.Suggestion',
+  GetCurrentUser = 'User.Get',
   RepositoryPageProvider = 'Repository.PageProvider',
   ContentViewPageProvider = 'ContentView.PageProvider',
   InitializeDocument = 'Document.Initialize',

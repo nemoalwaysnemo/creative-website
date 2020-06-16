@@ -45,7 +45,7 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
   }
 
   private searchCurrentAgency(): Observable<DocumentModel> {
-    return this.documentPageService.getCurrentUserInfo().pipe(
+    return this.documentPageService.getCurrentUser().pipe(
       // tap((user: UserModel) => { user.properties['companycode'] = '05001002'; }),
       switchMap((user: UserModel) => this.searchCurrentDocument(this.getSearchParams(user))),
     );
@@ -56,7 +56,7 @@ export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
       pageSize: 1,
       ecm_fulltext: '',
       currentPageIndex: 0,
-      the_loupe_main_companycode: user.get('companycode'), // 05001002
+      the_loupe_main_companycode: user.companycode, // 05001002
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     };

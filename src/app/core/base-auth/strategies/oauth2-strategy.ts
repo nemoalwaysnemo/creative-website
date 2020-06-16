@@ -402,7 +402,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
       const item = part.split('=');
       acc[item[0]] = decodeURIComponent(item[1]);
       return acc;
-    },                                   {}) : {};
+    }, {}) : {};
   }
 
   protected urlEncodeParameters(params: any): string {

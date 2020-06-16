@@ -44,9 +44,9 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
   }
 
   getMyAgency(): void {
-    const subscription = this.documentPageService.getCurrentUserInfo()
+    const subscription = this.documentPageService.getCurrentUser()
       .subscribe((user: UserModel) => {
-        if (user.get('companycode')) {
+        if (user.companycode) {
           this.myAgencyFlag = true;
         }
       });

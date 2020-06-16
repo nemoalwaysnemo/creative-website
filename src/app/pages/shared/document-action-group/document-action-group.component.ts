@@ -77,7 +77,7 @@ export class DocumentActionGroupComponent {
     return combineLatest(
       doc.hasPermission(NuxeoPermission.ReadWrite),
       doc.hasPermission(NuxeoPermission.Everything),
-      this.documentPageService.getCurrentUserInfo().pipe(
+      this.documentPageService.getCurrentUser().pipe(
         concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
           map((permission: boolean) => user.canAccess() && permission === true),
         )),

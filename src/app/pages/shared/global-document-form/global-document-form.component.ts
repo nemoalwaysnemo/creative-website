@@ -111,7 +111,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected onDocumentChanged(): void {
     const subscription = zip(
-      this.documentPageService.getCurrentUserInfo(),
+      this.documentPageService.getCurrentUser(),
       this.document$.pipe(
         concatMap((doc: DocumentModel) => this.beforeSetDocument(doc)),
       ),

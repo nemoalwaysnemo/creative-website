@@ -63,10 +63,6 @@ export class DocumentPageService {
     return this.document;
   }
 
-  getCurrentUserInfo(): Observable<UserModel> {
-    return this.userService.getCurrentUserInfo();
-  }
-
   getFavoriteDocument(): Observable<DocumentModel> {
     return this.userService.getFavoriteDocument();
   }
