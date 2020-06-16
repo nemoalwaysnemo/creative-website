@@ -47,7 +47,7 @@ export class NbAuthService {
    * If not, calls the strategy refreshToken, and returns isAuthenticated() if success, false otherwise
    * @returns {Observable<boolean>}
    */
-  isAuthenticatedOrRefresh(): Observable<boolean> {
+  isAuthenticatedOrRefresh1(): Observable<boolean> {
     return this.getToken()
       .pipe(
         switchMap(token => {
@@ -66,6 +66,24 @@ export class NbAuthService {
           return observableOf(token.isValid());
         }
     }));
+  }
+
+  isAuthenticatedOrRefresh(): Observable<boolean> {
+    return this.getToken()
+      .pipe(
+        switchMap(token => {
+          return this.refreshToken(token.getOwnerStrategyName(), token)
+            .pipe(
+              switchMap(res => {
+                if (res.isSuccess()) {
+                  return this.isAuthenticated();
+                } else {
+                  return observableOf(false);
+                }
+              }),
+            );
+
+        }));
   }
 
   /**
