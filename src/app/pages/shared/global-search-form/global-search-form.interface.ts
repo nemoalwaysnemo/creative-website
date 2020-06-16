@@ -5,6 +5,8 @@ export class GlobalSearchFormSettings {
 
   enableSearchInput: boolean = true;
 
+  showFilter: boolean = false;
+
   searchGroupPosition: string = 'left';
 
   buttonGroupPosition: string = 'left';

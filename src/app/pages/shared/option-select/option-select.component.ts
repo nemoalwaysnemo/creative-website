@@ -20,6 +20,8 @@ export type TitleMap = Map<string, string>;
 })
 export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  placeholder: string = '';
+
   disabled: boolean = false;
 
   loading: boolean = false;
@@ -55,6 +57,7 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   ngOnInit(): void {
+    this.placeholder = this.configs.placeholder;
   }
 
   ngOnDestroy(): void {
@@ -68,10 +71,16 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
     }
   }
 
+  customSearchFn(term: string, item: OptionModel): boolean {
+    return (new RegExp(term, 'i')).test(item.value);
+  }
+
   onOpen(): void {
+    this.placeholder = 'Search';
   }
 
   onClose(): void {
+    this.placeholder = this.configs.placeholder;
   }
 
   onClear(): void {

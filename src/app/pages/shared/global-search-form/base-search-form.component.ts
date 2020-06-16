@@ -250,7 +250,9 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected performFilterButton(event: string, params: NuxeoPageProviderParams): void {
-    if (['onSearchParamsInitialized', 'onSearchParamsChanged', 'onQueryParamsChanged'].includes(event)) {
+    if (this.formSettings.showFilter) {
+      this.showFilter = true;
+    } else if (['onSearchParamsInitialized', 'onSearchParamsChanged', 'onQueryParamsChanged'].includes(event)) {
       this.showFilter = params.hasFilters();
     }
   }
