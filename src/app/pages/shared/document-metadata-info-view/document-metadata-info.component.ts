@@ -98,7 +98,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
-    return this.documentPageService.getCurrentUserInfo().pipe(
+    return this.documentPageService.getCurrentUser().pipe(
       concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
         map((permission: boolean) => user.canAccess() && permission === true),
       )),

@@ -11,6 +11,10 @@ export class UserModel {
     return this.get('username');
   }
 
+  get companycode(): string {
+    return this.get('companycode');
+  }
+
   get properties(): any {
     return this._properties;
   }
@@ -20,7 +24,7 @@ export class UserModel {
   }
 
   get(propertyName: string): any {
-    return this.properties[propertyName];
+    return this.properties[`user:${propertyName}`];
   }
 
   hasGroup(groupName: string): boolean {
@@ -36,7 +40,7 @@ export class UserModel {
   }
 
   getRole(): any {
-    const groups = this.get('groups').join(',');
+    const groups = this.get('groups');
     if (this.isAdmin() && (groups.includes('-CN-Dalian-') || groups.includes('-IN-Noida-') || groups.includes('-US-New York-'))) {
       return UserRole.Developer;
     } else if (this.isAdmin()) {

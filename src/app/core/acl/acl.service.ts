@@ -43,7 +43,7 @@ export class ACLService {
   }
 
   private performPermissions(): Observable<UserModel> {
-    return this.userService.getCurrentUserInfo().pipe(
+    return this.userService.getCurrentUser().pipe(
       tap((user: UserModel) => {
         this.permissionsService.loadPermissions(user.getRole().permissions);
       }),
