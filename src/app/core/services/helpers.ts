@@ -223,8 +223,12 @@ export function selectObjectByKeys(p: object = {}, keys: string[] = []): any {
   return _;
 }
 
-export function removeUselessObject(p: object = {}, keys: string[] = []): any {
-  keys.forEach((k) => { p.hasOwnProperty(k) ? delete p[k] : null; });
+export function removeUselessObject(p: object = {}, keys: string[] | Function = []): any {
+  if (typeof keys === 'function') {
+    Object.keys(p).filter((k: string) => keys.call(this, k, p[k])).forEach((k: string) => delete p[k]);
+  } else {
+    keys.filter((k: string) => p.hasOwnProperty(k)).forEach((k: string) => delete p[k]);
+  }
   return p;
 }
 
@@ -262,4 +266,12 @@ export function parseCountry(list: string[]): string {
 
 export function objHasValue(obj: any = {}): boolean {
   return obj && Object.keys(obj).length > 0;
+}
+
+export function convertToBoolean(val: any): boolean {
+  if (typeof val === 'string') {
+    val = val.toLowerCase().trim();
+    return (val === 'true' || val === '');
+  }
+  return !!val;
 }
