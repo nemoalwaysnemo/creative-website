@@ -16,7 +16,9 @@ export class OptionModel {
 export class OptionSettings {
   [key: string]: any;
   placeholder: string = 'Please select value';
+  editableSearchTerm: boolean = false;
   closeOnSelect: boolean = false;
+  hideSelected: boolean = false;
   iteration: boolean = false;
   bufferSize: number = 50;
   options: OptionModel[] = [];
