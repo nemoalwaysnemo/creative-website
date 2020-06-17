@@ -47,7 +47,7 @@ export class NbAuthService {
    * If not, calls the strategy refreshToken, and returns isAuthenticated() if success, false otherwise
    * @returns {Observable<boolean>}
    */
-  isAuthenticatedOrRefresh(): Observable<boolean> {
+  isAuthenticatedOrRefresh1(): Observable<boolean> {
     return this.getToken()
       .pipe(
         switchMap(token => {
@@ -66,6 +66,28 @@ export class NbAuthService {
           return observableOf(token.isValid());
         }
     }));
+  }
+
+  isAuthenticatedOrRefresh(): Observable<boolean> {
+    return this.getToken()
+      .pipe(
+        switchMap(token => {
+          if ((token.getValue() && !token.isValid()) || (this.tokenExpiresInTenMinutes(token))) {
+            return this.refreshToken(token.getOwnerStrategyName(), token)
+              .pipe(
+                switchMap(res => {
+                  if (res.isSuccess()) {
+                    return this.isAuthenticated();
+                  } else {
+                    return observableOf(false);
+                  }
+                }),
+              );
+          } else {
+            return observableOf(token.isValid());
+          }
+        }),
+      );
   }
 
   /**
@@ -178,5 +200,9 @@ export class NbAuthService {
     }
 
     return observableOf(result);
+  }
+
+  private tokenExpiresInTenMinutes(token): boolean {
+    return (Math.floor((token.getTokenExpDate().getTime() - new Date(Date.now()).getTime()) / 1000 / 60) <= 10) ? true : false;
   }
 }
