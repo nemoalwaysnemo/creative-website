@@ -202,10 +202,21 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
         new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
         new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
       ];
+    } else if (this.documentType === 'Consumer') {
+      this.filters = [
+        new SearchFilterModel({ key: 'nxtag_tags_agg', placeholder: 'Tag' }),
+        new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
+        new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+        new SearchFilterModel({ key: 'app_edges_intelligence_type_agg', placeholder: 'Intelligence Type' }),
+        new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+      ];
     } else {
       this.filters = [
-        new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+        new SearchFilterModel({ key: 'nxtag_tags_agg', placeholder: 'Tag'}),
         new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+        new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
+        new SearchFilterModel({ key: 'app_edges_intelligence_type_agg', placeholder: 'Intelligence Type' }),
+        new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
       ];
     }
   }
