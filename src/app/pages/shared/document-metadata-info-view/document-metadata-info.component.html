@@ -50,6 +50,14 @@
               <td>{{ documentModel.get('The_Loupe_Main:agency') }}</td>
               <td>{{ documentModel.get('The_Loupe_Main:brand') }}</td>
             </tr>
+            <tr *ngIf="isIntelligenceAsset(documentModel)">
+              <th>Tags</th>
+              <th></th>
+            </tr>
+             <tr *ngIf="isIntelligenceAsset(documentModel)">
+               <td>{{getTags()}}</td>
+               <td></td>
+             </tr>
           </tbody>
         </table>
         <ng-container *ngIf="deletePermission$ | async">

@@ -265,6 +265,16 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:agency',
+        label: 'Agency',
+        settings: {
+          multiple: false,
+          placeholder: 'Please select agency',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
+      }),
       new DynamicInputModel({
         id: 'app_Edges:project_name',
         label: 'Project Name',
@@ -316,11 +326,36 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         placeholder: 'Drop Image/PDF/Video File(s) here!',
         acceptTypes: 'image/*,.pdf,.mp4',
       }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        layoutPosition: 'right',
+        queueLimit: 1,
+        placeholder: 'Drop Image/PDF here!',
+        acceptTypes: 'image/*,.pdf',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        layoutPosition: 'right',
+        queueLimit: 1,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+      }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
         multiUpload: true,
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'bottom',
+        formMode: 'edit',
+        showInputs: false,
+        multiUpload: false,
       }),
     ];
   }

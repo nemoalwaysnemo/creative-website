@@ -88,12 +88,13 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   ];
 
   intelligenceFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'ecm_tag_agg', placeholder: 'Tag' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
-    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
+    new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
-    new SearchFilterModel({ key: 'app_Edges:intelligence_type', placeholder: 'Intelligence Type' }),
+    new SearchFilterModel({ key: 'app_edges_intelligence_type_agg', placeholder: 'Intelligence Type' }),
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    new SearchFilterModel({ key: 'app_Edges:backslash_category', placeholder: 'Backslash Category' }),
+    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Backslash Category' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
