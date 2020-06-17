@@ -6,7 +6,7 @@ import { DocumentPageService } from '../services/document-page.service';
 import { DocumentModelForm } from '../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
-import { DocumentModel, NuxeoPagination, NuxeoAutomations, NuxeoApiService, NuxeoPermission, UserModel } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoAutomations, NuxeoPermission, UserModel } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -90,7 +90,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   constructor(
     private globalDocumentDialogService: GlobalDocumentDialogService,
     private documentPageService: DocumentPageService,
-    private nuxeoApi: NuxeoApiService,
   ) { }
 
   ngOnDestroy(): void {
@@ -224,7 +223,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   private getUsageRightsStatus(doc: DocumentModel): void {
     this.usageLoading = true;
-    const subscription = this.nuxeoApi.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': doc.uid })
+    const subscription = this.documentPageService.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': doc.uid })
       .subscribe((res: NuxeoPagination) => {
         this.usageRights = res.entries.shift();
         this.usageLoading = false;

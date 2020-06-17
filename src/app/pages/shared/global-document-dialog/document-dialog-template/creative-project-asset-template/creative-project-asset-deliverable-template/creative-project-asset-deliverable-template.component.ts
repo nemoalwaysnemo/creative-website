@@ -8,13 +8,4 @@ import { CreativeProjectAssetBaseTemplateComponent } from '../creative-project-a
 })
 export class CreativeProjectAssetDeliverableTemplateComponent extends CreativeProjectAssetBaseTemplateComponent {
 
-  tabs: any[] = [
-    {
-      title: 'New Package',
-    },
-    {
-      title: 'Delivery Packages',
-    },
-  ];
-
 }

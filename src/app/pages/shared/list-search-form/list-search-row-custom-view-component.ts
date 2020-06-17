@@ -6,8 +6,15 @@ import { ListSearchRowCustomViewSettings } from './list-search-form.interface';
 @Component({
   template: `
     <ng-container *ngIf="value" [ngSwitch]="true">
+
       <ng-container *ngSwitchCase="options.viewType === 'thumbnail'">
         <img style="max-height:100px;" [src]="value.thumbnailUrl">
+      </ng-container>
+
+       <ng-container *ngSwitchDefault>
+        <div class="list-search-form-custom-view-template">
+          <ng-template #customViewTemplate [ngTemplateOutlet]="options.templateRef" [ngTemplateOutletContext]="{doc: value}"></ng-template>
+        </div>
       </ng-container>
     </ng-container>
   `,
