@@ -21,7 +21,7 @@ export const TAB_CONFIG: NbMenuItem[] = [
   },
   {
     title: 'Usage Rights',
-    componet: CreativeProjectAssetUsageRightsTemplateComponent,
+    component: CreativeProjectAssetUsageRightsTemplateComponent,
   },
   {
     title: 'ISCI',

@@ -51,21 +51,21 @@ export class NbAuthService {
     return this.getToken()
       .pipe(
         switchMap(token => {
-        if (token.getValue() && !token.isValid()) {
-          return this.refreshToken(token.getOwnerStrategyName(), token)
-            .pipe(
-              switchMap(res => {
-                if (res.isSuccess()) {
-                  return this.isAuthenticated();
-                } else {
-                  return observableOf(false);
-                }
-              }),
-            );
-        } else {
-          return observableOf(token.isValid());
-        }
-    }));
+          if (token.getValue() && !token.isValid()) {
+            return this.refreshToken(token.getOwnerStrategyName(), token)
+              .pipe(
+                switchMap(res => {
+                  if (res.isSuccess()) {
+                    return this.isAuthenticated();
+                  } else {
+                    return observableOf(false);
+                  }
+                }),
+              );
+          } else {
+            return observableOf(token.isValid());
+          }
+        }));
   }
 
   isAuthenticatedOrRefresh(): Observable<boolean> {
@@ -202,7 +202,7 @@ export class NbAuthService {
     return observableOf(result);
   }
 
-  private tokenExpiresInTenMinutes(token): boolean {
-    return (Math.floor((token.getTokenExpDate().getTime() - new Date(Date.now()).getTime()) / 1000 / 60) <= 10) ? true : false;
+  private tokenExpiresInTenMinutes(token: NbAuthToken): boolean {
+    return Math.floor((token.getTokenExpDate().getTime() - new Date(Date.now()).getTime()) / 1000 / 60) <= 10;
   }
 }
