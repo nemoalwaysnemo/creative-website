@@ -136,7 +136,7 @@ export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
         settings: {
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
+          providerName: 'GLOBAL_Geography_TBWA',
         },
       }),
       new DynamicDatepickerDirectiveModel<string>({
