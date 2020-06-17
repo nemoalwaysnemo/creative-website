@@ -72,18 +72,22 @@ export class NbAuthService {
     return this.getToken()
       .pipe(
         switchMap(token => {
-          return this.refreshToken(token.getOwnerStrategyName(), token)
-            .pipe(
-              switchMap(res => {
-                if (res.isSuccess()) {
-                  return this.isAuthenticated();
-                } else {
-                  return observableOf(false);
-                }
-              }),
-            );
-
-        }));
+          if ((token.getValue() && !token.isValid()) || (this.tokenExpiresInTenMinutes(token))) {
+            return this.refreshToken(token.getOwnerStrategyName(), token)
+              .pipe(
+                switchMap(res => {
+                  if (res.isSuccess()) {
+                    return this.isAuthenticated();
+                  } else {
+                    return observableOf(false);
+                  }
+                }),
+              );
+          } else {
+            return observableOf(token.isValid());
+          }
+        }),
+      );
   }
 
   /**
@@ -196,5 +200,9 @@ export class NbAuthService {
     }
 
     return observableOf(result);
+  }
+
+  private tokenExpiresInTenMinutes(token): boolean {
+    return (Math.floor((token.getTokenExpDate().getTime() - new Date(Date.now()).getTime()) / 1000 / 60) <= 10) ? true : false;
   }
 }
