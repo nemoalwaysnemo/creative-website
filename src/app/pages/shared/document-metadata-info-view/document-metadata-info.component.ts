@@ -272,4 +272,8 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     const brandId = this.libraryFolder[this.libraryFolder.length - 1].uid;
     this.documentPageService.navigate([`/p/creative/brand/${brandId}/asset`]);
   }
+
+  getTags(): string {
+    return this.documentModel.get('nxtag:tags').map(tag => tag.label).join(', ') ;
+  }
 }
