@@ -36,6 +36,8 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
     doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: any) => {
       if (!isString(tag)) {
         return tag.label;
+      } else {
+        return tag;
       }
     });
     return doc;
