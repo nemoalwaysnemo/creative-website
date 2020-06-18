@@ -3,6 +3,8 @@ import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-d
 
 export class ListSearchRowCustomViewSettings {
 
+  [key: string]: any;
+
   dialogTitle: string = ':docTitle';
 
   templateRef: TemplateRef<any>;

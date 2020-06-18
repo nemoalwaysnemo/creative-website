@@ -228,7 +228,7 @@ const prepareOAuth2Token = (data) => {
  */
 export class NbAuthOAuth2Token extends NbAuthSimpleToken {
 
-  static NAME = 'gcl:auth:oauth2:token';
+  static NAME = 'oauth2:token';
 
   constructor(data: { [key: string]: string | number } | string = {},
               strategyName: string,

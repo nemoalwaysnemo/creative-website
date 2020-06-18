@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel, SearchResponse, AdvanceSearchService, NuxeoAutomations, NuxeoPagination } from '@core/api';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
-import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'document-creative-project-usage-rights',
@@ -57,6 +57,10 @@ export class DocumentCreativeProjectUsageRightsComponent {
     return items;
   }
 
+  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+    return this.getUsageRightsStatus(res);
+  }
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
@@ -66,14 +70,9 @@ export class DocumentCreativeProjectUsageRightsComponent {
     }
   }
 
-  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
-    return this.getUsageRightsStatus(res);
-  }
-
   constructor(
     private advanceSearchService: AdvanceSearchService,
   ) { }
-
 
   onSelected(row: any): void {
 
@@ -99,16 +98,14 @@ export class DocumentCreativeProjectUsageRightsComponent {
   protected getUsageRightsStatus(res: SearchResponse): Observable<SearchResponse> {
     const uids: string[] = res.response.entries.map((doc: DocumentModel) => doc.uid);
     if (uids.length > 0) {
-      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': `${uids.join(',')}` }).pipe(
-        tap(_ => {
-          console.log(_);
+      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': `${uids.join(',')}`, 'entityType': 'contract' }).pipe(
+        map((response: NuxeoPagination) => {
+          res.response.entries.forEach((doc: DocumentModel) => {
+            const status = response.entries.find((x: any) => x.uuid === doc.uid);
+            doc.properties['_usage_rights_'] = status || {};
+          });
+          return res;
         }),
-        // map((response: NuxeoPagination) => {
-        //   response.entries.forEach((doc: DocumentModel) => {
-
-        //   });
-        //   return res;
-        // }),
       );
     }
     return observableOf(res);

@@ -20,7 +20,7 @@ export class CacheService {
 
   get(key: string, fallback?: Observable<any>, maxAge?: number): Observable<any> | Subject<any> {
     if (this.hasValidCachedValue(key)) {
-      console.log(`%cGetting from cache ${key}`, 'color: green');
+      // console.log(`%cGetting from cache ${key}`, 'color: green');
       return observableOf(this.cache.get(key).value);
     }
     if (!maxAge) {
@@ -30,7 +30,7 @@ export class CacheService {
       return this.inFlightObservables.get(key);
     } else if (fallback && fallback instanceof Observable) {
       this.inFlightObservables.set(key, new Subject());
-      console.log(`%c Calling api for ${key}`, 'color: purple');
+      // console.log(`%c Calling api for ${key}`, 'color: purple');
       return fallback.pipe(tap((value) => { this.set(key, value, maxAge); }));
     } else {
       return throwError('Requested key is not available in Cache');
@@ -51,7 +51,7 @@ export class CacheService {
       const inFlight = this.inFlightObservables.get(key);
       const observersCount = inFlight.observers.length;
       if (observersCount) {
-        console.log(`%cNotifying ${inFlight.observers.length} flight subscribers for ${key}`, 'color: blue');
+        // console.log(`%cNotifying ${inFlight.observers.length} flight subscribers for ${key}`, 'color: blue');
         inFlight.next(value);
       }
       inFlight.complete();
