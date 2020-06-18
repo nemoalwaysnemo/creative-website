@@ -47,6 +47,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   });
 
   listViewSettingsCampaign: any = {
+    hideSubHeader: true,
     columns: {
       title: {
         title: 'Title',
@@ -65,6 +66,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   };
 
   listViewSettingsProject: any = {
+    hideSubHeader: true,
     columns: {
       title: {
         title: 'Title',
@@ -87,6 +89,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   };
 
   listViewSettingsAsset: any = {
+    hideSubHeader: true,
     columns: {
       title: {
         title: 'Title',

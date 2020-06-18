@@ -27,6 +27,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
   });
 
   listViewSettings: any = {
+    hideSubHeader: true,
     columns: {
       title: {
         title: 'Title',

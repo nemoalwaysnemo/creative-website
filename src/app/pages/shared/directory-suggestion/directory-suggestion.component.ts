@@ -35,6 +35,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   selectedItems: OptionModel[] = [];
 
+  placeholder: string = '';
+
   @Input() document: DocumentModel;
 
   @Input() settings: SuggestionSettings = new SuggestionSettings();
@@ -71,6 +73,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   ngOnInit(): void {
+    this.placeholder = this.settings.placeholder;
     if (this.settings.viewType === 'suggestion') {
       this.onSearchTriggered();
       if (this.settings.initSearch) {
@@ -101,6 +104,14 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  onOpen(): void {
+    this.placeholder = this.settings.prompt;
+  }
+
+  onClose(): void {
+    this.placeholder = this.settings.placeholder;
   }
 
   getViewType(): string {
