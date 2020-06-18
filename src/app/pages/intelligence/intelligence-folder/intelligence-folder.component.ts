@@ -204,7 +204,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       ];
     } else if (this.documentType === 'Consumer') {
       this.filters = [
-        new SearchFilterModel({ key: 'nxtag_tags_agg', placeholder: 'Tag' }),
+        new SearchFilterModel({ key: 'ecm_tag', placeholder: 'Tag' }),
         new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
         new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
         new SearchFilterModel({ key: 'app_edges_intelligence_type_agg', placeholder: 'Intelligence Type' }),
@@ -212,7 +212,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       ];
     } else {
       this.filters = [
-        new SearchFilterModel({ key: 'nxtag_tags_agg', placeholder: 'Tag'}),
+        new SearchFilterModel({ key: 'ecm_tag', placeholder: 'Tag'}),
         new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
         new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
         new SearchFilterModel({ key: 'app_edges_intelligence_type_agg', placeholder: 'Intelligence Type' }),
