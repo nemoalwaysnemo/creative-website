@@ -81,6 +81,18 @@ export class DisruptionDayAssetFormComponent extends GlobalDocumentFormComponent
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:Relevant_Country',
+        label: 'Geography',
+        required: true,
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Geography_TBWA',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Published',
