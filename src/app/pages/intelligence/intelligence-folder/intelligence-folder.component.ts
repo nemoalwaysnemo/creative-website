@@ -116,7 +116,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
 
   protected buildIndustryParams(doc: DocumentModel, keyword?: string): any {
     const params = {
-      quickFilters: NuxeoQuickFilters.Alphabetically,
+      quickFilters: `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`,
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
@@ -134,7 +134,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
 
   protected buildIndustryAssetsParams(doc: DocumentModel): any {
     const params = {
-      quickFilters: NuxeoQuickFilters.Alphabetically,
+      quickFilters: `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`,
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
@@ -152,7 +152,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       const industries: string[] = this.getDocumentIndustries(res.response);
       if (industries.length > 0) {
         const params = {
-          quickFilters: NuxeoQuickFilters.Alphabetically,
+          quickFilters: `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`,
           ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
           ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
           app_edges_industry_any: '["' + industries.join('", "') + '"]',
@@ -177,7 +177,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
           app_edges_industry: `["${industries.join('", "')}"]`,
           ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
           ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
-          quickFilters: NuxeoQuickFilters.Alphabetically,
+          quickFilters: `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`,
         };
         return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params));
       }
