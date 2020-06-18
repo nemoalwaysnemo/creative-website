@@ -12,6 +12,7 @@ import {
   DynamicCheckboxModel,
   DynamicCheckboxGroupModel,
   DynamicRadioGroupModel,
+  isString,
 } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
@@ -33,7 +34,9 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
 
   protected buildTags(doc: DocumentModel): any {
     doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: any) => {
-      return tag.label;
+      if (!isString(tag)) {
+        return tag.label;
+      }
     });
     return doc;
   }
