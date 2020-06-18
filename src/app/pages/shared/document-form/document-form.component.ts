@@ -5,6 +5,7 @@ import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, D
 import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
 import { deepExtend } from '@core/services/helpers';
 import { DocumentFormEvent } from './document-form.interface';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'document-form',
@@ -223,6 +224,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         delete properties['files:files'];
       }
     }
+
+    if (this.documentModel.properties['nxtag:tags'] && properties['nxtag:tags']) {
+      this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
+    }
+
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
       this.callback.next(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
     });
@@ -237,7 +243,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    return this.beforeSave.call(this, doc.set(properties)).save();
+    const updateDoc = this.beforeSave.call(this, doc);
+    if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
+      properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
+    }
+    return updateDoc.set(properties).save();
   }
 
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {

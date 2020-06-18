@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import {
   DynamicBatchUploadModel,
   DynamicInputModel,
@@ -16,6 +16,7 @@ import {
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentPageService } from '../services/document-page.service';
+import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'intelligence-asset-form',
@@ -30,6 +31,13 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
     return doc;
   }
 
+  protected buildTags(doc: DocumentModel): any {
+    doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: any) => {
+      return tag.label;
+    });
+    return doc;
+  }
+
   protected documentType: string = 'App-Intelligence-Asset';
 
   constructor(protected documentPageService: DocumentPageService) {
@@ -38,6 +46,11 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  protected beforeOnEdit(doc: DocumentModel): Observable<DocumentModel> {
+    this.buildTags(doc);
+    return observableOf(doc);
   }
 
   protected getSettings(): object[] {
@@ -59,15 +72,12 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
           minLength: 'At least 4 characters',
         },
       }),
-      new DynamicSuggestionModel<string>({
+      new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
         label: 'know\\egde',
-        settings: {
-          multiple: false,
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Edges-Asset-Type',
-        },
+        hidden: true,
+        defaultValue: 'Intelligence',
+        required: false,
       }),
       // new DynamicRadioGroupModel<string>({
       //   id: 'The_Loupe_Main:assettype',
@@ -93,7 +103,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
       // }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:intelligence_category',
-        label: 'Intelligence Category ',
+        label: 'Intelligence Category',
         required: true,
         settings: {
           placeholder: 'Select a value',
@@ -210,13 +220,12 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'nxtag:tags',
         label: 'Tag',
+        required: false,
         settings: {
           addTag: (name: string) => ({ label: name, value: name }),
           placeholder: 'Select/Add a tag',
           providerType: SuggestionSettings.TAG,
         },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Relevant_Country',
@@ -274,18 +283,6 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Agencies',
         },
-      }),
-      new DynamicInputModel({
-        id: 'app_Edges:project_name',
-        label: 'Project Name',
-        maxLength: 50,
-        placeholder: 'Project Name',
-      }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:clientName',
-        label: 'Client',
-        required: false,
-        placeholder: 'Client',
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
