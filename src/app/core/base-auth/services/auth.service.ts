@@ -21,8 +21,7 @@ import { NbAuthToken } from './token/token';
 @Injectable()
 export class NbAuthService {
 
-  constructor(protected tokenService: NbTokenService,
-              @Inject(NB_AUTH_STRATEGIES) protected strategies) {
+  constructor(protected tokenService: NbTokenService, @Inject(NB_AUTH_STRATEGIES) protected strategies) {
   }
 
   /**
@@ -38,8 +37,7 @@ export class NbAuthService {
    * @returns {Observable<boolean>}
    */
   isAuthenticated(): Observable<boolean> {
-    return this.getToken()
-      .pipe(map((token: NbAuthToken) => token.isValid()));
+    return this.getToken().pipe(map((token: NbAuthToken) => token.isValid()));
   }
 
   /**
@@ -47,32 +45,11 @@ export class NbAuthService {
    * If not, calls the strategy refreshToken, and returns isAuthenticated() if success, false otherwise
    * @returns {Observable<boolean>}
    */
-  isAuthenticatedOrRefresh1(): Observable<boolean> {
-    return this.getToken()
-      .pipe(
-        switchMap(token => {
-          if (token.getValue() && !token.isValid()) {
-            return this.refreshToken(token.getOwnerStrategyName(), token)
-              .pipe(
-                switchMap(res => {
-                  if (res.isSuccess()) {
-                    return this.isAuthenticated();
-                  } else {
-                    return observableOf(false);
-                  }
-                }),
-              );
-          } else {
-            return observableOf(token.isValid());
-          }
-        }));
-  }
-
   isAuthenticatedOrRefresh(): Observable<boolean> {
     return this.getToken()
       .pipe(
-        switchMap(token => {
-          if ((token.getValue() && !token.isValid()) || (this.tokenExpiresInTenMinutes(token))) {
+        switchMap((token: NbAuthToken) => {
+          if ((token.getValue() && !token.isValid()) || (this.tokenExpiresInMinutes(token, 10))) {
             return this.refreshToken(token.getOwnerStrategyName(), token)
               .pipe(
                 switchMap(res => {
@@ -142,8 +119,7 @@ export class NbAuthService {
       .pipe(
         switchMap((result: NbAuthResult) => {
           if (result.isSuccess()) {
-            this.tokenService.clear()
-              .pipe(map(() => result));
+            this.tokenService.clear().pipe(map(() => result));
           }
           return observableOf(result);
         }),
@@ -161,8 +137,8 @@ export class NbAuthService {
    * @param data
    * @returns {Observable<NbAuthResult>}
    */
-  refreshToken(strategyName: string, data?: any): Observable<NbAuthResult> {
-    return this.getStrategy(strategyName).refreshToken(data)
+  refreshToken(strategyName: string, token: NbAuthToken): Observable<NbAuthResult> {
+    return this.getStrategy(strategyName).refreshToken(token)
       .pipe(
         switchMap((result: NbAuthResult) => {
           return this.processResultToken(result);
@@ -202,7 +178,7 @@ export class NbAuthService {
     return observableOf(result);
   }
 
-  private tokenExpiresInTenMinutes(token: NbAuthToken): boolean {
-    return Math.floor((token.getTokenExpDate().getTime() - new Date(Date.now()).getTime()) / 1000 / 60) <= 10;
+  private tokenExpiresInMinutes(token: NbAuthToken, mins: number): boolean {
+    return Math.floor((token.getTokenExpDate().getTime() - new Date(Date.now()).getTime()) / 1000 / 60) <= mins;
   }
 }

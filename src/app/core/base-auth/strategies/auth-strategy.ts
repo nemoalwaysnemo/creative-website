@@ -25,7 +25,7 @@ export abstract class NbAuthStrategy {
   }
 
   createToken<T extends NbAuthToken>(value: any, failWhenInvalidToken?: boolean): T {
-    const token =  nbAuthCreateToken<T>(this.getOption('token.class'), value, this.getName());
+    const token = nbAuthCreateToken<T>(this.getOption('token.class'), value, this.getName());
     // At this point, nbAuthCreateToken failed with NbAuthIllegalTokenError which MUST be intercepted by strategies
     // Or token is created. It MAY be created even if backend did not return any token, in this case it is !Valid
     if (failWhenInvalidToken && !token.isValid()) {

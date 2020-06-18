@@ -21,7 +21,7 @@ import {
   NbOAuth2AuthStrategyOptions,
   NbOAuth2ResponseType,
   auth2StrategyOptions,
-  NbOAuth2GrantType, NbOAuth2ClientAuthMethod,
+  NbOAuth2ClientAuthMethod,
 } from './oauth2-strategy.options';
 import { NbAuthStrategyClass } from '../base-auth.options';
 
@@ -184,9 +184,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
 
   protected defaultOptions: NbOAuth2AuthStrategyOptions = auth2StrategyOptions;
 
-  constructor(protected http: HttpClient,
-              protected route: ActivatedRoute,
-              @Inject(NB_WINDOW) protected window: any) {
+  constructor(protected http: HttpClient, protected route: ActivatedRoute, @Inject(NB_WINDOW) protected window: any) {
     super();
   }
 
@@ -323,12 +321,10 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
   protected buildAuthHeader(): any {
     if (this.clientAuthMethod === NbOAuth2ClientAuthMethod.BASIC) {
       if (this.getOption('clientId') && this.getOption('clientSecret')) {
-        return new HttpHeaders(
-          {
-            'Authorization': 'Basic ' + btoa(
-              this.getOption('clientId') + ':' + this.getOption('clientSecret')),
-          },
-        );
+        return new HttpHeaders({
+          'Authorization': 'Basic ' + btoa(
+            this.getOption('clientId') + ':' + this.getOption('clientSecret')),
+        });
       } else {
         throw Error('For basic client authentication method, please provide both clientId & clientSecret.');
       }

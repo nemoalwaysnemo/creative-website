@@ -7,7 +7,7 @@ export abstract class NbTokenStorage {
 
   abstract get(): NbAuthToken;
   abstract set(token: NbAuthToken);
-  abstract clear();
+  abstract clear(): void;
 }
 
 /**

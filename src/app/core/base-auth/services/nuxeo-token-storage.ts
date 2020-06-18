@@ -5,7 +5,7 @@ import { NbTokenStorage, NbAuthTokenParceler, NbAuthToken } from '../services';
 @Injectable()
 export class NuxeoTokenStorage extends NbTokenStorage {
 
-  protected key = 'knowledge_token';
+  protected key = 'knowledgeToken';
 
   constructor(private parceler: NbAuthTokenParceler, private cookieService: CookieService) {
     super();
@@ -21,7 +21,7 @@ export class NuxeoTokenStorage extends NbTokenStorage {
     this.cookieService.set(this.key, raw, token.getTokenExpDate(), '/', undefined, true, 'Lax');
   }
 
-  clear() {
+  clear(): void {
     this.cookieService.deleteAll();
   }
 }

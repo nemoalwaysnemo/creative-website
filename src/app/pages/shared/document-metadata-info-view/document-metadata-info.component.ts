@@ -223,7 +223,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   private getUsageRightsStatus(doc: DocumentModel): void {
     this.usageLoading = true;
-    const subscription = this.documentPageService.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': doc.uid })
+    const subscription = this.documentPageService.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': doc.uid, 'entityType': 'asset' })
       .subscribe((res: NuxeoPagination) => {
         this.usageRights = res.entries.shift();
         this.usageLoading = false;
