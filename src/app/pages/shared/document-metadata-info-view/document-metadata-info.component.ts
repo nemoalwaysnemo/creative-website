@@ -273,6 +273,13 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   }
 
   getTags(): string {
-    return this.documentModel.get('nxtag:tags').map(tag => tag.label).join(', ') ;
+    const tags = this.documentModel.get('nxtag:tags');
+    return tags.map(tag => {
+      if (typeof (tag) === 'string') {
+        return tag;
+      } else {
+        return tag.label;
+      }
+    }).join(', ');
   }
 }
