@@ -15,6 +15,7 @@ export class OptionModel {
 
 export class OptionSettings {
   [key: string]: any;
+  prompt: string = 'Search';
   placeholder: string = 'Please select value';
   editableSearchTerm: boolean = false;
   closeOnSelect: boolean = false;

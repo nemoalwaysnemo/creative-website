@@ -10,6 +10,7 @@ export class SuggestionSettings {
 
   readonly viewType: 'suggestion' | 'list' = 'suggestion';
   readonly placeholder: string = 'Please select value';
+  readonly prompt: string = 'Search';
   readonly addTag: boolean | Function = false;
   readonly contains: boolean = true;
   readonly filterParent: boolean = true;

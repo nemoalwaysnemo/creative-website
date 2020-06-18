@@ -4,7 +4,7 @@
       <ng-select
         [addTag]="settings.addTag"
         [items]="options$ | async"
-        [placeholder]="settings.placeholder"
+        [placeholder]="placeholder"
         [selectOnTab]="true"
         [disabled]="disabled"
         [multiple]="settings.multiple"
@@ -18,6 +18,8 @@
         [(ngModel)]="selectedItems"
         (change)="onChange($event)"
         (blur)="onBlur($event)"
+        (open)="onOpen()"
+        (close)="onClose()"
       >
         <ng-template ng-label-tmp let-item="item" let-clear="clear">
           <span class="ng-value-icon left" (click)="clear.call(this, item);" aria-hidden="true">×</span>
@@ -31,7 +33,7 @@
     <ng-container *ngSwitchCase="getViewType() === 'list'">
       <ng-select
         [items]="options$ | async"
-        [placeholder]="settings.placeholder"
+        [placeholder]="placeholder"
         [selectOnTab]="true"
         [disabled]="disabled"
         [multiple]="settings.multiple"
@@ -44,6 +46,8 @@
         [(ngModel)]="selectedItems"
         (change)="onChange($event)"
         (blur)="onBlur($event)"
+        (open)="onOpen()"
+        (close)="onClose()"
       >
       <ng-template ng-option-tmp let-item="item">
         <div class="{{item.deep}}">{{item.label}}</div>

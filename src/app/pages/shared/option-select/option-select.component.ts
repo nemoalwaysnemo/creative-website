@@ -76,7 +76,7 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   onOpen(): void {
-    this.placeholder = 'Search';
+    this.placeholder = this.configs.prompt;
   }
 
   onClose(): void {
