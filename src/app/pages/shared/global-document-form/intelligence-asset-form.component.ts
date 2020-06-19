@@ -315,10 +315,6 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
           providerName: 'App-Edges-Edges',
         },
       }),
-      new DynamicCheckboxModel({
-        id: 'app_Edges:client_accessible',
-        label: 'Client Accessible ',
-      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
