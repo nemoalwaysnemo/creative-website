@@ -247,7 +247,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Published',
-        placeholder: 'Published',
+        placeholder: 'Published on',
         readonly: false,
         required: true,
         validators: {
