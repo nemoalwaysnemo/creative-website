@@ -43,7 +43,6 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for roadmaps, disruption days and how-tos...',
-    autoSearch: false,
   });
 
   defaultParams: any = {
