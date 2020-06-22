@@ -153,6 +153,8 @@ export class NuxeoPageProviderParams {
   production_date?: string; // production_date: '["lastYear"]',
   ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
 
+  private fulltextKey: string = 'ecm_fulltext';
+
   constructor(opts: any = {}) {
     Object.assign(this, opts);
   }
@@ -167,6 +169,42 @@ export class NuxeoPageProviderParams {
 
   hasFilter(agg: string): boolean {
     return Object.getOwnPropertyNames(this).some((key: string) => key.includes(agg));
+  }
+
+  setFulltextKey(key: string): void {
+    this.fulltextKey = key;
+  }
+
+  getFulltextKey(): string {
+    return this.fulltextKey;
+  }
+
+  toParams(): any {
+    const params: any = {};
+    for (const [key, value] of Object.entries(this)) {
+      if (key === 'ecm_fulltext') {
+        params[this.getFulltextKey()] = value;
+      } else {
+        params[key] = value;
+      }
+    }
+    delete params['fulltextKey'];
+    return params;
+  }
+
+  toQueryParams(): any {
+    const params: any = {};
+    const keys = ['ecm_fulltext', 'currentPageIndex'];
+    for (const [key, value] of Object.entries(this)) {
+      if (keys.includes(key) || key.includes('_agg')) {
+        if (key === 'ecm_fulltext') {
+          params['q'] = value;
+        } else {
+          params[key] = value;
+        }
+      }
+    }
+    return params;
   }
 
   get ecm_fulltext_wildcard(): string {

@@ -57,13 +57,15 @@ export class GlobalSearchFormService {
     this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams, metadata }));
   }
 
-  private googleAnalyticsTrackEvent(metadata: any): void {
-    this.googleAnalyticsService.trackSearch({
-      'event_category': 'Search',
-      'event_action': `Search - ${metadata.event}`,
-      'event_label': `Search - ${metadata.event}`,
-      queryParams: metadata.searchParams,
-    });
+  private googleAnalyticsTrackEvent(metadata: any = {}): void {
+    if (['onKeywordChanged', 'onFilterChanged'].includes(metadata.event)) {
+      this.googleAnalyticsService.trackSearch({
+        'event_category': 'Search',
+        'event_action': `Search - ${metadata.event}`,
+        'event_label': `Search - ${metadata.event}`,
+        queryParams: metadata.searchParams,
+      });
+    }
   }
 
 }

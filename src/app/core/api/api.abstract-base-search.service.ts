@@ -22,7 +22,7 @@ export abstract class AbstractBaseSearchService {
     if (!options.hasOwnProperty('ecm_path') && !options.hasOwnProperty('ecm_path_eq')) {
       searchTerm.ecm_path = NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH;
     } else if (options.hasOwnProperty('ecm_path_eq')) {
-      options.ecm_path_eq = '/' + options.ecm_path_eq.split('/').filter(x => x.trim()).join('/');
+      options.ecm_path_eq = '/' + options.ecm_path_eq.split('/').filter((x: string) => x.trim()).join('/');
     }
     const searchParams: NuxeoPageProviderParams = deepExtend(new NuxeoPageProviderParams(), this.defaultParams, options, searchTerm);
     if (searchParams.hasOwnProperty('ecm_mixinType') || !searchParams['ecm_mixinType_not_in']) {
