@@ -1,9 +1,9 @@
 import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of as observableOf, forkJoin } from 'rxjs';
+import { Observable, of as observableOf, forkJoin, Subject, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NuxeoPagination, NuxeoPageProviderParams, SearchFilterModel, DocumentModel, NuxeoPermission } from '@core/api';
-import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, GlobalSearchSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -17,13 +17,17 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   openSearchFilter: boolean = true;
 
-  headline = 'All brains on deck.';
+  headline: string = 'All brains on deck.';
 
-  subHead = 'Before we disrupt, we do our homework.';
+  subHead: string = 'Before we disrupt, we do our homework.';
+
+  placeholder: string = 'Search in title, description and tags only...';
 
   folders: DocumentModel[] = [];
 
   brands: DocumentModel[] = [];
+
+  baseParams$: Subject<any> = new Subject<any>();
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
@@ -42,16 +46,8 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for marketing reports, data, research...',
-    fulltextKey: 'intelligence_fulltext',
+    autoSearch: false,
   });
-
-  defaultParams: any = {
-    pageSize: 20,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
-    ecm_fulltext: '',
-  };
 
   private folderParams: any = {
     pageSize: 3,
@@ -79,6 +75,19 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
     this.searchFolders();
+    this.triggerSearch();
+  }
+
+
+  onKeyEnter(event: KeyboardEvent): void {
+    // const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
+    // this.redirectToListPage(params);
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+
+  onKeyup(event: any): void {
+    this.triggerSearch(event.target.value.trim(), new GlobalSearchSettings({ fulltextKey: 'intelligence_fulltext' }));
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -86,6 +95,24 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     if (doc) {
       this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.Write);
     }
+  }
+
+  private triggerSearch(searchTerm: string = '', settings?: GlobalSearchSettings) {
+    timer(0).subscribe(() => { this.baseParams$.next(this.buildSearchParams(searchTerm, settings)); });
+  }
+
+  private buildSearchParams(searchTerm: string = '', settings?: GlobalSearchSettings): any {
+    const params = {
+      pageSize: 20,
+      currentPageIndex: 0,
+      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
+      ecm_fulltext: searchTerm,
+    };
+    if (settings) {
+      params['searchSettings'] = settings;
+    }
+    return params;
   }
 
   private searchFolders(): void {

@@ -53,7 +53,11 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
     ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
   };
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({ placeholder: 'Search for anything...', enableQueryParams: false });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    placeholder: 'Search for anything...',
+    enableQueryParams: false,
+    autoSearch: false,
+  });
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
