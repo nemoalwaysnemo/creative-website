@@ -1,12 +1,14 @@
 <div class="list-search-form">
   <form class="global-search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
-    <div [ngClass]="['search-group', formSettings.searchGroupPosition]">
-      <ng-container *ngIf="formSettings.enableSearchInput">
-        <div [ngClass]="['search-input', 'global-search-input', formSettings.searchGroupPosition]">
-          <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
-        </div>
-      </ng-container>
+    <div class="search-filters left">
+      <ng-content select=".group-left"></ng-content>
+    </div>
 
+    <div class="button-groups left">
+      <ng-content select=".group-right"></ng-content>
+    </div>
+
+    <div [ngClass]="['search-group', formSettings.searchGroupPosition, 'right']">
       <ng-container *ngIf="hasFilters()">
         <div [ngClass]="['search-filters', 'global-search-filters', formSettings.searchGroupPosition]">
           <button type="button" (click)="toggleFilter()" class="advanced-filters-trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filter</button>
@@ -14,12 +16,14 @@
       </ng-container>
     </div>
 
-    <div class="search-filters left">
-      <ng-content select=".group-left"></ng-content>
-    </div>
+    <div class="clear"></div>
 
-    <div class="button-groups right">
-      <ng-content select=".group-right"></ng-content>
+    <div [ngClass]="['search-group', formSettings.searchGroupPosition, 'search-box']">
+      <ng-container *ngIf="formSettings.enableSearchInput">
+        <div [ngClass]="['search-input', 'global-search-input', formSettings.searchGroupPosition, 'search-box']">
+          <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
+        </div>
+      </ng-container>
     </div>
 
     <div class="clear"></div>

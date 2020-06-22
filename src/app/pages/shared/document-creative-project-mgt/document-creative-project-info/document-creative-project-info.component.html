@@ -1,5 +1,25 @@
 <ng-container *ngIf="doc">
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled">
-    {{ doc.title }}
+    <h2>{{ doc.title }}</h2>
+    <h4>{{ doc.get('The_Loupe_Main:description') }}</h4>
+    <div class="details">
+      <p><b>Campaign</b></p>
+      <p><b>Live Date</b>
+        <span> {{ doc.get('The_Loupe_Main:liveDate2') }}</span>
+      </p>
+      <p><b>Start Date</b>
+        <span></span>
+      </p>
+      <p><b>Agency</b><br>
+        <span> {{ doc.get('The_Loupe_Main:agency') }}</span>
+      </p>
+      <p><b>Agency Country</b><br>
+        <span> {{ doc.get('The_Loupe_Main:country') }}</span>
+      </p>
+      <p><b>Client</b><br>
+        <span> {{ doc.get('The_Loupe_Main:clientName').join(', ') }} </span>
+      </p>
+      <p class="pull-right">Edit</p>
+    </div>
   </div>
 </ng-container>

@@ -5,16 +5,16 @@
   <div class="clear"></div>
 </div>
 <div class="dialog-body">
-  <div class="creative-project-asset-template-container">
-    <div class="left">
-      <div class="project-info">
+  <div class="creative-project-asset-template-container row col-12">
+    <div class="col-4">
+      <div class="project-info left">
         <document-creative-project-info [document]="document"></document-creative-project-info>
       </div>
       <div class="project-menu">
         <nb-menu [items]="tabs" (itemClick)="onMenuClick($event)"></nb-menu>
       </div>
     </div>
-    <div class="right">
+    <div class="col-8">
       <div class="project-dynamic-component">
         <ng-template #dynamicTarget></ng-template>
       </div>
