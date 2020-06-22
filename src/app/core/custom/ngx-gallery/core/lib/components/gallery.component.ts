@@ -183,7 +183,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   onCustomEvent(e: any): void {
     const { event } = e;
     this.customEvent.emit(e);
-    if (event.api && event.api.getDefaultMedia().state === 'play' || event.api.fsAPI.isFullscreen) {
+    if (event.api && event.state === 'play' || event.api.fsAPI.isFullscreen) {
       this.galleryRef.stop();
     }
   }
