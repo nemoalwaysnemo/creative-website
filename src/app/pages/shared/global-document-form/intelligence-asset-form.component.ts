@@ -111,7 +111,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         label: 'Intelligence Category',
         required: true,
         settings: {
-          placeholder: 'Select a value',
+          placeholder: 'Select Intelligence Category',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Intelligence-Category',
         },
@@ -146,7 +146,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         required: true,
         settings: {
           multiple: false,
-          placeholder: 'Select a value',
+          placeholder: 'Select Intelligence Type',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Intelligence-Type',
         },
@@ -190,11 +190,11 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
       // }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:internal_external',
-        label: 'internal/external',
+        label: 'Internal/External',
         required: true,
         settings: {
           multiple: false,
-          placeholder: 'Select a value',
+          placeholder: 'Select Internal/External',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_internal-external',
         },
@@ -237,7 +237,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         label: 'Geography',
         required: true,
         settings: {
-          placeholder: 'Select a value',
+          placeholder: 'Select Geography',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Geography_TBWA',
         },
@@ -247,7 +247,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
         label: 'Published',
-        placeholder: 'Published',
+        placeholder: 'Published on',
         readonly: false,
         required: true,
         validators: {
@@ -272,7 +272,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         label: 'Industry',
         required: true,
         settings: {
-          placeholder: 'Select a value',
+          placeholder: 'Select Industry',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Industries',
         },
@@ -284,7 +284,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         label: 'Agency',
         settings: {
           multiple: false,
-          placeholder: 'Please select agency',
+          placeholder: 'Select Agency',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Agencies',
         },
@@ -297,10 +297,10 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
-        label: 'Edge Category',
+        label: 'Backslash Category',
         required: false,
         settings: {
-          placeholder: 'Select a value',
+          placeholder: 'Select Backslash Category',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Backslash-Categories',
         },
@@ -310,7 +310,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         label: 'Edges',
         required: false,
         settings: {
-          placeholder: 'Select a value',
+          placeholder: 'Select Edges',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
         },

@@ -10,13 +10,13 @@
     <button type="button" (click)="toggleFilter()" class="filter_trigger" [ngClass]="{'show': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters
       +</button>
   </section>
-  <div class="search-filters left">
-    <ng-content></ng-content>
-  </div>
   <div class="clear"></div>
   <ng-container *ngIf="hasFilters() && showFilter">
-    <global-search-filter formControlName="aggregates" [filterSettings]="filters" [searchResponse]="searchResponse$ | async" [disableControl]="submitted" (selected)="onFilterSelected($event)" (preventHideDoc)="preventHide($event)">
-    </global-search-filter>
+    <div class="search-filters">
+      <ng-content select=".filters"></ng-content>
+      <global-search-filter formControlName="aggregates" [filterSettings]="filters" [searchResponse]="searchResponse$ | async" [disableControl]="submitted" (selected)="onFilterSelected($event)" (preventHideDoc)="preventHide($event)">
+      </global-search-filter>
+    </div>
   </ng-container>
 </form>
 <ng-template #thumbnailItemView let-doc="doc">
