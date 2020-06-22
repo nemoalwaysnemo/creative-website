@@ -210,7 +210,6 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       this.searchSettings = new GlobalSearchSettings(params.searchSettings);
       delete params.searchSettings;
     }
-
   }
   // set params to form
   protected setDefaultFormParams(params: any = {}): void {
@@ -304,15 +303,12 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected onInputParamsChanged(): void {
     const subscription = this.searchParams$.pipe(
       map((searchParams: any) => ({ searchParams, queryParams: this.documentPageService.getSnapshotQueryParams() })),
-      tap(({ searchParams, queryParams }: any) => {
-        this.performSearchParams(searchParams);
-        this.setInputSearchParams(searchParams);
-        this.setDefaultFormParams(queryParams);
-        this.performSettingsParams(queryParams);
-      }),
-      skip(this.getFormSettings('autoSearch') ? 0 : 1),
-    ).subscribe((data: any) => {
-      this.onSearchParamsChanged(data.searchParams, data.queryParams, 'onSearchParamsInitialized');
+    ).subscribe(({ searchParams, queryParams }: any) => {
+      this.performSearchParams(searchParams);
+      this.setInputSearchParams(searchParams);
+      this.setDefaultFormParams(queryParams);
+      this.performSettingsParams(queryParams);
+      this.onSearchParamsChanged(searchParams, queryParams, 'onSearchParamsInitialized');
     });
     this.subscription.add(subscription);
   }
@@ -353,7 +349,9 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       case 'onSearchParamsChanged':
       case 'onPageNumberChanged':
       case 'onSearchParamsInitialized':
-        this.patchFormValue(params.params); // should update form params for changing input value
+        if (this.getFormSettings('syncFormValue')) {
+          this.patchFormValue(params.params); // should update form params for changing input value
+        }
         break;
       default:
         break;
@@ -382,7 +380,9 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     metadata['searchParams'] = params.toQueryParams();
     const options = new NuxeoRequestOptions({ skipAggregates: false });
     const { searchParams, opts } = this.beforeSearch.call(this, params, options);
-    return this.globalSearchFormService.advanceSearch(this.getFormSettings('pageProvider'), searchParams, opts, metadata);
+    const pageProvider = this.getFormSettings('pageProvider');
+    this.performSearchParams(searchParams);
+    return this.globalSearchFormService.advanceSearch(pageProvider, searchParams, opts, metadata);
   }
 
   protected triggerSearch(searchParams: any = {}, event: string, metadata: any = {}): void {

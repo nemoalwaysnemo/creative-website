@@ -1,9 +1,9 @@
 
 export class GlobalSearchSettings {
 
-  fulltextKey: string = 'ecm_fulltext';
+  syncFormValue: boolean = true;
 
-  source: string = 'global-search-form';
+  fulltextKey: string = 'ecm_fulltext';
 
   pageProvider: string = 'creative_website_search';
 
@@ -20,12 +20,16 @@ export class GlobalSearchFormSettings extends GlobalSearchSettings {
 
   showFilter: boolean = false;
 
-  autoSearch: boolean = true;
-
   searchGroupPosition: string = 'left';
 
   buttonGroupPosition: string = 'left';
 
   placeholder: string = 'Search for...';
 
+  source: string = 'global-search-form';
+
+  constructor(data: any = {}) {
+    super(data);
+    Object.assign(this, data);
+  }
 }

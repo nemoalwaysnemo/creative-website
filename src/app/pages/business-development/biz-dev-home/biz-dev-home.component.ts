@@ -64,7 +64,6 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for anything...',
-    autoSearch: false,
   });
 
   constructor(

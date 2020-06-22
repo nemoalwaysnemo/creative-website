@@ -56,7 +56,6 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for anything...',
     enableQueryParams: false,
-    autoSearch: false,
   });
 
   constructor(protected documentPageService: DocumentPageService) {

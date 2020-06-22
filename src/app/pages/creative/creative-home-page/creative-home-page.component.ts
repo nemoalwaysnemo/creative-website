@@ -36,7 +36,6 @@ export class CreativeHomePageComponent extends BaseDocumentViewComponent {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for campaigns by title, agency, brand, client...',
-    autoSearch: false,
   });
 
   constructor(protected documentPageService: DocumentPageService) {

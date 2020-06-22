@@ -46,7 +46,6 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for marketing reports, data, research...',
-    autoSearch: false,
   });
 
   private folderParams: any = {
@@ -87,7 +86,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
   }
 
   onKeyup(event: any): void {
-    this.triggerSearch(event.target.value.trim(), new GlobalSearchSettings({ fulltextKey: 'intelligence_fulltext' }));
+    this.triggerSearch(event.target.value.trim(), new GlobalSearchSettings({ fulltextKey: 'intelligence_fulltext', syncFormValue: false }));
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
