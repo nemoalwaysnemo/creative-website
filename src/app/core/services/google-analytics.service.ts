@@ -70,7 +70,7 @@ export class GoogleAnalyticsService {
         'event_category': e.event_category || 'Search',
         'event_action': e.event_action || 'Search',
         'event_label': e.event_label || e.event_action,
-        'event_value': `${url}`,
+        'event_value': `${encodeURIComponent(url)}`,
       });
       event = removeUselessObject(event, ['queryParams']);
       this.trackEvent(event);

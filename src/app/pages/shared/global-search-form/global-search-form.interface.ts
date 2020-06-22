@@ -7,6 +7,8 @@ export class GlobalSearchFormSettings {
 
   showFilter: boolean = false;
 
+  fulltextKey: string = 'ecm_fulltext';
+
   searchGroupPosition: string = 'left';
 
   buttonGroupPosition: string = 'left';

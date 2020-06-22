@@ -42,6 +42,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for marketing reports, data, research...',
+    fulltextKey: 'intelligence_fulltext',
   });
 
   defaultParams: any = {
