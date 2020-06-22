@@ -1,6 +1,9 @@
 <div class="intelligence-home-form">
   <home-search-form [openSearchFilter]="openSearchFilter" [assetUrl]="'/p/intelligence/asset/'" [redirectUrl]="'/p/search/intelligence/asset/'" [headline]="headline" [subHead]="subHead" [settings]="searchFormSettings" [filters]="filters"
-    [searchParams]="defaultParams">
+    [searchParams]="baseParams$ | async">
+    <div class="filters">
+      <input class="keyword" autofocus [placeholder]="placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)" />
+    </div>
   </home-search-form>
 </div>
 <div class="intelligence-form-button right" *ngIf="addChildrenPermission$ | async">
