@@ -76,3 +76,30 @@
     }
   }
 }
+
+.filters {
+  background: #ebebeb;
+  padding: 20px 29px 0;
+
+  .keyword {
+    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+    width: 100%;
+    font-weight: bolder;
+    font-size: x-large;
+    padding: 0 15px;
+    height: 50px;
+  }
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: black;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: black;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: black;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: black;
+}
