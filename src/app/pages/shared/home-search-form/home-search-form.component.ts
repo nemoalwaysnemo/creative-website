@@ -87,9 +87,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   toggleFilter(): void {
-    if (!this.submitted) {
-      this.showFilter = !this.showFilter;
-    }
+    super.toggleFilter();
     this.preventDocHide = true;
   }
 

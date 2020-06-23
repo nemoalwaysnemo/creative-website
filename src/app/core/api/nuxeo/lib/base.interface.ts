@@ -1,4 +1,4 @@
-import { join } from '../../../services/helpers';
+import { join, objHasValue } from '../../../services/helpers';
 import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';
@@ -153,10 +153,30 @@ export class NuxeoPageProviderParams {
   production_date?: string; // production_date: '["lastYear"]',
   ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
 
-  private fulltextKey: string = 'ecm_fulltext';
+  private settings: any = {};
 
   constructor(opts: any = {}) {
+    this.update(opts);
+  }
+
+  update(opts: any = {}): this {
     Object.assign(this, opts);
+    return this;
+  }
+
+  hasSettings(): boolean {
+    return objHasValue(this.settings);
+  }
+
+  setSettings(opts: any = {}): this {
+    if (objHasValue(opts)) {
+      Object.assign(this.settings, opts);
+    }
+    return this;
+  }
+
+  getSettings(key?: string): any {
+    return key ? this.settings[key] : this.settings;
   }
 
   hasKeyword(): boolean {
@@ -171,24 +191,33 @@ export class NuxeoPageProviderParams {
     return Object.getOwnPropertyNames(this).some((key: string) => key.includes(agg));
   }
 
-  setFulltextKey(key: string): void {
-    this.fulltextKey = key;
+  getFulltextKey(): string {
+    return this.getSettings('fulltextKey') || 'ecm_fulltext';
   }
 
-  getFulltextKey(): string {
-    return this.fulltextKey;
+  toSearchParams(): any {
+    const params: any = {};
+    const keys: string[] = ['settings', 'keyword'];
+    for (const [key, value] of Object.entries(this)) {
+      if (!keys.includes(key)) {
+        if (key === 'ecm_fulltext') {
+          params[this.getFulltextKey()] = value;
+        } else {
+          params[key] = value;
+        }
+      }
+    }
+    return params;
   }
 
   toParams(): any {
     const params: any = {};
+    const keys: string[] = ['settings', 'keyword'];
     for (const [key, value] of Object.entries(this)) {
-      if (key === 'ecm_fulltext') {
-        params[this.getFulltextKey()] = value;
-      } else {
+      if (!keys.includes(key)) {
         params[key] = value;
       }
     }
-    delete params['fulltextKey'];
     return params;
   }
 
@@ -210,7 +239,6 @@ export class NuxeoPageProviderParams {
   get ecm_fulltext_wildcard(): string {
     return `${this.ecm_fulltext}*`;
   }
-
 }
 
 export class NuxeoRequestOptions {
@@ -288,6 +316,9 @@ export class NuxeoPagination {
     return Object.values(this.aggregations).map((agg: any) => new AggregateModel(agg));
   }
 
+  hasAgg(): boolean {
+    return objHasValue(this.aggregations);
+  }
 }
 
 export class NuxeoBlob {

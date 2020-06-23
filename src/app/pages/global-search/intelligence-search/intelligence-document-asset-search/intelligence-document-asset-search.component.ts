@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { SearchFilterModel } from '@core/api';
-import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { Subject, timer } from 'rxjs';
+import { GlobalSearchFormSettings, DocumentPageService, GlobalSearchSettings } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -10,13 +11,9 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewComponent {
 
-  defaultParams: any = {
-    ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
-    ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-    currentPageIndex: 0,
-    pageSize: 20,
-    ecm_fulltext: '',
-  };
+  baseParams$: Subject<any> = new Subject<any>();
+
+  placeholder: string = 'Search in title, description and tags only...';
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'ecm_tag_agg', placeholder: 'Tag' }),
@@ -39,5 +36,29 @@ export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewCo
 
   onInit(): void {
     this.setCurrentDocument();
+    this.triggerSearch();
+  }
+
+  onKeyup(event: any): void {
+    this.triggerSearch(event.target.value.trim(), new GlobalSearchSettings({
+      fulltextKey: 'intelligence_fulltext',
+      syncFormValue: false,
+      showFilter: true,
+    }));
+  }
+
+  private triggerSearch(searchTerm: string = '', settings?: GlobalSearchSettings) {
+    timer(0).subscribe(() => { this.baseParams$.next(this.buildSearchParams(searchTerm, settings)); });
+  }
+
+  private buildSearchParams(searchTerm: string = '', settings?: GlobalSearchSettings): any {
+    const params = {
+      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
+      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      currentPageIndex: 0,
+      pageSize: 20,
+      ecm_fulltext: searchTerm,
+    };
+    return new NuxeoPageProviderParams(params).setSettings(settings);
   }
 }

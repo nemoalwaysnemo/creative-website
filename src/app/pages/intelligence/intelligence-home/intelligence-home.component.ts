@@ -77,16 +77,12 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     this.triggerSearch();
   }
 
-
-  onKeyEnter(event: KeyboardEvent): void {
-    // const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
-    // this.redirectToListPage(params);
-    event.preventDefault();
-    event.stopImmediatePropagation();
-  }
-
   onKeyup(event: any): void {
-    this.triggerSearch(event.target.value.trim(), new GlobalSearchSettings({ fulltextKey: 'intelligence_fulltext', syncFormValue: false }));
+    this.triggerSearch(event.target.value.trim(), new GlobalSearchSettings({
+      fulltextKey: 'intelligence_fulltext',
+      syncFormValue: false,
+      showFilter: true,
+    }));
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -108,10 +104,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_fulltext: searchTerm,
     };
-    if (settings) {
-      params['searchSettings'] = settings;
-    }
-    return params;
+    return new NuxeoPageProviderParams(params).setSettings(settings);
   }
 
   private searchFolders(): void {
