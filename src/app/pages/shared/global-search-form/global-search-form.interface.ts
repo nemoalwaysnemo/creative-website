@@ -1,6 +1,8 @@
 
 export class GlobalSearchSettings {
 
+  showFilter: boolean = false;
+
   syncFormValue: boolean = true;
 
   fulltextKey: string = 'ecm_fulltext';
@@ -17,8 +19,6 @@ export class GlobalSearchFormSettings extends GlobalSearchSettings {
   enableQueryParams: boolean = false;
 
   enableSearchInput: boolean = true;
-
-  showFilter: boolean = false;
 
   searchGroupPosition: string = 'left';
 

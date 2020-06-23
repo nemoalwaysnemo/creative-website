@@ -48,12 +48,11 @@ export class GlobalSearchFormService {
     return this;
   }
 
-
   changePageIndex(currentPageIndex: number, pageSize: number = 20, metadata: any = {}): void {
     this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex, pageSize }, metadata }));
   }
 
-  search(searchParams: any = {}, metadata: any = {}): void {
+  search(searchParams: NuxeoPageProviderParams, metadata: any = {}): void {
     this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams, metadata }));
   }
 

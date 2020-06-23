@@ -39,9 +39,9 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   ngOnChanges(c: SimpleChanges): void {
     if (this.filterSettings) {
-      if (c.aggregateModels) {
+      if (c.aggregateModels && c.aggregateModels.currentValue) {
         this.optionSettings = this.buildAggOptionSettings(this.filterSettings, c.aggregateModels.currentValue);
-      } else if (c.searchResponse) {
+      } else if (c.searchResponse && c.searchResponse.currentValue) {
         this.optionSettings = this.buildDynamicOptionSettings(this.filterSettings, c.searchResponse.currentValue);
       } else {
         this.optionSettings = this.buildDefaultOptionSettings(this.filterSettings);

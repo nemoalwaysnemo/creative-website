@@ -51,7 +51,7 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
   request(searchParams: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider: string = this.provider): Observable<NuxeoPagination> {
     const params: NuxeoPageProviderParams = this.getRequestParams(searchParams);
     const options: NuxeoRequestOptions = this.getRequestOptions(opts);
-    return this.execute(this.getRequestUrl(provider), params.toParams(), options);
+    return this.execute(this.getRequestUrl(provider), params.toSearchParams(), options);
   }
 
   onSearch(source?: string): Observable<SearchResponse> {

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
-import { DocumentModel, NuxeoQuickFilters, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, GlobalSearchSettings } from '@pages/shared';
+import { DocumentModel, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, SearchResponse, NuxeoPagination, SearchFilterModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -16,6 +16,8 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   documentType: string;
 
   baseParams$: Subject<any> = new Subject<any>();
+
+  placeholder: string = 'Search in title, description and tags only...';
 
   filters: SearchFilterModel[] = [];
 
@@ -48,12 +50,26 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     super(activatedRoute, documentPageService);
   }
 
+  onKeyup(event: any): void {
+    if (this.document) {
+      this.triggerSearch(this.document, event.target.value.trim(), new GlobalSearchSettings({
+        fulltextKey: 'intelligence_fulltext',
+        syncFormValue: false,
+        showFilter: true,
+      }));
+    }
+  }
+
+  protected triggerSearch(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings) {
+    timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc, searchTerm, settings)); });
+  }
+
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
       this.documentType = this.getCurrentAssetType(doc);
       this.setFilters();
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+      this.triggerSearch(doc);
     }
   }
 
@@ -83,66 +99,66 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     }
   }
 
-  protected buildAssetsParams(doc: DocumentModel): any {
+  protected buildAssetsParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
     switch (this.getCurrentAssetType(doc)) {
       case 'Industry':
-        return this.buildIndustryParams(doc);
+        return this.buildIndustryParams(doc, searchTerm, settings);
       case 'IndustryAsset':
-        return this.buildIndustryAssetsParams(doc);
+        return this.buildIndustryAssetsParams(doc, searchTerm, settings);
       case 'Consumer':
-        return this.buildConsumerAndMarketingParams(doc);
+        return this.buildConsumerAndMarketingParams(doc, searchTerm, settings);
       case 'Marketing':
-        return this.buildConsumerAndMarketingParams(doc);
+        return this.buildConsumerAndMarketingParams(doc, searchTerm, settings);
       case 'Brands':
-        return this.buildConsumerAndMarketingParams(doc);
+        return this.buildConsumerAndMarketingParams(doc, searchTerm, settings);
       default:
         return {};
     }
   }
 
-  protected buildConsumerAndMarketingParams(doc: DocumentModel): any {
+  protected buildConsumerAndMarketingParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
-      ecm_fulltext: '',
+      ecm_fulltext: searchTerm,
     };
     if (doc) {
       params['app_edges_intelligence_category'] = `["${this.getCurrentAssetType(doc)}"]`;
     }
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoPageProviderParams(params).setSettings(settings);
   }
 
-  protected buildIndustryParams(doc: DocumentModel, keyword?: string): any {
+  protected buildIndustryParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 100,
-      ecm_fulltext: '',
+      ecm_fulltext: searchTerm,
     };
-    if (keyword) {
-      params['keyword'] = keyword;
+    if (searchTerm) {
+      params['keyword'] = searchTerm;
     }
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoPageProviderParams(params).setSettings(settings);
   }
 
-  protected buildIndustryAssetsParams(doc: DocumentModel): any {
+  protected buildIndustryAssetsParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
-      ecm_fulltext: '',
+      ecm_fulltext: searchTerm,
     };
     if (doc) {
       params['app_edges_industry_any'] = '["' + doc.get('app_Edges:industry').join('", "') + '"]';
     }
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoPageProviderParams(params).setSettings(settings);
   }
 
   protected performSearchAssetsResults(res: SearchResponse): Observable<NuxeoPagination> {
