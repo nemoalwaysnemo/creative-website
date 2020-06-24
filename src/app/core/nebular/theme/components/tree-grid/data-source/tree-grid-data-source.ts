@@ -20,7 +20,7 @@ import { NbToggleOptions, NbTreeGridService } from './tree-grid.service';
 export interface NbFilterable {
   filter(filterRequest: string);
 }
-
+@Injectable()
 export class NbTreeGridDataSource<T> extends NbDataSource<NbTreeGridPresentationNode<T>>
                                      implements NbSortable, NbFilterable {
   /** Stream that emits when a new data array is set on the data source. */
