@@ -21,8 +21,6 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   subHead: string = 'Before we disrupt, we do our homework.';
 
-  placeholder: string = 'Search in title, description and tags only...';
-
   folders: DocumentModel[] = [];
 
   brands: DocumentModel[] = [];
@@ -47,6 +45,14 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     placeholder: 'Search for marketing reports, data, research...',
   });
+
+  defaultParams: any = {
+    pageSize: 20,
+    currentPageIndex: 0,
+    ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
+    ecm_fulltext: '',
+  };
 
   private folderParams: any = {
     pageSize: 3,
@@ -74,15 +80,6 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
     this.searchFolders();
-    this.triggerSearch();
-  }
-
-  onKeyup(event: any): void {
-    this.triggerSearch(event.target.value.trim(), new GlobalSearchSettings({
-      fulltextKey: 'intelligence_fulltext',
-      syncFormValue: false,
-      showFilter: true,
-    }));
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -90,21 +87,6 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     if (doc) {
       this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.Write);
     }
-  }
-
-  private triggerSearch(searchTerm: string = '', settings?: GlobalSearchSettings) {
-    timer(0).subscribe(() => { this.baseParams$.next(this.buildSearchParams(searchTerm, settings)); });
-  }
-
-  private buildSearchParams(searchTerm: string = '', settings?: GlobalSearchSettings): any {
-    const params = {
-      pageSize: 20,
-      currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
-      ecm_fulltext: searchTerm,
-    };
-    return new NuxeoPageProviderParams(params).setSettings(settings);
   }
 
   private searchFolders(): void {
