@@ -7,6 +7,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'intelligence-document-asset-search',
+  styleUrls: ['./intelligence-document-asset-search.component.scss'],
   templateUrl: './intelligence-document-asset-search.component.html',
 })
 export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewComponent {
