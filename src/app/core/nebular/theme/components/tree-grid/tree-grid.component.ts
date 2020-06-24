@@ -25,7 +25,7 @@ import { debounceTime, takeWhile } from 'rxjs/operators';
 import { NB_DOCUMENT, NB_WINDOW } from '../../theme.options';
 import { NbPlatform } from '../cdk/platform';
 import { NbDirectionality } from '../cdk/bidi';
-import { NB_TABLE_TEMPLATE, NbTable } from '../cdk/table';
+import { NB_TABLE_TEMPLATE, NbTableComponent } from '../cdk/table';
 import { NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from './data-source/tree-grid-data-source';
 import { NB_DEFAULT_ROW_LEVEL, NbTreeGridPresentationNode } from './data-source/tree-grid.model';
 import { NbToggleOptions } from './data-source/tree-grid.service';
@@ -125,7 +125,7 @@ import { NbColumnsService } from './tree-grid-columns.service';
     NbColumnsService,
   ],
 })
-export class NbTreeGridComponent<T> extends NbTable<NbTreeGridPresentationNode<T>>
+export class NbTreeGridComponent<T> extends NbTableComponent<NbTreeGridPresentationNode<T>>
                                     implements AfterViewInit, OnDestroy {
 
   constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<T>,

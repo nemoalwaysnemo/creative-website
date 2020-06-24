@@ -1,4 +1,4 @@
-import { Attribute, ChangeDetectorRef, ElementRef, Inject, IterableDiffers, NgModule } from '@angular/core';
+import { Attribute, ChangeDetectorRef, ElementRef, Inject, IterableDiffers, Component, NgModule } from '@angular/core';
 import { CdkTable, CdkTableModule } from '@angular/cdk/table';
 import { NbBidiModule, NbDirectionality } from '../bidi';
 import { NbPlatformModule, NbPlatform } from '../platform';
@@ -30,7 +30,10 @@ export const NB_TABLE_TEMPLATE = `
   <ng-container nbRowOutlet></ng-container>
   <ng-container nbFooterRowOutlet></ng-container>`;
 
-export class NbTable<T> extends CdkTable<T> {
+@Component({
+  template: '',
+})
+export class NbTableComponent<T> extends CdkTable<T> {
   constructor(
     differs: IterableDiffers,
     changeDetectorRef: ChangeDetectorRef,
@@ -45,7 +48,7 @@ export class NbTable<T> extends CdkTable<T> {
 }
 
 const COMPONENTS = [
-  NbTable,
+  NbTableComponent,
 
   // Template defs
   NbHeaderCellDefDirective,
