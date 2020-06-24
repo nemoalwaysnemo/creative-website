@@ -27,20 +27,9 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
 
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {
-      searchParams = this.buildIndustryParams(this.document, searchParams.ecm_fulltext);
-      opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
+      searchParams = this.buildIndustryConsumerAndMarketingParams(this.document, searchParams.ecm_fulltext);
     }
     return { searchParams, opts };
-  }
-
-  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
-    if (res.searchParams.hasKeyword() && res.action === 'afterSearch' && this.documentType === 'Industry') {
-      return this.performSearchAssetsResults(res).pipe(
-        concatMap((response: NuxeoPagination) => this.performSearchIndustryResults(response)),
-        map((response: NuxeoPagination) => { res.response = response; return res; }),
-      );
-    }
-    return observableOf(res);
   }
 
   constructor(
@@ -60,15 +49,11 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     }
   }
 
-  protected triggerSearch(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings) {
-    timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc, searchTerm, settings)); });
-  }
-
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
       this.documentType = this.getCurrentAssetType(doc);
-      this.setFilters();
+      this.filters = this.getFilters();
       this.triggerSearch(doc);
     }
   }
@@ -104,19 +89,23 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       case 'Industry':
         return this.buildIndustryParams(doc, searchTerm, settings);
       case 'IndustryAsset':
-        return this.buildIndustryAssetsParams(doc, searchTerm, settings);
+        return this.buildIndustryAssetParams(doc, searchTerm, settings);
       case 'Consumer':
-        return this.buildConsumerAndMarketingParams(doc, searchTerm, settings);
+        return this.buildIndustryConsumerAndMarketingParams(doc, searchTerm, settings);
       case 'Marketing':
-        return this.buildConsumerAndMarketingParams(doc, searchTerm, settings);
+        return this.buildIndustryConsumerAndMarketingParams(doc, searchTerm, settings);
       case 'Brands':
-        return this.buildConsumerAndMarketingParams(doc, searchTerm, settings);
+        return this.buildIndustryConsumerAndMarketingParams(doc, searchTerm, settings);
       default:
         return {};
     }
   }
 
-  protected buildConsumerAndMarketingParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
+  protected triggerSearch(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings) {
+    timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc, searchTerm, settings)); });
+  }
+
+  protected buildIndustryConsumerAndMarketingParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
@@ -138,16 +127,13 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       pageSize: 100,
       ecm_fulltext: searchTerm,
     };
-    if (searchTerm) {
-      params['keyword'] = searchTerm;
-    }
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
     return new NuxeoPageProviderParams(params).setSettings(settings);
   }
 
-  protected buildIndustryAssetsParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
+  protected buildIndustryAssetParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
@@ -161,55 +147,9 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     return new NuxeoPageProviderParams(params).setSettings(settings);
   }
 
-  protected performSearchAssetsResults(res: SearchResponse): Observable<NuxeoPagination> {
-    if (res.response.entries.length > 0) {
-      const industries: string[] = this.getDocumentIndustries(res.response);
-      if (industries.length > 0) {
-        const params = {
-          ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
-          ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-          app_edges_industry_any: '["' + industries.join('", "') + '"]',
-          ecm_fulltext: res.searchParams.keyword,
-          currentPageIndex: 0,
-          pageSize: 1000,
-        };
-        return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params));
-      }
-    }
-    return observableOf(res.response);
-  }
-
-  // calculate their parent folder ids
-  protected performSearchIndustryResults(res: NuxeoPagination): Observable<NuxeoPagination> {
-    if (res.entries.length > 0) {
-      const industries: string[] = this.getDocumentIndustries(res);
-      if (industries.length > 0) {
-        const params = {
-          pageSize: 100,
-          currentPageIndex: 0,
-          app_edges_industry: `["${industries.join('", "')}"]`,
-          ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-          ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
-        };
-        return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params));
-      }
-    }
-    return observableOf(res);
-  }
-
-  private getDocumentIndustries(res: NuxeoPagination): string[] {
-    let industries: string[] = [];
-    res.entries.forEach((doc: DocumentModel) => {
-      if (doc.get('app_Edges:industry').length > 0) {
-        industries = industries.concat(doc.get('app_Edges:industry'));
-      }
-    });
-    return industries;
-  }
-
-  private setFilters(): void {
+  private getFilters(): SearchFilterModel[] {
     if (this.documentType === 'Consumer') {
-      this.filters = [
+      return [
         new SearchFilterModel({ key: 'ecm_tag_agg', placeholder: 'Tag' }),
         new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
         new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
@@ -217,7 +157,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
         new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
       ];
     } else {
-      this.filters = [
+      return [
         new SearchFilterModel({ key: 'ecm_tag_agg', placeholder: 'Tag' }),
         new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
         new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
@@ -226,5 +166,4 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       ];
     }
   }
-
 }
