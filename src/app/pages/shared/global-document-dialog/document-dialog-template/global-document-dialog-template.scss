@@ -31,9 +31,11 @@
 		font-size: 23px;
 	}
 }
+.dialog-body::-webkit-scrollbar { width: 0 !important; }
 .dialog-body {
-  max-height: 80vh;
-  overflow: auto;
+		max-height: 80vh;
+		scrollbar-width: none;
+		overflow: auto;
 	.media {
 		// padding: 0 144px;
 		box-sizing: border-box;
