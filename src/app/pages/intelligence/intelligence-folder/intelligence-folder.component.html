@@ -1,7 +1,7 @@
 <intelligence-folder-view [loading]="loading" [document]="document"></intelligence-folder-view>
 <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
   <div class="filters">
-    <input class="keyword" autofocus [placeholder]="placeholder" (keyup)="onKeyup($event)" />
+    <input class="keyword" [autofocus]='searchFormSettings.autofocus' [placeholder]="placeholder" (keyup)="onKeyup($event)" />
   </div>
 </global-search-form>
 <intelligence-document-asset-search-result></intelligence-document-asset-search-result>

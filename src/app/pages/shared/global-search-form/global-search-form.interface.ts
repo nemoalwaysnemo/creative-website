@@ -20,6 +20,8 @@ export class GlobalSearchFormSettings extends GlobalSearchSettings {
 
   enableSearchInput: boolean = true;
 
+  autofocus: boolean = false;
+
   searchGroupPosition: string = 'left';
 
   buttonGroupPosition: string = 'left';
