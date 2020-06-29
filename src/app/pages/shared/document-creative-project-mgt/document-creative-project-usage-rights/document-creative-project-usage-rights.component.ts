@@ -38,7 +38,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
         sort: false,
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
-          viewType: 'thumbnail',
+          viewType: 'usage-rights-expiry',
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
@@ -51,7 +51,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         title: doc.title,
-        usageRights: doc,
+        usageRights: doc.get('_usage_rights_'),
       }));
     }
     return items;
