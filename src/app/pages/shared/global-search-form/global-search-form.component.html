@@ -2,7 +2,7 @@
   <div [ngClass]="['search-group', formSettings.searchGroupPosition]">
     <ng-container *ngIf="formSettings.enableSearchInput">
       <div [ngClass]="['search-input', 'global-search-input', formSettings.searchGroupPosition]">
-        <input class="form-control left" autofocus formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
+        <input class="form-control left" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
       </div>
     </ng-container>
 

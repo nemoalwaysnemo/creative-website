@@ -2,12 +2,12 @@ import { UserPermission } from '@core/acl';
 
 export const TAB_CONFIG: any[] = [
   {
-    title: 'Assets',
-    route: '/p/creative/brand/:id/asset',
-  },
-  {
     title: 'Showcase',
     route: '/p/creative/brand/:id/showcase',
+  },
+  {
+    title: 'Assets',
+    route: '/p/creative/brand/:id/asset',
   },
   {
     title: 'Usage Rights',
