@@ -8,7 +8,7 @@ export class ListSearchRowCustomViewSettings {
 
   enableClick: boolean = true;
 
-  viewType: 'button' | 'thumbnail' = 'thumbnail';
+  viewType: 'button' | 'thumbnail' | 'usage-rights-expiry' = 'thumbnail';
 
   dialogSettings: GlobalDocumentDialogSettings;
 
