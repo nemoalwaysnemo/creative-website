@@ -7,6 +7,7 @@ import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
 import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog/global-document-dialog.interface';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
+import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -80,7 +81,10 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
           viewType: 'button',
           enableClick: true,
           dialogSettings: new GlobalDocumentDialogSettings({
-            components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_ASSET],
+            components: [
+              GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_ASSET,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM,
+            ],
           }),
         }),
         renderComponent: ListSearchRowCustomDialogComponent,

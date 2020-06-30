@@ -6,6 +6,7 @@ import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-cus
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { TAB_CONFIG } from './creative-project-asset-template-tab-config';
+import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 
 @Component({
   selector: 'creative-project-asset-template',
@@ -75,6 +76,14 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
   protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>): void {
     this.dynamicComponentRef = this.createDynamicComponent(dynamicTarget, component);
     this.dynamicComponentRef.instance.documentModel = this.document;
+  }
+
+  getDialogTemplateName(doc: DocumentModel): string {
+    let name: string = '';
+    if (doc.type === 'App-Library-Project') {
+      name = GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM.NAME;
+    }
+    return name;
   }
 
 }

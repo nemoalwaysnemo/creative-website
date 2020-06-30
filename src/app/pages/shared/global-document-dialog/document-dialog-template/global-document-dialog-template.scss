@@ -102,5 +102,18 @@
 		.project-info {
 			width: 100%;
 		}
+		.edit-button {
+			min-height: 40px;
+			background-color: lightgrey;
+			button {
+				background: white;
+				margin-right: 10%;
+				padding: 5px 10px;
+				border: none;
+			}
+		}
+		.project-menu {
+			margin-top: -50%;
+		}
 	}
 }
