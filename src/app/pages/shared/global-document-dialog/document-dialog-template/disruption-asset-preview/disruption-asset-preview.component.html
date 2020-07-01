@@ -20,7 +20,7 @@
           <button class="right edit" (click)="selectView('document-dialog-deletion-template')">Delete</button>
         </ng-container>
         <ng-container *ngIf="writePermission$ | async">
-          <button class="right edit" (click)="selectView(getDialogTemplateName(document))">Edit</button>
+          <button class="right edit" (click)="selectView(getDialogFormTemplateName(document))">Edit</button>
         </ng-container>
         <ng-container *ngIf="getDialogSettings().enablePreview">
           <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right edit">Preview</button></a>

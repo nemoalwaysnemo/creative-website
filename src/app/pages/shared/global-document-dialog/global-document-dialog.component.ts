@@ -40,13 +40,13 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
     this.subscribeEvents();
   }
 
-  selectView(name: string, component?: Type<any>): void {
+  selectView(name: string, component?: Type<any>, metadata?: any): void {
     if (this.dynamicComponentRef) {
       this.dynamicComponentRef.destroy();
       this.dynamicComponentRef = null;
     }
     component = component || this.getComponentByName(name);
-    this.createComponent(component);
+    this.createComponent(component, metadata);
   }
 
   protected onInit(): void {
@@ -65,32 +65,32 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
     return this.components.filter((x: any) => x.NAME === name).shift();
   }
 
-  protected createComponent(component: any): void {
+  protected createComponent(component: any, metadata?: any): void {
     const type: string = component.COMPONENT_TYPE;
     switch (type) {
       case 'form':
-        this.createFormComponent(component);
+        this.createFormComponent(component, metadata);
         break;
       case 'custom':
-        this.createCustomComponent(component);
+        this.createCustomComponent(component, metadata);
         break;
       default:
         throw new Error(`Unknown Dialog view type: ${type}`);
     }
   }
 
-  protected createFormComponent(component: Type<any>): void {
-    this.buildComponent(DocumentDialogFormComponent, component);
+  protected createFormComponent(component: Type<any>, metadata?: any): void {
+    this.buildComponent(DocumentDialogFormComponent, component, metadata);
   }
 
-  protected createCustomComponent(component: Type<any>): void {
-    this.buildComponent(DocumentDialogCustomComponent, component);
+  protected createCustomComponent(component: Type<any>, metadata?: any): void {
+    this.buildComponent(DocumentDialogCustomComponent, component, metadata);
   }
 
-  protected buildComponent(componentContainer: Type<any>, component: Type<any>): void {
+  protected buildComponent(componentContainer: Type<any>, component: Type<any>, metadata?: any): void {
     this.dynamicComponentRef = this.createDynamicComponent(this.dynamicTarget, componentContainer);
     this.dynamicComponentRef.instance.title = this.title;
-    this.dynamicComponentRef.instance.metadata = this.dialogSettings;
+    this.dynamicComponentRef.instance.metadata = metadata || this.dialogSettings;
     this.dynamicComponentRef.instance.documentModel = this.document;
     this.dynamicComponentRef.instance.redirectUrl = this.redirectUrl;
     this.dynamicComponentRef.instance.mainViewChanged = this.mainViewChanged;
@@ -103,7 +103,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
       const name = e.options.componentName || main;
       const component = name === main ? this.mainComponent : e.options.component;
       this.mainViewChanged = main !== name;
-      this.selectView(name, component);
+      this.selectView(name, component, e.options.metadata);
     });
   }
 

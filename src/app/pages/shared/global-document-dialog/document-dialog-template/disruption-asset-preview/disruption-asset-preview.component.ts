@@ -51,7 +51,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
     };
   }
 
-  getDialogTemplateName(doc: DocumentModel): string {
+  getDialogFormTemplateName(doc: DocumentModel): string {
     let name: string = '';
     if (doc.type === 'App-Disruption-Roadmap-Asset') {
       name = GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM.NAME;

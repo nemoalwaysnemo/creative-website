@@ -19,6 +19,10 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
+  dialogMetadata: any = {
+    formMode: 'edit',
+  };
+
   protected dynamicComponentRef: ComponentRef<any>;
 
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
@@ -29,6 +33,14 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(globalDocumentDialogService, documentPageService);
+  }
+
+  getDialogFormTemplateName(doc: DocumentModel): string {
+    let name: string = '';
+    if (doc.type === 'App-Library-Project') {
+      name = GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM.NAME;
+    }
+    return name;
   }
 
   onMenuClick(item: NbMenuItem): void {
@@ -49,6 +61,10 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
       const brand = doc.filterParents(['App-Library-Folder']).pop();
       if (brand) {
         doc.setParent(brand, 'brand');
+      }
+      const campaignMgt = doc.filterParents(['App-Library-Campaign-Mgt-Folder']).pop();
+      if (campaignMgt) {
+        doc.setParent(campaignMgt, 'parent');
       }
       this.document = doc;
     }
@@ -76,14 +92,6 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
   protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>): void {
     this.dynamicComponentRef = this.createDynamicComponent(dynamicTarget, component);
     this.dynamicComponentRef.instance.documentModel = this.document;
-  }
-
-  getDialogTemplateName(doc: DocumentModel): string {
-    let name: string = '';
-    if (doc.type === 'App-Library-Project') {
-      name = GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM.NAME;
-    }
-    return name;
   }
 
 }
