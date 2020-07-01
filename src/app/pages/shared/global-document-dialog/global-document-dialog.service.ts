@@ -70,7 +70,7 @@ export class GlobalDocumentDialogService {
     return this;
   }
 
-  selectView(componentName: string, component: Type<any> = null, metadata: any = {}): void {
+  selectView(componentName: string, component: Type<any> = null, metadata?: any): void {
     this.triggerEvent({ name: 'ViewChanged', type: 'built-in', messageContent: 'View Changed', options: { componentName, component, metadata } });
   }
 
