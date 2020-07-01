@@ -1,7 +1,8 @@
 import { Component, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver, ComponentRef } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { parseTabRoute } from '@core/services/helpers';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, NuxeoPermission } from '@core/api';
+import { Observable, of as observableOf } from 'rxjs';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
@@ -16,6 +17,8 @@ import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomTemplateComponent {
 
   static readonly NAME: string = 'creative-project-asset-template';
+
+  writePermission$: Observable<boolean> = observableOf(false);
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
@@ -58,6 +61,7 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
 
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
+      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
       const brand = doc.filterParents(['App-Library-Folder']).pop();
       if (brand) {
         doc.setParent(brand, 'brand');

@@ -12,9 +12,9 @@
       </div>
       <div class="clear"></div>
       <div class="edit-button">
-        <!-- <ng-container *ngIf="writePermission$ | async"> -->
+        <ng-container *ngIf="writePermission$ | async">
           <button class="right edit" (click)="selectView(getDialogFormTemplateName(document), null, dialogMetadata)">Edit</button>
-        <!-- </ng-container> -->
+        </ng-container>
       </div>
       <div class="clear"></div>
       <div class="project-menu">
