@@ -79,7 +79,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((info: any) => {
       this.documents = [];
-      this.globalSearchFormService.changePageIndex(info.currentPageIndex, 20);
+      this.globalSearchFormService.changePageIndex(info.currentPageIndex, 6);
     });
     this.subscription.add(subscription);
   }
@@ -87,7 +87,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
       const pageIndex: number = this.searchResponse.response.currentPageIndex;
-      this.globalSearchFormService.changePageIndex(pageIndex + 1, 20, { append: true });
+      this.globalSearchFormService.changePageIndex(pageIndex + 1, 6, { append: true });
     }
   }
 
