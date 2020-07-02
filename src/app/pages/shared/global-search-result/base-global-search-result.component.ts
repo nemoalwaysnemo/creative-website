@@ -85,7 +85,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((info: any) => {
       this.documents = [];
-      this.globalSearchFormService.changePageIndex(info.currentPageIndex, 6);
+      this.globalSearchFormService.changePageIndex(info.currentPageIndex, 20);
     });
     this.subscription.add(subscription);
   }
