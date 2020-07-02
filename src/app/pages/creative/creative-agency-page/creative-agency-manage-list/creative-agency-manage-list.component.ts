@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { TAB_CONFIG } from '../creative-agency-tab-config';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
@@ -13,8 +12,6 @@ import { DocumentFormEvent } from '../../../shared/document-form/document-form.i
   templateUrl: './creative-agency-manage-list.component.html',
 })
 export class CreativeAgencyManageListComponent extends BaseDocumentManageComponent {
-
-  protected tabConfig: any[] = TAB_CONFIG;
 
   showForm: boolean = false;
 

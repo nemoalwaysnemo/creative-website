@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
-import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
@@ -17,8 +16,6 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
   showForm: boolean = false;
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
-
-  protected tabConfig: any[] = TAB_CONFIG;
 
   constructor(
     protected activatedRoute: ActivatedRoute,

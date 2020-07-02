@@ -4,8 +4,9 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { UserService } from '../api/api.user.service';
 import { UserModel } from '../api/nuxeo/lib/nuxeo.user-model';
 import { UserRole, UserPermission } from './acl.interface';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, of as observableOf, forkJoin, zip } from 'rxjs';
 import { map, switchMap, filter, tap } from 'rxjs/operators';
+import { DocumentModel } from '@core/api';
 
 @Injectable({
   providedIn: 'root',
@@ -28,14 +29,19 @@ export class ACLService {
     });
   }
 
-  filterRouterTabs(tabs: any[]): Observable<any[]> {
-    tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } });
+  filterRouterTabs(tabs: any[], document?: DocumentModel): Observable<any[]> {
+    tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } if (!x.aclFunc) { x.aclFunc = (doc: DocumentModel): Observable<boolean> => observableOf(true); } });
     return this.permissionsService.permissions$.pipe(
       filter(_ => Object.keys(_).length !== 0),
-      switchMap(_ => forkJoin(tabs.map(x => this.permissionsService.hasPermission(x.acl))).pipe(
-        map((r: boolean[]) => {
+      switchMap(_ => forkJoin(
+        ...tabs.map((x: any) => zip(
+          this.permissionsService.hasPermission(x.acl),
+          x.aclFunc.call(this, document),
+        )),
+      ).pipe(
+        map((r: any[]) => {
           const list = [];
-          r.map((b, i) => { if (b) { list.push(tabs[i]); } });
+          r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(tabs[i]); } });
           return list;
         }),
       )),

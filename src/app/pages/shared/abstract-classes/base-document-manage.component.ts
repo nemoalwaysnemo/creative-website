@@ -18,8 +18,6 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   formLayout: any = {};
 
-  managePermission$: Observable<boolean> = observableOf(false);
-
   protected tabConfig: any[];
 
   constructor(
@@ -45,8 +43,7 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
-      this.managePermission$ = this.hasPermission(doc);
-      this.managePermission$.subscribe((hasPermission: boolean) => {
+      this.hasPermission(doc).subscribe((hasPermission: boolean) => {
         if (!hasPermission) {
           this.documentPageService.redirectTo403();
         }
@@ -56,7 +53,7 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   protected hasPermission(doc: DocumentModel): Observable<boolean> {
     return combineLatest(
-      doc.hasPermission(NuxeoPermission.ReadWrite),
+      doc.hasPermission(NuxeoPermission.Write),
       doc.hasPermission(NuxeoPermission.Everything),
       (one, two) => (one || two),
     ).pipe(share());
