@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, NuxeoPermission } from '@core/api';
 import { TAB_CONFIG } from '../creative-agency-tab-config';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
 import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
+import { Observable} from 'rxjs';
 
 @Component({
   selector: 'creative-agency-manage-library',
@@ -47,6 +48,10 @@ export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComp
     } else if (event.action === 'Canceled') {
       this.canceleForm();
     }
+  }
+
+  protected hasPermission(doc: DocumentModel): Observable<boolean> {
+    return doc.hasPermission(NuxeoPermission.Everything);
   }
 
   protected getSettings(): any[] {
