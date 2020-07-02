@@ -65,15 +65,21 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
       concatMap((res: SearchResponse) => this.afterSearch(res)),
     ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {
-        this.loading = true;
+        this.triggerLoading(true, res.metadata);
       } else {
-        this.loading = false;
+        this.triggerLoading(false, res.metadata);
         this.searchParams = res.searchParams;
         this.onResponse.emit(res);
         this.handleResponse(res);
       }
     });
     this.subscription.add(subscription);
+  }
+
+  protected triggerLoading(loading: boolean, metadata: any = {}): void {
+    if (typeof metadata.enableLoading === 'undefined' || metadata.enableLoading) {
+      this.loading = loading;
+    }
   }
 
   protected onPageChanged(): void {
@@ -87,7 +93,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
       const pageIndex: number = this.searchResponse.response.currentPageIndex;
-      this.globalSearchFormService.changePageIndex(pageIndex + 1, 6, { append: true });
+      this.globalSearchFormService.changePageIndex(pageIndex + 1, 6, { append: true, enableLoading: false });
     }
   }
 

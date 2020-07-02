@@ -393,8 +393,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       filter((res: SearchResponse) => res.action === 'beforeSearch' && res.source === this.getFormSettings('source')),
     ).subscribe(({ searchParams, metadata }: any) => {
       this.performFilterButton(metadata.event, searchParams);
+      this.triggerLoading(true, metadata);
       this.submitted = true;
-      this.loading = true;
     });
     this.subscription.add(subscription);
   }
@@ -405,12 +405,18 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       concatMap((res: SearchResponse) => this.buildSearchFilter(res)),
       concatMap((res: SearchResponse) => this.afterSearch(res)),
       concatMap((res: SearchResponse) => this.onAfterSearchEvent(res)),
-    ).subscribe(({ response }: any) => {
+    ).subscribe(({ response, metadata }: any) => {
+      this.triggerLoading(false, metadata);
       this.hasAggs = response.hasAgg();
       this.submitted = false;
-      this.loading = false;
     });
     this.subscription.add(subscription);
+  }
+
+  protected triggerLoading(loading: boolean, metadata: any = {}): void {
+    if (typeof metadata.enableLoading === 'undefined' || metadata.enableLoading) {
+      this.loading = loading;
+    }
   }
 
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
