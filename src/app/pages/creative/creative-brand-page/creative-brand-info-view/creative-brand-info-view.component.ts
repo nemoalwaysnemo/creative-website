@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { ActivatedRoute } from '@angular/router';
 import { ACLService } from '@core/acl';
 import { DocumentPageService } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
+import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 
 @Component({
@@ -16,24 +16,28 @@ export class CreativeBrandInfoViewComponent extends BaseDocumentViewComponent {
 
   @Input() loading: boolean;
 
-  @Input() document: DocumentModel;
-
-  private tabConfig: any[] = TAB_CONFIG;
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.documentModel = doc;
+      this.parseTabRoute();
+    }
+  }
 
   tabs: any[] = [];
+
+  documentModel: DocumentModel;
+
+  private tabConfig: any[] = TAB_CONFIG;
 
   constructor(protected activatedRoute: ActivatedRoute, private aclService: ACLService, protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
 
-  onInit(): void {
-    this.parseTabRoute();
-  }
-
   protected parseTabRoute(): void {
     if (this.tabs.length === 0) {
       const tabs = parseTabRoute(this.tabConfig, this.activatedRoute.snapshot.params);
-      this.aclService.filterRouterTabs(tabs).subscribe((r: any[]) => {
+      this.aclService.filterRouterTabs(tabs, this.documentModel).subscribe((r: any[]) => {
         this.tabs = r;
       });
     }

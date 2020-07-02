@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { DocumentModel, NuxeoPermission } from '@core/api';
-import { TAB_CONFIG } from '../creative-brand-tab-config';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
 import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
-import { Observable} from 'rxjs';
-
 
 @Component({
   selector: 'creative-brand-manage-library',
@@ -19,8 +17,6 @@ export class CreativeBrandManageLibraryComponent extends BaseDocumentManageCompo
   showForm: boolean = false;
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
-
-  protected tabConfig: any[] = TAB_CONFIG;
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -49,10 +45,6 @@ export class CreativeBrandManageLibraryComponent extends BaseDocumentManageCompo
     } else if (event.action === 'Canceled') {
       this.canceleForm();
     }
-  }
-
-  protected hasPermission(doc: DocumentModel): Observable<boolean> {
-    return doc.hasPermission(NuxeoPermission.Everything);
   }
 
   protected getSettings(): any[] {

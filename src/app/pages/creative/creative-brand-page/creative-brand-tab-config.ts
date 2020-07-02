@@ -1,4 +1,6 @@
+import { DocumentModel, NuxeoPermission } from '@core/api';
 import { UserPermission } from '@core/acl';
+import { Observable } from 'rxjs';
 
 export const TAB_CONFIG: any[] = [
   {
@@ -36,7 +38,7 @@ export const TAB_CONFIG: any[] = [
   },
   {
     title: 'Manage Lists',
-    route: '/p/creative/brand/:id/folder',
-    acl: [UserPermission.Mgt],
+    route: '/p/creative/brand/:id/list',
+    aclFunc: (doc: DocumentModel): Observable<boolean> => doc.hasPermission(NuxeoPermission.Write),
   },
 ];

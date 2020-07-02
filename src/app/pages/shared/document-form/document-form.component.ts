@@ -235,7 +235,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private createDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
-    return forkJoin(documents.map(x => this.createDocument(x)));
+    return forkJoin(...documents.map(x => this.createDocument(x)));
   }
 
   private createDocument(doc: DocumentModel): Observable<DocumentModel> {

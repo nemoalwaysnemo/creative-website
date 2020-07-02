@@ -85,17 +85,6 @@ const routes: Routes = [{
       },
     },
     {
-      path: 'brand/:id/folder',
-      component: CreativeBrandManageListComponent,
-      canActivate: [NgxPermissionsGuard],
-      data: {
-        permissions: {
-          only: UserPermission.Mgt,
-          redirectTo: 'home',
-        },
-      },
-    },
-    {
       path: 'brand/:id/library',
       component: CreativeBrandManageLibraryComponent,
       canActivate: [NgxPermissionsGuard],
@@ -105,6 +94,10 @@ const routes: Routes = [{
           redirectTo: 'home',
         },
       },
+    },
+    {
+      path: 'brand/:id/list',
+      component: CreativeBrandManageListComponent,
     },
     {
       path: 'agency',
@@ -119,17 +112,6 @@ const routes: Routes = [{
       component: CreativeAgencyShowcaseComponent,
     },
     {
-      path: 'agency/:id/folder',
-      component: CreativeAgencyManageListComponent,
-      canActivate: [NgxPermissionsGuard],
-      data: {
-        permissions: {
-          only: UserPermission.Mgt,
-          redirectTo: 'home',
-        },
-      },
-    },
-    {
       path: 'agency/:id/library',
       component: CreativeAgencyManageLibraryComponent,
       canActivate: [NgxPermissionsGuard],
@@ -139,6 +121,10 @@ const routes: Routes = [{
           redirectTo: 'home',
         },
       },
+    },
+    {
+      path: 'agency/:id/list',
+      component: CreativeAgencyManageListComponent,
     },
     {
       path: '',
