@@ -1,9 +1,9 @@
 
 export class SelectableItemSettings {
 
-  selector: string;
+  selector: string = '.description';
 
-  dataType: string = 'default';
+  dataType: string = 'thumbnail-view';
 
   enableCheckBox: boolean = true;
 

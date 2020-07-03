@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
+import { SelectableItemSettings } from '../../selectable-item/selectable-item.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
 
@@ -34,6 +35,10 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
   @Input() hideEmpty: boolean = false;
 
   listViewSettings: any;
+
+  selectableSettings: SelectableItemSettings = new SelectableItemSettings({
+    enableSelectable: true,
+  });
 
   private defaultSettings: any = {
     columns: {
