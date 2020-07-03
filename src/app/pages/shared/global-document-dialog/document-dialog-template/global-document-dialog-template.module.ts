@@ -16,11 +16,15 @@ import { DocumentDownloadRequestTemplateComponent } from './document-download-re
 import { CreativeProjectAssetTemplateComponent } from './creative-project-asset-template/creative-project-asset-template.component';
 import { CreativeProjectAssetBaseTemplateComponent } from './creative-project-asset-template/creative-project-asset-base-template.component';
 import { CreativeProjectAssetCompletionReportTemplateComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-completion-report-template.component';
+import { ProductionInformationComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/production-information/production-information.component';
+import { BuyontTalentInformationComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/buyont-talent-information/buyont-talent-information.component';
+import { AllowableVersionsComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/allowable-versions/allowable-versions.component';
+import { UnionTalentComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/union-talent/union-talent.component';
 import { CreativeProjectAssetDeliverableTemplateComponent } from './creative-project-asset-template/creative-project-asset-deliverable-template/creative-project-asset-deliverable-template.component';
 import { CreativeProjectAssetImportLocalTemplateComponent } from './creative-project-asset-template/creative-project-asset-import-local-template/creative-project-asset-import-local-template.component';
 import { CreativeProjectAssetImportRequestTemplateComponent } from './creative-project-asset-template/creative-project-asset-import-request-template/creative-project-asset-import-request-template.component';
 import { CreativeProjectAssetUsageRightsTemplateComponent } from './creative-project-asset-template/creative-project-asset-usage-rights-template /creative-project-asset-usage-rights-template.component';
-
+import { DocumentFormModule } from '@pages/shared/document-form/document-form.module';
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
   RelatedBackslashAssetDialogPreviewComponent,
@@ -31,6 +35,10 @@ const COMPONENTS = [
   CreativeProjectAssetTemplateComponent,
   CreativeProjectAssetBaseTemplateComponent,
   CreativeProjectAssetCompletionReportTemplateComponent,
+  ProductionInformationComponent,
+  BuyontTalentInformationComponent,
+  AllowableVersionsComponent,
+  UnionTalentComponent,
   CreativeProjectAssetDeliverableTemplateComponent,
   CreativeProjectAssetImportLocalTemplateComponent,
   CreativeProjectAssetImportRequestTemplateComponent,
@@ -46,6 +54,7 @@ const COMPONENTS = [
     ShareDocumentButtonModule,
     DocumentBackslashInfoModule,
     DocumentCreativeProjectMgtModule,
+    DocumentFormModule,
   ],
   declarations: [
     ...COMPONENTS,
