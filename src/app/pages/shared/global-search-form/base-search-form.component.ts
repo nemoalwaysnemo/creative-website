@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf, zip } from 'rxjs';
@@ -85,6 +85,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   @Input() beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
 
   @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
+
+  @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   constructor(
     protected router: Router,
@@ -405,9 +407,10 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       concatMap((res: SearchResponse) => this.buildSearchFilter(res)),
       concatMap((res: SearchResponse) => this.afterSearch(res)),
       concatMap((res: SearchResponse) => this.onAfterSearchEvent(res)),
-    ).subscribe(({ response, metadata }: any) => {
-      this.triggerLoading(false, metadata);
-      this.hasAggs = response.hasAgg();
+    ).subscribe((res: SearchResponse) => {
+      this.onResponse.emit(res);
+      this.triggerLoading(false, res.metadata);
+      this.hasAggs = res.response.hasAgg();
       this.submitted = false;
     });
     this.subscription.add(subscription);

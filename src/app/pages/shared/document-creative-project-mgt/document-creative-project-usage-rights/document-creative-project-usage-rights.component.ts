@@ -28,6 +28,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
 
   listViewSettings: any = {
     hideSubHeader: true,
+    selectMode: 'multi', // single|multi
     columns: {
       title: {
         title: 'Title',
@@ -75,6 +76,10 @@ export class DocumentCreativeProjectUsageRightsComponent {
   ) { }
 
   onSelected(row: any): void {
+
+  }
+
+  onResponse(res: SearchResponse): void {
 
   }
 
