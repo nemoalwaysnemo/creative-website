@@ -16,10 +16,10 @@ import { DocumentDownloadRequestTemplateComponent } from './document-download-re
 import { CreativeProjectAssetTemplateComponent } from './creative-project-asset-template/creative-project-asset-template.component';
 import { CreativeProjectAssetBaseTemplateComponent } from './creative-project-asset-template/creative-project-asset-base-template.component';
 import { CreativeProjectAssetCompletionReportTemplateComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-completion-report-template.component';
-import { ProductionInformationComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/production-information/production-information.component';
-import { BuyontTalentInformationComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/buyont-talent-information/buyont-talent-information.component';
-import { AllowableVersionsComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/allowable-versions/allowable-versions.component';
-import { UnionTalentComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/union-talent/union-talent.component';
+import { CreativeProjectReportProductionInformationComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-report-production-information/creative-project-asset-report-production-information.component';
+import { CreativeProjectReportBuyontTalentInformationComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-report-buyont-talent-information/creative-project-asset-report-buyont-talent-information.component';
+import { CreativeProjectReportAllowableVersionsComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-report-allowable-versions/creative-project-asset-report-allowable-versions.component';
+import { CreativeProjectAssetReportUnionTalentComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-report-union-talent/creative-project-asset-report-union-talent.component';
 import { CreativeProjectAssetDeliverableTemplateComponent } from './creative-project-asset-template/creative-project-asset-deliverable-template/creative-project-asset-deliverable-template.component';
 import { CreativeProjectAssetImportLocalTemplateComponent } from './creative-project-asset-template/creative-project-asset-import-local-template/creative-project-asset-import-local-template.component';
 import { CreativeProjectAssetImportRequestTemplateComponent } from './creative-project-asset-template/creative-project-asset-import-request-template/creative-project-asset-import-request-template.component';
@@ -35,10 +35,10 @@ const COMPONENTS = [
   CreativeProjectAssetTemplateComponent,
   CreativeProjectAssetBaseTemplateComponent,
   CreativeProjectAssetCompletionReportTemplateComponent,
-  ProductionInformationComponent,
-  BuyontTalentInformationComponent,
-  AllowableVersionsComponent,
-  UnionTalentComponent,
+  CreativeProjectReportProductionInformationComponent,
+  CreativeProjectReportBuyontTalentInformationComponent,
+  CreativeProjectReportAllowableVersionsComponent,
+  CreativeProjectAssetReportUnionTalentComponent,
   CreativeProjectAssetDeliverableTemplateComponent,
   CreativeProjectAssetImportLocalTemplateComponent,
   CreativeProjectAssetImportRequestTemplateComponent,
