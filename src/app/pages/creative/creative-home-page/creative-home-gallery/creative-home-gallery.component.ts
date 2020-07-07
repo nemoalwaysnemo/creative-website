@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NuxeoPagination, DocumentModel } from '@core/api';
 import { DocumentPageService } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/environment';
-import { parseCountry } from '@core/services/helpers';
+import { NuxeoPagination, DocumentModel } from '@core/api';
+import { parseCountry, assetPath } from '@core/services/helpers';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-home-gallery',
@@ -107,15 +107,11 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   previewBtnImage(): string {
-    return this.assetPath('assets/images/preview_logo.png');
+    return assetPath('assets/images/preview_logo.png');
   }
 
   parseCountry(list: string[]) {
     return parseCountry(list);
-  }
-
-  protected assetPath(src: string): string {
-    return Environment.assetPath + src;
   }
 
   private buildShareUrl(uid: string): string {

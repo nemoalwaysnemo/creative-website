@@ -11,19 +11,23 @@ import { ListSearchRowCustomViewSettings } from './list-search-form.interface';
         <img style="max-height:100px;" [src]="value.thumbnailUrl">
       </ng-container>
 
+      <ng-container *ngSwitchCase="options.viewType === 'icon'">
+        <img style="max-height:100px;" [src]="value.url">
+      </ng-container>
+
+      <ng-container *ngSwitchCase="options.viewType === 'html'">
+        <div class="html-template" [innerHTML]="getHtmlTemplate(value)"></div>
+      </ng-container>
+
       <ng-container *ngSwitchCase="options.viewType === 'usage-rights-expiry'">
         <ng-container *ngSwitchCase="value.all_error_messages && value.all_error_messages.length > 0">
           <ul class="state error">
-            <li>
-              <span>{{value.error_messages}}</span>
-            </li>
+            <li><span>{{value.error_messages}}</span></li>
           </ul>
         </ng-container>
         <ng-container *ngSwitchCase="value.info_messages && value.info_messages.length > 0">
           <ul class="state info">
-            <li>
-              <span>{{value.info_messages}}</span>
-            </li>
+            <li><span>{{value.info_messages}}</span></li>
           </ul>
         </ng-container>
         <ng-container *ngSwitchCase="value.info_messages && value.info_messages.length === 0 && value.info_messages.length === value.all_error_messages.length">
@@ -47,7 +51,7 @@ export class ListSearchRowCustomViewComponent {
 
   options: ListSearchRowCustomViewSettings;
 
-  @Input() value: DocumentModel;
+  @Input() value: any;
 
   @Input()
   set settings(settings: ListSearchRowCustomViewSettings) {
@@ -56,8 +60,8 @@ export class ListSearchRowCustomViewComponent {
     }
   }
 
-  getTitle(doc: DocumentModel): string {
-    return this.options.dialogTitle.replace(':docTitle', doc.title);
+  getHtmlTemplate(doc: DocumentModel): string {
+    return this.options.htmlFunc.call(this, doc);
   }
 
 }

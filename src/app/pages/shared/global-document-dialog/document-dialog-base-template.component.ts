@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, Type } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { DocumentModel } from '@core/api';
+import { assetPath } from '@core/services/helpers';
 import { map, withLatestFrom } from 'rxjs/operators';
-import { Subscription, timer, Subject, zip, forkJoin, of as observableOf, Observable } from 'rxjs';
+import { Subscription, timer, Subject, forkJoin, of as observableOf, Observable } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
 import { DocumentPageService } from '../services/document-page.service';
-import { Environment } from '@environment/environment';
 
 @Component({
   template: '',
@@ -101,16 +101,12 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     this.documentPageService.navigate(commands, extras);
   }
 
-  assetPath(src: string): string {
-    return Environment.assetPath + src;
-  }
-
   closeBtnImage(): string {
-    return this.assetPath('assets/images/close1.png');
+    return assetPath('assets/images/close1.png');
   }
 
   backBtnImage(): string {
-    return this.assetPath('assets/images/back_icon_white.png');
+    return assetPath('assets/images/back_icon_white.png');
   }
 
   protected onInit(): void {

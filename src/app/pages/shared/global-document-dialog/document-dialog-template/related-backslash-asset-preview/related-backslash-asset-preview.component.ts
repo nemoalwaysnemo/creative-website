@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { assetPath } from '@core/services/helpers';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPagination } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { DocumentModel, NuxeoQuickFilters, NuxeoPagination } from '@core/api';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
@@ -28,7 +29,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
   }
 
   previewBtnImage(): string {
-    return this.assetPath('assets/images/preview_logo.png');
+    return assetPath('assets/images/preview_logo.png');
   }
 
   private getEdgesAggParams(doc: DocumentModel): string {

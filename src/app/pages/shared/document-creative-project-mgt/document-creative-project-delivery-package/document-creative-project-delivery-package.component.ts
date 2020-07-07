@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
+import { assetPath } from '@core/services/helpers';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
@@ -8,11 +9,11 @@ import { GlobalSearchFormSettings } from '../../global-search-form/global-search
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'document-creative-project-related-asset',
+  selector: 'document-creative-project-delivery-package',
   styleUrls: ['../document-creative-project-mgt.component.scss'],
-  templateUrl: './document-creative-project-related-asset.component.html',
+  templateUrl: './document-creative-project-delivery-package.component.html',
 })
-export class DocumentCreativeProjectRelatedAssetComponent {
+export class DocumentCreativeProjectDeliveryPackageComponent {
 
   loading: boolean = true;
 
@@ -21,7 +22,8 @@ export class DocumentCreativeProjectRelatedAssetComponent {
   baseParams$: Subject<any> = new Subject<any>();
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'document-creative-project-related-asset',
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery'],
+    source: 'document-creative-project-delivery-package',
     enableSearchInput: false,
   });
 
@@ -29,16 +31,48 @@ export class DocumentCreativeProjectRelatedAssetComponent {
     hideHeader: true,
     hideSubHeader: true,
     columns: {
-      title: {
-        title: 'Title',
-        sort: false,
-      },
-      action: {
-        title: 'Action',
+      icon: {
+        title: 'Icon',
         sort: false,
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
-          viewType: 'thumbnail',
+          viewType: 'icon',
+        }),
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+      title: {
+        sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'html',
+          htmlFunc: (doc: DocumentModel) => {
+            return `
+            <div class="delivery-title">
+              <ul>
+                <li>Recipient:</li>
+                <li>Send By:</li>
+                <li>Status</li>
+              </ul>
+            </div>`;
+          },
+        }),
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+      info: {
+        sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'html',
+          htmlFunc: (doc: DocumentModel) => {
+            return `
+            <div class="delivery-info">
+              <ul>
+                <li>${doc.get('The_Loupe_Delivery:delivery_email')}</li>
+                <li>${doc.get('dc:creator')}</li>
+                <li>Status</li>
+              </ul>
+            </div>`;
+          },
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
@@ -50,8 +84,9 @@ export class DocumentCreativeProjectRelatedAssetComponent {
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: doc.title,
-        action: doc,
+        icon: { url: assetPath('assets/images/App-Library-Package.png') },
+        title: doc,
+        info: doc,
       }));
     }
     return items;
@@ -72,17 +107,13 @@ export class DocumentCreativeProjectRelatedAssetComponent {
 
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_DELIVERY_PACKAGE_TYPE,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {
-      params['ecm_uuid_not_eq'] = doc.uid;
       params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
-    }
-    if (brand) {
-      params['ecm_path'] = brand.path;
     }
     return params;
   }

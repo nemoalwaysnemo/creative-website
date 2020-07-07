@@ -1,3 +1,4 @@
+import { Environment } from '@environment/environment';
 
 export function join(...args: string[]): string {
   return args.join('/').replace(/(^\/+)|([^:])\/\/+/g, '$2/');
@@ -274,4 +275,8 @@ export function convertToBoolean(val: any): boolean {
     return (val === 'true' || val === '');
   }
   return !!val;
+}
+
+export function assetPath(src: string): string {
+  return Environment.assetPath + src;
 }

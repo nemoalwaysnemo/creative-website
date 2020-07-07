@@ -1,6 +1,10 @@
 
 export class GlobalSearchSettings {
 
+  schemas?: string[];
+
+  skipAggregates: boolean = false;
+
   showFilter: boolean = false;
 
   syncFormValue: boolean = true;
