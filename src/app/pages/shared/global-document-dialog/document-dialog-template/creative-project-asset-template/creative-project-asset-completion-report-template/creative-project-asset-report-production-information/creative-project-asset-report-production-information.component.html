@@ -2,14 +2,60 @@
 <div *ngIf="!showForm" class="document">
  <div class="one-row">
   <div class="showcase-area">
-   <h4>Client</h4><span>UR TEST</span>
+   <h4>Client</h4><span>{{ document.get('The_Loupe_Main:clientName') }}</span>
   </div>
   <div class="showcase-area">
-   <h4>Brand</h4><span>UR-TESTBRAND</span>
+   <h4>Brand</h4><span>{{ document.get('The_Loupe_Main:brand') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>Product</h4><span>{{ document.get('The_Loupe_Main:productModel') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>Job Number</h4><span>{{ document.get('The_Loupe_Main:jobnumber') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>Date</h4><span>{{ document.get('The_Loupe_ProdCredits:production_date') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>LIFT 1 ID#</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_1') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>TITLE OF LIFT 1</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_1_title') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>Length</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_1_length') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>LIFT 2 ID#</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_2') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>TITLE OF LIFT 2</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_2_title') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>Length</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_2_length') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>TYPE</h4>
+   <div *ngIf = "document.get('The_Loupe_Rights:contract_items_usage_types').length > 0">
+    <div *ngFor="let contract of document.get('The_Loupe_Rights:contract_items_usage_types')">
+     <span>{{ contract.media_usage_type }}</span>
+     <span>{{ contract.start_airing_date }}</span>
+    </div>
+   </div>
+  </div>
+  <div class="showcase-area">
+   <h4>Producer</h4><span>{{ document.get('The_Loupe_Credits:producer') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>Business Manager</h4><span>{{ document.get('The_Loupe_Credits:businessManager') }}</span>
+  </div>
+  <div class="showcase-area">
+   <h4>Talent Manager</h4><span>{{ document.get('The_Loupe_Credits:talentManager') }}</span>
   </div>
  </div>
 </div>
 <div *ngIf="showForm" class="document">
- <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
+ <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout"
+  (callback)="onCallback($event)"></document-form>
 </div>
 <button nbButton outline class="btn btn-success" (click)="changeView()">Edit</button>
