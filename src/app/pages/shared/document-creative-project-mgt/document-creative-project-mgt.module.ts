@@ -5,6 +5,7 @@ import { ListSearchFormModule } from '../list-search-form';
 import { DocumentCreativeProjectInfoComponent } from './document-creative-project-info/document-creative-project-info.component';
 import { DocumentCreativeProjectUsageRightsComponent } from './document-creative-project-usage-rights/document-creative-project-usage-rights.component';
 import { DocumentCreativeProjectRelatedAssetComponent } from './document-creative-project-related-asset/document-creative-project-related-asset.component';
+import { DocumentCreativeProjectDeliveryPackageComponent } from './document-creative-project-delivery-package/document-creative-project-delivery-package.component';
 
 @NgModule({
   imports: [
@@ -16,11 +17,13 @@ import { DocumentCreativeProjectRelatedAssetComponent } from './document-creativ
     DocumentCreativeProjectInfoComponent,
     DocumentCreativeProjectUsageRightsComponent,
     DocumentCreativeProjectRelatedAssetComponent,
+    DocumentCreativeProjectDeliveryPackageComponent,
   ],
   exports: [
     DocumentCreativeProjectInfoComponent,
     DocumentCreativeProjectUsageRightsComponent,
     DocumentCreativeProjectRelatedAssetComponent,
+    DocumentCreativeProjectDeliveryPackageComponent,
   ],
 })
 export class DocumentCreativeProjectMgtModule {

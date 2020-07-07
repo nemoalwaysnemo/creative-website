@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearchService } from '@core/api';
-import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
+import { assetPath } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
+import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-backslash-info',
@@ -38,7 +39,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
   }
 
   previewBtnImage(): string {
-    return this.assetPath('assets/images/preview_logo.png');
+    return assetPath('assets/images/preview_logo.png');
   }
 
   buildBackslashEdges(doc: DocumentModel): void {
@@ -61,10 +62,6 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
       this.loading = false;
       this.backslashEdges = [];
     }
-  }
-
-  protected assetPath(src: string): string {
-    return Environment.assetPath + src;
   }
 
   private getEdgesAggParams(doc: DocumentModel): string {

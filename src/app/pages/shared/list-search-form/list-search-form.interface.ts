@@ -1,14 +1,17 @@
 import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
+import { DocumentModel } from '@core/api';
 
 export class ListSearchRowCustomViewSettings {
 
   [key: string]: any;
 
-  dialogTitle: string = ':docTitle';
-
   enableClick: boolean = true;
 
-  viewType: 'button' | 'thumbnail' | 'usage-rights-expiry' = 'thumbnail';
+  dialogTitle: string = ':docTitle';
+
+  htmlFunc: Function = (doc: DocumentModel): string => doc.title;
+
+  viewType: 'button' | 'thumbnail' | 'icon' | 'html' | 'usage-rights-expiry' = 'thumbnail';
 
   dialogSettings: GlobalDocumentDialogSettings;
 

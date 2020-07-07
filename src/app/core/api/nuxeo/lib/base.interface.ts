@@ -242,10 +242,10 @@ export class NuxeoPageProviderParams {
 }
 
 export class NuxeoRequestOptions {
-  readonly [key: string]: any;
-  readonly skipAggregates?: boolean = true;
-  readonly schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'app_global', 'app_global_fields', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'];
-  readonly enrichers?: {} = {
+  [key: string]: any;
+  skipAggregates?: boolean = true;
+  schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'app_global', 'app_global_fields', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'];
+  enrichers?: {} = {
     document: [
       NuxeoEnricher.document.PREVIEW,
       // NuxeoEnricher.document.SUBTYPES,
@@ -261,6 +261,12 @@ export class NuxeoRequestOptions {
 
   constructor(opts: any = {}) {
     Object.assign(this, opts);
+  }
+
+  setOptions(key: string, value: any): void {
+    if (typeof value !== 'undefined' && value !== null) {
+      this[key] = value;
+    }
   }
 
   addEnrichers(type: string, name: string): void {

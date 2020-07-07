@@ -2,6 +2,7 @@
 export enum NUXEO_DOC_TYPE {
   CREATIVE_IMAGE_VIDEO_TYPES = '["App-Library-Image", "App-Library-Video"]',
   CREATIVE_IMAGE_VIDEO_AUDIO_TYPES = '["App-Library-Image", "App-Library-Video", "App-Library-Audio"]',
+  CREATIVE_DELIVERY_PACKAGE_TYPE = '["App-Library-Delivery-Package"]',
   CREATIVE_FOLDER_TYPE = '["App-Library-Folder"]',
   CREATIVE_PROJECT_TYPE = '["App-Library-Project"]',
   CREATIVE_CAMPAIGN_TYPE = '["App-Library-Campaign"]',

@@ -369,11 +369,13 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     searchParams.metadata['event'] = searchParams.event;
     searchParams.metadata['source'] = this.getFormSettings('source');
     const providerParams = new NuxeoPageProviderParams(params).setSettings(searchParams.params.getSettings());
-    return this.search(providerParams, searchParams.metadata);
+    const options = new NuxeoRequestOptions();
+    options.setOptions('schemas', this.getFormSettings('schemas'));
+    options.setOptions('skipAggregates', this.getFormSettings('skipAggregates'));
+    return this.search(providerParams, options, searchParams.metadata);
   }
 
-  protected search(params: NuxeoPageProviderParams, metadata: any = {}): Observable<SearchResponse> {
-    const options = new NuxeoRequestOptions({ skipAggregates: false });
+  protected search(params: NuxeoPageProviderParams, options: NuxeoRequestOptions, metadata: any = {}): Observable<SearchResponse> {
     const { searchParams, opts } = this.beforeSearch.call(this, params, options);
     const pageProvider = this.getFormSettings('pageProvider');
     metadata['searchParams'] = params.toQueryParams();
