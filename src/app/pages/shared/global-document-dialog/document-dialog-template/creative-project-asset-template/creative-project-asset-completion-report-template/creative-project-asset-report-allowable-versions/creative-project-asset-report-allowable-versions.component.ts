@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicListModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
-import { BaseDocumentManageComponent } from '@pages/shared/abstract-classes/base-document-manage.component';
 import { DocumentModel } from '@core/api';
-import { DocumentFormEvent } from '../../../../../../shared/document-form/document-form.interface';
-import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
-import { OptionModel } from '../../../../../option-select/option-select.interface';
+import { DynamicListModel, DynamicInputModel } from '@core/custom';
+import { DocumentFormEvent } from '../../../../../document-form/document-form.interface';
+import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
 
 @Component({
   selector: 'creative-project-asset-report-allowable-versions',
@@ -44,7 +42,7 @@ export class CreativeProjectReportAllowableVersionsComponent extends BaseDocumen
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    console.info(this.document);
+
   }
 
   protected getSettings(): any[] {
