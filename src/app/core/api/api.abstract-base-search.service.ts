@@ -20,7 +20,7 @@ export abstract class AbstractBaseSearchService {
       }
     }
     if (!options.hasOwnProperty('ecm_path') && !options.hasOwnProperty('ecm_path_eq')) {
-      searchTerm.ecm_path = NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH;
+      searchTerm.ecm_path = '/';
     } else if (options.hasOwnProperty('ecm_path_eq')) {
       options.ecm_path_eq = '/' + options.ecm_path_eq.split('/').filter((x: string) => x.trim()).join('/');
     }

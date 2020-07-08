@@ -4,7 +4,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { InnovationSearchComponent } from './innovation-search.component';
 import { InnovationSearchRoutingModule } from './innovation-search-routing.module';
-import { InnovationAssetSearchComponent } from './innovation-document-asset-search/innovation-asset-search.component';
+import { InnovationDocumentAssetSearchComponent  } from './innovation-document-asset-search/innovation-document-asset-search.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { InnovationAssetSearchComponent } from './innovation-document-asset-sear
   ],
   declarations: [
     InnovationSearchComponent,
-    InnovationAssetSearchComponent,
+    InnovationDocumentAssetSearchComponent ,
   ],
 })
 export class InnovationSearchModule {

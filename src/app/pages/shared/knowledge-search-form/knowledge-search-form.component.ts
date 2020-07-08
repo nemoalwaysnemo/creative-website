@@ -9,32 +9,26 @@ import { GlobalSearchFormSettings } from '../global-search-form/global-search-fo
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 
 @Component({
-  selector: 'home-search-form',
-  templateUrl: './home-search-form.component.html',
-  styleUrls: ['./home-search-form.component.scss'],
+  selector: 'knowledge-search-form',
+  templateUrl: './knowledge-search-form.component.html',
+  styleUrls: ['./knowledge-search-form.component.scss'],
 })
 
-export class HomeSearchFormComponent extends BaseSearchFormComponent {
+export class KnowledgeSearchFormComponent extends BaseSearchFormComponent {
 
   documents: DocumentModel[] = [];
+
+  backgroudUrl: string = '';
 
   layout: string = 'suggestion-inline';
 
   formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'home-search-form',
+    source: 'knowledge-search-form',
   });
 
   @Input() headline: string;
 
-  @Input() extraHeadline: string;
-
   @Input() subHead: string;
-
-  @Input() assetUrl: string;
-
-  @Input() assetUrlMapping: any = {};
-
-  @Input() openSearchFilter: boolean = false;
 
   @Input() redirectUrl: string;
 
@@ -70,14 +64,9 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   onKeyEnter(event: KeyboardEvent): void {
-    const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
-    this.redirectToListPage(params);
+    this.redirectToListPage();
     event.preventDefault();
     event.stopImmediatePropagation();
-  }
-
-  getAssetUrl(doc: DocumentModel): string {
-    return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
   }
 
   preventHide(pre: boolean): void {
@@ -89,15 +78,8 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
     this.preventDocHide = true;
   }
 
-  private matchAssetUrl(doc: DocumentModel): string {
-    let url = '';
-    if (this.assetUrlMapping[doc.type] instanceof Function) {
-      url = this.assetUrlMapping[doc.type].call(this, doc);
-    } else {
-      url = this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
-    }
-    url = url.replace(':parentRef', doc.parentRef);
-    return url;
+  getAssetUrl(doc: DocumentModel): string {
+    return '';
   }
 
   private redirectToListPage(queryParams: any = {}): void {

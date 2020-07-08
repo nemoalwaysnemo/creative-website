@@ -14,6 +14,7 @@ export enum NUXEO_DOC_TYPE {
   CREATIVE_AGENCY_AND_BRAND_FOLDER_TYPE = '["Brand Folder", "Agency Folder"]',
   CREATIVE_UR_CONTRACT_TYPES = '["App-Library-UsageRights-Talent", "App-Library-UsageRights-Music", "App-Library-UsageRights-Photographer", "App-Library-UsageRights-Stock"]',
   BACKSLASH_ARTICLE_VIDEO_TYPES = '["App-Backslash-Article", "App-Backslash-Video"]',
+  BACKSLASH_EDGE_ASSET_TYPE = '["App-Backslash-Edge-Page"]',
   BACKSLASH_FOLDER_TYPE = '["App-Backslash-Folder"]',
   DISRUPTION_DAYS_TYPE = '["App-Disruption-Day"]',
   DISRUPTION_DAY_ASSET_TYPES = '["App-Disruption-Asset", "App-Disruption-Day-Asset"]',
@@ -51,8 +52,8 @@ export enum NUXEO_DOC_TYPE {
   INNOVATION_ASSET_TYPE = '["App-Innovation-Asset"]',
   INNOVATION_SEARCH_TYPE = '["App-Innovation-Folder", "App-Innovation-Asset"]',
   FRONTPAGE_BANNER_TYPE = '["App-Library-Image"]',
+  KNOWLEDGE_ASSET_TYPE = '["App-Library-Image", "App-Library-Video", "App-Library-Audio", "App-Backslash-Article", "App-Backslash-Video", "App-Intelligence-Asset", "App-Innovation-Asset", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset", "App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset"]',
   BACKSLASH_ASSET_PAGE_PROVIDER = 'creative_website_backslash_related_assets',
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',
   INTELLIGENCE_ASSET_PAGE_PROVIDER = 'creative_website_intelligence_related_assets',
-  EDGE_ASSET_TYPE = '["App-Backslash-Edge-Page"]',
 }

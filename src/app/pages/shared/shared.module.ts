@@ -22,6 +22,7 @@ import {
   ShareDocumentButtonModule,
   GlobalDocumentFormModule,
   DocumentActionGroupModule,
+  KnowledgeSearchFormModule,
 } from './';
 
 const EXPORTS = [
@@ -47,6 +48,7 @@ const EXPORTS = [
   DocumentActionGroupModule,
   ShareDocumentButtonModule,
   GlobalDocumentFormModule,
+  KnowledgeSearchFormModule,
 ];
 
 @NgModule({
