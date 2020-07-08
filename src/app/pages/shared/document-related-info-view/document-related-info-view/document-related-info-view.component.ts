@@ -147,6 +147,12 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.baseParams$.next(params);
   }
 
+  onResponse(event: any): void {
+    if (event.source === 'document-load-more') {
+      this.append = false;
+    }
+  }
+
   private onChangeTab(): void {
     const subscription = this.tabInfo$.pipe(
       filter((info: TabInfo) => info.document && info.tabItem.name === this.item.name),

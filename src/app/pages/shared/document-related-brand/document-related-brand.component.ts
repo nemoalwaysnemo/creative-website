@@ -59,6 +59,12 @@ export class DocumentRelatedBrandComponent {
     this.baseParams$.next(Object.assign({}, params));
   }
 
+  onResponse(event: any): void {
+    if (event.source === 'document-related-brand') {
+      this.append = false;
+    }
+  }
+
   getSearchParams(doc: DocumentModel): any {
     const params = this.params;
     params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;

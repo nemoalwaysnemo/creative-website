@@ -78,6 +78,12 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
     this.baseParams$.next(Object.assign({}, params));
   }
 
+  onResponse(event: any): void {
+    if (event.source === 'document-related-agency') {
+      this.append = false;
+    }
+  }
+
   onSearchFilter(res: SearchResponse): boolean {
     return res.metadata.source === 'document-related-agency';
   }
