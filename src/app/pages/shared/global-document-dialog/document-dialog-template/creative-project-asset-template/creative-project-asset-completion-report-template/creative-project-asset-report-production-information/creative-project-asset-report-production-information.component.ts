@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicListModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
-import { BaseDocumentManageComponent } from '@pages/shared/abstract-classes/base-document-manage.component';
 import { DocumentModel } from '@core/api';
+import { DynamicSuggestionModel, DynamicListModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
 import { DocumentFormEvent } from '../../../../../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
-import { OptionModel } from '../../../../../option-select/option-select.interface';
+
 @Component({
   selector: 'creative-project-asset-report-production-information',
   styleUrls: ['../creative-project-asset-completion-report-template.scss'],
@@ -43,7 +43,7 @@ export class CreativeProjectReportProductionInformationComponent extends BaseDoc
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-    console.info(this.document);
+
   }
 
   protected getSettings(): any[] {

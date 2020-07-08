@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, timer} from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, GlobalSearchSettings } from '@pages/shared';
 import { DocumentModel, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -14,6 +14,8 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
 
   documentType: string;
 
+  resultView: string = 'folder';
+
   baseParams$: Subject<any> = new Subject<any>();
 
   placeholder: string = 'Search in title, description and tags only...';
@@ -26,7 +28,10 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
 
   beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {
+      this.resultView = 'asset';
       searchParams = this.buildIndustryConsumerAndMarketingParams(this.document, searchParams.ecm_fulltext);
+    } else {
+      this.resultView = 'folder';
     }
     return { searchParams, opts };
   }

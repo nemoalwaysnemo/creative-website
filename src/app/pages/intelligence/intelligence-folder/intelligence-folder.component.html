@@ -4,4 +4,11 @@
     <input class="keyword" [autofocus]='searchFormSettings.autofocus' [placeholder]="placeholder" (keyup)="onKeyup($event)" />
   </div>
 </global-search-form>
-<intelligence-document-asset-search-result></intelligence-document-asset-search-result>
+<ng-container [ngSwitch]="true">
+  <ng-container *ngSwitchCase="resultView === 'folder'">
+    <intelligence-industry-search-result></intelligence-industry-search-result>
+  </ng-container>
+  <ng-container *ngSwitchCase="resultView === 'asset'">
+    <intelligence-document-asset-search-result></intelligence-document-asset-search-result>
+  </ng-container>
+</ng-container>

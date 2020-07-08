@@ -1,6 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { SearchResponse } from '@core/api';
-import { Observable, of as observableOf } from 'rxjs';
+import { Component } from '@angular/core';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
 
@@ -10,10 +8,6 @@ import { DocumentPageService } from '../../services/document-page.service';
   templateUrl: './intelligence-industry-search-result.component.html',
 })
 export class IntelligenceIndustrySearchResultComponent extends BaseSearchResultComponent {
-
-  @Input() folderId: string;
-
-  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
