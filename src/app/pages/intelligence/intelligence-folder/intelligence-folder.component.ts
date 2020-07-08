@@ -31,7 +31,11 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       this.resultView = 'asset';
       searchParams = this.buildIndustryConsumerAndMarketingParams(this.document, searchParams.ecm_fulltext);
     } else {
-      this.resultView = 'folder';
+      if (this.documentType === 'IndustryAsset') {
+        this.resultView = 'asset';
+      } else {
+        this.resultView = 'folder';
+      }
     }
     return { searchParams, opts };
   }
