@@ -2,26 +2,23 @@ import { Component } from '@angular/core';
 import { SearchFilterModel } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'innovation-asset-search',
-  templateUrl: './innovation-asset-search.component.html',
+  selector: 'knowledge-asset-search',
+  templateUrl: './knowledge-asset-search.component.html',
 })
-export class InnovationAssetSearchComponent extends BaseDocumentViewComponent {
+export class KnowledgeDocumentAssetSearchComponent extends BaseDocumentViewComponent {
 
   defaultParams: any = {
-    ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
-    ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
-    ecm_mixinType_not_in: '',
-    currentPageIndex: 0,
     pageSize: 20,
+    currentPageIndex: 0,
     ecm_fulltext: '',
+    ecm_path: '/',
+    ecm_primaryType: NUXEO_DOC_TYPE.KNOWLEDGE_ASSET_TYPE,
   };
 
-  filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-  ];
+  filters: SearchFilterModel[] = [];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     enableQueryParams: true,

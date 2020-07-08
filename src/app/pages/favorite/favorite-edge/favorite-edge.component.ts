@@ -34,7 +34,7 @@ export class FavoriteEdgeComponent extends BaseFavoriteDocumentViewComponent {
 
   protected buildAssetsParams(doc: DocumentModel): any {
     const params = {
-      ecm_primaryType: NUXEO_DOC_TYPE.EDGE_ASSET_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,

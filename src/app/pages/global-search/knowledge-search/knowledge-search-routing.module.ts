@@ -1,15 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { InnovationSearchComponent } from './innovation-search.component';
-import { InnovationDocumentAssetSearchComponent  } from './innovation-document-asset-search/innovation-document-asset-search.component';
+import { KnowledgeSearchComponent } from './knowledge-search.component';
+import { KnowledgeDocumentAssetSearchComponent } from './knowledge-document-asset-search/knowledge-asset-search.component';
 
 const routes: Routes = [{
   path: '',
-  component: InnovationSearchComponent,
+  component: KnowledgeSearchComponent,
   children: [
     {
       path: 'asset',
-      component: InnovationDocumentAssetSearchComponent ,
+      component: KnowledgeDocumentAssetSearchComponent,
     },
     {
       path: '',
@@ -23,5 +23,5 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class InnovationSearchRoutingModule {
+export class KnowledgeSearchRoutingModule {
 }

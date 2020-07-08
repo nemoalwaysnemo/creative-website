@@ -7,6 +7,10 @@ const routes: Routes = [{
   component: GlobalSearchPageComponent,
   children: [
     {
+      path: 'knowledge',
+      loadChildren: () => import('./knowledge-search/knowledge-search.module').then(m => m.KnowledgeSearchModule),
+    },
+    {
       path: 'creative',
       loadChildren: () => import('./creative-search/creative-search.module').then(m => m.CreativeSearchModule),
     },
