@@ -1,9 +1,38 @@
-<h2>UNION TALENT</h2>
-<div class="one-row">
+<h2>Union Talent</h2>
+<div *ngIf="!showForm" class="document">
  <div class="showcase-area">
-  <h4>Client</h4><span>UR TEST</span>
+  <h4>FILM/SHOOT</h4><span>{{ document.get('The_Loupe_ProdCredits:shooting_date') }}</span>
  </div>
  <div class="showcase-area">
-  <h4>Brand</h4><span>UR-TESTBRAND</span>
+  <h4>LOCATION/STUDIO</h4><span>{{ document.get('The_Loupe_ProdCredits:shooting_location') }}</span>
+ </div>
+ <div class="showcase-area">
+  <h4>FILM CITY/STATE</h4><span>{{ document.get('The_Loupe_ProdCredits:film_city_state') }}</span>
+ </div>
+ <div class="showcase-area">
+  <h4>Production Company</h4><span>{{ document.get('production_company') }}</span>
+ </div>
+ <div class="showcase-area">
+  <h4>Production Company Address</h4><span>{{ document.get('production_company_address') }}</span>
+ </div>
+ <div class="showcase-area">
+  <h4>Production Company Contact</h4><span>{{ document.get('production_company_contact') }}</span>
+ </div>
+ <div class="showcase-area">
+  <h4>Production Company Phone Email</h4><span>{{ document.get('production_company_phone_email') }}</span>
+ </div>
+ <div class="showcase-area">
+  <h4>RECORD DATE</h4><span>{{ document.get('record_date') }}</span>
+ </div>
+ <div class="showcase-area">
+  <h4>RECORD DATE</h4><span>{{ document.get('record_studio') }}</span>
+ </div>
+ <div class="showcase-area">
+  <h4>RECORD CITY/STATE</h4><span>{{ document.get('record_city_state') }}</span>
  </div>
 </div>
+<div *ngIf="showForm" class="document">
+ <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout"
+  (callback)="onCallback($event)"></document-form>
+</div>
+<button nbButton outline class="btn btn-success" (click)="changeView()">Edit</button>

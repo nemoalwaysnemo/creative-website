@@ -4,6 +4,7 @@ import { DynamicSuggestionModel, DynamicListModel, DynamicInputModel, DynamicOpt
 import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
 import { DocumentFormEvent } from '../../../../../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
+import { GlobalSearchFormSettings } from '../../../../../global-search-form/global-search-form.interface';
 
 @Component({
   selector: 'creative-project-asset-report-production-information',
@@ -15,6 +16,12 @@ export class CreativeProjectReportProductionInformationComponent extends BaseDoc
   showForm: boolean = false;
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'creative-project-asset-report-production-information',
+    enableSearchInput: false,
+  });
 
   changeView(): void {
     this.showForm = !this.showForm;
@@ -152,22 +159,21 @@ export class CreativeProjectReportProductionInformationComponent extends BaseDoc
           }),
         ],
       }),
-      // need to add to page provider
-      // new DynamicInputModel({
-      //   id: 'The_Loupe_Credits:producer',
-      //   label: 'Producer',
-      //   required: false,
-      // }),
-      // new DynamicInputModel({
-      //   id: 'The_Loupe_Credits:businessManager',
-      //   label: 'Business Manager',
-      //   required: false,
-      // }),
-      // new DynamicInputModel({
-      //   id: 'The_Loupe_Credits:talentManager',
-      //   label: 'Talent Manager',
-      //   required: false,
-      // }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:producer',
+        label: 'Producer',
+        required: false,
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:businessManager',
+        label: 'Business Manager',
+        required: false,
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Credits:talentManager',
+        label: 'Talent Manager',
+        required: false,
+      }),
     ];
   }
 }
