@@ -22,6 +22,11 @@
       </div>
     </div>
     <div class="col-8">
+      <div class="dialog-message">
+        <ng-container *ngIf="callbackEvent">
+          <nb-alert *ngIf="callbackEvent.messageContent" [status]="callbackEvent.messageType" role="alert">{{ callbackEvent.messageContent }}</nb-alert>
+        </ng-container>
+      </div>
       <div class="project-dynamic-component">
         <ng-template #dynamicTarget></ng-template>
       </div>
