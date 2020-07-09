@@ -1,1 +1,16 @@
 @import '../global-document-dialog-template.scss';
+
+.page-title {
+    background-color: #4b4b4b;
+    color: #ffffff;
+    text-align: center;
+    line-height: 30px;
+}
+
+.btn {
+    background-color: #eeeeee !important;
+    color: #000000;
+    cursor: pointer;
+    text-transform: none;
+    margin: 0 5px 0 0;
+}
