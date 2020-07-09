@@ -17,9 +17,9 @@ export const TAB_CONFIG: any[] = [
     acl: [UserPermission.Mgt],
   },
   {
-    title: 'Campaigns',
+    title: 'Campaigns Mgt',
     route: '/p/creative/brand/:id/campaign summary',
-    acl: [UserPermission.Dev],
+    acl: [UserPermission.Mgt],
   },
   {
     title: 'Campaigns',
