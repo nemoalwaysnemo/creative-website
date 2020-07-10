@@ -8,6 +8,7 @@ import { DocumentListViewItem } from '../../../document-list-view/document-list-
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { map } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'creative-project-report-buyout-talent-information',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -26,6 +27,8 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
   baseParams$: Subject<any> = new Subject<any>();
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    // schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    schemas: ['The_Loupe_ProdCredits', 'The_Loupe_Rights'],
     source: 'creative-project-report-buyout-talent-information',
     enableSearchInput: false,
   });
@@ -44,16 +47,79 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
-      title: {
-        title: 'TALENT NAME',
-        sort: false,
-      },
-      usageRights: {
-        title: 'Expiry',
+      talentName: {
         sort: false,
         type: 'custom',
+        title: 'TALENT NAME',
         renderComponentData: new ListSearchRowCustomViewSettings({
-          viewType: 'usage-rights-expiry',
+          viewType: 'html',
+          htmlFunc: (doc: DocumentModel) => {
+            return `
+            <div class="delivery-title">
+              <ul>
+                <li>Production Company</li>
+                <li>${ this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company'])}</li>
+              </ul>
+            </div>`;
+          },
+        }),
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+      mediaCovered: {
+        sort: false,
+        type: 'custom',
+        title: 'TERRITORY / MEDIA COVERED',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'html',
+          htmlFunc: (doc: DocumentModel) => {
+            return `
+            <div class="delivery-title">
+              <ul>
+                <li>${ this.formatText(doc.get('The_Loupe_Rights:contract_items_usage_types')[0]['contract_countries'].join(','))}</li>
+                <li>${ this.formatText(doc.get('The_Loupe_Rights:contract_items_usage_types')[0]['media_usage_type'].join(','))}</li>
+                <li>Address</li>
+                <li>${ this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_address'])}</li>
+              </ul>
+            </div>`;
+          },
+        }),
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+      term: {
+        sort: false,
+        type: 'custom',
+        title: 'TERM (months)',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'html',
+          htmlFunc: (doc: DocumentModel) => {
+            return `
+            <div class="delivery-title">
+              <ul>
+                <li>${ this.getMutipleData(doc.get('The_Loupe_Rights:contract_items_usage_types'))}</li>
+                <li>Production Company Contact</li>
+                <li>${ this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_contact'])}</li>
+              </ul>
+            </div>`;
+          },
+        }),
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+      usageRights: {
+        sort: false,
+        type: 'custom',
+        title: 'Expiry',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'html',
+          htmlFunc: (doc: DocumentModel) => {
+            return `
+            <div class="delivery-title">
+              <ul>
+                <li>${ this.formatExpire(doc.get('_usage_rights_'))}</li>
+                <li>Phone/Email</li>
+                <li>${ this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_phone_email'])}</li>
+              </ul>
+            </div>`;
+          },
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
@@ -66,12 +132,31 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         icon: { url: assetPath('assets/images/app-library-UR-contract-talent.png') },
-        title: doc['managed_item'],
-        info: doc,
-        usageRights: doc.get('_usage_rights_'),
+        talentName: doc,
+        mediaCovered: doc,
+        term: doc,
+        usageRights: doc,
       }));
     }
     return items;
+  }
+
+  formatText(text: any) {
+    return text === null ? '' : text;
+  }
+
+  formatExpire(value: any) {
+    if (value.all_error_messages && value.all_error_messages.length > 0) {
+      return value.error_messages;
+    } else if (value.info_messages && value.info_messages.length > 0) {
+      return value.info_messages;
+    } else if (value.info_messages && value.info_messages.length === 0 && value.info_messages.length === value.all_error_messages.length) {
+      return value.end_date ? new DatePipe('en-US').transform(value.end_date, 'yyyy-MM-dd') : 'N/A';
+    }
+  }
+
+  getMutipleData(doc: any) {
+    return doc.length > 0 ? doc.map(obj => obj['contract_duration']).join('  ') : '';
   }
 
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
@@ -88,7 +173,6 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
   }
 
   onSelected(row: any): void {
-
   }
 
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
