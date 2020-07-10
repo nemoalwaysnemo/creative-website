@@ -12,7 +12,7 @@ import { concatMap, filter } from 'rxjs/operators';
 })
 export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
-  loading: boolean = false;
+  loading: boolean = true;
 
   layout: string = 'search-results';
 
