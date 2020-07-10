@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SearchFilterModel } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-agency-search',
@@ -14,9 +14,9 @@ export class CreativeAgencySearchComponent extends BaseDocumentViewComponent {
   defaultParams: any = {
     the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
     currentPageIndex: 0,
     pageSize: 20,
-    ecm_path: '',
     ecm_fulltext: '',
   };
 

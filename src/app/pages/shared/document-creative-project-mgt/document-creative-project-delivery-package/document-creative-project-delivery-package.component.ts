@@ -6,7 +6,7 @@ import { ListSearchRowCustomViewComponent } from '../../list-search-form';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-delivery-package',
@@ -108,6 +108,7 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
     const params = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_DELIVERY_PACKAGE_TYPE,
+      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',
