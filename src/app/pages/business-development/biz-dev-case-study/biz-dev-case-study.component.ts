@@ -27,9 +27,9 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
-      searchParams = this.buildSearchAssetsParams(searchParams);
+      searchParams = this.buildSearchAssetsParams(searchParams, metadata);
     }
     return { searchParams, opts };
   }
@@ -47,12 +47,12 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
   }
 
   // get all matched assets and their parent folders
-  protected buildSearchAssetsParams(queryParams: NuxeoPageProviderParams): NuxeoPageProviderParams {
+  protected buildSearchAssetsParams(searchParams: NuxeoPageProviderParams, metadata: any = {}): NuxeoPageProviderParams {
     const params = {
-      pageSize: 20,
-      currentPageIndex: 0,
+      currentPageIndex: metadata.append ? searchParams.currentPageIndex : 0,
+      pageSize: metadata.append ? searchParams.pageSize : 20,
       ecm_mixinType_not_in: '',
-      ecm_fulltext: queryParams.ecm_fulltext_wildcard,
+      ecm_fulltext: searchParams.ecm_fulltext_wildcard,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_SUB_FOLDER_TYPE,
     };

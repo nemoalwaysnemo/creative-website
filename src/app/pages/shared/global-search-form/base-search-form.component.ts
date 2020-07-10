@@ -82,7 +82,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Input() beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
+  @Input() beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, metadata: any = {}): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
 
   @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
@@ -363,7 +363,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    this.patchFormValue({ currentPageIndex: 0 });
+    this.patchFormValue({ currentPageIndex: 0, pageSize: this.getInputSearchParams().toParams().pageSize || this.defaultFormParams.pageSize });
     const func = (k: string, v: any): boolean => (['q', 'id', 'folder'].includes(k) || this.allowedSettingsParams[k]);
     const params = this.buildSearchParamsValue(removeUselessObject(searchParams.params, func));
     searchParams.metadata['event'] = searchParams.event;
@@ -376,7 +376,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected search(params: NuxeoPageProviderParams, options: NuxeoRequestOptions, metadata: any = {}): Observable<SearchResponse> {
-    const { searchParams, opts } = this.beforeSearch.call(this, params, options);
+    const { searchParams, opts } = this.beforeSearch.call(this, params, options, metadata);
     const pageProvider = this.getFormSettings('pageProvider');
     metadata['searchParams'] = params.toQueryParams();
     searchParams.setSettings(params.getSettings());

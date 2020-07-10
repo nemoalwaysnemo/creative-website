@@ -8,7 +8,7 @@ import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './docu
   selector: 'document-thumbnail-view',
   styleUrls: ['./document-thumbnail-view.component.scss'],
   template: `
-  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? {'min-height': '120px'} : {}">
+  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? loadingStyle : {}">
     <ng-container *ngIf="documentList && documentList.length !== 0">
       <div class="s-results {{layout}}">
         <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass]">
@@ -33,9 +33,11 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   @Input() layout: string = 'quarter'; // 'half' | 'third' | 'quarter' | 'suggestion-inline';
 
+  @Input() loadingStyle: any = { 'min-height': '120px' };
+
   @Input() hideEmpty: boolean = false;
 
-  @Input() loading: boolean;
+  @Input() loading: boolean = false;
 
   @Input() templateRef: TemplateRef<any>;
 
