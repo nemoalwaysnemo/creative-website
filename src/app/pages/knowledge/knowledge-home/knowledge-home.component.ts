@@ -52,7 +52,6 @@ export class KnowledgeHomeComponent extends BaseDocumentViewComponent implements
   ngAfterViewChecked() {
     const header = document.querySelector('nb-layout-header');
     if ((typeof (header) !== 'undefined' && header !== null) && (this.router.url.includes('/knowledge/'))) {
-      debugger;
       header.setAttribute('style', 'display:none');
       header.classList.remove('fixed');
     }
@@ -63,7 +62,6 @@ export class KnowledgeHomeComponent extends BaseDocumentViewComponent implements
       filter(event => event instanceof NavigationStart),
     ).subscribe((e: NavigationStart) => {
       if (!e.url.includes('/knowledge/')) {
-        debugger;
         const header = document.querySelector('nb-layout-header');
         header.setAttribute('style', 'display:block');
         header.classList.add('fixed');
