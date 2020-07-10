@@ -26,8 +26,8 @@ export class BrilliantThinkingComponent extends GlobalDocumentViewComponent impl
     pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THINKING_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THINKING_TYPE,
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({

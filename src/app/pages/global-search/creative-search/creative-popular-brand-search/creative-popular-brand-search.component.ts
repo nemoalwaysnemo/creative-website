@@ -14,8 +14,8 @@ export class CreativePopularBrandSearchComponent extends BaseDocumentViewCompone
   layout: string = 'popular_brand_search full-width';
 
   defaultParams: any = {
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
     currentPageIndex: 0,
     pageSize: 20,
     ecm_fulltext: '',

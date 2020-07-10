@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { AdvanceSearchService, NuxeoPagination, DocumentModel, SearchResponse } from '@core/api';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 import { Subject, timer, Subscription } from 'rxjs';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 
@@ -37,6 +37,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
     pageSize: 4,
     app_global_networkshare: true,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
     the_loupe_main_agency: '',
     ecm_uuid_not_eq: '',
   };

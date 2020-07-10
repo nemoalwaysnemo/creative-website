@@ -4,7 +4,7 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-related-campaign',
@@ -52,11 +52,12 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
       this.relatedDocs = [];
     } else {
       const params: any = {
-        pageSize: 25,
-        currentPageIndex: 0,
         ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+        ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
         the_loupe_main_campaign: `["${campaign}"]`,
         ecm_uuid_not_eq: doc.uid,
+        currentPageIndex: 0,
+        pageSize: 25,
       };
       const subscription = this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params))
         .subscribe((res: NuxeoPagination) => {
