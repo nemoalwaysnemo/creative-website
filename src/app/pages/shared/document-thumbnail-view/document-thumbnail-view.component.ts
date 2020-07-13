@@ -10,7 +10,7 @@ import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './docu
   template: `
     <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? loadingStyle : {}">
       <ng-container *ngIf="documentList && documentList.length !== 0">
-        <div class="s-results {{layout}}" [ngStyle]="hidde ? {'display': 'none'} : {'display': 'block'}">
+        <div class="s-results {{layout}}" [ngStyle]="hide ? {'display': 'none'} : {}">
           <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass]">
             <ng-template #itemTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
           </div>
@@ -41,7 +41,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   @Input() loading: boolean = false;
 
-  @Input() hidde: boolean = false;
+  @Input() hide: boolean = false;
 
   @Input() templateRef: TemplateRef<any>;
 

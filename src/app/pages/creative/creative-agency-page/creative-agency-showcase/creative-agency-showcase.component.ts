@@ -4,7 +4,7 @@ import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { GlobalSearchFormSettings } from '../../../shared/global-search-form/global-search-form.interface';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-agency-showcase',

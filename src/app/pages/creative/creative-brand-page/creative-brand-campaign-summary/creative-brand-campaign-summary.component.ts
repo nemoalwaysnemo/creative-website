@@ -8,7 +8,7 @@ import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-for
 import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog/global-document-dialog.interface';
 import { GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-campaign-summary',

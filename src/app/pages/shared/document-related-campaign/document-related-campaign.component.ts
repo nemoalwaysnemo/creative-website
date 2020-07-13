@@ -4,7 +4,7 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DocumentModel, NuxeoPageProviderParams, NuxeoPagination } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-related-campaign',

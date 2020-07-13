@@ -11,7 +11,7 @@
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
       <input class="keyword" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
         [ngClass]="{'with-filters': hasFilters()}" />
-      <document-thumbnail-view [hidde]="hiddeView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
+      <document-thumbnail-view [hide]="hideView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
   </section>
   <div class="clear"></div>
@@ -27,6 +27,6 @@
     <span class="dot"></span>
     <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">
       {{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
-    <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+    <h4 class="type" [title]="getAssetType(doc)">{{getAssetType(doc)}}</h4>
   </div>
 </ng-template>

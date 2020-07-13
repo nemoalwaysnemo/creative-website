@@ -1,4 +1,4 @@
-import { Environment } from '@environment/environment';
+import { Environment, NUXEO_DOC_TYPE } from '@environment/environment';
 
 export function join(...args: string[]): string {
   return args.join('/').replace(/(^\/+)|([^:])\/\/+/g, '$2/');
@@ -279,4 +279,22 @@ export function convertToBoolean(val: any): boolean {
 
 export function assetPath(src: string): string {
   return Environment.assetPath + src;
+}
+
+export function getAssetModuleType(doc: any): string {
+  let type = '';
+  if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
+    type = 'Creative';
+  } else if (NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES.includes(doc.type)) {
+    type = 'Backslash';
+  } else if (NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE.includes(doc.type)) {
+    type = 'Intelligence';
+  } else if (NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE.includes(doc.type)) {
+    type = 'Innovation';
+  } else if (NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE.includes(doc.type)) {
+    type = 'Business Development';
+  } else if (NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
+    type = 'Disruption';
+  }
+  return type;
 }
