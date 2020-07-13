@@ -32,7 +32,7 @@ export class BackslashAssetPageComponent extends GlobalDocumentViewComponent imp
     });
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     const header = document.querySelector('nb-layout-header');
     if (typeof (header) !== 'undefined' && header !== null) {
       header.setAttribute('style', 'display:none');

@@ -11,7 +11,7 @@
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
       <input class="keyword" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
         [ngClass]="{'with-filters': hasFilters()}" />
-      <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
+      <document-thumbnail-view [hidde]="hiddeView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
   </section>
   <div class="clear"></div>

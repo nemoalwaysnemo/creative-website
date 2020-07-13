@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./knowledge-home.component.scss'],
   templateUrl: './knowledge-home.component.html',
 })
-export class KnowledgeHomeComponent extends BaseDocumentViewComponent implements AfterViewChecked, OnDestroy {
+export class KnowledgeHomeComponent extends BaseDocumentViewComponent implements AfterViewChecked {
 
   loading: boolean = true;
 
@@ -49,7 +49,7 @@ export class KnowledgeHomeComponent extends BaseDocumentViewComponent implements
     this.setCurrentDocument();
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     const header = document.querySelector('nb-layout-header');
     if ((typeof (header) !== 'undefined' && header !== null) && (this.router.url.includes('/knowledge/'))) {
       header.setAttribute('style', 'display:none');
@@ -67,10 +67,6 @@ export class KnowledgeHomeComponent extends BaseDocumentViewComponent implements
         header.classList.add('fixed');
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

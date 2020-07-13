@@ -18,7 +18,11 @@ export class KnowledgeSearchFormComponent extends BaseSearchFormComponent {
 
   documents: DocumentModel[] = [];
 
+  hiddeView: boolean = false;
+
   backgroudUrl: string = '';
+
+  loadingStyle: any = {};
 
   layout: string = 'suggestion-inline';
 
@@ -31,12 +35,6 @@ export class KnowledgeSearchFormComponent extends BaseSearchFormComponent {
   @Input() subHead: string;
 
   @Input() redirectUrl: string;
-
-  private preventDocHide: boolean = false;
-
-  private isInitialSearch: boolean = true;
-
-  private results: DocumentModel[] = [];
 
   constructor(
     protected router: Router,
@@ -52,30 +50,18 @@ export class KnowledgeSearchFormComponent extends BaseSearchFormComponent {
     );
   }
 
-  show(): void {
-    this.documents = this.isInitialSearch ? this.documents = [] : this.results;
-  }
-
-  hide(): void {
-    if (!this.preventDocHide) {
-      this.documents = [];
-    }
-    this.preventDocHide = false;
-  }
-
   onKeyEnter(event: KeyboardEvent): void {
     this.redirectToListPage();
     event.preventDefault();
     event.stopImmediatePropagation();
   }
 
-  preventHide(pre: boolean): void {
-    this.preventDocHide = pre;
+  show(): void {
+    this.hiddeView = false;
   }
 
-  toggleFilter(): void {
-    super.toggleFilter();
-    this.preventDocHide = true;
+  hide(): void {
+    this.hiddeView = true;
   }
 
   getAssetUrl(doc: DocumentModel): string {
@@ -86,12 +72,18 @@ export class KnowledgeSearchFormComponent extends BaseSearchFormComponent {
     this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
+  private isSearchManually(res: SearchResponse): boolean {
+    return (res.searchParams.hasKeyword() || res.searchParams.hasFilters()) && res.metadata.event !== 'onSearchParamsInitialized';
+  }
+
+  protected onBeforeSearchEvent(res: SearchResponse): Observable<SearchResponse> {
+    this.loadingStyle = this.isSearchManually(res) ? { 'min-height': '100px' } : {};
+    return observableOf(res);
+  }
+
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
-    this.results = res.response.entries;
-    const searchText = res.searchParams.ecm_fulltext;
-    const searchFilter = res.searchParams.hasFilters();
-    this.isInitialSearch = !(searchText || searchFilter);
-    this.isInitialSearch ? this.hide() : this.show();
+    this.documents = this.isSearchManually(res) ? res.response.entries : [];
+    this.show();
     return observableOf(res);
   }
 }

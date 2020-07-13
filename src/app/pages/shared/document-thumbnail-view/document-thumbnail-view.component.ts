@@ -8,19 +8,21 @@ import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './docu
   selector: 'document-thumbnail-view',
   styleUrls: ['./document-thumbnail-view.component.scss'],
   template: `
-  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? loadingStyle : {}">
-    <ng-container *ngIf="documentList && documentList.length !== 0">
-      <div class="s-results {{layout}}">
-        <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass]">
-          <ng-template #itemTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
+    <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? loadingStyle : {}">
+      <ng-container *ngIf="documentList && documentList.length !== 0">
+        <div class="s-results {{layout}}" [ngStyle]="hidde ? {'display': 'none'} : {'display': 'block'}">
+          <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass]">
+            <ng-template #itemTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
+          </div>
+          <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-      </div>
-    </ng-container>
-    <div *ngIf="!hideEmpty && !loading && documentList && documentList.length === 0" class="thumbnail-view empty text-center">
-      <span class="empty-data">{{noResultText}}</span>
+      </ng-container>
+      <ng-container *ngIf="!hideEmpty && !loading && documentList && documentList.length === 0">
+        <div class="thumbnail-view empty text-center">
+          <span class="empty-data">{{noResultText}}</span>
+        </div>
+      </ng-container>
     </div>
-  </div>
   `,
 })
 export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
@@ -38,6 +40,8 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
   @Input() hideEmpty: boolean = false;
 
   @Input() loading: boolean = false;
+
+  @Input() hidde: boolean = false;
 
   @Input() templateRef: TemplateRef<any>;
 
