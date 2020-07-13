@@ -35,8 +35,6 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
-  @Output() preventHideDoc: EventEmitter<any> = new EventEmitter();
-
   ngOnChanges(c: SimpleChanges): void {
     if (this.filterSettings) {
       if (c.aggregateModels && c.aggregateModels.currentValue) {
@@ -74,10 +72,6 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-  }
-
-  preventHide(): void {
-    this.preventHideDoc.emit(true);
   }
 
   private buildDefaultOptionSettings(filters: SearchFilterModel[]): OptionSettings[] {
