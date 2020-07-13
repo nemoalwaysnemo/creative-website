@@ -3,7 +3,7 @@ import { NuxeoApiService } from './nuxeo';
 import { CacheService } from '@core/services';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UserModel, DocumentModel, NuxeoAutomations } from './nuxeo/lib';
+import { UserModel, DocumentModel, NuxeoAutomations, NuxeoResponse } from './nuxeo/lib';
 import { AbstractBaseSearchService } from './api.abstract-base-search.service';
 
 @Injectable({
@@ -28,9 +28,7 @@ export class UserService extends AbstractBaseSearchService {
     return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetFavorite));
   }
 
-  addFavoriteDocument(docs: any[]): any {
-    return this.cacheService.get('Favorite.AddToFavorites', this.nuxeoApi.operation(NuxeoAutomations.AddFavorite, {}));
-    // return this.nuxeoApi.operation(NuxeoAutomations.AddFavorite);
-    // return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetFavorite));
+  addFavoriteDocument(uids: string[]): Observable<NuxeoResponse> {
+    return this.nuxeoApi.operation(NuxeoAutomations.AddToFavorite, {}, uids);
   }
 }
