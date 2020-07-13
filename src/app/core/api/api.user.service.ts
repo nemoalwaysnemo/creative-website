@@ -27,4 +27,10 @@ export class UserService extends AbstractBaseSearchService {
   getFavoriteDocument(): Observable<DocumentModel> {
     return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetFavorite));
   }
+
+  addFavoriteDocument(docs: any[]): any {
+    return this.cacheService.get('Favorite.AddToFavorites', this.nuxeoApi.operation(NuxeoAutomations.AddFavorite, {}));
+    // return this.nuxeoApi.operation(NuxeoAutomations.AddFavorite);
+    // return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetFavorite));
+  }
 }
