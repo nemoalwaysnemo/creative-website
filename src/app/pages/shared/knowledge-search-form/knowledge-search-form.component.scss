@@ -53,12 +53,13 @@ $main-yellow: #fecc00;
   // width: calc(100% - 120px);
   margin: 28px auto 0;
   text-align: -webkit-center;
+  width: 65vw;
   .keyword {
     font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
     display: block;
-    width: 65vw;
     max-width: 1000px;
     height: 70px;
+    width: 65vw;
     padding-left: 97px;
     font-size: 23px;
     box-sizing: border-box;
@@ -79,4 +80,20 @@ $main-yellow: #fecc00;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #aeaeae;
+}
+
+.description {
+  text-align: left;
+  h1 {
+    font-size: 2rem;
+  }
+  h5 {
+    font-size: 1.5rem;
+  }
+  .year, .dot, .client {
+    margin-bottom: 5% !important;
+  }
+  .type {
+    color: #fec92e;
+  }
 }
