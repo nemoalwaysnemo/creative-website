@@ -23,7 +23,11 @@
 }
 
 .knowledge-home-form {
-  background-color: #fec92e;
+  // background-color: #fec92e;
+  background: url('/assets/images/knowledge-home.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   min-height: 60%;
 }
 .knowledge-module {
