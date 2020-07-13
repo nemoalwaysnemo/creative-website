@@ -4,7 +4,7 @@ import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { GlobalSearchFormSettings } from '../../../shared/global-search-form/global-search-form.interface';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-agency-showcase',
@@ -41,6 +41,7 @@ export class CreativeAgencyShowcaseComponent extends GlobalDocumentViewComponent
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
+      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
     };
   }

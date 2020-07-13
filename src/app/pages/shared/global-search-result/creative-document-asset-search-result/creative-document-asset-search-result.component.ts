@@ -37,7 +37,7 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
   listViewSettings: any;
 
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
-    enableSelectable: true,
+    enableSelectable: false,
   });
 
   private defaultSettings: any = {

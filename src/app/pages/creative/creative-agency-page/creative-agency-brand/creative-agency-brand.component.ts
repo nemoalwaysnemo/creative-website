@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-agency-brand',
@@ -45,6 +45,7 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
     const params = {
       pageSize: 1,
       currentPageIndex: 0,
+      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     };

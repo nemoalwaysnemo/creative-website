@@ -6,7 +6,7 @@
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
       <input class="keyword" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
         [ngClass]="{'with-filters': hasFilters()}" />
-      <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
+      <document-thumbnail-view [loading]="loading" [loadingStyle]="{}" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
     <ng-container *ngIf="hasFilters()">
       <button type="button" (click)="toggleFilter()" class="filter_trigger" [ngClass]="{'show': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters +</button>

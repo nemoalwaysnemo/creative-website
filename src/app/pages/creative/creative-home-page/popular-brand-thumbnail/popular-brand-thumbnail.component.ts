@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, DocumentModel, AdvanceSearchService } from '@core/api';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -20,6 +20,7 @@ export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 3,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,
   };
 

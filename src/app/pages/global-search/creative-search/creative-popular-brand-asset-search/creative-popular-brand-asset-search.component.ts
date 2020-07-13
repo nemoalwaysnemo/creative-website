@@ -47,6 +47,7 @@ export class CreativePopularBrandAssetSearchComponent extends GlobalDocumentView
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
+      ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,
     };
   }
