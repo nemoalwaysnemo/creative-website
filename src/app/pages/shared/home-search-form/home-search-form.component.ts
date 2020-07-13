@@ -18,7 +18,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
 
   documents: DocumentModel[] = [];
 
-  hiddeView: boolean = false;
+  hideView: boolean = false;
 
   loadingStyle: any = {};
 
@@ -57,11 +57,11 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   show(): void {
-    this.hiddeView = false;
+    this.hideView = false;
   }
 
   hide(): void {
-    this.hiddeView = true;
+    this.hideView = true;
   }
 
   onKeyEnter(event: KeyboardEvent): void {

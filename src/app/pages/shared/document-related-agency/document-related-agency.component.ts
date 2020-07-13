@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { AdvanceSearchService, NuxeoPagination, DocumentModel, SearchResponse } from '@core/api';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { AdvanceSearchService, DocumentModel, SearchResponse } from '@core/api';
 import { Subject, timer, Subscription } from 'rxjs';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-related-agency',

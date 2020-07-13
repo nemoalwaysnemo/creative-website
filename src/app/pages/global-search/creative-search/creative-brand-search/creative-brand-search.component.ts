@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SearchFilterModel } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-search',

@@ -6,7 +6,7 @@ import { ListSearchRowCustomViewComponent } from '../../list-search-form';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-delivery-package',
