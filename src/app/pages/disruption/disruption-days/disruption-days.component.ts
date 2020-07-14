@@ -8,7 +8,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'disruption-page',
+  selector: 'disruption-days',
   styleUrls: ['./disruption-days.component.scss'],
   templateUrl: './disruption-days.component.html',
 })

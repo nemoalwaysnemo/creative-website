@@ -5,7 +5,7 @@ import { DocumentPageService } from '@pages/shared';
 import { Environment } from '@environment/environment';
 
 @Component({
-  selector: 'backslash-remote-pages',
+  selector: 'backslash-remote-page',
   template: `
     <iframe [src]="iframeUrl" height="100%" width="100%" frameBorder="0"></iframe>
   `,

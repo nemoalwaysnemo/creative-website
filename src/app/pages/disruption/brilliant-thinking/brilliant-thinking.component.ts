@@ -7,7 +7,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'disruption-brilliant-thinking-page',
+  selector: 'disruption-brilliant-thinking',
   styleUrls: ['./brilliant-thinking.component.scss'],
   templateUrl: './brilliant-thinking.component.html',
 })

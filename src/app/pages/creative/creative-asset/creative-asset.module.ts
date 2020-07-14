@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedModule } from '@pages/shared/shared.module';
-import { CreativeMyAgencyPageComponent } from './creative-my-agency-page.component';
+import { CreativeAssetComponent } from './creative-asset.component';
 
 @NgModule({
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
   ],
   declarations: [
-    CreativeMyAgencyPageComponent,
+    CreativeAssetComponent,
   ],
 })
-export class CreativeMyAgencyPageModule { }
+export class CreativeAssetModule { }

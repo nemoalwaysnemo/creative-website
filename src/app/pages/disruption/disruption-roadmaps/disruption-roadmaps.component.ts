@@ -7,7 +7,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'disruption-roadmap-page',
+  selector: 'disruption-roadmap',
   styleUrls: ['./disruption-roadmaps.component.scss'],
   templateUrl: './disruption-roadmaps.component.html',
 })

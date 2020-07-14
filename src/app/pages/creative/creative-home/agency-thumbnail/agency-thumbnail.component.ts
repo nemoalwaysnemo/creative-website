@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { DocumentPageService } from '@pages/shared';
+import { Subscription } from 'rxjs';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
