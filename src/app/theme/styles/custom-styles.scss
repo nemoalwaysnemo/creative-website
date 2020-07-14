@@ -717,7 +717,6 @@ selectable-checkbox {
     height: 30px;
     cursor: pointer;
     background: url('/assets/images/checkbox-unchecked.png') no-repeat top left;
-    &.item-selectable-enabled { display: block; }
   }
   &.item-selected {
     > div { background: url('/assets/images/checkbox-checked.png') no-repeat top left; }
@@ -727,4 +726,7 @@ selectable-checkbox {
     height: 30px;
     &.visually-hidden { opacity: 0; }
   }
+}
+.thumbnail-view-item:hover {
+  .item-selectable-enabled { display: block; }
 }
