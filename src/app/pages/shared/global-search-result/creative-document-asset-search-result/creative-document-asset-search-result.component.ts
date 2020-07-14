@@ -30,7 +30,7 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
 
   @Input() layout: string;
 
-  @Input() resultHeader: string;
+  @Input() resultHeader: string = '';
 
   @Input() hideEmpty: boolean = false;
 

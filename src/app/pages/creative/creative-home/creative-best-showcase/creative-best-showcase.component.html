@@ -1,16 +1,13 @@
 <div class="agency-thumbnail">
   <h1 class="left">
-    <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}">
-      Best of TBWA\
-    </a>
+    <a [routerLink]="['/p/search/creative/showcase']">Best of TBWA\</a>
   </h1>
-  <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}" class="see_all right">See all</a>
-  <a *ngIf="!!myAgencyFlag" [routerLink]="['/p/creative/agency']" class="see_all right">My agency</a>
+  <a [routerLink]="['/p/search/creative/showcase']" class="see_all right">See all</a>
+  <a *ngIf="hasAgency" [routerLink]="['/p/creative/agency']" class="see_all right">My agency</a>
   <div class="clear"></div>
   <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 </div>
 <div class="clear"></div>
-
 <ng-template #thumbnailItemView let-doc="doc">
   <div class="image-holder">
     <a [routerLink]="['/p/creative/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.attachedImage+')'}">

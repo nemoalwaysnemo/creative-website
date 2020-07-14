@@ -7,11 +7,13 @@ import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'creative-document-asset-search',
-  styleUrls: ['./creative-document-asset-search.component.scss'],
-  templateUrl: './creative-document-asset-search.component.html',
+  selector: 'creative-document-showcase-search',
+  styleUrls: ['./creative-document-showcase-search.component.scss'],
+  templateUrl: './creative-document-showcase-search.component.html',
 })
-export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewComponent {
+export class CreativeDocumentShowcaseSearchComponent extends BaseDocumentViewComponent {
+
+  resultHeader: string = `Best of TBWA\\`;
 
   layout: string = 'creative_asset_search';
 
@@ -21,7 +23,8 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
     currentPageIndex: 0,
     pageSize: 20,
     ecm_fulltext: '',
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+    app_global_networkshare: true,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_SHOWCASE_ASSET_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 

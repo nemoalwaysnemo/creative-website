@@ -1,10 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CreativeSearchComponent } from './creative-search.component';
-import { CreativeDocumentAssetSearchComponent } from './creative-document-asset-search/creative-document-asset-search.component';
 import { CreativeBrandSearchComponent } from './creative-brand-search/creative-brand-search.component';
 import { CreativeAgencySearchComponent } from './creative-agency-search/creative-agency-search.component';
 import { CreativePopularBrandSearchComponent } from './creative-popular-brand-search/creative-popular-brand-search.component';
+import { CreativeDocumentAssetSearchComponent } from './creative-document-asset-search/creative-document-asset-search.component';
+import { CreativeDocumentShowcaseSearchComponent } from './creative-document-showcase-search/creative-document-showcase-search.component';
 import { CreativePopularBrandAssetSearchComponent } from './creative-popular-brand-asset-search/creative-popular-brand-asset-search.component';
 
 const routes: Routes = [{
@@ -14,6 +15,10 @@ const routes: Routes = [{
     {
       path: 'asset',
       component: CreativeDocumentAssetSearchComponent,
+    },
+    {
+      path: 'showcase',
+      component: CreativeDocumentShowcaseSearchComponent,
     },
     {
       path: 'brand',
