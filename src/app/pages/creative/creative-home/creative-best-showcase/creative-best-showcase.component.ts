@@ -5,19 +5,19 @@ import { Subscription } from 'rxjs';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'creative-agency-thumbnail',
-  styleUrls: ['./agency-thumbnail.component.scss'],
-  templateUrl: './agency-thumbnail.component.html',
+  selector: 'creative-best-showcase',
+  styleUrls: ['./creative-best-showcase.component.scss'],
+  templateUrl: './creative-best-showcase.component.html',
 })
-export class AgencyThumbnailComponent implements OnInit, OnDestroy {
+export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
 
   layout: string = 'full-width agency';
 
-  loading: boolean = true;
-
   documents: DocumentModel[];
 
-  myAgencyFlag: boolean = false;
+  loading: boolean = true;
+
+  hasAgency: boolean = false;
 
   companyCode: string;
 
@@ -25,7 +25,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 9,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_BEST_ASSETS_PATH,
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_SHOWCASE_ASSET_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
@@ -47,7 +47,7 @@ export class AgencyThumbnailComponent implements OnInit, OnDestroy {
     const subscription = this.documentPageService.getCurrentUser()
       .subscribe((user: UserModel) => {
         if (user.companycode) {
-          this.myAgencyFlag = true;
+          this.hasAgency = true;
         }
       });
     this.subscription.add(subscription);
