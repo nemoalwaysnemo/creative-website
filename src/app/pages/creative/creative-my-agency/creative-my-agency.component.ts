@@ -7,11 +7,11 @@ import { DocumentModel, NuxeoPageProviderParams, UserModel } from '@core/api';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'creative-my-agency-page',
-  templateUrl: './creative-my-agency-page.component.html',
-  styleUrls: ['./creative-my-agency-page.component.scss'],
+  selector: 'creative-my-agency',
+  templateUrl: './creative-my-agency.component.html',
+  styleUrls: ['./creative-my-agency.component.scss'],
 })
-export class CreativeMyAgencyPageComponent extends GlobalDocumentViewComponent {
+export class CreativeMyAgencyComponent extends GlobalDocumentViewComponent {
 
   hideEmpty: boolean = false;
 

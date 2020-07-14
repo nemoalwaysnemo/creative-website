@@ -4,11 +4,11 @@ import { DocumentPageService, GlobalDocumentViewComponent, GlobalDocumentDialogS
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'backslash-home-page',
-  styleUrls: ['./backslash-home-page.component.scss'],
-  templateUrl: './backslash-home-page.component.html',
+  selector: 'backslash-home',
+  styleUrls: ['./backslash-home.component.scss'],
+  templateUrl: './backslash-home.component.html',
 })
-export class BackslashHomePageComponent extends GlobalDocumentViewComponent {
+export class BackslashHomeComponent extends GlobalDocumentViewComponent {
 
   constructor(
     protected activatedRoute: ActivatedRoute,

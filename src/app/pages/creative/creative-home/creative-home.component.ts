@@ -5,11 +5,11 @@ import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-do
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'creative-home-page',
-  styleUrls: ['./creative-home-page.component.scss'],
-  templateUrl: './creative-home-page.component.html',
+  selector: 'creative-home',
+  styleUrls: ['./creative-home.component.scss'],
+  templateUrl: './creative-home.component.html',
 })
-export class CreativeHomePageComponent extends BaseDocumentViewComponent {
+export class CreativeHomeComponent extends BaseDocumentViewComponent {
 
   headline: string = 'This is how we kill boring.';
 

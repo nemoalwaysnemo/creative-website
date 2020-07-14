@@ -4,11 +4,11 @@ import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared'
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'creative-asset-page',
-  styleUrls: ['./creative-asset-page.component.scss'],
-  templateUrl: './creative-asset-page.component.html',
+  selector: 'creative-asset',
+  styleUrls: ['./creative-asset.component.scss'],
+  templateUrl: './creative-asset.component.html',
 })
-export class CreativeAssetPageComponent extends GlobalDocumentViewComponent {
+export class CreativeAssetComponent extends GlobalDocumentViewComponent {
 
   enableThumbnailCreation: boolean = true;
 

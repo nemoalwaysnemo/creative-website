@@ -8,7 +8,7 @@ import { TAB_CONFIG } from '../business-development-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'biz-dev-thought-leadership-page',
+  selector: 'biz-dev-thought-leadership',
   styleUrls: ['./biz-dev-thought-leadership.component.scss'],
   templateUrl: './biz-dev-thought-leadership.component.html',
 })

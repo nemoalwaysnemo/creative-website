@@ -5,11 +5,11 @@ import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared'
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'backslash-asset-page',
-  styleUrls: ['./backslash-asset-page.component.scss'],
-  templateUrl: './backslash-asset-page.component.html',
+  selector: 'backslash-asset',
+  styleUrls: ['./backslash-asset.component.scss'],
+  templateUrl: './backslash-asset.component.html',
 })
-export class BackslashAssetPageComponent extends GlobalDocumentViewComponent implements AfterViewChecked, OnDestroy {
+export class BackslashAssetComponent extends GlobalDocumentViewComponent implements AfterViewChecked, OnDestroy {
 
   constructor(
     private router: Router,

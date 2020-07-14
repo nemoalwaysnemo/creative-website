@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
-import { CreativeAssetPageComponent } from './creative-asset-page.component';
+import { BackslashAssetComponent } from './backslash-asset.component';
 import { SharedModule } from '@pages/shared/shared.module';
 
 @NgModule({
@@ -9,7 +9,7 @@ import { SharedModule } from '@pages/shared/shared.module';
     SharedModule,
   ],
   declarations: [
-    CreativeAssetPageComponent,
+    BackslashAssetComponent,
   ],
 })
-export class CreativeAssetPageModule { }
+export class BackslashAssetModule { }

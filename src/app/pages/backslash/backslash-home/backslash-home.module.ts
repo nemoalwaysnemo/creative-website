@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedModule } from '@pages/shared/shared.module';
-import { BackslashHomePageComponent } from './backslash-home-page.component';
+import { BackslashHomeComponent } from './backslash-home.component';
 import { BackslashHomeThumbnailComponent } from './backslash-home-thumbnail/backslash-home-thumbnail.component';
 import { BackslashHomeGalleryComponent } from './backslash-home-gallery/backslash-home-gallery.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
@@ -16,9 +16,9 @@ import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared'
     GlobalSearchResultModule,
   ],
   declarations: [
-    BackslashHomePageComponent,
+    BackslashHomeComponent,
     BackslashHomeGalleryComponent,
     BackslashHomeThumbnailComponent,
   ],
 })
-export class BackslashHomePageModule { }
+export class BackslashHomeModule { }

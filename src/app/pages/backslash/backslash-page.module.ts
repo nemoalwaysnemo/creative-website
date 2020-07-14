@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-import { BackslashHomePageModule } from './backslash-home-page/backslash-home-page.module';
+import { BackslashHomeModule } from './backslash-home/backslash-home.module';
 import { BackslashPageComponent } from './backslash-page.component';
 import { BackslashPageRoutingModule } from './backslash-page-routing.module';
-import { BackslashAssetPageModule } from './backslash-asset-page/backslash-asset-page.module';
+import { BackslashAssetModule } from './backslash-asset/backslash-asset.module';
 import { BackslashRemotePageComponent } from './backslash-remote-page.component';
 import { ACLModule } from '@core/acl';
 
 @NgModule({
   imports: [
     ACLModule,
-    BackslashHomePageModule,
-    BackslashAssetPageModule,
+    BackslashHomeModule,
+    BackslashAssetModule,
     BackslashPageRoutingModule,
   ],
   declarations: [
