@@ -10,8 +10,8 @@ import { SelectableItemService, SelectableItemEvent } from '../selectable-item/s
   styleUrls: ['./selectable-action-bar.component.scss'],
   template: `
     <ng-container *ngIf="enabled">
-      <div style='width: 100%'>
-        {{count}} item(s) selected <a (click)="clear()">Clear</a>
+      <div class='selectableBar'>
+        {{count}} item(s) selected <a (click)="clear()" class="clearSelection">Clear</a>
         <div style='float:right'>
           <a (click)="addToFavorite()">Add to favorites</a>
         </div>
