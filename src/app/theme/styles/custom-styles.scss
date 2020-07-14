@@ -645,7 +645,7 @@ body {
 }
 nb-route-tabset {
   display: block;
-  margin: 20px 0 40px;
+  margin: 20px 0;
   padding: 0 40px;
   box-sizing: border-box;
 }
@@ -728,5 +728,5 @@ selectable-checkbox {
   }
 }
 .thumbnail-view-item:hover {
-  .item-selectable-enabled { display: block; }
+  .item-selectable-checkbox { display: block; }
 }

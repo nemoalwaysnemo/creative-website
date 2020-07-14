@@ -5,8 +5,6 @@ export class SelectableItemSettings {
 
   dataType: string = 'thumbnail-view';
 
-  enableCheckBox: boolean = true;
-
   enableSelectable: boolean = false;
 
   constructor(data: any = {}) {

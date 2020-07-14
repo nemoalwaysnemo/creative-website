@@ -11,14 +11,14 @@ export class IntelligenceFolderViewComponent {
 
   isShow: boolean = false;
 
-  doc: DocumentModel;
+  documentModel: DocumentModel;
 
   @Input() loading: boolean;
 
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
-      this.doc = doc;
+      this.documentModel = doc;
       this.isShow = this.showBackToParent(doc.type);
     }
   }
@@ -30,7 +30,7 @@ export class IntelligenceFolderViewComponent {
   }
 
   backToParent(): void {
-    this.documentPageService.redirect(`/p/intelligence/folder/${this.doc.parentRef}`);
+    this.documentPageService.redirect(`/p/intelligence/folder/${this.documentModel.parentRef}`);
   }
 
   private showBackToParent(type: string): boolean {
