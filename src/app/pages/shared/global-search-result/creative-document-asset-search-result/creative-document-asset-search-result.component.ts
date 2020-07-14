@@ -34,11 +34,11 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
 
   @Input() hideEmpty: boolean = false;
 
-  listViewSettings: any;
-
-  selectableSettings: SelectableItemSettings = new SelectableItemSettings({
-    enableSelectable: true,
+  @Input() selectableSettings: SelectableItemSettings = new SelectableItemSettings({
+    enableSelectable: false,
   });
+
+  listViewSettings: any;
 
   private defaultSettings: any = {
     columns: {

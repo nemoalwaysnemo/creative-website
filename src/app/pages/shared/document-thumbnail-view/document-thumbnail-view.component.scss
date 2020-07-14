@@ -5,11 +5,11 @@
   &.item-selected {
     outline: solid 5px #fecc26;
   }
-  &:hover {
-    outline: solid 5px #fecc26;
-  }
   &.half-size {
   	width: calc( 16.6% - 34px);
   	margin:15px;
   }
+}
+.enableSelectable:hover {
+  outline: solid 5px #fecc26;
 }

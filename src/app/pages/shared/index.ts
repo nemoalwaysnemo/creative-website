@@ -34,4 +34,5 @@ export * from './abstract-classes/global-document-view.component';
 export * from './abstract-classes/base-document-view.component';
 export * from './abstract-classes/base-document-manage.component';
 export * from './abstract-classes/abstract-classes.module';
+export * from './selectable-item/selectable-item.interface';
 export * from './selectable-action-bar/selectable-action-bar.module';
