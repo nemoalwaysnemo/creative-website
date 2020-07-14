@@ -325,6 +325,10 @@ export class NuxeoPagination {
   hasAgg(): boolean {
     return objHasValue(this.aggregations);
   }
+
+  hasResult(): boolean {
+    return objHasValue(this.entries);
+  }
 }
 
 export class NuxeoBlob {
@@ -403,7 +407,7 @@ export enum NuxeoAutomations {
   GetDocument = 'Creative.GetDocument',
   DocumentCreate = 'Document.Create',
   GetFavorite = 'Favorite.Fetch',
-  AddFavorite = 'Document.AddToFavorites',
+  AddToFavorite = 'Document.AddToFavorites',
   RemoveFromFavorites = 'Document.RemoveFromFavorites',
   GetVideoScreenshot = 'Backslash.GetVideoScreenshot',
   TBWAUserDigest = 'TBWA.GetUserDigest',

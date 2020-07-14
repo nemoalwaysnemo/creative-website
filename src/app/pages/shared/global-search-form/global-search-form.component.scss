@@ -1,11 +1,10 @@
 .global-search-form {
-  margin-top: 20px;
-  margin-bottom: 32px;
+  // margin-top: 20px;
+  // margin-bottom: 32px;
   .search-input {
     display: block;
     &.left { margin: 0 27px 28px 60px; }
     &.right { margin: 0 27px 28px 0; }
-
     input {
       font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
       display: inline-block;

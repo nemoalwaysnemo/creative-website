@@ -1,8 +1,8 @@
-import { join, encodePath } from '../../../services/helpers';
-import { NuxeoResponse, NuxeoBlob } from './base.interface';
-import { Observable } from 'rxjs';
 import { Base } from './base.api';
+import { NuxeoResponse, NuxeoBlob } from './base.interface';
+import { join, encodePath } from '../../../services/helpers';
 import { isDocument, isBatch, isBatchUpload, isBatchBlob } from './nuxeo.utils';
+import { Observable } from 'rxjs';
 
 export class Operation extends Base {
 
@@ -38,7 +38,7 @@ export class Operation extends Base {
     return this;
   }
 
-  input(input: string): this {
+  input(input: string | string[]): this {
     this._automationParams.input = input;
     return this;
   }

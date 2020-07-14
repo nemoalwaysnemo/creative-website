@@ -1,5 +1,5 @@
 <creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
-<div class="creative-brand-asset" [nbSpinner]="loading" nbSpinnerStatus="disabled" style="margin-top:45px">
+<div class="creative-brand-asset" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
     <ng-container class="group-right">
       <div class="global-search-form-buttons">
@@ -10,5 +10,6 @@
       </div>
     </ng-container>
   </global-search-form>
+  <selectable-action-bar></selectable-action-bar>
   <creative-document-asset-search-result [layout]="layout"></creative-document-asset-search-result>
 </div>

@@ -1,4 +1,4 @@
-<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view">
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="brand-view" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div class="property-section" *ngIf="documentModel">
     <div class="property-intro inline-top">
       <div *ngIf="documentModel" [ngStyle]="{'background-image': 'url('+documentModel.filePath+')'}"></div>
