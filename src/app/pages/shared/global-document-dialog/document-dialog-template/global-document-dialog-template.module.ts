@@ -17,7 +17,6 @@ import { CreativeProjectAssetTemplateComponent } from './creative-project-asset-
 import { CreativeProjectAssetBaseTemplateComponent } from './creative-project-asset-template/creative-project-asset-base-template.component';
 import { CreativeProjectAssetCompletionReportTemplateComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-completion-report-template.component';
 import { CreativeProjectReportProductionInformationComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-report-production-information/creative-project-asset-report-production-information.component';
-import { CreativeProjectReportBuyontTalentInformationComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-report-buyont-talent-information/creative-project-asset-report-buyont-talent-information.component';
 import { CreativeProjectReportAllowableVersionsComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-report-allowable-versions/creative-project-asset-report-allowable-versions.component';
 import { CreativeProjectAssetReportUnionTalentComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-report-union-talent/creative-project-asset-report-union-talent.component';
 import { CreativeProjectAssetDeliverableTemplateComponent } from './creative-project-asset-template/creative-project-asset-deliverable-template/creative-project-asset-deliverable-template.component';
@@ -36,7 +35,6 @@ const COMPONENTS = [
   CreativeProjectAssetBaseTemplateComponent,
   CreativeProjectAssetCompletionReportTemplateComponent,
   CreativeProjectReportProductionInformationComponent,
-  CreativeProjectReportBuyontTalentInformationComponent,
   CreativeProjectReportAllowableVersionsComponent,
   CreativeProjectAssetReportUnionTalentComponent,
   CreativeProjectAssetDeliverableTemplateComponent,

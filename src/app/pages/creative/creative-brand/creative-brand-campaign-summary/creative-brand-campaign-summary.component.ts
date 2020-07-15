@@ -40,6 +40,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   });
 
   searchFormSettingsProject: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
     source: 'list-search-form-campaign-project',
   });
 
