@@ -6,12 +6,14 @@ import { DocumentCreativeProjectInfoComponent } from './document-creative-projec
 import { DocumentCreativeProjectUsageRightsComponent } from './document-creative-project-usage-rights/document-creative-project-usage-rights.component';
 import { DocumentCreativeProjectRelatedAssetComponent } from './document-creative-project-related-asset/document-creative-project-related-asset.component';
 import { DocumentCreativeProjectDeliveryPackageComponent } from './document-creative-project-delivery-package/document-creative-project-delivery-package.component';
+import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ThemeModule,
     ListSearchFormModule,
+    DirectorySuggestionModule,
   ],
   declarations: [
     DocumentCreativeProjectInfoComponent,
