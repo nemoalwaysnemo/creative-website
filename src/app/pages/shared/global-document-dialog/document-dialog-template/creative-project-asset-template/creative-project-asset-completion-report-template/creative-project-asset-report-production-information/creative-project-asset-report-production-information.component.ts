@@ -17,11 +17,9 @@ export class CreativeProjectReportProductionInformationComponent extends BaseDoc
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'creative-project-asset-report-production-information',
-    enableSearchInput: false,
-  });
+  // searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings(
+  //   source: 'creative-project-asset-report-production-information',
+  // });
 
   changeView(): void {
     this.showForm = !this.showForm;
