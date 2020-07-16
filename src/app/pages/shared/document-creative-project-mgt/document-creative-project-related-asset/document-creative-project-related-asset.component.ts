@@ -6,10 +6,10 @@ import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-sea
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
-import { CreativeProjectAssetBaseTemplateComponent } from '@pages/shared/global-document-dialog/document-dialog-template/creative-project-asset-template/creative-project-asset-base-template.component';
-import { GlobalDocumentDialogService } from '@pages/shared/';
+import { CreativeProjectAssetBaseTemplateComponent } from '../../global-document-dialog/document-dialog-template/creative-project-asset-template/creative-project-asset-base-template.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../directory-suggestion/directory-suggestion-settings';
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 
 @Component({
   selector: 'document-creative-project-related-asset',
