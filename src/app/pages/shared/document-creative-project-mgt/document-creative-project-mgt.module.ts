@@ -7,11 +7,13 @@ import { DocumentCreativeProjectUsageRightsComponent } from './document-creative
 import { DocumentCreativeProjectRelatedAssetComponent } from './document-creative-project-related-asset/document-creative-project-related-asset.component';
 import { DocumentCreativeProjectDeliveryPackageComponent } from './document-creative-project-delivery-package/document-creative-project-delivery-package.component';
 import { DocumentCreativeProjectReportBuyontTalentInformationComponent } from './document-creative-project-completion-report/document-creative-project-report-buyout-talent-information/document-creative-project-report-buyout-talent-information.component';
+import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
 @NgModule({
   imports: [
     CommonModule,
     ThemeModule,
     ListSearchFormModule,
+    DirectorySuggestionModule,
   ],
   declarations: [
     DocumentCreativeProjectInfoComponent,

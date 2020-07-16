@@ -1,18 +1,26 @@
 import { Component, Input } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { CreativeProjectAssetBaseTemplateComponent } from '@pages/shared/global-document-dialog/document-dialog-template/creative-project-asset-template/creative-project-asset-base-template.component';
+import { GlobalDocumentDialogService } from '@pages/shared/';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SuggestionSettings } from '@pages/shared/directory-suggestion/directory-suggestion-settings';
 
 @Component({
   selector: 'document-creative-project-related-asset',
   styleUrls: ['../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-related-asset.component.html',
 })
-export class DocumentCreativeProjectRelatedAssetComponent {
+export class DocumentCreativeProjectRelatedAssetComponent extends CreativeProjectAssetBaseTemplateComponent {
+
+  static readonly NAME: string = 'document-project-package-template';
+
+  formGroup: FormGroup;
 
   loading: boolean = true;
 
@@ -20,14 +28,25 @@ export class DocumentCreativeProjectRelatedAssetComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 
+  isPackage: boolean;
+
+  selectedRows: any;
+
+  listViewSettings: any;
+
+  requestData: any = [];
+
+  list: any;
+
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'document-creative-project-related-asset',
     enableSearchInput: false,
   });
 
-  listViewSettings: any = {
+  defaultSettings: any = {
     hideHeader: true,
     hideSubHeader: true,
+    selectMode: 'single',
     columns: {
       title: {
         title: 'Title',
@@ -66,7 +85,93 @@ export class DocumentCreativeProjectRelatedAssetComponent {
     }
   }
 
+  @Input()
+  set listViewOptions(settings: any) {
+    if (settings) {
+      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
+    } else {
+      this.listViewSettings = this.defaultSettings;
+    }
+  }
+
+  @Input()
+  set deliverPackage(flag: boolean) {
+    if (flag) {
+      this.isPackage = flag;
+    }
+  }
+
+  settingsDays: any = new SuggestionSettings({
+    id: 'The_Loupe_Delivery:expiry_days',
+    label: 'expiry day',
+    viewType: 'suggestion',
+    multiple: false,
+    placeholder: 'expiry day',
+    providerType: SuggestionSettings.DIRECTORY,
+    providerName: 'App-Library-Delivery-expiry-days',
+  });
+
+  settingsOptions: any = new SuggestionSettings({
+    id: 'The_Loupe_Delivery:delivery_config',
+    label: 'config',
+    multiple: false,
+    placeholder: 'config',
+    providerType: SuggestionSettings.DIRECTORY,
+    providerName: 'App-Library-Delivery-Config',
+  });
+
+  constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    protected formBuilder: FormBuilder,
+    protected nuxeoApi: NuxeoApiService,
+  ) {
+    super();
+  }
+
   onSelected(row: any): void {
+    this.selectedRows = row.selected;
+  }
+
+  buildAsset(): void {
+    if (this.selectedRows) {
+      const uids: string[] = this.selectedRows.map((doc: DocumentModel) => doc.uid);
+      if (uids.length > 0) {
+      }
+    }
+  }
+
+  sendPackage(): void {
+    this.buildAsset();
+    if (!this.formGroup.invalid) {
+      // this.setRequest(this.document, this.requestData);
+    }
+  }
+
+  protected onInit(): void {
+    this.buildForm();
+  }
+
+  private buildForm(): void {
+    this.formGroup = this.formBuilder.group({
+      receiver: ['', [Validators.required, Validators.minLength(10)]],
+      subject: ['', [Validators.required, Validators.minLength(10)]],
+      expires: ['', [Validators.required]],
+      options: ['', [Validators.required]],
+      content: ['', [Validators.required, Validators.minLength(10)]],
+    });
+  }
+
+  private setRequest(doc: DocumentModel, message: string): void {
+    // const subscription = this.nuxeoApi.operation(NuxeoAutomations.DownloadRequest, { 'uuid': doc.uid, message }).subscribe((res: DocumentModel) => {
+    //   const messageType = res.uid ? 'success' : 'error';
+    //   const messageContent = res.uid ? 'The request has been successfully sent!' : 'Request failed to send, please try again';
+    //   this.globalDocumentDialogService.triggerEvent({ name: `DocumentDownloadRequest`, type: 'callback', messageType, messageContent });
+    //   // refresh
+    // });
+    // this.subscription.add(subscription);
+  }
+
+  draftPackage(): void {
 
   }
 
