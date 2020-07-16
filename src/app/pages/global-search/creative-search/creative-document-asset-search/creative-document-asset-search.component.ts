@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Params } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
@@ -12,6 +13,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './creative-document-asset-search.component.html',
 })
 export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewComponent {
+
+  resultHeader: string = '';
 
   layout: string = 'creative_asset_search';
 
@@ -55,10 +58,22 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
 
   onInit(): void {
     this.setCurrentDocument();
+    this.setResultHeader();
   }
 
   onResultViewChanged(name: string): void {
     this.currentView = name;
+  }
+
+  private setResultHeader(): void {
+    const subscription = this.documentPageService.onQueryParamsChanged().subscribe((params: Params) => {
+      if (params.hasOwnProperty('app_global_networkshare')) {
+        this.resultHeader = 'Global Showcase';
+      } else {
+        this.resultHeader = '';
+      }
+    });
+    this.subscription.add(subscription);
   }
 
 }

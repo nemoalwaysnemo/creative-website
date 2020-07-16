@@ -13,7 +13,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class CreativeDocumentShowcaseSearchComponent extends BaseDocumentViewComponent {
 
-  resultHeader: string = `Global Showcase`;
+  resultHeader: string = `Best of TBWA\\`;
 
   layout: string = 'creative_asset_search';
 
@@ -23,7 +23,6 @@ export class CreativeDocumentShowcaseSearchComponent extends BaseDocumentViewCom
     currentPageIndex: 0,
     pageSize: 20,
     ecm_fulltext: '',
-    app_global_networkshare: true,
     ecm_path: NUXEO_PATH_INFO.CREATIVE_SHOWCASE_ASSET_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
