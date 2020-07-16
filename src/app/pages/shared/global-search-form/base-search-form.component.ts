@@ -58,7 +58,9 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     aggregates: {},
   };
 
-  protected allowedLinkParams: string[] = [];
+  protected allowedLinkParams: string[] = [
+    'app_global_networkshare',
+  ];
 
   protected allowedSettingsParams: any = {
     'showFilter': convertToBoolean,

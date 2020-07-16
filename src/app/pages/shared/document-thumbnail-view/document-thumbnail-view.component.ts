@@ -29,7 +29,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   sliderClass: string = '';
 
-  selectableItemSettings: SelectableItemSettings;
+  selectableItemSettings: SelectableItemSettings = new SelectableItemSettings();
 
   @Input() layout: string = 'quarter'; // 'half' | 'third' | 'quarter' | 'suggestion-inline';
 
