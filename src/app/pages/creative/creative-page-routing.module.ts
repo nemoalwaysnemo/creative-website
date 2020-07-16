@@ -3,21 +3,21 @@ import { NgModule } from '@angular/core';
 import { UserPermission } from '@core/acl';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { CreativePageComponent } from './creative-page.component';
-import { CreativeHomePageComponent } from './creative-home-page/creative-home-page.component';
-import { CreativeAssetPageComponent } from './creative-asset-page/creative-asset-page.component';
-import { CreativeBrandAssetComponent } from './creative-brand-page/creative-brand-asset/creative-brand-asset.component';
-import { CreativeBrandShowcaseComponent } from './creative-brand-page/creative-brand-showcase/creative-brand-showcase.component';
-import { CreativeBrandCampaignComponent } from './creative-brand-page/creative-brand-campaign/creative-brand-campaign.component';
-import { CreativeBrandProjectComponent } from './creative-brand-page/creative-brand-project/creative-brand-project.component';
-import { CreativeBrandUsageRightsComponent } from './creative-brand-page/creative-brand-usage-rights/creative-brand-usage-rights.component';
-import { CreativeBrandManageListComponent } from './creative-brand-page/creative-brand-manage-list/creative-brand-manage-list.component';
-import { CreativeBrandManageLibraryComponent } from './creative-brand-page/creative-brand-manage-library/creative-brand-manage-library.component';
-import { CreativeAgencyBrandComponent } from './creative-agency-page/creative-agency-brand/creative-agency-brand.component';
-import { CreativeAgencyShowcaseComponent } from './creative-agency-page/creative-agency-showcase/creative-agency-showcase.component';
-import { CreativeAgencyManageLibraryComponent } from './creative-agency-page/creative-agency-manage-library/creative-agency-manage-library.component';
-import { CreativeBrandCampaignSummaryComponent } from './creative-brand-page/creative-brand-campaign-summary/creative-brand-campaign-summary.component';
-import { CreativeAgencyManageListComponent } from './creative-agency-page/creative-agency-manage-list/creative-agency-manage-list.component';
-import { CreativeMyAgencyPageComponent } from './creative-my-agency/creative-my-agency-page.component';
+import { CreativeHomeComponent } from './creative-home/creative-home.component';
+import { CreativeAssetComponent } from './creative-asset/creative-asset.component';
+import { CreativeMyAgencyComponent } from './creative-my-agency/creative-my-agency.component';
+import { CreativeBrandAssetComponent } from './creative-brand/creative-brand-asset/creative-brand-asset.component';
+import { CreativeBrandShowcaseComponent } from './creative-brand/creative-brand-showcase/creative-brand-showcase.component';
+import { CreativeBrandCampaignComponent } from './creative-brand/creative-brand-campaign/creative-brand-campaign.component';
+import { CreativeBrandProjectComponent } from './creative-brand/creative-brand-project/creative-brand-project.component';
+import { CreativeBrandUsageRightsComponent } from './creative-brand/creative-brand-usage-rights/creative-brand-usage-rights.component';
+import { CreativeBrandManageListComponent } from './creative-brand/creative-brand-manage-list/creative-brand-manage-list.component';
+import { CreativeBrandManageLibraryComponent } from './creative-brand/creative-brand-manage-library/creative-brand-manage-library.component';
+import { CreativeAgencyBrandComponent } from './creative-agency/creative-agency-brand/creative-agency-brand.component';
+import { CreativeAgencyShowcaseComponent } from './creative-agency/creative-agency-showcase/creative-agency-showcase.component';
+import { CreativeAgencyManageLibraryComponent } from './creative-agency/creative-agency-manage-library/creative-agency-manage-library.component';
+import { CreativeBrandCampaignSummaryComponent } from './creative-brand/creative-brand-campaign-summary/creative-brand-campaign-summary.component';
+import { CreativeAgencyManageListComponent } from './creative-agency/creative-agency-manage-list/creative-agency-manage-list.component';
 
 
 const routes: Routes = [{
@@ -26,11 +26,11 @@ const routes: Routes = [{
   children: [
     {
       path: 'home',
-      component: CreativeHomePageComponent,
+      component: CreativeHomeComponent,
     },
     {
       path: 'asset/:id',
-      component: CreativeAssetPageComponent,
+      component: CreativeAssetComponent,
     },
     {
       path: 'brand/:id/asset',
@@ -101,7 +101,7 @@ const routes: Routes = [{
     },
     {
       path: 'agency',
-      component: CreativeMyAgencyPageComponent,
+      component: CreativeMyAgencyComponent,
     },
     {
       path: 'agency/:id/brand',

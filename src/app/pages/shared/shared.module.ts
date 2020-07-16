@@ -23,6 +23,7 @@ import {
   GlobalDocumentFormModule,
   DocumentActionGroupModule,
   KnowledgeSearchFormModule,
+  SelectableActionBarModule,
 } from './';
 
 const EXPORTS = [
@@ -49,6 +50,7 @@ const EXPORTS = [
   ShareDocumentButtonModule,
   GlobalDocumentFormModule,
   KnowledgeSearchFormModule,
+  SelectableActionBarModule,
 ];
 
 @NgModule({

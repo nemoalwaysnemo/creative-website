@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { DynamicListModel, DynamicInputModel } from '@core/custom';
+import { DynamicListModel, DynamicInputModel  } from '@core/custom';
 import { DocumentFormEvent } from '../../../../../document-form/document-form.interface';
 import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
-
 @Component({
   selector: 'creative-project-asset-report-allowable-versions',
   styleUrls: ['../creative-project-asset-completion-report-template.scss'],
@@ -42,7 +41,6 @@ export class CreativeProjectReportAllowableVersionsComponent extends BaseDocumen
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
-
   }
 
   protected getSettings(): any[] {

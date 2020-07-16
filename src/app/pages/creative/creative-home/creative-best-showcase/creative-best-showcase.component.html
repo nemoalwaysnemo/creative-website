@@ -1,0 +1,27 @@
+<div class="agency-thumbnail">
+  <h1 class="left">
+    <a [routerLink]="['/p/search/creative/showcase']">Best of TBWA\</a>
+  </h1>
+  <a [routerLink]="['/p/search/creative/showcase']" class="see_all right">See all</a>
+  <a *ngIf="hasAgency" [routerLink]="['/p/creative/agency']" class="see_all right">My agency</a>
+  <div class="clear"></div>
+  <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
+</div>
+<div class="clear"></div>
+<ng-template #thumbnailItemView let-doc="doc">
+  <div class="image-holder">
+    <a [routerLink]="['/p/creative/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.attachedImage+')'}">
+      <div class="description">
+        <h1 [title]="doc.title">{{doc.title}}</h1>
+        <div class="abs-pos">
+          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">
+            {{doc.get('The_Loupe_ProdCredits:production_date') | date:'yyyy':'UTC'}}
+          </h4>
+          <span class="dot"></span>
+          <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+        </div>
+        <h4 class="agency abs" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+      </div>
+    </a>
+  </div>
+</ng-template>

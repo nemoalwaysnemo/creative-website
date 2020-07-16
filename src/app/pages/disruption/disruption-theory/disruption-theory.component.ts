@@ -8,7 +8,7 @@ import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'disruption-theory-page',
+  selector: 'disruption-theory',
   styleUrls: ['./disruption-theory.component.scss'],
   templateUrl: './disruption-theory.component.html',
 })

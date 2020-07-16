@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CreativeHomePageModule } from './creative-home-page/creative-home-page.module';
+import { CreativeHomeModule } from './creative-home/creative-home.module';
 import { CreativePageComponent } from './creative-page.component';
 import { CreativePageRoutingModule } from './creative-page-routing.module';
-import { CreativeAssetPageModule } from './creative-asset-page/creative-asset-page.module';
-import { CreativeBrandPageModule } from './creative-brand-page/creative-brand-page.module';
-import { CreativeAgencyPageModule } from './creative-agency-page/creative-agency-page.module';
-import { CreativeMyAgencyPageModule } from './creative-my-agency/creative-my-agency-page.module';
+import { CreativeAssetModule } from './creative-asset/creative-asset.module';
+import { CreativeBrandModule } from './creative-brand/creative-brand.module';
+import { CreativeAgencyModule } from './creative-agency/creative-agency.module';
+import { CreativeMyAgencyModule } from './creative-my-agency/creative-my-agency.module';
 
 @NgModule({
   imports: [
-    CreativeHomePageModule,
-    CreativeAssetPageModule,
-    CreativeBrandPageModule,
-    CreativeAgencyPageModule,
-    CreativeMyAgencyPageModule,
+    CreativeHomeModule,
+    CreativeAssetModule,
+    CreativeBrandModule,
+    CreativeAgencyModule,
+    CreativeMyAgencyModule,
     CreativePageRoutingModule,
   ],
   declarations: [

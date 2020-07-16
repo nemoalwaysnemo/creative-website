@@ -30,15 +30,15 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
 
   @Input() layout: string;
 
-  @Input() resultHeader: string;
+  @Input() resultHeader: string = '';
 
   @Input() hideEmpty: boolean = false;
 
-  listViewSettings: any;
-
-  selectableSettings: SelectableItemSettings = new SelectableItemSettings({
+  @Input() selectableSettings: SelectableItemSettings = new SelectableItemSettings({
     enableSelectable: false,
   });
+
+  listViewSettings: any;
 
   private defaultSettings: any = {
     columns: {

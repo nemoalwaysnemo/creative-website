@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { CreativeProjectAssetBaseTemplateComponent } from '../creative-project-asset-base-template.component';
 import { SearchResponse, NuxeoAutomations, DocumentModel, NuxeoApiService } from '@core/api';
 import { GlobalDocumentDialogService } from '@pages/shared/global-document-dialog/global-document-dialog.service';
-import { ListSearchRowCustomViewSettings } from '@pages/shared/list-search-form/list-search-form.interface';
-import { ListSearchRowCustomViewComponent } from '@pages/shared/list-search-form';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'creative-project-asset-usage-rights-template',
@@ -28,15 +27,18 @@ export class CreativeProjectAssetUsageRightsTemplateComponent extends CreativePr
   }
 
   linkEvent(): void {
-    const uids: string[] = this.selectedRows.map((doc: DocumentModel) => doc.uid);
-    if (uids.length > 0) {
-      // const subscription = this.nuxeoApi.operation(NuxeoAutomations.DocumentCreate, { 'uuid': `${uids.join(',')}`}).subscribe((res: DocumentModel) => {
-      // const messageType = 'success';
-      // const messageContent = 'Link Contracts has been created successfully!';
-      // this.globalDocumentDialogService.triggerEvent({ name: `Link Contracts`, type: 'callback', messageType, messageContent });
-      // this.refresh();
-      // });
-      // this.subscription.add(subscription);
+    if (this.selectedRows) {
+      const uids: string[] = this.selectedRows.map((doc: DocumentModel) => doc.uid);
+      if (uids.length > 0) {
+        // const subscription = this.nuxeoApi.operation(NuxeoAutomations.DocumentCreate, { 'uuid': `${uids.join(',')}` }).subscribe((res: DocumentModel) => {
+          this.globalDocumentDialogService.triggerEvent({ name: `Link Contracts`, type: 'callback', messageType: 'success', messageContent: 'Link Contracts has been created successfully!' });
+          timer(3000).subscribe(() => {
+            this.globalDocumentDialogService.triggerEvent({ name: `Link Contracts`, type: 'callback' });
+          });
+          this.refresh();
+        // });
+        // this.subscription.add(subscription);
+      }
     }
   }
 

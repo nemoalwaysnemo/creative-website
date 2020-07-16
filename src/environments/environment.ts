@@ -19,7 +19,7 @@ export enum NUXEO_PATH_INFO {
   CREATIVE_BASE_FOLDER_PATH = '/Creative/',
   CREATIVE_TBWA_FOLDER_PATH = '/Creative/TBWA-/',
   CREATIVE_AWARD_FOLDER_PATH = '/Creative/AWARDS/',
-  CREATIVE_BEST_ASSETS_PATH = '/Creative/1. GCL Frontpage/Frontpage Assets/',
+  CREATIVE_SHOWCASE_ASSET_PATH = '/Creative/1. GCL Frontpage/Frontpage Assets/',
   BACKSLASH_BASE_FOLDER_PATH = '/know-edge/-backslash/',
   BACKSLASH_EDGE_FOLDER_PATH = '/know-edge/-backslash/Edges/',
   DISRUPTION_BASE_FOLDER_PATH = '/know-edge/Disruption/',

@@ -13,6 +13,7 @@ export enum NUXEO_DOC_TYPE {
   CREATIVE_SELECTED_BRAND_TYPE = '["App-Library-Selected-Brand"]',
   CREATIVE_AGENCY_AND_BRAND_FOLDER_TYPE = '["Brand Folder", "Agency Folder"]',
   CREATIVE_UR_CONTRACT_TYPES = '["App-Library-UsageRights-Talent", "App-Library-UsageRights-Music", "App-Library-UsageRights-Photographer", "App-Library-UsageRights-Stock"]',
+  CREATIVE_UR_TALENT_TYPE = '["App-Library-UsageRights-Talent"]',
   BACKSLASH_ARTICLE_VIDEO_TYPES = '["App-Backslash-Article", "App-Backslash-Video"]',
   BACKSLASH_EDGE_ASSET_TYPE = '["App-Backslash-Edge-Page"]',
   BACKSLASH_FOLDER_TYPE = '["App-Backslash-Folder"]',
