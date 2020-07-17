@@ -395,6 +395,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected onBeforeSearch(): void {
     const subscription = this.globalSearchFormService.onSearch().pipe(
       filter((res: SearchResponse) => res.action === 'beforeSearch' && res.source === this.getFormSettings('source')),
+      concatMap((res: SearchResponse) => this.onBeforeSearchEvent(res)),
     ).subscribe(({ searchParams, metadata }: any) => {
       this.performFilterButton(metadata.event, searchParams);
       this.triggerLoading(true, metadata);
@@ -422,6 +423,10 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     if (typeof metadata.enableLoading === 'undefined' || metadata.enableLoading) {
       this.loading = loading;
     }
+  }
+
+  protected onBeforeSearchEvent(res: SearchResponse): Observable<SearchResponse> {
+    return observableOf(res);
   }
 
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {

@@ -1,12 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
-import { DocumentModel, SearchResponse } from '@core/api';
+import { DocumentModel } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
-import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
+import { HomeSearchFormComponent } from '../home-search-form/home-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
+import { getAssetModuleType } from '@core/services/helpers';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'knowledge-search-form',
@@ -14,29 +15,11 @@ import { GlobalSearchFormService } from '../global-search-form/global-search-for
   styleUrls: ['./knowledge-search-form.component.scss'],
 })
 
-export class KnowledgeSearchFormComponent extends BaseSearchFormComponent {
-
-  documents: DocumentModel[] = [];
-
-  backgroudUrl: string = '';
-
-  layout: string = 'suggestion-inline';
+export class KnowledgeSearchFormComponent extends HomeSearchFormComponent {
 
   formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'knowledge-search-form',
   });
-
-  @Input() headline: string;
-
-  @Input() subHead: string;
-
-  @Input() redirectUrl: string;
-
-  private preventDocHide: boolean = false;
-
-  private isInitialSearch: boolean = true;
-
-  private results: DocumentModel[] = [];
 
   constructor(
     protected router: Router,
@@ -52,46 +35,40 @@ export class KnowledgeSearchFormComponent extends BaseSearchFormComponent {
     );
   }
 
-  show(): void {
-    this.documents = this.isInitialSearch ? this.documents = [] : this.results;
-  }
-
-  hide(): void {
-    if (!this.preventDocHide) {
-      this.documents = [];
-    }
-    this.preventDocHide = false;
-  }
-
   onKeyEnter(event: KeyboardEvent): void {
     this.redirectToListPage();
     event.preventDefault();
     event.stopImmediatePropagation();
   }
 
-  preventHide(pre: boolean): void {
-    this.preventDocHide = pre;
-  }
-
-  toggleFilter(): void {
-    super.toggleFilter();
-    this.preventDocHide = true;
-  }
-
   getAssetUrl(doc: DocumentModel): string {
-    return '';
+    let url = '';
+    if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
+      url = '/p/creative/asset';
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES.includes(doc.type)) {
+      url = '/p/backslash/asset';
+    } else if (NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE.includes(doc.type)) {
+      url = '/p/intelligence/asset';
+    } else if (NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
+      url = '/p/disruption/asset';
+    } else if (NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE.includes(doc.type)) {
+      if (doc.path.includes('/NEXT/')) {
+        url = '/p/innovation/NEXT/folder/:parentRef/asset';
+      } else if (doc.path.includes('/Things to Steal/')) {
+        url = '/p/innovation/Things to Steal/folder/:parentRef/asset';
+      }
+    } else if (NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE.includes(doc.type)) {
+      if (doc.type === 'App-BizDev-CaseStudy-Asset') {
+        url = '/p/business-development/Case Studies/folder/:parentRef/asset';
+      } else if (doc.type === 'App-BizDev-Thought-Asset') {
+        url = '/p/business-development/Thought Leadership/folder/:parentRef/asset';
+      }
+    }
+    return url.replace(':parentRef', doc.parentRef);
   }
 
-  private redirectToListPage(queryParams: any = {}): void {
-    this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
+  getAssetType(doc: DocumentModel): string {
+    return getAssetModuleType(doc);
   }
 
-  protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
-    this.results = res.response.entries;
-    const searchText = res.searchParams.ecm_fulltext;
-    const searchFilter = res.searchParams.hasFilters();
-    this.isInitialSearch = !(searchText || searchFilter);
-    this.isInitialSearch ? this.hide() : this.show();
-    return observableOf(res);
-  }
 }

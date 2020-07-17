@@ -1,25 +1,20 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
   <section class="filter-wrapper">
-    <h1 class="headline" *ngIf="headline">{{ headline }}</h1>
-    <h1 class="extraHeadline">Knowledge portal.</h1>
-    <h4>{{ subHead }}</h4>
+    <div class="heading">
+      <h1 class="headline" *ngIf="headline">{{ headline }}</h1>
+      <h1 class="extraHeadline">know
+        <span>\edge</span>
+        hub.
+      </h1>
+      <h4>{{ subHead }}</h4>
+    </div>
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
       <input class="keyword" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
         [ngClass]="{'with-filters': hasFilters()}" />
-      <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
+      <document-thumbnail-view [hide]="hideView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
-    <ng-container *ngIf="hasFilters()">
-      <button type="button" (click)="toggleFilter()" class="filter_trigger" [ngClass]="{'show': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters +</button>
-    </ng-container>
   </section>
   <div class="clear"></div>
-  <ng-container *ngIf="hasFilters() && showFilter">
-    <div class="search-filters">
-      <ng-content select=".filters"></ng-content>
-      <global-search-filter formControlName="aggregates" [filterSettings]="filters" [searchResponse]="searchResponse$ | async" [disableControl]="submitted" (selected)="onFilterSelected($event)" (preventHideDoc)="preventHide($event)">
-      </global-search-filter>
-    </div>
-  </ng-container>
 </form>
 <ng-template #thumbnailItemView let-doc="doc">
   <div class="image-holder">
@@ -27,11 +22,11 @@
   </div>
   <div class="description">
     <h1 [title]="doc.title"><a [routerLink]="[getAssetUrl(doc), doc.uid]">{{doc.title}}</a></h1>
-    <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">
-      {{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
+    <h5 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">
+      {{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h5>
     <span class="dot"></span>
-    <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">
-      {{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
-    <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+    <h5 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">
+      {{doc.get('The_Loupe_Main:brand').join(', ')}}</h5>
+    <h5 class="type" [title]="getAssetType(doc)">{{getAssetType(doc)}}</h5>
   </div>
 </ng-template>

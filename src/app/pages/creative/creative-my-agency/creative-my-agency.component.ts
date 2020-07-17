@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { DocumentModel, NuxeoPageProviderParams, UserModel } from '@core/api';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-my-agency',

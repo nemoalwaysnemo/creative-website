@@ -18,6 +18,10 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
 
   documents: DocumentModel[] = [];
 
+  hideView: boolean = false;
+
+  loadingStyle: any = {};
+
   layout: string = 'suggestion-inline';
 
   formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -38,12 +42,6 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
 
   @Input() redirectUrl: string;
 
-  private preventDocHide: boolean = false;
-
-  private isInitialSearch: boolean = true;
-
-  private results: DocumentModel[] = [];
-
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
@@ -59,14 +57,11 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   show(): void {
-    this.documents = this.isInitialSearch ? this.documents = [] : this.results;
+    this.hideView = false;
   }
 
   hide(): void {
-    if (!this.preventDocHide) {
-      this.documents = [];
-    }
-    this.preventDocHide = false;
+    this.hideView = true;
   }
 
   onKeyEnter(event: KeyboardEvent): void {
@@ -80,16 +75,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
     return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
   }
 
-  preventHide(pre: boolean): void {
-    this.preventDocHide = pre;
-  }
-
-  toggleFilter(): void {
-    super.toggleFilter();
-    this.preventDocHide = true;
-  }
-
-  private matchAssetUrl(doc: DocumentModel): string {
+  protected matchAssetUrl(doc: DocumentModel): string {
     let url = '';
     if (this.assetUrlMapping[doc.type] instanceof Function) {
       url = this.assetUrlMapping[doc.type].call(this, doc);
@@ -100,16 +86,22 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
     return url;
   }
 
-  private redirectToListPage(queryParams: any = {}): void {
+  protected isSearchManually(res: SearchResponse): boolean {
+    return (res.searchParams.hasKeyword() || res.searchParams.hasFilters()) && res.metadata.event !== 'onSearchParamsInitialized';
+  }
+
+  protected redirectToListPage(queryParams: any = {}): void {
     this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
   }
 
+  protected onBeforeSearchEvent(res: SearchResponse): Observable<SearchResponse> {
+    this.loadingStyle = this.isSearchManually(res) ? { 'min-height': '100px' } : {};
+    return observableOf(res);
+  }
+
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
-    this.results = res.response.entries;
-    const searchText = res.searchParams.ecm_fulltext;
-    const searchFilter = res.searchParams.hasFilters();
-    this.isInitialSearch = !(searchText || searchFilter);
-    this.isInitialSearch ? this.hide() : this.show();
+    this.documents = this.isSearchManually(res) ? res.response.entries : [];
+    this.show();
     return observableOf(res);
   }
 }
