@@ -1,10 +1,10 @@
 <div class="storyboard {{getDocumentType()}}">
-  <div class="prev left" (click)="moveLeft()"><a href="javascript:void(0)"></a></div>
+  <div class="prev left" (click)="moveLeft()"><a href="javascript:;"></a></div>
   <drag-scroll class="gallery-list left" drag-scroll-y-disabled="true" scrollbar-hidden="true" #nav>
     <div drag-scroll-item *ngFor="let storyboard of storyboards" (click)="jumpToTimeline(storyboard.time)" [title]="storyboard.minutes" class="list-item">
       <img [src]="storyboard.source" />
     </div>
   </drag-scroll>
-  <div class="next left" (click)="moveRight()"><a href="javascript:void(0)"></a></div>
+  <div class="next left" (click)="moveRight()"><a href="javascript:;"></a></div>
 </div>
-<!-- <a href="javascript:void(0)" class="right see_all">See all campaign</a> -->
+<!-- <a href="javascript:;" class="right see_all">See all campaign</a> -->

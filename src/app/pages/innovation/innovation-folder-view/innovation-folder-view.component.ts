@@ -3,8 +3,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
-import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
-import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({

@@ -1,39 +1,31 @@
-import { Component, Inject, AfterViewInit, Input, OnInit, OnDestroy, ChangeDetectionStrategy, TemplateRef, Output, EventEmitter } from '@angular/core';
-import { Gallery, GalleryConfig, GalleryRef, GalleryItem, GALLERY_CONFIG, GalleryState, GalleryItemType } from '@core/custom/ngx-gallery/core/index';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Params } from '@angular/router';
 import { GoogleAnalyticsService } from '@core/services';
 import { deepExtend } from '@core/services/helpers';
-import { Params } from '@angular/router';
+import { PictureGallerySettings } from './picture-gallery.interface';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { Component, Inject, AfterViewInit, Input, Output, OnInit, OnDestroy, TemplateRef, EventEmitter } from '@angular/core';
+import { Gallery, GalleryRef, GalleryItem, GALLERY_CONFIG, GalleryState, GalleryItemType } from '@core/custom/ngx-gallery/core/index';
 
 @Component({
   selector: 'picture-gallery',
   styleUrls: ['./picture-gallery.component.scss'],
   templateUrl: './picture-gallery.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   queryParams: Params[] = [];
 
-  displayTitle: boolean = false;
-
-  @Input() enableVideoAutoplay: boolean = false;
-
-  @Input() assetUrl: string;
-
-  @Input() galleryType: string = 'creative';
+  @Input() gallerySettings: PictureGallerySettings = new PictureGallerySettings();
 
   @Input() customTemplate: TemplateRef<any>;
-
-  @Input() gallerySettings: GalleryConfig;
 
   @Input()
   set customEvent(name: string) {
     this.event$.next(name);
   }
 
-  @Input('galleryItems')
-  set setItems(items: GalleryItem[]) {
+  @Input()
+  set galleryItems(items: GalleryItem[]) {
     if (items) {
       this.updateGalleryItems(items);
     }
@@ -68,10 +60,13 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngAfterViewInit(): void {
-    if (this.gallerySettings) {
-      const config = deepExtend(this.options, this.gallerySettings);
-      this.galleryRef.setConfig(config);
+    if (this.gallerySettings.galleryConfig) {
+      this.galleryRef.setConfig(deepExtend(this.options, this.gallerySettings.galleryConfig));
     }
+  }
+
+  getAssetUrl(uid: string): string {
+    return this.gallerySettings.assetUrl.replace(':uid', uid);
   }
 
   onCustomEvent(e: any): void {
@@ -112,14 +107,14 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private videoAutoplayEnd(event: any = {}): void {
-    if (this.enableVideoAutoplay && event.state === 'ended') {
+    if (this.gallerySettings.enableVideoAutoplay && event.state === 'ended') {
       this.event$.next('next');
       this.event$.next('play');
     }
   }
 
   private videoAutoplayStart(state: GalleryState): void {
-    if (this.enableVideoAutoplay) {
+    if (this.gallerySettings.enableVideoAutoplay) {
       const current = state.items[state.currIndex];
       if (current && current.type === GalleryItemType.Video) {
         this.event$.next('stop');

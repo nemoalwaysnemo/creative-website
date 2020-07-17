@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams } from '@core/api';
+import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
 import { Subscription } from 'rxjs';
 import { filter, map, concatMap } from 'rxjs/operators';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
-import { DocumentPageService } from '@pages/shared';
 
 @Component({
   selector: 'disruption-home-gallery',
@@ -12,16 +12,12 @@ import { DocumentPageService } from '@pages/shared';
 })
 export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
 
-  galleryItems: any = [];
+  galleryItems: any[] = [];
 
-  gallerySettings: any = {
-    playerInterval: 5000,
-    autoPlay: true,
-    dots: true,
-    dotsSize: 10,
-    loop: true,
-    thumb: false,
-  };
+  gallerySettings: PictureGallerySettings = new PictureGallerySettings({
+    enableOuterLink: true,
+    enableTitle: true,
+  });
 
   private params: any = {
     pageSize: 10,
@@ -64,24 +60,19 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   private convertItems(entiries: DocumentModel[]): any[] {
-    const imgArray = new Array();
-    for (const entry of entiries) {
-      if (entry.isVideo() && this.hasVideoContent(entry)) {
-        imgArray.push({ src: entry.getCarouselVideoSources(), thumb: entry.attachedImage, poster: entry.attachedImage, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), outerLink: this.getUrlContent(entry.get('app_Edges:URL')) });
-      } else if (entry.isPicture()) {
-        const url = entry.attachedImage;
-        imgArray.push({ src: url, thumb: url, title: entry.title, uid: entry.uid, description: entry.get('dc:description'), outerLink: entry.get('app_Edges:URL') });
-      } else {
+    const items = new Array();
+    for (const doc of entiries) {
+      if (doc.isVideo() && doc.hasVideoContent()) {
+        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.attachedImage, poster: doc.attachedImage, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), link: this.getUrl(doc.get('app_Edges:URL')) });
+      } else if (doc.isPicture()) {
+        const url = doc.attachedImage;
+        items.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), link: this.getUrl(doc.get('app_Edges:URL')) });
       }
     }
-    return imgArray;
+    return items;
   }
 
-  hasVideoContent(entry: DocumentModel): boolean {
-    return entry.getVideoSources().length > 0;
-  }
-
-  getUrlContent(url: string): string {
+  getUrl(url: string): string {
     if (url && url.length > 0) {
       return 'https://' + url.match(/(http:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*)/g)[0];
     } else {

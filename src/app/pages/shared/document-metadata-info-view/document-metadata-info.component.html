@@ -75,11 +75,11 @@
         <ng-container *ngIf="downloadPermission$ | async">
           <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
         </ng-container>
-        <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a> -->
+        <a href="javascript:;" (click)="goBack()" class="back right icon_btn" title="Back">Back</a> -->
       </ng-container>
       <ng-container *ngSwitchCase="isCreativeAsset(documentModel)">
         <h1>{{documentModel.title}}</h1>
-        <h2><a *ngIf="documentModel.parentRef && hasBrand() && !hasFilter() && hasBrandFolder()" href="javascript:void(0)" (click)="goBrandFolder();" class="">{{documentModel.get('The_Loupe_Main:brand')}}</a>
+        <h2><a *ngIf="documentModel.parentRef && hasBrand() && !hasFilter() && hasBrandFolder()" href="javascript:;" (click)="goBrandFolder();" class="">{{documentModel.get('The_Loupe_Main:brand')}}</a>
           <ng-container *ngIf="documentModel.parentRef && hasBrand() && hasFilter() || !hasBrandFolder()">{{documentModel.get('The_Loupe_Main:brand')}}</ng-container>
         </h2>
         <h4>About</h4>
@@ -99,7 +99,7 @@
             </tr>
             <tr>
               <td colspan="2">
-                <a *ngIf="hasAgency() && !hasFilter() && hasAgencyFolder()" href="javascript:void(0)" (click)="goAgencyFolder();" class="text">{{documentModel.get('The_Loupe_Main:agency')}}</a>
+                <a *ngIf="hasAgency() && !hasFilter() && hasAgencyFolder()" href="javascript:;" (click)="goAgencyFolder();" class="text">{{documentModel.get('The_Loupe_Main:agency')}}</a>
                 <ng-container *ngIf="hasAgency() && !hasAgencyFolder() || hasFilter()">{{documentModel.get('The_Loupe_Main:agency')}}</ng-container>
               </td>
             </tr>
@@ -159,7 +159,7 @@
         <ng-container *ngIf="downloadPermission$ | async">
           <a href="{{documentModel.previewUrl}}" class="preview right icon_btn" title="Preview" target="_blank">Preview</a>
         </ng-container>
-        <a href="javascript:void(0)" (click)="goBack()" class="back right icon_btn" title="Back">Back</a> -->
+        <a href="javascript:;" (click)="goBack()" class="back right icon_btn" title="Back">Back</a> -->
       </ng-container>
     </ng-container>
   </div>

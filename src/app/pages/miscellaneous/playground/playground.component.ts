@@ -3,9 +3,8 @@ import { DocumentModel, DocumentRepository } from '@core/api';
 import { concatMap, map } from 'rxjs/operators';
 import { GlobalDocumentDialogService, OptionModel } from '../../shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
-import { GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { SuggestionSettings } from '../../shared/directory-suggestion/directory-suggestion-settings';
-import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'playground',

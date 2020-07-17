@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CreativeProjectAssetBaseTemplateComponent } from '../creative-project-asset-base-template.component';
-import { SearchResponse, NuxeoAutomations, DocumentModel, NuxeoApiService } from '@core/api';
-import { GlobalDocumentDialogService } from '@pages/shared/global-document-dialog/global-document-dialog.service';
+import { GlobalDocumentDialogService } from '../../../../global-document-dialog/global-document-dialog.service';
+import { SearchResponse, DocumentModel, NuxeoApiService } from '@core/api';
 import { timer } from 'rxjs';
 
 @Component({

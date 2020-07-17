@@ -4,10 +4,8 @@ import { Subscription, Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes, parseCountry } from '@core/services/helpers';
 import { DocumentPageService } from '../services/document-page.service';
 import { DocumentModelForm } from '../global-document-form/global-document-form.component';
-import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
-import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
 import { DocumentModel, NuxeoPagination, NuxeoAutomations, NuxeoPermission, UserModel } from '@core/api';
-import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 

@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { objHasValue } from '@core/services/helpers';
-import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+import { GlobalDocumentDialogService } from '../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 
 @Component({

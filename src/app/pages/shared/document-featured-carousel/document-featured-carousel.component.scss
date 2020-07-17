@@ -1,0 +1,83 @@
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+
+.featured-carousel {
+  position: relative;
+  width: 100%;
+  // @include media-breakpoint-down(md) {
+  // 	// < 768px
+  // 	height: calc(576px * 9 / 16);
+  // }
+  // @include media-breakpoint-between(md, lg) {
+  // 	//768px - 992px
+  // 	height: calc(768px * 9 / 16);
+  // }
+  // @include media-breakpoint-between(lg, xl) {
+  // 	// 992px - 1200px
+  // 	height: calc(992px * 9 / 16);
+  // }
+  // @include media-breakpoint-between(xl, xxxl) {
+  // 	// 1200px - 1600px
+  // 	height: calc(1200px * 9 / 16 - 120px);
+  // }
+  // @include media-breakpoint-up(xxxl) {
+  // 	// > 1600px
+  // 	height: calc(100vw * 9 / 16 - 120px);
+  // }
+
+  @media only screen and (max-width: 900px) {
+    // < 900px
+    height: calc(900px * 9 / 16);
+  }
+
+  @media screen and (min-width: 900px) and (max-width: 1000px) {
+    //900px - 1000px
+    height: calc(900px * 9 / 16);
+  }
+
+  @media screen and (min-width: 1000px) and (max-width: 1200px) {
+    // 1101px - 1200px
+    height: calc(1000px * 9 / 16);
+  }
+
+  @media screen and (min-width: 1200px) and (max-width: 1300px) {
+    // 1201px - 1300px
+    height: calc(1200px * 9 / 16 - 30px);
+  }
+
+  @media screen and (min-width: 1300px) and (max-width: 1400px) {
+    // 1301px - 1400px
+    height: calc(1300px * 9 / 16 - 70px);
+  }
+
+  @media screen and (min-width: 1400px) and (max-width: 1500px) {
+    // 1401px - 1500px
+    height: calc(1400px * 9 / 16 - 70px);
+  }
+
+  @media screen and (min-width: 1500px) and (max-width: 1600px) {
+    // 1501px - 1600px
+    height: calc(1500px * 9 / 16 - 70px);
+  }
+
+  @include media-breakpoint-up(xxxl) {
+    // > 1600px
+    height: calc(100vw * 9 / 16 - 120px);
+  }
+
+  margin-top: 37px;
+}
+
+.popover-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+
+  &.closed {
+    background: url('/assets/images/info.png') no-repeat center center;
+  }
+
+  &.opened {
+    background: url('/assets/images/close2.png') no-repeat center center;
+  }
+}

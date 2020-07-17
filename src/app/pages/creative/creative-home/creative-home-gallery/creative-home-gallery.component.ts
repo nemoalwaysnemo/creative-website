@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DocumentPageService } from '@pages/shared';
 import { NuxeoPagination, DocumentModel } from '@core/api';
 import { parseCountry, assetPath } from '@core/services/helpers';
+import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -12,16 +12,12 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
-  galleryItems: any = [];
+  galleryItems: any[] = [];
 
-  gallerySettings: any = {
-    playerInterval: 5000,
-    autoPlay: true,
-    dots: true,
-    dotsSize: 10,
-    loop: true,
-    thumb: false,
-  };
+  gallerySettings: PictureGallerySettings = new PictureGallerySettings({
+    assetUrl: '/p/creative/asset/:uid',
+    enableTitle: true,
+  });
 
   galleryEvent: string = 'play';
 
@@ -48,7 +44,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.documentPageService.advanceRequest(this.params).subscribe((res: NuxeoPagination) => {
-      this.galleryItems = this.getItems(res.entries);
+      this.galleryItems = this.convertItems(res.entries);
     });
   }
 
@@ -71,21 +67,17 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     this.status = this.showInfo === true ? 'opened' : 'closed';
   }
 
-  private getItems(entiries: DocumentModel[]): any[] {
-    const imgArray = new Array();
+  private convertItems(entiries: DocumentModel[]): any[] {
+    const items: any[] = [];
     for (const doc of entiries) {
-      if (doc.isVideo() && this.hasVideoContent(doc)) {
-        imgArray.push({ src: doc.getCarouselVideoSources(), thumb: doc.attachedImage, poster: doc.attachedImage, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+      if (doc.isVideo() && doc.hasVideoContent()) {
+        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.attachedImage, poster: doc.attachedImage, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
       } else if (doc.isPicture()) {
         const url = doc.attachedImage;
-        imgArray.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+        items.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
       }
     }
-    return imgArray;
-  }
-
-  hasVideoContent(doc: DocumentModel): boolean {
-    return doc.getVideoSources().length > 0;
+    return items;
   }
 
   toggleInfo(doc: DocumentModel): void {

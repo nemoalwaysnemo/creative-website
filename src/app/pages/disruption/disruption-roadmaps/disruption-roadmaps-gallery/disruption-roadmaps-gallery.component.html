@@ -1,0 +1,39 @@
+<document-featured-carousel [gallerySettings]="gallerySettings" [galleryItems]="galleryItems" [infoTemplate]="infoTemplate"></document-featured-carousel>
+
+<ng-template #infoTemplate let-doc="doc">
+  <div class="text-content" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+    <div class="controls">
+      <h2 class="left">{{ doc.get('dc:title') }}</h2>
+      <ng-container *ngIf="hasPermission(doc, 'write') | async">
+        <button type="button" (click)="openDialog(editDialog)" class="icon_btn left">Edit</button>
+      </ng-container>
+      <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+      <ng-container *ngIf="downloadPermission$ | async">
+        <a *ngIf="doc.filePath" href="{{doc.filePath}}" class="download right btn" title="Download">Download</a>
+      </ng-container>
+      <div class="clear"></div>
+    </div>
+    <div class="info">
+      <div class="edges">
+        <div class="more-info">
+          <p class="description">{{ doc.get('dc:description') }}</p><br><br>
+          <p><b>Brand: </b>{{ doc.get('The_Loupe_Main:brand') }}</p>
+          <p><b>Agency: </b>{{ doc.get('The_Loupe_Main:agency') }}</p>
+          <p><b>Country: </b>{{ parseCountry(doc.get('The_Loupe_Main:country')) }}</p>
+          <p><b>Industry: </b>{{ doc.get('app_Edges:industry') }}</p>
+          <p><b>Geography: </b>{{ parseCountry(doc.get('app_Edges:Relevant_Country')) }}</p>
+          <p><b>Edge: </b>{{ doc.get('app_Edges:Tags_edges') }}</p>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #popContent>
+    <share-document-button [document]="doc" [currentUrl]="currentUrl"></share-document-button>
+  </ng-template>
+
+  <ng-template #editDialog>
+    <global-document-dialog [settings]="getDialogFormSettings(doc)" [documentModel]="doc" [metadata]="dialogMetadata" [title]="getFormTitle(doc)" [redirectUrl]="editRedirectUrl"></global-document-dialog>
+  </ng-template>
+</ng-template>

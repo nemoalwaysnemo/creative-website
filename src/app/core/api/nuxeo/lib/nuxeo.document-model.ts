@@ -254,6 +254,10 @@ export class DocumentModel extends Base {
     }
   }
 
+  hasVideoContent(): boolean {
+    return this.getVideoSources().length > 0;
+  }
+
   getCarouselVideoSources(): { url: string, type: string }[] {
     const sources = this.filePath;
     if (sources.length !== 0) {
