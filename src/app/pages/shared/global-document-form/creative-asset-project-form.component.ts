@@ -9,7 +9,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'creative-asset-project-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [accordions]="accordions" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [accordions]="accordions" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
 
@@ -29,15 +29,15 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
     return [
       {
         name: '+ Agency Credits',
-        // visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+        // visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       },
       {
         name: '+ Backslash',
-        // visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:backslash'),
+        // visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:backslash'),
       },
       {
         name: '+ Usage Rights',
-        // visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:UsageRights'),
+        // visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:UsageRights'),
       },
     ];
   }

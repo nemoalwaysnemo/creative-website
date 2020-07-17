@@ -14,15 +14,21 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
 
-  currentUrl: string;
+  editTitle: string = 'Edit';
 
   galleryItems: any[] = [];
+
+  editRedirectUrl: string = this.documentPageService.getCurrentUrl();
 
   writePermission$: Observable<boolean> = observableOf(false);
 
   downloadPermission$: Observable<boolean> = observableOf(true);
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM] });
+
+  dialogMetadata: any = {
+    formMode: 'edit',
+  };
 
   gallerySettings: PictureGallerySettings = new PictureGallerySettings({
     enableTitle: true,
@@ -32,11 +38,9 @@ export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
     currentPageIndex: 0,
     pageSize: 5,
     ecm_fulltext: '',
-    // app_edges_featured_asset: true,
-    // ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
-    // ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_AWARD_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
+    app_edges_featured_asset: true,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE,
   };
 
   private subscription: Subscription = new Subscription();
@@ -78,17 +82,11 @@ export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
     for (const doc of entiries) {
       if (doc.isVideo() && doc.hasVideoContent()) {
         items.push({ src: doc.getCarouselVideoSources(), thumb: doc.thumbnailUrl, poster: doc.videoPoster, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
-      } else if (doc.isPicture()) {
-        const url = doc.attachedImage;
-        items.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+      } else if (doc.isPicture() || doc.isPdf()) {
+        items.push({ src: doc.fullHDPicture, thumb: doc.thumbnailUrl, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
       }
     }
     return items;
-  }
-
-  private buildShareUrl(doc: DocumentModel): string {
-    this.currentUrl = window.location.href;
-    return;
   }
 
 }

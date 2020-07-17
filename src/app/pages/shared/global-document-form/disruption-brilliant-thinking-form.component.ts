@@ -8,7 +8,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'disruption-brilliant-thinking-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentFormComponent {
 

@@ -14,7 +14,7 @@ export class ShareDocumentButtonComponent implements AfterViewInit {
 
   @Input() document: DocumentModel;
 
-  @Input() currentUrl: string = window.location.href;
+  @Input() currentUrl: string = document.location.href;
 
   @ViewChild('inputTarget', { static: true }) inputElement: ElementRef<HTMLInputElement>;
 

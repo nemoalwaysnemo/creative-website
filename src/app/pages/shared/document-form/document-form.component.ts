@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
+import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
-import { deepExtend } from '@core/services/helpers';
 import { DocumentFormEvent } from './document-form.interface';
-import { tap } from 'rxjs/operators';
+import { deepExtend } from '@core/services/helpers';
 
 @Component({
   selector: 'document-form',
@@ -51,6 +50,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   @Input() loading: boolean = true;
 
   @Input() settings: DynamicFormModel = [];
+
+  @Input() currentUser: UserModel;
 
   @Input()
   set document(doc: DocumentModel) {
@@ -149,7 +150,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private performAccordions(doc: DocumentModel, accordions: any = []): void {
-    this.accordionList = (accordions || []).filter((item: any) => !item.visibleFn || item.visibleFn.call(this, doc));
+    this.accordionList = (accordions || []).filter((item: any) => !item.visibleFn || item.visibleFn.call(this, doc, this.currentUser));
   }
 
   private prepareSettings(settings: DynamicFormModel): DynamicFormModel {
@@ -163,7 +164,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private performSettings(doc: DocumentModel, settings: DynamicFormModel): DynamicFormModel {
     settings.forEach((model: DynamicFormControlModel) => {
       const modelValue = doc.get(model.id);
-      if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc); }
+      if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc, this.currentUser); }
       if (model.document) { model.document = doc; }
       model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
       if (model instanceof DynamicListModel) {
@@ -175,7 +176,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private prepareForm(doc: DocumentModel, settings: DynamicFormModel): void {
     if (doc) {
-      settings = settings.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn.call(this, doc));
+      settings = settings.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn.call(this, doc, this.currentUser));
       let models = this.prepareSettings(settings);
       models = this.performSettings(doc, models);
       this.createForm(models);
@@ -239,11 +240,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private createDocument(doc: DocumentModel): Observable<DocumentModel> {
-    return this.documentRepository.create(this.beforeSave.call(this, doc));
+    return this.documentRepository.create(this.beforeSave.call(this, doc, this.currentUser));
   }
 
   private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    const updateDoc = this.beforeSave.call(this, doc);
+    const updateDoc = this.beforeSave.call(this, doc, this.currentUser);
     if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
       properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
     }
