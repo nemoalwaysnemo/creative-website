@@ -18,7 +18,9 @@ export class KnowledgeDocumentAssetSearchComponent extends BaseDocumentViewCompo
     ecm_primaryType: NUXEO_DOC_TYPE.KNOWLEDGE_ASSET_TYPE,
   };
 
-  filters: SearchFilterModel[] = [];
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
+  ];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     enableQueryParams: true,
