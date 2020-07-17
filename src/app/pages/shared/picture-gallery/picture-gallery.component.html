@@ -5,19 +5,17 @@
   </span>
 </ng-template>
 <ng-template #itemTemplate let-index="index" let-data="data">
-  <ng-container *ngIf="galleryType === 'disruption' && !!data.outerLink">
-    <a href={{data.outerLink}}><span class="item-text" (click)="onClick(index)">{{data.title}}</span></a>
+  <ng-container [ngSwitch]="true">
+    <ng-container *ngSwitchCase="gallerySettings.enableTitle">
+      <a *ngIf="gallerySettings.enableOuterLink && data.link" href={{data.link}}><span class="item-text" (click)="onClick(index)">{{data.title}}</span></a>
+      <a *ngIf="!gallerySettings.enableOuterLink && !gallerySettings.assetUrl" href="javascript:;"><span class="item-text" (click)="onClick(index)">{{data.title}}</span></a>
+      <a *ngIf="!gallerySettings.enableOuterLink && gallerySettings.assetUrl" [routerLink]="[getAssetUrl(data.uid)]" [queryParams]="queryParams[index]"><span class="item-text" (click)="onClick(index)">{{data.title}}</span></a>
+    </ng-container>
+    <ng-container *ngIf="!customTemplate">
+      <span class="item-description">{{data.description}}</span>
+    </ng-container>
+    <div *ngIf="customTemplate" class="custom-template">
+      <ng-container *ngTemplateOutlet="customTemplate; context: { doc: data.doc }"></ng-container>
+    </div>
   </ng-container>
-  <ng-container *ngIf="galleryType === 'disruption' && !data.outerLink">
-    <a href="javascript:void(0)"><span class="item-text" (click)="onClick(index)">{{data.title}}</span></a>
-  </ng-container>
-  <ng-container *ngIf="galleryType === 'creative' || (displayTitle && galleryType === 'backslash')">
-    <a [routerLink]="[assetUrl, data.uid]" [queryParams]="queryParams[index]"><span class="item-text" (click)="onClick(index)">{{data.title}}</span></a>
-  </ng-container>
-  <ng-container *ngIf="!['backslash', 'creative'].includes(galleryType)">
-    <span class="item-description">{{data.description}}</span>
-  </ng-container>
-  <div *ngIf="customTemplate" class="custom-template">
-    <ng-container *ngTemplateOutlet="customTemplate; context: { doc: data.doc }"></ng-container>
-  </div>
 </ng-template>

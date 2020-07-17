@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DocumentModel, NuxeoApiService } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form';
+import { GlobalDocumentDialogService } from '../../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
-import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
-import { CreativeProjectAssetBaseTemplateComponent } from '../../global-document-dialog/document-dialog-template/creative-project-asset-template/creative-project-asset-base-template.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SuggestionSettings } from '../../directory-suggestion/directory-suggestion-settings';
-import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
+import { CreativeProjectAssetBaseTemplateComponent } from '../../global-document-dialog/document-dialog-template/creative-project-asset-template/creative-project-asset-base-template.component';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-related-asset',

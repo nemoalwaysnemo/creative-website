@@ -3,9 +3,7 @@ import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
-import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
-import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
-import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 
 @Component({
   selector: 'backslash-document-asset-search-result',

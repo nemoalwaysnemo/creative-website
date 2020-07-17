@@ -4,7 +4,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { Router } from '@angular/router';
 import { GlobalDocumentDialogService, DocumentModelForm } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
-import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog/global-document-dialog.interface';
+import { GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 
 @Component({
   selector: 'disruption-form-button',

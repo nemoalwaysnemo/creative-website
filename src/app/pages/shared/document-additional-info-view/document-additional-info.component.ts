@@ -2,9 +2,7 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes } from '@core/services/helpers';
-import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
-import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
-import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({

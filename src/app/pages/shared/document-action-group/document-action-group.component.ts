@@ -2,11 +2,9 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf, combineLatest, Subscription } from 'rxjs';
 import { concatMap, map, share, filter } from 'rxjs/operators';
-import { DocumentModel, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
-import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
-import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService } from '../services/document-page.service';
-import { GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
+import { DocumentModel, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../global-document-dialog';
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 

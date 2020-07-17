@@ -1,8 +1,6 @@
 import { Component, TemplateRef } from '@angular/core';
-import { GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
-import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
-import { GlobalDocumentDialogSettings } from '../../global-document-dialog/global-document-dialog.interface';
 
 @Component({
   selector: 'disruption-roadmaps-asset-search-result',

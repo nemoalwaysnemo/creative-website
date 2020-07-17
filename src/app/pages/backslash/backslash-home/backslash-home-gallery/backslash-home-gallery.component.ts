@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel } from '@core/api';
-import { DocumentPageService } from '@pages/shared';
+import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -14,7 +14,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
-      this.enableVideoAutoplay = doc.get('app_global:carousel_autoplay');
+      this.gallerySettings.update({ enableVideoAutoplay: doc.get('app_global:carousel_autoplay') });
     }
   }
 
@@ -24,20 +24,14 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   showInfo: boolean = false;
 
-  enableVideoAutoplay: boolean = false;
+  gallerySettings: PictureGallerySettings = new PictureGallerySettings({
+    enableVideoAutoplay: true,
+    assetUrl: '/p/backslash/asset/:uid',
+  });
 
   selectedDocument: DocumentModel;
 
-  galleryItems: any = [];
-
-  gallerySettings: any = {
-    playerInterval: 5000,
-    autoPlay: true,
-    dots: true,
-    dotsSize: 10,
-    loop: true,
-    thumb: false,
-  };
+  galleryItems: any[] = [];
 
   private params: any = {
     pageSize: 8,
@@ -55,7 +49,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.documentPageService.advanceRequest(this.params).subscribe((res: NuxeoPagination) => {
-      this.galleryItems = this.getItems(res.entries);
+      this.galleryItems = this.convertItems(res.entries);
     });
   }
 
@@ -78,21 +72,17 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.status = this.showInfo === true ? 'opened' : 'closed';
   }
 
-  private getItems(entiries: DocumentModel[]): any[] {
-    const data = new Array();
+  private convertItems(entiries: DocumentModel[]): any[] {
+    const items: any[] = [];
     for (const doc of entiries) {
-      if (doc.isVideo() && this.hasVideoContent(doc)) {
-        data.push({ src: doc.getCarouselVideoSources(), thumb: doc.thumbnailUrl, poster: doc.videoPoster, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+      if (doc.isVideo() && doc.hasVideoContent()) {
+        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.thumbnailUrl, poster: doc.videoPoster, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
       } else if (doc.isPicture()) {
         const url = doc.attachedImage;
-        data.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+        items.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
       }
     }
-    return data;
-  }
-
-  hasVideoContent(doc: DocumentModel): boolean {
-    return doc.getVideoSources().length > 0;
+    return items;
   }
 
   toggleInfo(doc: DocumentModel): void {

@@ -5,8 +5,7 @@ import { DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@c
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
 import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-form-custom-view';
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
-import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog/global-document-dialog.interface';
-import { GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 

@@ -1,4 +1,4 @@
-<div class="home-gallery">
+<div class="featured-carousel">
   <picture-gallery [gallerySettings]="gallerySettings" [galleryItems]="galleryItems" (playingChange)="onPlayingChange($event)" [customEvent]="galleryEvent" [customTemplate]="customTemplate"></picture-gallery>
 </div>
 
@@ -6,6 +6,8 @@
   <div class="popover-container {{status}}" (click)="toggleInfo(doc)"></div>
 </ng-template>
 
-<ng-container *ngIf="showInfo">
-  <document-backslash-info [document]="selectedDocument"></document-backslash-info>
+<ng-container *ngIf="showInfo && infoTemplate">
+  <div *ngIf="infoTemplate" class="info-template">
+    <ng-container *ngTemplateOutlet="infoTemplate; context: { doc: selectedDocument }"></ng-container>
+  </div>
 </ng-container>

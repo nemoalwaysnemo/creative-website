@@ -1,4 +1,4 @@
-import { GlobalDocumentDialogSettings } from '../global-document-dialog/global-document-dialog.interface';
+import { GlobalDocumentDialogSettings } from '../global-document-dialog';
 import { DocumentModel } from '@core/api';
 
 export class ListSearchRowCustomViewSettings {
