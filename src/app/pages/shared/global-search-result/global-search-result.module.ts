@@ -42,6 +42,7 @@ import { InnovationDocumentAssetSearchResultComponent } from './innovation-docum
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
 import { InnovationAssetSearchResultComponent } from './innovation-asset-search-result/innovation-asset-search-result.component';
 import { InnovationFolderAssetSearchResultComponent } from './innovation-folder-asset-search-result/innovation-folder-asset-search-result.component';
+import { KnowledgeAssetSearchResultComponent } from './knowledge-asset-search-result/knowledge-asset-search-result.component';
 
 const COMPONENTS = [
   BaseSearchResultComponent,
@@ -81,6 +82,7 @@ const COMPONENTS = [
   InnovationDocumentAssetSearchResultComponent,
   InnovationAssetSearchResultComponent,
   InnovationFolderAssetSearchResultComponent,
+  KnowledgeAssetSearchResultComponent,
 ];
 
 @NgModule({
