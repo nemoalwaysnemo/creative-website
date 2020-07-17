@@ -10,7 +10,7 @@ import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
 

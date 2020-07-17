@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
+import { DocumentModel } from '@core/api';
+import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentModel } from '@core/api';
-import { Observable, of as observableOf } from 'rxjs';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'disruption-day-asset-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionDayAssetFormComponent extends GlobalDocumentFormComponent {
 

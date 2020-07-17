@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { UserModel, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel, DynamicListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'creative-usage-rights-photo-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormComponent {
 
@@ -55,14 +55,14 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:campaign',
         label: 'Campaign/Project',
         autoComplete: 'off',
         required: false,
-        visibleFn: (doc: DocumentModel): boolean => !doc.getParent().getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:po_number_internal',
@@ -98,7 +98,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         required: false,
         document: true,
         placeholder: 'Brand',
-        visibleFn: (doc: DocumentModel): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:brand',
@@ -110,7 +110,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideBrands',
         },
-        visibleFn: (doc: DocumentModel): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
@@ -153,7 +153,6 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
               required: '{{label}} is required',
               minLength: 'At least 4 characters',
             },
-            // hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
           }),
           new DynamicSuggestionModel<string>({
             id: 'media_usage_type',

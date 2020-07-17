@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { of as observableOf, Observable } from 'rxjs';
 import {
   DynamicBatchUploadModel,
@@ -9,25 +9,21 @@ import {
   DynamicSuggestionModel,
   DynamicDatepickerDirectiveModel,
   DynamicOptionTagModel,
-  DynamicCheckboxModel,
-  DynamicCheckboxGroupModel,
-  DynamicRadioGroupModel,
   isString,
 } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentPageService } from '../services/document-page.service';
-import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'intelligence-asset-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent {
 
-  beforeSave: Function = (doc: DocumentModel): DocumentModel => {
+  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
     doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: string) => {
-      return { 'label': tag, username: this.currentUser.username };
+      return { 'label': tag, username: user.username };
     });
     return doc;
   }

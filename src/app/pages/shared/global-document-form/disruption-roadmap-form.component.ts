@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel, DynamicTextAreaModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'disruption-roadmap-form',
-  template: `<document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent {
 
@@ -177,6 +177,17 @@ export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent 
         placeholder: 'Author',
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_Edges:featured_asset',
+        label: 'Featured roadmap',
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => user.isAdmin() || user.hasGroup('Disruption-Admins-Disruption'),
+      }),
+      new DynamicTextAreaModel({
+        id: 'app_Edges:featured_asset_description',
+        label: 'Featured Description',
+        rows: 3,
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => user.isAdmin() || user.hasGroup('Disruption-Admins-Disruption'),
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
