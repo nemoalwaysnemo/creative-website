@@ -1,11 +1,14 @@
 <div class="header-container">
   <div class="top-bar">
-    <div class="left logo"></div>
-    <nb-actions size="medium" class="right" *ngxPermissionsOnly="['MGT']">
-      <nb-action>
-        <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username" [nbContextMenu]="headerItems" nbContextMenuTag="sidebar"></nb-user>
-      </nb-action>
-    </nb-actions>
+    <a [routerLink]="['/p//knowledge/home/']"><div class="left logo"></div></a>
+    <div class="right">
+      <a [routerLink]="['/p/search/knowledge/asset/']"><div class="search-icon" ></div></a>
+      <nb-actions size="medium" *ngxPermissionsOnly="['MGT']">
+        <nb-action>
+          <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username" [nbContextMenu]="headerItems" nbContextMenuTag="sidebar"></nb-user>
+        </nb-action>
+      </nb-actions>
+    </div>
     <div class="clear"></div>
   </div>
   <div class="main-nav">

@@ -5,6 +5,7 @@ import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared'
 import { KnowledgeSearchComponent } from './knowledge-search.component';
 import { KnowledgeSearchRoutingModule } from './knowledge-search-routing.module';
 import { KnowledgeDocumentAssetSearchComponent } from './knowledge-document-asset-search/knowledge-asset-search.component';
+import { GlobalSearchButtonModule } from '../../shared/global-search-button/global-search-button.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { KnowledgeDocumentAssetSearchComponent } from './knowledge-document-asse
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    GlobalSearchButtonModule,
     KnowledgeSearchRoutingModule,
   ],
   declarations: [
