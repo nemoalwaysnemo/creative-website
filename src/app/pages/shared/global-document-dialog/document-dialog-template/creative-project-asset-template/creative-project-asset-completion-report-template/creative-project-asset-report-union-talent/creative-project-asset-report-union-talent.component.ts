@@ -32,6 +32,7 @@ export class CreativeProjectAssetReportUnionTalentComponent extends BaseDocument
   updateForm(doc: DocumentModel): void {
     this.documentPageService.updateCurrentDocument(doc);
     this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
+    this.changeView();
   }
 
   canceleForm(): void {
@@ -92,61 +93,6 @@ export class CreativeProjectAssetReportUnionTalentComponent extends BaseDocument
           }),
         ],
       }),
-      // new DynamicFormGroupModel({
-      //   id: 'The_Loupe_ProdCredits:production_company',
-      //   label: '12345',
-      //   // required: false,
-      //   legend: "Name",
-      //   group: [
-      //     new DynamicInputModel({
-      //       id: 'production_company_address',
-      //       label: 'Production Company Address',
-      //       required: false,
-      //     }),
-      //     new DynamicInputModel({
-      //       id: 'production_company_contact',
-      //       label: 'Production Company Contact',
-      //       required: false,
-      //     }),
-      //     new DynamicInputModel({
-      //       id: 'production_company_phone_email',
-      //       label: 'Production Company Phone Email',
-      //       required: false,
-      //     }),
-      //   ]
-      // }),
-      // new DynamicRadioGroupModel<string>({
-      //   id: 'The_Loupe_ProdCredits:production_company',
-      //   label: 'internal/external',
-      //   required: false,
-      //   options: [
-      //     {
-      //       label: 'production_company_contact',
-      //       value: 'production_company_contact'
-      //     },
-      //     {
-      //       label: 'production_company_address',
-      //       value: 'production_company_address'
-      //     },
-
-      //   ],
-      //   value: 'production_company_address',
-      // }),
-      // new DynamicInputModel({
-      //   id: 'production_company_address',
-      //   label: 'Production Company Address',
-      //   required: false,
-      // }),
-      // new DynamicInputModel({
-      //   id: 'production_company_contact',
-      //   label: 'Production Company Contact',
-      //   required: false,
-      // }),
-      // new DynamicInputModel({
-      //   id: 'production_company_phone_email',
-      //   label: 'Production Company Phone Email',
-      //   required: false,
-      // }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'record_date',
         label: 'RECORD DATE',
