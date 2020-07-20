@@ -131,7 +131,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     if (!doc) {
       throw new Error(`current document is null!.`);
     }
-    return settings.inputTarget.call(this, doc);
+    return settings.inputTarget(doc);
   }
 
   private getSuggestions(searchTerm: string, doc: DocumentModel, settings: SuggestionSettings): Observable<OptionModel[]> {
@@ -214,7 +214,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     if (input) {
       params['docId'] = input;
     }
-    return this.nuxeoApi.operation(operationName, params, input).pipe(map((res: any) => this.onResponsed.call(this, res)));
+    return this.nuxeoApi.operation(operationName, params, input).pipe(map((res: any) => this.onResponsed(res)));
   }
 
   private getDirectoryEntries(directoryName: string): void {

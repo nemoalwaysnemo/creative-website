@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { deepExtend } from '@core/services/helpers';
+import { DocumentFormEvent } from './document-form.interface';
+import { Observable, of as observableOf, forkJoin, Subject, Subscription } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
-import { Observable, forkJoin, Subject, Subscription } from 'rxjs';
-import { DocumentFormEvent } from './document-form.interface';
-import { deepExtend } from '@core/services/helpers';
 
 @Component({
   selector: 'document-form',
@@ -66,7 +67,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.formLayout = layout;
   }
 
-  @Input() beforeSave: Function = (doc: DocumentModel): DocumentModel => doc;
+  @Input() beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
+
+  @Input() afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
@@ -150,7 +153,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private performAccordions(doc: DocumentModel, accordions: any = []): void {
-    this.accordionList = (accordions || []).filter((item: any) => !item.visibleFn || item.visibleFn.call(this, doc, this.currentUser));
+    this.accordionList = (accordions || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, this.currentUser));
   }
 
   private prepareSettings(settings: DynamicFormModel): DynamicFormModel {
@@ -164,7 +167,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private performSettings(doc: DocumentModel, settings: DynamicFormModel): DynamicFormModel {
     settings.forEach((model: DynamicFormControlModel) => {
       const modelValue = doc.get(model.id);
-      if (model.hiddenFn) { model.hidden = model.hiddenFn.call(this, doc, this.currentUser); }
+      if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, this.currentUser); }
       if (model.document) { model.document = doc; }
       model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
       if (model instanceof DynamicListModel) {
@@ -176,7 +179,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private prepareForm(doc: DocumentModel, settings: DynamicFormModel): void {
     if (doc) {
-      settings = settings.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn.call(this, doc, this.currentUser));
+      settings = settings.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(doc, this.currentUser));
       let models = this.prepareSettings(settings);
       models = this.performSettings(doc, models);
       this.createForm(models);
@@ -239,16 +242,20 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return forkJoin(...documents.map(x => this.createDocument(x)));
   }
 
-  private createDocument(doc: DocumentModel): Observable<DocumentModel> {
-    return this.documentRepository.create(this.beforeSave.call(this, doc, this.currentUser));
+  private createDocument(doc: DocumentModel): Observable<any> {
+    return this.documentRepository.create(this.beforeSave(doc, this.currentUser)).pipe(
+      concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, this.currentUser)),
+    );
   }
 
   private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    const updateDoc = this.beforeSave.call(this, doc, this.currentUser);
+    const updateDoc = this.beforeSave(doc, this.currentUser);
     if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
       properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
     }
-    return updateDoc.set(properties).save();
+    return updateDoc.set(properties).save().pipe(
+      concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, this.currentUser)),
+    );
   }
 
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {

@@ -15,8 +15,6 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
 
   tabs: any[] = TAB_CONFIG;
 
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
-
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
@@ -49,9 +47,6 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
 
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
-    if (doc) {
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
-    }
   }
 
   protected getCurrentDocumentSearchParams(): any {

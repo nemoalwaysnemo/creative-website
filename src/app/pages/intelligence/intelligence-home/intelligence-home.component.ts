@@ -2,7 +2,7 @@ import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf, forkJoin, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NuxeoPagination, NuxeoPageProviderParams, SearchFilterModel, DocumentModel, NuxeoPermission } from '@core/api';
+import { NuxeoPagination, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -84,9 +84,6 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
-    if (doc) {
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.Write);
-    }
   }
 
   private searchFolders(): void {

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { parseTabRoute } from '@core/services/helpers';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
-import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 

@@ -9,7 +9,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'creative-asset-video-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [accordions]="accordions" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" [accordions]="accordions" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent {
 
@@ -152,8 +152,8 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideURmediatypes',
         },
-        validators: {required: null},
-        errorMessages: {required: '{{label}} is required'},
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:UsageRights'),
       }),

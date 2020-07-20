@@ -9,7 +9,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'creative-asset-brand-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent {
 
