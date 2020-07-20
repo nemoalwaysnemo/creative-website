@@ -10,7 +10,7 @@ import { GlobalSearchResultComponent } from './global-search-result.component';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
-import { GlobalLoadMoreSearchResultComponent} from './global-load-more-search-result/global-load-more-search-result.component';
+import { GlobalLoadMoreSearchResultComponent } from './global-load-more-search-result/global-load-more-search-result.component';
 import { CreativePopularBrandSearchResultComponent, CreativePopularBrandRowRenderComponent } from './creative-popular-brand-search-result/creative-popular-brand-search-result.component';
 import { CreativeUsageRightsSearchResultComponent } from './creative-usage-rights-search-result/creative-usage-rights-search-result.component';
 import { CreativeBrandCampaignSearchResultComponent } from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
@@ -42,7 +42,7 @@ import { InnovationDocumentAssetSearchResultComponent } from './innovation-docum
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
 import { InnovationAssetSearchResultComponent } from './innovation-asset-search-result/innovation-asset-search-result.component';
 import { InnovationFolderAssetSearchResultComponent } from './innovation-folder-asset-search-result/innovation-folder-asset-search-result.component';
-import { KnowledgeAssetSearchResultComponent } from './knowledge-asset-search-result/knowledge-asset-search-result.component';
+import { KnowledgeDocumentAssetSearchResultComponent } from './knowledge-document-asset-search-result/knowledge-document-asset-search-result.component';
 
 const COMPONENTS = [
   BaseSearchResultComponent,
@@ -82,7 +82,7 @@ const COMPONENTS = [
   InnovationDocumentAssetSearchResultComponent,
   InnovationAssetSearchResultComponent,
   InnovationFolderAssetSearchResultComponent,
-  KnowledgeAssetSearchResultComponent,
+  KnowledgeDocumentAssetSearchResultComponent,
 ];
 
 @NgModule({
@@ -107,7 +107,6 @@ const COMPONENTS = [
   ],
   exports: [
     ...COMPONENTS,
-    GlobalDocumentDialogModule,
   ],
 })
 export class GlobalSearchResultModule { }

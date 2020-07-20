@@ -4,12 +4,12 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { getAssetModuleType } from '@core/services/helpers';
 
 @Component({
-  selector: 'knowledge-asset-search-result',
-  styleUrls: ['./knowledge-asset-search-result.component.scss'],
-  templateUrl: './knowledge-asset-search-result.component.html',
+  selector: 'knowledge-document-asset-search-result',
+  styleUrls: ['./knowledge-document-asset-search-result.component.scss'],
+  templateUrl: './knowledge-document-asset-search-result.component.html',
 })
 
-export class KnowledgeAssetSearchResultComponent {
+export class KnowledgeDocumentAssetSearchResultComponent {
 
   constructor() { }
 
