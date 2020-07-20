@@ -19,8 +19,10 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
   ];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
