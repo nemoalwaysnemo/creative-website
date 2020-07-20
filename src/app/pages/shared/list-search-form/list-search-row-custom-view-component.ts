@@ -61,7 +61,7 @@ export class ListSearchRowCustomViewComponent {
   }
 
   getHtmlTemplate(doc: DocumentModel): string {
-    return this.options.htmlFunc.call(this, doc);
+    return this.options.htmlFunc(doc);
   }
 
 }

@@ -61,7 +61,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   protected onSearch(): void {
     const subscription = this.globalSearchFormService.onSearch().pipe(
-      filter((res: SearchResponse) => this.onSearchFilter.call(this, res)),
+      filter((res: SearchResponse) => this.onSearchFilter(res)),
       concatMap((res: SearchResponse) => this.afterSearch(res)),
     ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {

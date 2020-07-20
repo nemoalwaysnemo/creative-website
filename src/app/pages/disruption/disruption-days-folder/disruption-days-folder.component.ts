@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
+import { Subject, timer } from 'rxjs';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -16,8 +16,6 @@ export class DisruptionDaysFolderComponent extends GlobalDocumentViewComponent {
   tabs: any[] = TAB_CONFIG;
 
   baseParams$: Subject<any> = new Subject<any>();
-
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
@@ -39,7 +37,6 @@ export class DisruptionDaysFolderComponent extends GlobalDocumentViewComponent {
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
     }
   }

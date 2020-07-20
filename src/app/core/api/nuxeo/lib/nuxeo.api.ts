@@ -95,7 +95,7 @@ export class Nuxeo extends Base {
     return new Operation(finalOptions);
   }
 
-  request(path: string, opts: any = {}) {
+  request(path: string, opts: any = {}): Request {
     const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, path, url: this.restUrl }, opts));
     return new Request(finalOptions);
   }

@@ -79,7 +79,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
   }
 
   private buildDynamicOptionSettings(filters: SearchFilterModel[] = [], search: SearchResponse): OptionSettings[] {
-    const visiableFilters = filters.filter((x: SearchFilterModel) => x.visibleFn.call(this, search.searchParams));
+    const visiableFilters = filters.filter((x: SearchFilterModel) => x.visibleFn(search.searchParams));
     return this.buildAggOptionSettings(visiableFilters, search.response.buildAggregateModels());
   }
 
@@ -94,7 +94,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
         const bufferSize = filter.bufferSize;
         const iteration = filter.iteration;
         for (const bucket of agg.extendedBuckets) {
-          if (filter.filterValueFn && filter.filterValueFn.call(this, bucket)) {
+          if (filter.filterValueFn && filter.filterValueFn(bucket)) {
             options.push(this.buildOptionModel(bucket, filter.optionLabels));
           }
         }

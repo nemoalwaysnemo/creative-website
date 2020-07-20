@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPermission, NuxeoPageProviderConstants } from '@core/api';
+import { Subject, timer } from 'rxjs';
+import { DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPageProviderConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../innovation-tab-config';
@@ -13,8 +13,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './innovation-list.component.html',
 })
 export class InnovationListComponent extends GlobalDocumentViewComponent implements OnInit {
-
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   baseParams$: Subject<any> = new Subject<any>();
 
@@ -66,7 +64,6 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
       timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
       this.assetUrl = this.getRedirectUrl();
     }

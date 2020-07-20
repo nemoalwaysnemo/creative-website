@@ -9,7 +9,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'creative-usage-rights-music-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormComponent {
 

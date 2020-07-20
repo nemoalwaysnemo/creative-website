@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DocumentModel, NuxeoPermission, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { DocumentModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -15,8 +15,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 export class DisruptionDaysComponent extends GlobalDocumentViewComponent implements OnInit {
 
   tabs: any[] = TAB_CONFIG;
-
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
@@ -67,9 +65,6 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
 
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
-    if (doc) {
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
-    }
   }
 
   protected getCurrentDocumentSearchParams(): any {

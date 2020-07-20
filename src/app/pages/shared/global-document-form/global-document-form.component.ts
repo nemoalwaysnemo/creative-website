@@ -29,7 +29,9 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   formMode: 'create' | 'edit';
 
-  beforeSave: Function = (doc: DocumentModel): DocumentModel => doc;
+  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
+
+  afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
 
   @Input()
   set documentModel(doc: DocumentModel) {
@@ -39,6 +41,8 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   @Input()
   set metadata(metadata: any) {
     this.formMode = (metadata.formMode || 'create');
+    this.beforeSave = metadata.beforeSave || this.beforeSave;
+    this.afterSave = metadata.afterSave || this.afterSave;
   }
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();

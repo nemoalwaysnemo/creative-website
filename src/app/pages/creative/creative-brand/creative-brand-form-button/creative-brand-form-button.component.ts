@@ -79,7 +79,14 @@ export class CreativeBrandFormButtonComponent {
       default:
         throw new Error(`unknown document form component for '${type}'`);
     }
-    return new GlobalDocumentDialogSettings({ components });
+    return new GlobalDocumentDialogSettings({
+      components,
+      // metadata: {
+      //   afterSave: (doc: any, user: any) => {
+      //     return observableOf(doc);
+      //   },
+      // },
+    });
   }
 
 }
