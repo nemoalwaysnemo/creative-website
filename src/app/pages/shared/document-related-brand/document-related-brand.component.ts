@@ -72,7 +72,7 @@ export class DocumentRelatedBrandComponent {
     return Object.assign({}, params);
   }
 
-  onSearchFilter(res: SearchResponse): boolean {
+  searchResultFilter(res: SearchResponse): boolean {
     return res.source === 'document-related-brand';
   }
 

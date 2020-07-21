@@ -85,7 +85,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
     }
   }
 
-  onSearchFilter(res: SearchResponse): boolean {
+  searchResultFilter(res: SearchResponse): boolean {
     return res.metadata.source === 'document-related-agency';
   }
 }
