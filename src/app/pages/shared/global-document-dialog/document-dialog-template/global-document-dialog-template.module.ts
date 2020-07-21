@@ -23,6 +23,7 @@ import { CreativeProjectAssetDeliverableTemplateComponent } from './creative-pro
 import { CreativeProjectAssetImportLocalTemplateComponent } from './creative-project-asset-template/creative-project-asset-import-local-template/creative-project-asset-import-local-template.component';
 import { CreativeProjectAssetImportRequestTemplateComponent } from './creative-project-asset-template/creative-project-asset-import-request-template/creative-project-asset-import-request-template.component';
 import { CreativeProjectAssetUsageRightsTemplateComponent } from './creative-project-asset-template/creative-project-asset-usage-rights-template /creative-project-asset-usage-rights-template.component';
+import { InnovationAssetPreviewDialogComponent } from './innovation-asset-preview-dialog/innovation-asset-preview-dialog.component';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
@@ -41,6 +42,7 @@ const COMPONENTS = [
   CreativeProjectAssetImportLocalTemplateComponent,
   CreativeProjectAssetImportRequestTemplateComponent,
   CreativeProjectAssetUsageRightsTemplateComponent,
+  InnovationAssetPreviewDialogComponent,
 ];
 
 @NgModule({

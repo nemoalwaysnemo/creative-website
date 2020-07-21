@@ -17,10 +17,10 @@ export class KnowledgeDocumentAssetSearchResultComponent {
   constructor(private globalDocumentDialogService: GlobalDocumentDialogService) { }
 
   dialogMetadata: any = {
-    // formMode: 'edit',
     enableEdit: false,
     enableDeletion: false,
     moreInfo: true,
+    enablePreview: true,
   };
 
   getDialogSettings(type: string): GlobalDocumentDialogSettings {
@@ -36,7 +36,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
         components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
         break;
       case 'Innovation':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INNOVATION_ASSET);
         break;
       case 'Creative':
         components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
