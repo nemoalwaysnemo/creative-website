@@ -13,6 +13,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  currentView: string = 'allRoadmapsView';
+
   tabs: any[] = TAB_CONFIG;
 
   filters: SearchFilterModel[] = [
@@ -29,7 +31,21 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
     quickFilters: NuxeoQuickFilters.Alphabetically,
   };
 
+  featuredParams: any = {
+    pageSize: 20,
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    app_edges_featured_asset: true,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE,
+  };
+
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
+
+  featuredSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'document-featured-roadmpaps',
     enableQueryParams: true,
   });
 
@@ -43,6 +59,10 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
   ngOnInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
+  }
+
+  selectView(view: string): void {
+    this.currentView = view;
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

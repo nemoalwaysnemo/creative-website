@@ -41,7 +41,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     }
   }
 
-  @Input() onSearchFilter: Function = (res: SearchResponse): boolean => res.source === 'global-search-form';
+  @Input() searchResultFilter: Function = (res: SearchResponse): boolean => res.source === 'global-search-form';
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
 
@@ -61,7 +61,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   protected onSearch(): void {
     const subscription = this.globalSearchFormService.onSearch().pipe(
-      filter((res: SearchResponse) => this.onSearchFilter(res)),
+      filter((res: SearchResponse) => this.searchResultFilter(res)),
       concatMap((res: SearchResponse) => this.afterSearch(res)),
     ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {

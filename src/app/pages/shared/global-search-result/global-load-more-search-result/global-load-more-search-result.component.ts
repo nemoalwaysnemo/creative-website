@@ -13,7 +13,7 @@ export class GlobalLoadMoreSearchResultComponent extends BaseGlobalSearchResultC
 
   @Input() templateRef: TemplateRef<any>;
 
-  @Input() onSearchFilter: Function = (res: SearchResponse): boolean => res.source === 'document-load-more';
+  @Input() searchResultFilter: Function = (res: SearchResponse): boolean => res.source === 'document-load-more';
 
   @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 

@@ -1,0 +1,12 @@
+<global-search-result [searchResultFilter]="searchResultFilter" [templateRef]="thumbnailView"></global-search-result>
+<ng-template #thumbnailView let-doc="doc">
+  <div class="image-holder">
+    <a (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+  </div>
+  <div class="description">
+    <h1 [title]="doc.title">{{doc.title}}</h1>
+  </div>
+  <ng-template #dialog>
+    <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [title]="title" [redirectUrl]="redirectUrl"></global-document-dialog>
+  </ng-template>
+</ng-template>

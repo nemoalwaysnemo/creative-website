@@ -19,6 +19,7 @@ import { CreativeDocumentAssetSearchResultComponent, CreativeDocumentAssetRowRen
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
 import { CreativeBrandAssetSearchResultComponent, CreativeBrandRowRenderComponent } from './creative-brand-asset-search-result/creative-brand-asset-search-result.component';
 import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
+import { DisruptionFeaturedRoadmapsAssetSearchResultComponent } from './disruption-featured-roadmaps-asset-search-result/disruption-featured-roadmaps-asset-search-result.component';
 import { DisruptionDaysAssetSearchResultComponent } from './disruption-days-asset-search-result/disruption-days-asset-search-result.component';
 import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-asset-search-result/disruption-theory-asset-search-result.component';
 import { DisruptionThinkingAssetSearchResultComponent } from './disruption-thinking-asset-search-result/disruption-thinking-asset-search-result.component';
@@ -64,6 +65,7 @@ const COMPONENTS = [
   DisruptionTheoryAssetSearchResultComponent,
   DisruptionThinkingAssetSearchResultComponent,
   DisruptionRoadmapsAssetSearchResultComponent,
+  DisruptionFeaturedRoadmapsAssetSearchResultComponent,
   DisruptionFolderDayAssetSearchResultComponent,
   DisruptionFolderTheoryAssetSearchResultComponent,
   DisruptionDocumentAssetSearchResultComponent,
