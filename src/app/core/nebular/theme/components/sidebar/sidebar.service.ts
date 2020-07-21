@@ -38,7 +38,7 @@ export class NbSidebarService {
     return this.hideAllBars$.pipe(share());
   }
 
-  closeAllBars(close?: boolean) {
+  closeAllBars(close?: boolean): void {
     this.hideAllBars$.next({ close: close });
   }
 
@@ -58,16 +58,17 @@ export class NbSidebarService {
     return this.sidebarClose$.pipe(share());
   }
 
-  openSidebar(compact = false, tag?: string) {
+  openSidebar(compact = false, tag?: string): void {
     this.toggle(compact, tag);
     this.sidebarStatus$.next({ status: 'opened' });
   }
-  closeSidebar(tag: string) {
+
+  closeSidebar(tag: string): void {
     this.collapse(tag);
     this.sidebarStatus$.next({ status: 'closed' });
   }
 
-  hideLater(tag?: string) {
+  hideLater(tag?: string): void {
     if (this.isDesktopDevice) {
       if (!this.waitingHiding) {
         this.waitingHiding = true;
@@ -79,7 +80,8 @@ export class NbSidebarService {
       }
     }
   }
-  clearSidebarHiding() {
+
+  clearSidebarHiding(): void {
     if (this.sidebarTimeId) {
       clearTimeout(this.sidebarTimeId);
       this.waitingHiding = false;
@@ -124,7 +126,7 @@ export class NbSidebarService {
    * @param {string} tag If you have multiple sidebars on the page, mark them with `tag` input property and pass it here
    * to specify which sidebar you want to control
    */
-  toggle(compact = false, tag?: string) {
+  toggle(compact = false, tag?: string): void {
     this.toggle$.next({ compact, tag });
   }
 
@@ -133,7 +135,7 @@ export class NbSidebarService {
    * @param {string} tag If you have multiple sidebars on the page, mark them with `tag` input property and pass it here
    * to specify which sidebar you want to control
    */
-  expand(tag?: string) {
+  expand(tag?: string): void {
     this.expand$.next({ tag });
   }
 
@@ -142,7 +144,7 @@ export class NbSidebarService {
    * @param {string} tag If you have multiple sidebars on the page, mark them with `tag` input property and pass it here
    * to specify which sidebar you want to control
    */
-  collapse(tag?: string) {
+  collapse(tag?: string): void {
     this.collapse$.next({ tag });
     this.sidebarStatus$.next({ status: 'collapse' });
   }

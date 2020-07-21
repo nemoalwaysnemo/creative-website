@@ -2,7 +2,7 @@ export * from './meta-info';
 
 export const Environment = {
   baseTitle: 'Know\\edge',
-  homePath: '/p/creative',
+  homePath: '/p/knowledge',
   nuxeoUrl: '/nuxeo/',
   backslashAppUrl: '/nuxeo/edges',
   assetPath: '/nuxeo/LibraryWebUI/',

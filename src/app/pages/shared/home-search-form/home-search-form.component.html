@@ -1,10 +1,10 @@
 <form class="search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
   <section class="filter-wrapper">
-    <h1 class="headline" *ngIf="headline">{{ headline }}</h1>
-    <h1 class="extraHeadline" *ngIf="extraHeadline">{{ extraHeadline }}</h1>
-    <h4>{{ subHead }}</h4>
+    <h1 class="headline" *ngIf="headline" title="{{headline}}">{{headline}}</h1>
+    <h1 class="extraHeadline" *ngIf="extraHeadline" title="{{extraHeadline}}">{{extraHeadline}}</h1>
+    <h4 title="{{subHead}}">{{subHead}}</h4>
     <div (clickOutside)="hide()" (click)="show()" [excludeBeforeClick]="true" [exclude]="'button'" class="keyword-wrapper">
-      <input class="keyword" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
+      <input class="keyword" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" title="{{formSettings.placeholder}}" [placeholder]="formSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
         [ngClass]="{'with-filters': hasFilters()}" />
       <document-thumbnail-view [hide]="hideView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>

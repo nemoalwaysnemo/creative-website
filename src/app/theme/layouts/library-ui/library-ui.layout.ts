@@ -46,15 +46,14 @@ export class LibraryLayoutComponent implements OnInit, OnDestroy {
               private themeService: NbThemeService,
               private bpService: NbMediaBreakpointsService,
               private sidebarService: NbSidebarService,
-  ) { }
-
-  ngOnInit(): void {
-
+  ) {
     this.sidebarService.onHideAllBarsonSidebar()
       .subscribe((data: { close: boolean }) => {
         this.hideHeader = data.close;
       });
+  }
 
+  ngOnInit(): void {
     this.stateService.onLayoutState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(layout => this.layout = layout);
