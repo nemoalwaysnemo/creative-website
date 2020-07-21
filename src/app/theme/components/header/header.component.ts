@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NbMenuService, NbMenuItem } from '@core/nebular/theme';
 import { UserService, UserModel } from '@core/api';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Environment } from '@environment/environment';
-import { NbMenuService, NbMenuItem } from '@core/nebular/theme';
 import { filter, map } from 'rxjs/operators';
+import { Environment } from '@environment/environment';
 
 @Component({
   selector: 'ngx-header',
@@ -15,13 +15,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   user: any = {};
 
-  title: string;
+  homePath: string = Environment.homePath;
 
-  isOpen = true;
-
-  sidebarClosed: boolean = false;
-
-  headerItems: any = [
+  headerItems: any[] = [
     { title: 'Favorite' },
   ];
 
@@ -39,10 +35,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  goHome() {
-    this.router.navigate([Environment.homePath]);
-  }
-
   private getUser(): void {
     const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {
       this.user = user;
@@ -57,8 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         map((menu: { tag: string, item: NbMenuItem }) => menu.item),
       )
       .subscribe((item: NbMenuItem) => {
-        this.title = item.title;
-        this.goPage(item.title);
+        this.goToPage(item.title);
       });
     this.subscription.add(subscription);
   }
@@ -67,7 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.router.url.includes(`/${type}/`);
   }
 
-  goPage(title: string): void {
+  goToPage(title: string): void {
     if (title === 'Favorite') {
       this.router.navigate(['/p/favorite']);
     }

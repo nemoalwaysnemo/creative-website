@@ -1,8 +1,8 @@
 <div class="header-container">
   <div class="top-bar">
-    <a [routerLink]="['/p//knowledge/home/']"><div class="left logo"></div></a>
+    <a [routerLink]="[homePath]" title="Know\edge"><div class="left logo"></div></a>
     <div class="right">
-      <a [routerLink]="['/p/search/knowledge/asset/']"><div class="search-icon" ></div></a>
+      <a [routerLink]="['/p/search/knowledge/asset']" title="Search"><div class="search-icon"></div></a>
       <nb-actions size="medium" *ngxPermissionsOnly="['MGT']">
         <nb-action>
           <nb-user [name]="user.username" [picture]="user.avatar" [title]="user.username" [nbContextMenu]="headerItems" nbContextMenuTag="sidebar"></nb-user>
@@ -12,11 +12,11 @@
     <div class="clear"></div>
   </div>
   <div class="main-nav">
-    <a [routerLink]="['/p/disruption']" [ngClass]="{'active': selectLayout('disruption')}">Disruption</a>
-    <a [routerLink]="['/p/intelligence']" [ngClass]="{'active': selectLayout('intelligence')}">Intelligence</a>
-    <a [routerLink]="['/p/backslash/home']" [ngClass]="{'active': selectLayout('backslash')}">Backslash</a>
-    <a [routerLink]="['/p/creative']" [ngClass]="{'active': selectLayout('creative')}">Creative</a>
-    <a [routerLink]="['/p/business-development']" [ngClass]="{'active': selectLayout('business-development')}">Business Development</a>
-    <a [routerLink]="['/p/innovation']" [ngClass]="{'active': selectLayout('innovation')}">Innovation</a>
+    <a [routerLink]="['/p/disruption']" title="Disruption" [ngClass]="{'active': selectLayout('disruption')}">Disruption</a>
+    <a [routerLink]="['/p/intelligence']" title="Intelligence" [ngClass]="{'active': selectLayout('intelligence')}">Intelligence</a>
+    <a [routerLink]="['/p/backslash/home']" title="Backslash" [ngClass]="{'active': selectLayout('backslash')}">Backslash</a>
+    <a [routerLink]="['/p/creative']" title="Creative" [ngClass]="{'active': selectLayout('creative')}">Creative</a>
+    <a [routerLink]="['/p/business-development']" title="Business Development" [ngClass]="{'active': selectLayout('business-development')}">Business Development</a>
+    <a [routerLink]="['/p/innovation']" title="Innovation" [ngClass]="{'active': selectLayout('innovation')}">Innovation</a>
   </div>
 </div>
