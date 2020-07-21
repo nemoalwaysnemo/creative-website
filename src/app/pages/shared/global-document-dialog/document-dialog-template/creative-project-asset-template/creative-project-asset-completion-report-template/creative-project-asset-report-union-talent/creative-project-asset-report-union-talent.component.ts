@@ -30,7 +30,9 @@ export class CreativeProjectAssetReportUnionTalentComponent extends BaseDocument
   @Input() document: DocumentModel;
 
   updateForm(doc: DocumentModel): void {
-    this.documentPageService.updateCurrentDocument(doc);
+    if (doc && this.document && doc.uid === this.document.uid) {
+      this.document = doc;
+    }
     this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
     this.changeView();
   }
