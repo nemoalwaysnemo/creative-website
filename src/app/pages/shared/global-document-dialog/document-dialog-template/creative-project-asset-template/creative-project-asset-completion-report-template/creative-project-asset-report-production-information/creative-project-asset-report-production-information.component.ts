@@ -30,8 +30,12 @@ export class CreativeProjectReportProductionInformationComponent extends BaseDoc
   @Input() document: DocumentModel;
 
   updateForm(doc: DocumentModel): void {
-    this.documentPageService.updateCurrentDocument(doc);
+    // this.documentPageService.updateCurrentDocument(doc);
+    if (doc && this.document && doc.uid === this.document.uid) {
+      this.document = doc;
+    }
     this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
+    this.changeView();
   }
 
   canceleForm(): void {
