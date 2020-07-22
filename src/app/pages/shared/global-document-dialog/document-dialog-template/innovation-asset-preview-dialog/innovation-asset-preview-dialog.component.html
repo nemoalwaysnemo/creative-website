@@ -1,0 +1,48 @@
+<div class="dialog-title text-center">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1 class="left">{{title}}</h1>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <ng-container *ngIf="document">
+    <div class="media">
+      <document-viewer [document]="document"></document-viewer>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <div class="text-content" style="padding-top: 0;">
+      <div class="controls row">
+        <div class="col-5">
+          <h3 class="left">{{ document.title }}</h3>
+          <div class="clear"></div>
+          <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
+        </div>
+        <div class="col-7">
+          <a href="{{document.filePath}}"><button class="inline-middle download right" type="submit">Download</button></a>
+          <ng-container *ngIf="getDialogSettings().enablePreview">
+            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="edit preview right">Preview</button></a>
+          </ng-container>
+          <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+          <a [routerLink]="['/p/innovation/asset/', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <ng-container *ngIf="getDialogSettings().moreInfo">
+        <p>
+          Title: {{ document.title }}<br>
+          Brand: {{ document.get('The_Loupe_Main:brand') }}<br>
+          Description: {{ document.get('dc:description') }}<br>
+          Type: {{ document.get('The_Loupe_Main:assettype') }}<br>
+          Industry: {{ document.get('app_Edges:industry') }}<br>
+          Geography: {{ parseCountry(document.get('app_Edges:Relevant_Country')) }}<br>
+          Author: {{ document.get('The_Loupe_Main:created_by') }}<br>
+          Published: {{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}<br>
+        </p>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #popContent>
+  <share-document-button [document]="document" [currentUrl]="currentUrl"></share-document-button>
+</ng-template>
