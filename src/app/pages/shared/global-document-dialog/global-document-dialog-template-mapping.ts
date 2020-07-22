@@ -6,7 +6,7 @@ import { DocumentDownloadRequestTemplateComponent } from './document-dialog-temp
 import { DocumentDialogDeletionTemplateComponent } from './document-dialog-template/document-deletion-template/document-deletion-template.component';
 import { CreativeProjectAssetTemplateComponent } from './document-dialog-template/creative-project-asset-template/creative-project-asset-template.component';
 import { InnovationAssetPreviewDialogComponent } from './document-dialog-template/innovation-asset-preview-dialog/innovation-asset-preview-dialog.component';
-
+import { BizdevAssetPreviewDialogComponent } from './document-dialog-template/bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 
 export const GLOBAL_DOCUMENT_DIALOG = {
   PREIVEW_BACKSLASH_HOME_ASSET: BackslashHomeAssetDialogPreviewComponent,
@@ -17,4 +17,5 @@ export const GLOBAL_DOCUMENT_DIALOG = {
   CUSTOM_DELETION: DocumentDialogDeletionTemplateComponent,
   CUSTOM_CREATIVE_PROJECT_ASSET: CreativeProjectAssetTemplateComponent,
   PREVIEW_INNOVATION_ASSET: InnovationAssetPreviewDialogComponent,
+  PREVIEW_BIZDEV_ASSET: BizdevAssetPreviewDialogComponent,
 };

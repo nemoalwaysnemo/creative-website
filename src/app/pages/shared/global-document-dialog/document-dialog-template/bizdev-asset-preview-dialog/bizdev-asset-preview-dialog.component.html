@@ -1,0 +1,85 @@
+<div class="dialog-title text-center">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1 class="left">{{title}}</h1>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <ng-container *ngIf="document">
+    <div class="media">
+      <document-viewer [document]="document"></document-viewer>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <div class="text-content" style="padding-top: 0;">
+      <div class="controls row">
+        <div class="col-4">
+          <h3 class="left"><b>{{ document.title }}</b></h3>
+          <div class="clear"></div>
+          <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
+        </div>
+        <div class="col-8">
+          <ng-container *ngIf="isNeedSendDownloadRequest(document)">
+            <a href="javascript:;" (click)="openDialog(dialog)"><button class="inline-middle download right" title="Download">Download Request</button></a>
+          </ng-container>
+          <ng-container *ngIf="downloadPermission$ | async">
+            <a *ngIf="document.filePath" href="{{document.filePath}}"><button class="inline-middle download right" title="Download">Download</button></a>
+          </ng-container>
+          <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+          <a [routerLink]="['/p/business-development/asset/', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <th>Descriptions</th>
+            <th>Asset Type</th>
+          </tr>
+          <tr>
+            <td>{{ document.get('dc:description') }}</td>
+            <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+          </tr>
+          <tr>
+            <th>Industry</th>
+            <th>Geography</th>
+          </tr>
+          <tr>
+            <td>{{ document.get('app_Edges:industry') }}</td>
+            <td>{{ parseCountry(document.get('app_Edges:Relevant_Country')) }}</td>
+          </tr>
+          <tr>
+            <th>Author</th>
+            <th>Published</th>
+          </tr>
+          <tr>
+            <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
+            <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
+          </tr>
+          <tr>
+            <th>Backslash Category</th>
+            <th>Edge</th>
+          </tr>
+          <tr>
+            <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
+            <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+          </tr>
+          <tr>
+            <th>Agency</th>
+            <th>Brand</th>
+          </tr>
+          <tr>
+            <td>{{ document.get('The_Loupe_Main:agency') }}</td>
+            <td>{{ document.get('The_Loupe_Main:brand') }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #popContent>
+  <share-document-button [document]="document" [currentUrl]="currentUrl"></share-document-button>
+</ng-template>
+<ng-template #dialog>
+  <!-- <global-document-dialog [settings]="dialogSettings" [documentModel]="document" [title]="'Download Request'"></global-document-dialog> -->
+</ng-template>

@@ -5,7 +5,6 @@ import { getAssetModuleType } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
 
-
 @Component({
   selector: 'knowledge-document-asset-search-result',
   styleUrls: ['./knowledge-document-asset-search-result.component.scss'],
@@ -17,8 +16,6 @@ export class KnowledgeDocumentAssetSearchResultComponent {
   constructor(private globalDocumentDialogService: GlobalDocumentDialogService) { }
 
   dialogMetadata: any = {
-    enableEdit: false,
-    enableDeletion: false,
     moreInfo: true,
     enablePreview: true,
   };
@@ -42,7 +39,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
         components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
         break;
       case 'Business Development':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
         break;
       default:
         break;

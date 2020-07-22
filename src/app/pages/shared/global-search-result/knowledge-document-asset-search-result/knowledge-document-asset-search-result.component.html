@@ -14,6 +14,6 @@
     </div>
   </div>
   <ng-template #dialog>
-    <global-document-dialog [settings]="getDialogSettings(getAssetType(doc))" [documentModel]="doc" [title]="getTitle(doc)"></global-document-dialog>
+    <global-document-dialog [settings]="getDialogSettings(getAssetType(doc))" [documentModel]="doc" [title]="getTitle(doc)" [metadata]="dialogMetadata"></global-document-dialog>
   </ng-template>
 </ng-template>

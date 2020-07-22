@@ -1,0 +1,48 @@
+.text-content {
+  margin-top: 10px;
+  margin-left: 80px;
+  .controls {
+    h2, h3, h4 {
+      margin-left: 0;
+    }
+    button {
+      background: none !important;
+      font-weight: bolder;
+      background-color: white;
+      margin-right: 0 !important;
+      padding: 0 26px !important;
+      height: 30px !important;
+    }
+    .share, .details {
+      border-right: solid 1px #cccccc !important;
+    }
+  }
+
+  table {
+    margin-top: 20px;
+    margin-bottom: 17px;
+    th, td {
+      height: 28px;
+      color: #000000;
+    }
+    th {
+      font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+      font-size: 15px;
+      text-align: left;
+    }
+    td {
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+      font-size: 15px;
+      a.text {
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+        font-size: 15px;
+        color: #000000;
+        &:hover {
+          text-decoration: none;
+          color: #000000;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
