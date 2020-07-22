@@ -31,10 +31,10 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       this.resultView = 'asset';
       searchParams = this.buildIndustrySearchAssetParams(searchParams, metadata);
     } else {
-      if (this.documentType === 'IndustryAsset') {
-        this.resultView = 'asset';
-      } else {
+      if (['Industry'].includes(this.documentType)) {
         this.resultView = 'folder';
+      } else {
+        this.resultView = 'asset';
       }
     }
     return { searchParams, opts };
