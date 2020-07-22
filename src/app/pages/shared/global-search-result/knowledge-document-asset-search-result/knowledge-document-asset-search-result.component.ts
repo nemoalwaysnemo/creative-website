@@ -30,7 +30,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
         components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
         break;
       case 'Intelligence':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INTELLIGENCE_ASSET);
         break;
       case 'Innovation':
         components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INNOVATION_ASSET);

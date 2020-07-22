@@ -13,8 +13,8 @@
     <div class="text-content" style="padding-top: 0;">
       <div class="controls row">
         <div class="col-6">
-          <div class="clear"></div>
           <h3 class="left">{{ document.title }}</h3>
+          <div class="clear"></div>
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
         <div class="col-6">
@@ -23,7 +23,7 @@
             <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="edit preview right">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
-          <a [routerLink]="['/p/innovation/asset/', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          <a [routerLink]="['/p/intelligence/asset/', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
         </div>
         <div class="clear"></div>
       </div>
