@@ -19,13 +19,13 @@
         </div>
         <div class="col-8">
           <ng-container *ngIf="isNeedSendDownloadRequest(document)">
-            <a href="javascript:;" (click)="openDialog(dialog)"><button class="inline-middle download right" title="Download">Download Request</button></a>
+            <a href="javascript:;" (click)="selectView('document-download-request-template')"><button class="inline-middle download right" title="Download">Download Request</button></a>
           </ng-container>
           <ng-container *ngIf="downloadPermission$ | async">
             <a *ngIf="document.filePath" href="{{document.filePath}}"><button class="inline-middle download right" title="Download">Download</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
-          <a [routerLink]="['/p/business-development/asset/', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          <a [routerLink]="['/p/business-development/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
         </div>
         <div class="clear"></div>
       </div>
@@ -79,7 +79,4 @@
 
 <ng-template #popContent>
   <share-document-button [document]="document" [currentUrl]="currentUrl"></share-document-button>
-</ng-template>
-<ng-template #dialog>
-  <!-- <global-document-dialog [settings]="dialogSettings" [documentModel]="document" [title]="'Download Request'"></global-document-dialog> -->
 </ng-template>

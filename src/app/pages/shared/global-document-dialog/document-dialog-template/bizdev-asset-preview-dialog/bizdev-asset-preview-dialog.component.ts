@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { parseCountry, getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentPageService } from '../../../services/document-page.service';
-import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../global-document-dialog';
+import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -17,8 +17,6 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
   currentUrl: string = this.documentPageService.getCurrentFullUrl();
 
   downloadPermission$: Observable<boolean> = observableOf(false);
-
-  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,

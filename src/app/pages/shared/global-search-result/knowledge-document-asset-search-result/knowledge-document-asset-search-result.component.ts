@@ -40,6 +40,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
         break;
       case 'Business Development':
         components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
+        components.push(GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST);
         break;
       default:
         break;
