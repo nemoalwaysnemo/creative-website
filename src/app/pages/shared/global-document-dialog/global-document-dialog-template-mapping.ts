@@ -8,6 +8,7 @@ import { CreativeProjectAssetTemplateComponent } from './document-dialog-templat
 import { InnovationAssetPreviewDialogComponent } from './document-dialog-template/innovation-asset-preview-dialog/innovation-asset-preview-dialog.component';
 import { BizdevAssetPreviewDialogComponent } from './document-dialog-template/bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 import { IntelligenceAssetPreviewDialogComponent } from './document-dialog-template/intelligence-asset-preview-dialog/intelligence-asset-preview-dialog.component';
+import { CreativeAssetPreviewDialogComponent } from './document-dialog-template/creative-asset-preview-dialog/creative-asset-preview-dialog.component';
 
 export const GLOBAL_DOCUMENT_DIALOG = {
   PREIVEW_BACKSLASH_HOME_ASSET: BackslashHomeAssetDialogPreviewComponent,
@@ -20,4 +21,5 @@ export const GLOBAL_DOCUMENT_DIALOG = {
   PREVIEW_INNOVATION_ASSET: InnovationAssetPreviewDialogComponent,
   PREVIEW_BIZDEV_ASSET: BizdevAssetPreviewDialogComponent,
   PREVIEW_INTELLIGENCE_ASSET: IntelligenceAssetPreviewDialogComponent,
+  PREVIEW_CREATIVE_ASSET: CreativeAssetPreviewDialogComponent,
 };

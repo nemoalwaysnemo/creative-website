@@ -12,12 +12,12 @@
   <ng-container *ngIf="document">
     <div class="text-content" style="padding-top: 0;">
       <div class="controls row">
-        <div class="col-6">
-          <div class="clear"></div>
+        <div class="col-5">
           <h3 class="left">{{ document.title }}</h3>
+          <div class="clear"></div>
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
-        <div class="col-6">
+        <div class="col-7">
           <a href="{{document.filePath}}"><button class="inline-middle download right" type="submit">Download</button></a>
           <ng-container *ngIf="getDialogSettings().enablePreview">
             <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="edit preview right">Preview</button></a>

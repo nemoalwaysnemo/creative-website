@@ -36,7 +36,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
         components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INNOVATION_ASSET);
         break;
       case 'Creative':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET);
         break;
       case 'Business Development':
         components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
@@ -47,15 +47,6 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     }
     return new GlobalDocumentDialogSettings({ components });
   }
-
-  private defaultSettings: any = {
-    columns: {
-      title: {
-        title: 'Title',
-        sort: false,
-      },
-    },
-  };
 
   getAssetType(doc: DocumentModel): string {
     return getAssetModuleType(doc);

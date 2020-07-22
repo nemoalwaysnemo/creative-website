@@ -37,10 +37,6 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
     }
   }
 
-  openDialog(dialog: TemplateRef<any>): void {
-    this.globalDocumentDialogService.open(dialog);
-  }
-
   parseCountry(list: string[]): string {
     return parseCountry(list);
   }

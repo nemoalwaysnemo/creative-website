@@ -26,6 +26,7 @@ import { CreativeProjectAssetUsageRightsTemplateComponent } from './creative-pro
 import { InnovationAssetPreviewDialogComponent } from './innovation-asset-preview-dialog/innovation-asset-preview-dialog.component';
 import { BizdevAssetPreviewDialogComponent } from './bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 import { IntelligenceAssetPreviewDialogComponent } from './intelligence-asset-preview-dialog/intelligence-asset-preview-dialog.component';
+import { CreativeAssetPreviewDialogComponent } from './creative-asset-preview-dialog/creative-asset-preview-dialog.component';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
@@ -47,6 +48,7 @@ const COMPONENTS = [
   InnovationAssetPreviewDialogComponent,
   BizdevAssetPreviewDialogComponent,
   IntelligenceAssetPreviewDialogComponent,
+  CreativeAssetPreviewDialogComponent,
 ];
 
 @NgModule({

@@ -13,9 +13,16 @@
       padding: 0 26px !important;
       height: 30px !important;
     }
-    .share, .download {
+    .share, .download, .preview {
       border-left: solid 1px #cccccc !important;
     }
+  }
+
+  .description {
+    margin-top: 15px !important;
+    margin-left: 0 !important;
+    font-size: 18px;
+    width: calc(100% - 150px) !important;
   }
 
   table {
