@@ -18,6 +18,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
   dialogMetadata: any = {
     moreInfo: true,
     enablePreview: true,
+    enableDetail: true,
   };
 
   getDialogSettings(type: string): GlobalDocumentDialogSettings {
