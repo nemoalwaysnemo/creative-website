@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { KnowledgeSearchComponent } from './knowledge-search.component';
-import { KnowledgeDocumentAssetSearchComponent } from './knowledge-document-asset-search/knowledge-asset-search.component';
+import { KnowledgeDocumentAssetSearchComponent } from './knowledge-document-asset-search/knowledge-document-asset-search.component';
 
 const routes: Routes = [{
   path: '',

@@ -5,16 +5,17 @@ import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'knowledge-asset-search',
-  templateUrl: './knowledge-asset-search.component.html',
+  selector: 'knowledge-document-asset-search',
+  templateUrl: './knowledge-document-asset-search.component.html',
 })
 export class KnowledgeDocumentAssetSearchComponent extends BaseDocumentViewComponent {
 
   defaultParams: any = {
     pageSize: 20,
     currentPageIndex: 0,
-    ecm_fulltext: '',
     ecm_path: '/',
+    ecm_fulltext: '',
+    ecm_mixinType_not_in: '',
     ecm_primaryType: NUXEO_DOC_TYPE.KNOWLEDGE_ASSET_TYPE,
   };
 
