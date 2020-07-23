@@ -25,7 +25,7 @@
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
           <ng-container *ngIf="isDisruptionAsset(document) && getDialogSettings().enableDetail">
-            <a [routerLink]="['/p/disruption/asset/', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+            <a [routerLink]="['/p/disruption/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
           </ng-container>
           <ng-container *ngIf="deletePermission$ | async">
             <button class="right edit delete" (click)="selectView('document-dialog-deletion-template')">Delete</button>
