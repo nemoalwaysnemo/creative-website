@@ -1,9 +1,9 @@
 import { Component, TemplateRef, Type } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { getAssetModuleType } from '@core/services/helpers';
-import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'knowledge-document-asset-search-result',

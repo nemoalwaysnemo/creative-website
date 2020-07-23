@@ -6,7 +6,7 @@ import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-asset-preview',
@@ -23,7 +23,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
 
   deletePermission$: Observable<boolean> = observableOf(false);
 
-  currentUrl: string = this.documentPageService.getCurrentFullUrl();
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -38,7 +38,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
       this.attachments = this.document.getAttachmentList();
       this.writePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Write, this.getDialogSettings().enableEdit);
       this.deletePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Delete, this.getDialogSettings().enableDeletion);
-      this.currentUrl = this.buildShareUrl(doc);
+      this.shareUrl = this.buildShareUrl(doc);
     }
   }
 
@@ -77,12 +77,19 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
   }
 
   buildShareUrl(doc: DocumentModel): string {
-    let url: string = this.currentUrl.split('/p/')[0];
     if (this.isIntelligenceAsset(doc)) {
-      url += '/p/intelligence/asset/' + doc.uid;
+      return this.documentPageService.getCurrentAppUrl('intelligence/asset/' + doc.uid);
     } else if (this.isDisruptionAsset(doc)) {
-      url += '/p/disruption/asset/' + doc.uid;
+      let url: string;
+      if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH)) {
+        url = 'disruption/Disruption Days/day/:parentRef/asset/';
+      } else if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH)) {
+        url = 'disruption/Disruption How Tos/folder/:parentRef/asset/';
+      } else {
+        url = 'disruption/asset/';
+      }
+      return this.documentPageService.getCurrentAppUrl(url.replace(':parentRef', doc.parentRef) + doc.uid);
     }
-    return url;
+    return this.shareUrl;
   }
 }

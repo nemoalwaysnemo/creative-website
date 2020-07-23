@@ -4,6 +4,7 @@ import { parseCountry } from '@core/services/helpers';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
+import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-asset-preview-dialog',
@@ -12,7 +13,7 @@ import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-pr
 })
 export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  currentUrl: string = this.documentPageService.getCurrentFullUrl();
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -24,7 +25,7 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
-      this.currentUrl = this.buildShareUrl(doc);
+      this.shareUrl = this.buildShareUrl(doc);
     }
   }
 
@@ -33,9 +34,16 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
   }
 
   buildShareUrl(doc: DocumentModel): string {
-    let url: string = this.currentUrl.split('/p/')[0];
-    url += '/p/innovation/asset/' + doc.uid;
-    return url;
+    let url: string;
+    if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
+      url = 'innovation/NEXT/folder/';
+    } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
+      url = 'innovation/Things to Steal/folder/';
+    }
+    if (doc.type === 'App-Innovation-Asset') {
+      url = url + ':parentRef/asset/';
+    }
+    return this.documentPageService.getCurrentAppUrl(url.replace(':parentRef', doc.parentRef) + doc.uid);
   }
 
   protected getPreviewSettings(): any {
