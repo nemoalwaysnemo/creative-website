@@ -24,8 +24,9 @@ export class KnowledgeHomeComponent extends BaseDocumentViewComponent {
   defaultParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
-    ecm_fulltext: '',
     ecm_path: '/',
+    ecm_fulltext: '',
+    ecm_mixinType_not_in: '',
     ecm_primaryType: NUXEO_DOC_TYPE.KNOWLEDGE_ASSET_TYPE,
   };
 
