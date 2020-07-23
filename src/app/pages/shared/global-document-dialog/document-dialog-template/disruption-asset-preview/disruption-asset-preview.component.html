@@ -21,7 +21,7 @@
         <div class="col-7">
           <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
           <ng-container *ngIf="getDialogSettings().enablePreview">
-            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right edit preview">Preview</button></a>
+            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right preview">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
           <ng-container *ngIf="isDisruptionAsset(document) && getDialogSettings().enableDetail">

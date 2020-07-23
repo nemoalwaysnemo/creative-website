@@ -25,54 +25,58 @@
             <a *ngIf="document.filePath" href="{{document.filePath}}"><button class="inline-middle download right" title="Download">Download</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
-          <a [routerLink]="['/p/business-development/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          <ng-container *ngIf="getDialogSettings().enableDetail">
+            <a href="{{this.buildShareUrl(document)}}" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          </ng-container>
         </div>
         <div class="clear"></div>
       </div>
-      <table>
-        <tbody>
-          <tr>
-            <th>Descriptions</th>
-            <th>Asset Type</th>
-          </tr>
-          <tr>
-            <td>{{ document.get('dc:description') }}</td>
-            <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
-          </tr>
-          <tr>
-            <th>Industry</th>
-            <th>Geography</th>
-          </tr>
-          <tr>
-            <td>{{ document.get('app_Edges:industry') }}</td>
-            <td>{{ parseCountry(document.get('app_Edges:Relevant_Country')) }}</td>
-          </tr>
-          <tr>
-            <th>Author</th>
-            <th>Published</th>
-          </tr>
-          <tr>
-            <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
-            <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
-          </tr>
-          <tr>
-            <th>Backslash Category</th>
-            <th>Edge</th>
-          </tr>
-          <tr>
-            <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
-            <td>{{ document.get('app_Edges:Tags_edges') }}</td>
-          </tr>
-          <tr>
-            <th>Agency</th>
-            <th>Brand</th>
-          </tr>
-          <tr>
-            <td>{{ document.get('The_Loupe_Main:agency') }}</td>
-            <td>{{ document.get('The_Loupe_Main:brand') }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <ng-container *ngIf="getDialogSettings().moreInfo">
+        <table>
+          <tbody>
+            <tr>
+              <th>Descriptions</th>
+              <th>Asset Type</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('dc:description') }}</td>
+              <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+            </tr>
+            <tr>
+              <th>Industry</th>
+              <th>Geography</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('app_Edges:industry') }}</td>
+              <td>{{ parseCountry(document.get('app_Edges:Relevant_Country')) }}</td>
+            </tr>
+            <tr>
+              <th>Author</th>
+              <th>Published</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
+              <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
+            </tr>
+            <tr>
+              <th>Backslash Category</th>
+              <th>Edge</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
+              <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+            </tr>
+            <tr>
+              <th>Agency</th>
+              <th>Brand</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('The_Loupe_Main:agency') }}</td>
+              <td>{{ document.get('The_Loupe_Main:brand') }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
     </div>
   </ng-container>
 </div>

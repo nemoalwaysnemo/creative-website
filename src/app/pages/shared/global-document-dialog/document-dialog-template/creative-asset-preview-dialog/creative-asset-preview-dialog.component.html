@@ -21,33 +21,39 @@
           <ng-container *ngIf="downloadPermission$ | async">
             <a *ngIf="document.filePath" href="{{document.filePath}}"><button class="inline-middle download right" title="Download">Download</button></a>
           </ng-container>
-          <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="edit preview right">Preview</button></a>
+          <ng-container *ngIf="getDialogSettings().enablePreview">
+            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="preview right">Preview</button></a>
+          </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
-          <a [routerLink]="['/p/creative/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          <ng-container *ngIf="getDialogSettings().enableDetail">
+            <a [routerLink]="['/p/creative/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          </ng-container>
         </div>
         <div class="clear"></div>
       </div>
-      <p class="description">{{ document.get('dc:description') }}</p>
-      <table>
-        <tbody>
-          <tr>
-            <th>Asset Type</th>
-            <th>Country</th>
-          </tr>
-          <tr>
-            <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
-            <td>{{ parseCountry(document.get('The_Loupe_Main:country')) }}</td>
-          </tr>
-          <tr>
-            <th colspan="2">Agency</th>
-          </tr>
-          <tr>
-            <td colspan="2">
-              {{ document.get('The_Loupe_Main:agency') }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <ng-container *ngIf="getDialogSettings().moreInfo">
+        <p class="description">{{ document.get('dc:description') }}</p>
+        <table>
+          <tbody>
+            <tr>
+              <th>Asset Type</th>
+              <th>Country</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+              <td>{{ parseCountry(document.get('The_Loupe_Main:country')) }}</td>
+            </tr>
+            <tr>
+              <th colspan="2">Agency</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {{ document.get('The_Loupe_Main:agency') }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
     </div>
   </ng-container>
 </div>

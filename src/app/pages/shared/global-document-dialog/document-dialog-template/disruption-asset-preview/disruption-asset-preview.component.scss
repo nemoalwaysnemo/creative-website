@@ -13,7 +13,10 @@
       padding: 0 26px !important;
       height: 30px !important;
     }
-    .share, .download, .preview, .delete {
+    .details, .edit, .delete {
+      border-right: solid 1px #cccccc !important;
+    }
+    .preview, .download {
       border-left: solid 1px #cccccc !important;
     }
   }

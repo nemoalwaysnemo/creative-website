@@ -13,8 +13,11 @@
       padding: 0 26px !important;
       height: 30px !important;
     }
-    .share, .download {
+    .download {
       border-left: solid 1px #cccccc !important;
+    }
+    .details {
+      border-right: solid 1px #cccccc !important;
     }
   }
 
