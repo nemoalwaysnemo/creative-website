@@ -18,7 +18,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
   set settings(settings: GlobalDocumentDialogSettings) {
     if (settings) {
       this.components = settings.components;
-      this.dialogSettings = settings.metadata;
+      this.dialogSettings = Object.assign({}, this.dialogSettings, settings.metadata);
       this.mainComponent = settings.main || settings.components[0];
     }
   }
