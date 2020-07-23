@@ -5,10 +5,10 @@
     <ng-container *ngSwitchCase="'App-BizDev-CaseStudy-Folder'">
       <div class="thumbnail-view-item">
         <div class="image-holder">
-          <a [routerLink]="['/p/disruption/Disruption How Tos/folder/', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          <a [routerLink]="['/p/disruption/Disruption How Tos/folder', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
         </div>
         <div class="description">
-          <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/folder/', doc.uid]">{{doc.title}}</a></h1>
+          <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/folder', doc.uid]">{{doc.title}}</a></h1>
         </div>
       </div>
     </ng-container>
@@ -16,10 +16,10 @@
     <ng-container *ngSwitchCase="'App-BizDev-CaseStudy-Asset'">
       <div class="thumbnail-view-item">
         <div class="image-holder">
-          <a [routerLink]="['/p/business-development/Case Studies/folder/', folderId, 'asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          <a [routerLink]="['/p/business-development/Case Studies/folder', folderId, 'asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
         </div>
         <div class="description">
-          <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/folder/', folderId, 'asset', doc.uid]">{{doc.title}}</a></h1>
+          <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/folder', folderId, 'asset', doc.uid]">{{doc.title}}</a></h1>
           <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
           <span class="dot"></span>
           <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>

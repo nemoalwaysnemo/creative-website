@@ -1,9 +1,9 @@
 <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
-    <a [routerLink]="['/p/disruption/Disruption How Tos/folder/', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+    <a [routerLink]="['/p/disruption/Disruption How Tos/folder', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
   </div>
   <div class="description">
-    <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/folder/', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+    <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/folder', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
   </div>
 </ng-template>
