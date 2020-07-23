@@ -50,11 +50,17 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent {
     } else if (NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE.includes(doc.type)) {
       url = '/p/intelligence/asset';
     } else if (NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
-      url = '/p/disruption/asset';
+      if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH)) {
+        url = '/p/disruption/Disruption Days/day/:parentRef/asset';
+      } else if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH)) {
+        url = '/p/disruption/Disruption How Tos/folder/:parentRef/asset';
+      } else {
+        url = '/p/disruption/asset';
+      }
     } else if (NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE.includes(doc.type)) {
-      if (doc.path.includes('/NEXT/')) {
+      if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
         url = '/p/innovation/NEXT/folder/:parentRef/asset';
-      } else if (doc.path.includes('/Things to Steal/')) {
+      } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
         url = '/p/innovation/Things to Steal/folder/:parentRef/asset';
       }
     } else if (NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE.includes(doc.type)) {

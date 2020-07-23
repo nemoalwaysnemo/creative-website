@@ -14,7 +14,7 @@ import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-pr
 })
 export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  currentUrl: string = this.documentPageService.getCurrentFullUrl();
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
@@ -28,7 +28,7 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
-      this.currentUrl = this.buildShareUrl(doc);
+      this.shareUrl = this.buildShareUrl(doc);
       this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
     }
   }
@@ -38,9 +38,7 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
   }
 
   buildShareUrl(doc: DocumentModel): string {
-    let url: string = this.currentUrl.split('/p/')[0];
-    url += '/p/creative/asset/' + doc.uid;
-    return url;
+    return this.documentPageService.getCurrentAppUrl('creative/asset/' + doc.uid);
   }
 
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {

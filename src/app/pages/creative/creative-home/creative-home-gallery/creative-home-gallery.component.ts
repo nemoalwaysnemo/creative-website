@@ -27,7 +27,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
   document: DocumentModel;
 
-  currentUrl: string;
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   private params: any = {
     pageSize: 10,
@@ -86,7 +86,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     this.toggleStatus();
     this.document = doc;
     if (this.showInfo) {
-      this.currentUrl = this.buildShareUrl(doc.uid);
+      this.shareUrl = this.buildShareUrl(doc);
       this.documentPageService.googleAnalyticsTrackEvent({
         'event_category': 'Gallery',
         'event_action': `Gallery Item Preview`,
@@ -106,9 +106,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     return parseCountry(list);
   }
 
-  private buildShareUrl(uid: string): string {
-    this.currentUrl = window.location.href;
-    const shareUrl = '/asset/' + uid;
-    return this.currentUrl.indexOf('/home') > 0 ? this.currentUrl.split('/home')[0] + shareUrl : this.currentUrl;
+  private buildShareUrl(doc: DocumentModel): string {
+    return this.documentPageService.getCurrentAppUrl('creative/asset/' + doc.uid);
   }
 }

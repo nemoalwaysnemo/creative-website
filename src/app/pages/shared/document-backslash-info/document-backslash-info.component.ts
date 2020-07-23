@@ -1,8 +1,9 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, AdvanceSearchService } from '@core/api';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPagination } from '@core/api';
 import { assetPath } from '@core/services/helpers';
+import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
-import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-backslash-info',
@@ -20,19 +21,20 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   doc: DocumentModel;
 
-  @Input() currentUrl: string;
+  shareUrl: string;
 
   @Input() moreInfo: boolean = true;
 
   @Input() set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
-      this.buildBackslashEdges(this.doc);
-      this.currentUrl = this.buildShareUrl(this.doc.uid);
+      this.buildBackslashEdges(doc);
+      this.shareUrl = this.buildShareUrl(doc);
     }
   }
 
-  constructor(private advanceSearchService: AdvanceSearchService) { }
+  constructor(private documentPageService: DocumentPageService) {
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -53,7 +55,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
       };
 
       this.loading = true;
-      const subscription = this.advanceSearchService.request(params).subscribe((res: NuxeoPagination) => {
+      const subscription = this.documentPageService.advanceRequest(params).subscribe((res: NuxeoPagination) => {
         this.loading = false;
         this.backslashEdges = res.entries;
       });
@@ -69,9 +71,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
     return edges.length !== 0 ? `["${edges.join('", "')}"]` : '';
   }
 
-  private buildShareUrl(uid: string): string {
-    this.currentUrl = window.location.href;
-    const shareUrl = '/asset/' + uid;
-    return this.currentUrl.indexOf('/home') > 0 ? this.currentUrl.split('/home')[0] + shareUrl : this.currentUrl;
+  private buildShareUrl(doc: DocumentModel): string {
+    return this.documentPageService.getCurrentAppUrl('backslash/asset/' + doc.uid);
   }
 }

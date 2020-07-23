@@ -14,7 +14,7 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  currentUrl: string = this.documentPageService.getCurrentFullUrl();
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
@@ -28,7 +28,7 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
-      this.currentUrl = this.buildShareUrl(doc);
+      this.shareUrl = this.buildShareUrl(doc);
       if (this.isBizDevCaseStudyAsset(doc)) {
         this.downloadPermission$ = observableOf(doc.get('app_global:asset_request') === false);
       } else {
@@ -42,9 +42,13 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
   }
 
   buildShareUrl(doc: DocumentModel): string {
-    let url: string = this.currentUrl.split('/p/')[0];
-    url += '/p/business-development/asset/' + doc.uid;
-    return url;
+    let url: string;
+    if (doc.type === 'App-BizDev-CaseStudy-Asset') {
+      url = 'business-development/Case Studies/folder/:parentRef/asset/';
+    } else if (doc.type === 'App-BizDev-Thought-Asset') {
+      url = 'business-development/Thought Leadership/folder/:parentRef/asset/';
+    }
+    return this.documentPageService.getCurrentAppUrl(url.replace(':parentRef', doc.parentRef) + doc.uid);
   }
 
   isNeedSendDownloadRequest(doc: DocumentModel): boolean {

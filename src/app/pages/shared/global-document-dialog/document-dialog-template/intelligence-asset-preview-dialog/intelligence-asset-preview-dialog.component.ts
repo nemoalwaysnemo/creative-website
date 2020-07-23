@@ -12,7 +12,7 @@ import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-pr
 })
 export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  currentUrl: string = this.documentPageService.getCurrentFullUrl();
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -24,7 +24,7 @@ export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPrevi
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
-      this.currentUrl = this.buildShareUrl(doc);
+      this.shareUrl = this.buildShareUrl(doc);
     }
   }
 
@@ -33,9 +33,7 @@ export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPrevi
   }
 
   buildShareUrl(doc: DocumentModel): string {
-    let url: string = this.currentUrl.split('/p/')[0];
-    url += '/p/intelligence/asset/' + doc.uid;
-    return url;
+    return this.documentPageService.getCurrentAppUrl('intelligence/asset/' + doc.uid);
   }
 
   protected getPreviewSettings(): any {

@@ -144,6 +144,11 @@ export class DocumentPageService {
     return document.location.href;
   }
 
+  getCurrentAppUrl(moduleName: string): string {
+    const url = this.getCurrentFullUrl().split('/p/').shift();
+    return moduleName ? `${url}/p/${moduleName}` : url;
+  }
+
   private getPageTitle(doc: DocumentModel, event: NavigationEnd): string {
     const list: string[] = [];
     list.push(doc ? doc.title : '');
