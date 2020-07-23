@@ -48,8 +48,9 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
 
   protected getPreviewSettings(): any {
     return {
-      moreInfo: true,
-      enablePreview: true,
+      moreInfo: false,
+      enablePreview: false,
+      enableDetail: false,
     };
   }
 

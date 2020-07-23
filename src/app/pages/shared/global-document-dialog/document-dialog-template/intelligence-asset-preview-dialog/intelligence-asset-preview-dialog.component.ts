@@ -38,8 +38,9 @@ export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPrevi
 
   protected getPreviewSettings(): any {
     return {
-      moreInfo: true,
-      enablePreview: true,
+      moreInfo: false,
+      enablePreview: false,
+      enableDetail: false,
     };
   }
 
