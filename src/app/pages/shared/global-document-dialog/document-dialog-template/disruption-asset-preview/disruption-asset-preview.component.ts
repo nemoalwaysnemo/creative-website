@@ -10,7 +10,7 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-asset-preview',
-  styleUrls: ['../global-document-dialog-template.scss'],
+  styleUrls: ['../global-document-dialog-template.scss', './disruption-asset-preview.component.scss'],
   templateUrl: './disruption-asset-preview.component.html',
 })
 export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
@@ -48,6 +48,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
       enableEdit: false,
       enablePreview: false,
       enableDeletion: false,
+      enableDetail: false,
     };
   }
 

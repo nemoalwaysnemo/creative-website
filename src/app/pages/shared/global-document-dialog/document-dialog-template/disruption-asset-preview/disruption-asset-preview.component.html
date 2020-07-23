@@ -12,19 +12,28 @@
   </ng-container>
   <ng-container *ngIf="document">
     <div class="text-content" style="padding-top: 0;">
-      <div class="controls">
-        <h2 class="left">{{ document.get('The_Loupe_Main:brand')}}</h2>
-        <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
-        <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
-        <ng-container *ngIf="deletePermission$ | async">
-          <button class="right edit" (click)="selectView('document-dialog-deletion-template')">Delete</button>
-        </ng-container>
-        <ng-container *ngIf="writePermission$ | async">
-          <button class="right edit" (click)="selectView(getDialogFormTemplateName(document))">Edit</button>
-        </ng-container>
-        <ng-container *ngIf="getDialogSettings().enablePreview">
-          <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right edit">Preview</button></a>
-        </ng-container>
+      <div class="controls row">
+        <div class="col-5">
+          <h3 class="left">{{ document.title }}</h3>
+          <div class="clear"></div>
+          <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
+        </div>
+        <div class="col-7">
+          <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
+          <ng-container *ngIf="getDialogSettings().enablePreview">
+            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right edit preview">Preview</button></a>
+          </ng-container>
+          <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+          <ng-container *ngIf="isDisruptionAsset(document) && getDialogSettings().enableDetail">
+            <a [routerLink]="['/p/disruption/asset/', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          </ng-container>
+          <ng-container *ngIf="deletePermission$ | async">
+            <button class="right edit delete" (click)="selectView('document-dialog-deletion-template')">Delete</button>
+          </ng-container>
+          <ng-container *ngIf="writePermission$ | async">
+            <button class="right edit" (click)="selectView(getDialogFormTemplateName(document))">Edit</button>
+          </ng-container>
+        </div>
         <div class="clear"></div>
       </div>
       <ng-container *ngIf="getDialogSettings().moreInfo">
@@ -45,11 +54,13 @@
           Edge Category: {{ document.get('app_Edges:backslash_category').join(', ') }}<br>
           Edge: {{ document.get('app_Edges:Tags_edges') }}
         </p>
-        <h4 *ngIf="attachments && attachments.length !== 0" style="padding-left: 123px;">Additional Attachments</h4>
-        <p *ngFor="let attachment of attachments">
-          <span>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span><a href="{{ attachment.url }}"> Download </a></span>
-        </p>
+        <ng-container *ngIf="!getDialogSettings().enableDetail">
+          <h4 *ngIf="attachments && attachments.length !== 0" style="padding-left: 123px;">Additional Attachments</h4>
+          <p *ngFor="let attachment of attachments">
+            <span>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span><a href="{{ attachment.url }}"> Download </a></span>
+          </p>
+        </ng-container>
       </ng-container>
     </div>
   </ng-container>
