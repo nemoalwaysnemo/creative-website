@@ -64,8 +64,10 @@
       margin-top: 20px;
 
       .description {
-        font-size: 18px;
         color: black;
+        font-size: calc(15px * 1.25);
+        line-height: calc(24px * 1.25);
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
       }
 
       table {
