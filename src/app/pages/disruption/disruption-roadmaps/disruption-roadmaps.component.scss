@@ -5,3 +5,21 @@
 .icon_btn {
   &.new_roadmaps { padding-left: 13px; }
 }
+.roadmap-heading {
+  margin-left: 60px;
+  margin-top: 30px;
+}
+.roadmap-btn {
+  border: none;
+  padding-right: 0;
+  margin-right: 60px;
+  @media screen and (min-width: 900px) {
+    transform: translate(0, -60px);
+  }
+  @media screen and (min-width: 750px) and (max-width: 900px) {
+      transform: translate(0, -110px);
+  }
+  @media screen and (max-width: 750px) {
+    transform: translate(0, -140px);
+  }
+}
