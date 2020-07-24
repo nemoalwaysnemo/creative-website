@@ -8,15 +8,23 @@ import { CreativeProjectAssetBaseTemplateComponent } from '../creative-project-a
 })
 export class CreativeProjectAssetDeliverableTemplateComponent extends CreativeProjectAssetBaseTemplateComponent {
 
-  deliverPackage: boolean = true;
-
   listViewOptionsAsset: any = {
-
+    deliverPackage: false,
   };
 
   listViewOptionsPackage: any = {
     hideHeader: false,
     selectMode: 'multi',
+    deliverPackage: true,
   };
 
+  onResponse(refresh: boolean): void {
+    if (refresh) {
+      this.listViewOptionsPackage = {
+        hideHeader: false,
+        selectMode: 'multi',
+        deliverPackage: true,
+      };
+    }
+  }
 }

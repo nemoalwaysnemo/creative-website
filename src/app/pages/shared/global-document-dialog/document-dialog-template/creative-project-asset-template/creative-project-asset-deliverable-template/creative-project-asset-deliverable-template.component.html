@@ -6,7 +6,7 @@
         <document-creative-project-related-asset [document]="document" [listViewOptions]="listViewOptionsAsset"></document-creative-project-related-asset>
       </nb-tab>
       <nb-tab tabTitle="New Package">
-        <document-creative-project-related-asset [document]="document" [listViewOptions]="listViewOptionsPackage" [deliverPackage]="deliverPackage"></document-creative-project-related-asset>
+        <document-creative-project-related-asset [document]="document" [listViewOptions]="listViewOptionsPackage" [formType]="'create'" (onResponsed)="onResponse($event)"></document-creative-project-related-asset>
       </nb-tab>
       <nb-tab tabTitle="Delivery Package">
         <document-creative-project-delivery-package [document]="document"></document-creative-project-delivery-package>

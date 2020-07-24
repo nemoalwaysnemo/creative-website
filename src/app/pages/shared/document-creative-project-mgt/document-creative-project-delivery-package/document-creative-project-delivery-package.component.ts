@@ -51,7 +51,7 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
               <ul>
                 <li>Recipient:</li>
                 <li>Send By:</li>
-                <li>Status</li>
+                <li>Status:</li>
               </ul>
             </div>`;
           },
@@ -69,7 +69,7 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
               <ul>
                 <li>${doc.get('The_Loupe_Delivery:delivery_email')}</li>
                 <li>${doc.get('dc:creator')}</li>
-                <li>Status</li>
+                <li>${doc.get('The_Loupe_Delivery:status')}</li>
               </ul>
             </div>`;
           },
