@@ -4,12 +4,20 @@
 
 .global-search-form-buttons {
   margin-right: 60px;
-  .icon_btn {
-    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+  .roadmap-btn {
     font-size: 20px;
-    line-height: 60px;
-    padding: 0;
     border: none;
+    padding-right: 0;
+    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+    @media screen and (min-width: 1000px) {
+      transform: translate(0, -75px);
+    }
+    @media screen and (min-width: 800px) and (max-width: 1000px) {
+        transform: translate(0, -125px);
+    }
+    @media screen and (max-width: 800px) {
+      transform: translate(0, -150px);
+    }
   }
 }
 .roadmap-heading {
@@ -19,19 +27,4 @@
   line-height: 60px;
   color: #000000;
   font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
-}
-.roadmap-btn {
-  border: none;
-  padding-right: 0;
-  margin-right: 60px;
-  font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
-  @media screen and (min-width: 900px) {
-    transform: translate(0, -60px);
-  }
-  @media screen and (min-width: 750px) and (max-width: 900px) {
-      transform: translate(0, -110px);
-  }
-  @media screen and (max-width: 750px) {
-    transform: translate(0, -140px);
-  }
 }
