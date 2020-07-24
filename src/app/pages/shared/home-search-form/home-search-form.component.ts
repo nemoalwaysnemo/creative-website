@@ -95,7 +95,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   protected onBeforeSearchEvent(res: SearchResponse): Observable<SearchResponse> {
-    this.loadingStyle = this.isSearchManually(res) ? { 'min-height': '100px' } : {};
+    this.loadingStyle = this.isSearchManually(res) ? { 'min-height': '60px' } : {};
     return observableOf(res);
   }
 

@@ -4,19 +4,16 @@
 <ng-container *ngIf="currentView === 'allRoadmapsView'; then allRoadmapsView else featuredRoadmapsView"></ng-container>
 
 <ng-template #allRoadmapsView>
-  <div>
-    <span class="roadmap_title left">All Roadmaps</span>
-    <ng-container class="group-right">
-      <div class="global-search-form-buttons right">
-        <button type="button" (click)="selectView('featuredView')" class="icon_btn" title="Featured Roadmaps">Featured Roadmaps</button>
-      </div>
-    </ng-container>
-    <div class="clear"></div>
-  </div>
+  <h2 class="roadmap-heading">All Roadmaps</h2>
   <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings">
     <ng-container class="group-left">
       <div class="global-search-form-buttons">
         <disruption-form-button [parent]="document" [type]="'roadmap'" [title]="'New Roadmap'"></disruption-form-button>
+      </div>
+    </ng-container>
+    <ng-container class="group-right">
+      <div class="global-search-form-buttons">
+        <button type="button" (click)="selectView('featuredView')" class="icon_btn roadmap-btn" title="Featured Roadmaps">Featured Roadmaps</button>
       </div>
     </ng-container>
   </global-search-form>
@@ -24,19 +21,16 @@
 </ng-template>
 
 <ng-template #featuredRoadmapsView>
-  <div>
-    <span class="roadmap_title left">Featured Roadmaps</span>
-    <ng-container class="group-right right">
-      <div class="global-search-form-buttons">
-        <button type="button" (click)="selectView('allRoadmapsView')" class="icon_btn" title="All Roadmaps">All Roadmaps</button>
-      </div>
-    </ng-container>
-    <div class="clear"></div>
-  </div>
+  <h2 class="roadmap-heading">Featured Roadmaps</h2>
   <global-search-form [filters]="filters" [searchParams]="featuredParams" [settings]="featuredSearchFormSettings">
     <ng-container class="group-left">
       <div class="global-search-form-buttons">
         <disruption-form-button [parent]="document" [type]="'roadmap'" [title]="'New Roadmap'"></disruption-form-button>
+      </div>
+    </ng-container>
+    <ng-container class="group-right">
+      <div class="global-search-form-buttons">
+        <button type="button" (click)="selectView('allRoadmapsView')" class="icon_btn roadmap-btn" title="All Roadmaps">All Roadmaps</button>
       </div>
     </ng-container>
   </global-search-form>
