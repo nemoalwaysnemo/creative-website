@@ -1,56 +1,6 @@
 <div *ngIf="isPackage">
   <div class="text-content pure-text">
-    <form class="new-package-form" [formGroup]="formGroup" #form="ngForm" autocomplete="off" novalidate>
-      <div class="form-group">
-        <label>To:</label>
-        <input type="text" formControlName="receiver" required>
-        <ng-container *ngIf="formGroup.controls.receiver.errors?.required">
-          <small class="invalid-feedback d-block">Receiver is required</small>
-        </ng-container>
-        <ng-container *ngIf="formGroup.controls.receiver.errors?.minlength">
-          <small class="invalid-feedback d-block">Please enter at least 10 words</small>
-        </ng-container>
-      </div>
-      <div class="form-group">
-        <label>Subject:</label>
-        <input type="text" formControlName="subject" required>
-        <ng-container *ngIf="formGroup.controls.subject.errors?.required">
-          <small class="invalid-feedback d-block">Subject is required</small>
-        </ng-container>
-        <ng-container *ngIf="formGroup.controls.subject.errors?.minlength">
-          <small class="invalid-feedback d-block">Please enter at least 10 words</small>
-        </ng-container>
-      </div>
-      <div class="form-group">
-        <label>Expires in:</label>
-        <directory-suggestion formControlName="expires" [document]="doc" [settings]="settingsDays">
-        </directory-suggestion>
-        <ng-container *ngIf="formGroup.controls.expires.errors?.required">
-          <small class="invalid-feedback d-block">Expires days is required</small>
-        </ng-container>
-      </div>
-      <div class="form-group">
-        <label>Delivery Options: </label>
-        <directory-suggestion formControlName="options" [document]="doc" [settings]="settingsOptions">
-        </directory-suggestion>
-        <ng-container *ngIf="formGroup.controls.options.errors?.required">
-          <small class="invalid-feedback d-block">Config is required</small>
-        </ng-container>
-      </div>
-      <div class="form-group">
-        <textarea formControlName="content" required autofocus></textarea>
-        <ng-container *ngIf="formGroup.controls.content.errors?.required">
-          <small class="invalid-feedback d-block">Content is required</small>
-        </ng-container>
-        <ng-container *ngIf="formGroup.controls.content.errors?.minlength">
-          <small class="invalid-feedback d-block">Please enter at least 10 words</small>
-        </ng-container>
-      </div>
-    </form>
-  </div>
-  <div class="action-content text-right">
-    <button (click)="sendPackage()" class="btn btn-success">Send</button>
-    <button (click)="draftPackage()" class="btn btn-info">Save draft</button>
+    <document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" [hasResetForm]="'true'" (callback)="onCallback($event)"></document-form>
   </div>
 </div>
 <div class="document-creative-project-related-asset">
