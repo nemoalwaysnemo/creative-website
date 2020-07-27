@@ -35,7 +35,9 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   @Input()
   set documentModel(doc: DocumentModel) {
-    this.setFormDocument(doc);
+    if (doc) {
+      this.document$.next(doc);
+    }
   }
 
   @Input()
@@ -67,10 +69,9 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     return this.documentType;
   }
 
-  setFormDocument(doc: DocumentModel): void {
-    if (doc) {
-      this.document$.next(doc);
-    }
+  setFormDocument(doc: DocumentModel, user: UserModel): void {
+    this.currentUser = user;
+    this.document = doc;
   }
 
   onCallback(event: DocumentFormEvent): void {
@@ -120,8 +121,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
         concatMap((doc: DocumentModel) => this.beforeSetDocument(doc)),
       ),
     ).subscribe(([user, doc]: [UserModel, DocumentModel]) => {
-      this.currentUser = user;
-      this.document = doc;
+      this.setFormDocument(doc, user);
     });
     this.subscription.add(subscription);
   }

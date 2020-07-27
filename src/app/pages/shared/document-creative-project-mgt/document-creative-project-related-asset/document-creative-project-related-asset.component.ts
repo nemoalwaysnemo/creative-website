@@ -43,9 +43,9 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
     // const subjects: any = [];
     // subjects.push(this.doc.properties['dc:subjects']);
-    doc.properties['dc:title'] = 'Package-' + this.document.properties['The_Loupe_Main:jobnumber'];
-    doc.properties['The_Loupe_Main:jobtitle'] = [this.document.uid];
-    doc.properties['The_Loupe_Delivery:agency_disclaimer'] = this.document.uid;
+    doc.properties['dc:title'] = 'Package-' + this.doc.properties['The_Loupe_Main:jobnumber'];
+    doc.properties['The_Loupe_Main:jobtitle'] = [this.doc.uid];
+    doc.properties['The_Loupe_Delivery:agency_disclaimer'] = this.doc.uid;
     // doc.properties['dc:subjects'] = subjects;
     return doc;
   }
@@ -102,14 +102,11 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
     return items;
   }
 
-  // @Input()
-  // set document(doc: DocumentModel) {
-  //   if (doc) {
-  //     this.doc = doc;
-  //     this.loading = false;
-  //     timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
-  //   }
-  // }
+  setFormDocument(doc: DocumentModel, user: UserModel): void {
+    super.setFormDocument(doc, user);
+    this.loading = false;
+    timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
+  }
 
   @Input()
   set listViewOptions(settings: any) {
