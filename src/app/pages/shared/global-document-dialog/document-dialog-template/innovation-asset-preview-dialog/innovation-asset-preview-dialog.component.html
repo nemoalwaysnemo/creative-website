@@ -13,7 +13,7 @@
     <div class="text-content" style="padding-top: 0;">
       <div class="controls row">
         <div class="col-5">
-          <h3 class="left">{{ document.title }}</h3>
+          <h3 class="left"><b>{{ document.title }}</b></h3>
           <div class="clear"></div>
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
@@ -30,17 +30,50 @@
         <div class="clear"></div>
       </div>
       <ng-container *ngIf="getDialogSettings().moreInfo">
-        <p>
-          Title: {{ document.title }}<br>
-          Brand: {{ document.get('The_Loupe_Main:brand') }}<br>
-          Description: {{ document.get('dc:description') }}<br>
-          Type: {{ document.get('The_Loupe_Main:assettype') }}<br>
-          Industry: {{ document.get('app_Edges:industry') }}<br>
-          Geography: {{ parseCountry(document.get('app_Edges:Relevant_Country')) }}<br>
-          Author: {{ document.get('The_Loupe_Main:created_by') }}<br>
-          Published: {{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}<br>
-        </p>
+        <p class="description">{{ document.get('dc:description') }}</p>
+        <table>
+          <tbody>
+            <tr>
+              <th>Type</th>
+              <th>Industry</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+              <td>{{ document.get('app_Edges:industry') }}</td>
+            </tr>
+            <tr>
+              <th>Geography</th>
+              <th>Author</th>
+            </tr>
+            <tr>
+              <td>{{ parseCountry(document.get('app_Edges:Relevant_Country')) }}</td>
+              <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
+            </tr>
+            <tr>
+              <th colspan="2">Published</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {{  document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </ng-container>
+      <nb-accordion class="accordion" *ngIf="attachments && attachments.length !== 0">
+        <nb-accordion-item class="accordion-item">
+          <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
+          <nb-accordion-item-body class="accordion-item-body">
+            <table>
+              <tbody *ngFor="let attachment of attachments">
+                <tr>
+                  <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
     </div>
   </ng-container>
 </div>

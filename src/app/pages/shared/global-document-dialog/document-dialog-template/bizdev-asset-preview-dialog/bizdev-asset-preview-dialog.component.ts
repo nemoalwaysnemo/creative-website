@@ -18,6 +18,8 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
+  attachments: { type: string, url: string, title: string }[] = [];
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
@@ -29,6 +31,7 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
     if (doc) {
       this.document = doc;
       this.shareUrl = this.buildShareUrl(doc);
+      this.attachments = doc.getAttachmentList();
       if (this.isBizDevCaseStudyAsset(doc)) {
         this.downloadPermission$ = observableOf(doc.get('app_global:asset_request') === false);
       } else {
