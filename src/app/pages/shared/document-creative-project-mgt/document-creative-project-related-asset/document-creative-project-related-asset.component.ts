@@ -13,7 +13,6 @@ import { DocumentPageService } from '../../services/document-page.service';
 import { DynamicInputModel, DynamicSuggestionModel, DynamicTextAreaModel } from '@core/custom';
 import { DocumentFormEvent } from '@pages/shared/document-form/document-form.interface';
 
-
 @Component({
   selector: 'document-creative-project-related-asset',
   styleUrls: ['../document-creative-project-mgt.component.scss'],
@@ -42,15 +41,12 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
   isRefresh: boolean = true;
 
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
-    const jobTitle: any = [];
     // const subjects: any = [];
-    jobTitle.push(this.doc.uid);
     // subjects.push(this.doc.properties['dc:subjects']);
-    doc.properties['dc:title'] = 'Package-' + this.doc.properties['The_Loupe_Main:jobnumber'];
-    doc.properties['The_Loupe_Main:jobtitle'] = jobTitle;
-    doc.properties['The_Loupe_Delivery:agency_disclaimer'] = this.doc.uid;
+    doc.properties['dc:title'] = 'Package-' + this.document.properties['The_Loupe_Main:jobnumber'];
+    doc.properties['The_Loupe_Main:jobtitle'] = [this.document.uid];
+    doc.properties['The_Loupe_Delivery:agency_disclaimer'] = this.document.uid;
     // doc.properties['dc:subjects'] = subjects;
-    doc.type = this.documentType;
     return doc;
   }
 
@@ -106,14 +102,14 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
     return items;
   }
 
-  @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      this.doc = doc;
-      this.loading = false;
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
-    }
-  }
+  // @Input()
+  // set document(doc: DocumentModel) {
+  //   if (doc) {
+  //     this.doc = doc;
+  //     this.loading = false;
+  //     timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
+  //   }
+  // }
 
   @Input()
   set listViewOptions(settings: any) {
@@ -127,8 +123,6 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
       this.listViewSettings = this.defaultSettings;
     }
   }
-
-  @Input() formType: string = 'create';
 
   @Output() onResponsed: EventEmitter<boolean> = new EventEmitter<boolean>();
 

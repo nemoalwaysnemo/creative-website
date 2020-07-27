@@ -27,7 +27,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   accordions: any = {};
 
-  formMode: 'create' | 'edit';
+  @Input() formMode: 'create' | 'edit' = 'create';
 
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
 
