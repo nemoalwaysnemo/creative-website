@@ -96,7 +96,7 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
   }
 
   private createForm(settings: DynamicFormModel, values: any[] = []): void {
-    const rows = values && values.length > 0 ? values.length : 1;
+    const rows = values && values.length > 0 ? values.length : 0;
     const models = [this.getFormArrayModel(settings, rows)];
     const formGroupModels = this.formService.fromJSON(models);
     this.formGroup = this.formService.createFormGroup(formGroupModels);

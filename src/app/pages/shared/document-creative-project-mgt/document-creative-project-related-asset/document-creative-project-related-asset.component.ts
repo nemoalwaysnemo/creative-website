@@ -1,47 +1,66 @@
-import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DocumentModel, NuxeoApiService } from '@core/api';
-import { Subject, timer } from 'rxjs';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DocumentModel, NuxeoApiService, UserModel, NuxeoAutomations } from '@core/api';
+import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { SuggestionSettings } from '../../directory-suggestion/directory-suggestion-settings';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
-import { CreativeProjectAssetBaseTemplateComponent } from '../../global-document-dialog/document-dialog-template/creative-project-asset-template/creative-project-asset-base-template.component';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { GlobalDocumentFormComponent } from '../../global-document-form/global-document-form.component';
+import { DocumentPageService } from '../../services/document-page.service';
+import { DynamicInputModel, DynamicSuggestionModel, DynamicTextAreaModel } from '@core/custom';
 
 @Component({
   selector: 'document-creative-project-related-asset',
   styleUrls: ['../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-related-asset.component.html',
 })
-export class DocumentCreativeProjectRelatedAssetComponent extends CreativeProjectAssetBaseTemplateComponent {
+export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'document-project-package-template';
 
-  formGroup: FormGroup;
+  protected documentType: string = 'App-Library-Delivery-Package';
 
   loading: boolean = true;
 
-  doc: DocumentModel;
-
   baseParams$: Subject<any> = new Subject<any>();
 
-  isPackage: boolean;
+  isPackage: boolean = false;
 
-  selectedRows: any;
+  selectedRows: any = [];
 
   listViewSettings: any;
 
-  requestData: any = [];
+  isRefresh: boolean = true;
 
-  list: any;
+  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
+    doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
+    doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
+    doc.properties['The_Loupe_Delivery:agency_disclaimer'] = doc.getParent().uid;
+    // doc.properties['dc:subjects'] = [doc.get('dc:subjects')];
+    return doc;
+  }
+
+  afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => {
+    this.addToCollection(doc);
+    return observableOf(doc);
+  }
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
     source: 'document-creative-project-related-asset',
     enableSearchInput: false,
   });
+
+  constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    protected documentPageService: DocumentPageService,
+    protected nuxeoApi: NuxeoApiService,
+  ) {
+    super(documentPageService);
+  }
 
   defaultSettings: any = {
     hideHeader: true,
@@ -76,103 +95,142 @@ export class DocumentCreativeProjectRelatedAssetComponent extends CreativeProjec
     return items;
   }
 
-  @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      this.doc = doc;
-      this.loading = false;
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
-    }
+  setFormDocument(doc: DocumentModel, user: UserModel): void {
+    super.setFormDocument(doc, user);
+    this.loading = false;
+    timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
   }
 
   @Input()
   set listViewOptions(settings: any) {
     if (settings) {
+      if (settings.deliverPackage) {
+        this.isPackage = settings.deliverPackage;
+        delete settings.deliverPackage;
+      }
       this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
     } else {
       this.listViewSettings = this.defaultSettings;
     }
   }
 
-  @Input()
-  set deliverPackage(flag: boolean) {
-    if (flag) {
-      this.isPackage = flag;
-    }
+  @Output() onResponsed: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc, this.getDocType());
   }
 
-  settingsDays: any = new SuggestionSettings({
-    id: 'The_Loupe_Delivery:expiry_days',
-    label: 'expiry day',
-    viewType: 'suggestion',
-    multiple: false,
-    placeholder: 'expiry day',
-    providerType: SuggestionSettings.DIRECTORY,
-    providerName: 'App-Library-Delivery-expiry-days',
-  });
-
-  settingsOptions: any = new SuggestionSettings({
-    id: 'The_Loupe_Delivery:delivery_config',
-    label: 'config',
-    multiple: false,
-    placeholder: 'config',
-    providerType: SuggestionSettings.DIRECTORY,
-    providerName: 'App-Library-Delivery-Config',
-  });
-
-  constructor(
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected formBuilder: FormBuilder,
-    protected nuxeoApi: NuxeoApiService,
-  ) {
-    super();
+  protected getSettings(): object[] {
+    return [
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand',
+        hidden: true,
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Delivery:delivery_email',
+        label: 'To',
+        maxLength: 50,
+        placeholder: 'To',
+        autoComplete: 'off',
+        required: true,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
+      }),
+      // new DynamicInputModel({
+      //   id: 'dc:subjects',
+      //   label: 'Subject',
+      //   maxLength: 50,
+      //   placeholder: 'Subject',
+      //   autoComplete: 'off',
+      //   required: true,
+      //   validators: {
+      //     required: null,
+      //     minLength: 4,
+      //   },
+      //   errorMessages: {
+      //     required: '{{label}} is required',
+      //     minLength: 'At least 4 characters',
+      //   },
+      // }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Delivery:delivery_config',
+        label: 'Delivery Options',
+        settings: {
+          placeholder: 'Delivery Options',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-Delivery-Config',
+        },
+        formMode: 'edit',
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Delivery:expiry_days',
+        label: '#days until expiry',
+        settings: {
+          multiple: false,
+          placeholder: '#days until expiry',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-Delivery-expiry-days',
+        },
+        formMode: 'edit',
+      }),
+      // new DynamicInputModel({
+      //   id: 'The_Loupe_Delivery:expiry_days',
+      //   label: '#days until expiry',
+      //   disabled: true,
+      //   defaultValue: '3',
+      //   formMode: 'create',
+      // }),
+      // new DynamicInputModel({
+      //   id: 'The_Loupe_Delivery:delivery_config',
+      //   label: 'Delivery Options',
+      //   disabled: true,
+      //   defaultValue: 'Only main files',
+      //   formMode: 'create',
+      // }),
+      new DynamicTextAreaModel({
+        id: 'The_Loupe_Main:comment',
+        label: 'Personal Message',
+        rows: 3,
+        required: true,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
+      }),
+    ];
   }
 
   onSelected(row: any): void {
     this.selectedRows = row.selected;
   }
 
-  buildAsset(): void {
-    if (this.selectedRows) {
-      const uids: string[] = this.selectedRows.map((doc: DocumentModel) => doc.uid);
-      if (uids.length > 0) {
-      }
+  protected addToCollection(packageDoc: DocumentModel): void {
+    const packageId = packageDoc.uid;
+    const assetIds: string[] = this.selectedRows.map((doc: DocumentModel) => doc.uid);
+    if (assetIds.length > 0) {
+      this.nuxeoApi.operation(NuxeoAutomations.AddToCollection, { 'collection': packageId }, assetIds).subscribe(() => {
+        this.refresh();
+      });
     }
   }
 
-  sendPackage(): void {
-    this.buildAsset();
-    if (!this.formGroup.invalid) {
-      // this.setRequest(this.document, this.requestData);
-    }
-  }
-
-  protected onInit(): void {
-    this.buildForm();
-  }
-
-  private buildForm(): void {
-    this.formGroup = this.formBuilder.group({
-      receiver: ['', [Validators.required, Validators.minLength(10)]],
-      subject: ['', [Validators.required, Validators.minLength(10)]],
-      expires: ['', [Validators.required]],
-      options: ['', [Validators.required]],
-      content: ['', [Validators.required, Validators.minLength(10)]],
+  protected refresh(): void {
+    this.globalDocumentDialogService.triggerEvent({ name: `Add to Collection`, type: 'callback', messageType: 'success', messageContent: 'Add to Collection has been created successfully!' });
+    timer(3000).subscribe(() => {
+      this.globalDocumentDialogService.triggerEvent({ name: `Add to Collection`, type: 'callback' });
     });
-  }
-
-  private setRequest(doc: DocumentModel, message: string): void {
-    // const subscription = this.nuxeoApi.operation(NuxeoAutomations.DownloadRequest, { 'uuid': doc.uid, message }).subscribe((res: DocumentModel) => {
-    //   const messageType = res.uid ? 'success' : 'error';
-    //   const messageContent = res.uid ? 'The request has been successfully sent!' : 'Request failed to send, please try again';
-    //   this.globalDocumentDialogService.triggerEvent({ name: `DocumentDownloadRequest`, type: 'callback', messageType, messageContent });
-    //   // refresh
-    // });
-    // this.subscription.add(subscription);
-  }
-
-  draftPackage(): void {
-
+    this.onResponsed.emit(this.isRefresh);
   }
 
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
@@ -191,5 +249,4 @@ export class DocumentCreativeProjectRelatedAssetComponent extends CreativeProjec
     }
     return params;
   }
-
 }

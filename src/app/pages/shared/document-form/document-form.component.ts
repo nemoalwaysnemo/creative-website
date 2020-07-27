@@ -54,6 +54,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() currentUser: UserModel;
 
+  @Input() hasResetForm: boolean = false;
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
@@ -116,6 +118,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   onCancel($event: any): void {
     this.callback.emit(new DocumentFormEvent({ action: 'Canceled', messageType: 'info', doc: this.documentModel }));
+    if (this.hasResetForm) {
+      this.resetForm();
+    }
   }
 
   private checkfiles(doc: DocumentModel): DocumentModel {
@@ -217,6 +222,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
+      if (this.hasResetForm) {
+        this.resetForm();
+      }
     });
   }
 
@@ -329,5 +337,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private filterFileName(name: string): string {
     return name.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\.\w+$/, '');
+  }
+
+  private resetForm(): void {
+    this.formGroup.reset();
   }
 }
