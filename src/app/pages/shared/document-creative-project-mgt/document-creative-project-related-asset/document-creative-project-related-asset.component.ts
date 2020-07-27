@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DocumentModel, NuxeoApiService, UserModel, NuxeoAutomations, NuxeoPagination, SearchResponse } from '@core/api';
+import { DocumentModel, NuxeoApiService, UserModel, NuxeoAutomations } from '@core/api';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog';
@@ -11,7 +11,6 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { GlobalDocumentFormComponent } from '../../global-document-form/global-document-form.component';
 import { DocumentPageService } from '../../services/document-page.service';
 import { DynamicInputModel, DynamicSuggestionModel, DynamicTextAreaModel } from '@core/custom';
-import { DocumentFormEvent } from '@pages/shared/document-form/document-form.interface';
 
 @Component({
   selector: 'document-creative-project-related-asset',
@@ -26,8 +25,6 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
 
   loading: boolean = true;
 
-  doc: DocumentModel;
-
   baseParams$: Subject<any> = new Subject<any>();
 
   isPackage: boolean = false;
@@ -36,17 +33,13 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
 
   listViewSettings: any;
 
-  listAssetSelected: any;
-
   isRefresh: boolean = true;
 
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
-    // const subjects: any = [];
-    // subjects.push(this.doc.properties['dc:subjects']);
-    doc.properties['dc:title'] = 'Package-' + this.doc.properties['The_Loupe_Main:jobnumber'];
-    doc.properties['The_Loupe_Main:jobtitle'] = [this.doc.uid];
-    doc.properties['The_Loupe_Delivery:agency_disclaimer'] = this.doc.uid;
-    // doc.properties['dc:subjects'] = subjects;
+    doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
+    doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
+    doc.properties['The_Loupe_Delivery:agency_disclaimer'] = doc.getParent().uid;
+    // doc.properties['dc:subjects'] = [doc.get('dc:subjects')];
     return doc;
   }
 
@@ -130,11 +123,6 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
   protected getSettings(): object[] {
     return [
       new DynamicInputModel({
-        id: 'The_Loupe_Main:jobnumber',
-        label: 'Project Number',
-        hidden: true,
-      }),
-      new DynamicInputModel({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         hidden: true,
@@ -192,36 +180,39 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
         },
         formMode: 'edit',
       }),
-      new DynamicInputModel({
-        id: 'The_Loupe_Delivery:expiry_days',
-        label: '#days until expiry',
-        disabled: true,
-        defaultValue: '3',
-        formMode: 'create',
-      }),
-      new DynamicInputModel({
-        id: 'The_Loupe_Delivery:delivery_config',
-        label: 'Delivery Options',
-        disabled: true,
-        defaultValue: 'Only main files',
-        formMode: 'create',
-      }),
+      // new DynamicInputModel({
+      //   id: 'The_Loupe_Delivery:expiry_days',
+      //   label: '#days until expiry',
+      //   disabled: true,
+      //   defaultValue: '3',
+      //   formMode: 'create',
+      // }),
+      // new DynamicInputModel({
+      //   id: 'The_Loupe_Delivery:delivery_config',
+      //   label: 'Delivery Options',
+      //   disabled: true,
+      //   defaultValue: 'Only main files',
+      //   formMode: 'create',
+      // }),
       new DynamicTextAreaModel({
         id: 'The_Loupe_Main:comment',
         label: 'Personal Message',
         rows: 3,
         required: true,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
       }),
     ];
   }
 
   onSelected(row: any): void {
     this.selectedRows = row.selected;
-  }
-
-  onCallback(event: DocumentFormEvent): void {
-    if (event.action === 'Canceled') {
-    }
   }
 
   protected addToCollection(packageDoc: DocumentModel): void {
