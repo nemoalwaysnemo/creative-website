@@ -21,12 +21,14 @@
     <a [routerLink]="[getAssetUrl(doc), doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
   </div>
   <div class="description">
+    <h5 class="type" [title]="getAssetType(doc)">{{ getAssetType(doc).toUpperCase() }}</h5>
     <h1 [title]="doc.title"><a [routerLink]="[getAssetUrl(doc), doc.uid]">{{doc.title}}</a></h1>
     <h5 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">
       {{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h5>
     <span class="dot"></span>
     <h5 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">
-      {{doc.get('The_Loupe_Main:brand').join(', ')}}</h5>
-    <h5 class="type" [title]="getAssetType(doc)">{{getAssetType(doc)}}</h5>
+      {{doc.get('The_Loupe_Main:brand').join(', ')}}</h5><br>
+    <h5 class="agency" [title]="doc.get('The_Loupe_Main:agency')">
+        {{ doc.get('The_Loupe_Main:agency') }}</h5>
   </div>
 </ng-template>

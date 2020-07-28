@@ -5,10 +5,12 @@
 .global-search-form-buttons {
   margin-right: 60px;
   .roadmap-btn {
-    font-size: 20px;
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 18px;
+    color: #afafaf;
+    &:hover { color: #afafaf; }
     border: none;
     padding-right: 0;
-    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
     @media screen and (min-width: 1000px) {
       transform: translate(0, -75px);
     }

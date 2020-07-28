@@ -18,6 +18,8 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
+  attachments: { type: string, url: string, title: string }[] = [];
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
@@ -29,6 +31,7 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
     if (doc) {
       this.document = doc;
       this.shareUrl = this.buildShareUrl(doc);
+      this.attachments = doc.getAttachmentList();
       this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
     }
   }

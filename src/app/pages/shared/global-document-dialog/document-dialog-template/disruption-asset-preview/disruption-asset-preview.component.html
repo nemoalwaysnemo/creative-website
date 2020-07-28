@@ -13,12 +13,12 @@
   <ng-container *ngIf="document">
     <div class="text-content" style="padding-top: 0;">
       <div class="controls row">
-        <div class="col-5">
-          <h3 class="left">{{ document.title }}</h3>
+        <div class="col-4">
+          <h3 class="left"><b>{{ document.title }}</b></h3>
           <div class="clear"></div>
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
-        <div class="col-7">
+        <div class="col-8">
           <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
           <ng-container *ngIf="getDialogSettings().enablePreview">
             <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right preview">Preview</button></a>
@@ -36,32 +36,61 @@
         </div>
         <div class="clear"></div>
       </div>
+
       <ng-container *ngIf="getDialogSettings().moreInfo">
-        <p>
-          Title: {{ document.title }}<br>
-          Brand: {{ document.get('The_Loupe_Main:brand') }}<br>
-          Description: {{ document.get('The_Loupe_Main:description') }}<br>
-          Type: {{ document.get('app_Edges:disruption_type') }}<br>
-          Industry: {{ document.get('app_Edges:industry') }}<br>
-          Geography: {{ parseCountry(document.get('app_Edges:Relevant_Country')) }}<br>
-          <ng-container *ngIf="isDisruptionAsset(document)">
-            Author: {{ document.get('The_Loupe_Main:created_by') }}<br>
-          </ng-container>
-          <ng-container *ngIf="isIntelligenceAsset(document)">
-            Author: {{ document.get('The_Loupe_Main:created_by') }}<br>
-          </ng-container>
-          Published: {{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}<br>
-          Edge Category: {{ document.get('app_Edges:backslash_category').join(', ') }}<br>
-          Edge: {{ document.get('app_Edges:Tags_edges') }}
-        </p>
-        <ng-container *ngIf="!getDialogSettings().enableDetail">
-          <h4 *ngIf="attachments && attachments.length !== 0" style="padding-left: 123px;">Additional Attachments</h4>
-          <p *ngFor="let attachment of attachments">
-            <span>{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <span><a href="{{ attachment.url }}"> Download </a></span>
-          </p>
-        </ng-container>
+        <p class="description">{{ document.get('dc:description') }}</p>
+        <table>
+          <tbody>
+            <tr>
+              <th>Type</th>
+              <th>Industry</th>
+            </tr>
+            <tr>
+              <td *ngIf="isIntelligenceAsset(document)">{{ document.get('app_Edges:intelligence_type') }}</td>
+              <td *ngIf="isDisruptionAsset(document)">{{ document.get('app_Edges:disruption_type') }}</td>
+              <td>{{ document.get('app_Edges:industry') }}</td>
+            </tr>
+            <tr>
+              <th>Geography</th>
+              <th>Author</th>
+            </tr>
+            <tr>
+              <td>{{ parseCountry(document.get('app_Edges:Relevant_Country')) }}</td>
+              <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
+            </tr>
+            <tr>
+              <th>Edge Category</th>
+              <th>Edge</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
+              <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+            </tr>
+            <tr>
+              <th colspan="2">Published</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {{  document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </ng-container>
+      <nb-accordion class="accordion" *ngIf="attachments && attachments.length !== 0">
+        <nb-accordion-item class="accordion-item">
+          <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
+          <nb-accordion-item-body class="accordion-item-body">
+            <table>
+              <tbody *ngFor="let attachment of attachments">
+                <tr>
+                  <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
     </div>
   </ng-container>
 </div>

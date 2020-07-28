@@ -15,6 +15,8 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
+  attachments: { type: string, url: string, title: string }[] = [];
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
@@ -25,6 +27,7 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
+      this.attachments = this.document.getAttachmentList();
       this.shareUrl = this.buildShareUrl(doc);
     }
   }
