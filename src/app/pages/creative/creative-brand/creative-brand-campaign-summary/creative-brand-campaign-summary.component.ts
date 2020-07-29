@@ -190,7 +190,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   }
 
   protected buildCampaignParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_CAMPAIGN_TYPE,
       currentPageIndex: 0,
       pageSize: 20,
@@ -203,7 +203,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   }
 
   protected buildProjectParams(doc: DocumentModel, campaign?: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_PROJECT_TYPE,
       ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       currentPageIndex: 0,
@@ -220,7 +220,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   }
 
   protected buildAssetParams(doc: DocumentModel, campaign?: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
       pageSize: 20,

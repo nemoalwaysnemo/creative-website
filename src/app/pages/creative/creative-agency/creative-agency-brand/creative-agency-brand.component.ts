@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, SearchFilterModel, NuxeoPageProviderParams } from '@core/api';
+import { DocumentModel, SearchFilterModel, NuxeoSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -17,7 +17,7 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
   layout: string = 'creative_agency_brand full-width';
 
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoPageProviderParams): boolean => searchParams.hasFilter('the_loupe_main_brand_agg') }),
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoSearchParams): boolean => searchParams.hasParam('the_loupe_main_brand_agg') }),
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
@@ -42,18 +42,18 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
   }
 
   protected getCurrentDocumentSearchParams(): any {
-    const params = {
+    const params: any = {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     };
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoSearchParams(params);
   }
 
-  protected buildAssetsParams(doc: DocumentModel): NuxeoPageProviderParams {
-    const params = {
+  protected buildAssetsParams(doc: DocumentModel): NuxeoSearchParams {
+    const params: any = {
       pageSize: 20,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_BRAND_FOLDER_TYPE,
@@ -64,6 +64,6 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
     if (doc) {
       params['ecm_path'] = doc.path;
     }
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoSearchParams(params);
   }
 }

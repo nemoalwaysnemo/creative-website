@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
+import { DocumentModel, NuxeoSearchParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../business-development-tab-config';
@@ -29,7 +29,7 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: Function = (searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams, metadata);
     }
@@ -49,16 +49,16 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
   }
 
   // get all matched assets and their parent folders
-  protected buildSearchAssetsParams(searchParams: NuxeoPageProviderParams, metadata: any = {}): NuxeoPageProviderParams {
-    const params = {
-      currentPageIndex: metadata.append ? searchParams.currentPageIndex : 0,
-      pageSize: metadata.append ? searchParams.pageSize : 20,
+  protected buildSearchAssetsParams(searchParams: NuxeoSearchParams, metadata: any = {}): NuxeoSearchParams {
+    const params: any = {
+      currentPageIndex: metadata.append ? searchParams.providerParams.currentPageIndex : 0,
+      pageSize: metadata.append ? searchParams.providerParams.pageSize : 20,
       ecm_mixinType_not_in: '',
       ecm_fulltext: searchParams.ecm_fulltext_wildcard,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_SUB_FOLDER_TYPE,
     };
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoSearchParams(params);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -77,8 +77,8 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
     };
   }
 
-  protected buildDefaultAssetsParams(doc: DocumentModel): NuxeoPageProviderParams {
-    const params = {
+  protected buildDefaultAssetsParams(doc: DocumentModel): NuxeoSearchParams {
+    const params: any = {
       pageSize: 20,
       currentPageIndex: 0,
       ecm_fulltext: '',
@@ -89,7 +89,7 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoSearchParams(params);
   }
 
 }

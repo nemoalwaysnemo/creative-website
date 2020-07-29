@@ -33,7 +33,7 @@ export class FavoriteBackslashComponent extends BaseFavoriteDocumentViewComponen
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       currentPageIndex: 0,

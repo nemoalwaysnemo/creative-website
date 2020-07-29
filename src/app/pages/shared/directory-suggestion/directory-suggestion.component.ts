@@ -210,7 +210,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   private getOperationSuggestions(operationName: string, searchTerm: string, input: string): Observable<OptionModel[]> {
-    const params = { searchTerm };
+    const params: any = { searchTerm };
     if (input) {
       params['docId'] = input;
     }

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DocumentModel, NuxeoPageProviderParams, SearchResponse } from '@core/api';
+import { DocumentModel, NuxeoSearchParams, SearchResponse } from '@core/api';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -26,7 +26,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   paginationService: PaginationDataSource = new PaginationDataSource();
 
-  searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
+  searchParams: NuxeoSearchParams = new NuxeoSearchParams();
 
   hasNextPage: boolean = false;
 
@@ -107,7 +107,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     } else {
       this.documents = res.response.entries;
     }
-    const offset = res.searchParams.pageSize % 20 === 0 ? -20 : - (res.searchParams.pageSize % 20 === 0);
+    const offset = res.searchParams.providerParams.pageSize % 20 === 0 ? -20 : - (res.searchParams.providerParams.pageSize % 20 === 0);
     this.listDocuments = this.listViewBuilder(res.response.entries.slice(offset));
   }
 }

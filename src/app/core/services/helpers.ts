@@ -266,7 +266,7 @@ export function parseCountry(list: string[]): string {
 }
 
 export function objHasValue(obj: any = {}): boolean {
-  return obj && Object.keys(obj).length > 0;
+  return obj && typeof obj === 'object' && Object.keys(obj).length > 0;
 }
 
 export function convertToBoolean(val: any): boolean {

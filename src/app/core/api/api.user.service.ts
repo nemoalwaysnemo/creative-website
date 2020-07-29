@@ -4,18 +4,13 @@ import { CacheService } from '@core/services';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserModel, DocumentModel, NuxeoAutomations, NuxeoResponse } from './nuxeo/lib';
-import { AbstractBaseSearchService } from './api.abstract-base-search.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService extends AbstractBaseSearchService {
+export class UserService {
 
-  constructor(
-    protected nuxeoApi: NuxeoApiService,
-    private cacheService: CacheService,
-  ) {
-    super(nuxeoApi);
+  constructor(protected nuxeoApi: NuxeoApiService, private cacheService: CacheService) {
   }
 
   getCurrentUser(): Observable<UserModel> {

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
-import { DocumentModel, NuxeoPageProviderParams, UserModel } from '@core/api';
+import { DocumentModel, NuxeoSearchParams, UserModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -51,8 +51,8 @@ export class CreativeMyAgencyComponent extends GlobalDocumentViewComponent {
     );
   }
 
-  private getSearchParams(user: UserModel): NuxeoPageProviderParams {
-    const params = {
+  private getSearchParams(user: UserModel): NuxeoSearchParams {
+    const params: any = {
       pageSize: 1,
       ecm_fulltext: '',
       currentPageIndex: 0,
@@ -61,7 +61,7 @@ export class CreativeMyAgencyComponent extends GlobalDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     };
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoSearchParams(params);
   }
 
   protected getCurrentDocumentSearchParams(): any {

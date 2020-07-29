@@ -3,12 +3,11 @@ import { Observable, of as observableOf, Subject } from 'rxjs';
 import { share, concat, map, tap, filter } from 'rxjs/operators';
 import { DocumentModel } from './nuxeo/lib';
 import { join } from '../services/helpers';
-import { AbstractBaseSearchService } from './api.abstract-base-search.service';
-import { NuxeoPagination, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
+import { NuxeoPagination, NuxeoSearchParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
 
 export class SearchResponse {
   response: NuxeoPagination;
-  readonly searchParams: NuxeoPageProviderParams;
+  readonly searchParams: NuxeoSearchParams;
   readonly metadata: { [key: string]: any } = {};
   readonly action: string;
   readonly source: string;
@@ -20,7 +19,7 @@ export class SearchResponse {
 @Injectable({
   providedIn: 'root',
 })
-export class AdvanceSearchService extends AbstractBaseSearchService {
+export class AdvanceSearchService {
 
   protected endPoint: string = 'search';
 
@@ -29,18 +28,18 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
   protected entries$ = new Subject<SearchResponse>();
 
   constructor(protected nuxeoApi: NuxeoApiService) {
-    super(nuxeoApi);
+
   }
 
   protected getRequestUrl(provider?: string): string {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
-  operation(id: string, params: any = {}, input: string = null, opts: any = null): Observable<any> {
+  operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<any> {
     return this.nuxeoApi.operation(id, params, input, opts);
   }
 
-  search(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: { [key: string]: any } = {}): Observable<SearchResponse> {
+  search(provider: string, searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions, metadata: { [key: string]: any } = {}): Observable<SearchResponse> {
     return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, metadata, source: metadata.source, action: 'beforeSearch' })).pipe(
       concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, metadata, source: metadata.source, action: 'afterSearch' }))))),
       tap((res: SearchResponse) => this.entries$.next(res)),
@@ -48,10 +47,9 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
     );
   }
 
-  request(searchParams: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider: string = this.provider): Observable<NuxeoPagination> {
-    const params: NuxeoPageProviderParams = this.getRequestParams(searchParams);
-    const options: NuxeoRequestOptions = this.getRequestOptions(opts);
-    return this.execute(this.getRequestUrl(provider), params.toSearchParams(), options);
+  request(searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions = new NuxeoRequestOptions(), provider: string = this.provider): Observable<NuxeoPagination> {
+    const params = searchParams instanceof NuxeoSearchParams ? searchParams : new NuxeoSearchParams(searchParams);
+    return this.execute(this.getRequestUrl(provider), params, opts);
   }
 
   onSearch(source?: string): Observable<SearchResponse> {
@@ -59,11 +57,11 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
   }
 
   requestByUIDs(uids: string[]): Observable<NuxeoPagination> {
-    const params = {
+    const params: any = {
       pageSize: uids.length,
       ecm_uuid: `["${uids.join('", "')}"]`,
     };
-    return this.request(new NuxeoPageProviderParams(params), new NuxeoRequestOptions({ schemas: ['dublincore'] }));
+    return this.request(new NuxeoSearchParams(params), new NuxeoRequestOptions({ schemas: ['dublincore'] }));
   }
 
   requestTitleByUIDs(res: NuxeoPagination, properties: string[]): Observable<NuxeoPagination> {
@@ -84,12 +82,12 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
 
     const distIds: string[] = Array.from(new Set(ids));
     if (distIds.length > 0) {
-      const params = {
+      const params: any = {
         pageSize: distIds.length,
         ecm_uuid: `["${distIds.join('", "')}"]`,
       };
 
-      return this.request(new NuxeoPageProviderParams(params), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
+      return this.request(new NuxeoSearchParams(params), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
         .pipe(
           map((response: NuxeoPagination) => {
             response.entries.forEach((resDoc: DocumentModel) => { listNew[resDoc.uid] = resDoc.title; });
@@ -105,8 +103,8 @@ export class AdvanceSearchService extends AbstractBaseSearchService {
     return observableOf(res);
   }
 
-  protected execute(url: string, queryParams: any = {}, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
-    return this.nuxeoApi.pageProvider(url, queryParams, opts);
+  protected execute(url: string, queryParams: NuxeoSearchParams, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
+    return this.nuxeoApi.pageProvider(url, queryParams.toRequestParams(), opts);
   }
 
 }

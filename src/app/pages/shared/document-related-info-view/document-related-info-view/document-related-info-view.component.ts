@@ -220,7 +220,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
       };
       this.edgeLoading = true;
-      const subscription = this.globalSearchFormService.request(params).subscribe((res: NuxeoPagination) => {
+      const subscription = this.globalSearchFormService.advanceRequest(params).subscribe((res: NuxeoPagination) => {
         this.edgeLoading = false;
         this.backslashEdges = res.entries;
       });

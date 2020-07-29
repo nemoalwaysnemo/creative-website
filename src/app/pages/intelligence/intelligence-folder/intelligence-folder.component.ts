@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, GlobalSearchSettings } from '@pages/shared';
-import { DocumentModel, NuxeoPageProviderParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
+import { DocumentModel, NuxeoSearchParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -26,7 +26,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: Function = (searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {
       this.resultView = 'asset';
       searchParams = this.buildIndustrySearchAssetParams(searchParams, metadata);
@@ -114,7 +114,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   }
 
   protected buildConsumerAndMarketingParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
@@ -124,11 +124,11 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     if (doc) {
       params['app_edges_intelligence_category'] = `["${this.getCurrentAssetType(doc)}"]`;
     }
-    return new NuxeoPageProviderParams(params).setSettings(settings);
+    return new NuxeoSearchParams(params).setSettings(settings);
   }
 
   protected buildIndustryParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
@@ -138,11 +138,11 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return new NuxeoPageProviderParams(params).setSettings(settings);
+    return new NuxeoSearchParams(params).setSettings(settings);
   }
 
   protected buildIndustryAssetParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
@@ -152,18 +152,18 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     if (doc) {
       params['app_edges_industry_any'] = '["' + doc.get('app_Edges:industry').join('", "') + '"]';
     }
-    return new NuxeoPageProviderParams(params).setSettings(settings);
+    return new NuxeoSearchParams(params).setSettings(settings);
   }
 
-  protected buildIndustrySearchAssetParams(searchParams: NuxeoPageProviderParams, metadata: any = {}): any {
-    const params = {
+  protected buildIndustrySearchAssetParams(searchParams: NuxeoSearchParams, metadata: any = {}): any {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-      currentPageIndex: metadata.append ? searchParams.currentPageIndex : 0,
-      pageSize: metadata.append ? searchParams.pageSize : 20,
-      ecm_fulltext: searchParams.ecm_fulltext,
+      currentPageIndex: metadata.append ? searchParams.providerParams.currentPageIndex : 0,
+      pageSize: metadata.append ? searchParams.providerParams.pageSize : 20,
+      ecm_fulltext: searchParams.providerParams.ecm_fulltext,
     };
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoSearchParams(params);
   }
 
   private getFilters(): SearchFilterModel[] {

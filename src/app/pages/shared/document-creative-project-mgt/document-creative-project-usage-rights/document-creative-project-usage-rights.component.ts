@@ -117,7 +117,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
   }
 
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_UR_CONTRACT_TYPES,
       currentPageIndex: 0,
       pageSize: 20,

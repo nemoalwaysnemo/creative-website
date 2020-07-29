@@ -58,11 +58,12 @@ export class AggregateModel {
 
 export class SearchFilterModel {
   readonly key: string;
+  readonly options?: any[];
   readonly placeholder: string;
   readonly iteration?: boolean = false;
   readonly optionLabels?: any = {};
   readonly bufferSize?: number = 50;
-  readonly visibleFn: Function = (searchParams: NuxeoPageProviderParams): boolean => true;
+  readonly visibleFn: Function = (searchParams: NuxeoSearchParams): boolean => true;
   readonly filterValueFn: Function = (bucket: any): boolean => true;
 
   constructor(data: any = {}) {
@@ -140,27 +141,84 @@ export class NuxeoResponse {
 
 export class NuxeoPageProviderParams {
   [key: string]: any;
-  currentPageIndex?: number = 0;
-  pageSize?: number = 20;
-  ecm_path?: string;
-  sortBy?: string;
-  sortOrder?: string;
+  currentPageIndex: number = 0;
+  pageSize: number = 20;
+  ecm_path: string = '/';
+  ecm_fulltext: string = '';
+  ecm_primaryType: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
   ecm_mixinType_not_in?: string = NuxeoPageProviderConstants.HiddenInNavigation;
   highlight?: string = 'dc:title.fulltext,ecm:binarytext,dc:description.fulltext,ecm:tag,note:note.fulltext,file:content.name';
   quickFilters?: string = `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
+  sortOrder?: string;
   keyword?: string;
-  ecm_fulltext?: string;
-  production_date?: string; // production_date: '["lastYear"]',
-  ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
+  sortBy?: string;
+
+  constructor(params: any = {}) {
+    if (objHasValue(params)) {
+      Object.assign(this, params);
+    }
+  }
+
+  get ecm_fulltext_wildcard(): string {
+    return `${this.ecm_fulltext}*`;
+  }
+
+  update(params: any = {}): this {
+    Object.assign(this, params);
+    return this;
+  }
+
+  hasKeyword(): boolean {
+    return !!this.ecm_fulltext || !!this.keyword;
+  }
+
+  hasFilters(): boolean {
+    return this.hasParam('_agg');
+  }
+
+  hasParam(name: string): boolean {
+    return Object.getOwnPropertyNames(this).some((key: string) => key.includes(name));
+  }
+}
+
+export class NuxeoSearchParams {
+
+  private nuxeoProviderParams: NuxeoPageProviderParams;
 
   private settings: any = {};
 
-  constructor(opts: any = {}) {
-    this.update(opts);
+  constructor(params: any = {}, settings: any = {}) {
+    this.setParams(params);
+    this.settings = settings;
   }
 
-  update(opts: any = {}): this {
-    Object.assign(this, opts);
+  get providerParams(): NuxeoPageProviderParams {
+    return this.nuxeoProviderParams;
+  }
+
+  get ecm_fulltext_wildcard(): string {
+    return this.providerParams.ecm_fulltext_wildcard;
+  }
+
+  hasKeyword(): boolean {
+    return this.providerParams.hasKeyword();
+  }
+
+  hasFilters(): boolean {
+    return this.providerParams.hasFilters();
+  }
+
+  hasParam(key: string): boolean {
+    return this.providerParams.hasParam(key);
+  }
+
+  setParams(params: any): this {
+    this.nuxeoProviderParams = new NuxeoPageProviderParams(params);
+    return this;
+  }
+
+  updateParams(params: any): this {
+    this.providerParams.update(params);
     return this;
   }
 
@@ -179,22 +237,16 @@ export class NuxeoPageProviderParams {
     return key ? this.settings[key] : this.settings;
   }
 
-  hasKeyword(): boolean {
-    return !!this.ecm_fulltext || !!this.keyword;
-  }
-
-  hasFilters(): boolean {
-    return this.hasFilter('_agg');
-  }
-
-  hasFilter(agg: string): boolean {
-    return Object.getOwnPropertyNames(this).some((key: string) => key.includes(agg));
-  }
-
   getFulltextKey(): string {
     return this.getSettings('fulltextKey') || 'ecm_fulltext';
   }
 
+  // used for nuxeoApi.pageProvider request
+  toRequestParams(): any {
+    return {};
+  }
+
+  // used for storage and consolidation
   toSearchParams(): any {
     const params: any = {};
     const keys: string[] = ['settings', 'keyword'];
@@ -221,6 +273,7 @@ export class NuxeoPageProviderParams {
     return params;
   }
 
+  // used for url query string
   toQueryParams(): any {
     const params: any = {};
     const keys = ['ecm_fulltext', 'currentPageIndex'];
@@ -236,8 +289,39 @@ export class NuxeoPageProviderParams {
     return params;
   }
 
-  get ecm_fulltext_wildcard(): string {
-    return `${this.ecm_fulltext}*`;
+  // protected buildRequestParams(opts: NuxeoPageProviderParams): NuxeoSearchParams {
+  //   const options = opts || {};
+  //   const searchTerm: any = {};
+  //   if (options.hasOwnProperty('ecm_fulltext')) {
+  //     if (options.ecm_fulltext) {
+  //       searchTerm.ecm_fulltext = `${opts.ecm_fulltext}`;
+  //     } else {
+  //       delete options.ecm_fulltext;
+  //     }
+  //   }
+  //   if (!options.hasOwnProperty('ecm_path') && !options.hasOwnProperty('ecm_path_eq')) {
+  //     searchTerm.ecm_path = '/';
+  //   } else if (options.hasOwnProperty('ecm_path_eq')) {
+  //     options.ecm_path_eq = '/' + options.ecm_path_eq.split('/').filter((x: string) => x.trim()).join('/');
+  //   }
+
+  //   const searchParams: NuxeoSearchParams = new NuxeoSearchParams(deepExtend({}, this.defaultParams, options, searchTerm));
+  //   if (searchParams.hasOwnProperty('ecm_mixinType') || !searchParams['ecm_mixinType_not_in']) {
+  //     delete searchParams.ecm_mixinType_not_in;
+  //   }
+  //   return searchParams;
+  // }
+
+  private performPredicate(opts: any = {}): any {
+    if (objHasValue(opts.aggregates)) {
+      for (const agg in opts.aggregates) {
+        if (agg.includes('_predicate')) {
+          const predicate = agg.replace('_predicate', '');
+          opts[predicate] = opts.aggregates[agg];
+        }
+      }
+    }
+    return opts;
   }
 }
 
@@ -259,8 +343,10 @@ export class NuxeoRequestOptions {
     ],
   };
 
-  constructor(opts: any = {}) {
-    Object.assign(this, opts);
+  constructor(params: any = {}) {
+    if (objHasValue(params)) {
+      Object.assign(this, params);
+    }
   }
 
   setOptions(key: string, value: any): void {

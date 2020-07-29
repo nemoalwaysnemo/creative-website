@@ -4,7 +4,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { DocumentModel, SearchResponse, NuxeoPageProviderParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, SearchResponse, NuxeoSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -25,7 +25,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoPageProviderParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: Function = (searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
       opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
@@ -77,15 +77,15 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
   }
 
   // get all matched assets and then get their parent folders
-  protected buildSearchAssetsParams(queryParams: NuxeoPageProviderParams): NuxeoPageProviderParams {
-    const params = {
+  protected buildSearchAssetsParams(queryParams: NuxeoSearchParams): NuxeoSearchParams {
+    const params: any = {
       pageSize: 1000,
       currentPageIndex: 0,
-      ecm_fulltext: queryParams.ecm_fulltext,
+      ecm_fulltext: queryParams.providerParams.ecm_fulltext,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAY_ASSET_TYPES,
     };
-    return new NuxeoPageProviderParams(params);
+    return new NuxeoSearchParams(params);
   }
   // calculate their parent folder ids
   protected performSearchAssetsResults(res: NuxeoPagination): Observable<NuxeoPagination> {
@@ -93,7 +93,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
       const ids = res.entries.map((doc: DocumentModel) => doc.parentRef).filter((value, index, self) => { // uniq
         return self.indexOf(value) === index;
       });
-      const params = {
+      const params: any = {
         currentPageIndex: 0,
         pageSize: ids.length,
         ecm_uuid: `["${ids.join('", "')}"]`,
@@ -101,7 +101,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
         ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
       };
-      return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params));
+      return this.documentPageService.advanceRequest(new NuxeoSearchParams(params));
     } else {
       return observableOf(res);
     }

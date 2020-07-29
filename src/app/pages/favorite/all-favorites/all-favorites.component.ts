@@ -32,7 +32,7 @@ export class AllFavoritesComponent extends BaseFavoriteDocumentViewComponent {
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       currentPageIndex: 0,
       pageSize: 20,
       ecm_fulltext: '',

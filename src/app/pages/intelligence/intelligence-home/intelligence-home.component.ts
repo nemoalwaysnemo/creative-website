@@ -2,7 +2,7 @@ import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf, forkJoin, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NuxeoPagination, NuxeoPageProviderParams, SearchFilterModel, DocumentModel } from '@core/api';
+import { NuxeoPagination, NuxeoSearchParams, SearchFilterModel, DocumentModel } from '@core/api';
 import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -39,7 +39,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Backslash Category' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoPageProviderParams): boolean => searchParams.hasFilter('the_loupe_main_brand_agg') }),
+    // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoSearchParams): boolean => searchParams.hasFilter('the_loupe_main_brand_agg') }),
   ];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -99,7 +99,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
   }
 
   private search(params: {}): Observable<DocumentModel[]> {
-    return this.documentPageService.advanceRequest(new NuxeoPageProviderParams(params)).pipe(
+    return this.documentPageService.advanceRequest(new NuxeoSearchParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries),
     );
   }

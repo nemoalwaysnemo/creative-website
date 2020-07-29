@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { filter, share } from 'rxjs/operators';
-import { AdvanceSearchService, NuxeoPageProviderParams, NuxeoRequestOptions, SearchResponse, NuxeoPagination } from '@core/api';
+import { AdvanceSearchService, NuxeoSearchParams, NuxeoRequestOptions, SearchResponse, NuxeoPagination } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
 
 export class GlobalSearchFormEvent {
@@ -26,11 +26,11 @@ export class GlobalSearchFormService {
     private googleAnalyticsService: GoogleAnalyticsService) {
   }
 
-  request(searchParams: NuxeoPageProviderParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
+  advanceRequest(searchParams: NuxeoSearchParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
     return this.advanceSearchService.request(searchParams, opts, provider);
   }
 
-  advanceSearch(provider: string, searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: any = {}): Observable<SearchResponse> {
+  advanceSearch(provider: string, searchParams: NuxeoSearchParams = new NuxeoSearchParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: any = {}): Observable<SearchResponse> {
     this.googleAnalyticsTrackEvent(metadata);
     return this.advanceSearchService.search(provider, searchParams, opts, metadata);
   }
@@ -49,10 +49,10 @@ export class GlobalSearchFormService {
   }
 
   changePageIndex(currentPageIndex: number, pageSize: number = 20, metadata: any = {}): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: new NuxeoPageProviderParams({ currentPageIndex, pageSize }), metadata }));
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: new NuxeoSearchParams({ currentPageIndex, pageSize }), metadata }));
   }
 
-  search(searchParams: NuxeoPageProviderParams, metadata: any = {}): void {
+  search(searchParams: NuxeoSearchParams, metadata: any = {}): void {
     this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams, metadata }));
   }
 

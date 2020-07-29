@@ -47,7 +47,7 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       app_global_networkshare: true,
       currentPageIndex: 0,
