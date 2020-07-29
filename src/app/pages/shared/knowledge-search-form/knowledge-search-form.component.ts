@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DocumentModel } from '@core/api';
@@ -15,7 +15,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   styleUrls: ['./knowledge-search-form.component.scss'],
 })
 
-export class KnowledgeSearchFormComponent extends HomeSearchFormComponent {
+export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implements OnInit {
 
   formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'knowledge-search-form',
@@ -33,6 +33,11 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent {
       documentPageService,
       globalSearchFormService,
     );
+  }
+
+  ngOnInit() {
+    const searchField = document.getElementsByClassName('keyword')[0] as HTMLElement;
+    searchField.focus();
   }
 
   onKeyEnter(event: KeyboardEvent): void {
