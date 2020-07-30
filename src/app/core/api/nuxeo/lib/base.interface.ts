@@ -409,6 +409,7 @@ export enum NuxeoAutomations {
   GetFavorite = 'Favorite.Fetch',
   AddToFavorite = 'Document.AddToFavorites',
   AddToCollection = 'Document.AddToCollection',
+  GetDocumentsFromCollection = 'Collection.GetDocumentsFromCollection',
   RemoveFromFavorites = 'Document.RemoveFromFavorites',
   GetVideoScreenshot = 'Backslash.GetVideoScreenshot',
   TBWAUserDigest = 'TBWA.GetUserDigest',

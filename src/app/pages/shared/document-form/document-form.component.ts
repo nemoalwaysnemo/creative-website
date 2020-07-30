@@ -56,6 +56,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() hasResetForm: boolean = false;
 
+  @Input() showButton: boolean = true;
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {

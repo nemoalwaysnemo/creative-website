@@ -21,8 +21,20 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 
+  selectedRows: any = [];
+
+  showInfo: boolean = false;
+
+  packageDocument: DocumentModel;
+
+  showButton: boolean = false;
+
+  listViewOptionsPackage: any = {
+    deliverPackage: false,
+  };
+
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery'],
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'collection'],
     source: 'document-creative-project-delivery-package',
     enableSearchInput: false,
   });
@@ -102,7 +114,15 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
   }
 
   onSelected(row: any): void {
+    this.selectedRows = row.selected;
+    this.showInfo = true;
+    this.packageDocument = row.selected[0].title;
+  }
 
+  onResponse(e: any): void {
+    if (e === 'back') {
+      this.showInfo = false;
+    }
   }
 
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
