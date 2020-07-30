@@ -1,4 +1,8 @@
-<div class="document-creative-project-related-asset">
-  <list-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)">
+<div class="document-creative-project-related-asset" [ngStyle]="showInfo ? {'display': 'none'} : {}">
+  <list-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings"
+    [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)">
   </list-search-form>
 </div>
+<ng-container *ngIf="showInfo">
+  <document-creative-project-asset-package [documentModel]="packageDocument" [listViewOptions]="listViewOptionsPackage" [formMode]="'edit'" [showButton]="showButton" (onResponsed)="onResponse($event)"></document-creative-project-asset-package>
+</ng-container>
