@@ -146,6 +146,7 @@ export class NuxeoSearchParams {
   ecm_path: string = '/';
   ecm_fulltext: string = '';
   ecm_primaryType: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
+  ecm_mixinType?: string;
   ecm_mixinType_not_in?: string = NuxeoPageProviderConstants.HiddenInNavigation;
   highlight?: string = 'dc:title.fulltext,ecm:binarytext,dc:description.fulltext,ecm:tag,note:note.fulltext,file:content.name';
   quickFilters?: string = `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
@@ -197,7 +198,6 @@ export class GlobalSearchParams {
 
   constructor(params: any = {}, settings: any = {}) {
     this.setParams(params);
-    console.log(99999, params);
     console.log((new Error()).stack);
     this.settings = settings;
   }
@@ -257,20 +257,23 @@ export class GlobalSearchParams {
 
   // used for nuxeoApi.pageProvider request
   toRequestParams(): any {
-    const params: any = {};
-    const keys: string[] = ['keyword'];
+    let params: any = {};
+    const keys: string[] = ['keyword', 'ecm_fulltext', 'aggregates'];
     const providerParams = Object.entries(this.searchParams);
-    // console.log(22222, providerParams);
     for (const [key, value] of providerParams) {
       if (!keys.includes(key)) {
-        if (key === 'ecm_fulltext') {
-          params[this.getFulltextKey()] = value;
-        } else {
-          params[key] = value;
-        }
+        params[key] = value;
       }
     }
-    // console.log(11111, params);
+    if (params['ecm_fulltext']) {
+      params[this.getFulltextKey()] = params['ecm_fulltext'];
+    }
+    if (objHasValue(params['aggregates'])) {
+      params = this.buildAggSearchParams(params['aggregates'], params);
+    }
+    if (params['ecm_mixinType'] || !params['ecm_mixinType_not_in']) {
+      delete params['ecm_mixinType_not_in'];
+    }
     return params;
   }
 
@@ -284,7 +287,6 @@ export class GlobalSearchParams {
         params[key] = value;
       }
     }
-    // console.log(11111, params);
     return params;
   }
 
@@ -327,16 +329,11 @@ export class GlobalSearchParams {
   //   return searchParams;
   // }
 
-  private buildSearchParamsValue(formValue: any = {}): any {
-    const values = filterParams(formValue, ['quickFilters', 'ecm_mixinType_not_in']);
-    if (values.aggregates) {
-      const keys = Object.keys(values.aggregates);
-      if (keys.length > 0) {
-        keys.filter((key) => values.aggregates[key].length > 0).forEach((key) => { values[key] = `["${values.aggregates[key].join('", "')}"]`; });
-      }
-      delete values.aggregates;
+  private buildAggSearchParams(aggregates: any = {}, params: any = {}): any {
+    if (objHasValue(aggregates)) {
+      Object.keys(aggregates).filter((key) => aggregates[key].length > 0).forEach((key) => { params[key] = `["${aggregates[key].join('", "')}"]`; });
     }
-    return values;
+    return params;
   }
 
   private performPredicate(opts: any = {}): any {

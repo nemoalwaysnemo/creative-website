@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf, zip } from 'rxjs';
-import { filter, debounceTime, distinctUntilChanged, switchMap, map, startWith, pairwise, concatMap } from 'rxjs/operators';
+import { filter, debounceTime, switchMap, map, startWith, pairwise, concatMap } from 'rxjs/operators';
 import { getPathPartOfUrl, objHasValue, selectObjectByKeys, filterParams, convertToBoolean } from '@core/services/helpers';
 import { SearchResponse, GlobalSearchParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { GlobalSearchFormService, GlobalSearchFormEvent } from './global-search-form.service';
@@ -169,7 +169,6 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected onSearchParamsChanged(event: string, searchParams: GlobalSearchParams, queryParams: Params = {}): void {
     const queryValues = searchParams.hasKeyword() ? {} : this.getSearchQueryParams(queryParams);
     const providerParams = this.getInputParams().mergeParams(Object.assign({}, this.getFormValue(), searchParams.providerParams, queryValues)).mergeSettings(searchParams.getSettings());
-    console.log(22222, providerParams);
     this.triggerSearch(providerParams, event);
   }
 
@@ -186,7 +185,6 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected onSearchPerformed(): void {
     const subscription = this.searchEvent$.pipe(
       debounceTime(300),
-      distinctUntilChanged(),
       switchMap((params: GlobalSearchParams) => this.performSearch(params)),
     ).subscribe();
     this.subscription.add(subscription);
@@ -350,7 +348,6 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected search(requestParams: GlobalSearchParams, options: NuxeoRequestOptions): Observable<SearchResponse> {
     const { searchParams, opts } = this.beforeSearch(requestParams, options);
-    console.log(55555, searchParams);
     return this.globalSearchFormService.advanceSearch(this.getFormSettings('pageProvider'), searchParams, opts);
   }
 
