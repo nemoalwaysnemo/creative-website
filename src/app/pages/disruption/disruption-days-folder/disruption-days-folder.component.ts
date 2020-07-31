@@ -56,7 +56,6 @@ export class DisruptionDaysFolderComponent extends GlobalDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAY_ASSET_TYPES,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

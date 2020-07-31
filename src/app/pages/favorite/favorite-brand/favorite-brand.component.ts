@@ -37,7 +37,6 @@ export class FavoriteBrandComponent extends BaseFavoriteDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

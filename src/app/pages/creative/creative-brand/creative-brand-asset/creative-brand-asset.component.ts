@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, SearchFilterModel, NuxeoSearchParams } from '@core/api';
+import { DocumentModel, SearchFilterModel, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings } from '@pages/shared';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
@@ -17,7 +17,7 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
   layout: string = 'creative_brand_asset full-width';
 
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoSearchParams): boolean => searchParams.hasParam('the_loupe_main_assettype_agg') }),
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: GlobalSearchParams): boolean => searchParams.hasParam('the_loupe_main_assettype_agg') }),
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
@@ -57,7 +57,6 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

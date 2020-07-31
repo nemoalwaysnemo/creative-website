@@ -16,7 +16,6 @@ export class BackslashHomeThumbnailComponent {
 
   defaultParams: any = {
     currentPageIndex: 0,
-    pageSize: 20,
     ecm_fulltext: '',
     app_edges_active_article: true,
     ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,

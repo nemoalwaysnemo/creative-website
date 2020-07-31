@@ -5,7 +5,7 @@ import { NbToastrService } from '@core/nebular/theme';
 import { Observable, from, Subject, timer } from 'rxjs';
 import { distinctUntilChanged, filter, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd } from '@angular/router';
-import { DocumentModel, AdvanceSearchService, NuxeoSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel } from '@core/api';
+import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
 import { Environment } from '@environment/environment';
 
@@ -79,7 +79,7 @@ export class DocumentPageService {
     return this.advanceSearchService.operation(id, params, input, opts);
   }
 
-  advanceRequest(searchParams: NuxeoSearchParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
+  advanceRequest(searchParams: GlobalSearchParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
     return this.advanceSearchService.request(searchParams, opts, provider);
   }
 

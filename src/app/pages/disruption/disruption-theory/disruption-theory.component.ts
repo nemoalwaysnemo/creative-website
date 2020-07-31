@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DocumentModel, SearchResponse, NuxeoSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel } from '@core/api';
+import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -27,7 +27,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
       opts.setEnrichers('document', [NuxeoEnricher.document.BREADCRUMB, NuxeoEnricher.document.HIGHLIGHT]);
@@ -72,9 +72,8 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
     };
   }
   // get the default sub folders (second-level folders)
-  protected buildDefaultAssetsParams(doc: DocumentModel): NuxeoSearchParams {
+  protected buildDefaultAssetsParams(doc: DocumentModel): GlobalSearchParams {
     const params: any = {
-      pageSize: 20,
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
@@ -83,10 +82,10 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return new NuxeoSearchParams(params);
+    return new GlobalSearchParams(params);
   }
   // get all matched assets and then get their parent folders
-  protected buildSearchAssetsParams(queryParams: NuxeoSearchParams): NuxeoSearchParams {
+  protected buildSearchAssetsParams(queryParams: GlobalSearchParams): GlobalSearchParams {
     const params: any = {
       pageSize: 1000,
       currentPageIndex: 0,
@@ -95,7 +94,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_TYPE,
     };
-    return new NuxeoSearchParams(params);
+    return new GlobalSearchParams(params);
   }
   // calculate their parent folder ids
   protected performSearchAssetsResults(res: NuxeoPagination): Observable<NuxeoPagination> {
@@ -112,7 +111,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
         ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
       };
-      return this.documentPageService.advanceRequest(new NuxeoSearchParams(params));
+      return this.documentPageService.advanceRequest(new GlobalSearchParams(params));
     } else {
       return observableOf(res);
     }

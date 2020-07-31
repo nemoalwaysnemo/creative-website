@@ -1,4 +1,4 @@
-import { join, objHasValue } from '../../../services/helpers';
+import { join, objHasValue, filterParams } from '../../../services/helpers';
 import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';
@@ -63,7 +63,7 @@ export class SearchFilterModel {
   readonly iteration?: boolean = false;
   readonly optionLabels?: any = {};
   readonly bufferSize?: number = 50;
-  readonly visibleFn: Function = (searchParams: NuxeoSearchParams): boolean => true;
+  readonly visibleFn: Function = (searchParams: GlobalSearchParams): boolean => true;
   readonly filterValueFn: Function = (bucket: any): boolean => true;
 
   constructor(data: any = {}) {
@@ -139,7 +139,7 @@ export class NuxeoResponse {
   }
 }
 
-export class NuxeoPageProviderParams {
+export class NuxeoSearchParams {
   [key: string]: any;
   currentPageIndex: number = 0;
   pageSize: number = 20;
@@ -155,7 +155,7 @@ export class NuxeoPageProviderParams {
 
   constructor(params: any = {}) {
     if (objHasValue(params)) {
-      Object.assign(this, params);
+      this.merge(params);
     }
   }
 
@@ -163,7 +163,7 @@ export class NuxeoPageProviderParams {
     return `${this.ecm_fulltext}*`;
   }
 
-  update(params: any = {}): this {
+  merge(params: any = {}): this {
     Object.assign(this, params);
     return this;
   }
@@ -181,19 +181,29 @@ export class NuxeoPageProviderParams {
   }
 }
 
-export class NuxeoSearchParams {
+export class GlobalSearchParams {
 
-  private nuxeoProviderParams: NuxeoPageProviderParams;
+  static readonly PageSize: number = 20;
+
+  event: string;
+
+  source: string;
 
   private settings: any = {};
 
+  private searchParams: NuxeoSearchParams;
+
+  private queryParams: NuxeoSearchParams;
+
   constructor(params: any = {}, settings: any = {}) {
     this.setParams(params);
+    console.log(99999, params);
+    console.log((new Error()).stack);
     this.settings = settings;
   }
 
-  get providerParams(): NuxeoPageProviderParams {
-    return this.nuxeoProviderParams;
+  get providerParams(): NuxeoSearchParams {
+    return this.searchParams;
   }
 
   get ecm_fulltext_wildcard(): string {
@@ -213,12 +223,12 @@ export class NuxeoSearchParams {
   }
 
   setParams(params: any): this {
-    this.nuxeoProviderParams = new NuxeoPageProviderParams(params);
+    this.searchParams = new NuxeoSearchParams(params);
     return this;
   }
 
-  updateParams(params: any): this {
-    this.providerParams.update(params);
+  mergeParams(params: any): this {
+    this.providerParams.merge(params);
     return this;
   }
 
@@ -226,11 +236,15 @@ export class NuxeoSearchParams {
     return objHasValue(this.settings);
   }
 
-  setSettings(opts: any = {}): this {
+  mergeSettings(opts: any = {}): this {
     if (objHasValue(opts)) {
       Object.assign(this.settings, opts);
     }
     return this;
+  }
+
+  setSettings(key: string, value: any): void {
+    this.settings[key] = value;
   }
 
   getSettings(key?: string): any {
@@ -243,14 +257,11 @@ export class NuxeoSearchParams {
 
   // used for nuxeoApi.pageProvider request
   toRequestParams(): any {
-    return {};
-  }
-
-  // used for storage and consolidation
-  toSearchParams(): any {
     const params: any = {};
-    const keys: string[] = ['settings', 'keyword'];
-    for (const [key, value] of Object.entries(this)) {
+    const keys: string[] = ['keyword'];
+    const providerParams = Object.entries(this.searchParams);
+    // console.log(22222, providerParams);
+    for (const [key, value] of providerParams) {
       if (!keys.includes(key)) {
         if (key === 'ecm_fulltext') {
           params[this.getFulltextKey()] = value;
@@ -259,17 +270,21 @@ export class NuxeoSearchParams {
         }
       }
     }
+    // console.log(11111, params);
     return params;
   }
 
-  toParams(): any {
+  // used for merge
+  toSearchParams(): any {
     const params: any = {};
-    const keys: string[] = ['settings', 'keyword'];
-    for (const [key, value] of Object.entries(this)) {
+    const keys: string[] = ['keyword'];
+    const providerParams = Object.entries(this.searchParams);
+    for (const [key, value] of providerParams) {
       if (!keys.includes(key)) {
         params[key] = value;
       }
     }
+    // console.log(11111, params);
     return params;
   }
 
@@ -289,7 +304,7 @@ export class NuxeoSearchParams {
     return params;
   }
 
-  // protected buildRequestParams(opts: NuxeoPageProviderParams): NuxeoSearchParams {
+  // protected buildRequestParams(opts: NuxeoSearchParams): GlobalSearchParams {
   //   const options = opts || {};
   //   const searchTerm: any = {};
   //   if (options.hasOwnProperty('ecm_fulltext')) {
@@ -305,12 +320,24 @@ export class NuxeoSearchParams {
   //     options.ecm_path_eq = '/' + options.ecm_path_eq.split('/').filter((x: string) => x.trim()).join('/');
   //   }
 
-  //   const searchParams: NuxeoSearchParams = new NuxeoSearchParams(deepExtend({}, this.defaultParams, options, searchTerm));
+  //   const searchParams: GlobalSearchParams = new GlobalSearchParams(deepExtend({}, this.defaultParams, options, searchTerm));
   //   if (searchParams.hasOwnProperty('ecm_mixinType') || !searchParams['ecm_mixinType_not_in']) {
   //     delete searchParams.ecm_mixinType_not_in;
   //   }
   //   return searchParams;
   // }
+
+  private buildSearchParamsValue(formValue: any = {}): any {
+    const values = filterParams(formValue, ['quickFilters', 'ecm_mixinType_not_in']);
+    if (values.aggregates) {
+      const keys = Object.keys(values.aggregates);
+      if (keys.length > 0) {
+        keys.filter((key) => values.aggregates[key].length > 0).forEach((key) => { values[key] = `["${values.aggregates[key].join('", "')}"]`; });
+      }
+      delete values.aggregates;
+    }
+    return values;
+  }
 
   private performPredicate(opts: any = {}): any {
     if (objHasValue(opts.aggregates)) {
@@ -349,10 +376,11 @@ export class NuxeoRequestOptions {
     }
   }
 
-  setOptions(key: string, value: any): void {
+  setOptions(key: string, value: any): this {
     if (typeof value !== 'undefined' && value !== null) {
       this[key] = value;
     }
+    return this;
   }
 
   addEnrichers(type: string, name: string): void {

@@ -179,7 +179,6 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_UR_TALENT_TYPE,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

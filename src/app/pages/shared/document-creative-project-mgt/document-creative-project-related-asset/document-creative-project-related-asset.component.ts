@@ -237,7 +237,6 @@ export class DocumentCreativeProjectRelatedAssetComponent extends GlobalDocument
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

@@ -11,7 +11,6 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 export class KnowledgeDocumentAssetSearchComponent extends BaseDocumentViewComponent {
 
   defaultParams: any = {
-    pageSize: 20,
     currentPageIndex: 0,
     ecm_path: '/',
     ecm_fulltext: '',

@@ -69,7 +69,6 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {
@@ -83,7 +82,6 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

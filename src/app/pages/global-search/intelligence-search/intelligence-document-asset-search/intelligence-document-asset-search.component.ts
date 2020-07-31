@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchFilterModel, NuxeoSearchParams } from '@core/api';
+import { SearchFilterModel, GlobalSearchParams } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { GlobalSearchFormSettings, DocumentPageService, GlobalSearchSettings } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
@@ -57,9 +57,8 @@ export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewCo
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: searchTerm,
     };
-    return new NuxeoSearchParams(params).setSettings(settings);
+    return new GlobalSearchParams(params, settings);
   }
 }

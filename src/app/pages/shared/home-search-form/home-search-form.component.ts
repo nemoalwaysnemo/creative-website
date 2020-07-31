@@ -87,7 +87,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   protected isSearchManually(res: SearchResponse): boolean {
-    return (res.searchParams.hasKeyword() || res.searchParams.hasFilters()) && res.metadata.event !== 'onSearchParamsInitialized';
+    return (res.searchParams.hasKeyword() || res.searchParams.hasFilters()) && res.searchParams.event !== 'onSearchParamsInitialized';
   }
 
   protected redirectToListPage(queryParams: any = {}): void {

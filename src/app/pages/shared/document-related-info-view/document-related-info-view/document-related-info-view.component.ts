@@ -145,8 +145,8 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.baseParams$.next(params);
   }
 
-  onResponse(event: any): void {
-    if (event.source === 'document-load-more') {
+  onResponse(res: SearchResponse): void {
+    if (res.source === 'document-load-more') {
       this.append = false;
     }
   }

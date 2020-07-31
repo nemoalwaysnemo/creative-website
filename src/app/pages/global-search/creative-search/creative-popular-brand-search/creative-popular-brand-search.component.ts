@@ -17,7 +17,6 @@ export class CreativePopularBrandSearchComponent extends BaseDocumentViewCompone
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,
     ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
     currentPageIndex: 0,
-    pageSize: 20,
     ecm_fulltext: '',
   };
 
@@ -26,7 +25,7 @@ export class CreativePopularBrandSearchComponent extends BaseDocumentViewCompone
     // new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
     // new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     // new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
-    // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: NuxeoSearchParams): boolean => searchParams.hasFilter('the_loupe_main_agency_agg') }),
+    // new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: GlobalSearchParams): boolean => searchParams.hasFilter('the_loupe_main_agency_agg') }),
     // new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { 'true': 'Yes', 'false': 'No' } }),
   ];
 

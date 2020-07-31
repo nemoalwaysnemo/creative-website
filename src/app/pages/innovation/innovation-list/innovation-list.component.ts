@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, NuxeoSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPageProviderConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../innovation-tab-config';
@@ -29,7 +29,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams, metadata);
     }
@@ -49,16 +49,16 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
   }
 
   // get all matched assets and their parent folders
-  protected buildSearchAssetsParams(searchParams: NuxeoSearchParams, metadata: any = {}): NuxeoSearchParams {
+  protected buildSearchAssetsParams(searchParams: GlobalSearchParams, metadata: any = {}): GlobalSearchParams {
     const params: any = {
       currentPageIndex: metadata.append ? searchParams.providerParams.currentPageIndex : 0,
-      pageSize: metadata.append ? searchParams.providerParams.pageSize : 20,
+      pageSize: metadata.append ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_fulltext: searchParams.ecm_fulltext_wildcard,
       ecm_mixinType_not_in: '',
       ecm_path: this.getPath(),
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
     };
-    return new NuxeoSearchParams(params);
+    return new GlobalSearchParams(params);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -69,7 +69,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
     }
   }
 
-  protected getCurrentDocumentSearchParams(): NuxeoSearchParams {
+  protected getCurrentDocumentSearchParams(): GlobalSearchParams {
     const params: any = {
       pageSize: 1,
       currentPageIndex: 0,
@@ -79,12 +79,11 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
     };
 
-    return new NuxeoSearchParams(params);
+    return new GlobalSearchParams(params);
   }
 
-  protected buildDefaultAssetsParams(doc: DocumentModel): NuxeoSearchParams {
+  protected buildDefaultAssetsParams(doc: DocumentModel): GlobalSearchParams {
     const params: any = {
-      pageSize: 20,
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
@@ -95,7 +94,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return new NuxeoSearchParams(params);
+    return new GlobalSearchParams(params);
   }
 
   protected getPath(): string {

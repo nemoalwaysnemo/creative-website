@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, GlobalSearchSettings } from '@pages/shared';
-import { DocumentModel, NuxeoSearchParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
+import { DocumentModel, GlobalSearchParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -26,7 +26,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {
       this.resultView = 'asset';
       searchParams = this.buildIndustrySearchAssetParams(searchParams, metadata);
@@ -118,13 +118,12 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: searchTerm,
     };
     if (doc) {
       params['app_edges_intelligence_category'] = `["${this.getCurrentAssetType(doc)}"]`;
     }
-    return new NuxeoSearchParams(params).setSettings(settings);
+    return new GlobalSearchParams(params, settings);
   }
 
   protected buildIndustryParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
@@ -138,7 +137,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return new NuxeoSearchParams(params).setSettings(settings);
+    return new GlobalSearchParams(params, settings);
   }
 
   protected buildIndustryAssetParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
@@ -146,24 +145,23 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: searchTerm,
     };
     if (doc) {
       params['app_edges_industry_any'] = '["' + doc.get('app_Edges:industry').join('", "') + '"]';
     }
-    return new NuxeoSearchParams(params).setSettings(settings);
+    return new GlobalSearchParams(params, settings);
   }
 
-  protected buildIndustrySearchAssetParams(searchParams: NuxeoSearchParams, metadata: any = {}): any {
+  protected buildIndustrySearchAssetParams(searchParams: GlobalSearchParams, metadata: any = {}): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
       currentPageIndex: metadata.append ? searchParams.providerParams.currentPageIndex : 0,
-      pageSize: metadata.append ? searchParams.providerParams.pageSize : 20,
+      pageSize: metadata.append ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_fulltext: searchParams.providerParams.ecm_fulltext,
     };
-    return new NuxeoSearchParams(params);
+    return new GlobalSearchParams(params);
   }
 
   private getFilters(): SearchFilterModel[] {

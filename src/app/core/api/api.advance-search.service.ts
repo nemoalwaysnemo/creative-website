@@ -3,16 +3,15 @@ import { Observable, of as observableOf, Subject } from 'rxjs';
 import { share, concat, map, tap, filter } from 'rxjs/operators';
 import { DocumentModel } from './nuxeo/lib';
 import { join } from '../services/helpers';
-import { NuxeoPagination, NuxeoSearchParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
+import { NuxeoPagination, GlobalSearchParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
 
 export class SearchResponse {
   response: NuxeoPagination;
-  readonly searchParams: NuxeoSearchParams;
-  readonly metadata: { [key: string]: any } = {};
+  readonly searchParams: GlobalSearchParams;
   readonly action: string;
   readonly source: string;
-  constructor(response: any = {}) {
-    Object.assign(this, response);
+  constructor(data: any = {}) {
+    Object.assign(this, data);
   }
 }
 
@@ -39,16 +38,16 @@ export class AdvanceSearchService {
     return this.nuxeoApi.operation(id, params, input, opts);
   }
 
-  search(provider: string, searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions, metadata: { [key: string]: any } = {}): Observable<SearchResponse> {
-    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, metadata, source: metadata.source, action: 'beforeSearch' })).pipe(
-      concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, metadata, source: metadata.source, action: 'afterSearch' }))))),
+  search(provider: string, searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): Observable<SearchResponse> {
+    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, source: searchParams.source, action: 'beforeSearch' })).pipe(
+      concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, source: searchParams.source, action: 'afterSearch' }))))),
       tap((res: SearchResponse) => this.entries$.next(res)),
       share(),
     );
   }
 
-  request(searchParams: NuxeoSearchParams, opts: NuxeoRequestOptions = new NuxeoRequestOptions(), provider: string = this.provider): Observable<NuxeoPagination> {
-    const params = searchParams instanceof NuxeoSearchParams ? searchParams : new NuxeoSearchParams(searchParams);
+  request(searchParams: GlobalSearchParams, opts: NuxeoRequestOptions = new NuxeoRequestOptions(), provider: string = this.provider): Observable<NuxeoPagination> {
+    const params = searchParams instanceof GlobalSearchParams ? searchParams : new GlobalSearchParams(searchParams);
     return this.execute(this.getRequestUrl(provider), params, opts);
   }
 
@@ -61,7 +60,7 @@ export class AdvanceSearchService {
       pageSize: uids.length,
       ecm_uuid: `["${uids.join('", "')}"]`,
     };
-    return this.request(new NuxeoSearchParams(params), new NuxeoRequestOptions({ schemas: ['dublincore'] }));
+    return this.request(new GlobalSearchParams(params), new NuxeoRequestOptions({ schemas: ['dublincore'] }));
   }
 
   requestTitleByUIDs(res: NuxeoPagination, properties: string[]): Observable<NuxeoPagination> {
@@ -87,7 +86,7 @@ export class AdvanceSearchService {
         ecm_uuid: `["${distIds.join('", "')}"]`,
       };
 
-      return this.request(new NuxeoSearchParams(params), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
+      return this.request(new GlobalSearchParams(params), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
         .pipe(
           map((response: NuxeoPagination) => {
             response.entries.forEach((resDoc: DocumentModel) => { listNew[resDoc.uid] = resDoc.title; });
@@ -103,7 +102,7 @@ export class AdvanceSearchService {
     return observableOf(res);
   }
 
-  protected execute(url: string, queryParams: NuxeoSearchParams, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
+  protected execute(url: string, queryParams: GlobalSearchParams, opts: NuxeoRequestOptions): Observable<NuxeoPagination> {
     return this.nuxeoApi.pageProvider(url, queryParams.toRequestParams(), opts);
   }
 

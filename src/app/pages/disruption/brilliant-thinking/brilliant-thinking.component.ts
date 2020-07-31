@@ -23,7 +23,6 @@ export class BrilliantThinkingComponent extends GlobalDocumentViewComponent impl
   ];
 
   defaultParams: any = {
-    pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_THINKING_PATH,

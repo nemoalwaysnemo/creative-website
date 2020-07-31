@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { filter, share } from 'rxjs/operators';
-import { AdvanceSearchService, NuxeoSearchParams, NuxeoRequestOptions, SearchResponse, NuxeoPagination } from '@core/api';
+import { AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, SearchResponse, NuxeoPagination } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
 
 export class GlobalSearchFormEvent {
   [key: string]: any;
   readonly metadata: any = {};
   readonly name: string;
-
   constructor(data: any = {}) {
     Object.assign(this, data);
   }
@@ -26,13 +25,13 @@ export class GlobalSearchFormService {
     private googleAnalyticsService: GoogleAnalyticsService) {
   }
 
-  advanceRequest(searchParams: NuxeoSearchParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
+  advanceRequest(searchParams: GlobalSearchParams, opts?: NuxeoRequestOptions, provider?: string): Observable<NuxeoPagination> {
     return this.advanceSearchService.request(searchParams, opts, provider);
   }
 
-  advanceSearch(provider: string, searchParams: NuxeoSearchParams = new NuxeoSearchParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions(), metadata: any = {}): Observable<SearchResponse> {
-    this.googleAnalyticsTrackEvent(metadata);
-    return this.advanceSearchService.search(provider, searchParams, opts, metadata);
+  advanceSearch(provider: string, searchParams: GlobalSearchParams = new GlobalSearchParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions()): Observable<SearchResponse> {
+    this.googleAnalyticsTrackEvent(searchParams);
+    return this.advanceSearchService.search(provider, searchParams, opts);
   }
 
   onSearch(): Observable<SearchResponse> {
@@ -48,21 +47,22 @@ export class GlobalSearchFormService {
     return this;
   }
 
-  changePageIndex(currentPageIndex: number, pageSize: number = 20, metadata: any = {}): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: new NuxeoSearchParams({ currentPageIndex, pageSize }), metadata }));
+  changePageIndex(currentPageIndex: number, pageSize: number = 20, settings: any = {}): void {
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: new GlobalSearchParams({ currentPageIndex, pageSize }), settings }));
   }
 
-  search(searchParams: NuxeoSearchParams, metadata: any = {}): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams, metadata }));
+  search(params: GlobalSearchParams, settings: any = {}): void {
+    const searchParams = params instanceof GlobalSearchParams ? params : new GlobalSearchParams(params, settings);
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams }));
   }
 
-  private googleAnalyticsTrackEvent(metadata: any = {}): void {
-    if (['onKeywordChanged', 'onFilterChanged'].includes(metadata.event)) {
+  private googleAnalyticsTrackEvent(searchParams: GlobalSearchParams): void {
+    if (['onKeywordChanged', 'onFilterChanged'].includes(searchParams.event)) {
       this.googleAnalyticsService.trackSearch({
         'event_category': 'Search',
-        'event_action': `Search - ${metadata.event}`,
-        'event_label': `Search - ${metadata.event}`,
-        queryParams: metadata.searchParams,
+        'event_action': `Search - ${searchParams.event}`,
+        'event_label': `Search - ${searchParams.event}`,
+        queryParams: searchParams.toQueryParams(),
       });
     }
   }

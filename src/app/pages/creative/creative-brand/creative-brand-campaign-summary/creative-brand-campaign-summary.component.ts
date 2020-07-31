@@ -193,7 +193,6 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_CAMPAIGN_TYPE,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {
@@ -207,7 +206,6 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_PROJECT_TYPE,
       ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {
@@ -223,7 +221,6 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

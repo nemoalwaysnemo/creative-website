@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, NuxeoSearchParams, UserModel } from '@core/api';
+import { NuxeoPagination, DocumentModel, GlobalSearchParams, UserModel } from '@core/api';
 import { DocumentPageService } from '@pages/shared';
 import { Subscription } from 'rxjs';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -54,7 +54,7 @@ export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
   }
 
   private search(params: {}): void {
-    const subscription = this.documentPageService.advanceRequest(new NuxeoSearchParams(params))
+    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;
         this.loading = false;

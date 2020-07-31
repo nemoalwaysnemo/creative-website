@@ -59,8 +59,8 @@ export class DocumentRelatedBrandComponent {
     this.baseParams$.next(Object.assign({}, params));
   }
 
-  onResponse(event: any): void {
-    if (event.source === 'document-related-brand') {
+  onResponse(res: SearchResponse): void {
+    if (res.source === 'document-related-brand') {
       this.append = false;
     }
   }
