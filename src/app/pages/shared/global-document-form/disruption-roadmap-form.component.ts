@@ -162,10 +162,9 @@ export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent 
         },
       }),
       new DynamicInputModel({
-        id: 'The_Loupe_Main:description',
+        id: 'dc:description',
         label: 'Description',
-        formMode: 'edit',
-        placeholder: 'description',
+        placeholder: 'Description',
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
