@@ -185,7 +185,7 @@ export class BizDevCaseStudyFolderFormComponent extends GlobalDocumentFormCompon
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Image/PDF here!',
+        placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
         acceptTypes: 'image/*,.pdf',
       }),
       new DynamicBatchUploadModel<string>({

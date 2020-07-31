@@ -180,17 +180,8 @@ export class BizDevThoughtFolderFormComponent extends GlobalDocumentFormComponen
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Image/PDF here!',
+        placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
         acceptTypes: 'image/*,.pdf',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
