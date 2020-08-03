@@ -2,7 +2,7 @@
   <ng-container *ngIf="downloadPermission$ | async">
     <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right btn" title="Download">Download</a>
   </ng-container>
-  <ng-container *ngIf="downloadPermission$ | async">
+  <ng-container *ngIf="!isCreativeVideoAsset(documentModel) && downloadPermission$ | async">
     <a href="{{documentModel.previewUrl}}" class="preview right btn" title="Preview" target="_blank">Preview</a>
   </ng-container>
   <ng-container *ngIf="isNeedSendDownloadRequest(documentModel)">

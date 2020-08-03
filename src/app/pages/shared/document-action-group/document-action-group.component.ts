@@ -71,6 +71,12 @@ export class DocumentActionGroupComponent {
     return this.isBizDevCaseStudyAsset(doc) && doc.get('app_global:asset_request') === true;
   }
 
+  isCreativeVideoAsset(doc: DocumentModel): boolean {
+    if (this.isCreativeAsset(doc)) {
+      return (doc.type === 'App-Library-Video') ? true : false;
+    }
+  }
+
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
     return combineLatest(
       doc.hasPermission(NuxeoPermission.ReadWrite),
