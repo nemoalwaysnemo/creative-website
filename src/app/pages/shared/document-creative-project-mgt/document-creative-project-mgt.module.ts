@@ -8,6 +8,7 @@ import { DocumentCreativeProjectRelatedAssetComponent } from './document-creativ
 import { DocumentCreativeProjectAssetPackageComponent } from './document-creative-project-asset-package/document-creative-project-asset-package.component';
 import { DocumentCreativeProjectDeliveryPackageComponent } from './document-creative-project-delivery-package/document-creative-project-delivery-package.component';
 import { DocumentCreativeProjectReportBuyontTalentInformationComponent } from './document-creative-project-completion-report/document-creative-project-report-buyout-talent-information/document-creative-project-report-buyout-talent-information.component';
+import { DocumentCreativeProjectImportAssetComponent } from './document-creative-project-import-asset/document-creative-project-import-asset.component';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
 import { DocumentFormModule } from '../document-form/document-form.module';
 import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
@@ -28,6 +29,7 @@ import { DocumentListViewModule } from '../document-list-view/document-list-view
     DocumentCreativeProjectAssetPackageComponent,
     DocumentCreativeProjectDeliveryPackageComponent,
     DocumentCreativeProjectReportBuyontTalentInformationComponent,
+    DocumentCreativeProjectImportAssetComponent,
   ],
   exports: [
     DocumentCreativeProjectInfoComponent,
@@ -36,6 +38,7 @@ import { DocumentListViewModule } from '../document-list-view/document-list-view
     DocumentCreativeProjectAssetPackageComponent,
     DocumentCreativeProjectDeliveryPackageComponent,
     DocumentCreativeProjectReportBuyontTalentInformationComponent,
+    DocumentCreativeProjectImportAssetComponent,
   ],
 })
 export class DocumentCreativeProjectMgtModule {
