@@ -65,8 +65,8 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   onKeyEnter(event: KeyboardEvent): void {
-    const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
-    this.redirectToListPage(params);
+    // const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
+    // this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();
   }

@@ -26,7 +26,7 @@ export class KnowledgeDocumentAssetSearchComponent extends BaseDocumentViewCompo
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
     new SearchFilterModel({
-      key: 'ecm_primaryType_predicate', placeholder: 'Module', options: [
+      key: 'ecm_primaryType__in', placeholder: 'Module', options: [
         { label: 'Disruption', value: NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE },
         { label: 'Intelligence', value: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE },
         { label: 'Backslash', value: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES },

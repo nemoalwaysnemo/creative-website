@@ -1,4 +1,4 @@
-import { join, objHasValue, filterParams } from '../../../services/helpers';
+import { join, objHasValue } from '../../../services/helpers';
 import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';
@@ -139,6 +139,58 @@ export class NuxeoResponse {
   }
 }
 
+export class NuxeoQueryParams {
+  [key: string]: any;
+  currentPageIndex: number;
+  constructor(params: any = {}) {
+    if (objHasValue(params)) {
+      this.merge(params);
+    }
+  }
+
+  merge(params: any = {}): this {
+    Object.assign(this, params);
+    return this;
+  }
+
+  // convert query params to form values
+  toSearchParams(): any {
+    const params: any = {};
+    const queryParams = this;
+    const keys = Object.keys(this);
+    if (keys.length > 0) {
+      if (queryParams['q']) {
+        params['ecm_fulltext'] = queryParams['q'];
+      }
+      if (queryParams['currentPageIndex'] && typeof queryParams['currentPageIndex'] === 'number') {
+        params['currentPageIndex'] = queryParams['currentPageIndex'];
+      }
+      params['aggregates'] = {};
+      for (const key of keys) {
+        if (key.includes('_agg')) {
+          params['aggregates'][key] = typeof queryParams[key] === 'string' ? [queryParams[key]] : queryParams[key];
+        } else if (key.includes('__in')) {
+          try {
+            params['aggregates'][key] = [];
+            if (Array.isArray(queryParams[key])) {
+              queryParams[key].forEach((v: any, i: number) => params['aggregates'][key][i] = `["${v.replace(/ /g, '').split(',').join('", "')}"]`);
+            } else {
+              params['aggregates'][key][0] = `["${queryParams[key].replace(/ /g, '').split(',').join('", "')}"]`;
+            }
+          } catch (error) {
+            console.warn('filter parse error', error);
+          }
+        } else if (key.includes('__eq')) {
+          params['aggregates'][key] = queryParams[key];
+        } else {
+          params[key] = queryParams[key];
+        }
+      }
+    }
+    return params;
+  }
+}
+
 export class NuxeoSearchParams {
   [key: string]: any;
   currentPageIndex: number = 0;
@@ -194,20 +246,16 @@ export class GlobalSearchParams {
 
   private searchParams: NuxeoSearchParams;
 
-  private queryParams: NuxeoSearchParams;
-
   constructor(params: any = {}, settings: any = {}) {
     this.setParams(params);
-    console.log((new Error()).stack);
-    this.settings = settings;
+    // console.log((new Error()).stack);
+    if (objHasValue(settings)) {
+      this.settings = settings;
+    }
   }
 
   get providerParams(): NuxeoSearchParams {
     return this.searchParams;
-  }
-
-  get ecm_fulltext_wildcard(): string {
-    return this.providerParams.ecm_fulltext_wildcard;
   }
 
   hasKeyword(): boolean {
@@ -265,27 +313,14 @@ export class GlobalSearchParams {
         params[key] = value;
       }
     }
-    if (params['ecm_fulltext']) {
+    if (this.searchParams['ecm_fulltext']) {
       params[this.getFulltextKey()] = params['ecm_fulltext'];
     }
-    if (objHasValue(params['aggregates'])) {
-      params = this.buildAggSearchParams(params['aggregates'], params);
+    if (objHasValue(this.searchParams['aggregates'])) {
+      params = this.buildAggSearchParams(this.searchParams['aggregates'], params);
     }
-    if (params['ecm_mixinType'] || !params['ecm_mixinType_not_in']) {
+    if (this.searchParams['ecm_mixinType'] || !this.searchParams['ecm_mixinType_not_in']) {
       delete params['ecm_mixinType_not_in'];
-    }
-    return params;
-  }
-
-  // used for merge
-  toSearchParams(): any {
-    const params: any = {};
-    const keys: string[] = ['keyword'];
-    const providerParams = Object.entries(this.searchParams);
-    for (const [key, value] of providerParams) {
-      if (!keys.includes(key)) {
-        params[key] = value;
-      }
     }
     return params;
   }
@@ -293,60 +328,57 @@ export class GlobalSearchParams {
   // used for url query string
   toQueryParams(): any {
     const params: any = {};
-    const keys = ['ecm_fulltext', 'currentPageIndex'];
-    for (const [key, value] of Object.entries(this)) {
-      if (keys.includes(key) || key.includes('_agg')) {
-        if (key === 'ecm_fulltext') {
-          params['q'] = value;
-        } else {
-          params[key] = value;
+    const aggregates = this.searchParams.aggregates;
+    if (objHasValue(aggregates)) {
+      const keys = Object.keys(aggregates).filter((key) => aggregates[key].length > 0);
+      for (const key of keys) {
+        if (key.includes('_agg')) {
+          params[key] = aggregates[key];
+        } else if (key.includes('__in')) {
+          try {
+            if (Array.isArray(aggregates[key])) {
+              params[key] = [];
+              aggregates[key].forEach((v: any, i: number) => params[key][i] = JSON.parse(v).join(','));
+            }
+          } catch (error) {
+            console.warn('filter parse error', error);
+          }
+        } else if (key.includes('__eq')) {
+          params[key] = aggregates[key];
         }
       }
     }
+    if (this.searchParams.ecm_fulltext) {
+      params['q'] = this.searchParams.ecm_fulltext;
+    }
+    if (this.searchParams.currentPageIndex > 0) {
+      params['currentPageIndex'] = this.searchParams.currentPageIndex;
+    }
     return params;
   }
-
-  // protected buildRequestParams(opts: NuxeoSearchParams): GlobalSearchParams {
-  //   const options = opts || {};
-  //   const searchTerm: any = {};
-  //   if (options.hasOwnProperty('ecm_fulltext')) {
-  //     if (options.ecm_fulltext) {
-  //       searchTerm.ecm_fulltext = `${opts.ecm_fulltext}`;
-  //     } else {
-  //       delete options.ecm_fulltext;
-  //     }
-  //   }
-  //   if (!options.hasOwnProperty('ecm_path') && !options.hasOwnProperty('ecm_path_eq')) {
-  //     searchTerm.ecm_path = '/';
-  //   } else if (options.hasOwnProperty('ecm_path_eq')) {
-  //     options.ecm_path_eq = '/' + options.ecm_path_eq.split('/').filter((x: string) => x.trim()).join('/');
-  //   }
-
-  //   const searchParams: GlobalSearchParams = new GlobalSearchParams(deepExtend({}, this.defaultParams, options, searchTerm));
-  //   if (searchParams.hasOwnProperty('ecm_mixinType') || !searchParams['ecm_mixinType_not_in']) {
-  //     delete searchParams.ecm_mixinType_not_in;
-  //   }
-  //   return searchParams;
-  // }
 
   private buildAggSearchParams(aggregates: any = {}, params: any = {}): any {
     if (objHasValue(aggregates)) {
-      Object.keys(aggregates).filter((key) => aggregates[key].length > 0).forEach((key) => { params[key] = `["${aggregates[key].join('", "')}"]`; });
+      const keys = Object.keys(aggregates).filter((key) => aggregates[key].length > 0);
+      for (const key of keys) {
+        if (key.includes('__in')) {
+          if (Array.isArray(aggregates[key])) {
+            let p = [];
+            const k = key.replace('__in', '');
+            aggregates[key].forEach((v: any) => p = p.concat(JSON.parse(v)));
+            params[k] = `["${p.join('", "')}"]`;
+          }
+        } else if (key.includes('__eq')) {
+          const k = key.replace('__eq', '');
+          params[k] = aggregates[key];
+        } else {
+          params[key] = `["${aggregates[key].join('", "')}"]`;
+        }
+      }
     }
     return params;
   }
 
-  private performPredicate(opts: any = {}): any {
-    if (objHasValue(opts.aggregates)) {
-      for (const agg in opts.aggregates) {
-        if (agg.includes('_predicate')) {
-          const predicate = agg.replace('_predicate', '');
-          opts[predicate] = opts.aggregates[agg];
-        }
-      }
-    }
-    return opts;
-  }
 }
 
 export class NuxeoRequestOptions {

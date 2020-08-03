@@ -36,8 +36,8 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent {
   }
 
   onKeyEnter(event: KeyboardEvent): void {
-    const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
-    this.redirectToListPage(params);
+    // const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
+  // this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();
   }

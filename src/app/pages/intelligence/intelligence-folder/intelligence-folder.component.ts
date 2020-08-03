@@ -26,10 +26,10 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions, metadata: any): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() && this.documentType === 'Industry') {
       this.resultView = 'asset';
-      searchParams = this.buildIndustrySearchAssetParams(searchParams, metadata);
+      searchParams = this.buildIndustrySearchAssetParams(searchParams);
     } else {
       if (['Industry'].includes(this.documentType)) {
         this.resultView = 'folder';
@@ -153,12 +153,12 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     return new GlobalSearchParams(params, settings);
   }
 
-  protected buildIndustrySearchAssetParams(searchParams: GlobalSearchParams, metadata: any = {}): any {
+  protected buildIndustrySearchAssetParams(searchParams: GlobalSearchParams): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
-      currentPageIndex: metadata.append ? searchParams.providerParams.currentPageIndex : 0,
-      pageSize: metadata.append ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
+      currentPageIndex: searchParams.getSettings('append') ? searchParams.providerParams.currentPageIndex : 0,
+      pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_fulltext: searchParams.providerParams.ecm_fulltext,
     };
     return new GlobalSearchParams(params);
