@@ -55,6 +55,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     enableEdit: false,
     enableDeletion: false,
     moreInfo: true,
+    enableDetail: true,
   };
 
   backslashTitle: string = 'Backslash';

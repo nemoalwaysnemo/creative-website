@@ -24,8 +24,11 @@
             <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right preview">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
-          <ng-container *ngIf="isDisruptionAsset(document) && getDialogSettings().enableDetail">
+          <ng-container *ngIf="isDisruptionAsset(document) && getDialogSettings().enableDetail && !isDisruptionRoadmapAsset(document)">
             <a [routerLink]="['/p/disruption/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          </ng-container>
+          <ng-container *ngIf="isIntelligenceAsset(document) && getDialogSettings().enableDetail">
+            <a [routerLink]="['/p/intelligence/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
           </ng-container>
           <ng-container *ngIf="deletePermission$ | async">
             <button class="right edit delete" (click)="selectView('document-dialog-deletion-template')">Delete</button>
@@ -47,7 +50,8 @@
             </tr>
             <tr>
               <td *ngIf="isIntelligenceAsset(document)">{{ document.get('app_Edges:intelligence_type') }}</td>
-              <td *ngIf="isDisruptionAsset(document)">{{ document.get('app_Edges:disruption_type') }}</td>
+              <td *ngIf="isDisruptionAsset(document) && isDisruptionRoadmapAsset(document)">{{ document.get('app_Edges:disruption_type') }}</td>
+              <td *ngIf="isDisruptionAsset(document) && !isDisruptionRoadmapAsset(document)">{{ document.get('The_Loupe_Main:assettype') }}</td>
               <td>{{ document.get('app_Edges:industry') }}</td>
             </tr>
             <tr>
