@@ -186,6 +186,7 @@ export class NuxeoQueryParams {
           params[key] = queryParams[key];
         }
       }
+      delete params['q'];
     }
     return params;
   }
@@ -226,7 +227,7 @@ export class NuxeoSearchParams {
   }
 
   hasFilters(): boolean {
-    return this.hasParam('_agg');
+    return objHasValue(this.aggregates);
   }
 
   hasParam(name: string): boolean {
@@ -275,24 +276,8 @@ export class GlobalSearchParams {
     return this;
   }
 
-  mergeParams(params: any): this {
-    this.providerParams.merge(params);
-    return this;
-  }
-
   hasSettings(): boolean {
     return objHasValue(this.settings);
-  }
-
-  mergeSettings(opts: any = {}): this {
-    if (objHasValue(opts)) {
-      Object.assign(this.settings, opts);
-    }
-    return this;
-  }
-
-  setSettings(key: string, value: any): void {
-    this.settings[key] = value;
   }
 
   getSettings(key?: string): any {
@@ -302,11 +287,10 @@ export class GlobalSearchParams {
   getFulltextKey(): string {
     return this.getSettings('fulltextKey') || 'ecm_fulltext';
   }
-
   // used for nuxeoApi.pageProvider request
   toRequestParams(): any {
     let params: any = {};
-    const keys: string[] = ['keyword', 'ecm_fulltext', 'aggregates'];
+    const keys: string[] = ['keyword', 'ecm_fulltext', 'aggregates', 'showFilter'];
     const providerParams = Object.entries(this.searchParams);
     for (const [key, value] of providerParams) {
       if (!keys.includes(key)) {
@@ -314,7 +298,7 @@ export class GlobalSearchParams {
       }
     }
     if (this.searchParams['ecm_fulltext']) {
-      params[this.getFulltextKey()] = params['ecm_fulltext'];
+      params[this.getFulltextKey()] = this.searchParams['ecm_fulltext'];
     }
     if (objHasValue(this.searchParams['aggregates'])) {
       params = this.buildAggSearchParams(this.searchParams['aggregates'], params);
@@ -353,6 +337,15 @@ export class GlobalSearchParams {
     }
     if (this.searchParams.currentPageIndex > 0) {
       params['currentPageIndex'] = this.searchParams.currentPageIndex;
+    }
+    if (objHasValue(this.settings)) {
+      const keys: string[] = ['showFilter'];
+      const settings = Object.entries(this.settings);
+      for (const [key, value] of settings) {
+        if (keys.includes(key)) {
+          params[key] = value;
+        }
+      }
     }
     return params;
   }

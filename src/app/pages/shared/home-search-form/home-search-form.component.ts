@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
-import { DocumentModel, SearchResponse } from '@core/api';
+import { DocumentModel, SearchResponse, GlobalSearchParams } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
@@ -65,8 +65,8 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   onKeyEnter(event: KeyboardEvent): void {
-    // const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
-    // this.redirectToListPage(params);
+    const params = new GlobalSearchParams(this.getFormValue(), (this.openSearchFilter ? { showFilter: true } : {})).toQueryParams();
+    this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();
   }

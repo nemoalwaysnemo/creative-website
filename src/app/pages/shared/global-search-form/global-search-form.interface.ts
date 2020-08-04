@@ -3,6 +3,8 @@ export class GlobalSearchSettings {
 
   schemas?: string[];
 
+  enableQueryParams: boolean = false;
+
   skipAggregates: boolean = false;
 
   showFilter: boolean = false;
@@ -19,8 +21,6 @@ export class GlobalSearchSettings {
 }
 
 export class GlobalSearchFormSettings extends GlobalSearchSettings {
-
-  enableQueryParams: boolean = false;
 
   enableSearchInput: boolean = true;
 

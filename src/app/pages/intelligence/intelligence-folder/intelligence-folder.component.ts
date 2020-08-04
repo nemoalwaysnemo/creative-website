@@ -51,6 +51,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     if (this.document) {
       this.triggerSearch(this.document, event.target.value.trim(), new GlobalSearchSettings({
         fulltextKey: 'intelligence_fulltext',
+        enableQueryParams: false,
         syncFormValue: false,
         showFilter: true,
       }));

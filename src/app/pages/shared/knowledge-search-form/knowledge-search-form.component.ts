@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, GlobalSearchParams } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { HomeSearchFormComponent } from '../home-search-form/home-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
@@ -36,8 +36,8 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent {
   }
 
   onKeyEnter(event: KeyboardEvent): void {
-    // const params = this.buildQueryParams(this.openSearchFilter ? { showFilter: true } : {});
-  // this.redirectToListPage(params);
+    const params = new GlobalSearchParams(this.getFormValue(), (this.openSearchFilter ? { showFilter: true } : {})).toQueryParams();
+    this.redirectToListPage(params);
     event.preventDefault();
     event.stopImmediatePropagation();
   }
