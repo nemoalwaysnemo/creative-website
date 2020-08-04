@@ -58,4 +58,8 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
         share(),
       );
   }
+
+  isVideoAsset(doc: DocumentModel): boolean {
+    return (doc.type === 'App-Library-Video') ? true : false;
+  }
 }

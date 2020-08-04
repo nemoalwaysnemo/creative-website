@@ -76,6 +76,13 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
     return parseCountry(list);
   }
 
+  isDisruptionRoadmapAsset(doc: DocumentModel): boolean {
+    if (this.isDisruptionAsset(doc)) {
+      return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE).includes(doc.type);
+    }
+    return false;
+  }
+
   buildShareUrl(doc: DocumentModel): string {
     if (this.isIntelligenceAsset(doc)) {
       return this.documentPageService.getCurrentAppUrl('intelligence/asset/' + doc.uid);

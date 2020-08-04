@@ -122,6 +122,12 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   isInnovationAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE).includes(doc.type);
   }
+  isDisruptionRoadmapAsset(doc: DocumentModel): boolean {
+    if (this.isDisruptionAsset(doc)) {
+      return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE).includes(doc.type);
+    }
+    return false;
+  }
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
