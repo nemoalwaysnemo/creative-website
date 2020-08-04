@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearchService } from '@core/api';
+import { NuxeoPagination, DocumentModel, AdvanceSearchService, GlobalSearchParams } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { Subscription } from 'rxjs';
 
@@ -18,11 +18,11 @@ export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  private params: any = {
+  private params: GlobalSearchParams = new GlobalSearchParams({
     pageSize: 3,
     ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,
-  };
+  });
 
   constructor(private advanceSearchService: AdvanceSearchService) { }
 

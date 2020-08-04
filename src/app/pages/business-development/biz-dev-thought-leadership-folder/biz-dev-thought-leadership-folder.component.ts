@@ -52,8 +52,7 @@ export class BizDevThoughtLeadershipFolderComponent extends GlobalDocumentViewCo
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {
-    const params = {
-      pageSize: 20,
+    const params: any = {
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',

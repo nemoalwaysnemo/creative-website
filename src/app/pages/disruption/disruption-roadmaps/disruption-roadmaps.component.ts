@@ -23,7 +23,6 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
   ];
 
   defaultParams: any = {
-    pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE,
@@ -32,7 +31,6 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
   };
 
   featuredParams: any = {
-    pageSize: 20,
     currentPageIndex: 0,
     ecm_fulltext: '',
     app_edges_featured_asset: true,

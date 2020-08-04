@@ -60,11 +60,10 @@ export class CreativeBrandProjectComponent extends GlobalDocumentViewComponent {
   }
 
   protected buildProjectParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_PROJECT_TYPE,
       ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

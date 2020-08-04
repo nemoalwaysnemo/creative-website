@@ -55,7 +55,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected getCurrentDocumentRequestParams(): NuxeoRequestOptions {
-    return null;
+    return new NuxeoRequestOptions();
   }
 
   protected getDocumentModel(uid: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {

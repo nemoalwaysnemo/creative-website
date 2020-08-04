@@ -86,28 +86,37 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
   private buildAggOptionSettings(filters: SearchFilterModel[] = [], models: AggregateModel[] = []): OptionSettings[] {
     const settings: OptionSettings[] = [];
     filters.forEach((filter: SearchFilterModel) => {
-      const agg: AggregateModel = models.find((x: AggregateModel) => x.id === filter.key);
-      if (agg) {
-        const options = [];
-        const id = agg.id;
-        const placeholder = filter.placeholder;
-        const bufferSize = filter.bufferSize;
-        const iteration = filter.iteration;
-        for (const bucket of agg.extendedBuckets) {
-          if (filter.filterValueFn && filter.filterValueFn(bucket)) {
-            options.push(this.buildOptionModel(bucket, filter.optionLabels));
+      if (filter.options) {
+        const options = filter.options.map((opt: any) => this.buildOptionModel(opt.label, opt.value));
+        settings.push(new OptionSettings({ id: filter.key, placeholder: filter.placeholder, options }));
+      } else {
+        const agg: AggregateModel = models.find((x: AggregateModel) => x.id === filter.key);
+        if (agg) {
+          const options = [];
+          const id = agg.id;
+          const placeholder = filter.placeholder;
+          const bufferSize = filter.bufferSize;
+          const iteration = filter.iteration;
+          for (const bucket of agg.extendedBuckets) {
+            if (filter.filterValueFn && filter.filterValueFn(bucket)) {
+              options.push(this.buildAggOptionModel(bucket, filter.optionLabels));
+            }
           }
+          settings.push(new OptionSettings({ id, placeholder, options, iteration, bufferSize }));
         }
-        settings.push(new OptionSettings({ id, placeholder, options, iteration, bufferSize }));
       }
     });
     return settings;
   }
 
-  private buildOptionModel(agg: any = {}, labels: any = {}): OptionModel {
+  private buildAggOptionModel(agg: any = {}, labels: any = {}): OptionModel {
     const aggKey = labels && (labels[agg.label] || labels[agg.key]) ? (labels[agg.label] || labels[agg.key]) : (agg.label || agg.key);
     const label = `${aggKey} (${agg.docCount})`;
-    const value = agg.key.replace(/\\/gi, String.fromCharCode(92, 92));
+    return this.buildOptionModel(label, agg.key);
+  }
+
+  private buildOptionModel(label: string, val: any): OptionModel {
+    const value = typeof val === 'string' ? val.replace(/\\/gi, String.fromCharCode(92, 92)) : val;
     return new OptionModel({ label, value });
   }
 }

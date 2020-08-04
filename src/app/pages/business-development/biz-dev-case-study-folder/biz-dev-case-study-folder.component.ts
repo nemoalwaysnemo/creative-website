@@ -66,11 +66,10 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
   }
 
   protected buildSubFolderParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {
@@ -80,12 +79,11 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
   }
 
   protected buildCaseAssetParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

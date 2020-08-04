@@ -60,10 +60,9 @@ export class CreativeBrandCampaignComponent extends GlobalDocumentViewComponent 
   }
 
   protected buildCampaignParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_CAMPAIGN_TYPE,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

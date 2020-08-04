@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoPageProviderParams, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, NuxeoPermission, SearchFilterModel, GlobalSearchParams, NuxeoPageProviderConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../innovation-tab-config';
@@ -49,8 +49,8 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
     }
   }
 
-  protected getCurrentDocumentSearchParams(): NuxeoPageProviderParams {
-    const params = {
+  protected getCurrentDocumentSearchParams(): GlobalSearchParams {
+    const params: any = {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_fulltext: '',
@@ -59,16 +59,15 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
     };
 
-    return new NuxeoPageProviderParams(params);
+    return new GlobalSearchParams(params);
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
       ecm_path: this.getPath(),
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

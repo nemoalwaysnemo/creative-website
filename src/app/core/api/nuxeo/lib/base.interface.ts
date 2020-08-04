@@ -58,11 +58,12 @@ export class AggregateModel {
 
 export class SearchFilterModel {
   readonly key: string;
+  readonly options?: any[];
   readonly placeholder: string;
   readonly iteration?: boolean = false;
   readonly optionLabels?: any = {};
   readonly bufferSize?: number = 50;
-  readonly visibleFn: Function = (searchParams: NuxeoPageProviderParams): boolean => true;
+  readonly visibleFn: Function = (searchParams: GlobalSearchParams): boolean => true;
   readonly filterValueFn: Function = (bucket: any): boolean => true;
 
   constructor(data: any = {}) {
@@ -138,45 +139,87 @@ export class NuxeoResponse {
   }
 }
 
-export class NuxeoPageProviderParams {
+export class NuxeoQueryParams {
   [key: string]: any;
-  currentPageIndex?: number = 0;
-  pageSize?: number = 20;
-  ecm_path?: string;
-  sortBy?: string;
-  sortOrder?: string;
+  currentPageIndex: number;
+  constructor(params: any = {}) {
+    if (objHasValue(params)) {
+      this.merge(params);
+    }
+  }
+
+  merge(params: any = {}): this {
+    Object.assign(this, params);
+    return this;
+  }
+
+  // convert query params to form values
+  toSearchParams(): any {
+    const params: any = {};
+    const queryParams = this;
+    const keys = Object.keys(this);
+    if (keys.length > 0) {
+      if (queryParams['q']) {
+        params['ecm_fulltext'] = queryParams['q'];
+      }
+      if (queryParams['currentPageIndex'] && typeof queryParams['currentPageIndex'] === 'number') {
+        params['currentPageIndex'] = queryParams['currentPageIndex'];
+      }
+      params['aggregates'] = {};
+      for (const key of keys) {
+        if (key.includes('_agg')) {
+          params['aggregates'][key] = typeof queryParams[key] === 'string' ? [queryParams[key]] : queryParams[key];
+        } else if (key.includes('__in')) {
+          try {
+            params['aggregates'][key] = [];
+            if (Array.isArray(queryParams[key])) {
+              queryParams[key].forEach((v: any, i: number) => params['aggregates'][key][i] = `["${v.replace(/ /g, '').split(',').join('", "')}"]`);
+            } else {
+              params['aggregates'][key][0] = `["${queryParams[key].replace(/ /g, '').split(',').join('", "')}"]`;
+            }
+          } catch (error) {
+            console.warn('filter parse error', error);
+          }
+        } else if (key.includes('__eq')) {
+          params['aggregates'][key] = queryParams[key];
+        } else {
+          params[key] = queryParams[key];
+        }
+      }
+      delete params['q'];
+    }
+    return params;
+  }
+}
+
+export class NuxeoSearchParams {
+  [key: string]: any;
+  currentPageIndex: number = 0;
+  pageSize: number = 20;
+  ecm_path: string = '/';
+  ecm_fulltext: string = '';
+  ecm_primaryType: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
+  ecm_mixinType?: string;
   ecm_mixinType_not_in?: string = NuxeoPageProviderConstants.HiddenInNavigation;
   highlight?: string = 'dc:title.fulltext,ecm:binarytext,dc:description.fulltext,ecm:tag,note:note.fulltext,file:content.name';
   quickFilters?: string = `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
+  sortOrder?: string;
   keyword?: string;
-  ecm_fulltext?: string;
-  production_date?: string; // production_date: '["lastYear"]',
-  ecm_primaryType?: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
+  sortBy?: string;
 
-  private settings: any = {};
-
-  constructor(opts: any = {}) {
-    this.update(opts);
-  }
-
-  update(opts: any = {}): this {
-    Object.assign(this, opts);
-    return this;
-  }
-
-  hasSettings(): boolean {
-    return objHasValue(this.settings);
-  }
-
-  setSettings(opts: any = {}): this {
-    if (objHasValue(opts)) {
-      Object.assign(this.settings, opts);
+  constructor(params: any = {}) {
+    if (objHasValue(params)) {
+      this.merge(params);
     }
-    return this;
   }
 
-  getSettings(key?: string): any {
-    return key ? this.settings[key] : this.settings;
+  get ecm_fulltext_wildcard(): string {
+    return `${this.ecm_fulltext}*`;
+  }
+
+  merge(params: any = {}): this {
+    Object.assign(this, params);
+    return this;
   }
 
   hasKeyword(): boolean {
@@ -184,51 +227,122 @@ export class NuxeoPageProviderParams {
   }
 
   hasFilters(): boolean {
-    return this.hasFilter('_agg');
+    return objHasValue(this.aggregates);
   }
 
-  hasFilter(agg: string): boolean {
-    return Object.getOwnPropertyNames(this).some((key: string) => key.includes(agg));
+  hasParam(name: string): boolean {
+    return Object.getOwnPropertyNames(this).some((key: string) => key.includes(name));
+  }
+}
+
+export class GlobalSearchParams {
+
+  static readonly PageSize: number = 20;
+
+  event: string;
+
+  source: string;
+
+  private settings: any = {};
+
+  private searchParams: NuxeoSearchParams;
+
+  constructor(params: any = {}, settings: any = {}) {
+    this.setParams(params);
+    // console.log((new Error()).stack);
+    if (objHasValue(settings)) {
+      this.settings = settings;
+    }
+  }
+
+  get providerParams(): NuxeoSearchParams {
+    return this.searchParams;
+  }
+
+  hasKeyword(): boolean {
+    return this.providerParams.hasKeyword();
+  }
+
+  hasFilters(): boolean {
+    return this.providerParams.hasFilters();
+  }
+
+  hasParam(key: string): boolean {
+    return this.providerParams.hasParam(key);
+  }
+
+  setParams(params: any): this {
+    this.searchParams = new NuxeoSearchParams(params);
+    return this;
+  }
+
+  hasSettings(): boolean {
+    return objHasValue(this.settings);
+  }
+
+  getSettings(key?: string): any {
+    return key ? this.settings[key] : this.settings;
   }
 
   getFulltextKey(): string {
     return this.getSettings('fulltextKey') || 'ecm_fulltext';
   }
-
-  toSearchParams(): any {
-    const params: any = {};
-    const keys: string[] = ['settings', 'keyword'];
-    for (const [key, value] of Object.entries(this)) {
-      if (!keys.includes(key)) {
-        if (key === 'ecm_fulltext') {
-          params[this.getFulltextKey()] = value;
-        } else {
-          params[key] = value;
-        }
-      }
-    }
-    return params;
-  }
-
-  toParams(): any {
-    const params: any = {};
-    const keys: string[] = ['settings', 'keyword'];
-    for (const [key, value] of Object.entries(this)) {
+  // used for nuxeoApi.pageProvider request
+  toRequestParams(): any {
+    let params: any = {};
+    const keys: string[] = ['keyword', 'ecm_fulltext', 'aggregates', 'showFilter'];
+    const providerParams = Object.entries(this.searchParams);
+    for (const [key, value] of providerParams) {
       if (!keys.includes(key)) {
         params[key] = value;
       }
     }
+    if (this.searchParams['ecm_fulltext']) {
+      params[this.getFulltextKey()] = this.searchParams['ecm_fulltext'];
+    }
+    if (objHasValue(this.searchParams['aggregates'])) {
+      params = this.buildAggSearchParams(this.searchParams['aggregates'], params);
+    }
+    if (this.searchParams['ecm_mixinType'] || !this.searchParams['ecm_mixinType_not_in']) {
+      delete params['ecm_mixinType_not_in'];
+    }
     return params;
   }
 
+  // used for url query string
   toQueryParams(): any {
     const params: any = {};
-    const keys = ['ecm_fulltext', 'currentPageIndex'];
-    for (const [key, value] of Object.entries(this)) {
-      if (keys.includes(key) || key.includes('_agg')) {
-        if (key === 'ecm_fulltext') {
-          params['q'] = value;
-        } else {
+    const aggregates = this.searchParams.aggregates;
+    if (objHasValue(aggregates)) {
+      const keys = Object.keys(aggregates).filter((key) => aggregates[key].length > 0);
+      for (const key of keys) {
+        if (key.includes('_agg')) {
+          params[key] = aggregates[key];
+        } else if (key.includes('__in')) {
+          try {
+            if (Array.isArray(aggregates[key])) {
+              params[key] = [];
+              aggregates[key].forEach((v: any, i: number) => params[key][i] = JSON.parse(v).join(','));
+            }
+          } catch (error) {
+            console.warn('filter parse error', error);
+          }
+        } else if (key.includes('__eq')) {
+          params[key] = aggregates[key];
+        }
+      }
+    }
+    if (this.searchParams.ecm_fulltext) {
+      params['q'] = this.searchParams.ecm_fulltext;
+    }
+    if (this.searchParams.currentPageIndex > 0) {
+      params['currentPageIndex'] = this.searchParams.currentPageIndex;
+    }
+    if (objHasValue(this.settings)) {
+      const keys: string[] = ['showFilter'];
+      const settings = Object.entries(this.settings);
+      for (const [key, value] of settings) {
+        if (keys.includes(key)) {
           params[key] = value;
         }
       }
@@ -236,9 +350,28 @@ export class NuxeoPageProviderParams {
     return params;
   }
 
-  get ecm_fulltext_wildcard(): string {
-    return `${this.ecm_fulltext}*`;
+  private buildAggSearchParams(aggregates: any = {}, params: any = {}): any {
+    if (objHasValue(aggregates)) {
+      const keys = Object.keys(aggregates).filter((key) => aggregates[key].length > 0);
+      for (const key of keys) {
+        if (key.includes('__in')) {
+          if (Array.isArray(aggregates[key])) {
+            let p = [];
+            const k = key.replace('__in', '');
+            aggregates[key].forEach((v: any) => p = p.concat(JSON.parse(v)));
+            params[k] = `["${p.join('", "')}"]`;
+          }
+        } else if (key.includes('__eq')) {
+          const k = key.replace('__eq', '');
+          params[k] = aggregates[key];
+        } else {
+          params[key] = `["${aggregates[key].join('", "')}"]`;
+        }
+      }
+    }
+    return params;
   }
+
 }
 
 export class NuxeoRequestOptions {
@@ -259,14 +392,17 @@ export class NuxeoRequestOptions {
     ],
   };
 
-  constructor(opts: any = {}) {
-    Object.assign(this, opts);
+  constructor(params: any = {}) {
+    if (objHasValue(params)) {
+      Object.assign(this, params);
+    }
   }
 
-  setOptions(key: string, value: any): void {
+  setOptions(key: string, value: any): this {
     if (typeof value !== 'undefined' && value !== null) {
       this[key] = value;
     }
+    return this;
   }
 
   addEnrichers(type: string, name: string): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams } from '@core/api';
+import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
 import { Subscription } from 'rxjs';
 import { filter, map, concatMap } from 'rxjs/operators';
@@ -47,7 +47,7 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   private getItems(): void {
-    this.subscription = this.documentPageService.advanceRequest(new NuxeoPageProviderParams(this.gallerySwitch)).pipe(
+    this.subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(this.gallerySwitch)).pipe(
       map((res: NuxeoPagination) => {
         this.showGallery = res.entries.length > 0 && (res.entries[0].get('app_global:enable_carousel') === true);
         return this.showGallery;

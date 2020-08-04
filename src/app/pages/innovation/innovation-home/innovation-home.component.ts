@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
-import { NuxeoPagination, DocumentModel, NuxeoPageProviderParams, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { NuxeoPagination, DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 import { TAB_CONFIG } from '../innovation-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -68,7 +68,7 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
   }
 
   private performFolders(): void {
-    this.documentPageService.advanceRequest(new NuxeoPageProviderParams(this.baseFolderParams)).pipe(
+    this.documentPageService.advanceRequest(new GlobalSearchParams(this.baseFolderParams)).pipe(
       map((res: NuxeoPagination) => {
         const docs = [];
         this.tabs.forEach(x => {

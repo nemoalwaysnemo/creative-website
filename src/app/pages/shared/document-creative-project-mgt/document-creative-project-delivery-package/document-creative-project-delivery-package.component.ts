@@ -126,11 +126,10 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
   }
 
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_DELIVERY_PACKAGE_TYPE,
       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

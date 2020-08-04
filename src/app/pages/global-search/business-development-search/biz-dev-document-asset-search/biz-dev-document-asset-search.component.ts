@@ -15,7 +15,6 @@ export class BizDevDocumentAssetSearchComponent extends BaseDocumentViewComponen
     ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
     ecm_mixinType_not_in: '',
     currentPageIndex: 0,
-    pageSize: 20,
     ecm_fulltext: '',
   };
 

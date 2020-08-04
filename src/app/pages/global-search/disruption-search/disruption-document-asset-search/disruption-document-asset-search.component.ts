@@ -15,7 +15,6 @@ export class DisruptionDocumentAssetSearchComponent extends BaseDocumentViewComp
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
     ecm_mixinType_not_in: '', // override
     currentPageIndex: 0,
-    pageSize: 20,
     ecm_fulltext: '',
   };
 

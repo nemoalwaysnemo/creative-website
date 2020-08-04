@@ -33,11 +33,10 @@ export class FavoriteDisruptionComponent extends BaseFavoriteDocumentViewCompone
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {
-    const params = {
+    const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
       currentPageIndex: 0,
-      pageSize: 20,
       ecm_fulltext: '',
     };
     if (doc) {

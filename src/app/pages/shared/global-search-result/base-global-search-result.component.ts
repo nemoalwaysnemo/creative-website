@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DocumentModel, NuxeoPageProviderParams, SearchResponse } from '@core/api';
+import { DocumentModel, GlobalSearchParams, SearchResponse } from '@core/api';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -26,7 +26,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   paginationService: PaginationDataSource = new PaginationDataSource();
 
-  searchParams: NuxeoPageProviderParams = new NuxeoPageProviderParams();
+  searchParams: GlobalSearchParams = new GlobalSearchParams();
 
   hasNextPage: boolean = false;
 
@@ -65,9 +65,9 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
       concatMap((res: SearchResponse) => this.afterSearch(res)),
     ).subscribe((res: SearchResponse) => {
       if (res.action === 'beforeSearch') {
-        this.triggerLoading(true, res.metadata);
+        this.triggerLoading(true, res.searchParams);
       } else {
-        this.triggerLoading(false, res.metadata);
+        this.triggerLoading(false, res.searchParams);
         this.searchParams = res.searchParams;
         this.onResponse.emit(res);
         this.handleResponse(res);
@@ -76,8 +76,8 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     this.subscription.add(subscription);
   }
 
-  protected triggerLoading(loading: boolean, metadata: any = {}): void {
-    if (typeof metadata.enableLoading === 'undefined' || metadata.enableLoading) {
+  protected triggerLoading(loading: boolean, searchParams: GlobalSearchParams): void {
+    if (typeof searchParams.getSettings('enableLoading') === 'undefined' || searchParams.getSettings('enableLoading')) {
       this.loading = loading;
     }
   }
@@ -102,12 +102,12 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     this.hasNextPage = res.response.isNextPageAvailable;
     this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
-    if (this.append === true || res.metadata.append) {
+    if (this.append === true || res.searchParams.getSettings('append')) {
       this.documents = this.documents.concat(res.response.entries);
     } else {
       this.documents = res.response.entries;
     }
-    const offset = res.searchParams.pageSize % 20 === 0 ? -20 : - (res.searchParams.pageSize % 20 === 0);
+    const offset = res.searchParams.providerParams.pageSize % 20 === 0 ? -20 : - (res.searchParams.providerParams.pageSize % 20 === 0);
     this.listDocuments = this.listViewBuilder(res.response.entries.slice(offset));
   }
 }
