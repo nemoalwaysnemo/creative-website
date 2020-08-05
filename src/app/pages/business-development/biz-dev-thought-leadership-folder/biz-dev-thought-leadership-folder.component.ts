@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { Subject, timer } from 'rxjs';
 import { TAB_CONFIG } from '../business-development-tab-config';
-import { DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -47,7 +47,7 @@ export class BizDevThoughtLeadershipFolderComponent extends GlobalDocumentViewCo
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_TYPE,
-      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     };
   }
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../business-development-tab-config';
@@ -50,7 +50,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
-      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     };
   }
 

@@ -71,7 +71,7 @@ export class SearchFilterModel {
   }
 }
 
-export enum NuxeoPageProviderConstants {
+export enum NuxeoSearchConstants {
   HiddenInNavigation = '["HiddenInNavigation"]',
   Collection = 'Collection',
   Favorites = 'Favorites',
@@ -200,7 +200,7 @@ export class NuxeoSearchParams {
   ecm_fulltext: string = '';
   ecm_primaryType: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
   ecm_mixinType?: string;
-  ecm_mixinType_not_in?: string = NuxeoPageProviderConstants.HiddenInNavigation;
+  ecm_mixinType_not_in?: string = NuxeoSearchConstants.HiddenInNavigation;
   highlight?: string = 'dc:title.fulltext,ecm:binarytext,dc:description.fulltext,ecm:tag,note:note.fulltext,file:content.name';
   quickFilters?: string = `${NuxeoQuickFilters.ProductionDate},${NuxeoQuickFilters.Alphabetically}`;
   sortOrder?: string;

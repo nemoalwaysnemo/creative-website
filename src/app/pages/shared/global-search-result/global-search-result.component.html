@@ -1,5 +1,5 @@
 <div class="search-results" infiniteScroll [immediateCheck]="false" [infiniteScrollDistance]="1.8" [infiniteScrollThrottle]="100" [alwaysCallback]="false" (scrolled)="onScrollDown()">
-  <h1 *ngIf="!!searchParams.ecm_fulltext" class="left">Results for "{{searchParams.ecm_fulltext}}" ({{totalResults}})</h1>
+  <h1 *ngIf="!!searchParams.providerParams.ecm_fulltext" class="left">Results for "{{searchParams.providerParams.ecm_fulltext}}" ({{totalResults}})</h1>
   <div class="clear"></div>
   <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
   <ng-template #thumbnailView>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
 import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-form-custom-view';
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
@@ -204,7 +204,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   protected buildProjectParams(doc: DocumentModel, campaign?: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_PROJECT_TYPE,
-      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
       currentPageIndex: 0,
       ecm_fulltext: '',
     };

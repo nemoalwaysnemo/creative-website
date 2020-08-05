@@ -258,7 +258,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
         case 'onPageNumberChanged':
         case 'onSearchParamsChanged':
           if (event.searchParams) {
-            this.onSearchParamsChanged(event.name, event.searchParams);
+            const searchParams = new GlobalSearchParams(Object.assign({}, this.getInputParams().providerParams, this.getFormValue(), event.searchParams), event.settings || {});
+            this.onSearchParamsChanged(event.name, searchParams);
           }
           break;
         default:
