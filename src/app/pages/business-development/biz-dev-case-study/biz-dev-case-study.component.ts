@@ -58,7 +58,7 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_SUB_FOLDER_TYPE,
     };
-    return new GlobalSearchParams(params);
+    return searchParams.setParams(params);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

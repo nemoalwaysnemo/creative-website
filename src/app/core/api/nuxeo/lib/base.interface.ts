@@ -196,7 +196,7 @@ export class NuxeoSearchParams {
   [key: string]: any;
   currentPageIndex: number = 0;
   pageSize: number = 20;
-  ecm_path: string = '/';
+  ecm_path?: string;
   ecm_fulltext: string = '';
   ecm_primaryType: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
   ecm_mixinType?: string;
@@ -239,20 +239,22 @@ export class GlobalSearchParams {
 
   static readonly PageSize: number = 20;
 
-  event: string;
-
-  source: string;
-
   private settings: any = {};
 
   private searchParams: NuxeoSearchParams;
 
   constructor(params: any = {}, settings: any = {}) {
     this.setParams(params);
+    this.setSettings(settings);
     // console.log((new Error()).stack);
-    if (objHasValue(settings)) {
-      this.settings = settings;
-    }
+  }
+
+  get event(): string {
+    return this.settings['event'];
+  }
+
+  get source(): string {
+    return this.settings['source'];
   }
 
   get providerParams(): NuxeoSearchParams {
@@ -280,6 +282,18 @@ export class GlobalSearchParams {
     return objHasValue(this.settings);
   }
 
+  setSettings(settings: any = {}): void {
+    if (objHasValue(settings)) {
+      this.settings = settings;
+    }
+  }
+
+  mergeSettings(settings: any = {}): void {
+    if (objHasValue(settings)) {
+      this.settings = Object.assign({}, this.settings, settings);
+    }
+  }
+
   getSettings(key?: string): any {
     return key ? this.settings[key] : this.settings;
   }
@@ -290,21 +304,30 @@ export class GlobalSearchParams {
   // used for nuxeoApi.pageProvider request
   toRequestParams(): any {
     let params: any = {};
-    const keys: string[] = ['keyword', 'ecm_fulltext', 'aggregates', 'showFilter'];
+    const keys: string[] = ['keyword', 'aggregates', 'showFilter'];
     const providerParams = Object.entries(this.searchParams);
     for (const [key, value] of providerParams) {
       if (!keys.includes(key)) {
         params[key] = value;
       }
     }
-    if (this.searchParams['ecm_fulltext']) {
-      params[this.getFulltextKey()] = this.searchParams['ecm_fulltext'];
-    }
     if (objHasValue(this.searchParams['aggregates'])) {
       params = this.buildAggSearchParams(this.searchParams['aggregates'], params);
     }
-    if (this.searchParams['ecm_mixinType'] || !this.searchParams['ecm_mixinType_not_in']) {
+    if (params['ecm_fulltext'] && this.getFulltextKey() !== 'ecm_fulltext') {
+      params[this.getFulltextKey()] = params['ecm_fulltext'];
+      delete params['ecm_fulltext'];
+    } else if (!params['ecm_fulltext']) {
+      delete params[this.getFulltextKey()];
+    }
+    if (params['ecm_mixinType'] || !params['ecm_mixinType_not_in']) {
       delete params['ecm_mixinType_not_in'];
+    }
+    if (!params['ecm_path'] && !params['ecm_path_eq']) {
+      params.ecm_path = '/';
+    } else if (params['ecm_path_eq']) {
+      params.ecm_path_eq = '/' + params.ecm_path_eq.split('/').filter((x: string) => x.trim()).join('/');
+      delete params['ecm_path'];
     }
     return params;
   }

@@ -56,7 +56,7 @@ export class BizDevThoughtLeadershipComponent extends GlobalDocumentViewComponen
       ecm_path: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_THOUGHT_LEADERSHIP_SUB_FOLDER_TYPE,
     };
-    return new GlobalSearchParams(params);
+    return searchParams.setParams(params);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

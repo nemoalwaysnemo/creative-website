@@ -76,15 +76,15 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
   }
 
   // get all matched assets and then get their parent folders
-  protected buildSearchAssetsParams(queryParams: GlobalSearchParams): GlobalSearchParams {
+  protected buildSearchAssetsParams(searchParams: GlobalSearchParams): GlobalSearchParams {
     const params: any = {
       pageSize: 1000,
       currentPageIndex: 0,
-      ecm_fulltext: queryParams.providerParams.ecm_fulltext,
+      ecm_fulltext: searchParams.providerParams.ecm_fulltext,
       ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAY_ASSET_TYPES,
     };
-    return new GlobalSearchParams(params);
+    return searchParams.setParams(params);
   }
   // calculate their parent folder ids
   protected performSearchAssetsResults(res: NuxeoPagination): Observable<NuxeoPagination> {
