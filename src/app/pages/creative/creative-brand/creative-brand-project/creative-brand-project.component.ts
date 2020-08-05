@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -62,7 +62,7 @@ export class CreativeBrandProjectComponent extends GlobalDocumentViewComponent {
   protected buildProjectParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_PROJECT_TYPE,
-      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
       currentPageIndex: 0,
       ecm_fulltext: '',
     };

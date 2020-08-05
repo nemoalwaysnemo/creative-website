@@ -48,12 +48,11 @@ export class GlobalSearchFormService {
   }
 
   changePageIndex(currentPageIndex: number, pageSize: number = 20, settings: any = {}): void {
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: new GlobalSearchParams({ currentPageIndex, pageSize }), settings }));
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex, pageSize }, settings }));
   }
 
-  search(params: GlobalSearchParams, settings: any = {}): void {
-    const searchParams = params instanceof GlobalSearchParams ? params : new GlobalSearchParams(params, settings);
-    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams }));
+  search(searchParams: any = {}, settings: any = {}): void {
+    this.triggerEvent(new GlobalSearchFormEvent({ name: 'onSearchParamsChanged', searchParams, settings }));
   }
 
   private googleAnalyticsTrackEvent(searchParams: GlobalSearchParams): void {

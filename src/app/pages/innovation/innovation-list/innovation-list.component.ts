@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoSearchConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../innovation-tab-config';
@@ -75,7 +75,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_path_eq: this.getPath(),
-      ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+      ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
     };
 

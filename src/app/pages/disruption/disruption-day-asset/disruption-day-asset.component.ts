@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel, NuxeoPagination, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -31,7 +31,7 @@ export class DisruptionDayAssetComponent extends GlobalDocumentViewComponent imp
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+    ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
   };

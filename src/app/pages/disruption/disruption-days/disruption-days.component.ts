@@ -4,7 +4,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoPageProviderConstants } from '@core/api';
+import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -45,7 +45,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
   defaultParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+    ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
   };
@@ -96,7 +96,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
         currentPageIndex: 0,
         pageSize: ids.length,
         ecm_uuid: `["${ids.join('", "')}"]`,
-        ecm_mixinType: NuxeoPageProviderConstants.HiddenInNavigation,
+        ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
         ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
         ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
       };
