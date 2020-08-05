@@ -9,13 +9,17 @@ import { DocumentThumbnailViewService } from '../document-thumbnail-view/documen
 })
 export class GlobalSearchButtonComponent {
 
-  sliderMaxValue = 1;
+  currentView: string = 'thumbnailView';
 
-  sliderMinValue = 0;
+  enableSliderBar: boolean = false;
 
-  sliderStep = 1;
+  sliderMaxValue: number = 1;
 
-  sliderDefaultValue = 0;
+  sliderMinValue: number = 0;
+
+  sliderStep: number = 1;
+
+  sliderDefaultValue: number = 0;
 
   sliderOptions: Options = {
     floor: 0,
@@ -32,8 +36,6 @@ export class GlobalSearchButtonComponent {
     },
   };
 
-  currentView: string = 'thumbnailView';
-
   @Input() enableSlider: boolean = false;
 
   @Input() enableViewSwitcher: boolean = false;
@@ -46,7 +48,7 @@ export class GlobalSearchButtonComponent {
 
   changeResultView(view: string): void {
     this.currentView = view;
-    this.enableSlider = view === 'thumbnailView';
+    this.enableSliderBar = this.enableSlider && view === 'thumbnailView';
     this.onResultViewChanged.emit(view);
   }
 

@@ -326,12 +326,12 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected search(requestParams: GlobalSearchParams, options: NuxeoRequestOptions): Observable<SearchResponse> {
     const { searchParams, opts } = this.beforeSearch(requestParams, options);
+    searchParams.mergeSettings({ event: (searchParams.event || requestParams.event), source: (searchParams.source || requestParams.source) });
     return this.globalSearchFormService.advanceSearch(this.getFormSettings('pageProvider'), searchParams, opts);
   }
 
   protected triggerSearch(searchParams: GlobalSearchParams, event: string): void {
-    searchParams.source = this.getFormSettings('source');
-    searchParams.event = event;
+    searchParams.mergeSettings({ source: (searchParams.source || this.getFormSettings('source')), event });
     this.searchEvent$.next(searchParams);
   }
 

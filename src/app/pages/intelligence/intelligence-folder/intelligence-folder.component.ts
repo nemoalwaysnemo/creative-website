@@ -162,7 +162,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_fulltext: searchParams.providerParams.ecm_fulltext,
     };
-    return new GlobalSearchParams(params);
+    return searchParams.setParams(params);
   }
 
   private getFilters(): SearchFilterModel[] {

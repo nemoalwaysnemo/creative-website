@@ -58,7 +58,7 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
       ecm_path: this.getPath(),
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
     };
-    return new GlobalSearchParams(params);
+    return searchParams.setParams(params);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
