@@ -93,7 +93,8 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
       const pageIndex: number = this.searchResponse.response.currentPageIndex;
-      this.globalSearchFormService.changePageIndex(pageIndex + 1, 20, { append: true, enableLoading: false });
+      const currentPageIndex = pageIndex > 0 ? pageIndex + 1 : 4;
+      this.globalSearchFormService.changePageIndex(currentPageIndex, 6, { append: true, enableLoading: false });
     }
   }
 

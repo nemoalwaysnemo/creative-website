@@ -195,7 +195,7 @@ export class NuxeoQueryParams {
 export class NuxeoSearchParams {
   [key: string]: any;
   currentPageIndex: number = 0;
-  pageSize: number = 20;
+  pageSize: number = 24;
   ecm_path?: string;
   ecm_fulltext: string = '';
   ecm_primaryType: string; // ecm_primaryType: '["App-Backslash-Video", "App-Backslash-Article"]'
@@ -358,9 +358,9 @@ export class GlobalSearchParams {
     if (this.searchParams.ecm_fulltext) {
       params['q'] = this.searchParams.ecm_fulltext;
     }
-    if (this.searchParams.currentPageIndex > 0) {
-      params['currentPageIndex'] = this.searchParams.currentPageIndex;
-    }
+    // if (this.searchParams.currentPageIndex > 0) {
+    //   params['currentPageIndex'] = this.searchParams.currentPageIndex;
+    // }
     if (objHasValue(this.settings)) {
       const keys: string[] = ['showFilter'];
       const settings = Object.entries(this.settings);

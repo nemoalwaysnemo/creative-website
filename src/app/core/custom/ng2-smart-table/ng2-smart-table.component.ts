@@ -79,7 +79,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     columns: {},
     pager: {
       display: true,
-      perPage: 20,
+      perPage: 24,
     },
     rowClassFunction: () => '',
   };
