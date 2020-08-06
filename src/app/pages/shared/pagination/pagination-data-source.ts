@@ -6,15 +6,15 @@ export class PaginationDataSource {
 
   private event: Subject<any> = new Subject<any>();
 
-  private pagination: NuxeoPagination = new NuxeoPagination();
+  private resultsCount: number = 0;
 
   from(pagination: NuxeoPagination): void {
-    this.pagination = pagination;
+    this.resultsCount = pagination.resultsCount;
     this.triggerEvent('load', { currentPageIndex: pagination.currentPageIndex, totalPage: pagination.numberOfPages, pageSize: pagination.pageSize });
   }
 
   totalSize(): number {
-    return this.pagination.resultsCount;
+    return this.resultsCount;
   }
 
   onChanged(): Observable<any> {

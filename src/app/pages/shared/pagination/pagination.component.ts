@@ -20,7 +20,7 @@ export class PaginationComponent implements OnChanges, OnInit {
 
   private totalPage: number = 0;
 
-  private pageSize: number = 20;
+  private pageSize: number = 24;
 
   private subscription: Subscription = new Subscription();
 

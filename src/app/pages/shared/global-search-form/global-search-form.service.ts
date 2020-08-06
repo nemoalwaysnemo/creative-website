@@ -47,7 +47,7 @@ export class GlobalSearchFormService {
     return this;
   }
 
-  changePageIndex(currentPageIndex: number, pageSize: number = 20, settings: any = {}): void {
+  changePageIndex(currentPageIndex: number, pageSize: number = 24, settings: any = {}): void {
     this.triggerEvent(new GlobalSearchFormEvent({ name: 'onPageNumberChanged', searchParams: { currentPageIndex, pageSize }, settings }));
   }
 

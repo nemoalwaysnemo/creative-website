@@ -142,7 +142,6 @@ export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent 
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
-        formMode: 'edit',
         required: true,
         settings: {
           placeholder: 'Please select category',

@@ -237,7 +237,7 @@ export class NuxeoSearchParams {
 
 export class GlobalSearchParams {
 
-  static readonly PageSize: number = 20;
+  static readonly PageSize: number = 24;
 
   private settings: any = {};
 
