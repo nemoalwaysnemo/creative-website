@@ -13,6 +13,7 @@
     <div class="text-content">
       <img [src]="previewBtnImage()" class="inline-middle">
       <h3 class="inline-middle">{{document.title}}</h3>
+      <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
       <div class="edges">
         <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
           <ul>
@@ -32,6 +33,10 @@
     </div>
   </ng-container>
 </div>
+
+<ng-template #popContent>
+  <share-document-button [document]="document" [shareUrl]="shareUrl"></share-document-button>
+</ng-template>
 
 <ng-template #edgeContent let-data>
   <div class="edgeHover">

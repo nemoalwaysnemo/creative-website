@@ -17,6 +17,8 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
 
   backslashEdges: DocumentModel[] = [];
 
+  shareUrl: string;
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
@@ -26,6 +28,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
 
   protected onInit(): void {
     this.buildBackslashEdges(this.document);
+    this.shareUrl = this.buildShareUrl(this.document);
   }
 
   previewBtnImage(): string {
@@ -53,5 +56,9 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
     } else {
       this.backslashEdges = [];
     }
+  }
+
+  private buildShareUrl(doc: DocumentModel): string {
+    return this.documentPageService.getCurrentAppUrl('backslash/asset/' + doc.uid);
   }
 }
