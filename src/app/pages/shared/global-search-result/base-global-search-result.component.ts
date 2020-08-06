@@ -24,6 +24,8 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   listViewOptions: any = {};
 
+  hasNextPage: boolean = false;
+
   searchParams: GlobalSearchParams = new GlobalSearchParams();
 
   protected paginationService: PaginationDataSource = new PaginationDataSource();
@@ -32,7 +34,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   protected currentPageIndex: number = 0;
 
-  protected hasNextPage: boolean = false;
+  protected canScrollDown: boolean = false;
 
   @Input() append: boolean = false;
 
@@ -92,7 +94,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   }
 
   onScrollDown(): void {
-    if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
+    if (this.currentView === 'thumbnailView' && !this.loading && this.canScrollDown) {
       const nextPageIndex = this.currentPageIndex > 0 ? this.currentPageIndex + 1 : 4;
       this.globalSearchFormService.changePageIndex(nextPageIndex, 6, { append: true, enableLoading: false, trigger: 'onScrollDown' });
     }
@@ -101,11 +103,12 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   protected performResponse(res: SearchResponse): void {
     this.searchResponse = res;
     this.totalResults = res.response.resultsCount;
+    this.hasNextPage = res.response.isNextPageAvailable;
     if (res.searchParams.getSettings('trigger') === 'onPageChanged') {
       this.performListView(res);
     } else if (res.searchParams.getSettings('trigger') === 'onScrollDown') {
       this.performThumbnailView(res);
-    } else if (res.response.currentPageIndex === 0) {
+    } else {
       this.performListView(res);
       this.performThumbnailView(res);
     }
@@ -117,7 +120,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   }
 
   protected performThumbnailView(res: SearchResponse): void {
-    this.hasNextPage = res.response.isNextPageAvailable;
+    this.canScrollDown = res.response.isNextPageAvailable;
     this.currentPageIndex = res.response.currentPageIndex;
     if (this.append === true || res.searchParams.getSettings('append')) {
       this.documents = this.documents.concat(res.response.entries);

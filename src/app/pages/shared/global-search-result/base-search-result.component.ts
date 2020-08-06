@@ -13,7 +13,7 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   queryParams: Params = {};
 
-  protected enabledView: any = {};
+  protected enabledView: any = { thumbnailView: true };
 
   protected subscription: Subscription = new Subscription();
 
