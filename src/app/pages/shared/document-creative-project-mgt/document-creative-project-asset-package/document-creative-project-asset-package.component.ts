@@ -147,6 +147,29 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
       //   },
       // }),
       // new DynamicSuggestionModel<string>({
+      //   id: 'The_Loupe_Delivery:expiry_days',
+      //   label: 'Expies in (days)',
+      //   required: false,
+      //   settings: {
+      //     multiple: false,
+      //     placeholder: 'Expies in (days)',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'App-Library-Delivery-expiry-days',
+      //   },
+      //   formMode: 'create',
+      // }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'The_Loupe_Delivery:delivery_config',
+      //   label: 'Delivery Options',
+      //   required: false,
+      //   settings: {
+      //     placeholder: 'Delivery Options',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'App-Library-Delivery-Config',
+      //   },
+      //   formMode: 'create',
+      // }),
+      // new DynamicSuggestionModel<string>({
       //   id: 'The_Loupe_Delivery:delivery_config',
       //   label: 'Delivery Options',
       //   settings: {
@@ -160,31 +183,23 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
       // }),
       // new DynamicSuggestionModel<string>({
       //   id: 'The_Loupe_Delivery:expiry_days',
-      //   label: 'Expies',
+      //   label: 'Expires  in (days)',
       //   settings: {
       //     multiple: false,
-      //     placeholder: '#days until expiry',
+      //     placeholder: 'Expires',
       //     providerType: SuggestionSettings.DIRECTORY,
       //     providerName: 'App-Library-Delivery-expiry-days',
       //   },
-      //   readOnly: true,
-      //   disabled: true,
       //   formMode: 'edit',
       // }),
-      // new DynamicInputModel({
-      //   id: 'The_Loupe_Delivery:expiry_days',
-      //   label: '#days until expiry',
-      //   disabled: true,
-      //   defaultValue: '3',
-      //   formMode: 'create',
-      // }),
-      // new DynamicInputModel({
-      //   id: 'The_Loupe_Delivery:delivery_config',
-      //   label: 'Delivery Options',
-      //   disabled: true,
-      //   defaultValue: 'Only main files',
-      //   formMode: 'create',
-      // }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Delivery:delivery_expiration_date',
+        // inputType: 'date',
+        label: 'Expires',
+        readOnly: true,
+        disabled: true,
+        formMode: 'edit',
+      }),
       // new DynamicInputModel({
       //   id: 'The_Loupe_Delivery:status',
       //   label: 'Status',
@@ -192,6 +207,20 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
       //   disabled: true,
       //   formMode: 'edit',
       // }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Delivery:delivery_downloaded_date',
+        label: 'Delivered',
+        readOnly: true,
+        disabled: true,
+        formMode: 'edit',
+      }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Delivery:delivery_send_date',
+        label: 'Downloaded',
+        readOnly: true,
+        disabled: true,
+        formMode: 'edit',
+      }),
       new DynamicTextAreaModel({
         id: 'The_Loupe_Main:comment',
         label: 'Personal Message',
