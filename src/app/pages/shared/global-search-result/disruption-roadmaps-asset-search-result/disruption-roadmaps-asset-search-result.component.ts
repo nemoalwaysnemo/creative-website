@@ -15,7 +15,7 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
 
   title: string = 'Disruption Roadmaps';
 
-  loadingStyle: any = { 'min-height': '60px' };
+  loadingStyle: any = { 'min-height': '550px' };
 
   redirectUrl: string = '/p/disruption/Disruption Roadmaps';
 
