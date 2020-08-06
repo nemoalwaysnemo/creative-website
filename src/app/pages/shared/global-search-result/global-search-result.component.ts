@@ -15,9 +15,11 @@ export class GlobalSearchResultComponent extends BaseGlobalSearchResultComponent
 
   @Input() hasPagination: boolean = true;
 
+  @Input() hideEmpty: boolean = false;
+
   @Input() layout: string = 'disruption-home';
 
-  @Input() hideEmpty: boolean = false;
+  @Input() loadingStyle: any = { 'min-height': '120px' };
 
   @Input() selectableSettings: SelectableItemSettings;
 

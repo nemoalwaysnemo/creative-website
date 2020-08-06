@@ -16,6 +16,8 @@ export class DisruptionFeaturedRoadmapsAssetSearchResultComponent {
 
   title: string = 'Disruption Roadmaps';
 
+  loadingStyle: any = { 'min-height': '60px' };
+
   redirectUrl: string = '/p/disruption/Disruption Roadmaps';
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
