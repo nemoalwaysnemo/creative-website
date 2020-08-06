@@ -143,7 +143,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     const params = this.getSearchParams(this.document, this.item);
     params['currentPageIndex'] = res.response.currentPageIndex + 1;
     params['pageSize'] = 8;
-    this.baseParams$.next(params);
+    this.baseParams$.next(res.searchParams.setParams(params));
   }
 
   onResponse(res: SearchResponse): void {
