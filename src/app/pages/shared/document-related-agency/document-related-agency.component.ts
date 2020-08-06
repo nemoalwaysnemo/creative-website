@@ -76,7 +76,7 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
     const params = this.getSearchParams(this.documentModel);
     params['currentPageIndex'] = res.response.currentPageIndex + 1;
     params['pageSize'] = 4;
-    this.baseParams$.next(Object.assign({}, params));
+    this.baseParams$.next(res.searchParams.setParams(params));
   }
 
   onResponse(res: SearchResponse): void {

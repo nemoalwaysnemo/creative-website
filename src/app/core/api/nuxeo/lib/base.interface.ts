@@ -282,16 +282,18 @@ export class GlobalSearchParams {
     return objHasValue(this.settings);
   }
 
-  setSettings(settings: any = {}): void {
+  setSettings(settings: any = {}): this {
     if (objHasValue(settings)) {
       this.settings = settings;
     }
+    return this;
   }
 
-  mergeSettings(settings: any = {}): void {
+  mergeSettings(settings: any = {}): this {
     if (objHasValue(settings)) {
       this.settings = Object.assign({}, this.settings, settings);
     }
+    return this;
   }
 
   getSettings(key?: string): any {
