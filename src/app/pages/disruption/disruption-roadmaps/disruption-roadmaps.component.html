@@ -1,6 +1,6 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }" style="margin-bottom: -37px;"></nb-route-tabset>
 <disruption-roadmaps-gallery></disruption-roadmaps-gallery>
-
+<div #target></div>
 <ng-container *ngIf="currentView === 'allRoadmapsView'; then allRoadmapsView else featuredRoadmapsView"></ng-container>
 
 <ng-template #allRoadmapsView>
