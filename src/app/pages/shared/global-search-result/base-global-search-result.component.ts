@@ -24,13 +24,15 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   listViewOptions: any = {};
 
-  paginationService: PaginationDataSource = new PaginationDataSource();
-
   searchParams: GlobalSearchParams = new GlobalSearchParams();
 
-  hasNextPage: boolean = false;
+  protected paginationService: PaginationDataSource = new PaginationDataSource();
 
   protected searchResponse: SearchResponse;
+
+  protected currentPageIndex: number = 0;
+
+  protected hasNextPage: boolean = false;
 
   @Input() append: boolean = false;
 
@@ -70,7 +72,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
         this.triggerLoading(false, res.searchParams);
         this.searchParams = res.searchParams;
         this.onResponse.emit(res);
-        this.handleResponse(res);
+        this.performResponse(res);
       }
     });
     this.subscription.add(subscription);
@@ -84,30 +86,43 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((info: any) => {
-      this.documents = [];
-      this.globalSearchFormService.changePageIndex(info.currentPageIndex, 20);
+      this.globalSearchFormService.changePageIndex(info.currentPageIndex, 24, { trigger: 'onPageChanged' });
     });
     this.subscription.add(subscription);
   }
 
   onScrollDown(): void {
     if (this.currentView === 'thumbnailView' && !this.loading && this.hasNextPage) {
-      const pageIndex: number = this.searchResponse.response.currentPageIndex;
-      this.globalSearchFormService.changePageIndex(pageIndex + 1, 20, { append: true, enableLoading: false });
+      const nextPageIndex = this.currentPageIndex > 0 ? this.currentPageIndex + 1 : 4;
+      this.globalSearchFormService.changePageIndex(nextPageIndex, 6, { append: true, enableLoading: false, trigger: 'onScrollDown' });
     }
   }
 
-  protected handleResponse(res: SearchResponse): void {
+  protected performResponse(res: SearchResponse): void {
     this.searchResponse = res;
-    this.hasNextPage = res.response.isNextPageAvailable;
-    this.paginationService.from(res.response);
     this.totalResults = res.response.resultsCount;
+    if (res.searchParams.getSettings('trigger') === 'onPageChanged') {
+      this.performListView(res);
+    } else if (res.searchParams.getSettings('trigger') === 'onScrollDown') {
+      this.performThumbnailView(res);
+    } else if (res.response.currentPageIndex === 0) {
+      this.performListView(res);
+      this.performThumbnailView(res);
+    }
+  }
+
+  protected performListView(res: SearchResponse): void {
+    this.paginationService.from(res.response);
+    this.listDocuments = this.listViewBuilder(res.response.entries);
+  }
+
+  protected performThumbnailView(res: SearchResponse): void {
+    this.hasNextPage = res.response.isNextPageAvailable;
+    this.currentPageIndex = res.response.currentPageIndex;
     if (this.append === true || res.searchParams.getSettings('append')) {
       this.documents = this.documents.concat(res.response.entries);
     } else {
       this.documents = res.response.entries;
     }
-    const offset = res.searchParams.providerParams.pageSize % 20 === 0 ? -20 : - (res.searchParams.providerParams.pageSize % 20 === 0);
-    this.listDocuments = this.listViewBuilder(res.response.entries.slice(offset));
   }
 }

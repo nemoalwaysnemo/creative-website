@@ -1,13 +1,13 @@
 <div class="search-results" infiniteScroll [immediateCheck]="false" [infiniteScrollDistance]="1.8" [infiniteScrollThrottle]="100" [alwaysCallback]="false" (scrolled)="onScrollDown()">
   <h1 *ngIf="!!searchParams.providerParams.ecm_fulltext" class="left">Results for "{{searchParams.providerParams.ecm_fulltext}}" ({{totalResults}})</h1>
   <div class="clear"></div>
-  <ng-container *ngIf="currentView === 'thumbnailView'; then thumbnailView else listView"></ng-container>
-  <ng-template #thumbnailView>
-    <document-thumbnail-view [loading]="loading" [templateRef]="templateRef" [documents]="documents" [layout]="layout" [hideEmpty]="hideEmpty" [selectableSettings]="selectableSettings"></document-thumbnail-view>
-  </ng-template>
-  <ng-template #listView>
-    <document-list-view [loading]="loading" [settings]="listViewOptions" [documents]="listDocuments"></document-list-view>
-  </ng-template>
+  <ng-container *ngIf="isEnabledView('thumbnailView')">
+    <document-thumbnail-view [hide]="currentView !== 'thumbnailView'" [loading]="loading" [templateRef]="templateRef" [documents]="documents" [layout]="layout" [hideEmpty]="hideEmpty" [selectableSettings]="selectableSettings">
+    </document-thumbnail-view>
+  </ng-container>
+  <ng-container *ngIf="isEnabledView('listView')">
+    <document-list-view [hide]="currentView !== 'listView'" [loading]="loading" [settings]="listViewOptions" [documents]="listDocuments"></document-list-view>
+  </ng-container>
 </div>
 <div *ngIf="hasPagination" class="search-pagination">
   <table-pagination [disable]="loading" [dataSource]="paginationService" class="pagination" [ngStyle]="currentView === 'thumbnailView'? {'display': 'none'} : {}"></table-pagination>

@@ -13,11 +13,13 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   queryParams: Params = {};
 
+  protected enabledView: any = {};
+
   protected subscription: Subscription = new Subscription();
 
   @Input()
   set selectedView(name: string) {
-    this.currentView = name;
+    this.performViewTemplate(name);
   }
 
   @Input() thumbnailType: 'attachedImage' | 'thumbnailUrl' = 'thumbnailUrl';
@@ -40,12 +42,23 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
     return doc[this.thumbnailType];
   }
 
+  isEnabledView(name: string): boolean {
+    return this.enabledView[name];
+  }
+
   protected onInit(): void {
 
   }
 
   protected onDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  protected performViewTemplate(name: string): void {
+    this.currentView = name;
+    if (!this.enabledView[name] && this.currentView === name) {
+      this.enabledView[name] = true;
+    }
   }
 
   protected onQueryParamsChanged(): void {

@@ -11,6 +11,8 @@ export class GlobalSearchButtonComponent {
 
   currentView: string = 'thumbnailView';
 
+  enableSliderAction: boolean = false;
+
   enableSliderBar: boolean = false;
 
   sliderMaxValue: number = 1;
@@ -36,7 +38,11 @@ export class GlobalSearchButtonComponent {
     },
   };
 
-  @Input() enableSlider: boolean = false;
+  @Input()
+  set enableSlider(enableSlider: boolean) {
+    this.enableSliderAction = enableSlider;
+    this.enableSliderBar = enableSlider;
+  }
 
   @Input() enableViewSwitcher: boolean = false;
 
@@ -48,7 +54,7 @@ export class GlobalSearchButtonComponent {
 
   changeResultView(view: string): void {
     this.currentView = view;
-    this.enableSliderBar = this.enableSlider && view === 'thumbnailView';
+    this.enableSliderBar = this.enableSliderAction && view === 'thumbnailView';
     this.onResultViewChanged.emit(view);
   }
 

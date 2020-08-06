@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { getPathPartOfUrl, objHasValue, convertToBoolean } from '@core/services/helpers';
 import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf, zip } from 'rxjs';
 import { filter, debounceTime, switchMap, map, startWith, pairwise, concatMap } from 'rxjs/operators';
-import { getPathPartOfUrl, objHasValue, selectObjectByKeys, filterParams, convertToBoolean } from '@core/services/helpers';
 import { SearchResponse, GlobalSearchParams, NuxeoRequestOptions, SearchFilterModel, NuxeoQueryParams } from '@core/api';
 import { GlobalSearchFormService, GlobalSearchFormEvent } from './global-search-form.service';
-import { DocumentPageService } from '../services/document-page.service';
 import { GlobalSearchFormSettings } from './global-search-form.interface';
+import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   template: '',

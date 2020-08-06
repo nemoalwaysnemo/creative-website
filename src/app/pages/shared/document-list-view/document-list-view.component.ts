@@ -14,6 +14,8 @@ export class DocumentListViewComponent {
 
   @Input() loading: boolean;
 
+  @Input() hide: boolean = false;
+
   @Input() documents: DocumentListViewItem[];
 
   @Input()
