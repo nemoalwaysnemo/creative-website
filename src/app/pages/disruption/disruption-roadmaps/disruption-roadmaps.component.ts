@@ -14,6 +14,8 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
 
   currentView: string = 'allRoadmapsView';
 
+  enableScrolling: any = { allRoadmapsView: true, featuredRoadmapsView: true };
+
   tabs: any[] = TAB_CONFIG;
 
   protected enabledView: any = { allRoadmapsView: true };
@@ -70,7 +72,16 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
 
   protected performViewTemplate(name: string): void {
     this.currentView = name;
-    this.enabledView[name] = true;
+    if (!this.enabledView[name]) {
+      this.enabledView[name] = true;
+    }
+    for (const key in this.enableScrolling) {
+      if (key === name) {
+        this.enableScrolling[key] = true;
+      } else {
+        this.enableScrolling[key] = false;
+      }
+    }
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

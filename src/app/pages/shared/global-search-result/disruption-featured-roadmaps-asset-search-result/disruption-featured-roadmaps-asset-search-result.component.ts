@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, Input } from '@angular/core';
 import { SearchResponse } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
@@ -9,6 +9,8 @@ import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
   templateUrl: './disruption-featured-roadmaps-asset-search-result.component.html',
 })
 export class DisruptionFeaturedRoadmapsAssetSearchResultComponent {
+
+  @Input() enableScrolling: boolean = true;
 
   constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {
 

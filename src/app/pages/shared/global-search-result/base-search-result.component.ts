@@ -56,7 +56,9 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   protected performViewTemplate(name: string): void {
     this.currentView = name;
-    this.enabledView[name] = true;
+    if (!this.enabledView[name]) {
+      this.enabledView[name] = true;
+    }
   }
 
   protected onQueryParamsChanged(): void {
