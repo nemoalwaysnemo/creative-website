@@ -16,7 +16,7 @@
         </div>
       </ng-container>
     </global-search-form>
-    <disruption-roadmaps-asset-search-result></disruption-roadmaps-asset-search-result>
+    <disruption-roadmaps-asset-search-result [enableScrolling]="enableScrolling['allRoadmapsView']"></disruption-roadmaps-asset-search-result>
   </div>
 </ng-container>
 
@@ -35,6 +35,6 @@
         </div>
       </ng-container>
     </global-search-form>
-    <disruption-featured-roadmaps-asset-search-result></disruption-featured-roadmaps-asset-search-result>
+    <disruption-featured-roadmaps-asset-search-result [enableScrolling]="enableScrolling['featuredRoadmapsView']"></disruption-featured-roadmaps-asset-search-result>
   </div>
 </ng-container>

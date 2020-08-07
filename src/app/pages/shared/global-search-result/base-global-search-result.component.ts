@@ -38,6 +38,8 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   @Input() append: boolean = false;
 
+  @Input() enableScrolling: boolean = true;
+
   @Input()
   set listViewSettings(settings: any) {
     if (settings) {
@@ -94,7 +96,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   }
 
   onScrollDown(): void {
-    if (this.currentView === 'thumbnailView' && !this.loading && this.canScrollDown) {
+    if (this.enableScrolling && this.currentView === 'thumbnailView' && !this.loading && this.canScrollDown) {
       const nextPageIndex = this.currentPageIndex > 0 ? this.currentPageIndex + 1 : 4;
       this.globalSearchFormService.changePageIndex(nextPageIndex, 6, { append: true, enableLoading: false, trigger: 'onScrollDown' });
     }
