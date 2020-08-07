@@ -12,11 +12,11 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent implements OnInit {
 
-  @ViewChild('target', { static: true, read: ElementRef }) target: ElementRef;
-
   currentView: string = 'allRoadmapsView';
 
   tabs: any[] = TAB_CONFIG;
+
+  protected enabledView: any = { allRoadmapsView: true };
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
@@ -61,8 +61,16 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
   }
 
   selectView(view: string): void {
-    this.currentView = view;
-    this.target.nativeElement.scrollIntoView({ block: 'nearest' });
+    this.performViewTemplate(view);
+  }
+
+  isViewEnabled(name: string): boolean {
+    return this.enabledView[name];
+  }
+
+  protected performViewTemplate(name: string): void {
+    this.currentView = name;
+    this.enabledView[name] = true;
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

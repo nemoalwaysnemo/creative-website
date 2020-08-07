@@ -42,7 +42,7 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
     return doc[this.thumbnailType];
   }
 
-  isEnabledView(name: string): boolean {
+  isViewEnabled(name: string): boolean {
     return this.enabledView[name];
   }
 
@@ -56,9 +56,7 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   protected performViewTemplate(name: string): void {
     this.currentView = name;
-    if (!this.enabledView[name] && this.currentView === name) {
-      this.enabledView[name] = true;
-    }
+    this.enabledView[name] = true;
   }
 
   protected onQueryParamsChanged(): void {

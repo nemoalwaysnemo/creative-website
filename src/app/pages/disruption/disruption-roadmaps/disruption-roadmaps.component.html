@@ -1,38 +1,40 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }" style="margin-bottom: -37px;"></nb-route-tabset>
 <disruption-roadmaps-gallery></disruption-roadmaps-gallery>
-<div #target></div>
-<ng-container *ngIf="currentView === 'allRoadmapsView'; then allRoadmapsView else featuredRoadmapsView"></ng-container>
 
-<ng-template #allRoadmapsView>
-  <h2 class="roadmap-heading">All Roadmaps</h2>
-  <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings">
-    <ng-container class="group-left">
-      <div class="global-search-form-buttons">
-        <disruption-form-button [parent]="document" [type]="'roadmap'" [title]="'New Roadmap'"></disruption-form-button>
-      </div>
-    </ng-container>
-    <ng-container class="group-right">
-      <div class="global-search-form-buttons">
-        <button type="button" (click)="selectView('featuredView')" class="icon_btn roadmap-btn" title="Featured Roadmaps">Featured Roadmaps</button>
-      </div>
-    </ng-container>
-  </global-search-form>
-  <disruption-roadmaps-asset-search-result></disruption-roadmaps-asset-search-result>
-</ng-template>
+<ng-container *ngIf="isViewEnabled('allRoadmapsView')">
+  <div [ngStyle]="currentView === 'allRoadmapsView' ? {} : {'display': 'none'}">
+    <h2 class="roadmap-heading">All Roadmaps</h2>
+    <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings">
+      <ng-container class="group-left">
+        <div class="global-search-form-buttons">
+          <disruption-form-button [parent]="document" [type]="'roadmap'" [title]="'New Roadmap'"></disruption-form-button>
+        </div>
+      </ng-container>
+      <ng-container class="group-right">
+        <div class="global-search-form-buttons">
+          <button type="button" (click)="selectView('featuredRoadmapsView')" class="icon_btn roadmap-btn" title="Featured Roadmaps">Featured Roadmaps</button>
+        </div>
+      </ng-container>
+    </global-search-form>
+    <disruption-roadmaps-asset-search-result></disruption-roadmaps-asset-search-result>
+  </div>
+</ng-container>
 
-<ng-template #featuredRoadmapsView>
-  <h2 class="roadmap-heading">Featured Roadmaps</h2>
-  <global-search-form [filters]="filters" [searchParams]="featuredParams" [settings]="featuredSearchFormSettings">
-    <ng-container class="group-left">
-      <div class="global-search-form-buttons">
-        <disruption-form-button [parent]="document" [type]="'roadmap'" [title]="'New Roadmap'"></disruption-form-button>
-      </div>
-    </ng-container>
-    <ng-container class="group-right">
-      <div class="global-search-form-buttons">
-        <button type="button" (click)="selectView('allRoadmapsView')" class="icon_btn roadmap-btn" title="All Roadmaps">All Roadmaps</button>
-      </div>
-    </ng-container>
-  </global-search-form>
-  <disruption-featured-roadmaps-asset-search-result></disruption-featured-roadmaps-asset-search-result>
-</ng-template>
+<ng-container *ngIf="isViewEnabled('featuredRoadmapsView')">
+  <div [ngStyle]="currentView === 'featuredRoadmapsView' ? {} : {'display': 'none'}">
+    <h2 class="roadmap-heading">Featured Roadmaps</h2>
+    <global-search-form [filters]="filters" [searchParams]="featuredParams" [settings]="featuredSearchFormSettings">
+      <ng-container class="group-left">
+        <div class="global-search-form-buttons">
+          <disruption-form-button [parent]="document" [type]="'roadmap'" [title]="'New Roadmap'"></disruption-form-button>
+        </div>
+      </ng-container>
+      <ng-container class="group-right">
+        <div class="global-search-form-buttons">
+          <button type="button" (click)="selectView('allRoadmapsView')" class="icon_btn roadmap-btn" title="All Roadmaps">All Roadmaps</button>
+        </div>
+      </ng-container>
+    </global-search-form>
+    <disruption-featured-roadmaps-asset-search-result></disruption-featured-roadmaps-asset-search-result>
+  </div>
+</ng-container>
