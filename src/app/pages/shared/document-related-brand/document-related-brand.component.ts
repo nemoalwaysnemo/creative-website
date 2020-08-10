@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchResponse } from '@core/api';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -44,6 +45,20 @@ export class DocumentRelatedBrandComponent {
       this.documentModel = doc;
       this.search(doc);
     }
+  }
+
+  dialogMetadata: any = {
+    moreInfo: true,
+    enablePreview: true,
+    enableDetail: true,
+  };
+
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET] });
+
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) { }
+
+  openDialog(dialog: TemplateRef<any>) {
+    this.globalDocumentDialogService.open(dialog);
   }
 
   search(doc: DocumentModel): void {
