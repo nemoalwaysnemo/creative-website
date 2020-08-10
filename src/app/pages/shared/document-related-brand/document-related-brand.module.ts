@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { DocumentRelatedBrandComponent } from './document-related-brand.component';
 import { GlobalSearchFormModule } from '../global-search-form/global-search-form.module';
 import { GlobalSearchResultModule } from '../global-search-result/global-search-result.module';
+import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { GlobalSearchResultModule } from '../global-search-result/global-search-
     RouterModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    GlobalDocumentDialogModule,
   ],
   declarations: [
     DocumentRelatedBrandComponent,

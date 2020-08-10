@@ -1,8 +1,9 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { AdvanceSearchService, DocumentModel, SearchResponse } from '@core/api';
 import { Subject, timer, Subscription } from 'rxjs';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
 
 @Component({
   selector: 'document-related-agency',
@@ -51,7 +52,22 @@ export class DocumentRelatedAgencyComponent implements OnDestroy {
     }
   }
 
-  constructor(private advanceSearchService: AdvanceSearchService) { }
+  dialogMetadata: any = {
+    moreInfo: true,
+    enablePreview: true,
+    enableDetail: true,
+  };
+
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET] });
+
+  constructor(
+    private advanceSearchService: AdvanceSearchService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) { }
+
+  openDialog(dialog: TemplateRef<any>) {
+    this.globalDocumentDialogService.open(dialog);
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

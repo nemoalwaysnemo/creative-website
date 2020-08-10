@@ -4,14 +4,18 @@
 
 <ng-template #documentView let-doc="doc">
   <div class="image-holder">
-    <a [routerLink]="['/p/creative/asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+    <a (click)="openDialog(dialog)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
   </div>
   <div class="description">
-    <h1 [title]="doc.title"><a [routerLink]="['/p/creative/asset', doc.uid]">{{doc.title}}</a></h1>
+    <h1 [title]="doc.title"><a (click)="openDialog(dialog)">{{doc.title}}</a></h1>
     <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
     <span class="dot"></span>
     <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
     <div class="line"></div>
     <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
   </div>
+
+  <ng-template #dialog>
+    <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="Creative" [metadata]="dialogMetadata"></global-document-dialog>
+  </ng-template>
 </ng-template>

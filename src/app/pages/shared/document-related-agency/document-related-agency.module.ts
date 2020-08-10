@@ -6,6 +6,7 @@ import { DocumentRelatedAgencyComponent } from './document-related-agency.compon
 import { DocumentThumbnailViewModule } from '../document-thumbnail-view/document-thumbnail-view.module';
 import { GlobalSearchFormModule } from '../global-search-form/global-search-form.module';
 import { GlobalSearchResultModule } from '../global-search-result/global-search-result.module';
+import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { GlobalSearchResultModule } from '../global-search-result/global-search-
     DocumentThumbnailViewModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    GlobalDocumentDialogModule,
   ],
   declarations: [
     DocumentRelatedAgencyComponent,
