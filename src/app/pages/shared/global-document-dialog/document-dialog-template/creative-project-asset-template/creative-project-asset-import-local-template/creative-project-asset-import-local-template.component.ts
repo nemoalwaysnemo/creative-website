@@ -7,4 +7,13 @@ import { CreativeProjectAssetBaseTemplateComponent } from '../creative-project-a
 })
 export class CreativeProjectAssetImportLocalTemplateComponent extends CreativeProjectAssetBaseTemplateComponent {
 
+  assetType: string = 'Image';
+
+  getAssetType() {
+    return this.assetType;
+  }
+
+  changeAssetType(type: string) {
+    this.assetType = type;
+  }
 }
