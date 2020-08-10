@@ -31,7 +31,7 @@ export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
   };
 
   gallerySettings: PictureGallerySettings = new PictureGallerySettings({
-    enableTitle: true,
+    enableTitle: false,
   });
 
   private params: any = {
