@@ -1,10 +1,10 @@
-
-import { Component, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, OnDestroy, TemplateRef } from '@angular/core';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
 
 @Component({
   selector: 'document-related-campaign',
@@ -16,6 +16,8 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
   loading: boolean = true;
 
   relatedDocs: { type: any, source: any, uid: any }[] = [];
+
+  relatedDocuments: DocumentModel[];
 
   private subscription: Subscription = new Subscription();
 
@@ -30,7 +32,25 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
 
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
 
-  constructor(private documentPageService: DocumentPageService) {
+  dialogMetadata: any = {
+    moreInfo: true,
+    enablePreview: true,
+    enableDetail: true,
+  };
+
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET] });
+
+  constructor(
+    private documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) { }
+
+  openDialog(dialog: TemplateRef<any>) {
+    this.globalDocumentDialogService.open(dialog);
+  }
+
+  getDocument(uid: string): DocumentModel {
+    return this.relatedDocuments.filter((doc) => doc.uid === uid)[0];
   }
 
   ngOnDestroy(): void {
@@ -39,10 +59,6 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
 
   getDocumentType(): string {
     return this.document ? this.document.type.toLowerCase() : '';
-  }
-
-  redirectToDoc(doc: DocumentModel): void {
-    this.documentPageService.redirect(`/p/creative/asset/${doc.uid}`);
   }
 
   private searchRelatedCampaign(doc: DocumentModel): void {
@@ -62,6 +78,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
       const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
         .subscribe((res: NuxeoPagination) => {
           this.relatedDocs = this.wrapAsCarouselData(res.entries);
+          this.relatedDocuments = res.entries;
           this.loading = false;
         });
       this.subscription.add(subscription);

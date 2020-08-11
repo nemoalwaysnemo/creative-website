@@ -2,8 +2,11 @@
   <div *ngIf="relatedDocs && relatedDocs.length !== 0" class="prev left" (click)="moveLeft()"><a href="javascript:;"></a></div>
   <drag-scroll class="gallery-list left" drag-scroll-y-disabled="true" scrollbar-hidden="true" #nav>
     <div *ngIf="relatedDocs && relatedDocs.length !== 0">
-      <div drag-scroll-item *ngFor="let relatedDoc of relatedDocs" (click)="redirectToDoc(relatedDoc)" [title]="relatedDoc.title" class="list-item">
-        <div [ngStyle]="{'background-image': 'url(' + relatedDoc.source + ')'}"></div>
+      <div drag-scroll-item *ngFor="let relatedDoc of relatedDocs" [title]="relatedDoc.title" class="list-item">
+        <div (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url(' + relatedDoc.source + ')'}"></div>
+        <ng-template #dialog>
+          <global-document-dialog [settings]="dialogSettings" [documentModel]="getDocument(relatedDoc.uid)" [title]="Creative" [metadata]="dialogMetadata"></global-document-dialog>
+        </ng-template>
       </div>
     </div>
     <div *ngIf="!loading && relatedDocs && relatedDocs.length === 0" class="thumbnail-view empty text-center">
