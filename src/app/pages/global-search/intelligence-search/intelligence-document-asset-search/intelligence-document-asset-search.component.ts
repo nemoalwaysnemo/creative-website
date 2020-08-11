@@ -43,6 +43,7 @@ export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewCo
   onKeyup(event: any): void {
     this.triggerSearch(event.target.value.trim(), new GlobalSearchSettings({
       fulltextKey: 'intelligence_fulltext',
+      currentAsSearchParams: false,
       enableQueryParams: false,
       syncFormValue: false,
       showFilter: true,

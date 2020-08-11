@@ -38,7 +38,9 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected searchParams$: Subject<any> = new Subject<any>();
 
-  protected inputParams: GlobalSearchParams; // for input
+  protected baseParams: GlobalSearchParams; // for input
+
+  protected currentParams: GlobalSearchParams; // for input
 
   protected formParams: any = { // for form
     ecm_fulltext: '',
@@ -135,6 +137,10 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     return this.formSettings[key];
   }
 
+  protected getSearchSettings(key: string, searchParams: GlobalSearchParams): any {
+    return searchParams.getSettings(key) !== undefined ? searchParams.getSettings(key) : this.getFormSettings(key);
+  }
+
   protected getSearchQueryParams(event: string, searchParams: GlobalSearchParams, queryParams: Params): any {
     if (this.enableQueryParams(searchParams) && ['onSearchParamsInitialized', 'onQueryParamsChanged'].includes(event)) {
       return new NuxeoQueryParams(queryParams).toSearchParams();
@@ -143,11 +149,23 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected enableQueryParams(searchParams: GlobalSearchParams): boolean {
-    return (searchParams.getSettings('enableQueryParams') || (this.getFormSettings('enableQueryParams') && searchParams.getSettings('enableQueryParams') === undefined));
+    return this.checkSearchSettings('enableQueryParams', searchParams);
   }
 
   protected enableSyncFormValue(searchParams: GlobalSearchParams): boolean {
-    return (searchParams.getSettings('syncFormValue') || (this.getFormSettings('syncFormValue') && searchParams.getSettings('syncFormValue') === undefined));
+    return this.checkSearchSettings('syncFormValue', searchParams);
+  }
+
+  protected currentAsSearchParams(searchParams: GlobalSearchParams): boolean {
+    return this.checkSearchSettings('currentAsSearchParams', searchParams);
+  }
+
+  protected checkSearchSettings(key: string, searchParams: GlobalSearchParams): boolean {
+    return (searchParams.getSettings(key) || (this.getFormSettings(key) && searchParams.getSettings(key) === undefined));
+  }
+
+  protected getSearchParams(): GlobalSearchParams {
+    return this.currentAsSearchParams(this.getCurrentParams()) ? this.getCurrentParams() : this.getBaseParams();
   }
 
   protected patchFormValue(params: { [key: string]: any }): void {
@@ -186,13 +204,20 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   // cache params
   protected setInputParams(params: GlobalSearchParams): void {
-    if (objHasValue(params) && !objHasValue(this.inputParams)) {
-      this.inputParams = params;
+    if (objHasValue(params)) {
+      if (!objHasValue(this.baseParams)) {
+        this.baseParams = params;
+      }
+      this.currentParams = params;
     }
   }
 
-  protected getInputParams(): GlobalSearchParams {
-    return this.inputParams || new GlobalSearchParams();
+  protected getBaseParams(): GlobalSearchParams {
+    return this.baseParams || new GlobalSearchParams();
+  }
+
+  protected getCurrentParams(): GlobalSearchParams {
+    return this.currentParams || new GlobalSearchParams();
   }
 
   protected changeQueryParams(searchParams: GlobalSearchParams): void {
@@ -247,7 +272,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     ).subscribe(([_, queryParams]: [boolean, Params]) => {
       this.setFormParams(queryParams);
       this.setSettingsParams(queryParams);
-      this.onSearchParamsChanged('onQueryParamsChanged', new GlobalSearchParams(), queryParams);
+      this.onSearchParamsChanged('onQueryParamsChanged', this.getSearchParams(), queryParams);
     });
     this.subscription.add(subscription);
   }
@@ -258,7 +283,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
         case 'onPageNumberChanged':
         case 'onSearchParamsChanged':
           if (event.searchParams) {
-            const searchParams = new GlobalSearchParams(Object.assign({}, this.getInputParams().providerParams, this.getFormValue(), event.searchParams), event.settings || {});
+            const searchParams = new GlobalSearchParams(Object.assign({}, this.getSearchParams().providerParams, this.getFormValue(), event.searchParams), event.settings || {});
             this.onSearchParamsChanged(event.name, searchParams);
           }
           break;
@@ -271,17 +296,17 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected onSearchParamsChanged(event: string, searchParams: GlobalSearchParams, queryParams: Params = {}): void {
     const queryValues = this.getSearchQueryParams(event, searchParams, queryParams);
-    const providerParams = new GlobalSearchParams(Object.assign({}, this.getInputParams().providerParams, this.getFormValue(), searchParams.providerParams, queryValues), searchParams.getSettings());
+    const providerParams = new GlobalSearchParams(Object.assign({}, this.getFormValue(), searchParams.providerParams, queryValues), searchParams.getSettings());
     this.triggerSearch(providerParams, event);
   }
 
   protected onKeywordChanged(searchTerm: string): void {
-    const providerParams = new GlobalSearchParams(Object.assign({}, this.getInputParams().providerParams, this.getFormValue(), { ecm_fulltext: searchTerm, currentPageIndex: 0 }), this.getInputParams().getSettings());
+    const providerParams = new GlobalSearchParams(Object.assign({}, this.getSearchParams().providerParams, this.getFormValue(), { ecm_fulltext: searchTerm, currentPageIndex: 0 }), this.getSearchParams().getSettings());
     this.triggerSearch(providerParams, 'onKeywordChanged');
   }
 
   protected onFilterChanged(aggregateModel: any = {}): void {
-    const providerParams = new GlobalSearchParams(Object.assign({}, this.getInputParams().providerParams, this.getFormValue(), { aggregates: aggregateModel, currentPageIndex: 0 }), this.getInputParams().getSettings());
+    const providerParams = new GlobalSearchParams(Object.assign({}, this.getSearchParams().providerParams, this.getFormValue(), { aggregates: aggregateModel, currentPageIndex: 0 }), this.getSearchParams().getSettings());
     this.triggerSearch(providerParams, 'onFilterChanged');
   }
 
@@ -320,7 +345,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    const options = new NuxeoRequestOptions().setOptions('schemas', this.getFormSettings('schemas')).setOptions('skipAggregates', this.getFormSettings('skipAggregates'));
+    const options = new NuxeoRequestOptions().setOptions('schemas', this.getSearchSettings('schemas', searchParams)).setOptions('skipAggregates', this.getSearchSettings('skipAggregates', searchParams));
     return this.search(searchParams, options);
   }
 
@@ -346,7 +371,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       concatMap((res: SearchResponse) => this.onBeforeSearchEvent(res)),
     ).subscribe(({ searchParams }: any) => {
       this.performFilterButton(searchParams);
-      this.triggerLoading(false, searchParams);
+      this.triggerLoading(true, searchParams);
       this.submitted = true;
     });
     this.subscription.add(subscription);
@@ -368,7 +393,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected triggerLoading(loading: boolean, searchParams: GlobalSearchParams): void {
-    if (typeof searchParams.getSettings('enableLoading') === 'undefined' || searchParams.getSettings('enableLoading')) {
+    if (this.checkSearchSettings('enableLoading', searchParams)) {
       this.loading = loading;
     }
   }

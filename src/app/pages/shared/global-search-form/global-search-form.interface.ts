@@ -9,6 +9,8 @@ export class GlobalSearchSettings {
 
   showFilter: boolean = false;
 
+  currentAsSearchParams: boolean = true; // true for current serach params, false for base search params
+
   syncFormValue: boolean = true;
 
   fulltextKey: string = 'ecm_fulltext';
