@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { NuxeoPagination, DocumentModel, NuxeoPermission } from '@core/api';
-import { parseCountry } from '@core/services/helpers';
+import { vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 import { GlobalDocumentDialogSettings } from '@pages/shared/global-document-dialog';
@@ -73,8 +73,8 @@ export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
     }
   }
 
-  parseCountry(list: string[]): string {
-    return parseCountry(list);
+  vocabularyFormatter(list: string[]): string {
+    return vocabularyFormatter(list);
   }
 
   private convertItems(entiries: DocumentModel[]): any[] {

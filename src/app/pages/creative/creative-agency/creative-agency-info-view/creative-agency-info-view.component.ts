@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel } from '@core/api';
 import { ACLService } from '@core/acl';
 import { DocumentPageService } from '@pages/shared';
-import { parseTabRoute, parseCountry } from '@core/services/helpers';
+import { parseTabRoute, vocabularyFormatter } from '@core/services/helpers';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { TAB_CONFIG } from '../creative-agency-tab-config';
 
@@ -34,8 +34,8 @@ export class CreativeAgencyInfoViewComponent extends BaseDocumentViewComponent {
     super(documentPageService);
   }
 
-  parseCountry(list: string[]): string {
-    return parseCountry(list);
+  vocabularyFormatter(list: string[]): string {
+    return vocabularyFormatter(list);
   }
 
   protected parseTabRoute(): void {

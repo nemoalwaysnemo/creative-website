@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel } from '@core/api';
-import { parseCountry, assetPath } from '@core/services/helpers';
+import { vocabularyFormatter, assetPath } from '@core/services/helpers';
 import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -102,8 +102,8 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     return assetPath('assets/images/preview_logo.png');
   }
 
-  parseCountry(list: string[]) {
-    return parseCountry(list);
+  vocabularyFormatter(list: string[]) {
+    return vocabularyFormatter(list);
   }
 
   private buildShareUrl(doc: DocumentModel): string {

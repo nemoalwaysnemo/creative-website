@@ -24,10 +24,10 @@
             </tr>
             <tr>
               <td><b>Agency: </b>{{ doc.get('The_Loupe_Main:agency') }}</td>
-              <td><b>Geography: </b>{{ parseCountry(doc.get('app_Edges:Relevant_Country')) }}</td>
+              <td><b>Geography: </b>{{ vocabularyFormatter(doc.get('app_Edges:Relevant_Country')) }}</td>
             </tr>
             <tr>
-              <td><b>Country: </b>{{ parseCountry(doc.get('The_Loupe_Main:country')) }}</td>
+              <td><b>Country: </b>{{ vocabularyFormatter(doc.get('The_Loupe_Main:country')) }}</td>
               <td><b>Edges: </b>{{ doc.get('app_Edges:Tags_edges') }}</td>
             </tr>
           </tbody>

@@ -261,7 +261,7 @@ export function parseTabRoute(tabConfig: any[], routeParams?: any): any[] {
   return tabs;
 }
 
-export function parseCountry(list: string[]): string {
+export function vocabularyFormatter(list: string[]): string {
   return list.map((x) => x.split('/').pop()).join(', ');
 }
 

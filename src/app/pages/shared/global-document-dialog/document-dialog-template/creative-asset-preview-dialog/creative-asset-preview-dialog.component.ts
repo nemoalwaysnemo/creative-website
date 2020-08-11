@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { parseCountry } from '@core/services/helpers';
+import { vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
 import { DocumentModel, UserModel, NuxeoPermission } from '@core/api';
@@ -36,8 +36,8 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
     }
   }
 
-  parseCountry(list: string[]): string {
-    return parseCountry(list);
+  vocabularyFormatter(list: string[]): string {
+    return vocabularyFormatter(list);
   }
 
   buildShareUrl(doc: DocumentModel): string {

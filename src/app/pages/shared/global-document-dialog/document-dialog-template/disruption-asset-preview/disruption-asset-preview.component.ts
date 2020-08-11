@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
-import { getDocumentTypes, parseCountry } from '@core/services/helpers';
+import { getDocumentTypes, vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
@@ -72,8 +72,8 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
   }
 
-  parseCountry(list: string[]) {
-    return parseCountry(list);
+  vocabularyFormatter(list: string[]) {
+    return vocabularyFormatter(list);
   }
 
   isDisruptionRoadmapAsset(doc: DocumentModel): boolean {

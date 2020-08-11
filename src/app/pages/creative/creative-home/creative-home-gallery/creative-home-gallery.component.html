@@ -19,7 +19,7 @@
           <p class="description">{{ document.get('dc:description') }}</p><br><br>
           <p><b>Brand: </b>{{ document.get('The_Loupe_Main:brand') }}</p>
           <p><b>Agency: </b>{{ document.get('The_Loupe_Main:agency') }}</p>
-          <p><b>Country: </b>{{ parseCountry(document?.get('The_Loupe_Main:country')) }}</p><br>
+          <p><b>Country: </b>{{ vocabularyFormatter(document?.get('The_Loupe_Main:country')) }}</p><br>
         </div>
         <div class="clear"></div>
       </div>
