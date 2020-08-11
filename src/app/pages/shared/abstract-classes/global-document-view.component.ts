@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, ParamMap } from '@angular/router';
-import { DocumentModel, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoRequestOptions, GlobalSearchParams } from '@core/api';
 import { isDocumentUID, vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { tap, distinctUntilChanged, concatMap, map, filter } from 'rxjs/operators';
@@ -59,7 +59,8 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected getDocumentModel(uid: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {
-    return this.documentPageService.advanceRequest(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }), opts);
+    const searchParams = params instanceof GlobalSearchParams ? params.mergeParams({ ecm_uuid: `["${uid}"]` }) : new GlobalSearchParams(Object.assign({}, params, { ecm_uuid: `["${uid}"]` }));
+    return this.documentPageService.advanceRequest(searchParams, opts);
   }
 
   protected getCurrentDocument(primaryKey: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {

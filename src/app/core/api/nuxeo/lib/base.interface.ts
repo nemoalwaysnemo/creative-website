@@ -278,6 +278,11 @@ export class GlobalSearchParams {
     return this;
   }
 
+  mergeParams(params: any): this {
+    this.searchParams.merge(params);
+    return this;
+  }
+
   hasSettings(): boolean {
     return objHasValue(this.settings);
   }
