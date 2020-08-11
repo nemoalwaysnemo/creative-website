@@ -5,7 +5,7 @@
   <button (click)="changeAssetType('Audio')">Upload Audio</button>
 
   <div class='document' [ngSwitch]="getAssetType()">
-    <creative-project-asset-import-image *ngSwitchCase="'Image'" [document]="document">
+    <creative-project-asset-import-image *ngSwitchCase="'Image'" [parent]="document">
     </creative-project-asset-import-image>
     <creative-project-asset-import-video *ngSwitchCase="'Video'" [document]="document">
     </creative-project-asset-import-video>

@@ -1,40 +1,38 @@
-import { Component, Input } from '@angular/core';
-import { DocumentModel, NuxeoAutomations, UserModel} from '@core/api';
+import { Component, Input, OnInit } from '@angular/core';
+import { DocumentModel, NuxeoAutomations, UserModel, NuxeoPermission} from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { DocumentFormEvent } from '../../../../../document-form/document-form.interface';
 import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
 import { OptionModel } from '../../../../../option-select/option-select.interface';
+import { GlobalDocumentFormComponent } from '../../../../../global-document-form/global-document-form.component';
 @Component({
   selector: 'creative-project-asset-import-image',
   styleUrls: ['../creative-project-asset-import-local-template.scss'],
   templateUrl: './creative-project-asset-import-image.component.html',
 })
-export class CreativeProjectAssetImportImageComponent extends BaseDocumentManageComponent {
-
-  @Input() document: DocumentModel;
+export class CreativeProjectAssetImportImageComponent extends GlobalDocumentFormComponent {
 
   protected documentType: string = 'App-Library-Image';
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
-    return this.initializeDocument(doc, this.getDocType());
+  addChildrenPermission$: Observable<boolean> = observableOf(false);
+
+  // protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  //   return this.initializeDocument(doc, this.getDocType());
+  // }
+
+  @Input()
+  set parent(doc: DocumentModel) {
+    if (doc) {
+      this.document = doc;
+      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
+    }
   }
 
   getDocType(): string {
     return this.documentType;
-  }
-
-  protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
-    return this.documentPageService.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
-      .pipe(
-        tap((doc: DocumentModel) => {
-          doc.setParent(parent);
-          doc.path = parent.uid;
-          doc.parentRef = parent.uid;
-        }),
-      );
   }
 
   showForm: boolean = false;
@@ -62,7 +60,7 @@ export class CreativeProjectAssetImportImageComponent extends BaseDocumentManage
   onCallback(event: DocumentFormEvent): void {
     if (event.action === 'Updated') {
       this.updateForm(event.doc);
-      this.refresh(this.redirectUrl);
+      // this.refresh(this.redirectUrl);
     } else if (event.action === 'Canceled') {
       this.canceleForm();
     }
@@ -329,7 +327,7 @@ export class CreativeProjectAssetImportImageComponent extends BaseDocumentManage
         layoutPosition: 'bottom',
         formMode: 'edit',
         showInputs: false,
-        multiUpload: true,
+        multiUpload: false,
       }),
       // Agency Credits
       // all items  #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
