@@ -50,11 +50,11 @@ export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewCo
     }));
   }
 
-  private triggerSearch(searchTerm: string = '', settings?: GlobalSearchSettings) {
+  private triggerSearch(searchTerm: string = '', settings?: GlobalSearchSettings): void {
     timer(0).subscribe(() => { this.baseParams$.next(this.buildSearchParams(searchTerm, settings)); });
   }
 
-  private buildSearchParams(searchTerm: string = '', settings?: GlobalSearchSettings): any {
+  private buildSearchParams(searchTerm: string = '', settings?: GlobalSearchSettings): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,

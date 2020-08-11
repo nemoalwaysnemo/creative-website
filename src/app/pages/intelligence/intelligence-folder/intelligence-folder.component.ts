@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, timer } from 'rxjs';
+import { Subject, timer, Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, GlobalSearchSettings } from '@pages/shared';
-import { DocumentModel, GlobalSearchParams, NuxeoRequestOptions, SearchFilterModel } from '@core/api';
+import { DocumentModel, GlobalSearchParams, NuxeoRequestOptions, SearchFilterModel, SearchResponse, NuxeoPagination } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -38,6 +39,13 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       }
     }
     return { searchParams, opts };
+  }
+
+  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+    if (!res.searchParams.hasKeyword() && this.documentType === 'Industry' && res.action === 'afterSearch') {
+      return this.getFilterAggregates(res);
+    }
+    return observableOf(res);
   }
 
   constructor(
@@ -115,7 +123,14 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc, searchTerm, settings)); });
   }
 
-  protected buildConsumerAndMarketingParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
+  protected getFilterAggregates(res: SearchResponse): Observable<SearchResponse> {
+    const searchParams: GlobalSearchParams = this.buildIndustryAssetParams(null).mergeParams({ pageSize: 1 });
+    return this.documentPageService.advanceRequest(searchParams, new NuxeoRequestOptions({ skipAggregates: false })).pipe(
+      map((response: NuxeoPagination) => { res.response.aggregations = response.aggregations; return res; }),
+    );
+  }
+
+  protected buildConsumerAndMarketingParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
@@ -128,7 +143,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     return new GlobalSearchParams(params, settings);
   }
 
-  protected buildIndustryParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
+  protected buildIndustryParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
@@ -142,7 +157,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     return new GlobalSearchParams(params, settings);
   }
 
-  protected buildIndustryAssetParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): any {
+  protected buildIndustryAssetParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
@@ -155,7 +170,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     return new GlobalSearchParams(params, settings);
   }
 
-  protected buildIndustrySearchAssetParams(searchParams: GlobalSearchParams): any {
+  protected buildIndustrySearchAssetParams(searchParams: GlobalSearchParams): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,

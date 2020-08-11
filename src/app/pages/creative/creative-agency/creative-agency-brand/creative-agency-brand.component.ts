@@ -41,7 +41,7 @@ export class CreativeAgencyBrandComponent extends GlobalDocumentViewComponent im
     }
   }
 
-  protected getCurrentDocumentSearchParams(): any {
+  protected getCurrentDocumentSearchParams(): GlobalSearchParams {
     const params: any = {
       pageSize: 1,
       currentPageIndex: 0,

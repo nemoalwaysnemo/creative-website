@@ -446,11 +446,11 @@ export class NuxeoRequestOptions {
 }
 
 export class NuxeoPagination {
+  aggregations: any;
   readonly entityType: string;
   readonly entries: DocumentModel[];
   readonly currentPageSize: number;
   readonly currentPageIndex: number;
-  readonly aggregations: any;
   readonly quickFilters: any[];
   readonly isLastPageAvailable: boolean;
   readonly isNextPageAvailable: boolean;
