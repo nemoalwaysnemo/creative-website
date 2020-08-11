@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { parseCountry } from '@core/services/helpers';
+import { vocabularyFormatter } from '@core/services/helpers';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
@@ -32,8 +32,8 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
     }
   }
 
-  parseCountry(list: string[]): string {
-    return parseCountry(list);
+  vocabularyFormatter(list: string[]): string {
+    return vocabularyFormatter(list);
   }
 
   buildShareUrl(doc: DocumentModel): string {

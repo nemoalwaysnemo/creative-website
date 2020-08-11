@@ -23,7 +23,7 @@
             </tr>
             <tr>
               <td>{{ documentModel.get('app_Edges:industry') }}</td>
-              <td>{{ parseCountry(documentModel.get('app_Edges:Relevant_Country')) }}</td>
+              <td>{{ vocabularyFormatter(documentModel.get('app_Edges:Relevant_Country')) }}</td>
             </tr>
             <tr>
               <th>Author</th>
@@ -92,7 +92,7 @@
             </tr>
             <tr>
               <td>{{documentModel.get('The_Loupe_Main:assettype')}}</td>
-              <td>{{parseCountry(documentModel.get('The_Loupe_Main:country'))}}</td>
+              <td>{{vocabularyFormatter(documentModel.get('The_Loupe_Main:country'))}}</td>
             </tr>
             <tr>
               <th colspan="2">Agency</th>

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, TemplateRef, Type } from '@angular/core';
 import { concatMap, map, share } from 'rxjs/operators';
 import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { getDocumentTypes, parseCountry } from '@core/services/helpers';
+import { getDocumentTypes, vocabularyFormatter } from '@core/services/helpers';
 import { DocumentPageService } from '../services/document-page.service';
 import { DocumentModelForm } from '../global-document-form/global-document-form.component';
 import { DocumentModel, NuxeoPagination, NuxeoAutomations, NuxeoPermission, UserModel } from '@core/api';
@@ -213,8 +213,8 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     }
   }
 
-  parseCountry(list: string[]) {
-    return parseCountry(list);
+  vocabularyFormatter(list: string[]) {
+    return vocabularyFormatter(list);
   }
 
   goBack() {

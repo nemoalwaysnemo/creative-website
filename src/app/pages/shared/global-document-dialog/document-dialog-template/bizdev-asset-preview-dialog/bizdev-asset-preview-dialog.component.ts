@@ -1,6 +1,6 @@
 import { Component, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { parseCountry, getDocumentTypes } from '@core/services/helpers';
+import { vocabularyFormatter, getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
@@ -40,8 +40,8 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
     }
   }
 
-  parseCountry(list: string[]): string {
-    return parseCountry(list);
+  vocabularyFormatter(list: string[]): string {
+    return vocabularyFormatter(list);
   }
 
   buildShareUrl(doc: DocumentModel): string {

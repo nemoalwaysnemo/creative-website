@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, ParamMap } from '@angular/router';
 import { DocumentModel, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
-import { isDocumentUID, parseCountry } from '@core/services/helpers';
+import { isDocumentUID, vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { tap, distinctUntilChanged, concatMap, map, filter } from 'rxjs/operators';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
@@ -122,8 +122,8 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
     return this.documentPageService.navigate(commands, extras);
   }
 
-  protected parseCountry(list: string[]): string {
-    return parseCountry(list);
+  protected vocabularyFormatter(list: string[]): string {
+    return vocabularyFormatter(list);
   }
 
 }
