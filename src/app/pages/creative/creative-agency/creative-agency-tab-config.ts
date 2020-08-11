@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 
 export const TAB_CONFIG: any[] = [
   {
-    title: 'Brands',
-    route: '/p/creative/agency/:id/brand',
-  },
-  {
     title: 'Showcase',
     route: '/p/creative/agency/:id/showcase',
+  },
+  {
+    title: 'Brands',
+    route: '/p/creative/agency/:id/brand',
   },
   {
     title: 'Manage Library',

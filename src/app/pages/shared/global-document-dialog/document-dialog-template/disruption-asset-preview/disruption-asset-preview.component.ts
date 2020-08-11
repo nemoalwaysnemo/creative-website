@@ -77,10 +77,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
   }
 
   isDisruptionRoadmapAsset(doc: DocumentModel): boolean {
-    if (this.isDisruptionAsset(doc)) {
-      return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE).includes(doc.type);
-    }
-    return false;
+    return this.isDisruptionAsset(doc) && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE).includes(doc.type);
   }
 
   buildShareUrl(doc: DocumentModel): string {
