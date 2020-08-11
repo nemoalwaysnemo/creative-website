@@ -7,7 +7,7 @@ import { GlobalDocumentViewComponent } from '../../shared/abstract-classes/globa
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'innovation-remote-page',
+  selector: 'innovation-10x-page',
   template: `
     <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {'height': '100%'}">
       <ng-container *ngIf="iframeUrl">
@@ -16,7 +16,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
     </div>
   `,
 })
-export class InnovationRemotePageComponent extends GlobalDocumentViewComponent implements OnInit {
+export class Innovation10xComponent extends GlobalDocumentViewComponent implements OnInit {
 
   iframeUrl: SafeResourceUrl;
 
@@ -44,11 +44,12 @@ export class InnovationRemotePageComponent extends GlobalDocumentViewComponent i
 
   protected getCurrentDocumentSearchParams(): any {
     return {
-      pageSize: 1,
+      pageSize: 10,
       currentPageIndex: 0,
       app_global_ext_app_iframe: true,
       ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
+      ecm_path_eq: NUXEO_PATH_INFO.INNOVATION_10X_FOLDER_PATH,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
     };

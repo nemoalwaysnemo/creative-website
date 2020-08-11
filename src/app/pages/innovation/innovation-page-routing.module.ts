@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { InnovationPageComponent } from './innovation-page.component';
 import { InnovationHomeComponent } from './innovation-home/innovation-home.component';
+import { Innovation10xComponent } from './innovation-10x-page/innovation-10x-page.component';
 import { InnovationRemotePageComponent } from './innovation-remote-page/innovation-remote-page.component';
 import { InnovationFolderComponent } from './innovation-folder/innovation-folder.component';
 import { InnovationListComponent } from './innovation-list/innovation-list.component';
@@ -45,6 +46,10 @@ const routes: Routes = [{
     },
     {
       path: '10x',
+      component: Innovation10xComponent,
+    },
+    {
+      path: 'remote/:id',
       component: InnovationRemotePageComponent,
     },
     {
