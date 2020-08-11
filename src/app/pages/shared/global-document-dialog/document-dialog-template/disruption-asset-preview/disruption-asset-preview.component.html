@@ -50,16 +50,18 @@
             </tr>
             <tr>
               <td *ngIf="isIntelligenceAsset(document)">{{ document.get('app_Edges:intelligence_type') }}</td>
-              <td *ngIf="isDisruptionAsset(document) && isDisruptionRoadmapAsset(document)">{{ document.get('app_Edges:disruption_type') }}</td>
+              <td *ngIf="isDisruptionRoadmapAsset(document)">{{ document.get('app_Edges:disruption_type') }}</td>
               <td *ngIf="isDisruptionAsset(document) && !isDisruptionRoadmapAsset(document)">{{ document.get('The_Loupe_Main:assettype') }}</td>
               <td>{{ document.get('app_Edges:industry') }}</td>
             </tr>
             <tr>
-              <th>Geography</th>
+              <th *ngIf="!isDisruptionRoadmapAsset(document)">Geography</th>
+              <th *ngIf="isDisruptionRoadmapAsset(document)">Country</th>
               <th>Author</th>
             </tr>
             <tr>
-              <td>{{ parseCountry(document.get('app_Edges:Relevant_Country')) }}</td>
+              <td *ngIf="!isDisruptionRoadmapAsset(document)">{{ parseCountry(document.get('app_Edges:Relevant_Country')) }}</td>
+              <td *ngIf="isDisruptionRoadmapAsset(document)">{{ parseCountry(document.get('The_Loupe_Main:country')) }}</td>
               <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
             </tr>
             <tr>
