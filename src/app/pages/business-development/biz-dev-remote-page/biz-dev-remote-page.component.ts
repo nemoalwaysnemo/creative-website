@@ -22,7 +22,6 @@ export class BizDevRemotePageComponent extends GlobalDocumentViewComponent imple
 
   loading: boolean = true;
 
-
   constructor(
     private sanitizer: DomSanitizer,
     protected activatedRoute: ActivatedRoute,
