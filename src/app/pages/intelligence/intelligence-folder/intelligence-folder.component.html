@@ -1,5 +1,5 @@
 <intelligence-folder-view [loading]="loading" [document]="document"></intelligence-folder-view>
-<global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
+<global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [afterSearch]="afterSearch" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
   <div class="filters">
     <input class="keyword" [autofocus]='searchFormSettings.autofocus' [placeholder]="placeholder" (keyup)="onKeyup($event)" />
   </div>
