@@ -28,7 +28,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   });
 
   beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
-    if (searchParams.hasKeyword() && this.documentType === 'Industry') {
+    if ((searchParams.hasKeyword() || searchParams.hasFilters()) && this.documentType === 'Industry') {
       this.resultView = 'asset';
       searchParams = this.buildIndustrySearchAssetParams(searchParams);
     } else {
@@ -42,7 +42,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   }
 
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
-    if (!res.searchParams.hasKeyword() && this.documentType === 'Industry' && res.action === 'afterSearch') {
+    if (!res.searchParams.hasKeyword() && !res.searchParams.hasFilters() && this.documentType === 'Industry' && res.action === 'afterSearch') {
       return this.getFilterAggregates(res);
     }
     return observableOf(res);
@@ -60,7 +60,6 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
       this.triggerSearch(this.document, event.target.value.trim(), new GlobalSearchSettings({
         fulltextKey: 'intelligence_fulltext',
         currentAsSearchParams: false,
-        enableQueryParams: false,
         syncFormValue: false,
         showFilter: true,
       }));

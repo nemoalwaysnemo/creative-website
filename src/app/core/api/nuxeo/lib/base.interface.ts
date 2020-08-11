@@ -274,6 +274,9 @@ export class GlobalSearchParams {
   }
 
   setParams(params: any): this {
+    if (this.searchParams && this.searchParams['aggregates'] && !params['aggregates']) {
+      params['aggregates'] = this.searchParams['aggregates'];
+    }
     this.searchParams = new NuxeoSearchParams(params);
     return this;
   }
