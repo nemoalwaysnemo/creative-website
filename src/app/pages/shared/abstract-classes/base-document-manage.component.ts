@@ -32,6 +32,9 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
     this.performForm();
   }
 
+  protected getAccordionSettings(): any[] {
+    return [];
+  }
   protected getSettings(): any[] {
     return [];
   }
