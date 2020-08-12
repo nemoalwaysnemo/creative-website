@@ -9,7 +9,7 @@ import { DocumentPageService } from '@pages/shared';
 })
 export class IntelligenceFolderViewComponent {
 
-  isShow: boolean = false;
+  showBackButton: boolean = false;
 
   documentModel: DocumentModel;
 
@@ -19,7 +19,7 @@ export class IntelligenceFolderViewComponent {
   set document(doc: DocumentModel) {
     if (doc) {
       this.documentModel = doc;
-      this.isShow = this.showBackToParent(doc.type);
+      this.showBackButton = !this.folderType.includes(doc.type);
     }
   }
 
@@ -29,12 +29,12 @@ export class IntelligenceFolderViewComponent {
 
   }
 
-  backToParent(): void {
-    this.documentPageService.redirect(`/p/intelligence/folder/${this.documentModel.parentRef}`);
+  toSelfUrl(): string {
+    return `/p/intelligence/folder/${this.documentModel.uid}`;
   }
 
-  private showBackToParent(type: string): boolean {
-    return !this.folderType.includes(type);
+  backToParent(): void {
+    this.documentPageService.redirect(`/p/intelligence/folder/${this.documentModel.parentRef}`);
   }
 
 }
