@@ -34,7 +34,7 @@ export class CreativeMyAgencyComponent extends GlobalDocumentViewComponent {
   }
 
   private redirectToAgency(uid: string): void {
-    this.documentPageService.navigate(['/p/creative/agency/' + uid + '/brand']);
+    this.documentPageService.navigate(['/p/creative/agency/' + uid + '/showcase']);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
