@@ -141,11 +141,9 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     return searchParams.getSettings(key) !== undefined ? searchParams.getSettings(key) : this.getFormSettings(key);
   }
 
-  protected getSearchQueryParams(event: string, searchParams: GlobalSearchParams, queryParams: Params): any {
-    if (this.enableQueryParams(searchParams) && ['onSearchParamsInitialized', 'onQueryParamsChanged'].includes(event)) {
-      return new NuxeoQueryParams(queryParams).toSearchParams();
-    }
-    return {};
+  protected getSearchQueryParams(event: string, searchParams: GlobalSearchParams, queryParams: Params): NuxeoQueryParams {
+    const params = this.enableQueryParams(searchParams) && ['onSearchParamsInitialized', 'onQueryParamsChanged'].includes(event) ? queryParams : {};
+    return new NuxeoQueryParams(params);
   }
 
   protected enableQueryParams(searchParams: GlobalSearchParams): boolean {
@@ -270,6 +268,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     ).pipe(
       filter((list: any[]) => this.getFormSettings('enableQueryParams') && this.enableQueryParamsChange && !list[0]),
     ).subscribe(([_, queryParams]: [boolean, Params]) => {
+      this.resetFormValue();
       this.setFormParams(queryParams);
       this.setSettingsParams(queryParams);
       this.onSearchParamsChanged('onQueryParamsChanged', this.getSearchParams(), queryParams);
@@ -295,8 +294,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected onSearchParamsChanged(event: string, searchParams: GlobalSearchParams, queryParams: Params = {}): void {
-    const queryValues = this.getSearchQueryParams(event, searchParams, queryParams);
-    const providerParams = new GlobalSearchParams(Object.assign({}, this.getFormValue(), searchParams.providerParams, queryValues), searchParams.getSettings());
+    const queryValues: NuxeoQueryParams = this.getSearchQueryParams(event, searchParams, queryParams);
+    const providerParams = new GlobalSearchParams(Object.assign({}, this.getFormValue(), searchParams.providerParams), searchParams.getSettings()).setQueryParams(queryValues);
     this.triggerSearch(providerParams, event);
   }
 
@@ -327,7 +326,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       case 'onSearchParamsInitialized':
         if (this.enableSyncFormValue(searchParams)) {
           this.resetFormValue();
-          this.patchFormValue(searchParams.providerParams); // should update form params for changing input value
+          this.patchFormValue(searchParams.toFormValues()); // should update form params for changing input value
         }
         break;
       default:

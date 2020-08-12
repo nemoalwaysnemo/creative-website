@@ -153,6 +153,18 @@ export class NuxeoQueryParams {
     return this;
   }
 
+  hasKeyword(): boolean {
+    return !!this.ecm_fulltext || !!this.q;
+  }
+
+  hasFilters(): boolean {
+    return this.hasParam('_agg') || this.hasParam('__in') || this.hasParam('__eq');
+  }
+
+  hasParam(name: string): boolean {
+    return Object.getOwnPropertyNames(this).some((key: string) => key.includes(name));
+  }
+
   // convert query params to form values
   toSearchParams(): any {
     const params: any = {};
@@ -243,6 +255,8 @@ export class GlobalSearchParams {
 
   private searchParams: NuxeoSearchParams;
 
+  private queryParams: NuxeoQueryParams = new NuxeoQueryParams();
+
   constructor(params: any = {}, settings: any = {}) {
     this.setParams(params);
     this.setSettings(settings);
@@ -262,11 +276,11 @@ export class GlobalSearchParams {
   }
 
   hasKeyword(): boolean {
-    return this.providerParams.hasKeyword();
+    return this.providerParams.hasKeyword() || this.queryParams.hasKeyword();
   }
 
   hasFilters(): boolean {
-    return this.providerParams.hasFilters();
+    return this.providerParams.hasFilters() || this.queryParams.hasFilters();
   }
 
   hasParam(key: string): boolean {
@@ -278,6 +292,11 @@ export class GlobalSearchParams {
       params['aggregates'] = this.searchParams['aggregates'];
     }
     this.searchParams = new NuxeoSearchParams(params);
+    return this;
+  }
+
+  setQueryParams(params: any): this {
+    this.queryParams = new NuxeoQueryParams(params);
     return this;
   }
 
@@ -311,11 +330,16 @@ export class GlobalSearchParams {
   getFulltextKey(): string {
     return this.getSettings('fulltextKey') || 'ecm_fulltext';
   }
+
+  toFormValues(): any {
+    return Object.assign({}, this.searchParams, this.queryParams.toSearchParams());
+  }
   // used for nuxeoApi.pageProvider request
   toRequestParams(): any {
     let params: any = {};
     const keys: string[] = ['keyword', 'aggregates', 'showFilter'];
-    const providerParams = Object.entries(this.searchParams);
+    const mergedParams = Object.assign({}, this.searchParams, this.queryParams.toSearchParams());
+    const providerParams = Object.entries(mergedParams);
     for (const [key, value] of providerParams) {
       if (!keys.includes(key)) {
         params[key] = value;
