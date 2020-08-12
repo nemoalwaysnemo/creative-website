@@ -266,12 +266,12 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return this.documentModel.path.includes('Creative/1. GCL Frontpage/');
   }
 
-  goAgencyFolder(): void {
+  goToAgencyFolder(): void {
     const agencyId = this.libraryFolder[this.libraryFolder.length - 2].uid;
-    this.documentPageService.navigate([`/p/creative/agency/${agencyId}/brand`]);
+    this.documentPageService.navigate([`/p/creative/agency/${agencyId}/showcase`]);
   }
 
-  goBrandFolder(): void {
+  goToBrandFolder(): void {
     const brandId = this.libraryFolder[this.libraryFolder.length - 1].uid;
     this.documentPageService.navigate([`/p/creative/brand/${brandId}/asset`]);
   }
