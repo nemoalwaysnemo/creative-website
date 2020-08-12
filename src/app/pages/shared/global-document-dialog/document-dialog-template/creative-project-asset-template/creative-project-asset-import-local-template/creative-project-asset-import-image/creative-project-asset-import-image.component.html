@@ -1,5 +1,6 @@
 <h2>IMPORT IMAGE</h2>
 <div class="document">
-  <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout"
-    (callback)="onCallback($event)" [accordions]="accordions"></document-form>
+  <document-form [currentUser]="currentUser" [document]="document" [formMode]="'create'" [settings]="settings"
+    [beforeSave]="beforeSave" [afterSave]="afterSave" [accordions]="accordions" (callback)="onCallback($event)">
+  </document-form>
 </div>

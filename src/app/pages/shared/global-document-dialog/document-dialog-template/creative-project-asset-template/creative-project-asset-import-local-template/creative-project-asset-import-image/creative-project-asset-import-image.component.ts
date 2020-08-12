@@ -1,10 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DocumentModel, NuxeoAutomations, UserModel, NuxeoPermission} from '@core/api';
+import { Component } from '@angular/core';
+import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { DocumentFormEvent } from '../../../../../document-form/document-form.interface';
-import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
-import { Observable, of as observableOf } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
 import { OptionModel } from '../../../../../option-select/option-select.interface';
 import { GlobalDocumentFormComponent } from '../../../../../global-document-form/global-document-form.component';
@@ -17,56 +15,25 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
 
   protected documentType: string = 'App-Library-Image';
 
-  addChildrenPermission$: Observable<boolean> = observableOf(false);
-
-  // protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
-  //   return this.initializeDocument(doc, this.getDocType());
-  // }
-
-  @Input()
-  set parent(doc: DocumentModel) {
-    if (doc) {
-      this.document = doc;
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
-    }
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc.getParent('brand'), this.getDocType());
   }
 
   getDocType(): string {
     return this.documentType;
   }
 
-  showForm: boolean = false;
+  // setFormDocument(doc: DocumentModel, user: UserModel): void {
+  //   super.setFormDocument(doc, user);
+  // }
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
-  changeView(): void {
-    this.showForm = !this.showForm;
-  }
-
-  doc: DocumentModel;
-
-  updateForm(doc: DocumentModel): void {
-    if (doc && this.document && doc.uid === this.document.uid) {
-      this.document = doc;
-    }
-    this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
-    this.changeView();
-  }
-
-  canceleForm(): void {
-    this.changeView();
-  }
-
   onCallback(event: DocumentFormEvent): void {
-    if (event.action === 'Updated') {
-      this.updateForm(event.doc);
-      // this.refresh(this.redirectUrl);
+    if (event.action === 'Created') {
+      this.documentPageService.notify(`${event.doc.title} has been created successfully!`, '', 'success');
     } else if (event.action === 'Canceled') {
-      this.canceleForm();
     }
-  }
-
-  protected setCurrentDocument(doc: DocumentModel): void {
   }
 
   protected getAccordionSettings(): any[] {
@@ -120,8 +87,8 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
           providerName: 'App-Library-PageProvider-Projects',
         },
         validators: { required: null },
-        errorMessages: { required: '{{label}} is required'},
-        // visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
+        errorMessages: { required: '{{label}} is required' },
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -242,11 +209,11 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         label: 'Description',
       }),
       // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'edit' : 'hidden'}
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:jobnumber',
-        label: 'Job Number',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:campaign_mgt'),
-      }),
+      // new DynamicInputModel({
+      //   id: 'The_Loupe_Main:jobnumber',
+      //   label: 'Job Number',
+      //   visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:campaign_mgt'),
+      // }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_po_number_internal')=="0" ? 'hidden' : 'edit'}
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:po_number_internal',
@@ -307,15 +274,15 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         placeholder: 'Drop Image/PDF here!',
         acceptTypes: 'image/*,.pdf',
       }),
-      // new DynamicDragDropFileZoneModel<string>({
-      //   id: 'dragDropAttachmentZone',
-      //   formMode: 'edit',
-      //   uploadType: 'attachment',
-      //   layoutPosition: 'left',
-      //   queueLimit: 20,
-      //   placeholder: 'Drop to upload attachment',
-      //   acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
-      // }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        layoutPosition: 'left',
+        queueLimit: 20,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+      }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
@@ -327,7 +294,7 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         layoutPosition: 'bottom',
         formMode: 'edit',
         showInputs: false,
-        multiUpload: false,
+        multiUpload: true,
       }),
       // Agency Credits
       // all items  #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
@@ -526,7 +493,7 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
         label: 'Industry',
-        disabled: false,
+        disabled: true,
         layoutPosition: 'right',
         settings: {
           placeholder: 'Please select industry',

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DocumentModel, NuxeoAutomations, UserModel} from '@core/api';
+import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { DocumentFormEvent } from '../../../../../document-form/document-form.interface';
 import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
@@ -7,70 +7,33 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
 import { OptionModel } from '../../../../../option-select/option-select.interface';
+import { GlobalDocumentFormComponent } from '../../../../../global-document-form/global-document-form.component';
 @Component({
   selector: 'creative-project-asset-import-audio',
   styleUrls: ['../creative-project-asset-import-local-template.scss'],
   templateUrl: './creative-project-asset-import-audio.component.html',
 })
-export class CreativeProjectAssetImportAudioComponent extends BaseDocumentManageComponent {
+export class CreativeProjectAssetImportAudioComponent extends GlobalDocumentFormComponent {
 
-  @Input() document: DocumentModel;
 
   protected documentType: string = 'App-Library-Audio';
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
-    return this.initializeDocument(doc, this.getDocType());
+    return this.initializeDocument(doc.getParent('brand'), this.getDocType());
   }
 
   getDocType(): string {
     return this.documentType;
   }
 
-  protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
-    return this.documentPageService.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
-      .pipe(
-        tap((doc: DocumentModel) => {
-          doc.setParent(parent);
-          doc.path = parent.uid;
-          doc.parentRef = parent.uid;
-        }),
-      );
-  }
-
-  showForm: boolean = false;
-
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
-  changeView(): void {
-    this.showForm = !this.showForm;
-  }
-
-  doc: DocumentModel;
-
-  updateForm(doc: DocumentModel): void {
-    if (doc && this.document && doc.uid === this.document.uid) {
-      this.document = doc;
-    }
-    this.documentPageService.notify(`${doc.title} has been updated successfully!`, '', 'success');
-    this.changeView();
-  }
-
-  canceleForm(): void {
-    this.changeView();
-  }
-
   onCallback(event: DocumentFormEvent): void {
-    if (event.action === 'Updated') {
-      this.updateForm(event.doc);
-      this.refresh(this.redirectUrl);
+    if (event.action === 'Created') {
+      this.documentPageService.notify(`${event.doc.title} has been created successfully!`, '', 'success');
     } else if (event.action === 'Canceled') {
-      this.canceleForm();
     }
   }
-
-  protected setCurrentDocument(doc: DocumentModel): void {
-  }
-
   protected getAccordionSettings(): any[] {
     return [
       {
@@ -122,7 +85,7 @@ export class CreativeProjectAssetImportAudioComponent extends BaseDocumentManage
         },
         required: true,
         validators: { required: null },
-        errorMessages: { required: '{{label}} is required'},
+        errorMessages: { required: '{{label}} is required' },
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
