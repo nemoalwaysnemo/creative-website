@@ -187,6 +187,13 @@ export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent 
         rows: 3,
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => user.isAdmin() || user.hasGroup('Disruption-Admins-Disruption'),
       }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        required: false,
+        hidden: true,
+        defaultValue: 'Disruption Roadmap',
+      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
