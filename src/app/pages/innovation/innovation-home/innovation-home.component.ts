@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
-import { NuxeoPagination, DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
-import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 import { TAB_CONFIG } from '../innovation-tab-config';
+import { NuxeoPagination, DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
+import { GlobalSearchFormSettings, DocumentPageService, GlobalDocumentViewComponent, GlobalDocumentDialogService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -11,11 +12,11 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   styleUrls: ['./innovation-home.component.scss'],
   templateUrl: './innovation-home.component.html',
 })
-export class InnovationHomeComponent extends BaseDocumentViewComponent {
+export class InnovationHomeComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = TAB_CONFIG;
 
-  loading: boolean = true;
+  loading: boolean = false;
 
   headline: string = 'Driving progress and change across our collective';
 
@@ -44,8 +45,8 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
     ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
   };
 
-  private baseFolderParams: any = {
-    pageSize: 100,
+  private folderParams: any = {
+    pageSize: 12,
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
@@ -58,29 +59,81 @@ export class InnovationHomeComponent extends BaseDocumentViewComponent {
     enableQueryParams: false,
   });
 
-  constructor(protected documentPageService: DocumentPageService) {
-    super(documentPageService);
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    protected documentPageService: DocumentPageService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(activatedRoute, documentPageService);
   }
 
   onInit(): void {
-    this.setCurrentDocument();
-    this.performFolders();
+    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
+    this.subscription.add(subscription);
   }
 
-  private performFolders(): void {
-    this.documentPageService.advanceRequest(new GlobalSearchParams(this.baseFolderParams)).pipe(
-      map((res: NuxeoPagination) => {
-        const docs = [];
-        this.tabs.forEach(x => {
-          const folder = res.entries.find(doc => doc.title === x.title);
-          if (folder) {
-            docs.push(folder);
+  isExternalNewTab(doc: DocumentModel): boolean {
+    return doc.get('app_global:ext_app_newtab');
+  }
+
+  isExternalIframe(doc: DocumentModel): boolean {
+    return doc.get('app_global:ext_app_iframe');
+  }
+
+  goToLink(doc: DocumentModel): void {
+    const url = doc.get('The_Loupe_Main:url');
+    if (url) {
+      window.open(url, '_blank');
+    } else {
+      this.documentPageService.redirectTo404();
+    }
+  }
+
+  protected getCurrentDocumentSearchParams(): any {
+    return {
+      pageSize: 1,
+      currentPageIndex: 0,
+      ecm_path_eq: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_MODULE_TYPE,
+    };
+  }
+
+  protected setCurrentDocument(doc: DocumentModel): void {
+    super.setCurrentDocument(doc);
+    this.performFolders(doc);
+  }
+
+  private search(params: {}): Observable<DocumentModel[]> {
+    return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
+      map((res: NuxeoPagination) => res.entries),
+    );
+  }
+
+  private performFolders(doc: DocumentModel): void {
+    const list = [];
+    this.loading = true;
+    this.folderParams['ecm_parentId'] = doc.uid;
+    this.search(this.folderParams).subscribe((docs: DocumentModel[]) => {
+      for (const tab of this.tabs) {
+        docs.forEach((d: DocumentModel, index: number) => {
+          if (tab.title === d.title) {
+            list.push(docs[index]);
+            docs.splice(index, 1);
           }
         });
-        return docs;
-      }),
-    ).subscribe((docs: DocumentModel[]) => {
-      this.folders = docs;
+      }
+      docs.sort((a: DocumentModel, b: DocumentModel) => {
+        const nameA = a.title.toUpperCase();
+        const nameB = b.title.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+      this.folders = list.concat(docs);
       this.loading = false;
     });
   }

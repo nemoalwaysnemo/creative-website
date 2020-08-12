@@ -49,6 +49,7 @@ export enum NUXEO_DOC_TYPE {
   BIZ_DEV_FOLDER_TYPE = '["App-BizDev-Folder"]',
   BIZ_DEV_ASSET_TYPE = '["App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset"]',
   BIZ_DEV_ALL_FOLDER_TYPES = '["App-BizDev-Case-Studies-Folder", "App-BizDev-ThoughtLeadership-Folder", "App-BizDev-Folder", "App-BizDev-Thought-Folder", "App-BizDev-CaseStudy-Folder"]',
+  INNOVATION_MODULE_TYPE = '["App-Innovation-Module"]',
   INNOVATION_FOLDER_TYPE = '["App-Innovation-Folder"]',
   INNOVATION_ASSET_TYPE = '["App-Innovation-Asset"]',
   INNOVATION_SEARCH_TYPE = '["App-Innovation-Folder", "App-Innovation-Asset"]',

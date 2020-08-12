@@ -141,20 +141,20 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
         },
         required: false,
       }),
-      new DynamicCheckboxModel({
-        id: 'app_global:ext_app_iframe',
-        label: 'Enable external App iframe',
-      }),
-      new DynamicCheckboxModel({
-        id: 'app_global:ext_app_newtab',
-        label: 'Enable external App in new tab',
-      }),
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:url',
-        label: 'external Application URL',
-        autoComplete: 'off',
-        required: false,
-      }),
+      // new DynamicCheckboxModel({
+      //   id: 'app_global:ext_app_iframe',
+      //   label: 'Enable external App iframe',
+      // }),
+      // new DynamicCheckboxModel({
+      //   id: 'app_global:ext_app_newtab',
+      //   label: 'Enable external App in new tab',
+      // }),
+      // new DynamicInputModel({
+      //   id: 'The_Loupe_Main:url',
+      //   label: 'external Application URL',
+      //   autoComplete: 'off',
+      //   required: false,
+      // }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DocumentModel } from '@core/api';
@@ -16,7 +16,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
     </div>
   `,
 })
-export class InnovationRemotePageComponent extends GlobalDocumentViewComponent implements OnInit {
+export class InnovationRemotePageComponent extends GlobalDocumentViewComponent {
 
   iframeUrl: SafeResourceUrl;
 
@@ -28,11 +28,6 @@ export class InnovationRemotePageComponent extends GlobalDocumentViewComponent i
     protected documentPageService: DocumentPageService,
   ) {
     super(activatedRoute, documentPageService);
-  }
-
-  ngOnInit(): void {
-    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
-    this.subscription.add(subscription);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
