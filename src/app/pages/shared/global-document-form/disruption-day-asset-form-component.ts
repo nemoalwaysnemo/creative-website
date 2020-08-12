@@ -175,6 +175,13 @@ export class DisruptionDayAssetFormComponent extends GlobalDocumentFormComponent
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        required: false,
+        hidden: true,
+        defaultValue: 'Disruption Day Asset',
+      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
