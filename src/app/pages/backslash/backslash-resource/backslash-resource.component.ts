@@ -2,22 +2,21 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { DocumentPageService, GlobalDocumentViewComponent, GlobalDocumentDialogService } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'backslash-home',
-  styleUrls: ['./backslash-home.component.scss'],
-  templateUrl: './backslash-home.component.html',
+  selector: 'backslash-resource',
+  styleUrls: ['./backslash-resource.component.scss'],
+  templateUrl: './backslash-resource.component.html',
 })
-export class BackslashHomeComponent extends GlobalDocumentViewComponent {
+export class BackslashResourceComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(activatedRoute, documentPageService);
   }
@@ -31,8 +30,9 @@ export class BackslashHomeComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_FOLDER_TYPE,
+      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ASSET_FOLDER_TYPE,
     };
   }
+
 }
