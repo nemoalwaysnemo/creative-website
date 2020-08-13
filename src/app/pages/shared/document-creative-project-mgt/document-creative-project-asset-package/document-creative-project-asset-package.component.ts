@@ -1,11 +1,10 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { DocumentModel, NuxeoApiService, NuxeoAutomations, UserModel } from '@core/api';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
-import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
-import { SuggestionSettings } from '../../directory-suggestion/directory-suggestion-settings';
-import { GlobalDocumentFormComponent } from '../../global-document-form/global-document-form.component';
+import { DynamicInputModel, DynamicTextAreaModel } from '@core/custom';
 import { DocumentPageService } from '../../services/document-page.service';
-import { DynamicInputModel, DynamicSuggestionModel, DynamicTextAreaModel } from '@core/custom';
+import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
+import { GlobalDocumentFormComponent } from '../../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 
 @Component({
@@ -15,7 +14,7 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog/global
 })
 export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'document-project-package-template';
+  static readonly NAME: string = 'creative-project-asset-package-form';
 
   protected documentType: string = 'App-Library-Delivery-Package';
 

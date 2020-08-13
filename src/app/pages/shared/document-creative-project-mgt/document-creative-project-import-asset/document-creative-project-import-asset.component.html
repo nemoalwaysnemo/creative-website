@@ -1,0 +1,16 @@
+<div class="document-creative-project-import-asset">
+  <div class="page-title">IMPORT</div>
+  <button (click)="changeAssetType('Image')">Upload Image</button>
+  <button (click)="changeAssetType('Video')">Upload Video</button>
+  <button (click)="changeAssetType('Audio')">Upload Audio</button>
+
+  <div class='document' [ngSwitch]="assetType">
+    <document-creative-project-import-asset-image *ngSwitchCase="'Image'" [documentModel]="document">
+    </document-creative-project-import-asset-image>
+    <document-creative-project-import-asset-video *ngSwitchCase="'Video'" [documentModel]="document">
+    </document-creative-project-import-asset-video>
+    <document-creative-project-import-asset-audio *ngSwitchCase="'Audio'" [documentModel]="document">
+    </document-creative-project-import-asset-audio>
+  </div>
+
+</div>

@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class BizDevThoughtFolderFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'thought-folder-form';
+  static readonly NAME: string = 'biz-dev-thought-folder-form';
 
   protected documentType: string = 'App-BizDev-Thought-Folder';
 

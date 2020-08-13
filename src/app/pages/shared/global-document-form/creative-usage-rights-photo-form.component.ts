@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'ur-photo-form';
+  static readonly NAME: string = 'creative-ur-photo-form';
 
   protected documentType: string = 'App-Library-UsageRights-Photographer';
 

@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'ur-music-form';
+  static readonly NAME: string = 'creative-ur-music-form';
 
   protected documentType: string = 'App-Library-UsageRights-Music';
 

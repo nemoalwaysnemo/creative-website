@@ -12,7 +12,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'brilliant-thinking-form';
+  static readonly NAME: string = 'disruption-brilliant-thinking-form';
 
   protected documentType: string = 'App-Disruption-Asset';
 

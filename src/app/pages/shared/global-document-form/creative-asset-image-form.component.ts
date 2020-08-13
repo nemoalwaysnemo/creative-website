@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'creative-image-form';
+  static readonly NAME: string = 'creative-asset-image-form';
 
   protected documentType: string = 'App-Library-Image';
 

@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class CreativeUsageRightsStockComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'ur-stock-form';
+  static readonly NAME: string = 'creative-ur-stock-form';
 
   protected documentType: string = 'App-Library-UsageRights-Stock';
 

@@ -12,7 +12,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class BizDevCaseStudyAssetFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'case-study-asset-form';
+  static readonly NAME: string = 'biz-dev-case-study-asset-form';
 
   protected documentType: string = 'App-BizDev-CaseStudy-Asset';
 

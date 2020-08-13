@@ -14,7 +14,7 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DocumentCreativeProjectRelatedAssetComponent {
 
-  static readonly NAME: string = 'document-project-package-template';
+  static readonly NAME: string = 'creative-project-related-asset';
 
   loading: boolean = true;
 

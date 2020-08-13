@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'creative-video-form';
+  static readonly NAME: string = 'creative-asset-video-form';
 
   protected documentType: string = 'App-Library-Video';
 

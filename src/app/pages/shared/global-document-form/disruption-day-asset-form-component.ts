@@ -12,7 +12,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class DisruptionDayAssetFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'day-asset-form';
+  static readonly NAME: string = 'disruption-day-asset-form';
 
   protected documentType: string = 'App-Disruption-Day-Asset';
 
