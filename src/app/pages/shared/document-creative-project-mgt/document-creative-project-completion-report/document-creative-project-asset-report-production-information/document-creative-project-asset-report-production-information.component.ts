@@ -1,17 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicListModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
-import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
-import { DocumentFormEvent } from '../../../../../../shared/document-form/document-form.interface';
-import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
-import { GlobalSearchFormSettings } from '../../../../../global-search-form/global-search-form.interface';
+import { BaseDocumentManageComponent } from '../../../abstract-classes/base-document-manage.component';
+import { DocumentFormEvent } from '../../../document-form/document-form.interface';
+import { SuggestionSettings } from '../../../directory-suggestion/directory-suggestion-settings';
+import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 
 @Component({
-  selector: 'creative-project-asset-report-production-information',
-  styleUrls: ['../creative-project-asset-completion-report-template.scss'],
-  templateUrl: './creative-project-asset-report-production-information.component.html',
+  selector: 'document-creative-project-asset-report-production-information',
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
+  templateUrl: './document-creative-project-asset-report-production-information.component.html',
 })
-export class CreativeProjectReportProductionInformationComponent extends BaseDocumentManageComponent {
+export class DocumentCreativeProjectReportProductionInformationComponent extends BaseDocumentManageComponent {
 
   showForm: boolean = false;
 

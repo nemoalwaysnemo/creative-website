@@ -15,7 +15,9 @@ import { DocumentCreativeProjectImportAssetImageComponent } from './document-cre
 import { DocumentCreativeProjectImportAssetVideoComponent } from './document-creative-project-import-asset/document-creative-project-import-asset-video/document-creative-project-import-asset-video.component';
 import { DocumentCreativeProjectImportAssetAudioComponent } from './document-creative-project-import-asset/document-creative-project-import-asset-audio/document-creative-project-import-asset-audio.component';
 import { DocumentCreativeProjectReportBuyontTalentInformationComponent } from './document-creative-project-completion-report/document-creative-project-report-buyout-talent-information/document-creative-project-report-buyout-talent-information.component';
-
+import { DocumentCreativeProjectReportAllowableVersionsComponent } from './document-creative-project-completion-report/document-creative-project-asset-report-allowable-versions/document-creative-project-asset-report-allowable-versions.component';
+import { DocumentCreativeProjectAssetReportUnionTalentComponent } from './document-creative-project-completion-report/document-creative-project-asset-report-union-talent/document-creative-project-asset-report-union-talent.component';
+import { DocumentCreativeProjectReportProductionInformationComponent } from './document-creative-project-completion-report/document-creative-project-asset-report-production-information/document-creative-project-asset-report-production-information.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,6 +34,9 @@ import { DocumentCreativeProjectReportBuyontTalentInformationComponent } from '.
     DocumentCreativeProjectAssetPackageComponent,
     DocumentCreativeProjectDeliveryPackageComponent,
     DocumentCreativeProjectReportBuyontTalentInformationComponent,
+    DocumentCreativeProjectReportAllowableVersionsComponent,
+    DocumentCreativeProjectAssetReportUnionTalentComponent,
+    DocumentCreativeProjectReportProductionInformationComponent,
     DocumentCreativeProjectImportAssetComponent,
     DocumentCreativeProjectImportAssetImageComponent,
     DocumentCreativeProjectImportAssetVideoComponent,
@@ -44,6 +49,9 @@ import { DocumentCreativeProjectReportBuyontTalentInformationComponent } from '.
     DocumentCreativeProjectAssetPackageComponent,
     DocumentCreativeProjectDeliveryPackageComponent,
     DocumentCreativeProjectReportBuyontTalentInformationComponent,
+    DocumentCreativeProjectAssetReportUnionTalentComponent,
+    DocumentCreativeProjectReportAllowableVersionsComponent,
+    DocumentCreativeProjectReportProductionInformationComponent,
     DocumentCreativeProjectImportAssetComponent,
   ],
 })
