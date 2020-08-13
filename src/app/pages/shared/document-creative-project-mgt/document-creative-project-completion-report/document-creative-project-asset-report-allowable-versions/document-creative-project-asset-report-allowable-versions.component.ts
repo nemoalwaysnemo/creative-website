@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DynamicListModel, DynamicInputModel  } from '@core/custom';
-import { DocumentFormEvent } from '../../../../../document-form/document-form.interface';
-import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
+import { DocumentFormEvent } from '../../../document-form/document-form.interface';
+import { BaseDocumentManageComponent } from '../../../abstract-classes/base-document-manage.component';
 @Component({
-  selector: 'creative-project-asset-report-allowable-versions',
-  styleUrls: ['../creative-project-asset-completion-report-template.scss'],
-  templateUrl: './creative-project-asset-report-allowable-versions.component.html',
+  selector: 'document-creative-project-asset-report-allowable-versions',
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
+  templateUrl: './document-creative-project-asset-report-allowable-versions.component.html',
 })
-export class CreativeProjectReportAllowableVersionsComponent extends BaseDocumentManageComponent {
+export class DocumentCreativeProjectReportAllowableVersionsComponent extends BaseDocumentManageComponent {
 
   showForm: boolean = false;
 

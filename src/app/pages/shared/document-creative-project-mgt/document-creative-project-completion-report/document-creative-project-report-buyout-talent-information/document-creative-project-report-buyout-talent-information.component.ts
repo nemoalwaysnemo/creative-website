@@ -10,7 +10,7 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 @Component({
-  selector: 'creative-project-report-buyout-talent-information',
+  selector: 'document-creative-project-report-buyout-talent-information',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-report-buyout-talent-information.component.html',
 })
