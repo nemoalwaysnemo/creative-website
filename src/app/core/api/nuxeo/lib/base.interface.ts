@@ -345,8 +345,8 @@ export class GlobalSearchParams {
         params[key] = value;
       }
     }
-    if (objHasValue(this.searchParams['aggregates'])) {
-      params = this.buildAggSearchParams(this.searchParams['aggregates'], params);
+    if (objHasValue(mergedParams['aggregates'])) {
+      params = this.buildAggSearchParams(mergedParams['aggregates'], params);
     }
     if (params['ecm_fulltext'] && this.getFulltextKey() !== 'ecm_fulltext') {
       params[this.getFulltextKey()] = params['ecm_fulltext'];

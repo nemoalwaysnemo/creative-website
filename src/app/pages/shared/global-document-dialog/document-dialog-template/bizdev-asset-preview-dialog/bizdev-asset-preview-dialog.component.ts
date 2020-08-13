@@ -40,6 +40,14 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
     }
   }
 
+  protected getPreviewSettings(): any {
+    return {
+      moreInfo: true,
+      enablePreview: true,
+      enableDetail: true,
+    };
+  }
+
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
