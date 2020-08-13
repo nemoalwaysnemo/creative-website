@@ -12,7 +12,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'roadmap-form';
+  static readonly NAME: string = 'disruption-roadmap-form';
 
   protected documentType: string = 'App-Disruption-Roadmap-Asset';
 

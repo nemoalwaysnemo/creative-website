@@ -1,30 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
+import { Component } from '@angular/core';
+import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
-import { DocumentFormEvent } from '../../../../../document-form/document-form.interface';
-import { BaseDocumentManageComponent } from '../../../../../abstract-classes/base-document-manage.component';
+import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
+import { SuggestionSettings } from '../../../directory-suggestion/directory-suggestion-settings';
+import { DocumentFormEvent } from '../../../document-form/document-form.interface';
+import { OptionModel } from '../../../option-select/option-select.interface';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
-import { OptionModel } from '../../../../../option-select/option-select.interface';
-import { GlobalDocumentFormComponent } from '../../../../../global-document-form/global-document-form.component';
-@Component({
-  selector: 'creative-project-asset-import-audio',
-  styleUrls: ['../creative-project-asset-import-local-template.scss'],
-  templateUrl: './creative-project-asset-import-audio.component.html',
-})
-export class CreativeProjectAssetImportAudioComponent extends GlobalDocumentFormComponent {
 
+@Component({
+  selector: 'document-creative-project-import-asset-audio',
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
+  templateUrl: './document-creative-project-import-asset-audio.component.html',
+})
+export class DocumentCreativeProjectImportAssetAudioComponent extends GlobalDocumentFormComponent {
+
+  static readonly NAME: string = 'creative-project-import-asset-audio-form';
 
   protected documentType: string = 'App-Library-Audio';
-
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
-    return this.initializeDocument(doc.getParent('brand'), this.getDocType());
-  }
-
-  getDocType(): string {
-    return this.documentType;
-  }
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
@@ -34,6 +26,11 @@ export class CreativeProjectAssetImportAudioComponent extends GlobalDocumentForm
     } else if (event.action === 'Canceled') {
     }
   }
+
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc.getParent('brand'), this.getDocType());
+  }
+
   protected getAccordionSettings(): any[] {
     return [
       {

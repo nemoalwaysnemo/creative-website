@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class BizDevCaseStudyFolderFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'case-study-folder-form';
+  static readonly NAME: string = 'biz-dev-case-study-folder-form';
 
   protected documentType: string = 'App-BizDev-CaseStudy-Folder';
 

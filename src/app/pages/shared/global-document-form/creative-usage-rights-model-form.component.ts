@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class CreativeUsageRightsModelComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'ur-model-form';
+  static readonly NAME: string = 'creative-ur-model-form';
 
   protected documentType: string = 'App-Library-UsageRights-Talent';
 

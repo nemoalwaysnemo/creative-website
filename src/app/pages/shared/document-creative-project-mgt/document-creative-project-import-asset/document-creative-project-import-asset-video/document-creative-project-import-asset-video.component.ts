@@ -1,31 +1,22 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
-import { DocumentFormEvent } from '../../../../../document-form/document-form.interface';
+import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
+import { SuggestionSettings } from '../../../directory-suggestion/directory-suggestion-settings';
+import { DocumentFormEvent } from '../../../document-form/document-form.interface';
+import { OptionModel } from '../../../option-select/option-select.interface';
 import { Observable } from 'rxjs';
-import { SuggestionSettings } from '../../../../../directory-suggestion/directory-suggestion-settings';
-import { OptionModel } from '../../../../../option-select/option-select.interface';
-import { GlobalDocumentFormComponent } from '../../../../../global-document-form/global-document-form.component';
+
 @Component({
-  selector: 'creative-project-asset-import-image',
-  styleUrls: ['../creative-project-asset-import-local-template.scss'],
-  templateUrl: './creative-project-asset-import-image.component.html',
+  selector: 'document-creative-project-import-asset-video',
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
+  templateUrl: './document-creative-project-import-asset-video.component.html',
 })
-export class CreativeProjectAssetImportImageComponent extends GlobalDocumentFormComponent {
+export class DocumentCreativeProjectImportAssetVideoComponent extends GlobalDocumentFormComponent {
 
-  protected documentType: string = 'App-Library-Image';
+  static readonly NAME: string = 'creative-project-import-asset-video-form';
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
-    return this.initializeDocument(doc.getParent('brand'), this.getDocType());
-  }
-
-  getDocType(): string {
-    return this.documentType;
-  }
-
-  // setFormDocument(doc: DocumentModel, user: UserModel): void {
-  //   super.setFormDocument(doc, user);
-  // }
+  protected documentType: string = 'App-Library-Video';
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
@@ -36,22 +27,26 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
     }
   }
 
+  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+    return this.initializeDocument(doc.getParent('brand'), this.getDocType());
+  }
+
   protected getAccordionSettings(): any[] {
     return [
       {
         // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
         name: '+ Agency Credits',
-        // visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
       },
       {
         // #{currentDocument.getPropertyValue('app_global:backslash')=="0" ? 'hidden' : 'edit'}
         name: '+ Backslash',
-        // visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:backslash'),
       },
       {
         // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
         name: '+ Usage Rights',
-        // visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:UsageRights'),
       },
     ];
   }
@@ -88,7 +83,7 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -105,7 +100,7 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
       }),
-      // #{changeableDocument.type == 'App-Library-Image' ? 'edit' : 'hidden'}
+      // #{changeableDocument.type == 'App-Library-Video' ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
@@ -115,7 +110,7 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
           multiple: false,
           placeholder: 'What is this asset?',
           providerType: SuggestionSettings.OPERATION,
-          providerName: 'javascript.provideAssetType_Image',
+          providerName: 'javascript.provideAssetType_Video',
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
@@ -124,7 +119,7 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
-        label: 'Live date / publishing',
+        label: 'Live date / airing',
         readonly: false,
         defaultValue: (new Date()),
         required: true,
@@ -141,9 +136,9 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
-        label: 'Live date / publishing',
-        required: false,
+        label: 'Live date / airing',
         readonly: false,
+        required: false,
         validators: {
           dateFormatValidator: null,
         },
@@ -152,7 +147,7 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         },
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:UsageRights'),
       }),
-      // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
+      // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Media Usage Types',
@@ -168,7 +163,7 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:UsageRights'),
       }),
-      // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
+      // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'Media Usage Type(s)',
@@ -205,15 +200,20 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global_fields:enable_region'),
       }),
       new DynamicInputModel({
+        id: 'The_Loupe_Main:spotLength',
+        label: 'Spot Length',
+        maxLength: 50,
+      }),
+      new DynamicInputModel({
         id: 'dc:description',
         label: 'Description',
       }),
       // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'edit' : 'hidden'}
-      // new DynamicInputModel({
-      //   id: 'The_Loupe_Main:jobnumber',
-      //   label: 'Job Number',
-      //   visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:campaign_mgt'),
-      // }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:jobnumber',
+        label: 'Job Number',
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:campaign_mgt'),
+      }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_po_number_internal')=="0" ? 'hidden' : 'edit'}
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:po_number_internal',
@@ -262,8 +262,8 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         uploadType: 'asset',
         layoutPosition: 'left',
         queueLimit: 25,
-        placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'image/*,.pdf',
+        placeholder: 'Drop Video File here!',
+        acceptTypes: '.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -271,8 +271,8 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         uploadType: 'asset',
         layoutPosition: 'left',
         queueLimit: 1,
-        placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'image/*,.pdf',
+        placeholder: 'Drop Video File here!',
+        acceptTypes: '.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',
@@ -297,7 +297,6 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         multiUpload: true,
       }),
       // Agency Credits
-      // all items  #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
       new DynamicInputModel({
         id: 'The_Loupe_Credits:accountDirector',
         label: 'Account Director',
@@ -371,7 +370,6 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         accordionTab: '+ Agency Credits',
       }),
       // backslash
-      // all items #{currentDocument.getPropertyValue('app_global:backslash')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Category',
@@ -397,14 +395,13 @@ export class CreativeProjectAssetImportImageComponent extends GlobalDocumentForm
         },
       }),
       // Usage Rights
-      // all items #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       // #{currentDocument.getPropertyValue('app_global:UsageRights_globalref')=="0" ? 'hidden' : 'edit'}
       new DynamicCheckboxModel({
         id: 'app_global:UsageRights_globalref',
         label: 'Global Contract Reference',
         layoutPosition: 'right',
         accordionTab: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:UsageRights_globalref'),
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:UsageRights_globalref'),
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_talent_contract',

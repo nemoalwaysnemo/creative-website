@@ -13,7 +13,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'creative-audio-form';
+  static readonly NAME: string = 'creative-asset-audio-form';
 
   protected documentType: string = 'App-Library-Audio';
 
