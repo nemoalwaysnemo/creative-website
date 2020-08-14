@@ -21,7 +21,7 @@
   </vg-controls>
 
   <video [vgMedia]="video" #video id="documentVideo" preload="auto" [poster]="poster">
-    <source *ngFor="let videoSource of videoSources" [src]="videoSource['url']" [type]="videoSource['type']">
+    <source *ngFor="let videoSource of videoSources" [src]="videoSource['url']" [type]="videoSource['type']" [attr.source-info]="videoSource['name']">
   </video>
 </vg-player>
 <div class="clear"></div>
