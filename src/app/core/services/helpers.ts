@@ -298,3 +298,7 @@ export function getAssetModuleType(doc: any): string {
   }
   return type;
 }
+
+export function mapOrder(array: any[], order: any[], key: string): any[] {
+  return array.sort((a, b) => order.indexOf(a[key]) < order.indexOf(b[key]) || order.indexOf(a[key]) === -1 || order.indexOf(b[key]) === -1 ? -1 : 1);
+}

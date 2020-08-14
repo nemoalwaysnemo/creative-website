@@ -1,5 +1,5 @@
 import { Base } from './base.api';
-import { join, deepExtend } from '../../../services/helpers';
+import { join, deepExtend, mapOrder } from '../../../services/helpers';
 import { NuxeoEnricher, BatchBlob, NuxeoAutomations } from './base.interface';
 import { of as observableOf, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -151,12 +151,20 @@ export class DocumentModel extends Base {
     return this._properties;
   }
 
+  get fileContent(): any {
+    return this._properties['file:content'] === null || this._properties['file:content'] === undefined ? {} : this._properties['file:content'];
+  }
+
+  get fileName(): string {
+    return this.fileContent['name'];
+  }
+
   get filePath(): string {
-    return this._properties['file:content'] === null || this._properties['file:content'] === undefined ? '' : this._properties['file:content'].data;
+    return this.fileContent['data'];
   }
 
   get fileMimeType(): string {
-    return this._properties['file:content'] === null ? '' : this._properties['file:content']['mime-type'];
+    return this.fileContent['mime-type'];
   }
 
   set properties(properties: any) {
@@ -237,41 +245,35 @@ export class DocumentModel extends Base {
     return (this.get('files:files') || []).filter((entry: any) => entry && entry.file).map((entry: any) => ({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name }));
   }
 
-  getVideoSources(): { url: string, type: string }[] {
-    const sources = this.get('vid:transcodedVideos');
-    if (sources.length !== 0) {
-      return sources.map((conversion: any) => {
-        return {
-          url: conversion.content.data,
-          type: conversion.content['mime-type'],
-        };
-      });
-    } else {
-      return [{
-        url: this.filePath,
-        type: '',
-      }];
-    }
-  }
 
   hasVideoContent(): boolean {
     return this.getVideoSources().length > 0;
   }
 
-  getCarouselVideoSources(): { url: string, type: string }[] {
-    const sources = this.filePath;
+  getVideoSources(): { url: string, type: string, name: string }[] {
+    const sources = this.get('vid:transcodedVideos');
     if (sources.length !== 0) {
-      return [{
-        url: this.filePath,
-        type: this.fileMimeType,
-      }];
-    } else {
-      return this.get('vid:transcodedVideos').map((conversion: any) => {
-        return {
-          url: conversion.content.data,
-          type: conversion.content['mime-type'],
-        };
+      return mapOrder(sources, ['WebM Original'], 'name').map((video: any) => {
+        return { url: video.content.data, type: video.content['mime-type'], name: video.name };
       });
+    } else {
+      return [{ url: this.filePath, type: this.fileMimeType, name: this.fileName }];
+    }
+  }
+
+  getCarouselVideoSources(): { url: string, type: string, name: string }[] {
+    const sources = this.get('vid:transcodedVideos') || [];
+    const webMOriginal = sources.find((x: any) => x.name === 'WebM Original');
+    if (webMOriginal) {
+      return [{ url: webMOriginal.content.data, type: webMOriginal.content['mime-type'], name: webMOriginal.name }];
+    } else if (this.filePath) {
+      return [{ url: this.filePath, type: this.fileMimeType, name: this.fileName }];
+    } else if (sources.length !== 0) {
+      return mapOrder(sources, ['WebM Original'], 'name').map((video: any) => {
+        return { url: video.content.data, type: video.content['mime-type'], name: video.name };
+      });
+    } else {
+      return [{ url: '', type: '', name: '' }];
     }
   }
 
@@ -290,8 +292,7 @@ export class DocumentModel extends Base {
         return true;
       }
     }
-    if (this.get('file:content') && this.get('file:content')['mime-type']
-      && this.get('file:content')['mime-type'].includes('audio') && this.get('file:content').data) {
+    if (this.fileContent && this.filePath && this.fileContent['mime-type'] && this.fileContent['mime-type'].includes('audio')) {
       return true;
     }
     return false;
