@@ -6,6 +6,7 @@ import { BackslashHomeComponent } from './backslash-home.component';
 import { BackslashHomeThumbnailComponent } from './backslash-home-thumbnail/backslash-home-thumbnail.component';
 import { BackslashHomeGalleryComponent } from './backslash-home-gallery/backslash-home-gallery.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
+import { BackslashFormButtonModule } from '../backslash-form-button/backslash-form-button.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared'
     RouterModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    BackslashFormButtonModule,
   ],
   declarations: [
     BackslashHomeComponent,

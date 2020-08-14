@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { SearchFilterModel } from '@core/api';
+import { Component, Input } from '@angular/core';
+import { SearchFilterModel, DocumentModel } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/environment';
 
 @Component({
@@ -8,6 +8,9 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/envir
   templateUrl: './backslash-home-thumbnail.component.html',
 })
 export class BackslashHomeThumbnailComponent {
+
+  doc: DocumentModel;
+
   layout: string = 's-results my_agency dates full-width backslash_asset_search';
 
   currentView: string = 'thumbnailView';
@@ -31,5 +34,12 @@ export class BackslashHomeThumbnailComponent {
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
   ];
+
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.doc = doc;
+    }
+  }
 
 }

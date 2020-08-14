@@ -26,6 +26,16 @@ import {
   BizDevThoughtAssetFormComponent,
   InnovationAssetFormComponent,
   InnovationFolderFormComponent,
+  BackslashAssetPostFormComponent,
+  BackslashAssetVideoFormComponent,
+  BackslashCaseStudyAssetFormComponent,
+  BackslashCaseStudyFolderFormComponent,
+  BackslashCaseStudyCategoryFormComponent,
+  BackslashEdgesAssetFormComponent,
+  BackslashEdgesFolderFormComponent,
+  BackslashResourcesAssetFormComponent,
+  BackslashResourcesFolderFormComponent,
+  BackslashTriggerFormComponent,
 } from '../global-document-form';
 
 const COMPONENTS = [
@@ -52,6 +62,16 @@ const COMPONENTS = [
   BizDevThoughtAssetFormComponent,
   InnovationAssetFormComponent,
   InnovationFolderFormComponent,
+  BackslashAssetPostFormComponent,
+  BackslashAssetVideoFormComponent,
+  BackslashCaseStudyAssetFormComponent,
+  BackslashCaseStudyFolderFormComponent,
+  BackslashCaseStudyCategoryFormComponent,
+  BackslashEdgesAssetFormComponent,
+  BackslashEdgesFolderFormComponent,
+  BackslashResourcesAssetFormComponent,
+  BackslashResourcesFolderFormComponent,
+  BackslashTriggerFormComponent,
   GlobalDocumentFormComponent,
 ];
 

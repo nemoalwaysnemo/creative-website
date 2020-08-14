@@ -21,6 +21,16 @@ import { BizDevThoughtFolderFormComponent } from './biz-dev-thought-folder-form.
 import { BizDevThoughtAssetFormComponent } from './biz-dev-thought-asset-form.component';
 import { InnovationAssetFormComponent } from './innovation-asset-form.component';
 import { InnovationFolderFormComponent } from './innovation-folder-form.component';
+import { BackslashAssetPostFormComponent } from './backslash-asset-post-form.component';
+import { BackslashAssetVideoFormComponent } from './backslash-asset-video-form.component';
+import { BackslashCaseStudyAssetFormComponent } from './backslash-case-study-asset-form.component';
+import { BackslashCaseStudyFolderFormComponent } from './backslash-case-study-folder-form.component';
+import { BackslashCaseStudyCategoryFormComponent } from './backslash-case-study-category-form.component';
+import { BackslashEdgesAssetFormComponent } from './backslash-edges-asset-form.component';
+import { BackslashEdgesFolderFormComponent } from './backslash-edges-folder-form.component';
+import { BackslashResourcesAssetFormComponent } from './backslash-resources-asset-form.component';
+import { BackslashResourcesFolderFormComponent } from './backslash-resources-folder-form.component';
+import { BackslashTriggerFormComponent } from './backslash-trigger-form.component';
 
 export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_ASSET_IMAGE_FORM: CreativeAssetImageFormComponent,
@@ -46,4 +56,14 @@ export const GLOBAL_DOCUMENT_FORM = {
   BIZ_DEV_THOUGHT_ASSET_FORM: BizDevThoughtAssetFormComponent,
   INNOVATION_FOLDER_FORM: InnovationFolderFormComponent,
   INNOVATION_ASSET_FORM: InnovationAssetFormComponent,
+  BACKSLASH_ASSET_POST_FORM: BackslashAssetPostFormComponent,
+  BACKSLASH_ASSET_VIDEO_FORM: BackslashAssetVideoFormComponent,
+  BACKSLASH_CASE_STUDY_ASSET_FORM: BackslashCaseStudyAssetFormComponent,
+  BACKSLASH_CASE_STUDY_FOLDER_FORM: BackslashCaseStudyFolderFormComponent,
+  BACKSLASH_CASE_STUDY_CATEGORY_FORM: BackslashCaseStudyCategoryFormComponent,
+  BACKSLASH_EDGES_ASSET_FORM: BackslashEdgesAssetFormComponent,
+  BACKSLASH_EDGES_FOLDER_FORM: BackslashEdgesFolderFormComponent,
+  BACKSLASH_RESOURCES_ASSET_FORM: BackslashResourcesAssetFormComponent,
+  BACKSLASH_RESOURCES_FOLDER_FORM: BackslashResourcesFolderFormComponent,
+  BACKSLASH_TRIGGER_FORM: BackslashTriggerFormComponent,
 };
