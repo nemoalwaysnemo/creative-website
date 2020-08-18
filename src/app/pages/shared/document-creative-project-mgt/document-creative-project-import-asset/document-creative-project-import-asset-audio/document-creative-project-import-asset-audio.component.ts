@@ -53,6 +53,46 @@ export class DocumentCreativeProjectImportAssetAudioComponent extends GlobalDocu
 
   protected getSettings(): object[] {
     return [
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'create',
+        uploadType: 'asset',
+        layoutPosition: 'left',
+        queueLimit: 25,
+        placeholder: 'Drop Audio File here!',
+        acceptTypes: '.mp3,.mp4',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        layoutPosition: 'left',
+        queueLimit: 1,
+        placeholder: 'Drop Audio File here!',
+        acceptTypes: '.mp3,.mp4',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        layoutPosition: 'left',
+        queueLimit: 20,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'bottom',
+        formMode: 'create',
+        multiUpload: true,
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'bottom',
+        formMode: 'edit',
+        showInputs: false,
+        multiUpload: true,
+      }),
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
@@ -244,52 +284,6 @@ export class DocumentCreativeProjectImportAssetAudioComponent extends GlobalDocu
         id: 'app_global:networkshare',
         label: 'Share with TBWA\\Collective',
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:networkshare'),
-      }),
-      // #{currentDocument.getPropertyValue('app_global:collections')=="0" ? 'hidden' : 'edit'}
-      // new DynamicSuggestionModel<string>({
-      //   id: 'collectionMember:collectionIds',
-      //   label: 'Collections',
-      //   visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:collections'),
-      // }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'create',
-        uploadType: 'asset',
-        layoutPosition: 'left',
-        queueLimit: 25,
-        placeholder: 'Drop Audio File here!',
-        acceptTypes: '.mp3,.mp4',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'edit',
-        uploadType: 'asset',
-        layoutPosition: 'left',
-        queueLimit: 1,
-        placeholder: 'Drop Audio File here!',
-        acceptTypes: '.mp3,.mp4',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'left',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'create',
-        multiUpload: true,
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
       }),
       // Agency Credits
       new DynamicInputModel({

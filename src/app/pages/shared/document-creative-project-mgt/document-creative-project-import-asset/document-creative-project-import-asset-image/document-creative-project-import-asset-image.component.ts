@@ -53,6 +53,47 @@ export class DocumentCreativeProjectImportAssetImageComponent extends GlobalDocu
 
   protected getSettings(): object[] {
     return [
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'create',
+        uploadType: 'asset',
+        layoutPosition: 'left',
+        queueLimit: 25,
+        placeholder: 'Drop Image/PDF here!',
+        acceptTypes: 'image/*,.pdf',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAssetZone',
+        formMode: 'edit',
+        uploadType: 'asset',
+        layoutPosition: 'left',
+        queueLimit: 1,
+        placeholder: 'Drop Image/PDF here!',
+        acceptTypes: 'image/*,.pdf',
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'edit',
+        uploadType: 'attachment',
+        layoutPosition: 'left',
+        queueLimit: 20,
+        placeholder: 'Drop to upload attachment',
+        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'left',
+        formMode: 'create',
+        multiUpload: true,
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'files:files',
+        layoutPosition: 'left',
+        formMode: 'edit',
+        showInputs: false,
+        multiUpload: true,
+      }),
+
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
@@ -199,28 +240,6 @@ export class DocumentCreativeProjectImportAssetImageComponent extends GlobalDocu
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global_fields:enable_region'),
       }),
-      new DynamicInputModel({
-        id: 'dc:description',
-        label: 'Description',
-      }),
-      // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'edit' : 'hidden'}
-      // new DynamicInputModel({
-      //   id: 'The_Loupe_Main:jobnumber',
-      //   label: 'Job Number',
-      //   visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:campaign_mgt'),
-      // }),
-      // #{currentDocument.getPropertyValue('app_global_fields:enable_po_number_internal')=="0" ? 'hidden' : 'edit'}
-      new DynamicOptionTagModel<string>({
-        id: 'The_Loupe_Main:po_number_internal',
-        label: 'PO Internal',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global_fields:enable_po_number_internal'),
-      }),
-      // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'edit' : 'hidden'}
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:campaign',
-        label: 'Project / Campaign',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:campaign_mgt'),
-      }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_productyear')=="0" ? 'hidden' : 'edit'}
       new DynamicInputModel({
         id: 'The_Loupe_Product_Info:productYear2',
@@ -245,54 +264,6 @@ export class DocumentCreativeProjectImportAssetImageComponent extends GlobalDocu
         label: 'Share with TBWA\\Collective',
         visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:networkshare'),
       }),
-      // #{currentDocument.getPropertyValue('app_global:collections')=="0" ? 'hidden' : 'edit'}
-      // new DynamicSuggestionModel<string>({
-      //   id: 'collectionMember:collectionIds',
-      //   label: 'Collections',
-      //   visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:collections'),
-      // }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'create',
-        uploadType: 'asset',
-        layoutPosition: 'left',
-        queueLimit: 25,
-        placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'image/*,.pdf',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        formMode: 'edit',
-        uploadType: 'asset',
-        layoutPosition: 'left',
-        queueLimit: 1,
-        placeholder: 'Drop Image/PDF here!',
-        acceptTypes: 'image/*,.pdf',
-      }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'left',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'create',
-        multiUpload: true,
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'files:files',
-        layoutPosition: 'bottom',
-        formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
-      }),
-      // Agency Credits
-      // all items  #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
       new DynamicInputModel({
         id: 'The_Loupe_Credits:accountDirector',
         label: 'Account Director',
