@@ -29,6 +29,7 @@ export enum NUXEO_DOC_TYPE {
   BACKSLASH_RESOURCES_FOLDER_TYPE = '["App-Backslash-Resources-Assetfolder"]',
   BACKSLASH_RESOURCES_ASSET_TYPE = '["App-Backslash-Resources-Asset"]',
   BACKSLASH_RESOURCES_SUB_FOLDER_TYPE = '["App-Backslash-Resources-Assetfolder", "App-Backslash-Resources-Asset"]',
+  BACKSLASH_SUB_FOLDER_TYPE = '["App-Backslash-Resources-Folder", "App-Backslash-Case-Studies-Folder" ]',
   DISRUPTION_DAYS_TYPE = '["App-Disruption-Day"]',
   DISRUPTION_DAY_ASSET_TYPES = '["App-Disruption-Asset", "App-Disruption-Day-Asset"]',
   DISRUPTION_ROADMAP_TYPE = '["App-Disruption-Roadmap-Asset"]',

@@ -74,10 +74,10 @@ export class BackslashFolderInfoComponent {
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
-    if (doc.type === 'App-BizDev-CaseStudy-Folder') {
-      components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM);
-    } else if (doc.type === 'App-BizDev-Thought-Folder') {
-      components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM);
+    if (doc.type === 'App-Backslash-Resources-Assetfolder') {
+      components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_RESOURCES_FOLDER_FORM);
+    } else if (doc.type === 'App-Backslash-Case-Study-Folder') {
+      components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_CASE_STUDY_FOLDER_FORM);
     }
     return new GlobalDocumentDialogSettings({ components });
   }
@@ -85,11 +85,11 @@ export class BackslashFolderInfoComponent {
   getFormTitle(doc: DocumentModel): any {
     let formTitle;
     switch (doc.type) {
-      case 'App-BizDev-CaseStudy-Folder':
-        formTitle = 'Edit Case Folder';
+      case 'App-Backslash-Resources-Assetfolder':
+        formTitle = 'Edit Resource Folder';
         break;
-      case 'App-BizDev-Thought-Folder':
-        formTitle = 'Edit Thought Folder';
+      case 'App-Backslash-Case-Study-Folder':
+        formTitle = 'Edit Case Study Folder';
         break;
       default:
         break;
@@ -103,13 +103,12 @@ export class BackslashFolderInfoComponent {
 
   goBack(): void {
     const parentInfo: any = this.goBackInfo(this.doc.type);
-    if ((NUXEO_DOC_TYPE.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
+    if ((NUXEO_DOC_TYPE.BACKSLASH_SUB_FOLDER_TYPE).includes(this.doc.type)) {
       this.documentPageService.redirect(parentInfo.urlRootPath);
     } else {
       const rootPath: string = parentInfo.rootPath;
       const splitPath: string = this.doc.path.split(rootPath)[1];
       const childSplitPath: string[] = splitPath.split('/');
-
       if (this.documentPageService.getCurrentUrl().includes('/asset/')) {
         this.documentPageService.redirect(`${parentInfo.urlParentPath}${this.doc.uid}`);
       } else if (childSplitPath.length < 2) {
@@ -121,7 +120,7 @@ export class BackslashFolderInfoComponent {
   }
 
   toImageParentDocument(): any {
-    if ((NUXEO_DOC_TYPE.BIZ_DEV_SUB_FOLDER_TYPES).includes(this.doc.type)) {
+    if ((NUXEO_DOC_TYPE.BACKSLASH_SUB_FOLDER_TYPE).includes(this.doc.type)) {
       return [this.getAssetUrl(this.doc)];
     } else {
       return [this.getAssetUrl(this.doc), this.doc.uid];
@@ -130,30 +129,30 @@ export class BackslashFolderInfoComponent {
 
   private goBackInfo(type: string): any {
     switch (type) {
-      case 'App-BizDev-Thought-Folder':
+      case 'App-Backslash-Resources-Assetfolder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Thought Leadership/',
-          'urlParentPath': '/p/business-development/Thought Leadership/folder/',
+          'rootPath': NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+          'urlRootPath': '/p/backslash/resource/',
+          'urlParentPath': '/p/backslash/resource/folder/',
         };
-      case 'App-BizDev-CaseStudy-Folder':
+      case 'App-Backslash-Resources-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Case Studies/',
-          'urlParentPath': '/p/business-development/Case Studies/folder/',
+          'rootPath': NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+          'urlRootPath': '/p/backslash/resource/',
+          'urlParentPath': '/p/backslash/resource/',
         };
-      case 'App-BizDev-ThoughtLeadership-Folder':
+      case 'App-Backslash-Case-Study-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Thought Leadership/',
-          'urlParentPath': '/p/business-development/Thought Leadership/',
+          'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          'urlRootPath': '/p/backslash/Case Studies/',
+          'urlParentPath': '/p/backslash/Case Studies/folder/',
         };
-      case 'App-BizDev-Case-Studies-Folder':
-        return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Case Studies/',
-          'urlParentPath': '/p/business-development/Case Studies/',
-        };
+      // case 'App-BizDev-Case-Studies-Folder':
+      //   return {
+      //     'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+      //     'urlRootPath': '/p/business-development/Case Studies/',
+      //     'urlParentPath': '/p/business-development/Case Studies/',
+      //   };
       default:
         return {};
     }

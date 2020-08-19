@@ -3,7 +3,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { BackslashResourceComponent } from './backslash-resource.component';
 import { SharedModule } from '@pages/shared/shared.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '../../shared';
-
+import { BackslashFormButtonModule } from '../backslash-form-button/backslash-form-button.module';
 
 @NgModule({
   imports: [
@@ -11,6 +11,7 @@ import { GlobalSearchFormModule, GlobalSearchResultModule } from '../../shared';
     SharedModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    BackslashFormButtonModule,
   ],
   declarations: [
     BackslashResourceComponent,

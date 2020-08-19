@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { BackslashResourceFolderComponent } from './backslash-resource-folder.component';
+import { BackslashFolderInfoModule } from '../backslash-folder-info/backslash-folder-info.module';
+import { BackslashFormButtonModule } from '../backslash-form-button/backslash-form-button.module';
 
 @NgModule({
   imports: [
@@ -10,6 +12,8 @@ import { BackslashResourceFolderComponent } from './backslash-resource-folder.co
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    BackslashFolderInfoModule,
+    BackslashFormButtonModule,
   ],
   declarations: [
     BackslashResourceFolderComponent,

@@ -1,10 +1,10 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
 <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="baseParams$ | async">
   <ng-container class="group-left">
-    <!-- <div class="global-search-form-buttons d-flex">
-      <biz-dev-form-button [parent]="document" [type]="'case'" [title]="'New Folder'"></biz-dev-form-button>
-      <biz-dev-form-button [parent]="document" [type]="'case asset'" [title]="'New Case'"></biz-dev-form-button>
-    </div> -->
+    <div class="global-search-form-buttons d-flex">
+      <backslash-form-button [parent]="document" [type]="'case'" [title]="'New Folder'"></backslash-form-button>
+      <backslash-form-button [parent]="document" [type]="'case asset'" [title]="'New Case'"></backslash-form-button>
+    </div>
   </ng-container>
 </global-search-form>
 <backslash-resource-asset-search-result [folderId]="document?.uid"></backslash-resource-asset-search-result>
