@@ -9,6 +9,7 @@ import { BackslashRemotePageComponent } from './backslash-remote-page.component'
 import { BackslashResourceModule } from './backslash-resource/backslash-resource.module';
 import { BackslashCaseStudyModule } from './backslash-case-study/backslash-case-study.module';
 import { BackslashTriggerPoolModule } from './backslash-trigger-pool/backslash-trigger-pool.module';
+import { BackslashResourceFolderModule } from './backslash-resource-folder/backslash-resource-folder.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { BackslashTriggerPoolModule } from './backslash-trigger-pool/backslash-t
     BackslashCaseStudyModule,
     BackslashTriggerPoolModule,
     BackslashPageRoutingModule,
+    BackslashResourceFolderModule,
   ],
   declarations: [
     BackslashPageComponent,

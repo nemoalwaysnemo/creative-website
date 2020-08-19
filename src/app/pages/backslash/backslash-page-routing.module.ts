@@ -8,6 +8,7 @@ import { BackslashAssetComponent } from './backslash-asset/backslash-asset.compo
 import { BackslashResourceComponent } from './backslash-resource/backslash-resource.component';
 import { BackslashCaseStudyComponent } from './backslash-case-study/backslash-case-study.component';
 import { BackslashTriggerPoolComponent } from './backslash-trigger-pool/backslash-trigger-pool.component';
+import { BackslashResourceFolderComponent } from './backslash-resource-folder/backslash-resource-folder.component';
 
 const routes: Routes = [{
   path: '',
@@ -24,6 +25,10 @@ const routes: Routes = [{
     {
       path: 'resource',
       component: BackslashResourceComponent,
+    },
+    {
+      path: 'resource/folder/:id',
+      component: BackslashResourceFolderComponent,
     },
     {
       path: 'Case Studies',
