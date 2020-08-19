@@ -60,8 +60,8 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
       pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_mixinType_not_in: '',
       ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_SUB_FOLDER_TYPE,
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_SUB_FOLDER_TYPE,
     };
     return searchParams.setParams(params);
   }
@@ -77,8 +77,8 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE,
+      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_BASE_FOLDER_TYPE,
     };
   }
 
@@ -87,8 +87,8 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_SUB_FOLDER_TYPE,
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_SUB_FOLDER_TYPE,
     };
     if (doc) {
       params['ecm_parentId'] = doc.uid;

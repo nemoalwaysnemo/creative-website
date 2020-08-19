@@ -10,6 +10,7 @@ import { BackslashCaseStudyComponent } from './backslash-case-study/backslash-ca
 import { BackslashTriggerPoolComponent } from './backslash-trigger-pool/backslash-trigger-pool.component';
 import { BackslashResourceFolderComponent } from './backslash-resource-folder/backslash-resource-folder.component';
 
+import { BackslashCaseStudyFolderComponent } from './backslash-case-study-folder/backslash-case-study-folder.component';
 const routes: Routes = [{
   path: '',
   component: BackslashPageComponent,
@@ -34,6 +35,14 @@ const routes: Routes = [{
       path: 'Case Studies',
       component: BackslashCaseStudyComponent,
     },
+    {
+      path: 'Case Studies/folder/:id',
+      component: BackslashCaseStudyFolderComponent,
+    },
+    // {
+    //   path: 'Case Studies/folder/:folder/asset/:id',
+    //   component: BizDevAssetComponent,
+    // },
     {
       path: 'Trigger Pool',
       component: BackslashTriggerPoolComponent,

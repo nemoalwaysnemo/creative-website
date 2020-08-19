@@ -11,6 +11,7 @@ import { BackslashCaseStudyModule } from './backslash-case-study/backslash-case-
 import { BackslashTriggerPoolModule } from './backslash-trigger-pool/backslash-trigger-pool.module';
 import { BackslashResourceFolderModule } from './backslash-resource-folder/backslash-resource-folder.module';
 
+import { BackslashCaseStudyFolderModule } from './backslash-case-study-folder/backslash-case-study-folder.module';
 @NgModule({
   imports: [
     ACLModule,
@@ -22,6 +23,7 @@ import { BackslashResourceFolderModule } from './backslash-resource-folder/backs
     BackslashTriggerPoolModule,
     BackslashPageRoutingModule,
     BackslashResourceFolderModule,
+    BackslashCaseStudyFolderModule,
   ],
   declarations: [
     BackslashPageComponent,

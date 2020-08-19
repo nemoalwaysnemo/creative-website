@@ -46,7 +46,8 @@ import { InnovationFolderAssetSearchResultComponent } from './innovation-folder-
 import { KnowledgeDocumentAssetSearchResultComponent } from './knowledge-document-asset-search-result/knowledge-document-asset-search-result.component';
 import { BackslashResourceAssetSearchResultComponent } from './backslash-resource-asset-search-result/backslash-resource-asset-search-result.component';
 import { BackslashResourceFolderAssetSearchResultComponent } from './backslash-resource-folder-asset-search-result/backslash-resource-folder-asset-search-result.component';
-
+import { BackslashCaseStudyAssetSearchResultComponent } from './backslash-case-study-asset-search-result/backslash-case-study-asset-search-result.component';
+import { BackslashCaseStudyFolderAssetSearchResultComponent } from './backslash-case-study-folder-asset-search-result/backslash-case-study-folder-asset-search-result.component';
 const COMPONENTS = [
   BaseSearchResultComponent,
   GlobalSearchResultComponent,
@@ -89,6 +90,8 @@ const COMPONENTS = [
   KnowledgeDocumentAssetSearchResultComponent,
   BackslashResourceAssetSearchResultComponent,
   BackslashResourceFolderAssetSearchResultComponent,
+  BackslashCaseStudyAssetSearchResultComponent,
+  BackslashCaseStudyFolderAssetSearchResultComponent,
 ];
 
 @NgModule({
