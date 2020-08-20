@@ -53,10 +53,10 @@ const routes: Routes = [{
       path: 'Case Studies/folder/:id',
       component: BackslashCaseStudyFolderComponent,
     },
-    // {
-    //   path: 'Case Studies/folder/:folder/asset/:id',
-    //   component: BizDevAssetComponent,
-    // },
+    {
+      path: 'Case Studies/folder/:folder/asset/:id',
+      component: BackslashAssetViewComponent,
+    },
     {
       path: 'Trigger Pool',
       component: BackslashTriggerPoolComponent,

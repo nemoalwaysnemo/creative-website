@@ -50,7 +50,8 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER_TYPE,
-      ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
+      ecm_mixinType_not_in: '',
+      // ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     };
   }
 
@@ -61,6 +62,9 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
       } else {
         return this.buildCaseAssetParams(doc);
       }
+    }
+    if (doc.type === 'App-Backslash-Case-Study-Category') {
+      return this.buildCaseCategoryAssetParams(doc);
     }
     return {};
   }
@@ -80,7 +84,7 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
 
   protected buildCaseAssetParams(doc: DocumentModel): any {
     const params: any = {
-      ecm_mixinType_not_in: '', // override
+      // ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
       currentPageIndex: 0,
@@ -92,4 +96,17 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
     return params;
   }
 
+  protected buildCaseCategoryAssetParams(doc: DocumentModel): any {
+    const params: any = {
+      ecm_mixinType_not_in: '', // override
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE,
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      currentPageIndex: 0,
+      ecm_fulltext: '',
+    };
+    if (doc) {
+      params['app_Edges:backslash_category'] = '["' + doc.get('app_Edges:backslash_category').join('", "') + '"]';
+    }
+    return params;
+  }
 }
