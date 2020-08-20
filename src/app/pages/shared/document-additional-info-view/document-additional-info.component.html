@@ -110,4 +110,20 @@
       <global-document-dialog [settings]="dialogSettings" [documentModel]="documentModel" [title]="'Download Request'"></global-document-dialog>
     </ng-template>
   </ng-container>
+  <ng-container *ngSwitchCase="'Backslash'">
+    <nb-accordion class="accordion">
+      <nb-accordion-item class="accordion-item">
+        <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
+        <nb-accordion-item-body class="accordion-item-body">
+          <table>
+            <tbody *ngFor="let attachment of attachments">
+              <tr>
+                <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </ng-container>
 </ng-container>

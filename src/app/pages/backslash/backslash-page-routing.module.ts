@@ -9,6 +9,8 @@ import { BackslashResourceComponent } from './backslash-resource/backslash-resou
 import { BackslashCaseStudyComponent } from './backslash-case-study/backslash-case-study.component';
 import { BackslashTriggerPoolComponent } from './backslash-trigger-pool/backslash-trigger-pool.component';
 import { BackslashResourceFolderComponent } from './backslash-resource-folder/backslash-resource-folder.component';
+import { BackslashEdgeFolderComponent } from './backslash-edge-folder/backslash-edge-folder.component';
+import { BackslashAssetViewComponent } from './backslash-asset-view/backslash-asset-view.component';
 import { BackslashCaseStudyFolderComponent } from './backslash-case-study-folder/backslash-case-study-folder.component';
 
 const routes: Routes = [{
@@ -22,6 +24,14 @@ const routes: Routes = [{
     {
       path: 'edge',
       component: BackslashEdgeComponent,
+    },
+    {
+      path: 'edge/folder/:id',
+      component: BackslashEdgeFolderComponent,
+    },
+    {
+      path: 'edge/folder/:folder/asset/:id',
+      component: BackslashAssetViewComponent,
     },
     {
       path: 'resource',
@@ -58,6 +68,10 @@ const routes: Routes = [{
     {
       path: 'asset/:id',
       component: BackslashAssetComponent,
+    },
+    {
+      path: 'assetview/:id',
+      component: BackslashAssetViewComponent,
     },
     {
       path: '',

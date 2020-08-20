@@ -60,7 +60,7 @@ export class BackslashFormButtonComponent {
         components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_ASSET_POST_FORM);
         break;
       case 'edges':
-        components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_RESOURCES_FOLDER_FORM);
+        components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_EDGES_FOLDER_FORM);
         break;
       case 'edges asset':
         components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_EDGES_ASSET_FORM);

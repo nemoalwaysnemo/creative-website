@@ -19,6 +19,7 @@ enum AssetTypes {
   thoughtAsset = 'App-BizDev-Thought-Asset',
   innovationAsset = 'App-Innovation-Asset',
   intelligenceAsset = 'App-Intelligence-Asset',
+  edgeAsset = 'App-Backslash-Edge-Page',
 }
 
 @Component({
@@ -78,7 +79,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isEdgeAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -122,11 +123,16 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   isInnovationAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE).includes(doc.type);
   }
+
   isDisruptionRoadmapAsset(doc: DocumentModel): boolean {
     if (this.isDisruptionAsset(doc)) {
       return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE).includes(doc.type);
     }
     return false;
+  }
+
+  isEdgeAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE).includes(doc.type);
   }
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
@@ -158,6 +164,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.intelligenceAsset:
         components.push(GLOBAL_DOCUMENT_FORM.INTELLIGENCE_ASSET_FORM);
+        break;
+      case AssetTypes.edgeAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_EDGES_ASSET_FORM);
         break;
       default:
         break;
@@ -194,6 +203,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.intelligenceAsset:
         formTitle = 'Edit Asset';
+        break;
+      case AssetTypes.edgeAsset:
+        formTitle = 'Edit Edge Asset';
         break;
       default:
         break;
