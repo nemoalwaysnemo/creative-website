@@ -1,5 +1,11 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-<backslash-folder-view [loading]="folderLoading" [document]="folder" [showButton]="showButton" [assetUrlMapping]="assetUrlMapping"></backslash-folder-view>
+<ng-container *ngIf="isEdgeAsset(document)">
+  <backslash-folder-view [loading]="folderLoading" [document]="folder" [showButton]="showButton" [assetUrlMapping]="assetUrlMapping"></backslash-folder-view>
+</ng-container>
+<ng-container *ngIf="isResourceAsset(document)">
+  <backslash-folder-info [loading]="folderLoading" [document]="folder" [showButton]="showButton" [assetUrlMapping]="assetUrlMapping"></backslash-folder-info>
+</ng-container>
+
 <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">
     <div class="showcase left">

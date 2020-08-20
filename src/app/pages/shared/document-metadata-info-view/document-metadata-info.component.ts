@@ -135,6 +135,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE).includes(doc.type);
   }
 
+  isBackslashAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE).includes(doc.type);
+  }
+
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
     switch (doc.type) {

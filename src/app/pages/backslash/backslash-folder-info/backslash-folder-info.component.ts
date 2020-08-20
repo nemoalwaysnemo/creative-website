@@ -69,7 +69,7 @@ export class BackslashFolderInfoComponent {
   }
 
   isParentFolder(doc: DocumentModel): boolean {
-    return doc && (getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_BASE_FOLDER_TYPE).includes(doc.type) || getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_THOUGHT_LEADERSHIP_BASE_FOLDER_TYPE).includes(doc.type));
+    return doc && (getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_BASE_FOLDER_TYPE).includes(doc.type));
   }
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {

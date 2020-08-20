@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel, NuxeoPagination } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '../../shared';
-import { parseTabRoute } from '@core/services/helpers';
+import { parseTabRoute, getDocumentTypes } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -33,9 +33,18 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
     ecm_mixinType_not_in: '',
   };
 
+  backslashResourceFolderParams: any = {
+    pageSize: 1,
+    currentPageIndex: 0,
+    ecm_path: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ALL_FOLDER_TYPE,
+    ecm_mixinType_not_in: '',
+  }
+
   assetUrlMapping: object = {
     'App-Backslash-Edges-Folder': '/p/backslash/edge/',
-    'App-Backslash-Resources-Assetfolder': '/p/backslash/edge/folder',
+    'App-Backslash-Resources-Folder': '/p/backslash/resource/',
+    'App-Backslash-Resources-Assetfolder': '/p/backslash/resource/folder',
     '*': '/p/backslash/edge/asset',
   };
 
@@ -73,13 +82,23 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
     switch (doc.type) {
       case 'App-Backslash-Edge-Page':
         return this.backslashEdgeFolderParams;
+      case 'App-Backslash-Resources-Asset':
+        return this.backslashResourceFolderParams;
       default:
         return {};
     }
   }
 
   private getDeleteRedirectUrl(doc: DocumentModel): string {
-    return (['App-Backslash-Edges-Folder'].includes(doc.type))
+    return (['App-Backslash-Edges-Folder', 'App-Backslash-Resources-Assetfolder'].includes(doc.type))
       ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
+  }
+
+  isEdgeAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE).includes(doc.type);
+  }
+
+  isResourceAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ASSET_TYPE).includes(doc.type);
   }
 }

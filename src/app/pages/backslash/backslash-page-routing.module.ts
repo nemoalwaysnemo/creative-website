@@ -43,7 +43,7 @@ const routes: Routes = [{
     },
     {
       path: 'resource/folder/:folder/asset/:id',
-      component: BackslashAssetComponent,
+      component: BackslashAssetViewComponent,
     },
     {
       path: 'Case Studies',

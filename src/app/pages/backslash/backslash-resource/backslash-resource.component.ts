@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { Subject, timer } from 'rxjs';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoSearchConstants } from '@core/api';
 
@@ -24,6 +24,10 @@ export class BackslashResourceComponent extends GlobalDocumentViewComponent {
     }
     return { searchParams, opts };
   }
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   constructor(
     protected activatedRoute: ActivatedRoute,
