@@ -32,8 +32,8 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
         maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: false,
-        hidden: true,
+        required: true,
+        hidden: false,
         formMode: 'create',
         validators: {
           required: null,

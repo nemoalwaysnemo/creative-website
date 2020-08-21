@@ -39,7 +39,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
     ecm_path: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ALL_FOLDER_TYPE,
     ecm_mixinType_not_in: '',
-  }
+  };
 
   assetUrlMapping: object = {
     'App-Backslash-Edges-Folder': '/p/backslash/edge/',

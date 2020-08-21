@@ -32,8 +32,8 @@ export class BackslashResourcesAssetFormComponent extends GlobalDocumentFormComp
         maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: false,
-        hidden: true,
+        required: true,
+        hidden: false,
         formMode: 'create',
         validators: {
           required: null,
