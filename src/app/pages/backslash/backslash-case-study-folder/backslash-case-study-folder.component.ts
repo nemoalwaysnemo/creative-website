@@ -105,7 +105,7 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
       ecm_fulltext: '',
     };
     if (doc) {
-      params['app_Edges:backslash_category'] = '["' + doc.get('app_Edges:backslash_category').join('", "') + '"]';
+      params['app_edges_backslash_category'] = '["' + [doc.get('app_Edges:backslash_category')].join('", "') + '"]';
     }
     return params;
   }

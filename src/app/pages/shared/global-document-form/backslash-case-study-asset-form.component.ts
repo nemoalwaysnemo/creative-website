@@ -14,7 +14,7 @@ export class BackslashCaseStudyAssetFormComponent extends GlobalDocumentFormComp
 
   static readonly NAME: string = 'backslash-case-study-asset-form';
 
-  protected documentType: string = 'App-Backslash-Asset-Document';
+  protected documentType: string = 'App-Backslash-Case-Study';
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
@@ -32,9 +32,7 @@ export class BackslashCaseStudyAssetFormComponent extends GlobalDocumentFormComp
         maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: false,
-        hidden: true,
-        formMode: 'create',
+        required: true,
         validators: {
           required: null,
           minLength: 4,
@@ -42,42 +40,6 @@ export class BackslashCaseStudyAssetFormComponent extends GlobalDocumentFormComp
         errorMessages: {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
-        },
-      }),
-      new DynamicInputModel({
-        id: 'dc:title',
-        label: 'Title',
-        maxLength: 150,
-        placeholder: 'Title',
-        autoComplete: 'off',
-        required: true,
-        formMode: 'edit',
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          minLength: 'At least 4 characters',
-        },
-      }),
-      new DynamicInputModel({
-        id: 'dc:description',
-        label: 'Description',
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Date',
-        readonly: false,
-        defaultValue: (new Date()),
-        required: true,
-        validators: {
-          required: null,
-          dateFormatValidator: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
       }),
       new DynamicInputModel({
@@ -87,77 +49,16 @@ export class BackslashCaseStudyAssetFormComponent extends GlobalDocumentFormComp
         disabled: true,
         required: true,
       }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand',
-        required: true,
-        placeholder: 'Brand',
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:clientName',
-        label: 'Client',
-        required: true,
-        placeholder: 'Client',
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:industry',
-        label: 'Industry',
-        required: true,
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Industries',
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:Relevant_Country',
-        label: 'Relevant Geography',
-        required: true,
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Geography_TBWA',
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:agency',
-        label: 'Agency',
-        required: true,
-        settings: {
-          multiple: false,
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Agencies',
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:country',
-        label: 'Agency Country',
-        required: true,
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+      new DynamicInputModel({
+        id: 'dc:description',
+        label: 'Description',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
-        label: 'Backslash Category',
+        label: 'Category',
         required: true,
         settings: {
-          placeholder: 'Select a value',
+          placeholder: 'Select Category',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Backslash-Categories',
         },
@@ -166,23 +67,24 @@ export class BackslashCaseStudyAssetFormComponent extends GlobalDocumentFormComp
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
-        label: '\\Edges',
+        label: 'Edges',
         required: true,
         settings: {
-          placeholder: 'Select a value',
+          placeholder: 'select a value',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
       }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:created_by',
-        label: 'Author',
-        required: true,
-        placeholder: 'Author',
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
+      new DynamicInputModel({
+        id: 'app_Edges:insight',
+        label: 'Insight',
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:asset_request',
+        label: 'Download Requires Approval',
+        required: false,
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

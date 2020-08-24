@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
+import { assetPath } from '@core/services/helpers';
 
 @Component({
   selector: 'backslash-case-study-asset-search-result',
@@ -16,5 +17,9 @@ export class BackslashCaseStudyAssetSearchResultComponent extends BaseSearchResu
 
   protected onInit(): void {
     this.onQueryParamsChanged();
+  }
+
+  assetPath(path: string) {
+    return assetPath(path);
   }
 }
