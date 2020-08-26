@@ -33,25 +33,6 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
-        hidden: false,
-        formMode: 'create',
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          minLength: 'At least 4 characters',
-        },
-      }),
-      new DynamicInputModel({
-        id: 'dc:title',
-        label: 'Title',
-        maxLength: 150,
-        placeholder: 'Title',
-        autoComplete: 'off',
-        required: true,
-        formMode: 'edit',
         validators: {
           required: null,
           minLength: 4,
@@ -83,7 +64,7 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
-        readOnly: true,
+        hidden: true,
         disabled: true,
         required: true,
       }),

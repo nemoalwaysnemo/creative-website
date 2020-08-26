@@ -90,7 +90,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
   }
 
   private getDeleteRedirectUrl(doc: DocumentModel): string {
-    return (['App-Backslash-Edges-Folder', 'App-Backslash-Resources-Assetfolder'].includes(doc.type))
+    return (['App-Backslash-Edges-Folder', 'App-Backslash-Resources-Folder'].includes(doc.type))
       ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
   }
 

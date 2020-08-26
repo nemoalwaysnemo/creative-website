@@ -20,6 +20,7 @@ enum AssetTypes {
   innovationAsset = 'App-Innovation-Asset',
   intelligenceAsset = 'App-Intelligence-Asset',
   edgeAsset = 'App-Backslash-Edge-Page',
+  backslashResourceAsset = 'App-Backslash-Resources-Asset',
 }
 
 @Component({
@@ -79,7 +80,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isEdgeAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isEdgeAsset(doc) || this.isBackslashAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -172,6 +173,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       case AssetTypes.edgeAsset:
         components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_EDGES_ASSET_FORM);
         break;
+      case AssetTypes.backslashResourceAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_RESOURCES_ASSET_FORM);
+        break;
       default:
         break;
     }
@@ -210,6 +214,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.edgeAsset:
         formTitle = 'Edit Edge Asset';
+        break;
+      case AssetTypes.backslashResourceAsset:
+        formTitle = 'Edit Resource Asset';
         break;
       default:
         break;
