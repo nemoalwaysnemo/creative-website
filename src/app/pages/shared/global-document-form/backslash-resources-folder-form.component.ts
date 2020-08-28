@@ -116,15 +116,6 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
         placeholder: 'Drop Image/PDF/Video File(s) here!',
         acceptTypes: 'image/*,.pdf,.mp4',
       }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
-      }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
