@@ -11,13 +11,14 @@ import { SelectableItemSettings } from '../../../shared/selectable-item/selectab
 export class BackslashEdgesAssetSearchResultComponent extends BaseSearchResultComponent {
 
   @Input() folderId: string;
-  constructor(protected documentPageService: DocumentPageService) {
-    super(documentPageService);
-  }
 
   @Input() selectableSettings: SelectableItemSettings = new SelectableItemSettings({
     enableSelectable: false,
   });
+
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
+  }
 
   protected onInit(): void {
     this.onQueryParamsChanged();
