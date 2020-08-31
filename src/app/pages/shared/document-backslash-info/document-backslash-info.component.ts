@@ -1,9 +1,13 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { DocumentModel, NuxeoQuickFilters, NuxeoPagination } from '@core/api';
+import { Component, Input, OnDestroy, Type } from '@angular/core';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { assetPath } from '@core/services/helpers';
 import { DocumentPageService } from '../services/document-page.service';
-import { Subscription } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { NUXEO_PATH_INFO } from '@environment/environment';
+import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
+import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
 
 @Component({
   selector: 'document-backslash-info',
@@ -23,6 +27,12 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   shareUrl: string;
 
+  writePermission$: Observable<boolean> = observableOf(false);
+
+  videoCurrentTime: number | null = null;
+
+  enableThumbnailCreation: boolean = false;
+
   @Input() moreInfo: boolean = true;
 
   @Input() set document(doc: DocumentModel) {
@@ -30,10 +40,20 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
       this.doc = doc;
       this.buildBackslashEdges(doc);
       this.shareUrl = this.buildShareUrl(doc);
+      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
+      if (this.isBackslashHomePage()) {
+        this.enableThumbnailCreation = true;
+      }
     }
   }
 
-  constructor(private documentPageService: DocumentPageService) {
+  constructor(
+    private nuxeoApi: NuxeoApiService,
+    private documentVideoViewerService: DocumentVideoViewerService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    private documentPageService: DocumentPageService,
+  ) {
+    this.subscribeServiceEvent();
   }
 
   ngOnDestroy(): void {
@@ -73,5 +93,51 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   private buildShareUrl(doc: DocumentModel): string {
     return this.documentPageService.getCurrentAppUrl('backslash/asset/' + doc.uid);
+  }
+
+  getDialogFormTemplateName(doc: DocumentModel): string {
+    let name: string = '';
+    if (doc.type === 'App-Backslash-Article') {
+      name = GLOBAL_DOCUMENT_FORM.BACKSLASH_ASSET_POST_FORM.NAME;
+    } else if (doc.type === 'App-Backslash-Video') {
+      name = GLOBAL_DOCUMENT_FORM.BACKSLASH_ASSET_VIDEO_FORM.NAME;
+    }
+    return name;
+  }
+
+  selectView(component: string) {
+    this.globalDocumentDialogService.selectView(component);
+  }
+
+  isBackslashHomePage() {
+    const url = window.location.href.split('/');
+    if (url.includes('backslash') && url.includes('home')) {
+      return true;
+    }
+    return false;
+  }
+
+  newThumbnail(currentTime: number): void {
+    if (typeof currentTime === 'number') {
+      const duration = (currentTime * 10).toString();
+      const subscription = this.nuxeoApi.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.doc.uid).subscribe((doc: DocumentModel) => {
+        this.documentPageService.notify(`Video poster has been updated successfully!`, '', 'success');
+        this.documentPageService.refresh(500);
+      });
+      this.subscription.add(subscription);
+    }
+  }
+
+  protected subscribeServiceEvent(): void {
+    const subscription = this.documentVideoViewerService.onEvent().pipe(
+      filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPlaying', 'videPause'].includes(e.name)),
+    ).subscribe((e: DocumentVideoEvent) => {
+      if (e.name === 'videPause') {
+        this.videoCurrentTime = e.currentTime;
+      } else if ('videoPlaying') {
+        this.videoCurrentTime = null;
+      }
+    });
+    this.subscription.add(subscription);
   }
 }

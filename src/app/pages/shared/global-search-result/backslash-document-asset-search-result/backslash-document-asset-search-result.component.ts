@@ -4,6 +4,8 @@ import { DocumentListViewItem } from '../../document-list-view/document-list-vie
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
+import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
+
 
 @Component({
   selector: 'backslash-document-asset-search-result',
@@ -29,13 +31,21 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
   backslashTitle: string = 'Backslash';
 
   dialogMetadata: any = {
-    enableEdit: false,
+    formMode: 'edit',
+    enableEdit: true,
     enableDeletion: false,
   };
 
   listViewSettings: any;
 
-  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET] });
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
+    components: [
+      GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET,
+      GLOBAL_DOCUMENT_FORM.BACKSLASH_ASSET_POST_FORM,
+      GLOBAL_DOCUMENT_FORM.BACKSLASH_ASSET_VIDEO_FORM,
+    ],
+    current: GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET,
+  });
 
   private defaultSettings: any = {
     columns: {

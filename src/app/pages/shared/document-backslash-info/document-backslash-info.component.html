@@ -1,9 +1,19 @@
 <ng-container *ngIf="doc">
   <div class="text-content" [nbSpinner]="loading" nbSpinnerStatus="disabled">
-    <div class="controls">
-      <img class="left" [src]="previewBtnImage()">
-      <h2 class="left">{{ doc.title }}</h2>
-      <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+    <div class="controls row">
+      <div class="col-9">
+        <img class="left" [src]="previewBtnImage()">
+        <h2 class="left">{{ doc.title }}</h2>
+      </div>
+      <div class="col-3 btns">
+        <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+        <ng-container *ngIf="isBackslashHomePage() && writePermission$ | async">
+          <button class="right edit" (click)="selectView(getDialogFormTemplateName(doc))">Edit</button>
+        </ng-container>
+        <ng-container *ngIf="videoCurrentTime !== null && writePermission$ | async">
+          <a href="javascript:;" (click)="newThumbnail(videoCurrentTime)" class="right btn new-poster" title="New poster and thumbnail">New poster</a>
+        </ng-container>
+      </div>
       <div class="clear"></div>
     </div>
     <div class="info" *ngIf="moreInfo">
