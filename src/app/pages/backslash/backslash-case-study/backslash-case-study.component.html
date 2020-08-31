@@ -1,11 +1,24 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-<global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
-  <ng-container class="group-left">
-    <div class="global-search-form-buttons d-flex">
-      <backslash-form-button [parent]="document" [type]="'case'" [title]="'New Folder'"></backslash-form-button>
-      <backslash-form-button [parent]="document" [type]="'case asset'" [title]="'New Case'"></backslash-form-button>
-    </div>
-  </ng-container>
-</global-search-form>
-<backslash-case-study-asset-search-result [folderId]="document?.uid"></backslash-case-study-asset-search-result>
-
+<ng-container *ngIf="isCategoryView()">
+  <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="DefaultAssetsParams" [settings]="searchFormSettings">
+    <ng-container class="group-left">
+      <div class="global-search-form-buttons d-flex">
+        <backslash-form-button [parent]="document" [type]="'case'" [title]="'New Category'"></backslash-form-button>
+      </div>
+    </ng-container>
+  </global-search-form>
+  <button (click)="changeView()">Reports</button>
+  <backslash-case-study-asset-search-result [folderId]="document?.uid"></backslash-case-study-asset-search-result>
+</ng-container>
+<ng-container *ngIf="!isCategoryView()">
+  <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="foldersAssetsParam" [settings]="searchFormSettings">
+    <ng-container class="group-left">
+      <div class="global-search-form-buttons d-flex">
+        <backslash-form-button [parent]="document" [type]="'case'" [title]="'New Folder'"></backslash-form-button>
+        <backslash-form-button [parent]="document" [type]="'case asset'" [title]="'New Report'"></backslash-form-button>
+      </div>
+    </ng-container>
+  </global-search-form>
+  <button (click)="changeView()">Categories</button>
+  <backslash-case-study-asset-search-result [folderId]="document?.uid"></backslash-case-study-asset-search-result>
+</ng-container>

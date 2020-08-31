@@ -12,7 +12,7 @@ export const TAB_CONFIG: any[] = [
       route: '/p/backslash/resource',
     },
     {
-      title: 'Case Studies',
+      title: 'Reports',
       route: '/p/backslash/Case Studies',
     },
     {

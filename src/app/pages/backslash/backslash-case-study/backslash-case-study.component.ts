@@ -13,6 +13,8 @@ import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSetti
 })
 export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  showCategory: boolean = true;
+
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   constructor(
@@ -27,13 +29,11 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     this.subscription.add(subscription);
   }
 
-  baseParams$: Subject<any> = new Subject<any>();
+  // baseParams$: Subject<any> = new Subject<any>();
 
   filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
-    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
-    new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
-    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
   ];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -41,7 +41,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
   });
 
   beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
-    if (searchParams.hasKeyword()) {
+    if (searchParams.hasKeyword() || searchParams.hasFilters()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
     }
     return { searchParams, opts };
@@ -68,9 +68,9 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
 
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
-    if (doc) {
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
-    }
+    // if (doc) {
+    //   timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
+    // }
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -82,18 +82,27 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     };
   }
 
-  protected buildDefaultAssetsParams(doc: DocumentModel): GlobalSearchParams {
-    const params: any = {
-      currentPageIndex: 0,
-      ecm_fulltext: '',
-      ecm_mixinType_not_in: '',
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_SUB_FOLDER_TYPE,
-    };
-    if (doc) {
-      params['ecm_parentId'] = doc.uid;
-    }
-    return new GlobalSearchParams(params);
+  DefaultAssetsParams: any = {
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    ecm_mixinType_not_in: '',
+    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CATEGORY_FOLDER_TYPE,
+  };
+
+  foldersAssetsParam: any = {
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    ecm_mixinType_not_in: '',
+    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER_ASSETS,
+  };
+
+  isCategoryView() {
+    return this.showCategory;
   }
 
+  changeView() {
+    this.showCategory = !this.showCategory;
+  }
 }
