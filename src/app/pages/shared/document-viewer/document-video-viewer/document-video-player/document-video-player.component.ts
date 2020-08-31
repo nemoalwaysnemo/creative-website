@@ -50,7 +50,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
     });
 
     events.pause.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videPause', currentTime: api.currentTime }));
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPause', currentTime: api.currentTime }));
     });
 
     if (this.autoPlay) {
