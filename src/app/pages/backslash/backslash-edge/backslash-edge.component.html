@@ -2,11 +2,10 @@
 <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
   <ng-container class="group-left">
     <div class="global-search-form-buttons d-flex">
-    	<backslash-form-button [parent]="document" [type]="'edges'" [title]="'New Folder'"></backslash-form-button>
+      <backslash-form-button [parent]="document" [type]="'edges'" [title]="'New Folder'"></backslash-form-button>
       <backslash-form-button [parent]="document" [type]="'edges asset'" [title]="'New Asset'"></backslash-form-button>
-      <global-search-button [enableSlider]="true"></global-search-button>
-		</div>
+      <global-search-button [enableSlider]="false"></global-search-button>
+    </div>
   </ng-container>
 </global-search-form>
-<selectable-action-bar></selectable-action-bar>
-<backslash-edges-asset-search-result [folderId]="document?.uid" [selectableSettings]="selectableSettings"></backslash-edges-asset-search-result>
+<backslash-edges-asset-search-result [folderId]="document?.uid"></backslash-edges-asset-search-result>

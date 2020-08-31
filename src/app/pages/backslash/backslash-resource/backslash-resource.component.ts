@@ -4,8 +4,8 @@ import { parseTabRoute } from '@core/services/helpers';
 import { Subject, timer } from 'rxjs';
 import { TAB_CONFIG } from '../backslash-tab-config';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
-import { DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoSearchConstants } from '@core/api';
 
 @Component({
   selector: 'backslash-resource',
@@ -17,6 +17,9 @@ export class BackslashResourceComponent extends GlobalDocumentViewComponent {
   baseParams$: Subject<any> = new Subject<any>();
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
+
+  filters: SearchFilterModel[] = [
+  ];
 
   beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
