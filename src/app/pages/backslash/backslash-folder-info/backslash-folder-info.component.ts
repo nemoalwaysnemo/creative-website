@@ -78,6 +78,8 @@ export class BackslashFolderInfoComponent {
       components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_RESOURCES_FOLDER_FORM);
     } else if (doc.type === 'App-Backslash-Case-Study-Folder') {
       components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_CASE_STUDY_FOLDER_FORM);
+    } else if (doc.type === 'App-Backslash-Edges-Assetfolder') {
+      components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_EDGES_FOLDER_FORM);
     }
     return new GlobalDocumentDialogSettings({ components });
   }
@@ -90,6 +92,9 @@ export class BackslashFolderInfoComponent {
         break;
       case 'App-Backslash-Case-Study-Folder':
         formTitle = 'Edit Case Study Folder';
+        break;
+      case 'App-Backslash-Edges-Assetfolder':
+        formTitle = 'Edit Edges Folder';
         break;
       default:
         break;
@@ -158,6 +163,18 @@ export class BackslashFolderInfoComponent {
           'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
           'urlRootPath': '/p/backslash/report/',
           'urlParentPath': '/p/backslash/report/folder/',
+        };
+      case 'App-Backslash-Edges-Folder':
+        return {
+          'rootPath': NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+          'urlRootPath': '/p/backslash/edge/',
+          'urlParentPath': '/p/backslash/edge/',
+        };
+      case 'App-Backslash-Edges-Assetfolder':
+        return {
+          'rootPath': NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+          'urlRootPath': '/p/backslash/edge/',
+          'urlParentPath': '/p/backslash/edge/folder/',
         };
       default:
         return {};

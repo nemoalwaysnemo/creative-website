@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
+import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoSearchConstants, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
@@ -55,7 +55,7 @@ export class BackslashEdgeFolderComponent extends GlobalDocumentViewComponent {
   }
 
   protected buildAssetsParams(doc: DocumentModel): any {
-    if (doc.type === 'App-Backslash-Resources-Assetfolder') {
+    if (doc.type === 'App-Backslash-Edges-Assetfolder') {
       if (doc.hasFolderishChild) {
         return this.buildSubFolderParams(doc);
       } else {
@@ -65,7 +65,7 @@ export class BackslashEdgeFolderComponent extends GlobalDocumentViewComponent {
     return {};
   }
 
-  protected buildSubFolderParams(doc: DocumentModel): any {
+  protected buildSubFolderParams(doc: DocumentModel): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_FOLDER_TYPE,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
@@ -75,10 +75,10 @@ export class BackslashEdgeFolderComponent extends GlobalDocumentViewComponent {
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return params;
+    return new GlobalSearchParams(params);
   }
 
-  protected buildCaseAssetParams(doc: DocumentModel): any {
+  protected buildCaseAssetParams(doc: DocumentModel): GlobalSearchParams {
     const params: any = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE,
@@ -89,7 +89,7 @@ export class BackslashEdgeFolderComponent extends GlobalDocumentViewComponent {
     if (doc) {
       params['ecm_parentId'] = doc.uid;
     }
-    return params;
+    return new GlobalSearchParams(params);
   }
 
 }

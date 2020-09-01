@@ -19,7 +19,7 @@ enum AssetTypes {
   thoughtAsset = 'App-BizDev-Thought-Asset',
   innovationAsset = 'App-Innovation-Asset',
   intelligenceAsset = 'App-Intelligence-Asset',
-  edgeAsset = 'App-Backslash-Edge-Page',
+  backslashEdgeAsset = 'App-Backslash-Edges-Asset',
   backslashResourceAsset = 'App-Backslash-Resources-Asset',
 }
 
@@ -80,7 +80,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isEdgeAsset(doc) || this.isBackslashAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -132,10 +132,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return false;
   }
 
-  isEdgeAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE).includes(doc.type);
-  }
-
   isBackslashAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE).includes(doc.type);
   }
@@ -170,7 +166,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       case AssetTypes.intelligenceAsset:
         components.push(GLOBAL_DOCUMENT_FORM.INTELLIGENCE_ASSET_FORM);
         break;
-      case AssetTypes.edgeAsset:
+      case AssetTypes.backslashEdgeAsset:
         components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_EDGES_ASSET_FORM);
         break;
       case AssetTypes.backslashResourceAsset:
@@ -212,7 +208,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       case AssetTypes.intelligenceAsset:
         formTitle = 'Edit Asset';
         break;
-      case AssetTypes.edgeAsset:
+      case AssetTypes.backslashEdgeAsset:
         formTitle = 'Edit Edge Asset';
         break;
       case AssetTypes.backslashResourceAsset:

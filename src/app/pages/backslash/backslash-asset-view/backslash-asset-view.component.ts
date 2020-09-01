@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
+import { DocumentModel, NuxeoPagination } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '../../shared';
-import { parseTabRoute, getDocumentTypes } from '@core/services/helpers';
+import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -51,9 +51,10 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
 
   assetUrlMapping: object = {
     'App-Backslash-Edges-Folder': '/p/backslash/edge/',
+    'App-Backslash-Edges-Assetfolder': '/p/backslash/edge/folder',
     'App-Backslash-Resources-Folder': '/p/backslash/resource/',
     'App-Backslash-Resources-Assetfolder': '/p/backslash/resource/folder',
-    '*': '/p/backslash/edge/asset',
+    '*': '/p/backslash/assetview',
   };
 
   constructor(
@@ -88,7 +89,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
 
   private getFolderParams(doc: DocumentModel): any {
     switch (doc.type) {
-      case 'App-Backslash-Edge-Page':
+      case 'App-Backslash-Edges-Asset':
         return this.backslashEdgeFolderParams;
       case 'App-Backslash-Resources-Asset':
         return this.backslashResourceFolderParams;
@@ -103,5 +104,4 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
     return (['App-Backslash-Edges-Folder', 'App-Backslash-Resources-Folder'].includes(doc.type))
       ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
   }
-
 }

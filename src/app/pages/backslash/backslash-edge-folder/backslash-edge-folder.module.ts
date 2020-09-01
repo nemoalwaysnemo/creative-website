@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { BackslashEdgeFolderComponent } from './backslash-edge-folder.component';
-import { BackslashFolderViewModule } from '../backslah-folder-view/backslash-folder-view.module';
 import { BackslashFormButtonModule } from '../backslash-form-button/backslash-form-button.module';
+import { BackslashFolderInfoModule } from '../backslash-folder-info/backslash-folder-info.module';
 @NgModule({
   imports: [
     ThemeModule,
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
-    BackslashFolderViewModule,
+    BackslashFolderInfoModule,
     BackslashFormButtonModule,
   ],
   declarations: [

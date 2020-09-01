@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicCheckboxModel, DynamicTextAreaModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentPageService } from '../services/document-page.service';
@@ -14,7 +14,7 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
 
   static readonly NAME: string = 'backslash-edges-asset-form';
 
-  protected documentType: string = 'App-Backslash-Edge-Page';
+  protected documentType: string = 'App-Backslash-Edges-Asset';
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
@@ -61,11 +61,29 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
           minLength: 'At least 4 characters',
         },
       }),
+      new DynamicInputModel({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        readOnly: true,
+        disabled: true,
+        required: false,
+        defaultValue: 'Edges Asset',
+      }),
       new DynamicTextAreaModel({
         id: 'dc:description',
         label: 'Description',
         rows: 3,
         required: false,
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:backslash_category',
+        label: 'Backslash Category',
+        required: false,
+        settings: {
+          placeholder: 'Select Category',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
@@ -76,30 +94,6 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
         },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:backslash_category',
-        label: 'Category',
-        required: false,
-        settings: {
-          placeholder: 'Select Category',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Backslash-Categories',
-        },
-      }),
-      new DynamicCheckboxModel({
-        id: 'app_Edges:active_article',
-        label: 'Active Edge',
-      }),
-      new DynamicInputModel({
-        id: 'app_Edges:honeycomb_x',
-        label: 'Honeycomb X Position',
-        required: false,
-      }),
-      new DynamicInputModel({
-        id: 'app_Edges:honeycomb_y',
-        label: 'Honeycomb Y Position',
-        required: false,
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

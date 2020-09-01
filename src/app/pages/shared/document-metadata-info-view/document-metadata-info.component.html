@@ -1,7 +1,7 @@
 <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="documentModel">
     <ng-container [ngSwitch]="true">
-      <ng-container *ngSwitchCase="isDisruptionAsset(documentModel) || isIntelligenceAsset(documentModel) || isBizDevAsset(documentModel) || isInnovationAsset(documentModel) || isEdgeAsset(documentModel) || isBackslashAsset(documentModel)">
+      <ng-container *ngSwitchCase="isDisruptionAsset(documentModel) || isIntelligenceAsset(documentModel) || isBizDevAsset(documentModel) || isInnovationAsset(documentModel) || isBackslashAsset(documentModel)">
         <h1>{{ documentModel.title }}</h1>
         <h2>{{ documentModel.get('The_Loupe_Main:brand') }}</h2>
         <table>
@@ -12,9 +12,9 @@
             </tr>
             <tr>
               <td *ngIf="isDisruptionAsset(documentModel)">{{ documentModel.get('The_Loupe_Main:description') }}</td>
-              <td *ngIf="isIntelligenceAsset(documentModel) || isBizDevAsset(documentModel) || isInnovationAsset(documentModel) || isEdgeAsset(documentModel) || isBackslashAsset(documentModel)">{{ documentModel.get('dc:description') }}</td>
+              <td *ngIf="isIntelligenceAsset(documentModel) || isBizDevAsset(documentModel) || isInnovationAsset(documentModel) || isBackslashAsset(documentModel)">{{ documentModel.get('dc:description') }}</td>
               <td *ngIf="isIntelligenceAsset(documentModel)">{{ documentModel.get('app_Edges:intelligence_type') }}</td>
-              <td *ngIf="(isDisruptionAsset(documentModel) && !isDisruptionRoadmapAsset(documentModel)) || isBizDevAsset(documentModel) || isInnovationAsset(documentModel) || isEdgeAsset(documentModel) || isBackslashAsset(documentModel)">{{ documentModel.get('The_Loupe_Main:assettype') }}</td>
+              <td *ngIf="(isDisruptionAsset(documentModel) && !isDisruptionRoadmapAsset(documentModel)) || isBizDevAsset(documentModel) || isInnovationAsset(documentModel) || isBackslashAsset(documentModel)">{{ documentModel.get('The_Loupe_Main:assettype') }}</td>
               <td *ngIf="isDisruptionAsset(documentModel) && isDisruptionRoadmapAsset(documentModel)">{{ documentModel.get('app_Edges:disruption_type') }}</td>
             </tr>
             <tr>

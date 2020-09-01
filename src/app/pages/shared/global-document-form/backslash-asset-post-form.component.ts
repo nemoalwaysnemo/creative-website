@@ -202,8 +202,8 @@ export class BackslashAssetPostFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop Image/Video File(s) here!',
-        acceptTypes: 'image/*,.mp4',
+        placeholder: 'Drop Image File here!',
+        acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -211,8 +211,8 @@ export class BackslashAssetPostFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Image/Video File(s) here!',
-        acceptTypes: 'image/*,.mp4',
+        placeholder: 'Drop Image File here!',
+        acceptTypes: 'image/*',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentPageService } from '../services/document-page.service';
@@ -15,8 +15,7 @@ export class BackslashEdgesFolderFormComponent extends GlobalDocumentFormCompone
 
   static readonly NAME: string = 'backslash-edges-folder-form';
 
-  // protected documentType: string = 'App-Backslash-Asset-Folder';
-  protected documentType: string = 'App-Backslash-Resources-Assetfolder';
+  protected documentType: string = 'App-Backslash-Edges-Assetfolder';
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
@@ -51,28 +50,9 @@ export class BackslashEdgesFolderFormComponent extends GlobalDocumentFormCompone
           minLength: 'At least 4 characters',
         },
       }),
-      new DynamicTextAreaModel({
+      new DynamicInputModel({
         id: 'dc:description',
         label: 'Description',
-        rows: 3,
-        required: true,
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Date',
-        readonly: false,
-        defaultValue: (new Date()),
-        required: true,
-        validators: {
-          required: null,
-          dateFormatValidator: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
-        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
@@ -80,18 +60,17 @@ export class BackslashEdgesFolderFormComponent extends GlobalDocumentFormCompone
         readOnly: true,
         disabled: true,
         required: false,
+        defaultValue: 'Edges Folder',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
-        required: true,
+        required: false,
         settings: {
           placeholder: 'Select Backslash Category',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Backslash-Categories',
         },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:Tags_edges',
