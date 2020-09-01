@@ -13,7 +13,7 @@ export const TAB_CONFIG: any[] = [
     },
     {
       title: 'Reports',
-      route: '/p/backslash/Case Studies',
+      route: '/p/backslash/report',
     },
     {
       title: 'Trigger Pool',

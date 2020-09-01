@@ -41,6 +41,14 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
     ecm_mixinType_not_in: '',
   };
 
+  backslashCaseStudyFolderParams: any = {
+    pageSize: 1,
+    currentPageIndex: 0,
+    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ALL_FOLDER_TYPE,
+    ecm_mixinType_not_in: '',
+  };
+
   assetUrlMapping: object = {
     'App-Backslash-Edges-Folder': '/p/backslash/edge/',
     'App-Backslash-Resources-Folder': '/p/backslash/resource/',
@@ -84,6 +92,8 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
         return this.backslashEdgeFolderParams;
       case 'App-Backslash-Resources-Asset':
         return this.backslashResourceFolderParams;
+      case 'App-Backslash-Case-Study':
+        return this.backslashCaseStudyFolderParams;
       default:
         return {};
     }
@@ -94,11 +104,4 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
       ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
   }
 
-  isEdgeAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE).includes(doc.type);
-  }
-
-  isResourceAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ASSET_TYPE).includes(doc.type);
-  }
 }

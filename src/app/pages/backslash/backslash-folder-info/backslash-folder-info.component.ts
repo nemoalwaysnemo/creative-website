@@ -144,15 +144,21 @@ export class BackslashFolderInfoComponent {
       case 'App-Backslash-Case-Study-Folder':
         return {
           'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/Case Studies/',
-          'urlParentPath': '/p/backslash/Case Studies/folder/',
+          'urlRootPath': '/p/backslash/report/',
+          'urlParentPath': '/p/backslash/report/folder/',
         };
-      // case 'App-BizDev-Case-Studies-Folder':
-      //   return {
-      //     'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-      //     'urlRootPath': '/p/business-development/Case Studies/',
-      //     'urlParentPath': '/p/business-development/Case Studies/',
-      //   };
+      case 'App-Backslash-Case-Study-Category':
+        return {
+          'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          'urlRootPath': '/p/backslash/report/',
+          'urlParentPath': '/p/backslash/report/folder/',
+        };
+      case 'App-Backslash-Case-Studies-Folder':
+        return {
+          'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          'urlRootPath': '/p/backslash/report/',
+          'urlParentPath': '/p/backslash/report/folder/',
+        };
       default:
         return {};
     }

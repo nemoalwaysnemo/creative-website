@@ -46,15 +46,15 @@ const routes: Routes = [{
       component: BackslashAssetViewComponent,
     },
     {
-      path: 'Case Studies',
+      path: 'report',
       component: BackslashCaseStudyComponent,
     },
     {
-      path: 'Case Studies/folder/:id',
+      path: 'report/folder/:id',
       component: BackslashCaseStudyFolderComponent,
     },
     {
-      path: 'Case Studies/folder/:folder/asset/:id',
+      path: 'report/folder/:folder/asset/:id',
       component: BackslashAssetViewComponent,
     },
     {

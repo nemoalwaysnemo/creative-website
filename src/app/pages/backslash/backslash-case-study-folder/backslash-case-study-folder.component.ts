@@ -49,7 +49,7 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ALL_FOLDER_TYPE,
       ecm_mixinType_not_in: '',
       // ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     };
