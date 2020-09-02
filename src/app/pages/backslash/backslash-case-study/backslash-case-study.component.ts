@@ -61,7 +61,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
       ecm_mixinType_not_in: '',
       ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_SUB_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER_ASSETS,
     };
     return searchParams.setParams(params);
   }
