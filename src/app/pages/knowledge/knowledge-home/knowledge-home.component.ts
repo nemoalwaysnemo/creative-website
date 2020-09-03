@@ -27,8 +27,7 @@ export class KnowledgeHomeComponent extends BaseDocumentViewComponent {
     ecm_path: '/',
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
-    app_global_networkshare: true,
-    ecm_primaryType: NUXEO_DOC_TYPE.KNOWLEDGE_ASSET_TYPE,
+    condition: ' AND ((app_global:networkshare = true AND ecm:primaryType IN ("App-Library-Image", "App-Library-Video", "App-Library-Audio")) OR ecm:primaryType IN ("App-Backslash-Article", "App-Backslash-Video", "App-Intelligence-Asset", "App-Innovation-Asset", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset", "App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset"))',
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
