@@ -206,6 +206,7 @@ export class NuxeoQueryParams {
 
 export class NuxeoSearchParams {
   [key: string]: any;
+  condition: string = '';
   currentPageIndex: number = 0;
   pageSize: number = 24;
   ecm_path?: string;
