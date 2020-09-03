@@ -11,6 +11,8 @@
     <div (clickOutside)="hide()" (click)="show()" class="keyword-wrapper">
       <input #searchField class="keyword" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" title="{{formSettings.placeholder}}" [placeholder]="formSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
         [ngClass]="{'with-filters': hasFilters()}" />
+      <div class="clear"></div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScT8_Ku07nqOxhdL7CugRRq2tM1ewgRabYFiRUeHsZSHM2xNQ/viewform" target="_blank" class="help">Help</a>
       <document-thumbnail-view [hide]="hideView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
   </section>
