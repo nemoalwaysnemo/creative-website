@@ -11,6 +11,7 @@ import { DisruptionHomeComponent } from './disruption-home/disruption-home.compo
 import { DisruptionAssetComponent } from './disruption-asset/disruption-asset.component';
 import { DisruptionTheoryAssetComponent } from './disruption-theory-asset/disruption-theory-asset.component';
 import { DisruptionTheoryFolderComponent } from './disruption-theory-folder/disruption-theory-folder.component';
+import { DisruptionRemotePageComponent } from './disruption-remote-page/disruption-remote-page.component';
 
 const routes: Routes = [{
   path: '',
@@ -55,6 +56,10 @@ const routes: Routes = [{
     {
       path: 'Things to Steal',
       component: BrilliantThinkingComponent,
+    },
+    {
+      path: 'help',
+      component: DisruptionRemotePageComponent,
     },
     {
       path: '',

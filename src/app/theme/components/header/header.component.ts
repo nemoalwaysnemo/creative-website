@@ -4,7 +4,7 @@ import { UserService, UserModel } from '@core/api';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { Environment, EXTERNAL_LINK } from '@environment/environment';
+import { Environment } from '@environment/environment';
 
 @Component({
   selector: 'ngx-header',
@@ -16,8 +16,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: any = {};
 
   homePath: string = Environment.homePath;
-
-  guideUrl: string = EXTERNAL_LINK.KNOWLEDGE_GUIDE_URL;
 
   headerItems: any[] = [
     { title: 'Favorite' },
