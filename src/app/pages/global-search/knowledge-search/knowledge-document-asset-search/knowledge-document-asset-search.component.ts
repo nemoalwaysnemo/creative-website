@@ -15,6 +15,7 @@ export class KnowledgeDocumentAssetSearchComponent extends BaseDocumentViewCompo
     ecm_path: '/',
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
+    app_global_networkshare: true,
     ecm_primaryType: NUXEO_DOC_TYPE.KNOWLEDGE_ASSET_TYPE,
   };
 
