@@ -24,7 +24,7 @@
           <ng-container *ngIf="downloadPermission$ | async">
             <a *ngIf="document.filePath" href="{{document.filePath}}"><button class="inline-middle download right" title="Download">Download</button></a>
           </ng-container>
-          <ng-container *ngIf="getDialogSettings().enablePreview">
+          <ng-container *ngIf="downloadPermission$ | async">
             <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="preview right">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
