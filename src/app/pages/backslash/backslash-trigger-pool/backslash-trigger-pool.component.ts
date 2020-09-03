@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { SearchFilterModel, GlobalSearchParams, DocumentModel } from '@core/api';
-
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-trigger-pool',
@@ -17,7 +16,6 @@ export class BackslashTriggerPoolComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
-
   baseParams$: Subject<any> = new Subject<any>();
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
@@ -26,6 +24,10 @@ export class BackslashTriggerPoolComponent extends GlobalDocumentViewComponent {
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
   ];
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    enableQueryParams: true,
+  });
 
   constructor(
     protected activatedRoute: ActivatedRoute,
