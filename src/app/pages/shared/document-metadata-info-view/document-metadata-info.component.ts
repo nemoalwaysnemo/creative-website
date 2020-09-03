@@ -81,7 +81,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc) || this.isTriggerAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
