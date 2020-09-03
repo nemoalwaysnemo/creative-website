@@ -7,7 +7,7 @@ import { HomeSearchFormComponent } from '../home-search-form/home-search-form.co
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { getAssetModuleType } from '@core/services/helpers';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, EXTERNAL_LINK } from '@environment/environment';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'knowledge-search-form',
@@ -18,8 +18,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, EXTERNAL_LINK } from '@environment/env
 export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implements AfterViewInit {
 
   @ViewChild('searchField', { static: true }) inputElement: ElementRef<HTMLInputElement>;
-
-  guideUrl: string = EXTERNAL_LINK.KNOWLEDGE_GUIDE_URL;
 
   formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'knowledge-search-form',
