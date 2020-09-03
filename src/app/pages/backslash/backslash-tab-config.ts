@@ -1,6 +1,6 @@
 export const TAB_CONFIG: any[] = [
     {
-      title: 'Feed',
+      title: 'Content',
       route: '/p/backslash/home',
     },
     {

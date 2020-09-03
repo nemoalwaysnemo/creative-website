@@ -21,6 +21,7 @@ enum AssetTypes {
   intelligenceAsset = 'App-Intelligence-Asset',
   backslashEdgeAsset = 'App-Backslash-Edges-Asset',
   backslashResourceAsset = 'App-Backslash-Resources-Asset',
+  backslashTriggerAsset = 'App-Edges-Trigger',
 }
 
 @Component({
@@ -80,7 +81,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc) || this.isTriggerAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -136,6 +137,10 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE).includes(doc.type);
   }
 
+  isTriggerAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_TRIGGER_TYPE).includes(doc.type);
+  }
+
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
     switch (doc.type) {
@@ -171,6 +176,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.backslashResourceAsset:
         components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_RESOURCES_ASSET_FORM);
+        break;
+      case AssetTypes.backslashTriggerAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_TRIGGER_FORM);
         break;
       default:
         break;
@@ -213,6 +221,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.backslashResourceAsset:
         formTitle = 'Edit Resource Asset';
+        break;
+      case AssetTypes.backslashTriggerAsset:
+        formTitle = 'Edit Trigger';
         break;
       default:
         break;

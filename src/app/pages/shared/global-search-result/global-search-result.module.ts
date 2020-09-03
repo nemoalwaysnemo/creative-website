@@ -50,6 +50,7 @@ import { BackslashCaseStudyAssetSearchResultComponent } from './backslash-case-s
 import { BackslashCaseStudyFolderAssetSearchResultComponent } from './backslash-case-study-folder-asset-search-result/backslash-case-study-folder-asset-search-result.component';
 import { BackslashEdgesAssetSearchResultComponent } from './backslash-edges-asset-search-result/backslash-edges-asset-search-result.component';
 import { BackslashEdgesFolderAssetSearchResultComponent } from './backslash-edges-folder-asset-search-result/backslash-edges-folder-asset-search-result.component';
+import { BackslashTriggerPoolAssetSearchResultComponent } from './backslash-trigger-pool-asset-search-result/backslash-trigger-pool-asset-search-result.component';
 
 const COMPONENTS = [
   BaseSearchResultComponent,
@@ -97,6 +98,7 @@ const COMPONENTS = [
   BackslashCaseStudyFolderAssetSearchResultComponent,
   BackslashEdgesAssetSearchResultComponent,
   BackslashEdgesFolderAssetSearchResultComponent,
+  BackslashTriggerPoolAssetSearchResultComponent,
 ];
 
 @NgModule({
