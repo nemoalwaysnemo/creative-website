@@ -59,3 +59,7 @@ export enum NUXEO_DOC_TYPE {
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',
   INTELLIGENCE_ASSET_PAGE_PROVIDER = 'creative_website_intelligence_related_assets',
 }
+
+export enum EXTERNAL_LINK {
+  KNOWLEDGE_GUIDE_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScT8_Ku07nqOxhdL7CugRRq2tM1ewgRabYFiRUeHsZSHM2xNQ/viewform',
+}
