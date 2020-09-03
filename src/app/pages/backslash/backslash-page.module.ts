@@ -13,6 +13,7 @@ import { BackslashCaseStudyModule } from './backslash-case-study/backslash-case-
 import { BackslashTriggerPoolModule } from './backslash-trigger-pool/backslash-trigger-pool.module';
 import { BackslashResourceFolderModule } from './backslash-resource-folder/backslash-resource-folder.module';
 import { BackslashCaseStudyFolderModule } from './backslash-case-study-folder/backslash-case-study-folder.module';
+import { BackslashTriggerPoolViewModule } from './backslash-trigger-pool-view/backslash-trigger-pool-view.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { BackslashCaseStudyFolderModule } from './backslash-case-study-folder/ba
     BackslashPageRoutingModule,
     BackslashResourceFolderModule,
     BackslashCaseStudyFolderModule,
+    BackslashTriggerPoolViewModule,
   ],
   declarations: [
     BackslashPageComponent,

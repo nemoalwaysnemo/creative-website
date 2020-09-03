@@ -4,6 +4,9 @@ import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { Subject, Observable, of as observableOf, timer } from 'rxjs';
+import { SearchFilterModel, GlobalSearchParams, DocumentModel } from '@core/api';
+
 
 @Component({
   selector: 'backslash-trigger-pool',
@@ -13,6 +16,14 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 export class BackslashTriggerPoolComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
+
+
+  baseParams$: Subject<any> = new Subject<any>();
+
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+  ];
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -26,13 +37,46 @@ export class BackslashTriggerPoolComponent extends GlobalDocumentViewComponent {
     this.subscription.add(subscription);
   }
 
+  protected setCurrentDocument(doc: DocumentModel): void {
+    super.setCurrentDocument(doc);
+    if (doc) {
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
+    }
+  }
+
+  protected buildSearchAssetsParams(searchParams: GlobalSearchParams): GlobalSearchParams {
+    const params: any = {
+      currentPageIndex: searchParams.getSettings('append') ? searchParams.providerParams.currentPageIndex : 0,
+      pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
+      ecm_mixinType_not_in: '',
+      ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_TRIGGER_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_TRIGGER_TYPE,
+    };
+    return searchParams.setParams(params);
+  }
+
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_FOLDER_TYPE,
+      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_TRIGGER_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_TRIGGER_SUB_FOLDER_YTPE,
     };
+  }
+
+  protected buildDefaultAssetsParams(doc: DocumentModel): GlobalSearchParams {
+    const params: any = {
+      currentPageIndex: 0,
+      ecm_fulltext: '',
+      ecm_mixinType_not_in: '',
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_TRIGGER_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_TRIGGER_TYPE,
+    };
+    if (doc) {
+      params['ecm_parentId'] = doc.uid;
+    }
+    return new GlobalSearchParams(params);
   }
 
 }

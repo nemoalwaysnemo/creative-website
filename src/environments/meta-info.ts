@@ -36,6 +36,8 @@ export enum NUXEO_DOC_TYPE {
   BACKSLASH_ASSET_TYPE = '["App-Backslash-Edges-Asset", "App-Backslash-Case-Study", "App-Backslash-Resources-Asset"]',
   BACKSLASH_FOLDER_TYPE = '["App-Backslash-Folder"]',
   BACKSLASH_SUB_FOLDER_TYPE = '["App-Backslash-Resources-Folder", "App-Backslash-Case-Studies-Folder", "App-Backslash-Edges-Folder", "App-Backslash-Case-Study-Category"]',
+  BACKSLASH_TRIGGER_TYPE = '["App-Edges-Trigger"]',
+  BACKSLASH_TRIGGER_SUB_FOLDER_YTPE = '["App-Edges-Folder"]',
   DISRUPTION_DAYS_TYPE = '["App-Disruption-Day"]',
   DISRUPTION_DAY_ASSET_TYPES = '["App-Disruption-Asset", "App-Disruption-Day-Asset"]',
   DISRUPTION_ROADMAP_TYPE = '["App-Disruption-Roadmap-Asset"]',

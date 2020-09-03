@@ -12,6 +12,7 @@ import { BackslashResourceFolderComponent } from './backslash-resource-folder/ba
 import { BackslashEdgeFolderComponent } from './backslash-edge-folder/backslash-edge-folder.component';
 import { BackslashAssetViewComponent } from './backslash-asset-view/backslash-asset-view.component';
 import { BackslashCaseStudyFolderComponent } from './backslash-case-study-folder/backslash-case-study-folder.component';
+import { BackslashTriggerPoolViewComponent } from './backslash-trigger-pool-view/backslash-trigger-pool-view.component';
 
 const routes: Routes = [{
   path: '',
@@ -60,6 +61,10 @@ const routes: Routes = [{
     {
       path: 'Trigger Pool',
       component: BackslashTriggerPoolComponent,
+    },
+    {
+      path: 'Trigger Pool/asset/:id',
+      component: BackslashTriggerPoolViewComponent,
     },
     {
       path: 'remote',
