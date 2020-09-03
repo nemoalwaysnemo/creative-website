@@ -1,0 +1,80 @@
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+
+.document {
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 0 0;
+  box-sizing: border-box;
+  > section {
+    margin: 0 auto;
+    &.general {
+      padding: 0 60px;
+      margin-bottom: 19px;
+      .showcase {
+        @include media-breakpoint-down(md) {
+          // < 768px
+          width: 400px;
+          margin-right: 23px;
+        }
+        @include media-breakpoint-between(md, lg) {
+          //768px - 992px
+          width: 400px;
+          margin-right: 33px;
+        }
+        @include media-breakpoint-between(lg, xl) {
+          //992px - 1200px
+          width: 710px;
+          margin-right: 33px;
+        }
+        @include media-breakpoint-between(xl, xxl) {
+          //1200px - 1400px
+          width: 800px;
+          margin-right: 43px;
+        }
+        @include media-breakpoint-between(xxl, xxxl) {
+          //1400px - 1600px
+          width: 930px;
+          margin-right: 43px;
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px
+          width: calc(100% - 490px - 43px);
+          margin-right: 43px;
+        }
+      }
+      .general_info {
+        @include media-breakpoint-down(md) {
+          // < 768px
+          width: calc(100% - 400px - 23px);
+        }
+        @include media-breakpoint-between(md, lg) {
+          //768px - 992px
+          width: calc(100% - 400px - 33px);
+        }
+        @include media-breakpoint-between(lg, xl) {
+          //992px - 1200px
+          width: calc(100% - 710px - 33px);
+        }
+        @include media-breakpoint-between(xl, xxl) {
+          //1200px - 1400px
+          width: calc(100% - 800px - 43px);
+        }
+        @include media-breakpoint-between(xxl, xxxl) {
+          //1400px - 1600px
+          width: calc(100% - 930px - 43px);
+        }
+        @include media-breakpoint-up(xxxl) {
+          // > 1600px
+          width: 490px;
+        }
+      }
+    }
+    &.additional_info {
+      padding: 0 60px;
+      margin-bottom: 60px;
+    }
+    &.more {
+      padding-top: 69px;
+    }
+  }
+}

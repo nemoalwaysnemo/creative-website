@@ -1,5 +1,11 @@
 <div class="backslash-home-search">
   <global-search-form [filters]="filters" [searchParams]="defaultParams">
+    <ng-container class="group-left">
+      <div class="global-search-form-buttons d-flex">
+        <backslash-form-button [parent]="doc" [type]="'video'" [title]="'New Video'"></backslash-form-button>
+        <backslash-form-button [parent]="doc" [type]="'post'" [title]="'New Post'"></backslash-form-button>
+      </div>
+    </ng-container>
     <ng-container class="group-right">
       <div class="search-filters global-search-filters right redirect_margin">
         <a href="{{oldBackslashUrl}}" class="advanced-filters-trigger icon_btn share_padding" title="Backslash" target="blank"></a>

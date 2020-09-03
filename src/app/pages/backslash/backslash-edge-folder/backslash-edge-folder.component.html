@@ -1,0 +1,11 @@
+<nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
+<global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
+  <ng-container class="group-left">
+    <div class="global-search-form-buttons d-flex" *ngIf="addChildrenPermission$ | async">
+      <backslash-form-button [parent]="document" [type]="'edges'" [title]="'New Folder'"></backslash-form-button>
+      <backslash-form-button [parent]="document" [type]="'edges asset'" [title]="'New Asset'"></backslash-form-button>
+    </div>
+  </ng-container>
+</global-search-form>
+<backslash-folder-info [loading]="loading" [document]="document" [assetUrl]="'/p/backslash/edge/folder/'" [deleteRedirectUrl]="'/p/backslash/edge/'"></backslash-folder-info>
+<backslash-edges-folder-asset-search-result [folderId]="document?.uid"></backslash-edges-folder-asset-search-result>

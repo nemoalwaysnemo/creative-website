@@ -44,6 +44,12 @@ import { GlobalDocumentDialogModule } from '../global-document-dialog/global-doc
 import { InnovationAssetSearchResultComponent } from './innovation-asset-search-result/innovation-asset-search-result.component';
 import { InnovationFolderAssetSearchResultComponent } from './innovation-folder-asset-search-result/innovation-folder-asset-search-result.component';
 import { KnowledgeDocumentAssetSearchResultComponent } from './knowledge-document-asset-search-result/knowledge-document-asset-search-result.component';
+import { BackslashResourceAssetSearchResultComponent } from './backslash-resource-asset-search-result/backslash-resource-asset-search-result.component';
+import { BackslashResourceFolderAssetSearchResultComponent } from './backslash-resource-folder-asset-search-result/backslash-resource-folder-asset-search-result.component';
+import { BackslashCaseStudyAssetSearchResultComponent } from './backslash-case-study-asset-search-result/backslash-case-study-asset-search-result.component';
+import { BackslashCaseStudyFolderAssetSearchResultComponent } from './backslash-case-study-folder-asset-search-result/backslash-case-study-folder-asset-search-result.component';
+import { BackslashEdgesAssetSearchResultComponent } from './backslash-edges-asset-search-result/backslash-edges-asset-search-result.component';
+import { BackslashEdgesFolderAssetSearchResultComponent } from './backslash-edges-folder-asset-search-result/backslash-edges-folder-asset-search-result.component';
 
 const COMPONENTS = [
   BaseSearchResultComponent,
@@ -85,6 +91,12 @@ const COMPONENTS = [
   InnovationAssetSearchResultComponent,
   InnovationFolderAssetSearchResultComponent,
   KnowledgeDocumentAssetSearchResultComponent,
+  BackslashResourceAssetSearchResultComponent,
+  BackslashResourceFolderAssetSearchResultComponent,
+  BackslashCaseStudyAssetSearchResultComponent,
+  BackslashCaseStudyFolderAssetSearchResultComponent,
+  BackslashEdgesAssetSearchResultComponent,
+  BackslashEdgesFolderAssetSearchResultComponent,
 ];
 
 @NgModule({

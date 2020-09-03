@@ -1,5 +1,5 @@
 .text-content {
-  padding: 30px 80px 0;
+  padding: 30px 60px 0;
   .controls {
     img {
       width: 70px;
@@ -7,16 +7,27 @@
     }
     h2 {
       width: calc(100% - 70px - 25px - 70px);
-      font-size: calc(28px * 1.25);
+      font-size: calc(27px * 1.25);
     }
-    button {
+    .btns {
+      padding: 0;
+    }
+    .btn, button {
+      font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
       border: none;
       background: none;
-      font-size: 20px;
-      font-weight: 500;
+      font-size: 15px;
       margin-top: 8px;
       margin-left: auto;
-      align-self: start;
+      padding: 0 10px;
+      line-height: 20px;
+      text-transform: none;
+      color: #000000;
+      cursor: pointer !important;
+    }
+    .new-poster, .edit {
+      border-radius: 0;
+      border-right: solid 1px #cccccc !important;
     }
   }
 

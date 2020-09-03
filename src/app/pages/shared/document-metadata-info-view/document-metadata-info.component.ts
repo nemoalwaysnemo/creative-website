@@ -19,6 +19,8 @@ enum AssetTypes {
   thoughtAsset = 'App-BizDev-Thought-Asset',
   innovationAsset = 'App-Innovation-Asset',
   intelligenceAsset = 'App-Intelligence-Asset',
+  backslashEdgeAsset = 'App-Backslash-Edges-Asset',
+  backslashResourceAsset = 'App-Backslash-Resources-Asset',
 }
 
 @Component({
@@ -78,7 +80,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -122,11 +124,16 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
   isInnovationAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE).includes(doc.type);
   }
+
   isDisruptionRoadmapAsset(doc: DocumentModel): boolean {
     if (this.isDisruptionAsset(doc)) {
       return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE).includes(doc.type);
     }
     return false;
+  }
+
+  isBackslashAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE).includes(doc.type);
   }
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
@@ -158,6 +165,12 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.intelligenceAsset:
         components.push(GLOBAL_DOCUMENT_FORM.INTELLIGENCE_ASSET_FORM);
+        break;
+      case AssetTypes.backslashEdgeAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_EDGES_ASSET_FORM);
+        break;
+      case AssetTypes.backslashResourceAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_RESOURCES_ASSET_FORM);
         break;
       default:
         break;
@@ -194,6 +207,12 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.intelligenceAsset:
         formTitle = 'Edit Asset';
+        break;
+      case AssetTypes.backslashEdgeAsset:
+        formTitle = 'Edit Edge Asset';
+        break;
+      case AssetTypes.backslashResourceAsset:
+        formTitle = 'Edit Resource Asset';
         break;
       default:
         break;

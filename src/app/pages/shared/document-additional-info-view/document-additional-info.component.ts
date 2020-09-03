@@ -67,6 +67,9 @@ export class DocumentAdditionalInfoComponent implements OnInit {
     } else if (NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE.includes(doc.type)) {
       this.docType = 'Innovation';
       this.attachments = doc.getAttachmentList();
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
+      this.docType = 'Backslash';
+      this.attachments = doc.getAttachmentList();
     }
   }
 }

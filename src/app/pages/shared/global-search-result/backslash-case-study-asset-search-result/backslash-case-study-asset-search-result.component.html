@@ -1,0 +1,25 @@
+<global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch"></global-search-result>
+<ng-template #thumbnailView let-doc="doc">
+  <div class="image-holder">
+    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study-Folder'">
+      <a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+    </ng-container>
+    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study'">
+      <a [routerLink]="['/p/backslash/report/folder', folderId, 'asset', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+    </ng-container>
+    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study-Category'">
+      <a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+ assetPath('assets/images/App-Intelligence-Brands-Icon.jpg') +')'}"></a>
+    </ng-container>
+  </div>
+  <div class="description">
+    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study-Folder'">
+      <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+    </ng-container>
+    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study'">
+      <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', folderId, 'asset', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+    </ng-container>
+    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study-Category'">
+      <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+    </ng-container>
+  </div>
+</ng-template>

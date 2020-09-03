@@ -1,0 +1,20 @@
+<nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
+<backslash-folder-info [loading]="folderLoading" [document]="folder" [showButton]="showButton" [assetUrlMapping]="assetUrlMapping"></backslash-folder-info>
+<div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+  <section class="general">
+    <div class="showcase left">
+      <document-viewer [document]="document"></document-viewer>
+      <document-action-group [document]="document" [enableThumbnailCreation]="enableThumbnailCreation"></document-action-group>
+    </div>
+    <div class="general_info left">
+      <document-metadata-info [document]="document" [deleteRedirectUrl]="deleteRedirectUrl"></document-metadata-info>
+    </div>
+    <div class="clear"></div>
+  </section>
+  <section class="additional_info">
+    <document-additional-info [document]="document"></document-additional-info>
+  </section>
+  <section class="related">
+    <document-related-info [document]="document"></document-related-info>
+  </section>
+</div>
