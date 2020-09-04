@@ -22,6 +22,7 @@ enum AssetTypes {
   backslashEdgeAsset = 'App-Backslash-Edges-Asset',
   backslashResourceAsset = 'App-Backslash-Resources-Asset',
   backslashTriggerAsset = 'App-Edges-Trigger',
+  backslashReportAsset = 'App-Backslash-Case-Study',
 }
 
 @Component({
@@ -177,6 +178,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       case AssetTypes.backslashTriggerAsset:
         components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_TRIGGER_FORM);
         break;
+      case AssetTypes.backslashReportAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_CASE_STUDY_ASSET_FORM);
+        break;
       default:
         break;
     }
@@ -221,6 +225,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.backslashTriggerAsset:
         formTitle = 'Edit Trigger';
+        break;
+      case AssetTypes.backslashReportAsset:
+        formTitle = 'Edit Report';
         break;
       default:
         break;
