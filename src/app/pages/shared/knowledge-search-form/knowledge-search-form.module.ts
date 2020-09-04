@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NbSpinnerModule } from '@core/nebular/theme';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KnowledgeSearchFormComponent } from './knowledge-search-form.component';
@@ -13,6 +14,7 @@ import { SharedDirectiveModule } from '../directives/shared-directive.module';
     CommonModule,
     RouterModule,
     FormsModule,
+    NbSpinnerModule,
     ReactiveFormsModule,
     ClickOutsideModule,
     DocumentThumbnailViewModule,

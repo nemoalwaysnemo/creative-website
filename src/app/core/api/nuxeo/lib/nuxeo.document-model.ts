@@ -325,6 +325,14 @@ export class DocumentModel extends Base {
     return !this.hasFacet('NotCollectionMember');
   }
 
+  openLinkInNewTab(): boolean {
+    return this.get('app_global:ext_app_newtab');
+  }
+
+  openLinkInIframe(): boolean {
+    return this.get('app_global:ext_app_iframe');
+  }
+
   newInstance(type: string): DocumentModel {
     return new DocumentModel({ path: this.uid, type: type });
   }

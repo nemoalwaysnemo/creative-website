@@ -12,7 +12,8 @@
       <input #searchField class="keyword" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" title="{{formSettings.placeholder}}" [placeholder]="formSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
         [ngClass]="{'with-filters': hasFilters()}" />
       <div class="clear"></div>
-      <a [routerLink]="['/p/disruption/help']" class="help">Help</a>
+      <span *ngIf="!helpLink" title="Help" class="help">Help</span>
+      <a *ngIf="helpLink" [routerLink]="[helpLink]" title="Help" class="help">Help</a>
       <document-thumbnail-view [hide]="hideView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
   </section>

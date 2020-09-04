@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NbMenuService, NbMenuItem } from '@core/nebular/theme';
-import { UserService, UserModel } from '@core/api';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { Environment } from '@environment/environment';
+import { NbMenuService, NbMenuItem } from '@core/nebular/theme';
+import { UserModel, DocumentModel, NuxeoPagination, GlobalSearchParams } from '@core/api';
+import { DocumentPageService } from '../../../pages/shared/services/document-page.service';
+import { Environment, NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'ngx-header',
@@ -15,6 +15,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   user: any = {};
 
+  helpLink: string;
+
+  helpLinkloading: boolean = true;
+
   homePath: string = Environment.homePath;
 
   headerItems: any[] = [
@@ -23,11 +27,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private router: Router, private menuService: NbMenuService, private userService: UserService) {
-
+  constructor(
+    private menuService: NbMenuService,
+    private documentPageService: DocumentPageService) {
   }
+
   ngOnInit(): void {
     this.getUser();
+    this.getHelpLink();
     this.updateHeaderTitle();
   }
 
@@ -36,8 +43,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private getUser(): void {
-    const subscription = this.userService.getCurrentUser().subscribe((user: UserModel) => {
+    const subscription = this.documentPageService.getCurrentUser().subscribe((user: UserModel) => {
       this.user = user;
+    });
+    this.subscription.add(subscription);
+  }
+
+  private getHelpLink(): void {
+    const params = {
+      pageSize: 1,
+      currentPageIndex: 0,
+      title_eq: 'Help & Support',
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
+    };
+    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
+      map((res: NuxeoPagination) => res.entries.shift()),
+    ).subscribe((doc: DocumentModel) => {
+      this.helpLinkloading = false;
+      if (doc) {
+        this.helpLink = `/p/disruption/Disruption How Tos/folder/${doc.uid}`;
+      }
     });
     this.subscription.add(subscription);
   }
@@ -55,12 +81,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   selectLayout(type: string): boolean {
-    return this.router.url.includes(`/${type}/`);
+    return this.documentPageService.getCurrentUrl().includes(`/${type}/`);
   }
 
   goToPage(title: string): void {
     if (title === 'Favorite') {
-      this.router.navigate(['/p/favorite']);
+      this.documentPageService.navigate(['/p/favorite']);
     }
   }
 }

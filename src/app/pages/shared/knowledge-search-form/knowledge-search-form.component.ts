@@ -1,12 +1,13 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DocumentModel, GlobalSearchParams } from '@core/api';
+import { map } from 'rxjs/operators';
+import { getAssetModuleType } from '@core/services/helpers';
+import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { HomeSearchFormComponent } from '../home-search-form/home-search-form.component';
-import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
-import { getAssetModuleType } from '@core/services/helpers';
+import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -23,6 +24,8 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
     source: 'knowledge-search-form',
   });
 
+  helpLink: string;
+
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
@@ -37,12 +40,15 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
     );
   }
 
+  protected onInit(): void {
+    this.getHelpLink();
+  }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.focusInput();
   }
 
-  focusInput() {
+  focusInput(): void {
     if (this.inputElement) {
       this.inputElement.nativeElement.focus();
       this.inputElement.nativeElement.select();
@@ -90,6 +96,24 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
 
   getAssetType(doc: DocumentModel): string {
     return getAssetModuleType(doc);
+  }
+
+  private getHelpLink(): void {
+    const params = {
+      pageSize: 1,
+      currentPageIndex: 0,
+      title_eq: 'Help & Support',
+      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
+    };
+    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
+      map((res: NuxeoPagination) => res.entries.shift()),
+    ).subscribe((doc: DocumentModel) => {
+      if (doc) {
+        this.helpLink = `/p/disruption/Disruption How Tos/folder/${doc.uid}`;
+      }
+    });
+    this.subscription.add(subscription);
   }
 
 }

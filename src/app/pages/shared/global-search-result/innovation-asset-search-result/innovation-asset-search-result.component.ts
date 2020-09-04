@@ -30,14 +30,6 @@ export class InnovationAssetSearchResultComponent extends BaseSearchResultCompon
     this.onQueryParamsChanged();
   }
 
-  isExternalNewTab(doc: DocumentModel): boolean {
-    return doc.get('app_global:ext_app_newtab');
-  }
-
-  isExternalIframe(doc: DocumentModel): boolean {
-    return doc.get('app_global:ext_app_iframe');
-  }
-
   isParentFolder(doc: DocumentModel): boolean {
     const path = doc.path + '/';
     return doc && ((path === NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH) || (path === NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH));
