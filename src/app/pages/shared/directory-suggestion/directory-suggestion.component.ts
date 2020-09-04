@@ -119,7 +119,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   isDisplayLabel(): boolean {
-    return this.settings.providerType === SuggestionSettings.CONTENT_VIEW;
+    return this.settings.displayLabel || this.settings.providerType === SuggestionSettings.CONTENT_VIEW;
   }
 
   private buildDefaultOptions(value: string[]): void {

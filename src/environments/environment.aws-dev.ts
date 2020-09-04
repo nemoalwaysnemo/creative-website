@@ -21,6 +21,7 @@ export enum NUXEO_PATH_INFO {
   BACKSLASH_EDGE_DOCS_FOLDER_PATH = '/know-edge/-backslash/Edges/Documents/',
   BACKSLASH_RESOURCES_FOLDER_PATH = '/know-edge/-backslash/Resources/',
   BACKSLASH_CASE_STUDIES_FOLDER_PATH = '/know-edge/-backslash/Case Studies/',
+  BACKSLASH_TRIGGER_FOLDER_PATH = '/know-edge/-backslash/Edges.1554923601309/',
   DISRUPTION_BASE_FOLDER_PATH = '/know-edge/Disruption/',
   DISRUPTION_DAYS_PATH = '/know-edge/Disruption/Disruption Days.1555686729451/',
   DISRUPTION_ROADMAPS_PATH = '/know-edge/Disruption/Disruption Roadmaps.1551796258162/',

@@ -33,7 +33,7 @@ export enum NUXEO_DOC_TYPE {
   BACKSLASH_RESOURCES_ASSET_TYPE = '["App-Backslash-Resources-Asset"]',
   BACKSLASH_RESOURCES_SUB_FOLDER_TYPE = '["App-Backslash-Resources-Assetfolder", "App-Backslash-Resources-Asset"]',
   BACKSLASH_RESOURCES_ALL_FOLDER_TYPE = '["App-Backslash-Resources-Folder", "App-Backslash-Resources-Assetfolder"]',
-  BACKSLASH_ASSET_TYPE = '["App-Backslash-Edges-Asset", "App-Backslash-Case-Study", "App-Backslash-Resources-Asset"]',
+  BACKSLASH_ASSET_TYPE = '["App-Backslash-Edges-Asset", "App-Backslash-Case-Study", "App-Backslash-Resources-Asset", "App-Edges-Trigger"]',
   BACKSLASH_FOLDER_TYPE = '["App-Backslash-Folder"]',
   BACKSLASH_SUB_FOLDER_TYPE = '["App-Backslash-Resources-Folder", "App-Backslash-Case-Studies-Folder", "App-Backslash-Edges-Folder", "App-Backslash-Case-Study-Category"]',
   BACKSLASH_TRIGGER_TYPE = '["App-Edges-Trigger"]',

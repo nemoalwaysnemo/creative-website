@@ -20,6 +20,7 @@ export class SuggestionSettings {
   readonly providerType: string;
   readonly providerName: string;
   readonly pageSize: number = 20;
+  readonly displayLabel: boolean = false;
   readonly inputTarget: Function = (doc: DocumentModel): string => doc.getParent().uid;
 
   constructor(data: any = {}) {

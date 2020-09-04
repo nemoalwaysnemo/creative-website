@@ -129,16 +129,17 @@ export class BackslashTriggerFormComponent extends GlobalDocumentFormComponent {
         placeholder: 'Brand',
         required: false,
       }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'collectionMember:collectionIds',
-      //   label: 'Add to Stories',
-      //   required: false,
-      //   settings: {
-      //     placeholder: 'Select/Add',
-      //     providerType: SuggestionSettings.PROVIDER,
-      //     providerName: 'App-Edges-PageProvider-Collections',
-      //   },
-      // }),
+      new DynamicSuggestionModel<string>({
+        id: 'collectionMember:collectionIds',
+        label: 'Add to Stories',
+        required: false,
+        settings: {
+          displayLabel: true,
+          placeholder: 'Select/Add',
+          providerType: SuggestionSettings.PROVIDER,
+          providerName: 'App-Edges-PageProvider-Collections',
+        },
+      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         uploadType: 'asset',
