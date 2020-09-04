@@ -435,7 +435,7 @@ export class GlobalSearchParams {
 export class NuxeoRequestOptions {
   [key: string]: any;
   skipAggregates?: boolean = true;
-  schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'app_global', 'app_global_fields', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'];
+  schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'app_global', 'app_global_fields', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights', 'collectionMember'];
   enrichers?: {} = {
     document: [
       NuxeoEnricher.document.PREVIEW,

@@ -81,7 +81,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc) || this.isTriggerAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -137,9 +137,6 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE).includes(doc.type);
   }
 
-  isTriggerAsset(doc: DocumentModel): boolean {
-    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BACKSLASH_TRIGGER_TYPE).includes(doc.type);
-  }
 
   getDialogFormSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
