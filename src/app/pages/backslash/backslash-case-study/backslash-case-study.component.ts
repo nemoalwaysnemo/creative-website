@@ -32,12 +32,11 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
   // baseParams$: Subject<any> = new Subject<any>();
 
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
-    new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
+    // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    enableQueryParams: true,
+    enableQueryParams: false,
   });
 
   beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {

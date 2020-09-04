@@ -5,6 +5,7 @@ import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, Dyn
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormEvent } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'backslash-case-study-folder-form',
@@ -24,6 +25,13 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
     return this.initializeDocument(doc, this.getDocType());
   }
 
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    if (event.action === 'Created') {
+      event.redirectUrl = '/p/backslash/report/folder/:uid';
+    }
+    return event;
+  }
+
   protected getSettings(): object[] {
     return [
       new DynamicInputModel({
@@ -33,7 +41,6 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
-        formMode: 'create',
         validators: {
           required: null,
           minLength: 4,
@@ -116,7 +123,7 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
         formMode: 'create',
         uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 25,
+        queueLimit: 1,
         placeholder: 'Drop Image/PDF/Video File(s) here!',
         acceptTypes: 'image/*,.pdf,.mp4',
       }),
@@ -129,20 +136,12 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
         placeholder: 'Drop Image/PDF/Video File(s) here!',
         acceptTypes: 'image/*,.pdf,.mp4',
       }),
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
-        formMode: 'edit',
-        uploadType: 'attachment',
-        layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
-      }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        showInputs: false,
+        multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
@@ -151,7 +150,6 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
         showInputs: false,
         multiUpload: true,
       }),
-
     ];
   }
 }
