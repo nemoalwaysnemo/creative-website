@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
 import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormEvent } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'backslash-resources-folder-form',
@@ -22,6 +23,13 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    if (event.action === 'Created') {
+      event.redirectUrl = '/p/backslash/resource/folder/:uid';
+    }
+    return event;
   }
 
   protected getSettings(): object[] {
@@ -103,7 +111,7 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
         formMode: 'create',
         uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 25,
+        queueLimit: 1,
         placeholder: 'Drop Image/PDF/Video File(s) here!',
         acceptTypes: 'image/*,.pdf,.mp4',
       }),
@@ -120,7 +128,8 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        showInputs: false,
+        multiUpload: false,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
