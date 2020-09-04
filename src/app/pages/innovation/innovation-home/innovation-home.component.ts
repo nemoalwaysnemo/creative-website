@@ -72,14 +72,6 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
     this.subscription.add(subscription);
   }
 
-  isExternalNewTab(doc: DocumentModel): boolean {
-    return doc.get('app_global:ext_app_newtab');
-  }
-
-  isExternalIframe(doc: DocumentModel): boolean {
-    return doc.get('app_global:ext_app_iframe');
-  }
-
   goToLink(doc: DocumentModel): void {
     const url = doc.get('The_Loupe_Main:url');
     if (url) {

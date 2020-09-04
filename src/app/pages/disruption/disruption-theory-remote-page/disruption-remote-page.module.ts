@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NbSpinnerModule } from '@core/nebular/theme';
-import { DisruptionRemotePageComponent } from './disruption-remote-page.component';
+import { DisruptionTheoryRemotePageComponent } from './disruption-theory-remote-page.component';
 
 @NgModule({
   imports: [
@@ -9,7 +9,7 @@ import { DisruptionRemotePageComponent } from './disruption-remote-page.componen
     NbSpinnerModule,
   ],
   declarations: [
-    DisruptionRemotePageComponent,
+    DisruptionTheoryRemotePageComponent,
   ],
 })
 export class DisruptionRemotePageModule {

@@ -12,7 +12,7 @@ import { DisruptionDayAssetModule } from './disruption-day-asset/disruption-day-
 import { BrilliantThinkingModule } from './brilliant-thinking/brilliant-thinking.module';
 import { DisruptionAssetModule } from './disruption-asset/disruption-asset.module';
 import { DisruptionTheoryAssetModule } from './disruption-theory-asset/disruption-theory-asset.module';
-import { DisruptionRemotePageModule } from './disruption-remote-page/disruption-remote-page.module';
+import { DisruptionRemotePageModule } from './disruption-theory-remote-page/disruption-remote-page.module';
 
 @NgModule({
   imports: [

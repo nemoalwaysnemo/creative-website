@@ -82,5 +82,4 @@ export enum NUXEO_DOC_TYPE {
 }
 
 export enum EXTERNAL_LINK {
-  KNOWLEDGE_GUIDE_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScT8_Ku07nqOxhdL7CugRRq2tM1ewgRabYFiRUeHsZSHM2xNQ/viewform',
 }

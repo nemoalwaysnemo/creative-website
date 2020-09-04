@@ -15,17 +15,47 @@
 
     <ng-container *ngSwitchCase="'App-Disruption-Theory-Asset'">
       <div class="thumbnail-view-item">
-        <div class="image-holder">
-          <a [routerLink]="['/p/disruption/Disruption How Tos/folder', folderId, 'asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
-        </div>
-        <div class="description">
-          <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/folder', folderId, 'asset', doc.uid]">{{doc.title}}</a></h1>
-          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
-          <span class="dot"></span>
-          <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
-          <div class="line"></div>
-          <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
-        </div>
+        <ng-container [ngSwitch]="true">
+          <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
+            <div class="image-holder">
+              <a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener" class="btn" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+            </div>
+            <div class="description">
+              <h1 [title]="doc.title"><a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener">{{doc.title}}</a></h1>
+              <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
+              <span class="dot"></span>
+              <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+              <div class="line"></div>
+              <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="doc.openLinkInIframe()">
+            <div class="image-holder">
+              <a [routerLink]="['/p/disruption/Disruption How Tos/remote', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+            </div>
+            <div class="description">
+              <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/remote', doc.uid]">{{doc.title}}</a></h1>
+              <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
+              <span class="dot"></span>
+              <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+              <div class="line"></div>
+              <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <div class="image-holder">
+              <a [routerLink]="['/p/disruption/Disruption How Tos/folder', folderId, 'asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+            </div>
+            <div class="description">
+              <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/Disruption How Tos/folder', folderId, 'asset', doc.uid]">{{doc.title}}</a></h1>
+              <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
+              <span class="dot"></span>
+              <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+              <div class="line"></div>
+              <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+            </div>
+          </ng-container>
+        </ng-container>
       </div>
     </ng-container>
 

@@ -3,7 +3,7 @@
 
   <ng-container *ngIf="doc.type == 'App-Innovation-Folder' && !isParentFolder(doc)">
     <ng-container [ngSwitch]="true">
-      <ng-container *ngSwitchCase="isExternalNewTab(doc)">
+      <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
         <div class="image-holder">
           <a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener" class="btn" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
         </div>
@@ -11,7 +11,7 @@
           <h1 [title]="doc.title"><a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener">{{doc.title}}</a></h1>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="isExternalIframe(doc)">
+      <ng-container *ngSwitchCase="doc.openLinkInIframe()">
         <div class="image-holder">
           <a [routerLink]="['/p/innovation/remote', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
         </div>
