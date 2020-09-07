@@ -95,22 +95,27 @@ export class DocumentCreativeProjectAssetReportUnionTalentComponent extends Base
           }),
         ],
       }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'record_date',
-        label: 'RECORD DATE',
-        readonly: false,
-        defaultValue: (new Date()),
-        required: false,
-      }),
-      new DynamicInputModel({
-        id: 'record_studio',
-        label: 'RECORD DATE',
-        required: false,
-      }),
-      new DynamicInputModel({
-        id: 'record_city_state',
-        label: 'RECORD CITY/STATE',
-        required: false,
+      new DynamicFormGroupModel({
+        id: 'The_Loupe_ProdCredits:recording',
+        legend: 'record',
+        group: [
+          new DynamicDatepickerDirectiveModel({
+            id: 'record_date',
+            label: 'RECORD DATE',
+            defaultValue: (new Date()),
+            required: false,
+          }),
+          new DynamicInputModel({
+            id: 'record_studio',
+            label: 'RECORD DATE',
+            required: false,
+          }),
+          new DynamicInputModel({
+            id: 'record_city_state',
+            label: 'RECORD CITY/STATE',
+            required: false,
+          }),
+        ],
       }),
     ];
   }
