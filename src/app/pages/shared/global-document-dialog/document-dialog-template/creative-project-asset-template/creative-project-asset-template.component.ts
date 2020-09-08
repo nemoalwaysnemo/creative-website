@@ -11,7 +11,7 @@ import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 
 @Component({
   selector: 'creative-project-asset-template',
-  styleUrls: ['../global-document-dialog-template.scss'],
+  styleUrls: ['../global-document-dialog-template.scss', './creative-project-asset-template.component.scss'],
   templateUrl: './creative-project-asset-template.component.html',
 })
 export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomTemplateComponent {

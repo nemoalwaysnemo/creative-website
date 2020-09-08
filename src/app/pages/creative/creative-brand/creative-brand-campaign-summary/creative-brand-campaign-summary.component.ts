@@ -12,7 +12,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 @Component({
   selector: 'creative-brand-campaign-summary',
   templateUrl: './creative-brand-campaign-summary.component.html',
-  styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss', 'creative-brand-campaign-summary.component.scss'],
 })
 export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewComponent {
 

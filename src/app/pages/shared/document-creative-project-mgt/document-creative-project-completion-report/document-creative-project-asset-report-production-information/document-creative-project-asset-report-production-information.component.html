@@ -1,60 +1,107 @@
-<h2>PRODUCTION INFORMATION</h2>
-<div *ngIf="!showForm" class="document">
-  <div class="one-row">
-    <div class="showcase-area">
-      <h4>Client</h4><span>{{ document.get('The_Loupe_Main:clientName') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>Brand</h4><span>{{ document.get('The_Loupe_Main:brand') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>Product</h4><span>{{ document.get('The_Loupe_Main:productModel') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>Job Number</h4><span>{{ document.get('The_Loupe_Main:jobnumber') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>Date</h4><span>{{ document.get('The_Loupe_ProdCredits:production_date') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>LIFT 1 ID#</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_1') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>TITLE OF LIFT 1</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_1_title') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>Length</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_1_length') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>LIFT 2 ID#</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_2') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>TITLE OF LIFT 2</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_2_title') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>Length</h4><span>{{ document.get('The_Loupe_ProdCredits:lift_id_2_length') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>TYPE</h4>
-      <div *ngIf="document.get('The_Loupe_Rights:contract_items_usage_types').length > 0">
-        <div *ngFor="let contract of document.get('The_Loupe_Rights:contract_items_usage_types')">
-          <span>{{ contract.media_usage_type }}</span>
-          <span>{{ contract.start_airing_date }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="showcase-area">
-      <h4>Producer</h4><span>{{ document.get('The_Loupe_Credits:producer') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>Business Manager</h4><span>{{ document.get('The_Loupe_Credits:businessManager') }}</span>
-    </div>
-    <div class="showcase-area">
-      <h4>Talent Manager</h4><span>{{ document.get('The_Loupe_Credits:talentManager') }}</span>
+<div class="product-information">
+  <h4 class='title'>PRODUCTION INFORMATION</h4>
+  <div *ngIf="!showForm" class="document">
+    <div class="one-row">
+      <table>
+        <tbody>
+          <tr>
+            <th>Client</th>
+            <th>Brand</th>
+            <th>Product</th>
+            <th>Job Number</th>
+            <th>Date</th>
+          </tr>
+          <tr>
+            <td>{{ document.get('The_Loupe_Main:clientName') }}</td>
+            <td>{{ document.get('The_Loupe_Main:brand') }}</td>
+            <td>{{ document.get('The_Loupe_Main:productModel') }}</td>
+            <td>{{ document.get('The_Loupe_Main:jobnumber') }}</td>
+            <td>{{ document.get('The_Loupe_ProdCredits:production_date') }}</td>
+          </tr>
+          <tr>
+            <th>LIFT 1 ID#</th>
+            <th>TITLE OF LIFT 1</th>
+            <th></th>
+            <th></th>
+            <th>Length</th>
+          </tr>
+          <tr>
+            <td>{{ document.get('The_Loupe_ProdCredits:lift_id_1') }}</td>
+            <td>{{ document.get('The_Loupe_ProdCredits:lift_id_1_title') }}</td>
+            <td></td>
+            <td></td>
+            <td>{{ document.get('The_Loupe_ProdCredits:lift_id_1_length') }}</td>
+          </tr>
+          <tr>
+            <th>LIFT 2 ID#</th>
+            <th>TITLE OF LIFT 2</th>
+            <th></th>
+            <th></th>
+            <th>Length</th>
+          </tr>
+          <tr>
+            <td>{{ document.get('The_Loupe_ProdCredits:lift_id_2') }}</td>
+            <td>{{  document.get('The_Loupe_ProdCredits:lift_id_2_title') }}</td>
+            <td></td>
+            <td></td>
+            <td>{{ document.get('The_Loupe_ProdCredits:lift_id_2_length') }}</td>
+          </tr>
+          <tr>
+            <th>TYPE</th>
+            <th></th>
+            <th></th>
+            <th>Producer</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td>
+              <div *ngIf="document.get('The_Loupe_Rights:contract_items_usage_types').length > 0">
+                <div *ngFor="let contract of document.get('The_Loupe_Rights:contract_items_usage_types')">
+                  <span>{{ contract.media_usage_type }}</span>
+                  <!-- <span>{{ contract.start_airing_date }}</span> -->
+                </div>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+            <td>{{ document.get('The_Loupe_Credits:producer') }}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Business Manager</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ document.get('The_Loupe_Credits:businessManager') }}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Talent Manager</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ document.get('The_Loupe_Credits:talentManager') }}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+  <div *ngIf="showForm" class="document">
+    <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
+  </div>
+  <button nbButton outline class="btn edit-btn" (click)="changeView()">Edit</button>
 </div>
-<div *ngIf="showForm" class="document">
-  <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
-</div>
-<button nbButton outline class="btn btn-success" (click)="changeView()">Edit</button>
+<hr>

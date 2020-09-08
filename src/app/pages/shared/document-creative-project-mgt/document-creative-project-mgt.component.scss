@@ -1,10 +1,100 @@
-.details {
-  background: lightgrey;
+.doc-info {
+  h4 {
+    margin-bottom: 10px;
+  }
+  .details {
+  background: #eaeaea;
   padding: 5px;
 
-  p {
-    span {
-      margin: 10px;
+    p {
+      span {
+        margin: 10px;
+      }
     }
+  }
+}
+
+.pure-text {
+  margin: 10px 0;
+  padding: 15px;
+  border: 1px solid #d9d8d8;
+  border-radius: 20px;
+}
+
+.document-creative-project-related-asset {
+  margin: 10px 0;
+}
+::ng-deep .document-creative-project-related-asset ng2-smart-table {
+  table {
+    tbody {
+      tr {
+        td {
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+.document-creative-project-import-asset {
+  .page-title {
+    background-color: #4b4b4b;
+    color: #ffffff;
+    text-align: center;
+    line-height: 40px;
+    margin-bottom: 5px;
+    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+  }
+}
+
+.product-information, .allowable-versions, .union-talent, .report-buyout-talent-information {
+  margin-top: 15px;
+  .title {
+    background-color: #eee;
+    height: 30px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 17px;
+    th, td {
+      width: 20%;
+      height: 28px;
+      color: #000000;
+    }
+    th {
+      font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+      font-size: 12px;
+      text-align: left;
+    }
+    td {
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+      font-size: 12px;
+      a.text {
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+        font-size: 12px;
+        color: #000000;
+        &:hover {
+          text-decoration: none;
+          color: #000000;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+.union-talent {
+  th, td {
+    width: 33.3%;
+  }
+}
+.product-information, .allowable-versions, .union-talent {
+  .edit-btn {
+    background-color: #eee;
+    color: black;
+    margin-left: 100px;
+    height: 40px;
+    margin-bottom: 15px;
   }
 }

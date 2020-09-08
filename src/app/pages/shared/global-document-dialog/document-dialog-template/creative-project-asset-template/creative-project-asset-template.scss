@@ -1,16 +1,60 @@
 @import '../global-document-dialog-template.scss';
 
-.page-title {
+::ng-deep .page-content nb-tabset {
+  .tabset {
+    border: none !important;
+    width: 100% !important;
+    margin: 0;
+    margin-bottom: 20px !important;
+    .tab {
+      text-align: center;
+      line-height: 30px;
+      background-color: #eee;
+      margin-right: 1%;
+      width: 32.5%;
+      a {
+        span {
+          font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+        }
+      }
+    }
+    li:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.dialog-body {
+  border: 1px solid black;
+  border-radius: 25px;
+  background-color: #fff;
+}
+
+.creative-project-asset-deliverable , .creative-project-asset-usage-rights,
+.creative-project-asset-completion-report-template {
+  .page-title {
     background-color: #4b4b4b;
     color: #ffffff;
     text-align: center;
-    line-height: 30px;
+    line-height: 40px;
+    margin-bottom: 5px;
+    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+  }
 }
 
-.btn {
-    background-color: #eeeeee !important;
-    color: #000000;
-    cursor: pointer;
-    text-transform: none;
-    margin: 0 5px 0 0;
+.creative-project-asset-usage-rights, .creative-project-asset-completion-report-template {
+  .page-content {
+    button {
+      width: 49%;
+      background-color: #eeeeee !important;
+      color: #000000;
+      cursor: pointer !important;
+      text-transform: none;
+      margin-right: 1%;
+
+    }
+    button:hover {
+      background-color: #fecc00 !important;
+    }
+  }
 }

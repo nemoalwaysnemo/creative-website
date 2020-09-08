@@ -35,7 +35,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
   showStatus: boolean = true;
 
   listViewOptionsPackage: any = {
-    hideHeader: false,
+    hideHeader: true,
     selectMode: 'multi',
     deliverPackage: true,
   };

@@ -1,0 +1,21 @@
+::ng-deep .project-menu .menu-items > {
+  .menu-item {
+    text-align: center;
+    line-height: 40px;
+    background-color: #eee;
+    margin-top: 10px;
+
+    a {
+      cursor: pointer;
+    }
+    a:hover {
+      background-color: #eee;
+    }
+  }
+  .menu-item:hover {
+    background-color: #eee;
+  }
+  .menu-item .active {
+    background-color: #fecc00;
+  }
+}
