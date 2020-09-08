@@ -12,6 +12,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  onSearching: boolean = true;
+
   currentView: string = 'allRoadmapsView';
 
   enableScrolling: any = { allRoadmapsView: true, featuredRoadmapsView: true };
@@ -62,8 +64,14 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
     this.subscription.add(subscription);
   }
 
+  onLoading(loading: boolean): void {
+    this.onSearching = loading;
+  }
+
   selectView(view: string): void {
-    this.performViewTemplate(view);
+    if (!this.onSearching) {
+      this.performViewTemplate(view);
+    }
   }
 
   isViewEnabled(name: string): boolean {

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
-import { Subject, timer } from 'rxjs';
-import { DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
+import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+
 @Component({
   selector: 'backslash-case-study',
   styleUrls: ['./backslash-case-study.component.scss'],
@@ -13,31 +13,44 @@ import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSetti
 })
 export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent implements OnInit {
 
-  showCategory: boolean = true;
-
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
-  constructor(
-    protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService,
-  ) {
-    super(activatedRoute, documentPageService);
-  }
+  onSearching: boolean = true;
 
-  onInit(): void {
-    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
-    this.subscription.add(subscription);
-  }
+  currentView: string = 'categoryView';
 
-  // baseParams$: Subject<any> = new Subject<any>();
+  enableScrolling: any = { categoryView: true, reportView: true };
 
   filters: SearchFilterModel[] = [
     // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+  categoryAssetParams: any = {
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    ecm_mixinType_not_in: '',
+    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CATEGORY_FOLDER_TYPE,
+  };
+
+  folderAssetParams: any = {
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    ecm_mixinType_not_in: '',
+    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER_ASSETS,
+  };
+
+  categorySearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     enableQueryParams: false,
   });
+
+  reportSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'document-backslash-report',
+    enableQueryParams: false,
+  });
+
+  protected enabledView: any = { categoryView: true };
 
   beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() || searchParams.hasFilters()) {
@@ -46,6 +59,12 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     return { searchParams, opts };
   }
 
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
+  }
 
   ngOnInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
@@ -65,13 +84,6 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     return searchParams.setParams(params);
   }
 
-  protected setCurrentDocument(doc: DocumentModel): void {
-    super.setCurrentDocument(doc);
-    // if (doc) {
-    //   timer(0).subscribe(() => { this.baseParams$.next(this.buildDefaultAssetsParams(doc)); });
-    // }
-  }
-
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
@@ -81,27 +93,32 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     };
   }
 
-  DefaultAssetsParams: any = {
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_mixinType_not_in: '',
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CATEGORY_FOLDER_TYPE,
-  };
-
-  foldersAssetsParam: any = {
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_mixinType_not_in: '',
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER_ASSETS,
-  };
-
-  isCategoryView() {
-    return this.showCategory;
+  onLoading(loading: boolean): void {
+    this.onSearching = loading;
   }
 
-  changeView() {
-    this.showCategory = !this.showCategory;
+  selectView(view: string): void {
+    if (!this.onSearching) {
+      this.performViewTemplate(view);
+    }
   }
+
+  isViewEnabled(name: string): boolean {
+    return this.enabledView[name];
+  }
+
+  protected performViewTemplate(name: string): void {
+    this.currentView = name;
+    if (!this.enabledView[name]) {
+      this.enabledView[name] = true;
+    }
+    for (const key in this.enableScrolling) {
+      if (key === name) {
+        this.enableScrolling[key] = true;
+      } else {
+        this.enableScrolling[key] = false;
+      }
+    }
+  }
+
 }

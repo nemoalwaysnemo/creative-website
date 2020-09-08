@@ -77,6 +77,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
+  @Output() onLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
@@ -393,6 +395,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected triggerLoading(loading: boolean, searchParams: GlobalSearchParams): void {
     if (this.checkSearchSettings('enableLoading', searchParams)) {
+      this.onLoading.emit(loading);
       this.loading = loading;
     }
   }

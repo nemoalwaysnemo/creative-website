@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
+import { DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
@@ -63,7 +63,7 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
       }
     }
     if (doc.type === 'App-Backslash-Case-Study-Category') {
-      return this.buildCaseCategoryAssetParams(doc);
+      return this.buildCategoryAssetParams(doc);
     }
     return {};
   }
@@ -95,7 +95,7 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
     return params;
   }
 
-  protected buildCaseCategoryAssetParams(doc: DocumentModel): any {
+  protected buildCategoryAssetParams(doc: DocumentModel): any {
     const params: any = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE,

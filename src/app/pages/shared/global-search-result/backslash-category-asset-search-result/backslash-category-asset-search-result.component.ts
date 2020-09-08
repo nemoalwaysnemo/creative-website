@@ -2,14 +2,13 @@ import { Component, Input } from '@angular/core';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
 import { assetPath } from '@core/services/helpers';
-import { SearchResponse } from '@core/api';
 
 @Component({
-  selector: 'backslash-case-study-asset-search-result',
+  selector: 'backslash-category-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
-  templateUrl: './backslash-case-study-asset-search-result.component.html',
+  templateUrl: './backslash-category-asset-search-result.component.html',
 })
-export class BackslashCaseStudyAssetSearchResultComponent extends BaseSearchResultComponent {
+export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResultComponent {
 
   @Input() folderId: string;
 
@@ -25,9 +24,5 @@ export class BackslashCaseStudyAssetSearchResultComponent extends BaseSearchResu
 
   assetPath(path: string) {
     return assetPath(path);
-  }
-
-  searchResultFilter(res: SearchResponse): boolean {
-    return res.source === 'document-backslash-report';
   }
 }
