@@ -3,6 +3,8 @@ export class GlobalSearchSettings {
 
   schemas?: string[];
 
+  enableLoading: boolean = true;
+
   enableQueryParams: boolean = false;
 
   skipAggregates: boolean = false;
