@@ -99,12 +99,13 @@
 		.btn { margin-right: 10px; }
 	}
 	.creative-project-asset-template-container {
+		padding: 20px 25px;
 		.project-info {
 			width: 100%;
 		}
 		.edit-button {
 			min-height: 40px;
-			background-color: lightgrey;
+			background-color: #eaeaea;
 			button {
 				background: white;
 				margin-right: 10%;
@@ -114,6 +115,33 @@
 		}
 		.project-menu {
 			margin-top: -50%;
+			.menu-items {
+				.menu-item {
+					text-align: center !important;
+					line-height: 40px !important;
+					background-color: #eee !important;
+				}
+				a {
+					text-align: center !important;
+					line-height: 40px !important;
+					background-color: #eee !important;
+				}
+			}
+			.menu-title {
+				text-align: center !important;
+				line-height: 40px !important;
+				background-color: #eee !important;
+			}
+			a {
+				text-align: center !important;
+				line-height: 40px !important;
+				background-color: #eee !important;
+			}
+			:host ::ng-deep a {
+				text-align: center !important;
+				line-height: 40px !important;
+				background-color: #eee !important;
+			}
 		}
 	}
 }

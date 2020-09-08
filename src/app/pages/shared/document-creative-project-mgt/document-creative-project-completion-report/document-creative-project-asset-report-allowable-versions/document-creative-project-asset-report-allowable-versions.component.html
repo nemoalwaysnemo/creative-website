@@ -1,21 +1,24 @@
-<h2>ALLOWABLE VERSIONS</h2>
-<div *ngIf="!showForm" class="document">
-  <div class="one-row">
-    <div class="showcase-area">
-      <h4>Allowable Versions</h4>
-      <div *ngIf="document.get('The_Loupe_ProdCredits:allowable_versions').length > 0">
-        <div *ngFor="let allowable_version of document.get('The_Loupe_ProdCredits:allowable_versions')">
-          <span>{{ allowable_version.code_number }}</span>
-          <span>{{ allowable_version.title }}</span>
-          <span>{{ allowable_version.length }}</span>
-          <span>{{ allowable_version.type }}</span>
-          <span>{{ allowable_version.notes }}</span>
+<div class="allowable-versions">
+  <h4 class="title">ALLOWABLE VERSIONS</h4>
+  <div *ngIf="!showForm" class="document">
+    <div class="one-row">
+      <div class="showcase-area">
+        <h6>Allowable Versions</h6>
+        <div *ngIf="document.get('The_Loupe_ProdCredits:allowable_versions').length > 0">
+          <div *ngFor="let allowable_version of document.get('The_Loupe_ProdCredits:allowable_versions')">
+            <span>{{ allowable_version.code_number }}</span>
+            <span>{{ allowable_version.title }}</span>
+            <span>{{ allowable_version.length }}</span>
+            <span>{{ allowable_version.type }}</span>
+            <span>{{ allowable_version.notes }}</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <div *ngIf="showForm" class="document">
+    <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
+  </div>
+  <button nbButton outline class="btn edit-btn" (click)="changeView()">Edit</button>
 </div>
-<div *ngIf="showForm" class="document">
-  <document-form [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
-</div>
-<button nbButton outline class="btn btn-success" (click)="changeView()">Edit</button>
+<hr>
