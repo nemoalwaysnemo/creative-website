@@ -1,9 +1,25 @@
-<global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [enableScrolling]="enableScrolling"></global-search-result>
+<global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [enableScrolling]="enableScrolling">
+</global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
-    <a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+ assetPath('assets/images/App-Intelligence-Brands-Icon.jpg') +')'}"></a>
+    <a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams"
+      [ngStyle]="{'background-image': 'url('+ assetPath('assets/images/App-Intelligence-Brands-Icon.jpg') +')'}"></a>
   </div>
   <div class="description">
-    <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+    <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', doc.uid]"
+        [queryParams]="queryParams">{{doc.title}}</a></h1>
+  </div>
+</ng-template>
+<document-thumbnail-view [loading]="loading"
+  [templateRef]="regionThumbnailView" [documents]="regions">
+</document-thumbnail-view>
+<ng-template #regionThumbnailView let-doc="doc">
+  <div class="image-holder">
+    <a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams"
+     [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+  </div>
+  <div class="description">
+    <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', doc.uid]"
+        [queryParams]="queryParams">{{doc.title}}</a></h1>
   </div>
 </ng-template>

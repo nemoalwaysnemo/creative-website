@@ -14,6 +14,8 @@ export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResul
 
   @Input() enableScrolling: boolean = true;
 
+  @Input() regions: [];
+
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }

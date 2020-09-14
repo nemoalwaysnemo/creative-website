@@ -65,6 +65,9 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
     if (doc.type === 'App-Backslash-Case-Study-Category') {
       return this.buildCategoryAssetParams(doc);
     }
+    if (doc.type === 'App-Backslash-Case-Study-Region') {
+      return this.buildRegionAssetParams(doc);
+    }
     return {};
   }
 
@@ -105,6 +108,20 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
     };
     if (doc) {
       params['app_edges_backslash_category'] = '["' + [doc.get('app_Edges:backslash_category')].join('", "') + '"]';
+    }
+    return params;
+  }
+
+  protected buildRegionAssetParams(doc: DocumentModel): any {
+    const params: any = {
+      ecm_mixinType_not_in: '', // override
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE,
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      currentPageIndex: 0,
+      ecm_fulltext: '',
+    };
+    if (doc) {
+      params['app_edges_backslash_region'] = '["' + [doc.get('app_Edges:report_region')].join('", "') + '"]';
     }
     return params;
   }
