@@ -64,7 +64,7 @@
           <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete" class="delete right icon_btn">Delete</a>
         </ng-container>
         <ng-container *ngIf="writePermission$ | async">
-          <a href="javascript:;" (click)="openDialog(editDialog)" title="Edit" class="edit right icon_btn">Edit</a>
+          <a href="javascript:;" (click)="openDialog(editDialog, false)" title="Edit" class="edit right icon_btn">Edit</a>
         </ng-container>
         <!-- <ng-container *ngIf="isIntelligenceAsset(documentModel) && deletePermission$ | async">
           <a href="javascript:;" (click)="openDialog(dialog, 'delete')" title="Delete" class="edit right icon_btn">Delete</a>

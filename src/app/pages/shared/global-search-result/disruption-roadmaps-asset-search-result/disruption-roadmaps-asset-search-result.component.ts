@@ -37,8 +37,8 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
     moreInfo: true,
   };
 
-  openDialog(dialog: TemplateRef<any>) {
-    this.globalDocumentDialogService.open(dialog);
+  openDialog(dialog: TemplateRef<any>): void {
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
 
 }
