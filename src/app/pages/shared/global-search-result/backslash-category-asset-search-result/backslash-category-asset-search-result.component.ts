@@ -5,7 +5,7 @@ import { assetPath } from '@core/services/helpers';
 
 @Component({
   selector: 'backslash-category-asset-search-result',
-  styleUrls: ['../thumbnail-view.scss'],
+  styleUrls: ['../thumbnail-view.scss', './backslash-case-study-asset-search-result.component.scss'],
   templateUrl: './backslash-category-asset-search-result.component.html',
 })
 export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResultComponent {
