@@ -14,6 +14,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class BackslashResourceFolderComponent extends GlobalDocumentViewComponent {
 
+  showFolderInfo: boolean = false;
+
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   baseParams$: Subject<any> = new Subject<any>();

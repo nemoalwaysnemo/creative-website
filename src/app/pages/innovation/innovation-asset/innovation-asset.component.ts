@@ -13,6 +13,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class InnovationAssetComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  showFolderInfo: boolean = false;
+
   folder: DocumentModel;
 
   folderLoading: boolean = true;

@@ -20,6 +20,8 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 
+  showFolderInfo: boolean = false;
+
   filters: SearchFilterModel[] = [
     // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
@@ -124,5 +126,20 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
       params['app_edges_report_region'] = '["' + [doc.get('app_Edges:report_region')].join('", "') + '"]';
     }
     return params;
+  }
+
+  showFolderButtons(doc: DocumentModel): boolean {
+    if (doc !== undefined) {
+      switch (doc.type) {
+        case 'App-Backslash-Case-Study-Category':
+          return false;
+        case 'App-Backslash-Case-Study-Region':
+          return false;
+        case 'App-Backslash-Case-Study-Folder':
+          return true;
+        default:
+          return true;
+      }
+    }
   }
 }

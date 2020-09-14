@@ -38,6 +38,8 @@ export class InnovationFolderViewComponent {
     }
   }
 
+  @Input() showFolderInfo: boolean = true;
+
   deletTitle: string = 'Delete';
 
   editTitle: string = 'Edit Folder';
