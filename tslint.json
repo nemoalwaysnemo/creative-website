@@ -159,7 +159,7 @@
     "component-selector": [
       false,
       ["attribute", "element"],
-      ["ngx", "nb"],
+    ["ngx", "nb"],
       ["kebab-case"]
     ],
     "ban": [
