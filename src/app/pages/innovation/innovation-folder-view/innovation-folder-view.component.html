@@ -4,14 +4,16 @@
       <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
     </a>
     <div class="property-info inline-top">
-      <h1>{{ doc.title }}</h1>
-      <br><br>
-      <div>Date: {{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</div>
-      <div>Industry: {{ doc.get('app_Edges:industry') }}</div>
-      <div>Geography: {{ doc.get('app_Edges:Relevant_Country')}}</div>
-      <div>Brand: {{ doc.get('The_Loupe_Main:brand')}}</div>
-      <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
-      <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
+      <h1 class='heading' [class.folder-name-heading]="!showFolderInfo">{{ doc.title }}</h1>
+      <ng-container *ngIf="showFolderInfo">
+        <br><br>
+        <div>Date: {{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</div>
+        <div>Industry: {{ doc.get('app_Edges:industry') }}</div>
+        <div>Geography: {{ doc.get('app_Edges:Relevant_Country')}}</div>
+        <div>Brand: {{ doc.get('The_Loupe_Main:brand')}}</div>
+        <div>Agency: {{ doc.get('The_Loupe_Main:agency')}}</div>
+        <div>Edges: {{ doc.get('app_Edges:Tags_edges') }}</div>
+      </ng-container>
 
       <button type="button" (click)="goBack()" class="icon_btn left">Back to parent</button>
       <ng-container *ngIf="writePermission$ | async">
