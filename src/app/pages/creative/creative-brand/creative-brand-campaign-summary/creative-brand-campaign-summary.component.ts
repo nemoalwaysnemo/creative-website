@@ -26,7 +26,11 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
 
   baseParamsAsset$: Subject<any> = new Subject<any>();
 
+  dialogParams$: Subject<any> = new Subject<any>();
+
   layout: string = 'creative_brand_campaign full-width';
+
+  selectedProject: boolean = false;
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
@@ -80,6 +84,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'button',
           enableClick: true,
+          dialogParams: this.dialogParams$,
           dialogSettings: new GlobalDocumentDialogSettings({
             components: [
               GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_ASSET,
@@ -152,14 +157,24 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     protected documentPageService: DocumentPageService,
   ) {
     super(activatedRoute, documentPageService);
+    // this.dialogParams$.subscribe(p => {console.log(p);
+    // });
   }
 
   onSelectedCampaign(row: any): void {
+    this.selectedProject = false;
     this.baseParamsProject$.next(this.buildProjectParams(this.document, row.isSelected ? row.data.action : null));
   }
 
   onSelectedProject(row: any): void {
+    this.selectedProject = row.isSelected;
     this.baseParamsAsset$.next(this.buildAssetParams(this.document, row.isSelected ? row.data.action : null));
+  }
+
+  openUpload(): void {
+    console.log(this.dialogParams$);
+
+    this.dialogParams$.next({ page: 1, tab: 0 });
   }
 
   protected getCurrentDocumentSearchParams(): any {

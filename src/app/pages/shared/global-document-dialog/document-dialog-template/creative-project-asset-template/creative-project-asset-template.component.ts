@@ -51,7 +51,10 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
   }
 
   protected onOpen(): void {
-    this.changeView(this.tabs[0].component);
+    const params = this.globalDocumentDialogService.getParams();
+    const index = !!params ? params.page : 0;
+    this.tabs[index].selected = true;
+    this.changeView(this.tabs[index].component);
   }
 
   protected onDestroy(): void {

@@ -1,15 +1,16 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { objHasValue } from '@core/services/helpers';
 import { GlobalDocumentDialogService } from '../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
+import { Subject, Observable } from 'rxjs';
 
 @Component({
   template: `
     <ng-container *ngIf="value" [ngSwitch]="true">
 
       <ng-container *ngSwitchCase="options.viewType === 'button'">
-        <button type="button" (click)="openDialog(dialog)" class="icon_btn">Detail</button>
+        <button type="button" (click)="openDialog()" class="icon_btn">Detail</button>
         <ng-template #dialog>
           <global-document-dialog [settings]="options.dialogSettings" [documentModel]="value" [title]="getTitle(value)"></global-document-dialog>
         </ng-template>
@@ -22,7 +23,7 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
         </ng-container>
 
         <ng-container *ngIf="options.dialogSettings">
-          <a href="javascript:;" (click)="openDialog(dialog)" class="property-intro inline-top" title="getTitle(value)">
+          <a href="javascript:;" (click)="openDialog()" class="property-intro inline-top" title="getTitle(value)">
             <div [ngStyle]="{'background-image': 'url('+value.thumbnailUrl+')'}"></div>
           </a>
           <ng-template #dialog>
@@ -38,6 +39,10 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
 export class ListSearchRowCustomDialogComponent {
 
   options: ListSearchRowCustomViewSettings;
+
+  dialogParams$: Subject<any>;
+
+  @ViewChild('dialog', { static: false }) dialog: TemplateRef<any>;
 
   @Input() value: DocumentModel;
 
@@ -56,9 +61,9 @@ export class ListSearchRowCustomDialogComponent {
     return this.options.dialogTitle.replace(':docTitle', doc.title);
   }
 
-  openDialog(dialog: TemplateRef<any>): void {
+  openDialog(params: { page: number, tab: number } = { page: 0, tab: 0 }): void {
     if (this.options.enableClick) {
-      this.globalDocumentDialogService.open(dialog);
+      this.globalDocumentDialogService.open(this.dialog, {}, params);
     }
   }
 }

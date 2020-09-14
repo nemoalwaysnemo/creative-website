@@ -27,7 +27,10 @@
       <ng-container class="group-left">
         <div class="global-search-form-buttons">
           <button type="button" class="creative-brand-campaign-asset-btn icon_btn" title="Asset">Asset</button>
-          <creative-brand-form-button [parent]="target" [type]="'campaign'" [title]="'New'"></creative-brand-form-button>
+          <ng-container *ngIf="selectedProject">
+            <button type="button" class="creative-brand-campaign-asset-btn icon_btn white" title="Upload" (click)="openUpload()">Upload</button>
+            <button type="button" class="creative-brand-campaign-asset-btn icon_btn white" title="Deliver">Deliver</button>
+          </ng-container>
         </div>
       </ng-container>
     </list-search-form-custom-view>

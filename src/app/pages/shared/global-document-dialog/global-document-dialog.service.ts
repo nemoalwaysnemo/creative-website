@@ -30,17 +30,24 @@ export class GlobalDocumentDialogService {
 
   private options: DocumentDialogOption = {};
 
+  private params: any = {};
+
   constructor(private dialogService: NbDialogService) {
 
   }
 
-  open(dialog: TemplateRef<any>, options: DocumentDialogOption = {}): void {
+  open(dialog: TemplateRef<any>, options: DocumentDialogOption = {}, params: any = {}): void {
     this.options = options;
+    this.params = params;
     this.dialogService.open(dialog);
   }
 
   close(): void {
     this.dialogService.close();
+  }
+
+  getParams(): any {
+    return this.params;
   }
 
   onOpen(): Observable<DocumentDialogEvent> {
