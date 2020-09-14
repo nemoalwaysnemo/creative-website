@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
+import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -21,9 +21,18 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
 
   enableScrolling: any = { categoryView: true, reportView: true };
 
+  regions: any[];
+
   filters: SearchFilterModel[] = [
     // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
+  regionAssetParams: any = {
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    ecm_mixinType_not_in: '',
+    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_REGION_FOLDER_TYPE,
+  };
 
   categoryAssetParams: any = {
     currentPageIndex: 0,
@@ -69,6 +78,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
   ngOnInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
+    this.getRegions(this.regionAssetParams);
   }
 
   // get all matched assets and their parent folders
@@ -105,6 +115,15 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
 
   isViewEnabled(name: string): boolean {
     return this.enabledView[name];
+  }
+
+  private getRegions(params: {}): void {
+    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
+      .subscribe((res: NuxeoPagination) => {
+        this.regions = res.entries;
+        this.loading = false;
+      });
+    this.subscription.add(subscription);
   }
 
   protected performViewTemplate(name: string): void {

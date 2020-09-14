@@ -309,7 +309,7 @@ export class DocumentModel extends Base {
   }
 
   isPicture(): boolean {
-    return (this.hasFacet('Picture') && this.fileMimeType.includes('image')) ||
+    return (this.hasFacet('Picture') && this.fileMimeType && this.fileMimeType.includes('image')) ||
       (this.get('picture:info') && this.get('picture:info').format && this.get('picture:info').format.includes('PNG'));
   }
 
