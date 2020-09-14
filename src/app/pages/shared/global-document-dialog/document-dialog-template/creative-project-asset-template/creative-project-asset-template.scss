@@ -5,7 +5,7 @@
     border: none !important;
     width: 100% !important;
     margin: 0;
-    margin-bottom: 20px !important;
+    margin-bottom: 30px !important;
     .tab {
       text-align: center;
       line-height: 30px;
@@ -15,6 +15,7 @@
       a {
         span {
           font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+          font-size: smaller;
         }
       }
     }
@@ -37,7 +38,7 @@
     color: #ffffff;
     text-align: center;
     line-height: 40px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
   }
 }

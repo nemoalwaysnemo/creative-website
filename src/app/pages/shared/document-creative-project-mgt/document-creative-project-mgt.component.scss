@@ -7,8 +7,10 @@
   padding: 5px;
 
     p {
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
       span {
         margin: 10px;
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
       }
     }
   }
@@ -24,6 +26,28 @@
 .document-creative-project-related-asset {
   margin: 10px 0;
 }
+::ng-deep .list-search-result {
+  table {
+    tbody {
+      tr:hover {
+        background-color: #fecc00 !important;
+        background: #fecc00 !important;
+      }
+    }
+  }
+  .delivery-title {
+    ul {
+      li {
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+  }
+  .delivery-info {
+    font-size: 18px;
+  }
+}
+
 ::ng-deep .document-creative-project-related-asset ng2-smart-table {
   table {
     tbody {
@@ -42,7 +66,7 @@
     color: #ffffff;
     text-align: center;
     line-height: 40px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
   }
 }
