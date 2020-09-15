@@ -3,3 +3,14 @@
     overflow: unset !important;
   }
 }
+
+.region-heading {
+  padding: 0 40px;
+  h1 {
+    margin-bottom: 0;
+    font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
+  }
+  hr {
+    background: #a1a1a1;
+  }
+}
