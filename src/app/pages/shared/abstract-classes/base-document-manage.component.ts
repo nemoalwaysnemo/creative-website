@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, of as observableOf } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { DocumentModel, NuxeoPermission } from '@core/api';
+import { DocumentModel, NuxeoPermission, UserModel } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { GlobalDocumentViewComponent } from './global-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -18,6 +18,8 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   formLayout: any = {};
 
+  currentUser: UserModel;
+
   protected tabConfig: any[];
 
   constructor(
@@ -29,6 +31,7 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   onInit(): void {
     super.onInit();
+    this.getCurrentUser();
     this.performForm();
   }
 
@@ -52,6 +55,13 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
         }
       });
     }
+  }
+
+  protected getCurrentUser() {
+    const subscription = this.documentPageService.getCurrentUser().subscribe((user: UserModel) => {
+      this.currentUser = user;
+    });
+    this.subscription.add(subscription);
   }
 
   protected hasPermission(doc: DocumentModel): Observable<boolean> {

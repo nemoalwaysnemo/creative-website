@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
@@ -111,12 +111,13 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
-        label: 'Librarians',
+        label: 'Librarians/Download Approvers',
         settings: {
           initSearch: false,
           placeholder: 'Please select librarians',
           providerType: SuggestionSettings.USER_GROUP,
         },
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => user.isAdmin(),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_owners',
