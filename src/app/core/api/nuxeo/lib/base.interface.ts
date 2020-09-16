@@ -1,4 +1,4 @@
-import { join, objHasValue } from '../../../services/helpers';
+import { join, objHasValue, objHasKey } from '../../../services/helpers';
 import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';
@@ -285,7 +285,11 @@ export class GlobalSearchParams {
   }
 
   hasParam(key: string): boolean {
-    return this.providerParams.hasParam(key);
+    return this.providerParams.hasParam(key) || this.hasAggregates(key);
+  }
+
+  hasAggregates(key: string): boolean {
+    return objHasKey(this.searchParams['aggregates'], key) && this.searchParams['aggregates'][key].length > 0;
   }
 
   setParams(params: any): this {

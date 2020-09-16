@@ -43,7 +43,7 @@ export class DisruptionFormButtonComponent {
   }
 
   openDialog(dialog: TemplateRef<any>): void {
-    this.globalDocumentDialogService.open(dialog);
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
 
   buildRedirectUrl(): string {

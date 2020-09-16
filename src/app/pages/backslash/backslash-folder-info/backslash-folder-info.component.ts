@@ -104,8 +104,8 @@ export class BackslashFolderInfoComponent {
     return formTitle;
   }
 
-  openDialog(dialog: TemplateRef<any>): void {
-    this.globalDocumentDialogService.open(dialog);
+  openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick});
   }
 
   goBack(): void {

@@ -61,7 +61,7 @@ export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
   }
 
   openDialog(dialog: TemplateRef<any>): void {
-    this.globalDocumentDialogService.open(dialog);
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
 
   hasPermission(doc: DocumentModel, name: string): Observable<boolean> {

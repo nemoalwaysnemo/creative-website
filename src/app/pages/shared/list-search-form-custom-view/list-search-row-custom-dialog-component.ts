@@ -58,7 +58,7 @@ export class ListSearchRowCustomDialogComponent {
 
   openDialog(dialog: TemplateRef<any>): void {
     if (this.options.enableClick) {
-      this.globalDocumentDialogService.open(dialog);
+      this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
     }
   }
 }

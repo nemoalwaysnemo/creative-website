@@ -38,8 +38,8 @@ export class DisruptionFeaturedRoadmapsAssetSearchResultComponent {
     moreInfo: true,
   };
 
-  openDialog(dialog: TemplateRef<any>) {
-    this.globalDocumentDialogService.open(dialog);
+  openDialog(dialog: TemplateRef<any>): void {
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
 
   searchResultFilter(res: SearchResponse): boolean {
