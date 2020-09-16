@@ -106,15 +106,17 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
   }
 
   private showFolderInfo(doc: DocumentModel): boolean {
-    switch (doc.type) {
-      case 'App-Backslash-Edges-Asset':
-        return false;
-      case 'App-Backslash-Resources-Asset':
-        return false;
-      case 'App-Backslash-Case-Study':
-        return false;
-      default:
-        return true;
+    if (doc) {
+      switch (doc.type) {
+        case 'App-Backslash-Edges-Asset':
+          return false;
+        case 'App-Backslash-Resources-Asset':
+          return false;
+        case 'App-Backslash-Case-Study':
+          return false;
+        default:
+          return true;
+      }
     }
   }
 }
