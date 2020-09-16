@@ -269,6 +269,10 @@ export function objHasValue(obj: any = {}): boolean {
   return obj && typeof obj === 'object' && Object.keys(obj).length > 0;
 }
 
+export function objHasKey(obj: any = {}, name: string = ''): boolean {
+  return obj && typeof obj === 'object' && Object.getOwnPropertyNames(obj).some((key: string) => key.includes(name));
+}
+
 export function convertToBoolean(val: any): boolean {
   if (typeof val === 'string') {
     val = val.toLowerCase().trim();
