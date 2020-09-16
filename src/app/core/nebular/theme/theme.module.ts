@@ -30,7 +30,7 @@ import { NbLayoutScrollService } from './services/scroll.service';
 import { NbLayoutRulerService } from './services/ruler.service';
 import { NbOverlayModule } from './components/cdk';
 
-export function nbWindowFactory() {
+export function nbWindowFactory(): any {
   return window;
 }
 

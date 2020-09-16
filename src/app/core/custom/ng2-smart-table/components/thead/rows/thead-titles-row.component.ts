@@ -34,7 +34,7 @@ export class TheadTitlesRowComponent implements OnChanges {
   showActionColumnRight: boolean;
 
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.isMultiSelectVisible = this.grid.isMultiSelectVisible();
     this.showActionColumnLeft = this.grid.showActionColumn('left');
     this.showActionColumnRight = this.grid.showActionColumn('right');

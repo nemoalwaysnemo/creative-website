@@ -42,7 +42,7 @@ export class NbCalendarDaysNamesComponent<D> implements OnInit {
     return days;
   }
 
-  private markIfHoliday(name, i) {
+  private markIfHoliday(name, i): any {
     return { name, isHoliday: i % 6 === 0 };
   }
 }

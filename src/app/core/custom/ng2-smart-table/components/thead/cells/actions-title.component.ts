@@ -17,11 +17,11 @@ export class ActionsTitleComponent implements AfterViewInit, OnChanges {
   constructor(private ref: ElementRef) {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.ref.nativeElement.classList.add('ng2-smart-actions');
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.actionsColumnTitle = this.grid.getSetting('actions.columnTitle');
   }
 }

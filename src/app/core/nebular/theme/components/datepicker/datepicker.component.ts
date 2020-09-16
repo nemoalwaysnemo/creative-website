@@ -52,7 +52,7 @@ import { NB_DATE_SERVICE_OPTIONS, NbDatepicker, NbPickerValidatorConfig } from '
 
 /**
  * The `NbBasePickerComponent` component concentrates overlay manipulation logic.
- * */
+ */
 @Component({
   template: ``,
 })
@@ -61,54 +61,54 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
   /**
    * Datepicker date format. Can be used only with date adapters (moment, date-fns) since native date
    * object doesn't support formatting.
-   * */
+   */
   @Input() format: string;
 
   /**
    * Defines if we should render previous and next months
    * in the current month view.
-   * */
+   */
   @Input() boundingMonth: boolean = true;
 
   /**
    * Defines starting view for calendar.
-   * */
+   */
   @Input() startView: NbCalendarViewMode = NbCalendarViewMode.DATE;
 
   /**
    * Minimum available date for selection.
-   * */
+   */
   @Input() min: T;
 
   /**
    * Maximum available date for selection.
-   * */
+   */
   @Input() max: T;
 
   /**
    * Predicate that decides which cells will be disabled.
-   * */
+   */
   @Input() filter: (T) => boolean;
 
   /**
    * Custom day cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input() dayCellComponent: Type<NbCalendarCell<D, T>>;
 
   /**
    * Custom month cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input() monthCellComponent: Type<NbCalendarCell<D, T>>;
 
   /**
    * Custom year cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input() yearCellComponent: Type<NbCalendarCell<D, T>>;
 
   /**
    * Size of the calendar and entire components.
    * Can be 'medium' which is default or 'large'.
-   * */
+   */
   @Input() size: NbCalendarSize = NbCalendarSize.MEDIUM;
 
   /**
@@ -124,27 +124,27 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
 
   /**
    * Calendar component class that has to be instantiated inside overlay.
-   * */
+   */
   protected pickerClass: Type<P>;
 
   /**
    * Overlay reference object.
-   * */
+   */
   protected ref: NbOverlayRef;
 
   /**
    * Datepicker container that contains instantiated picker.
-   * */
+   */
   protected container: ComponentRef<NbDatepickerContainerComponent>;
 
   /**
    * Positioning strategy used by overlay.
-   * */
+   */
   protected positionStrategy: NbAdjustableConnectedPositionStrategy;
 
   /**
    * HTML input reference to which datepicker connected.
-   * */
+   */
   protected hostRef: ElementRef;
 
   protected init$: ReplaySubject<void> = new ReplaySubject<void>();
@@ -152,12 +152,12 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
   /**
    * Stream of picker changes. Required to be the subject because picker hides and shows and picker
    * change stream becomes recreated.
-   * */
+   */
   protected onChange$: Subject<T> = new Subject();
 
   /**
    * Reference to the picker instance itself.
-   * */
+   */
   protected pickerRef: ComponentRef<any>;
 
   protected alive: boolean = true;
@@ -165,7 +165,7 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
   /**
    * Queue contains the last value that was applied to the picker when it was hidden.
    * This value will be passed to the picker as soon as it shown.
-   * */
+   */
   protected queue: T | undefined;
 
   protected blur$: Subject<void> = new Subject<void>();
@@ -183,14 +183,14 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
 
   /**
    * Returns picker instance.
-   * */
+   */
   get picker(): any {
     return this.pickerRef && this.pickerRef.instance;
   }
 
   /**
    * Stream of picker value changes.
-   * */
+   */
   get valueChange(): Observable<T> {
     return this.onChange$.asObservable();
   }
@@ -218,13 +218,13 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
     this.checkFormat();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.format && !changes.format.isFirstChange()) {
       this.checkFormat();
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.init$.next();
   }
 
@@ -241,8 +241,8 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
   /**
    * Datepicker knows nothing about host html input element.
    * So, attach method attaches datepicker to the host input element.
-   * */
-  attach(hostRef: ElementRef) {
+   */
+  attach(hostRef: ElementRef): void {
     this.hostRef = hostRef;
     this.subscribeOnTriggers();
   }
@@ -289,7 +289,7 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
 
   }
 
-  protected createOverlay() {
+  protected createOverlay(): void {
     this.positionStrategy = this.createPositionStrategy();
     this.ref = this.overlay.create({
       positionStrategy: this.positionStrategy,
@@ -298,7 +298,7 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
     this.subscribeOnPositionChange();
   }
 
-  protected openDatepicker() {
+  protected openDatepicker(): void {
     this.container = this.ref.attach(new NbComponentPortal(NbDatepickerContainerComponent, null, null, this.cfr));
     this.instantiatePicker();
     this.subscribeOnValueChange();
@@ -313,7 +313,7 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
       .adjustment(NbAdjustment.COUNTERCLOCKWISE);
   }
 
-  protected subscribeOnPositionChange() {
+  protected subscribeOnPositionChange(): void {
     this.positionStrategy.positionChange
       .pipe(takeWhile(() => this.alive))
       .subscribe((position: NbPosition) => patch(this.container, { position }));
@@ -327,7 +327,7 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
       .build();
   }
 
-  protected subscribeOnTriggers() {
+  protected subscribeOnTriggers(): void {
     const triggerStrategy = this.createTriggerStrategy();
     triggerStrategy.show$.pipe(takeWhile(() => this.alive)).subscribe(() => this.show());
     triggerStrategy.hide$.pipe(takeWhile(() => this.alive)).subscribe(() => {
@@ -336,20 +336,20 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
     });
   }
 
-  protected instantiatePicker() {
+  protected instantiatePicker(): void {
     this.pickerRef = this.container.instance.attach(new NbComponentPortal(this.pickerClass, null, null, this.cfr));
   }
 
   /**
    * Subscribes on picker value changes and emit data through this.onChange$ subject.
-   * */
-  protected subscribeOnValueChange() {
+   */
+  protected subscribeOnValueChange(): void {
     this.pickerValueChange.subscribe(date => {
       this.onChange$.next(date);
     });
   }
 
-  protected patchWithInputs() {
+  protected patchWithInputs(): void {
     this.picker.boundingMonth = this.boundingMonth;
     this.picker.startView = this.startView;
     this.picker.min = this.min;
@@ -362,7 +362,7 @@ export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements O
     this.picker.visibleDate = this.visibleDate;
   }
 
-  protected checkFormat() {
+  protected checkFormat(): void {
     if (this.dateService.getId() === 'native' && this.format) {
       throw new Error('Can\'t format native date. To use custom formatting you have to install @nebular/moment or ' +
         '@nebular/date-fns package and import NbMomentDateModule or NbDateFnsDateModule accordingly.' +
@@ -390,14 +390,14 @@ export class NbDatepickerComponent<D> extends NbBasePickerComponent<D, D, NbCale
 
   /**
    * Date which will be rendered as selected.
-   * */
+   */
   @Input() set date(date: D) {
     this.value = date;
   }
 
   /**
    * Emits date when selected.
-   * */
+   */
   @Output() get dateChange(): EventEmitter<D> {
     return this.valueChange as EventEmitter<D>;
   }
@@ -423,7 +423,7 @@ export class NbDatepickerComponent<D> extends NbBasePickerComponent<D, D, NbCale
     return this.picker.dateChange;
   }
 
-  protected writeQueue() {
+  protected writeQueue(): void {
     if (this.queue) {
       const date = this.queue;
       this.queue = null;
@@ -445,14 +445,14 @@ export class NbRangepickerComponent<D> extends NbBasePickerComponent<D, NbCalend
 
   /**
    * Range which will be rendered as selected.
-   * */
+   */
   @Input() set range(range: NbCalendarRange<D>) {
     this.value = range;
   }
 
   /**
    * Emits range when start selected and emits again when end selected.
-   * */
+   */
   @Output() get rangeChange(): EventEmitter<NbCalendarRange<D>> {
     return this.valueChange as EventEmitter<NbCalendarRange<D>>;
   }
@@ -483,7 +483,7 @@ export class NbRangepickerComponent<D> extends NbBasePickerComponent<D, NbCalend
     return super.shouldHide() && !!(this.value && this.value.start && this.value.end);
   }
 
-  protected writeQueue() {
+  protected writeQueue(): void {
     if (this.queue) {
       const range = this.queue;
       this.queue = null;

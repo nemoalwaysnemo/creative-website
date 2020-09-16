@@ -14,6 +14,24 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog/global
 })
 export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocumentFormComponent {
 
+  constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    protected documentPageService: DocumentPageService,
+    protected nuxeoApi: NuxeoApiService,
+  ) {
+    super(documentPageService);
+  }
+
+  @Input()
+  set showButton(show: boolean) {
+    this.showStatus = show;
+  }
+
+  @Input()
+  set listViewOptions(settings: any) {
+    this.listViewOptionsPackage = settings;
+  }
+
   static readonly NAME: string = 'creative-project-asset-package-form';
 
   protected documentType: string = 'App-Library-Delivery-Package';
@@ -40,6 +58,14 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     deliverPackage: true,
   };
 
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-related-asset',
+    enableSearchInput: false,
+  });
+
+  @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
+
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
     doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
     doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
@@ -53,37 +79,11 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return observableOf(doc);
   }
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-related-asset',
-    enableSearchInput: false,
-  });
-
-  constructor(
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected documentPageService: DocumentPageService,
-    protected nuxeoApi: NuxeoApiService,
-  ) {
-    super(documentPageService);
-  }
-
   setFormDocument(doc: DocumentModel, user: UserModel): void {
     super.setFormDocument(doc, user);
     this.loading = false;
     this.getStatus(doc);
   }
-
-  @Input()
-  set showButton(show: boolean) {
-    this.showStatus = show;
-  }
-
-  @Input()
-  set listViewOptions(settings: any) {
-    this.listViewOptionsPackage = settings;
-  }
-
-  @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     this.parentDocument = doc;
@@ -270,7 +270,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     const packageId = packageDoc.uid;
     const assetIds: string[] = this.selectedRows.map((doc: DocumentModel) => doc.uid);
     if (assetIds.length > 0) {
-      this.nuxeoApi.operation(NuxeoAutomations.AddToCollection, { 'collection': packageId }, assetIds).subscribe(() => {
+      this.nuxeoApi.operation(NuxeoAutomations.AddToCollection, { collection: packageId }, assetIds).subscribe(() => {
         this.refresh();
       });
     }

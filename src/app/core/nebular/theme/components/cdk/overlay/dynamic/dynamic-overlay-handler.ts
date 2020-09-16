@@ -29,7 +29,7 @@ export class NbDynamicOverlayHandler {
 
   protected _componentType: Type<NbRenderableContainer>;
   protected _host: ElementRef;
-  protected _context: Object = {};
+  protected _context: any = {};
   protected _content: NbOverlayContent;
   protected _trigger: NbTrigger = NbTrigger.NOOP;
   protected _position: NbPosition = NbPosition.TOP;
@@ -48,49 +48,49 @@ export class NbDynamicOverlayHandler {
               private dynamicOverlayService: NbDynamicOverlay) {
   }
 
-  host(host: ElementRef) {
+  host(host: ElementRef): this {
     this.changes.host = new NbDynamicOverlayChange(this._host, host);
     this._host = host;
     return this;
   }
 
-  trigger(trigger: NbTrigger) {
+  trigger(trigger: NbTrigger): this {
     this.changes.trigger = new NbDynamicOverlayChange(this._trigger, trigger);
     this._trigger = trigger;
     return this;
   }
 
-  position(position: NbPosition) {
+  position(position: NbPosition): this {
     this.changes.position = new NbDynamicOverlayChange(this._position, position);
     this._position = position;
     return this;
   }
 
-  adjustment(adjustment: NbAdjustment) {
+  adjustment(adjustment: NbAdjustment): this {
     this.changes.adjustment = new NbDynamicOverlayChange(this._adjustment, adjustment);
     this._adjustment = adjustment;
     return this;
   }
 
-  componentType(componentType: Type<NbRenderableContainer>) {
+  componentType(componentType: Type<NbRenderableContainer>): this {
     this.changes.componentType = new NbDynamicOverlayChange(this._componentType, componentType);
     this._componentType = componentType;
     return this;
   }
 
-  content(content: NbOverlayContent) {
+  content(content: NbOverlayContent): this {
     this.changes.content = new NbDynamicOverlayChange(this._content, content);
     this._content = content;
     return this;
   }
 
-  context(context: {}) {
+  context(context: {}): this {
     this.changes.context = new NbDynamicOverlayChange(this._context, context);
     this._context = context;
     return this;
   }
 
-  offset(offset: number) {
+  offset(offset: number): this {
     this.changes.offset = new NbDynamicOverlayChange(this._offset, offset);
     this._offset = offset;
     return this;
@@ -145,7 +145,7 @@ export class NbDynamicOverlayHandler {
     return this.dynamicOverlay;
   }
 
-  connect() {
+  connect(): void {
     if (!this.dynamicOverlay) {
       throw new Error(`NbDynamicOverlayHandler: cannot connect to DynamicOverlay
       as it is not created yet. Call build() first`);
@@ -154,11 +154,11 @@ export class NbDynamicOverlayHandler {
     this.subscribeOnTriggers(this.dynamicOverlay);
   }
 
-  disconnect() {
+  disconnect(): void {
     this.disconnect$.next();
   }
 
-  destroy() {
+  destroy(): void {
     this.disconnect();
     this.clearChanges();
     if (this.dynamicOverlay) {
@@ -166,7 +166,7 @@ export class NbDynamicOverlayHandler {
     }
   }
 
-  protected createPositionStrategy() {
+  protected createPositionStrategy(): any {
     return this.positionBuilder
       .connectedTo(this._host)
       .position(this._position)
@@ -174,7 +174,7 @@ export class NbDynamicOverlayHandler {
       .offset(this._offset);
   }
 
-  protected subscribeOnTriggers(dynamicOverlay: NbDynamicOverlay) {
+  protected subscribeOnTriggers(dynamicOverlay: NbDynamicOverlay): void {
 
     const triggerStrategy: NbTriggerStrategy = this.triggerStrategyBuilder
       .trigger(this._trigger)
@@ -191,7 +191,7 @@ export class NbDynamicOverlayHandler {
     ).subscribe(() => dynamicOverlay.hide());
   }
 
-  protected isContainerRerenderRequired() {
+  protected isContainerRerenderRequired(): boolean {
     return this.isContentUpdated()
       || this.isContextUpdated()
       || this.isPositionStrategyUpdateRequired();
@@ -241,7 +241,7 @@ export class NbDynamicOverlayHandler {
     return this.changes.offset && this.changes.offset.isChanged();
   }
 
-  protected clearChanges() {
+  protected clearChanges(): void {
     this.changes = {};
   }
 }

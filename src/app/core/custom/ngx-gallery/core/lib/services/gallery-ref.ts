@@ -60,7 +60,7 @@ export class GalleryRef {
     return this.state.pipe(filterActions([GalleryAction.PLAY, GalleryAction.STOP, GalleryAction.INDEX_CHANGED]));
   }
 
-  constructor(config: GalleryConfig, private deleteInstance: Function) {
+  constructor(config: GalleryConfig, private deleteInstance: () => void) {
     this._state = new BehaviorSubject<GalleryState>(defaultState);
     this._config = new BehaviorSubject<GalleryConfig>(config);
     this.state = this._state.asObservable();
@@ -105,7 +105,7 @@ export class GalleryRef {
     const items = [...this._state.value.items, item];
     this.setState({
       action: GalleryAction.ITEMS_CHANGED,
-      items: items,
+      items,
       hasNext: items.length > 1,
       currIndex: active ? items.length - 1 : this._state.value.currIndex,
     });
@@ -154,7 +154,7 @@ export class GalleryRef {
     });
     this.setState({
       action: GalleryAction.SETTINGS_CHANGED,
-      items: items,
+      items,
     });
   }
 
@@ -168,7 +168,7 @@ export class GalleryRef {
     ];
     this.setState({
       action: GalleryAction.ITEMS_CHANGED,
-      items: items,
+      items,
       hasNext: items.length > 1,
       hasPrev: i > 0,
     });
@@ -182,7 +182,7 @@ export class GalleryRef {
     if (items) {
       this.setState({
         action: GalleryAction.ITEMS_CHANGED,
-        items: items,
+        items,
         hasNext: items.length > 1,
         hasPrev: false,
       });

@@ -80,7 +80,7 @@ export class InnovationFolderViewComponent {
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick });
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
   }
 
   inBaseFolder(): boolean {

@@ -41,7 +41,7 @@ export enum NbToggleStates {
   ],
 })
 export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
-  @Input() menuItem = <NbMenuItem>null;
+  @Input() menuItem = null as NbMenuItem;
 
   @Output() hoverItem: EventEmitter<any> = new EventEmitter<any>();
   @Output() toggleSubMenu: EventEmitter<any> = new EventEmitter<any>();

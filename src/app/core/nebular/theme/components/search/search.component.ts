@@ -27,7 +27,7 @@ import { filter, delay, takeWhile } from 'rxjs/operators';
 
 import { NbSearchService } from './search.service';
 import { NbThemeService } from '../../services/theme.service';
-import { NbOverlayService, NbOverlayRef, NbPortalDirective  } from '../cdk';
+import { NbOverlayService, NbOverlayRef, NbPortalDirective } from '../cdk';
 
 /**
  * search-field-component is used under the hood by nb-search component
@@ -87,46 +87,46 @@ export class NbSearchFieldComponent implements OnChanges, AfterViewInit {
   @ViewChild('searchInput', { static: true }) inputElement: ElementRef<HTMLInputElement>;
 
   @HostBinding('class.show')
-  get showClass() {
+  get showClass(): boolean {
     return this.show;
   }
 
   @HostBinding('class.modal-zoomin')
-  get modalZoomin() {
+  get modalZoomin(): boolean {
     return this.type === NbSearchFieldComponent.TYPE_MODAL_ZOOMIN;
   }
 
   @HostBinding('class.rotate-layout')
-  get rotateLayout() {
+  get rotateLayout(): boolean {
     return this.type === NbSearchFieldComponent.TYPE_ROTATE_LAYOUT;
   }
 
   @HostBinding('class.modal-move')
-  get modalMove() {
+  get modalMove(): boolean {
     return this.type === NbSearchFieldComponent.TYPE_MODAL_MOVE;
   }
 
   @HostBinding('class.curtain')
-  get curtain() {
+  get curtain(): boolean {
     return this.type === NbSearchFieldComponent.TYPE_CURTAIN;
   }
 
   @HostBinding('class.column-curtain')
-  get columnCurtain() {
+  get columnCurtain(): boolean {
     return this.type === NbSearchFieldComponent.TYPE_COLUMN_CURTAIN;
   }
 
   @HostBinding('class.modal-drop')
-  get modalDrop() {
+  get modalDrop(): boolean {
     return this.type === NbSearchFieldComponent.TYPE_MODAL_DROP;
   }
 
   @HostBinding('class.modal-half')
-  get modalHalf() {
+  get modalHalf(): boolean {
     return this.type === NbSearchFieldComponent.TYPE_MODAL_HALF;
   }
 
-  ngOnChanges({ show }: SimpleChanges) {
+  ngOnChanges({ show }: SimpleChanges): void {
     const becameHidden = !show.isFirstChange() && show.currentValue === false;
     if (becameHidden && this.inputElement) {
       this.inputElement.nativeElement.value = '';
@@ -135,21 +135,21 @@ export class NbSearchFieldComponent implements OnChanges, AfterViewInit {
     this.focusInput();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.focusInput();
   }
 
-  emitClose() {
+  emitClose(): void {
     this.close.emit();
   }
 
-  submitSearch(term) {
+  submitSearch(term): void {
     if (term) {
       this.search.emit(term);
     }
   }
 
-  focusInput() {
+  focusInput(): void {
     if (this.show && this.inputElement) {
       this.inputElement.nativeElement.focus();
     }
@@ -260,7 +260,7 @@ export class NbSearchComponent implements OnInit, OnDestroy {
     private router: Router,
     private overlayService: NbOverlayService,
     private changeDetector: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.router.events
@@ -294,7 +294,7 @@ export class NbSearchComponent implements OnInit, OnDestroy {
     this.alive = false;
   }
 
-  openSearch() {
+  openSearch(): void {
     if (!this.overlayRef) {
       this.overlayRef = this.overlayService.create();
       this.overlayRef.attach(this.searchFieldPortal);
@@ -308,27 +308,27 @@ export class NbSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  hideSearch() {
+  hideSearch(): void {
     this.removeLayoutClasses();
     this.showSearchField = false;
     this.changeDetector.detectChanges();
     this.searchButton.nativeElement.focus();
   }
 
-  search(term) {
+  search(term): void {
     this.searchService.submitSearch(term, this.tag);
     this.hideSearch();
   }
 
-  emitActivate() {
+  emitActivate(): void {
     this.searchService.activateSearch(this.type, this.tag);
   }
 
-  emitDeactivate() {
+  emitDeactivate(): void {
     this.searchService.deactivateSearch(this.type, this.tag);
   }
 
-  private removeLayoutClasses() {
+  private removeLayoutClasses(): void {
     this.themeService.removeLayoutClass('with-search');
     observableOf(null).pipe(delay(500)).subscribe(() => {
       this.themeService.removeLayoutClass(this.type);

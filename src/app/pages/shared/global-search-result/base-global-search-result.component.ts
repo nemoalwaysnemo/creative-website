@@ -12,6 +12,20 @@ import { concatMap, filter } from 'rxjs/operators';
 })
 export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
+  @Input()
+  set listViewSettings(settings: any) {
+    if (settings) {
+      this.listViewOptions = settings;
+    }
+  }
+
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
+    super(documentPageService);
+  }
+
   loading: boolean = true;
 
   layout: string = 'search-results';
@@ -40,25 +54,11 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   @Input() enableScrolling: boolean = true;
 
-  @Input()
-  set listViewSettings(settings: any) {
-    if (settings) {
-      this.listViewOptions = settings;
-    }
-  }
+  @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   @Input() searchResultFilter: Function = (res: SearchResponse): boolean => res.source === 'global-search-form';
 
   @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
-
-  @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
-
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected globalSearchFormService: GlobalSearchFormService,
-  ) {
-    super(documentPageService);
-  }
 
   protected onInit(): void {
     this.onSearch();

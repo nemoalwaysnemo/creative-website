@@ -32,12 +32,11 @@ export class DynamicNGCheckboxGroupComponent extends DynamicFormControlComponent
     super(layoutService, validationService);
   }
 
-  getCheckboxId(model: DynamicCheckboxModel) {
+  getCheckboxId(model: DynamicCheckboxModel): any {
     return this.layoutService.getElementId(model);
   }
 
-  onCheckboxChange($event: Event, model: DynamicCheckboxModel) {
-
+  onCheckboxChange($event: Event, model: DynamicCheckboxModel): void {
     this.onChange($event);
     model.value = ($event.target as HTMLInputElement).checked;
   }

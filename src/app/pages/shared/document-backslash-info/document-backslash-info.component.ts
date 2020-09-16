@@ -105,11 +105,11 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
     return name;
   }
 
-  selectView(component: string) {
+  selectView(component: string): void {
     this.globalDocumentDialogService.selectView(component);
   }
 
-  isBackslashHomePage() {
+  isBackslashHomePage(): boolean {
     const url = window.location.href.split('/');
     if (url.includes('backslash') && url.includes('home')) {
       return true;

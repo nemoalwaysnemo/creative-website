@@ -14,7 +14,16 @@ import { Subscription, SubscriptionLike } from 'rxjs';
 import { Gallery } from '../services/gallery.service';
 import { GalleryRef } from '../services/gallery-ref';
 import { GalleryError, GalleryItem, GalleryState } from '../models/gallery.model';
-import { IframeItem, ImageItem, VideoItem, YoutubeItem } from './templates/items.model';
+import {
+  IframeItem,
+  IframeItemData,
+  ImageItem,
+  ImageItemData,
+  VideoItem,
+  VideoItemData,
+  YoutubeItem,
+  YoutubeItemData,
+} from './templates/items.model';
 
 @Component({
   selector: 'gallery',
@@ -85,7 +94,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private _gallery: Gallery) {
   }
 
-  private getConfig() {
+  private getConfig(): any {
     return {
       nav: this.nav,
       dots: this.dots,
@@ -113,7 +122,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     };
   }
 
-  onAction(i: string | number) {
+  onAction(i: string | number): void {
     switch (i) {
       case 'next':
         this.galleryRef.next();
@@ -122,7 +131,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
         this.galleryRef.prev();
         break;
       default:
-        this.galleryRef.set(<number>i);
+        this.galleryRef.set(i as number);
     }
     this.galleryRef.play();
   }

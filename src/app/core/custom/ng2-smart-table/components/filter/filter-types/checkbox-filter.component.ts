@@ -33,7 +33,7 @@ export class CheckboxFilterComponent extends DefaultFilterComponent implements O
       });
   }
 
-  resetFilter(event: any) {
+  resetFilter(event: any): void {
     event.preventDefault();
     this.query = '';
     this.inputControl.setValue(false, { emitEvent: false });

@@ -21,7 +21,7 @@ import { NbCalendarCell } from '../../model';
   selector: 'nb-calendar-year-cell',
   template: `{{ year }}`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { 'class': 'year-cell' },
+  host: { class: 'year-cell' },
 })
 export class NbCalendarYearCellComponent<D> implements NbCalendarCell<D, D> {
   @Input() date: D;
@@ -54,7 +54,7 @@ export class NbCalendarYearCellComponent<D> implements NbCalendarCell<D, D> {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     if (this.disabled) {
       return;
     }

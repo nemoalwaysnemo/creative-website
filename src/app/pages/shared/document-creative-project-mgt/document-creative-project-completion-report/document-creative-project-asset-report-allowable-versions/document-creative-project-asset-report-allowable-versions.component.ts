@@ -14,13 +14,13 @@ export class DocumentCreativeProjectReportAllowableVersionsComponent extends Bas
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
-  changeView(): void {
-    this.showForm = !this.showForm;
-  }
-
   doc: DocumentModel;
 
   @Input() document: DocumentModel;
+
+  changeView(): void {
+    this.showForm = !this.showForm;
+  }
 
   updateForm(doc: DocumentModel): void {
     if (doc && this.document && doc.uid === this.document.uid) {

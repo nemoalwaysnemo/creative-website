@@ -6,7 +6,7 @@ import { NB_DOCUMENT } from '../../../theme.options';
 
 /**
  * Overrides angular cdk focus trap to keep restore functionality inside trap.
- * */
+ */
 export class NbFocusTrap extends FocusTrap {
   protected previouslyFocusedElement: HTMLElement;
 
@@ -20,16 +20,16 @@ export class NbFocusTrap extends FocusTrap {
     this.savePreviouslyFocusedElement();
   }
 
-  restoreFocus() {
+  restoreFocus(): void {
     this.previouslyFocusedElement.focus();
     this.destroy();
   }
 
-  blurPreviouslyFocusedElement() {
+  blurPreviouslyFocusedElement(): void {
     this.previouslyFocusedElement.blur();
   }
 
-  protected savePreviouslyFocusedElement() {
+  protected savePreviouslyFocusedElement(): void {
     this.previouslyFocusedElement = this.document.activeElement as HTMLElement;
   }
 }

@@ -23,6 +23,10 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class DocumentFormListComponent extends DynamicFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  constructor(protected formService: DynamicFormService, protected changeDetectorRef: ChangeDetectorRef, protected componentService: DynamicFormComponentService) {
+    super(changeDetectorRef, componentService);
+  }
+
   @Input() modelId: string;
 
   @Input() loading: boolean = true;
@@ -43,15 +47,11 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
 
   disabled: boolean = false;
 
+  private subscription: Subscription = new Subscription();
+
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
-
-  private subscription: Subscription = new Subscription();
-
-  constructor(protected formService: DynamicFormService, protected changeDetectorRef: ChangeDetectorRef, protected componentService: DynamicFormComponentService) {
-    super(changeDetectorRef, componentService);
-  }
 
   ngOnInit(): void {
 

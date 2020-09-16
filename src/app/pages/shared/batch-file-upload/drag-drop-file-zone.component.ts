@@ -16,6 +16,12 @@ import { Subscription } from 'rxjs';
 
 export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  // @Output() fileChange: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(private dragDropFileZoneService: DragDropFileZoneService) {
+
+  }
+
   files: File[] = [];
 
   disalbed: boolean = false;
@@ -23,10 +29,6 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   validComboDrag: boolean;
 
   disabled: boolean = false;
-
-  private _onChange = (_) => { };
-
-  private _onTouched = () => { };
 
   private subscription: Subscription = new Subscription();
 
@@ -42,11 +44,9 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
 
   @Input() maxSize: number = 1024 * 1024 * 1024 * 100; // 1024 == 1mb
 
-  // @Output() fileChange: EventEmitter<any> = new EventEmitter<any>();
+  private _onChange = (_) => { };
 
-  constructor(private dragDropFileZoneService: DragDropFileZoneService) {
-
-  }
+  private _onTouched = () => { };
 
   ngOnInit(): void {
     this.subscription = this.dragDropFileZoneService.onStateChange().subscribe((x: any) => {

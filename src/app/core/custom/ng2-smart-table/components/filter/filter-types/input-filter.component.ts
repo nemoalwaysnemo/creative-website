@@ -38,7 +38,7 @@ export class InputFilterComponent extends DefaultFilterComponent implements OnIn
       });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.query) {
       this.inputControl.setValue(this.query);
     }

@@ -34,57 +34,57 @@ import { NbDateService } from '../calendar-kit';
 /**
  * The `NbDatepickerAdapter` instances provide way how to parse, format and validate
  * different date types.
- * */
+ */
 export abstract class NbDatepickerAdapter<D> {
   /**
    * Picker component class.
-   * */
+   */
   abstract picker: Type<any>;
 
   /**
    * Parse date string according to the format.
-   * */
+   */
   abstract parse(value: string, format: string): D;
 
   /**
    * Format date according to the format.
-   * */
+   */
   abstract format(value: D, format: string): string;
 
   /**
    * Validates date string according to the passed format.
-   * */
+   */
   abstract isValid(value: string, format: string): boolean;
 }
 
 /**
  * Validators config that will be used by form control to perform proper validation.
- * */
+ */
 export interface NbPickerValidatorConfig<D> {
   /**
    * Minimum date available in picker.
-   * */
+   */
   min: D;
 
   /**
    * Maximum date available in picker.
-   * */
+   */
   max: D;
 
   /**
    * Predicate that determines is value available for picking.
-   * */
+   */
   filter: (D) => boolean;
 }
 
 /**
  * Datepicker is an control that can pick any values anyway.
  * It has to be bound to the datepicker directive through nbDatepicker input.
- * */
+ */
 export abstract class NbDatepicker<T> {
   /**
    * HTML input element date format.
-   * */
+   */
   abstract format: string;
 
   abstract get value(): T | undefined;
@@ -97,12 +97,12 @@ export abstract class NbDatepicker<T> {
 
   /**
    * Attaches datepicker to the native input element.
-   * */
+   */
   abstract attach(hostRef: ElementRef): void;
 
   /**
    * Returns validator configuration based on the input properties.
-   * */
+   */
   abstract getValidatorConfig(): NbPickerValidatorConfig<T>;
 
   abstract show(): void;
@@ -240,7 +240,7 @@ export const NB_DATE_SERVICE_OPTIONS = new InjectionToken('Date service options'
  * datepicker-border-radius
  * datepicker-shadow
  * datepicker-arrow-size
- * */
+ */
 @Directive({
   selector: 'input[nbDatepicker]',
   providers: [
@@ -259,37 +259,12 @@ export const NB_DATE_SERVICE_OPTIONS = new InjectionToken('Date service options'
 export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor, Validator {
   /**
    * Provides datepicker component.
-   * */
+   */
   @Input('nbDatepicker')
   set setPicker(picker: NbDatepicker<D>) {
     this.picker = picker;
     this.setupPicker();
   }
-
-  /**
-   * Datepicker adapter.
-   * */
-  protected datepickerAdapter: NbDatepickerAdapter<D>;
-
-  /**
-   * Datepicker instance.
-   * */
-  protected picker: NbDatepicker<D>;
-  protected alive: boolean = true;
-  protected isDatepickerReady: boolean = false;
-  protected queue: D | undefined;
-  protected onChange: (D) => void = () => {};
-  protected onTouched: () => void = () => {};
-
-  /**
-   * Form control validators will be called in validators context, so, we need to bind them.
-   * */
-  protected validator: ValidatorFn = Validators.compose([
-    this.parseValidator,
-    this.minValidator,
-    this.maxValidator,
-    this.filterValidator,
-  ].map(fn => fn.bind(this)));
 
   constructor(@Inject(NB_DOCUMENT) protected document,
               @Inject(NB_DATE_ADAPTER) protected datepickerAdapters: NbDatepickerAdapter<D>[],
@@ -301,17 +276,42 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Returns html input element.
-   * */
+   */
   get input(): HTMLInputElement {
     return this.hostRef.nativeElement;
   }
 
   /**
    * Returns host input value.
-   * */
+   */
   get inputValue(): string {
     return this.input.value;
   }
+
+  /**
+   * Datepicker adapter.
+   */
+  protected datepickerAdapter: NbDatepickerAdapter<D>;
+
+  /**
+   * Datepicker instance.
+   */
+  protected picker: NbDatepicker<D>;
+  protected alive: boolean = true;
+  protected isDatepickerReady: boolean = false;
+  protected queue: D | undefined;
+
+  /**
+   * Form control validators will be called in validators context, so, we need to bind them.
+   */
+  protected validator: ValidatorFn = Validators.compose([
+    this.parseValidator,
+    this.minValidator,
+    this.maxValidator,
+    this.filterValidator,
+  ].map(fn => fn.bind(this)));
+  protected onChange: (D) => void = () => {};
+  protected onTouched: () => void = () => {};
 
   ngOnDestroy(): void {
     this.alive = false;
@@ -319,8 +319,8 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Writes value in picker and html input element.
-   * */
-  writeValue(value: D) {
+   */
+  writeValue(value: D): void {
     if (this.isDatepickerReady) {
       this.writePicker(value);
       this.writeInput(value);
@@ -343,7 +343,7 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Form control validation based on picker validator config.
-   * */
+   */
   validate(): ValidationErrors | null {
     return this.validator(null);
   }
@@ -351,19 +351,19 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
   /**
    * Hides picker, focuses the input
    */
-  protected hidePicker() {
+  protected hidePicker(): void {
     this.input.focus();
     this.picker.hide();
   }
 
   /**
    * Validates that we can parse value correctly.
-   * */
+   */
   protected parseValidator(): ValidationErrors | null {
     /**
      * Date services treat empty string as invalid date.
      * That's why we're getting invalid formControl in case of empty input which is not required.
-     * */
+     */
     if (this.inputValue === '') {
       return null;
     }
@@ -374,7 +374,7 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Validates passed value is greater than min.
-   * */
+   */
   protected minValidator(): ValidationErrors | null {
     const config = this.picker.getValidatorConfig();
     const date = this.datepickerAdapter.parse(this.inputValue, this.picker.format);
@@ -384,7 +384,7 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Validates passed value is smaller than max.
-   * */
+   */
   protected maxValidator(): ValidationErrors | null {
     const config = this.picker.getValidatorConfig();
     const date = this.datepickerAdapter.parse(this.inputValue, this.picker.format);
@@ -394,7 +394,7 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Validates passed value satisfy the filter.
-   * */
+   */
   protected filterValidator(): ValidationErrors | null {
     const config = this.picker.getValidatorConfig();
     const date = this.datepickerAdapter.parse(this.inputValue, this.picker.format);
@@ -404,8 +404,8 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Chooses datepicker adapter based on passed picker component.
-   * */
-  protected chooseDatepickerAdapter() {
+   */
+  protected chooseDatepickerAdapter(): void {
     this.datepickerAdapter = this.datepickerAdapters.find(({ picker }) => this.picker instanceof picker);
 
     if (this.noDatepickerAdapterProvided()) {
@@ -415,8 +415,8 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Attaches picker to the host input element and subscribes on value changes.
-   * */
-  protected setupPicker() {
+   */
+  protected setupPicker(): void {
     this.chooseDatepickerAdapter();
     this.picker.attach(this.hostRef);
 
@@ -466,23 +466,23 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
     ).subscribe(() => this.onTouched());
   }
 
-  protected writePicker(value: D) {
+  protected writePicker(value: D): void {
     this.picker.value = value;
   }
 
-  protected writeInput(value: D) {
+  protected writeInput(value: D): void {
     const stringRepresentation = this.datepickerAdapter.format(value, this.picker.format);
     this.hostRef.nativeElement.value = stringRepresentation;
   }
 
   /**
    * Validates if no datepicker adapter provided.
-   * */
+   */
   protected noDatepickerAdapterProvided(): boolean {
     return !this.datepickerAdapter || !(this.datepickerAdapter instanceof NbDatepickerAdapter);
   }
 
-  protected subscribeOnInputChange() {
+  protected subscribeOnInputChange(): void {
     fromEvent(this.input, 'input')
       .pipe(
         map(() => this.inputValue),
@@ -493,8 +493,8 @@ export class NbDatepickerDirective<D> implements OnDestroy, ControlValueAccessor
 
   /**
    * Parses input value and write if it isn't null.
-   * */
-  protected handleInputChange(value: string) {
+   */
+  protected handleInputChange(value: string): void {
     const date = this.parseInputValue(value);
 
     this.onChange(date);

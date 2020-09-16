@@ -29,7 +29,7 @@ export class DynamicFormArrayGroupModel implements DynamicPathable {
     return this.group[index];
   }
 
-  toJSON() {
+  toJSON(): any {
     return serialize(this);
   }
 }

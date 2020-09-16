@@ -21,7 +21,7 @@ export class DefaultFilterComponent implements Filter, OnDestroy {
     }
   }
 
-  setFilter() {
+  setFilter(): void {
     this.filter.emit(this.query);
   }
 }

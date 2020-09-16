@@ -20,6 +20,16 @@ export type TitleMap = Map<string, string>;
 })
 export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  @Input()
+  set settings(settings: OptionSettings) {
+    this.loading = true;
+    this.performSettings(settings);
+    this.performOptions(this.options);
+  }
+
+  constructor(private advanceSearchService: AdvanceSearchService) {
+  }
+
   placeholder: string = '';
 
   disabled: boolean = false;
@@ -34,27 +44,17 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
 
   configs: OptionSettings = new OptionSettings();
 
-  private _onChange = (_) => { };
-
-  private _onTouched = () => { };
-
   private options: OptionModel[] = [];
 
   private beforeRequestSize: number = 10;
 
   private subscription: Subscription = new Subscription();
 
-  @Input()
-  set settings(settings: OptionSettings) {
-    this.loading = true;
-    this.performSettings(settings);
-    this.performOptions(this.options);
-  }
-
   @Output() selected: EventEmitter<OptionModel[]> = new EventEmitter();
 
-  constructor(private advanceSearchService: AdvanceSearchService) {
-  }
+  private _onChange = (_) => { };
+
+  private _onTouched = () => { };
 
   ngOnInit(): void {
     this.placeholder = this.configs.placeholder;

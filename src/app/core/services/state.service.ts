@@ -53,7 +53,7 @@ export class StateService implements OnDestroy {
     this.alive = false;
   }
 
-  private updateSidebarIcons(direction: NbLayoutDirection) {
+  private updateSidebarIcons(direction: NbLayoutDirection): void {
     const [startSidebar, endSidebar] = this.sidebars;
     const isLtr = direction === NbLayoutDirection.LTR;
     const startIconClass = isLtr ? 'nb-layout-sidebar-left' : 'nb-layout-sidebar-right';

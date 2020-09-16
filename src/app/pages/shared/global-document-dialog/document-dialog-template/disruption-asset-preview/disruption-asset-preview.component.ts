@@ -72,7 +72,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE).includes(doc.type);
   }
 
-  vocabularyFormatter(list: string[]) {
+  vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
 

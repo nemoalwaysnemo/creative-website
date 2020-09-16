@@ -21,7 +21,7 @@ export interface NbRenderableContainer {
    * Naturally, this job has to be done by ngOnChanges lifecycle hook, but
    * ngOnChanges hook will be triggered only if we update content or context properties
    * through template property binding syntax. But in our case we're updating these properties programmatically.
-   * */
+   */
   renderContent(): void;
 }
 
@@ -91,14 +91,14 @@ export class NbOverlayContainerComponent {
     return templateRef;
   }
 
-  attachStringContent(content: string) {
+  attachStringContent(content: string): void {
     this.content = content;
     this.changeDetectorRef.markForCheck();
     this.changeDetectorRef.detectChanges();
     this.isAttached = true;
   }
 
-  detach() {
+  detach(): void {
     if (this.portalOutlet.hasAttached()) {
       this.portalOutlet.detach();
     }

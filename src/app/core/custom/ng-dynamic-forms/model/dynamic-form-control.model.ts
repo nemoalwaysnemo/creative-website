@@ -31,36 +31,6 @@ export interface DynamicFormControlModelConfig {
 
 export abstract class DynamicFormControlModel implements DynamicPathable {
 
-  @serializable() asyncValidators: DynamicValidatorsConfig | null;
-  @serializable('disabled') _disabled: boolean;
-  @serializable() errorMessages: DynamicValidatorsConfig | null;
-  @serializable() hidden: boolean;
-  @serializable() readOnly: boolean;
-  @serializable() hiddenFn: Function = (doc: any): boolean => false;
-  @serializable() visibleFn: Function = (doc: any): boolean => true;
-  @serializable() id: string;
-  @serializable() label: string | null;
-  @serializable() labelTooltip: string | null;
-  @serializable() formMode: string | null;
-  @serializable() layoutPosition: string | 'left';
-  @serializable() accordionTab: string | null;
-  @serializable() controlTooltip: string | null;
-  @serializable() layout: DynamicFormControlLayout | null;
-  @serializable() name: string;
-  @serializable() value: any;
-  @serializable() document: any;
-  @serializable() defaultValue: any;
-  parent: DynamicPathable | null = null;
-  @serializable() relations: DynamicFormControlRelation[];
-  @serializable() updateOn: DynamicFormHook | null;
-  @serializable() validators: DynamicValidatorsConfig | null;
-
-  private readonly disabled$: BehaviorSubject<boolean>;
-
-  readonly disabledChanges: Observable<boolean>;
-
-  abstract readonly type: string;
-
   protected constructor(config: DynamicFormControlModelConfig, layout: DynamicFormControlLayout | null = null) {
 
     this.asyncValidators = config.asyncValidators || null;
@@ -101,7 +71,37 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     return isObject(this.errorMessages);
   }
 
-  toJSON() {
+  @serializable() asyncValidators: DynamicValidatorsConfig | null;
+  @serializable('disabled') _disabled: boolean;
+  @serializable() errorMessages: DynamicValidatorsConfig | null;
+  @serializable() hidden: boolean;
+  @serializable() readOnly: boolean;
+  @serializable() id: string;
+  @serializable() label: string | null;
+  @serializable() labelTooltip: string | null;
+  @serializable() formMode: string | null;
+  @serializable() layoutPosition: string | 'left';
+  @serializable() accordionTab: string | null;
+  @serializable() controlTooltip: string | null;
+  @serializable() layout: DynamicFormControlLayout | null;
+  @serializable() name: string;
+  @serializable() value: any;
+  @serializable() document: any;
+  @serializable() defaultValue: any;
+  parent: DynamicPathable | null = null;
+  @serializable() relations: DynamicFormControlRelation[];
+  @serializable() updateOn: DynamicFormHook | null;
+  @serializable() validators: DynamicValidatorsConfig | null;
+
+  private readonly disabled$: BehaviorSubject<boolean>;
+
+  readonly disabledChanges: Observable<boolean>;
+
+  abstract readonly type: string;
+  @serializable() hiddenFn: Function = (doc: any): boolean => false;
+  @serializable() visibleFn: Function = (doc: any): boolean => true;
+
+  toJSON(): any {
     return serialize(this);
   }
 }

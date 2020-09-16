@@ -174,17 +174,17 @@ export class NbActionsComponent {
   @HostBinding('class.inverse') inverseValue: boolean;
 
   @HostBinding('class.small')
-  get small() {
+  get small(): boolean {
     return this.sizeValue === NbActionsComponent.SIZE_SMALL;
   }
 
   @HostBinding('class.medium')
-  get medium() {
+  get medium(): boolean {
     return this.sizeValue === NbActionsComponent.SIZE_MEDIUM;
   }
 
   @HostBinding('class.large')
-  get large() {
+  get large(): boolean {
     return this.sizeValue === NbActionsComponent.SIZE_LARGE;
   }
 

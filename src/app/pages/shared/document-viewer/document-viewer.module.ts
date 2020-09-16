@@ -10,10 +10,10 @@ import { DocumentVideoPlayerComponent } from './document-video-viewer/document-v
 import { DocumentVideoStoryboardComponent } from './document-video-viewer/document-video-storyboard/document-video-storyboard.component';
 import { DocumentAudioViewerComponent } from './document-audio-viewer/document-audio-viewer.component';
 import { DocumentVideoViewerService } from './document-video-viewer/document-video-viewer.service';
-import { VgCoreModule } from 'videogular2/compiled/core';
-import { VgControlsModule } from 'videogular2/compiled/controls';
-import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
-import { VgBufferingModule } from 'videogular2/compiled/buffering';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 
 @NgModule({
   imports: [

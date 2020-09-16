@@ -57,7 +57,7 @@ export class NbWindowConfig {
    * For components, this data will be set as component properties.
    * For templates, you can access it inside template as $implicit.
    */
-  context?: Object = {};
+  context?: any = {};
 
   /**
    * Where the attached component should live in Angular's *logical* component tree.
@@ -74,4 +74,4 @@ export class NbWindowConfig {
 
 export const NB_WINDOW_CONTENT = new InjectionToken<TemplateRef<any> | NbComponentType>('Nebular Window Content');
 export const NB_WINDOW_CONFIG = new InjectionToken<NbWindowConfig>('Nebular Window Config');
-export const NB_WINDOW_CONTEXT = new InjectionToken<Object>('Nebular Window Context');
+export const NB_WINDOW_CONTEXT = new InjectionToken<any>('Nebular Window Context');

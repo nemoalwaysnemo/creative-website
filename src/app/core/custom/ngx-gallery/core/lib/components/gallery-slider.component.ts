@@ -11,7 +11,6 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   PLATFORM_ID,
-  SimpleChanges,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, Subscription, fromEvent } from 'rxjs';
@@ -84,11 +83,11 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
   @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
   /** Item zoom */
-  get zoom() {
+  get zoom(): any {
     return { transform: `perspective(50px) translate3d(0, 0, ${-this.config.zoomOut}px)` };
   }
 
-  constructor(private _el: ElementRef, private _zone: NgZone, @Inject(PLATFORM_ID) private platform: Object) {
+  constructor(private _el: ElementRef, private _zone: NgZone, @Inject(PLATFORM_ID) private platform: any) {
     // Activate sliding worker
     this.sliderState$ = this._slidingWorker$.pipe(map((state: WorkerState) => ({
       style: this.getSliderStyles(state),
@@ -96,7 +95,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
     })));
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     // Refresh the slider
     this.updateSlider({ value: 0, active: false });
   }

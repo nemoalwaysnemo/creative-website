@@ -22,16 +22,16 @@ export class AddButtonComponent implements AfterViewInit, OnChanges {
   constructor(private ref: ElementRef) {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.ref.nativeElement.classList.add('ng2-smart-actions-title', 'ng2-smart-actions-title-add');
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.isActionAdd = this.grid.getSetting('actions.add');
     this.addNewButtonContent = this.grid.getSetting('add.addButtonContent');
   }
 
-  onAdd(event: any) {
+  onAdd(event: any): void {
     event.preventDefault();
     event.stopPropagation();
     if (this.grid.getSetting('mode') === 'external') {

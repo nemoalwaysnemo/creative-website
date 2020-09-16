@@ -25,7 +25,7 @@ export function encodePath(path: string): string {
  * object as first argument, like this:
  *   deepExtend({}, yourObj_1, [yourObj_N]);
  */
-export const deepExtend = function (...objects: any[]): any {
+export const deepExtend = function(...objects: any[]): any {
   if (arguments.length < 1 || typeof arguments[0] !== 'object') {
     return false;
   }
@@ -41,13 +41,13 @@ export const deepExtend = function (...objects: any[]): any {
 
   let val, src;
 
-  args.forEach(function (obj: any) {
+  args.forEach(function(obj: any) {
     // skip argument if it is array or isn't object
     if (typeof obj !== 'object' || Array.isArray(obj)) {
       return;
     }
 
-    Object.keys(obj).forEach(function (key) {
+    Object.keys(obj).forEach(function(key) {
       src = target[key]; // source value
       val = obj[key]; // new value
 
@@ -116,7 +116,7 @@ function cloneSpecificValue(val: any): any {
  */
 function deepCloneArray(arr: any[]): any {
   const clone: any[] = [];
-  arr.forEach(function (item: any, index: any) {
+  arr.forEach((item: any, index: any) => {
     if (typeof item === 'object' && item !== null) {
       if (Array.isArray(item)) {
         clone[index] = deepCloneArray(item);
@@ -134,7 +134,7 @@ function deepCloneArray(arr: any[]): any {
 }
 
 // getDeepFromObject({result: {data: 1}}, 'result.data', 2); // returns 1
-export function getDeepFromObject(object = {}, name: string, defaultValue?: any) {
+export function getDeepFromObject(object = {}, name: string, defaultValue?: any): any {
   const keys = name.split('.');
   // clone the object
   let level = deepExtend({}, object || {});
@@ -203,7 +203,7 @@ export function range(start: number, end: number, step: number = 0, offset: numb
   const direction = start < end ? 1 : -1;
   const startingPoint = start - (direction * (offset || 0));
   const stepSize = direction * (step || 1);
-  return Array(len).fill(0).map(function (_, index) {
+  return Array(len).fill(0).map((_, index) => {
     return startingPoint + (stepSize * index);
   });
 }

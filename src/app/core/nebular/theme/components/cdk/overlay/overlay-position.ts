@@ -38,16 +38,16 @@ export enum NbPosition {
 }
 
 const POSITIONS = {
-  [NbPosition.RIGHT](offset) {
+  [NbPosition.RIGHT](offset): any {
     return { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX: offset };
   },
-  [NbPosition.BOTTOM](offset) {
+  [NbPosition.BOTTOM](offset): any {
     return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: offset };
   },
-  [NbPosition.LEFT](offset) {
+  [NbPosition.LEFT](offset): any {
     return { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX: -offset };
   },
-  [NbPosition.TOP](offset) {
+  [NbPosition.TOP](offset): any {
     return { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -offset };
   },
 };
@@ -69,7 +69,7 @@ function comparePositions(p1: NbConnectedPosition, p2: NbConnectedPosition): boo
 /**
  * The main idea of the adjustable connected strategy is to provide predefined set of positions for your overlay.
  * You have to provide adjustment and appropriate strategy will be chosen in runtime.
- * */
+ */
 export class NbAdjustableConnectedPositionStrategy
   extends NbFlexibleConnectedPositionStrategy implements NbPositionStrategy {
 
@@ -88,16 +88,16 @@ export class NbAdjustableConnectedPositionStrategy
     }),
   );
 
-  attach(overlayRef: NbOverlayRef) {
+  attach(overlayRef: NbOverlayRef): void {
     /**
      * We have to apply positions before attach because super.attach() validates positions and crashes app
      * if no positions provided.
-     * */
+     */
     this.applyPositions();
     super.attach(overlayRef);
   }
 
-  apply() {
+  apply(): void {
     this.applyPositions();
     super.apply();
   }
@@ -117,7 +117,7 @@ export class NbAdjustableConnectedPositionStrategy
     return this;
   }
 
-  protected applyPositions() {
+  protected applyPositions(): void {
     const positions: NbPosition[] = this.createPositions();
     this.persistChosenPositions(positions);
     this.withPositions(this.appliedPositions.map(({ connectedPosition }) => connectedPosition));
@@ -138,7 +138,7 @@ export class NbAdjustableConnectedPositionStrategy
     }
   }
 
-  protected persistChosenPositions(positions: NbPosition[]) {
+  protected persistChosenPositions(positions: NbPosition[]): void {
     this.appliedPositions = positions.map(position => ({
       key: position,
       connectedPosition: POSITIONS[position](this._offset),

@@ -1,9 +1,9 @@
-export const isFileInput = function (elm: any) {
+export const isFileInput = function(elm: any) {
   const ty = elm.getAttribute('type');
   return elm.tagName.toLowerCase() === 'input' && ty && ty.toLowerCase() === 'file';
 };
 
-export const createFileInput = function () {
+export const createFileInput = function() {
   const fileElem = document.createElement('input');
   fileElem.type = 'file';
   return fileElem;
@@ -11,7 +11,7 @@ export const createFileInput = function () {
 
 let initialTouchStartY = 0;
 let initialTouchStartX = 0;
-export const detectSwipe = function (evt: any): boolean {
+export const detectSwipe = function(evt: any): boolean {
   const touches = evt.changedTouches || (evt.originalEvent && evt.originalEvent.changedTouches);
   if (touches) {
     if (evt.type === 'touchstart') {
@@ -36,7 +36,7 @@ export const detectSwipe = function (evt: any): boolean {
   return false;
 };
 
-export const createInvisibleFileInputWrap = function () {
+export const createInvisibleFileInputWrap = function() {
   const fileElem = createFileInput();
   const label = document.createElement('label');
   label.innerHTML = 'upload';

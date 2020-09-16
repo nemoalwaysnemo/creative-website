@@ -1,5 +1,5 @@
 import { Credentials, AuthenticationToken } from './base.interface';
-import { Observable, empty } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 
 export const BearerAuth: any = {
 
@@ -24,7 +24,7 @@ export const BearerAuth: any = {
 
   refreshAuthentication: (baseUrl: string, auth: Credentials): Observable<AuthenticationToken> => {
     if (!auth.token.refresh_token || !auth.clientId) {
-      return empty();
+      return EMPTY;
     }
     //   return oauth2.refreshAccessToken(baseURL, auth.clientId, auth.token.refresh_token)
     //     .then((token) => {

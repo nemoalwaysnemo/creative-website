@@ -32,7 +32,7 @@ export class PagesComponent {
 
   private setGoogleAnalyticsTrack(): void {
     if (window['dataLayer']) {
-      window['dataLayer'].push({ 'event': 'optimize.activate' });
+      window['dataLayer'].push({ event: 'optimize.activate' });
     }
   }
 

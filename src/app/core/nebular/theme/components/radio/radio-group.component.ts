@@ -66,7 +66,7 @@ import { NbRadioComponent } from './radio.component';
  *   ...
  * </nb-radio-group>
  * ```
- * */
+ */
 @Component({
   selector: 'nb-radio-group',
   template: `
@@ -118,7 +118,7 @@ export class NbRadioGroupComponent implements AfterContentInit, OnDestroy, Contr
     @Inject(NB_DOCUMENT) protected document,
   ) {}
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this.updateNames();
     this.updateValues();
     this.updateDisabled();
@@ -146,28 +146,28 @@ export class NbRadioGroupComponent implements AfterContentInit, OnDestroy, Contr
     }
   }
 
-  protected updateNames() {
+  protected updateNames(): void {
     if (this.radios) {
       this.radios.forEach((radio: NbRadioComponent) => radio.name = this.name);
       this.markRadiosForCheck();
     }
   }
 
-  protected updateValues() {
+  protected updateValues(): void {
     if (this.radios && typeof this.value !== 'undefined') {
       this.radios.forEach((radio: NbRadioComponent) => radio.checked = radio.value === this.value);
       this.markRadiosForCheck();
     }
   }
 
-  protected updateDisabled() {
+  protected updateDisabled(): void {
     if (this.radios && typeof this.disabled !== 'undefined') {
       this.radios.forEach((radio: NbRadioComponent) => radio.setDisabled = this.disabled);
       this.markRadiosForCheck();
     }
   }
 
-  protected subscribeOnRadiosValueChange() {
+  protected subscribeOnRadiosValueChange(): void {
     merge(...this.radios.map((radio: NbRadioComponent) => radio.valueChange))
       .pipe(takeWhile(() => this.alive))
       .subscribe((value: any) => {
@@ -176,16 +176,16 @@ export class NbRadioGroupComponent implements AfterContentInit, OnDestroy, Contr
       });
   }
 
-  protected propagateValue(value: any) {
+  protected propagateValue(value: any): void {
     this.valueChange.emit(value);
     this.onChange(value);
   }
 
-  protected markRadiosForCheck() {
+  protected markRadiosForCheck(): void {
     this.radios.forEach((radio: NbRadioComponent) => radio.markForCheck());
   }
 
-  protected subscribeOnRadiosBlur() {
+  protected subscribeOnRadiosBlur(): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }

@@ -38,7 +38,7 @@ export class CacheService {
   }
 
   set(key: string, value: any, maxAge: number = this.DEFAULT_MAX_AGE): void {
-    this.cache.set(key, { value: value, expiry: Date.now() + maxAge });
+    this.cache.set(key, { value, expiry: Date.now() + maxAge });
     this.notifyInFlightObservers(key, value);
   }
 

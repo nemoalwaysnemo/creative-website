@@ -16,7 +16,7 @@ export class Row {
     return this.cells.find(el => el.getColumn() === column);
   }
 
-  getCells() {
+  getCells(): Cell[] {
     return this.cells;
   }
 
@@ -39,7 +39,7 @@ export class Row {
     this.process();
   }
 
-  process() {
+  process(): void {
     this.cells = [];
     this._dataSet.getColumns().forEach((column: Column) => {
       const cell = this.createCell(column);

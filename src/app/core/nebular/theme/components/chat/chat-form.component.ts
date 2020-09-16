@@ -125,7 +125,7 @@ export class NbChatFormComponent {
   }
 
   @HostListener('drop', ['$event'])
-  onDrop(event: any) {
+  onDrop(event: any): void {
     if (this.dropFiles) {
       event.preventDefault();
       event.stopPropagation();
@@ -152,7 +152,7 @@ export class NbChatFormComponent {
     }
   }
 
-  removeFile(file) {
+  removeFile(file): void {
     const index = this.droppedFiles.indexOf(file);
     if (index >= 0) {
       this.droppedFiles.splice(index, 1);
@@ -160,20 +160,20 @@ export class NbChatFormComponent {
   }
 
   @HostListener('dragover')
-  onDragOver() {
+  onDragOver(): void {
     if (this.dropFiles) {
       this.fileOver = true;
     }
   }
 
   @HostListener('dragleave')
-  onDragLeave() {
+  onDragLeave(): void {
     if (this.dropFiles) {
       this.fileOver = false;
     }
   }
 
-  sendMessage() {
+  sendMessage(): void {
     if (this.droppedFiles.length || String(this.message).trim().length) {
       this.send.emit({ message: this.message, files: this.droppedFiles });
       this.message = '';

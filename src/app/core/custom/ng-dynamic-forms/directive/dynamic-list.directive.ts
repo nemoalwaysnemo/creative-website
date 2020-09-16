@@ -10,7 +10,7 @@ export class DynamicListDirective implements AfterViewInit {
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     if (isString(this.listId)) {
       this.renderer.setAttribute(this.elementRef.nativeElement, 'list', this.listId as string);

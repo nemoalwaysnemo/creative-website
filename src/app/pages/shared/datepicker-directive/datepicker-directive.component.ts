@@ -32,7 +32,7 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
     }
   }
 
-  inputChange(event: any) {
+  inputChange(event: any): void {
     const date_input = event.target.value;
     if (date_input === '') {
       this._onChange(null);
@@ -42,11 +42,11 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
     }
   }
 
-  onChange(event: Date) {
+  onChange(event: Date): void {
     this._onChange(event);
   }
 
-  onBlur(event: any) {
+  onBlur(event: any): void {
     // if ((this.value && this.value.length < 1) || !this.value) this._onTouched();
     this._onTouched();
   }

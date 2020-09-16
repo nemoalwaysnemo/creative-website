@@ -28,7 +28,7 @@ export class FilterComponent extends FilterDefaultComponent implements OnChanges
   query: string = '';
   protected dataChangedSub: Subscription;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.source) {
       if (!changes.source.firstChange) {
         this.dataChangedSub.unsubscribe();

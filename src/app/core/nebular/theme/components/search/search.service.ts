@@ -22,7 +22,7 @@ export class NbSearchService {
    * @param {string} searchType
    * @param {string} tag
    */
-  activateSearch(searchType: string, tag?: string) {
+  activateSearch(searchType: string, tag?: string): void {
     this.searchActivations$.next({ searchType, tag });
   }
 
@@ -31,7 +31,7 @@ export class NbSearchService {
    * @param {string} searchType
    * @param {string} tag
    */
-  deactivateSearch(searchType: string, tag?: string) {
+  deactivateSearch(searchType: string, tag?: string): void {
     this.searchDeactivations$.next({ searchType, tag });
   }
 
@@ -40,7 +40,7 @@ export class NbSearchService {
    * @param {string} term
    * @param {string} tag
    */
-  submitSearch(term: string, tag?: string) {
+  submitSearch(term: string, tag?: string): void {
     this.searchSubmittings$.next({ term, tag });
   }
 

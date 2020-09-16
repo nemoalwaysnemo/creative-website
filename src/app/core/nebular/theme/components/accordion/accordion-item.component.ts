@@ -98,7 +98,7 @@ export class NbAccordionItemComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Open/close the item
    */
-  toggle() {
+  toggle(): void {
     if (!this.disabled) {
       // we need this temporary variable as `openCloseItems.next` will change current value we need to save
       const willSet = !this.collapsed;
@@ -113,26 +113,24 @@ export class NbAccordionItemComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Open the item.
    */
-  open() {
+  open(): void {
     !this.disabled && (this.collapsed = false);
   }
 
   /**
    * Collapse the item.
    */
-  close() {
+  close(): void {
     !this.disabled && (this.collapsed = true);
   }
 
   ngOnInit(): void {
     this.accordion.openCloseItems
       .pipe(takeWhile(() => this.alive))
-      .subscribe(collapsed => {
-        !this.disabled && (this.collapsed = collapsed);
-    });
+      .subscribe(collapsed => !this.disabled && (this.collapsed = collapsed));
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     this.accordionItemInvalidate.next(true);
   }
 
@@ -141,7 +139,7 @@ export class NbAccordionItemComponent implements OnInit, OnChanges, OnDestroy {
     this.accordionItemInvalidate.complete();
   }
 
-  private invalidate() {
+  private invalidate(): void {
     this.accordionItemInvalidate.next(true);
     this.cd.markForCheck();
   }

@@ -53,7 +53,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     return getAssetModuleType(doc);
   }
 
-  openDialog(dialog: TemplateRef<any>) {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 

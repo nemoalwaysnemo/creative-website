@@ -235,7 +235,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     return formTitle;
   }
 
-  toggleJob(doc: DocumentModel) {
+  toggleJob(doc: DocumentModel): void {
     if (this.jobTitle === undefined && this.hasJobValue(doc)) {
       this.documentPageService.advanceRequest(this.getRequestParams(doc))
         .subscribe((res: NuxeoPagination) => {
@@ -247,21 +247,21 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
     }
   }
 
-  vocabularyFormatter(list: string[]) {
+  vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
 
-  goBack() {
+  goBack(): void {
     this.documentPageService.historyBack();
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick });
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
   }
 
   private getUsageRightsStatus(doc: DocumentModel): void {
     this.usageLoading = true;
-    const subscription = this.documentPageService.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': doc.uid, 'entityType': 'asset' })
+    const subscription = this.documentPageService.operation(NuxeoAutomations.GetDocumentURStatus, { uuids: doc.uid, entityType: 'asset' })
       .subscribe((res: NuxeoPagination) => {
         this.usageRights = res.entries.shift();
         this.usageLoading = false;

@@ -1,15 +1,14 @@
 import { Credentials, AuthenticationToken } from './base.interface';
-import { Observable, empty } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { BaseAuth } from './auth.base';
 import { TokeAuth } from './auth.token';
-import { PortalAuth } from './auth.portal';
 import { BearerAuth } from './auth.bearer';
 
 export const DEFAULT_AUTHENTICATOR = {
   computeAuthenticationHeaders: () => { },
   authenticateURL: (url: string) => url,
   canRefreshAuthentication: () => false,
-  refreshAuthentication: (baseUrl: string, auth: Credentials): any => empty(),
+  refreshAuthentication: (baseUrl: string, auth: Credentials): any => EMPTY,
 };
 
 
@@ -60,12 +59,11 @@ export class AuthenticationManager {
         return authenticator.refreshAuthentication(baseUrl, auth);
       }
     }
-    return empty();
+    return EMPTY;
   }
 
 }
 
 AuthenticationManager.registerAuthenticator('basic', BaseAuth);
 AuthenticationManager.registerAuthenticator('token', TokeAuth);
-AuthenticationManager.registerAuthenticator('portal', PortalAuth);
 AuthenticationManager.registerAuthenticator('bearerToken', BearerAuth);

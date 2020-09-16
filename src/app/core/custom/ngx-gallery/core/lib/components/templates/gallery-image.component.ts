@@ -111,16 +111,16 @@ export class GalleryImageComponent implements OnInit, OnDestroy {
     this._state.complete();
   }
 
-  onProgress({ loaded, total }: { loaded: number, total: number }) {
+  onProgress({ loaded, total }: { loaded: number, total: number }): void {
     this.progress = loaded * 100 / total;
   }
 
-  onLoaded(blobUrl: string) {
+  onLoaded(blobUrl: string): void {
     this.imageUrl = this._sanitizer.bypassSecurityTrustStyle(`url("${blobUrl}")`);
     this._state.next('success');
   }
 
-  onError(err: Error) {
+  onError(err: Error): void {
     this.loadError = err;
     this._state.next('failed');
     this.error.emit(err);

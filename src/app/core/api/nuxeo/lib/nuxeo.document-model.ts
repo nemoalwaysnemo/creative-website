@@ -123,7 +123,7 @@ export class DocumentModel extends Base {
       return observableOf(this.getParent(key).get(propertyName));
     }
     const op = this._nuxeo.operation(NuxeoAutomations.GetDocument);
-    return op.schemas('*').params({ 'uuid': this.parentRef }).execute().pipe(
+    return op.schemas('*').params({ uuid: this.parentRef }).execute().pipe(
       tap((doc: DocumentModel) => { this.setParent(doc, key); }),
       map((doc: DocumentModel) => doc.get(propertyName)),
     );
@@ -334,7 +334,7 @@ export class DocumentModel extends Base {
   }
 
   newInstance(type: string): DocumentModel {
-    return new DocumentModel({ path: this.uid, type: type });
+    return new DocumentModel({ path: this.uid, type });
   }
 
   private getDefaultThumbnail(): string {

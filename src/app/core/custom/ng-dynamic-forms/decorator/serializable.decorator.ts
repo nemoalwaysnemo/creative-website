@@ -1,4 +1,4 @@
-// import "reflect-metadata';
+import 'reflect-metadata';
 
 declare const Reflect: any;
 
@@ -22,9 +22,7 @@ export function getSerializables(target: any): SerializableProperty[] {
   const serializables = [];
 
   for (const key in target) {
-
     const metadata = Reflect.getMetadata(METADATA_KEY_SERIALIZABLE, target, key);
-
     if (metadata) {
       serializables.push(metadata);
     }

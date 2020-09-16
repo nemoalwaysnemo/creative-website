@@ -37,7 +37,7 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
   isActionDelete: boolean;
   noDataMessage: boolean;
 
-  get tableColumnsCount() {
+  get tableColumnsCount(): number {
     const actionColumns = this.isActionAdd || this.isActionEdit || this.isActionDelete ? 1 : 0;
     return this.grid.getColumns().length + actionColumns;
   }

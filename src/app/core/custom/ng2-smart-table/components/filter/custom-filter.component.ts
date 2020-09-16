@@ -23,7 +23,7 @@ export class CustomFilterComponent extends FilterDefaultComponent implements OnC
     super();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.column && !this.customComponent) {
       const componentFactory = this.resolver.resolveComponentFactory(this.column.filter.component);
       this.customComponent = this.dynamicTarget.createComponent(componentFactory);

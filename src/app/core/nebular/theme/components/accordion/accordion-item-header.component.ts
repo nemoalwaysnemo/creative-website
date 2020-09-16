@@ -69,11 +69,6 @@ export class NbAccordionItemHeaderComponent implements OnInit, OnDestroy {
     return this.accordionItem.disabled;
   }
 
-  @HostListener('click')
-  toggle() {
-    this.accordionItem.toggle();
-  }
-
   get state(): string {
     if (this.isCollapsed) {
       return 'collapsed';
@@ -82,9 +77,14 @@ export class NbAccordionItemHeaderComponent implements OnInit, OnDestroy {
       return 'expanded';
     }
   }
+  constructor(@Host() private accordionItem: NbAccordionItemComponent, private cd: ChangeDetectorRef) {
+  }
 
   private alive: boolean = true;
-  constructor(@Host() private accordionItem: NbAccordionItemComponent, private cd: ChangeDetectorRef) {
+
+  @HostListener('click')
+  toggle(): void {
+    this.accordionItem.toggle();
   }
 
   ngOnInit(): void {

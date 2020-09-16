@@ -1,6 +1,6 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-video-viewer.service';
-import { VgAPI } from 'videogular2/compiled/core';
+import { VgApiService } from '@videogular/ngx-videogular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -19,7 +19,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   @Input() autoPlay: boolean;
 
-  constructor(private documentVideoViewerService: DocumentVideoViewerService, private api: VgAPI) {
+  constructor(private documentVideoViewerService: DocumentVideoViewerService, private api: VgApiService) {
     this.subscription = this.documentVideoViewerService.onEvent('currentTimeChanged').subscribe((event: DocumentVideoEvent) => {
       this.api.currentTime = event.currentTime;
       this.api.play();
@@ -30,42 +30,42 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onPlayerReady(api: VgAPI) {
+  onPlayerReady(api: VgApiService): void {
     this.api = api;
     const defaultVolume = this.documentVideoViewerService.getCookie('defaultVolume');
-    setVolume(defaultVolume ? defaultVolume : 0);
-    setTime(this.documentVideoViewerService.getQueryParams('currentTime'));
+    setVolume(api, defaultVolume ? defaultVolume : 0);
+    setTime(api, this.documentVideoViewerService.getQueryParams('currentTime'));
 
     const defaultMedia = this.api.getDefaultMedia();
     const events = defaultMedia.subscriptions;
 
     events.volumeChange.subscribe((res) => {
       const presentVolume = res.target.volume;
-      setVolume(presentVolume);
+      setVolume(api, presentVolume);
       this.documentVideoViewerService.setCookie('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'Lax');
     });
 
     events.playing.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: api.currentTime }));
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: this.api.currentTime }));
     });
 
     events.pause.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPause', currentTime: api.currentTime }));
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPause', currentTime: this.api.currentTime }));
     });
 
     if (this.autoPlay) {
       this.api.play();
     }
 
-    function setVolume(volume: any): void {
+    function setVolume(vgApi: VgApiService, volume: any): void {
       if (volume) {
-        api.$$setAllProperties('volume', volume);
+        vgApi.$$setAllProperties('volume', volume);
       }
     }
 
-    function setTime(time: any): void {
+    function setTime(vgApi: VgApiService, time: any): void {
       if (time) {
-        api.$$setAllProperties('currentTime', time);
+        vgApi.$$setAllProperties('currentTime', time);
       }
     }
   }

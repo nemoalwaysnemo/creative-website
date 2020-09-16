@@ -102,14 +102,11 @@ export class DynamicInputModel extends DynamicInputControlModel<string | number 
     }
   }
 
-  toJSON() {
-
+  toJSON(): any {
     const json: any = super.toJSON();
-
     if (this.mask !== null) {
       json.mask = isFunction(this.mask) ? this.mask : maskToString(this.mask);
     }
-
     return json;
   }
 }

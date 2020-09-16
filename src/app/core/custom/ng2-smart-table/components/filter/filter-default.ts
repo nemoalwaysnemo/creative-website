@@ -16,7 +16,7 @@ export class FilterDefaultComponent {
 
   query: string = '';
 
-  onFilter(query: string) {
+  onFilter(query: string): void {
     this.source.addFilter({
       field: this.column.id,
       search: query,

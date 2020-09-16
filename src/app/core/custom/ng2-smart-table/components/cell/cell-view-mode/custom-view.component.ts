@@ -17,7 +17,7 @@ export class CustomViewComponent implements OnInit, OnDestroy {
   @ViewChild('dynamicTarget', { read: ViewContainerRef, static: true }) dynamicTarget: any;
 
   @HostListener('click', ['$event'])
-  onClick(event: Event) {
+  onClick(event: Event): void {
     event.preventDefault();
     event.stopImmediatePropagation();
   }

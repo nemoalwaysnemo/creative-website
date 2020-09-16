@@ -3,9 +3,9 @@ import { GalleryItemType } from '../../models/constants';
 
 export class ImageItem implements GalleryItem {
   readonly type: string;
-  readonly data: any;
+  readonly data: ImageItemData;
 
-  constructor(data: any) {
+  constructor(data: ImageItemData) {
     this.data = data;
     this.type = GalleryItemType.Image;
   }
@@ -13,9 +13,9 @@ export class ImageItem implements GalleryItem {
 
 export class VideoItem implements GalleryItem {
   readonly type: string;
-  readonly data: any;
+  readonly data: VideoItemData;
 
-  constructor(data: any) {
+  constructor(data: VideoItemData) {
     this.data = data;
     this.type = GalleryItemType.Video;
   }
@@ -23,9 +23,9 @@ export class VideoItem implements GalleryItem {
 
 export class IframeItem implements GalleryItem {
   readonly type: string;
-  readonly data: any;
+  readonly data: IframeItemData;
 
-  constructor(data: any) {
+  constructor(data: IframeItemData) {
     this.data = data;
     this.type = GalleryItemType.Iframe;
   }
@@ -33,13 +33,42 @@ export class IframeItem implements GalleryItem {
 
 export class YoutubeItem implements GalleryItem {
   readonly type: string;
-  readonly data: any;
+  readonly data: YoutubeItemData;
 
-  constructor(data: any) {
+  constructor(data: YoutubeItemData) {
     this.data = {
-      src: `//youtube.com/embed/${data.src}?wmode=transparent`,
-      thumb: data.thumb ? data.thumb : `//img.youtube.com/vi/${data.src}/default.jpg`,
+      ...data,
+      ...{
+        src: `https://youtube.com/embed/${data.src}`,
+        thumb: data.thumb ? data.thumb : `//img.youtube.com/vi/${data.src}/default.jpg`,
+      },
     };
     this.type = GalleryItemType.Youtube;
   }
 }
+
+type GalleryItemModel = {
+  type?: string;
+  src?: string;
+  thumb?: string;
+};
+
+export type ImageItemData = GalleryItemModel;
+
+export type IframeItemData = GalleryItemModel & {
+  params?: any;
+};
+
+export type YoutubeItemData = IframeItemData & {
+  autoplay?: boolean;
+};
+
+export type VideoItemData = GalleryItemModel & {
+  src?: string | { url: string, type: string }[];
+  thumb?: string;
+  poster?: string;
+  controls?: boolean;
+  autoplay?: boolean;
+};
+
+export type GalleryItemData = ImageItemData | VideoItemData | IframeItemData | YoutubeItemData;

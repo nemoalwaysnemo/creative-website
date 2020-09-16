@@ -46,12 +46,12 @@ export abstract class NbAuthStrategy {
 
   abstract refreshToken(data?: any): Observable<NbAuthResult>;
 
-  protected createFailResponse(data?: any): HttpResponse<Object> {
-    return new HttpResponse<Object>({ body: {}, status: 401 });
+  protected createFailResponse(data?: any): HttpResponse<any> {
+    return new HttpResponse<any>({ body: {}, status: 401 });
   }
 
-  protected createSuccessResponse(data?: any): HttpResponse<Object> {
-    return new HttpResponse<Object>({ body: {}, status: 200 });
+  protected createSuccessResponse(data?: any): HttpResponse<any> {
+    return new HttpResponse<any>({ body: {}, status: 200 });
   }
 
   protected getActionEndpoint(action: string): string {

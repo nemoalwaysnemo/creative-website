@@ -4,12 +4,12 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
-export function isUrlPathEqual(path, link) {
+export function isUrlPathEqual(path, link): boolean {
   const locationPath = getPathPartOfUrl(path);
   return link === locationPath;
 }
 
-export function isUrlPathContain(path, link) {
+export function isUrlPathContain(path, link): boolean {
   const locationPath = getPathPartOfUrl(path);
   const endOfUrlSegmentRegExp = /\/|^$/;
   return locationPath.startsWith(link) &&

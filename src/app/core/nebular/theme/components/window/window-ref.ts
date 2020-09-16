@@ -16,7 +16,7 @@ export class NbWindowRef {
   /**
    * Current window state.
    */
-  get state() {
+  get state(): NbWindowState {
     return this.stateValue;
   }
   set state(newState: NbWindowState) {
@@ -40,7 +40,7 @@ export class NbWindowRef {
   /**
    * Emits when window was closed.
    */
-  get onClose() {
+  get onClose(): Observable<any> {
     return this.closed$.asObservable();
   }
 
@@ -51,32 +51,32 @@ export class NbWindowRef {
   /**
    * Minimize window.
    */
-  minimize() {
+  minimize(): void {
     this.state = NbWindowState.MINIMIZED;
   }
 
   /**
    * Maximize window.
    */
-  maximize() {
+  maximize(): void {
     this.state = NbWindowState.MAXIMIZED;
   }
 
   /**
    * Set window on top.
    */
-  fullScreen() {
+  fullScreen(): void {
     this.state = NbWindowState.FULL_SCREEN;
   }
 
-  toPreviousState() {
+  toPreviousState(): void {
     this.state = this.prevStateValue;
   }
 
   /**
    * Closes window.
-   * */
-  close() {
+   */
+  close(): void {
     if (this._closed) {
       return;
     }

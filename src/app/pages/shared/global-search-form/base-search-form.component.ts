@@ -14,6 +14,29 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
+  @Input()
+  set settings(settings: GlobalSearchFormSettings) {
+    if (objHasValue(settings)) {
+      this.formSettings = settings;
+    }
+  }
+
+  @Input()
+  set searchParams(params: any) {
+    if (objHasValue(params)) {
+      this.searchParams$.next(params);
+    }
+  }
+
+  constructor(
+    protected router: Router,
+    protected formBuilder: FormBuilder,
+    protected documentPageService: DocumentPageService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
+    this.subscribeEvents();
+  }
+
   searchForm: FormGroup;
 
   submitted: boolean = false;
@@ -52,41 +75,18 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   ];
 
   protected allowedSettingsParams: any = {
-    'showFilter': convertToBoolean,
+    showFilter: convertToBoolean,
   };
 
   @Input() filters: SearchFilterModel[] = [];
-
-  @Input()
-  set settings(settings: GlobalSearchFormSettings) {
-    if (objHasValue(settings)) {
-      this.formSettings = settings;
-    }
-  }
-
-  @Input()
-  set searchParams(params: any) {
-    if (objHasValue(params)) {
-      this.searchParams$.next(params);
-    }
-  }
-
-  @Input() beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
-
-  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   @Output() onLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(
-    protected router: Router,
-    protected formBuilder: FormBuilder,
-    protected documentPageService: DocumentPageService,
-    protected globalSearchFormService: GlobalSearchFormService,
-  ) {
-    this.subscribeEvents();
-  }
+  @Input() beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
+
+  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   ngOnInit(): void {
     this.onInit();

@@ -87,7 +87,7 @@ export class LocalDataSource extends DataSource {
     return Promise.resolve(data);
   }
 
-  reset(silent = false) {
+  reset(silent = false): void {
     if (silent) {
       this.filterConf = {
         filters: [],

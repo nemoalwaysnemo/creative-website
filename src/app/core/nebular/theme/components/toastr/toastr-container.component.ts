@@ -41,7 +41,7 @@ export class NbToastrContainerComponent implements OnInit, OnDestroy {
   content: NbToast[] = [];
 
   @Input()
-  context: Object;
+  context: any;
 
   @Input()
   position: NbGlobalPosition;
@@ -67,7 +67,7 @@ export class NbToastrContainerComponent implements OnInit, OnDestroy {
     this.alive = false;
   }
 
-  protected onDirectionChange() {
+  protected onDirectionChange(): void {
     const direction = this.positionHelper.isRightPosition(this.position) ? '' : '-';
     this.fadeIn = { value: '', params: { direction } };
   }

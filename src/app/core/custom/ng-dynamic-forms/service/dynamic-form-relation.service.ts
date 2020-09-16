@@ -11,7 +11,7 @@ import { DynamicFormControlRelation } from '../model/misc/dynamic-form-control-r
 import { startWith } from 'rxjs/operators';
 import { merge, Subscription } from 'rxjs';
 
-export interface DynamicRelatedFormControls { [key: string]: FormControl }
+export interface DynamicRelatedFormControls { [key: string]: FormControl; }
 
 @Injectable({
   providedIn: 'root',

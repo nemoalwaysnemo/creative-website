@@ -11,7 +11,7 @@ export class DynamicFormGroupComponent extends DynamicFormControlComponent {
   components: QueryList<DynamicFormControlContainerComponent>;
   model: DynamicFormGroupModel;
 
-  markForCheck() {
+  markForCheck(): void {
     if (this.components instanceof QueryList) {
       this.components.forEach(component => component.markForCheck());
     }

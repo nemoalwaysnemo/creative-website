@@ -77,7 +77,7 @@ export class PagerComponent implements OnChanges {
 
   protected dataChangedSub: Subscription;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.source) {
       if (!changes.source.firstChange) {
         this.dataChangedSub.unsubscribe();
@@ -103,7 +103,7 @@ export class PagerComponent implements OnChanges {
    * if a new element was added to the beginning of the table - then to the first page
    * @param changes
    */
-  processPageChange(changes: any) {
+  processPageChange(changes: any): void {
     if (changes['action'] === 'prepend') {
       this.source.setPage(1);
     }
@@ -147,7 +147,7 @@ export class PagerComponent implements OnChanges {
     return (this.page * this.perPage) >= (this.count + this.perPage) && this.page > 1;
   }
 
-  initPages() {
+  initPages(): void {
     const pagesCount = this.getLast();
     let showPagesCount = 4;
     showPagesCount = pagesCount < showPagesCount ? pagesCount : showPagesCount;
@@ -169,7 +169,7 @@ export class PagerComponent implements OnChanges {
     }
   }
 
-  onChangePerPage(event: any) {
+  onChangePerPage(event: any): void {
     if (this.currentPerPage) {
 
       if (typeof this.currentPerPage === 'string' && this.currentPerPage.toLowerCase() === 'all') {

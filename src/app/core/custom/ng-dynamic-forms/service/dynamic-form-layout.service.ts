@@ -13,7 +13,7 @@ import {
 } from '../directive/dynamic-template.directive';
 import { isObject, isString } from '../utils/core.utils';
 
-export interface DynamicFormLayout { [id: string]: DynamicFormControlLayout }
+export interface DynamicFormLayout { [id: string]: DynamicFormControlLayout; }
 
 export type DynamicFormControlTemplates = QueryList<DynamicTemplateDirective> | DynamicTemplateDirective[] | undefined;
 

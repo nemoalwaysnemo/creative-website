@@ -14,7 +14,7 @@ export class Repository extends Base {
     opts.body = {
       'entity-type': 'document',
       type: doc.type,
-      name: doc.name || doc.properties['dc:title']  || doc.get('dc:title'),
+      name: doc.name || doc.properties['dc:title'] || doc.get('dc:title'),
       properties: doc.properties,
     };
     const options = this._computeOptions(opts);
@@ -23,7 +23,7 @@ export class Repository extends Base {
     return this._nuxeo.request(path).post(options);
   }
 
-  update(doc: DocumentModel, opts: any = {}) {
+  update(doc: DocumentModel, opts: any = {}): Observable<DocumentModel> {
     opts.body = {
       'entity-type': 'document',
       uid: doc.uid,
@@ -35,7 +35,7 @@ export class Repository extends Base {
     return this._nuxeo.request(path).put(options);
   }
 
-  delete(ref: string, opts: any = {}): Observable<DocumentModel>  {
+  delete(ref: string, opts: any = {}): Observable<DocumentModel> {
     const options = this._computeOptions(opts);
     const path = this._computePath(ref);
     options.repository = this;

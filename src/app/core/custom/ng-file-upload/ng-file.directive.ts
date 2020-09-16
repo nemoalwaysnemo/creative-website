@@ -38,7 +38,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     this.initFilters();
   }
 
-  initFilters() {
+  initFilters(): void {
     // the order is important
     this.filters.push({ name: 'accept', fn: this._acceptFilter });
     this.filters.push({ name: 'fileSize', fn: this._fileSizeFilter });
@@ -67,18 +67,18 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     }, 0);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.accept) {
       this.paramFileElm().setAttribute('accept', changes.accept.currentValue || '*');
     }
   }
 
-  paramFileElm() {
-    if (this.fileElm) return this.fileElm; // already defined
+  paramFileElm(): any {
+    if (this.fileElm) { return this.fileElm; } // already defined
 
     // elm is a file input
     const isFile = isFileInput(this.element.nativeElement);
-    if (isFile) return this.fileElm = this.element.nativeElement;
+    if (isFile) { return this.fileElm = this.element.nativeElement; }
 
     // create foo file input
     const label = createInvisibleFileInputWrap();
@@ -88,7 +88,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     return this.fileElm;
   }
 
-  enableSelecting() {
+  enableSelecting(): void {
     const elm = this.element.nativeElement;
 
     if (isFileInput(elm)) {
@@ -127,7 +127,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     return rtn;
   }
 
-  handleFiles(files: File[]) {
+  handleFiles(files: File[]): void {
     const valids = this.getValidFiles(files);
 
     if (files.length !== valids.length) {
@@ -150,7 +150,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  que(files: File[]) {
+  que(files: File[]): void {
     this.files = this.files || [];
     Array.prototype.push.apply(this.files, files);
     this.files = this.distinctFiles(this.files, 'name');
@@ -173,16 +173,16 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   }
 
   /** called when input has files */
-  changeFn(event: any) {
+  changeFn(event: any): void {
     const fileList = event.__files_ || (event.target && event.target.files);
 
-    if (!fileList) return;
+    if (!fileList) { return; }
 
     this.stopEvent(event);
     this.handleFiles(fileList);
   }
 
-  clickHandler(evt: any) {
+  clickHandler(evt: any): boolean {
     const elm = this.element.nativeElement;
     if (elm.getAttribute('disabled') || this.fileDropDisabled) {
       return false;
@@ -190,7 +190,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
 
     const r = detectSwipe(evt);
     // prevent the click if it is a swipe
-    if (r !== false) return r;
+    if (r !== false) { return r; }
 
     const fileElm = this.paramFileElm();
     fileElm.click();
@@ -200,8 +200,8 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     return false;
   }
 
-  beforeSelect() {
-    if (this.files && this.lastFileCount === this.files.length) return;
+  beforeSelect(): void {
+    if (this.files && this.lastFileCount === this.files.length) { return; }
 
     // if no files in array, be sure browser doesnt prevent reselect of same file (see github issue 27)
     this.fileElm.value = null;
@@ -212,7 +212,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   }
 
   eventToTransfer(event: any): any {
-    if (event.dataTransfer) return event.dataTransfer;
+    if (event.dataTransfer) { return event.dataTransfer; }
     return event.originalEvent ? event.originalEvent.dataTransfer : null;
   }
 
@@ -235,7 +235,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  eventToFiles(event: Event) {
+  eventToFiles(event: Event): any[] {
     const transfer = this.eventToTransfer(event);
     if (transfer) {
       if (transfer.files && transfer.files.length) {
@@ -252,7 +252,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   onChange(event: Event): void {
     const files = this.element.nativeElement.files || this.eventToFiles(event);
 
-    if (!files.length) return;
+    if (!files.length) { return; }
 
     this.stopEvent(event);
     this.handleFiles(files);
@@ -277,7 +277,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     return this.getFileFilterFailName(file) ? false : true;
   }
 
-  isFilesValid(files: File[]) {
+  isFilesValid(files: File[]): boolean {
     for (let x = files.length - 1; x >= 0; --x) {
       if (!this.isFileValid(files[x])) {
         return false;

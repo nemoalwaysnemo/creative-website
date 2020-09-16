@@ -21,9 +21,15 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent {
 
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
+  }
+
+  protected documentType: string = 'App-Intelligence-Asset';
+
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
     doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: string) => {
-      return { 'label': tag, username: user.username };
+      return { label: tag, username: user.username };
     });
     return doc;
   }
@@ -37,12 +43,6 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
       }
     });
     return doc;
-  }
-
-  protected documentType: string = 'App-Intelligence-Asset';
-
-  constructor(protected documentPageService: DocumentPageService) {
-    super(documentPageService);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {

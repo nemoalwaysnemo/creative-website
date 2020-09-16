@@ -50,14 +50,14 @@ export class NbPositionHelper {
     }
   }
 
-  isTopPosition(position: NbGlobalPosition) {
+  isTopPosition(position: NbGlobalPosition): boolean {
     const logicalPosition = this.toLogicalPosition(position);
 
     return logicalPosition === NbGlobalLogicalPosition.TOP_END
       || logicalPosition === NbGlobalLogicalPosition.TOP_START;
   }
 
-  isRightPosition(position: NbGlobalPosition) {
+  isRightPosition(position: NbGlobalPosition): boolean {
     const physicalPosition = this.toPhysicalPosition(position);
 
     return physicalPosition === NbGlobalPhysicalPosition.TOP_RIGHT

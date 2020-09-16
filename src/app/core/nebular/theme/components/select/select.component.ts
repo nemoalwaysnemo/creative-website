@@ -141,7 +141,7 @@ export class NbSelectLabelComponent {
  * select-option-disabled-bg:
  * select-option-disabled-opacity:
  * select-option-padding:
- * */
+ */
 @Component({
   selector: 'nb-select',
   templateUrl: './select.component.html',
@@ -195,17 +195,17 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Renders select placeholder if nothing selected.
-   * */
+   */
   @Input() placeholder: string = '';
 
   /**
    * Will be emitted when selected value changes.
-   * */
+   */
   @Output() selectedChange: EventEmitter<T | T[]> = new EventEmitter();
 
   /**
    * Accepts selected item or array of selected items.
-   * */
+   */
   @Input('selected')
   set setSelected(value: T | T[]) {
     this.writeValue(value);
@@ -213,7 +213,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Gives capability just write `multiple` over the element.
-   * */
+   */
   @Input('multiple')
   set setMultiple(multiple: boolean) {
     this.multiple = convertToBoolProperty(multiple);
@@ -222,17 +222,17 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
   /**
    * List of `NbOptionComponent`'s components passed as content.
    * TODO maybe it would be better provide wrapper
-   * */
+   */
   @ContentChildren(NbOptionComponent, { descendants: true }) options: QueryList<NbOptionComponent<T>>;
 
   /**
    * Custom select label, will be rendered instead of default enumeration with coma.
-   * */
+   */
   @ContentChild(NbSelectLabelComponent, {static: true}) customLabel: ElementRef;
 
   /**
    * NbCard with options content.
-   * */
+   */
   @ViewChild(NbPortalDirective, { static: true }) portal: NbPortalDirective;
 
   @ViewChild(NbButtonComponent, { static: true, read: ElementRef }) button: ElementRef<HTMLButtonElement>;
@@ -241,7 +241,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * List of selected options.
-   * */
+   */
   selectionModel: NbOptionComponent<T>[] = [];
 
   positionStrategy: NbAdjustableConnectedPositionStrategy;
@@ -254,7 +254,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Stream of events that will fire when one of the options fire selectionChange event.
-   * */
+   */
   protected selectionChange$: Subject<NbOptionComponent<T>> = new Subject();
   readonly selectionChange: Observable<NbOptionComponent<T>> = this.selectionChange$.asObservable();
 
@@ -268,12 +268,12 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
    * If a user assigns value before content nb-options's rendered the value will be putted in this variable.
    * And then applied after content rendered.
    * Only the last value will be applied.
-   * */
+   */
   protected queue: T | T[];
 
   /**
    * Function passed through control value accessor to propagate changes.
-   * */
+   */
   protected onChange: Function = () => {};
   protected onTouched: Function = () => {};
 
@@ -287,28 +287,28 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Determines is select opened.
-   * */
+   */
   get isOpened(): boolean {
     return this.ref && this.ref.hasAttached();
   }
 
   /**
    * Determines is select hidden.
-   * */
+   */
   get isHidden(): boolean {
     return !this.isOpened;
   }
 
   /**
    * Returns width of the select button.
-   * */
+   */
   get hostWidth(): number {
     return this.hostRef.nativeElement.getBoundingClientRect().width;
   }
 
   /**
    * Content rendered in the label.
-   * */
+   */
   get selectionView() {
     if (this.selectionModel.length > 1) {
       return this.selectionModel.map((option: NbOptionComponent<T>) => option.content).join(', ');
@@ -334,7 +334,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.triggerStrategy = this.createTriggerStrategy();
 
     this.subscribeOnTriggers();
@@ -389,7 +389,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Selects option or clear all selected options if value is null.
-   * */
+   */
   protected handleSelect(option: NbOptionComponent<T>) {
     if (option.value) {
       this.selectOption(option);
@@ -402,7 +402,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Deselect all selected options.
-   * */
+   */
   protected reset() {
     this.selectionModel.forEach((option: NbOptionComponent<T>) => option.deselect());
     this.selectionModel = [];
@@ -413,7 +413,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Determines how to select option as multiple or single.
-   * */
+   */
   protected selectOption(option: NbOptionComponent<T>) {
     if (this.multiple) {
       this.handleMultipleSelect(option);
@@ -424,7 +424,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Select single option.
-   * */
+   */
   protected handleSingleSelect(option: NbOptionComponent<T>) {
     const selected = this.selectionModel.pop();
 
@@ -442,7 +442,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Select for multiple options.
-   * */
+   */
   protected handleMultipleSelect(option: NbOptionComponent<T>) {
     if (option.selected) {
       this.selectionModel = this.selectionModel.filter(s => s.value !== option.value);
@@ -512,7 +512,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
      * If the user changes provided options list in the runtime we have to handle this
      * and resubscribe on options selection changes event.
      * Otherwise, the user will not be able to select new options.
-     * */
+     */
     this.options.changes
       .subscribe(() => this.subscribeOnOptionsSelectionChange());
 
@@ -531,7 +531,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Propagate selected value.
-   * */
+   */
   protected emitSelected(selected: T | T[]) {
     this.onChange(selected);
     this.selectedChange.emit(selected);
@@ -539,7 +539,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Set selected value in model.
-   * */
+   */
   protected setSelection(value: T | T[]) {
     const isArray: boolean = Array.isArray(value);
 
@@ -570,7 +570,7 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
 
   /**
    * Selects value.
-   * */
+   */
   protected selectValue(value: T) {
     const corresponding = this.options.find((option: NbOptionComponent<T>) => option.value === value);
 

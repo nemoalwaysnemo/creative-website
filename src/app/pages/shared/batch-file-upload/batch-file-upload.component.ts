@@ -19,6 +19,10 @@ import { DragDropFileZoneService } from './drag-drop-file-zone.service';
 
 export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService, private dragDropFileZoneService: DragDropFileZoneService) {
+    this.batchUpload = this.nuxeoApi.batchUpload();
+  }
+
   files: NuxeoUploadResponse[] = [];
 
   uploaded: boolean = false;
@@ -28,10 +32,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   validComboDrag: boolean;
 
   disabled: boolean = false;
-
-  private _onChange = (_) => { };
-
-  private _onTouched = () => { };
 
   private batchUpload: BatchUpload;
 
@@ -57,11 +57,11 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   @Input() showInputs: boolean = true;
 
-  constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService, private dragDropFileZoneService: DragDropFileZoneService) {
-    this.batchUpload = this.nuxeoApi.batchUpload();
-  }
-
   fileNumber: number = 0;
+
+  private _onChange = (_) => { };
+
+  private _onTouched = () => { };
 
   ngOnInit(): void {
     this.init();
@@ -284,7 +284,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     return name.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\.\w+$/, '');
   }
 
-  private fileInput(res: NuxeoUploadResponse): Object[] {
+  private fileInput(res: NuxeoUploadResponse): any[] {
     return [
       new DynamicInputModel({
         id: `${res.fileIdx}_title`,

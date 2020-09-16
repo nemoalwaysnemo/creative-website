@@ -103,13 +103,14 @@ export class NbBadgeComponent {
    * @param {string} val
    * @type string
    */
-  @Input() set status(value) {
+  @Input()
+  set status(value: string) {
     if (value) {
       this.colorClass = value;
     }
   }
 
-  get positionClass() {
+  get positionClass(): string {
     if (!this.position) {
       return NbBadgeComponent.TOP_RIGHT;
     }
@@ -122,5 +123,5 @@ export class NbBadgeComponent {
       .replace(/\bend\b/, endValue);
   }
 
-  constructor(private layoutDirectionService: NbLayoutDirectionService) {}
+  constructor(private layoutDirectionService: NbLayoutDirectionService) { }
 }

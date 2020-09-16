@@ -9,16 +9,6 @@ import { SelectableItemSettings } from './selectable-item.interface';
 })
 export class SelectableItemDirective implements OnInit, OnDestroy {
 
-  document: DocumentModel;
-
-  componentRef: ComponentRef<SelectableItemComponent>;
-
-  componentFactory: ComponentFactory<SelectableItemComponent>;
-
-  @Input() disabled: boolean = false;
-
-  @Input() selected: boolean = false;
-
   @Input()
   set selectable(doc: DocumentModel) {
     this.document = doc;
@@ -36,26 +26,36 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
     return this.selectableSettings.enableSelectable && this.selected;
   }
 
-  @HostListener('click', ['$event'])
-  onClick(event: Event) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    const target = event.target as HTMLElement;
-    if (this.selectableSettings.enableSelectable && (!this.selectableSettings.selector || (this.selectableSettings.selector && target.closest(this.selectableSettings.selector)))) {
-      this.toggleCheckboxStatus();
-    }
-  }
-
-  private selectableSettings: SelectableItemSettings = new SelectableItemSettings();
-
-  private subscription: Subscription = new Subscription();
-
   constructor(
     private directiveView: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     private directiveElement: ElementRef,
     private renderer: Renderer2,
   ) {
+  }
+
+  document: DocumentModel;
+
+  componentRef: ComponentRef<SelectableItemComponent>;
+
+  componentFactory: ComponentFactory<SelectableItemComponent>;
+
+  @Input() disabled: boolean = false;
+
+  @Input() selected: boolean = false;
+
+  private selectableSettings: SelectableItemSettings = new SelectableItemSettings();
+
+  private subscription: Subscription = new Subscription();
+
+  @HostListener('click', ['$event'])
+  onClick(event: Event): void {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const target = event.target as HTMLElement;
+    if (this.selectableSettings.enableSelectable && (!this.selectableSettings.selector || (this.selectableSettings.selector && target.closest(this.selectableSettings.selector)))) {
+      this.toggleCheckboxStatus();
+    }
   }
 
   ngOnInit(): void {

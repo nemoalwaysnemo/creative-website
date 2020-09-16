@@ -57,7 +57,7 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
     }
   }
 
-  protected getCurrentUser() {
+  protected getCurrentUser(): void {
     const subscription = this.documentPageService.getCurrentUser().subscribe((user: UserModel) => {
       this.currentUser = user;
     });

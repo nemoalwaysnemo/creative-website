@@ -52,7 +52,7 @@ export class NbChatMessageMapComponent {
    */
   @Input() longitude: number;
 
-  get file() {
+  get file(): any {
     return {
       // tslint:disable-next-line
       url: `https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=12&size=400x400&key=${this.mapKey}`,

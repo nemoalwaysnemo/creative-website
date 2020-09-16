@@ -45,7 +45,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
-  openDialog(dialog: TemplateRef<any>) {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 

@@ -34,7 +34,7 @@ export class NbToastContainer {
   protected toasts: NbToast[] = [];
   protected prevToast: NbToast;
 
-  get nativeElement() {
+  get nativeElement(): any {
     return this.containerRef.location.nativeElement;
   }
 
@@ -64,7 +64,7 @@ export class NbToastContainer {
     return new NbToastRef(this, toast);
   }
 
-  destroy(toast: NbToast) {
+  destroy(toast: NbToast): void {
     this.toasts = this.toasts.filter(t => t !== toast);
     this.updateContainer();
   }
@@ -95,15 +95,15 @@ export class NbToastContainer {
     return this.containerRef.instance.toasts.last;
   }
 
-  protected setDestroyTimeout(toast: NbToast) {
+  protected setDestroyTimeout(toast: NbToast): void {
     setTimeout(() => this.destroy(toast), toast.config.duration);
   }
 
-  protected subscribeOnClick(toastComponent: NbToastComponent, toast: NbToast) {
+  protected subscribeOnClick(toastComponent: NbToastComponent, toast: NbToast): void {
     toastComponent.destroy.subscribe(() => this.destroy(toast));
   }
 
-  protected updateContainer() {
+  protected updateContainer(): void {
     patch(this.containerRef, { content: this.toasts, position: this.position });
   }
 }
@@ -134,7 +134,7 @@ export class NbToastrContainerRegistry {
     return this.overlays.get(logicalPosition);
   }
 
-  protected instantiateContainer(position: NbGlobalLogicalPosition) {
+  protected instantiateContainer(position: NbGlobalLogicalPosition): void {
     const container = this.createContainer(position);
     this.overlays.set(position, container);
   }
@@ -213,7 +213,7 @@ export class NbToastrContainerRegistry {
  * `icon` - you can pass icon class that will be applied into the toast.
  *
  * @stacked-example(Has icon, toastr/toastr-icon.component)
- * */
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -223,7 +223,7 @@ export class NbToastrService {
 
   /**
    * Shows toast with message, title and user config.
-   * */
+   */
   show(message: string, title?: string, userConfig?: Partial<NbToastrConfig>): NbToastRef {
     const config = new NbToastrConfig({ ...this.globalConfig, ...userConfig });
     const container = this.containerRegistry.get(config.position);
@@ -233,42 +233,42 @@ export class NbToastrService {
 
   /**
    * Shows success toast with message, title and user config.
-   * */
+   */
   success(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
     return this.show(message, title, { ...config, status: 'success' });
   }
 
   /**
    * Shows info toast with message, title and user config.
-   * */
+   */
   info(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
     return this.show(message, title, { ...config, status: 'info' });
   }
 
   /**
    * Shows warning toast with message, title and user config.
-   * */
+   */
   warning(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
     return this.show(message, title, { ...config, status: 'warning' });
   }
 
   /**
    * Shows primary toast with message, title and user config.
-   * */
+   */
   primary(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
     return this.show(message, title, { ...config, status: 'primary' });
   }
 
   /**
    * Shows danger toast with message, title and user config.
-   * */
+   */
   danger(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
     return this.show(message, title, { ...config, status: 'danger' });
   }
 
   /**
    * Shows default toast with message, title and user config.
-   * */
+   */
   default(message: string, title?: string, config?: Partial<NbToastrConfig>): NbToastRef {
     return this.show(message, title, { ...config, status: 'basic' });
   }

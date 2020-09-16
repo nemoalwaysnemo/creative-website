@@ -1,6 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, forwardRef, Input } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -16,6 +15,13 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class OptionTagComponent implements ControlValueAccessor {
 
+  @Input()
+  set items(items: string[]) {
+    if (items) {
+      this.options$ = new BehaviorSubject(items);
+    }
+  }
+
   visible: boolean = true;
 
   selectable: boolean = true;
@@ -30,24 +36,17 @@ export class OptionTagComponent implements ControlValueAccessor {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  options$: Observable<string[]>;
+
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
 
-  options$: Observable<string[]>;
-
-  @Input()
-  set items(items: string[]) {
-    if (items) {
-      this.options$ = new BehaviorSubject(items);
-    }
+  onBlur(event: any): void {
+    if ((this.tags && this.tags.length < 1) || !this.tags) { this._onTouched(); }
   }
 
-  onBlur(event: any) {
-    if ((this.tags && this.tags.length < 1) || !this.tags) this._onTouched();
-  }
-
-  add(event: MatChipInputEvent): void {
+  add(event: any): void {
     const input = event.input;
     const value = event.value;
     if ((value || '').trim()) {

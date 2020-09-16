@@ -17,7 +17,7 @@ import { NbPositionedContainerComponent, NbRenderableContainer } from '../cdk';
  * context-menu-fg
  * context-menu-active-fg
  * context-menu-active-bg
- * */
+ */
 @Component({
   selector: 'nb-context-menu',
   styleUrls: ['./context-menu.component.scss'],

@@ -27,6 +27,8 @@ class SuggestionItem {
 })
 export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
+  constructor(private nuxeoApi: NuxeoApiService) { }
+
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   options$: BehaviorSubject<OptionModel[]> = new BehaviorSubject<OptionModel[]>([]);
@@ -41,23 +43,21 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() settings: SuggestionSettings = new SuggestionSettings();
 
-  @Input() afterSearch: Function = (options: OptionModel[]): Observable<OptionModel[]> => observableOf(options);
-
-  @Input() onResponsed: Function = (res: any): any => res;
-
   private stack: string[] = [];
 
   private suggestions = [];
 
   private disabled: boolean = false;
 
+  private subscription: Subscription = new Subscription();
+
+  @Input() afterSearch: Function = (options: OptionModel[]): Observable<OptionModel[]> => observableOf(options);
+
+  @Input() onResponsed: Function = (res: any): any => res;
+
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
-
-  private subscription: Subscription = new Subscription();
-
-  constructor(private nuxeoApi: NuxeoApiService) { }
 
   onChange(event: any): void {
     if (Array.isArray(event)) {
@@ -69,7 +69,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   onBlur(event: any): void {
-    if ((this.selectedItems.length < 1 && this.selectedItems) || !this.selectedItems) this._onTouched();
+    if ((this.selectedItems.length < 1 && this.selectedItems) || !this.selectedItems) { this._onTouched(); }
   }
 
   ngOnInit(): void {

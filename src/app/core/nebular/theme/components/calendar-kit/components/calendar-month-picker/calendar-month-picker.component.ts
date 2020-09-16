@@ -61,12 +61,12 @@ export class NbCalendarMonthPickerComponent<D, T> implements OnInit {
   cellComponent: Type<NbCalendarCell<any, any>> = NbCalendarMonthCellComponent;
 
   @HostBinding('class.medium')
-  get medium() {
+  get medium(): boolean {
     return this.size === NbCalendarSize.MEDIUM;
   }
 
   @HostBinding('class.large')
-  get large() {
+  get large(): boolean {
     return this.size === NbCalendarSize.LARGE;
   }
 
@@ -74,12 +74,12 @@ export class NbCalendarMonthPickerComponent<D, T> implements OnInit {
     this.initMonths();
   }
 
-  initMonths() {
+  initMonths(): void {
     const months: D[] = range(MONTHS_IN_VIEW).map(i => this.createMonthDateByIndex(i));
     this.months = batch(months, MONTHS_IN_COLUMN);
   }
 
-  onSelect(month: D) {
+  onSelect(month: D): void {
     this.monthChange.emit(month);
   }
 

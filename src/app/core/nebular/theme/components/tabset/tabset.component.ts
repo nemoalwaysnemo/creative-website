@@ -29,7 +29,6 @@ import { convertToBoolProperty } from '../helpers';
  *   badgeStatus="danger">
  *   <p>List of <strong>users</strong>.</p>
  * </nb-tab>
- ```
  */
 @Component({
   selector: 'nb-tab',
@@ -75,7 +74,7 @@ export class NbTabComponent {
     this.responsiveValue = convertToBoolProperty(val);
   }
 
-  get responsive() {
+  get responsive(): boolean {
     return this.responsiveValue;
   }
 
@@ -264,12 +263,11 @@ export class NbTabsetComponent implements AfterContentInit {
    */
   @Output() changeTab: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private route: ActivatedRoute,
-              private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef) {
   }
 
   // TODO: refactoring this component, avoid change detection loop
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this.route.params
       .pipe(
         map(
@@ -281,11 +279,11 @@ export class NbTabsetComponent implements AfterContentInit {
       .subscribe((activeTab) => {
         this.selectTab(activeTab || this.tabs.first);
         this.changeDetectorRef.markForCheck();
-    });
+      });
   }
 
   // TODO: navigate to routeParam
-  selectTab(selectedTab: NbTabComponent) {
+  selectTab(selectedTab: NbTabComponent): void {
     if (!selectedTab.disabled) {
       this.tabs.forEach(tab => tab.active = tab === selectedTab);
       this.changeTab.emit(selectedTab);

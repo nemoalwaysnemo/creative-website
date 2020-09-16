@@ -14,6 +14,13 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionDaysComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
+  }
+
   tabs: any[] = TAB_CONFIG;
 
   filters: SearchFilterModel[] = [
@@ -24,6 +31,14 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     enableQueryParams: true,
   });
+
+  defaultParams: any = {
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
+    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
+  };
 
   beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword()) {
@@ -40,21 +55,6 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
       );
     }
     return observableOf(res);
-  }
-
-  defaultParams: any = {
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
-  };
-
-  constructor(
-    protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService,
-  ) {
-    super(activatedRoute, documentPageService);
   }
 
   ngOnInit(): void {

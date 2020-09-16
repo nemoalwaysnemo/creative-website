@@ -84,7 +84,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     };
   }
 
-  protected getCurrentAssetType(doc: DocumentModel) {
+  protected getCurrentAssetType(doc: DocumentModel): string {
     switch (doc.type) {
       case 'App-Intelligence-Industry-Folder':
         return 'Industry';
@@ -118,7 +118,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     }
   }
 
-  protected triggerSearch(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings) {
+  protected triggerSearch(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): void {
     timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc, searchTerm, settings)); });
   }
 

@@ -101,7 +101,7 @@ export class NbChatMessageComponent {
 
 
   @HostBinding('@flyInOut')
-  get flyInOut() {
+  get flyInOut(): boolean {
     return true;
   }
 
@@ -109,7 +109,7 @@ export class NbChatMessageComponent {
   replyValue: boolean = false;
 
   @HostBinding('class.not-reply')
-  get notReply() {
+  get notReply(): boolean {
     return !this.replyValue;
   }
 

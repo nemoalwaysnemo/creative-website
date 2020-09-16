@@ -169,77 +169,77 @@ export class NbChatComponent implements AfterViewInit {
   @Input() title: string;
 
   @HostBinding('class.xxsmall-chat')
-  get xxsmall() {
+  get xxsmall(): boolean {
     return this.size === NbChatComponent.SIZE_XXSMALL;
   }
 
   @HostBinding('class.xsmall-chat')
-  get xsmall() {
+  get xsmall(): boolean {
     return this.size === NbChatComponent.SIZE_XSMALL;
   }
 
   @HostBinding('class.small-chat')
-  get small() {
+  get small(): boolean {
     return this.size === NbChatComponent.SIZE_SMALL;
   }
 
   @HostBinding('class.medium-chat')
-  get medium() {
+  get medium(): boolean {
     return this.size === NbChatComponent.SIZE_MEDIUM;
   }
 
   @HostBinding('class.large-chat')
-  get large() {
+  get large(): boolean {
     return this.size === NbChatComponent.SIZE_LARGE;
   }
 
   @HostBinding('class.xlarge-chat')
-  get xlarge() {
+  get xlarge(): boolean {
     return this.size === NbChatComponent.SIZE_XLARGE;
   }
 
   @HostBinding('class.xxlarge-chat')
-  get xxlarge() {
+  get xxlarge(): boolean {
     return this.size === NbChatComponent.SIZE_XXLARGE;
   }
 
   @HostBinding('class.active-chat')
-  get active() {
+  get active(): boolean {
     return this.status === NbChatComponent.STATUS_ACTIVE;
   }
 
   @HostBinding('class.disabled-chat')
-  get disabled() {
+  get disabled(): boolean {
     return this.status === NbChatComponent.STATUS_DISABLED;
   }
 
   @HostBinding('class.primary-chat')
-  get primary() {
+  get primary(): boolean {
     return this.status === NbChatComponent.STATUS_PRIMARY;
   }
 
   @HostBinding('class.info-chat')
-  get info() {
+  get info(): boolean {
     return this.status === NbChatComponent.STATUS_INFO;
   }
 
   @HostBinding('class.success-chat')
-  get success() {
+  get success(): boolean {
     return this.status === NbChatComponent.STATUS_SUCCESS;
   }
 
   @HostBinding('class.warning-chat')
-  get warning() {
+  get warning(): boolean {
     return this.status === NbChatComponent.STATUS_WARNING;
   }
 
   @HostBinding('class.danger-chat')
-  get danger() {
+  get danger(): boolean {
     return this.status === NbChatComponent.STATUS_DANGER;
   }
 
   @HostBinding('class.accent')
-  get hasAccent() {
+  get hasAccent(): string {
     return this.accent;
   }
 
@@ -275,7 +275,7 @@ export class NbChatComponent implements AfterViewInit {
   @ViewChild('scrollable', { static: true }) scrollable: ElementRef;
   @ContentChildren(NbChatMessageComponent) messages: QueryList<NbChatMessageComponent>;
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.messages.changes
       .subscribe((messages) => {
         this.messages = messages;
@@ -285,13 +285,13 @@ export class NbChatComponent implements AfterViewInit {
     this.updateView();
   }
 
-  updateView() {
+  updateView(): void {
     if (this.scrollBottom) {
       this.scrollListBottom();
     }
   }
 
-  scrollListBottom() {
+  scrollListBottom(): void {
     this.scrollable.nativeElement.scrollTop = this.scrollable.nativeElement.scrollHeight;
   }
 }

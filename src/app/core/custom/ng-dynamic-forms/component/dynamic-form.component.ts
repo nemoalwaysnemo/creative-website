@@ -51,19 +51,19 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  onBlur($event: DynamicFormControlEvent) {
+  onBlur($event: DynamicFormControlEvent): void {
     this.blur.emit($event);
   }
 
-  onChange($event: DynamicFormControlEvent) {
+  onChange($event: DynamicFormControlEvent): void {
     this.change.emit($event);
   }
 
-  onFocus($event: DynamicFormControlEvent) {
+  onFocus($event: DynamicFormControlEvent): void {
     this.focus.emit($event);
   }
 
-  onCustomEvent($event: DynamicFormControlEvent, customEventEmitter: EventEmitter<DynamicFormControlEvent>) {
+  onCustomEvent($event: DynamicFormControlEvent, customEventEmitter: EventEmitter<DynamicFormControlEvent>): void {
     customEventEmitter.emit($event);
   }
 }

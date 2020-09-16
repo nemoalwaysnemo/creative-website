@@ -17,6 +17,10 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
+  doc: DocumentModel;
+
+  @Input() document: DocumentModel;
+
   // searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings(
   //   source: 'creative-project-asset-report-production-information',
   // });
@@ -24,10 +28,6 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
   changeView(): void {
     this.showForm = !this.showForm;
   }
-
-  doc: DocumentModel;
-
-  @Input() document: DocumentModel;
 
   updateForm(doc: DocumentModel): void {
     // this.documentPageService.updateCurrentDocument(doc);

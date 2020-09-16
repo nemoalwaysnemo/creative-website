@@ -15,7 +15,7 @@ export class NbSpinnerService {
   private loaders: Promise<any>[] = [];
   private selector: string = 'nb-global-spinner';
 
-  constructor(@Inject(NB_DOCUMENT) private document) {}
+  constructor(@Inject(NB_DOCUMENT) private document) { }
 
   /**
    * Appends new loader to the list of loader to be completed before
@@ -41,7 +41,7 @@ export class NbSpinnerService {
     this.executeAll();
   }
 
-  private executeAll(done = () => {}): void {
+  private executeAll(done = () => { }): void {
     Promise.all(this.loaders).then((values) => {
       this.hideSpinner();
       done.call(null, values);
@@ -67,7 +67,7 @@ export class NbSpinnerService {
     }
   }
 
-  private getSpinnerElement() {
+  private getSpinnerElement(): any {
     return this.document.getElementById(this.selector);
   }
 }

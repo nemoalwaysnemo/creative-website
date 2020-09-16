@@ -23,6 +23,29 @@ enum AssetTypes {
 })
 export class DocumentCreativeProjectUsageRightsComponent {
 
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.doc = doc;
+      this.loading = false;
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
+    }
+  }
+
+  @Input()
+  set listViewOptions(settings: any) {
+    if (settings) {
+      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(this.doc, this.doc.getParent('brand'))); });
+    } else {
+      this.listViewSettings = this.defaultSettings;
+    }
+  }
+
+  constructor(
+    private advanceSearchService: AdvanceSearchService,
+  ) { }
+
   loading: boolean = true;
 
   doc: DocumentModel;
@@ -65,6 +88,9 @@ export class DocumentCreativeProjectUsageRightsComponent {
     },
   };
 
+  @Output() onResponsed: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+  @Output() onSelect: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+
   listViewBuilder: Function = (docs: DocumentModel[]): any => {
     const items = [];
     for (const doc of docs) {
@@ -81,32 +107,6 @@ export class DocumentCreativeProjectUsageRightsComponent {
   afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
     return this.getUsageRightsStatus(res);
   }
-
-  @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      this.doc = doc;
-      this.loading = false;
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
-    }
-  }
-
-  @Input()
-  set listViewOptions(settings: any) {
-    if (settings) {
-      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(this.doc, this.doc.getParent('brand'))); });
-    } else {
-      this.listViewSettings = this.defaultSettings;
-    }
-  }
-
-  @Output() onResponsed: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
-  @Output() onSelect: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
-
-  constructor(
-    private advanceSearchService: AdvanceSearchService,
-  ) { }
 
   onSelected(row: any): void {
     this.onSelect.emit(row);
@@ -135,7 +135,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
   protected getUsageRightsStatus(res: SearchResponse): Observable<SearchResponse> {
     const uids: string[] = res.response.entries.map((doc: DocumentModel) => doc.uid);
     if (uids.length > 0) {
-      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': `${uids.join(',')}`, 'entityType': 'contract' }).pipe(
+      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { uuids: `${uids.join(',')}`, entityType: 'contract' }).pipe(
         map((response: NuxeoPagination) => {
           res.response.entries.forEach((doc: DocumentModel) => {
             const status = response.entries.find((x: any) => x.uuid === doc.uid);

@@ -14,6 +14,23 @@ import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, D
 })
 export class DocumentFormComponent implements OnInit, OnDestroy {
 
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      doc = this.checkfiles(doc);
+      this.document$.next(doc);
+    }
+  }
+
+  @Input()
+  set layout(layout: any) {
+    this.formLayout = layout;
+  }
+
+  constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
+    this.onDocumentChanged();
+  }
+
   formModel: DynamicFormModel;
 
   formLayout: DynamicFormLayout;
@@ -58,28 +75,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() showButton: boolean = true;
 
-  @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      doc = this.checkfiles(doc);
-      this.document$.next(doc);
-    }
-  }
-
-  @Input()
-  set layout(layout: any) {
-    this.formLayout = layout;
-  }
+  @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   @Input() beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
 
   @Input() afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
-
-  @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
-
-  constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
-    this.onDocumentChanged();
-  }
 
   ngOnInit(): void {
 
@@ -298,7 +298,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         properties['file:content'] = file.batchBlob;
       }
       if (file.uploadFileType === 'attachment') {
-        attachmens.push({ 'file': file.batchBlob });
+        attachmens.push({ file: file.batchBlob });
       }
     });
     if (attachmens.length > 0) {
@@ -326,7 +326,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   hideControls(): void {
     if (this.formMode === 'create') {
       const type = this.fileMultiUpload ? 'delete' : 'show';
-      this.modelOperation.next({ id: 'dc:title', type: type });
+      this.modelOperation.next({ id: 'dc:title', type });
     }
   }
 

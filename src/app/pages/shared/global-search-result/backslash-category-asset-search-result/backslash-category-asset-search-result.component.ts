@@ -24,7 +24,7 @@ export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResul
     this.onQueryParamsChanged();
   }
 
-  assetPath(path: string) {
+  assetPath(path: string): string {
     return assetPath(path);
   }
 }

@@ -105,7 +105,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
       ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
   }
 
-  private showFolderInfo(doc: DocumentModel): boolean {
+  showFolderInfo(doc: DocumentModel): boolean {
     switch (doc.type) {
       case 'App-Backslash-Edges-Asset':
         return false;

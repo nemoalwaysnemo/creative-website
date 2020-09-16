@@ -15,24 +15,6 @@ export interface DocumentModelForm {
 })
 export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
 
-  static readonly COMPONENT_TYPE: string = 'form';
-
-  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
-
-  document: DocumentModel;
-
-  currentUser: UserModel;
-
-  settings: any[] = [];
-
-  accordions: any = {};
-
-  @Input() formMode: 'create' | 'edit' = 'create';
-
-  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
-
-  afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
-
   @Input()
   set documentModel(doc: DocumentModel) {
     if (doc) {
@@ -47,15 +29,33 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     this.afterSave = metadata.afterSave || this.afterSave;
   }
 
+  constructor(protected documentPageService: DocumentPageService) {
+    this.onDocumentChanged();
+  }
+
+  static readonly COMPONENT_TYPE: string = 'form';
+
+  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
+  document: DocumentModel;
+
+  currentUser: UserModel;
+
+  settings: any[] = [];
+
+  accordions: any = {};
+
+  @Input() formMode: 'create' | 'edit' = 'create';
+
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   protected subscription: Subscription = new Subscription();
 
   protected documentType: string;
 
-  constructor(protected documentPageService: DocumentPageService) {
-    this.onDocumentChanged();
-  }
+  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
+
+  afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
 
   ngOnInit(): void {
     this.onInit();

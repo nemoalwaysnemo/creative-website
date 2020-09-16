@@ -90,7 +90,7 @@ export class NbFlipCardComponent {
    */
   @Input() showToggleButton = true;
 
-  toggle() {
+  toggle(): void {
     this.flipped = !this.flipped;
   }
 }

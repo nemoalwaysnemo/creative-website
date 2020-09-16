@@ -58,9 +58,9 @@ export class GlobalSearchFormService {
   private googleAnalyticsTrackEvent(searchParams: GlobalSearchParams): void {
     if (['onKeywordChanged', 'onFilterChanged'].includes(searchParams.event)) {
       this.googleAnalyticsService.trackSearch({
-        'event_category': 'Search',
-        'event_action': `Search - ${searchParams.event}`,
-        'event_label': `Search - ${searchParams.event}`,
+        event_category: 'Search',
+        event_action: `Search - ${searchParams.event}`,
+        event_label: `Search - ${searchParams.event}`,
         queryParams: searchParams.toQueryParams(),
       });
     }

@@ -55,7 +55,7 @@ import { NbTooltipComponent } from './tooltip.component';
 })
 export class NbTooltipDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
-  context: Object = {};
+  context: any = {};
 
   /**
    * Tooltip message
@@ -97,7 +97,7 @@ export class NbTooltipDirective implements OnInit, OnChanges, AfterViewInit, OnD
   /**
    * Describes when the container will be shown.
    * Available options: `click`, `hover`, `hint`, `focus` and `noop`
-   * */
+   */
   @Input('nbTooltipTrigger')
   trigger: NbTrigger = NbTrigger.HINT;
 
@@ -114,29 +114,29 @@ export class NbTooltipDirective implements OnInit, OnChanges, AfterViewInit, OnD
       .offset(8);
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.rebuild();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dynamicOverlay = this.configureDynamicOverlay()
       .build();
   }
 
-  rebuild() {
+  rebuild(): void {
     this.dynamicOverlay = this.configureDynamicOverlay()
       .rebuild();
   }
 
-  show() {
+  show(): void {
     this.dynamicOverlay.show();
   }
 
-  hide() {
+  hide(): void {
     this.dynamicOverlay.hide();
   }
 
-  toggle() {
+  toggle(): void {
     this.dynamicOverlay.toggle();
   }
 
@@ -144,7 +144,7 @@ export class NbTooltipDirective implements OnInit, OnChanges, AfterViewInit, OnD
     this.dynamicOverlayHandler.destroy();
   }
 
-  protected configureDynamicOverlay() {
+  protected configureDynamicOverlay(): any {
     return this.dynamicOverlayHandler
       .position(this.position)
       .trigger(this.trigger)

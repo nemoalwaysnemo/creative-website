@@ -71,7 +71,7 @@ export class NbChatMessageFileComponent {
       return {
         ...file,
         urlStyle: isImage && this.domSanitizer.bypassSecurityTrustStyle(`url(${file.url})`),
-        isImage: isImage,
+        isImage,
       };
     });
     this.cd.detectChanges();

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { VgAPI } from 'videogular2/compiled/core';
+import { VgApiService } from '@videogular/ngx-videogular/core';
 
 @Component({
   selector: 'gallery-video',
@@ -43,11 +43,12 @@ export class GalleryVideoComponent implements OnInit {
 
   @ViewChild('video', { static: true }) video: ElementRef;
 
-  api: VgAPI;
-
   preload: string = 'metadata';
 
   videoSources: { url: string, type?: string }[];
+
+  constructor(private api: VgApiService) {
+  }
 
   ngOnInit(): void {
     if (this.src instanceof Array) {
@@ -58,9 +59,8 @@ export class GalleryVideoComponent implements OnInit {
     }
   }
 
-  onPlayerReady(api: VgAPI): void {
+  onPlayerReady(api: VgApiService): void {
     this.api = api;
-
     const defaultMedia = this.api.getDefaultMedia();
     const events = defaultMedia.subscriptions;
 

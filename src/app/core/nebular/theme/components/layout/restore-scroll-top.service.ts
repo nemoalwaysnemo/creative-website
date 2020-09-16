@@ -29,7 +29,7 @@ export class NbRestoreScrollTopHelper {
       );
   }
 
-  private pageChanged(prev: NavigationEnd, current: NavigationEnd) {
+  private pageChanged(prev: NavigationEnd, current: NavigationEnd): boolean {
     return !prev || getPathPartOfUrl(prev.url) !== getPathPartOfUrl(current.url);
   }
 }

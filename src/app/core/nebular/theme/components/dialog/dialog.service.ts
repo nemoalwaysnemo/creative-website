@@ -136,7 +136,7 @@ import { NbDialogContainerComponent } from './dialog-container';
  * Please, open dialogs in the separate window and try to click on the button without focus
  * and then hit space any times. Multiple same dialogs will be opened.
  * @stacked-example(Auto focus, dialog/dialog-auto-focus.component)
- * */
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -153,7 +153,7 @@ export class NbDialogService {
   private close$: Subject<any> = new Subject<any>();
   /**
    * Opens new instance of the dialog, may receive optional config.
-   * */
+   */
   open<T>(content: Type<T> | TemplateRef<T>,
           userConfig: Partial<NbDialogConfig<Partial<T> | string>> = {}): NbDialogRef<T> {
     const config = new NbDialogConfig({ ...this.globalConfig, ...userConfig });
@@ -204,7 +204,7 @@ export class NbDialogService {
   protected createContent<T>(config: NbDialogConfig,
                              content: Type<T> | TemplateRef<T>,
                              container: NbDialogContainerComponent,
-                             dialogRef: NbDialogRef<T>) {
+                             dialogRef: NbDialogRef<T>): void {
     if (content instanceof TemplateRef) {
       const portal = this.createTemplatePortal(config, content, dialogRef);
       container.attachTemplatePortal(portal);
@@ -221,13 +221,13 @@ export class NbDialogService {
   protected createTemplatePortal<T>(config: NbDialogConfig,
                                     content: TemplateRef<T>,
                                     dialogRef: NbDialogRef<T>): NbTemplatePortal {
-    return new NbTemplatePortal(content, null, <any>{ $implicit: config.context, dialogRef });
+    return new NbTemplatePortal(content, null, { $implicit: config.context, dialogRef } as any);
   }
 
   /**
    * We're creating portal with custom injector provided through config or using global injector.
    * This approach provides us capability inject `NbDialogRef` in dialog component.
-   * */
+   */
   protected createComponentPortal<T>(config: NbDialogConfig,
                                      content: Type<T>,
                                      dialogRef: NbDialogRef<T>): NbComponentPortal {
@@ -240,7 +240,7 @@ export class NbDialogService {
     return config.viewContainerRef && config.viewContainerRef.injector || this.injector;
   }
 
-  protected registerCloseListeners<T>(config: NbDialogConfig, overlayRef: NbOverlayRef, dialogRef: NbDialogRef<T>) {
+  protected registerCloseListeners<T>(config: NbDialogConfig, overlayRef: NbOverlayRef, dialogRef: NbDialogRef<T>): void {
     if (config.closeOnBackdropClick) {
       overlayRef.backdropClick().subscribe(() => {
         this.event$.next({ action: 'close', ref: dialogRef });

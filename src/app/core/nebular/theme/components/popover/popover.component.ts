@@ -31,7 +31,7 @@ import {
  * popover-bg
  * popover-border
  * popover-shadow
- * */
+ */
 @Component({
   selector: 'nb-popover',
   styleUrls: ['./popover.component.scss'],
@@ -44,7 +44,7 @@ export class NbPopoverComponent extends NbPositionedContainerComponent implement
   @ViewChild(NbOverlayContainerComponent, { static: true }) overlayContainer: NbOverlayContainerComponent;
 
   @Input() content: any;
-  @Input() context: Object;
+  @Input() context: any;
   @Input() cfr: ComponentFactoryResolver;
 
   renderContent(): void {
@@ -52,11 +52,11 @@ export class NbPopoverComponent extends NbPositionedContainerComponent implement
     this.attachContent();
   }
 
-  protected detachContent() {
+  protected detachContent(): void {
     this.overlayContainer.detach();
   }
 
-  protected attachContent() {
+  protected attachContent(): void {
     if (this.content instanceof TemplateRef) {
       this.attachTemplate();
     } else if (this.content instanceof Type) {
@@ -66,19 +66,19 @@ export class NbPopoverComponent extends NbPositionedContainerComponent implement
     }
   }
 
-  protected attachTemplate() {
+  protected attachTemplate(): void {
     this.overlayContainer
-      .attachTemplatePortal(new NbTemplatePortal(this.content, null, <any>{ $implicit: this.context }));
+      .attachTemplatePortal(new NbTemplatePortal(this.content, null, { $implicit: this.context } as any));
   }
 
-  protected attachComponent() {
+  protected attachComponent(): void {
     const portal = new NbComponentPortal(this.content, null, null, this.cfr);
     const ref = this.overlayContainer.attachComponentPortal(portal);
     Object.assign(ref.instance, this.context);
     ref.changeDetectorRef.detectChanges();
   }
 
-  protected attachString() {
+  protected attachString(): void {
     this.overlayContainer.attachStringContent(this.content);
   }
 }

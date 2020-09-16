@@ -84,7 +84,7 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
               protected relationService: DynamicFormRelationService) {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
 
     const groupChange = (changes as Pick<SimpleChanges, 'group'>).group;
     const layoutChange = (changes as Pick<SimpleChanges, 'layout'>).layout;
@@ -301,7 +301,7 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
       if (this.model.type === DYNAMIC_FORM_CONTROL_TYPE_INPUT) {
         const model = this.model as DynamicInputModel;
         if (model.inputType === DYNAMIC_FORM_CONTROL_INPUT_TYPE_FILE) {
-          const inputElement: any = $event.target || $event.srcElement;
+          const inputElement: any = $event.target;
           model.files = inputElement.files as FileList;
         }
       }

@@ -99,7 +99,7 @@ export class DisruptionFolderViewComponent {
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick });
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
   }
 
   goBack(): void {
@@ -119,22 +119,22 @@ export class DisruptionFolderViewComponent {
     switch (type) {
       case 'App-Disruption-Theory-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
-          'urlRootPath': '/p/disruption/Disruption How Tos',
-          'urlParentPath': '/p/disruption/Disruption How Tos/folder/',
+          rootPath: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+          urlRootPath: '/p/disruption/Disruption How Tos',
+          urlParentPath: '/p/disruption/Disruption How Tos/folder/',
         };
       case 'App-Disruption-Day':
         return {
-          'rootPath': NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
-          'urlRootPath': '/p/disruption/Disruption Days',
-          'urlParentPath': '/p/disruption/Disruption Days/day/',
+          rootPath: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+          urlRootPath: '/p/disruption/Disruption Days',
+          urlParentPath: '/p/disruption/Disruption Days/day/',
         };
       default:
         return {};
     }
   }
 
-  vocabularyFormatter(list: string[]) {
+  vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
 
