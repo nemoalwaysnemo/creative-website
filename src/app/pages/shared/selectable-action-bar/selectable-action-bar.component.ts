@@ -29,10 +29,10 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
       </div>
     </ng-container>
     <ng-template #showcaseDialog>
-      <global-document-dialog [settings]="showcaseDialogSettings" [metadata]="showcaseMetadata" [documentModel]="documents" [title]="showcaseTitle"></global-document-dialog>
+      <global-document-dialog [settings]="showcaseDialogSettings" [metadata]="showcaseMetadata" [documentModel]="document" [title]="showcaseTitle"></global-document-dialog>
     </ng-template>
     <ng-template #deleteDialog>
-      <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
+      <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="document" [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
     </ng-template>
   `,
 })
@@ -41,10 +41,11 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   @Input() enabled: boolean = false;
 
+  @Input() document: DocumentModel;
+
   showcaseTitle: string = 'Add To Showcase';
 
   deleteTitle: string = 'Delete';
-
 
   showcaseDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.SHOWCASE_ADD_REMOVE] });
 
@@ -62,7 +63,7 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   count: number = 0;
 
-  documents: any[] = [];
+  private documents: DocumentModel[] = [];
 
   private subscription: Subscription = new Subscription();
 
@@ -107,7 +108,9 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick });
+    if (this.documents && this.documents.length > 0) {
+      this.globalDocumentDialogService.open(dialog, { documents: this.documents, closeOnBackdropClick: closeOnBackdropClick });
+    }
   }
 
 }

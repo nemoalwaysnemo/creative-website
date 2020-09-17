@@ -130,7 +130,8 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     ).pipe(map((l: boolean[]) => l[0] && l[1]));
   }
 
-  protected onOpen(e?: DocumentDialogEvent): void {
+  protected onInitialized(e?: DocumentDialogEvent): void {
+
   }
 
   protected onClose(e: DocumentDialogEvent): void {
@@ -145,7 +146,7 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     const a = this.lifeCycle$.pipe(
       withLatestFrom(this.globalDocumentDialogService.onOpen()),
       map(_ => _.pop()),
-    ).subscribe((e: DocumentDialogEvent) => { this.onOpen(e); });
+    ).subscribe((e: DocumentDialogEvent) => { this.onInitialized(e); });
     const b = this.globalDocumentDialogService.onClose().subscribe((e: DocumentDialogEvent) => { this.onClose(e); });
     const c = this.globalDocumentDialogService.onEventType('callback').subscribe((e: DocumentDialogEvent) => { this.callbackEvent = e; });
     this.subscription.add(a);
