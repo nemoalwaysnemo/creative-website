@@ -1,16 +1,44 @@
 <div class="backslash-home-search">
-  <global-search-form [filters]="filters" [searchParams]="defaultParams">
-    <ng-container class="group-left">
-      <div class="global-search-form-buttons d-flex">
-        <backslash-form-button [parent]="doc" [type]="'video'" [title]="'New Video'"></backslash-form-button>
-        <backslash-form-button [parent]="doc" [type]="'post'" [title]="'New Post'"></backslash-form-button>
-      </div>
-    </ng-container>
-    <ng-container class="group-right">
-      <div class="search-filters global-search-filters right redirect_margin">
-        <a href="{{oldBackslashUrl}}" class="advanced-filters-trigger icon_btn share_padding" title="Backslash" target="blank"></a>
-      </div>
-    </ng-container>
-  </global-search-form>
-  <backslash-document-asset-search-result [layout]="layout" [selectedView]="currentView"></backslash-document-asset-search-result>
-</div>
+  <ng-container *ngIf="isViewEnabled('liveView')">
+    <div [ngStyle]="currentView === 'liveView' ? {} : {'display': 'none'}">
+      <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings" (onLoading)="onLoading($event)">
+        <ng-container class="group-left">
+          <div class="global-search-form-buttons d-flex">
+            <backslash-form-button [parent]="doc" [type]="'video'" [title]="'New Video'"></backslash-form-button>
+            <backslash-form-button [parent]="doc" [type]="'post'" [title]="'New Post'"></backslash-form-button>
+            <ng-container *ngIf="writePermission$ | async">
+              <button type="button" (click)="selectView('pipeLineView')" class="toggle_button icon_btn" title="Pipeline">Pipeline</button>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-container class="group-right">
+          <div class="search-filters global-search-filters right redirect_margin">
+            <a href="{{oldBackslashUrl}}" class="advanced-filters-trigger icon_btn share_padding" title="Backslash" target="blank"></a>
+          </div>
+        </ng-container>
+      </global-search-form>
+      <backslash-document-asset-search-result [layout]="layout" [enableScrolling]="enableScrolling['liveView']" [selectedView]="selectedView" [selectedCurrentView]="currentView"></backslash-document-asset-search-result>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isViewEnabled('pipeLineView')">
+    <div [ngStyle]="currentView === 'pipeLineView' ? {} : {'display': 'none'}">
+      <global-search-form [filters]="filters" [searchParams]="pipeLineParams" [settings]="pipeLineSearchFormSettings" (onLoading)="onLoading($event)">
+        <ng-container class="group-left">
+          <div class="global-search-form-buttons d-flex">
+            <backslash-form-button [parent]="doc" [type]="'video'" [title]="'New Video'"></backslash-form-button>
+            <backslash-form-button [parent]="doc" [type]="'post'" [title]="'New Post'"></backslash-form-button>
+            <ng-container *ngIf="writePermission$ | async">
+              <button type="button" (click)="selectView('liveView')" class="toggle_button icon_btn" title="Live">Live</button>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-container class="group-right">
+          <div class="search-filters global-search-filters right redirect_margin">
+            <a href="{{oldBackslashUrl}}" class="advanced-filters-trigger icon_btn share_padding" title="Backslash" target="blank"></a>
+          </div>
+        </ng-container>
+      </global-search-form>
+      <backslash-document-asset-search-result [layout]="layout" [enableScrolling]="enableScrolling['pipeLineView']" [selectedView]="selectedView" [selectedCurrentView]="currentView"></backslash-document-asset-search-result>
+    </div>
+  </ng-container>
+</div>  
