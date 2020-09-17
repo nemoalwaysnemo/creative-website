@@ -1,9 +1,14 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { DocumentModel, UserService, NuxeoResponse } from '@core/api';
 import { NbToastrService } from '@core/nebular/theme';
-import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SelectableItemService, SelectableItemEvent } from '../selectable-item/selectable-item.service';
+import { Observable, of as observableOf, forkJoin, Subscription } from 'rxjs';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
+import { DocumentPageService } from '../services/document-page.service';
+import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
+
 
 @Component({
   selector: 'selectable-action-bar',
@@ -14,14 +19,46 @@ import { SelectableItemService, SelectableItemEvent } from '../selectable-item/s
         {{count}} item(s) selected <a (click)="clear()" class="clearSelection">Clear</a>
         <div style='float:right'>
           <a (click)="addToFavorite()">Add to favorites</a>
+          &nbsp;&nbsp;
+          <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Add To Showcase">Add to Showcase</a>
+          &nbsp;&nbsp;
+          <ng-container>
+            <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete">Delete</a>
+          </ng-container>
         </div>
       </div>
     </ng-container>
+    <ng-template #showcaseDialog>
+      <global-document-dialog [settings]="showcaseDialogSettings" [metadata]="showcaseMetadata" [documentModel]="documents" [title]="showcaseTitle"></global-document-dialog>
+    </ng-template>
+    <ng-template #deleteDialog>
+      <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
+    </ng-template>
   `,
 })
+
 export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   @Input() enabled: boolean = false;
+
+  showcaseTitle: string = 'Add To Showcase';
+
+  deleteTitle: string = 'Delete';
+
+
+  showcaseDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.SHOWCASE_ADD_REMOVE] });
+
+  deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION] });
+
+  showcaseMetadata: any = {
+    addShowcase: true,
+  };
+
+  dialogMetadata: any = {
+    formMode: 'edit',
+    enableEdit: true,
+    enableDeletion: true,
+  };
 
   count: number = 0;
 
@@ -33,8 +70,9 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
     private selectableItemService: SelectableItemService,
     private toastrService: NbToastrService,
     private userService: UserService,
-  ) {
-  }
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+    private documentPageService: DocumentPageService,
+  ) { }
 
   ngOnInit(): void {
     this.subscribeEvents();
@@ -68,5 +106,8 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
+  openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick });
+  }
 
 }
