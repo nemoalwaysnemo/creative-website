@@ -7,11 +7,11 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
 import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'document-showcase-template',
-  templateUrl: './document-showcase-template.component.html',
+  selector: 'document-delete-multiple-template',
+  templateUrl: './document-delete-multiple-template.component.html',
   styleUrls: ['../global-document-dialog-template.scss'],
 })
-export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTemplateComponent {
+export class DocumentDeleteMultipleTemplateComponent extends DocumentDialogCustomTemplateComponent {
 
   private documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
 
@@ -29,19 +29,19 @@ export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTempl
     }
   }
 
-  private addToShowcase(): void {
-    this.updateDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
-      this.globalDocumentDialogService.close();
-      this.toastrService.show(`Added to Showcase successfully!`, '', { status: 'success' });
+  delete(): void {
+    this.deleteDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
+    this.confirm(false, 300);
+    this.documentPageService.refresh();
+    this.toastrService.show(`Assets Deleted!`, '', { status: 'success' });
     });
   }
 
-  private updateDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
-    const properties = { 'app_global:networkshare': true };
-    return forkJoin(...documents.map(x => this.updateDocument(x, properties)));
+  private deleteDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
+    return forkJoin(...documents.map(x => this.deleteDocument(x)));
   }
 
-  private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    return doc.set(properties).save();
+  private deleteDocument(doc: DocumentModel): Observable<DocumentModel> {
+    return doc.moveToTrash();
   }
 }

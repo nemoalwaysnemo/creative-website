@@ -49,7 +49,7 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   showcaseDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.SHOWCASE_ADD_REMOVE] });
 
-  deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION] });
+  deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.DELETE_MULTIPLE_ASSETS] });
 
   showcaseMetadata: any = {
     addShowcase: true,
