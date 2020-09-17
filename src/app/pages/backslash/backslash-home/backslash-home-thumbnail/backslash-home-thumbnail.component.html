@@ -17,7 +17,7 @@
           </div>
         </ng-container>
       </global-search-form>
-      <backslash-document-asset-search-result [layout]="layout" [enableScrolling]="enableScrolling['liveView']" [selectedView]="selectedView" [selectedCurrentView]="currentView"></backslash-document-asset-search-result>
+      <backslash-document-asset-search-result [layout]="layout" [enableScrolling]="enableScrolling['liveView']" [selectedView]="selectedView"></backslash-document-asset-search-result>
     </div>
   </ng-container>
   <ng-container *ngIf="isViewEnabled('pipeLineView')">
@@ -38,7 +38,7 @@
           </div>
         </ng-container>
       </global-search-form>
-      <backslash-document-asset-search-result [layout]="layout" [enableScrolling]="enableScrolling['pipeLineView']" [selectedView]="selectedView" [selectedCurrentView]="currentView"></backslash-document-asset-search-result>
+      <backslash-pipeline-asset-search-result [layout]="layout" [enableScrolling]="enableScrolling['pipeLineView']" [selectedView]="selectedView"></backslash-pipeline-asset-search-result>
     </div>
   </ng-container>
 </div>  
