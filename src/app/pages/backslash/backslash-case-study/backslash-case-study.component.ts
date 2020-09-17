@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
 import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
@@ -69,6 +69,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
   }
 
   constructor(
+    private router: Router,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
@@ -78,7 +79,19 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
   ngOnInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
+    this.initChangeView();
     this.getRegions(this.regionAssetParams);
+  }
+
+  initChangeView(): void {
+    this.onSearching = false;
+    const url = this.router.url;
+    if (url === '/p/backslash/report/reportView') {
+      this.currentView = 'reportView';
+    } else {
+      this.currentView = 'categoryView';
+    }
+    this.selectView(this.currentView);
   }
 
   // get all matched assets and their parent folders
