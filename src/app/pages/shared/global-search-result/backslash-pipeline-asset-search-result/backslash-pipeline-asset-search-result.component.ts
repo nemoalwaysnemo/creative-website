@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, SearchResponse } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
@@ -8,11 +8,11 @@ import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
 
 
 @Component({
-  selector: 'backslash-document-asset-search-result',
+  selector: 'backslash-pipeline-asset-search-result',
   styleUrls: ['../thumbnail-view.scss'],
-  templateUrl: './backslash-document-asset-search-result.component.html',
+  templateUrl: './backslash-pipeline-asset-search-result.component.html',
 })
-export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResultComponent {
+export class BackslashPipelineAssetSearchResultComponent extends BaseSearchResultComponent {
 
   @Input()
   set selectedView(name: string) {
@@ -79,5 +79,9 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
+  }
+
+  searchResultFilter(res: SearchResponse): boolean {
+    return res.source === 'document-backslash-pipeline';
   }
 }
