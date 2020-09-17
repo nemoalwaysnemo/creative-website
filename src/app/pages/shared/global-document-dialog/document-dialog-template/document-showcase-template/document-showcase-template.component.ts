@@ -21,49 +21,27 @@ export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTempl
     private toastrService: NbToastrService,
   ) {
     super(globalDocumentDialogService, documentPageService);
-
   }
 
   protected onInit(): void {
     if (this.dialogSettings.documents) {
-      console.log(1111, this.dialogSettings.documents);
       this.documents$.next(this.dialogSettings.documents);
     }
   }
 
   private addToShowcase(): void {
-    // const docs = this.document.map((doc: DocumentModel) => doc);
-    // this.updateDocuments(docs).subscribe((models: DocumentModel[]) => {
-    //   this.toastrService.show(`Added successfully!`, '', { status: 'success' });
-    // });
+    this.updateDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
+      this.globalDocumentDialogService.close();
+      this.toastrService.show(`Added to Showcase successfully!`, '', { status: 'success' });
+    });
   }
 
-  // private updateDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
-  //   const properties = { 'app_global:networkshare': true }
-  //   return forkJoin(...documents.map(x => this.updateDocument(x, properties)));
-  // }
+  private updateDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
+    const properties = { 'app_global:networkshare': true }
+    return forkJoin(...documents.map(x => this.updateDocument(x, properties)));
+  }
 
   private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {
     return doc.set(properties).save();
   }
-
-  // delete(): void {
-  //   this.deleteDocument(this.document).subscribe(_ => {
-  //     this.confirm(false, 300);
-  //     this.moveRefresh();
-  //   });
-  // }
-  //
-  // private deleteDocument(model: DocumentModel): Observable<DocumentModel> {
-  //   return model.moveToTrash();
-  // }
-  //
-  // private moveRefresh(): void {
-  //   if (!this.redirectUrl) {
-  //     this.documentPageService.historyBack();
-  //   } else {
-  //     this.refresh();
-  //   }
-  // }
-
 }

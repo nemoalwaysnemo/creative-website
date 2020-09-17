@@ -109,7 +109,7 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
     if (this.documents && this.documents.length > 0) {
-      this.globalDocumentDialogService.open(dialog, { documents: this.documents, closeOnBackdropClick: closeOnBackdropClick });
+      this.globalDocumentDialogService.open(dialog, { documents: this.documents, closeOnBackdropClick: closeOnBackdropClick, metadata: this.showcaseMetadata });
     }
   }
 

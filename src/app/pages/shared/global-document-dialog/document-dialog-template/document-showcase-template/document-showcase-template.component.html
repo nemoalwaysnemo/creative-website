@@ -5,14 +5,14 @@
   <div class="clear"></div>
 </div>
 <div class="dialog-body">
-  <ng-container *ngIf="dialogSettings.addShowcase">
+  <ng-container *ngIf="dialogSettings.metadata.addShowcase">
     <div class="text-content pure-text">Adding assets to the brand showcase shares them with everyone at TBWA\ globally. Are you sure?</div>
     <div class="action-content text-right">
       <button (click)="addToShowcase()" class="btn btn-success">Yes</button>
       <button (click)="cancel()" class="btn btn-danger">Cancel</button>
     </div>
   </ng-container>
-  <ng-container *ngIf="dialogSettings.removeFromShowcase">
+  <ng-container *ngIf="dialogSettings.metadata.removeFromShowcase">
     <div class="text-content pure-text">Removing assets from the brand showcase no longer shares them with everyone at TBWA\ globally. Are you sure?</div>
     <div class="action-content text-right">
       <button (click)="removeFromShowcase()" class="btn btn-success">Yes</button>
