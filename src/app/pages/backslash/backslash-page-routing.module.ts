@@ -51,6 +51,10 @@ const routes: Routes = [{
       component: BackslashCaseStudyComponent,
     },
     {
+      path: 'report/reportView',
+      component: BackslashCaseStudyComponent,
+    },
+    {
       path: 'report/folder/:id',
       component: BackslashCaseStudyFolderComponent,
     },
