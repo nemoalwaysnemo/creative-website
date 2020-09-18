@@ -5,6 +5,7 @@ import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-cus
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
+import { SelectableItemService } from '../../../selectable-item/selectable-item.service';
 
 @Component({
   selector: 'document-showcase-template',
@@ -15,7 +16,10 @@ export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTempl
 
   private documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
 
+  properties: any;
+
   constructor(
+    private selectableItemService: SelectableItemService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
     private toastrService: NbToastrService,
@@ -30,15 +34,26 @@ export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTempl
   }
 
   private addToShowcase(): void {
+    this.properties = { 'app_global:networkshare': true };
     this.updateDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
       this.globalDocumentDialogService.close();
+      // this.selectableItemService.clear();
       this.toastrService.show(`Added to Showcase successfully!`, '', { status: 'success' });
     });
   }
 
+  private removeFromShowcase(): void {
+    this.properties = { 'app_global:networkshare': false };
+    this.updateDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
+      this.globalDocumentDialogService.close();
+      this.selectableItemService.clear();
+      this.refresh(this.documentPageService.getCurrentUrl());
+      this.toastrService.show(`Removed from Showcase successfully!`, '', { status: 'success' });
+    });
+  }
+
   private updateDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
-    const properties = { 'app_global:networkshare': true };
-    return forkJoin(...documents.map(x => this.updateDocument(x, properties)));
+    return forkJoin(...documents.map(x => this.updateDocument(x, this.properties)));
   }
 
   private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {

@@ -5,6 +5,8 @@ import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-cus
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
+import { SelectableItemService } from '../../../selectable-item/selectable-item.service';
+
 
 @Component({
   selector: 'document-delete-multiple-template',
@@ -15,7 +17,10 @@ export class DocumentDeleteMultipleTemplateComponent extends DocumentDialogCusto
 
   private documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
 
+  redirectUrl: string = this.documentPageService.getCurrentUrl();
+
   constructor(
+    private selectableItemService: SelectableItemService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
     private toastrService: NbToastrService,
@@ -31,8 +36,9 @@ export class DocumentDeleteMultipleTemplateComponent extends DocumentDialogCusto
 
   delete(): void {
     this.deleteDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
-    this.confirm(false, 300);
-    this.documentPageService.refresh();
+    this.globalDocumentDialogService.close();
+    this.selectableItemService.clear();
+    this.refresh(this.documentPageService.getCurrentUrl());
     this.toastrService.show(`Assets Deleted!`, '', { status: 'success' });
     });
   }

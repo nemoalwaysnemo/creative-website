@@ -20,7 +20,12 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
         <div style='float:right'>
           <a (click)="addToFavorite()">Add to favorites</a>
           &nbsp;&nbsp;
-          <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Add To Showcase">Add to Showcase</a>
+          <ng-container *ngIf="showcase === 'add'">
+            <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Add To Showcase">Add to Showcase</a>
+          </ng-container>
+          <ng-container *ngIf="showcase === 'remove'">
+            <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Remove from Showcase">Remove from Showcase</a>
+          </ng-container>
           &nbsp;&nbsp;
           <ng-container>
             <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete">Delete</a>
@@ -29,7 +34,7 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
       </div>
     </ng-container>
     <ng-template #showcaseDialog>
-      <global-document-dialog [settings]="showcaseDialogSettings" [metadata]="showcaseMetadata" [documentModel]="document" [title]="showcaseTitle"></global-document-dialog>
+      <global-document-dialog [settings]="showcaseDialogSettings" [metadata]="showcaseMetadata()" [documentModel]="document" [title]="showcaseTitle"></global-document-dialog>
     </ng-template>
     <ng-template #deleteDialog>
       <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="document" [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
@@ -43,6 +48,8 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   @Input() document: DocumentModel;
 
+  @Input() showcase: string;
+
   showcaseTitle: string = 'Add To Showcase';
 
   deleteTitle: string = 'Delete';
@@ -51,8 +58,12 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.DELETE_MULTIPLE_ASSETS] });
 
-  showcaseMetadata: any = {
-    addShowcase: true,
+  addShowcaseMetadata: any = {
+    addToShowcase: true,
+  };
+
+  removeShowcaseMetadata: any = {
+    removeFromShowcase: true,
   };
 
   dialogMetadata: any = {
@@ -109,8 +120,17 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
     if (this.documents && this.documents.length > 0) {
-      this.globalDocumentDialogService.open(dialog, { documents: this.documents, closeOnBackdropClick: closeOnBackdropClick, metadata: this.showcaseMetadata });
+      this.globalDocumentDialogService.open(dialog, { documents: this.documents, closeOnBackdropClick: closeOnBackdropClick, metadata: this.showcaseMetadata() });
     }
   }
+
+  showcaseMetadata() {
+    if (this.showcase === 'add') {
+      return this.addShowcaseMetadata;
+    } else if (this.showcase === 'remove') {
+      return this.removeShowcaseMetadata;
+    }
+  }
+
 
 }
