@@ -1,4 +1,4 @@
-<global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [enableScrolling]="enableScrolling" [searchResultFilter]="searchResultFilter"></global-search-result>
+<global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [enableScrolling]="enableScrolling"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
     <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study-Folder'">

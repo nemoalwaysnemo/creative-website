@@ -157,13 +157,13 @@ export class BackslashFolderInfoComponent {
       case 'App-Backslash-Case-Study-Category':
         return {
           'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/report/',
+          'urlRootPath': '/p/backslash/category/',
           'urlParentPath': '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Study-Region':
         return {
           'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/report/',
+          'urlRootPath': '/p/backslash/category/',
           'urlParentPath': '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Studies-Folder':
@@ -189,7 +189,7 @@ export class BackslashFolderInfoComponent {
     }
   }
 
-  private getAssetPath(doc: DocumentModel) {
+  getAssetPath(doc: DocumentModel) {
     return doc.facets.includes('Thumbnail') && doc.contextParameters && doc.contextParameters.thumbnail ? doc.contextParameters.thumbnail.url : assetPath('assets/images/App-Intelligence-Brands-Icon.jpg');
   }
 }
