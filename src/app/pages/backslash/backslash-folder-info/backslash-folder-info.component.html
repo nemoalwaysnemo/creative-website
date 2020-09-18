@@ -1,7 +1,7 @@
 <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div *ngIf="doc" class="property-section" [class.folder-info]="!showFolderInfo">
     <a [routerLink]="toImageParentDocument()" class="property-intro inline-top">
-      <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
+      <div [ngStyle]="{'background-image': 'url('+ getAssetPath(doc) +')'}"></div>
     </a>
     <div class="property-info inline-top">
       <h1 class='heading' [class.folder-name-heading]="!showFolderInfo">{{ doc.title }}</h1>
