@@ -1,28 +1,11 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-<ng-container *ngIf="isViewEnabled('categoryView')">
-  <div [ngStyle]="currentView === 'categoryView' ? {} : {'display': 'none'}">
-    <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="categoryAssetParams" [settings]="categorySearchFormSettings" (onLoading)="onLoading($event)">
-      <ng-container class="group-left">
-        <div class="global-search-form-buttons d-flex">
-          <button (click)="selectView('reportView')" class="icon_btn">Reports</button>
-        </div>
-      </ng-container>
-    </global-search-form>
-    <backslash-category-asset-search-result [enableScrolling]="enableScrolling['categoryView']" [regions]="regions" [folderId]="document?.uid"></backslash-category-asset-search-result>
-  </div>
-</ng-container>
-
-<ng-container *ngIf="isViewEnabled('reportView')">
-  <div [ngStyle]="currentView === 'reportView' ? {} : {'display': 'none'}">
-    <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="folderAssetParams" [settings]="reportSearchFormSettings" (onLoading)="onLoading($event)">
-      <ng-container class="group-left">
-        <div class="global-search-form-buttons d-flex">
-          <button (click)="selectView('categoryView')" class="icon_btn">Categories</button>
-          <backslash-form-button [parent]="document" [type]="'case'" [title]="'New Folder'"></backslash-form-button>
-          <backslash-form-button [parent]="document" [type]="'case asset'" [title]="'New Report'"></backslash-form-button>
-        </div>
-      </ng-container>
-    </global-search-form>
-    <backslash-case-study-asset-search-result [enableScrolling]="enableScrolling['reportView']" [folderId]="document?.uid"></backslash-case-study-asset-search-result>
-  </div>
-</ng-container>
+<global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="folderAssetParams" [settings]="reportSearchFormSettings">
+  <ng-container class="group-left">
+    <div class="global-search-form-buttons d-flex">
+      <a [routerLink]="['/p/backslash/category']" class="icon_btn" title="Categories">Categories</a>
+      <backslash-form-button [parent]="document" [type]="'case'" [title]="'New Folder'"></backslash-form-button>
+      <backslash-form-button [parent]="document" [type]="'case asset'" [title]="'New Report'"></backslash-form-button>
+    </div>
+  </ng-container>
+</global-search-form>
+<backslash-case-study-asset-search-result [folderId]="document?.uid"></backslash-case-study-asset-search-result>

@@ -105,7 +105,7 @@ export class BackslashFolderInfoComponent {
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick});
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick });
   }
 
   goBack(): void {
@@ -151,7 +151,7 @@ export class BackslashFolderInfoComponent {
       case 'App-Backslash-Case-Study-Folder':
         return {
           'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/report/reportView/',
+          'urlRootPath': '/p/backslash/report/',
           'urlParentPath': '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Study-Category':
@@ -165,7 +165,7 @@ export class BackslashFolderInfoComponent {
           'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
           'urlRootPath': '/p/backslash/report/',
           'urlParentPath': '/p/backslash/report/folder/',
-      };
+        };
       case 'App-Backslash-Case-Studies-Folder':
         return {
           'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
