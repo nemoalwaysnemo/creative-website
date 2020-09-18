@@ -285,7 +285,11 @@ export class GlobalSearchParams {
   }
 
   hasParam(key: string): boolean {
-    return this.providerParams.hasParam(key) || this.hasAggregates(key);
+    return this.providerParams.hasParam(key) || this.hasAggregates(key) || this.hasQueryParam(key);
+  }
+
+  hasQueryParam(key: string): boolean {
+    return this.queryParams.hasParam(key);
   }
 
   hasAggregates(key: string): boolean {
