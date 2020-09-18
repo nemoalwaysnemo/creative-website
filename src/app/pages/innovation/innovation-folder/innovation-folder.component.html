@@ -2,7 +2,6 @@
 <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
   <ng-container class="group-left">
     <div class="global-search-form-buttons d-flex" *ngIf="addChildrenPermission$ | async">
-      <innovation-form-button [parent]="document" [type]="'folder'" [title]="'New Folder'"></innovation-form-button>
       <innovation-form-button [parent]="document" [type]="'asset'" [title]="'New Presentation'"></innovation-form-button>
     </div>
   </ng-container>
