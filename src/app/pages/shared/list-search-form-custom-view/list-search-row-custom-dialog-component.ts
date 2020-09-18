@@ -1,9 +1,10 @@
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { objHasValue } from '@core/services/helpers';
-import { GlobalDocumentDialogService } from '../global-document-dialog';
+import { DocumentDialogEvent, GlobalDocumentDialogService } from '../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   template: `
@@ -36,11 +37,13 @@ import { Subject, Observable } from 'rxjs';
     </ng-container>
   `,
 })
-export class ListSearchRowCustomDialogComponent {
+export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
 
   options: ListSearchRowCustomViewSettings;
 
   dialogParams$: Subject<any>;
+
+  private subscription: Subscription = new Subscription();
 
   @ViewChild('dialog', { static: false }) dialog: TemplateRef<any>;
 
@@ -54,16 +57,36 @@ export class ListSearchRowCustomDialogComponent {
   }
 
   constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
+  }
 
+  ngOnInit(): void {
+    this.subscribeEvents();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getTitle(doc: DocumentModel): string {
     return this.options.dialogTitle.replace(':docTitle', doc.title);
   }
 
-  openDialog(params: { page: number, tab: number } = { page: 0, tab: 0 }): void {
+  openDialog(params: any = {}): void {
     if (this.options.enableClick) {
       this.globalDocumentDialogService.open(this.dialog, {}, params);
     }
+  }
+
+  private triggerOpenDialog(): void {
+
+  }
+
+  private subscribeEvents(): void {
+    const subscription = this.globalDocumentDialogService.onEventType('custom').pipe(
+      filter((params: any) => this.value.uid === params.uid),
+    ).subscribe((event: DocumentDialogEvent) => {
+      console.log(66666, event);
+    });
+    this.subscription.add(subscription);
   }
 }

@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
-import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
+import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-form-custom-view';
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
-import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
-import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -25,8 +25,6 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   baseParamsProject$: Subject<any> = new Subject<any>();
 
   baseParamsAsset$: Subject<any> = new Subject<any>();
-
-  dialogParams$: Subject<any> = new Subject<any>();
 
   layout: string = 'creative_brand_campaign full-width';
 
@@ -84,7 +82,6 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'button',
           enableClick: true,
-          dialogParams: this.dialogParams$,
           dialogSettings: new GlobalDocumentDialogSettings({
             components: [
               GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_ASSET,
@@ -155,6 +152,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(activatedRoute, documentPageService);
     // this.dialogParams$.subscribe(p => {console.log(p);
@@ -172,9 +170,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   }
 
   openUpload(): void {
-    console.log(this.dialogParams$);
-
-    this.dialogParams$.next({ page: 1, tab: 0 });
+    this.globalDocumentDialogService.triggerEvent({ name: 'UploadClicked', type: 'custom', messageContent: 'Upload Clicked', options: { test: 123123123 } });
   }
 
   protected getCurrentDocumentSearchParams(): any {
