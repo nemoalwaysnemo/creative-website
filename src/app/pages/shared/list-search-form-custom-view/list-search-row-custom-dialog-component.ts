@@ -1,8 +1,10 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { objHasValue } from '@core/services/helpers';
-import { GlobalDocumentDialogService } from '../global-document-dialog';
+import { DocumentDialogEvent, GlobalDocumentDialogService } from '../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
+import { Subject, Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   template: `
@@ -35,9 +37,15 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
     </ng-container>
   `,
 })
-export class ListSearchRowCustomDialogComponent {
+export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
 
   options: ListSearchRowCustomViewSettings;
+
+  dialogParams$: Subject<any>;
+
+  private subscription: Subscription = new Subscription();
+
+  // @ViewChild('dialog', { static: false }) dialog: TemplateRef<any>;
 
   @Input() value: DocumentModel;
 
@@ -49,7 +57,14 @@ export class ListSearchRowCustomDialogComponent {
   }
 
   constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
+  }
 
+  ngOnInit(): void {
+    this.subscribeEvents();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getTitle(doc: DocumentModel): string {
@@ -60,5 +75,18 @@ export class ListSearchRowCustomDialogComponent {
     if (this.options.enableClick) {
       this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
     }
+  }
+
+  private triggerOpenDialog(): void {
+
+  }
+
+  private subscribeEvents(): void {
+    const subscription = this.globalDocumentDialogService.onEventType('custom').pipe(
+      filter((params: any) => this.value.uid === params.uid),
+    ).subscribe((event: DocumentDialogEvent) => {
+      // console.log(66666, event);
+    });
+    this.subscription.add(subscription);
   }
 }
