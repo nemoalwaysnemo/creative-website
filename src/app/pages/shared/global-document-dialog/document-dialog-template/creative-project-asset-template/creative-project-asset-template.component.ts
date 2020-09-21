@@ -5,10 +5,9 @@ import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { DocumentPageService } from '../../../services/document-page.service';
-import { GlobalDocumentDialogService, DocumentDialogEvent } from '../../global-document-dialog.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { TAB_CONFIG } from './creative-project-asset-template-tab-config';
 import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-project-asset-template',
@@ -39,11 +38,6 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     super(globalDocumentDialogService, documentPageService);
   }
 
-  // onInit() {
-  //   super.onInit();
-  //   this.subscribeEvents();
-  // }
-
   getDialogFormTemplateName(doc: DocumentModel): string {
     let name: string = '';
     if (doc.type === 'App-Library-Project') {
@@ -56,17 +50,15 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     this.changeView(item.component);
   }
 
-  private subscribeEvents(): void {
-    const subscription = this.globalDocumentDialogService.onEventType('custom').pipe(
-      // filter((params: any) => this.document.uid === params.uid),
-    ).subscribe((event: DocumentDialogEvent) => {
-      // console.log(66666, event);
-    });
-    this.subscription.add(subscription);
-  }
-
   protected onInit(): void {
-    this.changeView(this.tabs[0].component);
+    const selectedTab = 'New Package';
+    let defaultTab = this.tabs[0].component;
+    if (this.dialogSettings.selectedMenu) {
+      const selectedMenu = this.tabs.find((x) => x.title === this.dialogSettings.selectedMenu);
+      defaultTab = selectedMenu ? selectedMenu.component : defaultTab;
+    }
+    defaultTab.selected = true;
+    this.changeView(defaultTab, { selectedTab });
   }
 
   protected onDestroy(): void {
@@ -89,10 +81,10 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     }
   }
 
-  private changeView(component: Type<any>): void {
+  private changeView(component: Type<any>, settings: any = {}): void {
     if (component) {
       this.clearDynamicComponent();
-      this.buildComponent(this.dynamicTarget, component);
+      this.buildComponent(this.dynamicTarget, component, settings);
     }
   }
 
@@ -108,9 +100,10 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     return dynamicTarget.createComponent(componentFactory);
   }
 
-  protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>): void {
+  protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>, settings: any = {}): void {
     this.dynamicComponentRef = this.createDynamicComponent(dynamicTarget, component);
     this.dynamicComponentRef.instance.documentModel = this.document;
+    this.dynamicComponentRef.instance.templateSettings = settings;
   }
 
 }

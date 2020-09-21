@@ -28,7 +28,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
 
   layout: string = 'creative_brand_campaign full-width';
 
-  selectedProject: boolean = false;
+  private selectedProject: DocumentModel = null;
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
@@ -162,18 +162,31 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     // });
   }
 
+  isSelectedProject(): boolean {
+    return !!this.selectedProject;
+  }
+
   onSelectedCampaign(row: any): void {
-    this.selectedProject = false;
+    this.selectedProject = null;
     this.baseParamsProject$.next(this.buildProjectParams(this.document, row.isSelected ? row.data.action : null));
   }
 
   onSelectedProject(row: any): void {
-    this.selectedProject = row.isSelected;
+    this.selectedProject = row.data.action;
     this.baseParamsAsset$.next(this.buildAssetParams(this.document, row.isSelected ? row.data.action : null));
   }
 
-  openUpload(): void {
-    this.globalDocumentDialogService.triggerEvent({ name: 'UploadClicked', type: 'custom', messageContent: 'Upload Clicked', options: { test: 123123123 } });
+  openDialog(type: string): void {
+    let selectedMenu = '';
+    let selectedTab = '';
+    if (type === 'upload') {
+      selectedMenu = 'Import';
+      selectedTab = '';
+    } else if (type === 'deliver') {
+      selectedMenu = '';
+      selectedTab = '';
+    }
+    this.globalDocumentDialogService.triggerEvent({ name: 'ButtonClicked', type: 'custom', messageContent: 'Upload Clicked', options: { document: this.selectedProject, selectedMenu, selectedTab } });
   }
 
   protected getCurrentDocumentSearchParams(): any {
