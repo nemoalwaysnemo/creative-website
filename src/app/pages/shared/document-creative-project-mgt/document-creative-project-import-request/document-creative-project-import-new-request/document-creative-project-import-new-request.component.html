@@ -1,0 +1,4 @@
+<div class="text-content pure-text">
+ <document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" (callback)="onCallback($event)"></document-form>
+ <button *ngIf="!showStatus" nbButton outline class="btn btn-info btn-xs" status="info" (click)="goBack()">Back</button>
+</div>
