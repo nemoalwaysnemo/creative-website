@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
 import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
 
@@ -48,43 +48,12 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
 
   protected getSettings(): any[] {
     return [
-      new DynamicInputModel({
-        id: 'dc:title',
-        label: 'Title',
-        maxLength: 50,
-        placeholder: 'Title',
-        autoComplete: 'off',
-        required: true,
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          minLength: 'At least 4 characters',
-        },
-      }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:clientName',
-        label: 'Client',
-        placeholder: 'Client',
-        required: false,
-      }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         placeholder: 'Brand',
         required: false,
         visibleFn: (doc: DocumentModel): boolean => doc.get('app_global:brand_activation'),
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:industry',
-        label: 'Industry',
-        settings: {
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Industries',
-        },
       }),
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:region',
@@ -95,12 +64,13 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
-        label: 'Librarians',
+        label: 'Librarians/Download Approvers',
         settings: {
           initSearch: false,
           placeholder: 'Select a value',
           providerType: SuggestionSettings.USER_GROUP,
         },
+        visibleFn: (doc: DocumentModel, user: UserModel): boolean => user.isAdmin(),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_owners',

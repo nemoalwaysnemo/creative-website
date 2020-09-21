@@ -1,5 +1,5 @@
 <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
-<backslash-folder-info [loading]="folderLoading" [document]="folder" [showButton]="showButton" [assetUrlMapping]="assetUrlMapping"></backslash-folder-info>
+<backslash-folder-info [loading]="folderLoading" [document]="folder" [showButton]="showButton" [showFolderInfo]="showFolderInfo(document)" [assetUrlMapping]="assetUrlMapping"></backslash-folder-info>
 <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">
     <div class="showcase left">

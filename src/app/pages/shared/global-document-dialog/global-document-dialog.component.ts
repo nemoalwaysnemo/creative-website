@@ -54,12 +54,12 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
 
   }
 
-  protected onOpen(e: DocumentDialogEvent): void {
+  protected onInitialized(e: DocumentDialogEvent): void {
     const componentName = e.options.componentName;
     const component = e.options.component || this.mainComponent;
     this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', type: 'built-in', messageContent: 'View Opened', options: { componentName, component } });
     this.googleAnalyticsTrackEvent(component.COMPONENT_TYPE);
-    this.selectView(componentName, component);
+    this.selectView(componentName, component, e.options);
   }
 
   protected getComponentByName(name: string): Type<any> {

@@ -112,8 +112,9 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     };
   }
 
+  // no use?
   openDialog(dialog: TemplateRef<any>): void {
-    this.globalDocumentDialogService.open(dialog);
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
 
 }

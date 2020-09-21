@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
+import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -15,23 +15,9 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
-  onSearching: boolean = true;
-
-  currentView: string = 'categoryView';
-
-  enableScrolling: any = { categoryView: true, reportView: true };
-
   filters: SearchFilterModel[] = [
     // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
-
-  categoryAssetParams: any = {
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_mixinType_not_in: '',
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CATEGORY_FOLDER_TYPE,
-  };
 
   folderAssetParams: any = {
     currentPageIndex: 0,
@@ -41,16 +27,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER_ASSETS,
   };
 
-  categorySearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    enableQueryParams: false,
-  });
-
-  reportSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'document-backslash-report',
-    enableQueryParams: false,
-  });
-
-  protected enabledView: any = { categoryView: true };
+  reportSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
     if (searchParams.hasKeyword() || searchParams.hasFilters()) {
@@ -92,33 +69,4 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_BASE_FOLDER_TYPE,
     };
   }
-
-  onLoading(loading: boolean): void {
-    this.onSearching = loading;
-  }
-
-  selectView(view: string): void {
-    if (!this.onSearching) {
-      this.performViewTemplate(view);
-    }
-  }
-
-  isViewEnabled(name: string): boolean {
-    return this.enabledView[name];
-  }
-
-  protected performViewTemplate(name: string): void {
-    this.currentView = name;
-    if (!this.enabledView[name]) {
-      this.enabledView[name] = true;
-    }
-    for (const key in this.enableScrolling) {
-      if (key === name) {
-        this.enableScrolling[key] = true;
-      } else {
-        this.enableScrolling[key] = false;
-      }
-    }
-  }
-
 }

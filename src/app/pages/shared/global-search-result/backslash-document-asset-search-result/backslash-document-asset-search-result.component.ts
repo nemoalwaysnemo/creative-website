@@ -22,6 +22,8 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
     }
   }
 
+  @Input() enableScrolling: boolean = true;
+
   @Input() layout: string;
 
   @Input() resultHeader: string;
@@ -75,7 +77,7 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
     this.onQueryParamsChanged();
   }
 
-  openDialog(dialog: TemplateRef<any>) {
-    this.globalDocumentDialogService.open(dialog);
+  openDialog(dialog: TemplateRef<any>): void {
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
 }

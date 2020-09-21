@@ -152,7 +152,7 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   private getOptionUids(items: OptionModel[]): string[] {
-    return items.filter((x: OptionModel) => isDocumentUID(x.label)).map((x: OptionModel) => x.value);
+    return items.filter((x: OptionModel) => x.label.split(/(\s+)/).some(label => isDocumentUID(label))).map((x: OptionModel) => x.value);
   }
 
   private performOptions(items: OptionModel[]): void {

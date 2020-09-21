@@ -104,4 +104,19 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
     return (['App-Backslash-Edges-Folder', 'App-Backslash-Resources-Folder', 'App-Backslash-Case-Study-Folder', 'App-Backslash-Case-Studies-Folder'].includes(doc.type))
       ? this.assetUrlMapping[doc.type] : this.assetUrlMapping[doc.type] + '/' + doc.uid;
   }
+
+  showFolderInfo(doc: DocumentModel): boolean {
+    if (doc) {
+      switch (doc.type) {
+        case 'App-Backslash-Edges-Asset':
+          return false;
+        case 'App-Backslash-Resources-Asset':
+          return false;
+        case 'App-Backslash-Case-Study':
+          return false;
+        default:
+          return true;
+      }
+    }
+  }
 }

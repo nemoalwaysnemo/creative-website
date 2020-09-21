@@ -37,7 +37,7 @@ export class IntelligenceFormButtonComponent {
   }
 
   openDialog(dialog: TemplateRef<any>): void {
-    this.globalDocumentDialogService.open(dialog);
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
 
   private getDialogFormSettings(type: string): GlobalDocumentDialogSettings {

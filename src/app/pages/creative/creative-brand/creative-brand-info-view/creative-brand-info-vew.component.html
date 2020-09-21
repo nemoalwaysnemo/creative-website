@@ -6,7 +6,9 @@
     <div class="property-info inline-top">
       <h1 [title]="documentModel.get('The_Loupe_Main:brand').join(', ')">{{documentModel.get('The_Loupe_Main:brand').join(', ')}}</h1>
       <ul>
-        <li><b>Agency:</b> {{documentModel.get('The_Loupe_Main:agency')}}</li>
+        <a class="agency-link" [routerLink]="['/p/creative/agency', documentModel.parentRef, 'showcase']">
+          <li><b>Agency:</b> {{documentModel.get('The_Loupe_Main:agency')}}</li>
+        </a>
       </ul>
     </div>
     <nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }" style="padding: 0;"></nb-route-tabset>

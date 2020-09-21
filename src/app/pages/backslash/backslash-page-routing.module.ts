@@ -13,6 +13,7 @@ import { BackslashEdgeFolderComponent } from './backslash-edge-folder/backslash-
 import { BackslashAssetViewComponent } from './backslash-asset-view/backslash-asset-view.component';
 import { BackslashCaseStudyFolderComponent } from './backslash-case-study-folder/backslash-case-study-folder.component';
 import { BackslashTriggerPoolViewComponent } from './backslash-trigger-pool-view/backslash-trigger-pool-view.component';
+import { BackslashCategoryComponent } from './backslash-category/backslash-category.component';
 
 const routes: Routes = [{
   path: '',
@@ -49,6 +50,10 @@ const routes: Routes = [{
     {
       path: 'report',
       component: BackslashCaseStudyComponent,
+    },
+    {
+      path: 'category',
+      component: BackslashCategoryComponent,
     },
     {
       path: 'report/folder/:id',

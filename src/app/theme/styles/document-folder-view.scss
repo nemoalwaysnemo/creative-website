@@ -32,7 +32,7 @@
 		font-family: 'Averta for TBWA W01 Black', helvetica, arial;
 		font-size: 23px;
 		margin: 0;
-	}
+  }
 	> div {
 		font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
 		line-height: 24px;
@@ -52,5 +52,15 @@
   &:hover {
     color: #000000;
     text-decoration: none;
+  }
+}
+.folder-info {
+  margin-bottom: 30px;
+  .folder-name-heading {
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+    line-height: 77px;
+    font-size: 80px;
+      margin: 0 0 7%;
+    color: #fecc00;
   }
 }

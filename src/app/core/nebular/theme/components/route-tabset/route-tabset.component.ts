@@ -4,7 +4,7 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
-import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { convertToBoolProperty } from '../helpers';
 
 /**
@@ -63,34 +63,54 @@ import { convertToBoolProperty } from '../helpers';
   template: `
     <ul class="route-tabset">
       <ng-container *ngFor="let tab of tabs">
-        <li *ngIf="tab.disabled; else enabled"
-            [class.responsive]="tab.responsive"
-            class="route-tab disabled"
-            tabindex="-1">
-          <a tabindex="-1">
-            <i *ngIf="tab.icon" [class]="tab.icon"></i>
-            <span *ngIf="tab.title">{{ tab.title }}</span>
-          </a>
-        </li>
 
-        <ng-template #enabled>
-          <li (click)="$event.preventDefault(); selectTab(tab)"
-              [routerLink]="tab.route"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="activeLinkOptions"
-              [class.responsive]="tab.responsive"
-              tabindex="0"
-              class="route-tab">
-            <a tabindex="-1">
-              <i *ngIf="tab.icon" [class]="tab.icon"></i>
-              <span *ngIf="tab.title">{{ tab.title }}</span>
-            </a>
-          </li>
-        </ng-template>
+        <ng-container [ngSwitch]="true">
+          <ng-container *ngSwitchCase="tab.disabled">
+            <li [class.responsive]="tab.responsive"
+                class="route-tab disabled"
+                tabindex="-1">
+              <a tabindex="-1">
+                <i *ngIf="tab.icon" [class]="tab.icon"></i>
+                <span *ngIf="tab.title">{{ tab.title }}</span>
+              </a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="!!tab.activeFunc">
+            <li (click)="$event.preventDefault(); selectTab(tab)"
+                  [routerLink]="tab.route"
+                  [class.active]="isActive(tab)"
+                  [class.responsive]="tab.responsive"
+                  tabindex="0"
+                  class="route-tab">
+                <a tabindex="-1">
+                  <i *ngIf="tab.icon" [class]="tab.icon"></i>
+                  <span *ngIf="tab.title">{{ tab.title }}</span>
+                </a>
+              </li>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            <li (click)="$event.preventDefault(); selectTab(tab)"
+                  [routerLink]="tab.route"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="activeLinkOptions"
+                  [class.responsive]="tab.responsive"
+                  tabindex="0"
+                  class="route-tab">
+                <a tabindex="-1">
+                  <i *ngIf="tab.icon" [class]="tab.icon"></i>
+                  <span *ngIf="tab.title">{{ tab.title }}</span>
+                </a>
+              </li>
+          </ng-container>
+        </ng-container>
+
       </ng-container>
     </ul>
     <router-outlet></router-outlet>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NbRouteTabsetComponent {
 
@@ -125,5 +145,9 @@ export class NbRouteTabsetComponent {
 
   selectTab(tab: any) {
     this.changeTab.emit(tab);
+  }
+
+  isActive(tab: any): boolean {
+    return tab.activeFunc && tab.activeFunc(window.location.href);
   }
 }

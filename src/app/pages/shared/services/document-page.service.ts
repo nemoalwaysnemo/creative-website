@@ -141,7 +141,7 @@ export class DocumentPageService {
   }
 
   getCurrentFullUrl(): string {
-    return document.location.href;
+    return window.location.href;
   }
 
   getCurrentAppUrl(moduleName: string): string {

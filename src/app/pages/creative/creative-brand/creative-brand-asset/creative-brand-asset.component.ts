@@ -4,6 +4,7 @@ import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings } from '@pages/shared';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { SelectableItemService } from '../../../shared/selectable-item/selectable-item.service';
 
 @Component({
   selector: 'creative-brand-asset',
@@ -16,8 +17,10 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
 
   layout: string = 'creative_brand_asset full-width';
 
+  showcase: string = 'add';
+
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: GlobalSearchParams): boolean => searchParams.hasParam('the_loupe_main_assettype_agg') }),
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: GlobalSearchParams): boolean => searchParams.hasParam('the_loupe_main_assettype_agg') || searchParams.hasParam('the_loupe_main_campaign_agg') }),
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
@@ -31,6 +34,7 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
   });
 
   constructor(
+    private selectableItemService: SelectableItemService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
@@ -41,6 +45,7 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
     super.setCurrentDocument(doc);
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+      this.selectableItemService.clear();
     }
   }
 

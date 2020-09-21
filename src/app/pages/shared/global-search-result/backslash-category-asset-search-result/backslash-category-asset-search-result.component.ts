@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
 import { assetPath } from '@core/services/helpers';
+import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'backslash-category-asset-search-result',
-  styleUrls: ['../thumbnail-view.scss'],
+  styleUrls: ['../thumbnail-view.scss', './backslash-case-study-asset-search-result.component.scss'],
   templateUrl: './backslash-category-asset-search-result.component.html',
 })
 export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResultComponent {
@@ -13,6 +14,8 @@ export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResul
   @Input() folderId: string;
 
   @Input() enableScrolling: boolean = true;
+
+  @Input() regions: [];
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
@@ -22,7 +25,7 @@ export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResul
     this.onQueryParamsChanged();
   }
 
-  assetPath(path: string) {
-    return assetPath(path);
+  getAssetPath(doc: DocumentModel) {
+    return doc.facets.includes('Thumbnail') && doc.contextParameters && doc.contextParameters.thumbnail ? doc.contextParameters.thumbnail.url : assetPath('assets/images/App-Intelligence-Brands-Icon.jpg');
   }
 }

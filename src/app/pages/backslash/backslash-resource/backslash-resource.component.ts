@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { Subject, timer } from 'rxjs';
 import { TAB_CONFIG } from '../backslash-tab-config';
+import { DocumentModel, GlobalSearchParams, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -20,13 +20,6 @@ export class BackslashResourceComponent extends GlobalDocumentViewComponent {
 
   filters: SearchFilterModel[] = [
   ];
-
-  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
-    if (searchParams.hasKeyword()) {
-      searchParams = this.buildSearchAssetsParams(searchParams);
-    }
-    return { searchParams, opts };
-  }
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     enableQueryParams: true,
@@ -58,19 +51,6 @@ export class BackslashResourceComponent extends GlobalDocumentViewComponent {
       ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_BASE_FOLDER_TYPE,
     };
-  }
-
-  // get all matched assets and their parent folders
-  protected buildSearchAssetsParams(searchParams: GlobalSearchParams): GlobalSearchParams {
-    const params: any = {
-      currentPageIndex: searchParams.getSettings('append') ? searchParams.providerParams.currentPageIndex : 0,
-      pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
-      ecm_mixinType_not_in: '',
-      ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_SUB_FOLDER_TYPE,
-    };
-    return searchParams.setParams(params);
   }
 
   protected buildDefaultAssetsParams(doc: DocumentModel): GlobalSearchParams {

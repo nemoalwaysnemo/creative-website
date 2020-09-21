@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
-import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
+import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-form-custom-view';
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
-import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
-import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -28,6 +28,8 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
 
   layout: string = 'creative_brand_campaign full-width';
 
+  private selectedProject: DocumentModel = null;
+
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
@@ -48,6 +50,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   });
 
   listViewSettingsCampaign: any = {
+    hideHeader: true,
     hideSubHeader: true,
     columns: {
       title: {
@@ -67,6 +70,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   };
 
   listViewSettingsProject: any = {
+    hideHeader: true,
     hideSubHeader: true,
     columns: {
       title: {
@@ -93,6 +97,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   };
 
   listViewSettingsAsset: any = {
+    hideHeader: true,
     hideSubHeader: true,
     columns: {
       title: {
@@ -150,16 +155,38 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(activatedRoute, documentPageService);
+    // this.dialogParams$.subscribe(p => {console.log(p);
+    // });
+  }
+
+  isSelectedProject(): boolean {
+    return !!this.selectedProject;
   }
 
   onSelectedCampaign(row: any): void {
+    this.selectedProject = null;
     this.baseParamsProject$.next(this.buildProjectParams(this.document, row.isSelected ? row.data.action : null));
   }
 
   onSelectedProject(row: any): void {
+    this.selectedProject = row.data.action;
     this.baseParamsAsset$.next(this.buildAssetParams(this.document, row.isSelected ? row.data.action : null));
+  }
+
+  openDialog(type: string): void {
+    let selectedMenu = '';
+    let selectedTab = '';
+    if (type === 'upload') {
+      selectedMenu = 'Import';
+      selectedTab = '';
+    } else if (type === 'deliver') {
+      selectedMenu = '';
+      selectedTab = '';
+    }
+    this.globalDocumentDialogService.triggerEvent({ name: 'ButtonClicked', type: 'custom', messageContent: 'Upload Clicked', options: { document: this.selectedProject, selectedMenu, selectedTab } });
   }
 
   protected getCurrentDocumentSearchParams(): any {

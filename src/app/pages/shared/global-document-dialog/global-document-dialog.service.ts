@@ -16,6 +16,7 @@ export class DocumentDialogEvent {
 
 export interface DocumentDialogOption {
   [key: string]: any;
+  closeOnBackdropClick?: boolean;
   componentName?: string;
   component?: any;
   metadata?: any;
@@ -36,7 +37,8 @@ export class GlobalDocumentDialogService {
 
   open(dialog: TemplateRef<any>, options: DocumentDialogOption = {}): void {
     this.options = options;
-    this.dialogService.open(dialog);
+    const closeOnBackdropClick = typeof options.closeOnBackdropClick === 'undefined' ? true : options.closeOnBackdropClick;
+    this.dialogService.open(dialog, { closeOnBackdropClick });
   }
 
   close(): void {

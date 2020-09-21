@@ -6,5 +6,5 @@
     </div>
   </ng-container>
 </global-search-form>
-<backslash-folder-info [loading]="loading" [document]="document" [assetUrl]="'/p/backslash/report/folder/'" [deleteRedirectUrl]="'/p/backslash/report/'"></backslash-folder-info>
+<backslash-folder-info [loading]="loading" [document]="document" [assetUrl]="'/p/backslash/report/folder/'" [deleteRedirectUrl]="'/p/backslash/report/'" [showButton]="showFolderButtons(document)" [showFolderInfo]="showFolderInfo"></backslash-folder-info>
 <backslash-case-study-folder-asset-search-result [folderId]="document?.uid"></backslash-case-study-folder-asset-search-result>

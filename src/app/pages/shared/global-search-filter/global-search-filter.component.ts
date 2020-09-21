@@ -79,8 +79,8 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
   }
 
   private buildDynamicOptionSettings(filters: SearchFilterModel[] = [], search: SearchResponse): OptionSettings[] {
-    const visiableFilters = filters.filter((x: SearchFilterModel) => x.visibleFn(search.searchParams));
-    return this.buildAggOptionSettings(visiableFilters, search.response.buildAggregateModels());
+    const visibleFilters = filters.filter((x: SearchFilterModel) => x.visibleFn(search.searchParams));
+    return this.buildAggOptionSettings(visibleFilters, search.response.buildAggregateModels());
   }
 
   private buildAggOptionSettings(filters: SearchFilterModel[] = [], models: AggregateModel[] = []): OptionSettings[] {
