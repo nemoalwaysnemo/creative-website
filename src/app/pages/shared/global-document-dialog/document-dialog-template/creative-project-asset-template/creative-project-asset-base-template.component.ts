@@ -9,9 +9,16 @@ export class CreativeProjectAssetBaseTemplateComponent implements OnInit, OnDest
 
   document: DocumentModel;
 
+  settings: any = {};
+
   @Input()
   set documentModel(doc: DocumentModel) {
     this.setDocument(doc);
+  }
+
+  @Input()
+  set templateSettings(settings: any) {
+    this.settings = settings;
   }
 
   protected subscription: Subscription = new Subscription();

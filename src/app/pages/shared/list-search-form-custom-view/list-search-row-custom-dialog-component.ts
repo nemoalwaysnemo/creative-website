@@ -45,7 +45,7 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  // @ViewChild('dialog', { static: false }) dialog: TemplateRef<any>;
+  @ViewChild('dialog', { static: false }) dialog: TemplateRef<any>;
 
   @Input() value: DocumentModel;
 
@@ -71,21 +71,24 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
     return this.options.dialogTitle.replace(':docTitle', doc.title);
   }
 
-  openDialog(dialog: TemplateRef<any>): void {
+  openDialog(dialog: TemplateRef<any>, opts: any = {}): void {
     if (this.options.enableClick) {
-      this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
+      const options = Object.assign({}, { closeOnBackdropClick: false }, opts);
+      this.globalDocumentDialogService.open(dialog, options);
     }
   }
 
-  private triggerOpenDialog(): void {
-
+  private triggerDialog(event: DocumentDialogEvent): void {
+    if (event.name === 'ButtonClicked') {
+      this.openDialog(this.dialog, { selectedMenu: event.options.selectedMenu, selectedTab: event.options.selectedTab });
+    }
   }
 
   private subscribeEvents(): void {
     const subscription = this.globalDocumentDialogService.onEventType('custom').pipe(
-      filter((params: any) => this.value.uid === params.uid),
+      filter((params: any) => params.options.document && this.value.uid === params.options.document.uid),
     ).subscribe((event: DocumentDialogEvent) => {
-      // console.log(66666, event);
+      this.triggerDialog(event);
     });
     this.subscription.add(subscription);
   }
