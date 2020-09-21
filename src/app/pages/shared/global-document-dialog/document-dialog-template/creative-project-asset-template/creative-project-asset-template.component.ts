@@ -39,10 +39,10 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     super(globalDocumentDialogService, documentPageService);
   }
 
-  onInit() {
-    super.onInit();
-    this.subscribeEvents();
-  }
+  // onInit() {
+  //   super.onInit();
+  //   this.subscribeEvents();
+  // }
 
   getDialogFormTemplateName(doc: DocumentModel): string {
     let name: string = '';
@@ -65,12 +65,8 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     this.subscription.add(subscription);
   }
 
-  protected onOpen(): void {
-    const params = this.globalDocumentDialogService.getParams();
-    const index = !!params ? params.page : 0;
-    // console.log(this.tabs);
-    this.tabs[1].selected = true;
-    this.changeView(this.tabs[1].component);
+  protected onInit(): void {
+    this.changeView(this.tabs[0].component);
   }
 
   protected onDestroy(): void {

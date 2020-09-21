@@ -24,6 +24,8 @@ import { InnovationAssetPreviewDialogComponent } from './innovation-asset-previe
 import { BizdevAssetPreviewDialogComponent } from './bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 import { IntelligenceAssetPreviewDialogComponent } from './intelligence-asset-preview-dialog/intelligence-asset-preview-dialog.component';
 import { CreativeAssetPreviewDialogComponent } from './creative-asset-preview-dialog/creative-asset-preview-dialog.component';
+import { DocumentShowcaseTemplateComponent } from './document-showcase-template/document-showcase-template.component';
+import { DocumentDeleteMultipleTemplateComponent } from './document-delete-multiple-template/document-delete-multiple-template.component';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
@@ -43,6 +45,8 @@ const COMPONENTS = [
   BizdevAssetPreviewDialogComponent,
   IntelligenceAssetPreviewDialogComponent,
   CreativeAssetPreviewDialogComponent,
+  DocumentShowcaseTemplateComponent,
+  DocumentDeleteMultipleTemplateComponent,
 ];
 
 @NgModule({
