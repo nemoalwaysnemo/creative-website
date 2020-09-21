@@ -85,7 +85,7 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
     const subscription = this.globalDocumentDialogService.onEventType('custom').pipe(
       filter((params: any) => this.value.uid === params.uid),
     ).subscribe((event: DocumentDialogEvent) => {
-      console.log(66666, event);
+      // console.log(66666, event);
     });
     this.subscription.add(subscription);
   }

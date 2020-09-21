@@ -1,13 +1,14 @@
-import { Component, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver, ComponentRef } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver, ComponentRef, OnInit, OnDestroy } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { parseTabRoute } from '@core/services/helpers';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { DocumentPageService } from '../../../services/document-page.service';
-import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
+import { GlobalDocumentDialogService, DocumentDialogEvent } from '../../global-document-dialog.service';
 import { TAB_CONFIG } from './creative-project-asset-template-tab-config';
 import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-project-asset-template',
@@ -38,6 +39,11 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     super(globalDocumentDialogService, documentPageService);
   }
 
+  onInit() {
+    super.onInit();
+    this.subscribeEvents();
+  }
+
   getDialogFormTemplateName(doc: DocumentModel): string {
     let name: string = '';
     if (doc.type === 'App-Library-Project') {
@@ -50,11 +56,21 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     this.changeView(item.component);
   }
 
+  private subscribeEvents(): void {
+    const subscription = this.globalDocumentDialogService.onEventType('custom').pipe(
+      // filter((params: any) => this.document.uid === params.uid),
+    ).subscribe((event: DocumentDialogEvent) => {
+      // console.log(66666, event);
+    });
+    this.subscription.add(subscription);
+  }
+
   protected onOpen(): void {
     const params = this.globalDocumentDialogService.getParams();
     const index = !!params ? params.page : 0;
-    this.tabs[index].selected = true;
-    this.changeView(this.tabs[index].component);
+    // console.log(this.tabs);
+    this.tabs[1].selected = true;
+    this.changeView(this.tabs[1].component);
   }
 
   protected onDestroy(): void {
