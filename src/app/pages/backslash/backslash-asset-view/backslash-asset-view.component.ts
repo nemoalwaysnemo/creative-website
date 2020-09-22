@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '../../shared';
-import { parseTabRoute } from '@core/services/helpers';
-import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -22,8 +20,6 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
   enableThumbnailCreation: boolean = true;
 
   deleteRedirectUrl: string = '';
-
-  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   backslashEdgeFolderParams: any = {
     pageSize: 1,

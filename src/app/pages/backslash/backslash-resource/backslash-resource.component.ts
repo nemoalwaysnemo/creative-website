@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { parseTabRoute } from '@core/services/helpers';
 import { Subject, timer } from 'rxjs';
-import { TAB_CONFIG } from '../backslash-tab-config';
 import { DocumentModel, GlobalSearchParams, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -15,8 +13,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 export class BackslashResourceComponent extends GlobalDocumentViewComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
-
-  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   filters: SearchFilterModel[] = [
   ];
@@ -66,4 +62,5 @@ export class BackslashResourceComponent extends GlobalDocumentViewComponent {
     }
     return new GlobalSearchParams(params);
   }
+
 }
