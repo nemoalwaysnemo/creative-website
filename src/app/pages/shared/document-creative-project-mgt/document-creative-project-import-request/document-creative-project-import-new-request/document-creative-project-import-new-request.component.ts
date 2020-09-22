@@ -43,11 +43,15 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
         rows: 3,
         required: false,
       }),
-      new DynamicInputModel({
+      new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Delivery:expiry_days',
         label: 'Maximum days for upload',
-        hidden: true,
-        value: 3,
+        defaultValue: 3,
+        settings: {
+          placeholder: 3,
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-Delivery-expiry-days',
+        },
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:brand',
