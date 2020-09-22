@@ -86,28 +86,6 @@ const routes: Routes = [{
       },
     },
     {
-      path: 'brand/:id/project/:id/request/:id/import',
-      component: CreativeBrandProject3rdPartyImportComponent,
-      canActivate: [NgxPermissionsGuard],
-      data: {
-        permissions: {
-          only: UserPermission.Mgt,
-          redirectTo: 'home',
-        },
-      },
-    },
-    {
-      path: 'brand/:id/project/:id/approval',
-      component: CreativeBrandProject3rdPartyApprovalComponent,
-      canActivate: [NgxPermissionsGuard],
-      data: {
-        permissions: {
-          only: UserPermission.Mgt,
-          redirectTo: 'home',
-        },
-      },
-    },
-    {
       path: 'brand/:id/library',
       component: CreativeBrandManageLibraryComponent,
       canActivate: [NgxPermissionsGuard],
@@ -148,6 +126,28 @@ const routes: Routes = [{
     {
       path: 'agency/:id/list',
       component: CreativeAgencyManageListComponent,
+    },
+    {
+      path: 'project/:id/request/:request/import',
+      component: CreativeBrandProject3rdPartyImportComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: UserPermission.Mgt,
+          redirectTo: 'home',
+        },
+      },
+    },
+    {
+      path: 'project/:id/approval',
+      component: CreativeBrandProject3rdPartyApprovalComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: UserPermission.Mgt,
+          redirectTo: 'home',
+        },
+      },
     },
     {
       path: '',
