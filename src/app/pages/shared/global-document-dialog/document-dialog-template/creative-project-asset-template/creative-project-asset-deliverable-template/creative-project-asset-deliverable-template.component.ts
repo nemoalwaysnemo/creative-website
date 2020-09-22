@@ -49,7 +49,7 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
 
   tabInfo$ = new Subject<TabInfo>();
 
-  currentTab: any;
+  currentTab: any = this.tabItems[0];
 
   templateRef: TemplateRef<any>;
 
