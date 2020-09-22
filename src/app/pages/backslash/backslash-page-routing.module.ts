@@ -1,5 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { UserPermission } from '@core/acl';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 import { BackslashPageComponent } from './backslash-page.component';
 import { BackslashRemotePageComponent } from './backslash-remote-page.component';
 import { BackslashHomeComponent } from './backslash-home/backslash-home.component';
@@ -66,6 +68,13 @@ const routes: Routes = [{
     {
       path: 'Trigger Pool',
       component: BackslashTriggerPoolComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: UserPermission.Mgt,
+          redirectTo: 'home',
+        },
+      },
     },
     {
       path: 'Trigger Pool/asset/:id',

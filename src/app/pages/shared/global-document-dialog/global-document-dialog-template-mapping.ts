@@ -20,10 +20,10 @@ export const GLOBAL_DOCUMENT_DIALOG = {
   CUSTOM_DOWNLOAD_REQUEST: DocumentDownloadRequestTemplateComponent,
   CUSTOM_DELETION: DocumentDialogDeletionTemplateComponent,
   CUSTOM_CREATIVE_PROJECT_ASSET: CreativeProjectAssetTemplateComponent,
+  CUSTOM_SHOWCASE_ADD_REMOVE: DocumentShowcaseTemplateComponent,
+  CUSTOM_DELETE_MULTIPLE_ASSETS: DocumentDeleteMultipleTemplateComponent,
   PREVIEW_INNOVATION_ASSET: InnovationAssetPreviewDialogComponent,
   PREVIEW_BIZDEV_ASSET: BizdevAssetPreviewDialogComponent,
   PREVIEW_INTELLIGENCE_ASSET: IntelligenceAssetPreviewDialogComponent,
   PREVIEW_CREATIVE_ASSET: CreativeAssetPreviewDialogComponent,
-  SHOWCASE_ADD_REMOVE: DocumentShowcaseTemplateComponent,
-  DELETE_MULTIPLE_ASSETS: DocumentDeleteMultipleTemplateComponent,
 };

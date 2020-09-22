@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { NbToastrService } from '@core/nebular/theme';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
 import { SelectableItemService } from '../../../selectable-item/selectable-item.service';
-
 
 @Component({
   selector: 'document-delete-multiple-template',
@@ -21,9 +19,8 @@ export class DocumentDeleteMultipleTemplateComponent extends DocumentDialogCusto
 
   constructor(
     private selectableItemService: SelectableItemService,
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
-    private toastrService: NbToastrService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(globalDocumentDialogService, documentPageService);
   }
@@ -36,10 +33,10 @@ export class DocumentDeleteMultipleTemplateComponent extends DocumentDialogCusto
 
   delete(): void {
     this.deleteDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
-    this.globalDocumentDialogService.close();
-    this.selectableItemService.clear();
-    this.refresh(this.documentPageService.getCurrentUrl());
-    this.toastrService.show(`Assets Deleted!`, '', { status: 'success' });
+      this.globalDocumentDialogService.close();
+      this.selectableItemService.clear();
+      this.refresh(this.documentPageService.getCurrentUrl());
+      this.documentPageService.notify(`Assets Deleted!`, 'Assets Deleted!', 'success');
     });
   }
 

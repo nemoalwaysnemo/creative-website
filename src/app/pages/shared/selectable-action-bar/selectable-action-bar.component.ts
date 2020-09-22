@@ -1,14 +1,11 @@
 import { Component, Input, OnInit, OnDestroy, TemplateRef } from '@angular/core';
-import { DocumentModel, UserService, NuxeoResponse } from '@core/api';
-import { NbToastrService } from '@core/nebular/theme';
+import { DocumentModel, UserService, NuxeoResponse, NuxeoPermission } from '@core/api';
 import { map } from 'rxjs/operators';
 import { SelectableItemService, SelectableItemEvent } from '../selectable-item/selectable-item.service';
 import { Observable, of as observableOf, forkJoin, Subscription } from 'rxjs';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
+import { SelectableActionBarSettings } from './selectable-action-bar.interface';
 import { DocumentPageService } from '../services/document-page.service';
-import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
-
 
 @Component({
   selector: 'selectable-action-bar',
@@ -18,26 +15,26 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
       <div class='selectableBar'>
         {{count}} item(s) selected <a (click)="clear()" class="clearSelection">Clear</a>
         <div style='float:right'>
-          <a (click)="addToFavorite()">Add to favorites</a>
-          &nbsp;&nbsp;
-          <ng-container *ngIf="showcase === 'add'">
-            <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Add To Showcase">Add to Showcase</a>
+          <ng-container *ngIf="actionSettings.enableAddToFavorites">
+            <a (click)="addToFavorites()">Add to favorites</a>&nbsp;&nbsp;
           </ng-container>
-          <ng-container *ngIf="showcase === 'remove'">
-            <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Remove from Showcase">Remove from Showcase</a>
+          <ng-container *ngIf="actionSettings.enableAddToShowcase">
+            <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Add To Showcase">Add to Showcase</a>&nbsp;&nbsp;
           </ng-container>
-          &nbsp;&nbsp;
-          <ng-container>
+          <ng-container *ngIf="actionSettings.enableRemoveFromShowcase">
+            <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Remove from Showcase">Remove from Showcase</a>&nbsp;&nbsp;
+          </ng-container>
+          <ng-container *ngIf="actionSettings.enableDeleteDocuments">
             <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete">Delete</a>
           </ng-container>
         </div>
       </div>
     </ng-container>
     <ng-template #showcaseDialog>
-      <global-document-dialog [settings]="showcaseDialogSettings" [metadata]="showcaseMetadata()" [documentModel]="document" [title]="showcaseTitle"></global-document-dialog>
+      <global-document-dialog [settings]="showcaseDialogSettings"[documentModel]="document" [metadata]="showcaseMetadata()" [title]="'Add To Showcase'"></global-document-dialog>
     </ng-template>
     <ng-template #deleteDialog>
-      <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="document" [metadata]="dialogMetadata" [title]="deleteTitle"></global-document-dialog>
+      <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="document" [metadata]="deleteMetadata" [title]="'Delete'"></global-document-dialog>
     </ng-template>
   `,
 })
@@ -48,15 +45,18 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   @Input() document: DocumentModel;
 
-  @Input() showcase: string;
+  @Input()
+  set settings(settings: SelectableActionBarSettings) {
+    this.actionSettings = settings;
+  }
 
-  showcaseTitle: string = 'Add To Showcase';
+  writePermission$: Observable<boolean> = observableOf(false);
 
-  deleteTitle: string = 'Delete';
+  actionSettings: SelectableActionBarSettings = new SelectableActionBarSettings();
 
-  showcaseDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.SHOWCASE_ADD_REMOVE] });
+  showcaseDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_SHOWCASE_ADD_REMOVE] });
 
-  deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.DELETE_MULTIPLE_ASSETS] });
+  deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETE_MULTIPLE_ASSETS] });
 
   addShowcaseMetadata: any = {
     addToShowcase: true,
@@ -66,7 +66,7 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
     removeFromShowcase: true,
   };
 
-  dialogMetadata: any = {
+  deleteMetadata: any = {
     formMode: 'edit',
     enableEdit: true,
     enableDeletion: true,
@@ -80,13 +80,14 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   constructor(
     private selectableItemService: SelectableItemService,
-    private toastrService: NbToastrService,
-    private userService: UserService,
-    private globalDocumentDialogService: GlobalDocumentDialogService,
     private documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
   ngOnInit(): void {
+    if (this.actionSettings.enableAddToFavorites) {
+      this.getFavoriteDocument();
+    }
     this.subscribeEvents();
   }
 
@@ -98,13 +99,34 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
     this.selectableItemService.clear();
   }
 
-  addToFavorite(): void {
+  addToFavorites(): void {
     const uids = this.documents.map((doc: DocumentModel) => doc.uid);
-    this.userService.addFavoriteDocument(uids).subscribe((res: NuxeoResponse) => {
+    this.documentPageService.addToFavorites(uids).subscribe((res: NuxeoResponse) => {
       if (res.entries.length > 0) {
-        this.toastrService.show(`Added successfully!`, '', { status: 'success' });
+        this.documentPageService.notify(`Added successfully!`, 'Added successfully!', 'success');
       }
     });
+  }
+
+  openDialog(dialog: TemplateRef<any>): void {
+    if (this.documents && this.documents.length > 0) {
+      this.globalDocumentDialogService.open(dialog, { documents: this.documents, closeOnBackdropClick: true, metadata: this.showcaseMetadata() });
+    }
+  }
+
+  showcaseMetadata(): void {
+    // if (this.showcase === 'add') {
+    //   return this.addShowcaseMetadata;
+    // } else if (this.showcase === 'remove') {
+    //   return this.removeShowcaseMetadata;
+    // }
+  }
+
+  private getFavoriteDocument(): void {
+    const subscription = this.documentPageService.getFavoriteDocument().subscribe((doc: DocumentModel) => {
+      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
+    });
+    this.subscription.add(subscription);
   }
 
   private subscribeEvents(): void {
@@ -117,20 +139,5 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
     });
     this.subscription.add(subscription);
   }
-
-  openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    if (this.documents && this.documents.length > 0) {
-      this.globalDocumentDialogService.open(dialog, { documents: this.documents, closeOnBackdropClick: closeOnBackdropClick, metadata: this.showcaseMetadata() });
-    }
-  }
-
-  showcaseMetadata() {
-    if (this.showcase === 'add') {
-      return this.addShowcaseMetadata;
-    } else if (this.showcase === 'remove') {
-      return this.removeShowcaseMetadata;
-    }
-  }
-
 
 }

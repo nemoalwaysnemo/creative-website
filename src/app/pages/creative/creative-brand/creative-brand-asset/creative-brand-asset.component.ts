@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, GlobalSearchParams } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings } from '@pages/shared';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings, SelectableActionBarSettings } from '@pages/shared';
 import { SelectableItemService } from '../../../shared/selectable-item/selectable-item.service';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-asset',
@@ -16,8 +16,6 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
   baseParams$: Subject<any> = new Subject<any>();
 
   layout: string = 'creative_brand_asset full-width';
-
-  showcase: string = 'add';
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: GlobalSearchParams): boolean => searchParams.hasParam('the_loupe_main_assettype_agg') || searchParams.hasParam('the_loupe_main_campaign_agg') }),
@@ -31,6 +29,12 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
 
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
     enableSelectable: true,
+  });
+
+  actionBarsettings: SelectableActionBarSettings = new SelectableActionBarSettings({
+    enableAddToFavorites: true,
+    enableAddToShowcase: true,
+    enableDeleteDocuments: true,
   });
 
   constructor(

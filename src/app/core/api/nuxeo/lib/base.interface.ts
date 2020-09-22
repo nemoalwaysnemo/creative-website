@@ -609,7 +609,7 @@ export enum NuxeoAutomations {
   GetDocument = 'Creative.GetDocument',
   DocumentCreate = 'Document.Create',
   GetFavorite = 'Favorite.Fetch',
-  AddToFavorite = 'Document.AddToFavorites',
+  AddToFavorites = 'Document.AddToFavorites',
   AddToCollection = 'Document.AddToCollection',
   GetDocumentsFromCollection = 'Collection.GetDocumentsFromCollection',
   RemoveFromFavorites = 'Document.RemoveFromFavorites',

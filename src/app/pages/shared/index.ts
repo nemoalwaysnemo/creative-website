@@ -37,4 +37,5 @@ export * from './abstract-classes/base-document-manage.component';
 export * from './abstract-classes/abstract-classes.module';
 export * from './selectable-item/selectable-item.interface';
 export * from './selectable-action-bar/selectable-action-bar.module';
+export * from './selectable-action-bar/selectable-action-bar.interface';
 export * from './document-featured-carousel/document-featured-carousel.module';
