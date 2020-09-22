@@ -176,16 +176,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     this.baseParamsAsset$.next(this.buildAssetParams(this.document, row.isSelected ? row.data.action : null));
   }
 
-  openDialog(type: string): void {
-    let selectedMenu = '';
-    let selectedTab = '';
-    if (type === 'upload') {
-      selectedMenu = 'Import';
-      selectedTab = '';
-    } else if (type === 'deliver') {
-      selectedMenu = '';
-      selectedTab = '';
-    }
+  openDialog(type: string, selectedMenu: string = '', selectedTab: string = ''): void {
     this.globalDocumentDialogService.triggerEvent({ name: 'ButtonClicked', type: 'custom', messageContent: 'Upload Clicked', options: { document: this.selectedProject, selectedMenu, selectedTab } });
   }
 
