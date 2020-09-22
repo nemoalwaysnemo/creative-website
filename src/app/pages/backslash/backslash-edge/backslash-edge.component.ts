@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { parseTabRoute } from '@core/services/helpers';
-import { TAB_CONFIG } from '../backslash-tab-config';
 import { SearchFilterModel, DocumentModel, GlobalSearchParams, NuxeoRequestOptions } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings } from '../../shared';
 import { Subject, timer } from 'rxjs';
@@ -15,8 +13,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 export class BackslashEdgeComponent extends GlobalDocumentViewComponent implements OnInit {
 
   baseParams$: Subject<any> = new Subject<any>();
-
-  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   filters: SearchFilterModel[] = [
   ];

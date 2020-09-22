@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { parseTabRoute } from '@core/services/helpers';
-import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -13,8 +11,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './backslash-case-study-folder.component.html',
 })
 export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewComponent {
-
-  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   baseParams$: Subject<any> = new Subject<any>();
 

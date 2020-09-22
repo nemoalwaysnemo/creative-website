@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { parseTabRoute } from '@core/services/helpers';
-import { TAB_CONFIG } from '../backslash-tab-config';
 import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPagination, DocumentModel } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -12,8 +10,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './backslash-category.component.html',
 })
 export class BackslashCategoryComponent extends GlobalDocumentViewComponent implements OnInit {
-
-  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   regions: DocumentModel[] = [];
 

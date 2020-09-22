@@ -29,6 +29,5 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
   }
 
   protected onInit(): void {
-    console.log(44444, this.settings);
   }
 }

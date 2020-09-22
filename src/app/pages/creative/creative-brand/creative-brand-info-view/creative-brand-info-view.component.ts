@@ -37,9 +37,10 @@ export class CreativeBrandInfoViewComponent extends BaseDocumentViewComponent {
   protected parseTabRoute(): void {
     if (this.tabs.length === 0) {
       const tabs = parseTabRoute(this.tabConfig, this.activatedRoute.snapshot.params);
-      this.aclService.filterRouterTabs(tabs, this.documentModel).subscribe((r: any[]) => {
+      const subscription = this.aclService.filterRouterTabs(tabs, this.documentModel).subscribe((r: any[]) => {
         this.tabs = r;
       });
+      this.subscription.add(subscription);
     }
   }
 

@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, NuxeoPermission, SearchFilterModel, NuxeoSearchConstants, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { parseTabRoute } from '@core/services/helpers';
-import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -15,8 +13,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 export class BackslashEdgeFolderComponent extends GlobalDocumentViewComponent {
 
   showFolderInfo: boolean = false;
-
-  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   baseParams$: Subject<any> = new Subject<any>();
 
