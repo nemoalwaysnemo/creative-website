@@ -44,7 +44,6 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
     doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
     doc.properties['The_Loupe_Delivery:agency_disclaimer'] = doc.getParent().uid;
-    // doc.properties['dc:subjects'] = [doc.get('dc:subjects')];
     return doc;
   }
 
@@ -273,13 +272,15 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
       this.nuxeoApi.operation(NuxeoAutomations.AddToCollection, { 'collection': packageId }, assetIds).subscribe(() => {
         this.refresh();
       });
+    } else {
+      this.refresh();
     }
   }
 
   protected refresh(): void {
-    this.globalDocumentDialogService.triggerEvent({ name: `Add to Collection`, type: 'callback', messageType: 'success', messageContent: 'Add to Collection has been created successfully!' });
+    this.globalDocumentDialogService.triggerEvent({ name: `Delivery Package`, type: 'callback', messageType: 'success', messageContent: 'Delivery Package has been created successfully!' });
     timer(3000).subscribe(() => {
-      this.globalDocumentDialogService.triggerEvent({ name: `Add to Collection`, type: 'callback' });
+      this.globalDocumentDialogService.triggerEvent({ name: `Delivery Package`, type: 'callback' });
     });
     this.listViewOptionsPackage = {
       hideHeader: false,
