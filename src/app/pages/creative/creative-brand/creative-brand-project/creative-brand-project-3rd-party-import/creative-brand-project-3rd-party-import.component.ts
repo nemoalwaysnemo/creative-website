@@ -47,6 +47,7 @@ export class CreativeBrandProject3rdPartyImportComponent extends GlobalDocumentV
       options.addSchemas('The_Loupe_Delivery');
       this.getTargetDocumentModel({
         pageSize: 1,
+        ecm_path: doc.path,
         ecm_uuid: requestUid,
         ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMPORT_REQUEST_TYPE,
       }, options).subscribe((request: DocumentModel) => {
