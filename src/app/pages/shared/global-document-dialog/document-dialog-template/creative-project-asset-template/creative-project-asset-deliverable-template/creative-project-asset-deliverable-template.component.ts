@@ -74,6 +74,7 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
     }
   }
 
+<<<<<<< src/app/pages/shared/global-document-dialog/document-dialog-template/creative-project-asset-template/creative-project-asset-deliverable-template/creative-project-asset-deliverable-template.component.ts
   onChangTab(tab: NbTabComponent): void {
     const info = this.getTabItem(tab);
     if (info.name === 'Assets') {

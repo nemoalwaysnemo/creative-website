@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { Subject, timer } from 'rxjs';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
@@ -13,7 +12,7 @@ import { assetPath } from '@core/services/helpers';
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-import-requests-view.component.html',
 })
-export class DocumentCreativeProjectImportRequestsViewComponent extends GlobalDocumentFormComponent {
+export class DocumentCreativeProjectImportRequestsViewComponent {
   doc: DocumentModel;
   loading: boolean = true;
   baseParams$: Subject<any> = new Subject<any>();
@@ -39,7 +38,7 @@ export class DocumentCreativeProjectImportRequestsViewComponent extends GlobalDo
     if (doc) {
       this.doc = doc;
       this.loading = false;
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc)); });
     }
   }
   listViewSettings: any = {
@@ -93,10 +92,10 @@ export class DocumentCreativeProjectImportRequestsViewComponent extends GlobalDo
       },
     },
   };
-  protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
+  protected buildAssetParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMPORT_REQUEST_TYPE,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_path: doc.path,
       currentPageIndex: 0,
       ecm_fulltext: '',
     };
@@ -106,6 +105,6 @@ export class DocumentCreativeProjectImportRequestsViewComponent extends GlobalDo
     return params;
   }
   onSelected(row: any): void {
-    window.open('/#/p/creative/brand/' + this.doc.getParent().parentRef + '/project/' + this.doc.uid + '/approval', '_blank');
+    window.open('/#/p/creative/project/' + this.doc.uid + '/request/' + row.data.uid + '/import', '_blank');
   }
 }
