@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings, SelectableActionBarSettings } from '@pages/shared';
 import { SelectableItemService } from '../../../shared/selectable-item/selectable-item.service';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-showcase',
@@ -17,8 +17,6 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
 
   layout: string = 'creative_brand_showcase full-width';
 
-  showcase: string = 'remove';
-
   filters: SearchFilterModel[] = [];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -28,6 +26,12 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
 
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
     enableSelectable: true,
+  });
+
+  actionBarsettings: SelectableActionBarSettings = new SelectableActionBarSettings({
+    enableAddToFavorites: true,
+    enableDeleteDocuments: true,
+    enableRemoveFromShowcase: true,
   });
 
   constructor(

@@ -1,3 +1,5 @@
+import { UserPermission } from '@core/acl';
+
 export const TAB_CONFIG: any[] = [
   {
     title: 'Content',
@@ -19,5 +21,6 @@ export const TAB_CONFIG: any[] = [
   {
     title: 'Trigger Pool',
     route: '/p/backslash/Trigger Pool',
+    acl: [UserPermission.Mgt],
   },
 ];
