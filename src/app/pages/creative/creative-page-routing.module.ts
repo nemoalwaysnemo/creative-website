@@ -86,7 +86,7 @@ const routes: Routes = [{
       },
     },
     {
-      path: 'brand/:id/project/:id/import',
+      path: 'brand/:id/project/:id/request/:id/import',
       component: CreativeBrandProject3rdPartyImportComponent,
       canActivate: [NgxPermissionsGuard],
       data: {

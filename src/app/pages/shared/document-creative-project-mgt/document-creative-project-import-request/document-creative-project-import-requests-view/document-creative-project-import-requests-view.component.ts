@@ -39,7 +39,7 @@ export class DocumentCreativeProjectImportRequestsViewComponent extends GlobalDo
     if (doc) {
       this.doc = doc;
       this.loading = false;
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc)); });
     }
   }
   listViewSettings: any = {
@@ -93,10 +93,11 @@ export class DocumentCreativeProjectImportRequestsViewComponent extends GlobalDo
       },
     },
   };
-  protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
+  protected buildAssetParams(doc: DocumentModel): any {
+
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMPORT_REQUEST_TYPE,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_path: doc.path,
       currentPageIndex: 0,
       ecm_fulltext: '',
     };
@@ -106,6 +107,6 @@ export class DocumentCreativeProjectImportRequestsViewComponent extends GlobalDo
     return params;
   }
   onSelected(row: any): void {
-    window.open('/#/p/creative/brand/' + this.doc.getParent().parentRef + '/project/' + this.doc.uid + '/approval', '_blank');
+    window.open('/#/p/creative/brand/' + this.doc.getParent().parentRef + '/project/' + this.doc.uid + '/request/' + row.data.uid + '/import', '_blank');
   }
 }

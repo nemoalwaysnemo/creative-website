@@ -479,6 +479,9 @@ export class NuxeoRequestOptions {
     this.enrichers[type] = names;
   }
 
+  addSchemas(name: string): void {
+    this.schemas.push(name);
+  }
 }
 
 export class NuxeoPagination {
