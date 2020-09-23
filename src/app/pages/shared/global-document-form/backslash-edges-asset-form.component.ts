@@ -101,8 +101,8 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop Image/Video File(s) here!',
-        acceptTypes: 'image/*,.mp4',
+        placeholder: 'Drop Image/PDF/Video File(s) here!',
+        acceptTypes: 'image/*,.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -110,8 +110,8 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Image/Video File(s) here!',
-        acceptTypes: 'image/*,.mp4',
+        placeholder: 'Drop Image/PDF/Video File(s) here!',
+        acceptTypes: 'image/*,.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',
