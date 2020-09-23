@@ -49,7 +49,7 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
 
   tabInfo$ = new Subject<TabInfo>();
 
-  currentTab: any = this.tabItems[0];
+  currentTab: any;
 
   templateRef: TemplateRef<any>;
 
@@ -74,8 +74,13 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
     }
   }
 
+  onInit() {
+    const selectedTitle: string = this.settings.selectedTab ? this.settings.selectedTab : 'Assets';
+    this.currentTab = this.getTabItem(selectedTitle);
+  }
+
   onChangTab(tab: NbTabComponent): void {
-    const info = this.getTabItem(tab);
+    const info = this.getTabItem(tab.tabTitle);
     if (info.name === 'Assets') {
       this.templateRef = this.assetItemView;
     } else if (info.name === 'New Package') {
@@ -89,7 +94,7 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
     this.currentTab = info;
   }
 
-  private getTabItem(tab: NbTabComponent): any {
-    return this.tabItems.filter((x) => tab.tabTitle === x.name).shift();
+  private getTabItem(tabTitle: string): any {
+    return this.tabItems.filter((x) => tabTitle === x.name).shift();
   }
 }

@@ -28,8 +28,8 @@
         <div class="global-search-form-buttons">
           <button type="button" class="creative-brand-campaign-asset-btn icon_btn" title="Asset">Asset</button>
           <ng-container *ngIf="isSelectedProject()">
-            <button type="button" class="creative-brand-campaign-asset-btn icon_btn white" title="Upload" (click)="openDialog('upload')">Upload</button>
-            <button type="button" class="creative-brand-campaign-asset-btn icon_btn white" title="Deliver" (click)="openDialog('deliver')">Deliver</button>
+            <button type="button" class="creative-brand-campaign-asset-btn icon_btn white" title="Upload" (click)="openDialog('upload', 'Import')">Upload</button>
+            <button type="button" class="creative-brand-campaign-asset-btn icon_btn white" title="Deliver" (click)="openDialog('deliver', '', 'New Package')">Deliver</button>
           </ng-container>
         </div>
       </ng-container>
