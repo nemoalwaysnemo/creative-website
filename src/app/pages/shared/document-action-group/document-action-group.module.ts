@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgPipesModule } from 'ngx-pipes';
 import { CommonModule } from '@angular/common';
 import { NbPopoverModule } from '@core/nebular/theme';
 import { DocumentActionGroupComponent } from './document-action-group.component';
@@ -7,6 +8,7 @@ import { GlobalDocumentDialogModule } from '../global-document-dialog/global-doc
 
 @NgModule({
   imports: [
+    NgPipesModule,
     CommonModule,
     NbPopoverModule,
     ShareDocumentButtonModule,

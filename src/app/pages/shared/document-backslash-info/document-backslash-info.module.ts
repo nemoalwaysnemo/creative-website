@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgPipesModule } from 'ngx-pipes';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
 import { DocumentBackslashInfoComponent } from './document-backslash-info.component';
@@ -6,8 +7,9 @@ import { ShareDocumentButtonModule } from '../share-document-button/share-docume
 
 @NgModule({
   imports: [
-    CommonModule,
     ThemeModule,
+    NgPipesModule,
+    CommonModule,
     ShareDocumentButtonModule,
   ],
   declarations: [

@@ -20,10 +20,11 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
   @Input() autoPlay: boolean;
 
   constructor(private documentVideoViewerService: DocumentVideoViewerService, private api: VgAPI) {
-    this.subscription = this.documentVideoViewerService.onEvent('currentTimeChanged').subscribe((event: DocumentVideoEvent) => {
+    const subscription = this.documentVideoViewerService.onEvent('currentTimeChanged').subscribe((event: DocumentVideoEvent) => {
       this.api.currentTime = event.currentTime;
       this.api.play();
     });
+    this.subscription.add(subscription);
   }
 
   ngOnDestroy(): void {
@@ -39,19 +40,33 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
     const defaultMedia = this.api.getDefaultMedia();
     const events = defaultMedia.subscriptions;
 
-    events.volumeChange.subscribe((res) => {
+    const subscription1 = events.volumeChange.subscribe((res) => {
       const presentVolume = res.target.volume;
       setVolume(presentVolume);
       this.documentVideoViewerService.setCookie('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'Lax');
     });
+    this.subscription.add(subscription1);
 
-    events.playing.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: api.currentTime }));
-    });
+    // const subscription2 = events.playing.subscribe(() => {
+    //   console.log(44444, api.currentTime);
+    //   this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: api.currentTime }));
+    // });
+    // this.subscription.add(subscription2);
 
-    events.pause.subscribe(() => {
+    const subscription3 = events.pause.subscribe(() => {
       this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPause', currentTime: api.currentTime }));
     });
+    this.subscription.add(subscription3);
+
+    const subscription4 = events.seeking.subscribe(() => {
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoSeeking', currentTime: api.currentTime }));
+    });
+    this.subscription.add(subscription4);
+
+    const subscription5 = events.timeUpdate.subscribe(() => {
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoTimeUpdate', currentTime: api.currentTime }));
+    });
+    this.subscription.add(subscription5);
 
     if (this.autoPlay) {
       this.api.play();

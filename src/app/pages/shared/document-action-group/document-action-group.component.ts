@@ -109,13 +109,9 @@ export class DocumentActionGroupComponent {
 
   protected subscribeServiceEvent(): void {
     const subscription = this.documentVideoViewerService.onEvent().pipe(
-      filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPlaying', 'videoPause'].includes(e.name)),
+      filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPause', 'videoSeeking', 'videoTimeUpdate'].includes(e.name)),
     ).subscribe((e: DocumentVideoEvent) => {
-      if (e.name === 'videoPause') {
-        this.videoCurrentTime = e.currentTime;
-      } else if ('videoPlaying') {
-        this.videoCurrentTime = null;
-      }
+      this.videoCurrentTime = e.currentTime;
     });
     this.subscription.add(subscription);
   }
