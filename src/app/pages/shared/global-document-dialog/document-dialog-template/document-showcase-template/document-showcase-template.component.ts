@@ -10,7 +10,7 @@ import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-cus
 @Component({
   selector: 'document-showcase-template',
   templateUrl: './document-showcase-template.component.html',
-  styleUrls: ['../global-document-dialog-template.scss'],
+  styleUrls: ['../global-document-dialog-template.scss', './document-showcase-template.component.scss'],
 })
 export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTemplateComponent {
 

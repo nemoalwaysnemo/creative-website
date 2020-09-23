@@ -10,7 +10,7 @@ import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-cus
 @Component({
   selector: 'document-delete-multiple-template',
   templateUrl: './document-delete-multiple-template.component.html',
-  styleUrls: ['../global-document-dialog-template.scss'],
+  styleUrls: ['../global-document-dialog-template.scss', './document-delete-multiple-template.component.scss'],
 })
 export class DocumentDeleteMultipleTemplateComponent extends DocumentDialogCustomTemplateComponent {
 
