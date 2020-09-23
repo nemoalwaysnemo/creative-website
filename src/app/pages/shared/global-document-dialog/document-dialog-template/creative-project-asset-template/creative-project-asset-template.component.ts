@@ -51,15 +51,13 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
   }
 
   protected onInit(): void {
-    // const selectedTab = 'New Package';
     const selectedTab = this.dialogSettings.selectedTab;
-    let defaultTab = this.tabs[0];
+    let defaultMenu = this.tabs[0];
     if (this.dialogSettings.selectedMenu) {
-      const selectedMenu = this.tabs.find((x) => x.title === this.dialogSettings.selectedMenu);
-      defaultTab = selectedMenu ? selectedMenu : defaultTab;
+      defaultMenu = this.tabs.find((x) => x.title === this.dialogSettings.selectedMenu) || defaultMenu;
     }
-    defaultTab.selected = true;
-    this.changeView(defaultTab.component, { selectedTab });
+    defaultMenu.selected = true;
+    this.changeView(defaultMenu.component, { selectedTab });
   }
 
   protected onDestroy(): void {

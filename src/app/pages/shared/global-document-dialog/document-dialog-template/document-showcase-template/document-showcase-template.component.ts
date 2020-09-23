@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
-import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
+import { DocumentModel, NuxeoPermission } from '@core/api';
+import { Observable, forkJoin, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { SelectableItemService } from '../../../selectable-item/selectable-item.service';
+import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 
 @Component({
   selector: 'document-showcase-template',
@@ -13,9 +14,9 @@ import { SelectableItemService } from '../../../selectable-item/selectable-item.
 })
 export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTemplateComponent {
 
-  private documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
+  documents: DocumentModel[] = [];
 
-  properties: any;
+  showcaseSettings: any = { enableAddToShowcase: false, enableRemoveFromShowcase: false };
 
   constructor(
     private selectableItemService: SelectableItemService,
@@ -26,35 +27,47 @@ export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTempl
   }
 
   protected onInit(): void {
+    if (this.dialogSettings.showcaseSettings) {
+      this.showcaseSettings = this.dialogSettings.showcaseSettings;
+    }
     if (this.dialogSettings.documents) {
-      this.documents$.next(this.dialogSettings.documents);
+      const subscription = this.getValidDocuments(this.dialogSettings.documents).subscribe((docs: DocumentModel[]) => this.documents = docs);
+      this.subscription.add(subscription);
     }
   }
 
-  private addToShowcase(): void {
-    this.properties = { 'app_global:networkshare': true };
-    this.updateDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
+  addToShowcase(documents: DocumentModel[]): void {
+    const subscription = this.updateDocuments(documents, { 'app_global:networkshare': true }).subscribe((models: DocumentModel[]) => {
       this.globalDocumentDialogService.close();
-      // this.selectableItemService.clear();
       this.documentPageService.notify(`Added to Showcase successfully!`, 'Added to Showcase successfully!', 'success');
     });
+    this.subscription.add(subscription);
   }
 
-  private removeFromShowcase(): void {
-    this.properties = { 'app_global:networkshare': false };
-    this.updateDocuments(this.documents$.value).subscribe((models: DocumentModel[]) => {
+  removeFromShowcase(documents: DocumentModel[]): void {
+    const subscription = this.updateDocuments(documents, { 'app_global:networkshare': false }).subscribe((models: DocumentModel[]) => {
       this.globalDocumentDialogService.close();
       this.selectableItemService.clear();
       this.refresh(this.documentPageService.getCurrentUrl());
       this.documentPageService.notify(`Removed from Showcase successfully!`, 'Removed from Showcase successfully!', 'success');
     });
+    this.subscription.add(subscription);
   }
 
-  private updateDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
-    return forkJoin(...documents.map(x => this.updateDocument(x, this.properties)));
+  private getValidDocuments(docs: DocumentModel[]): Observable<DocumentModel[]> {
+    return forkJoin(
+      docs.map((doc: DocumentModel) => zip(doc.hasPermission(NuxeoPermission.Write)),
+      )).pipe(
+        map((r: any[]) => {
+          const list = [];
+          r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(docs[i]); } });
+          return list;
+        }),
+      );
   }
 
-  private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    return doc.set(properties).save();
+  private updateDocuments(documents: DocumentModel[], properties: any = {}): Observable<DocumentModel[]> {
+    return forkJoin(documents.map(doc => doc.set(properties).save()));
   }
+
 }
