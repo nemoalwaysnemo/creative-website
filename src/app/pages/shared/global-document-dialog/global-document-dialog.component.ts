@@ -91,7 +91,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
   protected buildComponent(componentContainer: Type<any>, component: Type<any>, metadata?: any): void {
     this.dynamicComponentRef = this.createDynamicComponent(this.dynamicTarget, componentContainer);
     this.dynamicComponentRef.instance.title = this.title;
-    this.dynamicComponentRef.instance.metadata = metadata || this.dialogSettings;
+    this.dynamicComponentRef.instance.metadata = Object.assign({}, this.dialogSettings, metadata);
     this.dynamicComponentRef.instance.documentModel = this.document;
     this.dynamicComponentRef.instance.redirectUrl = this.redirectUrl;
     this.dynamicComponentRef.instance.mainViewChanged = this.mainViewChanged;

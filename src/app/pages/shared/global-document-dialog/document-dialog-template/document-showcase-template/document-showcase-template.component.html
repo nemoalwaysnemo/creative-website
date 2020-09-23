@@ -5,17 +5,27 @@
   <div class="clear"></div>
 </div>
 <div class="dialog-body">
-  <ng-container *ngIf="getDialogSettings().metadata.addToShowcase">
+  <ng-container *ngIf="showcaseSettings.enableAddToShowcase">
     <div class="text-content pure-text">Adding assets to the brand showcase shares them with everyone at TBWA\ globally. Are you sure?</div>
+    <div class="documents" *ngIf="documents && documents.length !== 0">
+      <ul>
+        <li *ngFor="let doc of documents; index as i" class="doc-title">{{ doc.title }}</li>
+      </ul>
+    </div>
     <div class="action-content text-right">
-      <button (click)="addToShowcase()" class="btn btn-success">Yes</button>
+      <button (click)="addToShowcase(documents)" class="btn btn-success">Yes</button>
       <button (click)="cancel()" class="btn btn-danger">Cancel</button>
     </div>
   </ng-container>
-  <ng-container *ngIf="getDialogSettings().metadata.removeFromShowcase">
+  <ng-container *ngIf="showcaseSettings.enableRemoveFromShowcase">
     <div class="text-content pure-text">Removing assets from the brand showcase no longer shares them with everyone at TBWA\ globally. Are you sure?</div>
+    <div class="documents" *ngIf="documents && documents.length !== 0">
+      <ul>
+        <li *ngFor="let doc of documents; index as i" class="doc-title">{{ doc.title }}</li>
+      </ul>
+    </div>
     <div class="action-content text-right">
-      <button (click)="removeFromShowcase()" class="btn btn-success">Yes</button>
+      <button (click)="removeFromShowcase(documents)" *ngIf="documents && documents.length !== 0" class="btn btn-success">Yes</button>
       <button (click)="cancel()" class="btn btn-danger">Cancel</button>
     </div>
   </ng-container>

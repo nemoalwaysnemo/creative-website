@@ -6,8 +6,13 @@
 </div>
 <div class="dialog-body">
   <div class="text-content pure-text">Are you sure you want to delete these assets from the library permanently?</div>
+  <div class="documents" *ngIf="documents && documents.length !== 0">
+    <ul>
+      <li *ngFor="let doc of documents; index as i" class="doc-title">{{ doc.title }}</li>
+    </ul>
+  </div>
   <div class="action-content text-right">
-    <button (click)="delete()" class="btn btn-success">Yes</button>
+    <button (click)="delete()" *ngIf="documents && documents.length !== 0" class="btn btn-success">Yes</button>
     <button (click)="cancel()" class="btn btn-danger">Cancel</button>
   </div>
 </div>

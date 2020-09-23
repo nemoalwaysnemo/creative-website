@@ -30,8 +30,8 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
 
   actionBarsettings: SelectableActionBarSettings = new SelectableActionBarSettings({
     enableAddToFavorites: true,
-    // enableDeleteDocuments: true,
-    // enableRemoveFromShowcase: true,
+    enableDeleteDocuments: true,
+    enableRemoveFromShowcase: true,
   });
 
   constructor(
