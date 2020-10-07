@@ -99,12 +99,11 @@ export class DynamicFormLayoutService {
     if (isObject(layout) && layout.hasOwnProperty(context)) {
 
       const config = layout[context] as DynamicFormControlLayoutConfig;
-
+      console.log(3333, config, place);
       if (config.hasOwnProperty(place)) {
         return config[place] as string;
       }
     }
-
     return '';
   }
 

@@ -172,6 +172,7 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
   }
 
   getClass(context: DynamicFormControlLayoutContext, place: DynamicFormControlLayoutPlace): string {
+    console.log(11111, this.controlLayout, context, place);
     return this.layoutService.getClass(this.controlLayout, context, place);
   }
 

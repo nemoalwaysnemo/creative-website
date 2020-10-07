@@ -1,0 +1,59 @@
+::ng-deep .layout-left {
+  clear: both;
+
+  .production-date, .first-airing {
+    width: 40%;
+    float: left;
+    margin-bottom: 0;
+    min-height: 102px;
+  }
+  .media-types, .asset-type {
+    width: 58%;
+    float: left;
+    margin-left: 2%;
+    margin-bottom: 0;
+    min-height: 102px;
+  }
+  .showcase {
+    white-space: pre-wrap;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .asset-country, .description, .po-internal {
+    min-height: 75px;
+    clear: both;
+  }
+  .media-types, .asset-type, .search-project {
+    .ng-invalid {
+      .directory-suggestion {
+        .ng-select {
+          .ng-select-container {
+              background: #e9a1a3;
+          }
+          .ng-select-container.ng-has-value {
+            background: none !important;
+          }
+        }
+      }
+    }
+  }
+  .accordion-item-header {
+    padding-top: 0;
+    font-weight: 500;
+    font-size: 18px;
+  }
+}
+
+::ng-deep .layout-right {
+  float: none !important;
+  margin-left: 50%;
+
+  .drag-drop {
+    .ng-pristine {
+      background: #e9a1a3;
+    }
+    .ng-dirty {
+      background: none;
+    }
+  }
+}

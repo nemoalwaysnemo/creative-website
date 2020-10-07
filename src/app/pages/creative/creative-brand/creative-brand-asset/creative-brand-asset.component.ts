@@ -8,7 +8,8 @@ import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-asset',
-  styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss', './creative-brand-asset.component.scss'],
+
   templateUrl: './creative-brand-asset.component.html',
 })
 export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {

@@ -25,6 +25,8 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   settings: any[] = [];
 
+  formLayout: any = {};
+
   accordions: any = {};
 
   @Input() formMode: 'create' | 'edit' = 'create';
@@ -128,6 +130,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected performForm(): void {
     this.settings = this.getSettings();
+    this.formLayout = this.getFormLayout();
     this.accordions = this.getAccordionSettings();
   }
 
@@ -137,6 +140,10 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected getSettings(): any[] {
     return [];
+  }
+
+  protected getFormLayout(): any {
+    return {};
   }
 
 }
