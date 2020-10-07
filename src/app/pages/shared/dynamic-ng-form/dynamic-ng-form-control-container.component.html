@@ -1,27 +1,23 @@
-<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
-     [formGroup]="group"
-     [ngClass]="['dynamic-forms-'+model.type.toLowerCase(), getClass('element', 'container'), getClass('grid', 'container')]">
-    <div *ngIf="isRequired" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</div>
-    <label *ngIf="!isCheckbox && hasLabel"
-           [for]="id"
-           [innerHTML]="model.label"
-           [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
+<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')" [formGroup]="group"
+  [ngClass]="['dynamic-forms-'+model.type.toLowerCase(), getClass('element', 'container'), getClass('grid', 'container')]">
+  <div *ngIf="isRequired" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</div>
+  <label *ngIf="!isCheckbox && hasLabel" [for]="id" [innerHTML]="model.label" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
 
-    <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
+  <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
 
-    <div [ngClass]="getClass('grid', 'control')">
-        <ng-container #componentViewContainer></ng-container>
+  <div [ngClass]="getClass('grid', 'control')">
+    <ng-container #componentViewContainer></ng-container>
 
-        <small *ngIf="hasHint" class="text-muted" [innerHTML]="hint" [ngClass]="getClass('element', 'hint')"></small>
+    <small *ngIf="hasHint" class="text-muted" [innerHTML]="hint" [ngClass]="getClass('element', 'hint')"></small>
 
-        <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
-            <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message }}</small>
-        </div>
-
+    <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
+      <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message }}</small>
     </div>
 
-    <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
+  </div>
 
-    <ng-content></ng-content>
+  <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
+
+  <ng-content></ng-content>
 
 </div>

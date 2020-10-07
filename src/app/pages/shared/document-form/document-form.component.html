@@ -5,6 +5,10 @@
     <div class="button-groups" *ngIf="showButton">
       <button nbButton outline class="btn btn-success btn-xs" status="primary" [disabled]="uploadState ==='preparing' || uploadState === 'uploading' || submitted || !formGroup.valid || !childrenValid" (click)="onSave($event)">Save</button>
       <button nbButton outline class="btn btn-info btn-xs" status="info" (click)="onCancel($event)">Cancel</button>
+      <ng-container *ngIf="showAfterUploadMessage()">
+        <p class="update-message-start">You have successfully uploaded {{uploadCount}}  file(s). Please review above and adjust the original</p>
+        <p class="update-message-end"><b>Filenames</b> to become the actual <b>Asset Titles</b> before finishing by clicking SAVE</p>
+      </ng-container>
     </div>
   </ng-container>
 </div>

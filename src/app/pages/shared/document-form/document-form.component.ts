@@ -30,6 +30,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   modelOperation: Subject<{ id: string, type: string }> = new Subject();
 
+  uploadCount: number = 0;
+
   private uploadFieldName: string;
 
   private documentModel: DocumentModel;
@@ -57,6 +59,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   @Input() hasResetForm: boolean = false;
 
   @Input() showButton: boolean = true;
+
+  @Input() showUploadMessage: boolean = false;
 
   @Input()
   set document(doc: DocumentModel) {
@@ -321,6 +325,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       this.setTitle(list[0]);
       this.uploadState = 'uploaded';
     }
+    this.uploadCount = list.length;
   }
 
   hideControls(): void {
@@ -343,5 +348,12 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private resetForm(): void {
     this.formGroup.reset();
+  }
+
+  showAfterUploadMessage() {
+    if ((this.uploadState === 'uploaded') && this.showUploadMessage) {
+      return true;
+    }
+    return false;
   }
 }
