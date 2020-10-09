@@ -48,7 +48,6 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
     this.subscription.add(subscription1);
 
     // const subscription2 = events.playing.subscribe(() => {
-    //   console.log(44444, api.currentTime);
     //   this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: api.currentTime }));
     // });
     // this.subscription.add(subscription2);
