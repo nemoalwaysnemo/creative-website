@@ -350,10 +350,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.formGroup.reset();
   }
 
-  showAfterUploadMessage() {
-    if ((this.uploadState === 'uploaded') && this.showUploadMessage) {
-      return true;
-    }
-    return false;
+  showAfterUploadMessage(): boolean {
+    return this.uploadState === 'uploaded' && this.showUploadMessage;
   }
 }
