@@ -3,8 +3,8 @@ import { DocumentModel, UserModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
+import { DocumentFormEvent, DocumentFormSettings } from '../../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
-import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
 
 @Component({
   selector: 'creative-agency-manage-list',
@@ -17,6 +17,10 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
+  formSettings: DocumentFormSettings = new DocumentFormSettings({
+    formMode: 'edit',
+  });
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
@@ -28,7 +32,7 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
     this.showForm = !this.showForm;
   }
 
-  canceleForm(): void {
+  cancelForm(): void {
     this.changeView();
   }
 
@@ -42,11 +46,11 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
       this.updateForm(event.doc);
       this.refresh(this.redirectUrl);
     } else if (event.action === 'Canceled') {
-      this.canceleForm();
+      this.cancelForm();
     }
   }
 
-  protected getSettings(): any[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',

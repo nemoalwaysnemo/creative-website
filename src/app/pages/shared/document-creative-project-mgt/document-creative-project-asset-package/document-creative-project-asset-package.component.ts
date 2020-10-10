@@ -18,9 +18,9 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
 
   protected documentType: string = 'App-Library-Delivery-Package';
 
-  loading: boolean = true;
-
   baseParams$: Subject<any> = new Subject<any>();
+
+  loading: boolean = true;
 
   isPackage: boolean = false;
 
@@ -32,13 +32,29 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
 
   parentDocument: DocumentModel;
 
-  showStatus: boolean = true;
-
   listViewOptionsPackage: any = {
     hideHeader: true,
     selectMode: 'multi',
     deliverPackage: true,
   };
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-related-asset',
+    enableSearchInput: false,
+  });
+
+  @Input()
+  set showButton(show: boolean) {
+    this.formSettings.enableButtons = show;
+  }
+
+  @Input()
+  set listViewOptions(settings: any) {
+    this.listViewOptionsPackage = settings;
+  }
+
+  @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
 
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
     doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
@@ -51,12 +67,6 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     this.addToCollection(doc);
     return observableOf(doc);
   }
-
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-related-asset',
-    enableSearchInput: false,
-  });
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -72,18 +82,6 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     this.getStatus(doc);
   }
 
-  @Input()
-  set showButton(show: boolean) {
-    this.showStatus = show;
-  }
-
-  @Input()
-  set listViewOptions(settings: any) {
-    this.listViewOptionsPackage = settings;
-  }
-
-  @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
-
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     this.parentDocument = doc;
     return this.initializeDocument(doc, this.getDocType());
@@ -94,7 +92,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return observableOf(doc);
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'The_Loupe_Main:brand',

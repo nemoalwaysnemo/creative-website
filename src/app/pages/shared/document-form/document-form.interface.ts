@@ -22,5 +22,20 @@ export class DocumentFormEvent {
   getDoc(doc: DocumentModel | DocumentModel[]): DocumentModel {
     return Array.isArray(doc) ? doc[0] : doc;
   }
+}
+
+export class DocumentFormSettings {
+
+  enableButtons: boolean = true;
+
+  resetFormAfterDone: boolean = false;
+
+  showUploadMessage: boolean = false;
+
+  formMode: 'create' | 'edit' | 'view' = 'create';
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
 
 }

@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DocumentFormEvent, DocumentFormSettings } from '../../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
-import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
 
 @Component({
   selector: 'creative-agency-manage-library',
@@ -18,6 +18,10 @@ export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComp
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
+  formSettings: DocumentFormSettings = new DocumentFormSettings({
+    formMode: 'edit',
+  });
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
@@ -29,7 +33,7 @@ export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComp
     this.showForm = !this.showForm;
   }
 
-  canceleForm(): void {
+  cancelForm(): void {
     this.changeView();
   }
 
@@ -43,11 +47,11 @@ export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComp
       this.updateForm(event.doc);
       this.refresh(this.redirectUrl);
     } else if (event.action === 'Canceled') {
-      this.canceleForm();
+      this.cancelForm();
     }
   }
 
-  protected getSettings(): any[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',

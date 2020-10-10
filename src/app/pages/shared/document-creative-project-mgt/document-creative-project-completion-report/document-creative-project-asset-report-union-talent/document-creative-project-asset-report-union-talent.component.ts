@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DynamicFormGroupModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicRadioGroupModel } from '@core/custom';
 import { BaseDocumentManageComponent } from '../../../abstract-classes/base-document-manage.component';
-import { DocumentFormEvent } from '../../../document-form/document-form.interface';
+import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 
 @Component({
@@ -14,6 +14,10 @@ export class DocumentCreativeProjectAssetReportUnionTalentComponent extends Base
   showForm: boolean = false;
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
+
+  formSettings: DocumentFormSettings = new DocumentFormSettings({
+    formMode: 'edit',
+  });
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
@@ -37,7 +41,7 @@ export class DocumentCreativeProjectAssetReportUnionTalentComponent extends Base
     this.changeView();
   }
 
-  canceleForm(): void {
+  cancelForm(): void {
     this.changeView();
   }
 
@@ -46,7 +50,7 @@ export class DocumentCreativeProjectAssetReportUnionTalentComponent extends Base
       this.updateForm(event.doc);
       this.refresh(this.redirectUrl);
     } else if (event.action === 'Canceled') {
-      this.canceleForm();
+      this.cancelForm();
     }
   }
 
@@ -54,7 +58,7 @@ export class DocumentCreativeProjectAssetReportUnionTalentComponent extends Base
 
   }
 
-  protected getSettings(): any[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:shooting_date',

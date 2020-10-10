@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
 import { of as observableOf, Observable, Subscription, Subject, zip } from 'rxjs';
-import { DocumentFormEvent } from '../document-form/document-form.interface';
+import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { concatMap, tap } from 'rxjs/operators';
+import { objHasValue } from '@core/services/helpers';
 
 export interface DocumentModelForm {
   metadata: any;
@@ -19,17 +20,17 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
+  formSettings: DocumentFormSettings = new DocumentFormSettings();
+
   document: DocumentModel;
 
   currentUser: UserModel;
 
-  settings: any[] = [];
+  formModels: any[] = [];
 
   formLayout: any = {};
 
-  accordions: any = {};
-
-  @Input() formMode: 'create' | 'edit' = 'create';
+  accordion: any[] = [];
 
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
 
@@ -43,8 +44,19 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   @Input()
+  set settings(settings: DocumentFormSettings) {
+    if (objHasValue(settings)) {
+      this.formSettings = settings;
+    }
+  }
+
+  @Input()
   set metadata(metadata: any) {
-    this.formMode = (metadata.formMode || 'create');
+    if (metadata.formSettings) {
+      this.formSettings = metadata.formSettings;
+    } else {
+      this.formSettings.formMode = (metadata.formMode || 'create');
+    }
     this.beforeSave = metadata.beforeSave || this.beforeSave;
     this.afterSave = metadata.afterSave || this.afterSave;
   }
@@ -96,7 +108,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
-    return this.formMode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
+    return this.formSettings.formMode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
@@ -129,16 +141,16 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected performForm(): void {
-    this.settings = this.getSettings();
+    this.formModels = this.getFormModels();
     this.formLayout = this.getFormLayout();
-    this.accordions = this.getAccordionSettings();
+    this.accordion = this.getFormAccordion();
   }
 
-  protected getAccordionSettings(): any[] {
+  protected getFormAccordion(): any[] {
     return [];
   }
 
-  protected getSettings(): any[] {
+  protected getFormModels(): any[] {
     return [];
   }
 

@@ -1,8 +1,8 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}" cstyle="width: 95%; margin: 0 auto; padding: 0 0 20px;">
   <ng-container *ngIf="formGroup">
-    <dynamic-ng-form [group]="formGroup" [model]="formModel" [accordions]="accordionList" [layout]="formLayout" [modelOperation]="modelOperation" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
+    <dynamic-ng-form [group]="formGroup" [model]="formModel" [accordion]="accordionList" [layout]="formLayout" [modelOperation]="modelOperation" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
     </dynamic-ng-form>
-    <div class="button-groups" *ngIf="showButton">
+    <div class="button-groups" *ngIf="formSettings.enableButtons">
       <button nbButton outline class="btn btn-success btn-xs" status="primary" [disabled]="uploadState ==='preparing' || uploadState === 'uploading' || submitted || !formGroup.valid || !childrenValid" (click)="onSave($event)">Save</button>
       <button nbButton outline class="btn btn-info btn-xs" status="info" (click)="onCancel($event)">Cancel</button>
       <ng-container *ngIf="showAfterUploadMessage()">

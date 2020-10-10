@@ -1,4 +1,5 @@
 <div class="document">
-  <document-form [currentUser]="currentUser" [document]="document" [formMode]="'create'" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" [accordions]="accordions" (callback)="onCallback($event)">
+  <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [models]="formModels" [layout]="formLayout" [accordion]="accordion" [beforeSave]="beforeSave" [afterSave]="afterSave"
+    (callback)="onCallback($event)">
   </document-form>
 </div>

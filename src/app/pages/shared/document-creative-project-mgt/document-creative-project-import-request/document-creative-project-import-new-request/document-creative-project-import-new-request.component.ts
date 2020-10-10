@@ -23,15 +23,17 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
     super.setFormDocument(doc, user);
     this.loading = false;
   }
+
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
     doc.properties['dc:title'] = '3rd-party-import';
     return doc;
   }
+
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'The_Loupe_Delivery:delivery_email',
