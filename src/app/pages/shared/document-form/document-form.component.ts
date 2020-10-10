@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angu
 import { FormGroup } from '@angular/forms';
 import { deepExtend, objHasValue } from '@core/services/helpers';
 import { DocumentFormEvent, DocumentFormSettings } from './document-form.interface';
-import { Observable, of as observableOf, forkJoin, Subject, Subscription } from 'rxjs';
+import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
@@ -42,6 +42,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
+  private formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
+
   private fileMultiUpload: boolean;
 
   @Input() dynamicModelIndex: number[] = [];
@@ -65,7 +67,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   @Input()
   set settings(settings: DocumentFormSettings) {
     if (objHasValue(settings)) {
-      this.formSettings = settings;
+      this.formSettings$.next(settings);
     }
   }
 
@@ -202,10 +204,13 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private onDocumentChanged(): void {
-    const subscription = this.document$.pipe(
-    ).subscribe((doc: DocumentModel) => {
+    const subscription = combineLatest(
+      this.document$,
+      this.formSettings$,
+    ).subscribe(([doc, settings]: [DocumentModel, DocumentFormSettings]) => {
       this.loading = false;
       this.documentModel = doc;
+      this.formSettings = settings;
       this.performAccordion(doc, this.accordion);
       this.prepareForm(doc, this.models);
     });
