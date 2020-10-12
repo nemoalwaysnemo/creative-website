@@ -351,6 +351,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   showAfterUploadMessage(): boolean {
-    return this.uploadState === 'uploaded' && this.showUploadMessage;
+    return this.uploadState === 'uploaded' && this.showUploadMessage && this.formMode !== 'edit';
   }
 }

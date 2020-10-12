@@ -65,6 +65,23 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
         },
       }),
       // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
+      new DynamicInputModel({
+        id: 'dc:title',
+        label: 'Title',
+        maxLength: 50,
+        placeholder: 'Title',
+        autoComplete: 'off',
+        formMode: 'edit',
+        required: true,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '',
+          minLength: 'At least 4 characters',
+        },
+      }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',
         label: 'Search Project',
@@ -539,6 +556,11 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
   }
   protected getFormLayout(): any {
     return {
+      'dc:title': {
+        grid: {
+          host: 'title',
+        },
+      },
       'The_Loupe_Main:jobtitle': {
         grid: {
           host: 'search-project',

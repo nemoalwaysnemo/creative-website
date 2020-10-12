@@ -5,9 +5,9 @@
   <ng-container *ngIf="!isCreativeVideoAsset(documentModel) && downloadPermission$ | async">
     <a href="{{documentModel.previewUrl}}" class="preview right btn" title="Preview" target="_blank">Preview</a>
   </ng-container>
-  <!-- <ng-container *ngIf="isNeedSendDownloadRequest(documentModel)">
+  <ng-container *ngIf="isNeedSendDownloadRequest(documentModel) && !(writePermission$ | async)">
     <a href="javascript:;" (click)="openDialog(dialog)" class="download right btn">Download Request</a>
-  </ng-container> -->
+  </ng-container>
   <a href="javascript:;" nbPopoverPlacement="bottom" [nbPopover]="popContent" title="Share" class="right btn">Share</a>
   <ng-container *ngIf="videoCurrentTime !== null && writePermission$ | async">
     <a href="javascript:;" (click)="newThumbnail(videoCurrentTime)" class="create-new-thumbnail right btn" title="New poster">New poster at {{videoCurrentTime | round: 2}}</a>
