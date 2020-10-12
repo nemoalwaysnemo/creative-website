@@ -37,6 +37,14 @@
       }
     }
   }
+  .title {
+    input.ng-invalid {
+      background: #e9a1a3;
+    }
+    ::placeholder {
+      color: black;
+    }
+  }
   .accordion-item-header {
     padding-top: 0;
     font-weight: 500;
