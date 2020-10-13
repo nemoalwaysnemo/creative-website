@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, ViewChildren, TemplateRef, QueryList } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { deepExtend, objHasValue } from '@core/services/helpers';
-import { DocumentFormEvent, DocumentFormSettings } from './document-form.interface';
-import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest } from 'rxjs';
+import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
+import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
@@ -14,6 +14,8 @@ import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, D
 })
 export class DocumentFormComponent implements OnInit, OnDestroy {
 
+  @ViewChildren(TemplateRef) buttonTemplates: QueryList<TemplateRef<any>>;
+
   formModel: DynamicFormModel;
 
   formLayout: DynamicFormLayout;
@@ -22,17 +24,13 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup;
 
-  submitted: boolean = false;
-
-  childrenValid: boolean = true;
-
-  uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
-
   modelOperation: Subject<{ id: string, type: string }> = new Subject();
 
   uploadCount: number = 0;
 
   formSettings: DocumentFormSettings = new DocumentFormSettings();
+
+  formStatus$: BehaviorSubject<DocumentFormStatus> = new BehaviorSubject<DocumentFormStatus>(new DocumentFormStatus());
 
   private uploadFieldName: string;
 
@@ -108,14 +106,14 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   onCustomEvent(event: any): void {
     if (event.type === 'VALID') {
-      this.childrenValid = event.$event;
+      this.updateFormStatus({ childrenValid: event.$event });
     }
     if (event.type === 'BATCH_UPLOAD') {
       this.performUploading(event.$event);
     }
   }
 
-  onSave($event: any): void {
+  onSave(event: any): void {
     if (this.formSettings.formMode === 'create') {
       this.save();
     } else if (this.formSettings.formMode === 'edit') {
@@ -123,11 +121,36 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCancel($event: any): void {
+  onCancel(event: any): void {
     this.callback.emit(new DocumentFormEvent({ action: 'Canceled', messageType: 'info', doc: this.documentModel }));
     if (this.formSettings.resetFormAfterDone) {
       this.resetForm();
     }
+  }
+
+  onCustomButton(button: any): void {
+    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', messageType: 'info', button: button.name, doc: this.documentModel }));
+  }
+
+  hideControls(): void {
+    if (this.formSettings.formMode === 'create') {
+      const type = this.fileMultiUpload ? 'delete' : 'show';
+      this.modelOperation.next({ id: 'dc:title', type: type });
+    }
+  }
+
+  setDocumentTitle(res: NuxeoUploadResponse): void {
+    if (this.formSettings.formMode === 'create' && !this.fileMultiUpload && !this.formGroup.value['dc:title']) {
+      this.formGroup.patchValue({ 'dc:title': this.filterFileName(res.fileName) });
+    }
+  }
+
+  showAfterUploadMessage(): boolean {
+    return this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.showUploadMessage;
+  }
+
+  private updateFormStatus(status: any = {}): void {
+    this.formStatus$.next(this.formStatus$.value.update(status));
   }
 
   private checkfiles(doc: DocumentModel): DocumentModel {
@@ -149,9 +172,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private filterPropertie(formValue: any = {}): any {
     const properties = deepExtend({}, formValue);
     Object.keys(properties).forEach((key: string) => {
-      if (!key.includes(':')) {
-        delete properties[key];
-      }
+      if (!key.includes(':')) { delete properties[key]; }
     });
     return properties;
   }
@@ -201,6 +222,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private createForm(models: DynamicFormModel): void {
     this.formModel = this.createFormModel(models);
     this.formGroup = this.createFormGroup(this.formModel);
+    const subscription = this.formGroup.statusChanges.subscribe((valid: any) => {
+      this.updateFormStatus({ formValid: valid === 'VALID', submitted: false });
+    });
+    this.subscription.add(subscription);
   }
 
   private onDocumentChanged(): void {
@@ -220,7 +245,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private save(): void {
     let documents = [];
     this.documentModel.properties = this.filterPropertie(this.formGroup.value);
-    if (this.uploadState === 'uploaded') {
+    if (this.formStatus$.value.uploadState === 'uploaded') {
       documents = this.attachFiles(this.documentModel, this.formGroup.value[this.uploadFieldName]);
     } else {
       documents = [this.documentModel];
@@ -231,6 +256,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       });
     }
     this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
+      this.updateFormStatus({ submitted: true });
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
       if (this.formSettings.resetFormAfterDone) {
         this.resetForm();
@@ -240,7 +266,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private update(): void {
     let properties = this.filterPropertie(this.formGroup.value);
-    if (this.uploadState === 'uploaded') {
+    if (this.formStatus$.value.uploadState === 'uploaded') {
       properties = this.updateAttachedFiles(properties);
       if (properties['files:files'] === null) {
         delete properties['files:files'];
@@ -252,6 +278,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
 
     this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
+      this.updateFormStatus({ submitted: true });
       this.callback.next(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
     });
   }
@@ -319,31 +346,17 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private performUploading(list: NuxeoUploadResponse[]): void {
     if (list.length === 0) {
-      this.uploadState = null;
+      this.updateFormStatus({ uploadState: null });
     } else if (list.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {
-      this.uploadState = 'preparing';
+      this.updateFormStatus({ uploadState: 'preparing' });
     } else if (list.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
-      this.uploadState = 'uploading';
+      this.updateFormStatus({ uploadState: 'uploading' });
     } else if (list.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
       this.hideControls();
-      this.setTitle(list[0]);
-      this.uploadState = 'uploaded';
+      this.setDocumentTitle(list[0]);
+      this.updateFormStatus({ uploadState: 'uploaded' });
     }
     this.uploadCount = list.length;
-  }
-
-  hideControls(): void {
-    if (this.formSettings.formMode === 'create') {
-      const type = this.fileMultiUpload ? 'delete' : 'show';
-      this.modelOperation.next({ id: 'dc:title', type: type });
-    }
-  }
-
-  setTitle(res: NuxeoUploadResponse): void {
-    if (this.formSettings.formMode === 'create' && !this.fileMultiUpload && !this.formGroup.value['dc:title']) {
-      const title = this.filterFileName(res.fileName);
-      this.formGroup.patchValue({ 'dc:title': title });
-    }
   }
 
   private filterFileName(name: string): string {
@@ -354,7 +367,4 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.formGroup.reset();
   }
 
-  showAfterUploadMessage(): boolean {
-    return this.uploadState === 'uploaded' && this.formSettings.showUploadMessage;
-  }
 }

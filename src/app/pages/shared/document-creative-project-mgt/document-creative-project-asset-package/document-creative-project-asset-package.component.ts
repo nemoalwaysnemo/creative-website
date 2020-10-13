@@ -6,6 +6,7 @@ import { DocumentPageService } from '../../services/document-page.service';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { GlobalDocumentFormComponent } from '../../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from '../../document-form/document-form.interface';
 
 @Component({
   selector: 'document-creative-project-asset-package',
@@ -44,6 +45,28 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     enableSearchInput: false,
   });
 
+  formSettings: DocumentFormSettings = new DocumentFormSettings({
+    buttonGroup: [
+      {
+        label: 'Save',
+        name: 'save',
+        type: 'save',
+      },
+      {
+        label: 'Test',
+        name: 'test button',
+        type: 'custom',
+        disabled: (status: DocumentFormStatus) => false,
+        // disabled: (status: DocumentFormStatus) => status.disableSaveButton(),
+      },
+      {
+        label: 'Cancel',
+        name: 'cancle',
+        type: 'cancle',
+      },
+    ],
+  });
+
   @Input()
   set showButton(show: boolean) {
     this.formSettings.enableButtons = show;
@@ -80,6 +103,11 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     super.setFormDocument(doc, user);
     this.loading = false;
     this.getStatus(doc);
+  }
+
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    console.log(2222, event.button);
+    return event;
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
