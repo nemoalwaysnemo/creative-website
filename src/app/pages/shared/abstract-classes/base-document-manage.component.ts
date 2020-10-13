@@ -14,9 +14,9 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = [];
 
-  settings: any[] = [];
-
   formLayout: any = {};
+
+  formModels: any[] = [];
 
   currentUser: UserModel;
 
@@ -35,15 +35,15 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
     this.performForm();
   }
 
-  protected getAccordionSettings(): any[] {
+  protected getFormAccordion(): any[] {
     return [];
   }
-  protected getSettings(): any[] {
+  protected getFormModels(): any[] {
     return [];
   }
 
   protected performForm(): void {
-    this.settings = this.getSettings();
+    this.formModels = this.getFormModels();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

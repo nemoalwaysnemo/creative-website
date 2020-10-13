@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { DocumentModel, NuxeoPermission } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DocumentModel } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
-import { DocumentFormEvent } from '../../../shared/document-form/document-form.interface';
+import { DocumentFormEvent, DocumentFormSettings } from '../../../shared/document-form/document-form.interface';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 
 @Component({
   selector: 'creative-brand-manage-library',
@@ -18,6 +17,10 @@ export class CreativeBrandManageLibraryComponent extends BaseDocumentManageCompo
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
+  formSettings: DocumentFormSettings = new DocumentFormSettings({
+    formMode: 'edit',
+  });
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
@@ -29,7 +32,7 @@ export class CreativeBrandManageLibraryComponent extends BaseDocumentManageCompo
     this.showForm = !this.showForm;
   }
 
-  canceleForm(): void {
+  cancelForm(): void {
     this.changeView();
   }
 
@@ -43,11 +46,11 @@ export class CreativeBrandManageLibraryComponent extends BaseDocumentManageCompo
       this.updateForm(event.doc);
       this.refresh(this.redirectUrl);
     } else if (event.action === 'Canceled') {
-      this.canceleForm();
+      this.cancelForm();
     }
   }
 
-  protected getSettings(): any[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',

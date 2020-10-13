@@ -1,7 +1,8 @@
 import { DocumentModel } from '@core/api';
 
 export class DocumentFormEvent {
-  action: 'Created' | 'Updated' | 'Deleted' | 'Canceled';
+  [key: string]: any;
+  action: 'Created' | 'Updated' | 'Deleted' | 'Canceled' | 'CustomButtonClicked';
   messageType: 'info' | 'success' | 'warning' | 'error';
   messageContent: string;
   redirectUrl: string;
@@ -21,6 +22,71 @@ export class DocumentFormEvent {
 
   getDoc(doc: DocumentModel | DocumentModel[]): DocumentModel {
     return Array.isArray(doc) ? doc[0] : doc;
+  }
+}
+
+export class DocumentFormStatus {
+
+  submitted: boolean = false;
+
+  formValid: boolean = false;
+
+  childrenValid: boolean = false;
+
+  uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
+
+  constructor(data: any = {}) {
+    this.update(data);
+  }
+
+  update(params: any = {}): this {
+    Object.assign(this, params);
+    return this;
+  }
+
+  disableSaveButton(): boolean {
+    return ['preparing', 'uploading'].includes(this.uploadState) || this.submitted || !this.formValid || !this.childrenValid;
+  }
+
+}
+
+export class DocumentFormSettings {
+
+  enableButtons: boolean = true;
+
+  resetFormAfterDone: boolean = false;
+
+  showUploadMessage: boolean = false;
+
+  formMode: 'create' | 'edit' | 'view' = 'create';
+
+  buttonGroup: any[] = [
+    {
+      label: 'Save',
+      name: 'save',
+      type: 'save',
+    },
+    // {
+    //   label: 'Test',
+    //   name: 'test button',
+    //   type: 'custom',
+    //   disabled: (status: DocumentFormStatus) => false,
+    //   // disabled: (status: DocumentFormStatus) => status.disableSaveButton(),
+    // },
+    {
+      label: 'Cancel',
+      name: 'cancle',
+      type: 'cancle',
+    },
+  ];
+
+  constructor(data: any = {}) {
+    this.update(data);
+  }
+
+  update(params: any = {}): this {
+    Object.assign(this, params);
+    return this;
   }
 
 }

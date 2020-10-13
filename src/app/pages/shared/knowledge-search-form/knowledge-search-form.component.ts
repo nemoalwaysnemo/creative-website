@@ -20,7 +20,7 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
 
   @ViewChild('searchField', { static: true }) inputElement: ElementRef<HTMLInputElement>;
 
-  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'knowledge-search-form',
   });
 

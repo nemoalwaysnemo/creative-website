@@ -31,7 +31,7 @@ export class DocumentCreativeProjectImportAssetImageComponent extends GlobalDocu
     return this.initializeDocument(doc.getParent('brand'), this.getDocType());
   }
 
-  protected getAccordionSettings(): any[] {
+  protected getFormAccordion(): any[] {
     return [
       {
         // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
@@ -51,7 +51,7 @@ export class DocumentCreativeProjectImportAssetImageComponent extends GlobalDocu
     ];
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',

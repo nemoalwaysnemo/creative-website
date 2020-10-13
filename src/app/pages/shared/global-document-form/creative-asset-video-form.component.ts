@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { UserModel, DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
-import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { GlobalDocumentFormComponent } from './global-document-form.component';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
+import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'creative-asset-video-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" [accordions]="accordions" (callback)="onCallback($event)" [showUploadMessage]=true></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [accordion]="accordion" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent {
 
@@ -25,7 +26,13 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected getAccordionSettings(): any[] {
+  protected getFormSettings(): DocumentFormSettings {
+    return new DocumentFormSettings({
+      showUploadMessage: true,
+    });
+  }
+
+  protected getFormAccordion(): any[] {
     return [
       {
         // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
@@ -45,7 +52,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
     ];
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',

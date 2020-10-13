@@ -6,6 +6,7 @@ import { DocumentPageService } from '../../services/document-page.service';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { GlobalDocumentFormComponent } from '../../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from '../../document-form/document-form.interface';
 
 @Component({
   selector: 'document-creative-project-asset-package',
@@ -18,9 +19,11 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
 
   protected documentType: string = 'App-Library-Delivery-Package';
 
+  baseParams$: Subject<any> = new Subject<any>();
+
   loading: boolean = true;
 
-  baseParams$: Subject<any> = new Subject<any>();
+  enableButtons: boolean = true;
 
   isPackage: boolean = false;
 
@@ -32,13 +35,30 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
 
   parentDocument: DocumentModel;
 
-  showStatus: boolean = true;
-
   listViewOptionsPackage: any = {
     hideHeader: true,
     selectMode: 'multi',
     deliverPackage: true,
   };
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-related-asset',
+    enableSearchInput: false,
+  });
+
+  @Input()
+  set showButton(enableButtons: boolean) {
+    this.enableButtons = enableButtons;
+    this.setFormSettings({ enableButtons });
+  }
+
+  @Input()
+  set listViewOptions(settings: any) {
+    this.listViewOptionsPackage = settings;
+  }
+
+  @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
 
   beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
     doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
@@ -51,12 +71,6 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     this.addToCollection(doc);
     return observableOf(doc);
   }
-
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-related-asset',
-    enableSearchInput: false,
-  });
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -72,17 +86,10 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     this.getStatus(doc);
   }
 
-  @Input()
-  set showButton(show: boolean) {
-    this.showStatus = show;
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    // console.log(2222, event.button);
+    return event;
   }
-
-  @Input()
-  set listViewOptions(settings: any) {
-    this.listViewOptionsPackage = settings;
-  }
-
-  @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     this.parentDocument = doc;
@@ -94,7 +101,31 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return observableOf(doc);
   }
 
-  protected getSettings(): object[] {
+  protected getFormSettings(): DocumentFormSettings {
+    return new DocumentFormSettings({
+      buttonGroup: [
+        {
+          label: 'Save',
+          name: 'save',
+          type: 'save',
+        },
+        {
+          label: 'Test',
+          name: 'test button',
+          type: 'custom',
+          disabled: (status: DocumentFormStatus) => false,
+          // disabled: (status: DocumentFormStatus) => status.disableSaveButton(),
+        },
+        {
+          label: 'Cancel',
+          name: 'cancle',
+          type: 'cancle',
+        },
+      ],
+    });
+  }
+
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'The_Loupe_Main:brand',

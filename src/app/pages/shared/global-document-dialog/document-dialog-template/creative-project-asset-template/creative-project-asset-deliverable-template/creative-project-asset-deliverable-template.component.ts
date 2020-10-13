@@ -1,6 +1,7 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { CreativeProjectAssetBaseTemplateComponent } from '../creative-project-asset-base-template.component';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
+import { DocumentFormSettings } from '../../../../document-form/document-form.interface';
 import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
 
@@ -21,6 +22,10 @@ export class TabInfo {
   templateUrl: './creative-project-asset-deliverable-template.component.html',
 })
 export class CreativeProjectAssetDeliverableTemplateComponent extends CreativeProjectAssetBaseTemplateComponent {
+
+  formSettings: DocumentFormSettings = new DocumentFormSettings({
+    resetFormAfterDone: true,
+  });
 
   listViewOptionsAsset: any = {
     deliverPackage: false,

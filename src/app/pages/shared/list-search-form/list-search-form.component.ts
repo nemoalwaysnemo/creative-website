@@ -21,7 +21,7 @@ export class ListSearchFormComponent extends BaseSearchFormComponent {
 
   listViewOptions: any = {};
 
-  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'list-search-form',
   });
 

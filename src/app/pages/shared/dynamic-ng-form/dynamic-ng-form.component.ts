@@ -53,10 +53,10 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   @Input() group: FormGroup;
 
-  @Input('accordions')
-  set accordionsStructure(accordions: any[]) {
-    if (accordions) {
-      for (const item of accordions) {
+  @Input('accordion')
+  set accordionStructure(accordion: any[]) {
+    if (accordion) {
+      for (const item of accordion) {
         this.layoutAccordion.push({ 'accordionTabName': item.name, 'modelsContents': (item.items || []), 'position': (item.position || '') });
       }
     }

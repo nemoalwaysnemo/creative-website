@@ -24,7 +24,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
-  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   searchResponse$ = new BehaviorSubject<SearchResponse>(null);
 
@@ -60,7 +60,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   @Input()
   set settings(settings: GlobalSearchFormSettings) {
     if (objHasValue(settings)) {
-      this.formSettings = settings;
+      this.searchFormSettings = settings;
     }
   }
 
@@ -136,7 +136,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected getFormSettings(key: string): any {
-    return this.formSettings[key];
+    return this.searchFormSettings[key];
   }
 
   protected getSearchSettings(key: string, searchParams: GlobalSearchParams): any {
@@ -196,7 +196,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       for (const key in params) {
         const func = this.allowedSettingsParams[key];
         if (func && params.hasOwnProperty(key)) {
-          this.formSettings[key] = func.call(this, params[key]);
+          this.searchFormSettings[key] = func.call(this, params[key]);
         }
       }
     }

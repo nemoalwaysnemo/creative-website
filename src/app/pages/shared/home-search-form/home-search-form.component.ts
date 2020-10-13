@@ -24,7 +24,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
 
   layout: string = 'suggestion-inline';
 
-  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'home-search-form',
   });
 
