@@ -2,5 +2,5 @@
 <div class="creative-brand-showcase" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
   <selectable-action-bar [settings]="actionBarsettings" [document]="document"></selectable-action-bar>
-  <creative-document-asset-search-result [layout]="layout" [selectableSettings]="selectableSettings"></creative-document-asset-search-result>
+  <creative-document-asset-search-result [layout]="layout" [selectableSettings]="selectableSettings" [showDialog]="'true'"></creative-document-asset-search-result>
 </div>

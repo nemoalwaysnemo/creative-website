@@ -11,7 +11,7 @@
           <button class="right edit" (click)="selectView(getDialogFormTemplateName(doc))">Edit</button>
         </ng-container>
         <ng-container *ngIf="videoCurrentTime !== null && writePermission$ | async">
-          <a href="javascript:;" (click)="newThumbnail(videoCurrentTime)" class="right btn new-poster" title="New poster">New poster at {{videoCurrentTime | round: 2}}</a>
+          <a href="javascript:;" (click)="newThumbnail(videoCurrentTime)" class="right btn new-poster" title="New poster">New poster</a>
         </ng-container>
       </div>
       <div class="clear"></div>

@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef, Type } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { SelectableItemSettings } from '../../selectable-item/selectable-item.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
+import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
 
 @Component({
   template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>`,
@@ -34,11 +35,17 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
 
   @Input() hideEmpty: boolean = false;
 
+  @Input() showDialog: boolean = false;
+
   @Input() selectableSettings: SelectableItemSettings = new SelectableItemSettings({
     enableSelectable: false,
   });
 
   listViewSettings: any;
+
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET] });
+
+  dialogTitle: string = 'Creative';
 
   private defaultSettings: any = {
     columns: {
@@ -95,11 +102,24 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
     return items;
   }
 
-  constructor(protected documentPageService: DocumentPageService) {
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
     super(documentPageService);
   }
 
   protected onInit(): void {
     this.onQueryParamsChanged();
+  }
+
+  dialogMetadata: any = {
+    moreInfo: true,
+    enablePreview: true,
+    enableDetail: true,
+  };
+
+  openDialog(dialog: TemplateRef<any>) {
+    this.globalDocumentDialogService.open(dialog);
   }
 }
