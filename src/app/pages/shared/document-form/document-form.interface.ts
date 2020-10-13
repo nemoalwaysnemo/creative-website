@@ -36,7 +36,7 @@ export class DocumentFormStatus {
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
   constructor(data: any = {}) {
-    Object.assign(this, data);
+    this.update(data);
   }
 
   update(params: any = {}): this {
@@ -81,7 +81,12 @@ export class DocumentFormSettings {
   ];
 
   constructor(data: any = {}) {
-    Object.assign(this, data);
+    this.update(data);
+  }
+
+  update(params: any = {}): this {
+    Object.assign(this, params);
+    return this;
   }
 
 }

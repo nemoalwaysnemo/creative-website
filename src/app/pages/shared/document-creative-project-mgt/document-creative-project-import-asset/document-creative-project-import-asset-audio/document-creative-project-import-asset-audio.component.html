@@ -1,4 +1,4 @@
 <div class="document">
-  <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [models]="formModels" [layout]="formLayout" [accordion]="accordion" [beforeSave]="beforeSave" [afterSave]="afterSave"
+  <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [accordion]="accordion" [beforeSave]="beforeSave" [afterSave]="afterSave"
     (callback)="onCallback($event)"></document-form>
 </div>

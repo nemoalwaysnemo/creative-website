@@ -10,15 +10,11 @@ import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'creative-asset-video-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [models]="formModels" [layout]="formLayout" [accordion]="accordion" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [accordion]="accordion" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent {
 
   static readonly NAME: string = 'creative-asset-video-form';
-
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
-    showUploadMessage: true,
-  });
 
   protected documentType: string = 'App-Library-Video';
 
@@ -28,6 +24,12 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  protected getFormSettings(): DocumentFormSettings {
+    return new DocumentFormSettings({
+      showUploadMessage: true,
+    });
   }
 
   protected getFormAccordion(): any[] {

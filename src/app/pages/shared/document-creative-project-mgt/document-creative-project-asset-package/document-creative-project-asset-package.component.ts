@@ -23,6 +23,8 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
 
   loading: boolean = true;
 
+  enableButtons: boolean = true;
+
   isPackage: boolean = false;
 
   selectedRows: any = [];
@@ -45,31 +47,10 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     enableSearchInput: false,
   });
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
-    buttonGroup: [
-      {
-        label: 'Save',
-        name: 'save',
-        type: 'save',
-      },
-      {
-        label: 'Test',
-        name: 'test button',
-        type: 'custom',
-        disabled: (status: DocumentFormStatus) => false,
-        // disabled: (status: DocumentFormStatus) => status.disableSaveButton(),
-      },
-      {
-        label: 'Cancel',
-        name: 'cancle',
-        type: 'cancle',
-      },
-    ],
-  });
-
   @Input()
-  set showButton(show: boolean) {
-    this.formSettings.enableButtons = show;
+  set showButton(enableButtons: boolean) {
+    this.enableButtons = enableButtons;
+    this.setFormSettings({ enableButtons });
   }
 
   @Input()
@@ -106,7 +87,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
-    console.log(2222, event.button);
+    // console.log(2222, event.button);
     return event;
   }
 
@@ -118,6 +99,30 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
   protected beforeOnEdit(doc: DocumentModel): Observable<DocumentModel> {
     this.parentDocument = doc;
     return observableOf(doc);
+  }
+
+  protected getFormSettings(): DocumentFormSettings {
+    return new DocumentFormSettings({
+      buttonGroup: [
+        {
+          label: 'Save',
+          name: 'save',
+          type: 'save',
+        },
+        {
+          label: 'Test',
+          name: 'test button',
+          type: 'custom',
+          disabled: (status: DocumentFormStatus) => false,
+          // disabled: (status: DocumentFormStatus) => status.disableSaveButton(),
+        },
+        {
+          label: 'Cancel',
+          name: 'cancle',
+          type: 'cancle',
+        },
+      ],
+    });
   }
 
   protected getFormModels(): any[] {

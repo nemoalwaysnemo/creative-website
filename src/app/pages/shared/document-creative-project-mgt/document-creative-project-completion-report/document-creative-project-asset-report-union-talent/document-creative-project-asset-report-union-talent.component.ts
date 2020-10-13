@@ -11,6 +11,7 @@ import { GlobalSearchFormSettings } from '../../../global-search-form/global-sea
   templateUrl: './document-creative-project-asset-report-union-talent.component.html',
 })
 export class DocumentCreativeProjectAssetReportUnionTalentComponent extends BaseDocumentManageComponent {
+
   showForm: boolean = false;
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
