@@ -53,9 +53,9 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected documentType: string;
 
-  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => doc;
 
-  afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
+  afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
 
   ngOnInit(): void {
     this.onInit();

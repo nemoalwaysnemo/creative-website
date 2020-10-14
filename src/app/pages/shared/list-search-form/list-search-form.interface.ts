@@ -17,5 +17,5 @@ export class ListSearchRowCustomViewSettings {
 
   dialogSettings: GlobalDocumentDialogSettings;
 
-  htmlFunc: Function = (doc: DocumentModel): string => doc.title;
+  htmlFunc: (doc: DocumentModel) => string = (doc: DocumentModel) => doc.title;
 }

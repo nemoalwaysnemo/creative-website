@@ -56,9 +56,9 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
-  @Input() searchResultFilter: Function = (res: SearchResponse): boolean => res.source === 'global-search-form';
+  @Input() searchResultFilter: (res: SearchResponse) => boolean = (res: SearchResponse) => res.source === 'global-search-form';
 
-  @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
+  @Input() listViewBuilder: (documents: DocumentModel[]) => any[] = (documents: DocumentModel[]) => documents;
 
   protected onInit(): void {
     this.onSearch();

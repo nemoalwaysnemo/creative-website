@@ -9,19 +9,20 @@ import { cloneDeep } from 'lodash';
  * object as first argument, like this:
  *   deepExtend({}, yourObj_1, [yourObj_N]);
  */
-export const deepExtend = function(...objects: any[]): any {
-  if (arguments.length < 1 || typeof arguments[0] !== 'object') {
+
+export const deepExtend = (...objects: any[]) => {
+  if (objects.length < 1 || typeof objects[0] !== 'object') {
     return false;
   }
 
-  if (arguments.length < 2) {
-    return arguments[0];
+  if (objects.length < 2) {
+    return objects[0];
   }
 
-  const target = arguments[0];
+  const target = objects[0];
 
   // convert arguments to array and cut off target object
-  const args = Array.prototype.slice.call(arguments, 1);
+  const args = Array.prototype.slice.call(objects, 1);
 
   let val;
   let src;
@@ -103,7 +104,7 @@ export function range(start: number, end: number, step: number = 0, offset: numb
   const direction = start < end ? 1 : -1;
   const startingPoint = start - (direction * (offset || 0));
   const stepSize = direction * (step || 1);
-  return Array(len).fill(0).map(function(_, index) {
+  return Array(len).fill(0).map((_, index) => {
     return startingPoint + (stepSize * index);
   });
 }

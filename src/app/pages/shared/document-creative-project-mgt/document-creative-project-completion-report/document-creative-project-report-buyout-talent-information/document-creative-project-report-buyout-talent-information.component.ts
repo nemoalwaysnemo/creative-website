@@ -126,7 +126,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]): any => {
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
@@ -159,7 +159,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
     return doc.length > 0 ? doc.map(obj => obj['contract_duration']).join('  ') : '';
   }
 
-  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+  afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
   }
 

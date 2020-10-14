@@ -25,29 +25,29 @@ export function encodePath(path: string): string {
  * object as first argument, like this:
  *   deepExtend({}, yourObj_1, [yourObj_N]);
  */
-export const deepExtend = function(...objects: any[]): any {
-  if (arguments.length < 1 || typeof arguments[0] !== 'object') {
+export const deepExtend = (...objects: any[]) => {
+  if (objects.length < 1 || typeof objects[0] !== 'object') {
     return false;
   }
 
-  if (arguments.length < 2) {
-    return arguments[0];
+  if (objects.length < 2) {
+    return objects[0];
   }
 
-  const target = arguments[0];
+  const target = objects[0];
 
   // convert arguments to array and cut off target object
-  const args = Array.prototype.slice.call(arguments, 1);
+  const args = Array.prototype.slice.call(objects, 1);
 
   let val, src;
 
-  args.forEach(function(obj: any) {
+  args.forEach((obj: any) => {
     // skip argument if it is array or isn't object
     if (typeof obj !== 'object' || Array.isArray(obj)) {
       return;
     }
 
-    Object.keys(obj).forEach(function(key) {
+    Object.keys(obj).forEach((key) => {
       src = target[key]; // source value
       val = obj[key]; // new value
 
@@ -223,8 +223,8 @@ export function selectObjectByKeys(p: object = {}, keys: string[] = []): any {
   Object.keys(p).filter(key => keys.includes(key)).forEach(key => { _[key] = p[key]; });
   return _;
 }
-
-export function removeUselessObject(p: object = {}, keys: string[] | Function = []): any {
+// not sure about this one
+export function removeUselessObject(p: object = {}, keys: string[] | ( () => any )): any {
   if (typeof keys === 'function') {
     Object.keys(p).filter((k: string) => keys.call(this, k, p[k])).forEach((k: string) => delete p[k]);
   } else {

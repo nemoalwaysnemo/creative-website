@@ -51,9 +51,9 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private subscription: Subscription = new Subscription();
 
-  @Input() afterSearch: Function = (options: OptionModel[]): Observable<OptionModel[]> => observableOf(options);
+  @Input() afterSearch: (options: OptionModel[]) => Observable<OptionModel[]> = (options: OptionModel[]) => observableOf(options);
 
-  @Input() onResponsed: Function = (res: any): any => res;
+  @Input() onResponsed: (res: any) => any = (res: any) => res;
 
   private _onChange = (_) => { };
 

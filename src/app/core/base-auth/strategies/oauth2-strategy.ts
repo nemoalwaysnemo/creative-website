@@ -107,7 +107,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
     super();
   }
 
-  protected redirectResultHandlers: { [key: string]: Function } = {
+  protected redirectResultHandlers: { [key: string]: () => void } = {
     [NbOAuth2ResponseType.CODE]: () => {
       return observableOf(this.route.snapshot.queryParams).pipe(
         switchMap((params: any) => {
@@ -168,7 +168,7 @@ export class NbOAuth2AuthStrategy extends NbAuthStrategy {
     },
   };
 
-  protected redirectResults: { [key: string]: Function } = {
+  protected redirectResults: { [key: string]: () => void } = {
     [NbOAuth2ResponseType.CODE]: () => {
       return observableOf(this.route.snapshot.queryParams).pipe(
         map((params: any) => !!(params && (params.code || params.error))),

@@ -151,6 +151,10 @@ export class DocumentModel extends Base {
     return this._properties;
   }
 
+  set properties(properties: any) {
+    this._properties = properties;
+  }
+
   get fileContent(): any {
     return this._properties['file:content'] === null || this._properties['file:content'] === undefined ? {} : this._properties['file:content'];
   }
@@ -165,10 +169,6 @@ export class DocumentModel extends Base {
 
   get fileMimeType(): string {
     return this.fileContent['mime-type'];
-  }
-
-  set properties(properties: any) {
-    this._properties = properties;
   }
 
   get facets(): any {

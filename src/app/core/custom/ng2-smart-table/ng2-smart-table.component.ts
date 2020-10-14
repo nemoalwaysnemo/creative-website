@@ -33,7 +33,7 @@ export class Ng2SmartTableComponent implements OnChanges {
   isHideHeader: boolean;
   isHideSubHeader: boolean;
   isPagerDisplay: boolean;
-  rowClassFunction: Function;
+  rowClassFunction: () => any;
 
 
   grid: Grid;

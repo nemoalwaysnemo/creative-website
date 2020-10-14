@@ -66,7 +66,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
 
   @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
 
-  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
     doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
     doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
     doc.properties['The_Loupe_Delivery:agency_disclaimer'] = doc.getParent().uid;
@@ -74,7 +74,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return doc;
   }
 
-  afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => {
+  afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => {
     this.addToCollection(doc);
     return observableOf(doc);
   }

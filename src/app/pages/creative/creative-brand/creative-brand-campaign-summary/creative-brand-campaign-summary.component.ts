@@ -114,7 +114,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     },
   };
 
-  listViewBuilderCampaign: Function = (docs: DocumentModel[]): any => {
+  listViewBuilderCampaign: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
@@ -126,7 +126,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     return items;
   }
 
-  listViewBuilderProject: Function = (docs: DocumentModel[]): any => {
+  listViewBuilderProject: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
@@ -138,7 +138,7 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
     return items;
   }
 
-  listViewBuilderAsset: Function = (docs: DocumentModel[]): any => {
+  listViewBuilderAsset: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({

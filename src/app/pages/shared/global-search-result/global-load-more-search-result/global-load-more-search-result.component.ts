@@ -22,7 +22,7 @@ export class GlobalLoadMoreSearchResultComponent extends BaseGlobalSearchResultC
 
   @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
-  @Input() searchResultFilter: Function = (res: SearchResponse): boolean => res.source === 'document-load-more';
+  @Input() searchResultFilter: (res: SearchResponse) => boolean = (res: SearchResponse) => res.source === 'document-load-more';
 
   loadMore(): void {
     if (!this.loading) {

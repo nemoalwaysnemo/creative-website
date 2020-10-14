@@ -9,14 +9,14 @@ export const DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION = 'SUGGESTION';
 
 export interface DynamicSuggestionModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
   settings: any;
-  afterSearch?: Function;
-  onResponsed?: Function;
+  afterSearch?: () => void;
+  onResponsed?: (res: any) => void;
 }
 
 export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() settings: any;
-  @serializable() afterSearch: Function;
-  @serializable() onResponsed: Function;
+  @serializable() afterSearch: (options: any[]) => void;
+  @serializable() onResponsed: (res: any) => void;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION;
 
   constructor(config: DynamicSuggestionModelConfig<T>, layout?: DynamicFormControlLayout) {

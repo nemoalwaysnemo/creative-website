@@ -56,7 +56,7 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]): any => {
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({

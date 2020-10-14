@@ -11,7 +11,7 @@ export class SuggestionSettings {
   readonly viewType: 'suggestion' | 'list' = 'suggestion';
   readonly placeholder: string = 'Please select value';
   readonly prompt: string = 'Search';
-  readonly addTag: boolean | Function = false;
+  readonly addTag: boolean | ((name: string) => any);
   readonly contains: boolean = true;
   readonly filterParent: boolean = true;
   readonly initSearch: boolean = true;
@@ -21,7 +21,7 @@ export class SuggestionSettings {
   readonly providerName: string;
   readonly pageSize: number = 20;
   readonly displayLabel: boolean = false;
-  readonly inputTarget: Function = (doc: DocumentModel): string => doc.getParent().uid;
+  readonly inputTarget: (doc: DocumentModel) => string = (doc: DocumentModel) => doc.getParent().uid;
 
   constructor(data: any = {}) {
     Object.assign(this, data);

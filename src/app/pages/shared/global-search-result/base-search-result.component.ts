@@ -24,7 +24,7 @@ export class BaseSearchResultComponent implements OnInit, OnDestroy {
 
   @Input() thumbnailType: 'attachedImage' | 'thumbnailUrl' = 'thumbnailUrl';
 
-  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
+  @Input() afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => observableOf(res);
 
   constructor(protected documentPageService: DocumentPageService) {
 

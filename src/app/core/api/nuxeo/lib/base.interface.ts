@@ -63,8 +63,8 @@ export class SearchFilterModel {
   readonly iteration?: boolean = false;
   readonly optionLabels?: any = {};
   readonly bufferSize?: number = 50;
-  readonly visibleFn: Function = (searchParams: GlobalSearchParams): boolean => true;
-  readonly filterValueFn: Function = (bucket: any): boolean => true;
+  readonly visibleFn: (searchParams: GlobalSearchParams) => boolean = () => true;
+  readonly filterValueFn: (bucket: any) => boolean = () => true;
 
   constructor(data: any = {}) {
     Object.assign(this, data);

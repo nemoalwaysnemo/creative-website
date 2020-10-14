@@ -77,9 +77,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
-  @Input() beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
+  @Input() beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => doc;
 
-  @Input() afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
+  @Input() afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
 
   ngOnInit(): void {
 

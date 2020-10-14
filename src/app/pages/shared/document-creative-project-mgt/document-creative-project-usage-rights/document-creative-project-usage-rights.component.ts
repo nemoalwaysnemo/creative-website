@@ -91,7 +91,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
   @Output() onResponsed: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
   @Output() onSelect: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
-  listViewBuilder: Function = (docs: DocumentModel[]): any => {
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
@@ -104,7 +104,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
     return items;
   }
 
-  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+  afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
   }
 

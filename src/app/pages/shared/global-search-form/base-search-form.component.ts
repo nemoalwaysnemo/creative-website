@@ -84,9 +84,10 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   @Output() onLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Input() beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
+  @Input() beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => any =
+    (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => ({ searchParams, opts })
 
-  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
+  @Input() afterSearch: (res: SearchResponse) => any = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   ngOnInit(): void {
     this.onInit();
@@ -194,9 +195,11 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected setSettingsParams(params: any = {}): void {
     if (objHasValue(params)) {
       for (const key in params) {
-        const func = this.allowedSettingsParams[key];
-        if (func && params.hasOwnProperty(key)) {
-          this.formSettings[key] = func.call(this, params[key]);
+        if (params.hasOwnProperty(key)) {
+          const func = this.allowedSettingsParams[key];
+          if (func) {
+            this.formSettings[key] = func.call(this, params[key]);
+          }
         }
       }
     }

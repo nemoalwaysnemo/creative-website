@@ -48,7 +48,7 @@ export class ListSearchFormComponent extends BaseSearchFormComponent {
 
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
 
-  @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
+  @Input() listViewBuilder: (documents: DocumentModel[]) => any[] = (documents: DocumentModel[]) => documents;
 
   onRowSelect(item: any): void {
     this.onSelected.emit(item);

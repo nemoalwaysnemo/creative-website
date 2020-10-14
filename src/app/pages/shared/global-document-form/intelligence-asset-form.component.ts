@@ -27,7 +27,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
 
   protected documentType: string = 'App-Intelligence-Asset';
 
-  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
     doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: string) => {
       return { label: tag, username: user.username };
     });

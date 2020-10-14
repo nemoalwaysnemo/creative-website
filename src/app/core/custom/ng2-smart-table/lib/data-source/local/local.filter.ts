@@ -4,8 +4,8 @@ export function filterValues(value: string, search: string): boolean {
 
 export class LocalFilter {
 
-  static filter(data: any[], field: string, search: string, customFilter?: Function): any[] {
-    const filter: Function = customFilter ? customFilter : filterValues;
+  static filter(data: any[], field: string, search: string, customFilter?: () => any): any[] {
+    const filter = customFilter ? customFilter : filterValues;
 
     return data.filter((el) => {
       const value = typeof el[field] === 'undefined' || el[field] === null ? '' : el[field];

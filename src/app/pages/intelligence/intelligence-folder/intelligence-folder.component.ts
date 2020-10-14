@@ -27,7 +27,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
     if ((searchParams.hasKeyword() || searchParams.hasFilters()) && this.documentType === 'Industry') {
       this.resultView = 'asset';
       searchParams = this.buildIndustrySearchAssetParams(searchParams);
@@ -41,7 +41,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     return { searchParams, opts };
   }
 
-  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+  afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     if (!res.searchParams.hasKeyword() && !res.searchParams.hasFilters() && this.documentType === 'Industry' && res.action === 'afterSearch') {
       return this.getFilterAggregates(res);
     }

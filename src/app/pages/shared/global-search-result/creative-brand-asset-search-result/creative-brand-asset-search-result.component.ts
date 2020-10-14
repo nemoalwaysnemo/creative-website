@@ -43,7 +43,7 @@ export class CreativeBrandAssetSearchResultComponent extends BaseSearchResultCom
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]): any => {
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
