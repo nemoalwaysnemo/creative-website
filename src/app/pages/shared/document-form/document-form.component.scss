@@ -1,22 +1,15 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 
-.float-right {
-  float: right;
-}
-
 .button-groups {
   box-sizing: border-box;
+  margin-bottom: 1rem;
 
   .btn {
     margin-right: 10px;
   }
 }
 
-.upload-message-start {
+.upload-message {
   display: inline;
   font-size: 18px;
-}
-.upload-message-end {
-  font-size: 18px;
-  margin-left: 170px;
 }

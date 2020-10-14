@@ -3,7 +3,7 @@
     <dynamic-ng-form [group]="formGroup" [model]="formModel" [accordion]="accordionList" [layout]="formLayout" [modelOperation]="modelOperation" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
     </dynamic-ng-form>
 
-    <div class="button-groups" *ngIf="formSettings && formSettings.enableButtons">
+    <div class="button-groups left" *ngIf="formSettings && formSettings.enableButtons">
       <ng-container *ngFor="let button of formSettings.buttonGroup">
         <ng-container *ngIf="button.type === 'save'">
           <button nbButton outline class="btn btn-success btn-xs" status="primary" [disabled]="(formStatus$ | async)?.disableSaveButton()" (click)="onSave($event)">{{button.label}}</button>
@@ -21,8 +21,7 @@
 
     <ng-container *ngIf="showAfterUploadMessage()">
       <div class="upload-message">
-        <p class="upload-message-start">You have successfully uploaded {{uploadCount}} file(s). Please review above and adjust the original</p>
-        <p class="upload-message-end"><b>File Names</b> to become the actual <b>Asset Titles</b> before finishing by clicking SAVE</p>
+        <p>You have successfully uploaded {{uploadCount}} file(s). Please review above and adjust the original <b>File Names</b> to become the actual <b>Asset Titles</b> before finishing by clicking SAVE</p>
       </div>
     </ng-container>
 
