@@ -1479,6 +1479,13 @@
     "@types/source-list-map" "*"
     source-map "^0.6.1"
 
+"@videogular/ngx-videogular@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@videogular/ngx-videogular/-/ngx-videogular-2.1.0.tgz#818ac4ae7ad23700426bedc6dd19dadf704468b8"
+  integrity sha512-YVTutwUc5j1JN7x2FGlX4KR8t7E3h8bqDg1H9oqxk80nsjqIC/opY8zlKsKpULs0ZaSmTfsjKrzVAu6WdBXIzg==
+  dependencies:
+    tslib "^1.11.1 || ^2.0.0"
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -10613,6 +10620,11 @@ tslib@^1.11.1:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
+"tslib@^1.11.1 || ^2.0.0":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
+  integrity sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
+
 tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
@@ -11007,11 +11019,6 @@ vfile@^3.0.0:
     replace-ext "1.0.0"
     unist-util-stringify-position "^1.0.0"
     vfile-message "^1.0.0"
-
-videogular2@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/videogular2/-/videogular2-7.0.1.tgz#f13306a21396e32f775b9910e7b85dc943f3d4d6"
-  integrity sha512-nWsOGmyZEodK61ahF7EzWWoKn9DqsBdNRmvsZ5uz7jDgbEavABxWwgf4fWrHDgbizBNc9/VuyG5OwPZqkaW56w==
 
 vm-browserify@^1.0.1:
   version "1.1.2"

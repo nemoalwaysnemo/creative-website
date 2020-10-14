@@ -2,8 +2,8 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import { VgCoreModule } from 'videogular2/compiled/core';
-import { VgOverlayPlayModule } from 'videogular2/compiled/overlay-play';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 
 import { GalleryConfig, GALLERY_CONFIG } from './models/config.model';
 
