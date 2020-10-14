@@ -20,9 +20,13 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
   @Input() autoPlay: boolean;
 
   constructor(private documentVideoViewerService: DocumentVideoViewerService, private api: VgAPI) {
-    const subscription = this.documentVideoViewerService.onEvent('currentTimeChanged').subscribe((event: DocumentVideoEvent) => {
-      this.api.currentTime = event.currentTime;
-      this.api.play();
+    const subscription = this.documentVideoViewerService.onEvent().subscribe((event: DocumentVideoEvent) => {
+      if (event.name === 'currentTimeChanged') {
+        this.api.currentTime = event.currentTime;
+        this.api.play();
+      } else if (event.name === 'playVideo') {
+        this.api.play();
+      }
     });
     this.subscription.add(subscription);
   }
@@ -66,6 +70,11 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
       this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoTimeUpdate', currentTime: api.currentTime }));
     });
     this.subscription.add(subscription5);
+
+    const subscription6 = events.canPlay.subscribe(() => {
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoCanPlay', currentTime: api.currentTime }));
+    });
+    this.subscription.add(subscription6);
 
     if (this.autoPlay) {
       this.api.play();
