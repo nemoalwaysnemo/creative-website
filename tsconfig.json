@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "downlevelIteration": true,
+    "skipLibCheck": true, // for @videogular/ngx-videogular
     "baseUrl": "src",
     // "target": "es5",
     "target": "es2015",
