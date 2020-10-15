@@ -11,7 +11,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GalleryConfig } from '../models/config.model';
 import { GalleryState, GalleryError } from '../models/gallery.model';
@@ -212,8 +212,10 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     switch (this.config.thumbPosition) {
       case ThumbnailsPosition.Top:
       case ThumbnailsPosition.Bottom:
-        this.width = '100%';
-        this.height = this.config.thumbHeight + 'px';
+        timer(0).subscribe(() => {
+          this.width = '100%';
+          this.height = this.config.thumbHeight + 'px';
+        });
         value = -(this.state.currIndex * this.config.thumbWidth) - (this.config.thumbWidth / 2 - state.value);
         return {
           transform: `translate3d(${value}px, 0, 0)`,
