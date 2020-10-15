@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
-import { of as observableOf, Observable, Subscription, Subject, BehaviorSubject, zip } from 'rxjs';
+import { of as observableOf, Observable, Subscription, Subject, BehaviorSubject, combineLatest } from 'rxjs';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { concatMap, tap } from 'rxjs/operators';
@@ -46,16 +46,16 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   @Input()
   set settings(settings: DocumentFormSettings) {
     if (objHasValue(settings)) {
-      this.setFormSettings(settings);
+      this.setFormSettings(this.getFormSettings().update(settings));
     }
   }
 
   @Input()
   set metadata(metadata: any) {
     if (metadata.formSettings) {
-      this.setFormSettings(metadata.formSettings);
+      this.setFormSettings(this.getFormSettings().update(metadata.formSettings));
     } else {
-      this.setFormSettings({ formMode: (metadata.formMode || 'create') });
+      this.setFormSettings(this.getFormSettings().update({ formMode: (metadata.formMode || 'create') }));
     }
     this.beforeSave = metadata.beforeSave || this.beforeSave;
     this.afterSave = metadata.afterSave || this.afterSave;
@@ -129,12 +129,10 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected onDocumentChanged(): void {
-    const subscription = zip(
+    const subscription = combineLatest(
       this.formSettings$,
       this.documentPageService.getCurrentUser(),
-      this.document$.pipe(
-        concatMap((doc: DocumentModel) => this.beforeSetDocument(doc)),
-      ),
+      this.document$.pipe(concatMap((doc: DocumentModel) => this.beforeSetDocument(doc))),
     ).subscribe(([formSettings, user, doc]: [DocumentFormSettings, UserModel, DocumentModel]) => {
       this.setFormDocument(doc, user);
     });
@@ -142,14 +140,13 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected performForm(): void {
-    this.setFormSettings(this.getFormSettings());
     this.formModels = this.getFormModels();
     this.formLayout = this.getFormLayout();
     this.accordion = this.getFormAccordion();
   }
 
   protected setFormSettings(settings: any = {}): void {
-    const config = settings instanceof DocumentFormSettings ? settings : this.formSettings$.value.update(settings);
+    const config = this.formSettings$.value.update(settings);
     this.formSettings$.next(config);
   }
 

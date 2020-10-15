@@ -29,9 +29,9 @@ export class DocumentFormStatus {
 
   submitted: boolean = false;
 
-  formValid: boolean = false;
+  formValid: boolean = true;
 
-  childrenValid: boolean = false;
+  childrenValid: boolean = true;
 
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
@@ -47,7 +47,6 @@ export class DocumentFormStatus {
   disableSaveButton(): boolean {
     return ['preparing', 'uploading'].includes(this.uploadState) || this.submitted || !this.formValid || !this.childrenValid;
   }
-
 }
 
 export class DocumentFormSettings {
