@@ -7,13 +7,14 @@ import { BackslashEdgeFolderModule } from './backslash-edge-folder/backslash-edg
 import { BackslashHomeModule } from './backslash-home/backslash-home.module';
 import { BackslashPageRoutingModule } from './backslash-page-routing.module';
 import { BackslashAssetModule } from './backslash-asset/backslash-asset.module';
-import { BackslashRemotePageComponent } from './backslash-remote-page.component';
+import { BackslashRemotePageComponent } from './backslash-remote-page/backslash-remote-page.component';
 import { BackslashResourceModule } from './backslash-resource/backslash-resource.module';
 import { BackslashCaseStudyModule } from './backslash-case-study/backslash-case-study.module';
 import { BackslashTriggerPoolModule } from './backslash-trigger-pool/backslash-trigger-pool.module';
 import { BackslashResourceFolderModule } from './backslash-resource-folder/backslash-resource-folder.module';
 import { BackslashCaseStudyFolderModule } from './backslash-case-study-folder/backslash-case-study-folder.module';
 import { BackslashTriggerPoolViewModule } from './backslash-trigger-pool-view/backslash-trigger-pool-view.module';
+import { BackslashRemotePageModule } from './backslash-remote-page/backslash-remote-page.module';
 import { BackslashCategoryModule } from './backslash-category/backslash-categorymodule';
 
 @NgModule({
@@ -31,11 +32,11 @@ import { BackslashCategoryModule } from './backslash-category/backslash-category
     BackslashResourceFolderModule,
     BackslashCaseStudyFolderModule,
     BackslashTriggerPoolViewModule,
+    BackslashRemotePageModule,
     BackslashCategoryModule,
   ],
   declarations: [
     BackslashPageComponent,
-    BackslashRemotePageComponent,
   ],
 })
 export class BackslashPageModule {

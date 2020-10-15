@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { UserPermission } from '@core/acl';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { BackslashPageComponent } from './backslash-page.component';
-import { BackslashRemotePageComponent } from './backslash-remote-page.component';
+import { BackslashRemotePageComponent } from './backslash-remote-page/backslash-remote-page.component';
 import { BackslashHomeComponent } from './backslash-home/backslash-home.component';
 import { BackslashEdgeComponent } from './backslash-edge/backslash-edge.component';
 import { BackslashAssetComponent } from './backslash-asset/backslash-asset.component';
@@ -81,7 +81,7 @@ const routes: Routes = [{
       component: BackslashTriggerPoolViewComponent,
     },
     {
-      path: 'remote',
+      path: 'remote/:id',
       component: BackslashRemotePageComponent,
     },
     {

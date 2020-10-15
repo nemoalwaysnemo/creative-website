@@ -1,12 +1,34 @@
 <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
+
   <ng-container *ngIf="doc.type === 'App-Backslash-Resources-Assetfolder'">
-    <div class="image-holder">
-      <a [routerLink]="['/p/backslash/resource/folder', doc.uid ]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
-    </div>
-    <div class="description">
-      <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/resource/folder', doc.uid ]" [queryParams]="queryParams">{{doc.title}}</a></h1>
-    </div>
+
+    <ng-container [ngSwitch]="true">
+      <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
+        <div class="image-holder">
+          <a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener" class="btn" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+        </div>
+        <div class="description">
+          <h1 [title]="doc.title"><a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener">{{doc.title}}</a></h1>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="doc.openLinkInIframe()">
+        <div class="image-holder">
+          <a [routerLink]="['/p/backslash/remote', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+        </div>
+        <div class="description">
+          <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/remote', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <div class="image-holder">
+          <a [routerLink]="['/p/backslash/resource/folder', doc.uid ]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+        </div>
+        <div class="description">
+          <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/resource/folder', doc.uid ]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+        </div>
+      </ng-container>
+    </ng-container>
   </ng-container>
 
   <ng-container *ngIf="doc.type === 'App-Backslash-Resources-Asset'">
