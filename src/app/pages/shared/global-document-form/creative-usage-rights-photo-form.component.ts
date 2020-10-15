@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserModel, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel, DynamicListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { Observable } from 'rxjs';
-import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
+import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'creative-usage-rights-photo-form',
@@ -55,14 +56,14 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:campaign',
         label: 'Campaign/Project',
         autoComplete: 'off',
         required: false,
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:po_number_internal',
@@ -98,7 +99,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         required: false,
         document: true,
         placeholder: 'Brand',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:brand',
@@ -110,7 +111,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideBrands',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({

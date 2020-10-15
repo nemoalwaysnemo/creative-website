@@ -36,8 +36,8 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   @serializable() errorMessages: DynamicValidatorsConfig | null;
   @serializable() hidden: boolean;
   @serializable() readOnly: boolean;
-  @serializable() hiddenFn: Function = (doc: any): boolean => false;
-  @serializable() visibleFn: Function = (doc: any): boolean => true;
+  @serializable() hiddenFn: Function = (doc: any, user: any, settings: any): boolean => false;
+  @serializable() visibleFn: Function = (doc: any, user: any, settings: any): boolean => true;
   @serializable() id: string;
   @serializable() label: string | null;
   @serializable() labelTooltip: string | null;

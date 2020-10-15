@@ -37,17 +37,17 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
       {
         // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
         name: '+ Agency Credits',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:campaign_mgt'),
       },
       {
         // #{currentDocument.getPropertyValue('app_global:backslash')=="0" ? 'hidden' : 'edit'}
         name: '+ Backslash',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:backslash'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:backslash'),
       },
       {
         // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
         name: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
       },
     ];
   }
@@ -61,7 +61,6 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
-        hidden: true,
         validators: {
           required: null,
           minLength: 4,
@@ -70,25 +69,9 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
+        hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => settings.formMode === 'create',
       }),
       // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'hidden' : 'edit'}
-      new DynamicInputModel({
-        id: 'dc:title',
-        label: 'Title',
-        maxLength: 50,
-        placeholder: 'Title',
-        autoComplete: 'off',
-        formMode: 'edit',
-        required: true,
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '',
-          minLength: 'At least 4 characters',
-        },
-      }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',
         label: 'Search Project',
@@ -101,7 +84,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -149,7 +132,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
           required: '{{label}} is required',
           dateFormatValidator: 'Invalid format. Valid Format MMM D, YYYY',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicDatepickerDirectiveModel<string>({
@@ -165,7 +148,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
           required: '{{label}} is required',
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
@@ -181,7 +164,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         validators: { required: null },
         errorMessages: { required: '' },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
@@ -197,7 +180,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         validators: { required: null },
         errorMessages: { required: '' },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',
@@ -219,7 +202,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
           providerName: 'javascript.provideRegions',
         },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global_fields:enable_region'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global_fields:enable_region'),
       }),
       // new DynamicInputModel({
       //   id: 'The_Loupe_Main:spotLength',
@@ -234,25 +217,25 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
       new DynamicInputModel({
         id: 'The_Loupe_Main:jobnumber',
         label: 'Job Number',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:campaign_mgt'),
       }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_po_number_internal')=="0" ? 'hidden' : 'edit'}
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:po_number_internal',
         label: 'PO Internal',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global_fields:enable_po_number_internal'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global_fields:enable_po_number_internal'),
       }),
       // #{currentDocument.getPropertyValue('app_global:campaign_mgt')=="0" ? 'edit' : 'hidden'}
       new DynamicInputModel({
         id: 'The_Loupe_Main:campaign',
         label: 'Project / Campaign',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:campaign_mgt'),
       }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_productyear')=="0" ? 'hidden' : 'edit'}
       new DynamicInputModel({
         id: 'The_Loupe_Product_Info:productYear2',
         label: 'Product Year',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global_fields:enable_productyear'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global_fields:enable_productyear'),
       }),
       // #{currentDocument.getPropertyValue('app_global_fields:enable_productlist')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
@@ -264,19 +247,19 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
           providerName: 'javascript.provideProducts',
         },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global_fields:enable_productlist'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global_fields:enable_productlist'),
       }),
       // #{currentDocument.getPropertyValue('app_global:networkshare')=="0" ? 'hidden' : 'edit'}
       new DynamicCheckboxModel({
         id: 'app_global:networkshare',
         label: '&nbsp;&nbsp;Add to brand showcase\nAdding assets to the brand showcase shares them with everyone at TBWA\\ globally',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:networkshare'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:networkshare'),
       }),
       // #{currentDocument.getPropertyValue('app_global:collections')=="0" ? 'hidden' : 'edit'}
       // new DynamicSuggestionModel<string>({
       //   id: 'collectionMember:collectionIds',
       //   label: 'Collections',
-      //   visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().get('app_global:collections'),
+      //   visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:collections'),
       // }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -423,7 +406,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         label: 'Global Contract Reference',
         layoutPosition: 'left',
         accordionTab: '+ Usage Rights',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().get('app_global:UsageRights_globalref'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:UsageRights_globalref'),
       }),
       new DynamicCheckboxModel({
         id: 'The_Loupe_Rights:no_talent_contract',

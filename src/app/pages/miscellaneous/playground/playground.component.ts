@@ -1,10 +1,11 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
-import { DocumentModel, DocumentRepository } from '@core/api';
+import { DocumentModel, DocumentRepository, UserModel } from '@core/api';
 import { concatMap, map } from 'rxjs/operators';
 import { GlobalDocumentDialogService, OptionModel } from '../../shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { SuggestionSettings } from '../../shared/directory-suggestion/directory-suggestion-settings';
+import { DocumentFormSettings } from '../../shared/document-form/document-form.interface';
 
 @Component({
   selector: 'playground',
@@ -88,7 +89,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
-        hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+        hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
       }),
       new DynamicListModel({
         id: 'The_Loupe_Rights:contract_items_usage_types',
@@ -110,7 +111,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
               required: '{{label}} is required',
               minLength: 'At least 4 characters',
             },
-            hiddenFn: (doc: DocumentModel): boolean => doc.get('app_global:UsageRights'),
+            hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
           }),
           new DynamicSuggestionModel<string>({
             id: 'media_usage_type',
@@ -125,7 +126,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
             validators: { required: null },
             errorMessages: { required: '{{label}} is required' },
             onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-            // visibleFn: (doc: DocumentModel): boolean => doc.getParent().get('app_global:UsageRights'),
+            // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
           }),
           new DynamicSuggestionModel<string>({
             id: 'contract_countries',

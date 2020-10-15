@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel, DynamicTextAreaModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
@@ -179,13 +180,13 @@ export class DisruptionRoadmapFormComponent extends GlobalDocumentFormComponent 
       new DynamicCheckboxModel({
         id: 'app_Edges:featured_asset',
         label: 'Featured roadmap',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => user.isAdmin() || user.hasGroup('Disruption-Admins-Disruption'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => user.isAdmin() || user.hasGroup('Disruption-Admins-Disruption'),
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:featured_asset_description',
         label: 'Featured Description',
         rows: 3,
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => user.isAdmin() || user.hasGroup('Disruption-Admins-Disruption'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => user.isAdmin() || user.hasGroup('Disruption-Admins-Disruption'),
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
