@@ -42,9 +42,8 @@ export class BackslashRemotePageComponent extends GlobalDocumentViewComponent {
       currentPageIndex: 0,
       ecm_fulltext: '',
       app_global_ext_app_iframe: true,
-      ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_FOLDER_TYPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ASSET_TYPE,
     };
   }
 

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 
 @Component({
   selector: 'backslash-resource-asset-search-result',
