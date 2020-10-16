@@ -38,11 +38,7 @@ export class DocumentActionGroupComponent {
       if (this.isCreativeAsset(doc)) {
         this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
       } else if (this.isBizDevCaseStudyAsset(doc)) {
-        if (doc.get('app_global:asset_request') === false) {
-          this.downloadPermission$ = observableOf(true);
-        } else {
-          this.downloadPermission$ = doc.hasPermission(NuxeoPermission.Write);
-        }
+        this.downloadPermission$ = doc.hasPermission(NuxeoPermission.Write);
       } else {
         this.downloadPermission$ = observableOf(true);
       }
