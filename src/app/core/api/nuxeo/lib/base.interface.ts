@@ -252,6 +252,8 @@ export class GlobalSearchParams {
 
   static readonly PageSize: number = 24;
 
+  static readonly LoadMoreSize: number = 6;
+
   private settings: any = {};
 
   private searchParams: NuxeoSearchParams;

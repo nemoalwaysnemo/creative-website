@@ -90,15 +90,15 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   protected onPageChanged(): void {
     const subscription = this.paginationService.onPageChanged().subscribe((info: any) => {
-      this.globalSearchFormService.changePageIndex(info.currentPageIndex, 24, { trigger: 'onPageChanged' });
+      this.globalSearchFormService.changePageIndex(info.currentPageIndex, GlobalSearchParams.PageSize, { trigger: 'onPageChanged' });
     });
     this.subscription.add(subscription);
   }
 
   onScrollDown(): void {
     if (this.enableScrolling && this.currentView === 'thumbnailView' && !this.loading && this.canScrollDown) {
-      const nextPageIndex = this.currentPageIndex > 0 ? this.currentPageIndex + 1 : 4;
-      this.globalSearchFormService.changePageIndex(nextPageIndex, 6, { append: true, enableLoading: false, trigger: 'onScrollDown' });
+      const nextPageIndex = this.currentPageIndex > 0 ? this.currentPageIndex + 1 : this.searchParams.providerParams.pageSize / GlobalSearchParams.LoadMoreSize;
+      this.globalSearchFormService.changePageIndex(nextPageIndex, GlobalSearchParams.LoadMoreSize, { append: true, enableLoading: false, trigger: 'onScrollDown' });
     }
   }
 
