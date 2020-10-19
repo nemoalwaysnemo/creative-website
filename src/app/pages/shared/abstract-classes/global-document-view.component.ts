@@ -30,7 +30,12 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
+    this.onPageInit();
     this.onParamsChanged();
+  }
+
+  onPageInit(): void {
+
   }
 
   assetPath(src: string): string {
