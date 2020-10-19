@@ -19,14 +19,14 @@ export class Column {
   compareFunction: () => any;
   valuePrepareFunction: () => any;
   filterFunction: () => any;
-  onComponentInitFunction: (arg) => any;
+  onComponentInitFunction: (instance: any) => any;
 
   constructor(public id: string, protected settings: any, protected dataSet: DataSet) {
     this.process();
   }
 
-  getOnComponentInitFunction(arg): () => any {
-    return this.onComponentInitFunction(arg);
+  getOnComponentInitFunction(arg?: any): (instance: any) => any | undefined {
+    return this.onComponentInitFunction;
   }
 
   getCompareFunction(): () => any {
