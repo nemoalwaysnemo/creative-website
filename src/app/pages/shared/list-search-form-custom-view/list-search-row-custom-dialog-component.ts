@@ -1,8 +1,10 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { objHasValue } from '@core/services/helpers';
-import { GlobalDocumentDialogService } from '../global-document-dialog';
+import { DocumentDialogEvent, GlobalDocumentDialogService } from '../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
+import { Subject, Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   template: `
@@ -35,9 +37,15 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
     </ng-container>
   `,
 })
-export class ListSearchRowCustomDialogComponent {
+export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
 
   options: ListSearchRowCustomViewSettings;
+
+  dialogParams$: Subject<any>;
+
+  private subscription: Subscription = new Subscription();
+
+  @ViewChild('dialog', { static: false }) dialog: TemplateRef<any>;
 
   @Input() value: DocumentModel;
 
@@ -49,16 +57,39 @@ export class ListSearchRowCustomDialogComponent {
   }
 
   constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
+  }
 
+  ngOnInit(): void {
+    this.subscribeEvents();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getTitle(doc: DocumentModel): string {
     return this.options.dialogTitle.replace(':docTitle', doc.title);
   }
 
-  openDialog(dialog: TemplateRef<any>): void {
+  openDialog(dialog: TemplateRef<any>, opts: any = {}): void {
     if (this.options.enableClick) {
-      this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
+      const options = Object.assign({}, { closeOnBackdropClick: false }, opts);
+      this.globalDocumentDialogService.open(dialog, options);
     }
+  }
+
+  private triggerDialog(event: DocumentDialogEvent): void {
+    if (event.name === 'ButtonClicked') {
+      this.openDialog(this.dialog, { selectedMenu: event.options.selectedMenu, selectedTab: event.options.selectedTab });
+    }
+  }
+
+  private subscribeEvents(): void {
+    const subscription = this.globalDocumentDialogService.onEventType('custom').pipe(
+      filter((params: any) => params.options.document && this.value.uid === params.options.document.uid),
+    ).subscribe((event: DocumentDialogEvent) => {
+      this.triggerDialog(event);
+    });
+    this.subscription.add(subscription);
   }
 }

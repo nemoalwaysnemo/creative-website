@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver, ComponentRef } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver, ComponentRef, OnInit, OnDestroy } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { parseTabRoute } from '@core/services/helpers';
 import { DocumentModel, NuxeoPermission } from '@core/api';
@@ -50,8 +50,14 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     this.changeView(item.component);
   }
 
-  protected onOpen(): void {
-    this.changeView(this.tabs[0].component);
+  protected onInit(): void {
+    const selectedTab = this.dialogSettings.selectedTab;
+    let defaultMenu = this.tabs[0];
+    if (this.dialogSettings.selectedMenu) {
+      defaultMenu = this.tabs.find((x) => x.title === this.dialogSettings.selectedMenu) || defaultMenu;
+    }
+    defaultMenu.selected = true;
+    this.changeView(defaultMenu.component, { selectedTab });
   }
 
   protected onDestroy(): void {
@@ -74,10 +80,10 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     }
   }
 
-  private changeView(component: Type<any>): void {
+  private changeView(component: Type<any>, settings: any = {}): void {
     if (component) {
       this.clearDynamicComponent();
-      this.buildComponent(this.dynamicTarget, component);
+      this.buildComponent(this.dynamicTarget, component, settings);
     }
   }
 
@@ -93,9 +99,10 @@ export class CreativeProjectAssetTemplateComponent extends DocumentDialogCustomT
     return dynamicTarget.createComponent(componentFactory);
   }
 
-  protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>): void {
+  protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>, settings: any = {}): void {
     this.dynamicComponentRef = this.createDynamicComponent(dynamicTarget, component);
     this.dynamicComponentRef.instance.documentModel = this.document;
+    this.dynamicComponentRef.instance.templateSettings = settings;
   }
 
 }

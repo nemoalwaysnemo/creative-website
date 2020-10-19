@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef, Type } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { getDocumentTypes } from '@core/services/helpers';
+import { getDocumentTypes, assetPath } from '@core/services/helpers';
 import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
@@ -105,7 +105,7 @@ export class BackslashFolderInfoComponent {
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick});
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
   }
 
   goBack(): void {
@@ -157,7 +157,13 @@ export class BackslashFolderInfoComponent {
       case 'App-Backslash-Case-Study-Category':
         return {
           rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          urlRootPath: '/p/backslash/report/',
+          urlRootPath: '/p/backslash/category/',
+          urlParentPath: '/p/backslash/report/folder/',
+        };
+      case 'App-Backslash-Case-Study-Region':
+        return {
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          urlRootPath: '/p/backslash/category/',
           urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Studies-Folder':
@@ -181,5 +187,9 @@ export class BackslashFolderInfoComponent {
       default:
         return {};
     }
+  }
+
+  getAssetPath(doc: DocumentModel): string {
+    return doc.facets.includes('Thumbnail') && doc.contextParameters && doc.contextParameters.thumbnail ? doc.contextParameters.thumbnail.url : assetPath('assets/images/App-Intelligence-Brands-Icon.jpg');
   }
 }

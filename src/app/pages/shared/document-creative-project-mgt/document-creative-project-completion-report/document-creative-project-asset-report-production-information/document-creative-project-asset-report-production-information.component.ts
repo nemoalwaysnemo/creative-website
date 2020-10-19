@@ -2,9 +2,8 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicListModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 import { BaseDocumentManageComponent } from '../../../abstract-classes/base-document-manage.component';
-import { DocumentFormEvent } from '../../../document-form/document-form.interface';
+import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { SuggestionSettings } from '../../../directory-suggestion/directory-suggestion-settings';
-import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 
 @Component({
   selector: 'document-creative-project-asset-report-production-information',
@@ -17,17 +16,13 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
+  formSettings: DocumentFormSettings = new DocumentFormSettings({
+    formMode: 'edit',
+  });
+
   doc: DocumentModel;
 
   @Input() document: DocumentModel;
-
-  // searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings(
-  //   source: 'creative-project-asset-report-production-information',
-  // });
-
-  changeView(): void {
-    this.showForm = !this.showForm;
-  }
 
   updateForm(doc: DocumentModel): void {
     // this.documentPageService.updateCurrentDocument(doc);
@@ -38,8 +33,12 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
     this.changeView();
   }
 
-  canceleForm(): void {
+  cancelForm(): void {
     this.changeView();
+  }
+
+  changeView(): void {
+    this.showForm = !this.showForm;
   }
 
   onCallback(event: DocumentFormEvent): void {
@@ -47,7 +46,7 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
       this.updateForm(event.doc);
       this.refresh(this.redirectUrl);
     } else if (event.action === 'Canceled') {
-      this.canceleForm();
+      this.cancelForm();
     }
   }
 
@@ -55,7 +54,7 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
 
   }
 
-  protected getSettings(): any[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',

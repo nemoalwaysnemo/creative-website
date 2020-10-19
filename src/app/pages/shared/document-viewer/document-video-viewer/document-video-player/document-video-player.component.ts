@@ -1,6 +1,8 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-video-viewer.service';
+import { DocumentVideoSettings } from './document-video-player.interface';
 import { VgApiService } from '@videogular/ngx-videogular/core';
+import { objHasValue } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,17 +15,23 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  @Input() poster: string;
+  videoSettings: DocumentVideoSettings;
 
-  @Input() videoSources: object;
-
-  @Input() autoPlay: boolean;
+  @Input()
+  set settings(settings: DocumentVideoSettings) {
+    if (objHasValue(settings)) {
+      this.videoSettings = settings;
+    }
+  }
 
   constructor(private documentVideoViewerService: DocumentVideoViewerService, private api: VgApiService) {
-    this.subscription = this.documentVideoViewerService.onEvent('currentTimeChanged').subscribe((event: DocumentVideoEvent) => {
-      this.api.currentTime = event.currentTime;
-      this.api.play();
+    const subscription = this.documentVideoViewerService.onEvent().subscribe((event: DocumentVideoEvent) => {
+      if (event.name === 'currentTimeChanged') {
+        this.api.currentTime = event.currentTime;
+        this.api.play();
+      }
     });
+    this.subscription.add(subscription);
   }
 
   ngOnDestroy(): void {
@@ -32,35 +40,54 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   onPlayerReady(api: VgApiService): void {
     this.api = api;
-    const defaultVolume = this.documentVideoViewerService.getCookie('defaultVolume');
-    setVolume(api, defaultVolume ? defaultVolume : 0);
+    if (this.videoSettings.enableGlobalMute) {
+      const defaultVolume = this.documentVideoViewerService.getCookie('defaultVolume');
+      setVolume(api, defaultVolume ? Number(defaultVolume) : 0);
+    }
+
     setTime(api, this.documentVideoViewerService.getQueryParams('currentTime'));
 
     const defaultMedia = this.api.getDefaultMedia();
     const events = defaultMedia.subscriptions;
 
-    events.volumeChange.subscribe((res) => {
-      const presentVolume = res.target.volume;
-      setVolume(api, presentVolume);
-      this.documentVideoViewerService.setCookie('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'Lax');
+    const subscription1 = events.volumeChange.subscribe((res) => {
+      if (this.videoSettings.enableGlobalMute) {
+        const presentVolume = res.target.volume;
+        setVolume(api, presentVolume);
+        this.documentVideoViewerService.setCookie('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'Lax');
+      }
     });
+    this.subscription.add(subscription1);
 
-    events.playing.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: this.api.currentTime }));
+    // const subscription2 = events.playing.subscribe(() => {
+    //   this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: api.currentTime }));
+    // });
+    // this.subscription.add(subscription2);
+
+    const subscription3 = events.pause.subscribe(() => {
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPause', currentTime: api.currentTime }));
     });
+    this.subscription.add(subscription3);
 
-    events.pause.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPause', currentTime: this.api.currentTime }));
+    const subscription4 = events.seeking.subscribe(() => {
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoSeeking', currentTime: api.currentTime }));
     });
+    this.subscription.add(subscription4);
 
-    if (this.autoPlay) {
+    const subscription5 = events.timeUpdate.subscribe(() => {
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoTimeUpdate', currentTime: api.currentTime }));
+    });
+    this.subscription.add(subscription5);
+
+    if (this.videoSettings.autoplay) {
+      if (this.videoSettings.mute && !this.videoSettings.enableGlobalMute) {
+        this.api.volume = 0;
+      }
       this.api.play();
     }
 
     function setVolume(vgApi: VgApiService, volume: any): void {
-      if (volume) {
-        vgApi.$$setAllProperties('volume', volume);
-      }
+      vgApi.$$setAllProperties('volume', volume);
     }
 
     function setTime(vgApi: VgApiService, time: any): void {

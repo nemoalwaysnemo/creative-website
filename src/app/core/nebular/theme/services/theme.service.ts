@@ -71,7 +71,7 @@ export class NbThemeService {
   onMediaQueryChange(): Observable<NbMediaBreakpoint[]> {
     return this.changeWindowWidth$
       .pipe(
-        startWith(undefined),
+        startWith(undefined as string),
         pairwise(),
         map(([prevWidth, width]: [number, number]) => {
           return [

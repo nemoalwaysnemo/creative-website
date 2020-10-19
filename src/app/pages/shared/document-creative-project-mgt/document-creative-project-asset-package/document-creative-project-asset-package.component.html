@@ -1,6 +1,6 @@
   <div class="text-content pure-text">
     <!-- <img style="width:250px;" src="assets/images/App-Library-Package.png"> -->
-    <document-form [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" [hasResetForm]="'true'" [showButton]="showStatus" (callback)="onCallback($event)"></document-form>
-    <button *ngIf="!showStatus" nbButton outline class="btn btn-info btn-xs" status="info" (click)="goBack()">Back</button>
+    <document-form [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>
+    <!-- <button *ngIf="!showStatus" nbButton outline class="btn btn-info btn-xs" status="info" (click)="goBack()">Back</button> -->
   </div>
-  <document-creative-project-related-asset [document]="parentDocument" [listViewOptions]="listViewOptionsPackage" (onRowSelected)="onSelected($event)" [showButton]="showStatus"></document-creative-project-related-asset>
+  <document-creative-project-related-asset [document]="parentDocument" [listViewOptions]="listViewOptionsPackage" (onRowSelected)="onSelected($event)" [showButton]="enableButtons"></document-creative-project-related-asset>

@@ -8,9 +8,9 @@
       <ng-content select=".group-right"></ng-content>
     </div>
 
-    <div [ngClass]="['search-group', formSettings.searchGroupPosition, 'right']">
+    <div [ngClass]="['search-group', searchFormSettings.searchGroupPosition, 'right']">
       <ng-container *ngIf="hasFilters()">
-        <div [ngClass]="['search-filters', 'global-search-filters', formSettings.searchGroupPosition]">
+        <div [ngClass]="['search-filters', 'global-search-filters', searchFormSettings.searchGroupPosition]">
           <button type="button" (click)="toggleFilter()" class="advanced-filters-trigger icon_btn" [ngClass]="{'success': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filter</button>
         </div>
       </ng-container>
@@ -18,10 +18,10 @@
 
     <div class="clear"></div>
 
-    <div [ngClass]="['search-group', formSettings.searchGroupPosition, 'search-box']">
-      <ng-container *ngIf="formSettings.enableSearchInput">
-        <div [ngClass]="['search-input', 'global-search-input', formSettings.searchGroupPosition, 'search-box']">
-          <input class="form-control left" [autofocus]='formSettings.autofocus' formControlName="ecm_fulltext" [placeholder]="formSettings.placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
+    <div [ngClass]="['search-group', searchFormSettings.searchGroupPosition, 'search-box']">
+      <ng-container *ngIf="searchFormSettings.enableSearchInput">
+        <div [ngClass]="['search-input', 'global-search-input', searchFormSettings.searchGroupPosition, 'search-box']">
+          <input class="form-control left" [autofocus]='searchFormSettings.autofocus' formControlName="ecm_fulltext" [placeholder]="searchFormSettings.placeholder" (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
         </div>
       </ng-container>
     </div>

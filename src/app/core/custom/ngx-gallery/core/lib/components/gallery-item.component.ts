@@ -17,7 +17,7 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
         </gallery-image>
 
         <div class="g-template g-item-template">
-          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }"></ng-container>
+          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: index, currIndex: currIndex, type: type, data: data }"></ng-container>
         </div>
 
       </ng-container>

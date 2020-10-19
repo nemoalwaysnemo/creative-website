@@ -1,5 +1,6 @@
 <creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
 <div class="creative-brand-showcase" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
-  <creative-document-asset-search-result [layout]="layout"></creative-document-asset-search-result>
+  <selectable-action-bar [settings]="actionBarsettings" [document]="document"></selectable-action-bar>
+  <creative-document-asset-search-result [layout]="layout" [selectableSettings]="selectableSettings" [showDialog]="'true'"></creative-document-asset-search-result>
 </div>

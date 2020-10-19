@@ -18,6 +18,8 @@ import { DocumentCreativeProjectReportBuyontTalentInformationComponent } from '.
 import { DocumentCreativeProjectReportAllowableVersionsComponent } from './document-creative-project-completion-report/document-creative-project-asset-report-allowable-versions/document-creative-project-asset-report-allowable-versions.component';
 import { DocumentCreativeProjectAssetReportUnionTalentComponent } from './document-creative-project-completion-report/document-creative-project-asset-report-union-talent/document-creative-project-asset-report-union-talent.component';
 import { DocumentCreativeProjectReportProductionInformationComponent } from './document-creative-project-completion-report/document-creative-project-asset-report-production-information/document-creative-project-asset-report-production-information.component';
+import { DocumentCreativeProjectImportNewRequestComponent } from './document-creative-project-import-request/document-creative-project-import-new-request/document-creative-project-import-new-request.component';
+import { DocumentCreativeProjectImportRequestsViewComponent } from './document-creative-project-import-request/document-creative-project-import-requests-view/document-creative-project-import-requests-view.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -41,6 +43,8 @@ import { DocumentCreativeProjectReportProductionInformationComponent } from './d
     DocumentCreativeProjectImportAssetImageComponent,
     DocumentCreativeProjectImportAssetVideoComponent,
     DocumentCreativeProjectImportAssetAudioComponent,
+    DocumentCreativeProjectImportNewRequestComponent,
+    DocumentCreativeProjectImportRequestsViewComponent,
   ],
   exports: [
     DocumentCreativeProjectInfoComponent,
@@ -53,6 +57,8 @@ import { DocumentCreativeProjectReportProductionInformationComponent } from './d
     DocumentCreativeProjectReportAllowableVersionsComponent,
     DocumentCreativeProjectReportProductionInformationComponent,
     DocumentCreativeProjectImportAssetComponent,
+    DocumentCreativeProjectImportNewRequestComponent,
+    DocumentCreativeProjectImportRequestsViewComponent,
   ],
 })
 export class DocumentCreativeProjectMgtModule {

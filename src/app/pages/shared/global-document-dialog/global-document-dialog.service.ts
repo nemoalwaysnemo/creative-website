@@ -36,8 +36,9 @@ export class GlobalDocumentDialogService {
   }
 
   open(dialog: TemplateRef<any>, options: DocumentDialogOption = {}): void {
-    this.options = options;
     const closeOnBackdropClick = typeof options.closeOnBackdropClick === 'undefined' ? true : options.closeOnBackdropClick;
+    delete options.closeOnBackdropClick;
+    this.options = options;
     this.dialogService.open(dialog, { closeOnBackdropClick });
   }
 

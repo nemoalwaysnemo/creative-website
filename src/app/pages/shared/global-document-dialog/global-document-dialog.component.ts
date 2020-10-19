@@ -54,12 +54,12 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
 
   }
 
-  protected onOpen(e: DocumentDialogEvent): void {
+  protected onInitialized(e: DocumentDialogEvent): void {
     const componentName = e.options.componentName;
     const component = e.options.component || this.mainComponent;
     this.globalDocumentDialogService.triggerEvent({ name: 'ViewOpened', type: 'built-in', messageContent: 'View Opened', options: { componentName, component } });
     this.googleAnalyticsTrackEvent(component.COMPONENT_TYPE);
-    this.selectView(componentName, component);
+    this.selectView(componentName, component, e.options);
   }
 
   protected getComponentByName(name: string): Type<any> {
@@ -91,7 +91,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
   protected buildComponent(componentContainer: Type<any>, component: Type<any>, metadata?: any): void {
     this.dynamicComponentRef = this.createDynamicComponent(this.dynamicTarget, componentContainer);
     this.dynamicComponentRef.instance.title = this.title;
-    this.dynamicComponentRef.instance.metadata = metadata || this.dialogSettings;
+    this.dynamicComponentRef.instance.metadata = Object.assign({}, this.dialogSettings, metadata);
     this.dynamicComponentRef.instance.documentModel = this.document;
     this.dynamicComponentRef.instance.redirectUrl = this.redirectUrl;
     this.dynamicComponentRef.instance.mainViewChanged = this.mainViewChanged;

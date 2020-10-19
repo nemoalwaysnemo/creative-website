@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { DynamicListModel, DynamicInputModel  } from '@core/custom';
-import { DocumentFormEvent } from '../../../document-form/document-form.interface';
+import { DynamicListModel, DynamicInputModel } from '@core/custom';
+import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { BaseDocumentManageComponent } from '../../../abstract-classes/base-document-manage.component';
 @Component({
   selector: 'document-creative-project-asset-report-allowable-versions',
@@ -14,13 +14,13 @@ export class DocumentCreativeProjectReportAllowableVersionsComponent extends Bas
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
+  formSettings: DocumentFormSettings = new DocumentFormSettings({
+    formMode: 'edit',
+  });
+
   doc: DocumentModel;
 
   @Input() document: DocumentModel;
-
-  changeView(): void {
-    this.showForm = !this.showForm;
-  }
 
   updateForm(doc: DocumentModel): void {
     if (doc && this.document && doc.uid === this.document.uid) {
@@ -30,8 +30,12 @@ export class DocumentCreativeProjectReportAllowableVersionsComponent extends Bas
     this.changeView();
   }
 
-  canceleForm(): void {
+  cancelForm(): void {
     this.changeView();
+  }
+
+  changeView(): void {
+    this.showForm = !this.showForm;
   }
 
   onCallback(event: DocumentFormEvent): void {
@@ -39,14 +43,14 @@ export class DocumentCreativeProjectReportAllowableVersionsComponent extends Bas
       this.updateForm(event.doc);
       this.refresh(this.redirectUrl);
     } else if (event.action === 'Canceled') {
-      this.canceleForm();
+      this.cancelForm();
     }
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
   }
 
-  protected getSettings(): any[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicListModel({
         id: 'The_Loupe_ProdCredits:allowable_versions',

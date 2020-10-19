@@ -174,6 +174,7 @@ export class NbAuthService {
           }),
         );
     }
+
     return observableOf(result);
   }
 

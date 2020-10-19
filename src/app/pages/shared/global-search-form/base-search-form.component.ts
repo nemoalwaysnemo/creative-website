@@ -17,7 +17,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   @Input()
   set settings(settings: GlobalSearchFormSettings) {
     if (objHasValue(settings)) {
-      this.formSettings = settings;
+      this.searchFormSettings = settings;
     }
   }
 
@@ -47,7 +47,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
-  formSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   searchResponse$ = new BehaviorSubject<SearchResponse>(null);
 
@@ -137,7 +137,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected getFormSettings(key: string): any {
-    return this.formSettings[key];
+    return this.searchFormSettings[key];
   }
 
   protected getSearchSettings(key: string, searchParams: GlobalSearchParams): any {
@@ -198,7 +198,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
         if (params.hasOwnProperty(key)) {
           const func = this.allowedSettingsParams[key];
           if (func) {
-            this.formSettings[key] = func.call(this, params[key]);
+            this.searchFormSettings[key] = func.call(this, params[key]);
           }
         }
       }
@@ -240,7 +240,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected onInitialCurrentPage(): Observable<boolean> {
     return this.router.events.pipe(
-      startWith(null),
+      startWith(null as string),
       filter(event => event === null || event instanceof NavigationEnd),
       pairwise(),
       map(([prev, current]: [NavigationEnd, NavigationEnd]) => this.isPageChanged(prev, current)),

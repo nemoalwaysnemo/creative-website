@@ -10,16 +10,8 @@
       </div>
     </div>
     <div class="one-row">
-      <div class="showcase-area">
-        <h4>Client</h4><span>{{document.get('The_Loupe_Main:clientName')}}</span>
-      </div>
       <div class="showcase-area" *ngIf="document.get('app_global:brand_activation')">
         <h4>Brand</h4><span>{{document.get('The_Loupe_Main:brand')}}</span>
-      </div>
-    </div>
-    <div class="one-row">
-      <div class="showcase-area">
-        <h4>Industry</h4><span>{{document.get('app_Edges:industry')}}</span>
       </div>
       <div class="showcase-area" *ngIf="document.get('app_global_fields:enable_region')">
         <h4>Region</h4><span>{{document.get('The_Loupe_Main:region')}}</span>
@@ -73,6 +65,6 @@
     <button (click)="changeView()" class="btn btn-success">EDIT</button>
   </div>
   <div *ngIf="document && showForm" class="document">
-    <document-form [currentUser]="currentUser" [document]="document" [formMode]="'edit'" [settings]="settings" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
+    <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [models]="formModels" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
   </div>
 </div>

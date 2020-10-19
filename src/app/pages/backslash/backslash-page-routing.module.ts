@@ -1,7 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { UserPermission } from '@core/acl';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 import { BackslashPageComponent } from './backslash-page.component';
-import { BackslashRemotePageComponent } from './backslash-remote-page.component';
+import { BackslashRemotePageComponent } from './backslash-remote-page/backslash-remote-page.component';
 import { BackslashHomeComponent } from './backslash-home/backslash-home.component';
 import { BackslashEdgeComponent } from './backslash-edge/backslash-edge.component';
 import { BackslashAssetComponent } from './backslash-asset/backslash-asset.component';
@@ -13,6 +15,7 @@ import { BackslashEdgeFolderComponent } from './backslash-edge-folder/backslash-
 import { BackslashAssetViewComponent } from './backslash-asset-view/backslash-asset-view.component';
 import { BackslashCaseStudyFolderComponent } from './backslash-case-study-folder/backslash-case-study-folder.component';
 import { BackslashTriggerPoolViewComponent } from './backslash-trigger-pool-view/backslash-trigger-pool-view.component';
+import { BackslashCategoryComponent } from './backslash-category/backslash-category.component';
 
 const routes: Routes = [{
   path: '',
@@ -51,6 +54,10 @@ const routes: Routes = [{
       component: BackslashCaseStudyComponent,
     },
     {
+      path: 'category',
+      component: BackslashCategoryComponent,
+    },
+    {
       path: 'report/folder/:id',
       component: BackslashCaseStudyFolderComponent,
     },
@@ -61,13 +68,20 @@ const routes: Routes = [{
     {
       path: 'Trigger Pool',
       component: BackslashTriggerPoolComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: UserPermission.Mgt,
+          redirectTo: 'home',
+        },
+      },
     },
     {
       path: 'Trigger Pool/asset/:id',
       component: BackslashTriggerPoolViewComponent,
     },
     {
-      path: 'remote',
+      path: 'remote/:id',
       component: BackslashRemotePageComponent,
     },
     {

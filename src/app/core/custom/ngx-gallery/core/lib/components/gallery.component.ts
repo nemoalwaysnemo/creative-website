@@ -14,16 +14,7 @@ import { Subscription, SubscriptionLike } from 'rxjs';
 import { Gallery } from '../services/gallery.service';
 import { GalleryRef } from '../services/gallery-ref';
 import { GalleryError, GalleryItem, GalleryState } from '../models/gallery.model';
-import {
-  IframeItem,
-  IframeItemData,
-  ImageItem,
-  ImageItemData,
-  VideoItem,
-  VideoItemData,
-  YoutubeItem,
-  YoutubeItemData,
-} from './templates/items.model';
+import { IframeItem, ImageItem, VideoItem, YoutubeItem } from './templates/items.model';
 
 @Component({
   selector: 'gallery',

@@ -21,7 +21,7 @@ export class NbRestoreScrollTopHelper {
   shouldRestore(): Observable<boolean> {
     return this.router.events
       .pipe(
-        startWith(null),
+        startWith(null as string),
         filter(event => event === null || event instanceof NavigationEnd),
         pairwise(),
         map(([prev, current]: [NavigationEnd, NavigationEnd]) => this.pageChanged(prev, current)),

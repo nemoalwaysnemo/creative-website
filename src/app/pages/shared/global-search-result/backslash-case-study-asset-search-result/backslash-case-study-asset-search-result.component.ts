@@ -26,8 +26,4 @@ export class BackslashCaseStudyAssetSearchResultComponent extends BaseSearchResu
   assetPath(path: string): string {
     return assetPath(path);
   }
-
-  searchResultFilter(res: SearchResponse): boolean {
-    return res.source === 'document-backslash-report';
-  }
 }

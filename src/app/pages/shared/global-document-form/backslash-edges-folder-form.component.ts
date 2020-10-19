@@ -9,7 +9,7 @@ import { DocumentFormEvent } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'backslash-edges-folder-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class BackslashEdgesFolderFormComponent extends GlobalDocumentFormComponent {
 
@@ -32,7 +32,7 @@ export class BackslashEdgesFolderFormComponent extends GlobalDocumentFormCompone
     return event;
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',

@@ -153,6 +153,14 @@
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>
+        <div>
+          <ng-container *ngIf="deletePermission$ | async">
+            <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete" class="delete right icon_btn">Delete</a>
+          </ng-container>
+          <ng-container *ngIf="writePermission$ | async">
+            <a href="javascript:;" (click)="openDialog(editDialog, false)" title="Edit" class="edit right icon_btn">Edit</a>
+          </ng-container>
+        </div>
         <!-- <ng-container *ngIf="downloadPermission$ | async">
           <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right icon_btn" title="Download">Download</a>
         </ng-container>

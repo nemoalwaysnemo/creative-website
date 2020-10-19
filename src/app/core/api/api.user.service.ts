@@ -23,7 +23,7 @@ export class UserService {
     return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetFavorite));
   }
 
-  addFavoriteDocument(uids: string[]): Observable<NuxeoResponse> {
-    return this.nuxeoApi.operation(NuxeoAutomations.AddToFavorite, {}, uids);
+  addToFavorites(uids: string[]): Observable<NuxeoResponse> {
+    return this.nuxeoApi.operation(NuxeoAutomations.AddToFavorites, {}, uids);
   }
 }

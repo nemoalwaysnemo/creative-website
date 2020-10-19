@@ -52,6 +52,7 @@ import { BackslashCaseStudyFolderAssetSearchResultComponent } from './backslash-
 import { BackslashEdgesAssetSearchResultComponent } from './backslash-edges-asset-search-result/backslash-edges-asset-search-result.component';
 import { BackslashEdgesFolderAssetSearchResultComponent } from './backslash-edges-folder-asset-search-result/backslash-edges-folder-asset-search-result.component';
 import { BackslashTriggerPoolAssetSearchResultComponent } from './backslash-trigger-pool-asset-search-result/backslash-trigger-pool-asset-search-result.component';
+import { BackslashPipelineAssetSearchResultComponent } from './backslash-pipeline-asset-search-result/backslash-pipeline-asset-search-result.component';
 
 const COMPONENTS = [
   BaseSearchResultComponent,
@@ -69,6 +70,7 @@ const COMPONENTS = [
   CreativeDocumentAssetSearchResultComponent,
   CreativeAgencyAssetSearchResultComponent,
   BackslashDocumentAssetSearchResultComponent,
+  BackslashPipelineAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,
   DisruptionTheoryAssetSearchResultComponent,
   DisruptionThinkingAssetSearchResultComponent,

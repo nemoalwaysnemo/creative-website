@@ -86,10 +86,10 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
   }
 
   private searchFolders(): void {
-    forkJoin(
+    forkJoin([
       this.search(this.folderParams),
       this.search(this.brandsParams),
-    ).pipe(
+    ]).pipe(
       map((docsList: DocumentModel[][]) => [].concat.apply([], docsList)),
     ).subscribe((docs: DocumentModel[]) => {
       this.folders = docs;

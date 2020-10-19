@@ -6,6 +6,7 @@ import { DocumentPageService } from '../../services/document-page.service';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { GlobalDocumentFormComponent } from '../../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from '../../document-form/document-form.interface';
 
 @Component({
   selector: 'document-creative-project-asset-package',
@@ -14,31 +15,15 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog/global
 })
 export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocumentFormComponent {
 
-  constructor(
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
-    protected documentPageService: DocumentPageService,
-    protected nuxeoApi: NuxeoApiService,
-  ) {
-    super(documentPageService);
-  }
-
-  @Input()
-  set showButton(show: boolean) {
-    this.showStatus = show;
-  }
-
-  @Input()
-  set listViewOptions(settings: any) {
-    this.listViewOptionsPackage = settings;
-  }
-
   static readonly NAME: string = 'creative-project-asset-package-form';
 
   protected documentType: string = 'App-Library-Delivery-Package';
 
+  baseParams$: Subject<any> = new Subject<any>();
+
   loading: boolean = true;
 
-  baseParams$: Subject<any> = new Subject<any>();
+  enableButtons: boolean = true;
 
   isPackage: boolean = false;
 
@@ -49,8 +34,6 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
   isRefresh: boolean = false;
 
   parentDocument: DocumentModel;
-
-  showStatus: boolean = true;
 
   listViewOptionsPackage: any = {
     hideHeader: true,
@@ -64,13 +47,24 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     enableSearchInput: false,
   });
 
+  @Input()
+  set showButton(enableButtons: boolean) {
+    this.enableButtons = enableButtons;
+    this.setFormSettings({ enableButtons });
+  }
+
+  @Input()
+  set listViewOptions(settings: any) {
+    this.listViewOptionsPackage = settings;
+  }
+
   @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
+
 
   beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
     doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
     doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
     doc.properties['The_Loupe_Delivery:agency_disclaimer'] = doc.getParent().uid;
-    // doc.properties['dc:subjects'] = [doc.get('dc:subjects')];
     return doc;
   }
 
@@ -79,10 +73,23 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return observableOf(doc);
   }
 
+  constructor(
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+    protected documentPageService: DocumentPageService,
+    protected nuxeoApi: NuxeoApiService,
+  ) {
+    super(documentPageService);
+  }
+
   setFormDocument(doc: DocumentModel, user: UserModel): void {
     super.setFormDocument(doc, user);
     this.loading = false;
     this.getStatus(doc);
+  }
+
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    // console.log(2222, event.button);
+    return event;
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
@@ -95,7 +102,31 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return observableOf(doc);
   }
 
-  protected getSettings(): object[] {
+  protected getFormSettings(): DocumentFormSettings {
+    return new DocumentFormSettings({
+      buttonGroup: [
+        {
+          label: 'Save',
+          name: 'save',
+          type: 'save',
+        },
+        {
+          label: 'Test',
+          name: 'test button',
+          type: 'custom',
+          disabled: (status: DocumentFormStatus) => false,
+          // disabled: (status: DocumentFormStatus) => status.disableSaveButton(),
+        },
+        {
+          label: 'Cancel',
+          name: 'cancle',
+          type: 'cancle',
+        },
+      ],
+    });
+  }
+
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'The_Loupe_Main:brand',
@@ -273,13 +304,15 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
       this.nuxeoApi.operation(NuxeoAutomations.AddToCollection, { collection: packageId }, assetIds).subscribe(() => {
         this.refresh();
       });
+    } else {
+      this.refresh();
     }
   }
 
   protected refresh(): void {
-    this.globalDocumentDialogService.triggerEvent({ name: `Add to Collection`, type: 'callback', messageType: 'success', messageContent: 'Add to Collection has been created successfully!' });
+    this.globalDocumentDialogService.triggerEvent({ name: `Delivery Package`, type: 'callback', messageType: 'success', messageContent: 'Delivery Package has been created successfully!' });
     timer(3000).subscribe(() => {
-      this.globalDocumentDialogService.triggerEvent({ name: `Add to Collection`, type: 'callback' });
+      this.globalDocumentDialogService.triggerEvent({ name: `Delivery Package`, type: 'callback' });
     });
     this.listViewOptionsPackage = {
       hideHeader: false,

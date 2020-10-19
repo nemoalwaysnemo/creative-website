@@ -23,6 +23,9 @@ enum AssetTypes {
   backslashResourceAsset = 'App-Backslash-Resources-Asset',
   backslashTriggerAsset = 'App-Edges-Trigger',
   backslashReportAsset = 'App-Backslash-Case-Study',
+  creativeAudio = 'App-Library-Audio',
+  creativeImage = 'App-Library-Image',
+  creativeVideo = 'App-Library-Video',
 }
 
 @Component({
@@ -82,7 +85,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         // this.downloadPermission$ = observableOf(true);
       }
 
-      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc)) {
+      if (this.isDisruptionAsset(doc) || this.isIntelligenceAsset(doc) || this.isBizDevAsset(doc) || this.isInnovationAsset(doc) || this.isBackslashAsset(doc) || this.isCreativeAsset(doc)) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
         this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
       }
@@ -181,6 +184,15 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       case AssetTypes.backslashReportAsset:
         components.push(GLOBAL_DOCUMENT_FORM.BACKSLASH_CASE_STUDY_ASSET_FORM);
         break;
+      case AssetTypes.creativeAudio:
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_AUDIO_FORM);
+        break;
+      case AssetTypes.creativeImage:
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_IMAGE_FORM);
+        break;
+      case AssetTypes.creativeVideo:
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_VIDEO_FORM);
+        break;
       default:
         break;
     }
@@ -228,6 +240,15 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.backslashReportAsset:
         formTitle = 'Edit Report';
+        break;
+      case AssetTypes.creativeAudio:
+        formTitle = 'Edit Audio';
+        break;
+      case AssetTypes.creativeImage:
+        formTitle = 'Edit Image';
+        break;
+      case AssetTypes.creativeVideo:
+        formTitle = 'Edit Video';
         break;
       default:
         break;

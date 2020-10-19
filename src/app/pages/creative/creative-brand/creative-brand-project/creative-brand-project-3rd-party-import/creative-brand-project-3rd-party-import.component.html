@@ -1,0 +1,40 @@
+<div [nbSpinner]="loadingRequest" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="requestDocument" class="document">
+    <h2>UPLOAD STATUS INFORMATION</h2>
+    <table>
+      <tbody>
+        <tr>
+          <th>Status</th>
+          <th>Request sent</th>
+          <th>Upload expires by</th>
+        </tr>
+        <tr>
+          <td>{{ requestDocument.get('The_Loupe_Delivery:status') }}</td>
+          <td>{{ requestDocument.get('The_Loupe_Delivery:delivery_send_date') }}</td>
+          <td>{{ requestDocument.get('The_Loupe_Delivery:delivery_expiration_date') }}</td>
+        </tr>
+        <tr>
+          <th>Message</th>
+          <th>Requested by</th>
+          <th>Uploader email</th>
+        </tr>
+        <tr>
+          <td>{{ requestDocument.get('The_Loupe_Main:description') }}</td>
+          <td>{{ requestDocument.get('The_Loupe_Delivery:request_user') }}</td>
+          <td>{{ requestDocument.get('The_Loupe_Delivery:delivery_email') }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-container class="group-right">
+      <div class="global-search-form-buttons">
+        <creative-brand-form-button [parent]="document" [type]="'image'" [title]="'Upload Image'">
+        </creative-brand-form-button>
+        <creative-brand-form-button [parent]="document" [type]="'video'" [title]="'Upload Video'">
+        </creative-brand-form-button>
+        <creative-brand-form-button [parent]="document" [type]="'audio'" [title]="'Upload Audio'">
+        </creative-brand-form-button>
+      </div>
+    </ng-container>
+  </div>
+</div>

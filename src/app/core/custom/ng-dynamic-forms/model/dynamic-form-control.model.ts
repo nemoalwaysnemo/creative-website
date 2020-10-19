@@ -5,7 +5,6 @@ import { DynamicFormControlRelation } from './misc/dynamic-form-control-relation
 import { DynamicFormHook, DynamicValidatorsConfig } from './misc/dynamic-form-control-validation.model';
 import { serializable, serialize } from '../decorator/serializable.decorator';
 import { isBoolean, isObject, isString } from '../utils/core.utils';
-import { DocumentModel, UserModel } from '@core/api';
 
 export interface DynamicFormControlModelConfig {
   asyncValidators?: DynamicValidatorsConfig;
@@ -13,8 +12,8 @@ export interface DynamicFormControlModelConfig {
   errorMessages?: DynamicValidatorsConfig;
   hidden?: boolean;
   readOnly?: boolean;
-  hiddenFn?: (doc: DocumentModel, user: UserModel) => boolean;
-  visibleFn?: (doc: DocumentModel, user: UserModel) => boolean;
+  hiddenFn?: (doc: any, user: any, settings: any) => boolean;
+  visibleFn?: (doc: any, user: any, settings: any) => boolean;
   id: string;
   label?: string;
   formMode?: string;
@@ -99,8 +98,8 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   readonly disabledChanges: Observable<boolean>;
 
   abstract readonly type: string;
-  @serializable() hiddenFn: (doc: DocumentModel, user: UserModel) => boolean = () => false;
-  @serializable() visibleFn: (doc: DocumentModel, user: UserModel) => boolean = () => true;
+  @serializable() hiddenFn: (doc: any, user: any, settings: any) => boolean = () => false;
+  @serializable() visibleFn: (doc: any, user: any, settings: any) => boolean = () => true;
 
   toJSON(): any {
     return serialize(this);

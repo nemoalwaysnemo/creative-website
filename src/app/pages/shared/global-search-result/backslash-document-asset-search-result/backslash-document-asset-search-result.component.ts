@@ -22,6 +22,8 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
     }
   }
 
+  @Input() enableScrolling: boolean = true;
+
   @Input() layout: string;
 
   @Input() resultHeader: string;

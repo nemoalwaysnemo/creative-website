@@ -8,7 +8,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'disruption-day-asset-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionDayAssetFormComponent extends GlobalDocumentFormComponent {
 
@@ -24,7 +24,7 @@ export class DisruptionDayAssetFormComponent extends GlobalDocumentFormComponent
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',

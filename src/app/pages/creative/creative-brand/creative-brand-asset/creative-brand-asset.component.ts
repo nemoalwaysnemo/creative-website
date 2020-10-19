@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, GlobalSearchParams } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings, SelectableActionBarSettings } from '@pages/shared';
+import { SelectableItemService } from '../../../shared/selectable-item/selectable-item.service';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-brand-asset',
-  styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss', './creative-brand-asset.component.scss'],
+
   templateUrl: './creative-brand-asset.component.html',
 })
 export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
@@ -17,7 +19,7 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
   layout: string = 'creative_brand_asset full-width';
 
   filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: GlobalSearchParams): boolean => searchParams.hasParam('the_loupe_main_assettype_agg') }),
+    new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: GlobalSearchParams): boolean => searchParams.hasParam('the_loupe_main_assettype_agg') || searchParams.hasParam('the_loupe_main_campaign_agg') }),
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
@@ -30,7 +32,14 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
     enableSelectable: true,
   });
 
+  actionBarsettings: SelectableActionBarSettings = new SelectableActionBarSettings({
+    enableAddToFavorites: true,
+    enableAddToShowcase: true,
+    enableDeleteDocuments: true,
+  });
+
   constructor(
+    private selectableItemService: SelectableItemService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
@@ -41,6 +50,7 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
     super.setCurrentDocument(doc);
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+      this.selectableItemService.clear();
     }
   }
 

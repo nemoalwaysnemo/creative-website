@@ -17,7 +17,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'intelligence-asset-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent {
 
@@ -54,7 +54,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
     return observableOf(doc);
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',

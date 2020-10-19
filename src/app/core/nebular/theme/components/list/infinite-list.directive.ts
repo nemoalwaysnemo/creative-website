@@ -161,14 +161,16 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
       return observableOf({ scrollTop, scrollHeight, clientHeight });
     }
 
-    return forkJoin(this.scrollService.getPosition(), this.dimensionsService.getDimensions())
-      .pipe(
-        map(([scrollPosition, dimensions]) => ({
-          scrollTop: scrollPosition.y,
-          scrollHeight: dimensions.scrollHeight,
-          clientHeight: dimensions.clientHeight,
-        })),
-      );
+    return forkJoin([
+      this.scrollService.getPosition(),
+      this.dimensionsService.getDimensions(),
+    ]).pipe(
+      map(([scrollPosition, dimensions]) => ({
+        scrollTop: scrollPosition.y,
+        scrollHeight: dimensions.scrollHeight,
+        clientHeight: dimensions.clientHeight,
+      })),
+    );
   }
 
   private inSyncWithDom(): boolean {

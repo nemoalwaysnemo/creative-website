@@ -93,7 +93,7 @@ export class GoogleAnalyticsService {
   trackPageView(e: any = {}): void {
     const event = {
       event: 'google-analytics-pageview',
-      page_location: (() => document.location).call(this),
+      page_location: (() => window.location).call(this),
       page_path: `${e.url}`,
       page_title: e.title,
     };

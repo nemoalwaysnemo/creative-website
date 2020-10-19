@@ -8,7 +8,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'backslash-edges-asset-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponent {
 
@@ -24,7 +24,7 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
@@ -101,8 +101,8 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop Image/Video File(s) here!',
-        acceptTypes: 'image/*,.mp4',
+        placeholder: 'Drop Image/PDF/Video File(s) here!',
+        acceptTypes: 'image/*,.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -110,8 +110,8 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop Image/Video File(s) here!',
-        acceptTypes: 'image/*,.mp4',
+        placeholder: 'Drop Image/PDF/Video File(s) here!',
+        acceptTypes: 'image/*,.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',

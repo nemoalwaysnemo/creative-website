@@ -5,11 +5,12 @@ import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'creative-usage-rights-stock-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeUsageRightsStockComponent extends GlobalDocumentFormComponent {
 
@@ -25,7 +26,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
@@ -54,13 +55,13 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
           providerType: SuggestionSettings.CONTENT_VIEW,
           providerName: 'App-Library-PageProvider-Projects-UR-create',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       // #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('campaign_mgt')=="0" ? 'edit' : 'hidden'}
       new DynamicInputModel({
         id: 'The_Loupe_Main:campaign',
         label: 'Campaign / Project',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().getParent().get('app_global:campaign_mgt'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:po_number_internal',
@@ -189,7 +190,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideBrands',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       // #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('brand_activation')=="0" ? 'edit' : 'hidden'}
@@ -200,7 +201,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
         document: true,
         placeholder: 'Brand',
         layoutPosition: 'right',
-        visibleFn: (doc: DocumentModel, user: UserModel): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',

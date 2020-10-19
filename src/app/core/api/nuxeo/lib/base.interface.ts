@@ -285,7 +285,11 @@ export class GlobalSearchParams {
   }
 
   hasParam(key: string): boolean {
-    return this.providerParams.hasParam(key) || this.hasAggregates(key);
+    return this.providerParams.hasParam(key) || this.hasAggregates(key) || this.hasQueryParam(key);
+  }
+
+  hasQueryParam(key: string): boolean {
+    return this.queryParams.hasParam(key);
   }
 
   hasAggregates(key: string): boolean {
@@ -475,6 +479,9 @@ export class NuxeoRequestOptions {
     this.enrichers[type] = names;
   }
 
+  addSchemas(name: string): void {
+    this.schemas.push(name);
+  }
 }
 
 export class NuxeoPagination {
@@ -605,7 +612,7 @@ export enum NuxeoAutomations {
   GetDocument = 'Creative.GetDocument',
   DocumentCreate = 'Document.Create',
   GetFavorite = 'Favorite.Fetch',
-  AddToFavorite = 'Document.AddToFavorites',
+  AddToFavorites = 'Document.AddToFavorites',
   AddToCollection = 'Document.AddToCollection',
   GetDocumentsFromCollection = 'Collection.GetDocumentsFromCollection',
   RemoveFromFavorites = 'Document.RemoveFromFavorites',

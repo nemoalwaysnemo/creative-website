@@ -8,7 +8,7 @@ import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'disruption-brilliant-thinking-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [formMode]="formMode" [settings]="settings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentFormComponent {
 
@@ -24,7 +24,7 @@ export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentForm
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected getSettings(): object[] {
+  protected getFormModels(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',
@@ -195,8 +195,8 @@ export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentForm
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop PDF File(s) here!',
-        acceptTypes: '.pdf',
+        placeholder: 'Drop PDF/Video File(s) here!',
+        acceptTypes: '.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
@@ -204,8 +204,8 @@ export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentForm
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 1,
-        placeholder: 'Drop PDF File(s) here!',
-        acceptTypes: '.pdf',
+        placeholder: 'Drop PDF/Video File(s) here!',
+        acceptTypes: '.pdf,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',

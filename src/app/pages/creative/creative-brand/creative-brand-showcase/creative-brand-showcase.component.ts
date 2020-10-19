@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings, SelectableActionBarSettings } from '@pages/shared';
+import { SelectableItemService } from '../../../shared/selectable-item/selectable-item.service';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -23,7 +24,18 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
     enableQueryParams: true,
   });
 
+  selectableSettings: SelectableItemSettings = new SelectableItemSettings({
+    enableSelectable: true,
+  });
+
+  actionBarsettings: SelectableActionBarSettings = new SelectableActionBarSettings({
+    enableAddToFavorites: true,
+    enableDeleteDocuments: true,
+    enableRemoveFromShowcase: true,
+  });
+
   constructor(
+    private selectableItemService: SelectableItemService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
@@ -34,6 +46,7 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
     super.setCurrentDocument(doc);
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc)); });
+      this.selectableItemService.clear();
     }
   }
 

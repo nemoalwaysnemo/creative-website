@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { parseTabRoute } from '@core/services/helpers';
 import { Subject, timer } from 'rxjs';
-import { TAB_CONFIG } from '../backslash-tab-config';
-import { DocumentModel, SearchFilterModel, NuxeoSearchConstants, GlobalSearchParams } from '@core/api';
+import { DocumentModel, SearchFilterModel, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -13,8 +11,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   styleUrls: ['./backslash-trigger-pool-view.component.scss'],
 })
 export class BackslashTriggerPoolViewComponent extends GlobalDocumentViewComponent {
-
-  tabs: any[] = parseTabRoute(TAB_CONFIG);
 
   baseParams$: Subject<any> = new Subject<any>();
 
