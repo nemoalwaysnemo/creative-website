@@ -44,10 +44,10 @@ export class DocumentVideoViewerComponent implements OnDestroy {
   }
 
   private onDocumentChanged(): void {
-    const subscription = combineLatest(
+    const subscription = combineLatest([
       this.videoSettings$,
       this.document$,
-    ).subscribe(([videoSettings, doc]: [DocumentVideoSettings, DocumentModel]) => {
+    ]).subscribe(([videoSettings, doc]: [DocumentVideoSettings, DocumentModel]) => {
       this.videoSettings = videoSettings.update({
         poster: doc.videoPoster,
         videoSources: doc.getVideoSources(),
