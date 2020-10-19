@@ -183,7 +183,7 @@ export class NbWindowService {
 
     if (windowRef.config.closeOnEsc) {
       this.overlayRef.keydownEvents()
-        .pipe(filter((event: KeyboardEvent) => event.key === 'ESCAPE'))
+        .pipe(filter((event: KeyboardEvent) => event.key === 'Escape'))
         .subscribe(() => windowRef.close());
     }
 

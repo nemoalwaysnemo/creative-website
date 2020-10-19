@@ -250,7 +250,7 @@ export class NbDialogService {
 
     if (config.closeOnEsc) {
       observableFromEvent(this.document, 'keyup')
-        .pipe(filter((event: KeyboardEvent) => event.key === 'ESCAPE'))
+        .pipe(filter((event: KeyboardEvent) => event.key === 'Escape'))
         .subscribe(() => {
           this.event$.next({ action: 'close', ref: dialogRef });
           dialogRef.close();
