@@ -10,6 +10,10 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class CreativeAssetComponent extends GlobalDocumentViewComponent {
 
+  mute: boolean = true;
+
+  enableGlobalMute: boolean = true;
+
   enableThumbnailCreation: boolean = true;
 
   constructor(

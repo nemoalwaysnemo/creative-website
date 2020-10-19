@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { NbToastrService } from '@core/nebular/theme';
-import { Observable, from, Subject, timer } from 'rxjs';
-import { distinctUntilChanged, filter, withLatestFrom } from 'rxjs/operators';
-import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd } from '@angular/router';
+import { Observable, from, Subject, timer, BehaviorSubject } from 'rxjs';
+import { distinctUntilChanged, filter, pairwise, withLatestFrom } from 'rxjs/operators';
+import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd, RoutesRecognized } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel, NuxeoResponse } from '@core/api';
 import { GoogleAnalyticsService } from '@core/services';
 import { Environment } from '@environment/environment';
@@ -13,6 +13,8 @@ import { Environment } from '@environment/environment';
   providedIn: 'root',
 })
 export class DocumentPageService {
+
+  previousRoutePath$ = new BehaviorSubject<string>(null);
 
   private document: DocumentModel; // it should be the doc for current page. every component linked to the route should set this
 
@@ -27,7 +29,9 @@ export class DocumentPageService {
     private toastrService: NbToastrService,
     private advanceSearchService: AdvanceSearchService,
     private googleAnalyticsService: GoogleAnalyticsService,
-  ) { }
+  ) {
+    this.subscribeRouteChanged();
+  }
 
   googleAnalyticsTrackTitle(): void {
     this.document$.pipe(
@@ -140,6 +144,10 @@ export class DocumentPageService {
     });
   }
 
+  isFirstVisitPage(): boolean {
+    return this.previousRoutePath$.value === this.getCurrentUrl();
+  }
+
   getCurrentUrl(): string {
     return this.router.url;
   }
@@ -165,6 +173,21 @@ export class DocumentPageService {
     const list = event.url.split('/p/').pop().split('/');
     const title = list.shift().split('?').shift();
     return title.charAt(0).toUpperCase() + title.substring(1);
+  }
+
+  private subscribeRouteChanged(): void {
+    // ..initial prvious route will be the current path for now
+    this.previousRoutePath$.next(this.location.path());
+    // on every route change take the two events of two routes changed(using pairwise)
+    // and save the old one in a behavious subject to access it in another component
+    // we can use if another component like intro-advertise need the previous route
+    // because he need to redirect the user to where he did came from.
+    this.router.events.pipe(
+      filter(e => e instanceof RoutesRecognized),
+      pairwise(),
+    ).subscribe((event: any[]) => {
+      this.previousRoutePath$.next(event[0].urlAfterRedirects);
+    });
   }
 
 }

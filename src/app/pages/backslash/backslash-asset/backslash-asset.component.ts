@@ -10,11 +10,17 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class BackslashAssetComponent extends GlobalDocumentViewComponent {
 
+  mute: boolean = true;
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
   ) {
     super(activatedRoute, documentPageService);
+  }
+
+  onPageInit(): void {
+    this.mute = this.documentPageService.isFirstVisitPage();
   }
 
   protected getCurrentDocumentSearchParams(): any {

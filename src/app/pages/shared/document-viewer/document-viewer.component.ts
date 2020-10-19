@@ -1,22 +1,37 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DocumentModel } from '@core/api';
+import { DocumentVideoSettings } from './document-video-viewer/document-video-player/document-video-player.interface';
 
 @Component({
   selector: 'document-viewer',
   styleUrls: ['./document-viewer.component.scss'],
   templateUrl: './document-viewer.component.html',
 })
-export class DocumentViewerComponent {
+export class DocumentViewerComponent implements OnInit {
+
+  videoSettings: DocumentVideoSettings;
 
   @Input() document: DocumentModel;
 
-  @Input() autoPlay: boolean = true;
+  @Input() styleName: string;
+
+  @Input() mute: boolean = false;
+
+  @Input() autoplay: boolean = true;
+
+  @Input() enableGlobalMute: boolean = false;
 
   @Input() enableStoryboard: boolean = false;
 
   @Input() layout: 'dialogSlides' | 'slides' = 'slides';
 
-  @Input() styleName: string;
+  ngOnInit(): void {
+    this.videoSettings = new DocumentVideoSettings({
+      mute: this.mute,
+      autoplay: this.autoplay,
+      enableGlobalMute: this.enableGlobalMute,
+    });
+  }
 
   getDocumentViewer(doc: DocumentModel): string {
     let type = 'unkonw';

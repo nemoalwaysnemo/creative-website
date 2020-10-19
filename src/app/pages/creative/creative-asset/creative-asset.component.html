@@ -2,7 +2,7 @@
   <div *ngIf="document" class="document">
     <section class="general">
       <div class="showcase left">
-        <document-viewer [document]="document" [styleName]="'creative-asset'"></document-viewer>
+        <document-viewer [document]="document" [mute]="mute" [enableGlobalMute]="enableGlobalMute" [styleName]="'creative-asset'"></document-viewer>
         <document-action-group [document]="document" [enableThumbnailCreation]="enableThumbnailCreation" [styleName]="'creative-asset'"></document-action-group>
         <document-related-campaign [document]="document" [styleName]="'creative-asset'"></document-related-campaign>
       </div>
