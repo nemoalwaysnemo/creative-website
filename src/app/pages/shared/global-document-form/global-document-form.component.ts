@@ -83,7 +83,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     return this.documentType;
   }
 
-  setFormDocument(doc: DocumentModel, user: UserModel): void {
+  setFormDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): void {
     this.currentUser = user;
     this.document = doc;
   }
@@ -107,8 +107,8 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
       );
   }
 
-  protected beforeSetDocument(doc: DocumentModel): Observable<DocumentModel> {
-    return this.formSettings$.value.formMode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
+  protected beforeSetDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): Observable<DocumentModel> {
+    return formSettings.formMode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
@@ -129,12 +129,18 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected onDocumentChanged(): void {
-    const subscription = combineLatest(
+    const subscription = combineLatest([
       this.formSettings$,
+      this.document$,
       this.documentPageService.getCurrentUser(),
-      this.document$.pipe(concatMap((doc: DocumentModel) => this.beforeSetDocument(doc))),
-    ).subscribe(([formSettings, user, doc]: [DocumentFormSettings, UserModel, DocumentModel]) => {
-      this.setFormDocument(doc, user);
+    ]).pipe(
+      concatMap(([formSettings, doc, user]: [DocumentFormSettings, DocumentModel, UserModel]) => combineLatest([
+        observableOf(formSettings),
+        this.beforeSetDocument(formSettings, doc, user),
+        observableOf(user),
+      ])),
+    ).subscribe(([formSettings, doc, user]: [DocumentFormSettings, DocumentModel, UserModel]) => {
+      this.setFormDocument(formSettings, doc, user);
     });
     this.subscription.add(subscription);
   }
