@@ -14,30 +14,6 @@ import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, D
 })
 export class DocumentFormComponent implements OnInit, OnDestroy {
 
-  @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      doc = this.checkfiles(doc);
-      this.document$.next(doc);
-    }
-  }
-
-  @Input()
-  set settings(settings: DocumentFormSettings) {
-    if (objHasValue(settings)) {
-      this.formSettings$.next(settings);
-    }
-  }
-
-  @Input()
-  set layout(layout: any) {
-    this.formLayout = layout;
-  }
-
-  constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
-    this.onDocumentChanged();
-  }
-
   @ViewChildren(TemplateRef) buttonTemplates: QueryList<TemplateRef<any>>;
 
   formModel: DynamicFormModel;
@@ -64,17 +40,45 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
+  private models$: Subject<DynamicFormModel> = new Subject<DynamicFormModel>();
+
   private formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
 
   private fileMultiUpload: boolean;
+
+
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      doc = this.checkfiles(doc);
+      this.document$.next(doc);
+    }
+  }
+
+  @Input()
+  set settings(settings: DocumentFormSettings) {
+    if (objHasValue(settings)) {
+      this.formSettings$.next(settings);
+    }
+  }
+
+  @Input()
+  set models(models: DynamicFormModel) {
+    if (objHasValue(models)) {
+      this.models$.next(models);
+    }
+  }
+
+  @Input()
+  set layout(layout: any) {
+    this.formLayout = layout;
+  }
 
   @Input() dynamicModelIndex: number[] = [];
 
   @Input() accordion: any[] = [];
 
   @Input() loading: boolean = true;
-
-  @Input() models: DynamicFormModel = [];
 
   @Input() currentUser: UserModel;
 
@@ -83,6 +87,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   @Input() beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => doc;
 
   @Input() afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
+
+  constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
+    this.onDocumentChanged();
+  }
 
   ngOnInit(): void {
 
@@ -231,13 +239,14 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private onDocumentChanged(): void {
     const subscription = combineLatest([
       this.document$,
+      this.models$,
       this.formSettings$,
-    ]).subscribe(([doc, settings]: [DocumentModel, DocumentFormSettings]) => {
+    ]).subscribe(([doc, models, settings]: [DocumentModel, DynamicFormModel, DocumentFormSettings]) => {
       this.loading = false;
       this.documentModel = doc;
       this.formSettings = settings;
       this.performAccordion(doc, settings, this.accordion);
-      this.prepareForm(doc, settings, this.models);
+      this.prepareForm(doc, settings, models);
     });
     this.subscription.add(subscription);
   }
