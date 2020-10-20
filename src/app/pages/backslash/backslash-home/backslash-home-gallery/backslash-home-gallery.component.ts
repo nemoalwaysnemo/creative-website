@@ -24,6 +24,8 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
 
   showInfo: boolean = false;
 
+  enableNewPoster: boolean = false;
+
   gallerySettings: PictureGallerySettings = new PictureGallerySettings({
     enableVideoAutoplay: true,
     assetUrl: '/p/backslash/asset/:uid',

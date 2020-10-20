@@ -1,13 +1,13 @@
-import { Component, Input, OnDestroy, Type } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { assetPath } from '@core/services/helpers';
-import { DocumentPageService } from '../services/document-page.service';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { Observable, of as observableOf, Subject, Subscription, combineLatest } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
-import { NUXEO_PATH_INFO } from '@environment/environment';
-import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
+import { DocumentPageService } from '../services/document-page.service';
+import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-backslash-info',
@@ -27,17 +27,23 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   shareUrl: string;
 
+  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
   writePermission$: Observable<boolean> = observableOf(false);
 
   videoCurrentTime: number | null = null;
 
   enableThumbnailCreation: boolean = false;
 
+  @Input() enableNewPoster: boolean = true;
+
   @Input() moreInfo: boolean = true;
 
-  @Input() set document(doc: DocumentModel) {
+  @Input()
+  set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
+      this.document$.next(doc);
       this.buildBackslashEdges(doc);
       this.shareUrl = this.buildShareUrl(doc);
       this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
@@ -105,11 +111,11 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
     return name;
   }
 
-  selectView(component: string) {
+  selectView(component: string): void {
     this.globalDocumentDialogService.selectView(component);
   }
 
-  isBackslashHomePage() {
+  isBackslashHomePage(): boolean {
     const url = window.location.href.split('/');
     if (url.includes('backslash') && url.includes('home')) {
       return true;
@@ -129,9 +135,14 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
   }
 
   protected subscribeServiceEvent(): void {
-    const subscription = this.documentVideoViewerService.onEvent().pipe(
-      filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPause', 'videoSeeking', 'videoTimeUpdate'].includes(e.name)),
-    ).subscribe((e: DocumentVideoEvent) => {
+    const subscription = combineLatest([
+      this.document$,
+      this.documentVideoViewerService.onEvent().pipe(
+        filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPause', 'videoSeeking', 'videoTimeUpdate'].includes(e.name)),
+      ),
+    ]).pipe(
+      filter(([doc, event]: [DocumentModel, DocumentVideoEvent]) => event.docUid === doc.uid),
+    ).subscribe(([doc, e]: [DocumentModel, DocumentVideoEvent]) => {
       this.videoCurrentTime = e.currentTime;
     });
     this.subscription.add(subscription);
