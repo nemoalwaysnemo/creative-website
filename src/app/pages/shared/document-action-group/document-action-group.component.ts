@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { getDocumentTypes } from '@core/services/helpers';
-import { Observable, of as observableOf, combineLatest, Subscription } from 'rxjs';
+import { Observable, of as observableOf, combineLatest, Subscription, Subject } from 'rxjs';
 import { concatMap, map, share, filter } from 'rxjs/operators';
 import { DocumentPageService } from '../services/document-page.service';
 import { DocumentModel, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
@@ -21,6 +21,8 @@ export class DocumentActionGroupComponent {
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
+  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
   writePermission$: Observable<boolean> = observableOf(false);
 
   downloadPermission$: Observable<boolean> = observableOf(false);
@@ -35,6 +37,7 @@ export class DocumentActionGroupComponent {
   set document(doc: DocumentModel) {
     if (doc) {
       this.documentModel = doc;
+      this.document$.next(doc);
       if (this.isCreativeAsset(doc)) {
         this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
       } else if (this.isBizDevCaseStudyAsset(doc)) {
@@ -111,9 +114,14 @@ export class DocumentActionGroupComponent {
   }
 
   protected subscribeServiceEvent(): void {
-    const subscription = this.documentVideoViewerService.onEvent().pipe(
-      filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPause', 'videoSeeking', 'videoTimeUpdate'].includes(e.name)),
-    ).subscribe((e: DocumentVideoEvent) => {
+    const subscription = combineLatest([
+      this.document$,
+      this.documentVideoViewerService.onEvent().pipe(
+        filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPause', 'videoSeeking', 'videoTimeUpdate'].includes(e.name)),
+      ),
+    ]).pipe(
+      filter(([doc, event]: [DocumentModel, DocumentVideoEvent]) => event.docUid === doc.uid),
+    ).subscribe(([doc, e]: [DocumentModel, DocumentVideoEvent]) => {
       this.videoCurrentTime = e.currentTime;
     });
     this.subscription.add(subscription);
