@@ -3,6 +3,7 @@ import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { SuggestionSettings } from '../../../directory-suggestion/directory-suggestion-settings';
+import { DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { Observable } from 'rxjs';
 
@@ -19,8 +20,8 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
 
   loading: boolean = true;
 
-  setFormDocument(doc: DocumentModel, user: UserModel): void {
-    super.setFormDocument(doc, user);
+  setFormDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): void {
+    super.setFormDocument(formSettings, doc, user);
     this.loading = false;
   }
 

@@ -80,8 +80,8 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     super(documentPageService);
   }
 
-  setFormDocument(doc: DocumentModel, user: UserModel): void {
-    super.setFormDocument(doc, user);
+  setFormDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): void {
+    super.setFormDocument(formSettings, doc, user);
     this.loading = false;
     this.getStatus(doc);
   }

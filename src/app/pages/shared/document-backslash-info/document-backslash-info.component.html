@@ -7,7 +7,7 @@
       </div>
       <div class="col-3 btns">
         <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
-        <ng-container *ngIf="isBackslashHomePage() && writePermission$ | async">
+        <ng-container *ngIf="isBackslashHomePage() && enableNewPoster && writePermission$ | async">
           <button class="right edit" (click)="selectView(getDialogFormTemplateName(doc))">Edit</button>
         </ng-container>
         <ng-container *ngIf="enableNewPoster && videoCurrentTime !== null && writePermission$ | async">
