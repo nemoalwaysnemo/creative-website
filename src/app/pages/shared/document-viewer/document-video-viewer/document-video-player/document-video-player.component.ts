@@ -60,22 +60,22 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
     this.subscription.add(subscription1);
 
     // const subscription2 = events.playing.subscribe(() => {
-    //   this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: api.currentTime }));
+    //   this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPlaying', currentTime: api.currentTime, docUid: this.videoSettings.documentUid }));
     // });
     // this.subscription.add(subscription2);
 
     const subscription3 = events.pause.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPause', currentTime: api.currentTime }));
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoPause', currentTime: api.currentTime, docUid: this.videoSettings.docUid }));
     });
     this.subscription.add(subscription3);
 
     const subscription4 = events.seeking.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoSeeking', currentTime: api.currentTime }));
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoSeeking', currentTime: api.currentTime, docUid: this.videoSettings.docUid }));
     });
     this.subscription.add(subscription4);
 
     const subscription5 = events.timeUpdate.subscribe(() => {
-      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoTimeUpdate', currentTime: api.currentTime }));
+      this.documentVideoViewerService.triggerEvent(new DocumentVideoEvent({ name: 'videoTimeUpdate', currentTime: api.currentTime, docUid: this.videoSettings.docUid }));
     });
     this.subscription.add(subscription5);
 

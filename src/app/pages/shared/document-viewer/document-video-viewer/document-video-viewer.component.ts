@@ -49,6 +49,7 @@ export class DocumentVideoViewerComponent implements OnDestroy {
       this.document$,
     ]).subscribe(([videoSettings, doc]: [DocumentVideoSettings, DocumentModel]) => {
       this.videoSettings = videoSettings.update({
+        docUid: doc.uid,
         poster: doc.videoPoster,
         videoSources: doc.getVideoSources(),
       });
