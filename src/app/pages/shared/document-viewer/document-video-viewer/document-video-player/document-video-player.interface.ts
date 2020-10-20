@@ -3,6 +3,8 @@ export class DocumentVideoSettings {
 
   poster: string;
 
+  docUid: string;
+
   videoSources: any;
 
   mute: boolean = false;
