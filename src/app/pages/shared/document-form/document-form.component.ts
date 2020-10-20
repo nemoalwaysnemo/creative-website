@@ -40,19 +40,12 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
+  private models$: Subject<DynamicFormModel> = new Subject<DynamicFormModel>();
+
   private formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
 
   private fileMultiUpload: boolean;
 
-  @Input() dynamicModelIndex: number[] = [];
-
-  @Input() accordion: any[] = [];
-
-  @Input() loading: boolean = true;
-
-  @Input() models: DynamicFormModel = [];
-
-  @Input() currentUser: UserModel;
 
   @Input()
   set document(doc: DocumentModel) {
@@ -70,15 +63,30 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   @Input()
+  set models(models: DynamicFormModel) {
+    if (objHasValue(models)) {
+      this.models$.next(models);
+    }
+  }
+
+  @Input()
   set layout(layout: any) {
     this.formLayout = layout;
   }
 
-  @Input() beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
+  @Input() dynamicModelIndex: number[] = [];
 
-  @Input() afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
+  @Input() accordion: any[] = [];
+
+  @Input() loading: boolean = true;
+
+  @Input() currentUser: UserModel;
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
+
+  @Input() beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => doc;
+
+  @Input() afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
 
   constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
     this.onDocumentChanged();
@@ -229,15 +237,16 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private onDocumentChanged(): void {
-    const subscription = combineLatest(
+    const subscription = combineLatest([
       this.document$,
+      this.models$,
       this.formSettings$,
-    ).subscribe(([doc, settings]: [DocumentModel, DocumentFormSettings]) => {
+    ]).subscribe(([doc, models, settings]: [DocumentModel, DynamicFormModel, DocumentFormSettings]) => {
       this.loading = false;
       this.documentModel = doc;
       this.formSettings = settings;
       this.performAccordion(doc, settings, this.accordion);
-      this.prepareForm(doc, settings, this.models);
+      this.prepareForm(doc, settings, models);
     });
     this.subscription.add(subscription);
   }
