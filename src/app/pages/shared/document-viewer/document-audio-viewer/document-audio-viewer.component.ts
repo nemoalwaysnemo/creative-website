@@ -17,6 +17,8 @@ export class DocumentAudioViewerComponent {
 
   @Input() styleName: string;
 
+  @Input() autoPlay: boolean = true;
+
   @Input()
   set document(doc: DocumentModel) {
     this.documentModel = doc;
