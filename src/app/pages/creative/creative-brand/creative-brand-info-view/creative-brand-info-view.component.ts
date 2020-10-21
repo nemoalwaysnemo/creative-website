@@ -9,7 +9,7 @@ import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base
 
 @Component({
   selector: 'creative-brand-info-view',
-  styleUrls: ['../../../../theme/styles/document-metadata-view.scss'],
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss', './creative-brand-info-view.scss'],
   templateUrl: './creative-brand-info-vew.component.html',
 })
 export class CreativeBrandInfoViewComponent extends BaseDocumentViewComponent {

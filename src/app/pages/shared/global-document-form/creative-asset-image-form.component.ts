@@ -440,7 +440,7 @@ export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop Image/PDF here!',
+        placeholder: 'Drop Image(s)/PDF(s)here!',
         acceptTypes: 'image/*,.pdf',
       }),
       new DynamicDragDropFileZoneModel<string>({
