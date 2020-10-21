@@ -267,7 +267,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop Video File here!',
+        placeholder: 'Drop Video(s) here!',
         acceptTypes: '.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
       }),
       new DynamicDragDropFileZoneModel<string>({

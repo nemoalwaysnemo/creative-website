@@ -260,7 +260,7 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
         uploadType: 'asset',
         layoutPosition: 'right',
         queueLimit: 25,
-        placeholder: 'Drop Audio File here!',
+        placeholder: 'Drop Audio File(s) here!',
         acceptTypes: '.mp3,.mp4',
       }),
       new DynamicDragDropFileZoneModel<string>({

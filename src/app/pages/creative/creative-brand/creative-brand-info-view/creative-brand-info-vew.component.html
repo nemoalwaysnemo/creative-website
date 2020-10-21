@@ -7,7 +7,7 @@
       <h1 [title]="documentModel.get('The_Loupe_Main:brand').join(', ')">{{documentModel.get('The_Loupe_Main:brand').join(', ')}}</h1>
       <ul>
         <a class="agency-link" [routerLink]="['/p/creative/agency', documentModel.parentRef, 'showcase']">
-          <li><b>Agency:</b> {{documentModel.get('The_Loupe_Main:agency')}}</li>
+          <li><b>Agency:</b><span class="brand-agency">{{documentModel.get('The_Loupe_Main:agency')}}</span></li>
         </a>
       </ul>
     </div>
