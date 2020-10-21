@@ -74,7 +74,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         id: 'The_Loupe_Main:comment',
         label: 'Comment',
         required: false,
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Comments',
         autoComplete: 'off',
       }),
@@ -142,7 +142,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
           new DynamicInputModel({
             id: 'item',
             label: 'Photographer',
-            maxLength: 50,
+            maxLength: 150,
             placeholder: 'item',
             autoComplete: 'off',
             required: true,
