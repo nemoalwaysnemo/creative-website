@@ -142,7 +142,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
           new DynamicInputModel({
             id: 'item',
             label: 'Photographer',
-            maxLength: 50,
+            maxLength: 150,
             placeholder: 'item',
             autoComplete: 'off',
             required: true,
