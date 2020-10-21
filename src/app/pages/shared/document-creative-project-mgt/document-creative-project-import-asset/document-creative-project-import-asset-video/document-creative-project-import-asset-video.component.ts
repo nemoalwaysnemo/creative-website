@@ -96,7 +96,7 @@ export class DocumentCreativeProjectImportAssetVideoComponent extends GlobalDocu
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
