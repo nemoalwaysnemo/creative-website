@@ -148,7 +148,7 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
           new DynamicInputModel({
             id: 'item',
             label: 'Music Title',
-            maxLength: 50,
+            maxLength: 150,
             placeholder: 'item',
             autoComplete: 'off',
             required: true,
