@@ -19,6 +19,7 @@
           "options": {
             "outputPath": "dist/LibraryWebUI",
             "index": "src/index.html",
+            "rebaseRootRelativeCssUrls": true,
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
