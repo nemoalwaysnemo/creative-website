@@ -121,7 +121,6 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected onInit(): void {
     this.performForm();
-    this.onDocumentChanged();
   }
 
   protected onDestroy(): void {
