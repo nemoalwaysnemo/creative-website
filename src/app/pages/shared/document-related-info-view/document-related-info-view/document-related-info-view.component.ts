@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel, SearchResponse } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
