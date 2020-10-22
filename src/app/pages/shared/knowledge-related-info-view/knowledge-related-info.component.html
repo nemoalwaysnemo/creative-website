@@ -1,0 +1,11 @@
+<h1>RELATED</h1>
+<nb-card class="nb-card">
+  <nb-card-body class="nb-card-body">
+    <nb-tabset fullWidth (changeTab)="onChangTab($event)">
+      <nb-tab *ngFor="let item of tabItems" [active]="currentTab && currentTab.name === item.name" tabTitle="{{item.name}}" class="nb-tab" responsive>
+        <knowledge-related-info-view [tabInfo]="tabInfo$ | async" [item]="item"></knowledge-related-info-view>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card-body>
+</nb-card>
+<div class="line"></div>

@@ -7,6 +7,7 @@ import { DocumentThumbnailViewModule } from '../../document-thumbnail-view/docum
 import { GlobalDocumentDialogModule } from '../../global-document-dialog/global-document-dialog.module';
 import { GlobalSearchFormModule } from '../../global-search-form/global-search-form.module';
 import { GlobalSearchResultModule } from '../../global-search-result/global-search-result.module';
+import { GlobalSearchMoreResultModule } from '../../global-search-more-result/global-search-more-result.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { GlobalSearchResultModule } from '../../global-search-result/global-sear
     DocumentThumbnailViewModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    GlobalSearchMoreResultModule,
   ],
   declarations: [
     DocumentRelatedInfoViewComponent,
