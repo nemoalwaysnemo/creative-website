@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { ListSearchFormModule } from '../list-search-form';
+import { ListSearchFormInDialogModule } from '../list-search-form-in-dialog';
 import { DocumentFormModule } from '../document-form/document-form.module';
 import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
@@ -24,10 +24,10 @@ import { DocumentCreativeProjectImportRequestsViewComponent } from './document-c
   imports: [
     CommonModule,
     ThemeModule,
-    ListSearchFormModule,
     DirectorySuggestionModule,
     DocumentFormModule,
     DocumentListViewModule,
+    ListSearchFormInDialogModule,
   ],
   declarations: [
     DocumentCreativeProjectInfoComponent,

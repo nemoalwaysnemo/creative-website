@@ -6,8 +6,8 @@ import { BaseGlobalSearchResultComponent } from '../global-search-result/base-gl
 
 @Component({
   selector: 'global-search-more-result-in-dialog',
-  styleUrls: ['./global-search-more-result-in-dialog.component.scss'],
-  templateUrl: './global-search-more-result-in-dialog.component.html',
+  styleUrls: ['../global-search-more-result/global-search-more-result.component.scss'],
+  templateUrl: '../global-search-more-result/global-search-more-result.component.html',
 })
 export class GlobalSearchMoreResultInDialogComponent extends BaseGlobalSearchResultComponent {
 

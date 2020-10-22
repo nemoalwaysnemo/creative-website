@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentModel, SearchResponse, AdvanceSearchService, NuxeoAutomations, NuxeoPagination } from '@core/api';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ListSearchRowCustomViewComponent } from '../../list-search-form';
+import { ListSearchRowCustomViewComponent } from '../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';

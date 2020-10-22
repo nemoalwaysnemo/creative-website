@@ -9,9 +9,9 @@ import { GlobalSearchFormSettings } from '../global-search-form/global-search-fo
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 
 @Component({
-  selector: 'list-search-form-in-dialog',
+  selector: 'list-search-form',
   templateUrl: './list-search-form-in-dialog.component.html',
-  styleUrls: ['./list-search-form-in-dialog.component.scss'],
+  styleUrls: ['../list-search-form/list-search-form.component.scss'],
 })
 export class ListSearchFormInDialogComponent extends BaseSearchFormComponent {
 
@@ -22,7 +22,7 @@ export class ListSearchFormInDialogComponent extends BaseSearchFormComponent {
   listViewOptions: any = {};
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'list-search-form-in-dialog',
+    source: 'list-search-form',
   });
 
   @Input()

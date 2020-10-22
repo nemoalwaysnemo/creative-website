@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
-import { ListSearchRowCustomViewComponent } from '../../../list-search-form';
+import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
 import { assetPath } from '@core/services/helpers';
