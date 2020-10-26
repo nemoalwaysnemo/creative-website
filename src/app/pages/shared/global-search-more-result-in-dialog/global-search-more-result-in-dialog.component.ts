@@ -13,7 +13,7 @@ export class GlobalSearchMoreResultInDialogComponent extends BaseGlobalSearchRes
 
   @Input() templateRef: TemplateRef<any>;
 
-  @Input() searchResultFilter: Function = (res: SearchResponse): boolean => res.source === 'document-load-more';
+  @Input() searchResultFilter: Function = (res: SearchResponse): boolean => res.source === 'document-load-more-in-dialog';
 
   @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 

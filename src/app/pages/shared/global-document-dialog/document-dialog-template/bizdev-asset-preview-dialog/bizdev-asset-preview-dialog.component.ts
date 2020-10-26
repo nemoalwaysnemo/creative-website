@@ -45,6 +45,7 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
       moreInfo: true,
       enablePreview: true,
       enableDetail: true,
+      enableKnowledgeRelated: false,
     };
   }
 
