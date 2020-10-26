@@ -1,15 +1,15 @@
 import { Component, Input, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { SearchResponse } from '@core/api/api.advance-search.service';
-import { DocumentPageService } from '../../services/document-page.service';
-import { BaseGlobalSearchResultComponent } from '../base-global-search-result.component';
-import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
+import { DocumentPageService } from '../services/document-page.service';
+import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
+import { BaseGlobalSearchResultComponent } from '../global-search-result/base-global-search-result.component';
 
 @Component({
-  selector: 'global-load-more-search-result',
-  styleUrls: ['./global-load-more-search-result.component.scss'],
-  templateUrl: './global-load-more-search-result.component.html',
+  selector: 'global-search-more-result',
+  styleUrls: ['./global-search-more-result.component.scss'],
+  templateUrl: './global-search-more-result.component.html',
 })
-export class GlobalLoadMoreSearchResultComponent extends BaseGlobalSearchResultComponent {
+export class GlobalSearchMoreResultComponent extends BaseGlobalSearchResultComponent {
 
   constructor(
     protected documentPageService: DocumentPageService,

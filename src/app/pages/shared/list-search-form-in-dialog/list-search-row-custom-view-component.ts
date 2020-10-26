@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { objHasValue } from '@core/services/helpers';
-import { ListSearchRowCustomViewSettings } from './list-search-form.interface';
+import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 
 @Component({
   template: `
