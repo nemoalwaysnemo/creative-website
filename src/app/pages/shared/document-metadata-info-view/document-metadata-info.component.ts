@@ -323,7 +323,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   goToAgencyFolder(): void {
     const agencyId = this.libraryFolder[this.libraryFolder.length - 2].uid;
-    this.documentPageService.navigate([`/p/creative/agency/${agencyId}/showcase`]);
+    this.documentPageService.navigate([`/p/creative/agency/${agencyId}/brand`]);
   }
 
   goToBrandFolder(): void {

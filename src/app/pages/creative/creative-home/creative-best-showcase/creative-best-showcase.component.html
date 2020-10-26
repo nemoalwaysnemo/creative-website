@@ -1,7 +1,12 @@
 <div class="agency-thumbnail">
   <h1 class="left"><a [routerLink]="['/p/search/creative/showcase']">Best of TBWA\</a></h1>
-  <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}" class="see_all right">See all</a>
-  <a *ngIf="hasAgency" [routerLink]="['/p/creative/agency']" class="see_all right">My agency</a>
+  <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}" class="see_all right" title="See all">See all</a>
+  <ng-container *ngIf="hasAgency && !moreAgencies">
+    <a [routerLink]="['/p/creative/agency']" class="see_all right" title="My Agency">My Agency</a>
+  </ng-container>
+  <ng-container *ngIf="moreAgencies && writePermission$ | async">
+    <a [routerLink]="['/p/search/creative/agency']" class="see_all right" title="My Agencies">My Agencies</a>
+  </ng-container>
   <div class="clear"></div>
   <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 </div>
