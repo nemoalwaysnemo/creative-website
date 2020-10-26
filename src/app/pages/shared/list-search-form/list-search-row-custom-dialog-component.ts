@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@an
 import { DocumentModel } from '@core/api';
 import { objHasValue } from '@core/services/helpers';
 import { DocumentDialogEvent, GlobalDocumentDialogService } from '../global-document-dialog';
-import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
+import { ListSearchRowCustomViewSettings } from './list-search-form.interface';
 import { Subject, Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 

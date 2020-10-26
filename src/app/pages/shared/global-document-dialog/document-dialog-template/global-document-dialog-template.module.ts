@@ -26,6 +26,7 @@ import { IntelligenceAssetPreviewDialogComponent } from './intelligence-asset-pr
 import { CreativeAssetPreviewDialogComponent } from './creative-asset-preview-dialog/creative-asset-preview-dialog.component';
 import { DocumentShowcaseTemplateComponent } from './document-showcase-template/document-showcase-template.component';
 import { DocumentDeleteMultipleTemplateComponent } from './document-delete-multiple-template/document-delete-multiple-template.component';
+import { KnowledgeRelatedInfoModule } from '../../knowledge-related-info-view/knowledge-related-info.module';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
@@ -54,11 +55,12 @@ const COMPONENTS = [
     CommonModule,
     ThemeModule,
     ReactiveFormsModule,
+    DocumentFormModule,
     DocumentViewerModule,
     ShareDocumentButtonModule,
+    KnowledgeRelatedInfoModule,
     DocumentBackslashInfoModule,
     DocumentCreativeProjectMgtModule,
-    DocumentFormModule,
   ],
   declarations: [
     ...COMPONENTS,

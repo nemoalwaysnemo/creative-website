@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { assetPath } from '@core/services/helpers';
-import { ListSearchRowCustomViewComponent } from '../../list-search-form';
+import { ListSearchRowCustomViewComponent } from '../../list-search-form-in-dialog';
 import { DocumentFormSettings } from '../../document-form/document-form.interface';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
