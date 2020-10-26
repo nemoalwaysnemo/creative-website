@@ -54,6 +54,7 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
       moreInfo: false,
       enablePreview: false,
       enableDetail: false,
+      enableKnowledgeRelated: false,
     };
   }
 

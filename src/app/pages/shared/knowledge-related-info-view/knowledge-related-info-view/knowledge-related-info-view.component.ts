@@ -152,7 +152,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   private triggerSearch(doc: DocumentModel, item: any): void {
     this.searchFormSettings = new GlobalSearchFormSettings({
-      source: 'document-load-more',
+      source: 'document-load-more-in-dialog',
       searchGroupPosition: 'right',
       pageProvider: item.provider,
     });

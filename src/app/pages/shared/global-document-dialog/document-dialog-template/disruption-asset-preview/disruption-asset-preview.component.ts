@@ -49,6 +49,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
       enablePreview: false,
       enableDeletion: false,
       enableDetail: false,
+      enableKnowledgeRelated: false,
     };
   }
 
