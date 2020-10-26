@@ -34,7 +34,7 @@ export class CreativeMyAgencyComponent extends GlobalDocumentViewComponent {
   }
 
   private redirectToAgency(uid: string): void {
-    this.documentPageService.navigate(['/p/creative/agency/' + uid + '/showcase']);
+    this.documentPageService.navigate(['/p/creative/agency/' + uid + '/brand']);
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -53,7 +53,6 @@ export class CreativeMyAgencyComponent extends GlobalDocumentViewComponent {
 
   private getSearchParams(user: UserModel): GlobalSearchParams {
     const params: any = {
-      pageSize: 1,
       ecm_fulltext: '',
       currentPageIndex: 0,
       the_loupe_main_companycode: user.companycode, // 05001002
