@@ -75,7 +75,7 @@
         </nb-accordion-item>
       </nb-accordion>
     </div>
-    <section class="related">
+    <section class="related" *ngIf="getDialogSettings().enableKnowledgeRelated">
       <knowledge-related-info [document]="document"></knowledge-related-info>
     </section>
   </ng-container>

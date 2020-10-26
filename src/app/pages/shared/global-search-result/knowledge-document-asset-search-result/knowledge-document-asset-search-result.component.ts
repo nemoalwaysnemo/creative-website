@@ -19,6 +19,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     moreInfo: true,
     enablePreview: true,
     enableDetail: true,
+    enableKnowledgeRelated: true,
   };
 
   getDialogSettings(type: string): GlobalDocumentDialogSettings {
@@ -53,7 +54,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     return getAssetModuleType(doc);
   }
 
-  openDialog(dialog: TemplateRef<any>) {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 

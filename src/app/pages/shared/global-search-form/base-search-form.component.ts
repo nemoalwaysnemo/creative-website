@@ -2,17 +2,40 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { getPathPartOfUrl, objHasValue, convertToBoolean } from '@core/services/helpers';
-import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf, zip } from 'rxjs';
+import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf, zip, combineLatest } from 'rxjs';
 import { filter, debounceTime, switchMap, map, startWith, pairwise, concatMap } from 'rxjs/operators';
 import { SearchResponse, GlobalSearchParams, NuxeoRequestOptions, SearchFilterModel, NuxeoQueryParams } from '@core/api';
 import { GlobalSearchFormService, GlobalSearchFormEvent } from './global-search-form.service';
-import { GlobalSearchFormSettings } from './global-search-form.interface';
+import { GlobalSearchFormSettings, GlobalSearchSettings } from './global-search-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   template: '',
 })
 export class BaseSearchFormComponent implements OnInit, OnDestroy {
+
+  @Input()
+  set settings(settings: GlobalSearchFormSettings) {
+    if (objHasValue(settings)) {
+      this.searchFormSettings$.next(settings);
+    }
+  }
+
+  @Input()
+  set searchParams(params: any) {
+    if (objHasValue(params)) {
+      this.searchParams$.next(params);
+    }
+  }
+
+  constructor(
+    protected router: Router,
+    protected formBuilder: FormBuilder,
+    protected documentPageService: DocumentPageService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
+    this.subscribeEvents();
+  }
 
   searchForm: FormGroup;
 
@@ -38,6 +61,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected searchParams$: Subject<any> = new Subject<any>();
 
+  protected searchFormSettings$: Subject<GlobalSearchFormSettings> = new Subject<GlobalSearchFormSettings>();
+
   protected baseParams: GlobalSearchParams; // for input
 
   protected currentParams: GlobalSearchParams; // for input
@@ -52,41 +77,19 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   ];
 
   protected allowedSettingsParams: any = {
-    'showFilter': convertToBoolean,
+    showFilter: convertToBoolean,
   };
 
   @Input() filters: SearchFilterModel[] = [];
-
-  @Input()
-  set settings(settings: GlobalSearchFormSettings) {
-    if (objHasValue(settings)) {
-      this.searchFormSettings = settings;
-    }
-  }
-
-  @Input()
-  set searchParams(params: any) {
-    if (objHasValue(params)) {
-      this.searchParams$.next(params);
-    }
-  }
-
-  @Input() beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => ({ searchParams, opts });
-
-  @Input() afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   @Output() onLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(
-    protected router: Router,
-    protected formBuilder: FormBuilder,
-    protected documentPageService: DocumentPageService,
-    protected globalSearchFormService: GlobalSearchFormService,
-  ) {
-    this.subscribeEvents();
-  }
+  @Input() beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => any =
+    (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => ({ searchParams, opts })
+
+  @Input() afterSearch: (res: SearchResponse) => any = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
   ngOnInit(): void {
     this.onInit();
@@ -137,6 +140,10 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected getFormSettings(key: string): any {
     return this.searchFormSettings[key];
+  }
+
+  protected setFormSettings(settings: GlobalSearchFormSettings): void {
+    this.searchFormSettings = settings;
   }
 
   protected getSearchSettings(key: string, searchParams: GlobalSearchParams): any {
@@ -194,9 +201,11 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected setSettingsParams(params: any = {}): void {
     if (objHasValue(params)) {
       for (const key in params) {
-        const func = this.allowedSettingsParams[key];
-        if (func && params.hasOwnProperty(key)) {
-          this.searchFormSettings[key] = func.call(this, params[key]);
+        if (params.hasOwnProperty(key)) {
+          const func = this.allowedSettingsParams[key];
+          if (func) {
+            this.searchFormSettings[key] = func.call(this, params[key]);
+          }
         }
       }
     }
@@ -237,7 +246,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected onInitialCurrentPage(): Observable<boolean> {
     return this.router.events.pipe(
-      startWith(null),
+      startWith(null as string),
       filter(event => event === null || event instanceof NavigationEnd),
       pairwise(),
       map(([prev, current]: [NavigationEnd, NavigationEnd]) => this.isPageChanged(prev, current)),
@@ -249,12 +258,17 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected onInputParamsChanged(): void {
-    const subscription = this.searchParams$.pipe(
-      map((searchParams: any) => ({
+    const subscription = combineLatest([
+      this.searchFormSettings$,
+      this.searchParams$,
+    ]).pipe(
+      map(([formSettings, searchParams]: [GlobalSearchSettings, any]) => ({
+        formSettings,
         inputParams: searchParams instanceof GlobalSearchParams ? searchParams : new GlobalSearchParams(searchParams),
         queryParams: this.documentPageService.getSnapshotQueryParams(),
       })),
-    ).subscribe(({ inputParams, queryParams }: any) => {
+    ).subscribe(({ formSettings, inputParams, queryParams }: any) => {
+      this.setFormSettings(formSettings);
       this.setInputParams(inputParams);
       this.setFormParams(queryParams);
       this.setSettingsParams(queryParams);

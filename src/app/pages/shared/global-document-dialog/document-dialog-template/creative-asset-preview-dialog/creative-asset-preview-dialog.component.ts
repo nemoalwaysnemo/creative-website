@@ -36,6 +36,15 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
     }
   }
 
+  protected getPreviewSettings(): any {
+    return {
+      moreInfo: true,
+      enablePreview: true,
+      enableDetail: true,
+      enableKnowledgeRelated: false,
+    };
+  }
+
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }

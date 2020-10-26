@@ -44,6 +44,7 @@ export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPrevi
       moreInfo: false,
       enablePreview: false,
       enableDetail: false,
+      enableKnowledgeRelated: false,
     };
   }
 
