@@ -1,20 +1,18 @@
-import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel, SearchResponse } from '@core/api';
-import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
-import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
-import { TabInfo } from '../document-related-info.component';
+import { TabInfo } from '../knowledge-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'document-related-info-view',
-  styleUrls: ['./document-related-info-view.component.scss'],
-  templateUrl: './document-related-info-view.component.html',
+  selector: 'knowledge-related-info-view',
+  styleUrls: ['./knowledge-related-info-view.component.scss'],
+  templateUrl: './knowledge-related-info-view.component.html',
 })
-export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
+export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('backslashThumbnailItemView', { static: true }) private backslashItemView: TemplateRef<any>;
 
@@ -49,14 +47,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   backslashEdges: DocumentModel[] = [];
 
   noResultText: string;
-
-  dialogMetadata: any = {
-    enablePreview: true,
-    enableEdit: false,
-    enableDeletion: false,
-    moreInfo: true,
-    enableDetail: true,
-  };
 
   backslashTitle: string = 'Backslash';
 
@@ -99,10 +89,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   filters: SearchFilterModel[] = [];
 
-  constructor(
-    private globalSearchFormService: GlobalSearchFormService,
-    private globalDocumentDialogService: GlobalDocumentDialogService,
-  ) { }
+  constructor(private globalSearchFormService: GlobalSearchFormService) { }
 
   ngOnInit(): void {
     this.onChangeTab();
@@ -112,30 +99,8 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  openDialog(dialog: TemplateRef<any>): void {
-    this.globalDocumentDialogService.open(dialog);
-  }
-
   getBackslashEdgeUrl(name: string): string {
     return Environment.backslashAppUrl + `/#/list/edge/${name}/`;
-  }
-
-  getDialogSettings(type: string): GlobalDocumentDialogSettings {
-    const components: Type<DocumentModelForm>[] = [];
-    switch (type) {
-      case 'backslash':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET);
-        break;
-      case 'disruption':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
-        break;
-      case 'intelligence':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
-        break;
-      default:
-        break;
-    }
-    return new GlobalDocumentDialogSettings({ components });
   }
 
   onLoadMore(res: SearchResponse): void {
