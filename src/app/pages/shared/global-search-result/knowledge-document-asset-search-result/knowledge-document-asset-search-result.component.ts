@@ -19,6 +19,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     moreInfo: true,
     enablePreview: true,
     enableDetail: true,
+    enableKnowledgeRelated: true,
   };
 
   getDialogSettings(type: string): GlobalDocumentDialogSettings {
