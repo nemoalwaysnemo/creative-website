@@ -1,4 +1,5 @@
 import { DocumentModel } from '@core/api';
+import { DynamicFormLayout, DynamicFormModel } from '@core/custom';
 
 export class DocumentFormEvent {
   [key: string]: any;
@@ -50,6 +51,14 @@ export class DocumentFormStatus {
 }
 
 export class DocumentFormSettings {
+
+  formModel: DynamicFormModel = [];
+
+  formLayout: DynamicFormLayout = {};
+
+  accordionSettings: { name: string, position?: string, visibleFn?: any }[] = [];
+
+  switchTabSettings: any[] = [];
 
   enableButtons: boolean = true;
 

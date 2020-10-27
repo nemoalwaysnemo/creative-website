@@ -20,8 +20,8 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
 
   loading: boolean = true;
 
-  setFormDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): void {
-    super.setFormDocument(formSettings, doc, user);
+  setFormDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): void {
+    super.setFormDocument(doc, user, formSettings);
     this.loading = false;
   }
 

@@ -19,7 +19,9 @@ import {
   DynamicFormService,
   DynamicFormControlModel,
 } from '@core/custom';
+import { objHasValue } from '@core/services/helpers';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
+import { DynamicNGFormSettings } from './dynamic-ng-form.interface';
 
 @Component({
   selector: 'dynamic-ng-form',
@@ -29,62 +31,43 @@ import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-contro
 })
 export class DynamicNGFormComponent extends DynamicFormComponent {
 
-  layoutLeft: DynamicFormModel = [];
-
-  layoutRight: DynamicFormModel = [];
-
-  layoutBottom: DynamicFormModel = [];
-
   layoutAccordion: any = [];
+
+  layoutSwitchTab: any = [];
+
+  enableLayoutRight: boolean = false;
+
+  private ngFormModel: DynamicFormModel = [];
 
   @Input()
   set modelOperation(operation: any) {
-    operation.subscribe(opt => {
-      if (opt.type === 'delete') {
-        this.deleteModel(opt.id);
+    if (objHasValue(operation)) {
+      if (operation.type === 'delete') {
+        this.deleteModel([operation.model]);
       }
-      if (opt.type === 'hide') {
-        this.hideModel(opt.id);
-      }
-    });
-  }
-
-  @Input() formClass: string;
-
-  @Input() group: FormGroup;
-
-  @Input('accordion')
-  set accordionStructure(accordion: any[]) {
-    if (accordion) {
-      for (const item of accordion) {
-        this.layoutAccordion.push({ accordionTabName: item.name, modelsContents: (item.items || []), position: (item.position || '') });
+      if (operation.type === 'hide') {
+        this.hideModel([operation.model], true);
       }
     }
   }
 
-  @Input('model')
-  set formModel(formModel: DynamicFormModel) {
-    const models = formModel || [];
-    models.forEach((model: DynamicFormControlModel) => {
-      if (!model.accordionTab) {
-        if (model.layoutPosition === 'bottom') {
-          this.layoutBottom.push(model);
-        } else if (model.layoutPosition === 'right') {
-          this.layoutRight.push(model);
-        } else {
-          this.layoutLeft.push(model);
-        }
-      } else {
-        this.layoutAccordion.forEach(element => {
-          if (element['accordionTabName'] === model.accordionTab) {
-            element['modelsContents'].push(model);
-            element['position'] = model.layoutPosition;
-          }
-        });
-      }
-    });
+  @Input()
+  set formModel(model: DynamicFormModel) {
+    if (objHasValue(model)) {
+      this.ngFormModel = model;
+    }
   }
+
+  @Input()
+  set settings(settings: DynamicNGFormSettings) {
+    if (objHasValue(settings)) {
+      this.performFormSettings(settings);
+    }
+  }
+
+  @Input() group: FormGroup;
   @Input() layout: DynamicFormLayout;
+  @Input() formClass: string;
 
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -94,35 +77,39 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
   @ContentChildren(DynamicTemplateDirective) templates: QueryList<DynamicTemplateDirective>;
   @ViewChildren(DynamicNGFormControlContainerComponent) components: QueryList<DynamicNGFormControlContainerComponent>;
 
-  constructor(protected formService: DynamicFormService,
-              protected changeDetectorRef: ChangeDetectorRef,
-              protected componentService: DynamicFormComponentService) {
+  constructor(protected formService: DynamicFormService, protected changeDetectorRef: ChangeDetectorRef, protected componentService: DynamicFormComponentService) {
     super(changeDetectorRef, componentService);
   }
 
-  deleteModel(id: string): void {
-    [this.layoutLeft, this.layoutRight, this.layoutBottom].forEach(models => {
-      const index = models.findIndex(model => {
-        return model.id === id;
-      });
-      if (index > -1) {
-        this.formService.removeFormGroupControl(index, this.group, models);
+  getFormModel(position: string): DynamicFormModel {
+    return this.ngFormModel.filter((model: DynamicFormControlModel) => (position === 'left' ? model.layoutPosition === 'left' || !model.layoutPosition : model.layoutPosition === position) && !model.accordionTab && !model.switchTab);
+  }
+
+  deleteModel(ids: string[]): void {
+    this.ngFormModel.forEach((m: DynamicFormControlModel, index: number) => {
+      if (ids.includes(m.id)) {
+        this.formService.removeFormGroupControl(index, this.group, this.ngFormModel);
       }
     });
   }
 
-  hideModel(id: string): void {
-    this.hideSwich(id, true);
+  private hideModel(ids: string[], type: boolean): void {
+    this.ngFormModel.forEach((m: DynamicFormControlModel) => {
+      if (ids.includes(m.id)) {
+        m.hidden = type;
+      }
+    });
   }
 
-  private hideSwich(id: string, type: boolean): void {
-    [this.layoutLeft, this.layoutRight, this.layoutBottom].forEach(models => {
-      models.forEach(model => {
-        if (model.id === id) {
-          model.hidden = type;
-        }
-      });
-    });
+  private performFormSettings(settings: DynamicNGFormSettings): void {
+    if (settings.formModel && settings.formModel.length > 0) {
+      this.ngFormModel = settings.formModel;
+      this.layoutAccordion = settings.accordionSettings;
+      this.layoutSwitchTab = settings.switchTabSettings;
+      this.enableLayoutRight = settings.enableLayoutRight;
+      this.layout = settings.formLayout;
+      this.formClass = settings.formClass;
+    }
   }
 
 }
