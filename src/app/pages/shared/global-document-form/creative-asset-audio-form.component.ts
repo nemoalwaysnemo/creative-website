@@ -10,7 +10,7 @@ import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'creative-asset-audio-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [accordion]="accordion" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent {
 
@@ -26,10 +26,10 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected getFormSettings(): DocumentFormSettings {
-    return new DocumentFormSettings({
+  protected getFormSettings(): any {
+    return {
       showUploadMessage: true,
-    });
+    };
   }
 
   protected getFormAccordion(): any[] {

@@ -17,7 +17,7 @@
     </div>
   </div>
   <div *ngIf="showForm" class="document">
-    <document-form [document]="document" [settings]="formSettings" [models]="formModels" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
+    <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [models]="formModels" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
   </div>
   <button nbButton outline class="btn edit-btn" (click)="changeView()">Edit</button>
 </div>

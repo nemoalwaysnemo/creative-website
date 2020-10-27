@@ -28,10 +28,12 @@ import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 import { NbAccordionModule } from '../../../core/nebular/theme/components/accordion/accordion.module';
+import { NbTabsetModule } from '../../../core/nebular/theme/components/tabset/tabset.module';
 
 @NgModule({
   imports: [
     NbAccordionModule,
+    NbTabsetModule,
     CommonModule,
     ReactiveFormsModule,
     NgbButtonsModule,

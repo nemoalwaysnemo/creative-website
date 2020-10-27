@@ -81,8 +81,8 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     super(documentPageService);
   }
 
-  setFormDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): void {
-    super.setFormDocument(formSettings, doc, user);
+  setFormDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): void {
+    super.setFormDocument(doc, user, formSettings);
     this.loading = false;
     this.getStatus(doc);
   }
@@ -102,8 +102,8 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return observableOf(doc);
   }
 
-  protected getFormSettings(): DocumentFormSettings {
-    return new DocumentFormSettings({
+  protected getFormSettings(): any {
+    return {
       buttonGroup: [
         {
           label: 'Save',
@@ -123,7 +123,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
           type: 'cancle',
         },
       ],
-    });
+    };
   }
 
   protected getFormModels(): any[] {

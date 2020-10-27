@@ -16,3 +16,4 @@ export * from './suggestion/dynamic-ng-suggestion.component';
 export * from './dynamic-ng-form.component';
 export * from './dynamic-ng-form-control-container.component';
 export * from './dynamic-ng-form-ui.module';
+export * from './dynamic-ng-form.interface';
