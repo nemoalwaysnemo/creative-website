@@ -50,6 +50,8 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
     'App-Backslash-Edges-Assetfolder': '/p/backslash/edge/folder',
     'App-Backslash-Resources-Folder': '/p/backslash/resource/',
     'App-Backslash-Resources-Assetfolder': '/p/backslash/resource/folder',
+    'App-Backslash-Case-Studies-Folder': '/p/backslash/report/',
+    'App-Backslash-Case-Study-Folder': '/p/backslash/report/folder',
     '*': '/p/backslash/assetview',
   };
 
