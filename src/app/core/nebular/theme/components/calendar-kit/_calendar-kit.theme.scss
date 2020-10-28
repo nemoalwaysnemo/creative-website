@@ -102,10 +102,6 @@
       background: nb-theme(calendar-hover-item-bg);
       color: nb-theme(calendar-selected-fg);
       font-weight: nb-theme(font-weight-bold);
-
-      @include nb-for-theme(cosmic) {
-        @include btn-hero-success-gradient();
-      }
     }
 
     &:active {
@@ -151,10 +147,6 @@
       background: nb-theme(calendar-hover-item-bg);
       color: nb-theme(calendar-selected-fg);
       font-weight: nb-theme(font-weight-bold);
-
-      @include nb-for-theme(cosmic) {
-        @include btn-hero-success-gradient();
-      }
     }
 
     &:active {
@@ -198,10 +190,6 @@
       background: nb-theme(calendar-hover-item-bg);
       color: nb-theme(calendar-selected-fg);
       font-weight: nb-theme(font-weight-bold);
-
-      @include nb-for-theme(cosmic) {
-        @include btn-hero-success-gradient();
-      }
     }
 
     &.selected {
