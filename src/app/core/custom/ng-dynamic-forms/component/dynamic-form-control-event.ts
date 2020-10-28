@@ -10,12 +10,12 @@ export enum DynamicFormControlEventType {
 }
 
 export interface DynamicFormControlEvent {
-
-  $event: Event | FocusEvent | DynamicFormControlEvent | any;
-  context: DynamicFormArrayGroupModel | null;
-  control: FormControl;
-  group: FormGroup;
-  model: DynamicFormControlModel;
+  [key: string]: any;
+  $event?: Event | FocusEvent | DynamicFormControlEvent | any;
+  context?: DynamicFormArrayGroupModel | null;
+  control?: FormControl;
+  group?: FormGroup;
+  model?: DynamicFormControlModel;
   type: string;
 }
 

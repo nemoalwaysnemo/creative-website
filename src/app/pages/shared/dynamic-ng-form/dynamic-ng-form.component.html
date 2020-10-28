@@ -13,8 +13,8 @@
 </div>
 
 <ng-container *ngIf="layoutAccordion && layoutAccordion.length > 0">
-  <div class="layout-left left {{formClass}}">
-    <div *ngFor="let accordion of layoutAccordion;">
+  <div class="layout-left left accordion {{formClass}}">
+    <div *ngFor="let accordion of layoutAccordion">
         <nb-accordion class="accordion">
           <nb-accordion-item class="accordion-item">
             <nb-accordion-item-header class="accordion-item-header"><span>{{ accordion.name }}</span></nb-accordion-item-header>
@@ -41,7 +41,7 @@
 <!-- for ex: 2 models under the same accordion tab but different layout position -->
 <ng-container *ngIf="enableLayoutRight">
   <div class="layout-right right">
-    <dynamic-ng-form-control *ngFor="let model of getFormModel('right');; trackBy: trackByFn"
+    <dynamic-ng-form-control *ngFor="let model of getFormModel('right'); trackBy: trackByFn"
                             [group]="group"
                             [hidden]="model.hidden"
                             [layout]="layout"
@@ -57,15 +57,27 @@
 </ng-container>
 
 <ng-container *ngIf="layoutSwitchTab && layoutSwitchTab.length > 0">
-  <div class="layout-tab">
-    <nb-tab tabTitle="Users">
-      <p>List of <strong>users</strong>.</p>
-    </nb-tab>
+  <div class="layout-tab switch-tab {{formClass}}">
+    <nb-tabset fullWidth (changeTab)="onChangTab($event)">
+        <nb-tab *ngFor="let tab of layoutSwitchTab" [tabTitle]="tab.name" [disabled]="tab.disabled">
+          <dynamic-ng-form-control *ngFor="let model of tab.models; trackBy: trackByFn"
+                            [group]="group"
+                            [hidden]="model.hidden"
+                            [layout]="layout"
+                            [model]="model"
+                            [templates]="templates"
+                            (blur)="onBlur($event)"
+                            (change)="onChange($event)"
+                            (focus)="onFocus($event)"
+                            (customEvent)="onCustomEvent($event, customEvent)">
+          </dynamic-ng-form-control>
+        </nb-tab>
+    </nb-tabset>
   </div>
 </ng-container>
 
 <div class="layout-bottom">
-  <dynamic-ng-form-control *ngFor="let model of getFormModel('bottom');; trackBy: trackByFn"
+  <dynamic-ng-form-control *ngFor="let model of getFormModel('bottom'); trackBy: trackByFn"
                           [group]="group"
                           [hidden]="model.hidden"
                           [layout]="layout"

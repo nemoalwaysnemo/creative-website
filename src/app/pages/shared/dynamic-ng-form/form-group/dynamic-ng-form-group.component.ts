@@ -24,10 +24,10 @@ export class DynamicNGFormGroupComponent extends DynamicFormGroupComponent {
   @Input() model: DynamicFormGroupModel;
   @Input() templates: QueryList<DynamicTemplateDirective> | DynamicTemplateDirective[] | undefined;
 
-  @Output() blur: EventEmitter<any> = new EventEmitter();
-  @Output() change: EventEmitter<any> = new EventEmitter();
-  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
-  @Output() focus: EventEmitter<any> = new EventEmitter();
+  @Output() blur: EventEmitter<any> = new EventEmitter<any>();
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter<DynamicFormControlCustomEvent> ();
+  @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   // @ViewChildren(forwardRef(() => DynamicNGFormControlContainerComponent)) components: QueryList<DynamicNGFormControlContainerComponent>;
 

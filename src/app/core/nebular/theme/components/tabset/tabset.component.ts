@@ -4,7 +4,7 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
-import { map, delay } from 'rxjs/operators';
+import { map, delay, filter } from 'rxjs/operators';
 import {
   Component,
   Input,
@@ -18,7 +18,9 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { convertToBoolProperty } from '../helpers';
+import { convertToBoolProperty, NbBooleanInput } from '../helpers';
+import { NbComponentStatus } from '../component-status';
+import { NbBadgePosition } from '../badge/badge.component';
 
 /**
  * Specific tab container.
@@ -41,16 +43,16 @@ import { convertToBoolProperty } from '../helpers';
 export class NbTabComponent {
 
   /**
-   * Tab title
-   * @type {string}
+   * Use badge dot mode
+   * @type {boolean}
    */
-  @Input() tabTitle: string;
-
-  /**
-   * Tab icon
-   * @type {string}
-   */
-  @Input() tabIcon: string;
+  @Input()
+  get badgeDot(): boolean {
+    return this._badgeDot;
+  }
+  set badgeDot(val: boolean) {
+    this._badgeDot = convertToBoolProperty(val);
+  }
 
   /**
    * Item is disabled and cannot be opened.
@@ -73,18 +75,9 @@ export class NbTabComponent {
   set responsive(val: boolean) {
     this.responsiveValue = convertToBoolProperty(val);
   }
-
   get responsive(): boolean {
     return this.responsiveValue;
   }
-
-  @Input() route: string;
-
-  @HostBinding('class.content-active')
-  activeValue: boolean = false;
-
-  responsiveValue: boolean = false;
-  disabledValue = false;
 
   /**
    * Specifies active tab
@@ -94,7 +87,6 @@ export class NbTabComponent {
   get active(): boolean {
     return this.activeValue;
   }
-
   set active(val: boolean) {
     this.activeValue = convertToBoolProperty(val);
     if (this.activeValue) {
@@ -111,6 +103,38 @@ export class NbTabComponent {
   set lazyLoad(val: boolean) {
     this.init = convertToBoolProperty(val);
   }
+  static ngAcceptInputType_badgeDot: NbBooleanInput;
+  static ngAcceptInputType_disabled: NbBooleanInput;
+  static ngAcceptInputType_responsive: NbBooleanInput;
+  static ngAcceptInputType_active: NbBooleanInput;
+  static ngAcceptInputType_lazyLoad: NbBooleanInput;
+
+  /**
+   * Tab title
+   * @type {string}
+   */
+  @Input() tabTitle: string;
+
+  /**
+   * Tab id
+   * @type {string}
+   */
+  @Input() tabId: string;
+  protected _badgeDot: boolean;
+
+  /**
+   * Tab icon name or icon config object
+   * @type {string | NbIconConfig}
+   */
+  @Input() tabIcon: string;
+
+  @Input() route: string;
+
+  @HostBinding('class.content-active')
+  activeValue: boolean = false;
+
+  responsiveValue: boolean = false;
+  disabledValue = false;
 
   /**
    * Badge text to display
@@ -123,7 +147,7 @@ export class NbTabComponent {
    * 'primary', 'info', 'success', 'warning', 'danger'
    * @param {string} val
    */
-  @Input() badgeStatus: string;
+  @Input() badgeStatus: NbComponentStatus = 'basic';
 
   /**
    * Badge position.
@@ -132,7 +156,7 @@ export class NbTabComponent {
    * 'top start', 'top end', 'bottom start', 'bottom end'
    * @type string
    */
-  @Input() badgePosition: string;
+  @Input() badgePosition: NbBadgePosition;
 
   init: boolean = false;
 }
@@ -165,7 +189,7 @@ export class NbTabComponent {
  * ```ts
  * @NgModule({
  *   imports: [
- *   	// ...
+ *     // ...
  *     NbTabsetModule,
  *   ],
  * })
@@ -191,23 +215,45 @@ export class NbTabComponent {
  *
  * @styles
  *
- * tabs-font-family:
- * tabs-font-size:
- * tabs-content-font-family:
- * tabs-content-font-size:
- * tabs-active-bg:
- * tabs-active-font-weight:
- * tabs-padding:
- * tabs-content-padding:
- * tabs-header-bg:
- * tabs-separator:
- * tabs-fg:
- * tabs-fg-text:
- * tabs-fg-heading:
- * tabs-bg:
- * tabs-selected:
- * tabs-icon-only-max-width
- *
+ * tabset-background-color:
+ * tabset-border-radius:
+ * tabset-shadow:
+ * tabset-tab-background-color:
+ * tabset-tab-padding:
+ * tabset-tab-text-color:
+ * tabset-tab-text-font-family:
+ * tabset-tab-text-font-size:
+ * tabset-tab-text-font-weight:
+ * tabset-tab-text-line-height:
+ * tabset-tab-text-transform:
+ * tabset-tab-underline-width:
+ * tabset-tab-underline-color:
+ * tabset-tab-active-background-color:
+ * tabset-tab-active-text-color:
+ * tabset-tab-active-underline-color:
+ * tabset-tab-focus-background-color:
+ * tabset-tab-focus-text-color:
+ * tabset-tab-focus-underline-color:
+ * tabset-tab-hover-background-color:
+ * tabset-tab-hover-text-color:
+ * tabset-tab-hover-underline-color:
+ * tabset-tab-disabled-background-color:
+ * tabset-tab-disabled-text-color:
+ * tabset-tab-disabled-underline-color:
+ * tabset-divider-color:
+ * tabset-divider-style:
+ * tabset-divider-width:
+ * tabset-content-background-color:
+ * tabset-content-padding:
+ * tabset-content-text-color:
+ * tabset-content-text-font-family:
+ * tabset-content-text-font-size:
+ * tabset-content-text-font-weight:
+ * tabset-content-text-line-height:
+ * tabset-scrollbar-color:
+ * tabset-scrollbar-background-color:
+ * tabset-scrollbar-width:
+ * tabset-tab-text-hide-breakpoint:
  */
 @Component({
   selector: 'nb-tabset',
@@ -216,17 +262,20 @@ export class NbTabComponent {
     <ul class="tabset">
       <li *ngFor="let tab of tabs"
           (click)="selectTab(tab)"
+          (keyup.space)="selectTab(tab)"
+          (keyup.enter)="selectTab(tab)"
           [class.responsive]="tab.responsive"
           [class.active]="tab.active"
           [class.disabled]="tab.disabled"
           [attr.tabindex]="tab.disabled ? -1 : 0"
           class="tab">
-        <a href (click)="$event.preventDefault()" tabindex="-1">
-          <i *ngIf="tab.tabIcon" [class]="tab.tabIcon"></i>
-          <span *ngIf="tab.tabTitle">{{ tab.tabTitle }}</span>
+        <a href (click)="$event.preventDefault()" tabindex="-1" class="tab-link">
+          <nb-icon *ngIf="tab.tabIcon" [config]="tab.tabIcon"></nb-icon>
+          <span *ngIf="tab.tabTitle" class="tab-text">{{ tab.tabTitle }}</span>
         </a>
-        <nb-badge *ngIf="tab.badgeText"
+        <nb-badge *ngIf="tab.badgeText || tab.badgeDot"
           [text]="tab.badgeText"
+          [dotMode]="tab.badgeDot"
           [status]="tab.badgeStatus"
           [position]="tab.badgePosition">
         </nb-badge>
@@ -237,11 +286,6 @@ export class NbTabComponent {
 })
 export class NbTabsetComponent implements AfterContentInit {
 
-  @ContentChildren(NbTabComponent) tabs: QueryList<NbTabComponent>;
-
-  @HostBinding('class.full-width')
-  fullWidthValue: boolean = false;
-
   /**
    * Take full width of a parent
    * @param {boolean} val
@@ -250,6 +294,15 @@ export class NbTabsetComponent implements AfterContentInit {
   set fullWidth(val: boolean) {
     this.fullWidthValue = convertToBoolProperty(val);
   }
+
+  constructor(private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef) {
+  }
+  static ngAcceptInputType_fullWidth: NbBooleanInput;
+
+  @ContentChildren(NbTabComponent) tabs: QueryList<NbTabComponent>;
+
+  @HostBinding('class.full-width')
+  fullWidthValue: boolean = false;
 
   /**
    * If specified - tabset listens to this parameter and selects corresponding tab.
@@ -263,9 +316,6 @@ export class NbTabsetComponent implements AfterContentInit {
    */
   @Output() changeTab: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef) {
-  }
-
   // TODO: refactoring this component, avoid change detection loop
   ngAfterContentInit(): void {
     this.route.params
@@ -275,9 +325,11 @@ export class NbTabsetComponent implements AfterContentInit {
             this.tabs.find((tab) => this.routeParam ? tab.route === params[this.routeParam] : tab.active),
         ),
         delay(0),
+        map((tab: NbTabComponent) => tab || this.tabs.first),
+        filter((tab: NbTabComponent) => !!tab),
       )
-      .subscribe((activeTab) => {
-        this.selectTab(activeTab || this.tabs.first);
+      .subscribe((tabToSelect: NbTabComponent) => {
+        this.selectTab(tabToSelect);
         this.changeDetectorRef.markForCheck();
       });
   }

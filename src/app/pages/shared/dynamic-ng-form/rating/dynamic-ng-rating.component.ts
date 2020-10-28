@@ -23,10 +23,10 @@ export class DynamicNGRatingComponent extends DynamicFormControlComponent {
   @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicRatingModel;
 
-  @Output() blur: EventEmitter<any> = new EventEmitter();
-  @Output() change: EventEmitter<any> = new EventEmitter();
-  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
-  @Output() focus: EventEmitter<any> = new EventEmitter();
+  @Output() blur: EventEmitter<any> = new EventEmitter<any>();
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter<DynamicFormControlCustomEvent>();
+  @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild(NgbRating, { static: true }) ngbRating: NgbRating;
 
