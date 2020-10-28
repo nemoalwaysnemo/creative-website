@@ -21,18 +21,9 @@
       border-radius: nb-theme(toastr-icon-radius);
     }
 
-    @include nb-except-theme(cosmic) {
-      box-shadow: nb-theme(toastr-shadow);
-    }
-
     &.default {
       border-color: nb-theme(toastr-border-color);
       padding: calc(#{nb-theme(toastr-padding)} / 2) nb-theme(toastr-padding);
-
-      @include nb-for-theme(cosmic) {
-        color: nb-theme(toastr-color-fg);
-        background-color: nb-theme(toastr-default-background);
-      }
     }
 
     &.success {
@@ -45,16 +36,6 @@
         color: nb-theme(color-white);
       }
 
-      @include nb-for-theme(cosmic) {
-        @include btn-hero-success-gradient();
-        color: nb-theme(toastr-color-fg);
-
-        i {
-          background-color: nb-theme(color-white);
-
-          color: nb-theme(color-success);
-        }
-      }
     }
 
     &.info {
@@ -65,17 +46,6 @@
         background-color: nb-theme(color-info);
 
         color: nb-theme(color-white);
-      }
-
-      @include nb-for-theme(cosmic) {
-        @include btn-hero-info-gradient();
-        color: nb-theme(toastr-color-fg);
-
-        i {
-          background-color: nb-theme(color-white);
-
-          color: nb-theme(color-info);
-        }
       }
     }
 
@@ -89,16 +59,6 @@
         color: nb-theme(color-white);
       }
 
-      @include nb-for-theme(cosmic) {
-        @include btn-hero-warning-gradient();
-        color: nb-theme(toastr-color-fg);
-
-        i {
-          background-color: nb-theme(color-white);
-
-          color: nb-theme(color-warning);
-        }
-      }
     }
 
     &.primary {
@@ -111,16 +71,6 @@
         color: nb-theme(color-white);
       }
 
-      @include nb-for-theme(cosmic) {
-        @include btn-hero-primary-gradient();
-        color: nb-theme(toastr-color-fg);
-
-        i {
-          background-color: nb-theme(color-white);
-
-          color: nb-theme(color-primary);
-        }
-      }
     }
 
     &.danger {
@@ -131,17 +81,6 @@
         background-color: nb-theme(color-danger);
 
         color: nb-theme(color-white);
-      }
-
-      @include nb-for-theme(cosmic) {
-        @include btn-hero-danger-gradient();
-        color: nb-theme(toastr-color-fg);
-
-        i {
-          background-color: nb-theme(color-white);
-
-          color: nb-theme(color-danger);
-        }
       }
     }
   }
