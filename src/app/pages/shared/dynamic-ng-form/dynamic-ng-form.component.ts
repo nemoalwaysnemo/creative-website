@@ -20,6 +20,7 @@ import {
   DynamicFormControlModel,
 } from '@core/custom';
 import { objHasValue } from '@core/services/helpers';
+import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
 import { DynamicNGFormSettings } from './dynamic-ng-form.interface';
 
@@ -91,6 +92,16 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
         this.formService.removeFormGroupControl(index, this.group, this.ngFormModel);
       }
     });
+  }
+
+  onChangTab(tab: NbTabComponent): void {
+    const model = this.getModelByTabName(tab.tabTitle);
+    this.onCustomEvent({ tabs: this.layoutSwitchTab, selected: tab, model, type: 'SWITCH_TAB_CHANGED' }, this.customEvent);
+  }
+
+  private getModelByTabName(name: string): DynamicFormControlModel {
+    const tab = this.layoutSwitchTab.find((x: any) => x.name === name);
+    return tab ? tab.models : [];
   }
 
   private hideModel(ids: string[], type: boolean): void {

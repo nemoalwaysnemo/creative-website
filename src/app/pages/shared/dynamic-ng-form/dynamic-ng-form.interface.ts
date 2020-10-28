@@ -6,9 +6,9 @@ export class DynamicNGFormSettings {
 
   formLayout: DynamicFormLayout = {};
 
-  accordionSettings: { name: string, position: string, models: DynamicFormModel }[] = [];
+  accordionSettings: { name: string, position?: string, models: DynamicFormModel }[] = [];
 
-  switchTabSettings: any[] = [];
+  switchTabSettings: { name: string, disabled?: boolean, models: DynamicFormModel }[] = [];
 
   enableLayoutRight: boolean = true;
 

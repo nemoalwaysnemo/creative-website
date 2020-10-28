@@ -128,7 +128,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onBlur(event: any): void {
-    console.log(`BLUR event on ${event.model.id}: `, event);
+    // console.log(`BLUR event on ${event.model.id}: `, event);
   }
 
   onChange(event: any): void {
@@ -143,7 +143,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onFocus(event: any): void {
-    console.log(`FOCUS event on ${event.model.id}: `, event);
+    // console.log(`FOCUS event on ${event.model.id}: `, event);
   }
 
   onCustomEvent(event: any): void {

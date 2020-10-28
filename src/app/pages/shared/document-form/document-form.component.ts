@@ -104,6 +104,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     if (event.type === 'BATCH_UPLOAD') {
       this.performUploading(event.$event);
     }
+    if (event.type === 'SWITCH_TAB_CHANGED') {
+      this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, doc: this.documentModel }));
+    }
   }
 
   onSave(event: any): void {
@@ -115,14 +118,14 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onCancel(event: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', messageType: 'info', doc: this.documentModel }));
+    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.documentModel }));
     if (this.formSettings.resetFormAfterDone) {
       this.resetForm();
     }
   }
 
   onCustomButton(button: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', messageType: 'info', button: button.name, doc: this.documentModel }));
+    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, doc: this.documentModel }));
   }
 
   hideControls(): void {
@@ -185,7 +188,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private prepareSwitchTab(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): any[] {
     const tabSettings = (settings.switchTabSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, user, settings));
-    return tabSettings.map((s: { name: string, position: string }) => ({ name: s.name, position: s.position, models: models.filter(m => m.accordionTab === s.name) }));
+    return tabSettings.map((s: { name: string, disabledFn?: any }) => ({ name: s.name, disabled: (s.disabledFn && s.disabledFn(doc, user, settings)), models: models.filter(m => m.switchTab === s.name) }));
   }
 
   private prepareModelSettings(models: DynamicFormModel): DynamicFormModel {

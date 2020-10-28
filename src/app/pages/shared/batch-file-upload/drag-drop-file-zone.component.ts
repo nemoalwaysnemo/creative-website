@@ -74,11 +74,11 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   }
 
   onBlur(event: any): void {
-    console.log(`BLUR event on ${event.model.id}: `, event);
+    // console.log(`BLUR event on ${event.model.id}: `, event);
   }
 
   onFocus(event: any): void {
-    console.log(`FOCUS event on ${event.model.id}: `, event);
+    // console.log(`FOCUS event on ${event.model.id}: `, event);
   }
 
   onFilesChange(files: File[]): void {

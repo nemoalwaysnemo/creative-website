@@ -24,10 +24,10 @@ export class DynamicNGFormArrayComponent extends DynamicFormArrayComponent {
   @Input() model: DynamicFormArrayModel;
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 
-  @Output() blur: EventEmitter<any> = new EventEmitter();
-  @Output() change: EventEmitter<any> = new EventEmitter();
-  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
-  @Output() focus: EventEmitter<any> = new EventEmitter();
+  @Output() blur: EventEmitter<any> = new EventEmitter<any> ();
+  @Output() change: EventEmitter<any> = new EventEmitter<any> ();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter<DynamicFormControlCustomEvent> ();
+  @Output() focus: EventEmitter<any> = new EventEmitter<any> ();
 
   @ViewChildren(forwardRef(() => DynamicNGFormControlContainerComponent)) components: QueryList<DynamicNGFormControlContainerComponent>;
 

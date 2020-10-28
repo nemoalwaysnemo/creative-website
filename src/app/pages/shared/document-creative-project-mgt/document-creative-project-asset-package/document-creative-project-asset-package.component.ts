@@ -88,7 +88,6 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
-    // console.log(2222, event.button);
     return event;
   }
 
