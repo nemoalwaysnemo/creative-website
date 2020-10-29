@@ -6,7 +6,7 @@ import { NbAuthTokenParceler } from './token-parceler';
 export abstract class NbTokenStorage {
 
   abstract get(): NbAuthToken;
-  abstract set(token: NbAuthToken);
+  abstract set(token: NbAuthToken): void;
   abstract clear(): void;
 }
 
@@ -47,7 +47,7 @@ export class NbTokenLocalStorage extends NbTokenStorage {
    * Sets token to localStorage
    * @param {NbAuthToken} token
    */
-  set(token: NbAuthToken) {
+  set(token: NbAuthToken): void {
     const raw = this.parceler.wrap(token);
     localStorage.setItem(this.key, raw);
   }
@@ -55,7 +55,7 @@ export class NbTokenLocalStorage extends NbTokenStorage {
   /**
    * Clears token from localStorage
    */
-  clear() {
+  clear(): void {
     localStorage.removeItem(this.key);
   }
 }

@@ -10,7 +10,7 @@ export interface DragMeta {
   selector: '[ngFileDrop]',
 })
 export class NgFileDropDirective extends NgFileDirective {
-  @Output() fileOver: EventEmitter<any> = new EventEmitter();
+  @Output() fileOver: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() validDrag: boolean = false;
   @Output() validDragChange: EventEmitter<boolean> = new EventEmitter();
@@ -25,12 +25,12 @@ export class NgFileDropDirective extends NgFileDirective {
   onDrop(event: Event): void {
     this.closeDrags();
     const files = this.eventToFiles(event);
-    if (!files.length) return;
+    if (!files.length) { return; }
     this.stopEvent(event);
     this.handleFiles(files);
   }
 
-  handleFiles(files: File[]) {
+  handleFiles(files: File[]): void {
     this.fileOver.emit(false); // turn-off dragover
     super.handleFiles(files);
   }
@@ -68,7 +68,7 @@ export class NgFileDropDirective extends NgFileDirective {
     return jsonFiles;
   }
 
-  closeDrags() {
+  closeDrags(): void {
     delete this.validDrag;
     this.validDragChange.emit(this.validDrag);
     this.invalidDrag = false;

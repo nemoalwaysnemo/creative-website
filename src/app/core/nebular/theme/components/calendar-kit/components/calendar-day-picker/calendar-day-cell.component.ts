@@ -22,7 +22,7 @@ import { NbDateService } from '../../services';
   selector: 'nb-calendar-day-cell',
   template: '{{ day }}',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { 'class': 'day-cell' },
+  host: { class: 'day-cell' },
 })
 export class NbCalendarDayCellComponent<D> implements NbCalendarCell<D, D> {
 
@@ -68,7 +68,7 @@ export class NbCalendarDayCellComponent<D> implements NbCalendarCell<D, D> {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     if (this.disabled || this.empty) {
       return;
     }

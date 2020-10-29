@@ -15,26 +15,12 @@ import { GlobalSearchFormService } from '../global-search-form/global-search-for
 })
 export class ListSearchFormInDialogComponent extends BaseSearchFormComponent {
 
-  documents: DocumentModel[] = [];
-
-  layout: string = 'list-search-form';
-
-  listViewOptions: any = {};
-
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'list-search-form',
-  });
-
   @Input()
   set listViewSettings(settings: any) {
     if (settings) {
       this.listViewOptions = settings;
     }
   }
-
-  @Input() listViewBuilder: Function = (documents: DocumentModel[]): any[] => documents;
-
-  @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     protected router: Router,
@@ -49,6 +35,20 @@ export class ListSearchFormInDialogComponent extends BaseSearchFormComponent {
       globalSearchFormService,
     );
   }
+
+  documents: DocumentModel[] = [];
+
+  layout: string = 'list-search-form';
+
+  listViewOptions: any = {};
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'list-search-form',
+  });
+
+  @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
+
+  @Input() listViewBuilder: (documents: DocumentModel[]) => any[] = (documents: DocumentModel[]) => documents;
 
   onRowSelect(item: any): void {
     this.onSelected.emit(item);

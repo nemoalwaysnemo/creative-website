@@ -278,9 +278,6 @@ import { convertToBoolProperty, NbBooleanInput } from '../helpers';
 })
 export class NbCheckboxComponent implements AfterViewInit, ControlValueAccessor {
 
-  onChange: any = () => { };
-  onTouched: any = () => { };
-
   @Input()
   get checked(): boolean {
     return this._checked;
@@ -288,8 +285,6 @@ export class NbCheckboxComponent implements AfterViewInit, ControlValueAccessor 
   set checked(value: boolean) {
     this._checked = convertToBoolProperty(value);
   }
-  private _checked: boolean = false;
-  static ngAcceptInputType_checked: NbBooleanInput;
 
   /**
    * Controls input disabled state
@@ -301,8 +296,6 @@ export class NbCheckboxComponent implements AfterViewInit, ControlValueAccessor 
   set disabled(value: boolean) {
     this._disabled = convertToBoolProperty(value);
   }
-  private _disabled: boolean = false;
-  static ngAcceptInputType_disabled: NbBooleanInput;
 
   /**
    * Checkbox status.
@@ -319,7 +312,6 @@ export class NbCheckboxComponent implements AfterViewInit, ControlValueAccessor 
       this._status = value;
     }
   }
-  protected _status: NbComponentStatus = 'basic';
 
   /**
    * Controls checkbox indeterminate state
@@ -331,47 +323,39 @@ export class NbCheckboxComponent implements AfterViewInit, ControlValueAccessor 
   set indeterminate(value: boolean) {
     this._indeterminate = convertToBoolProperty(value);
   }
-  private _indeterminate: boolean = false;
-  static ngAcceptInputType_indeterminate: NbBooleanInput;
-
-  /**
-   * Output when checked state is changed by a user
-   * @type EventEmitter<boolean>
-   */
-  @Output() checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @HostBinding('class.status-primary')
-  get primary() {
+  get primary(): boolean {
     return this.status === 'primary';
   }
 
   @HostBinding('class.status-success')
-  get success() {
+  get success(): boolean {
     return this.status === 'success';
   }
 
   @HostBinding('class.status-warning')
-  get warning() {
+  get warning(): boolean {
     return this.status === 'warning';
   }
 
   @HostBinding('class.status-danger')
-  get danger() {
+  get danger(): boolean {
     return this.status === 'danger';
   }
 
   @HostBinding('class.status-info')
-  get info() {
+  get info(): boolean {
     return this.status === 'info';
   }
 
   @HostBinding('class.status-basic')
-  get basic() {
+  get basic(): boolean {
     return this.status === 'basic';
   }
 
   @HostBinding('class.status-control')
-  get control() {
+  get control(): boolean {
     return this.status === 'control';
   }
 
@@ -381,33 +365,49 @@ export class NbCheckboxComponent implements AfterViewInit, ControlValueAccessor 
     private hostElement: ElementRef<HTMLElement>,
     private zone: NgZone,
   ) { }
+  static ngAcceptInputType_checked: NbBooleanInput;
+  static ngAcceptInputType_disabled: NbBooleanInput;
+  static ngAcceptInputType_indeterminate: NbBooleanInput;
+  private _checked: boolean = false;
+  private _disabled: boolean = false;
+  protected _status: NbComponentStatus = 'basic';
+  private _indeterminate: boolean = false;
 
-  ngAfterViewInit() {
+  /**
+   * Output when checked state is changed by a user
+   * @type EventEmitter<boolean>
+   */
+  @Output() checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  onChange: any = () => { };
+  onTouched: any = () => { };
+
+  ngAfterViewInit(): void {
     // TODO: #2254
     this.zone.runOutsideAngular(() => setTimeout(() => {
       this.renderer.addClass(this.hostElement.nativeElement, 'nb-transition');
     }));
   }
 
-  registerOnChange(fn: any) {
+  registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  writeValue(val: any) {
+  writeValue(val: any): void {
     this._checked = val;
     this.changeDetector.markForCheck();
   }
 
-  setDisabledState(val: boolean) {
+  setDisabledState(val: boolean): void {
     this.disabled = convertToBoolProperty(val);
     this.changeDetector.markForCheck();
   }
 
-  setTouched() {
+  setTouched(): void {
     this.onTouched();
   }
 

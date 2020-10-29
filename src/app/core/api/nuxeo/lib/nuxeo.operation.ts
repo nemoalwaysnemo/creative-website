@@ -56,7 +56,7 @@ export class Operation extends Base {
     return this._nuxeo.http(finalOptions);
   }
 
-  _computeContentTypeHeader(input: any) {
+  _computeContentTypeHeader(input: any): string {
     let contentType = 'application/json';
     if (this._isMultipartInput(input)) {
       contentType = 'multipart/form-data';

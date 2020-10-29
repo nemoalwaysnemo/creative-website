@@ -25,29 +25,29 @@ export function encodePath(path: string): string {
  * object as first argument, like this:
  *   deepExtend({}, yourObj_1, [yourObj_N]);
  */
-export const deepExtend = function (...objects: any[]): any {
-  if (arguments.length < 1 || typeof arguments[0] !== 'object') {
+export const deepExtend = (...objects: any[]) => {
+  if (objects.length < 1 || typeof objects[0] !== 'object') {
     return false;
   }
 
-  if (arguments.length < 2) {
-    return arguments[0];
+  if (objects.length < 2) {
+    return objects[0];
   }
 
-  const target = arguments[0];
+  const target = objects[0];
 
   // convert arguments to array and cut off target object
-  const args = Array.prototype.slice.call(arguments, 1);
+  const args = Array.prototype.slice.call(objects, 1);
 
   let val, src;
 
-  args.forEach(function (obj: any) {
+  args.forEach((obj: any) => {
     // skip argument if it is array or isn't object
     if (typeof obj !== 'object' || Array.isArray(obj)) {
       return;
     }
 
-    Object.keys(obj).forEach(function (key) {
+    Object.keys(obj).forEach((key) => {
       src = target[key]; // source value
       val = obj[key]; // new value
 
@@ -116,7 +116,7 @@ function cloneSpecificValue(val: any): any {
  */
 function deepCloneArray(arr: any[]): any {
   const clone: any[] = [];
-  arr.forEach(function (item: any, index: any) {
+  arr.forEach((item: any, index: any) => {
     if (typeof item === 'object' && item !== null) {
       if (Array.isArray(item)) {
         clone[index] = deepCloneArray(item);
@@ -134,7 +134,7 @@ function deepCloneArray(arr: any[]): any {
 }
 
 // getDeepFromObject({result: {data: 1}}, 'result.data', 2); // returns 1
-export function getDeepFromObject(object = {}, name: string, defaultValue?: any) {
+export function getDeepFromObject(object = {}, name: string, defaultValue?: any): any {
   const keys = name.split('.');
   // clone the object
   let level = deepExtend({}, object || {});
@@ -203,7 +203,7 @@ export function range(start: number, end: number, step: number = 0, offset: numb
   const direction = start < end ? 1 : -1;
   const startingPoint = start - (direction * (offset || 0));
   const stepSize = direction * (step || 1);
-  return Array(len).fill(0).map(function (_, index) {
+  return Array(len).fill(0).map((_, index) => {
     return startingPoint + (stepSize * index);
   });
 }
@@ -223,8 +223,8 @@ export function selectObjectByKeys(p: object = {}, keys: string[] = []): any {
   Object.keys(p).filter(key => keys.includes(key)).forEach(key => { _[key] = p[key]; });
   return _;
 }
-
-export function removeUselessObject(p: object = {}, keys: string[] | Function = []): any {
+// not sure about this one
+export function removeUselessObject(p: object = {}, keys: string[] | ( () => any )): any {
   if (typeof keys === 'function') {
     Object.keys(p).filter((k: string) => keys.call(this, k, p[k])).forEach((k: string) => delete p[k]);
   } else {

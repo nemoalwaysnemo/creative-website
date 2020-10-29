@@ -11,18 +11,18 @@ import { BaseGlobalSearchResultComponent } from '../global-search-result/base-gl
 })
 export class GlobalSearchMoreResultInDialogComponent extends BaseGlobalSearchResultComponent {
 
-  @Input() templateRef: TemplateRef<any>;
-
-  @Input() searchResultFilter: Function = (res: SearchResponse): boolean => res.source === 'document-load-more-in-dialog';
-
-  @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
-
   constructor(
     protected documentPageService: DocumentPageService,
     protected globalSearchFormService: GlobalSearchFormService,
   ) {
     super(documentPageService, globalSearchFormService);
   }
+
+  @Input() templateRef: TemplateRef<any>;
+
+  @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+
+  @Input() searchResultFilter: (res: SearchResponse) => boolean = (res: SearchResponse) => res.source === 'document-load-more-in-dialog';
 
   loadMore(): void {
     if (!this.loading) {

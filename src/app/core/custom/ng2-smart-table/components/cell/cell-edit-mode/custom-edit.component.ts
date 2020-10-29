@@ -26,7 +26,7 @@ export class CustomEditComponent extends EditCellDefaultComponent implements OnC
     super();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.cell && !this.customComponent) {
       const componentFactory = this.resolver.resolveComponentFactory(this.cell.getColumn().editor.component);
       this.customComponent = this.dynamicTarget.createComponent(componentFactory);

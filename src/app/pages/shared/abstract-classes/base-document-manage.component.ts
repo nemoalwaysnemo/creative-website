@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, of as observableOf } from 'rxjs';
-import { share } from 'rxjs/operators';
+import { map, share } from 'rxjs/operators';
 import { DocumentModel, NuxeoPermission, UserModel } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { GlobalDocumentViewComponent } from './global-document-view.component';
@@ -57,7 +57,7 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
     }
   }
 
-  protected getCurrentUser() {
+  protected getCurrentUser(): void {
     const subscription = this.documentPageService.getCurrentUser().subscribe((user: UserModel) => {
       this.currentUser = user;
     });
@@ -65,11 +65,13 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
   }
 
   protected hasPermission(doc: DocumentModel): Observable<boolean> {
-    return combineLatest(
+    return combineLatest([
       doc.hasPermission(NuxeoPermission.Write),
       doc.hasPermission(NuxeoPermission.Everything),
-      (one, two) => (one || two),
-    ).pipe(share());
+    ]).pipe(
+      map(results => (results[0] || results[1])),
+      share(),
+    );
   }
 
   protected getCurrentDocumentSearchParams(): any {

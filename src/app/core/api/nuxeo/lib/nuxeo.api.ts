@@ -100,12 +100,12 @@ export class Nuxeo extends Base {
     return new Request(finalOptions);
   }
 
-  directory(name: string, opts: any = {}) {
+  directory(name: string, opts: any = {}): Directory {
     const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, directoryName: name }, opts));
     return new Directory(finalOptions);
   }
 
-  batchUpload(opts: any = {}) {
+  batchUpload(opts: any = {}): BatchUpload {
     const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, url: this.restUrl }, opts));
     return new BatchUpload(finalOptions);
   }
@@ -166,7 +166,7 @@ export class Nuxeo extends Base {
     return AuthenticationManager.computeAuthenticationHeaders(auth);
   }
 
-  private _computeFetchOptions(opts: any = {}) {
+  private _computeFetchOptions(opts: any = {}): any {
     let options: any = {
       method: 'GET',
       headers: {},

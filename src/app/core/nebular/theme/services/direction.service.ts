@@ -4,7 +4,7 @@ import { share } from 'rxjs/operators';
 
 /**
  * Layout direction.
- * */
+ */
 export enum NbLayoutDirection {
   LTR = 'ltr',
   RTL = 'rtl',
@@ -12,7 +12,7 @@ export enum NbLayoutDirection {
 
 /**
  * Layout direction setting injection token.
- * */
+ */
 export const NB_LAYOUT_DIRECTION = new InjectionToken<NbLayoutDirection>('Layout direction');
 
 /**
@@ -32,7 +32,7 @@ export class NbLayoutDirectionService {
   /**
    * Returns true if layout direction set to left to right.
    * @returns boolean.
-   * */
+   */
   public isLtr(): boolean {
     return this.direction === NbLayoutDirection.LTR;
   }
@@ -40,7 +40,7 @@ export class NbLayoutDirectionService {
   /**
    * Returns true if layout direction set to right to left.
    * @returns boolean.
-   * */
+   */
   public isRtl(): boolean {
     return this.direction === NbLayoutDirection.RTL;
   }
@@ -48,7 +48,7 @@ export class NbLayoutDirectionService {
   /**
    * Returns current layout direction.
    * @returns NbLayoutDirection.
-   * */
+   */
   getDirection(): NbLayoutDirection {
     return this.direction;
   }
@@ -57,7 +57,7 @@ export class NbLayoutDirectionService {
    * Sets layout direction
    * @param {NbLayoutDirection} direction
    */
-  setDirection(direction: NbLayoutDirection) {
+  setDirection(direction: NbLayoutDirection): void {
     this.direction = direction;
     this.$directionChange.next(direction);
   }

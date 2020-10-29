@@ -28,7 +28,7 @@ import { NbCalendarRange } from './calendar-range.component';
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(click)': 'onClick()', 'class': 'range-cell' },
+  host: { '(click)': 'onClick()', class: 'range-cell' },
 })
 export class NbCalendarRangeDayCellComponent<D> implements NbCalendarCell<D, NbCalendarRange<D>> {
   @Input() date: D;
@@ -89,7 +89,7 @@ export class NbCalendarRangeDayCellComponent<D> implements NbCalendarCell<D, NbC
     return this.date && this.dateService.getDate(this.date);
   }
 
-  onClick() {
+  onClick(): void {
     if (this.disabled || this.empty) {
       return;
     }
@@ -114,7 +114,7 @@ export class NbCalendarRangeDayCellComponent<D> implements NbCalendarCell<D, NbC
   selector: 'nb-calendar-range-year-cell',
   template: `{{ year }}`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { 'class': 'year-cell' },
+  host: { class: 'year-cell' },
 })
 export class NbCalendarRangeYearCellComponent<D> implements NbCalendarCell<D, NbCalendarRange<D>> {
   @Input() date: D;
@@ -147,7 +147,7 @@ export class NbCalendarRangeYearCellComponent<D> implements NbCalendarCell<D, Nb
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     if (this.disabled) {
       return;
     }

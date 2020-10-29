@@ -41,7 +41,7 @@ export class DocumentDownloadRequestTemplateComponent extends DocumentDialogCust
   }
 
   private setRequest(doc: DocumentModel, message: string): void {
-    const subscription = this.nuxeoApi.operation(NuxeoAutomations.DownloadRequest, { 'uuid': doc.uid, message }).subscribe((res: DocumentModel) => {
+    const subscription = this.nuxeoApi.operation(NuxeoAutomations.DownloadRequest, { uuid: doc.uid, message }).subscribe((res: DocumentModel) => {
       const messageType = res.uid ? 'success' : 'error';
       const messageContent = res.uid ? 'The request has been successfully sent!' : 'Request failed to send, please try again';
       this.globalDocumentDialogService.triggerEvent({ name: `DocumentDownloadRequest`, type: 'callback', messageType, messageContent });

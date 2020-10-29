@@ -23,7 +23,7 @@ export class CreativePopularBrandAssetSearchComponent extends GlobalDocumentView
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     new SearchFilterModel({ key: 'the_loupe_main_campaign_agg', placeholder: 'Campaign', visibleFn: (searchParams: GlobalSearchParams): boolean => searchParams.hasParam('the_loupe_main_agency_agg') || searchParams.hasParam('the_loupe_main_campaign_agg') }),
     new SearchFilterModel({ key: 'the_loupe_prodCredits_production_date_agg', placeholder: 'Year', filterValueFn: (bucket: any) => bucket.docCount > 0 }),
-    new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { 'true': 'Yes', 'false': 'No' } }),
+    new SearchFilterModel({ key: 'app_global_networkshare_agg', placeholder: 'Showcase', optionLabels: { true: 'Yes', false: 'No' } }),
   ];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({

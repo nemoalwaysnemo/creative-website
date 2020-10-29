@@ -40,19 +40,17 @@ import { LoadingStrategy, GalleryItemType } from '../models/constants';
       </ng-container>
 
       <gallery-iframe *ngSwitchCase="Types.Youtube"
-                      [src]="data.src"
-                      [pause]="!isActive">
+                      [src]="youtubeSrc"
+                      [autoplay]="isAutoPlay"
+                      [pause]="currIndex !== index">
       </gallery-iframe>
 
-      <gallery-iframe *ngSwitchCase="Types.Iframe"
-                      [src]="data.src">
-      </gallery-iframe>
+      <gallery-iframe *ngSwitchCase="Types.Iframe" [src]="data.src"></gallery-iframe>
 
       <ng-container *ngSwitchDefault>
 
         <div class="g-template g-item-template">
-          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: index, currIndex: currIndex, type: type, data: data }">
-          </ng-container>
+          <ng-container *ngTemplateOutlet="config.itemTemplate; context: { index: this.index, currIndex: this.currIndex, type: this.type, data: this.data }"></ng-container>
         </div>
 
       </ng-container>
@@ -89,6 +87,28 @@ export class GalleryItemComponent {
   @HostBinding('class.g-active-item')
   get isActive(): boolean {
     return this.index === this.currIndex;
+  }
+
+  get isAutoPlay(): any {
+    if (this.isActive) {
+      if (this.type === GalleryItemType.Video || this.type === GalleryItemType.Youtube) {
+        return this.data.autoplay;
+      }
+    }
+  }
+
+  get youtubeSrc(): string {
+    let autoplay: 1 | 0 = 0;
+    if (this.isActive && this.type === GalleryItemType.Youtube && this.data.autoplay) {
+      autoplay = 1;
+    }
+    const url = new URL(this.data.src);
+    url.search = new URLSearchParams({
+      wmode: 'transparent',
+      ...this.data.params,
+      autoplay,
+    }).toString();
+    return url.href;
   }
 
   get load(): boolean {

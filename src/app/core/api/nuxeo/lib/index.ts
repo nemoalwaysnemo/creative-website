@@ -1,6 +1,5 @@
 export * from './auth.base';
 export * from './auth.bearer';
-export * from './auth.portal';
 export * from './auth.token';
 export * from './base.api';
 export * from './base.authentication-manager';

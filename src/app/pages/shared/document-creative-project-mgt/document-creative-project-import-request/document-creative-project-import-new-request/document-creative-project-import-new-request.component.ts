@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
-import { SuggestionSettings } from '../../../directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../../document-form-extension';
 import { DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { Observable } from 'rxjs';
@@ -20,12 +20,12 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
 
   loading: boolean = true;
 
-  setFormDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): void {
-    super.setFormDocument(formSettings, doc, user);
+  setFormDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): void {
+    super.setFormDocument(doc, user, formSettings);
     this.loading = false;
   }
 
-  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
     doc.properties['dc:title'] = '3rd-party-import';
     return doc;
   }

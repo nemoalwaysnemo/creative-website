@@ -11,7 +11,7 @@ export class DataSet {
   protected selectedRow: Row;
   protected willSelect: string = 'first';
 
-  constructor(data: any[] = [], protected columnSettings: Object) {
+  constructor(data: any[] = [], protected columnSettings: any) {
     this.createColumns(columnSettings);
     this.setData(data);
     this.createNewRow();

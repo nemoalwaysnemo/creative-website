@@ -43,7 +43,7 @@ export class CompleterFilterComponent extends DefaultFilterComponent implements 
       });
   }
 
-  inputTextChanged(event: string) {
+  inputTextChanged(event: string): void {
     // workaround to trigger the search event when the home/end buttons are clicked
     // when this happens the [(ngModel)]="query" is set to "" but the (selected) method is not called
     // so here it gets called manually

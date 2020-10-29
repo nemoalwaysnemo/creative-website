@@ -9,16 +9,16 @@ import { NbOverlayContainer } from '../overlay/mapping';
  * Another way previous version of the container will be used
  * but it isn't inserted in DOM and exists in memory only.
  * This case important only if you switch between multiple layouts.
- * */
+ */
 @Injectable()
 export class NbOverlayContainerAdapter extends NbOverlayContainer {
   protected container: HTMLElement;
 
-  setContainer(container: HTMLElement) {
+  setContainer(container: HTMLElement): void {
     this.container = container;
   }
 
-  clearContainer() {
+  clearContainer(): void {
     this.container = null;
     this._containerElement = null;
   }

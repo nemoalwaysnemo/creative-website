@@ -88,7 +88,7 @@ const CDK_MODULES = [OverlayModule, PortalModule];
 /**
  * This module helps us to keep all angular/cdk deps inside our cdk module via providing aliases.
  * Approach will help us move cdk in separate npm package and refactor nebular/theme code.
- * */
+ */
 @NgModule({
   imports: [...CDK_MODULES],
   exports: [

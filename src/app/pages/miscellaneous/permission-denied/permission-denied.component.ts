@@ -12,7 +12,7 @@ export class PermissionDeniedComponent {
   constructor(private router: Router) {
   }
 
-  goToHome() {
+  goHome(): void {
     this.router.navigate([Environment.homePath]);
   }
 }

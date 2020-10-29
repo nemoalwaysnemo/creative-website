@@ -74,10 +74,10 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
     if (event.type === 'video') {
       this.videoAutoplayEnd(event); // End of video playback
       this.googleAnalyticsService.trackEvent({
-        'event_category': 'Video',
-        'event_action': `Video ${event.state}`,
-        'event_label': `Video ${event.state} - ${event.title}`,
-        'event_value': event.uid,
+        event_category: 'Video',
+        event_action: `Video ${event.state}`,
+        event_label: `Video ${event.state} - ${event.title}`,
+        event_value: event.uid,
         'dimensions.docId': event.uid,
         'dimensions.docTitle': event.title,
       });

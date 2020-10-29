@@ -11,36 +11,36 @@ export const NB_DIALOG_CONFIG = new InjectionToken<NbDialogConfig>('Default dial
 
 /**
  * Describes all available options that may be passed to the NbDialogService.
- * */
+ */
 export class NbDialogConfig<D = any> {
   /**
    * If true than overlay will render backdrop under a dialog.
-   * */
+   */
   hasBackdrop: boolean = true;
 
   /**
    * Class that'll be assigned to the backdrop element.
-   * */
+   */
   backdropClass: string = 'overlay-backdrop';
 
   /**
    * If true then mouse clicks by backdrop will close a dialog.
-   * */
+   */
   closeOnBackdropClick: boolean = true;
 
   /**
    * If true then escape press will close a dialog.
-   * */
+   */
   closeOnEsc: boolean = true;
 
   /**
    * Disables scroll on content under dialog if true and does nothing otherwise.
-   * */
+   */
   hasScroll: boolean = true;
 
   /**
    * Focuses dialog automatically after open if true.
-   * */
+   */
   autoFocus: boolean = false;
 
   /**

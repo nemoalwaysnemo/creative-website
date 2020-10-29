@@ -108,7 +108,7 @@ import { NbPopoverComponent } from './popover.component';
  *
  * @additional-example(Template Ref, popover/popover-template-ref.component)
  * @additional-example(Custom Component, popover/popover-custom-component.component)
- * */
+ */
 @Directive({
   selector: '[nbPopover]',
   providers: [NbDynamicOverlayHandler, NbDynamicOverlay],
@@ -118,20 +118,20 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
   /**
    * Popover content which will be rendered in NbArrowedOverlayContainerComponent.
    * Available content: template ref, component and any primitive.
-   * */
+   */
   @Input('nbPopover')
   content: NbOverlayContent;
 
   /**
    * Container content context. Will be applied to the rendered component.
-   * */
+   */
   @Input('nbPopoverContext')
-  context: Object = {};
+  context: any = {};
 
   /**
    * Position will be calculated relatively host element based on the position.
    * Can be top, right, bottom, left, start or end.
-   * */
+   */
   @Input('nbPopoverPlacement')
   position: NbPosition = NbPosition.TOP;
 
@@ -139,7 +139,7 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
    * Container position will be changes automatically based on this strategy if container can't fit view port.
    * Set this property to any falsy value if you want to disable automatically adjustment.
    * Available values: clockwise, counterclockwise.
-   * */
+   */
   @Input('nbPopoverAdjustment')
   adjustment: NbAdjustment = NbAdjustment.CLOCKWISE;
 
@@ -147,21 +147,21 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
    * Deprecated, use `trigger`
    * @deprecated
    * @breaking-change 4.0.0
-   * */
+   */
   @Input('nbPopoverMode')
   set mode(mode) {
     console.warn(`Popover 'nbPopoverMode' input is deprecated and will be removed as of 4.0.0.
       Use 'nbPopoverTrigger' instead.`);
     this.trigger = mode;
   }
-  get mode() {
+  get mode(): any {
     return this.trigger;
   }
 
   /**
    * Describes when the container will be shown.
    * Available options: `click`, `hover`, `hint`, `focus` and `noop`
-   * */
+   */
   @Input('nbPopoverTrigger')
   trigger: NbTrigger = NbTrigger.CLICK;
 
@@ -169,8 +169,7 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
 
   private dynamicOverlay: NbDynamicOverlay;
 
-  constructor(private hostRef: ElementRef,
-              private dynamicOverlayHandler: NbDynamicOverlayHandler) {
+  constructor(private hostRef: ElementRef, private dynamicOverlayHandler: NbDynamicOverlayHandler) {
   }
 
   ngOnInit(): void {
@@ -179,28 +178,28 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
       .componentType(NbPopoverComponent);
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.rebuild();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dynamicOverlay = this.configureDynamicOverlay().build();
     this.dynamicOverlay.event$.subscribe(_ => this.statusChanged.emit(_));
   }
 
-  rebuild() {
+  rebuild(): void {
     this.dynamicOverlay = this.configureDynamicOverlay().rebuild();
   }
 
-  show() {
+  show(): void {
     this.dynamicOverlay.show();
   }
 
-  hide() {
+  hide(): void {
     this.dynamicOverlay.hide();
   }
 
-  toggle() {
+  toggle(): void {
     this.dynamicOverlay.toggle();
   }
 
@@ -208,7 +207,7 @@ export class NbPopoverDirective implements NbDynamicOverlayController, OnChanges
     this.dynamicOverlayHandler.destroy();
   }
 
-  protected configureDynamicOverlay() {
+  protected configureDynamicOverlay(): any {
     return this.dynamicOverlayHandler
       .position(this.position)
       .trigger(this.trigger)

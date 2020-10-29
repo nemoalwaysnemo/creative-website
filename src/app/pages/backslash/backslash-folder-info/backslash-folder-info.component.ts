@@ -105,7 +105,7 @@ export class BackslashFolderInfoComponent {
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick });
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
   }
 
   goBack(): void {
@@ -138,58 +138,58 @@ export class BackslashFolderInfoComponent {
     switch (type) {
       case 'App-Backslash-Resources-Assetfolder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/resource/',
-          'urlParentPath': '/p/backslash/resource/folder/',
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+          urlRootPath: '/p/backslash/resource/',
+          urlParentPath: '/p/backslash/resource/folder/',
         };
       case 'App-Backslash-Resources-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/resource/',
-          'urlParentPath': '/p/backslash/resource/',
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+          urlRootPath: '/p/backslash/resource/',
+          urlParentPath: '/p/backslash/resource/',
         };
       case 'App-Backslash-Case-Study-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/report/',
-          'urlParentPath': '/p/backslash/report/folder/',
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          urlRootPath: '/p/backslash/report/',
+          urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Study-Category':
         return {
-          'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/category/',
-          'urlParentPath': '/p/backslash/report/folder/',
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          urlRootPath: '/p/backslash/category/',
+          urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Study-Region':
         return {
-          'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/category/',
-          'urlParentPath': '/p/backslash/report/folder/',
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          urlRootPath: '/p/backslash/category/',
+          urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Studies-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/report/',
-          'urlParentPath': '/p/backslash/report/folder/',
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          urlRootPath: '/p/backslash/report/',
+          urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Edges-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/edge/',
-          'urlParentPath': '/p/backslash/edge/',
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+          urlRootPath: '/p/backslash/edge/',
+          urlParentPath: '/p/backslash/edge/',
         };
       case 'App-Backslash-Edges-Assetfolder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
-          'urlRootPath': '/p/backslash/edge/',
-          'urlParentPath': '/p/backslash/edge/folder/',
+          rootPath: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+          urlRootPath: '/p/backslash/edge/',
+          urlParentPath: '/p/backslash/edge/folder/',
         };
       default:
         return {};
     }
   }
 
-  getAssetPath(doc: DocumentModel) {
+  getAssetPath(doc: DocumentModel): string {
     return doc.facets.includes('Thumbnail') && doc.contextParameters && doc.contextParameters.thumbnail ? doc.contextParameters.thumbnail.url : assetPath('assets/images/App-Intelligence-Brands-Icon.jpg');
   }
 }

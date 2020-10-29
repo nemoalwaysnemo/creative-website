@@ -29,7 +29,7 @@ export abstract class Base extends AbstractCore {
     return this;
   }
 
-  enrichers(enrichers: Object, override: boolean = true): this {
+  enrichers(enrichers: any, override: boolean = true): this {
     this.baseOptions.enrichers = override ? {} : this.baseOptions.enrichers;
     // eslint-disable-next-line prefer-const
     for (const key of Object.keys(enrichers)) {
@@ -50,7 +50,7 @@ export abstract class Base extends AbstractCore {
     return this;
   }
 
-  fetchProperties(fetchProperties: Object, override: boolean = true): this {
+  fetchProperties(fetchProperties: any, override: boolean = true): this {
     this.baseOptions.fetchProperties = override ? {} : this.baseOptions.fetchProperties;
     // eslint-disable-next-line prefer-const
     for (const key of Object.keys(fetchProperties)) {
@@ -71,7 +71,7 @@ export abstract class Base extends AbstractCore {
     return this;
   }
 
-  translateProperties(translateProperties: Object, override: boolean = true): this {
+  translateProperties(translateProperties: any, override: boolean = true): this {
     this.baseOptions.translateProperties = override ? {} : this.baseOptions.translateProperties;
     // eslint-disable-next-line prefer-const
     for (const key of Object.keys(translateProperties)) {
@@ -107,7 +107,7 @@ export abstract class Base extends AbstractCore {
    * @param {object} headers - the new headers.
    * @returns {Base} The object itself.
    */
-  headers(headers: Object): this {
+  headers(headers: any): this {
     this.baseOptions.headers = {};
     // eslint-disable-next-line prefer-const
     for (const key of Object.keys(headers)) {

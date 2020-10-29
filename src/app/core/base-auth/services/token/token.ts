@@ -55,7 +55,7 @@ export class NbAuthIllegalJWTTokenError extends NbAuthIllegalTokenError {
 
 export interface NbAuthRefreshableToken {
   getRefreshToken(): string;
-  setRefreshToken(refreshToken: string);
+  setRefreshToken(refreshToken: string): void;
 }
 
 export interface NbAuthTokenClass<T = NbAuthToken> {
@@ -63,10 +63,7 @@ export interface NbAuthTokenClass<T = NbAuthToken> {
   new(raw: any, strategyName: string, expDate?: Date): T;
 }
 
-export function nbAuthCreateToken<T extends NbAuthToken>(tokenClass: NbAuthTokenClass<T>,
-                                                         token: any,
-                                                         strategyName: string,
-                                                         createdAt?: Date) {
+export function nbAuthCreateToken<T extends NbAuthToken>(tokenClass: NbAuthTokenClass<T>, token: any, strategyName: string, createdAt?: Date): any {
   return new tokenClass(token, strategyName, createdAt);
 }
 
@@ -105,9 +102,7 @@ export class NbAuthSimpleToken extends NbAuthToken {
 
   static NAME = 'nb:auth:simple:token';
 
-  constructor(protected readonly token: any,
-              protected readonly strategyName: string,
-              protected createdAt?: Date) {
+  constructor(protected readonly token: any, protected readonly strategyName: string, protected createdAt?: Date) {
     super();
     try {
       this.parsePayload();
@@ -124,7 +119,7 @@ export class NbAuthSimpleToken extends NbAuthToken {
     this.payload = null;
   }
 
-  protected prepareCreatedAt(date: Date) {
+  protected prepareCreatedAt(date: Date): Date {
     return date ? date : new Date();
   }
 
@@ -175,7 +170,7 @@ export class NbAuthJWTToken extends NbAuthSimpleToken {
   /**
    * for JWT token, the iat (issued at) field of the token payload contains the creation Date
    */
-  protected prepareCreatedAt(date: Date) {
+  protected prepareCreatedAt(date: Date): Date {
     const decoded = this.getPayload();
     return decoded && decoded.iat ? new Date(Number(decoded.iat) * 1000) : super.prepareCreatedAt(date);
   }
@@ -230,9 +225,7 @@ export class NbAuthOAuth2Token extends NbAuthSimpleToken {
 
   static NAME = 'oauth2:token';
 
-  constructor(data: { [key: string]: string | number } | string = {},
-              strategyName: string,
-              createdAt?: Date) {
+  constructor(data: { [key: string]: string | number } | string = {}, strategyName: string, createdAt?: Date) {
 
     // we may get it as string when retrieving from a storage
     super(prepareOAuth2Token(data), strategyName, createdAt);
@@ -256,9 +249,9 @@ export class NbAuthOAuth2Token extends NbAuthSimpleToken {
 
   /**
    *  put refreshToken in the token payload
-    * @param refreshToken
+   * @param refreshToken
    */
-  setRefreshToken(refreshToken: string) {
+  setRefreshToken(refreshToken: string): void {
     this.token.refresh_token = refreshToken;
   }
 
@@ -346,7 +339,7 @@ export class NbAuthOAuth2JWTToken extends NbAuthOAuth2Token {
   /**
    * for Oauth2 JWT token, the iat (issued at) field of the access_token payload
    */
-  protected prepareCreatedAt(date: Date) {
+  protected prepareCreatedAt(date: Date): Date {
     const payload = this.accessTokenPayload;
     return payload && payload.iat ? new Date(Number(payload.iat) * 1000) : super.prepareCreatedAt(date);
   }

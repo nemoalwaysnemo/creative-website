@@ -19,6 +19,6 @@ export const NB_JS_THEMES = new InjectionToken<NbJSThemeOptions[]>('Nebular JS T
 
 /**
  * We're providing browser apis with tokens to improve testing capabilities.
- * */
+ */
 export const NB_WINDOW = new InjectionToken<Window>('Window');
 export const NB_DOCUMENT = new InjectionToken<Document>('Document');

@@ -66,11 +66,11 @@ export class GoogleAnalyticsService {
     if (queryParams) {
       const url = this.router.url.split('?').shift() + '?' + queryParams;
       let event = Object.assign({}, e, {
-        'event': 'google-analytics-search',
-        'event_category': e.event_category || 'Search',
-        'event_action': e.event_action || 'Search',
-        'event_label': e.event_label || e.event_action,
-        'event_value': `${encodeURIComponent(url)}`,
+        event: 'google-analytics-search',
+        event_category: e.event_category || 'Search',
+        event_action: e.event_action || 'Search',
+        event_label: e.event_label || e.event_action,
+        event_value: `${encodeURIComponent(url)}`,
       });
       event = removeUselessObject(event, ['queryParams']);
       this.trackEvent(event);
@@ -81,21 +81,21 @@ export class GoogleAnalyticsService {
 
   trackEvent(e: any = {}): void {
     const event = Object.assign({}, {
-      'event': 'google-analytics-tracking',
-      'event_category': e.event_category || 'GA-Track',
-      'event_action': e.event_action,
-      'event_label': e.event_label,
-      'event_value': e.event_value,
+      event: 'google-analytics-tracking',
+      event_category: e.event_category || 'GA-Track',
+      event_action: e.event_action,
+      event_label: e.event_label,
+      event_value: e.event_value,
     }, e);
     this.event$.next(event);
   }
 
   trackPageView(e: any = {}): void {
     const event = {
-      'event': 'google-analytics-pageview',
-      'page_location': (() => window.location).call(this),
-      'page_path': `${e.url}`,
-      'page_title': e.title,
+      event: 'google-analytics-pageview',
+      page_location: (() => window.location).call(this),
+      page_path: `${e.url}`,
+      page_title: e.title,
     };
     if (e.doc) {
       event['dimensions.docId'] = e.doc.uid;
@@ -104,7 +104,7 @@ export class GoogleAnalyticsService {
     this.event$.next(event);
   }
 
-  private pushLayer(layer: any = {}) {
+  private pushLayer(layer: any = {}): void {
     if (typeof dataLayer !== 'undefined' && dataLayer) {
       layer = this.setDimensionModuleName(layer);
       layer = this.setDimensionUserId(layer);

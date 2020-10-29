@@ -44,7 +44,7 @@ export class CreativeBrandCampaignSearchResultComponent extends BaseSearchResult
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]) => {
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({

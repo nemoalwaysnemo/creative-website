@@ -138,62 +138,62 @@ export class NbButtonComponent {
   shape: string;
 
   @HostBinding('class.btn-xsmall')
-  get xsmall() {
+  get xsmall(): boolean {
     return this.size === NbButtonComponent.SIZE_XSMALL;
   }
 
   @HostBinding('class.btn-small')
-  get small() {
+  get small(): boolean {
     return this.size === NbButtonComponent.SIZE_SMALL;
   }
 
   @HostBinding('class.btn-medium')
-  get medium() {
+  get medium(): boolean {
     return this.size === NbButtonComponent.SIZE_MEDIUM;
   }
 
   @HostBinding('class.btn-large')
-  get large() {
+  get large(): boolean {
     return this.size === NbButtonComponent.SIZE_LARGE;
   }
 
   @HostBinding('class.btn-primary')
-  get primary() {
+  get primary(): boolean {
     return this.status === NbButtonComponent.STATUS_PRIMARY;
   }
 
   @HostBinding('class.btn-info')
-  get info() {
+  get info(): boolean {
     return this.status === NbButtonComponent.STATUS_INFO;
   }
 
   @HostBinding('class.btn-success')
-  get success() {
+  get success(): boolean {
     return this.status === NbButtonComponent.STATUS_SUCCESS;
   }
 
   @HostBinding('class.btn-warning')
-  get warning() {
+  get warning(): boolean {
     return this.status === NbButtonComponent.STATUS_WARNING;
   }
 
   @HostBinding('class.btn-danger')
-  get danger() {
+  get danger(): boolean {
     return this.status === NbButtonComponent.STATUS_DANGER;
   }
 
   @HostBinding('class.btn-rectangle')
-  get rectangle() {
+  get rectangle(): boolean {
     return this.shape === NbButtonComponent.SHAPE_RECTANGLE;
   }
 
   @HostBinding('class.btn-round')
-  get round() {
+  get round(): boolean {
     return this.shape === NbButtonComponent.SHAPE_ROUND;
   }
 
   @HostBinding('class.btn-semi-round')
-  get semiRound() {
+  get semiRound(): boolean {
     return this.shape === NbButtonComponent.SHAPE_SEMI_ROUND;
   }
 
@@ -289,7 +289,7 @@ export class NbButtonComponent {
    * such handlers call.
    */
   @HostListener('click', ['$event'])
-  onClick(event: Event) {
+  onClick(event: Event): void {
     if (this.disabled) {
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -299,5 +299,5 @@ export class NbButtonComponent {
   constructor(
     protected renderer: Renderer2,
     protected hostElement: ElementRef<HTMLElement>,
-  ) {}
+  ) { }
 }

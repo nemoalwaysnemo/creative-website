@@ -165,7 +165,7 @@ export class NbAuthService {
     return found;
   }
 
-  private processResultToken(result: NbAuthResult) {
+  private processResultToken(result: NbAuthResult): Observable<NbAuthResult> {
     if (result.isSuccess() && result.getToken()) {
       return this.tokenService.set(result.getToken())
         .pipe(

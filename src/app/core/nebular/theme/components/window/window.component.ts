@@ -57,17 +57,17 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
   @Input() cfr: ComponentFactoryResolver;
 
   @HostBinding('class.full-screen')
-  get isFullScreen() {
+  get isFullScreen(): boolean {
     return this.windowRef.state === NbWindowState.FULL_SCREEN;
   }
 
   @HostBinding('class.maximized')
-  get maximized() {
+  get maximized(): boolean {
     return this.windowRef.state === NbWindowState.MAXIMIZED;
   }
 
   @HostBinding('class.minimized')
-  get minimized() {
+  get minimized(): boolean {
     return this.windowRef.state === NbWindowState.MINIMIZED;
   }
 
@@ -77,13 +77,13 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   constructor(
     @Inject(NB_WINDOW_CONTENT) public content: TemplateRef<any> | NbComponentType,
-    @Inject(NB_WINDOW_CONTEXT) public context: Object,
+    @Inject(NB_WINDOW_CONTEXT) public context: any,
     public windowRef: NbWindowRef,
     public config: NbWindowConfig,
     protected focusTrapFactory: NbFocusTrapFactoryService,
     protected elementRef: ElementRef,
     protected renderer: Renderer2,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.focusTrap = this.focusTrapFactory.create(this.elementRef.nativeElement);
@@ -95,7 +95,7 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     if (!this.overlayContainer || this.overlayContainer.isAttached) {
       return;
     }
@@ -115,7 +115,7 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.close();
   }
 
-  minimize() {
+  minimize(): void {
     if (this.windowRef.state === NbWindowState.MINIMIZED) {
       this.windowRef.toPreviousState();
     } else {
@@ -123,15 +123,15 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
 
-  maximize() {
+  maximize(): void {
     this.windowRef.maximize();
   }
 
-  fullScreen() {
+  fullScreen(): void {
     this.windowRef.fullScreen();
   }
 
-  maximizeOrFullScreen() {
+  maximizeOrFullScreen(): void {
     if (this.windowRef.state === NbWindowState.MINIMIZED) {
       this.maximize();
     } else {
@@ -139,16 +139,16 @@ export class NbWindowComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
 
-  close() {
+  close(): void {
     this.windowRef.close();
   }
 
-  protected attachTemplate() {
+  protected attachTemplate(): void {
     this.overlayContainer
       .attachTemplatePortal(new NbTemplatePortal(this.content as TemplateRef<any>, null, this.context));
   }
 
-  protected attachComponent() {
+  protected attachComponent(): void {
     const portal = new NbComponentPortal(this.content as Type<any>, null, null, this.cfr);
     const ref = this.overlayContainer.attachComponentPortal(portal);
     Object.assign(ref.instance, this.context);

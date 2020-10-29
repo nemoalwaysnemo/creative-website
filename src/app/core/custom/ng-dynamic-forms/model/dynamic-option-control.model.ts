@@ -25,7 +25,7 @@ export class DynamicFormOption<T> {
     this.value = config.value;
   }
 
-  get text() {
+  get text(): string {
     return this.label;
   }
 
@@ -33,7 +33,7 @@ export class DynamicFormOption<T> {
     this.label = text;
   }
 
-  toJSON() {
+  toJSON(): any {
     return serialize(this);
   }
 }

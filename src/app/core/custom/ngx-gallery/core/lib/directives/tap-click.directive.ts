@@ -24,7 +24,7 @@ export class TapClickDirective implements OnInit, OnDestroy {
     this.activateClickEvent();
   }
 
-  activateClickEvent() {
+  activateClickEvent(): void {
     if (typeof Hammer !== 'undefined') {
       // Use Hammer.js tap event
       this._hammer = new Hammer(this._el.nativeElement);

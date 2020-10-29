@@ -38,11 +38,11 @@ export function acceptType(accept: string, type: string, name?: string): boolean
 }
 
 export interface InvalidFileItem {
-  file: File
-  type: string
+  file: File;
+  type: string;
 }
 
-export function arrayBufferToBase64(buffer: any) {
+export function arrayBufferToBase64(buffer: any): any {
   let binary = '';
   const bytes = new Uint8Array(buffer);
   const len = bytes.byteLength;
@@ -73,8 +73,8 @@ export function dataUrltoBlob(
 }
 
 export interface OrientationMeta {
-  orientation: number
-  fixedArrayBuffer?: any[]
+  orientation: number;
+  fixedArrayBuffer?: any[];
 }
 
 export function applyTransform(
@@ -82,7 +82,7 @@ export function applyTransform(
   orientation: number,
   width: number,
   height: number,
-) {
+): any {
   switch (orientation) {
     case 2:
       return ctx.transform(-1, 0, 0, 1, width, 0);
@@ -109,12 +109,12 @@ export function fixFileOrientationByMeta(
       const canvas = document.createElement('canvas');
       const img = document.createElement('img');
 
-      return <Promise<Blob>>new Promise(function (res, rej) {
-        img.onload = function () {
+      return new Promise((res, rej) => {
+        img.onload = () => {
           try {
             canvas.width = result.orientation > 4 ? img.height : img.width;
             canvas.height = result.orientation > 4 ? img.width : img.height;
-            const ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
+            const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
             applyTransform(ctx, result.orientation, img.width, img.height);
             ctx.drawImage(img, 0, 0);
             let data = canvas.toDataURL(file.type || 'image/WebP', 0.934);
@@ -128,7 +128,7 @@ export function fixFileOrientationByMeta(
         };
         img.onerror = rej;
         img.src = url;
-      });
+      }) as Promise<Blob>;
     });
 }
 
@@ -137,14 +137,14 @@ export function dataUrl(
   file: any,
   disallowObjectUrl?: any,
 ): Promise<string> {
-  if (!file) return Promise.resolve(file);
+  if (!file) { return Promise.resolve(file); }
 
   if ((disallowObjectUrl && file.$ngfDataUrl != null) || (!disallowObjectUrl && file.$ngfBlobUrl != null)) {
     return Promise.resolve(disallowObjectUrl ? file.$ngfDataUrl : file.$ngfBlobUrl);
   }
 
   let promise = disallowObjectUrl ? file.$$ngfDataUrlPromise : file.$$ngfBlobUrlPromise;
-  if (promise) return promise;
+  if (promise) { return promise; }
 
   const win = getWindow();
   let deferred: Promise<string>;
@@ -157,12 +157,12 @@ export function dataUrl(
     if (FileReader) {
       deferred = new Promise((res, rej) => {
         const fileReader = new FileReader();
-        fileReader.onload = function (event: any) {
+        fileReader.onload = (event: any) => {
           file.$ngfDataUrl = event.target.result;
           delete file.$ngfDataUrl;
           res(event.target.result);
         };
-        fileReader.onerror = function (e) {
+        fileReader.onerror = (e) => {
           file.$ngfDataUrl = '';
           rej(e);
         };
@@ -197,12 +197,12 @@ export function dataUrl(
   return promise;
 }
 
-export function restoreExif(orig: any, resized: any) {
+export function restoreExif(orig: any, resized: any): string {
   const ExifRestorer: any = {
     KEY_STR: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
   };
 
-  ExifRestorer.encode64 = function (input: any) {
+  ExifRestorer.encode64 = (input: any) => {
     let output = '',
       chr1, chr2, chr3: any = '',
       enc1, enc2, enc3, enc4: any = '',
@@ -236,7 +236,7 @@ export function restoreExif(orig: any, resized: any) {
     return output;
   };
 
-  ExifRestorer.restore = function (origFileBase64: any, resizedFileBase64: any) {
+  ExifRestorer.restore = (origFileBase64: any, resizedFileBase64: any): string => {
     if (origFileBase64.match('data:image/jpeg;base64,')) {
       origFileBase64 = origFileBase64.replace('data:image/jpeg;base64,', '');
     }
@@ -250,13 +250,13 @@ export function restoreExif(orig: any, resized: any) {
   };
 
 
-  ExifRestorer.exifManipulation = function (resizedFileBase64: any, segments: any) {
+  ExifRestorer.exifManipulation = (resizedFileBase64: any, segments: any): Uint8Array => {
     const exifArray = this.getExifArray(segments),
       newImageArray = this.insertExif(resizedFileBase64, exifArray);
     return new Uint8Array(newImageArray);
   };
 
-  ExifRestorer.getExifArray = function (segments: number[][]) {
+  ExifRestorer.getExifArray = (segments: number[][]): any[] => {
     let seg;
     // tslint:disable-next-line:prefer-for-of
     for (let x = 0; x < segments.length; x++) {
@@ -269,7 +269,7 @@ export function restoreExif(orig: any, resized: any) {
   };
 
 
-  ExifRestorer.insertExif = function (resizedFileBase64: any, exifArray: any) {
+  ExifRestorer.insertExif = (resizedFileBase64: any, exifArray: any): any[] => {
     const imageData = resizedFileBase64.replace('data:image/jpeg;base64,', ''),
       buf = this.decode64(imageData),
       separatePoint = buf.indexOf(255, 3),
@@ -283,9 +283,9 @@ export function restoreExif(orig: any, resized: any) {
   };
 
 
-  ExifRestorer.slice2Segments = function (
+  ExifRestorer.slice2Segments = (
     rawImageArray: number[],
-  ) {
+  ): any[] => {
     let head: number = 0;
     const segments: number[][] = [];
 
@@ -311,7 +311,7 @@ export function restoreExif(orig: any, resized: any) {
   };
 
 
-  ExifRestorer.decode64 = function (
+  ExifRestorer.decode64 = function(
     input: any,
   ): number[] {
     let chr1, chr2, chr3: any = '';

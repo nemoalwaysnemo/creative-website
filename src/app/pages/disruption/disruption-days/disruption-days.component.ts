@@ -14,6 +14,13 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionDaysComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    protected documentPageService: DocumentPageService,
+  ) {
+    super(activatedRoute, documentPageService);
+  }
+
   tabs: any[] = TAB_CONFIG;
 
   filters: SearchFilterModel[] = [
@@ -25,23 +32,6 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
     enableQueryParams: true,
   });
 
-  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
-    if (searchParams.hasKeyword()) {
-      searchParams = this.buildSearchAssetsParams(searchParams);
-      opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
-    }
-    return { searchParams, opts };
-  }
-
-  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
-    if (res.searchParams.hasKeyword() && res.action === 'afterSearch') {
-      return this.performSearchAssetsResults(res.response).pipe(
-        map((response: NuxeoPagination) => { res.response = response; return res; }),
-      );
-    }
-    return observableOf(res);
-  }
-
   defaultParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
@@ -50,11 +40,21 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
   };
 
-  constructor(
-    protected activatedRoute: ActivatedRoute,
-    protected documentPageService: DocumentPageService,
-  ) {
-    super(activatedRoute, documentPageService);
+  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
+    if (searchParams.hasKeyword()) {
+      searchParams = this.buildSearchAssetsParams(searchParams);
+      opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
+    }
+    return { searchParams, opts };
+  }
+
+  afterSearch: (res: SearchResponse) =>  Observable<SearchResponse> = (res: SearchResponse) => {
+    if (res.searchParams.hasKeyword() && res.action === 'afterSearch') {
+      return this.performSearchAssetsResults(res.response).pipe(
+        map((response: NuxeoPagination) => { res.response = response; return res; }),
+      );
+    }
+    return observableOf(res);
   }
 
   ngOnInit(): void {

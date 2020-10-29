@@ -98,7 +98,7 @@ export class BizDevFolderViewComponent {
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
-    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: closeOnBackdropClick });
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
   }
 
   goBack(): void {
@@ -132,27 +132,27 @@ export class BizDevFolderViewComponent {
     switch (type) {
       case 'App-BizDev-Thought-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Thought Leadership/',
-          'urlParentPath': '/p/business-development/Thought Leadership/folder/',
+          rootPath: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+          urlRootPath: '/p/business-development/Thought Leadership/',
+          urlParentPath: '/p/business-development/Thought Leadership/folder/',
         };
       case 'App-BizDev-CaseStudy-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Case Studies/',
-          'urlParentPath': '/p/business-development/Case Studies/folder/',
+          rootPath: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
+          urlRootPath: '/p/business-development/Case Studies/',
+          urlParentPath: '/p/business-development/Case Studies/folder/',
         };
       case 'App-BizDev-ThoughtLeadership-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Thought Leadership/',
-          'urlParentPath': '/p/business-development/Thought Leadership/',
+          rootPath: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+          urlRootPath: '/p/business-development/Thought Leadership/',
+          urlParentPath: '/p/business-development/Thought Leadership/',
         };
       case 'App-BizDev-Case-Studies-Folder':
         return {
-          'rootPath': NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
-          'urlRootPath': '/p/business-development/Case Studies/',
-          'urlParentPath': '/p/business-development/Case Studies/',
+          rootPath: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+          urlRootPath: '/p/business-development/Case Studies/',
+          urlParentPath: '/p/business-development/Case Studies/',
         };
       default:
         return {};

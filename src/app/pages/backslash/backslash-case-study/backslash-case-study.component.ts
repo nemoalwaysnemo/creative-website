@@ -25,7 +25,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
 
   reportSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
-  beforeSearch: Function = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => {
+  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
     if (searchParams.hasKeyword() || searchParams.hasFilters()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
     }

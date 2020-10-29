@@ -126,7 +126,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]): any => {
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
@@ -141,11 +141,11 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
     return items;
   }
 
-  formatText(text: any) {
+  formatText(text: any): string {
     return text === null ? '' : text;
   }
 
-  formatExpire(value: any) {
+  formatExpire(value: any): string {
     if (value.all_error_messages && value.all_error_messages.length > 0) {
       return value.error_messages;
     } else if (value.info_messages && value.info_messages.length > 0) {
@@ -155,11 +155,11 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
     }
   }
 
-  getMutipleData(doc: any) {
+  getMutipleData(doc: any): string {
     return doc.length > 0 ? doc.map(obj => obj['contract_duration']).join('  ') : '';
   }
 
-  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+  afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
   }
 
@@ -193,7 +193,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
   protected getUsageRightsStatus(res: SearchResponse): Observable<SearchResponse> {
     const uids: string[] = res.response.entries.map((doc: DocumentModel) => doc.uid);
     if (uids.length > 0) {
-      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { 'uuids': `${uids.join(',')}`, 'entityType': 'contract' }).pipe(
+      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { uuids: `${uids.join(',')}`, entityType: 'contract' }).pipe(
         map((response: NuxeoPagination) => {
           res.response.entries.forEach((doc: DocumentModel) => {
             const status = response.entries.find((x: any) => x.uuid === doc.uid);

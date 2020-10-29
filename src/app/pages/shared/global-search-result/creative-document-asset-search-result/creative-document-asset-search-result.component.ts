@@ -2,7 +2,7 @@ import { Component, Input, TemplateRef, Type } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
-import { SelectableItemSettings } from '../../selectable-item/selectable-item.interface';
+import { SelectableItemSettings } from '../../document-selectable';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
@@ -27,6 +27,13 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
     if (!this.listViewSettings) {
       this.listViewSettings = this.defaultSettings;
     }
+  }
+
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService);
   }
 
   @Input() layout: string;
@@ -85,7 +92,13 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
     },
   };
 
-  listViewBuilder: Function = (docs: DocumentModel[]): any => {
+  dialogMetadata: any = {
+    moreInfo: true,
+    enablePreview: true,
+    enableDetail: true,
+  };
+
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
@@ -102,24 +115,11 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
     return items;
   }
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    private globalDocumentDialogService: GlobalDocumentDialogService,
-  ) {
-    super(documentPageService);
-  }
-
   protected onInit(): void {
     this.onQueryParamsChanged();
   }
 
-  dialogMetadata: any = {
-    moreInfo: true,
-    enablePreview: true,
-    enableDetail: true,
-  };
-
-  openDialog(dialog: TemplateRef<any>) {
+  openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 }

@@ -26,7 +26,7 @@ export class DynamicFormArrayComponent extends DynamicFormControlComponent {
     return this.layoutService.getEndTemplate(this.model, this.templates);
   }
 
-  markForCheck() {
+  markForCheck(): void {
     if (this.components instanceof QueryList) {
       this.components.forEach(component => component.markForCheck());
     }

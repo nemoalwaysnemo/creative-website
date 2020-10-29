@@ -1,28 +1,27 @@
-# Tbwa-Creative-Website
+# TbwaKnowledgeWebsite
 
-A new design website of Nuxeo Creative Library
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.4.
 
-## Installation
+## Development server
 
-### Install nodejs
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-You can use Homebrew to install it:
+## Code scaffolding
 
-    brew install node
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Or you can go to nodejs.org to find an installer.
+## Build
 
-### run the project
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-After checking out the project,
+## Running unit tests
 
-cd to the rep and run:
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-    yarn 
+## Running end-to-end tests
 
-This will install dependencies from angular.json to node_modules folder.
-Finally, run:
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-    ng serve
+## Further help
 
-And you can find the project runnnig on local 4200 port.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

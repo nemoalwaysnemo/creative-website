@@ -4,7 +4,7 @@ import { Observable, forkJoin, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
-import { SelectableItemService } from '../../../selectable-item/selectable-item.service';
+import { SelectableItemService } from '../../../document-selectable';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 
 @Component({

@@ -133,52 +133,52 @@ export class NbInputDirective {
   fullWidth = false;
 
   @HostBinding('class.input-sm')
-  get small() {
+  get small(): boolean {
     return this.size === NbInputDirective.SIZE_SMALL;
   }
 
   @HostBinding('class.input-md')
-  get medium() {
+  get medium(): boolean {
     return this.size === NbInputDirective.SIZE_MEDIUM;
   }
 
   @HostBinding('class.input-lg')
-  get large() {
+  get large(): boolean {
     return this.size === NbInputDirective.SIZE_LARGE;
   }
 
   @HostBinding('class.input-info')
-  get info() {
+  get info(): boolean {
     return this.status === NbInputDirective.STATUS_INFO;
   }
 
   @HostBinding('class.input-success')
-  get success() {
+  get success(): boolean {
     return this.status === NbInputDirective.STATUS_SUCCESS;
   }
 
   @HostBinding('class.input-warning')
-  get warning() {
+  get warning(): boolean {
     return this.status === NbInputDirective.STATUS_WARNING;
   }
 
   @HostBinding('class.input-danger')
-  get danger() {
+  get danger(): boolean {
     return this.status === NbInputDirective.STATUS_DANGER;
   }
 
   @HostBinding('class.input-rectangle')
-  get rectangle() {
+  get rectangle(): boolean {
     return this.shape === NbInputDirective.SHAPE_RECTANGLE;
   }
 
   @HostBinding('class.input-semi-round')
-  get semiRound() {
+  get semiRound(): boolean {
     return this.shape === NbInputDirective.SHAPE_SEMI_ROUND;
   }
 
   @HostBinding('class.input-round')
-  get round() {
+  get round(): boolean {
     return this.shape === NbInputDirective.SHAPE_ROUND;
   }
 }

@@ -52,7 +52,7 @@ export class NuxeoApiService {
 
   login(username: string, password: string): Observable<Credentials> {
     this.credentials['username'] = username;
-    return this.setCredentials({ method: 'basic', username: username, password: password }).connect().pipe(
+    return this.setCredentials({ method: 'basic', username, password }).connect().pipe(
       tap((user: UserModel) => { this._currentUser.next(user); }),
       mergeMap(response => this.requestAuthenticationToken()),
     );
@@ -66,7 +66,7 @@ export class NuxeoApiService {
 
   loginWithToken(token: string): Observable<any> {
     this.credentials['token'] = token;
-    return this.setCredentials({ method: 'token', token: token }).login();
+    return this.setCredentials({ method: 'token', token }).login();
   }
 
   authenticate(credentials: Credentials): Observable<Credentials> {

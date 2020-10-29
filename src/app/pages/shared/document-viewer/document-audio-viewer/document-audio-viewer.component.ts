@@ -25,7 +25,7 @@ export class DocumentAudioViewerComponent {
     this.buildAudioInfo(doc);
   }
 
-  private buildAudioInfo(doc: DocumentModel) {
+  private buildAudioInfo(doc: DocumentModel): void {
     const audioSourceContent = (doc.get('file:content') || {});
     this.audioSource = [{ src: audioSourceContent.data, type: audioSourceContent['mime-type'] }];
   }

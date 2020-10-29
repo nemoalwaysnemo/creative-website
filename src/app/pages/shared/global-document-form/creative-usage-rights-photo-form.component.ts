@@ -3,14 +3,14 @@ import { Observable } from 'rxjs';
 import { UserModel, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel, DynamicListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../document-form-extension';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'creative-usage-rights-photo-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormComponent {
 
@@ -74,7 +74,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         id: 'The_Loupe_Main:comment',
         label: 'Comment',
         required: false,
-        maxLength: 50,
+        maxLength: 150,
         placeholder: 'Comments',
         autoComplete: 'off',
       }),

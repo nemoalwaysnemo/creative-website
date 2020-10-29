@@ -16,28 +16,28 @@ export class Column {
   filter: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
   renderComponent: any = null;
   renderComponentData: any = {};
-  compareFunction: Function;
-  valuePrepareFunction: Function;
-  filterFunction: Function;
-  onComponentInitFunction: Function;
+  compareFunction: () => any;
+  valuePrepareFunction: () => any;
+  filterFunction: () => any;
+  onComponentInitFunction: (instance: any) => any;
 
   constructor(public id: string, protected settings: any, protected dataSet: DataSet) {
     this.process();
   }
 
-  getOnComponentInitFunction(): Function {
+  getOnComponentInitFunction(arg?: any): (instance: any) => any | undefined {
     return this.onComponentInitFunction;
   }
 
-  getCompareFunction(): Function {
+  getCompareFunction(): () => any {
     return this.compareFunction;
   }
 
-  getValuePrepareFunction(): Function {
+  getValuePrepareFunction(): () => any {
     return this.valuePrepareFunction;
   }
 
-  getFilterFunction(): Function {
+  getFilterFunction(): () => any {
     return this.filterFunction;
   }
 

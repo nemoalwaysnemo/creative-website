@@ -15,7 +15,7 @@ export enum NbTrigger {
  * Provides entity with two event stream: show and hide.
  * Each stream provides different events depends on implementation.
  * We have three main trigger strategies: click, hint and hover.
- * */
+ */
 export interface NbTriggerStrategy {
   show$: Observable<never | Event>;
   hide$: Observable<never | Event>;
@@ -24,8 +24,14 @@ export interface NbTriggerStrategy {
 /**
  * TODO maybe we have to use renderer.listen instead of observableFromEvent?
  * Renderer provides capability use it in service worker, ssr and so on.
- * */
+ */
 export abstract class NbTriggerStrategyBase implements NbTriggerStrategy {
+
+  constructor(protected document: Document, protected host: HTMLElement, protected container: () => ComponentRef<any>) {
+  }
+
+  abstract show$: Observable<Event>;
+  abstract hide$: Observable<Event>;
 
   protected isNotOnHostOrContainer(event: Event): boolean {
     return !this.isOnHost(event) && !this.isOnContainer(event);
@@ -50,12 +56,6 @@ export abstract class NbTriggerStrategyBase implements NbTriggerStrategy {
   protected isHostInBody(): boolean {
     return this.isElementInBody(this.host);
   }
-
-  abstract show$: Observable<Event>;
-  abstract hide$: Observable<Event>;
-
-  constructor(protected document: Document, protected host: HTMLElement, protected container: () => ComponentRef<any>) {
-  }
 }
 
 /**
@@ -63,7 +63,7 @@ export abstract class NbTriggerStrategyBase implements NbTriggerStrategy {
  * Fires toggle event when the click was performed on the host element.
  * Fires close event when the click was performed on the document but
  * not on the host or container.
- * */
+ */
 export class NbClickTriggerStrategy extends NbTriggerStrategyBase {
 
   // since we should track click for both SHOW and HIDE event we firstly need to track the click and the state
@@ -96,7 +96,7 @@ export class NbClickTriggerStrategy extends NbTriggerStrategyBase {
  * Creates show and hide event streams.
  * Fires open event when a mouse hovers over the host element and stay over at least 100 milliseconds.
  * Fires close event when the mouse leaves the host element and stops out of the host and popover container.
- * */
+ */
 export class NbHoverTriggerStrategy extends NbTriggerStrategyBase {
 
   show$: Observable<Event> = observableFromEvent<Event>(this.host, 'mouseenter')
@@ -127,7 +127,7 @@ export class NbHoverTriggerStrategy extends NbTriggerStrategyBase {
  * Creates show and hide event streams.
  * Fires open event when a mouse hovers over the host element and stay over at least 100 milliseconds.
  * Fires close event when the mouse leaves the host element.
- * */
+ */
 export class NbHintTriggerStrategy extends NbTriggerStrategyBase {
   show$: Observable<Event> = observableFromEvent<Event>(this.host, 'mouseenter')
     .pipe(
@@ -147,7 +147,7 @@ export class NbHintTriggerStrategy extends NbTriggerStrategyBase {
  * Creates show and hide event streams.
  * Fires open event when a focus is on the host element and stay over at least 100 milliseconds.
  * Fires close event when the focus leaves the host element.
- * */
+ */
 export class NbFocusTriggerStrategy extends NbTriggerStrategyBase {
 
   protected focusOut$: Observable<Event> = observableFromEvent<Event>(this.host, 'focusout')
@@ -177,7 +177,7 @@ export class NbFocusTriggerStrategy extends NbTriggerStrategyBase {
   protected tabKeyPress$: Observable<Event> = observableFromEvent<Event>(this.document, 'keydown')
     .pipe(
       takeWhile(() => this.isHostInBody()),
-      filter((event: KeyboardEvent) => event.keyCode === 9),
+      filter((event: KeyboardEvent) => event.key === 'Tab'),
       filter(() => !!this.container()),
     );
 

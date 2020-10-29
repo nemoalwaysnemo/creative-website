@@ -1,0 +1,91 @@
+<div class="layout-left left {{formClass}}">
+  <dynamic-ng-form-control *ngFor="let model of getFormModel('left'); trackBy: trackByFn"
+                          [group]="group"
+                          [hidden]="model.hidden"
+                          [layout]="layout"
+                          [model]="model"
+                          [templates]="templates"
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"
+                          (customEvent)="onCustomEvent($event, customEvent)">
+  </dynamic-ng-form-control>
+</div>
+
+<ng-container *ngIf="layoutAccordion && layoutAccordion.length > 0">
+  <div class="layout-left left accordion {{formClass}}">
+    <div *ngFor="let accordion of layoutAccordion">
+        <nb-accordion class="accordion">
+          <nb-accordion-item class="accordion-item">
+            <nb-accordion-item-header class="accordion-item-header"><span>{{ accordion.name }}</span></nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <dynamic-ng-form-control *ngFor="let model of accordion.models; trackBy: trackByFn"
+                                      [group]="group"
+                                      [hidden]="model.hidden"
+                                      [layout]="layout"
+                                      [model]="model"
+                                      [templates]="templates"
+                                      (blur)="onBlur($event)"
+                                      (change)="onChange($event)"
+                                      (focus)="onFocus($event)"
+                                      (customEvent)="onCustomEvent($event, customEvent)">
+              </dynamic-ng-form-control>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+    </div>
+  </div>
+</ng-container>
+
+<!-- position of accordion should be fixed, temperaryly on the right top;  customization of accordion positions causes problems -->
+<!-- for ex: 2 models under the same accordion tab but different layout position -->
+<ng-container *ngIf="enableLayoutRight">
+  <div class="layout-right right">
+    <dynamic-ng-form-control *ngFor="let model of getFormModel('right'); trackBy: trackByFn"
+                            [group]="group"
+                            [hidden]="model.hidden"
+                            [layout]="layout"
+                            [model]="model"
+                            [templates]="templates"
+                            (blur)="onBlur($event)"
+                            (change)="onChange($event)"
+                            (focus)="onFocus($event)"
+                            (customEvent)="onCustomEvent($event, customEvent)">
+    </dynamic-ng-form-control>
+  </div>
+  <div class="clear"></div>
+</ng-container>
+
+<ng-container *ngIf="layoutSwitchTab && layoutSwitchTab.length > 0">
+  <div class="layout-tab switch-tab {{formClass}}">
+    <nb-tabset fullWidth (changeTab)="onChangTab($event)">
+        <nb-tab *ngFor="let tab of layoutSwitchTab" [tabTitle]="tab.name" [disabled]="tab.disabled">
+          <dynamic-ng-form-control *ngFor="let model of tab.models; trackBy: trackByFn"
+                            [group]="group"
+                            [hidden]="model.hidden"
+                            [layout]="layout"
+                            [model]="model"
+                            [templates]="templates"
+                            (blur)="onBlur($event)"
+                            (change)="onChange($event)"
+                            (focus)="onFocus($event)"
+                            (customEvent)="onCustomEvent($event, customEvent)">
+          </dynamic-ng-form-control>
+        </nb-tab>
+    </nb-tabset>
+  </div>
+</ng-container>
+
+<div class="layout-bottom">
+  <dynamic-ng-form-control *ngFor="let model of getFormModel('bottom'); trackBy: trackByFn"
+                          [group]="group"
+                          [hidden]="model.hidden"
+                          [layout]="layout"
+                          [model]="model"
+                          [templates]="templates"
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"
+                          (customEvent)="onCustomEvent($event, customEvent)">
+  </dynamic-ng-form-control>
+</div>

@@ -42,7 +42,7 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
     enableQueryParams: true,
   });
 
-  afterSearch: Function = (res: SearchResponse): Observable<SearchResponse> => {
+  afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     if (res.action === 'afterSearch') {
       return this.documentPageService.advanceRequestTitleByUIDs(res.response, ['The_Loupe_Main:campaign']).pipe(
         map((response: NuxeoPagination) => { res.response = response; return res; }),

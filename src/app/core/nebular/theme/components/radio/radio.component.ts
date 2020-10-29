@@ -64,7 +64,7 @@ import { convertToBoolProperty } from '../helpers';
  * radio-disabled-border-size
  * radio-disabled-border-color
  * radio-disabled-checkmark
- * */
+ */
 @Component({
   selector: 'nb-radio',
   template: `
@@ -99,7 +99,7 @@ export class NbRadioComponent {
     this.disabled = convertToBoolProperty(disabled);
   }
 
-  @Output() valueChange: EventEmitter<any> = new EventEmitter();
+  @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() blur: EventEmitter<void> = new EventEmitter();
 
@@ -107,18 +107,18 @@ export class NbRadioComponent {
 
   constructor(protected cd: ChangeDetectorRef) {}
 
-  markForCheck() {
+  markForCheck(): void {
     this.cd.markForCheck();
     this.cd.detectChanges();
   }
 
-  onChange(event: Event) {
+  onChange(event: Event): void {
     event.stopPropagation();
     this.checked = true;
     this.valueChange.emit(this.value);
   }
 
-  onClick(event: Event) {
+  onClick(event: Event): void {
     event.stopPropagation();
   }
 }

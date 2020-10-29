@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
-import { SelectableItemSettings } from '../../../shared/selectable-item/selectable-item.interface';
+import { SelectableItemSettings } from '../../../shared/document-selectable';
 
 @Component({
   selector: 'backslash-edges-asset-search-result',

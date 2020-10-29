@@ -3,7 +3,7 @@ import { NuxeoPagination, DocumentModel, GlobalSearchParams, UserModel, NuxeoReq
 import { DocumentPageService } from '@pages/shared';
 import { Subscription, combineLatest, Observable, of as observableOf, forkJoin, zip } from 'rxjs';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-best-showcase',
@@ -94,6 +94,7 @@ export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
         }),
       );
   }
+
 
   private search(params: {}): void {
     const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))

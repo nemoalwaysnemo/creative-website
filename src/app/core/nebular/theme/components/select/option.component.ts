@@ -43,7 +43,7 @@ import { NbSelectComponent } from './select.component';
 export class NbOptionComponent<T> implements OnDestroy {
   /**
    * Option value that will be fired on selection.
-   * */
+   */
   @Input() value: T;
 
   @Input('disabled')
@@ -53,7 +53,7 @@ export class NbOptionComponent<T> implements OnDestroy {
 
   /**
    * Fires value on click.
-   * */
+   */
   @Output() selectionChange: EventEmitter<NbOptionComponent<T>> = new EventEmitter();
 
   selected: boolean = false;
@@ -71,16 +71,16 @@ export class NbOptionComponent<T> implements OnDestroy {
 
   /**
    * Determines should we render checkbox.
-   * */
+   */
   get withCheckbox(): boolean {
     return this.multiple && !!this.value;
   }
 
-  get content() {
+  get content(): any {
     return this.elementRef.nativeElement.textContent;
   }
 
-  get multiple() {
+  get multiple(): any {
     return this.parent.multiple;
   }
 
@@ -95,21 +95,21 @@ export class NbOptionComponent<T> implements OnDestroy {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     this.selectionChange.emit(this);
   }
 
-  select() {
+  select(): void {
     this.selected = true;
     this.cd.markForCheck();
     this.cd.detectChanges();
   }
 
-  deselect() {
+  deselect(): void {
     /**
      * In case of changing options in runtime the reference to the selected option will be kept in select component.
      * This may lead to exceptions with detecting changes in destroyed component.
-     * */
+     */
     if (!this.alive) {
       return;
     }

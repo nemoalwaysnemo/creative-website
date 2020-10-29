@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NbSpinnerModule } from '@core/nebular/theme';
 import { ReactiveFormsModule, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angular/forms';
-import { DynamicFormsNGUIModule } from '../dynamic-ng-form';
+import { DynamicFormsNGUIModule } from '../document-form-extension/dynamic-ng-form';
 import { DocumentFormComponent } from './document-form.component';
 import { customValidator, customDateRangeValidator, customAsyncFormGroupValidator, dateFormatValidator } from './document-form.validators';
-import { Validator, DYNAMIC_VALIDATORS, ValidatorFactory } from './../../../core/custom/ng-dynamic-forms/service/dynamic-form-validators';
+import { Validator, DYNAMIC_VALIDATORS, ValidatorFactory } from '@core/custom/ng-dynamic-forms/service/dynamic-form-validators';
 
 const COMPONENTS = [DocumentFormComponent];
 

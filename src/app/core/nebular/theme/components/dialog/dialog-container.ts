@@ -20,7 +20,7 @@ import { NbDialogConfig } from './dialog-config';
  * Container component for each dialog.
  * All the dialogs will be attached to it.
  * // TODO add animations
- * */
+ */
 @Component({
   selector: 'nb-dialog-container',
   template: '<ng-template nbPortalOutlet></ng-template>',

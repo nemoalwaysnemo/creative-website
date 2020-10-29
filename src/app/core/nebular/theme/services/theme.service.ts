@@ -27,9 +27,7 @@ export class NbThemeService {
   private removeLayoutClass$ = new Subject();
   private changeWindowWidth$ = new ReplaySubject<number>(2);
 
-  constructor(@Inject(NB_THEME_OPTIONS) protected options: any,
-              private breakpointService: NbMediaBreakpointsService,
-              private jsThemesRegistry: NbJSThemesRegistry) {
+  constructor(@Inject(NB_THEME_OPTIONS) protected options: any, private breakpointService: NbMediaBreakpointsService, private jsThemesRegistry: NbJSThemesRegistry) {
     if (options && options.name) {
       this.changeTheme(options.name);
     }
@@ -73,7 +71,7 @@ export class NbThemeService {
   onMediaQueryChange(): Observable<NbMediaBreakpoint[]> {
     return this.changeWindowWidth$
       .pipe(
-        startWith(undefined),
+        startWith(undefined as string),
         pairwise(),
         map(([prevWidth, width]: [number, number]) => {
           return [
@@ -101,7 +99,7 @@ export class NbThemeService {
    * Append a class to nb-layout
    * @param {string} className
    */
-  appendLayoutClass(className: string) {
+  appendLayoutClass(className: string): void {
     this.appendLayoutClass$.next(className);
   }
 
@@ -117,7 +115,7 @@ export class NbThemeService {
    * Removes a class from nb-layout
    * @param {string} className
    */
-  removeLayoutClass(className: string) {
+  removeLayoutClass(className: string): void {
     this.removeLayoutClass$.next(className);
   }
 

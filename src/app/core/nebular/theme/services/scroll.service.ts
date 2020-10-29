@@ -42,7 +42,7 @@ export class NbLayoutScrollService {
    * @returns {Observable<NbScrollPosition>}
    */
   getPosition(): Observable<NbScrollPosition> {
-    return Observable.create((observer: Subscriber<NbScrollPosition>) => {
+    return new Observable((observer: Subscriber<NbScrollPosition>) => {
       const listener = new Subject<NbScrollPosition>();
       listener.subscribe(observer);
       this.scrollPositionReq$.next({ listener });
@@ -57,7 +57,7 @@ export class NbLayoutScrollService {
    * @param {number} x
    * @param {number} y
    */
-  scrollTo(x: number = null, y: number = null) {
+  scrollTo(x: number = null, y: number = null): void {
     this.manualScroll$.next({ x, y });
   }
 
@@ -66,7 +66,7 @@ export class NbLayoutScrollService {
    *
    * @returns {Observable<any>}
    */
-  onScroll() {
+  onScroll(): Observable<any> {
     return this.scroll$.pipe(share<any>());
   }
 
@@ -103,15 +103,15 @@ export class NbLayoutScrollService {
    * @private
    * @param {any} event
    */
-  fireScrollChange(event: any) {
+  fireScrollChange(event: any): void {
     this.scroll$.next(event);
   }
 
-  scrollable(scrollable: boolean) {
+  scrollable(scrollable: boolean): void {
     this.scrollable$.next(scrollable);
   }
 
-  stopScrollListener(stop: boolean) {
-    this.scrollListening$.next({ stop: stop });
+  stopScrollListener(stop: boolean): void {
+    this.scrollListening$.next({ stop });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentPageService } from '../services/document-page.service';
-import { SelectableItemSettings } from '../selectable-item/selectable-item.interface';
+import { SelectableItemSettings } from '../document-selectable';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { BaseGlobalSearchResultComponent } from '../global-search-result/base-global-search-result.component';
 

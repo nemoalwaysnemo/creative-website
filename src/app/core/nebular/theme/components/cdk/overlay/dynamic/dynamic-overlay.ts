@@ -25,7 +25,7 @@ export class NbDynamicOverlay {
   protected ref: NbOverlayRef;
   protected container: ComponentRef<NbRenderableContainer>;
   protected componentType: Type<NbRenderableContainer>;
-  protected context: Object = {};
+  protected context: any = {};
   protected content: NbOverlayContent;
   protected positionStrategy: NbAdjustableConnectedPositionStrategy;
 
@@ -42,10 +42,7 @@ export class NbDynamicOverlay {
     private zone: NgZone) {
   }
 
-  create(componentType: Type<NbRenderableContainer>,
-         content: NbOverlayContent,
-         context: Object,
-         positionStrategy: NbAdjustableConnectedPositionStrategy) {
+  create(componentType: Type<NbRenderableContainer>, content: NbOverlayContent, context: any, positionStrategy: NbAdjustableConnectedPositionStrategy): this {
 
     this.setContentAndContext(content, context);
     this.setComponent(componentType);
@@ -54,7 +51,7 @@ export class NbDynamicOverlay {
     return this;
   }
 
-  setContent(content: NbOverlayContent) {
+  setContent(content: NbOverlayContent): void {
     this.content = content;
 
     if (this.container) {
@@ -62,7 +59,7 @@ export class NbDynamicOverlay {
     }
   }
 
-  setContext(context: Object) {
+  setContext(context: any): void {
     this.context = context;
 
     if (this.container) {
@@ -70,7 +67,7 @@ export class NbDynamicOverlay {
     }
   }
 
-  setContentAndContext(content: NbOverlayContent, context: Object) {
+  setContentAndContext(content: NbOverlayContent, context: any): void {
     this.content = content;
     this.context = context;
     if (this.container) {
@@ -78,7 +75,7 @@ export class NbDynamicOverlay {
     }
   }
 
-  setComponent(componentType: Type<NbRenderableContainer>) {
+  setComponent(componentType: Type<NbRenderableContainer>): void {
     this.componentType = componentType;
 
     // in case the component is shown we recreate it and show it back
@@ -90,7 +87,7 @@ export class NbDynamicOverlay {
     }
   }
 
-  setPositionStrategy(positionStrategy: NbAdjustableConnectedPositionStrategy) {
+  setPositionStrategy(positionStrategy: NbAdjustableConnectedPositionStrategy): void {
     this.positionStrategyChange$.next();
 
     this.positionStrategy = positionStrategy;
@@ -108,7 +105,7 @@ export class NbDynamicOverlay {
     }
   }
 
-  show() {
+  show(): void {
     if (!this.ref) {
       this.createOverlay();
     }
@@ -116,7 +113,7 @@ export class NbDynamicOverlay {
     this.event$.next('show');
   }
 
-  hide() {
+  hide(): void {
     if (!this.ref) {
       return;
     }
@@ -125,7 +122,7 @@ export class NbDynamicOverlay {
     this.event$.next('hide');
   }
 
-  toggle() {
+  toggle(): void {
     if (this.isAttached) {
       this.hide();
     } else {
@@ -133,7 +130,7 @@ export class NbDynamicOverlay {
     }
   }
 
-  dispose() {
+  dispose(): void {
     this.alive = false;
     this.hide();
     if (this.ref) {
@@ -142,11 +139,11 @@ export class NbDynamicOverlay {
     }
   }
 
-  getContainer() {
+  getContainer(): any {
     return this.container;
   }
 
-  protected createOverlay() {
+  protected createOverlay(): void {
     this.ref = this.overlay.create({
       positionStrategy: this.positionStrategy,
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
@@ -154,7 +151,7 @@ export class NbDynamicOverlay {
     this.updatePositionWhenStable();
   }
 
-  protected renderContainer() {
+  protected renderContainer(): void {
     const containerContext = this.createContainerContext();
     if (!this.container) {
       this.container = createContainer(this.ref, this.componentType, containerContext, this.componentFactoryResolver);
@@ -162,14 +159,14 @@ export class NbDynamicOverlay {
     this.container.instance.renderContent();
   }
 
-  protected updateContext() {
+  protected updateContext(): void {
     const containerContext = this.createContainerContext();
     Object.assign(this.container.instance, containerContext);
     this.container.instance.renderContent();
     this.container.changeDetectorRef.detectChanges();
   }
 
-  protected createContainerContext(): Object {
+  protected createContainerContext(): any {
     return {
       content: this.content,
       context: this.context,
@@ -181,11 +178,9 @@ export class NbDynamicOverlay {
    * Dimensions of the container may change after content update. So we listen to zone.stable event to
    * reposition the container.
    */
-  protected updatePositionWhenStable() {
+  protected updatePositionWhenStable(): void {
     this.zone.onStable
       .pipe(takeWhile(() => this.alive))
-      .subscribe(() => {
-        this.ref && this.ref.updatePosition();
-      });
+      .subscribe(() => this.ref && this.ref.updatePosition());
   }
 }

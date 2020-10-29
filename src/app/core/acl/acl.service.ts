@@ -33,12 +33,12 @@ export class ACLService {
     tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } if (!x.aclFunc) { x.aclFunc = (doc: DocumentModel): Observable<boolean> => observableOf(true); } });
     return this.permissionsService.permissions$.pipe(
       filter(_ => Object.keys(_).length !== 0),
-      switchMap(_ => forkJoin(
+      switchMap(_ => forkJoin([
         ...tabs.map((x: any) => zip(
           this.permissionsService.hasPermission(x.acl),
           x.aclFunc.call(this, document),
         )),
-      ).pipe(
+      ]).pipe(
         map((r: any[]) => {
           const list = [];
           r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(tabs[i]); } });

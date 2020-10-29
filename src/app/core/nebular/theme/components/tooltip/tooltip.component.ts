@@ -56,23 +56,24 @@ export class NbTooltipComponent implements NbRenderableContainer {
 
   /**
    * Popover position relatively host element.
-   * */
+   */
   @Input() position: NbPosition = NbPosition.TOP;
 
   @HostBinding('class')
-  get binding() {
+  get binding(): string {
     return `${this.position} ${this.statusClass}`;
   }
 
   @HostBinding('@showTooltip')
-  get show() {
+
+  get show(): boolean {
     return true;
   }
 
   @Input()
   context: { icon?: string, status?: string } = {};
 
-  get statusClass() {
+  get statusClass(): string {
     return this.context.status ? `${this.context.status}-tooltip` : '';
   }
 

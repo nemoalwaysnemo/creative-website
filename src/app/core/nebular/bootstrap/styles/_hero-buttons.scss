@@ -481,12 +481,7 @@
 
 @mixin btn-hero-secondary-border() {
   border: 2px solid nb-theme(btn-secondary-border);
-
-  @include nb-for-theme(corporate) {
-    border: none;
-  }
 }
-
 
 // Hover
 @mixin btn-hero-primary-hover() {

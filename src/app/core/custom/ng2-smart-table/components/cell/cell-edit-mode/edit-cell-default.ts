@@ -22,7 +22,7 @@ export class EditCellDefaultComponent {
     return false;
   }
 
-  onClick(event: any) {
+  onClick(event: any): void {
     event.stopPropagation();
   }
 }

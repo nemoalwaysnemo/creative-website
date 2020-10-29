@@ -42,7 +42,7 @@ export class Grid {
     return this.dataSet.newRow;
   }
 
-  setSettings(settings: Object): void {
+  setSettings(settings: any): void {
     this.settings = settings;
     this.dataSet = new DataSet([], this.getSetting('columns'));
 
@@ -94,7 +94,7 @@ export class Grid {
     row.isInEditing = true;
   }
 
-  create(row: Row, confirmEmitter: EventEmitter<any>) {
+  create(row: Row, confirmEmitter: EventEmitter<any>): void {
 
     const deferred = new Deferred();
     deferred.promise.then((newData) => {
@@ -122,7 +122,7 @@ export class Grid {
     }
   }
 
-  save(row: Row, confirmEmitter: EventEmitter<any>) {
+  save(row: Row, confirmEmitter: EventEmitter<any>): void {
 
     const deferred = new Deferred();
     deferred.promise.then((newData) => {
@@ -150,7 +150,7 @@ export class Grid {
     }
   }
 
-  delete(row: Row, confirmEmitter: EventEmitter<any>) {
+  delete(row: Row, confirmEmitter: EventEmitter<any>): void {
 
     const deferred = new Deferred();
     deferred.promise.then(() => {

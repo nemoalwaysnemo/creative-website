@@ -20,7 +20,7 @@ export class NbViewportRulerAdapter extends ViewportRuler {
     /*
     * getDimensions call is really synchronous operation.
     * And we have to conform with the interface of the original service.
-    * */
+    */
     this.ruler.getDimensions()
       .pipe(map(dimensions => ({ width: dimensions.clientWidth, height: dimensions.clientHeight })))
       .subscribe(rect => res = rect);
@@ -32,7 +32,7 @@ export class NbViewportRulerAdapter extends ViewportRuler {
     /*
     * getPosition call is really synchronous operation.
     * And we have to conform with the interface of the original service.
-    * */
+    */
     this.scroll.getPosition()
       .pipe(map((position: NbScrollPosition) => ({ top: position.y, left: position.x })))
       .subscribe(position => res = position);

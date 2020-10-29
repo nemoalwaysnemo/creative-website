@@ -60,14 +60,15 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
 
   @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
 
-  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
+
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
     doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
     doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
     doc.properties['The_Loupe_Delivery:agency_disclaimer'] = doc.getParent().uid;
     return doc;
   }
 
-  afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => {
+  afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => {
     this.addToCollection(doc);
     return observableOf(doc);
   }
@@ -80,14 +81,13 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     super(documentPageService);
   }
 
-  setFormDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): void {
-    super.setFormDocument(formSettings, doc, user);
+  setFormDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): void {
+    super.setFormDocument(doc, user, formSettings);
     this.loading = false;
     this.getStatus(doc);
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
-    // console.log(2222, event.button);
     return event;
   }
 
@@ -101,8 +101,8 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return observableOf(doc);
   }
 
-  protected getFormSettings(): DocumentFormSettings {
-    return new DocumentFormSettings({
+  protected getFormSettings(): any {
+    return {
       buttonGroup: [
         {
           label: 'Save',
@@ -122,7 +122,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
           type: 'cancle',
         },
       ],
-    });
+    };
   }
 
   protected getFormModels(): any[] {
@@ -300,7 +300,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     const packageId = packageDoc.uid;
     const assetIds: string[] = this.selectedRows.map((doc: DocumentModel) => doc.uid);
     if (assetIds.length > 0) {
-      this.nuxeoApi.operation(NuxeoAutomations.AddToCollection, { 'collection': packageId }, assetIds).subscribe(() => {
+      this.nuxeoApi.operation(NuxeoAutomations.AddToCollection, { collection: packageId }, assetIds).subscribe(() => {
         this.refresh();
       });
     } else {

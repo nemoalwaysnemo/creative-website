@@ -11,7 +11,7 @@ import { Observable, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { isUrlPathContain, isUrlPathEqual } from './url-matching-helpers';
 
-export interface NbMenuBag { tag: string; item: NbMenuItem }
+export interface NbMenuBag { tag: string; item: NbMenuItem; }
 
 const itemClick$ = new Subject<NbMenuBag>();
 const addItems$ = new ReplaySubject<{ tag: string; items: NbMenuItem[] }>(1);
@@ -95,11 +95,11 @@ export class NbMenuItem {
    */
   group?: boolean;
   /** Whether the item skipLocationChange is true or false
-   *@type {boolean}
+   * @type {boolean}
    */
   skipLocationChange?: boolean;
   /** Map of query parameters
-   *@type {Params}
+   * @type {Params}
    */
   queryParams?: Params;
 
@@ -151,7 +151,7 @@ export class NbMenuService {
    * @param {List<NbMenuItem>} items
    * @param {string} tag
    */
-  addItems(items: NbMenuItem[], tag?: string) {
+  addItems(items: NbMenuItem[], tag?: string): void {
     addItems$.next({ tag, items });
   }
 
@@ -159,7 +159,7 @@ export class NbMenuService {
    * Collapses all menu items
    * @param {string} tag
    */
-  collapseAll(tag?: string) {
+  collapseAll(tag?: string): void {
     collapseAll$.next({ tag });
   }
 
@@ -167,7 +167,7 @@ export class NbMenuService {
    * Navigate to the home menu item
    * @param {string} tag
    */
-  navigateHome(tag?: string) {
+  navigateHome(tag?: string): void {
     navigateHome$.next({ tag });
   }
 
@@ -206,7 +206,7 @@ export class NbMenuInternalService {
 
   constructor(private location: Location) { }
 
-  prepareItems(items: NbMenuItem[]) {
+  prepareItems(items: NbMenuItem[]): void {
     const defaultItem = new NbMenuItem();
     items.forEach(i => {
       this.applyDefaults(i, defaultItem);
@@ -214,14 +214,14 @@ export class NbMenuInternalService {
     });
   }
 
-  selectFromUrl(items: NbMenuItem[], tag: string, collapseOther: boolean = false) {
+  selectFromUrl(items: NbMenuItem[], tag: string, collapseOther: boolean = false): void {
     const selectedItem = this.findItemByUrl(items);
     if (selectedItem) {
       this.selectItem(selectedItem, items, collapseOther, tag);
     }
   }
 
-  selectItem(item: NbMenuItem, items: NbMenuItem[], collapseOther: boolean = false, tag: string) {
+  selectItem(item: NbMenuItem, items: NbMenuItem[], collapseOther: boolean = false, tag: string): void {
     const unselectedItems = this.resetSelection(items);
     const collapsedItems = collapseOther ? this.collapseItems(items) : [];
 
@@ -258,7 +258,7 @@ export class NbMenuInternalService {
     }
   }
 
-  collapseAll(items: NbMenuItem[], tag: string, except?: NbMenuItem) {
+  collapseAll(items: NbMenuItem[], tag: string, except?: NbMenuItem): void {
     const collapsedItems = this.collapseItems(items, except);
 
     for (const item of collapsedItems) {
@@ -282,19 +282,19 @@ export class NbMenuInternalService {
     return getSelectedItem$.pipe(share());
   }
 
-  itemHover(item: NbMenuItem, tag?: string) {
+  itemHover(item: NbMenuItem, tag?: string): void {
     itemHover$.next({ tag, item });
   }
 
-  submenuToggle(item: NbMenuItem, tag?: string) {
+  submenuToggle(item: NbMenuItem, tag?: string): void {
     submenuToggle$.next({ tag, item });
   }
 
-  itemSelect(item: NbMenuItem, tag?: string) {
+  itemSelect(item: NbMenuItem, tag?: string): void {
     itemSelect$.next({ tag, item });
   }
 
-  itemClick(item: NbMenuItem, tag?: string) {
+  itemClick(item: NbMenuItem, tag?: string): void {
     itemClick$.next({ tag, item });
   }
 
@@ -347,7 +347,7 @@ export class NbMenuInternalService {
     return collapsedItems;
   }
 
-  private applyDefaults(item, defaultItem) {
+  private applyDefaults(item, defaultItem): void {
     const menuItem = { ...item };
     Object.assign(item, defaultItem, menuItem);
     item.children && item.children.forEach(child => {
@@ -355,7 +355,7 @@ export class NbMenuInternalService {
     });
   }
 
-  private setParent(item: NbMenuItem) {
+  private setParent(item: NbMenuItem): void {
     item.children && item.children.forEach(child => {
       child.parent = item;
       this.setParent(child);

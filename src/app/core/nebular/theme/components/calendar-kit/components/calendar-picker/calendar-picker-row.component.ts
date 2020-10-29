@@ -47,7 +47,7 @@ export class NbCalendarPickerRowComponent<D, T> implements OnChanges {
   constructor(private cfr: ComponentFactoryResolver) {
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     const factory = this.cfr.resolveComponentFactory(this.component);
 
     this.containerRef.clear();
@@ -59,7 +59,7 @@ export class NbCalendarPickerRowComponent<D, T> implements OnChanges {
     });
   }
 
-  private patchWithContext(component: NbCalendarCell<D, T>, date: D) {
+  private patchWithContext(component: NbCalendarCell<D, T>, date: D): void {
     component.visibleDate = this.visibleDate;
     component.selectedValue = this.selectedValue;
     component.date = date;

@@ -12,13 +12,14 @@ export interface DynamicFormControlModelConfig {
   errorMessages?: DynamicValidatorsConfig;
   hidden?: boolean;
   readOnly?: boolean;
-  hiddenFn?: Function;
-  visibleFn?: Function;
+  hiddenFn?: (doc: any, user: any, settings: any) => boolean;
+  visibleFn?: (doc: any, user: any, settings: any) => boolean;
   id: string;
   label?: string;
   formMode?: string;
   layoutPosition?: string;
   accordionTab?: string;
+  switchTab?: string;
   labelTooltip?: string;
   controlTooltip?: string;
   name?: string;
@@ -30,36 +31,6 @@ export interface DynamicFormControlModelConfig {
 }
 
 export abstract class DynamicFormControlModel implements DynamicPathable {
-
-  @serializable() asyncValidators: DynamicValidatorsConfig | null;
-  @serializable('disabled') _disabled: boolean;
-  @serializable() errorMessages: DynamicValidatorsConfig | null;
-  @serializable() hidden: boolean;
-  @serializable() readOnly: boolean;
-  @serializable() hiddenFn: Function = (doc: any, user: any, settings: any): boolean => false;
-  @serializable() visibleFn: Function = (doc: any, user: any, settings: any): boolean => true;
-  @serializable() id: string;
-  @serializable() label: string | null;
-  @serializable() labelTooltip: string | null;
-  @serializable() formMode: string | null;
-  @serializable() layoutPosition: string | 'left';
-  @serializable() accordionTab: string | null;
-  @serializable() controlTooltip: string | null;
-  @serializable() layout: DynamicFormControlLayout | null;
-  @serializable() name: string;
-  @serializable() value: any;
-  @serializable() document: any;
-  @serializable() defaultValue: any;
-  parent: DynamicPathable | null = null;
-  @serializable() relations: DynamicFormControlRelation[];
-  @serializable() updateOn: DynamicFormHook | null;
-  @serializable() validators: DynamicValidatorsConfig | null;
-
-  private readonly disabled$: BehaviorSubject<boolean>;
-
-  readonly disabledChanges: Observable<boolean>;
-
-  abstract readonly type: string;
 
   protected constructor(config: DynamicFormControlModelConfig, layout: DynamicFormControlLayout | null = null) {
 
@@ -74,6 +45,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.formMode = config.formMode || null;
     this.layoutPosition = config.layoutPosition || 'left';
     this.accordionTab = config.accordionTab || null;
+    this.switchTab = config.switchTab || null;
     this.labelTooltip = config.labelTooltip || null;
     this.controlTooltip = config.controlTooltip || null;
     this.layout = layout;
@@ -101,7 +73,38 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     return isObject(this.errorMessages);
   }
 
-  toJSON() {
+  @serializable() asyncValidators: DynamicValidatorsConfig | null;
+  @serializable('disabled') _disabled: boolean;
+  @serializable() errorMessages: DynamicValidatorsConfig | null;
+  @serializable() hidden: boolean;
+  @serializable() readOnly: boolean;
+  @serializable() id: string;
+  @serializable() label: string | null;
+  @serializable() labelTooltip: string | null;
+  @serializable() formMode: string | null;
+  @serializable() layoutPosition: string | 'left';
+  @serializable() accordionTab: string | null;
+  @serializable() switchTab: string | null;
+  @serializable() controlTooltip: string | null;
+  @serializable() layout: DynamicFormControlLayout | null;
+  @serializable() name: string;
+  @serializable() value: any;
+  @serializable() document: any;
+  @serializable() defaultValue: any;
+  parent: DynamicPathable | null = null;
+  @serializable() relations: DynamicFormControlRelation[];
+  @serializable() updateOn: DynamicFormHook | null;
+  @serializable() validators: DynamicValidatorsConfig | null;
+
+  private readonly disabled$: BehaviorSubject<boolean>;
+
+  readonly disabledChanges: Observable<boolean>;
+
+  abstract readonly type: string;
+  @serializable() hiddenFn: (doc: any, user: any, settings: any) => boolean = () => false;
+  @serializable() visibleFn: (doc: any, user: any, settings: any) => boolean = () => true;
+
+  toJSON(): any {
     return serialize(this);
   }
 }

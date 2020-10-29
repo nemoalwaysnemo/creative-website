@@ -113,7 +113,7 @@ import { NbCalendarCell, NbCalendarSize, NbCalendarViewMode } from '../calendar-
  * calendar-month-cell-large-height
  * calendar-year-cell-large-width
  * calendar-year-cell-large-height
- * */
+ */
 @Component({
   selector: 'nb-calendar',
   template: `
@@ -139,64 +139,64 @@ export class NbCalendarComponent<D> {
   /**
    * Defines if we should render previous and next months
    * in the current month view.
-   * */
+   */
   @Input() boundingMonth: boolean = true;
 
   /**
    * Defines starting view for calendar.
-   * */
+   */
   @Input() startView: NbCalendarViewMode = NbCalendarViewMode.DATE;
 
   /**
    * Minimum available date for selection.
-   * */
+   */
   @Input() min: D;
 
   /**
    * Maximum available date for selection.
-   * */
+   */
   @Input() max: D;
 
   /**
    * Predicate that decides which cells will be disabled.
-   * */
+   */
   @Input() filter: (D) => boolean;
 
   /**
    * Custom day cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input() dayCellComponent: Type<NbCalendarCell<D, D>>;
 
   /**
    * Custom month cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input() monthCellComponent: Type<NbCalendarCell<D, D>>;
 
   /**
    * Custom year cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input() yearCellComponent: Type<NbCalendarCell<D, D>>;
 
   /**
    * Size of the calendar and entire components.
    * Can be 'medium' which is default or 'large'.
-   * */
+   */
   @Input() size: NbCalendarSize = NbCalendarSize.MEDIUM;
 
   @Input() visibleDate: D;
 
   /**
    * Determines should we show calendars header or not.
-   * */
+   */
   @Input() showHeader: boolean = true;
 
   /**
    * Date which will be rendered as selected.
-   * */
+   */
   @Input() date: D;
 
   /**
    * Emits date when selected.
-   * */
+   */
   @Output() dateChange: EventEmitter<D> = new EventEmitter();
 }

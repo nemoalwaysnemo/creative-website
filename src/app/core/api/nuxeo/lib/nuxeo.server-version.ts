@@ -12,16 +12,16 @@ const SERVER_VERSION_PATTERN = /(\d+)\.(\d+)(?:-HF(\d+))?/;
  */
 export class ServerVersion {
 
+  static LTS_2016 = new ServerVersion('8.10');
+  static LTS_2017 = new ServerVersion('9.10');
+  static LTS_2019 = new ServerVersion('10.10');
+
   major: string | number;
   minor: string | number;
   hotfix: string | number;
   version: string;
 
-  static LTS_2016 = new ServerVersion('8.10');
-  static LTS_2017 = new ServerVersion('9.10');
-  static LTS_2019 = new ServerVersion('10.10');
-
-  constructor(version) {
+  constructor(version: any) {
     const match = version.match(SERVER_VERSION_PATTERN);
     if (!match) {
       throw new Error(`Unknown Nuxeo Server version: ${version}`);
@@ -33,17 +33,19 @@ export class ServerVersion {
     this.version = version;
   }
 
-  static create(version) { return typeof version === 'string' ? new ServerVersion(version) : version; }
+  static create(version: any): any {
+    return typeof version === 'string' ? new ServerVersion(version) : version;
+  }
 
-  static SERVER_VERSIONS() {
-    return { 'LTS_2016': ServerVersion.LTS_2016, 'LTS_2017': ServerVersion.LTS_2017, 'LTS_2019': ServerVersion.LTS_2019 };
+  static SERVER_VERSIONS(): any {
+    return { LTS_2016: ServerVersion.LTS_2016, LTS_2017: ServerVersion.LTS_2017, LTS_2019: ServerVersion.LTS_2019 };
   }
   /**
    * Returns whether this version is equal to the `version` param.
    *
    * @param {string|ServerVersion} version - The other version.
    */
-  eq(version) {
+  eq(version: any): boolean {
     const other = ServerVersion.create(version);
     return this.major === other.major && this.minor === other.minor && this.hotfix === other.hotfix;
   }
@@ -53,7 +55,7 @@ export class ServerVersion {
    *
    * @param {string|ServerVersion} version - The other version.
    */
-  gt(version) {
+  gt(version: any): boolean {
     const other = ServerVersion.create(version);
     return this.major > other.major || (this.major === other.major && this.minor > other.minor)
       || (this.major === other.major && this.minor === other.minor && this.hotfix > other.hotfix);
@@ -64,7 +66,7 @@ export class ServerVersion {
    *
    * @param {string|ServerVersion} version - The other version.
    */
-  lt(version) {
+  lt(version: any): boolean {
     const other = ServerVersion.create(version);
     return this.major < other.major || (this.major === other.major && this.minor < other.minor)
       || (this.major === other.major && this.minor === other.minor && this.hotfix < other.hotfix);
@@ -75,7 +77,7 @@ export class ServerVersion {
    *
    * @param {string|ServerVersion} version - The other version.
    */
-  gte(version) {
+  gte(version: any): boolean {
     const other = ServerVersion.create(version);
     return this.eq(other) || this.gt(other);
   }
@@ -85,12 +87,12 @@ export class ServerVersion {
    *
    * @param {string|ServerVersion} version - The other version.
    */
-  lte(version) {
+  lte(version: any): boolean {
     const other = ServerVersion.create(version);
     return this.eq(other) || this.lt(other);
   }
 
-  toString() {
+  toString(): string {
     return this.version;
   }
 }

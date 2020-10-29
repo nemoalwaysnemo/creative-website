@@ -14,71 +14,9 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DocumentCreativeProjectRelatedAssetComponent {
 
-  static readonly NAME: string = 'creative-project-related-asset';
-
-  loading: boolean = true;
-
-  baseParams$: Subject<any> = new Subject<any>();
-
-  isPackage: boolean = false;
-
-  selectedRows: any = [];
-
-  listViewSettings: any;
-
-  isRefresh: boolean = true;
-
-  assetList: DocumentModel[] = [];
-
-  showStatus: boolean = true;
-
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-related-asset',
-    enableSearchInput: false,
-  });
-
   constructor(
     protected nuxeoApi: NuxeoApiService,
   ) {
-  }
-
-  defaultSettings: any = {
-    hideHeader: true,
-    hideSubHeader: true,
-    selectMode: 'single',
-    columns: {
-      title: {
-        title: 'Title',
-        sort: false,
-      },
-      type: {
-        title: 'Asset Type',
-        sort: false,
-      },
-      action: {
-        title: 'Icon',
-        sort: false,
-        type: 'custom',
-        renderComponentData: new ListSearchRowCustomViewSettings({
-          viewType: 'thumbnail',
-        }),
-        renderComponent: ListSearchRowCustomViewComponent,
-      },
-    },
-  };
-
-  listViewBuilder: Function = (docs: DocumentModel[]): any => {
-    const items = [];
-    for (const doc of docs) {
-      items.push(new DocumentListViewItem({
-        uid: doc.uid,
-        title: doc.title,
-        type: doc.get('The_Loupe_Main:assettype'),
-        action: doc,
-      }));
-    }
-    return items;
   }
 
   @Input()
@@ -111,7 +49,69 @@ export class DocumentCreativeProjectRelatedAssetComponent {
     }
   }
 
+  static readonly NAME: string = 'creative-project-related-asset';
+
+  loading: boolean = true;
+
+  baseParams$: Subject<any> = new Subject<any>();
+
+  isPackage: boolean = false;
+
+  selectedRows: any = [];
+
+  listViewSettings: any;
+
+  isRefresh: boolean = true;
+
+  assetList: DocumentModel[] = [];
+
+  showStatus: boolean = true;
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-related-asset',
+    enableSearchInput: false,
+  });
+
+  defaultSettings: any = {
+    hideHeader: true,
+    hideSubHeader: true,
+    selectMode: 'single',
+    columns: {
+      title: {
+        title: 'Title',
+        sort: false,
+      },
+      type: {
+        title: 'Asset Type',
+        sort: false,
+      },
+      action: {
+        title: 'Icon',
+        sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'thumbnail',
+        }),
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+    },
+  };
+
   @Output() onRowSelected: EventEmitter<any> = new EventEmitter<any>();
+
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
+    const items = [];
+    for (const doc of docs) {
+      items.push(new DocumentListViewItem({
+        uid: doc.uid,
+        title: doc.title,
+        type: doc.get('The_Loupe_Main:assettype'),
+        action: doc,
+      }));
+    }
+    return items;
+  }
 
   onSelected(row: any): void {
     this.onRowSelected.emit(row);
@@ -144,7 +144,7 @@ export class DocumentCreativeProjectRelatedAssetComponent {
     const uid: string = doc.uid;
     const schemas: string[] = ['video', 'picture', 'app_global', 'app_global_fields', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'];
     if (uid.length > 0) {
-      this.nuxeoApi.operation(NuxeoAutomations.GetDocumentsFromCollection, {}, uid, new NuxeoRequestOptions({ schemas: schemas })).subscribe((response: NuxeoPagination) => {
+      this.nuxeoApi.operation(NuxeoAutomations.GetDocumentsFromCollection, {}, uid, new NuxeoRequestOptions({ schemas })).subscribe((response: NuxeoPagination) => {
         this.assetList = this.listViewBuilder(response.entries);
         this.loading = false;
       });

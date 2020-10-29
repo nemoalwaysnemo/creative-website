@@ -20,7 +20,7 @@ import { NbDateService } from './date.service';
 /**
  * The `NbNativeDateService` is basic implementation of `NbDateService` using
  * native js date objects and angular localization services.
- * */
+ */
 @Injectable()
 export class NbNativeDateService extends NbDateService<Date> {
   protected datePipe: DatePipe;
@@ -30,7 +30,7 @@ export class NbNativeDateService extends NbDateService<Date> {
     this.setLocale(locale);
   }
 
-  setLocale(locale: string) {
+  setLocale(locale: string): void {
     super.setLocale(locale);
     this.datePipe = new DatePipe(locale);
   }
@@ -62,7 +62,7 @@ export class NbNativeDateService extends NbDateService<Date> {
   /**
    * returns first day of the week, it can be 1 if week starts from monday
    * and 0 if from sunday and so on.
-   * */
+   */
   getFirstDayOfWeek(): number {
     return getLocaleFirstDayOfWeek(this.locale);
   }
@@ -86,7 +86,7 @@ export class NbNativeDateService extends NbDateService<Date> {
 
   /**
    * We haven't got capability to parse date using formatting without third party libraries.
-   * */
+   */
   parse(date: string, format: string): Date {
     return new Date(Date.parse(date));
   }

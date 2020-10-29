@@ -5,18 +5,12 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-
-
 import { NbJSThemeOptions } from './js-themes/theme.options';
 import { DEFAULT_THEME } from './js-themes/default.theme';
-import { COSMIC_THEME } from './js-themes/cosmic.theme';
-import { CORPORATE_THEME } from './js-themes/corporate.theme';
 import { NB_BUILT_IN_JS_THEMES, NB_JS_THEMES } from '../theme.options';
 
 export const BUILT_IN_THEMES: NbJSThemeOptions[] = [
   DEFAULT_THEME,
-  COSMIC_THEME,
-  CORPORATE_THEME,
 ];
 
 /**
@@ -28,8 +22,7 @@ export class NbJSThemesRegistry {
 
   private themes: any = {};
 
-  constructor(@Inject(NB_BUILT_IN_JS_THEMES) builtInThemes: NbJSThemeOptions[],
-              @Inject(NB_JS_THEMES) newThemes: NbJSThemeOptions[] = []) {
+  constructor(@Inject(NB_BUILT_IN_JS_THEMES) builtInThemes: NbJSThemeOptions[], @Inject(NB_JS_THEMES) newThemes: NbJSThemeOptions[] = []) {
 
     const themes = this.combineByNames(newThemes, builtInThemes);
 
@@ -44,7 +37,7 @@ export class NbJSThemesRegistry {
    * @param themeName string
    * @param baseTheme string
    */
-  register(config: any, themeName: string, baseTheme: string) {
+  register(config: any, themeName: string, baseTheme: string): void {
     const base = this.has(baseTheme) ? this.get(baseTheme) : {};
     this.themes[themeName] = this.mergeDeep({}, base, config);
   }
@@ -75,7 +68,7 @@ export class NbJSThemesRegistry {
       const mergedThemes: NbJSThemeOptions[] = [];
       newThemes.forEach((theme: NbJSThemeOptions) => {
         const sameOld: NbJSThemeOptions = oldThemes.find((tm: NbJSThemeOptions) => tm.name === theme.name)
-          || <NbJSThemeOptions>{};
+          || ({} as NbJSThemeOptions);
 
         const mergedTheme = this.mergeDeep({}, sameOld, theme);
         mergedThemes.push(mergedTheme);
@@ -92,12 +85,12 @@ export class NbJSThemesRegistry {
   }
 
 
-  private isObject(item) {
+  private isObject(item: any): boolean {
     return item && typeof item === 'object' && !Array.isArray(item);
   }
 
   // TODO: move to helpers
-  private mergeDeep(target, ...sources) {
+  private mergeDeep(target, ...sources): any {
     if (!sources.length) {
       return target;
     }

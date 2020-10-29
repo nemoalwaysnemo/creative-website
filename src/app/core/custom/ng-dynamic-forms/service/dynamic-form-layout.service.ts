@@ -13,7 +13,7 @@ import {
 } from '../directive/dynamic-template.directive';
 import { isObject, isString } from '../utils/core.utils';
 
-export interface DynamicFormLayout { [id: string]: DynamicFormControlLayout }
+export interface DynamicFormLayout { [id: string]: DynamicFormControlLayout; }
 
 export type DynamicFormControlTemplates = QueryList<DynamicTemplateDirective> | DynamicTemplateDirective[] | undefined;
 
@@ -99,10 +99,12 @@ export class DynamicFormLayoutService {
     if (isObject(layout) && layout.hasOwnProperty(context)) {
 
       const config = layout[context] as DynamicFormControlLayoutConfig;
+
       if (config.hasOwnProperty(place)) {
         return config[place] as string;
       }
     }
+
     return '';
   }
 

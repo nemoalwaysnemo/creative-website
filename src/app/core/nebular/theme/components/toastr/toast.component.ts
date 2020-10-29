@@ -20,11 +20,11 @@ import { NbToast } from './model';
  * toastr-border
  * toastr-border-radius
  * toastr-border-color
- * */
+ */
 /**
  * TODO
  * Remove svg icons, include them in font.
- * */
+ */
 @Component({
   selector: 'nb-toast',
   styleUrls: ['./toast.component.scss'],
@@ -86,7 +86,7 @@ export class NbToastComponent {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     this.destroy.emit();
   }
 }

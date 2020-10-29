@@ -57,7 +57,7 @@ export class NbListPageTrackerDirective implements AfterViewInit, OnDestroy {
     );
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.listItems && this.listItems.length) {
       this.observeItems();
     }
@@ -71,11 +71,11 @@ export class NbListPageTrackerDirective implements AfterViewInit, OnDestroy {
     this.observer.disconnect && this.observer.disconnect();
   }
 
-  private observeItems() {
+  private observeItems(): void {
     this.listItems.forEach(i => this.observer.observe(i.nativeElement));
   }
 
-  private checkForPageChange(entries: IntersectionObserverEntry[]) {
+  private checkForPageChange(entries: IntersectionObserverEntry[]): void {
     const mostVisiblePage = this.findMostVisiblePage(entries);
 
     if (mostVisiblePage && this.currentPage !== mostVisiblePage) {

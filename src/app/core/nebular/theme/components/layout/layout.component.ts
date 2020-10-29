@@ -109,7 +109,7 @@ export class NbLayoutHeaderComponent {
   @HostBinding('class.fixed') fixedValue: boolean;
   @HostBinding('class.subheader') subheaderValue: boolean;
 
-  @ViewChild('header', { static: true })
+  @ViewChild('header', { static: true }) header: ElementRef;
 
   /**
    * Makes the header sticky to the top of the nb-layout.
@@ -364,7 +364,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     protected renderer: Renderer2,
     @Inject(NB_WINDOW) protected window,
     @Inject(NB_DOCUMENT) protected document,
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
     protected layoutDirectionService: NbLayoutDirectionService,
     protected scrollService: NbLayoutScrollService,
     protected rulerService: NbLayoutRulerService,
@@ -454,7 +454,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.layoutDirectionService.onDirectionChange()
       .pipe(takeWhile(() => this.alive))
       .subscribe(direction => this.document.dir = direction);
@@ -472,12 +472,12 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
   }
 
   @HostListener('window:scroll', ['$event'])
-  onScroll($event) {
+  onScroll($event): void {
     this.scrollService.fireScrollChange($event);
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  onResize(event): void {
     this.themeService.changeWindowWidth(event.target.innerWidth);
   }
 
@@ -489,7 +489,10 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
    * @returns {NbLayoutDimensions}
    */
   getDimensions(): NbLayoutDimensions {
-    let clientWidth, clientHeight, scrollWidth, scrollHeight = 0;
+    let clientWidth = 0;
+    let clientHeight = 0;
+    let scrollWidth = 0;
+    let scrollHeight = 0;
     if (this.withScrollValue) {
       const container = this.scrollableContainerRef.nativeElement;
       clientWidth = container.clientWidth;
@@ -542,19 +545,19 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
     return { x, y };
   }
 
-  protected registerAsOverlayContainer() {
+  protected registerAsOverlayContainer(): void {
     if (this.overlayContainer.setContainer) {
       this.overlayContainer.setContainer(this.elementRef.nativeElement);
     }
   }
 
-  protected unregisterAsOverlayContainer() {
+  protected unregisterAsOverlayContainer(): void {
     if (this.overlayContainer.clearContainer) {
       this.overlayContainer.clearContainer();
     }
   }
 
-  private scroll(x: number = null, y: number = null) {
+  private scroll(x: number = null, y: number = null): void {
     const { x: currentX, y: currentY } = this.getScrollPosition();
     x = x == null ? currentX : x;
     y = y == null ? currentY : y;

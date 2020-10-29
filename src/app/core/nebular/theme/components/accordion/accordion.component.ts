@@ -87,9 +87,11 @@ export class NbAccordionComponent {
    * @type {boolean}
    */
   @Input('multi')
+
   get multi(): boolean {
     return this.multiValue;
   }
+
   set multi(val: boolean) {
     this.multiValue = convertToBoolProperty(val);
   }
@@ -99,7 +101,7 @@ export class NbAccordionComponent {
   /**
    * Opens all enabled accordion items.
    */
-  openAll() {
+  openAll(): void {
     if (this.multi) {
       this.openCloseItems.next(false);
     }
@@ -108,7 +110,7 @@ export class NbAccordionComponent {
   /**
    * Closes all enabled accordion items.
    */
-  closeAll() {
+  closeAll(): void {
     this.openCloseItems.next(true);
   }
 }

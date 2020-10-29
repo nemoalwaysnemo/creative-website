@@ -115,14 +115,14 @@ export class NbSpinnerDirective implements OnInit {
     }
   }
 
-  hide() {
+  hide(): void {
     if (this.isSpinnerExist) {
       this.directiveView.remove();
       this.isSpinnerExist = false;
     }
   }
 
-  show() {
+  show(): void {
     if (!this.isSpinnerExist) {
       this.spinner = this.directiveView.createComponent<NbSpinnerComponent>(this.componentFactory);
       this.setInstanceInputs(this.spinner.instance);
@@ -132,7 +132,7 @@ export class NbSpinnerDirective implements OnInit {
     }
   }
 
-  setInstanceInputs(instance: NbSpinnerComponent) {
+  setInstanceInputs(instance: NbSpinnerComponent): void {
     typeof this.spinnerMessage !== 'undefined' && (instance.message = this.spinnerMessage);
     typeof this.spinnerStatus !== 'undefined' && (instance.status = this.spinnerStatus);
     typeof this.spinnerSize !== 'undefined' && (instance.size = this.spinnerSize);

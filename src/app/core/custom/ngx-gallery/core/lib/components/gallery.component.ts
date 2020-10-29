@@ -85,7 +85,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private _gallery: Gallery) {
   }
 
-  private getConfig() {
+  private getConfig(): any {
     return {
       nav: this.nav,
       dots: this.dots,
@@ -113,7 +113,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     };
   }
 
-  onAction(i: string | number) {
+  onAction(i: string | number): void {
     switch (i) {
       case 'next':
         this.galleryRef.next();
@@ -122,7 +122,7 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
         this.galleryRef.prev();
         break;
       default:
-        this.galleryRef.set(<number>i);
+        this.galleryRef.set(i as number);
     }
     this.galleryRef.play();
   }

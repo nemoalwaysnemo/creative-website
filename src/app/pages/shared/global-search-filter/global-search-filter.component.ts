@@ -23,17 +23,17 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   disabled: boolean = false;
 
-  private _onChange = (_) => { };
-
-  private _onTouched = () => { };
-
   @Input() searchResponse: SearchResponse;
 
   @Input() aggregateModels: AggregateModel[] = [];
 
   @Input() filterSettings: SearchFilterModel[] = [];
 
-  @Output() selected: EventEmitter<any> = new EventEmitter();
+  @Output() selected: EventEmitter<any> = new EventEmitter<any>();
+
+  private _onChange = (_) => { };
+
+  private _onTouched = () => { };
 
   ngOnChanges(c: SimpleChanges): void {
     if (this.filterSettings) {

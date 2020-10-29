@@ -148,15 +148,15 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
 
   // TODO: rename stateValue to state (take a look to the card component)
   @HostBinding('class.expanded')
-  get expanded() {
+  get expanded(): boolean {
     return this.stateValue === NbSidebarComponent.STATE_EXPANDED;
   }
   @HostBinding('class.collapsed')
-  get collapsed() {
+  get collapsed(): boolean {
     return this.stateValue === NbSidebarComponent.STATE_COLLAPSED;
   }
   @HostBinding('class.compacted')
-  get compacted() {
+  get compacted(): boolean {
     return this.stateValue === NbSidebarComponent.STATE_COMPACTED;
   }
 
@@ -280,7 +280,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   }
 
 
-  toggleResponsive(enabled: boolean) {
+  toggleResponsive(enabled: boolean): void {
     if (enabled) {
       this.mediaQuerySubscription = this.onMediaQueryChanges();
     } else if (this.mediaQuerySubscription) {
@@ -288,7 +288,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  ngOnChanges(changes) {
+  ngOnChanges(changes): void {
     if (changes.responsive) {
       this.toggleResponsive(this.responsiveValue);
     }
@@ -343,11 +343,11 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  hideSidebarIn5s() {
+  hideSidebarIn5s(): void {
     this.sidebarService.hideLater('menu-sidebar');
   }
 
-  stopHiding() {
+  stopHiding(): void {
     this.sidebarService.clearSidebarHiding();
   }
 
@@ -374,21 +374,21 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * Collapses the sidebar
    */
-  collapse() {
+  collapse(): void {
     this.state = NbSidebarComponent.STATE_COLLAPSED;
   }
 
   /**
    * Expands the sidebar
    */
-  expand() {
+  expand(): void {
     this.state = NbSidebarComponent.STATE_EXPANDED;
   }
 
   /**
    * Compacts the sidebar (minimizes)
    */
-  compact() {
+  compact(): void {
     this.state = NbSidebarComponent.STATE_COMPACTED;
   }
 
@@ -403,7 +403,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
    * this.sidebar.toggle(true);
    * ```
    */
-  toggle(compact: boolean = false) {
+  toggle(compact: boolean = false): void {
     if (this.responsiveEnabled()) {
       if (this.responsiveState === NbSidebarComponent.RESPONSIVE_STATE_MOBILE) {
         compact = false;
@@ -414,7 +414,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     if (compact) {
       /**
        * this behaves strangely, change to satisfy demands for the moment
-      */
+       */
       this.state = NbSidebarComponent.STATE_COMPACTED;
       // this.state = closedStates.includes(this.stateValue) ?
       //   NbSidebarComponent.STATE_EXPANDED : NbSidebarComponent.STATE_COMPACTED;
@@ -425,9 +425,9 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   /**
-  * this is for listening to window resize
-  * made to adapt to our site
-  */
+   * this is for listening to window resize
+   * made to adapt to our site
+   */
 
   protected onMediaQueryChanges(): Subscription {
     return this.themeService.onMediaQueryChange()

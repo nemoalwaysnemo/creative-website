@@ -13,26 +13,6 @@ import { assetPath } from '@core/services/helpers';
   templateUrl: './document-creative-project-import-requests-view.component.html',
 })
 export class DocumentCreativeProjectImportRequestsViewComponent {
-  doc: DocumentModel;
-  loading: boolean = true;
-  baseParams$: Subject<any> = new Subject<any>();
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'collection'],
-    source: 'document-creative-project-import-requests-view',
-    enableSearchInput: false,
-  });
-  listViewBuilder: Function = (docs: DocumentModel[]): any => {
-    const items = [];
-    for (const doc of docs) {
-      items.push(new DocumentListViewItem({
-        uid: doc.uid,
-        icon: { url: assetPath('assets/images/App-Library-Package.png') },
-        title: doc,
-        info: doc,
-      }));
-    }
-    return items;
-  }
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
@@ -41,6 +21,14 @@ export class DocumentCreativeProjectImportRequestsViewComponent {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc)); });
     }
   }
+  doc: DocumentModel;
+  loading: boolean = true;
+  baseParams$: Subject<any> = new Subject<any>();
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'collection'],
+    source: 'document-creative-project-import-requests-view',
+    enableSearchInput: false,
+  });
   listViewSettings: any = {
     hideHeader: true,
     hideSubHeader: true,
@@ -92,6 +80,18 @@ export class DocumentCreativeProjectImportRequestsViewComponent {
       },
     },
   };
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
+    const items = [];
+    for (const doc of docs) {
+      items.push(new DocumentListViewItem({
+        uid: doc.uid,
+        icon: { url: assetPath('assets/images/App-Library-Package.png') },
+        title: doc,
+        info: doc,
+      }));
+    }
+    return items;
+  }
   protected buildAssetParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMPORT_REQUEST_TYPE,

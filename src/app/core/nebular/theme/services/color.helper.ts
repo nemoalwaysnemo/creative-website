@@ -1,13 +1,13 @@
 export class NbColorHelper {
-  static shade(color, weight) {
+  static shade(color, weight): string {
     return NbColorHelper.mix('#000000', color, weight);
   }
 
-  static tint(color, weight) {
+  static tint(color, weight): string {
     return NbColorHelper.mix('#ffffff', color, weight);
   }
 
-  static mix(color1, color2, weight) {
+  static mix(color1, color2, weight): string {
     const d2h = (d) => d.toString(16);
     const h2d = (h) => parseInt(h, 16);
 
@@ -21,7 +21,7 @@ export class NbColorHelper {
     return result;
   }
 
-  static hexToRgbA(hex, alpha) {
+  static hexToRgbA(hex, alpha): string {
     let c;
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
       c = hex.substring(1).split('');

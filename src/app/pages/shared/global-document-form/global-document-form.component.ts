@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
-import { of as observableOf, Observable, Subscription, Subject, BehaviorSubject, combineLatest } from 'rxjs';
+import { of as observableOf, Observable, Subscription, Subject, combineLatest } from 'rxjs';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { concatMap, tap } from 'rxjs/operators';
@@ -16,26 +16,6 @@ export interface DocumentModelForm {
 })
 export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
 
-  static readonly COMPONENT_TYPE: string = 'form';
-
-  formSettings$: BehaviorSubject<DocumentFormSettings> = new BehaviorSubject<DocumentFormSettings>(new DocumentFormSettings());
-
-  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
-
-  document: DocumentModel;
-
-  currentUser: UserModel;
-
-  formModels: any[] = [];
-
-  formLayout: any = {};
-
-  accordion: any[] = [];
-
-  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => doc;
-
-  afterSave: Function = (doc: DocumentModel, user: UserModel): Observable<DocumentModel> => observableOf(doc);
-
   @Input()
   set documentModel(doc: DocumentModel) {
     if (doc) {
@@ -46,20 +26,40 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   @Input()
   set settings(settings: DocumentFormSettings) {
     if (objHasValue(settings)) {
-      this.setFormSettings(this.getFormSettings().update(settings));
+      this.setFormSettings(settings);
     }
   }
 
   @Input()
   set metadata(metadata: any) {
     if (metadata.formSettings) {
-      this.setFormSettings(this.getFormSettings().update(metadata.formSettings));
+      this.setFormSettings(metadata.formSettings);
     } else {
-      this.setFormSettings(this.getFormSettings().update({ formMode: (metadata.formMode || 'create') }));
+      this.setFormSettings({ formMode: (metadata.formMode || 'create') });
     }
     this.beforeSave = metadata.beforeSave || this.beforeSave;
     this.afterSave = metadata.afterSave || this.afterSave;
   }
+
+  constructor(protected documentPageService: DocumentPageService) {
+    this.onDocumentChanged();
+  }
+
+  static readonly COMPONENT_TYPE: string = 'form';
+
+  formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
+
+  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
+  formSettings: DocumentFormSettings;
+
+  document: DocumentModel;
+
+  currentUser: UserModel;
+
+  formModels: any[] = [];
+
+  formLayout: any = {};
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
@@ -67,9 +67,9 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected documentType: string;
 
-  constructor(protected documentPageService: DocumentPageService) {
-    this.onDocumentChanged();
-  }
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => doc;
+
+  afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
 
   ngOnInit(): void {
     this.onInit();
@@ -83,13 +83,18 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     return this.documentType;
   }
 
-  setFormDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): void {
+  setFormDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): void {
+    this.formSettings = formSettings;
     this.currentUser = user;
     this.document = doc;
   }
 
   onCallback(event: DocumentFormEvent): void {
     this.callback.next(this.beforeOnCallback(event));
+  }
+
+  protected onInit(): void {
+
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
@@ -119,47 +124,49 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     return observableOf(doc);
   }
 
-  protected onInit(): void {
-    this.performForm();
-  }
-
   protected onDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   protected onDocumentChanged(): void {
     const subscription = combineLatest([
-      this.formSettings$,
       this.document$,
       this.documentPageService.getCurrentUser(),
+      this.formSettings$,
     ]).pipe(
-      concatMap(([formSettings, doc, user]: [DocumentFormSettings, DocumentModel, UserModel]) => combineLatest([
-        observableOf(formSettings),
-        this.beforeSetDocument(formSettings, doc, user),
+      concatMap(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => combineLatest([
+        this.beforeSetDocument(settings, doc, user),
         observableOf(user),
+        observableOf(settings),
       ])),
-    ).subscribe(([formSettings, doc, user]: [DocumentFormSettings, DocumentModel, UserModel]) => {
-      this.setFormDocument(formSettings, doc, user);
+    ).subscribe(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => {
+      this.setFormDocument(doc, user, settings);
     });
     this.subscription.add(subscription);
   }
 
-  protected performForm(): void {
-    this.formModels = this.getFormModels();
-    this.formLayout = this.getFormLayout();
-    this.accordion = this.getFormAccordion();
-  }
-
   protected setFormSettings(settings: any = {}): void {
-    const config = this.formSettings$.value.update(settings);
-    this.formSettings$.next(config);
+    this.formSettings$.next(this.getDocumentFormSettings().update(settings));
   }
 
-  protected getFormSettings(): DocumentFormSettings {
-    return new DocumentFormSettings();
+  protected getDocumentFormSettings(): DocumentFormSettings {
+    const settings = this.getFormSettings();
+    settings.accordionSettings = this.getFormAccordion();
+    settings.switchTabSettings = this.getFormSwitchTab();
+    settings.formLayout = this.getFormLayout();
+    settings.formModel = this.getFormModels();
+    return new DocumentFormSettings(settings);
+  }
+
+  protected getFormSettings(): any {
+    return {};
   }
 
   protected getFormAccordion(): any[] {
+    return [];
+  }
+
+  protected getFormSwitchTab(): any[] {
     return [];
   }
 

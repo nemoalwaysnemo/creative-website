@@ -39,14 +39,14 @@ export class NbSidebarService {
   }
 
   closeAllBars(close?: boolean): void {
-    this.hideAllBars$.next({ close: close });
+    this.hideAllBars$.next({ close });
   }
 
   onSidebar(): Observable<{ tag: boolean }> {
     return this.sidebarToggle$.pipe(share());
   }
 
-  toggleSidebar(tag?: boolean) {
+  toggleSidebar(tag?: boolean): void {
     setTimeout(() => this.sidebarToggle$.next({ tag }), 200);
   }
 

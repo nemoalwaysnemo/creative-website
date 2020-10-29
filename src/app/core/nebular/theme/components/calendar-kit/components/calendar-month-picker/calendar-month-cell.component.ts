@@ -21,7 +21,7 @@ import { NbDateService } from '../../services';
   selector: 'nb-calendar-month-cell',
   template: `{{ month }}`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { 'class': 'month-cell' },
+  host: { class: 'month-cell' },
 })
 export class NbCalendarMonthCellComponent<D> implements NbCalendarCell<D, D> {
   @Input() date: D;
@@ -54,7 +54,7 @@ export class NbCalendarMonthCellComponent<D> implements NbCalendarCell<D, D> {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     if (this.disabled) {
       return;
     }

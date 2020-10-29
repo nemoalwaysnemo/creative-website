@@ -14,7 +14,7 @@ export abstract class DataSource {
   abstract getPaging(): any;
   abstract count(): number;
 
-  refresh() {
+  refresh(): void {
     this.emitOnChanged('refresh');
   }
 
@@ -74,52 +74,52 @@ export abstract class DataSource {
     return Promise.resolve();
   }
 
-  setSort(conf: any[], doEmit?: boolean) {
+  setSort(conf: any[], doEmit?: boolean): void {
     if (doEmit) {
       this.emitOnChanged('sort');
     }
   }
 
-  setFilter(conf: any[], andOperator?: boolean, doEmit?: boolean) {
+  setFilter(conf: any[], andOperator?: boolean, doEmit?: boolean): void {
     if (doEmit) {
       this.emitOnChanged('filter');
     }
   }
 
-  addFilter(fieldConf: {}, andOperator?: boolean, doEmit?: boolean) {
+  addFilter(fieldConf: {}, andOperator?: boolean, doEmit?: boolean): void {
     if (doEmit) {
       this.emitOnChanged('filter');
     }
   }
 
-  setPaging(page: number, perPage: number, doEmit?: boolean) {
+  setPaging(page: number, perPage: number, doEmit?: boolean): void {
     if (doEmit) {
       this.emitOnChanged('paging');
     }
   }
 
-  setPage(page: number, doEmit?: boolean) {
+  setPage(page: number, doEmit?: boolean): void {
     if (doEmit) {
       this.emitOnChanged('page');
     }
   }
 
-  protected emitOnRemoved(element: any) {
+  protected emitOnRemoved(element: any): void {
     this.onRemovedSource.next(element);
   }
 
-  protected emitOnUpdated(element: any) {
+  protected emitOnUpdated(element: any): void {
     this.onUpdatedSource.next(element);
   }
 
-  protected emitOnAdded(element: any) {
+  protected emitOnAdded(element: any): void {
     this.onAddedSource.next(element);
   }
 
-  protected emitOnChanged(action: string) {
+  protected emitOnChanged(action: string): void {
     this.getElements().then((elements) => this.onChangedSource.next({
-      action: action,
-      elements: elements,
+      action,
+      elements,
       paging: this.getPaging(),
       filter: this.getFilter(),
       sort: this.getSort(),

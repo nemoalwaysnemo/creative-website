@@ -12,18 +12,24 @@ import {
   isString,
 } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../document-form-extension';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'intelligence-asset-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings$ | async" [models]="formModels" [layout]="formLayout" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent {
 
-  beforeSave: Function = (doc: DocumentModel, user: UserModel): DocumentModel => {
+  constructor(protected documentPageService: DocumentPageService) {
+    super(documentPageService);
+  }
+
+  protected documentType: string = 'App-Intelligence-Asset';
+
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
     doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: string) => {
-      return { 'label': tag, username: user.username };
+      return { label: tag, username: user.username };
     });
     return doc;
   }
@@ -37,12 +43,6 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
       }
     });
     return doc;
-  }
-
-  protected documentType: string = 'App-Intelligence-Asset';
-
-  constructor(protected documentPageService: DocumentPageService) {
-    super(documentPageService);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {

@@ -80,7 +80,7 @@ export class DynamicFormControlComponent implements DynamicFormControl {
     return this.layoutService.getClass(controlLayout, context, place);
   }
 
-  onBlur($event: any) {
+  onBlur($event: any): void {
     if ($event instanceof Event) {
       $event.stopPropagation();
     }
@@ -88,14 +88,14 @@ export class DynamicFormControlComponent implements DynamicFormControl {
     this.blur.emit($event);
   }
 
-  onChange($event: any) {
+  onChange($event: any): void {
     if ($event instanceof Event) {
       $event.stopPropagation();
     }
     this.change.emit($event);
   }
 
-  onCustomEvent($event: any, type: string | null = null, bypass: boolean = false) {
+  onCustomEvent($event: any, type: string | null = null, bypass: boolean = false): void {
 
     if (bypass) {
 
@@ -107,7 +107,7 @@ export class DynamicFormControlComponent implements DynamicFormControl {
     }
   }
 
-  onFocus($event: any) {
+  onFocus($event: any): void {
     if ($event instanceof Event) {
       $event.stopPropagation();
     }

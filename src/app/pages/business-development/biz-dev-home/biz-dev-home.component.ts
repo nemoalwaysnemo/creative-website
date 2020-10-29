@@ -78,10 +78,10 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
   }
 
   private performFolders(): void {
-    forkJoin(
+    forkJoin([
       this.search(this.subFolderParams),
       this.search(this.baseFolderParams),
-    ).pipe(
+    ]).pipe(
       map((docsList: DocumentModel[][]) => [].concat.apply([], docsList)),
     ).subscribe((docs: DocumentModel[]) => {
       this.folders = docs;

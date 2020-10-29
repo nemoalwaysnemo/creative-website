@@ -26,7 +26,7 @@ export class TitleComponent implements OnChanges {
 
   protected dataChangedSub: Subscription;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.source) {
       if (!changes.source.firstChange) {
         this.dataChangedSub.unsubscribe();
@@ -47,7 +47,7 @@ export class TitleComponent implements OnChanges {
     }
   }
 
-  _sort(event: any) {
+  _sort(event: any): void {
     event.preventDefault();
     this.changeSortDirection();
     this.source.setSort([

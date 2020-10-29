@@ -21,14 +21,14 @@ export class NgFileFormDataDirective implements DoCheck {
     this.differ = iterableDiffers.find([]).create();
   }
 
-  ngDoCheck() {
+  ngDoCheck(): void {
     const changes = this.differ.diff(this.files);
     if (changes) {
       setTimeout(() => this.buildFormData(), 0);
     }
   }
 
-  buildFormData() {
+  buildFormData(): void {
     const isArray = typeof (this.files) === 'object' && this.files.constructor === Array;
 
     if (isArray) {

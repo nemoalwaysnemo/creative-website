@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, ViewChildren, TemplateRef, QueryList } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { deepExtend, objHasValue } from '@core/services/helpers';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
@@ -6,6 +6,7 @@ import { Observable, of as observableOf, forkJoin, Subject, Subscription, combin
 import { concatMap } from 'rxjs/operators';
 import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
+import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 
 @Component({
   selector: 'document-form',
@@ -14,19 +15,13 @@ import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, D
 })
 export class DocumentFormComponent implements OnInit, OnDestroy {
 
-  @ViewChildren(TemplateRef) buttonTemplates: QueryList<TemplateRef<any>>;
-
-  formModel: DynamicFormModel;
-
-  formLayout: DynamicFormLayout;
-
-  accordionList: any[] = [];
-
   formGroup: FormGroup;
 
-  modelOperation: Subject<{ id: string, type: string }> = new Subject();
+  modelOperation: Subject<{ model: string, type: string }> = new Subject();
 
   uploadCount: number = 0;
+
+  ngFormSettings: DynamicNGFormSettings;
 
   formSettings: DocumentFormSettings = new DocumentFormSettings();
 
@@ -34,18 +29,19 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private uploadFieldName: string;
 
+  private user: UserModel;
+
   private documentModel: DocumentModel;
 
   protected subscription: Subscription = new Subscription();
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
-  private models$: Subject<DynamicFormModel> = new Subject<DynamicFormModel>();
+  private currentUser$: Subject<UserModel> = new Subject<UserModel>();
 
   private formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
 
   private fileMultiUpload: boolean;
-
 
   @Input()
   set document(doc: DocumentModel) {
@@ -63,24 +59,13 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set models(models: DynamicFormModel) {
-    if (objHasValue(models)) {
-      this.models$.next(models);
+  set currentUser(user: UserModel) {
+    if (objHasValue(user)) {
+      this.currentUser$.next(user);
     }
   }
 
-  @Input()
-  set layout(layout: any) {
-    this.formLayout = layout;
-  }
-
-  @Input() dynamicModelIndex: number[] = [];
-
-  @Input() accordion: any[] = [];
-
   @Input() loading: boolean = true;
-
-  @Input() currentUser: UserModel;
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
@@ -119,6 +104,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     if (event.type === 'BATCH_UPLOAD') {
       this.performUploading(event.$event);
     }
+    if (event.type === 'SWITCH_TAB_CHANGED') {
+      this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, doc: this.documentModel }));
+    }
   }
 
   onSave(event: any): void {
@@ -130,20 +118,20 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onCancel(event: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', messageType: 'info', doc: this.documentModel }));
+    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.documentModel }));
     if (this.formSettings.resetFormAfterDone) {
       this.resetForm();
     }
   }
 
   onCustomButton(button: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', messageType: 'info', button: button.name, doc: this.documentModel }));
+    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, doc: this.documentModel }));
   }
 
   hideControls(): void {
     if (this.formSettings.formMode === 'create') {
       const type = this.fileMultiUpload ? 'delete' : 'show';
-      this.modelOperation.next({ id: 'dc:title', type: type });
+      this.modelOperation.next({ model: 'dc:title', type });
     }
   }
 
@@ -193,8 +181,14 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return this.formService.createFormGroup(formModel);
   }
 
-  private performAccordion(doc: DocumentModel, settings: DocumentFormSettings, accordion: any = []): void {
-    this.accordionList = (accordion || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, this.currentUser, settings));
+  private prepareAccordionTab(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): any[] {
+    const accordionSettings = (settings.accordionSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, user, settings));
+    return accordionSettings.map((s: { name: string, position: string }) => ({ name: s.name, position: s.position, models: models.filter(m => m.accordionTab === s.name) }));
+  }
+
+  private prepareSwitchTab(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): any[] {
+    const tabSettings = (settings.switchTabSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, user, settings));
+    return tabSettings.map((s: { name: string, disabledFn?: any }) => ({ name: s.name, disabled: (s.disabledFn && s.disabledFn(doc, user, settings)), models: models.filter(m => m.switchTab === s.name) }));
   }
 
   private prepareModelSettings(models: DynamicFormModel): DynamicFormModel {
@@ -205,31 +199,42 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return models.filter((v) => v.formMode === null || v.formMode === this.formSettings.formMode);
   }
 
-  private performFormModels(doc: DocumentModel, settings: DocumentFormSettings, formModels: DynamicFormModel): DynamicFormModel {
-    formModels.forEach((model: DynamicFormControlModel) => {
+  private prepareFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, formModel: DynamicFormModel): DynamicFormModel {
+    formModel.forEach((model: DynamicFormControlModel) => {
       const modelValue = doc.get(model.id);
-      if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, this.currentUser, settings); }
+      if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, user, settings); }
       if (model.document) { model.document = doc; }
       model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
       if (model instanceof DynamicListModel) {
-        this.performFormModels(doc, settings, model.items);
+        this.prepareFormModel(doc, user, settings, model.items);
       }
     });
-    return formModels;
+    return formModel;
   }
 
-  private prepareForm(doc: DocumentModel, settings: DocumentFormSettings, formModels: DynamicFormModel): void {
-    if (doc) {
-      formModels = formModels.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(doc, this.currentUser, settings));
-      let models = this.prepareModelSettings(formModels);
-      models = this.performFormModels(doc, settings, models);
-      this.createForm(models);
-    }
+  private performFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): DynamicFormModel {
+    let models = settings.formModel.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(doc, user, settings));
+    models = this.prepareModelSettings(models);
+    return this.prepareFormModel(doc, user, settings, models);
   }
 
-  private createForm(models: DynamicFormModel): void {
-    this.formModel = this.createFormModel(models);
-    this.formGroup = this.createFormGroup(this.formModel);
+  private performDocumentForm(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
+    const models = this.performFormModel(doc, user, settings);
+    this.performNgFormSettings(doc, user, settings, models);
+    this.createDocumentForm(models);
+  }
+
+  private performNgFormSettings(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): void {
+    const ngFormSettings = new DynamicNGFormSettings();
+    ngFormSettings.accordionSettings = this.prepareAccordionTab(doc, user, settings, models);
+    ngFormSettings.switchTabSettings = this.prepareSwitchTab(doc, user, settings, models);
+    ngFormSettings.formModel = this.createFormModel(models);
+    ngFormSettings.formLayout = settings.formLayout;
+    this.ngFormSettings = ngFormSettings;
+  }
+
+  private createDocumentForm(models: DynamicFormModel): void {
+    this.formGroup = this.createFormGroup(this.ngFormSettings.formModel);
     const subscription = this.formGroup.statusChanges.subscribe((valid: any) => {
       timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID', submitted: false }); });
     });
@@ -239,14 +244,14 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private onDocumentChanged(): void {
     const subscription = combineLatest([
       this.document$,
-      this.models$,
+      this.currentUser$,
       this.formSettings$,
-    ]).subscribe(([doc, models, settings]: [DocumentModel, DynamicFormModel, DocumentFormSettings]) => {
+    ]).subscribe(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => {
       this.loading = false;
+      this.user = user;
       this.documentModel = doc;
       this.formSettings = settings;
-      this.performAccordion(doc, settings, this.accordion);
-      this.prepareForm(doc, settings, models);
+      this.performDocumentForm(doc, user, settings);
     });
     this.subscription.add(subscription);
   }
@@ -264,7 +269,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         }
       });
     }
-    this.createDocuments(documents).subscribe((models: DocumentModel[]) => {
+    this.createDocuments(documents, this.user).subscribe((models: DocumentModel[]) => {
       this.updateFormStatus({ submitted: true });
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
       if (this.formSettings.resetFormAfterDone) {
@@ -286,29 +291,29 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
     }
 
-    this.updateDocument(this.documentModel, properties).subscribe((model: DocumentModel) => {
+    this.updateDocument(this.documentModel, properties, this.user).subscribe((model: DocumentModel) => {
       this.updateFormStatus({ submitted: true });
       this.callback.next(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
     });
   }
 
-  private createDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {
-    return forkJoin(documents.map(x => this.createDocument(x)));
+  private createDocuments(documents: DocumentModel[], user: UserModel): Observable<DocumentModel[]> {
+    return forkJoin(documents.map(x => this.createDocument(x, user)));
   }
 
-  private createDocument(doc: DocumentModel): Observable<any> {
-    return this.documentRepository.create(this.beforeSave(doc, this.currentUser)).pipe(
-      concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, this.currentUser)),
+  private createDocument(doc: DocumentModel, user: UserModel): Observable<any> {
+    return this.documentRepository.create(this.beforeSave(doc, user)).pipe(
+      concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
     );
   }
 
-  private updateDocument(doc: DocumentModel, properties: any = {}): Observable<DocumentModel> {
-    const updateDoc = this.beforeSave(doc, this.currentUser);
+  private updateDocument(doc: DocumentModel, properties: any = {}, user: UserModel): Observable<DocumentModel> {
+    const updateDoc = this.beforeSave(doc, user);
     if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
       properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
     }
     return updateDoc.set(properties).save().pipe(
-      concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, this.currentUser)),
+      concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
     );
   }
 
@@ -342,7 +347,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         properties['file:content'] = file.batchBlob;
       }
       if (file.uploadFileType === 'attachment') {
-        attachmens.push({ 'file': file.batchBlob });
+        attachmens.push({ file: file.batchBlob });
       }
     });
     if (attachmens.length > 0) {

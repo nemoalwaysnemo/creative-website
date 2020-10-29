@@ -103,7 +103,7 @@ import { NbMenuItem, NbMenuService } from '../menu/menu.service';
  * @stacked-example(Manual Control, context-menu/context-menu-noop.component)
  *
  * @stacked-example(Manual Control, context-menu/context-menu-right-click.component)
- * */
+ */
 @Directive({
   selector: '[nbContextMenu]',
   providers: [NbDynamicOverlayHandler, NbDynamicOverlay],
@@ -113,7 +113,7 @@ export class NbContextMenuDirective implements NbDynamicOverlayController, OnCha
   /**
    * Position will be calculated relatively host element based on the position.
    * Can be top, right, bottom and left.
-   * */
+   */
   @Input('nbContextMenuPlacement')
   position: NbPosition = NbPosition.BOTTOM;
 
@@ -121,19 +121,19 @@ export class NbContextMenuDirective implements NbDynamicOverlayController, OnCha
    * Container position will be changes automatically based on this strategy if container can't fit view port.
    * Set this property to any falsy value if you want to disable automatically adjustment.
    * Available values: clockwise, counterclockwise.
-   * */
+   */
   @Input('nbContextMenuAdjustment')
   adjustment: NbAdjustment = NbAdjustment.CLOCKWISE;
 
   /**
    * Set NbMenu tag, which helps identify menu when working with NbMenuService.
-   * */
+   */
   @Input('nbContextMenuTag')
   tag: string;
 
   /**
    * Basic menu items, will be passed to the internal NbMenuComponent.
-   * */
+   */
   @Input('nbContextMenu')
   set items(items: NbMenuItem[]) {
     this.validateItems(items);
@@ -143,7 +143,7 @@ export class NbContextMenuDirective implements NbDynamicOverlayController, OnCha
   /**
    * Describes when the container will be shown.
    * Available options: `click`, `hover`, `hint`, `focus` and `noop`
-   * */
+   */
   @Input('nbContextMenuTrigger')
   trigger: NbTrigger = NbTrigger.CLICK;
 
@@ -166,30 +166,30 @@ export class NbContextMenuDirective implements NbDynamicOverlayController, OnCha
       .componentType(NbContextMenuComponent);
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.rebuild();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dynamicOverlay = this.configureDynamicOverlay()
       .build();
     this.subscribeOnItemClick();
   }
 
-  rebuild() {
+  rebuild(): void {
     this.dynamicOverlay = this.configureDynamicOverlay()
       .rebuild();
   }
 
-  show() {
+  show(): void {
     this.dynamicOverlay.show();
   }
 
-  hide() {
+  hide(): void {
     this.dynamicOverlay.hide();
   }
 
-  toggle() {
+  toggle(): void {
     this.dynamicOverlay.toggle();
   }
 
@@ -197,7 +197,7 @@ export class NbContextMenuDirective implements NbDynamicOverlayController, OnCha
     this.dynamicOverlayHandler.destroy();
   }
 
-  protected configureDynamicOverlay() {
+  protected configureDynamicOverlay(): any {
     return this.dynamicOverlayHandler
       .position(this.position)
       .trigger(this.trigger)
@@ -212,14 +212,14 @@ export class NbContextMenuDirective implements NbDynamicOverlayController, OnCha
   /*
    * NbMenuComponent will crash if don't pass menu items to it.
    * So, we just validating them and throw custom obvious error.
-   * */
-  private validateItems(items: NbMenuItem[]) {
+   */
+  private validateItems(items: NbMenuItem[]): void {
     if (!items || !items.length) {
       throw Error(`List of menu items expected, but given: ${items}`);
     }
   }
 
-  private subscribeOnItemClick() {
+  private subscribeOnItemClick(): void {
     this.menuService.onItemClick()
       .pipe(
         takeWhile(() => this.alive),

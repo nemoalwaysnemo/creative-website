@@ -11,7 +11,7 @@ export class NgFileUploadStatusDirective implements OnChanges {
 
   @Output() percentChange: EventEmitter<number> = new EventEmitter();
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.httpEvent && changes.httpEvent.currentValue) {
       const event = changes.httpEvent.currentValue;
       if (event.loaded && event.total) {

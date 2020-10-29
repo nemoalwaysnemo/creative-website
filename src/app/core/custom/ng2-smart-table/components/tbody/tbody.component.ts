@@ -14,7 +14,7 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
   @Input() source: DataSource;
   @Input() deleteConfirm: EventEmitter<any>;
   @Input() editConfirm: EventEmitter<any>;
-  @Input() rowClassFunction: Function;
+  @Input() rowClassFunction: () => void;
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();
@@ -37,7 +37,7 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
   isActionDelete: boolean;
   noDataMessage: boolean;
 
-  get tableColumnsCount() {
+  get tableColumnsCount(): number {
     const actionColumns = this.isActionAdd || this.isActionEdit || this.isActionDelete ? 1 : 0;
     return this.grid.getColumns().length + actionColumns;
   }

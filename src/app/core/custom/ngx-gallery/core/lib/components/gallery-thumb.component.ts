@@ -37,7 +37,8 @@ export class GalleryThumbComponent {
 
   @Output() error: EventEmitter<Error> = new EventEmitter<Error>();
 
-  @HostBinding('class.g-active-thumb') get isActive() {
+  @HostBinding('class.g-active-thumb')
+  get isActive(): boolean {
     return this.index === this.currIndex;
   }
 

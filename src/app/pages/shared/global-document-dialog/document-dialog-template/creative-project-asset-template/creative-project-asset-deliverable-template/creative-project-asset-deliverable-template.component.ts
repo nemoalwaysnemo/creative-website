@@ -58,16 +58,16 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
 
   templateRef: TemplateRef<any>;
 
+  @ViewChild('assetItemView', { static: true }) private assetItemView: TemplateRef<any>;
+  @ViewChild('newPackageItemView', { static: true }) private newPackageItemView: TemplateRef<any>;
+  @ViewChild('packageListItemView', { static: true }) private packageListItemView: TemplateRef<any>;
+
   setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
       timer(0).subscribe(() => { this.tabInfo$.next(new TabInfo('docChanged', this.currentTab, doc)); });
     }
   }
-
-  @ViewChild('assetItemView', { static: true }) private assetItemView: TemplateRef<any>;
-  @ViewChild('newPackageItemView', { static: true }) private newPackageItemView: TemplateRef<any>;
-  @ViewChild('packageListItemView', { static: true }) private packageListItemView: TemplateRef<any>;
 
   onResponse(refresh: boolean): void {
     if (refresh) {
@@ -79,7 +79,7 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
     }
   }
 
-  onInit() {
+  onInit(): void {
     const selectedTitle: string = this.settings.selectedTab ? this.settings.selectedTab : 'Assets';
     this.currentTab = this.getTabItem(selectedTitle);
   }

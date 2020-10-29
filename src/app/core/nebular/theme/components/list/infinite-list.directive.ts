@@ -55,20 +55,9 @@ export class NbScrollableContainerDimentions {
   selector: '[nbInfiniteList]',
 })
 export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
-
-  private alive = true;
-  private lastScrollPosition;
-  windowScroll = false;
-  private get elementScroll() {
+  private get elementScroll(): boolean {
     return !this.windowScroll;
   }
-
-  /**
-   * Threshold after which event load more event will be emited.
-   * In pixels.
-   */
-  @Input()
-  threshold: number;
 
   /**
    * By default component observes list scroll position.
@@ -78,6 +67,23 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
   set listenWindowScroll(value) {
     this.windowScroll = convertToBoolProperty(value);
   }
+
+  constructor(
+    private elementRef: ElementRef,
+    private scrollService: NbLayoutScrollService,
+    private dimensionsService: NbLayoutRulerService,
+  ) { }
+
+  private alive = true;
+  private lastScrollPosition;
+  windowScroll = false;
+
+  /**
+   * Threshold after which event load more event will be emited.
+   * In pixels.
+   */
+  @Input()
+  threshold: number;
 
   /**
    * Emits when distance between list bottom and current scroll position is less than threshold.
@@ -91,22 +97,16 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
   @Output()
   topThreshold = new EventEmitter(true);
 
+  @ContentChildren(NbListItemComponent) listItems: QueryList<NbListItemComponent>;
+
   @HostListener('scroll')
-  onElementScroll() {
+  onElementScroll(): void {
     if (this.elementScroll) {
       this.checkPosition(this.elementRef.nativeElement);
     }
   }
 
-  @ContentChildren(NbListItemComponent) listItems: QueryList<NbListItemComponent>;
-
-  constructor(
-    private elementRef: ElementRef,
-    private scrollService: NbLayoutScrollService,
-    private dimensionsService: NbLayoutRulerService,
-  ) { }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.scrollService.onScroll()
       .pipe(
         takeWhile(() => this.alive),
@@ -138,7 +138,7 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
     this.alive = false;
   }
 
-  checkPosition({ scrollHeight, scrollTop, clientHeight }: NbScrollableContainerDimentions) {
+  checkPosition({ scrollHeight, scrollTop, clientHeight }: NbScrollableContainerDimentions): void {
     const initialCheck = this.lastScrollPosition == null;
     const manualCheck = this.lastScrollPosition === scrollTop;
     const scrollUp = scrollTop < this.lastScrollPosition;
@@ -161,14 +161,16 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
       return observableOf({ scrollTop, scrollHeight, clientHeight });
     }
 
-    return forkJoin(this.scrollService.getPosition(), this.dimensionsService.getDimensions())
-      .pipe(
-        map(([scrollPosition, dimensions]) => ({
-          scrollTop: scrollPosition.y,
-          scrollHeight: dimensions.scrollHeight,
-          clientHeight: dimensions.clientHeight,
-        })),
-      );
+    return forkJoin([
+      this.scrollService.getPosition(),
+      this.dimensionsService.getDimensions(),
+    ]).pipe(
+      map(([scrollPosition, dimensions]) => ({
+        scrollTop: scrollPosition.y,
+        scrollHeight: dimensions.scrollHeight,
+        clientHeight: dimensions.clientHeight,
+      })),
+    );
   }
 
   private inSyncWithDom(): boolean {

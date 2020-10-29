@@ -124,10 +124,10 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
   }
 
   protected getDocumentPermission(doc: DocumentModel, name: string, extras: boolean): Observable<boolean> {
-    return forkJoin(
+    return forkJoin([
       doc.hasPermission(name),
       observableOf(extras),
-    ).pipe(map((l: boolean[]) => l[0] && l[1]));
+    ]).pipe(map((l: boolean[]) => l[0] && l[1]));
   }
 
   protected onInitialized(e?: DocumentDialogEvent): void {

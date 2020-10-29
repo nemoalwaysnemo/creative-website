@@ -11,7 +11,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GalleryConfig } from '../models/config.model';
 import { GalleryState, GalleryError } from '../models/gallery.model';
@@ -87,7 +87,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     })));
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     // Refresh the slider
     this.updateSlider({ value: 0, active: false });
     this._freeModeCurrentOffset = 0;
@@ -135,7 +135,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Sliding strict mode
    */
-  private strictMode(e) {
+  private strictMode(e): void {
     switch (this.config.thumbPosition) {
       case ThumbnailsPosition.Right:
       case ThumbnailsPosition.Left:
@@ -158,7 +158,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Sliding free mode
    */
-  private freeMode(e) {
+  private freeMode(e): void {
     switch (this.config.thumbPosition) {
       case ThumbnailsPosition.Right:
       case ThumbnailsPosition.Left:
@@ -212,8 +212,10 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     switch (this.config.thumbPosition) {
       case ThumbnailsPosition.Top:
       case ThumbnailsPosition.Bottom:
-        this.width = '100%';
-        this.height = this.config.thumbHeight + 'px';
+        timer(0).subscribe(() => {
+          this.width = '100%';
+          this.height = this.config.thumbHeight + 'px';
+        });
         value = -(this.state.currIndex * this.config.thumbWidth) - (this.config.thumbWidth / 2 - state.value);
         return {
           transform: `translate3d(${value}px, 0, 0)`,
@@ -233,7 +235,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private verticalPan(e: any) {
+  private verticalPan(e: any): void {
     if (!(e.direction & Hammer.DIRECTION_UP && e.offsetDirection & Hammer.DIRECTION_VERTICAL)) {
       return;
     }
@@ -252,7 +254,7 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private horizontalPan(e: any) {
+  private horizontalPan(e: any): void {
     if (!(e.direction & Hammer.DIRECTION_HORIZONTAL && e.offsetDirection & Hammer.DIRECTION_HORIZONTAL)) {
       return;
     }
@@ -271,15 +273,15 @@ export class GalleryThumbsComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private next() {
+  private next(): void {
     this.action.emit('next');
   }
 
-  private prev() {
+  private prev(): void {
     this.action.emit('prev');
   }
 
-  private updateSlider(state: WorkerState) {
+  private updateSlider(state: WorkerState): void {
     const newState: WorkerState = { ...this._slidingWorker$.value, ...state };
     this._slidingWorker$.next(newState);
   }

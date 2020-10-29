@@ -14,12 +14,12 @@ export function convertToBoolProperty(val: any): boolean {
   return !!val;
 }
 
-export function getElementHeight(el) {
+export function getElementHeight(el): number {
   /**
    *
    * TODO: Move helpers in separate common module.
    * TODO: Provide window through di token.
-   * */
+   */
   const style = window.getComputedStyle(el);
   const marginTop = parseInt(style.getPropertyValue('margin-top'), 10);
   const marginBottom = parseInt(style.getPropertyValue('margin-bottom'), 10);

@@ -38,7 +38,7 @@ export class TheadFormRowComponent implements OnChanges {
   showActionColumnRight: boolean;
   addInputClass: string;
 
-  onCreate(event: any) {
+  onCreate(event: any): void {
     event.stopPropagation();
 
     this.grid.create(this.grid.getNewRow(), this.createConfirm);

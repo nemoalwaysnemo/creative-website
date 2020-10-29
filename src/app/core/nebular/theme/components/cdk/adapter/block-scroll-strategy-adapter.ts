@@ -9,7 +9,7 @@ import { NbViewportRulerAdapter } from './viewport-ruler-adapter';
 /**
  * Overrides default block scroll strategy because default strategy blocks scrolling on the body only.
  * But Nebular has its own scrollable container - nb-layout. So, we need to block scrolling in it to.
- * */
+ */
 @Injectable()
 export class NbBlockScrollStrategyAdapter extends BlockScrollStrategy {
   constructor(@Inject(NB_DOCUMENT) document: any,
@@ -18,12 +18,12 @@ export class NbBlockScrollStrategyAdapter extends BlockScrollStrategy {
     super(viewportRuler, document);
   }
 
-  enable() {
+  enable(): void {
     super.enable();
     this.scrollService.scrollable(false);
   }
 
-  disable() {
+  disable(): void {
     super.disable();
     this.scrollService.scrollable(true);
   }

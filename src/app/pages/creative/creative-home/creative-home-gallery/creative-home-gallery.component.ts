@@ -88,10 +88,10 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     if (this.showInfo) {
       this.shareUrl = this.buildShareUrl(doc);
       this.documentPageService.googleAnalyticsTrackEvent({
-        'event_category': 'Gallery',
-        'event_action': `Gallery Item Preview`,
-        'event_label': `Gallery Item Preview - ${doc.title}`,
-        'event_value': doc.uid,
+        event_category: 'Gallery',
+        event_action: `Gallery Item Preview`,
+        event_label: `Gallery Item Preview - ${doc.title}`,
+        event_value: doc.uid,
         'dimensions.docId': doc.uid,
         'dimensions.docTitle': doc.title,
       });
@@ -102,7 +102,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
     return assetPath('assets/images/preview_logo.png');
   }
 
-  vocabularyFormatter(list: string[]) {
+  vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
 

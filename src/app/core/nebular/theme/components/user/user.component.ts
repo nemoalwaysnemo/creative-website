@@ -80,22 +80,22 @@ export class NbUserComponent {
   @HostBinding('class.inverse') inverseValue: boolean;
 
   @HostBinding('class.small')
-  get small() {
+  get small(): boolean {
     return this.sizeValue === NbUserComponent.SIZE_SMALL;
   }
 
   @HostBinding('class.medium')
-  get medium() {
+  get medium(): boolean {
     return this.sizeValue === NbUserComponent.SIZE_MEDIUM;
   }
 
   @HostBinding('class.large')
-  get large() {
+  get large(): boolean {
     return this.sizeValue === NbUserComponent.SIZE_LARGE;
   }
 
   @HostBinding('class.xlarge')
-  get xlarge() {
+  get xlarge(): boolean {
     return this.sizeValue === NbUserComponent.SIZE_XLARGE;
   }
 

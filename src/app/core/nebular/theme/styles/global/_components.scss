@@ -16,14 +16,11 @@
 @import '../../components/menu/menu.component.theme';
 @import '../../components/user/user.component.theme';
 @import '../../components/actions/actions.component.theme';
-@import '../../components/search/search.component.theme';
 @import '../../components/checkbox/checkbox.component.theme';
 @import '../../components/progress-bar/progress-bar.component.theme';
 @import '../../components/badge/badge.component.theme';
 @import '../../components/alert/alert.component.theme';
-@import '../../components/chat/chat.component.theme';
 @import '../../components/spinner/spinner.component.theme';
-@import '../../components/stepper/stepper.component.theme';
 @import '../../components/accordion/accordion.component.theme';
 @import '../../components/button/button.component.theme';
 @import '../../components/list/list.component.theme';
@@ -37,7 +34,6 @@
 @import '../../components/window/window.component.theme';
 @import '../../components/datepicker/datepicker-container.component.theme';
 @import '../../components/radio/radio.component.theme';
-@import '../../components/tree-grid/tree-grid.component.theme';
 
 @mixin nb-theme-components() {
 
@@ -53,14 +49,11 @@
   @include nb-menu-theme();
   @include nb-user-theme();
   @include nb-actions-theme();
-  @include nb-search-theme();
   @include nb-spinner-theme();
   @include nb-checkbox-theme();
   @include nb-progress-bar-theme();
   @include nb-badge-theme();
-  @include nb-stepper-theme();
   @include nb-alert-theme();
-  @include nb-chat-theme();
   @include nb-accordion-theme();
   @include nb-buttons-theme();
   @include nb-list-theme();
@@ -74,5 +67,4 @@
   @include nb-window-theme();
   @include nb-datepicker-theme();
   @include nb-radio-theme();
-  @include nb-tree-grid-theme();
 }

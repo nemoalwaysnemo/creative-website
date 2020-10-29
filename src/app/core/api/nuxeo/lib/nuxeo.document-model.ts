@@ -123,7 +123,7 @@ export class DocumentModel extends Base {
       return observableOf(this.getParent(key).get(propertyName));
     }
     const op = this._nuxeo.operation(NuxeoAutomations.GetDocument);
-    return op.schemas('*').params({ 'uuid': this.parentRef }).execute().pipe(
+    return op.schemas('*').params({ uuid: this.parentRef }).execute().pipe(
       tap((doc: DocumentModel) => { this.setParent(doc, key); }),
       map((doc: DocumentModel) => doc.get(propertyName)),
     );
@@ -151,6 +151,10 @@ export class DocumentModel extends Base {
     return this._properties;
   }
 
+  set properties(properties: any) {
+    this._properties = properties;
+  }
+
   get fileContent(): any {
     return this._properties['file:content'] === null || this._properties['file:content'] === undefined ? {} : this._properties['file:content'];
   }
@@ -165,10 +169,6 @@ export class DocumentModel extends Base {
 
   get fileMimeType(): string {
     return this.fileContent['mime-type'];
-  }
-
-  set properties(properties: any) {
-    this._properties = properties;
   }
 
   get facets(): any {
@@ -334,7 +334,7 @@ export class DocumentModel extends Base {
   }
 
   newInstance(type: string): DocumentModel {
-    return new DocumentModel({ path: this.uid, type: type });
+    return new DocumentModel({ path: this.uid, type });
   }
 
   private getDefaultThumbnail(): string {

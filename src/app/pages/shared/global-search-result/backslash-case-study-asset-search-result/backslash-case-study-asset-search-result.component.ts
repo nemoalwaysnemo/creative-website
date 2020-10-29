@@ -23,7 +23,7 @@ export class BackslashCaseStudyAssetSearchResultComponent extends BaseSearchResu
     this.onQueryParamsChanged();
   }
 
-  assetPath(path: string) {
+  assetPath(path: string): string {
     return assetPath(path);
   }
 }

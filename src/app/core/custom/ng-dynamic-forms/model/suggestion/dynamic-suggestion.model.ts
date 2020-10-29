@@ -3,20 +3,20 @@ import { serializable } from '../../decorator/serializable.decorator';
 import { isFunction } from '../../utils/core.utils';
 import { Observable, of as observableOf } from 'rxjs';
 import { DynamicFormValueControlModelConfig, DynamicFormValueControlModel } from '../dynamic-form-value-control.model';
-import { SuggestionSettings } from '../../../../../pages/shared/directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../../../../pages/shared/document-form-extension';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION = 'SUGGESTION';
 
 export interface DynamicSuggestionModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
   settings: any;
-  afterSearch?: Function;
-  onResponsed?: Function;
+  afterSearch?: () => void;
+  onResponsed?: (res: any) => void;
 }
 
 export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() settings: any;
-  @serializable() afterSearch: Function;
-  @serializable() onResponsed: Function;
+  @serializable() afterSearch: (options: any[]) => void;
+  @serializable() onResponsed: (res: any) => void;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION;
 
   constructor(config: DynamicSuggestionModelConfig<T>, layout?: DynamicFormControlLayout) {

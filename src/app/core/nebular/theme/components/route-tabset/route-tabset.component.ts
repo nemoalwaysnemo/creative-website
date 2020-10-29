@@ -143,7 +143,7 @@ export class NbRouteTabsetComponent {
    */
   @Output() changeTab = new EventEmitter<any>();
 
-  selectTab(tab: any) {
+  selectTab(tab: any): void {
     this.changeTab.emit(tab);
   }
 

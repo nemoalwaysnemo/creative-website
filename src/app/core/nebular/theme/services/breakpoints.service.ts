@@ -76,7 +76,7 @@ export class NbMediaBreakpointsService {
    * @returns {Z|{name: string, width: number}}
    */
   getByWidth(width: number): NbMediaBreakpoint {
-    const unknown = { name: 'unknown', width: width };
+    const unknown = { name: 'unknown', width };
     const breakpoints = this.getBreakpoints();
 
     return breakpoints

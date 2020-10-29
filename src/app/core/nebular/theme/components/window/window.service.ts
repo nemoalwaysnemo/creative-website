@@ -119,7 +119,7 @@ export class NbWindowService {
    * Opens new window.
    * @param windowContent
    * @param windowConfig
-   * */
+   */
   open(
     windowContent: TemplateRef<any> | NbComponentType,
     windowConfig: Partial<NbWindowConfig> = {},
@@ -138,7 +138,7 @@ export class NbWindowService {
     return windowRef;
   }
 
-  protected createWindowsContainer() {
+  protected createWindowsContainer(): void {
     this.overlayRef = this.overlayService.create({
       scrollStrategy: this.overlayService.scrollStrategies.noop(),
       positionStrategy: this.overlayPositionBuilder.global().bottom().right(),
@@ -176,14 +176,14 @@ export class NbWindowService {
     return ref;
   }
 
-  protected subscribeToEvents(windowRef: NbWindowRef) {
+  protected subscribeToEvents(windowRef: NbWindowRef): void {
     if (windowRef.config.closeOnBackdropClick) {
       this.overlayRef.backdropClick().subscribe(() => windowRef.close());
     }
 
     if (windowRef.config.closeOnEsc) {
       this.overlayRef.keydownEvents()
-        .pipe(filter((event: KeyboardEvent) => event.keyCode === 27))
+        .pipe(filter((event: KeyboardEvent) => event.key === 'Escape'))
         .subscribe(() => windowRef.close());
     }
 
@@ -195,7 +195,7 @@ export class NbWindowService {
     });
   }
 
-  protected checkAndUpdateOverlay() {
+  protected checkAndUpdateOverlay(): void {
     const fullScreenWindows = this.openWindows.filter(w => w.state === NbWindowState.FULL_SCREEN);
     if (fullScreenWindows.length > 0) {
       this.blockScrollStrategy.enable();

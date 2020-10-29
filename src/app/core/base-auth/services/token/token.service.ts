@@ -61,7 +61,7 @@ export class NbTokenService {
     return observableOf(null);
   }
 
-  protected publishStoredToken() {
+  protected publishStoredToken(): void {
     this.token$.next(this.tokenStorage.get());
   }
 }

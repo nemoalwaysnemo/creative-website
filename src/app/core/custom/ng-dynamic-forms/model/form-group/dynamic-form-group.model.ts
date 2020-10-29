@@ -46,7 +46,7 @@ export class DynamicFormGroupModel extends DynamicFormControlModel {
     this.group.splice(index + step, 0, ...this.group.splice(index, 1));
   }
 
-  remove(index: number) {
+  remove(index: number): void {
     this.group.splice(index, 1);
   }
 

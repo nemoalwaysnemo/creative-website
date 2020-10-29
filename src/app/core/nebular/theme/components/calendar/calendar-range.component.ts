@@ -83,7 +83,7 @@ export interface NbCalendarRange<D> {
  * calendar-month-cell-large-height
  * calendar-year-cell-large-width
  * calendar-year-cell-large-height
- * */
+ */
 @Component({
   selector: 'nb-calendar-range',
   template: `
@@ -108,32 +108,32 @@ export class NbCalendarRangeComponent<D> {
   /**
    * Defines if we should render previous and next months
    * in the current month view.
-   * */
+   */
   @Input() boundingMonth: boolean = true;
 
   /**
    * Defines starting view for the calendar.
-   * */
+   */
   @Input() startView: NbCalendarViewMode = NbCalendarViewMode.DATE;
 
   /**
    * A minimum available date for selection.
-   * */
+   */
   @Input() min: D;
 
   /**
    * A maximum available date for selection.
-   * */
+   */
   @Input() max: D;
 
   /**
    * A predicate that decides which cells will be disabled.
-   * */
+   */
   @Input() filter: (D) => boolean;
 
   /**
    * Custom day cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input('dayCellComponent')
   set _cellComponent(cellComponent: Type<NbCalendarCell<D, NbCalendarRange<D>>>) {
     if (cellComponent) {
@@ -144,12 +144,12 @@ export class NbCalendarRangeComponent<D> {
 
   /**
    * Custom month cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input() monthCellComponent: Type<NbCalendarCell<D, NbCalendarRange<D>>>;
 
   /**
    * Custom year cell component. Have to implement `NbCalendarCell` interface.
-   * */
+   */
   @Input('yearCellComponent')
   set _yearCellComponent(cellComponent: Type<NbCalendarCell<D, NbCalendarRange<D>>>) {
     if (cellComponent) {
@@ -161,41 +161,41 @@ export class NbCalendarRangeComponent<D> {
   /**
    * Size of the calendar and entire components.
    * Can be 'medium' which is default or 'large'.
-   * */
+   */
   @Input() size: NbCalendarSize = NbCalendarSize.MEDIUM;
 
   @Input() visibleDate: D;
 
   /**
    * Determines should we show calendars header or not.
-   * */
+   */
   @Input() showHeader: boolean = true;
 
   /**
    * Range which will be rendered as selected.
-   * */
+   */
   @Input() range: NbCalendarRange<D>;
 
   /**
    * Emits range when start selected and emits again when end selected.
-   * */
+   */
   @Output() rangeChange: EventEmitter<NbCalendarRange<D>> = new EventEmitter();
 
   constructor(protected dateService: NbDateService<D>) {
   }
 
-  onChange(date: D) {
+  onChange(date: D): void {
     this.initDateIfNull();
     this.handleSelected(date);
   }
 
-  private initDateIfNull() {
+  private initDateIfNull(): void {
     if (!this.range) {
       this.range = { start: null, end: null };
     }
   }
 
-  private handleSelected(date: D) {
+  private handleSelected(date: D): void {
     if (this.selectionStarted()) {
       this.selectEnd(date);
     } else {
@@ -208,11 +208,11 @@ export class NbCalendarRangeComponent<D> {
     return start && !end;
   }
 
-  private selectStart(start: D) {
+  private selectStart(start: D): void {
     this.selectRange({ start });
   }
 
-  private selectEnd(date: D) {
+  private selectEnd(date: D): void {
     const { start } = this.range;
 
     if (this.dateService.compareDates(date, start) > 0) {
@@ -222,7 +222,7 @@ export class NbCalendarRangeComponent<D> {
     }
   }
 
-  private selectRange(range: NbCalendarRange<D>) {
+  private selectRange(range: NbCalendarRange<D>): void {
     this.range = range;
     this.rangeChange.emit(range);
   }

@@ -82,7 +82,7 @@ export class NbRevealCardComponent {
    */
   @Input() showToggleButton = true;
 
-  toggle() {
+  toggle(): void {
     this.revealed = !this.revealed;
   }
 }

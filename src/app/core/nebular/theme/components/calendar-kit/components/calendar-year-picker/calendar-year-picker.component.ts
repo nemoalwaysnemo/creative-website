@@ -63,12 +63,12 @@ export class NbCalendarYearPickerComponent<D> implements OnChanges {
   @Output() yearChange = new EventEmitter<D>();
 
   @HostBinding('class.medium')
-  get medium() {
+  get medium(): boolean {
     return this.size === NbCalendarSize.MEDIUM;
   }
 
   @HostBinding('class.large')
-  get large() {
+  get large(): boolean {
     return this.size === NbCalendarSize.LARGE;
   }
 
@@ -77,18 +77,18 @@ export class NbCalendarYearPickerComponent<D> implements OnChanges {
   constructor(protected dateService: NbDateService<D>) {
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.initYears();
   }
 
-  initYears() {
+  initYears(): void {
     const selectedYear = this.dateService.getYear(this.year);
     const startYear = Math.ceil(selectedYear - YEARS_IN_VIEW / 2);
     const years = range(YEARS_IN_VIEW).map(i => this.createYearDateByIndex(i + startYear));
     this.years = batch(years, YEARS_IN_COLUMN);
   }
 
-  onSelect(year) {
+  onSelect(year): void {
     this.yearChange.emit(year);
   }
 

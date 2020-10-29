@@ -13,7 +13,7 @@ import { NbLayoutDirectionService } from '../../../services/direction.service';
 
 export type NbOverlayContent = Type<any> | TemplateRef<any> | string;
 
-export function patch<T>(container: ComponentRef<T>, containerContext: Object): ComponentRef<T> {
+export function patch<T>(container: ComponentRef<T>, containerContext: any): ComponentRef<T> {
   Object.assign(container.instance, containerContext);
   container.changeDetectorRef.detectChanges();
   return container;
@@ -22,7 +22,7 @@ export function patch<T>(container: ComponentRef<T>, containerContext: Object): 
 export function createContainer<T>(
   ref: NbOverlayRef,
   container: NbComponentType<T>,
-  context: Object,
+  context: any,
   componentFactoryResolver?: ComponentFactoryResolver,
   ): ComponentRef<T> {
   const containerRef = ref.attach(new NbComponentPortal(container, null, null, componentFactoryResolver));

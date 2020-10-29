@@ -26,7 +26,7 @@ export function nbTokensFactory(strategies: NbAuthStrategy[]): NbAuthTokenClass[
   return tokens;
 }
 
-export function nbOptionsFactory(options) {
+export function nbOptionsFactory(options): any {
   return deepExtend({ strategies: [] }, options);
 }
 

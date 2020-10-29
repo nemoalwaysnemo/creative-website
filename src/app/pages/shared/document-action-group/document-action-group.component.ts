@@ -85,16 +85,15 @@ export class DocumentActionGroupComponent {
   }
 
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
-    return combineLatest(
+    return combineLatest([
       doc.hasPermission(NuxeoPermission.ReadWrite),
       doc.hasPermission(NuxeoPermission.Everything),
       this.documentPageService.getCurrentUser().pipe(
         concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
           map((permission: boolean) => user.canAccess() && permission === true),
         )),
-      ), (one, two, three) => {
-        return one || two || three;
-      }).pipe(
+      )]).pipe(
+        map(results => (results[0] || results[1] || results[2])),
         share(),
       );
   }

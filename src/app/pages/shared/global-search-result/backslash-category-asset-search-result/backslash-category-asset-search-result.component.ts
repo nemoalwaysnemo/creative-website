@@ -25,7 +25,7 @@ export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResul
     this.onQueryParamsChanged();
   }
 
-  getAssetPath(doc: DocumentModel) {
+  getAssetPath(doc: DocumentModel): string {
     return doc.facets.includes('Thumbnail') && doc.contextParameters && doc.contextParameters.thumbnail ? doc.contextParameters.thumbnail.url : assetPath('assets/images/App-Intelligence-Brands-Icon.jpg');
   }
 }

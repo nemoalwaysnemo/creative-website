@@ -94,10 +94,10 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     this.toggleStatus();
     if (this.showInfo) {
       this.documentPageService.googleAnalyticsTrackEvent({
-        'event_category': 'Gallery',
-        'event_action': `Gallery Item Preview`,
-        'event_label': `Gallery Item Preview - ${doc.title}`,
-        'event_value': doc.uid,
+        event_category: 'Gallery',
+        event_action: `Gallery Item Preview`,
+        event_label: `Gallery Item Preview - ${doc.title}`,
+        event_value: doc.uid,
         'dimensions.docId': doc.uid,
         'dimensions.docTitle': doc.title,
       });

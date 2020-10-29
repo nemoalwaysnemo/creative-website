@@ -21,11 +21,11 @@ export class ShareDocumentButtonComponent implements AfterViewInit {
   constructor(private documentPageService: DocumentPageService) {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.focusInput();
   }
 
-  focusInput() {
+  focusInput(): void {
     if (this.inputElement) {
       this.inputElement.nativeElement.focus();
       this.inputElement.nativeElement.select();
@@ -44,10 +44,10 @@ export class ShareDocumentButtonComponent implements AfterViewInit {
     const options = 'toolbar=0,status=0,resizable=1,width=626,height=436';
     window.open(url, 'sharer', options);
     this.documentPageService.googleAnalyticsTrackEvent({
-      'event_category': 'Share',
-      'event_action': 'Share On Workplace',
-      'event_label': `Share On Workplace - ${this.document.title}`,
-      'event_value': this.document.uid,
+      event_category: 'Share',
+      event_action: 'Share On Workplace',
+      event_label: `Share On Workplace - ${this.document.title}`,
+      event_value: this.document.uid,
       'dimensions.docId': this.document.uid,
       'dimensions.docTitle': this.document.title,
     });

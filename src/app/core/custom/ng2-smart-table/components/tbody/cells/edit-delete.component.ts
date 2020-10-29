@@ -31,7 +31,7 @@ export class TbodyEditDeleteComponent implements OnChanges {
   editRowButtonContent: string;
   deleteRowButtonContent: string;
 
-  onEdit(event: any) {
+  onEdit(event: any): void {
     event.preventDefault();
     event.stopPropagation();
 
@@ -47,7 +47,7 @@ export class TbodyEditDeleteComponent implements OnChanges {
     }
   }
 
-  onDelete(event: any) {
+  onDelete(event: any): void {
     event.preventDefault();
     event.stopPropagation();
 

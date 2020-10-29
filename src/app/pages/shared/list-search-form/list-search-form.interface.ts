@@ -6,11 +6,13 @@ export class ListSearchRowCustomViewSettings {
 
   [key: string]: any;
 
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+
   enableClick: boolean = true;
 
   dialogTitle: string = ':docTitle';
-
-  htmlFunc: Function = (doc: DocumentModel): string => doc.title;
 
   viewType: 'button' | 'thumbnail' | 'icon' | 'html' | 'usage-rights-expiry' = 'thumbnail';
 
@@ -18,7 +20,5 @@ export class ListSearchRowCustomViewSettings {
 
   dialogParams: Subject<any> = new Subject();
 
-  constructor(data: any = {}) {
-    Object.assign(this, data);
-  }
+  htmlFunc: (doc: DocumentModel) => string = (doc: DocumentModel) => doc.title;
 }

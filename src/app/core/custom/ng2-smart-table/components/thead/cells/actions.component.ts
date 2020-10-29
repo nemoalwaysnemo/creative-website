@@ -21,7 +21,7 @@ export class ActionsComponent implements OnChanges {
   createButtonContent: string;
   cancelButtonContent: string;
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.createButtonContent = this.grid.getSetting('add.createButtonContent');
     this.cancelButtonContent = this.grid.getSetting('add.cancelButtonContent');
   }

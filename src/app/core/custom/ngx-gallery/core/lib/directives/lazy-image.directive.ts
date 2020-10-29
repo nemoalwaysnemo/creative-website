@@ -1,7 +1,7 @@
 import { Directive, Input, Output, OnDestroy, SimpleChanges, OnChanges, EventEmitter, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, Subscription, zip, fromEvent } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[lazyImage]',
@@ -22,7 +22,7 @@ export class LazyImageDirective implements OnChanges, OnDestroy {
     ).subscribe();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes['src'] && changes['src'].previousValue !== changes['src'].currentValue) {
       this.loadImage(this.src);
     }
@@ -33,7 +33,7 @@ export class LazyImageDirective implements OnChanges, OnDestroy {
     this._imageLoader$.complete();
   }
 
-  loadImage(imagePath: string) {
+  loadImage(imagePath: string): void {
     this._imageLoader$.next(imagePath);
   }
 
