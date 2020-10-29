@@ -47,10 +47,6 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   static readonly COMPONENT_TYPE: string = 'form';
 
-  formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
-
-  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
-
   formSettings: DocumentFormSettings;
 
   document: DocumentModel;
@@ -62,6 +58,10 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   formLayout: any = {};
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
+
+  protected formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
+
+  protected document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
   protected subscription: Subscription = new Subscription();
 

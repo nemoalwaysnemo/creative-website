@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormsCoreModule } from '@core/custom';
 import { TextMaskModule } from 'angular2-text-mask';
 import { OptionTagModule } from '../option-tag/option-tag.module';
+import { GalleryUploadModule } from '../gallery-upload/gallery-upload.module';
 import { DatepickerDirectiveModule } from '../datepicker-directive/datepicker-directive.module';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
 import { DocumentFormListModule } from '../document-form-list/document-form-list.module';
@@ -25,6 +26,7 @@ import { DynamicNGSwitchComponent } from './switch/dynamic-ng-switch.component';
 import { DynamicNGTextAreaComponent } from './textarea/dynamic-ng-textarea.component';
 import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker.component';
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
+import { DynamicNGGalleryUploadComponent } from './gallery-upload/dynamic-ng-gallery-upload.component';
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 import { NbAccordionModule } from '@core/nebular/theme/components/accordion/accordion.module';
@@ -40,6 +42,7 @@ import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.mod
     TextMaskModule,
     OptionTagModule,
     NgbButtonsModule,
+    GalleryUploadModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
     DocumentFormListModule,
@@ -66,25 +69,7 @@ import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.mod
     DynamicNGSuggestionComponent,
     DynamicNGListComponent,
     DynamicNGOptionTagComponent,
-    DynamicNGDatepickerDirectiveComponent,
-  ],
-  entryComponents: [
-    DynamicNGSwitchComponent,
-    DynamicNGCalendarComponent,
-    DynamicNGCheckboxComponent,
-    DynamicNGCheckboxGroupComponent,
-    DynamicNGDatePickerComponent,
-    DynamicNGFormArrayComponent,
-    DynamicNGFormGroupComponent,
-    DynamicNGInputComponent,
-    DynamicNGRadioGroupComponent,
-    DynamicNGRatingComponent,
-    DynamicNGSelectComponent,
-    DynamicNGTextAreaComponent,
-    DynamicNGTimePickerComponent,
-    DynamicNGSuggestionComponent,
-    DynamicNGListComponent,
-    DynamicNGOptionTagComponent,
+    DynamicNGGalleryUploadComponent,
     DynamicNGDatepickerDirectiveComponent,
   ],
   exports: [
@@ -106,6 +91,7 @@ import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.mod
     DynamicNGSuggestionComponent,
     DynamicNGListComponent,
     DynamicNGOptionTagComponent,
+    DynamicNGGalleryUploadComponent,
     DynamicNGDatepickerDirectiveComponent,
   ],
 })

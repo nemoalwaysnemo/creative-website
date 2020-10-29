@@ -1,0 +1,14 @@
+<ng-container [formGroup]="group">
+  <gallery-upload
+      [formControlName]="model.id"
+      [id]="id"
+      [settings]="model.settings"
+      [attr.disabled]="model.disabled"
+      [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
+      [required]="model.required"
+      [tabindex]="model.tabIndex"
+      (blur)="onBlur($event)"
+      (change)="onChange($event)"
+      (focus)="onFocus($event)">
+  </gallery-upload>
+</ng-container>

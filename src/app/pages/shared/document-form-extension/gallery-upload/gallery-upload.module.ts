@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DragScrollModule } from 'ngx-drag-scroll';
-import { PictureSelectComponent } from './picture-select.component';
+import { GalleryUploadComponent } from './gallery-upload.component';
 
 @NgModule({
   imports: [
@@ -11,12 +11,12 @@ import { PictureSelectComponent } from './picture-select.component';
     DragScrollModule,
   ],
   exports: [
-    PictureSelectComponent,
+    GalleryUploadComponent,
   ],
   declarations: [
-    PictureSelectComponent,
+    GalleryUploadComponent,
   ],
 })
-export class PictureSelectModule {
+export class GalleryUploadModule {
 
 }

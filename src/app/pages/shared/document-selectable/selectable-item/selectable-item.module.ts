@@ -14,9 +14,6 @@ import { SelectableItemDirective } from './selectable-item.directive';
     SelectableItemComponent,
     SelectableItemDirective,
   ],
-  entryComponents: [
-    SelectableItemComponent,
-  ],
   exports: [
     SelectableItemDirective,
   ],

@@ -32,11 +32,6 @@ import { NbDateAdapterService, NbRangeAdapterService } from './datepicker-adapte
     NbRangepickerComponent,
     NbBasePickerComponent,
   ],
-  entryComponents: [
-    NbCalendarComponent,
-    NbCalendarRangeComponent,
-    NbDatepickerContainerComponent,
-  ],
 })
 export class NbDatepickerModule {
   static forRoot(): ModuleWithProviders<NbDatepickerModule> {

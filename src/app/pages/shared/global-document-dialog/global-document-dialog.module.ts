@@ -26,10 +26,6 @@ import { GlobalDocumentDialogTemplateModule } from './document-dialog-template/g
     DocumentDialogCustomComponent,
     GlobalDocumentDialogComponent,
   ],
-  entryComponents: [
-    DocumentDialogFormComponent,
-    DocumentDialogCustomComponent,
-  ],
   exports: [
     GlobalDocumentDialogComponent,
   ],

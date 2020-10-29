@@ -24,9 +24,6 @@ import { ListSearchRowCustomViewComponent } from './list-search-row-custom-view-
     ListSearchFormInDialogComponent,
     ListSearchRowCustomViewComponent,
   ],
-  entryComponents: [
-    ListSearchRowCustomViewComponent,
-  ],
   exports: [
     ListSearchFormInDialogComponent,
   ],
