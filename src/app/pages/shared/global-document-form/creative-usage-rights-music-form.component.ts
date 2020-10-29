@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { UserModel, DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel, DynamicListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../document-form-extension';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { OptionModel } from '../option-select/option-select.interface';

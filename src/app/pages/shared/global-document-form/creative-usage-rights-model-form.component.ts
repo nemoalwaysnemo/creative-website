@@ -4,7 +4,7 @@ import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, Dynam
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
-import { SuggestionSettings } from '../directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../document-form-extension';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({

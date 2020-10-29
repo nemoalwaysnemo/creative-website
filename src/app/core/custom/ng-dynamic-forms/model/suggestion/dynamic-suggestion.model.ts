@@ -3,7 +3,7 @@ import { serializable } from '../../decorator/serializable.decorator';
 import { isFunction } from '../../utils/core.utils';
 import { Observable, of as observableOf } from 'rxjs';
 import { DynamicFormValueControlModelConfig, DynamicFormValueControlModel } from '../dynamic-form-value-control.model';
-import { SuggestionSettings } from '../../../../../pages/shared/directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../../../../pages/shared/document-form-extension';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION = 'SUGGESTION';
 

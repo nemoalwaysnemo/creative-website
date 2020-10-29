@@ -99,7 +99,7 @@ export class NbRadioComponent {
     this.disabled = convertToBoolProperty(disabled);
   }
 
-  @Output() valueChange: EventEmitter<any> = new EventEmitter();
+  @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() blur: EventEmitter<void> = new EventEmitter();
 

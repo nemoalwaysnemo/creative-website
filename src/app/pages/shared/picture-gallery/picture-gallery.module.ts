@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PictureGalleryComponent } from './picture-gallery.component';
-import { GalleryModule, GALLERY_CONFIG } from '../../../core/custom/ngx-gallery/core/index';
+import { GalleryModule, GALLERY_CONFIG } from '@core/custom/ngx-gallery/core/index';
 import { RouterModule } from '@angular/router';
 
 @NgModule({

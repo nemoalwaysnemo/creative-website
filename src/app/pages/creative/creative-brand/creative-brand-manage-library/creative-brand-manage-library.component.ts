@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
-import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../../shared/document-form-extension';
 import { DocumentFormEvent, DocumentFormSettings } from '../../../shared/document-form/document-form.interface';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 

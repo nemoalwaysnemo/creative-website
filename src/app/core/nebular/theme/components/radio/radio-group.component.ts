@@ -102,7 +102,7 @@ export class NbRadioGroupComponent implements AfterContentInit, OnDestroy, Contr
     this.updateDisabled();
   }
 
-  @Output() valueChange: EventEmitter<any> = new EventEmitter();
+  @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
   protected disabled: boolean;
   protected value: any;

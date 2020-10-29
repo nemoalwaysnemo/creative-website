@@ -4,7 +4,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { ListSearchFormInDialogModule } from '../list-search-form-in-dialog';
 import { DocumentFormModule } from '../document-form/document-form.module';
 import { DocumentListViewModule } from '../document-list-view/document-list-view.module';
-import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
+import { DirectorySuggestionModule } from '../document-form-extension/directory-suggestion/directory-suggestion.module';
 import { DocumentCreativeProjectInfoComponent } from './document-creative-project-info/document-creative-project-info.component';
 import { DocumentCreativeProjectUsageRightsComponent } from './document-creative-project-usage-rights/document-creative-project-usage-rights.component';
 import { DocumentCreativeProjectRelatedAssetComponent } from './document-creative-project-related-asset/document-creative-project-related-asset.component';

@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicListModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 import { BaseDocumentManageComponent } from '../../../abstract-classes/base-document-manage.component';
 import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
-import { SuggestionSettings } from '../../../directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../../document-form-extension';
 
 @Component({
   selector: 'document-creative-project-asset-report-production-information',
