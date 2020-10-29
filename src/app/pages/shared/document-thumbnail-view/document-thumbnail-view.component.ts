@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
 import { Subscription } from 'rxjs';
-import { SelectableItemSettings } from '../selectable-item/selectable-item.interface';
+import { SelectableItemSettings } from '../document-selectable';
 import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './document-thumbnail-view.service';
 
 @Component({

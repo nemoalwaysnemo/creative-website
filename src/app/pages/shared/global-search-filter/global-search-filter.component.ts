@@ -29,7 +29,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   @Input() filterSettings: SearchFilterModel[] = [];
 
-  @Output() selected: EventEmitter<any> = new EventEmitter();
+  @Output() selected: EventEmitter<any> = new EventEmitter<any>();
 
   private _onChange = (_) => { };
 

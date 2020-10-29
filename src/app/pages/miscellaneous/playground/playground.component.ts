@@ -4,7 +4,7 @@ import { concatMap, map } from 'rxjs/operators';
 import { GlobalDocumentDialogService, OptionModel } from '../../shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
-import { SuggestionSettings } from '../../shared/directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../shared/document-form-extension';
 import { DocumentFormSettings } from '../../shared/document-form/document-form.interface';
 
 @Component({

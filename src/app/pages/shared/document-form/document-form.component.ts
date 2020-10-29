@@ -6,7 +6,7 @@ import { Observable, of as observableOf, forkJoin, Subject, Subscription, combin
 import { concatMap } from 'rxjs/operators';
 import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
-import { DynamicNGFormSettings } from '../dynamic-ng-form';
+import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 
 @Component({
   selector: 'document-form',

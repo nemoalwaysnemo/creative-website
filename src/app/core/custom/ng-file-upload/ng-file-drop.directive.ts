@@ -10,7 +10,7 @@ export interface DragMeta {
   selector: '[ngFileDrop]',
 })
 export class NgFileDropDirective extends NgFileDirective {
-  @Output() fileOver: EventEmitter<any> = new EventEmitter();
+  @Output() fileOver: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() validDrag: boolean = false;
   @Output() validDragChange: EventEmitter<boolean> = new EventEmitter();

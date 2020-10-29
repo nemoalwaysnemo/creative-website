@@ -5,7 +5,7 @@ import { DocumentModel, NuxeoPermission } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { DocumentFormEvent, DocumentFormSettings } from '../../../shared/document-form/document-form.interface';
-import { SuggestionSettings } from '../../../shared/directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../../shared/document-form-extension';
 
 @Component({
   selector: 'creative-agency-manage-library',

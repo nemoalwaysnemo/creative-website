@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
-import { SuggestionSettings } from '../../../directory-suggestion/directory-suggestion-settings';
+import { SuggestionSettings } from '../../../document-form-extension';
 import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { Observable } from 'rxjs';
