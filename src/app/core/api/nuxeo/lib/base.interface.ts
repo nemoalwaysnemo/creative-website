@@ -621,6 +621,7 @@ export enum NuxeoAutomations {
   GetVideoScreenshot = 'Backslash.GetVideoScreenshot',
   TBWAUserDigest = 'TBWA.GetUserDigest',
   GetAccessTokenInfo = 'TBWA.GetAccessTokenInfo',
+  GetWebPageElement = 'TBWA.GetWebPageElement',
   MoveToTrash = 'Document.Trash',
   DownloadRequest = 'App-BizDev-Asset-Download-Request-email',
 }

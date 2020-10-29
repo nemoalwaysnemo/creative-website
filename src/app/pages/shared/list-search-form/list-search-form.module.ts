@@ -26,9 +26,6 @@ import { ListSearchRowCustomDialogComponent } from './list-search-row-custom-dia
     ListSearchFormComponent,
     ListSearchRowCustomDialogComponent,
   ],
-  entryComponents: [
-    ListSearchRowCustomDialogComponent,
-  ],
   exports: [
     ListSearchFormComponent,
   ],

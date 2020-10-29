@@ -115,11 +115,6 @@ const COMPONENTS = [
     DocumentThumbnailViewModule,
     GlobalDocumentDialogModule,
   ],
-  entryComponents: [
-    CreativeDocumentAssetRowRenderComponent,
-    CreativeBrandRowRenderComponent,
-    CreativePopularBrandRowRenderComponent,
-  ],
   declarations: [
     ...COMPONENTS,
   ],

@@ -5,19 +5,19 @@ import {
   DynamicFormControlLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicOptionTagModel,
+  DynamicGalleryUploadModel,
 } from '@core/custom';
 
 @Component({
-  selector: 'dynamic-ng-option-tag',
-  templateUrl: './dynamic-ng-option-tag.component.html',
+  selector: 'dynamic-ng-gallery-upload',
+  templateUrl: './dynamic-ng-gallery-upload.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicNGOptionTagComponent extends DynamicFormControlComponent {
+export class DynamicNGGalleryUploadComponent extends DynamicFormControlComponent {
 
   @Input() group: FormGroup;
   @Input() layout: DynamicFormControlLayout;
-  @Input() model: DynamicOptionTagModel<string>;
+  @Input() model: DynamicGalleryUploadModel<string>;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

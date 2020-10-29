@@ -17,10 +17,6 @@ import { DynamicNGDragDropFileZoneComponent } from './drag-drop-file-zone/dynami
     DynamicNGBatchUploadComponent,
     DynamicNGDragDropFileZoneComponent,
   ],
-  entryComponents: [
-    DynamicNGBatchUploadComponent,
-    DynamicNGDragDropFileZoneComponent,
-  ],
   exports: [
     DynamicNGBatchUploadComponent,
     DynamicNGDragDropFileZoneComponent,

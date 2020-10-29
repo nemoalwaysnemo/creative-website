@@ -16,7 +16,6 @@ import { NbOverlayModule } from '../cdk';
   imports: [NbSharedModule, NbOverlayModule],
   declarations: [NbTooltipComponent, NbTooltipDirective],
   exports: [NbTooltipDirective],
-  entryComponents: [NbTooltipComponent],
 })
 export class NbTooltipModule {
 }

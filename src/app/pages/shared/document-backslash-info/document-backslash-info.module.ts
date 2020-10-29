@@ -18,9 +18,6 @@ import { ShareDocumentButtonModule } from '../share-document-button/share-docume
   exports: [
     DocumentBackslashInfoComponent,
   ],
-  entryComponents: [
-    DocumentBackslashInfoComponent,
-  ],
 })
 export class DocumentBackslashInfoModule {
 }
