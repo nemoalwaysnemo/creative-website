@@ -6,7 +6,9 @@
 
 @import 'normalize';
 @import 'typography/typography';
+@import 'tables/smart-table.theme';
 
 @mixin nb-theme-overrides() {
   @include nb-typography();
+  @include nb-tables-smart-table-theme();
 }
