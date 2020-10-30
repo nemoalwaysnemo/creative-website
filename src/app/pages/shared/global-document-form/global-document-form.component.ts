@@ -24,7 +24,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   @Input()
-  set settings(settings: DocumentFormSettings) {
+  set settings(settings: any) {
     if (objHasValue(settings)) {
       this.setFormSettings(settings);
     }
@@ -53,10 +53,6 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   currentUser: UserModel;
 
-  formModels: any[] = [];
-
-  formLayout: any = {};
-
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   protected formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
@@ -83,8 +79,8 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     return this.documentType;
   }
 
-  setFormDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): void {
-    this.formSettings = formSettings;
+  setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
+    this.formSettings = settings;
     this.currentUser = user;
     this.document = doc;
   }

@@ -3,7 +3,6 @@ import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { assetPath } from '@core/services/helpers';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form-in-dialog';
-import { DocumentFormSettings } from '../../document-form/document-form.interface';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
@@ -22,10 +21,10 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
+  formSettings: any = {
     resetFormAfterDone: true,
     formMode: 'edit',
-  });
+  };
 
   selectedRows: any = [];
 

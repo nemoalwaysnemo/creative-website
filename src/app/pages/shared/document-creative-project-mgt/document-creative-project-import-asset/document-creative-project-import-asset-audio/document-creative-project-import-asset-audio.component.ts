@@ -27,6 +27,10 @@ export class DocumentCreativeProjectImportAssetAudioComponent extends GlobalDocu
     }
   }
 
+  protected onInit(): void {
+    this.setFormSettings({});
+  }
+
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc.getParent('brand'), this.getDocType());
   }

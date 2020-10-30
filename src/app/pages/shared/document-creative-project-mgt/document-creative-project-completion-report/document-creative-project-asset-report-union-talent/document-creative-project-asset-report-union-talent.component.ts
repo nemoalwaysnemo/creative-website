@@ -16,10 +16,6 @@ export class DocumentCreativeProjectAssetReportUnionTalentComponent extends Base
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
-    formMode: 'edit',
-  });
-
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
     source: 'creative-project-asset-report-production-information',
@@ -57,6 +53,12 @@ export class DocumentCreativeProjectAssetReportUnionTalentComponent extends Base
 
   protected setCurrentDocument(doc: DocumentModel): void {
 
+  }
+
+  protected getFormSettings(): any {
+    return {
+      formMode: 'edit',
+    };
   }
 
   protected getFormModels(): any[] {

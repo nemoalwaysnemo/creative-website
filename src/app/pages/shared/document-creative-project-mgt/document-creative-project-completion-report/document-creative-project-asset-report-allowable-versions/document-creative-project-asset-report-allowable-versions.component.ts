@@ -14,10 +14,6 @@ export class DocumentCreativeProjectReportAllowableVersionsComponent extends Bas
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
-    formMode: 'edit',
-  });
-
   doc: DocumentModel;
 
   @Input() document: DocumentModel;
@@ -48,6 +44,12 @@ export class DocumentCreativeProjectReportAllowableVersionsComponent extends Bas
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
+  }
+
+  protected getFormSettings(): any {
+    return {
+      formMode: 'edit',
+    };
   }
 
   protected getFormModels(): any[] {

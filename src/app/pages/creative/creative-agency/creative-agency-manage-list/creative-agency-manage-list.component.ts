@@ -17,10 +17,6 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
-    formMode: 'edit',
-  });
-
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
@@ -48,6 +44,12 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
     } else if (event.action === 'Canceled') {
       this.cancelForm();
     }
+  }
+
+  protected getFormSettings(): any {
+    return {
+      formMode: 'edit',
+    };
   }
 
   protected getFormModels(): any[] {

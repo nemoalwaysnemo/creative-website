@@ -30,6 +30,10 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
     return doc;
   }
 
+  protected onInit(): void {
+    this.setFormSettings({});
+  }
+
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
