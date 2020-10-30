@@ -17,8 +17,6 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   formSettings: DocumentFormSettings;
 
-  currentUser: UserModel;
-
   protected tabConfig: any[];
 
   constructor(
@@ -30,7 +28,6 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   onInit(): void {
     super.onInit();
-    this.getCurrentUser();
     this.performForm();
   }
 
@@ -67,8 +64,8 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
     this.formSettings = this.getDocumentFormSettings();
   }
 
-  protected setCurrentDocument(doc: DocumentModel): void {
-    super.setCurrentDocument(doc);
+  protected setCurrentDocument(doc: DocumentModel, user?: UserModel): void {
+    super.setCurrentDocument(doc, user);
     if (doc) {
       this.hasPermission(doc).subscribe((hasPermission: boolean) => {
         if (!hasPermission) {
@@ -76,13 +73,6 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
         }
       });
     }
-  }
-
-  protected getCurrentUser(): void {
-    const subscription = this.documentPageService.getCurrentUser().subscribe((user: UserModel) => {
-      this.currentUser = user;
-    });
-    this.subscription.add(subscription);
   }
 
   protected hasPermission(doc: DocumentModel): Observable<boolean> {

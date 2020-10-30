@@ -229,6 +229,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     ngFormSettings.accordionSettings = this.prepareAccordionTab(doc, user, settings, models);
     ngFormSettings.switchTabSettings = this.prepareSwitchTab(doc, user, settings, models);
     ngFormSettings.formModel = this.createFormModel(models);
+    ngFormSettings.enableLayoutRight = settings.enableLayoutRight;
     ngFormSettings.formLayout = settings.formLayout;
     this.ngFormSettings = ngFormSettings;
   }

@@ -1,4 +1,4 @@
-<div class="layout-left left {{formClass}}">
+<div [ngClass]="{ 'default-layout': true, 'layout-left left': enableLayoutRight, formClass: true}">
   <dynamic-ng-form-control *ngFor="let model of getFormModel('left'); trackBy: trackByFn"
                           [group]="group"
                           [hidden]="model.hidden"
@@ -13,7 +13,7 @@
 </div>
 
 <ng-container *ngIf="layoutAccordion && layoutAccordion.length > 0">
-  <div class="layout-left left accordion {{formClass}}">
+  <div class="default-layout layout-left left accordion {{formClass}}">
     <div *ngFor="let accordion of layoutAccordion">
         <nb-accordion class="accordion">
           <nb-accordion-item class="accordion-item">
@@ -40,7 +40,7 @@
 <!-- position of accordion should be fixed, temperaryly on the right top;  customization of accordion positions causes problems -->
 <!-- for ex: 2 models under the same accordion tab but different layout position -->
 <ng-container *ngIf="enableLayoutRight">
-  <div class="layout-right right">
+  <div class="default-layout layout-right right">
     <dynamic-ng-form-control *ngFor="let model of getFormModel('right'); trackBy: trackByFn"
                             [group]="group"
                             [hidden]="model.hidden"
@@ -57,7 +57,7 @@
 </ng-container>
 
 <ng-container *ngIf="layoutSwitchTab && layoutSwitchTab.length > 0">
-  <div class="layout-tab switch-tab {{formClass}}">
+  <div class="default-layout layout-tab switch-tab {{formClass}}">
     <nb-tabset fullWidth (changeTab)="onChangTab($event)">
         <nb-tab *ngFor="let tab of layoutSwitchTab" [tabTitle]="tab.name" [disabled]="tab.disabled">
           <dynamic-ng-form-control *ngFor="let model of tab.models; trackBy: trackByFn"
@@ -76,7 +76,7 @@
   </div>
 </ng-container>
 
-<div class="layout-bottom">
+<div class="default-layout layout-bottom">
   <dynamic-ng-form-control *ngFor="let model of getFormModel('bottom'); trackBy: trackByFn"
                           [group]="group"
                           [hidden]="model.hidden"

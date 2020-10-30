@@ -108,7 +108,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
       );
   }
 
-  protected beforeSetDocument(formSettings: DocumentFormSettings, doc: DocumentModel, user: UserModel): Observable<DocumentModel> {
+  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return formSettings.formMode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
   }
 
@@ -131,7 +131,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
       this.formSettings$,
     ]).pipe(
       concatMap(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => combineLatest([
-        this.beforeSetDocument(settings, doc, user),
+        this.beforeSetDocument(doc, user, settings),
         observableOf(user),
         observableOf(settings),
       ])),

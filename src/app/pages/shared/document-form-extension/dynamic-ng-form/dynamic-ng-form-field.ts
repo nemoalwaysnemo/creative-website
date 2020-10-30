@@ -20,6 +20,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE,
   DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE,
   DYNAMIC_FORM_CONTROL_TYPE_LIST,
+  DYNAMIC_FORM_CONTROL_TYPE_GALLERY_UPLOAD,
 } from '@core/custom';
 import { DynamicNGCheckboxComponent } from './checkbox/dynamic-ng-checkbox.component';
 import { DynamicNGCheckboxGroupComponent } from './checkbox-group/dynamic-ng-checkbox-group.component';
@@ -38,12 +39,13 @@ import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 import { DynamicNGDragDropFileZoneComponent } from './drag-drop-file-zone/dynamic-ng-drag-drop-file-zone.component';
+import { DynamicNGGalleryUploadComponent } from './gallery-upload/dynamic-ng-gallery-upload.component';
 import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
 
 export function ngBootstrapUIFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
     // case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
-      // return DynamicNGFormArrayComponent;
+    // return DynamicNGFormArrayComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX:
       return DynamicNGCheckboxComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP:
@@ -75,6 +77,8 @@ export function ngBootstrapUIFormControlMapFn(model: DynamicFormControlModel): T
       return DynamicNGDatepickerDirectiveComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE:
       return DynamicNGDragDropFileZoneComponent;
+    case DYNAMIC_FORM_CONTROL_TYPE_GALLERY_UPLOAD:
+      return DynamicNGGalleryUploadComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_LIST:
       return DynamicNGListComponent;
     default:

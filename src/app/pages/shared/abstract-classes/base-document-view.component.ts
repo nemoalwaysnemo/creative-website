@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class BaseDocumentViewComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  protected setCurrentDocument(doc?: DocumentModel): void {
+  protected setCurrentDocument(doc?: DocumentModel, user?: UserModel): void {
     this.documentPageService.setCurrentDocument(doc);
   }
 

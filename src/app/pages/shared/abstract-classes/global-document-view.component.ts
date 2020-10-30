@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, ParamMap } from '@angular/router';
-import { DocumentModel, NuxeoPagination, NuxeoRequestOptions, GlobalSearchParams } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoRequestOptions, GlobalSearchParams, UserModel } from '@core/api';
 import { isDocumentUID, vocabularyFormatter } from '@core/services/helpers';
-import { Observable, of as observableOf } from 'rxjs';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { tap, distinctUntilChanged, concatMap, map, filter } from 'rxjs/operators';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -15,6 +15,8 @@ import { Environment } from '@environment/environment';
 export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   document: DocumentModel;
+
+  currentUser: UserModel;
 
   loading: boolean = true;
 
@@ -46,8 +48,9 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   }
 
-  protected setCurrentDocument(doc: DocumentModel): void {
-    super.setCurrentDocument(doc);
+  protected setCurrentDocument(doc: DocumentModel, user?: UserModel): void {
+    super.setCurrentDocument(doc, user);
+    if (user) { this.currentUser = user; }
     this.document = doc;
   }
 
@@ -61,6 +64,13 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   protected getCurrentDocumentRequestParams(): NuxeoRequestOptions {
     return new NuxeoRequestOptions();
+  }
+
+  protected getCurrentUser(): void {
+    const subscription = this.documentPageService.getCurrentUser().subscribe((user: UserModel) => {
+      this.currentUser = user;
+    });
+    this.subscription.add(subscription);
   }
 
   protected getDocumentModel(uid: string, params: any = {}, opts?: NuxeoRequestOptions): Observable<NuxeoPagination> {
@@ -88,11 +98,15 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected searchCurrentDocument(params: any = {}, opts?: NuxeoRequestOptions): Observable<DocumentModel> {
-    return this.getTargetDocumentModel(params, opts).pipe(
-      tap((doc: DocumentModel) => {
+    return combineLatest([
+      this.getTargetDocumentModel(params, opts),
+      this.documentPageService.getCurrentUser(),
+    ]).pipe(
+      tap(([doc, user]: [DocumentModel, UserModel]) => {
         this.loading = false;
-        this.setCurrentDocument(doc);
+        this.setCurrentDocument(doc, user);
       }),
+      map(([doc, user]: [DocumentModel, UserModel]) => doc),
     );
   }
 
@@ -104,11 +118,13 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
   }
 
   protected onParamsChanged(): void {
-    const subscription = this.getCurrentDocument(this.primaryKey, this.getCurrentDocumentSearchParams(), this.getCurrentDocumentRequestParams())
-      .subscribe((doc: DocumentModel) => {
-        this.loading = false;
-        this.setCurrentDocument(doc);
-      });
+    const subscription = combineLatest([
+      this.getCurrentDocument(this.primaryKey, this.getCurrentDocumentSearchParams(), this.getCurrentDocumentRequestParams()),
+      this.documentPageService.getCurrentUser(),
+    ]).subscribe(([doc, user]: [DocumentModel, UserModel]) => {
+      this.loading = false;
+      this.setCurrentDocument(doc, user);
+    });
     this.subscription.add(subscription);
   }
 

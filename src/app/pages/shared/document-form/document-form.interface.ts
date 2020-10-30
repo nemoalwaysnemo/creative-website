@@ -60,6 +60,8 @@ export class DocumentFormSettings {
 
   switchTabSettings: { name: string, disabledFn?: any, visibleFn?: any }[] = [];
 
+  enableLayoutRight: boolean = true;
+
   enableButtons: boolean = true;
 
   resetFormAfterDone: boolean = false;

@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 import { objHasValue } from '@core/services/helpers';
 import { combineLatest, Subject, Subscription } from 'rxjs';
-import { PictureGalleryItem, GalleryUploadSettings } from './gallery-upload.interface';
+import { GalleryImageItem, GalleryUploadSettings } from './gallery-upload.interface';
 
 @Component({
   selector: 'gallery-upload',
@@ -20,7 +20,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   @ViewChild('gallery', { static: true, read: DragScrollComponent }) gallery: DragScrollComponent;
 
   @Input()
-  set pictures(pictures: PictureGalleryItem[]) {
+  set pictures(pictures: GalleryImageItem[]) {
     if (pictures) {
       this.pictures$.next(pictures);
     }
@@ -33,13 +33,13 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     }
   }
 
-  images: PictureGalleryItem[] = [];
+  images: GalleryImageItem[] = [];
 
   gallerySettings: GalleryUploadSettings = new GalleryUploadSettings();
 
   protected settings$: Subject<GalleryUploadSettings> = new Subject<GalleryUploadSettings>();
 
-  protected pictures$: Subject<PictureGalleryItem[]> = new Subject<PictureGalleryItem[]>();
+  protected pictures$: Subject<GalleryImageItem[]> = new Subject<GalleryImageItem[]>();
 
   private subscription: Subscription = new Subscription();
 
@@ -62,7 +62,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
+    console.log(obj, 'Method not implemented.');
   }
 
   registerOnChange(fn: any): void {
@@ -77,9 +77,8 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     this.disabled = isDisabled;
   }
 
-  clickItem(): void {
-
-    console.log('item clicked');
+  clickItem(item: GalleryImageItem): void {
+    console.log('item clicked', item);
   }
 
   moveLeft(): void {
@@ -91,15 +90,15 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   leftBoundStat(reachesLeftBound: boolean): void {
-    console.log('reachesLeftBound');
+    // console.log('reachesLeftBound');
   }
 
   rightBoundStat(reachesRightBound: boolean): void {
-    console.log('rightBoundStat');
+    // console.log('rightBoundStat');
   }
 
   onSnapAnimationFinished(): void {
-    console.log('snap animation finished');
+    // console.log('snap animation finished');
   }
 
   onIndexChanged(idx): void {
@@ -107,22 +106,22 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   onDragScrollInitialized(): void {
-    console.log('first demo drag scroll has been initialized.');
+    // console.log('first demo drag scroll has been initialized.');
   }
 
   onDragStart(): void {
-    console.log('drag start');
+    // console.log('drag start');
   }
 
   onDragEnd(): void {
-    console.log('drag end');
+    // console.log('drag end');
   }
 
   protected onPicturesChanged(): void {
     const subscription = combineLatest([
       this.settings$,
       this.pictures$,
-    ]).subscribe(([settings, pictures]: [GalleryUploadSettings, PictureGalleryItem[]]) => {
+    ]).subscribe(([settings, pictures]: [GalleryUploadSettings, GalleryImageItem[]]) => {
       this.images = pictures;
       this.gallerySettings = settings;
     });
