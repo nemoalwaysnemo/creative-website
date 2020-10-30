@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { Observable } from 'rxjs';
+import { deepExtend } from '@core/services/helpers';
+import { of as observableOf, Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
-import { DocumentPageService } from '../services/document-page.service';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 
 @Component({
-  selector: 'backslash-trigger-plguin-form',
+  selector: 'backslash-trigger-plugin-form',
   template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormComponent {
@@ -17,12 +17,20 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
 
   protected documentType: string = 'App-Edges-Trigger';
 
-  constructor(protected documentPageService: DocumentPageService) {
-    super(documentPageService);
-  }
-
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
-    return this.initializeDocument(doc, this.getDocType());
+    if (doc.type === 'Web-Page-Element') {
+      const properties = Object.assign({}, this.document.properties, {
+        'app_Edges:URL': doc.get('web-page-element:page-url'),
+        'dc:title': doc.title,
+      });
+      return observableOf(new DocumentModel({
+        path: this.document.path,
+        type: this.getDocType(),
+        properties,
+      }));
+    } else {
+      return this.initializeDocument(doc, this.getDocType());
+    }
   }
 
   protected getFormSwitchTab(): any[] {

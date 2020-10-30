@@ -1,4 +1,4 @@
-export class PictureGalleryItem {
+export class GalleryImageItem {
   private src: string;
   private alt: string;
   private base64: string;

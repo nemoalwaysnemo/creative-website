@@ -26,11 +26,12 @@ import { maskFromString, parseReviver } from '../utils/json.utils';
 import { isString } from '../utils/core.utils';
 import { DynamicFormComponent } from '../component/dynamic-form.component';
 import { DynamicFormComponentService } from './dynamic-form-component.service';
-import { DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION, DynamicSuggestionModel } from '../model/suggestion/dynamic-suggestion.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_LIST, DynamicListModel } from '../model/list/dynamic-list.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION, DynamicSuggestionModel } from '../model/suggestion/dynamic-suggestion.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG, DynamicOptionTagModel } from '../model/option-tag/dynamic-option-tag.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD, DynamicBatchUploadModel } from '../model/batch-upload/batch-upload.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE, DynamicDragDropFileZoneModel } from '../model/drag-drop-file-zone/drag-drop-file-zone.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG, DynamicOptionTagModel } from '../model/option-tag/dynamic-option-tag.model';
+import { DynamicGalleryUploadModel, DYNAMIC_FORM_CONTROL_TYPE_GALLERY_UPLOAD } from '../model/gallery-upload/dynamic-gallery-upload.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE, DynamicDatepickerDirectiveModel } from '../model/dynamic-datepicker/dynamic-datepicker-directive.model';
 
 @Injectable({
@@ -406,6 +407,10 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE:
           formModel.push(new DynamicDragDropFileZoneModel(model, layout));
+          break;
+
+        case DYNAMIC_FORM_CONTROL_TYPE_GALLERY_UPLOAD:
+          formModel.push(new DynamicGalleryUploadModel(model, layout));
           break;
 
         case DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG:
