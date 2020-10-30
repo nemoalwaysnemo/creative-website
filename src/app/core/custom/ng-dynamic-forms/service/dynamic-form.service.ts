@@ -81,7 +81,7 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
 
-          controls[model.id] = this.createFormArray(model as DynamicFormArrayModel);
+          controls[model.field] = this.createFormArray(model as DynamicFormArrayModel);
           break;
 
         case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
@@ -91,7 +91,7 @@ export class DynamicFormService {
           const groupOptions = this.createAbstractControlOptions(groupModel.validators,
             groupModel.asyncValidators, groupModel.updateOn);
 
-          controls[model.id] = this.createFormGroup(groupModel.group, groupOptions, groupModel);
+          controls[model.field] = this.createFormGroup(groupModel.group, groupOptions, groupModel);
           break;
 
         default:
@@ -101,7 +101,7 @@ export class DynamicFormService {
           const controlOptions = this.createAbstractControlOptions(controlModel.validators,
             controlModel.asyncValidators, controlModel.updateOn);
 
-          controls[model.id] = new FormControl(controlState, controlOptions);
+          controls[model.field] = new FormControl(controlState, controlOptions);
       }
     });
 
@@ -109,7 +109,7 @@ export class DynamicFormService {
   }
 
   getPathSegment(model: DynamicPathable): string {
-    return model instanceof DynamicFormArrayGroupModel ? model.index.toString() : (model as DynamicFormControlModel).id;
+    return model instanceof DynamicFormArrayGroupModel ? model.index.toString() : (model as DynamicFormControlModel).field;
   }
 
   getPath(model: DynamicPathable, join: boolean = false): string[] | string {
@@ -176,12 +176,12 @@ export class DynamicFormService {
 
     if (formModel instanceof DynamicFormGroupModel) {
 
-      formGroup.removeControl(formModel.get(index).id);
+      formGroup.removeControl(formModel.get(index).field);
       formModel.remove(index);
 
     } else {
 
-      formGroup.removeControl(formModel[index].id);
+      formGroup.removeControl(formModel[index].field);
       (formModel as DynamicFormModel).splice(index, 1);
     }
   }
@@ -254,7 +254,7 @@ export class DynamicFormService {
 
       for (const controlModel of groupModel) {
 
-        if (controlModel.id === modelId) {
+        if (controlModel.field === modelId) {
           result = controlModel;
           break;
         }
@@ -422,7 +422,7 @@ export class DynamicFormService {
           break;
 
         default:
-          throw new Error(`unknown form control model type defined on JSON object with id '${model.id}'`);
+          throw new Error(`unknown form control model type defined on JSON object with id '${model.field}'`);
       }
     });
 

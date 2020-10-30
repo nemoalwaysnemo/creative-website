@@ -15,6 +15,7 @@ export interface DynamicFormControlModelConfig {
   hiddenFn?: (doc: any, user: any, settings: any) => boolean;
   visibleFn?: (doc: any, user: any, settings: any) => boolean;
   id: string;
+  field?: string;
   label?: string;
   formMode?: string;
   layoutPosition?: string;
@@ -41,6 +42,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.hiddenFn = config.hiddenFn || null;
     this.visibleFn = config.visibleFn || null;
     this.id = config.id;
+    this.field = config.field || config.id;
     this.label = config.label || null;
     this.formMode = config.formMode || null;
     this.layoutPosition = config.layoutPosition || 'left';
@@ -79,6 +81,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   @serializable() hidden: boolean;
   @serializable() readOnly: boolean;
   @serializable() id: string;
+  @serializable() field: string;
   @serializable() label: string | null;
   @serializable() labelTooltip: string | null;
   @serializable() formMode: string | null;

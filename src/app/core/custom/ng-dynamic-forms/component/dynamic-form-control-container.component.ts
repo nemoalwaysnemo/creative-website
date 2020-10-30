@@ -275,7 +275,7 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
 
       if (this.group) {
 
-        this.control = this.group.get(this.model.id) as FormControl;
+        this.control = this.group.get(this.model.field) as FormControl;
         this.subscriptions.push(this.control.valueChanges.subscribe(value => this.onControlValueChanges(value)));
       }
 
@@ -357,10 +357,10 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
 
     if (this.context instanceof DynamicFormArrayGroupModel) {
 
-      this.componentService.unregisterFormControl(this.model.id, this.context.index);
+      this.componentService.unregisterFormControl(this.model.field, this.context.index);
 
     } else {
-      this.componentService.unregisterFormControl(this.model.id);
+      this.componentService.unregisterFormControl(this.model.field);
     }
   }
 }
