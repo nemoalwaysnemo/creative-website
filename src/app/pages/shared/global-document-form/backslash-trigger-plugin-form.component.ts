@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
 import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'backslash-trigger-plguin-form',
@@ -22,6 +23,19 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  protected getFormSwitchTab(): any[] {
+    return [
+      {
+        name: '+ Images',
+        disabledFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => false,
+      },
+      {
+        name: '+ Upload',
+        disabledFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => false,
+      },
+    ];
   }
 
   protected getFormModels(): any[] {
@@ -114,19 +128,23 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
         rows: 5,
         required: true,
       }),
+      new DynamicGalleryUploadModel<string>({
+        id: 'galleryUpload',
+        switchTab: '+ Upload',
+      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         uploadType: 'asset',
-        layoutPosition: 'right',
         queueLimit: 1,
         placeholder: 'Drop Image File here!',
         acceptTypes: 'image/*',
+        switchTab: '+ Upload',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         showInputs: false,
-        layoutPosition: 'bottom',
         multiUpload: false,
+        switchTab: '+ Upload',
       }),
     ];
   }

@@ -6,7 +6,7 @@ import { GalleryUploadSettings } from '../../../../../pages/shared/document-form
 export const DYNAMIC_FORM_CONTROL_TYPE_PICTURE_GALLERY_UPLOAD = 'PICTURE_GALLERY_UPLOAD';
 
 export interface DynamicGalleryUploadModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
-  settings: any;
+  settings?: any;
 }
 
 export class DynamicGalleryUploadModel<T> extends DynamicFormValueControlModel<T> {

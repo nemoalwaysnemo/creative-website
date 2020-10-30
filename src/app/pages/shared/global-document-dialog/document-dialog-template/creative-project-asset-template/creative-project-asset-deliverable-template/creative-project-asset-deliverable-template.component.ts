@@ -23,9 +23,9 @@ export class TabInfo {
 })
 export class CreativeProjectAssetDeliverableTemplateComponent extends CreativeProjectAssetBaseTemplateComponent {
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
+  formSettings: any = {
     resetFormAfterDone: true,
-  });
+  };
 
   listViewOptionsAsset: any = {
     deliverPackage: false,

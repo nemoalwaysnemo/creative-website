@@ -5,6 +5,7 @@ import { map, share } from 'rxjs/operators';
 import { DocumentModel, NuxeoPermission, UserModel } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { GlobalDocumentViewComponent } from './global-document-view.component';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -14,9 +15,7 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   tabs: any[] = [];
 
-  formLayout: any = {};
-
-  formModels: any[] = [];
+  formSettings: DocumentFormSettings;
 
   currentUser: UserModel;
 
@@ -35,15 +34,37 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
     this.performForm();
   }
 
+  protected getDocumentFormSettings(): DocumentFormSettings {
+    const settings = this.getFormSettings();
+    settings.accordionSettings = this.getFormAccordion();
+    settings.switchTabSettings = this.getFormSwitchTab();
+    settings.formLayout = this.getFormLayout();
+    settings.formModel = this.getFormModels();
+    return new DocumentFormSettings(settings);
+  }
+
+  protected getFormSettings(): any {
+    return {};
+  }
+
   protected getFormAccordion(): any[] {
     return [];
   }
+
+  protected getFormSwitchTab(): any[] {
+    return [];
+  }
+
   protected getFormModels(): any[] {
     return [];
   }
 
+  protected getFormLayout(): any {
+    return {};
+  }
+
   protected performForm(): void {
-    this.formModels = this.getFormModels();
+    this.formSettings = this.getDocumentFormSettings();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {

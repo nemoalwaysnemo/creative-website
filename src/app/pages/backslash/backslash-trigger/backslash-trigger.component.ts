@@ -14,16 +14,6 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   image: string = '';
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
-    buttonGroup: [
-      {
-        label: 'Create',
-        name: 'save',
-        type: 'save',
-      },
-    ],
-  });
-
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
@@ -37,13 +27,24 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
   }
 
   fetchSite(): void {
-    console.log(3333, this.document);
     const link = 'https://www.ifanr.com/1371214';
     this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: link }, this.document.uid, { schemas: '*' }).subscribe((doc: DocumentModel) => {
       const images = doc.properties['web-page-element:page-images'];
       this.image = images[0].base64;
       console.log(doc.properties['web-page-element:page-url'], doc.properties['web-page-element:page-images']);
     });
+  }
+
+  protected getFormSettings(): any {
+    return {
+      buttonGroup: [
+        {
+          label: 'Create',
+          name: 'save',
+          type: 'save',
+        },
+      ],
+    };
   }
 
   protected getCurrentDocumentSearchParams(): any {

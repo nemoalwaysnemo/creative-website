@@ -16,10 +16,6 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
 
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings({
-    formMode: 'edit',
-  });
-
   doc: DocumentModel;
 
   @Input() document: DocumentModel;
@@ -52,6 +48,12 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
 
   protected setCurrentDocument(doc: DocumentModel): void {
 
+  }
+
+  protected getFormSettings(): any {
+    return {
+      formMode: 'edit',
+    };
   }
 
   protected getFormModels(): any[] {

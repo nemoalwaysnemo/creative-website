@@ -65,6 +65,6 @@
     <button (click)="changeView()" class="btn btn-success">EDIT</button>
   </div>
   <div *ngIf="document && showForm" class="document">
-    <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [models]="formModels" [layout]="formLayout" (callback)="onCallback($event)"></document-form>
+    <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" (callback)="onCallback($event)"></document-form>
   </div>
 </div>
