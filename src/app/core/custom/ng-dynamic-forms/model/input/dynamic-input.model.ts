@@ -72,7 +72,7 @@ export class DynamicInputModel extends DynamicInputControlModel<string | number 
     if (config.list !== undefined) {
 
       this.list = config.list;
-      this._listId = `${this.id}List`;
+      this._listId = `${this.field}List`;
     }
   }
 

@@ -36,7 +36,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   trackByFn(_index: number, model: DynamicFormControlModel): string {
-    return model.id;
+    return model.field;
   }
 
   markForCheck(): void {

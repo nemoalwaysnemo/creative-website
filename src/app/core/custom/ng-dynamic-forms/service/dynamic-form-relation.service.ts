@@ -29,9 +29,9 @@ export class DynamicFormRelationService {
 
       if (!controls.hasOwnProperty(path)) {
 
-        const control = condition.rootPath ? group.root.get(condition.rootPath) : group.get(condition.id);
+        const control = condition.rootPath ? group.root.get(condition.rootPath) : group.get(condition.field);
 
-        control instanceof FormControl ? controls[path] = control : console.warn(`No related form control with id ${condition.id} could be found`);
+        control instanceof FormControl ? controls[path] = control : console.warn(`No related form control with id ${condition.field} could be found`);
       }
 
       return controls;

@@ -46,8 +46,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
-      doc = this.checkfiles(doc);
-      this.document$.next(doc);
+      this.document$.next(this.checkFiles(doc));
     }
   }
 
@@ -86,15 +85,15 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onBlur(event: any): void {
-    // console.log(`BLUR event on ${event.model.id}: `, event);
+    // console.log(`BLUR event on ${event.model.field}: `, event);
   }
 
   onChange(event: any): void {
-    // console.log(`CHANGE event on ${event.model.id}: `, event);
+    // console.log(`CHANGE event on ${event.model.field}: `, event);
   }
 
   onFocus(event: any): void {
-    // console.log(`FOCUS event on ${event.model.id}: `, event);
+    // console.log(`FOCUS event on ${event.model.field}: `, event);
   }
 
   onCustomEvent(event: any): void {
@@ -149,7 +148,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.formStatus$.next(this.formStatus$.value.update(status));
   }
 
-  private checkfiles(doc: DocumentModel): DocumentModel {
+  private checkFiles(doc: DocumentModel): DocumentModel {
     const files = doc.get('files:files');
     let flag = false;
     if (!!files) {
@@ -193,7 +192,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private prepareModelSettings(models: DynamicFormModel): DynamicFormModel {
     const uploadModel = models.find((v) => (v instanceof DynamicBatchUploadModel));
-    this.uploadFieldName = uploadModel ? uploadModel.id : this.uploadFieldName;
+    this.uploadFieldName = uploadModel ? uploadModel.field : this.uploadFieldName;
     const model = models.find(m => (m instanceof DynamicBatchUploadModel) && m.formMode === 'create');
     this.fileMultiUpload = model ? (model as any).multiUpload : false;
     return models.filter((v) => v.formMode === null || v.formMode === this.formSettings.formMode);
@@ -201,7 +200,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private prepareFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, formModel: DynamicFormModel): DynamicFormModel {
     formModel.forEach((model: DynamicFormControlModel) => {
-      const modelValue = doc.get(model.id);
+      const modelValue = doc.get(model.field);
       if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, user, settings); }
       if (model.document) { model.document = doc; }
       model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;

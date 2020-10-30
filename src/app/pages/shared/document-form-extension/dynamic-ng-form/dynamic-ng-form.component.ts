@@ -88,7 +88,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   deleteModel(ids: string[]): void {
     this.ngFormModel.forEach((m: DynamicFormControlModel, index: number) => {
-      if (ids.includes(m.id)) {
+      if (ids.includes(m.field)) {
         this.formService.removeFormGroupControl(index, this.group, this.ngFormModel);
       }
     });
@@ -106,7 +106,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   private hideModel(ids: string[], type: boolean): void {
     this.ngFormModel.forEach((m: DynamicFormControlModel) => {
-      if (ids.includes(m.id)) {
+      if (ids.includes(m.field)) {
         m.hidden = type;
       }
     });

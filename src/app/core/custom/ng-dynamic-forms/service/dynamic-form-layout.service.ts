@@ -49,7 +49,7 @@ export class DynamicFormLayoutService {
 
           const selector = substring.trim();
 
-          if (selector === model.id || selector === model.type) {
+          if (selector === model.field || selector === model.type) {
             controlLayout = formLayout[key];
           }
         });
@@ -62,7 +62,7 @@ export class DynamicFormLayoutService {
   filterTemplatesByModel(model: DynamicFormControlModel, templates: DynamicFormControlTemplates): DynamicTemplateDirective[] {
 
     const filterCallback: (template: DynamicTemplateDirective) => boolean = (template: DynamicTemplateDirective) => {
-      return template.modelId === model.id || template.modelType === model.type;
+      return template.modelId === model.field || template.modelType === model.type;
     };
 
     if (templates instanceof QueryList) {
@@ -126,14 +126,14 @@ export class DynamicFormLayoutService {
 
   getElementId(model: DynamicFormControlModel): string {
 
-    let id = model.id;
+    let id = model.field;
     let parent = model.parent;
 
     while (parent !== null) {
 
       if (parent instanceof DynamicFormArrayGroupModel) {
 
-        id = `${parent.context.id}-${parent.index}-${model.id}`;
+        id = `${parent.context.id}-${parent.index}-${model.field}`;
         break;
       }
 

@@ -2,7 +2,7 @@
 
     <input type="checkbox" class="custom-control-input"
            [class.is-invalid]="showErrorMessages"
-           [formControlName]="model.id"
+           [formControlName]="model.field"
            [id]="id"
            [name]="model.name"
            [ngClass]="getClass('element', 'control')"
@@ -16,4 +16,3 @@
     <label class="custom-control-label" [for]="id" [innerHTML]="model.label"></label>
 
 </div>
-

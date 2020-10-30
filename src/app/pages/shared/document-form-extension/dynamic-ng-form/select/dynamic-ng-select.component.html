@@ -3,7 +3,7 @@
     <select class="form-control"
             [class.is-invalid]="showErrorMessages"
             [compareWith]="model.compareWithFn"
-            [formControlName]="model.id"
+            [formControlName]="model.field"
             [id]="id"
             [name]="model.name"
             [ngClass]="getClass('element', 'control')"

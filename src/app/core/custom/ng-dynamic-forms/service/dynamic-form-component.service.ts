@@ -55,19 +55,19 @@ export class DynamicFormComponentService {
 
     if (isNumber(index)) { // threat model as array child
 
-      const arrayRef: DynamicFormControlRef[] = this.formControls[model.id] as DynamicFormControlRef[] || [];
+      const arrayRef: DynamicFormControlRef[] = this.formControls[model.field] as DynamicFormControlRef[] || [];
 
       if (Array.isArray(arrayRef)) {
 
         arrayRef.splice(index, 0, ref);
-        this.formControls[model.id] = arrayRef;
+        this.formControls[model.field] = arrayRef;
 
       } else {
-        console.warn(`registerFormControlRef is called with index for a non-array form control: ${model.id}`);
+        console.warn(`registerFormControlRef is called with index for a non-array form control: ${model.field}`);
       }
 
     } else {
-      this.formControls[model.id] = ref;
+      this.formControls[model.field] = ref;
     }
   }
 

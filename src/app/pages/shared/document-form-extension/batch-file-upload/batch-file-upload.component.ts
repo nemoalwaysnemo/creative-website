@@ -128,11 +128,11 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onBlur(event: any): void {
-    // console.log(`BLUR event on ${event.model.id}: `, event);
+    // console.log(`BLUR event on ${event.model.field}: `, event);
   }
 
   onChange(event: any): void {
-    this.setFileTitle(event.model.id, event.model.value);
+    this.setFileTitle(event.model.field, event.model.value);
   }
 
   setFileTitle(id, value): void {
@@ -143,7 +143,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onFocus(event: any): void {
-    // console.log(`FOCUS event on ${event.model.id}: `, event);
+    // console.log(`FOCUS event on ${event.model.field}: `, event);
   }
 
   onCustomEvent(event: any): void {

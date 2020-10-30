@@ -1,7 +1,7 @@
 <ng-container [formGroup]="group">
 
     <ngb-timepicker [id]="id"
-                    [formControlName]="model.id"
+                    [formControlName]="model.field"
                     [hourStep]="model.getAdditional('hourStep', config['hourStep'])"
                     [meridian]="model.meridian"
                     [minuteStep]="model.getAdditional('minuteStep', config['minuteStep'])"

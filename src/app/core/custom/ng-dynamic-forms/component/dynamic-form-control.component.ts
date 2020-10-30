@@ -39,10 +39,10 @@ export class DynamicFormControlComponent implements DynamicFormControl {
 
   get control(): AbstractControl | never {
 
-    const control = this.group.get(this.model.id);
+    const control = this.group.get(this.model.field);
 
     if (control === null) {
-      throw new Error(`form group does not contain an abstract control with id ${this.model.id}`);
+      throw new Error(`form group does not contain an abstract control with id ${this.model.field}`);
     }
 
     return control as AbstractControl;
