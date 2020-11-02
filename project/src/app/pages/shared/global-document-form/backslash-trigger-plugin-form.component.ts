@@ -138,6 +138,7 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
       }),
       new DynamicGalleryUploadModel<string>({
         id: 'galleryUpload',
+        field: 'files:files',
         switchTab: '+ Upload',
       }),
       new DynamicDragDropFileZoneModel<string>({
