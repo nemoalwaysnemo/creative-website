@@ -141,9 +141,8 @@ preview-dialog {
   overflow: hidden;
 }
 .creative-brand, .creative-agency {
-  text-decoration: underline;
-	text-underline-position: under;
   &:hover {
     text-decoration: underline !important;
+    text-underline-position: under;
   }
 }
