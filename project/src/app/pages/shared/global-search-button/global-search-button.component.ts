@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { Options, ChangeContext } from 'ng5-slider';
+import { Options, ChangeContext } from '@angular-slider/ngx-slider';
 import { DocumentThumbnailViewService } from '../document-thumbnail-view/document-thumbnail-view.service';
 
 @Component({

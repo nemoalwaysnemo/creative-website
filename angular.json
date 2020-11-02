@@ -10,24 +10,24 @@
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "project",
+      "sourceRoot": "project/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/LibraryWebUI",
-            "index": "src/index.html",
+            "outputPath": "project/dist/LibraryWebUI",
+            "index": "project/src/index.html",
             "rebaseRootRelativeCssUrls": true,
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "main": "project/src/main.ts",
+            "polyfills": "project/src/polyfills.ts",
+            "tsConfig": "project/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/assets",
-              "src/favicon.ico",
-              "src/favicon.png"
+              "project/src/assets",
+              "project/src/favicon.ico",
+              "project/src/favicon.png"
             ],
             "styles": [
               "node_modules/@videogular/ngx-videogular/fonts/videogular.css",
@@ -36,9 +36,9 @@
               "node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
-              "src/app/core/nebular/icons/scss/nebular-icons.scss",
-              "src/app/theme/fonts/custom-fonts.scss",
-              "src/app/theme/styles/styles.scss"
+              "project/src/app/core/nebular/icons/scss/nebular-icons.scss",
+              "project/src/app/theme/fonts/custom-fonts.scss",
+              "project/src/app/theme/styles/styles.scss"
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js",
@@ -74,8 +74,8 @@
               "deployUrl": "/nuxeo/LibraryWebUI/",
               "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.aws-prod.ts"
+                "replace": "project/src/environments/environment.ts",
+                "with": "project/src/environments/environment.aws-prod.ts"
               }]
             },
             "aws-stg": {
@@ -101,8 +101,8 @@
               "deployUrl": "/nuxeo/LibraryWebUI/",
               "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.aws-stg.ts"
+                "replace": "project/src/environments/environment.ts",
+                "with": "project/src/environments/environment.aws-stg.ts"
               }]
             },
             "aws-dev": {
@@ -126,8 +126,8 @@
               "deployUrl": "/nuxeo/LibraryWebUI/",
               "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.aws-dev.ts"
+                "replace": "project/src/environments/environment.ts",
+                "with": "project/src/environments/environment.aws-dev.ts"
               }]
             }
           }
@@ -155,16 +155,16 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "main": "project/src/test.ts",
+            "polyfills": "project/src/polyfills.ts",
+            "tsConfig": "project/tsconfig.spec.json",
+            "karmaConfig": "project/karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "project/src/favicon.ico",
+              "project/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "project/src/styles.scss"
             ],
             "scripts": []
           }
@@ -173,9 +173,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "project/tsconfig.app.json",
+              "project/tsconfig.spec.json",
+              "project/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"

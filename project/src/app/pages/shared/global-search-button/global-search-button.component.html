@@ -1,7 +1,7 @@
 <div class="button-group-buttons">
   <ng-container *ngIf="enableSliderBar">
     <div class="button-group-slider">
-      <ng5-slider class="image-zoom-slider" [(value)]="sliderDefaultValue" [options]="sliderOptions" (userChange)="sliderValueChanged($event)"></ng5-slider>
+      <ngx-slider class="image-zoom-slider" [(value)]="sliderDefaultValue" [options]="sliderOptions" (userChange)="sliderValueChanged($event)"></ngx-slider>
     </div>
   </ng-container>
   <ng-container *ngIf="enableViewSwitcher">

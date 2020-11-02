@@ -47,12 +47,12 @@
 
 // We need to use ::ng-deep to overcome view encapsulation
 ::ng-deep {
-  .button-group-slider .ng5-slider .ng5-slider-bar {
+  .button-group-slider .ngx-slider .ngx-slider-bar {
     background: #000;
     height: 2px;
   }
 
-  .button-group-slider .ng5-slider .ng5-slider-pointer {
+  .button-group-slider .ngx-slider .ngx-slider-pointer {
     width: 15px;
     height: 15px;
     top: -7px; /* to remove the default positioning */
@@ -61,21 +61,21 @@
     border-radius: 0;
   }
 
-  .button-group-slider .ng5-slider .ng5-slider-pointer::after {
+  .button-group-slider .ngx-slider .ngx-slider-pointer::after {
     display: none;
   }
 
-  .button-group-slider .ng5-slider .ng5-slider-bubble {
+  .button-group-slider .ngx-slider .ngx-slider-bubble {
     bottom: 14px;
     display: none;
   }
 
-/*  .button-group-slider .ng5-slider .ng5-slider-limit {
+/*  .button-group-slider .ngx-slider .ngx-slider-limit {
     font-weight: bold;
     color: #000;
   }*/
 
-  .button-group-slider .ng5-slider .ng5-slider-tick {
+  .button-group-slider .ngx-slider .ngx-slider-tick {
     width: 1px;
     height: 10px;
     margin-left: 4px;
@@ -84,7 +84,7 @@
     top: -1px;
   }
 
-  .button-group-slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+  .button-group-slider .ngx-slider .ngx-slider-tick.ngx-slider-selected {
     background: #000;
   }
 }

@@ -7,13 +7,13 @@
 {
   "files": [],
   "references": [{
-      "path": "./tsconfig.app.json"
+      "path": "./project/tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "./project/tsconfig.spec.json"
     },
     {
-      "path": "./e2e/tsconfig.json"
+      "path": "./project/e2e/tsconfig.json",
     }
   ]
 }
