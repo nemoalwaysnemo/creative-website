@@ -6,5 +6,5 @@
     </div>
   </ng-container>
 </global-search-form>
-<innovation-folder-view [loading]="loading" [document]="document" [assetUrl]="assetUrl" [deleteRedirectUrl]="deleteRedirectUrl" [showFolderInfo]="showFolderInfo"></innovation-folder-view>
-<innovation-asset-search-result [folderId]="document?.uid" [assetUrl]="assetUrl"></innovation-asset-search-result>
+<innovation-folder-view [loading]="loading" [assetUrl]="assetUrl" [document]="document" [deleteRedirectUrl]="deleteRedirectUrl" [showFolderInfo]="showFolderInfo"></innovation-folder-view>
+<innovation-asset-search-result [assetUrl]="assetUrl" [folderId]="document?.uid"></innovation-asset-search-result>
