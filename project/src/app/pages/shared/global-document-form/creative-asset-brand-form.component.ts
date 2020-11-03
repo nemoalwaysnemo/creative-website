@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
 import { DocumentFormEvent } from '../document-form/document-form.interface';
@@ -173,6 +173,11 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         disabled: true,
         autoComplete: 'off',
         required: false,
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:brandfolder_automation',
+        label: 'Sub Structure?',
+        formMode: 'create',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
