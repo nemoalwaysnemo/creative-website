@@ -1,4 +1,6 @@
 @import '../../global-search-result/thumbnail-view.scss';
+@import '../../../../core/nebular/theme/styles/global/breakpoints';
+
 
 h2 {
 	font-family: 'Averta for TBWA W01 Black', helvetica, arial;
@@ -78,4 +80,38 @@ ul {
   min-width: 10vw;
   h5 { font-size: calc(17.5px * 1.25); }
   p { font-size: calc(14px * 1.25); }
+}
+
+::ng-deep {
+	.dates {
+		.thumbnail-view-item {
+			h4 {
+				width: 110px;
+			}
+			@include media-breakpoint-down(md) {
+				// < 768px
+				width: calc((100% - 60px * 2) / 2) !important;
+			}
+			@include media-breakpoint-between(md, lg) {
+				//768px - 992px
+				width: calc((100% - 60px * 2) / 2) !important;
+			}
+			@include media-breakpoint-between(lg, xl) {
+				//992px - 1200px
+				width: calc((100% - 60px * 2) / 2) !important;
+			}
+			@include media-breakpoint-between(xl, xxl) {
+				// 1200px - 1400px
+				width: calc((100% - 60px * 2) / 2) !important;
+			}
+			@include media-breakpoint-between(xxl, xxxl) {
+				// 1400px - 1600px
+				width: calc((100% - 60px * 3) / 3) !important;
+			}
+			@include media-breakpoint-up(xxxl) {
+				// > 1600px
+				width: calc((100% - 60px * 3) / 3) !important	;
+			}
+	  }
+	}
 }
