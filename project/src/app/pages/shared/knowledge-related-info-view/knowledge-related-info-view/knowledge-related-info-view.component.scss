@@ -110,7 +110,7 @@ ul {
 			}
 			@include media-breakpoint-up(xxxl) {
 				// > 1600px
-				width: calc((100% - 60px * 3) / 3) !important	;
+				width: calc((100% - 60px * 3) / 3) !important;
 			}
 	  }
 	}
