@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   private isScrollToTop(e: NavigationEnd, previousUrl: string): boolean {
-    return e.url.includes('/asset/');
+    return e.url.includes('/asset/') || e.url.includes('/home');
   }
 
   private performScrolling(): void {
