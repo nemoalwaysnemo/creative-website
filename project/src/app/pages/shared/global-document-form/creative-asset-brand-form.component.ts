@@ -178,6 +178,8 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         id: 'app_global:brandfolder_automation',
         label: 'Sub Structure?',
         formMode: 'create',
+        hidden: true,
+        defaultValue: true,
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
