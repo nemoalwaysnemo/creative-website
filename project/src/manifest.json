@@ -5,16 +5,19 @@
   "version": "1.0.0",
   "description": "TBWA/ Knowledge",
   "permissions": [
-    "contextMenus",
     "tabs",
-    "webRequest",
-    "webRequestBlocking",
-    "storage"
+    "storage",
+    "cookies",
+    "*://*.okta.com/*",
+    "*://*.factory.tools/*"
   ],
   "browser_action": {
-    "default_popup": "index.html?#/popup",
+    "default_popup": "index.html/#/p/knowledge/home",
     "default_title": "TBWA/ Knowledge"
   },
+  "web_accessible_resources": [
+    "images/*"
+  ],
   "content_scripts": [{
     "js": [
       "contentPage.js"
@@ -29,5 +32,5 @@
     ],
     "persistent": false
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-vqHqWa3DPq/BfYYTA//1EXFm+JSPXl1Iy3L4IYpI858='; object-src 'self' https://*.factory.tools; "
 }
