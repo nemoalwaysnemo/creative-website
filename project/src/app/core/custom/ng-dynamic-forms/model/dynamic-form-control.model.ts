@@ -14,6 +14,7 @@ export interface DynamicFormControlModelConfig {
   readOnly?: boolean;
   hiddenFn?: (doc: any, user: any, settings: any) => boolean;
   visibleFn?: (doc: any, user: any, settings: any) => boolean;
+  defaultValueFn?: (doc: any, user: any, settings: any) => any;
   id: string;
   field?: string;
   label?: string;
@@ -41,6 +42,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.readOnly = isBoolean(config.readOnly) ? config.readOnly : false;
     this.hiddenFn = config.hiddenFn || null;
     this.visibleFn = config.visibleFn || null;
+    this.defaultValueFn = config.defaultValueFn || null;
     this.id = config.id;
     this.field = config.field || config.id;
     this.label = config.label || null;
@@ -106,6 +108,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   abstract readonly type: string;
   @serializable() hiddenFn: (doc: any, user: any, settings: any) => boolean = () => false;
   @serializable() visibleFn: (doc: any, user: any, settings: any) => boolean = () => true;
+  @serializable() defaultValueFn: (doc: any, user: any, settings: any) => any = () => null;
 
   toJSON(): any {
     return serialize(this);

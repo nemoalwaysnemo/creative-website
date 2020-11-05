@@ -17,9 +17,15 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
 
   protected documentType: string = 'App-Edges-Trigger';
 
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
+    delete doc.properties['web-page-element:page-images'];
+    return doc;
+  }
+
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
     if (doc.type === 'Web-Page-Element') {
       const properties = Object.assign({}, this.document.properties, {
+        'web-page-element:page-images': doc.get('web-page-element:page-images'),
         'app_Edges:URL': doc.get('web-page-element:page-url'),
         'dc:title': doc.title,
       });
@@ -138,8 +144,12 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
       }),
       new DynamicGalleryUploadModel<string>({
         id: 'galleryUpload',
-        field: 'files:files',
-        switchTab: '+ Upload',
+        switchTab: '+ Images',
+        settings: {
+          queueLimit: 1,
+          uploadType: 'asset',
+        },
+        defaultValueFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): any => doc.get('web-page-element:page-images'),
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
