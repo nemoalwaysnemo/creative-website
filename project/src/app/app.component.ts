@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
         this.viewportScroller.scrollToAnchor(scrollEvent.anchor);
       } else if (this.isScrollToTop(scrollEvent.routerEvent, originUrl)) {
         // forward navigation from non-modal route
-        timer(300).subscribe(() => { this.viewportScroller.scrollToPosition([0, 0]); });
+        timer(50).subscribe(() => { this.viewportScroller.scrollToPosition([0, 0]); });
       }
     });
   }
