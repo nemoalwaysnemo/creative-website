@@ -19,36 +19,6 @@ export class DocumentCreativeProjectRelatedAssetComponent {
   ) {
   }
 
-  @Input()
-  set showButton(show: boolean) {
-    this.showStatus = show;
-  }
-
-  @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      if (this.showStatus) {
-        timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
-        this.loading = false;
-      } else {
-        this.buildAssetData(doc);
-      }
-    }
-  }
-
-  @Input()
-  set listViewOptions(settings: any) {
-    if (settings) {
-      if (settings.deliverPackage) {
-        this.isPackage = settings.deliverPackage;
-        delete settings.deliverPackage;
-      }
-      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
-    } else {
-      this.listViewSettings = this.defaultSettings;
-    }
-  }
-
   static readonly NAME: string = 'creative-project-related-asset';
 
   loading: boolean = true;
@@ -98,7 +68,37 @@ export class DocumentCreativeProjectRelatedAssetComponent {
     },
   };
 
-  @Output() onRowSelected: EventEmitter<any> = new EventEmitter<any>();
+  @Input()
+  set showButton(show: boolean) {
+    this.showStatus = show;
+  }
+
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      if (this.showStatus) {
+        timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
+        this.loading = false;
+      } else {
+        this.buildAssetData(doc);
+      }
+    }
+  }
+
+  @Input()
+  set listViewOptions(settings: any) {
+    if (settings) {
+      if (settings.deliverPackage) {
+        this.isPackage = settings.deliverPackage;
+        delete settings.deliverPackage;
+      }
+      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
+    } else {
+      this.listViewSettings = this.defaultSettings;
+    }
+  }
+
+  @Output() assetSelected: EventEmitter<any> = new EventEmitter<any>();
 
   listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
@@ -114,14 +114,7 @@ export class DocumentCreativeProjectRelatedAssetComponent {
   }
 
   onSelected(row: any): void {
-    this.onRowSelected.emit(row);
-  }
-
-  protected getStatus(doc: DocumentModel): void {
-    const status = doc.get('The_Loupe_Delivery:status');
-    if (status) {
-      // this.showButton = false;
-    }
+    this.assetSelected.emit(row);
   }
 
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
@@ -141,11 +134,14 @@ export class DocumentCreativeProjectRelatedAssetComponent {
   }
 
   protected buildAssetData(doc: DocumentModel): any {
+    const selectedAssetList: any = {};
     const uid: string = doc.uid;
     const schemas: string[] = ['video', 'picture', 'app_global', 'app_global_fields', 'app_Edges', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'];
     if (uid.length > 0) {
       this.nuxeoApi.operation(NuxeoAutomations.GetDocumentsFromCollection, {}, uid, new NuxeoRequestOptions({ schemas })).subscribe((response: NuxeoPagination) => {
         this.assetList = this.listViewBuilder(response.entries);
+        selectedAssetList.selected = this.assetList;
+        this.assetSelected.emit(selectedAssetList);
         this.loading = false;
       });
     }

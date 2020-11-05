@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { Subject, timer } from 'rxjs';
+import { DocumentModel, GlobalSearchParams, SearchResponse } from '@core/api';
+import { Observable, Subject, timer, of as observableOf } from 'rxjs';
 import { assetPath } from '@core/services/helpers';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-delivery-package',
@@ -30,9 +30,11 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
 
   showInfo: boolean = false;
 
+  showButton: boolean = false;
+
   packageDocument: DocumentModel;
 
-  showButton: boolean = false;
+  packageParentDocument: DocumentModel;
 
   listViewOptionsPackage: any = {
     deliverPackage: false,
@@ -113,6 +115,7 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
   set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
+      this.packageParentDocument = doc.getParent();
       this.loading = false;
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
     }
@@ -130,17 +133,17 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
     }
   }
 
-  protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
+  protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_DELIVERY_PACKAGE_TYPE,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       currentPageIndex: 0,
       ecm_fulltext: '',
     };
     if (doc) {
       params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
+      params['ecm_path'] = doc.path;
     }
-    return params;
+    return new GlobalSearchParams(params);
   }
 
 }

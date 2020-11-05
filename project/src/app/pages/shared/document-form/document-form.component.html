@@ -10,7 +10,7 @@
         </ng-container>
 
         <ng-container *ngIf="button.type === 'custom'">
-          <button nbButton outline [ngClass]="button.style ? button.style : 'btn btn-info btn-xs'" status="info" [disabled]="button.disabled(formStatus$.value)" (click)="onCustomButton(button)">{{button.label}}</button>
+          <button nbButton outline [ngClass]="button.style ? button.style : 'btn btn-info btn-xs'" status="info" [disabled]="button.disabled(formStatus$.value)" (click)="onCustomButton(button, $event)">{{button.label}}</button>
         </ng-container>
 
         <ng-container *ngIf="button.type === 'cancle'">

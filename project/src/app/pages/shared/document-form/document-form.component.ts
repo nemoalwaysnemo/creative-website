@@ -123,8 +123,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCustomButton(button: any): void {
+  onCustomButton(button: any, event: any): void {
     this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, doc: this.documentModel }));
+    if (button.hasSave) {
+      this.onSave(event);
+    }
   }
 
   hideControls(): void {

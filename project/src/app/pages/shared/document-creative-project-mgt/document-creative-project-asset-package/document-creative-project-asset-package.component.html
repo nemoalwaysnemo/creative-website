@@ -1,7 +1,47 @@
-  <div class="text-content pure-text">
-    <!-- <img style="width:250px;" src="assets/images/App-Library-Package.png"> -->
-    <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)">
-    </document-form>
-    <!-- <button *ngIf="!showStatus" nbButton outline class="btn btn-info btn-xs" status="info" (click)="goBack()">Back</button> -->
+<div class="text-content pure-text">
+  <div *ngIf="document && !showForm" class="document">
+    <div style="width:60px;">
+      <img style="width:50px;" src="assets/images/App-Library-Package.png">
+    </div>
+    <div class="one-row">
+      <table>
+        <tbody>
+          <tr>
+            <th>To:</th>
+            <td>{{ document.get('The_Loupe_Delivery:delivery_email') }}</td>
+          </tr>
+          <tr>
+            <th>Subject:</th>
+            <td>{{ document.get('The_Loupe_Delivery:email_subject') }}</td>
+          </tr>
+          <tr>
+            <th>Expires:</th>
+            <td>{{document.get('The_Loupe_Delivery:delivery_expiration_date') | date:'MM/dd/yyyy':'UTC'}}</td>
+          </tr>
+          <tr>
+            <th>Delivery Options:</th>
+            <td>{{document.get('The_Loupe_Delivery:delivery_option')}}</td>
+          </tr>
+          <tr>
+            <th>Delivered:</th>
+            <td>{{document.get('The_Loupe_Delivery:delivery_send_date') | date:'MM/dd/yyyy':'UTC'}}</td>
+          </tr>
+          <tr>
+            <th>Downloaded:</th>
+            <td>{{document.get('The_Loupe_Delivery:delivery_downloaded_date') | date:'MM/dd/yyyy':'UTC'}}</td>
+          </tr>
+          <tr>
+            <th>Message:</th>
+            <td>{{document.get('The_Loupe_Main:comment')}}</td>
+          </tr>
+          <button (click)="changeView()" class="btn btn-success btn-xs" status="primary">EDIT</button>
+          <button class="btn btn-info btn-xs" status="info" (click)="goBack()">Back</button>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <document-creative-project-related-asset [document]="parentDocument" [listViewOptions]="listViewOptionsPackage" (onRowSelected)="onSelected($event)" [showButton]="enableButtons"></document-creative-project-related-asset>
+  <div *ngIf="document && showForm" class="document">
+    <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>
+  </div>
+</div>
+<document-creative-project-related-asset [showButton]="enableButtons" [document]="currentDocument" [listViewOptions]="listViewOptionsPackage" (assetSelected)="onAssetSelected($event)"></document-creative-project-related-asset>

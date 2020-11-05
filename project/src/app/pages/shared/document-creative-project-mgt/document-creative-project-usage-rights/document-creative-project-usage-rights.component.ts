@@ -62,6 +62,7 @@ export class DocumentCreativeProjectUsageRightsComponent {
   defaultSettings: any = {
     hideSubHeader: true,
     selectMode: 'multi', // single|multi
+    showCheckbox: true,
     columns: {
       type: {
         title: 'Type',

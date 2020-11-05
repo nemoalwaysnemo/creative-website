@@ -36,6 +36,7 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
   isActionEdit: boolean;
   isActionDelete: boolean;
   noDataMessage: boolean;
+  isShowCheckbox: boolean;
 
   get tableColumnsCount(): number {
     const actionColumns = this.isActionAdd || this.isActionEdit || this.isActionDelete ? 1 : 0;
@@ -52,5 +53,6 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
     this.isActionEdit = this.grid.getSetting('actions.edit');
     this.isActionDelete = this.grid.getSetting('actions.delete');
     this.noDataMessage = this.grid.getSetting('noDataMessage');
+    this.isShowCheckbox = this.grid.getSetting('showCheckbox');
   }
 }

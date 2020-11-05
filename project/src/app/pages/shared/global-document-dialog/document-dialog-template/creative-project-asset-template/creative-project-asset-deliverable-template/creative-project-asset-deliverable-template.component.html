@@ -12,7 +12,7 @@
   <document-creative-project-related-asset [document]="document" [listViewOptions]="listViewOptionsAsset"></document-creative-project-related-asset>
 </ng-template>
 <ng-template #newPackageItemView>
-  <document-creative-project-asset-package [documentModel]="document" [settings]="formSettings" (onResponsed)="onResponse($event)"></document-creative-project-asset-package>
+  <document-creative-project-asset-package [documentModel]="document" [settings]="formSettings" [showForm]="showForm" (onResponsed)="onResponse($event)"></document-creative-project-asset-package>
 </ng-template>
 <ng-template #packageListItemView>
   <document-creative-project-delivery-package [document]="document"></document-creative-project-delivery-package>
