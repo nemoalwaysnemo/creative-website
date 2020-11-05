@@ -224,7 +224,7 @@ export function selectObjectByKeys(p: object = {}, keys: string[] = []): any {
   return _;
 }
 // not sure about this one
-export function removeUselessObject(p: object = {}, keys: string[] | ( () => any )): any {
+export function removeUselessObject(p: object = {}, keys: string[] | (() => any)): any {
   if (typeof keys === 'function') {
     Object.keys(p).filter((k: string) => keys.call(this, k, p[k])).forEach((k: string) => delete p[k]);
   } else {
@@ -265,11 +265,15 @@ export function vocabularyFormatter(list: string[]): string {
   return list.map((x) => x.split('/').pop()).join(', ');
 }
 
-export function objHasValue(obj: any = {}): boolean {
+export function isValueEmpty(n: any): boolean {
+  return n !== 0 && !(!!n ? typeof n === 'object' ? Array.isArray(n) ? !!n.length : !!Object.keys(n).length : true : false);
+}
+
+export function objHasValue(obj: any): boolean {
   return obj && typeof obj === 'object' && Object.keys(obj).length > 0;
 }
 
-export function objHasKey(obj: any = {}, name: string = ''): boolean {
+export function objHasKey(obj: any, name: string = ''): boolean {
   return obj && typeof obj === 'object' && Object.getOwnPropertyNames(obj).some((key: string) => key.includes(name));
 }
 

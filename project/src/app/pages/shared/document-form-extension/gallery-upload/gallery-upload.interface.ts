@@ -20,14 +20,14 @@ export class GalleryImageItem {
   }
 
   private getExtension(file: string): string {
-    return file.split('.').pop();
+    return file.slice((Math.max(0, file.lastIndexOf('.')) || Infinity) + 1).split('!').shift();
   }
 
 }
 
 export class GalleryUploadSettings {
-
-  multiUpload: boolean = false;
+  queueLimit: number = 1;
+  uploadType: 'asset' | 'attachment';
 
   constructor(data: any = {}) {
     Object.assign(this, data);

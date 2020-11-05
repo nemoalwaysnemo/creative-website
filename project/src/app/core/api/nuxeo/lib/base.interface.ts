@@ -624,5 +624,5 @@ export enum NuxeoAutomations {
   GetWebPageElement = 'TBWA.GetWebPageElement',
   MoveToTrash = 'Document.Trash',
   DownloadRequest = 'App-BizDev-Asset-Download-Request-email',
-  sendPackageRequest = 'App-Library-Delivery-Package-Send',
+  SendDeliveryPackage = 'App-Library-Delivery-Package-Send',
 }

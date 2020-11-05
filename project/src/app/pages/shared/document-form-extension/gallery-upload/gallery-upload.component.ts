@@ -4,6 +4,7 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
 import { objHasValue } from '@core/services/helpers';
 import { combineLatest, Subject, Subscription } from 'rxjs';
 import { GalleryImageItem, GalleryUploadSettings } from './gallery-upload.interface';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'gallery-upload',
@@ -18,13 +19,6 @@ import { GalleryImageItem, GalleryUploadSettings } from './gallery-upload.interf
 export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
   @ViewChild('gallery', { static: true, read: DragScrollComponent }) gallery: DragScrollComponent;
-
-  @Input()
-  set pictures(pictures: GalleryImageItem[]) {
-    if (pictures) {
-      this.pictures$.next(pictures);
-    }
-  }
 
   @Input()
   set settings(settings: GalleryUploadSettings) {
@@ -61,8 +55,10 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     this.subscription.unsubscribe();
   }
 
-  writeValue(obj: any): void {
-    console.log(obj, 'Method not implemented.');
+  writeValue(pictures: any): void {
+    if (pictures) {
+      this.pictures$.next(this.buildGalleryImageItem(pictures));
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -121,11 +117,17 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     const subscription = combineLatest([
       this.settings$,
       this.pictures$,
-    ]).subscribe(([settings, pictures]: [GalleryUploadSettings, GalleryImageItem[]]) => {
+    ]).pipe(
+      debounceTime(100),
+    ).subscribe(([settings, pictures]: [GalleryUploadSettings, GalleryImageItem[]]) => {
       this.images = pictures;
       this.gallerySettings = settings;
     });
     this.subscription.add(subscription);
+  }
+
+  private buildGalleryImageItem(images: any[]): GalleryImageItem[] {
+    return (images || []).map((x: any) => new GalleryImageItem(x));
   }
 
 }

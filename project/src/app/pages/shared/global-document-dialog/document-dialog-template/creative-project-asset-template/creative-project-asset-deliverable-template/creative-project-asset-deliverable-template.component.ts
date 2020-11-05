@@ -35,7 +35,7 @@ export class CreativeProjectAssetDeliverableTemplateComponent extends CreativePr
         name: 'send',
         type: 'custom',
         disabled: (status: DocumentFormStatus) => status.submitted || !status.formValid,
-        hasSave: true,
+        triggerSave: true,
       },
       {
         label: 'Save draft',

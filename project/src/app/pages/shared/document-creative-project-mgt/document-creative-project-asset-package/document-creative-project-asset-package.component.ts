@@ -63,7 +63,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
         name: 'send',
         type: 'custom',
         disabled: (status: DocumentFormStatus) => status.submitted || !status.formValid,
-        hasSave: true,
+        triggerSave: true,
       },
       {
         label: 'Save draft',
@@ -241,7 +241,7 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
 
   protected sendPackage(packageDoc): Observable<any> {
     const packageId = packageDoc.uid;
-    return this.nuxeoApi.operation(NuxeoAutomations.sendPackageRequest, { uuid: packageId });
+    return this.nuxeoApi.operation(NuxeoAutomations.SendDeliveryPackage, { uuid: packageId });
   }
 
   protected refresh(): void {

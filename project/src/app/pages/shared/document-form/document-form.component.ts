@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { deepExtend, objHasValue } from '@core/services/helpers';
+import { deepExtend, isValueEmpty, objHasValue } from '@core/services/helpers';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
@@ -108,7 +108,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSave(event: any): void {
+  onSave(event?: any): void {
     if (this.formSettings.formMode === 'create') {
       this.save();
     } else if (this.formSettings.formMode === 'edit') {
@@ -123,10 +123,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCustomButton(button: any, event: any): void {
+  onCustomButton(button: any): void {
     this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, doc: this.documentModel }));
-    if (button.hasSave) {
-      this.onSave(event);
+    if (button.triggerSave) {
+      this.onSave();
     }
   }
 
@@ -206,7 +206,15 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       const modelValue = doc.get(model.field);
       if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, user, settings); }
       if (model.document) { model.document = doc; }
-      model.value = (!!model.defaultValue && !modelValue) ? model.defaultValue : modelValue;
+      if (isValueEmpty(modelValue)) {
+        if (model.defaultValueFn) {
+          model.value = model.defaultValueFn(doc, user, settings);
+        } else if (!!model.defaultValue) {
+          model.value = model.defaultValue;
+        }
+      } else {
+        model.value = modelValue;
+      }
       if (model instanceof DynamicListModel) {
         this.prepareFormModel(doc, user, settings, model.items);
       }
