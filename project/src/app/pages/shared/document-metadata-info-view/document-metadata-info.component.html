@@ -121,32 +121,34 @@
           <nb-accordion-item [collapsed]="false" class="accordion-item">
             <nb-accordion-item-header class="accordion-item-header">Usage Rights</nb-accordion-item-header>
             <nb-accordion-item-body class="accordion-item-body" [nbSpinner]="usageLoading" nbSpinnerStatus="disabled">
-              <ng-container [ngSwitch]="true">
-                <ng-container *ngSwitchCase="usageRights.all_error_messages && usageRights.all_error_messages.length > 0">
-                  <ul class="state error">
-                    <li>
-                      <span>{{usageRights.error_messages}}</span>
-                    </li>
-                  </ul>
-                </ng-container>
-                <ng-container *ngSwitchCase="usageRights.info_messages && usageRights.info_messages.length > 0">
-                  <ul class="state info">
-                    <li>
-                      <span>{{usageRights.info_messages}}</span>
-                    </li>
-                  </ul>
-                </ng-container>
-                <ng-container *ngSwitchCase="usageRights.info_messages && usageRights.info_messages.length === 0 && usageRights.info_messages.length === usageRights.all_error_messages.length">
-                  <ul class="state">
-                    <li>
-                      <h4>Expires in</h4>
-                      <span>{{usageRights.days_left}} days</span>
-                    </li>
-                    <li>
-                      <h4>Expires on</h4>
-                      <span>{{usageRights.end_date ? (usageRights.end_date | date:'MMM d, yyyy':'UTC') : 'N/A'}}</span>
-                    </li>
-                  </ul>
+              <ng-container *ngIf="usageRights">
+                <ng-container [ngSwitch]="true">
+                  <ng-container *ngSwitchCase="usageRights.all_error_messages && usageRights.all_error_messages.length > 0">
+                    <ul class="state error">
+                      <li>
+                        <span>{{usageRights.error_messages}}</span>
+                      </li>
+                    </ul>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="usageRights.info_messages && usageRights.info_messages.length > 0">
+                    <ul class="state info">
+                      <li>
+                        <span>{{usageRights.info_messages}}</span>
+                      </li>
+                    </ul>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="usageRights.info_messages && usageRights.info_messages.length === 0 && usageRights.info_messages.length === usageRights.all_error_messages.length">
+                    <ul class="state">
+                      <li>
+                        <h4>Expires in</h4>
+                        <span>{{usageRights.days_left}} days</span>
+                      </li>
+                      <li>
+                        <h4>Expires on</h4>
+                        <span>{{usageRights.end_date ? (usageRights.end_date | date:'MMM d, yyyy':'UTC') : 'N/A'}}</span>
+                      </li>
+                    </ul>
+                  </ng-container>
                 </ng-container>
               </ng-container>
               <div class="clear"></div>
