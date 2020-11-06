@@ -1,4 +1,4 @@
-import { join, objHasValue, objHasKey } from '../../../services/helpers';
+import { join, isValueEmpty, objHasKey } from '../../../services/helpers';
 import { DocumentModel } from './nuxeo.document-model';
 
 const API_PATH = 'api/v1/';
@@ -143,7 +143,7 @@ export class NuxeoQueryParams {
   [key: string]: any;
   currentPageIndex: number;
   constructor(params: any = {}) {
-    if (objHasValue(params)) {
+    if (!isValueEmpty(params)) {
       this.merge(params);
     }
   }
@@ -221,7 +221,7 @@ export class NuxeoSearchParams {
   sortBy?: string;
 
   constructor(params: any = {}) {
-    if (objHasValue(params)) {
+    if (!isValueEmpty(params)) {
       this.merge(params);
     }
   }
@@ -240,7 +240,7 @@ export class NuxeoSearchParams {
   }
 
   hasFilters(): boolean {
-    return objHasValue(this.aggregates);
+    return !isValueEmpty(this.aggregates);
   }
 
   hasParam(name: string): boolean {
@@ -317,18 +317,18 @@ export class GlobalSearchParams {
   }
 
   hasSettings(): boolean {
-    return objHasValue(this.settings);
+    return !isValueEmpty(this.settings);
   }
 
   setSettings(settings: any = {}): this {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.settings = settings;
     }
     return this;
   }
 
   mergeSettings(settings: any = {}): this {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.settings = Object.assign({}, this.settings, settings);
     }
     return this;
@@ -356,7 +356,7 @@ export class GlobalSearchParams {
         params[key] = value;
       }
     }
-    if (objHasValue(mergedParams['aggregates'])) {
+    if (!isValueEmpty(mergedParams['aggregates'])) {
       params = this.buildAggSearchParams(mergedParams['aggregates'], params);
     }
     if (params['ecm_fulltext'] && this.getFulltextKey() !== 'ecm_fulltext') {
@@ -381,7 +381,7 @@ export class GlobalSearchParams {
   toQueryParams(): any {
     const params: any = {};
     const aggregates = this.searchParams.aggregates;
-    if (objHasValue(aggregates)) {
+    if (!isValueEmpty(aggregates)) {
       const keys = Object.keys(aggregates).filter((key) => aggregates[key].length > 0);
       for (const key of keys) {
         if (key.includes('_agg')) {
@@ -406,7 +406,7 @@ export class GlobalSearchParams {
     // if (this.searchParams.currentPageIndex > 0) {
     //   params['currentPageIndex'] = this.searchParams.currentPageIndex;
     // }
-    if (objHasValue(this.settings)) {
+    if (!isValueEmpty(this.settings)) {
       const keys: string[] = ['showFilter'];
       const settings = Object.entries(this.settings);
       for (const [key, value] of settings) {
@@ -419,7 +419,7 @@ export class GlobalSearchParams {
   }
 
   private buildAggSearchParams(aggregates: any = {}, params: any = {}): any {
-    if (objHasValue(aggregates)) {
+    if (!isValueEmpty(aggregates)) {
       const keys = Object.keys(aggregates).filter((key) => aggregates[key].length > 0);
       for (const key of keys) {
         if (key.includes('__in')) {
@@ -461,7 +461,7 @@ export class NuxeoRequestOptions {
   };
 
   constructor(params: any = {}) {
-    if (objHasValue(params)) {
+    if (!isValueEmpty(params)) {
       Object.assign(this, params);
     }
   }
@@ -530,11 +530,11 @@ export class NuxeoPagination {
   }
 
   hasAgg(): boolean {
-    return objHasValue(this.aggregations);
+    return !isValueEmpty(this.aggregations);
   }
 
   hasResult(): boolean {
-    return objHasValue(this.entries);
+    return !isValueEmpty(this.entries);
   }
 }
 

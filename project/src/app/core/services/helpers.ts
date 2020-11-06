@@ -269,10 +269,6 @@ export function isValueEmpty(n: any): boolean {
   return n !== 0 && !(!!n ? typeof n === 'object' ? Array.isArray(n) ? !!n.length : !!Object.keys(n).length : true : false);
 }
 
-export function objHasValue(obj: any): boolean {
-  return obj && typeof obj === 'object' && Object.keys(obj).length > 0;
-}
-
 export function objHasKey(obj: any, name: string = ''): boolean {
   return obj && typeof obj === 'object' && Object.getOwnPropertyNames(obj).some((key: string) => key.includes(name));
 }

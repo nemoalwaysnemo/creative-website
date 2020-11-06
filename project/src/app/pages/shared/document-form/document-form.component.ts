@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { deepExtend, isValueEmpty, objHasValue } from '@core/services/helpers';
+import { deepExtend, isValueEmpty } from '@core/services/helpers';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
@@ -52,14 +52,14 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input()
   set settings(settings: DocumentFormSettings) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.formSettings$.next(settings);
     }
   }
 
   @Input()
   set currentUser(user: UserModel) {
-    if (objHasValue(user)) {
+    if (!isValueEmpty(user)) {
       this.currentUser$.next(user);
     }
   }

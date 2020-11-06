@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { objHasValue } from '@core/services/helpers';
+import { isValueEmpty } from '@core/services/helpers';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 
 @Component({
@@ -55,7 +55,7 @@ export class ListSearchRowCustomViewComponent {
 
   @Input()
   set settings(settings: ListSearchRowCustomViewSettings) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.options = settings;
     }
   }
