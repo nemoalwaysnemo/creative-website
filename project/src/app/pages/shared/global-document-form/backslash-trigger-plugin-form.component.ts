@@ -43,6 +43,7 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
     return [
       {
         name: '+ Images',
+        active: true,
         disabledFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => false,
       },
       {
