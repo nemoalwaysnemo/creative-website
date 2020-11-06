@@ -1,10 +1,11 @@
 import { Component, Input, forwardRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 import { isValueEmpty } from '@core/services/helpers';
 import { combineLatest, Subject, Subscription } from 'rxjs';
-import { GalleryImageItem, GalleryUploadSettings } from './gallery-upload.interface';
 import { debounceTime } from 'rxjs/operators';
+import { GalleryImageItem, GalleryUploadSettings } from './gallery-upload.interface';
 
 @Component({
   selector: 'gallery-upload',
@@ -23,17 +24,13 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   @Input()
   set settings(settings: GalleryUploadSettings) {
     if (!isValueEmpty(settings)) {
-      this.settings$.next(settings);
+      this.gallerySettings = settings;
     }
   }
 
-  images: GalleryImageItem[] = [];
+  images: GalleryImageItem[];
 
   gallerySettings: GalleryUploadSettings = new GalleryUploadSettings();
-
-  protected settings$: Subject<GalleryUploadSettings> = new Subject<GalleryUploadSettings>();
-
-  protected pictures$: Subject<GalleryImageItem[]> = new Subject<GalleryImageItem[]>();
 
   private subscription: Subscription = new Subscription();
 
@@ -43,8 +40,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   private _onTouched = () => { };
 
-  constructor() {
-    this.onPicturesChanged();
+  constructor(private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -55,9 +51,9 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     this.subscription.unsubscribe();
   }
 
-  writeValue(pictures: any): void {
-    if (pictures) {
-      this.pictures$.next(this.buildGalleryImageItem(pictures));
+  writeValue(images: any): void {
+    if (images) {
+      this.images = this.buildGalleryImageItem(images);
     }
   }
 
@@ -74,7 +70,12 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   clickItem(item: GalleryImageItem): void {
+    item.selected = !item.selected;
     console.log('item clicked', item);
+  }
+
+  getSafeImagePath(src: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(src);
   }
 
   moveLeft(): void {
@@ -111,19 +112,6 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   onDragEnd(): void {
     // console.log('drag end');
-  }
-
-  protected onPicturesChanged(): void {
-    const subscription = combineLatest([
-      this.settings$,
-      this.pictures$,
-    ]).pipe(
-      debounceTime(100),
-    ).subscribe(([settings, pictures]: [GalleryUploadSettings, GalleryImageItem[]]) => {
-      this.images = pictures;
-      this.gallerySettings = settings;
-    });
-    this.subscription.add(subscription);
   }
 
   private buildGalleryImageItem(images: any[]): GalleryImageItem[] {

@@ -42,7 +42,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
       this.document = doc;
       const images = doc.get('web-page-element:page-images');
       this.image = images[0].base64;
-      console.log(doc.get('web-page-element:page-url'), doc.get('web-page-element:page-images'));
+      // console.log(doc.get('web-page-element:page-url'), doc.get('web-page-element:page-images'));
     });
   }
 

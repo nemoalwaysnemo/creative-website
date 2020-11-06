@@ -190,7 +190,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private prepareSwitchTab(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): any[] {
     const tabSettings = (settings.switchTabSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, user, settings));
-    return tabSettings.map((s: { name: string, disabledFn?: any }) => ({ name: s.name, disabled: (s.disabledFn && s.disabledFn(doc, user, settings)), models: models.filter(m => m.switchTab === s.name) }));
+    return tabSettings.map((s: { name: string, active: boolean, disabledFn?: any }) => ({ name: s.name, active: s.active, disabled: (s.disabledFn && s.disabledFn(doc, user, settings)), models: models.filter(m => m.switchTab === s.name) }));
   }
 
   private prepareModelSettings(models: DynamicFormModel): DynamicFormModel {

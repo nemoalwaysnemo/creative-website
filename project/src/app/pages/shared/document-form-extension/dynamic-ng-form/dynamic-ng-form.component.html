@@ -59,7 +59,7 @@
 <ng-container *ngIf="layoutSwitchTab && layoutSwitchTab.length > 0">
   <div class="default-layout layout-tab switch-tab {{formClass}}">
     <nb-tabset fullWidth (changeTab)="onChangTab($event)">
-        <nb-tab *ngFor="let tab of layoutSwitchTab" [tabTitle]="tab.name" [disabled]="tab.disabled">
+        <nb-tab *ngFor="let tab of layoutSwitchTab" [tabTitle]="tab.name" [active]="tab.active" [disabled]="tab.disabled">
           <dynamic-ng-form-control *ngFor="let model of tab.models; trackBy: trackByFn"
                             [group]="group"
                             [hidden]="model.hidden"

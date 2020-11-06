@@ -1,4 +1,6 @@
 export class GalleryImageItem {
+
+  selected: boolean = false;
   private src: string;
   private alt: string;
   private base64: string;
@@ -16,7 +18,7 @@ export class GalleryImageItem {
   }
 
   private base64ToSrc(data: string, type: string): string {
-    return `data:image/${type};base64,${{ data }}`;
+    return `data:image/${type};base64,${data}`;
   }
 
   private getExtension(file: string): string {
