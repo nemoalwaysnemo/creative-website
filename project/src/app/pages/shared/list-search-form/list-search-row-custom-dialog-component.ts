@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { objHasValue } from '@core/services/helpers';
+import { isValueEmpty } from '@core/services/helpers';
 import { DocumentDialogEvent, GlobalDocumentDialogService } from '../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from './list-search-form.interface';
 import { Subject, Observable, Subscription } from 'rxjs';
@@ -51,7 +51,7 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
 
   @Input()
   set settings(settings: ListSearchRowCustomViewSettings) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.options = settings;
     }
   }

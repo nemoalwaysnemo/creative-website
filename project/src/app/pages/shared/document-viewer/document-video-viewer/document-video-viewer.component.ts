@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { objHasValue } from '@core/services/helpers';
+import { isValueEmpty } from '@core/services/helpers';
 import { DocumentModel } from '@core/api';
 import { combineLatest, Subject, Subscription } from 'rxjs';
 import { DocumentVideoSettings } from './document-video-player/document-video-player.interface';
@@ -26,7 +26,7 @@ export class DocumentVideoViewerComponent implements OnDestroy {
 
   @Input()
   set settings(settings: DocumentVideoSettings) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.videoSettings$.next(settings);
     }
   }

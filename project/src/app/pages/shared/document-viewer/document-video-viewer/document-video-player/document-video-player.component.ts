@@ -2,7 +2,7 @@ import { Component, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/c
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-video-viewer.service';
 import { DocumentVideoSettings } from './document-video-player.interface';
 import { VgApiService } from '@videogular/ngx-videogular/core';
-import { objHasValue } from '@core/services/helpers';
+import { isValueEmpty } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -19,7 +19,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   @Input()
   set settings(settings: DocumentVideoSettings) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.videoSettings = settings;
     }
   }

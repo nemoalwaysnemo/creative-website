@@ -4,7 +4,7 @@ import { of as observableOf, Observable, Subscription, Subject, combineLatest } 
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { concatMap, tap } from 'rxjs/operators';
-import { objHasValue } from '@core/services/helpers';
+import { isValueEmpty } from '@core/services/helpers';
 
 export interface DocumentModelForm {
   metadata: any;
@@ -25,7 +25,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   @Input()
   set settings(settings: any) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.setFormSettings(settings);
     }
   }

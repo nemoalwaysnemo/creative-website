@@ -19,7 +19,7 @@ import {
   DynamicFormService,
   DynamicFormControlModel,
 } from '@core/custom';
-import { objHasValue } from '@core/services/helpers';
+import { isValueEmpty } from '@core/services/helpers';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
 import { DynamicNGFormSettings } from './dynamic-ng-form.interface';
@@ -42,7 +42,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   @Input()
   set modelOperation(operation: any) {
-    if (objHasValue(operation)) {
+    if (!isValueEmpty(operation)) {
       if (operation.type === 'delete') {
         this.deleteModel([operation.model]);
       }
@@ -54,14 +54,14 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   @Input()
   set formModel(model: DynamicFormModel) {
-    if (objHasValue(model)) {
+    if (!isValueEmpty(model)) {
       this.ngFormModel = model;
     }
   }
 
   @Input()
   set settings(settings: DynamicNGFormSettings) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.performFormSettings(settings);
     }
   }

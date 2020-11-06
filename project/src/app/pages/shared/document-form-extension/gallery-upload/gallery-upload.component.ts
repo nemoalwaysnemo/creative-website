@@ -1,7 +1,7 @@
 import { Component, Input, forwardRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DragScrollComponent } from 'ngx-drag-scroll';
-import { objHasValue } from '@core/services/helpers';
+import { isValueEmpty } from '@core/services/helpers';
 import { combineLatest, Subject, Subscription } from 'rxjs';
 import { GalleryImageItem, GalleryUploadSettings } from './gallery-upload.interface';
 import { debounceTime } from 'rxjs/operators';
@@ -22,7 +22,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   @Input()
   set settings(settings: GalleryUploadSettings) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.settings$.next(settings);
     }
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Router, Params, NavigationEnd } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { getPathPartOfUrl, objHasValue, convertToBoolean } from '@core/services/helpers';
+import { getPathPartOfUrl, isValueEmpty, convertToBoolean } from '@core/services/helpers';
 import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf, zip, combineLatest } from 'rxjs';
 import { filter, debounceTime, switchMap, map, startWith, pairwise, concatMap } from 'rxjs/operators';
 import { SearchResponse, GlobalSearchParams, NuxeoRequestOptions, SearchFilterModel, NuxeoQueryParams } from '@core/api';
@@ -16,14 +16,14 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   @Input()
   set settings(settings: GlobalSearchFormSettings) {
-    if (objHasValue(settings)) {
+    if (!isValueEmpty(settings)) {
       this.searchFormSettings$.next(settings);
     }
   }
 
   @Input()
   set searchParams(params: any) {
-    if (objHasValue(params)) {
+    if (!isValueEmpty(params)) {
       this.searchParams$.next(params);
     }
   }
@@ -114,7 +114,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   hasFilters(): boolean {
-    return objHasValue(this.filters);
+    return !isValueEmpty(this.filters);
   }
 
   protected onInit(): void {
@@ -189,7 +189,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   // set params to form
   protected setFormParams(params: any = {}): void {
-    if (objHasValue(params)) {
+    if (!isValueEmpty(params)) {
       for (const key in params) {
         if (params.hasOwnProperty(key) && this.allowedLinkParams.includes(key)) {
           this.addControlToSearchForm(key, params[key]);
@@ -199,7 +199,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected setSettingsParams(params: any = {}): void {
-    if (objHasValue(params)) {
+    if (!isValueEmpty(params)) {
       for (const key in params) {
         if (params.hasOwnProperty(key)) {
           const func = this.allowedSettingsParams[key];
@@ -213,8 +213,8 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   // cache params
   protected setInputParams(params: GlobalSearchParams): void {
-    if (objHasValue(params)) {
-      if (!objHasValue(this.baseParams)) {
+    if (!isValueEmpty(params)) {
+      if (isValueEmpty(this.baseParams)) {
         this.baseParams = params;
       }
       this.currentParams = params;
