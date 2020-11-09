@@ -76,6 +76,7 @@ export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
   private getAgencyParams(): GlobalSearchParams {
     const params: any = {
       ecm_fulltext: '',
+      pageSize: 2,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
