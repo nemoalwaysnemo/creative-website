@@ -3,7 +3,7 @@ import { DynamicFormLayout, DynamicFormModel } from '@core/custom';
 
 export class DocumentFormEvent {
   [key: string]: any;
-  action: 'Created' | 'Updated' | 'Deleted' | 'Canceled' | 'CustomButtonClicked' | 'SwitchTabChanged';
+  action: string;
   messageType: 'info' | 'success' | 'warning' | 'error' = 'info';
   messageContent: string;
   redirectUrl: string;

@@ -32,7 +32,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
   }
 
   onInit(): void {
-    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
+    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe((doc: DocumentModel) => {
+      this.fetchSite();
+    });
     this.subscription.add(subscription);
   }
 

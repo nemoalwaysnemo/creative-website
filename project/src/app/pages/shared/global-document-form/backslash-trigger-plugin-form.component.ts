@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { deepExtend } from '@core/services/helpers';
 import { of as observableOf, Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel, DynamicFormControlModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
-import { DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'backslash-trigger-plugin-form',
@@ -39,6 +39,13 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
     }
   }
 
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    if (event.action === 'UploadFilesChanged' && event.uploadType === 'GALLERY_UPLOAD') {
+      event.ngFormSettings.switchTabSettings.forEach((t: any) => { t.disabled = true; });
+    }
+    return event;
+  }
+
   protected getFormSwitchTab(): any[] {
     return [
       {
@@ -67,76 +74,76 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
           minLength: 'At least 4 characters',
         },
       }),
-      new DynamicSuggestionModel({
-        id: 'app_Edges:Tags_edges',
-        label: 'Edges',
-        required: true,
-        document: true,
-        settings: {
-          placeholder: 'Please select edges',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Edges-Edges',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:agency',
-        label: 'Agency',
-        required: true,
-        settings: {
-          multiple: false,
-          placeholder: 'Please select agency',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Agencies',
-        },
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'app_Edges:backslash_category',
-        label: 'Category',
-        required: true,
-        settings: {
-          placeholder: 'Please select category',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Backslash-Categories',
-        },
-      }),
-      new DynamicTextAreaModel({
-        id: 'app_Edges:insight',
-        label: 'Key Insight',
-        rows: 5,
-        required: true,
-      }),
-      new DynamicSuggestionModel({
-        id: 'app_Edges:format',
-        label: 'Format',
-        required: true,
-        settings: {
-          placeholder: 'Please select format',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Backslash-Type',
-        },
-      }),
-      new DynamicSuggestionModel({
-        id: 'app_Edges:Relevant_Country',
-        label: 'Relevant Country',
-        required: true,
-        settings: {
-          placeholder: 'Please select country',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Geography_TBWA',
-        },
-      }),
-      new DynamicTextAreaModel({
-        id: 'app_Edges:trigger_text',
-        label: 'Trigger Summary',
-        rows: 5,
-        required: true,
-      }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand(s)',
-        placeholder: 'Brand',
-        required: false,
-      }),
+      // new DynamicSuggestionModel({
+      //   id: 'app_Edges:Tags_edges',
+      //   label: 'Edges',
+      //   required: true,
+      //   document: true,
+      //   settings: {
+      //     placeholder: 'Please select edges',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'App-Edges-Edges',
+      //   },
+      // }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'The_Loupe_Main:agency',
+      //   label: 'Agency',
+      //   required: true,
+      //   settings: {
+      //     multiple: false,
+      //     placeholder: 'Please select agency',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'GLOBAL_Agencies',
+      //   },
+      // }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'app_Edges:backslash_category',
+      //   label: 'Category',
+      //   required: true,
+      //   settings: {
+      //     placeholder: 'Please select category',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'App-Backslash-Categories',
+      //   },
+      // }),
+      // new DynamicTextAreaModel({
+      //   id: 'app_Edges:insight',
+      //   label: 'Key Insight',
+      //   rows: 5,
+      //   required: true,
+      // }),
+      // new DynamicSuggestionModel({
+      //   id: 'app_Edges:format',
+      //   label: 'Format',
+      //   required: true,
+      //   settings: {
+      //     placeholder: 'Please select format',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'App-Backslash-Type',
+      //   },
+      // }),
+      // new DynamicSuggestionModel({
+      //   id: 'app_Edges:Relevant_Country',
+      //   label: 'Relevant Country',
+      //   required: true,
+      //   settings: {
+      //     placeholder: 'Please select country',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'GLOBAL_Geography_TBWA',
+      //   },
+      // }),
+      // new DynamicTextAreaModel({
+      //   id: 'app_Edges:trigger_text',
+      //   label: 'Trigger Summary',
+      //   rows: 5,
+      //   required: true,
+      // }),
+      // new DynamicOptionTagModel({
+      //   id: 'The_Loupe_Main:brand',
+      //   label: 'Brand(s)',
+      //   placeholder: 'Brand',
+      //   required: false,
+      // }),
       new DynamicTextAreaModel({
         id: 'app_Edges:URL',
         label: 'Web Link',
@@ -146,8 +153,9 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
       new DynamicGalleryUploadModel<string>({
         id: 'galleryUpload',
         switchTab: '+ Images',
+        formMode: 'create',
         settings: {
-          queueLimit: 1,
+          queueLimit: 2,
           uploadType: 'asset',
         },
         defaultValueFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): any => doc.get('web-page-element:page-images'),
