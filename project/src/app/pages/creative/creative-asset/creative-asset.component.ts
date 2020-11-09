@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NuxeoRequestOptions } from '@core/api';
 
 @Component({
   selector: 'creative-asset',
@@ -31,6 +32,13 @@ export class CreativeAssetComponent extends GlobalDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
     };
   }
+
+  protected getCurrentDocumentRequestParams(): NuxeoRequestOptions {
+    const options = new NuxeoRequestOptions();
+    options.addSchemas('The_Loupe_Credits');
+    return options;
+  }
+
 
   hasReleatedBrands(): boolean {
     const brands = this.document.get('The_Loupe_Main:brand');
