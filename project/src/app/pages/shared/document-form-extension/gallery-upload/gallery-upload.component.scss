@@ -1,39 +1,39 @@
 ::ng-deep .drag-scroll-container {
-  height: 200px !important;
-  margin-top: 20px;
-  padding-left: 30px;
+  height: 300px !important;
 }
-
-.gallery-list {
-  .list-item {
-    display: inline-block;
-    vertical-align: top;
-    height: 100%;
-    width: 30%;
-    margin-right: 20px;
-    img {
-      width: 100%;
+.picture-select {
+  margin: 0 2%;
+  .gallery-list {
+    float: left;
+    width: 92%;
+    margin-right: 2%;
+    margin-left: 2%;
+    .list-item {
+      display: inline-block;
+      vertical-align: top;
       height: 100%;
+      width: 30%;
+      margin-right: 20px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .item-selected {
+      border: 5px solid #fecc26;
     }
   }
-  .item-selected {
-    border: 5px solid #fecc26;
-  }
 }
 
-::ng-deep .item-selectable-checkbox {
-  .checkbox {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: none;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    background: url('/assets/images/checkbox-checked.png') no-repeat top left;
-    // background: url('/assets/images/checkbox-unchecked.png') no-repeat top left;
-  }
+.prev a,
+.next a {
+  display: block;
+  width: 17px;
+  height: 200px;
 }
-.thumbnail-view-item:hover {
-  .item-selectable-checkbox { display: block; }
+.prev a {
+  background: url('/assets/images/scroll_arrow_prev.png') no-repeat center center;
+}
+.next a {
+  background: url('/assets/images/scroll_arrow_next.png') no-repeat center center;
 }

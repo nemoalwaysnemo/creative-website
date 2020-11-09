@@ -9,6 +9,8 @@
       [tabindex]="model.tabIndex"
       (blur)="onBlur($event)"
       (change)="onChange($event)"
-      (focus)="onFocus($event)">
+      (focus)="onFocus($event)"
+      (onUpload)="onCustomEvent($event, 'GALLERY_UPLOAD')"
+      >
   </gallery-upload>
 </ng-container>

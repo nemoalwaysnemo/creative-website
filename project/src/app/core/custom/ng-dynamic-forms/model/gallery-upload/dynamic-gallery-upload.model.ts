@@ -15,6 +15,6 @@ export class DynamicGalleryUploadModel<T> extends DynamicFormValueControlModel<T
 
   constructor(config: DynamicGalleryUploadModelConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
-    this.settings = new GalleryUploadSettings(config.settings || {});
+    this.settings = new GalleryUploadSettings(config.settings ? Object.assign({}, config.settings, { formMode: config.formMode }) : { formMode: config.formMode });
   }
 }

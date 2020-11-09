@@ -5,7 +5,7 @@ import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './d
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormLayout, DynamicFormModel, DynamicListModel } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 
 @Component({
@@ -100,9 +100,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     if (event.type === 'VALID') {
       this.updateFormStatus({ childrenValid: event.$event });
     }
-    if (event.type === 'BATCH_UPLOAD') {
-      this.performUploading(event.$event);
+    if (['BATCH_UPLOAD', 'GALLERY_UPLOAD'].includes(event.type)) {
+      this.performBatchUpload(event.$event);
+      this.callback.emit(new DocumentFormEvent({ action: 'UploadFilesChanged', uploadType: event.type, status: this.formStatus$.value, doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
     }
+
     if (event.type === 'SWITCH_TAB_CHANGED') {
       this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, doc: this.documentModel }));
     }
@@ -369,7 +371,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return properties;
   }
 
-  private performUploading(list: NuxeoUploadResponse[]): void {
+  private performBatchUpload(list: NuxeoUploadResponse[]): void {
     if (list.length === 0) {
       this.updateFormStatus({ uploadState: null });
     } else if (list.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {
@@ -382,6 +384,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       this.updateFormStatus({ uploadState: 'uploaded' });
     }
     this.uploadCount = list.length;
+  }
+
+  private performGalleryUpload(list: NuxeoUploadResponse[]): void {
+    console.log(1111, list);
   }
 
   private filterFileName(name: string): string {
