@@ -15,8 +15,10 @@ import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDial
       <div class='selectableBar'>
         {{count}} item(s) selected <a (click)="clear()" class="clearSelection">Clear</a>
         <div style='float:right'>
-          <ng-container *ngIf="actionSettings.enableAddToFavorites && favoriteWritePermission$ | async">
-            <a (click)="addToFavorites()">Add to favorites</a>&nbsp;&nbsp;
+          <ng-container *ngxPermissionsOnly="['MGT']">
+            <ng-container *ngIf="actionSettings.enableAddToFavorites && favoriteWritePermission$ | async">
+              <a (click)="addToFavorites()">Add to favorites</a>&nbsp;&nbsp;
+            </ng-container>
           </ng-container>
           <ng-container *ngIf="actionSettings.enableAddToShowcase">
             <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Add To Showcase">Add to Showcase</a>&nbsp;&nbsp;

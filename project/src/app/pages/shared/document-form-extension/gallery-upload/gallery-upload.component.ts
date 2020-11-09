@@ -2,10 +2,10 @@ import { Component, Input, forwardRef, OnDestroy, OnInit, ViewChild } from '@ang
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DragScrollComponent } from 'ngx-drag-scroll';
+import { BatchUpload, NuxeoApiService } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
-import { combineLatest, Subject, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { GalleryImageItem, GalleryUploadSettings } from './gallery-upload.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'gallery-upload',
@@ -34,13 +34,16 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   private subscription: Subscription = new Subscription();
 
+  private batchUpload: BatchUpload;
+
   private disabled: boolean = false;
 
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private nuxeoApi: NuxeoApiService, private sanitizer: DomSanitizer) {
+    this.batchUpload = this.nuxeoApi.batchUpload();
   }
 
   ngOnInit(): void {
