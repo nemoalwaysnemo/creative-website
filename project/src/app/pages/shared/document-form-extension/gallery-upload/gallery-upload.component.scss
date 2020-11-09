@@ -1,5 +1,5 @@
 ::ng-deep .drag-scroll-container {
-  height: 200px !important;
+  height: 300px !important;
 }
 .picture-select {
   margin: 0 2%;
@@ -23,23 +23,6 @@
       border: 5px solid #fecc26;
     }
   }
-}
-
-::ng-deep .item-selectable-checkbox {
-  .checkbox {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: none;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    background: url('/assets/images/checkbox-checked.png') no-repeat top left;
-    // background: url('/assets/images/checkbox-unchecked.png') no-repeat top left;
-  }
-}
-.thumbnail-view-item:hover {
-  .item-selectable-checkbox { display: block; }
 }
 
 .prev a,

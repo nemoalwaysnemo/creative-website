@@ -102,7 +102,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
     if (['BATCH_UPLOAD', 'GALLERY_UPLOAD'].includes(event.type)) {
       this.performBatchUpload(event.$event);
-      // this.callback.emit(new DocumentFormEvent({ action: 'UploadFilesChanged', uploadType: event.type, status: this.formStatus$.value, doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
+      this.callback.emit(new DocumentFormEvent({ action: 'UploadFilesChanged', uploadType: event.type, status: this.formStatus$.value, doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
     }
 
     if (event.type === 'SWITCH_TAB_CHANGED') {

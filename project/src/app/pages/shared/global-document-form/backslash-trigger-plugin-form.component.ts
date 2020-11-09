@@ -39,6 +39,13 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
     }
   }
 
+  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+    if (event.action === 'UploadFilesChanged' && event.uploadType === 'GALLERY_UPLOAD') {
+      event.ngFormSettings.switchTabSettings.forEach((t: any) => { t.disabled = true; });
+    }
+    return event;
+  }
+
   protected getFormSwitchTab(): any[] {
     return [
       {

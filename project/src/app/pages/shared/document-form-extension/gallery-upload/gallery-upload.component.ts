@@ -99,7 +99,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   uploadFiles(): void {
-    this.updateUploadStatus({ uploading: true });
+    this.updateUploadStatus({ uploaded: false, uploading: true });
     this.upload(this.getSelectedFiles());
   }
 
@@ -151,9 +151,10 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     item.uploaded = response.uploaded;
     response.item = item;
     this.uploadItems[index] = response;
-    const uploaded = this.uploadItems.every((res: NuxeoUploadResponse) => res.uploaded);
+    const uploadItems = this.uploadItems.filter((res: NuxeoUploadResponse) => res.item.uploading || res.item.uploaded);
+    const uploaded = uploadItems.every((res: NuxeoUploadResponse) => res.uploaded);
     this.updateUploadStatus({ uploaded, uploading: !uploaded });
-    this.triggerEvent(this.uploadItems.filter((res: NuxeoUploadResponse) => res.item.uploading || res.item.uploaded));
+    this.triggerEvent(uploadItems);
   }
 
   private getSelectedFiles(): NuxeoUploadResponse[] {

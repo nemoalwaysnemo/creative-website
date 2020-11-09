@@ -66,7 +66,7 @@ export class GalleryUploadStatus {
   }
 
   disableUploadButton(): boolean {
-    return !this.selected && (!this.uploaded || !this.uploading);
+    return !this.selected || (this.uploaded || this.uploading);
   }
 
 }
