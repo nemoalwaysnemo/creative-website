@@ -1,7 +1,11 @@
 @import '../../global-search-result/thumbnail-view.scss';
 @import '../../../../core/nebular/theme/styles/global/breakpoints';
 
-
+.backslash, .disruption, .intelligence {
+	h4, h1 {
+		cursor: pointer;
+	}
+}
 h2 {
 	font-family: 'Averta for TBWA W01 Black', helvetica, arial;
 	height: 47px;
