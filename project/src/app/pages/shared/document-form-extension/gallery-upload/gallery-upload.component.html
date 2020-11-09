@@ -3,7 +3,7 @@
     <div class="prev left" (click)="moveLeft()"><a href="javascript:;"></a></div>
       <drag-scroll class="gallery-list"
             drag-scroll-y-disabled="true"
-            scrollbar-hidden="false"
+            scrollbar-hidden="true"
             (dsInitialized)="onDragScrollInitialized()"
             (indexChanged)="onIndexChanged($event)"
             (reachesLeftBound)="leftBoundStat($event)"
@@ -11,13 +11,6 @@
             (snapAnimationFinished)="onSnapAnimationFinished()"
             #gallery>
         <div drag-scroll-item *ngFor="let image of images" [ngClass]="{'item-selected': image.selected}" (click)="clickItem(image)" [title]="image.getName()" class="list-item">
-          <ng-container *ngIf="image.selected">
-            <div class="item-selectable-checkbox" [ngStyle]="image.selected ? {'display': 'block'} : {}">
-              <nb-checkbox [checked]="image.selected">
-                <div></div>
-              </nb-checkbox>
-            </div>
-          </ng-container>
           <img [src]="getSafeImagePath(image.getSource())" />
         </div>
       </drag-scroll>
