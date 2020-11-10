@@ -250,14 +250,18 @@ export class CreativeUsageRightsMusicComponent extends GlobalDocumentFormCompone
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: false,
+        settings: {
+          multiUpload: false,
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
+        settings: {
+          showInput: false,
+          multiUpload: true,
+        },
       }),
     ];
   }

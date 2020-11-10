@@ -150,9 +150,11 @@ export class BackslashTriggerFormComponent extends GlobalDocumentFormComponent {
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
-        showInputs: false,
         layoutPosition: 'bottom',
-        multiUpload: false,
+        settings: {
+          showInput: false,
+          multiUpload: false,
+        },
       }),
     ];
   }

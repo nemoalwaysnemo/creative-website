@@ -83,8 +83,10 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
+        settings: {
+          showInput: false,
+          multiUpload: true,
+        },
       }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:clientName',

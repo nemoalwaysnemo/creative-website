@@ -225,14 +225,19 @@ export class BackslashAssetVideoFormComponent extends GlobalDocumentFormComponen
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        settings: {
+          showInput: true,
+          multiUpload: true,
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
+        settings: {
+          showInput: false,
+          multiUpload: true,
+        },
       }),
     ];
   }

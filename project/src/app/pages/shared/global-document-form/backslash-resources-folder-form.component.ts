@@ -128,15 +128,19 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        showInputs: false,
-        multiUpload: false,
+        settings: {
+          showInput: false,
+          multiUpload: false,
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
+        settings: {
+          showInput: false,
+          multiUpload: true,
+        },
       }),
     ];
   }
