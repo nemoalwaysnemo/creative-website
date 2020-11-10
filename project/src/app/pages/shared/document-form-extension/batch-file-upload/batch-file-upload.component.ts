@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
-import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
-import { Subject, Subscription } from 'rxjs';
-import { mergeMap, filter } from 'rxjs/operators';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
 import { DynamicFormControlModel, DynamicFormLayout, DynamicFormService, DynamicInputModel } from '@core/custom';
+import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
+import { isValueEmpty } from '@core/services/helpers';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { mergeMap, filter } from 'rxjs/operators';
+import { BatchUploadSettings, BatchUploadStatus } from './batch-file-upload.interface';
 import { DragDropFileZoneService } from './drag-drop-file-zone.service';
 
 @Component({
@@ -19,28 +21,24 @@ import { DragDropFileZoneService } from './drag-drop-file-zone.service';
 
 export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService, private dragDropFileZoneService: DragDropFileZoneService) {
-    this.batchUpload = this.nuxeoApi.batchUpload();
-    this.onUploadFiles();
+  @Input()
+  set settings(settings: BatchUploadSettings) {
+    if (!isValueEmpty(settings)) {
+      this.uploadSettings = settings;
+    }
   }
 
-  files: NuxeoUploadResponse[] = [];
+  @Output() onUpload: EventEmitter<NuxeoUploadResponse[]> = new EventEmitter<NuxeoUploadResponse[]>();
 
-  uploaded: boolean = false;
+  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  uploading: boolean = false;
+  uploadStatus$: BehaviorSubject<BatchUploadStatus> = new BehaviorSubject<BatchUploadStatus>(new BatchUploadStatus());
 
-  validComboDrag: boolean;
+  uploadSettings: BatchUploadSettings = new BatchUploadSettings();
+
+  uploadItems: NuxeoUploadResponse[] = [];
 
   disabled: boolean = false;
-
-  private batchUpload: BatchUpload;
-
-  private subscription: Subscription = new Subscription();
-
-  private blobs$: Subject<NuxeoBlob> = new Subject<NuxeoBlob>();
-
-  private queueFiles: { [key: string]: { [key: string]: boolean } } = {};
 
   formModels: DynamicFormControlModel[][] = [];
 
@@ -50,55 +48,29 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   attachments: NuxeoUploadResponse[] = [];
 
-  @Input() multiUpload: boolean = false;
-
-  @Output() onUpload: EventEmitter<NuxeoUploadResponse[]> = new EventEmitter<NuxeoUploadResponse[]>();
-
-  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Input() showInputs: boolean = true;
-
   fileNumber: number = 0;
+
+  private batchUpload: BatchUpload;
+
+  private subscription: Subscription = new Subscription();
+
+  private blobs$: Subject<NuxeoBlob> = new Subject<NuxeoBlob>();
+
+  private queueFiles: { [key: string]: { [key: string]: boolean } } = {};
 
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
 
-  ngOnInit(): void {
-    this.init();
+  constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService, private dragDropFileZoneService: DragDropFileZoneService) {
+    this.batchUpload = this.nuxeoApi.batchUpload();
+    this.onUploadFiles();
+    this.onFilesUploaded();
+    this.onFilesChanged();
   }
 
-  private init(): void {
-    const sub = this.onUpload.pipe(
-      filter((res: NuxeoUploadResponse[]) => {
-        let uploaded = false;
-        res.forEach(i => {
-          uploaded = uploaded || i.uploaded;
-        });
-        return !uploaded;
-      },
-      ),
-    ).subscribe((response: NuxeoUploadResponse[]) => {
-      if (response.some((res: NuxeoUploadResponse) => res.formMode === 'create')) {
-        this.fileNumber = response.length;
-        const formModels = [];
-        const formGroups = [];
-        response.forEach(_ => {
-          const formModel = this.formService.fromJSON([]);
-          formModels.push(formModel);
-          formGroups.push(this.formService.createFormGroup(formModel));
-        });
-        this.formModels = formModels;
-        this.formGroups = formGroups;
-      }
-    });
-    this.subscription.add(sub);
+  ngOnInit(): void {
 
-    const subscription = this.dragDropFileZoneService.onFilesChange().subscribe((metadata: any) => {
-      this.updateQueue(metadata);
-      this.onFilesChange(this.files);
-    });
-    this.subscription.add(subscription);
   }
 
   ngOnDestroy(): void {
@@ -106,9 +78,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   writeValue(values: any): void {
-    if (!!values) {
-      values.forEach(value => {
-        value.file['size'] = parseInt(value.file.length, 10);
+    if (!isValueEmpty(values)) {
+      values.forEach((v: any) => {
+        v.file['size'] = parseInt(v.file.length, 10);
       });
       this.attachments = values;
     }
@@ -134,11 +106,11 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.setFileTitle(event.model.field, event.model.value);
   }
 
-  setFileTitle(id, value): void {
+  setFileTitle(id: string, value: any): void {
     let valid: boolean = true;
     this.formGroups.forEach((group: FormGroup) => { valid = valid && group.valid; });
     this.valid.emit(valid);
-    this.files.find(res => res.fileIdx.toString() === id.split('_')[0]).title = value;
+    this.uploadItems.find(res => res.fileIdx.toString() === id.split('_')[0]).title = value;
   }
 
   onFocus(event: any): void {
@@ -150,11 +122,11 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   uploadFiles(files: NuxeoUploadResponse[]): void {
-    this.uploading = true;
-    this.upload(files.filter((res: NuxeoUploadResponse) => !res.uploaded).map(x => x.blob));
+    this.updateUploadStatus({ uploaded: false, uploading: true });
+    this.upload(files);
   }
 
-  buildFileList(files: NuxeoUploadResponse[] = this.files): void {
+  buildFileList(files: NuxeoUploadResponse[]): void {
     const attachmentList = [];
     this.attachments.forEach(attachment => {
       attachmentList.push({ batchBlob: attachment.file, kbLoaded: 1, uploaded: true, uploadFileType: 'attachment' });
@@ -168,35 +140,23 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   removeOne(index: number): void {
-    const file = this.files[index];
-    this.files.splice(index, 1);
-    this.files.forEach((res: NuxeoUploadResponse, i: number) => { res.fileIdx = i; res.blob.fileIdx = i; this.queueFiles[file.uploadFileType][file.fileName] = false; });
-    // this.onUpload.emit(this.files);
-    // this._onChange(this.files);
-    this.buildFileList();
+    const file = this.uploadItems[index];
+    this.uploadItems.splice(index, 1);
+    this.uploadItems.forEach((res: NuxeoUploadResponse, i: number) => { res.fileIdx = i; res.blob.fileIdx = i; this.queueFiles[file.uploadFileType][file.fileName] = false; });
+    this.buildFileList(this.uploadItems);
   }
 
   removeAll(): void {
-    this.files.length = 0;
-    // this.onUpload.emit([]);
-    // this._onChange([]);
+    this.uploadItems.length = 0;
     this.buildFileList([]);
-  }
-
-  isMultiUpload(): boolean {
-    return this.multiUpload === true;
-  }
-
-  hasSubForm(): boolean {
-    return this.isMultiUpload();
-  }
-
-  hasFiles(): boolean {
-    return this.files.filter((res: NuxeoUploadResponse) => res).length > 0;
   }
 
   parseFileName(name: string): string {
     return name.length > 35 ? name.substr(0, 10) + '...' + name.substr(-15) : name;
+  }
+
+  private updateUploadStatus(status: any = {}): void {
+    this.uploadStatus$.next(this.uploadStatus$.value.update(status));
   }
 
   private onUploadFiles(): void {
@@ -204,15 +164,48 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
       mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob)),
     ).subscribe((res: NuxeoUploadResponse) => {
       this.updateFileResponse(res);
-      if (this.isMultiUpload()) {
+      if (this.uploadSettings.multiUpload) {
         this.performSubForm(res);
       }
     });
     this.subscription.add(subscription);
   }
 
+  private onFilesUploaded(): void {
+    const subscription = this.onUpload.pipe(
+      filter((res: NuxeoUploadResponse[]) => {
+        let uploaded = false;
+        res.forEach(i => { uploaded = uploaded || i.uploaded; });
+        return !uploaded;
+      },
+      ),
+    ).subscribe((response: NuxeoUploadResponse[]) => {
+      if (response.some((res: NuxeoUploadResponse) => res.formMode === 'create')) {
+        this.fileNumber = response.length;
+        const formModels = [];
+        const formGroups = [];
+        response.forEach(_ => {
+          const formModel = this.formService.fromJSON([]);
+          formModels.push(formModel);
+          formGroups.push(this.formService.createFormGroup(formModel));
+        });
+        this.formModels = formModels;
+        this.formGroups = formGroups;
+      }
+    });
+    this.subscription.add(subscription);
+  }
+
+  private onFilesChanged(): void {
+    const subscription = this.dragDropFileZoneService.onFilesChange().subscribe((metadata: any) => {
+      this.updateQueue(metadata);
+      this.onFilesChange(this.uploadItems);
+    });
+    this.subscription.add(subscription);
+  }
+
   private updateQueue(queue: any = {}): void {
-    if ((queue.queueLimit > 1 && !this.uploaded) || (queue.queueLimit === 1 && this.files.filter((res: NuxeoUploadResponse) => res.uploaded && res.uploadFileType === queue.target).length === 0)) {
+    if ((queue.queueLimit > 1 && !this.uploadStatus$.value.uploaded) || (queue.queueLimit === 1 && this.uploadItems.filter((res: NuxeoUploadResponse) => res.uploaded && res.uploadFileType === queue.target).length === 0)) {
       this.updateQueueFiles(queue);
     }
   }
@@ -223,46 +216,39 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     if (droped.length > 0) {
       this.queueFiles[queue.target] = {};
       const target = droped.map((f: File) => new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: f, uploadFileType: queue.target, formMode: queue.formMode }) }));
-      const queued = this.files.filter((res: NuxeoUploadResponse) => res.uploadFileType === queue.target);
+      const queued = this.uploadItems.filter((res: NuxeoUploadResponse) => res.uploadFileType === queue.target);
       if ((queued.length === 0) || (queued.length + target.length) <= queue.queueLimit) {
-        this.files = this.files.concat(target);
+        this.uploadItems = this.uploadItems.concat(target);
       } else if (queue.queueLimit === 1) {
-        this.files.splice(queued[0].fileIdx, 1, ...target.slice(0, 1));
+        this.uploadItems.splice(queued[0].fileIdx, 1, ...target.slice(0, 1));
       } else {
-        const other = this.files.filter((res: NuxeoUploadResponse) => res.uploadFileType !== queue.target);
-        this.files = queued.concat(target).slice(- queue.queueLimit).concat(other);
+        const other = this.uploadItems.filter((res: NuxeoUploadResponse) => res.uploadFileType !== queue.target);
+        this.uploadItems = queued.concat(target).slice(- queue.queueLimit).concat(other);
       }
-      this.files.forEach((res: NuxeoUploadResponse, index: number) => { res.fileIdx = index; res.blob.fileIdx = index; this.queueFiles[res.uploadFileType][res.fileName] = true; });
+      this.uploadItems.forEach((res: NuxeoUploadResponse, index: number) => { res.fileIdx = index; res.blob.fileIdx = index; this.queueFiles[res.uploadFileType][res.fileName] = true; });
     }
   }
 
   private onFilesChange(files: NuxeoUploadResponse[]): void {
-    // this.onUpload.emit(files);
-    // this._onChange(files);
     this.buildFileList(files);
-    if (!this.isMultiUpload()) {
+    if (!this.uploadSettings.multiUpload) {
       this.uploadFiles(files);
     }
   }
 
   private updateFileResponse(res: NuxeoUploadResponse): void {
-    const index = this.files.findIndex((response: NuxeoUploadResponse) => res.fileIdx.toString() === response.fileIdx.toString());
-    this.files[index] = res;
-    // this.onUpload.emit(this.files);
-    // this._onChange(this.files);
-    this.buildFileList();
-    this.uploaded = this.files.every((response: NuxeoUploadResponse) => response.uploaded);
-    this.uploading = !this.uploaded;
-    if (this.uploaded) {
-      // if (this.isMultiUpload()) {
+    const index = this.uploadItems.findIndex((response: NuxeoUploadResponse) => res.fileIdx.toString() === response.fileIdx.toString());
+    this.uploadItems[index] = res;
+    this.buildFileList(this.uploadItems);
+    const uploaded = this.uploadItems.every((response: NuxeoUploadResponse) => response.uploaded);
+    this.updateUploadStatus({ uploaded, uploading: !uploaded });
+    if (uploaded) {
       this.dragDropFileZoneService.changeState(true);
-      // }
-      // this.dragDropFileZoneService.changeState({ target: });
     }
   }
 
-  private upload(blobs: NuxeoBlob[]): void {
-    blobs.forEach((blob: NuxeoBlob) => { this.blobs$.next(blob); });
+  private upload(items: NuxeoUploadResponse[]): void {
+    items.filter((res: NuxeoUploadResponse) => !res.uploaded).forEach((res: NuxeoUploadResponse) => { this.blobs$.next(res.blob); });
   }
 
   private performSubForm(res: NuxeoUploadResponse): void {

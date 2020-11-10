@@ -342,14 +342,19 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'create',
-        multiUpload: true,
+        settings: {
+          showInput: true,
+          multiUpload: true,
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
-        showInputs: false,
-        multiUpload: false,
+        settings: {
+          showInput: false,
+          multiUpload: false,
+        },
       }),
     ];
   }

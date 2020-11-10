@@ -28,7 +28,7 @@ export class DynamicNGBatchUploadComponent extends DynamicFormControlComponent {
     super(layoutService, validationService);
   }
 
-  onValid(event): void {
+  onValid(event: any): void {
     this.customEvent.emit({ customEvent: event, customEventType: 'VALID' });
   }
 }

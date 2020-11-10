@@ -159,8 +159,10 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
         id: 'files:files',
         layoutPosition: 'bottom',
         formMode: 'edit',
-        showInputs: false,
-        multiUpload: true,
+        settings: {
+          showInput: false,
+          multiUpload: true,
+        },
       }),
     ];
   }

@@ -2,9 +2,8 @@
   <batch-file-upload
       [formControlName]="model.field"
       [id]="id"
+      [settings]="model.settings"
       [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
-      [multiUpload]="model.multiUpload"
-      [showInputs]="model.showInputs"
       [required]="model.required"
       [tabindex]="model.tabIndex"
       (blur)="onBlur($event)"

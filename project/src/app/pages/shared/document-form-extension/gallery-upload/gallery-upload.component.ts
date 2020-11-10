@@ -25,7 +25,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   @Input()
   set settings(settings: GalleryUploadSettings) {
     if (!isValueEmpty(settings)) {
-      this.gallerySettings$.next(settings);
+      this.galleryUploadSettings$.next(settings);
     }
   }
 
@@ -33,11 +33,11 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   uploadStatus$: BehaviorSubject<GalleryUploadStatus> = new BehaviorSubject<GalleryUploadStatus>(new GalleryUploadStatus());
 
-  gallerySettings: GalleryUploadSettings = new GalleryUploadSettings();
+  uploadSettings: GalleryUploadSettings = new GalleryUploadSettings();
 
   uploadItems: NuxeoUploadResponse[] = [];
 
-  private gallerySettings$: Subject<GalleryUploadSettings> = new Subject<GalleryUploadSettings>();
+  private galleryUploadSettings$: Subject<GalleryUploadSettings> = new Subject<GalleryUploadSettings>();
 
   private imageItems$: Subject<GalleryImageItem[]> = new Subject<GalleryImageItem[]>();
 
@@ -70,7 +70,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   writeValue(images: any): void {
-    if (images) {
+    if (!isValueEmpty(images)) {
       this.imageItems$.next(images);
     }
   }
@@ -88,7 +88,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   clickItem(index: number, item: GalleryImageItem): void {
-    if (!item.selected && this.selectedItems.size < this.gallerySettings.queueLimit) {
+    if (!item.selected && this.selectedItems.size < this.uploadSettings.queueLimit) {
       item.selected = !item.selected;
       this.selectedItems.add(index);
     } else if (item.selected) {
@@ -127,9 +127,9 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   private onFilesChanged(): void {
     const subscription = combineLatest([
       this.imageItems$,
-      this.gallerySettings$,
+      this.galleryUploadSettings$,
     ]).subscribe(([items, settings]: [GalleryImageItem[], GalleryUploadSettings]) => {
-      this.gallerySettings = settings;
+      this.uploadSettings = settings;
       this.uploadItems = this.buildGalleryImageItem(items, settings);
     });
     this.subscription.add(subscription);
