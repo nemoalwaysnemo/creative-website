@@ -25,7 +25,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
   getDialogSettings(type: string): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
     // 'Backslash'
-    components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET);
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET);
     // 'Disruption'
     components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
     // 'Intelligence'
@@ -40,7 +40,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     let main = null;
     switch (type) {
       case 'Backslash':
-        main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET;
+        main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
         break;
       case 'Disruption':
         main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;

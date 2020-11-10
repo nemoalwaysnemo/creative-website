@@ -12,6 +12,8 @@ import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-pr
 })
 export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
+  static readonly NAME: string = 'intelligence-asset-preview-dialog';
+
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   attachments: { type: string, url: string, title: string }[] = [];
