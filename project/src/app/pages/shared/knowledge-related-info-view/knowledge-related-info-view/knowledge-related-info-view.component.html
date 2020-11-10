@@ -33,7 +33,7 @@
 
 <ng-template #backslashThumbnailItemView let-doc="doc">
   <div class="backslash">
-    <h4 [routerLink]="['/p/backslash/asset', doc.uid]" (click)="close()">{{doc.title}}</h4>
+    <h4 (click)="selectView('Backslash', doc)">{{doc.title}}</h4>
     <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
     <div class="image-holder">
       <a [title]="doc.title" (click)="selectView('Backslash', doc)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
@@ -47,7 +47,7 @@
       <a (click)="selectView('Disruption', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
-      <h1 [routerLink]="['/p/disruption/asset', doc.uid]" (click)="close()" [title]="doc.title">{{doc.title}}</h1>
+      <h1 (click)="selectView('Disruption', doc)" [title]="doc.title">{{doc.title}}</h1>
     </div>
   </div>
 </ng-template>
@@ -58,7 +58,7 @@
       <a (click)="selectView('Intelligence', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
-      <h1 [routerLink]="['/p/intelligence/asset', doc.uid]" (click)="close()" [title]="doc.title">{{doc.title}}</h1>
+      <h1 (click)="selectView('Intelligence', doc)" [title]="doc.title">{{doc.title}}</h1>
     </div>
   </div>
 </ng-template>
