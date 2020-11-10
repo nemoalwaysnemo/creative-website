@@ -30,12 +30,13 @@
   <div class="clear"></div>
 </ng-container>
 <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+
 <ng-template #backslashThumbnailItemView let-doc="doc">
   <div class="backslash">
     <h4 [routerLink]="['/p/backslash/asset', doc.uid]" (click)="close()">{{doc.title}}</h4>
     <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
     <div class="image-holder">
-      <a [routerLink]="['/p/backslash/asset', doc.uid]" (click)="close()" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a [title]="doc.title" (click)="selectView('Backslash', doc)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
   </div>
 </ng-template>
@@ -43,7 +44,7 @@
 <ng-template #disruptionThumbnailItemView let-doc="doc">
   <div class="disruption">
     <div class="image-holder">
-      <a [routerLink]="['/p/disruption/asset', doc.uid]" (click)="close()" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a (click)="selectView('Disruption', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
       <h1 [routerLink]="['/p/disruption/asset', doc.uid]" (click)="close()" [title]="doc.title">{{doc.title}}</h1>
@@ -54,7 +55,7 @@
 <ng-template #intelligenceThumbnailItemView let-doc="doc">
   <div class="intelligence">
     <div class="image-holder">
-      <a [routerLink]="['/p/intelligence/asset', doc.uid]" (click)="close()" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a (click)="selectView('Intelligence', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
       <h1 [routerLink]="['/p/intelligence/asset', doc.uid]" (click)="close()" [title]="doc.title">{{doc.title}}</h1>

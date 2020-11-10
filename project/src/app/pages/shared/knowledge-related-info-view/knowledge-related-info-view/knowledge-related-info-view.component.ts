@@ -1,12 +1,12 @@
 import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { Subject, Subscription, timer } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel, SearchResponse } from '@core/api';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
-import { TabInfo } from '../knowledge-related-info.component';
-import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 import { GlobalDocumentDialogService } from '../../global-document-dialog';
+import { TabInfo } from '../knowledge-related-info.component';
+import { Subject, Subscription, timer } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'knowledge-related-info-view',
@@ -121,6 +121,30 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     }
   }
 
+  getDialogPrviewTemplateName(type: string): string {
+    switch (type) {
+      case 'Backslash':
+        return 'backslash-home-asset-preview';
+      case 'Disruption':
+        return 'disruption-asset-preview';
+      case 'Intelligence':
+        return 'disruption-asset-preview';
+      default:
+        break;
+    }
+  }
+
+  selectView(type: string, doc: DocumentModel): void {
+    const component = this.getDialogPrviewTemplateName(type);
+    this.globalDocumentDialogService.selectView(component, null, { document: doc, title: type });
+  }
+
+  close(delay: number = 0): void {
+    timer(delay).subscribe(_ => {
+      this.globalDocumentDialogService.close();
+    });
+  }
+
   private onChangeTab(): void {
     const subscription = this.tabInfo$.pipe(
       filter((info: TabInfo) => info.document && info.tabItem.name === this.item.name),
@@ -201,9 +225,4 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  close(delay: number = 0): void {
-    timer(delay).subscribe(_ => {
-      this.globalDocumentDialogService.close();
-    });
-  }
 }

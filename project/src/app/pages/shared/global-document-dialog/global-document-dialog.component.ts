@@ -66,7 +66,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
     return this.components.filter((x: any) => x.NAME === name).shift();
   }
 
-  protected createComponent(component: any, metadata?: any): void {
+  protected createComponent(component: any, metadata: any = {}): void {
     const type: string = component.COMPONENT_TYPE;
     switch (type) {
       case 'form':
@@ -80,20 +80,20 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
     }
   }
 
-  protected createFormComponent(component: Type<any>, metadata?: any): void {
+  protected createFormComponent(component: Type<any>, metadata: any = {}): void {
     this.buildComponent(DocumentDialogFormComponent, component, metadata);
   }
 
-  protected createCustomComponent(component: Type<any>, metadata?: any): void {
+  protected createCustomComponent(component: Type<any>, metadata: any = {}): void {
     this.buildComponent(DocumentDialogCustomComponent, component, metadata);
   }
 
-  protected buildComponent(componentContainer: Type<any>, component: Type<any>, metadata?: any): void {
+  protected buildComponent(componentContainer: Type<any>, component: Type<any>, metadata: any = {}): void {
     this.dynamicComponentRef = this.createDynamicComponent(this.dynamicTarget, componentContainer);
-    this.dynamicComponentRef.instance.title = this.title;
+    this.dynamicComponentRef.instance.title = metadata.title || this.title;
     this.dynamicComponentRef.instance.metadata = Object.assign({}, this.dialogSettings, metadata);
-    this.dynamicComponentRef.instance.documentModel = this.document;
-    this.dynamicComponentRef.instance.redirectUrl = this.redirectUrl;
+    this.dynamicComponentRef.instance.documentModel = metadata.document || this.document;
+    this.dynamicComponentRef.instance.redirectUrl = metadata.redirectUrl || this.redirectUrl;
     this.dynamicComponentRef.instance.mainViewChanged = this.mainViewChanged;
     this.dynamicComponentRef.instance.component = component;
   }
@@ -103,7 +103,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
       const main = this.mainComponent.NAME;
       const name = e.options.componentName || main;
       const component = name === main ? this.mainComponent : e.options.component;
-      this.mainViewChanged = main !== name;
+      this.mainViewChanged = main !== name || (e.options && e.options.metadata && e.options.metadata.document);
       this.selectView(name, component, e.options.metadata);
     });
   }
