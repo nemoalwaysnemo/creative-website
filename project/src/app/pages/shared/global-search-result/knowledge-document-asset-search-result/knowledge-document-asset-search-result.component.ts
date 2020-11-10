@@ -24,30 +24,43 @@ export class KnowledgeDocumentAssetSearchResultComponent {
 
   getDialogSettings(type: string): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
+    // 'Backslash'
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET);
+    // 'Disruption'
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+    // 'Intelligence'
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INTELLIGENCE_ASSET);
+    // 'Innovation'
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INNOVATION_ASSET);
+    // 'Creative'
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET);
+    // 'Business Development'
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
+    components.push(GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST);
+    let main = null;
     switch (type) {
       case 'Backslash':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET);
+        main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET;
         break;
       case 'Disruption':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
         break;
       case 'Intelligence':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INTELLIGENCE_ASSET);
+        main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_INTELLIGENCE_ASSET;
         break;
       case 'Innovation':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INNOVATION_ASSET);
+        main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_INNOVATION_ASSET;
         break;
       case 'Creative':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET);
+        main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET;
         break;
       case 'Business Development':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
-        components.push(GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST);
+        main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET;
         break;
       default:
         break;
     }
-    return new GlobalDocumentDialogSettings({ components });
+    return new GlobalDocumentDialogSettings({ components, main });
   }
 
   getAssetType(doc: DocumentModel): string {
