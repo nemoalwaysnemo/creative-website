@@ -3,35 +3,23 @@ export class GalleryImageItem {
   uploding: boolean = false;
   uploaded: boolean = false;
   private src: string;
-  private alt: string;
-  private base64: string;
+  private name: string;
+  private dataUrl: string;
 
   constructor(data: any = {}) {
     Object.assign(this, data);
   }
 
   getName(): string {
-    return this.alt;
+    return this.name;
   }
 
   getSource(): string {
-    return this.base64 ? this.getDataUrl() : this.src;
-  }
-
-  getDataUrl(): string {
-    return this.toDataUrl(this.base64, this.getExtension(this.src));
+    return this.dataUrl || this.src;
   }
 
   getFile(): File {
-    return this.dataUrl2File(this.getDataUrl(), this.getName());
-  }
-
-  private toDataUrl(data: string, type: string): string {
-    return `data:image/${type};base64,${data}`;
-  }
-
-  private getExtension(file: string): string {
-    return file.slice((Math.max(0, file.lastIndexOf('.')) || Infinity) + 1).split('!').shift();
+    return this.dataUrl2File(this.dataUrl, this.getName());
   }
 
   private dataUrl2File(dataUrl: string, filename: string, type?: string): File {
@@ -68,7 +56,6 @@ export class GalleryUploadStatus {
   disableUploadButton(): boolean {
     return !this.selected || (this.uploaded || this.uploading);
   }
-
 }
 
 export class GalleryUploadSettings {

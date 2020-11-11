@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { deepExtend } from '@core/services/helpers';
 import { of as observableOf, Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel, DynamicFormControlModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel } from '@core/custom';
+import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
-import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'backslash-trigger-plugin-form',
@@ -23,17 +22,9 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
-    if (doc.type === 'Web-Page-Element') {
-      const properties = Object.assign({}, this.document.properties, {
-        'web-page-element:page-images': doc.get('web-page-element:page-images'),
-        'app_Edges:URL': doc.get('web-page-element:page-url'),
-        'dc:title': doc.title,
-      });
-      return observableOf(new DocumentModel({
-        path: this.document.path,
-        type: this.getDocType(),
-        properties,
-      }));
+    if (!doc.type) {
+      doc.type = this.getDocType();
+      return observableOf(doc);
     } else {
       return this.initializeDocument(doc, this.getDocType());
     }
@@ -74,76 +65,76 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
           minLength: 'At least 4 characters',
         },
       }),
-      // new DynamicSuggestionModel({
-      //   id: 'app_Edges:Tags_edges',
-      //   label: 'Edges',
-      //   required: true,
-      //   document: true,
-      //   settings: {
-      //     placeholder: 'Please select edges',
-      //     providerType: SuggestionSettings.DIRECTORY,
-      //     providerName: 'App-Edges-Edges',
-      //   },
-      // }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'The_Loupe_Main:agency',
-      //   label: 'Agency',
-      //   required: true,
-      //   settings: {
-      //     multiple: false,
-      //     placeholder: 'Please select agency',
-      //     providerType: SuggestionSettings.DIRECTORY,
-      //     providerName: 'GLOBAL_Agencies',
-      //   },
-      // }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'app_Edges:backslash_category',
-      //   label: 'Category',
-      //   required: true,
-      //   settings: {
-      //     placeholder: 'Please select category',
-      //     providerType: SuggestionSettings.DIRECTORY,
-      //     providerName: 'App-Backslash-Categories',
-      //   },
-      // }),
-      // new DynamicTextAreaModel({
-      //   id: 'app_Edges:insight',
-      //   label: 'Key Insight',
-      //   rows: 5,
-      //   required: true,
-      // }),
-      // new DynamicSuggestionModel({
-      //   id: 'app_Edges:format',
-      //   label: 'Format',
-      //   required: true,
-      //   settings: {
-      //     placeholder: 'Please select format',
-      //     providerType: SuggestionSettings.DIRECTORY,
-      //     providerName: 'App-Backslash-Type',
-      //   },
-      // }),
-      // new DynamicSuggestionModel({
-      //   id: 'app_Edges:Relevant_Country',
-      //   label: 'Relevant Country',
-      //   required: true,
-      //   settings: {
-      //     placeholder: 'Please select country',
-      //     providerType: SuggestionSettings.DIRECTORY,
-      //     providerName: 'GLOBAL_Geography_TBWA',
-      //   },
-      // }),
-      // new DynamicTextAreaModel({
-      //   id: 'app_Edges:trigger_text',
-      //   label: 'Trigger Summary',
-      //   rows: 5,
-      //   required: true,
-      // }),
-      // new DynamicOptionTagModel({
-      //   id: 'The_Loupe_Main:brand',
-      //   label: 'Brand(s)',
-      //   placeholder: 'Brand',
-      //   required: false,
-      // }),
+      new DynamicSuggestionModel({
+        id: 'app_Edges:Tags_edges',
+        label: 'Edges',
+        required: true,
+        document: true,
+        settings: {
+          placeholder: 'Please select edges',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Edges-Edges',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:agency',
+        label: 'Agency',
+        required: true,
+        settings: {
+          multiple: false,
+          placeholder: 'Please select agency',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Agencies',
+        },
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:backslash_category',
+        label: 'Category',
+        required: true,
+        settings: {
+          placeholder: 'Please select category',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Categories',
+        },
+      }),
+      new DynamicTextAreaModel({
+        id: 'app_Edges:insight',
+        label: 'Key Insight',
+        rows: 5,
+        required: true,
+      }),
+      new DynamicSuggestionModel({
+        id: 'app_Edges:format',
+        label: 'Format',
+        required: true,
+        settings: {
+          placeholder: 'Please select format',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Type',
+        },
+      }),
+      new DynamicSuggestionModel({
+        id: 'app_Edges:Relevant_Country',
+        label: 'Relevant Country',
+        required: true,
+        settings: {
+          placeholder: 'Please select country',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'GLOBAL_Geography_TBWA',
+        },
+      }),
+      new DynamicTextAreaModel({
+        id: 'app_Edges:trigger_text',
+        label: 'Trigger Summary',
+        rows: 5,
+        required: true,
+      }),
+      new DynamicOptionTagModel({
+        id: 'The_Loupe_Main:brand',
+        label: 'Brand(s)',
+        placeholder: 'Brand',
+        required: false,
+      }),
       new DynamicTextAreaModel({
         id: 'app_Edges:URL',
         label: 'Web Link',

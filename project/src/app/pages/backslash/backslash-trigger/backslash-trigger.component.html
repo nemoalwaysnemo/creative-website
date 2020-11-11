@@ -1,5 +1,5 @@
-<div class="form-button-group">
-  <button type="button" (click)="fetchSite()" class="icon_btn" title="FETCH SITE">FETCH SITE</button>
+<div class="form-button-group" [nbSpinner]="isButtonDisabled()" nbSpinnerStatus="disabled">
+  <button type="button" (click)="fetchSite()" class="icon_btn" title="Fetch Site">Fetch Site</button>
+  <textarea #url autofocus="true" autocomplete="off" rows="10" cols="50" placeholder="Please enter the url">https://www.ifanr.com/1371214</textarea>
 </div>
-<img *ngIf="image" src="data:image/jpeg;base64,{{image}}">
 <backslash-trigger-plugin-form [documentModel]="document" [settings]="formSettings"></backslash-trigger-plugin-form>
