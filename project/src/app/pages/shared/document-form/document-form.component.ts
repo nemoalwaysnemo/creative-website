@@ -5,7 +5,7 @@ import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './d
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 
 @Component({
@@ -27,21 +27,19 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   formStatus$: BehaviorSubject<DocumentFormStatus> = new BehaviorSubject<DocumentFormStatus>(new DocumentFormStatus());
 
-  private uploadFieldName: string;
-
   private user: UserModel;
 
   private documentModel: DocumentModel;
 
-  protected subscription: Subscription = new Subscription();
+  private uploadModel: DynamicFormControlModel;
+
+  private subscription: Subscription = new Subscription();
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
   private currentUser$: Subject<UserModel> = new Subject<UserModel>();
 
   private formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
-
-  private fileMultiUpload: boolean;
 
   @Input()
   set document(doc: DocumentModel) {
@@ -101,10 +99,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       this.updateFormStatus({ childrenValid: event.$event });
     }
     if (['BATCH_UPLOAD', 'GALLERY_UPLOAD'].includes(event.type)) {
-      this.performBatchUpload(event.$event);
+      this.performBatchUpload(event);
       this.callback.emit(new DocumentFormEvent({ action: 'UploadFilesChanged', uploadType: event.type, status: this.formStatus$.value, doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
     }
-
     if (event.type === 'SWITCH_TAB_CHANGED') {
       this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, doc: this.documentModel }));
     }
@@ -132,20 +129,20 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  hideControls(): void {
-    if (this.formSettings.formMode === 'create') {
-      const type = this.fileMultiUpload ? 'delete' : 'show';
+  hideControls(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings): void {
+    if (settings.formMode === 'create') {
+      const type = uploadModel.settings.multiUpload ? 'delete' : 'show';
       this.modelOperation.next({ model: 'dc:title', type });
     }
   }
 
-  setDocumentTitle(res: NuxeoUploadResponse): void {
-    if (this.formSettings.formMode === 'create' && !this.fileMultiUpload && !this.formGroup.value['dc:title']) {
+  setDocumentTitle(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, res: NuxeoUploadResponse): void {
+    if (settings.formMode === 'create' && !uploadModel.settings.multiUpload && !this.formGroup.value['dc:title']) {
       this.formGroup.patchValue({ 'dc:title': this.filterFileName(res.fileName) });
     }
   }
 
-  showAfterUploadMessage(): boolean {
+  showMessageAfterUpload(): boolean {
     return this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.formMode === 'create' && this.formSettings.showUploadMessage;
   }
 
@@ -195,14 +192,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return tabSettings.map((s: { name: string, active: boolean, disabledFn?: any }) => ({ name: s.name, active: s.active, disabled: (s.disabledFn && s.disabledFn(doc, user, settings)), models: models.filter(m => m.switchTab === s.name) }));
   }
 
-  private prepareModelSettings(models: DynamicFormModel): DynamicFormModel {
-    const uploadModel = models.find((v) => (v instanceof DynamicBatchUploadModel));
-    this.uploadFieldName = uploadModel ? uploadModel.field : this.uploadFieldName;
-    const model = models.find(m => (m instanceof DynamicBatchUploadModel) && m.formMode === 'create');
-    this.fileMultiUpload = model ? (model as any).multiUpload : false;
-    return models.filter((v) => v.formMode === null || v.formMode === this.formSettings.formMode);
-  }
-
   private prepareFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, formModel: DynamicFormModel): DynamicFormModel {
     formModel.forEach((model: DynamicFormControlModel) => {
       const modelValue = doc.get(model.field);
@@ -225,8 +214,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private performFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): DynamicFormModel {
-    let models = settings.formModel.filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(doc, user, settings));
-    models = this.prepareModelSettings(models);
+    const models = settings.formModel.filter((v) => v.formMode === null || v.formMode === settings.formMode).filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(doc, user, settings));
     return this.prepareFormModel(doc, user, settings, models);
   }
 
@@ -243,6 +231,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     ngFormSettings.formModel = this.createFormModel(models);
     ngFormSettings.enableLayoutRight = settings.enableLayoutRight;
     ngFormSettings.formLayout = settings.formLayout;
+    ngFormSettings.formMode = settings.formMode;
     this.ngFormSettings = ngFormSettings;
   }
 
@@ -273,7 +262,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     let documents = [];
     this.documentModel.properties = this.filterPropertie(this.formGroup.value);
     if (this.formStatus$.value.uploadState === 'uploaded') {
-      documents = this.attachFiles(this.documentModel, this.formGroup.value[this.uploadFieldName]);
+      documents = this.attachFiles(this.documentModel, this.formGroup.value[this.uploadModel.field]);
     } else {
       documents = [this.documentModel];
       documents.forEach(doc => {
@@ -333,7 +322,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
     return files.map((res: NuxeoUploadResponse) => {
       const model = this.newDocumentModel(doc).attachBatchBlob(res.batchBlob);
-      if (!!res.title && this.fileMultiUpload) {
+      if (!!res.title && this.uploadModel.settings.multiUpload) {
         model.properties['dc:title'] = res.title;
       }
       delete model.properties['files:files'];
@@ -354,7 +343,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private updateAttachedFiles(properties: any): any {
     const attachmens = [];
-    const files = this.formGroup.value[this.uploadFieldName];
+    const files = this.formGroup.value[this.uploadModel.field];
     files.forEach((file: NuxeoUploadResponse) => {
       if (file.uploadFileType === 'asset') {
         properties['file:content'] = file.batchBlob;
@@ -371,23 +360,32 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return properties;
   }
 
-  private performBatchUpload(list: NuxeoUploadResponse[]): void {
-    if (list.length === 0) {
+  private performBatchUpload(event: any): void {
+    if (!this.uploadModel) {
+      this.uploadModel = this.getUploadModel(this.ngFormSettings, event.type);
+    }
+    const response: NuxeoUploadResponse[] = event.$event;
+    if (response.length === 0) {
       this.updateFormStatus({ uploadState: null });
-    } else if (list.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {
+    } else if (response.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {
       this.updateFormStatus({ uploadState: 'preparing' });
-    } else if (list.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
+    } else if (response.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
       this.updateFormStatus({ uploadState: 'uploading' });
-    } else if (list.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
-      this.hideControls();
-      this.setDocumentTitle(list[0]);
+    } else if (response.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
+      this.hideControls(this.uploadModel, this.ngFormSettings);
+      this.setDocumentTitle(this.uploadModel, this.ngFormSettings, response[0]);
       this.updateFormStatus({ uploadState: 'uploaded' });
     }
-    this.uploadCount = list.length;
+    this.uploadCount = response.length;
   }
 
-  private performGalleryUpload(list: NuxeoUploadResponse[]): void {
-    console.log(1111, list);
+  private getUploadModel(settings: DynamicNGFormSettings, type: string): DynamicFormControlModel {
+    switch (type) {
+      case 'BATCH_UPLOAD':
+        return settings.formModel.find((v) => (v instanceof DynamicBatchUploadModel));
+      case 'GALLERY_UPLOAD':
+        return settings.formModel.find((v) => (v instanceof DynamicGalleryUploadModel));
+    }
   }
 
   private filterFileName(name: string): string {
