@@ -5,7 +5,6 @@ import { serializable } from '../decorator/serializable.decorator';
 import { isBoolean, isObject } from '../utils/core.utils';
 
 export interface DynamicFormValueControlModelConfig<T> extends DynamicFormControlModelConfig {
-
   additional?: { [key: string]: any };
   hint?: string;
   required?: boolean;

@@ -10,6 +10,8 @@ export class DynamicNGFormSettings {
 
   switchTabSettings: { name: string, disabled?: boolean, models: DynamicFormModel }[] = [];
 
+  formMode: 'create' | 'edit' | 'view' = 'create';
+
   enableLayoutRight: boolean = true;
 
   formClass: string;

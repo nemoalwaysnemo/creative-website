@@ -155,7 +155,7 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
         switchTab: '+ Images',
         formMode: 'create',
         settings: {
-          queueLimit: 2,
+          queueLimit: 1,
           uploadType: 'asset',
         },
         defaultValueFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): any => doc.get('web-page-element:page-images'),
