@@ -3,7 +3,7 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 
 @include nb-install-component() {
-  ngx-header {
+  library-ui-header {
     display: block;
     width: 100%;
   }

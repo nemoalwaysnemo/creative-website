@@ -48,6 +48,10 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   }
 
+  protected setCurrentUser(user: UserModel): void {
+    this.currentUser = user;
+  }
+
   protected setCurrentDocument(doc: DocumentModel, user?: UserModel): void {
     super.setCurrentDocument(doc, user);
     if (user) { this.currentUser = user; }
@@ -68,7 +72,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   protected getCurrentUser(): void {
     const subscription = this.documentPageService.getCurrentUser().subscribe((user: UserModel) => {
-      this.currentUser = user;
+      this.setCurrentUser(user);
     });
     this.subscription.add(subscription);
   }

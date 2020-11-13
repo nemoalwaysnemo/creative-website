@@ -4,7 +4,6 @@ import { ThemeModule } from '@theme/theme.module';
 import { SharedDirectiveModule } from './directives/shared-directive.module';
 import { AbstractClassesModule } from './abstract-classes/abstract-classes.module';
 import {
-  OptionSelectModule,
   PictureGalleryModule,
   DocumentListViewModule,
   DocumentViewerModule,
@@ -15,8 +14,6 @@ import {
   DocumentRelatedInfoModule,
   DocumentRelatedCampaignModule,
   DocumentRelatedBrandModule,
-  BatchFileUploadModule,
-  DirectorySuggestionModule,
   DocumentFormModule,
   HomeSearchFormModule,
   ShareDocumentButtonModule,
@@ -31,7 +28,6 @@ const EXPORTS = [
   CommonModule,
   ThemeModule,
   AbstractClassesModule,
-  OptionSelectModule,
   PictureGalleryModule,
   SharedDirectiveModule,
   DocumentListViewModule,
@@ -42,8 +38,6 @@ const EXPORTS = [
   DocumentRelatedInfoModule,
   DocumentRelatedCampaignModule,
   DocumentRelatedBrandModule,
-  DirectorySuggestionModule,
-  BatchFileUploadModule,
   DocumentViewerModule,
   DocumentFormModule,
   HomeSearchFormModule,
