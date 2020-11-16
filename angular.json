@@ -127,27 +127,6 @@
                 "replace": "project/src/environments/environment.ts",
                 "with": "project/src/environments/environment.aws-dev.ts"
               }]
-            },
-            "chrome-dev": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "outputPath": "project/dist",
-              "assets": [
-                "project/src/assets",
-                "project/src/favicon.ico",
-                "project/src/favicon.png",
-                "project/src/manifest.json"
-              ],
-              "fileReplacements": [{
-                "replace": "project/src/environments/environment.ts",
-                "with": "project/src/environments/environment.chrome-dev.ts"
-              }]
             }
           }
         },
