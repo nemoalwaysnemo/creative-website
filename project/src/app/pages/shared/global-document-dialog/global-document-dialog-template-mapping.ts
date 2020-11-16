@@ -11,6 +11,7 @@ import { IntelligenceAssetPreviewDialogComponent } from './document-dialog-templ
 import { CreativeAssetPreviewDialogComponent } from './document-dialog-template/creative-asset-preview-dialog/creative-asset-preview-dialog.component';
 import { DocumentShowcaseTemplateComponent } from './document-dialog-template/document-showcase-template/document-showcase-template.component';
 import { DocumentDeleteMultipleTemplateComponent } from './document-dialog-template/document-delete-multiple-template/document-delete-multiple-template.component';
+import { CreativeAssetTemplateDialogComponent } from './document-dialog-template/creative-asset-template/creative-asset-template.component';
 
 export const GLOBAL_DOCUMENT_DIALOG = {
   PREIVEW_BACKSLASH_HOME_ASSET: BackslashHomeAssetDialogPreviewComponent,
@@ -21,6 +22,7 @@ export const GLOBAL_DOCUMENT_DIALOG = {
   CUSTOM_DELETION: DocumentDialogDeletionTemplateComponent,
   CUSTOM_CREATIVE_PROJECT_ASSET: CreativeProjectAssetTemplateComponent,
   CUSTOM_SHOWCASE_ADD_REMOVE: DocumentShowcaseTemplateComponent,
+  CUSTOM_CREATIVE_ASSET: CreativeAssetTemplateDialogComponent,
   CUSTOM_DELETE_MULTIPLE_ASSETS: DocumentDeleteMultipleTemplateComponent,
   PREVIEW_INNOVATION_ASSET: InnovationAssetPreviewDialogComponent,
   PREVIEW_BIZDEV_ASSET: BizdevAssetPreviewDialogComponent,

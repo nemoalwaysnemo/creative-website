@@ -1,0 +1,49 @@
+<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="documentModel">
+    <ng-container [ngSwitch]="true">
+      <ng-container>
+        <!-- <h1>{{documentModel.title}}</h1>
+        <h2><a *ngIf="documentModel.parentRef && hasBrand() && !hasFilter() && hasBrandFolder()" href="javascript:;" (click)="goToBrandFolder();" class="">{{documentModel.get('The_Loupe_Main:brand')}}</a>
+          <ng-container *ngIf="documentModel.parentRef && hasBrand() && hasFilter() || !hasBrandFolder()">{{documentModel.get('The_Loupe_Main:brand')}}</ng-container>
+        </h2> -->
+        <h4>About</h4>
+        <p>{{documentModel.get('dc:description')}}</p>
+        <table>
+          <tbody>
+            <tr>
+              <th>Asset Type</th>
+              <th>Country</th>
+            </tr>
+            <tr>
+              <td>{{documentModel.get('The_Loupe_Main:assettype')}}</td>
+              <td>{{vocabularyFormatter(documentModel.get('The_Loupe_Main:country'))}}</td>
+            </tr>
+            <!-- <tr>
+              <th colspan="2">Agency</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <a *ngIf="hasAgency() && !hasFilter() && hasAgencyFolder()" href="javascript:;" (click)="goToAgencyFolder();" class="text">{{documentModel.get('The_Loupe_Main:agency')}}</a>
+                <ng-container *ngIf="hasAgency() && !hasAgencyFolder() || hasFilter()">{{documentModel.get('The_Loupe_Main:agency')}}</ng-container>
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+        <nb-accordion class="accordion">
+          <nb-accordion-item class="accordion-item" (click)="toggleJob(documentModel)">
+            <nb-accordion-item-header class="accordion-item-header"><span>Job</span></nb-accordion-item-header>
+            <nb-accordion-item-body class="accordion-item-body" [nbSpinner]="jobLoading" nbSpinnerStatus="disabled">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>{{jobTitle}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
