@@ -7,7 +7,7 @@ import { DocumentPageService } from '../../../pages/shared/services/document-pag
 import { Environment, NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'ngx-header',
+  selector: 'library-ui-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })

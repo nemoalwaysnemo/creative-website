@@ -19,7 +19,7 @@ import { StateService } from '@core/services/state.service';
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
 
       <nb-layout-header *ngIf="!hideHeader" fixed>
-        <ngx-header></ngx-header>
+        <library-ui-header></library-ui-header>
       </nb-layout-header>
 
       <nb-layout-column class="main-content">
