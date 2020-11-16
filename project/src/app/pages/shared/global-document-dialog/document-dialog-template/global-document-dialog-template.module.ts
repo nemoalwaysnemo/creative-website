@@ -27,6 +27,13 @@ import { CreativeAssetPreviewDialogComponent } from './creative-asset-preview-di
 import { DocumentShowcaseTemplateComponent } from './document-showcase-template/document-showcase-template.component';
 import { DocumentDeleteMultipleTemplateComponent } from './document-delete-multiple-template/document-delete-multiple-template.component';
 import { KnowledgeRelatedInfoModule } from '../../knowledge-related-info-view/knowledge-related-info.module';
+import { CreativeAssetTemplateDialogComponent } from './creative-asset-template/creative-asset-template.component';
+import { CreativeAssetTemplateTabsComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tabs.component';
+import { CreativeAssetTemplateTabInfoComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tab-info/creative-asset-template-tab-info.component';
+import { CreativeAssetTemplateTabUsageRightsComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tab-usage-rights/creative-asset-template-tab-usage-rights.component';
+import { CreativeAssetTemplateTabUsageRightsDetailsComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tab-usage-rights-details/creative-asset-template-tab-usage-rights-details.component';
+import { ListSearchFormInDialogModule } from '../../list-search-form-in-dialog/list-search-form-in-dialog.module';
+import { UsageRightWidgetModule } from '../../usage-right-widget/usage-right-widget.module';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
@@ -35,6 +42,11 @@ const COMPONENTS = [
   DocumentDialogConfirmationTemplateComponent,
   DocumentDialogDeletionTemplateComponent,
   DocumentDownloadRequestTemplateComponent,
+  CreativeAssetTemplateDialogComponent,
+  CreativeAssetTemplateTabsComponent,
+  CreativeAssetTemplateTabInfoComponent,
+  CreativeAssetTemplateTabUsageRightsComponent,
+  CreativeAssetTemplateTabUsageRightsDetailsComponent,
   CreativeProjectAssetTemplateComponent,
   CreativeProjectAssetBaseTemplateComponent,
   CreativeProjectAssetCompletionReportTemplateComponent,
@@ -61,6 +73,8 @@ const COMPONENTS = [
     KnowledgeRelatedInfoModule,
     DocumentBackslashInfoModule,
     DocumentCreativeProjectMgtModule,
+    ListSearchFormInDialogModule,
+    UsageRightWidgetModule,
   ],
   declarations: [
     ...COMPONENTS,

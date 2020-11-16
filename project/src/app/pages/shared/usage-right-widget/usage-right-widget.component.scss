@@ -1,0 +1,30 @@
+.error {
+  background-color: #b5b5b5;
+}
+
+.waring {
+  background-color: #922219;
+}
+
+.info {
+  background-color: #eec955;
+}
+
+ul.light {
+  padding: 0;
+  margin: 0;
+
+   li {
+    float: left;
+    width: 24%;
+    text-align: center;
+    margin-right: 1%;
+
+    div {
+      height: 100px;
+      /* padding: 10px; */
+      padding: 40px 10px;
+      text-align: center;
+    }
+  }
+}

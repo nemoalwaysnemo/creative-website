@@ -4,6 +4,7 @@ import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-form';
+import { ListSearchRowForUrComponent } from '../../../shared/list-search-form-for-ur';
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
@@ -110,8 +111,14 @@ export class CreativeBrandCampaignSummaryComponent extends GlobalDocumentViewCom
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'thumbnail',
+          enableClick: true,
+          dialogSettings: new GlobalDocumentDialogSettings({
+            components: [
+              GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_ASSET,
+            ],
+          }),
         }),
-        renderComponent: ListSearchRowCustomDialogComponent,
+        renderComponent: ListSearchRowForUrComponent,
       },
     },
   };

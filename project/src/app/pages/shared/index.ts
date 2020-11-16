@@ -39,3 +39,4 @@ export * from './document-selectable/selectable-item/selectable-item.interface';
 export * from './document-selectable/selectable-action-bar/selectable-action-bar.module';
 export * from './document-selectable/selectable-action-bar/selectable-action-bar.interface';
 export * from './document-featured-carousel/document-featured-carousel.module';
+export * from './usage-right-widget/usage-right-widget.module';

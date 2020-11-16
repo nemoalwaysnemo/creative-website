@@ -1,0 +1,6 @@
+<div class="left">
+  <creative-asset-template-tab-usage-rights-details [document]="document"></creative-asset-template-tab-usage-rights-details>
+</div>
+<div class="right">
+  <document-creative-project-usage-rights [document]="document" (onResponsed)="onResponse($event)" [listViewOptions]="listViewOptions" (onSelect)="onSelect($event)"></document-creative-project-usage-rights>
+</div>
