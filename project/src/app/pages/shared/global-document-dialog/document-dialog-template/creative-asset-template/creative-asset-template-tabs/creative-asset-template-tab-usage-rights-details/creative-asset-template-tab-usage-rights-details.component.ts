@@ -46,7 +46,6 @@ export class CreativeAssetTemplateTabUsageRightsDetailsComponent {
   set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
-      console.log(doc);
       this.loading = false;
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
     }

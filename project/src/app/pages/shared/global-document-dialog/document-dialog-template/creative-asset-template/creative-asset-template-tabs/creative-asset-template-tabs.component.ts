@@ -27,7 +27,6 @@ export class CreativeAssetTemplateTabsComponent implements OnInit, OnDestroy {
   set documentModel(doc: DocumentModel) {
     if (doc) {
       this.document = doc;
-      console.log(this.document);
       timer(0).subscribe(() => { this.tabInfo$.next(new TabInfo('docChanged', this.currentTab, doc)); });
     }
   }

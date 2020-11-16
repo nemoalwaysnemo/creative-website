@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
 import { DocumentDialogEvent, GlobalDocumentDialogService } from '../global-document-dialog';
 import { ListSearchRowCustomViewSettings } from './list-search-form.interface';
-import { Subject, Observable, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -25,7 +25,7 @@ import { filter } from 'rxjs/operators';
 
         <ng-container *ngIf="options.dialogSettings">
           <a href="javascript:;" (click)="openDialog(dialog)" class="property-intro inline-top" title="getTitle(value)">
-            <div [ngStyle]="{'background-image': 'url('+value.thumbnailUrl+')'}"></div>
+            <img style="max-height:100px;" [src]="value.thumbnailUrl">
           </a>
           <ng-template #dialog>
             <global-document-dialog [settings]="options.dialogSettings" [documentModel]="value" [title]="getTitle(value)"></global-document-dialog>
