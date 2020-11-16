@@ -24,7 +24,7 @@ import {
   NbContextMenuModule,
 } from '@core/nebular/theme';
 
-import { FooterComponent, HeaderComponent } from './components';
+import { HeaderComponent } from './components';
 import { LibraryLayoutComponent } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { ACLModule } from '@core/acl';
@@ -53,7 +53,6 @@ const NB_MODULES = [
 
 const COMPONENTS = [
   HeaderComponent,
-  FooterComponent,
   LibraryLayoutComponent,
 ];
 
