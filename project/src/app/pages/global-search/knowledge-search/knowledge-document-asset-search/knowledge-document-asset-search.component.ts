@@ -15,7 +15,7 @@ export class KnowledgeDocumentAssetSearchComponent extends BaseDocumentViewCompo
     ecm_path: '/',
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
-    condition: ' AND ((app_global:networkshare = true AND ecm:primaryType IN ("App-Library-Image", "App-Library-Video", "App-Library-Audio")) OR ecm:primaryType IN ("App-Backslash-Article", "App-Backslash-Video", "App-Intelligence-Asset", "App-Innovation-Asset", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset", "App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset"))',
+    condition: ' AND ((app_global:networkshare = true AND ecm:primaryType IN ("App-Library-Image", "App-Library-Video", "App-Library-Audio")) OR ecm:primaryType IN ("App-Backslash-Article", "App-Backslash-Video", "App-Intelligence-Asset", "App-Innovation-Asset", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset", "App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset", "App-Backslash-Case-Study", "App-Backslash-Edges-Asset", "App-Backslash-Resources-Asset"))',
   };
 
   filters: SearchFilterModel[] = [

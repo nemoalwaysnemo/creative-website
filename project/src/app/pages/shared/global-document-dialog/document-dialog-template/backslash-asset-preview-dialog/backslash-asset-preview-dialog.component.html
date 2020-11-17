@@ -1,0 +1,101 @@
+<div class="dialog-title text-center">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1 class="left">{{title}}</h1>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <ng-container *ngIf="document">
+    <div class="media">
+      <document-viewer [document]="document" [layout]="getDialogSettings().docViewerLayout"></document-viewer>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <div class="text-content" style="padding-top: 0;">
+      <div class="controls row">
+        <div class="col-4">
+          <h3 class="left"><b>{{ document.title }}</b></h3>
+          <div class="clear"></div>
+          <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
+        </div>
+        <div class="col-8">
+          <a href="{{document.filePath}}" class="right"><button class="inline-middle download" type="submit">Download</button></a>
+          <ng-container *ngIf="getDialogSettings().enablePreview">
+            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right preview">Preview</button></a>
+          </ng-container>
+          <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+          <ng-container *ngIf="getDialogSettings().enableDetail">
+            <a href="{{shareUrl}}" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          </ng-container>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <ng-container *ngIf="getDialogSettings().moreInfo">
+        <table>
+          <tbody>
+            <tr>
+              <th>Descriptions</th>
+              <th>Asset Type</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('dc:description') }}</td>
+              <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+            </tr>
+            <tr>
+              <th>Industry</th>
+              <th>Geography</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('app_Edges:industry') }}</td>
+              <td>{{ vocabularyFormatter(document.get('app_Edges:Relevant_Country')) }}</td>
+            </tr>
+            <tr>
+              <th>Author</th>
+              <th>Published</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
+              <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
+            </tr>
+            <tr>
+              <th>Backslash Category</th>
+              <th>Agency</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
+              <td>{{ document.get('The_Loupe_Main:agency') }}</td>
+            </tr>
+            <tr>
+              <th>Edge</th>
+              <th>Brand</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+              <td>{{ document.get('The_Loupe_Main:brand') }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <nb-accordion class="accordion" *ngIf="attachments && attachments.length !== 0">
+        <nb-accordion-item class="accordion-item">
+          <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
+          <nb-accordion-item-body class="accordion-item-body">
+            <table>
+              <tbody *ngFor="let attachment of attachments">
+                <tr>
+                  <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+    <section class="related" *ngIf="getDialogSettings().enableKnowledgeRelated">
+      <knowledge-related-info [document]="document"></knowledge-related-info>
+    </section>
+  </ng-container>
+</div>
+
+<ng-template #popContent>
+  <share-document-button [document]="document" [shareUrl]="shareUrl"></share-document-button>
+</ng-template>
