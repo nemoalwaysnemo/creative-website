@@ -34,6 +34,7 @@ import { CreativeAssetTemplateTabUsageRightsComponent } from './creative-asset-t
 import { CreativeAssetTemplateTabUsageRightsDetailsComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tab-usage-rights-details/creative-asset-template-tab-usage-rights-details.component';
 import { ListSearchFormInDialogModule } from '../../list-search-form-in-dialog/list-search-form-in-dialog.module';
 import { UsageRightWidgetModule } from '../../usage-right-widget/usage-right-widget.module';
+import { BackslashAssetPreviewDialogComponent } from './backslash-asset-preview-dialog/backslash-asset-preview-dialog.component';
 
 const COMPONENTS = [
   BackslashHomeAssetDialogPreviewComponent,
@@ -60,6 +61,7 @@ const COMPONENTS = [
   CreativeAssetPreviewDialogComponent,
   DocumentShowcaseTemplateComponent,
   DocumentDeleteMultipleTemplateComponent,
+  BackslashAssetPreviewDialogComponent,
 ];
 
 @NgModule({

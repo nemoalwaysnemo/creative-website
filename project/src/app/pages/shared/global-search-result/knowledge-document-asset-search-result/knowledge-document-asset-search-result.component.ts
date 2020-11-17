@@ -22,7 +22,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     enableKnowledgeRelated: true,
   };
 
-  getDialogSettings(type: string): GlobalDocumentDialogSettings {
+  getDialogSettings(type: string, doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
     // 'Backslash'
     components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET);
@@ -37,11 +37,18 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     // 'Business Development'
     components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
     components.push(GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST);
+    // 'Backslash Asset'
+    components.push(GLOBAL_DOCUMENT_DIALOG.BACKSLASH_ASSET_DIALOG);
     let main = null;
     switch (type) {
       case 'Backslash':
-        main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
-        break;
+        if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
+          main = GLOBAL_DOCUMENT_DIALOG.BACKSLASH_ASSET_DIALOG;
+          break;
+        } else {
+          main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
+          break;
+        }
       case 'Disruption':
         main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
         break;
@@ -85,6 +92,12 @@ export class KnowledgeDocumentAssetSearchResultComponent {
       title = 'Innovation';
     } else if (NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE.includes(doc.type)) {
       title = 'Business Development';
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ASSET_TYPE.includes(doc.type)) {
+      title = 'Backslash Resource';
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE.includes(doc.type)) {
+      title = 'Backslash Edges';
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE.includes(doc.type)) {
+      title = 'Backslash Report';
     }
     return title;
   }
