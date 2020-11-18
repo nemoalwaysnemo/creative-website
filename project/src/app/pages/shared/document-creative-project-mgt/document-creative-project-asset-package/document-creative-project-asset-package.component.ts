@@ -133,12 +133,12 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     return observableOf(event);
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     this.currentDocument = doc;
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected beforeOnEdit(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnEdit(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     this.currentDocument = doc;
     return observableOf(doc);
   }

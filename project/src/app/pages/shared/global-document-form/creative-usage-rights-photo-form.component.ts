@@ -22,7 +22,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
     super(documentPageService);
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 

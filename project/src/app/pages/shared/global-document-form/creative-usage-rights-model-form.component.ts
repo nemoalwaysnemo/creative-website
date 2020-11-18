@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
+import { DocumentModel, UserModel } from '@core/api';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../document-form-extension';
 import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'creative-usage-rights-model-form',
@@ -21,7 +22,7 @@ export class CreativeUsageRightsModelComponent extends GlobalDocumentFormCompone
     super(documentPageService);
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 

@@ -5,6 +5,7 @@ import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, Dyn
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
+import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-plugin-trigger-form',
@@ -21,10 +22,29 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
     return doc;
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  private getUserSimplePreference(doc: DocumentModel): Observable<any> {
+    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-spotter-handle').pipe(
+      map((preference: any) => this.updateUserPreference(doc, preference.value)),
+    );
+  }
+
+  private updateUserPreference(doc: DocumentModel, preference: any = {}): DocumentModel {
+    const properties = Object.assign({}, doc.properties, {
+      'The_Loupe_Main:agency': preference['backslash-chrome-user-agency'],
+      'app_Edges:Relevant_Country': this.convertPreferenceListValue(preference['backslash-chrome-user-country']),
+      'app_Edges:spotter_handle': this.convertPreferenceListValue(preference['backslash-chrome-user-spotter-handle']),
+    });
+    return new DocumentModel({ path: doc.path, properties });
+  }
+
+  private convertPreferenceListValue(value: any): any {
+    return typeof value === 'string' && value !== 'null' ? value.split(',') : [];
+  }
+
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     if (!doc.type) {
       doc.type = this.getDocType();
-      return observableOf(doc);
+      return observableOf(doc).pipe(concatMap((d: DocumentModel) => this.getUserSimplePreference(d)));
     } else {
       return this.initializeDocument(doc, this.getDocType());
     }
