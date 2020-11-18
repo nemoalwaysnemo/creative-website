@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { Observable } from 'rxjs';
 import { DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent
     super(documentPageService);
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 

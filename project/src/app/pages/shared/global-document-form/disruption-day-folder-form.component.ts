@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { SuggestionSettings } from '../document-form-extension';
-import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
+import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
   selector: 'disruption-day-folder-form',
@@ -21,7 +21,7 @@ export class DisruptionDayFolderFormComponent extends GlobalDocumentFormComponen
     super(documentPageService);
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 

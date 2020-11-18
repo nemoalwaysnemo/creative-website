@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel } from '@core/custom';
+import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { SuggestionSettings } from '../document-form-extension';
 import { DocumentPageService } from '../services/document-page.service';
-import { DocumentFormEvent } from '../document-form/document-form.interface';
+import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
   selector: 'backslash-edges-folder-form',
@@ -21,7 +21,7 @@ export class BackslashEdgesFolderFormComponent extends GlobalDocumentFormCompone
     super(documentPageService);
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 

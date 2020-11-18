@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
-import { SuggestionSettings } from '../../../document-form-extension';
 import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { OptionModel } from '../../../option-select/option-select.interface';
+import { SuggestionSettings } from '../../../document-form-extension';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -31,7 +31,7 @@ export class DocumentCreativeProjectImportAssetAudioComponent extends GlobalDocu
     this.setFormSettings({});
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc.getParent('brand'), this.getDocType());
   }
 

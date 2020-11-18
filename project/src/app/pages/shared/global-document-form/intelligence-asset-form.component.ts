@@ -12,8 +12,9 @@ import {
   isString,
 } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { SuggestionSettings } from '../document-form-extension';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
+import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
   selector: 'intelligence-asset-form',
@@ -45,11 +46,11 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
     return doc;
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected beforeOnEdit(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnEdit(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     this.buildTags(doc);
     return observableOf(doc);
   }

@@ -112,14 +112,14 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
-    return formSettings.formMode === 'create' ? this.beforeOnCreation(doc) : this.beforeOnEdit(doc);
+    return formSettings.formMode === 'create' ? this.beforeOnCreation(doc, user, formSettings) : this.beforeOnEdit(doc, user, formSettings);
   }
 
-  protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return observableOf(doc.newInstance(this.getDocType()));
   }
 
-  protected beforeOnEdit(doc: DocumentModel): Observable<DocumentModel> {
+  protected beforeOnEdit(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return observableOf(doc);
   }
 
