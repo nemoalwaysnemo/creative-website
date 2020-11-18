@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
@@ -29,11 +29,11 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
     if (event.action === 'Created') {
       event.redirectUrl = this.documentPath + '/:uid';
     }
-    return event;
+    return observableOf(event);
   }
 
   protected buildDocumentPath(doc: DocumentModel): void {

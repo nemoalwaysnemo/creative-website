@@ -1,7 +1,7 @@
 import { Base } from './base.api';
 import { join, deepExtend, mapOrder } from '../../../services/helpers';
 import { NuxeoEnricher, BatchBlob, NuxeoAutomations } from './base.interface';
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 export class DocumentModel extends Base {

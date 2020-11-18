@@ -613,7 +613,7 @@ export enum NuxeoAutomations {
   DirectoryEntries = 'Directory.Entries',
   GetDocument = 'Creative.GetDocument',
   DocumentCreate = 'Document.Create',
-  GetFavorite = 'Favorite.Fetch',
+  GetFavoriteDocument = 'Favorite.Fetch',
   AddToFavorites = 'Document.AddToFavorites',
   AddToCollection = 'Document.AddToCollection',
   GetDocumentsFromCollection = 'Collection.GetDocumentsFromCollection',
@@ -625,4 +625,6 @@ export enum NuxeoAutomations {
   MoveToTrash = 'Document.Trash',
   DownloadRequest = 'App-BizDev-Asset-Download-Request-email',
   SendDeliveryPackage = 'App-Library-Delivery-Package-Send',
+  GetSimpleUserPreferences = 'TBWA.GetSimpleUserPreferences',
+  SetSimpleUserPreferences = 'TBWA.SetSimpleUserPreferences',
 }

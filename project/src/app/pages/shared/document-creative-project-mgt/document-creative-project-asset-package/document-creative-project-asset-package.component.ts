@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { DocumentModel, NuxeoApiService, NuxeoAutomations, UserModel } from '@core/api';
-import { Subject, timer, Observable, of as observableOf, concat } from 'rxjs';
+import { Subject, timer, of as observableOf, Observable, concat } from 'rxjs';
 import { DynamicInputModel, DynamicTextAreaModel, DynamicSuggestionModel } from '@core/custom';
 import { DocumentPageService } from '../../services/document-page.service';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
@@ -128,9 +128,9 @@ export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocument
     this.loading = false;
   }
 
-  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
+  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
     this.actionButton = event.button;
-    return event;
+    return observableOf(event);
   }
 
   protected beforeOnCreation(doc: DocumentModel): Observable<DocumentModel> {

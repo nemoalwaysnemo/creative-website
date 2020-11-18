@@ -123,7 +123,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onCustomButton(button: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, doc: this.documentModel }));
+    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, formValue: this.getFormValue(), doc: this.documentModel }));
     if (button.triggerSave) {
       this.onSave();
     }
@@ -137,7 +137,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   setDocumentTitle(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, res: NuxeoUploadResponse): void {
-    if (settings.formMode === 'create' && !uploadModel.settings.multiUpload && !this.formGroup.value['dc:title']) {
+    if (settings.formMode === 'create' && !uploadModel.settings.multiUpload && !this.getFormValue('dc:title')) {
       this.formGroup.patchValue({ 'dc:title': this.filterFileName(res.fileName) });
     }
   }
@@ -258,11 +258,15 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
+  private getFormValue(field?: string): any {
+    return field ? this.formGroup.value[field] : this.formGroup.value;
+  }
+
   private save(): void {
     let documents = [];
-    this.documentModel.properties = this.filterPropertie(this.formGroup.value);
+    this.documentModel.properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
-      documents = this.attachFiles(this.documentModel, this.formGroup.value[this.uploadModel.field]);
+      documents = this.attachFiles(this.documentModel, this.getFormValue(this.uploadModel.field));
     } else {
       documents = [this.documentModel];
       documents.forEach(doc => {
@@ -281,7 +285,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private update(): void {
-    let properties = this.filterPropertie(this.formGroup.value);
+    let properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
       properties = this.updateAttachedFiles(properties);
       if (properties['files:files'] === null) {
@@ -343,7 +347,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private updateAttachedFiles(properties: any): any {
     const attachmens = [];
-    const files = this.formGroup.value[this.uploadModel.field];
+    const files = this.getFormValue(this.uploadModel.field);
     files.forEach((file: NuxeoUploadResponse) => {
       if (file.uploadFileType === 'asset') {
         properties['file:content'] = file.batchBlob;

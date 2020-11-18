@@ -41,11 +41,24 @@ export const DirectoryEntriesUnmarshaller = (json: any = {}, options: any = {}):
 };
 
 export const StringUnmarshaller = (json: any = {}, options: any = {}): any => {
-  let response;
+  let response: any;
   try {
     const value = JSON.parse(json.value);
     if (value['entity_type']) {
       response = new NuxeoPagination({ 'entity-type': value.entity_type, entries: value.entities });
+    }
+  } catch (e) {
+    response = new NuxeoResponse({ value: json.value });
+  }
+  return response;
+};
+
+export const MapUnmarshaller = (json: any = {}, options: any = {}): any => {
+  let response: NuxeoResponse;
+  try {
+    const value = JSON.parse(json.value);
+    if (value['entity_type']) {
+      response = new NuxeoResponse({ 'entity-type': value.entity_type, entries: value});
     }
   } catch (e) {
     response = new NuxeoResponse({ value: json.value });

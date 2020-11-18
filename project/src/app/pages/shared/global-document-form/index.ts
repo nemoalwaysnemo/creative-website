@@ -32,4 +32,5 @@ export * from './backslash-edges-asset-form.component';
 export * from './backslash-resources-folder-form.component';
 export * from './backslash-resources-asset-form.component';
 export * from './backslash-trigger-form.component';
-export * from './backslash-trigger-plugin-form.component';
+export * from './backslash-plugin-trigger-form.component';
+export * from './backslash-plugin-user-preference-form.component';
