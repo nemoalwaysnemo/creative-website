@@ -36,7 +36,8 @@ import {
   BackslashResourcesAssetFormComponent,
   BackslashResourcesFolderFormComponent,
   BackslashTriggerFormComponent,
-  BackslashTriggerPluginFormComponent,
+  BackslashPluginTriggerFormComponent,
+  BackslashPluginUserPreferenceFormComponent,
 } from '../global-document-form';
 
 const COMPONENTS = [
@@ -73,7 +74,8 @@ const COMPONENTS = [
   BackslashResourcesAssetFormComponent,
   BackslashResourcesFolderFormComponent,
   BackslashTriggerFormComponent,
-  BackslashTriggerPluginFormComponent,
+  BackslashPluginTriggerFormComponent,
+  BackslashPluginUserPreferenceFormComponent,
   GlobalDocumentFormComponent,
 ];
 

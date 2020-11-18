@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoAutomations } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
+import { DocumentFormStatus } from '../../shared/document-form/document-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -15,7 +16,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   fetching: boolean = false;
 
-  formSettings: any = {
+  triggerFormSettings: any = {
     enableLayoutRight: false,
     buttonGroup: [
       {
@@ -25,6 +26,19 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
       },
     ],
   };
+
+  userFormSettings: any = {
+    enableLayoutRight: false,
+    buttonGroup: [
+      {
+        label: 'Save',
+        name: 'user-preference',
+        type: 'custom',
+        disabled: (status: DocumentFormStatus) => status.disableSaveButton(),
+      },
+    ],
+  };
+  userDocument: DocumentModel = new DocumentModel();
 
   private currentDocument: DocumentModel;
 
@@ -50,7 +64,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     this.fetching = true;
     const link = this.url.nativeElement.value;
     this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: link }, this.currentDocument.uid, { schemas: '*' }).subscribe((doc: DocumentModel) => {
-      this.document = this.updateProperties(this.currentDocument, doc);
+      this.document = this.updateBackslashTriggerProperties(this.currentDocument, doc);
       this.fetching = false;
     });
   }
@@ -64,7 +78,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     };
   }
 
-  private updateProperties(doc: DocumentModel, target: DocumentModel): DocumentModel {
+  private updateBackslashTriggerProperties(doc: DocumentModel, target: DocumentModel): DocumentModel {
     const properties = Object.assign({}, doc.properties, {
       'web-page-element:page-images': target.get('web-page-element:page-images'),
       'app_Edges:URL': target.get('web-page-element:page-url'),

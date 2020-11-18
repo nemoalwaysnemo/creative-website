@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel } from '@core/custom';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
-  selector: 'backslash-trigger-plugin-form',
+  selector: 'backslash-plugin-trigger-form',
   template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
-export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormComponent {
+export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'backslash-trigger-plugin-form';
+  static readonly NAME: string = 'backslash-plugin-trigger-form';
 
   protected documentType: string = 'App-Edges-Trigger';
 
@@ -30,11 +30,11 @@ export class BackslashTriggerPluginFormComponent extends GlobalDocumentFormCompo
     }
   }
 
-  protected beforeOnCallback(event: DocumentFormEvent): DocumentFormEvent {
-    if (event.action === 'UploadFilesChanged' && event.uploadType === 'GALLERY_UPLOAD') {
+  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
+    if (event.action === 'UploadFilesChanged') {
       event.ngFormSettings.switchTabSettings.forEach((t: any) => { t.disabled = true; });
     }
-    return event;
+    return observableOf(event);
   }
 
   protected getFormSwitchTab(): any[] {

@@ -20,10 +20,18 @@ export class UserService {
   }
 
   getFavoriteDocument(): Observable<DocumentModel> {
-    return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetFavorite));
+    return this.cacheService.get('Favorite.UserFavoriteDocument', this.nuxeoApi.operation(NuxeoAutomations.GetFavoriteDocument));
   }
 
   addToFavorites(uids: string[]): Observable<NuxeoResponse> {
     return this.nuxeoApi.operation(NuxeoAutomations.AddToFavorites, {}, uids);
+  }
+
+  getSimplePreference(keys: string): Observable<NuxeoResponse> {
+    return this.nuxeoApi.operation(NuxeoAutomations.GetSimpleUserPreferences, { keys });
+  }
+
+  setSimplePreference(properties: any): Observable<NuxeoResponse> {
+    return this.nuxeoApi.operation(NuxeoAutomations.SetSimpleUserPreferences, { properties });
   }
 }

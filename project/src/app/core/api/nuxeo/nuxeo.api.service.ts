@@ -17,6 +17,7 @@ import {
   NuxeoPagination,
   BatchUpload,
   DirectoryEntry,
+  NuxeoResponse,
 } from './lib';
 
 @Injectable({
@@ -95,7 +96,7 @@ export class NuxeoApiService {
     return this.nuxeo.batchUpload(opts);
   }
 
-  operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<any> {
+  operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<NuxeoResponse> {
     const op = this.nuxeo.operation(id, opts || {});
     return input ? op.input(input).params(params).execute() : op.params(params).execute();
   }

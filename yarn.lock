@@ -1292,12 +1292,12 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.2.0.tgz#5e0b448d27fe3091bae6216456512c5904d05661"
   integrity sha512-fsLxt0CHx2HCV9EL8lDoVkwHffsA0snUpddYjdLyXcG5E41xaamn9ZyQqOE9TUJdrRlH8/hjIf+UdOdDeKCUgg==
 
-"@ng-bootstrap/ng-bootstrap@5.3.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-5.3.0.tgz#4d624dd70a93f99c38bc35b1d3e00afc490155fc"
-  integrity sha512-oNg1sgT+XXxwSBX9oF4AeCHrq+Nm1CvukfVT/NPuYiuNAoTeVOdXc5bJHTLd+cCwoZ1OPZN/yZT+1BcW1KCksQ==
+"@ng-bootstrap/ng-bootstrap@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-8.0.0.tgz#7e1b9dc8a147e61ec964af430d1941be377bbe1e"
+  integrity sha512-v77Gfd8xHH+exq0WqIqVRlxbUEHdA/2+RUJenUP2IDTQN9E1rWl7O461/kosr+0XPuxPArHQJxhh/WsCYckcNg==
   dependencies:
-    tslib "^1.9.0"
+    tslib "^2.0.0"
 
 "@ng-select/ng-select@^5.0.8":
   version "5.0.8"
@@ -1761,11 +1761,6 @@ angular2-text-mask@^9.0.0:
   integrity sha512-iALcnhJPS1zvX48d86rgUgDe/crX6XfhZrXC4Gdlo2/YwZW7u7KJZY6/b3ieSCIWVq/E6p+wDCzeo3E6leRjDA==
   dependencies:
     text-mask-core "^5.0.0"
-
-angular2-toaster@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/angular2-toaster/-/angular2-toaster-8.0.0.tgz#9f5df2c9df00b96475cd179c4b4e4fad5a6dc7ac"
-  integrity sha512-MRDswCmhqFLBiot7C7SIq96NyU5aT9pwIVdYgmYJtXHp7N6fXk6QzuMSMhVvK12edUJntgmUft+SZfh45Oq0Wg==
 
 ansi-colors@4.1.1:
   version "4.1.1"

@@ -75,6 +75,14 @@ export class DocumentPageService {
     return this.userService.addToFavorites(uids);
   }
 
+  getSimplePreference(keys: string): Observable<NuxeoResponse> {
+    return this.userService.getSimplePreference(keys);
+  }
+
+  setSimplePreference(properties: any): Observable<NuxeoResponse> {
+    return this.userService.setSimplePreference(properties);
+  }
+
   getCurrentUser(): Observable<UserModel> {
     return this.userService.getCurrentUser();
   }

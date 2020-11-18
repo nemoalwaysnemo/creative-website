@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import {
   DynamicBatchUploadModel,
   DynamicInputModel,
