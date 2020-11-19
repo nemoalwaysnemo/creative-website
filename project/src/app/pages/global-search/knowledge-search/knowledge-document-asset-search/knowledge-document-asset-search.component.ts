@@ -29,7 +29,7 @@ export class KnowledgeDocumentAssetSearchComponent extends BaseDocumentViewCompo
       key: 'ecm_primaryType__in', placeholder: 'Module', options: [
         { label: 'Disruption', value: NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE },
         { label: 'Intelligence', value: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE },
-        { label: 'Backslash', value: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES },
+        { label: 'Backslash', value: NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPES },
         { label: 'Creative', value: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES },
         { label: 'Biz Dev', value: NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE },
         { label: 'Innovation', value: NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE },

@@ -28,7 +28,7 @@ export class BackslashAssetComponent extends GlobalDocumentViewComponent {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPES,
     };
   }
 

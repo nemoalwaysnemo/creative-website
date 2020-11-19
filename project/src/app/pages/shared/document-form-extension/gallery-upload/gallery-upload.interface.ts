@@ -14,6 +14,10 @@ export class GalleryImageItem {
     return this.name;
   }
 
+  getSrc(): string {
+    return this.src;
+  }
+
   getSource(): string {
     return this.dataUrl || this.src;
   }

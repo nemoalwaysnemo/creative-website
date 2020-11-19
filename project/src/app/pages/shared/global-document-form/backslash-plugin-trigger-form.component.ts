@@ -34,7 +34,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
       'app_Edges:Relevant_Country': this.convertPreferenceListValue(preference['backslash-chrome-user-country']),
       'app_Edges:spotter_handle': this.convertPreferenceListValue(preference['backslash-chrome-user-spotter-handle']),
     });
-    return new DocumentModel({ path: doc.path, properties });
+    return new DocumentModel({ path: doc.path, type: this.getDocType(), properties });
   }
 
   private convertPreferenceListValue(value: any): any {
@@ -43,7 +43,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     if (!doc.type) {
-      doc.type = this.getDocType();
       return observableOf(doc).pipe(concatMap((d: DocumentModel) => this.getUserSimplePreference(d)));
     } else {
       return this.initializeDocument(doc, this.getDocType());

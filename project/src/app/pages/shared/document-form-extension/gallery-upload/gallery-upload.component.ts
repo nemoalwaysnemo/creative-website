@@ -45,7 +45,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   private subscription: Subscription = new Subscription();
 
-  private selectedItems: Set<number> = new Set<number>();
+  private selectedItems: number[] = [];
 
   private batchUpload: BatchUpload;
 
@@ -88,14 +88,18 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   clickItem(index: number, item: GalleryImageItem): void {
-    if (!item.selected && this.selectedItems.size < this.uploadSettings.queueLimit) {
+    if (!item.selected) {
       item.selected = !item.selected;
-      this.selectedItems.add(index);
+      this.selectedItems.push(index);
+      const removed = this.selectedItems.splice(0, this.selectedItems.length - this.uploadSettings.queueLimit).shift();
+      if (removed !== undefined) {
+        this.uploadItems[removed].item.selected = false;
+      }
     } else if (item.selected) {
       item.selected = !item.selected;
-      this.selectedItems.delete(index);
+      this.selectedItems.splice(this.selectedItems.indexOf(index), 1);
     }
-    this.updateUploadStatus({ selected: this.selectedItems.size > 0 });
+    this.updateUploadStatus({ selected: this.selectedItems.length > 0 });
   }
 
   uploadFiles(): void {
@@ -158,11 +162,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   private getSelectedFiles(): NuxeoUploadResponse[] {
-    const items = [];
-    for (const index of this.selectedItems) {
-      items.push(this.uploadItems[index]);
-    }
-    return items;
+    return this.selectedItems.map((index: number) => this.uploadItems[index]);
   }
 
   triggerEvent(files: NuxeoUploadResponse[]): void {
