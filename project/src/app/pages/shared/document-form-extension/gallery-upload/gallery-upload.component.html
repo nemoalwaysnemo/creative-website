@@ -1,13 +1,13 @@
 <div class="picture-select">
-    <div class="prev left" (click)="moveLeft()"><a href="javascript:;"></a></div>
-    <drag-scroll class="gallery-list" drag-scroll-y-disabled="true" scrollbar-hidden="true" #gallery>
-      <div drag-scroll-item *ngFor="let response of uploadItems; let i = index" [ngClass]="{'item-selected': response.item.selected}" (click)="clickItem(i, response.item)" [title]="response.item.getName()" class="list-item">
-        <span class="upload-info">{{ response.fileSize/1024/1024 | number:'.2' }} MB, {{ response.percentLoaded }}%</span>
-        <div class="img-info"><img [src]="getSafeImagePath(response.item.getSource())" /></div>
-      </div>
-    </drag-scroll>
-    <div class="next left" (click)="moveRight()"><a href="javascript:;"></a></div>
-    <div class="button-group">
-      <button nbButton class="btn btn-success btn-xs" status="success" [disabled]="(uploadStatus$ | async)?.disableUploadButton()" (click)="uploadFiles()">Upload</button>
+  <div class="prev left" (click)="moveLeft()"><a href="javascript:;"></a></div>
+  <drag-scroll class="gallery-list" drag-scroll-y-disabled="true" scrollbar-hidden="true" #gallery>
+    <div drag-scroll-item *ngFor="let response of uploadItems; let i = index" [ngClass]="{'item-selected': response.item.selected}" (click)="clickItem(i, response.item)" [title]="response.item.getName()" class="list-item">
+      <span class="upload-info">{{ response.fileSize/1024/1024 | number:'.2' }} MB, {{ response.percentLoaded }}%</span>
+      <div class="img-info" [attr.source-info]="response.item.getSrc()"><img [src]="getSafeImagePath(response.item.getSource())" /></div>
     </div>
+  </drag-scroll>
+  <div class="next left" (click)="moveRight()"><a href="javascript:;"></a></div>
+  <div class="button-group">
+    <button nbButton class="btn btn-success btn-xs" status="success" [disabled]="(uploadStatus$ | async)?.disableUploadButton()" (click)="uploadFiles()">Upload</button>
+  </div>
 </div>

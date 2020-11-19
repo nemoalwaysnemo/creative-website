@@ -22,7 +22,8 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     enableKnowledgeRelated: true,
   };
 
-  getDialogSettings(type: string, doc: DocumentModel): GlobalDocumentDialogSettings {
+  getDialogSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
+    const type = this.getAssetType(doc);
     const components: Type<DocumentModelForm>[] = [];
     // 'Backslash'
     components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET);
@@ -82,7 +83,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     let title = '';
     if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
       title = 'Creative';
-    } else if (NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES.includes(doc.type)) {
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPES.includes(doc.type)) {
       title = 'Backslash';
     } else if (NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE.includes(doc.type)) {
       title = 'Intelligence';

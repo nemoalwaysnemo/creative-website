@@ -66,7 +66,7 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
     let url = '';
     if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
       url = '/p/creative/asset';
-    } else if (NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_TYPES.includes(doc.type)) {
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPES.includes(doc.type)) {
       url = '/p/backslash/asset';
     } else if (NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE.includes(doc.type)) {
       url = '/p/intelligence/asset';

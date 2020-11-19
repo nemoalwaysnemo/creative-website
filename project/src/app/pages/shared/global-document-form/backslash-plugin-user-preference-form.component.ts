@@ -44,7 +44,7 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
   protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
     if (event.action === 'CustomButtonClicked') {
       return this.setUserSimplePreference(event.formValue).pipe(
-        concatMap((ref: DocumentModel) => observableOf(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: ref }))),
+        concatMap((ref: DocumentModel) => observableOf(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Preference has been updated successfully!', doc: ref }))),
       );
     }
     return observableOf(event);
