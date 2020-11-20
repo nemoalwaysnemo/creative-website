@@ -23,7 +23,7 @@ export class BackslashResourceAssetSearchResultComponent extends BaseSearchResul
   goToLink(doc: DocumentModel): void {
     const url = doc.get('The_Loupe_Main:url');
     if (url) {
-      window.open(url, '_blank');
+      this.documentPageService.openNewTab(url);
     } else {
       this.documentPageService.redirectTo404();
     }

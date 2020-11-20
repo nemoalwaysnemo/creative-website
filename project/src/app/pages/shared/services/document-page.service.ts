@@ -144,6 +144,10 @@ export class DocumentPageService {
     this.router.navigate(['/p/error/404']);
   }
 
+  openNewTab(url: string): void {
+    window.open(url, '_blank');
+  }
+
   refresh(delay: number = 0): void {
     timer(delay).subscribe(_ => {
       const queryParams = this.getSnapshotQueryParams();

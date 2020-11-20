@@ -2,8 +2,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoAutomations } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
-import { DocumentFormStatus } from '../../shared/document-form/document-form.interface';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentFormEvent, DocumentFormStatus } from '../../shared/document-form/document-form.interface';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/environment';
+import { NuxeoDocumentUrl } from '@core/services/helpers';
 
 @Component({
   selector: 'backslash-trigger',
@@ -18,9 +19,10 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   triggerFormSettings: any = {
     enableLayoutRight: false,
+    formMode: 'create',
     buttonGroup: [
       {
-        label: 'Create',
+        label: 'SUBMIT',
         name: 'save',
         type: 'save',
       },
@@ -38,9 +40,12 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
       },
     ],
   };
+
   userDocument: DocumentModel = new DocumentModel();
 
-  private currentDocument: DocumentModel;
+  private targetDocument: DocumentModel;
+
+  private imageDocument: DocumentModel;
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -51,22 +56,47 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   onInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe((doc: DocumentModel) => {
-      this.currentDocument = doc;
+      this.targetDocument = doc;
     });
     this.subscription.add(subscription);
   }
 
   isButtonDisabled(): boolean {
-    return this.fetching || !this.currentDocument || !this.url.nativeElement.value;
+    return this.fetching || !this.targetDocument || !this.url.nativeElement.value;
   }
 
   fetchSite(): void {
     this.fetching = true;
     const link = this.url.nativeElement.value;
-    this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: link }, this.currentDocument.uid, { schemas: '*' }).subscribe((doc: DocumentModel) => {
-      this.document = this.updateBackslashTriggerProperties(this.currentDocument, doc);
+    this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: link }, this.targetDocument.uid, { schemas: '*' }).subscribe((doc: DocumentModel) => {
+      this.document = this.updateBackslashTriggerProperties(this.targetDocument, doc);
+      this.imageDocument = doc;
       this.fetching = false;
     });
+  }
+
+  onCallback(e: DocumentFormEvent): void {
+    if (e.action === 'Created') {
+      this.document = this.updateBackslashTriggerProperties(e.doc, this.imageDocument);
+      this.triggerFormSettings = Object.assign({}, this.triggerFormSettings, {
+        formMode: 'edit',
+        buttonGroup: [
+          {
+            label: 'RE-SUBMIT',
+            name: 'save',
+            type: 'save',
+          },
+          {
+            label: 'OPEN TRIGGER',
+            name: 'open-trigger',
+            type: 'custom',
+          },
+        ],
+      });
+    }
+    if (e.button === 'open-trigger' && this.document) {
+      this.documentPageService.openNewTab(NuxeoDocumentUrl(this.document.uid));
+    }
   }
 
   protected getCurrentDocumentSearchParams(): any {

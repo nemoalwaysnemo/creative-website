@@ -196,6 +196,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     formModel.forEach((model: DynamicFormControlModel) => {
       const modelValue = doc.get(model.field);
       if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, user, settings); }
+      if (model.settings) { model.settings.formMode = settings.formMode; }
       if (model.document) { model.document = doc; }
       if (isValueEmpty(modelValue)) {
         if (model.defaultValueFn) {
