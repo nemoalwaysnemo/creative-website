@@ -16,7 +16,7 @@ export class DisruptionHomeResourceComponent extends BaseDocumentViewComponent {
 
   documents: DocumentModel[] = [];
 
-  private folderParams: any = {
+  private params: any = {
     pageSize: 50,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
@@ -30,8 +30,7 @@ export class DisruptionHomeResourceComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    this.setCurrentDocument();
-    this.search(this.folderParams);
+    this.search(this.params);
   }
 
   private search(params: {}): void {

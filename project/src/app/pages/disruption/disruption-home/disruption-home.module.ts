@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HomeSearchFormModule } from '@pages/shared';
 import { SharedModule } from '@pages/shared/shared.module';
 import { DisruptionHomeComponent } from './disruption-home.component';
+import { DisruptionHomeXModule } from './disruption-home-x/disruption-home-x.module';
 import { DisruptionHomeGalleryModule } from './disruption-home-gallery/disruption-home-gallery.module';
 import { DisruptionHomeResourceModule } from './disruption-home-resource/disruption-home-resource.module';
 
@@ -13,6 +14,7 @@ import { DisruptionHomeResourceModule } from './disruption-home-resource/disrupt
     RouterModule,
     SharedModule,
     HomeSearchFormModule,
+    DisruptionHomeXModule,
     DisruptionHomeGalleryModule,
     DisruptionHomeResourceModule,
   ],
