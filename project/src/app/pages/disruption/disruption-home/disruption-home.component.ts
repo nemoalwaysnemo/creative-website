@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NuxeoPagination, DocumentModel, GlobalSearchParams, SearchFilterModel } from '@core/api';
+import { GlobalSearchParams, SearchFilterModel } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
-import { TAB_CONFIG } from '../disruption-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'disruption-home',
@@ -11,8 +10,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './disruption-home.component.html',
 })
 export class DisruptionHomeComponent extends BaseDocumentViewComponent {
-
-  tabs: any[] = TAB_CONFIG;
 
   loading: boolean = true;
 
@@ -27,8 +24,6 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
     'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder',
     '*': '/p/disruption/asset',
   };
-
-  folders: any[];
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
@@ -52,29 +47,12 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
   };
 
-  private folderParams: any = {
-    pageSize: 50,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_FOLDER_TYPE,
-  };
-
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
 
   onInit(): void {
     this.setCurrentDocument();
-    this.search(this.folderParams);
-  }
-
-  private search(params: {}): void {
-    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
-      .subscribe((res: NuxeoPagination) => {
-        this.folders = res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title));
-        this.loading = false;
-      });
-    this.subscription.add(subscription);
   }
 
 }

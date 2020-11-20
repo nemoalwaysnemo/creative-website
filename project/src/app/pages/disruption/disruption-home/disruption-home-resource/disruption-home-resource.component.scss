@@ -1,0 +1,9 @@
+@import '../../../../theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '../../../../core/nebular/theme/styles/global/breakpoints';
+@import '../../../shared/global-search-result/thumbnail-view.scss';
+
+.document {
+  padding: 0 30px 46px;
+  box-sizing: border-box;
+}
