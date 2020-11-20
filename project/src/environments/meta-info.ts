@@ -54,6 +54,8 @@ export enum NUXEO_DOC_TYPE {
   DISRUPTION_ASSET_TYPE = '["App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset", "App-Disruption-Day"]',
   DISRUPTION_AWARD_ASSET_TYPE = '["App-Disruption-Awards-Asset"]',
   DISRUPTION_AWARD_FOLDER_TYPE = '["App-Disruption-Awards-Folder"]',
+  DISRUPTION_X_FOLDER_TYPE = '["App-DisruptionX-Modules-Folder"]',
+  DISRUPTION_X_TYPE = '["App-DisruptionX-Module"]',
   INTELLIGENCE_FOLDER_TYPE = '["App-Intelligence-Consumer-Folder", "App-Intelligence-Industry-Folder", "App-Intelligence-Marketing-Folder"]',
   INTELLIGENCE_BASE_FOLDER_TYPE = '["App-Intelligence-Folder"]',
   INTELLIGENCE_BRANDS_TYPE = '["App-Intelligence-Brands-Folder"]',
