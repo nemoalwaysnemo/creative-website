@@ -2,23 +2,19 @@
 <div class="creative-project-asset-deliverable">
   <div class="page-content">
        <div class="text-content">
-          <h3 class="left"><b>{{ document.title }}</b></h3>
+          <h3 class="left"><b>{{ documentModel.title }}</b></h3>
           <div class="clear"></div>
-          <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
+          <h4 class="left">{{ documentModel.get('The_Loupe_Main:brand') }}</h4>
       </div>
-    <nb-tabset fullWidth (changeTab)="onChangTab($event)">
-      <nb-tab *ngFor="let item of tabItems" [active]="currentTab && currentTab.name === item.name" tabTitle="{{item.name}}" class="nb-tab" responsive>
-        <ng-template [ngTemplateOutlet]="templateRef" class='test'></ng-template>
+    <nb-tabset>
+      <nb-tab tabTitle="Info">
+         <creative-asset-template-tab-info [document]="documentModel"></creative-asset-template-tab-info>
+      </nb-tab>
+      <nb-tab tabTitle="Usage Rights">
+        <creative-asset-template-tab-usage-rights [document]="documentModel"></creative-asset-template-tab-usage-rights>
+      </nb-tab>
+      <nb-tab tabTitle="Asset Requests">
       </nb-tab>
     </nb-tabset>
   </div>
 </div>
-<ng-template #infoView>
-  <creative-asset-template-tab-info [document]="document"></creative-asset-template-tab-info>
-</ng-template>
-<ng-template #usageRightsView>
-  <creative-asset-template-tab-usage-rights [document]="document"></creative-asset-template-tab-usage-rights>
-</ng-template>
-<ng-template #assetRequestsView>
-  <!-- <document-creative-project-delivery-package  [document]="document"></document-creative-project-delivery-package> -->
-</ng-template>
