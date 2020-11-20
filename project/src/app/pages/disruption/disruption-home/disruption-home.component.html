@@ -6,14 +6,8 @@
 <div class="disruption-home-gallery">
   <disruption-home-gallery></disruption-home-gallery>
 </div>
-<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption-home">
-  <div *ngFor="let document of folders" class="thumbnail-view-item">
-    <div class="description">
-      <h1 [title]="document.title"><a [routerLink]="['/p/disruption', document.title]">{{document.title}}</a></h1>
-    </div>
-    <div class="image-holder">
-      <a [routerLink]="['/p/disruption', document.title]" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
-    </div>
-  </div>
-  <div class="clear"></div>
+<div class="disruption-home-x">
+</div>
+<div class="disruption-home-resource">
+  <disruption-home-resource></disruption-home-resource>
 </div>
