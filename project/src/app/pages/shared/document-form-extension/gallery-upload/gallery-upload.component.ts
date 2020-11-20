@@ -29,6 +29,8 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     }
   }
 
+  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @Output() onUpload: EventEmitter<NuxeoUploadResponse[]> = new EventEmitter<NuxeoUploadResponse[]>();
 
   uploadStatus$: BehaviorSubject<GalleryUploadStatus> = new BehaviorSubject<GalleryUploadStatus>(new GalleryUploadStatus());
@@ -88,18 +90,21 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   clickItem(index: number, item: GalleryImageItem): void {
-    if (!item.selected) {
-      item.selected = !item.selected;
-      this.selectedItems.push(index);
-      const removed = this.selectedItems.splice(0, this.selectedItems.length - this.uploadSettings.queueLimit).shift();
-      if (removed !== undefined) {
-        this.uploadItems[removed].item.selected = false;
+    if (!this.uploadStatus$.value.uploaded) {
+      if (!item.selected) {
+        item.selected = !item.selected;
+        this.selectedItems.push(index);
+        const removed = this.selectedItems.splice(0, this.selectedItems.length - this.uploadSettings.queueLimit).shift();
+        if (removed !== undefined) {
+          this.uploadItems[removed].item.selected = false;
+        }
+      } else if (item.selected) {
+        item.selected = !item.selected;
+        this.selectedItems.splice(this.selectedItems.indexOf(index), 1);
       }
-    } else if (item.selected) {
-      item.selected = !item.selected;
-      this.selectedItems.splice(this.selectedItems.indexOf(index), 1);
+      this.valid.emit(this.selectedItems.length === 0);
+      this.updateUploadStatus({ selected: this.selectedItems.length > 0 });
     }
-    this.updateUploadStatus({ selected: this.selectedItems.length > 0 });
   }
 
   uploadFiles(): void {
@@ -159,6 +164,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     const uploaded = uploadItems.every((res: NuxeoUploadResponse) => res.uploaded);
     this.updateUploadStatus({ uploaded, uploading: !uploaded });
     this.triggerEvent(uploadItems);
+    this.valid.emit(uploaded);
   }
 
   private getSelectedFiles(): NuxeoUploadResponse[] {

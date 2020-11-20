@@ -27,4 +27,8 @@ export class DynamicNGGalleryUploadComponent extends DynamicFormControlComponent
   constructor(protected layoutService: DynamicFormLayoutService, protected validationService: DynamicFormValidationService) {
     super(layoutService, validationService);
   }
+
+  onValid(event: any): void {
+    this.customEvent.emit({ customEvent: event, customEventType: 'VALID' });
+  }
 }

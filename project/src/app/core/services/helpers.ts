@@ -306,3 +306,7 @@ export function getAssetModuleType(doc: any): string {
 export function mapOrder(array: any[], order: any[], key: string): any[] {
   return array.sort((a, b) => order.indexOf(a[key]) < order.indexOf(b[key]) || order.indexOf(a[key]) === -1 || order.indexOf(b[key]) === -1 ? -1 : 1);
 }
+
+export function NuxeoDocumentUrl(uid: string): string {
+  return `${Environment.nuxeoUrl}nxdoc/default/${uid}/view_documents`;
+}
