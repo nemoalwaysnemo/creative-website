@@ -123,7 +123,6 @@ export enum NuxeoPermission {
 export class NuxeoApiOptions {
   baseUrl: string = '';
   auth?: Credentials;
-  production: boolean;
   appName: string;
   assetPath: string;
 
