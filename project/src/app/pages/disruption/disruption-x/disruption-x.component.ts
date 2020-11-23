@@ -13,7 +13,7 @@ import { Observable, of as observableOf } from 'rxjs';
 })
 export class DisruptionXComponent extends GlobalDocumentViewComponent implements OnInit {
 
-  tabs: any[] = TAB_CONFIG;
+  tabConfig: any = TAB_CONFIG;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 

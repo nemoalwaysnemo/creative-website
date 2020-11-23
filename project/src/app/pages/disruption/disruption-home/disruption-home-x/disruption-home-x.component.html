@@ -1,5 +1,5 @@
 <ng-container *ngIf="enableFeature">
-  <h2 class="home-heading">DisruptionX</h2>
+  <h2 class="home-heading"><a [routerLink]="['/p/disruption/DisruptionX']">DisruptionX</a></h2>
   <div class="disruption-form-button right">
     <disruption-form-button [parent]="parentDocument" [type]="'x asset'" [title]="'New Module'"></disruption-form-button>
   </div>
@@ -11,9 +11,9 @@
       <div class="image-holder">
         <a [title]="doc.title" (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
       </div>
-        <ng-template #dialog>
-          <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="disruptionTitle" [metadata]="dialogMetadata"></global-document-dialog>
-        </ng-template>
+      <ng-template #dialog>
+        <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="disruptionTitle" [metadata]="dialogMetadata"></global-document-dialog>
+      </ng-template>
     </div>
     <div class="clear"></div>
   </div>

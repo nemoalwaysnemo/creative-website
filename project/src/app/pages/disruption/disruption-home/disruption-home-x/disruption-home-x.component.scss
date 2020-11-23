@@ -19,6 +19,13 @@
   line-height: 60px;
   color: #000000;
   font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
+    a {
+    color: #2a2a2a;
+    &:hover {
+      color: #2a2a2a;
+      text-decoration: none;
+    }
+  }
 }
 
 ::ng-deep .layout-left {

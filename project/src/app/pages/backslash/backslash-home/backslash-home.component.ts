@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalDocumentDialogService } from '@pages/shared';
+import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -9,6 +10,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './backslash-home.component.html',
 })
 export class BackslashHomeComponent extends GlobalDocumentViewComponent {
+
+  tabConfig: any = TAB_CONFIG;
 
   constructor(
     protected activatedRoute: ActivatedRoute,

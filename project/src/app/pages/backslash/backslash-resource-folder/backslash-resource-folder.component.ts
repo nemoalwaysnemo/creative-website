@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, NuxeoSearchConstants, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -11,6 +12,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   styleUrls: ['./backslash-resource-folder.component.scss'],
 })
 export class BackslashResourceFolderComponent extends GlobalDocumentViewComponent {
+
+  tabConfig: any = TAB_CONFIG;
 
   showFolderInfo: boolean = false;
 

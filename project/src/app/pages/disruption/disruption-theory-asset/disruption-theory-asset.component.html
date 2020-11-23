@@ -1,4 +1,4 @@
-<disruption-tab-info [document]="document"></disruption-tab-info>
+<document-route-tabset [tabConfig]="tabConfig"></document-route-tabset>
 <disruption-folder-view [loading]="folderLoading" [document]="folder" [showButton]="showButton" [assetUrl]="assetUrl"></disruption-folder-view>
 <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">

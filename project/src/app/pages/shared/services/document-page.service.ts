@@ -6,7 +6,7 @@ import { Observable, from, Subject, timer, BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, pairwise, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd, RoutesRecognized } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel, NuxeoResponse } from '@core/api';
-import { GoogleAnalyticsService } from '@core/services';
+import { CacheService, GoogleAnalyticsService } from '@core/services';
 import { Environment } from '@environment/environment';
 
 @Injectable({
@@ -25,8 +25,9 @@ export class DocumentPageService {
     private location: Location,
     private titleService: Title,
     private userService: UserService,
-    private activatedRoute: ActivatedRoute,
+    private cacheService: CacheService,
     private toastrService: NbToastrService,
+    private activatedRoute: ActivatedRoute,
     private advanceSearchService: AdvanceSearchService,
     private googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -56,6 +57,14 @@ export class DocumentPageService {
     if (doc && this.document && doc.uid === this.document.uid) {
       this.document = doc;
     }
+  }
+
+  setCache(key: string, value: any): void {
+    this.cacheService.set(key, value);
+  }
+
+  getCache(key: string, fallback?: Observable<any>, maxAge?: number): Observable<any> | Subject<any> {
+    return this.cacheService.get(key, fallback);
   }
 
   setCurrentDocument(doc: DocumentModel): void {

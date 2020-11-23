@@ -4,6 +4,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
+import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -12,6 +13,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './disruption-days.component.html',
 })
 export class DisruptionDaysComponent extends GlobalDocumentViewComponent implements OnInit {
+
+  tabConfig: any = TAB_CONFIG;
 
   constructor(
     protected activatedRoute: ActivatedRoute,

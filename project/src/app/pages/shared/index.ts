@@ -21,6 +21,7 @@ export * from './picture-gallery/picture-gallery.interface';
 export * from './services/document-page.service';
 export * from './share-document-button/share-document-button.module';
 export * from './document-action-group/document-action-group.module';
+export * from './document-route-tabset/document-route-tabset.module';
 export * from './home-search-form/home-search-form.module';
 export * from './knowledge-search-form/knowledge-search-form.module';
 export * from './global-search-form/global-search-form.module';

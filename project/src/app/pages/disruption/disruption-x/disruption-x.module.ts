@@ -4,7 +4,6 @@ import { DisruptionXComponent } from './disruption-x.component';
 import { SharedModule } from '@pages/shared/shared.module';
 import { GlobalSearchFormModule, GlobalSearchResultModule, GlobalDocumentDialogModule } from '@pages/shared';
 import { DisruptionFormButtonModule } from '../disruption-form-button/disruption-form-button.module';
-import { DisruptionTabInfoModule } from '../disruption-tab-info/disruption-tab-info.module';
 
 @NgModule({
   imports: [
@@ -13,7 +12,6 @@ import { DisruptionTabInfoModule } from '../disruption-tab-info/disruption-tab-i
     GlobalSearchFormModule,
     GlobalSearchResultModule,
     GlobalDocumentDialogModule,
-    DisruptionTabInfoModule,
     DisruptionFormButtonModule,
   ],
   declarations: [
