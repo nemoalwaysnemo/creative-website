@@ -13,6 +13,7 @@ import { BrilliantThinkingModule } from './brilliant-thinking/brilliant-thinking
 import { DisruptionAssetModule } from './disruption-asset/disruption-asset.module';
 import { DisruptionTheoryAssetModule } from './disruption-theory-asset/disruption-theory-asset.module';
 import { DisruptionRemotePageModule } from './disruption-theory-remote-page/disruption-remote-page.module';
+import { DisruptionXModule } from './disruption-x/disruption-x.module';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { DisruptionRemotePageModule } from './disruption-theory-remote-page/disr
     BrilliantThinkingModule,
     DisruptionPageRoutingModule,
     DisruptionRemotePageModule,
+    DisruptionXModule,
   ],
   declarations: [
     DisruptionPageComponent,

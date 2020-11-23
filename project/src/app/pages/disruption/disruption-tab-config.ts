@@ -1,3 +1,5 @@
+import { DocumentModel, NuxeoPermission } from '@core/api';
+import { Observable } from 'rxjs';
 export const TAB_CONFIG: any[] = [
     {
       title: 'Disruption Roadmaps',
@@ -10,6 +12,10 @@ export const TAB_CONFIG: any[] = [
     {
       title: 'Disruption How Tos',
       route: '/p/disruption/Disruption How Tos',
+    },
+    {
+      title: 'DisruptionX',
+      route: '/p/disruption/DisruptionX',
     },
     {
       title: 'Things to Steal',

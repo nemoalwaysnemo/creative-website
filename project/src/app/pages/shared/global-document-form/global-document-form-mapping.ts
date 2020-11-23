@@ -13,6 +13,7 @@ import { DisruptionDayFolderFormComponent } from './disruption-day-folder-form.c
 import { DisruptionBrilliantThinkingFormComponent } from './disruption-brilliant-thinking-form.component';
 import { DisruptionDayAssetFormComponent } from './disruption-day-asset-form-component';
 import { DisruptionHowTosAssetFormComponent } from './disruption-how-tos-asset-form.component';
+import { DisruptionXModuleAssetFormComponent } from './disruption-x-module-asset-form.component';
 import { IntelligenceBrandsFormComponent } from './intelligence-brands-form.component';
 import { IntelligenceAssetFormComponent } from './intelligence-asset-form.component';
 import { BizDevCaseStudyFolderFormComponent } from './biz-dev-case-study-folder-form.component';
@@ -48,6 +49,7 @@ export const GLOBAL_DOCUMENT_FORM = {
   DISRUPTION_DAY_FORM: DisruptionDayFolderFormComponent,
   DISRUPTION_DAY_ASSET_FORM: DisruptionDayAssetFormComponent,
   DISRUPTION_HOW_TOS_ASSET_FORM: DisruptionHowTosAssetFormComponent,
+  DISRUPTION_X_MODULE_ASSET_FORM: DisruptionXModuleAssetFormComponent,
   INTELLIGENCE_BRANDS_FORM: IntelligenceBrandsFormComponent,
   INTELLIGENCE_ASSET_FORM: IntelligenceAssetFormComponent,
   BIZ_DEV_CASE_STUDY_FOLDER_FORM: BizDevCaseStudyFolderFormComponent,
