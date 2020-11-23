@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
-import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -15,8 +14,6 @@ export class DisruptionDayAssetComponent extends GlobalDocumentViewComponent imp
   folder: DocumentModel;
 
   folderLoading: boolean = true;
-
-  tabs: any[] = TAB_CONFIG;
 
   showButton: boolean = false;
 

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { TAB_CONFIG } from '../disruption-tab-config';
 import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalDocumentDialogService, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -12,8 +11,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './disruption-days-folder.component.html',
 })
 export class DisruptionDaysFolderComponent extends GlobalDocumentViewComponent {
-
-  tabs: any[] = TAB_CONFIG;
 
   baseParams$: Subject<any> = new Subject<any>();
 

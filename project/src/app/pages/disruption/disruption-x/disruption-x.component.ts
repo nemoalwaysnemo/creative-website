@@ -49,7 +49,11 @@ export class DisruptionXComponent extends GlobalDocumentViewComponent implements
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
-      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
+      if (doc.get('app_global:enable_feature') === true) {
+        this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
+      } else {
+        this.documentPageService.redirectTo403();
+      }
     }
   }
 
@@ -58,7 +62,7 @@ export class DisruptionXComponent extends GlobalDocumentViewComponent implements
       pageSize: 1,
       currentPageIndex: 0,
       ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
+      ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_FOLDER_TYPE,
     };
   }

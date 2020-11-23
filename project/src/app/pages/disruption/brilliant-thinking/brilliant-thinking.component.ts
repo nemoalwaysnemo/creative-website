@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentModel, NuxeoPermission, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -12,8 +11,6 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './brilliant-thinking.component.html',
 })
 export class BrilliantThinkingComponent extends GlobalDocumentViewComponent implements OnInit {
-
-  tabs: any[] = TAB_CONFIG;
 
   addChildrenPermission$: Observable<boolean> = observableOf(false);
 

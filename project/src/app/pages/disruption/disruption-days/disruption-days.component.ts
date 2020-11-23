@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TAB_CONFIG } from '../disruption-tab-config';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
 import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -20,8 +19,6 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
   ) {
     super(activatedRoute, documentPageService);
   }
-
-  tabs: any[] = TAB_CONFIG;
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),

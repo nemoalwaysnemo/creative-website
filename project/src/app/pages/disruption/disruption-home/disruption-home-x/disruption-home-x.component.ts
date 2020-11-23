@@ -31,7 +31,7 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X] });
 
   private params: any = {
-    pageSize: 8,
+    pageSize: 1,
     currentPageIndex: 0,
     ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
@@ -39,7 +39,7 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
   };
 
   private assetParams: any = {
-    pageSize: 1,
+    pageSize: 8,
     currentPageIndex: 0,
     ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_TYPE,
