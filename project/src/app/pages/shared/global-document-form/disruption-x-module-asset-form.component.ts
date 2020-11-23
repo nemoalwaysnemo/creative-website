@@ -61,23 +61,6 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
           minLength: 'At least 4 characters',
         },
       }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_ProdCredits:production_date',
-        label: 'Published',
-        formMode: 'create',
-        defaultValue: (new Date()),
-        placeholder: 'Published',
-        readonly: false,
-        required: true,
-        validators: {
-          required: null,
-          dateFormatValidator: null,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
-        },
-      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
@@ -103,6 +86,23 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
         required: true,
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Published',
+        formMode: 'create',
+        defaultValue: (new Date()),
+        placeholder: 'Published',
+        readonly: false,
+        required: true,
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -178,9 +178,9 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
           host: 'created-by',
         },
       },
-      dragDropAssetZone: {
+      dragDropAttachmentZone: {
         grid: {
-          host: 'drag-drop',
+          host: 'drag-attachment',
         },
       },
     };

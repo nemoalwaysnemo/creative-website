@@ -1,5 +1,8 @@
 <ng-container *ngIf="enableFeature">
-  <div class="module-name">DisruptionX</div>
+  <h2 class="home-heading">DisruptionX</h2>
+  <div class="disruption-form-button right">
+    <disruption-form-button [parent]="parentDocument" [type]="'x asset'" [title]="'New Module'"></disruption-form-button>
+  </div>
   <div *ngIf="documents && documents.length > 0" [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption-home">
     <div *ngFor="let doc of documents" class="thumbnail-view-item">
       <div class="description">

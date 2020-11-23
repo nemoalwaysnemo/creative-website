@@ -22,6 +22,8 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
 
   documents: DocumentModel[] = [];
 
+  parentDocument: DocumentModel;
+
   dialogMetadata: any = {
     moreInfo: true,
     enablePreview: true,
@@ -65,6 +67,7 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
     const subscription = this.search(this.params).pipe(
       map((docs: DocumentModel[]) => docs.shift()),
       takeWhile((doc: DocumentModel) => {
+        this.parentDocument = doc;
         this.disruptionTitle = doc.title;
         this.enableFeature = doc && doc.get('app_global:enable_feature') === true;
         return this.enableFeature;
