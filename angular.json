@@ -88,14 +88,8 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [{
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle"
-                }
-              ],
+                "type": "anyComponentStyle"
+              }],
               "deployUrl": "/nuxeo/LibraryWebUI/",
               "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{

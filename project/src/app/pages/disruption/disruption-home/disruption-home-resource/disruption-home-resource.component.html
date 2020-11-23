@@ -1,11 +1,14 @@
-<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption-home">
-  <div *ngFor="let document of documents" class="thumbnail-view-item">
-    <div class="description">
-      <h1 [title]="document.title"><a [routerLink]="['/p/disruption', document.title]">{{document.title}}</a></h1>
+<ng-container *ngIf="enableFeature">
+  <div class="module-name">DisruptionX</div>
+  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption-home">
+    <div *ngFor="let document of documents" class="thumbnail-view-item">
+      <div class="description">
+        <h1 [title]="document.title"><a [routerLink]="['/p/disruption', document.title]">{{document.title}}</a></h1>
+      </div>
+      <div class="image-holder">
+        <a [routerLink]="['/p/disruption', document.title]" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
+      </div>
     </div>
-    <div class="image-holder">
-      <a [routerLink]="['/p/disruption', document.title]" [ngStyle]="{'background-image': 'url('+document.thumbnailUrl+')'}"></a>
-    </div>
+    <div class="clear"></div>
   </div>
-  <div class="clear"></div>
-</div>
+</ng-container>

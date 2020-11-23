@@ -14,6 +14,8 @@ export class DisruptionHomeResourceComponent extends BaseDocumentViewComponent {
 
   loading: boolean = true;
 
+  enableFeature: boolean = true;
+
   documents: DocumentModel[] = [];
 
   private params: any = {

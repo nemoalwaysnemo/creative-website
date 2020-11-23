@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams, NuxeoSearchConstants } from '@core/api';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { DocumentPageService } from '../../../shared/services/document-page.service';
 import { concatMap, takeWhile, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { GlobalDocumentDialogService, GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -15,9 +16,19 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
 
   loading: boolean = true;
 
+  disruptionTitle: string = '';
+
   enableFeature: boolean = false;
 
   documents: DocumentModel[] = [];
+
+  dialogMetadata: any = {
+    moreInfo: true,
+    enablePreview: true,
+    enableDetail: true,
+  };
+
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X] });
 
   private params: any = {
     pageSize: 8,
@@ -30,11 +41,15 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
   private assetParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
+    ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
   };
 
-  constructor(protected documentPageService: DocumentPageService) {
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
     super(documentPageService);
   }
 
@@ -42,10 +57,15 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
     this.performFolders();
   }
 
+  openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
+    this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
+  }
+
   private performFolders(): void {
     const subscription = this.search(this.params).pipe(
       map((docs: DocumentModel[]) => docs.shift()),
       takeWhile((doc: DocumentModel) => {
+        this.disruptionTitle = doc.title;
         this.enableFeature = doc && doc.get('app_global:enable_feature') === true;
         return this.enableFeature;
       }),

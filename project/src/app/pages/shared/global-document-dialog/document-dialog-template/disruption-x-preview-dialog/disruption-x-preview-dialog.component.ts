@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { vocabularyFormatter } from '@core/services/helpers';
+import { Observable, of as observableOf } from 'rxjs';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'backslash-asset-preview-dialog',
-  templateUrl: './backslash-asset-preview-dialog.component.html',
-  styleUrls: ['./backslash-asset-preview-dialog.component.scss', '../global-document-dialog-template.scss'],
+  selector: 'disruption-x-preview-dialog',
+  templateUrl: './disruption-x-preview-dialog.component.html',
+  styleUrls: ['./disruption-x-preview-dialog.component.scss', '../global-document-dialog-template.scss'],
 })
-export class BackslashAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
+export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  static readonly NAME: string = 'backslash-asset-preview-dialog';
+  static readonly NAME: string = 'disruption-x-preview-dialog';
+
+  writePermission$: Observable<boolean> = observableOf(false);
+
+  deletePermission$: Observable<boolean> = observableOf(false);
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
@@ -30,8 +34,12 @@ export class BackslashAssetPreviewDialogComponent extends DocumentDialogPreviewT
     if (doc) {
       this.document = doc;
       this.attachments = this.document.getAttachmentList();
-      this.shareUrl = this.buildShareUrl(doc);
     }
+  }
+
+  getDialogFormTemplateName(doc: DocumentModel): string {
+    const name: string = '';
+    return name;
   }
 
   vocabularyFormatter(list: string[]): string {
@@ -41,21 +49,14 @@ export class BackslashAssetPreviewDialogComponent extends DocumentDialogPreviewT
   protected getPreviewSettings(): any {
     return {
       moreInfo: true,
-      enablePreview: true,
-      enableDetail: true,
+      enablePreview: false,
+      enableDetail: false,
       enableKnowledgeRelated: false,
     };
   }
 
-  buildShareUrl(doc: DocumentModel): string {
-    let url: string;
-    if (doc.path.includes(NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH)) {
-      url = 'backslash/report/folder/:parentRef/asset/';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH)) {
-      url = 'backslash/edge/folder/:parentRef/asset/';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH)) {
-      url = 'backslash/resource/folder/:parentRef/asset/';
-    }
-    return this.documentPageService.getCurrentAppUrl(url.replace(':parentRef', doc.parentRef) + doc.uid);
+  private buildShareUrl(doc: DocumentModel): string {
+    return this.shareUrl;
   }
+
 }
