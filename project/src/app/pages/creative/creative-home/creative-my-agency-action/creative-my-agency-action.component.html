@@ -1,0 +1,10 @@
+<div class="creative-my-agency">
+  <ng-container *ngIf="hasAgency && !moreAgencies">
+    <a [routerLink]="['/p/creative/agency']" class="see_all right" title="My Agency">My Agency</a>
+  </ng-container>
+  <ng-container *ngIf="moreAgencies && writePermission$ | async">
+    <a [routerLink]="['/p/search/creative/agency']" class="see_all right" title="My Agencies">My Agencies</a>
+  </ng-container>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>

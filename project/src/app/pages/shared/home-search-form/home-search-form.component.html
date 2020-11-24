@@ -4,13 +4,16 @@
     <h1 class="extraHeadline" *ngIf="extraHeadline" title="{{extraHeadline}}">{{extraHeadline}}</h1>
     <h4 title="{{subHead}}">{{subHead}}</h4>
     <div (clickOutside)="hide()" (click)="show()" [excludeBeforeClick]="true" [exclude]="'button'" class="keyword-wrapper">
-      <input class="keyword" [autofocus]='searchFormSettings.autofocus' formControlName="ecm_fulltext" title="{{searchFormSettings.placeholder}}" [placeholder]="searchFormSettings.placeholder" (keyup.enter)="onKeyEnter($event)" (keyup)="onKeyup($event)"
-        [ngClass]="{'with-filters': hasFilters()}" />
+      <input class="keyword" [autofocus]='searchFormSettings.autofocus' formControlName="ecm_fulltext" title="{{searchFormSettings.placeholder}}" [placeholder]="searchFormSettings.placeholder" (keyup.enter)="onKeyEnter($event)"
+        (keyup)="onKeyup($event)" [ngClass]="{'with-filters': hasFilters()}" />
       <document-thumbnail-view [hide]="hideView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
     </div>
-    <ng-container *ngIf="hasFilters()">
-      <button type="button" (click)="toggleFilter()" class="filter_trigger" [ngClass]="{'show': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters +</button>
-    </ng-container>
+    <div class="search-actions">
+      <ng-container *ngIf="hasFilters()">
+        <button type="button" (click)="toggleFilter()" class="filter_trigger" [ngClass]="{'show': showFilter, 'btn-disabled': !hasAggs}" [disabled]="!hasAggs" title="Filter">Filters +</button>
+      </ng-container>
+      <ng-content select=".actions"></ng-content>
+    </div>
   </section>
   <div class="clear"></div>
   <ng-container *ngIf="hasFilters() && showFilter">
