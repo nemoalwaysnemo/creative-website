@@ -1,4 +1,4 @@
-<document-route-tabset ]tabConfig]="tabConfig"></document-route-tabset>
+<document-route-tabset [tabConfig]="tabConfig"></document-route-tabset>
 <backslash-folder-info [loading]="folderLoading" [document]="folder" [showButton]="showButton" [showFolderInfo]="showFolderInfo(document)" [assetUrlMapping]="assetUrlMapping"></backslash-folder-info>
 <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">

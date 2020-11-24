@@ -66,8 +66,14 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
     let url = '';
     if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
       url = '/p/creative/asset';
-    } else if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPES.includes(doc.type)) {
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_POST_TYPES.includes(doc.type)) {
       url = '/p/backslash/asset';
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE.includes(doc.type)) {
+      url = '/p/backslash/edge/folder/:parentRef/asset';
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ASSET_TYPE.includes(doc.type)) {
+      url = '/p/backslash/resource/folder/:parentRef/asset';
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE.includes(doc.type)) {
+      url = '/p/backslash/report/folder/:parentRef/asset';
     } else if (NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE.includes(doc.type)) {
       url = '/p/intelligence/asset';
     } else if (NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
