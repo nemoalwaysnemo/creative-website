@@ -6,6 +6,7 @@ import { concatMap, takeWhile, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { GlobalDocumentDialogService, GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 
 @Component({
   selector: 'disruption-home-x',
@@ -16,7 +17,9 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
 
   loading: boolean = true;
 
-  disruptionTitle: string = '';
+  disruptionTitle: string = 'DisruptionX';
+
+  redirectUrl: string = '/p/disruption/home';
 
   enableFeature: boolean = false;
 
@@ -25,12 +28,19 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
   parentDocument: DocumentModel;
 
   dialogMetadata: any = {
-    moreInfo: true,
-    enablePreview: true,
-    enableDetail: true,
+    formMode: 'edit',
+    enableEdit: true,
+    moreInfo: false,
+    enableThumbnailImg: true,
   };
 
-  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X] });
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
+    components: [
+      GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X,
+      GLOBAL_DOCUMENT_FORM.DISRUPTION_X_MODULE_ASSET_FORM,
+    ],
+    main: GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X,
+  });
 
   private params: any = {
     pageSize: 1,

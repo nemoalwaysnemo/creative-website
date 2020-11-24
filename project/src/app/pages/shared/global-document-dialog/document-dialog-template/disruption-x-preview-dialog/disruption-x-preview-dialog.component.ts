@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, NuxeoPermission } from '@core/api';
 import { vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
+import { GLOBAL_DOCUMENT_FORM } from '../../../../shared/global-document-form';
+import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'disruption-x-preview-dialog',
@@ -34,11 +36,18 @@ export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemp
     if (doc) {
       this.document = doc;
       this.attachments = this.document.getAttachmentList();
+      this.writePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Write, this.getDialogSettings().enableEdit);
+      this.deletePermission$ = this.getDocumentPermission(doc, NuxeoPermission.Delete, this.getDialogSettings().enableDeletion);
+      this.shareUrl = this.buildShareUrl(doc);
     }
   }
 
   getDialogFormTemplateName(doc: DocumentModel): string {
-    const name: string = '';
+    let name: string = '';
+    if (doc.type === 'App-DisruptionX-Module') {
+      name = GLOBAL_DOCUMENT_FORM.DISRUPTION_X_MODULE_ASSET_FORM.NAME;
+    }
+
     return name;
   }
 
@@ -48,15 +57,22 @@ export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemp
 
   protected getPreviewSettings(): any {
     return {
-      moreInfo: true,
+      moreInfo: false,
+      enableEdit: false,
+      enableDeletion: false,
       enablePreview: false,
       enableDetail: false,
       enableKnowledgeRelated: false,
+      enableThumbnailImg: false,
     };
   }
 
   private buildShareUrl(doc: DocumentModel): string {
-    return this.shareUrl;
+    let url: string;
+    if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH)) {
+      url = 'disruption/asset/';
+    }
+    return this.documentPageService.getCurrentAppUrl(url.replace(':parentRef', doc.parentRef) + doc.uid);
   }
 
 }

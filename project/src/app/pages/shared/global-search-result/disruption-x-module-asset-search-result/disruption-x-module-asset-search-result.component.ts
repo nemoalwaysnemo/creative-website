@@ -1,6 +1,6 @@
 import { Component, TemplateRef } from '@angular/core';
+import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
-import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
 
 @Component({
   selector: 'disruption-x-module-asset-search-result',
@@ -9,9 +9,7 @@ import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
 })
 export class DisruptionXModuleAssetSearchResultComponent {
 
-  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {
-
-  }
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {}
 
   title: string = 'DisruptionX';
 
@@ -19,16 +17,17 @@ export class DisruptionXModuleAssetSearchResultComponent {
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
     components: [
-      GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET,
+      GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X,
       GLOBAL_DOCUMENT_FORM.DISRUPTION_X_MODULE_ASSET_FORM,
     ],
-    main: GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET,
+    main: GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X,
   });
 
   dialogMetadata: any = {
     formMode: 'edit',
     enableEdit: true,
-    moreInfo: true,
+    moreInfo: false,
+    enableThumbnailImg: true,
   };
 
   openDialog(dialog: TemplateRef<any>): void {

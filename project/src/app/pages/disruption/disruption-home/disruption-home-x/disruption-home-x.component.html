@@ -12,7 +12,7 @@
         <a [title]="doc.title" (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
       </div>
       <ng-template #dialog>
-        <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="disruptionTitle" [metadata]="dialogMetadata"></global-document-dialog>
+        <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="disruptionTitle" [metadata]="dialogMetadata" [redirectUrl]="redirectUrl"></global-document-dialog>
       </ng-template>
     </div>
     <div class="clear"></div>

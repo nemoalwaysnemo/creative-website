@@ -18,8 +18,11 @@
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
         <div class="col-8">
+          <a href="{{document.filePath}}" class="right"><button class="inline-middle download right"
+              type="submit">Download</button></a>
           <ng-container *ngIf="getDialogSettings().enablePreview">
-            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right preview">Preview</button></a>
+            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button
+                class="right preview">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
           <ng-container *ngIf="getDialogSettings().enableDetail">
@@ -80,20 +83,29 @@
           </tbody>
         </table>
       </ng-container>
-      <nb-accordion class="accordion" *ngIf="attachments && attachments.length !== 0">
-        <nb-accordion-item class="accordion-item">
-          <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
-          <nb-accordion-item-body class="accordion-item-body">
-            <table>
-              <tbody *ngFor="let attachment of attachments">
-                <tr>
-                  <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
-                </tr>
-              </tbody>
-            </table>
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      </nb-accordion>
+      <div>
+        <p class="description"><b>{{ document.get('dc:description') }}</b></p><br><br>
+      </div>
+      <ng-container *ngIf="getDialogSettings().enableThumbnailImg">
+        <div class="left thumbnail-img">
+          <img style="width: 300px; margin: 0 0 10px 0;" [src]="document.thumbnailUrl">
+        </div>
+      </ng-container>
+      <ng-container *ngIf="attachments && attachments.length !== 0">
+        <div class="attachment-left">&nbsp;</div>
+        <div class="right attachment-right">
+          <table>
+            <tr>
+              <td><b>Download</b></td>
+            </tr>
+            <tbody *ngFor="let attachment of attachments">
+              <tr>
+                <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
     </div>
     <section class="related" *ngIf="getDialogSettings().enableKnowledgeRelated">
       <knowledge-related-info [document]="document"></knowledge-related-info>
