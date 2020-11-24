@@ -20,7 +20,7 @@
 	// 	height: calc(1200px * 9 / 16 - 120px);
 	// }
 	// @include media-breakpoint-up(xxxl) {
-	// 	// > 1600px 
+	// 	// > 1600px
 	// 	height: calc(100vw * 9 / 16 - 120px);
 	// }
 
@@ -53,10 +53,10 @@
 		height: calc(1500px * 9 / 16 - 70px);
 	}
 	@include media-breakpoint-up(xxxl) {
-		// > 1600px 
+		// > 1600px
 		height: calc(100vw * 9 / 16 - 120px);
 	}
-	margin-top: 37px;
+	// margin-top: 37px;
 }
 
 .popover-container {
@@ -95,7 +95,7 @@
 		align-self: start;
 	  }
 	}
-  
+
 	.info {
 	  .edges {
 		ul {
