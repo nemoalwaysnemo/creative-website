@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { DisruptionDaysComponent } from './disruption-days.component';
-import { GlobalSearchFormModule, GlobalSearchResultModule } from '../../shared';
+import { DocumentRouteTabsetModule, GlobalSearchFormModule, GlobalSearchResultModule } from '../../shared';
 import { DisruptionFormButtonModule } from '../disruption-form-button/disruption-form-button.module';
 
 @NgModule({
@@ -10,6 +10,7 @@ import { DisruptionFormButtonModule } from '../disruption-form-button/disruption
     GlobalSearchFormModule,
     GlobalSearchResultModule,
     DisruptionFormButtonModule,
+    DocumentRouteTabsetModule,
   ],
   declarations: [
     DisruptionDaysComponent,

@@ -39,12 +39,12 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
     components.push(GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST);
     // 'Backslash Asset'
-    components.push(GLOBAL_DOCUMENT_DIALOG.BACKSLASH_ASSET_DIALOG);
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_ASSET_DIALOG);
     let main = null;
     switch (type) {
       case 'Backslash':
         if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
-          main = GLOBAL_DOCUMENT_DIALOG.BACKSLASH_ASSET_DIALOG;
+          main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_ASSET_DIALOG;
           break;
         } else {
           main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;

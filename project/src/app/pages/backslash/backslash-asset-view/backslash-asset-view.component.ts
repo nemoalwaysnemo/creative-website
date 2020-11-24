@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '../../shared';
+import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -10,6 +11,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './backslash-asset-view.component.html',
 })
 export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
+
+  tabConfig: any = TAB_CONFIG;
 
   folder: DocumentModel;
 

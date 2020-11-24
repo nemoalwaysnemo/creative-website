@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DocumentModel, SearchResponse, AdvanceSearchService } from '@core/api';
-import { Subject, timer, Observable, of as observableOf, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { DocumentModel, SearchResponse } from '@core/api';
+import { Subject, timer, Subscription } from 'rxjs';
 import { GlobalSearchFormSettings } from '@pages/shared/global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -29,8 +28,6 @@ export class CreativeAssetTemplateTabUsageRightsDetailsComponent {
 
   usageRights: any = {};
 
-  private subscription: Subscription = new Subscription();
-
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'creative-asset-template-tab-usage-rights-details',
     enableSearchInput: false,
@@ -52,11 +49,6 @@ export class CreativeAssetTemplateTabUsageRightsDetailsComponent {
   }
 
   @Output() onResponsed: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
-
-  constructor(
-    private advanceSearchService: AdvanceSearchService,
-  ) { }
-
 
   onResponse(res: SearchResponse): void {
     this.onResponsed.emit(res);

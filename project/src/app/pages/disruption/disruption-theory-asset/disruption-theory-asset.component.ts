@@ -12,6 +12,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionTheoryAssetComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  tabConfig: any = TAB_CONFIG;
+
   folder: DocumentModel;
 
   folderLoading: boolean = true;
@@ -23,8 +25,6 @@ export class DisruptionTheoryAssetComponent extends GlobalDocumentViewComponent 
   assetUrl: string = '/p/disruption/Disruption How Tos/folder/';
 
   deleteRedirectUrl: string;
-
-  tabs: any[] = TAB_CONFIG;
 
   folderParams: any = {
     pageSize: 1,

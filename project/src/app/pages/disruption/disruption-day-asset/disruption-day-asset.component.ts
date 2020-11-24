@@ -12,11 +12,11 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionDayAssetComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  tabConfig: any = TAB_CONFIG;
+
   folder: DocumentModel;
 
   folderLoading: boolean = true;
-
-  tabs: any[] = TAB_CONFIG;
 
   showButton: boolean = false;
 

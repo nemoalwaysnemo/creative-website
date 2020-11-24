@@ -14,9 +14,9 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionTheoryComponent extends GlobalDocumentViewComponent implements OnInit {
 
-  baseParams$: Subject<any> = new Subject<any>();
+  tabConfig: any = TAB_CONFIG;
 
-  tabs: any[] = TAB_CONFIG;
+  baseParams$: Subject<any> = new Subject<any>();
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),

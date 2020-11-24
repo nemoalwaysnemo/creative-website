@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { vocabularyFormatter, getDocumentTypes } from '@core/services/helpers';
-import { Observable, of as observableOf } from 'rxjs';
+import { vocabularyFormatter } from '@core/services/helpers';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'app-backslash-asset-preview-dialog',
+  selector: 'backslash-asset-preview-dialog',
   templateUrl: './backslash-asset-preview-dialog.component.html',
   styleUrls: ['./backslash-asset-preview-dialog.component.scss', '../global-document-dialog-template.scss'],
 })
 export class BackslashAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
+
+  static readonly NAME: string = 'backslash-asset-preview-dialog';
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 

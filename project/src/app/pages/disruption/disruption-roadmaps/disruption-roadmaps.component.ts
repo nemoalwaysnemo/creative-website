@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoQuickFilters, SearchFilterModel } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
@@ -12,13 +12,13 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent implements OnInit {
 
+  tabConfig: any = TAB_CONFIG;
+
   onSearching: boolean = true;
 
   currentView: string = 'allRoadmapsView';
 
   enableScrolling: any = { allRoadmapsView: true, featuredRoadmapsView: true };
-
-  tabs: any[] = TAB_CONFIG;
 
   protected enabledView: any = { allRoadmapsView: true };
 

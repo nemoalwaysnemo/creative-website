@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchFilterModel, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -11,6 +12,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   styleUrls: ['./backslash-trigger-pool-view.component.scss'],
 })
 export class BackslashTriggerPoolViewComponent extends GlobalDocumentViewComponent {
+
+  tabConfig: any = TAB_CONFIG;
 
   baseParams$: Subject<any> = new Subject<any>();
 

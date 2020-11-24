@@ -1,19 +1,26 @@
 
 import { Injectable } from '@angular/core';
 import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
-import { UserService } from '../api/api.user.service';
-import { UserModel } from '../api/nuxeo/lib/nuxeo.user-model';
-import { UserRole, UserPermission } from './acl.interface';
+import { AdvanceSearchService, DocumentModel } from '../api';
 import { Observable, of as observableOf, forkJoin, zip } from 'rxjs';
 import { map, switchMap, filter, tap } from 'rxjs/operators';
-import { DocumentModel } from '@core/api';
+import { UserModel } from '../api/nuxeo/lib/nuxeo.user-model';
+import { UserRole, UserPermission } from './acl.interface';
+import { UserService } from '../api/api.user.service';
+import { CacheService } from '../services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ACLService {
 
-  constructor(private userService: UserService, private permissionsService: NgxPermissionsService, private rolesService: NgxRolesService) {
+  constructor(
+    private userService: UserService,
+    private cacheService: CacheService,
+    private rolesService: NgxRolesService,
+    private permissionsService: NgxPermissionsService,
+    private advanceSearchService: AdvanceSearchService,
+  ) {
 
   }
 
@@ -30,13 +37,13 @@ export class ACLService {
   }
 
   filterRouterTabs(tabs: any[], document?: DocumentModel): Observable<any[]> {
-    tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } if (!x.aclFunc) { x.aclFunc = (doc: DocumentModel): Observable<boolean> => observableOf(true); } });
+    tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } if (!x.aclFunc) { x.aclFunc = (doc: DocumentModel, advanceSearchService: AdvanceSearchService): Observable<boolean> => observableOf(true); } });
     return this.permissionsService.permissions$.pipe(
       filter(_ => Object.keys(_).length !== 0),
       switchMap(_ => forkJoin([
         ...tabs.map((x: any) => zip(
           this.permissionsService.hasPermission(x.acl),
-          x.aclFunc.call(this, document),
+          this.cacheService.get(`ACL.RouterTab-${x.title}`, x.aclFunc.call(this, document, this.advanceSearchService)),
         )),
       ]).pipe(
         map((r: any[]) => {

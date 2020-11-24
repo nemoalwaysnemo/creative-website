@@ -24,7 +24,7 @@ export class DisruptionFormButtonComponent {
   @Input() title: string;
 
   @Input()
-  set type(type: 'roadmap' | 'day' | 'day asset' | 'theory asset' | 'brilliant thinking') {
+  set type(type: 'roadmap' | 'day' | 'day asset' | 'theory asset' | 'x asset' | 'brilliant thinking') {
     this.dialogSettings = this.getDialogFormSettings(type);
   }
 
@@ -64,6 +64,9 @@ export class DisruptionFormButtonComponent {
         break;
       case 'theory asset':
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM);
+        break;
+      case 'x asset':
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_X_MODULE_ASSET_FORM);
         break;
       case 'brilliant thinking':
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM);

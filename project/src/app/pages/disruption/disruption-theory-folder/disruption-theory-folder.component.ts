@@ -13,7 +13,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent {
 
-  tabs: any[] = TAB_CONFIG;
+  tabConfig: any = TAB_CONFIG;
 
   baseParams$: Subject<any> = new Subject<any>();
 

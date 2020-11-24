@@ -1,0 +1,42 @@
+@import '../../../theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+
+.global-search-form-buttons {
+  margin-right: 60px;
+}
+
+::ng-deep .layout-left {
+  clear: both;
+
+  .asset-description {
+    width: 67.2rem;
+    min-height: 102px;
+  }
+
+  .production-date {
+    width: 40%;
+    float: left;
+    margin-bottom: 0;
+    min-height: 102px;
+  }
+
+  .asset-type {
+    width: 58%;
+    float: left;
+    margin-left: 2%;
+    margin-bottom: 0;
+    min-height: 102px;
+  }
+}
+
+::ng-deep .layout-right {
+  float: none !important;
+  margin-left: 50%;
+
+  .drag-attachment {
+    margin-top: 52px;
+    margin-bottom: 0;
+    min-height: 102px;
+  }
+}
