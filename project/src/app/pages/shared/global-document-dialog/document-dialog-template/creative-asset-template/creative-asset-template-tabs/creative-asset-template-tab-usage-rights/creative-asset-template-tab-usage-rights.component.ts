@@ -1,9 +1,5 @@
-import { Component, Input, OnDestroy, TemplateRef, Type } from '@angular/core';
-import { concatMap, map, share } from 'rxjs/operators';
-import { Subscription, Observable, of as observableOf } from 'rxjs';
-import { getDocumentTypes, vocabularyFormatter } from '@core/services/helpers';
-import { DocumentModel, NuxeoPagination, NuxeoAutomations, NuxeoPermission, UserModel, SearchResponse } from '@core/api';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { Component, Input } from '@angular/core';
+import { DocumentModel, SearchResponse } from '@core/api';
 import { DocumentPageService } from '../../../../../services/document-page.service';
 
 
