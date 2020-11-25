@@ -14,6 +14,7 @@ enum AssetTypes {
   day = 'App-Disruption-Day',
   dayAsset = 'App-Disruption-Day-Asset',
   theory = 'App-Disruption-Theory-Asset',
+  xAsset = 'App-DisruptionX-Module',
   thinking = 'App-Disruption-Asset',
   caseAsset = 'App-BizDev-CaseStudy-Asset',
   thoughtAsset = 'App-BizDev-Thought-Asset',
@@ -157,6 +158,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       case AssetTypes.theory:
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_HOW_TOS_ASSET_FORM);
         break;
+      case AssetTypes.xAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_X_MODULE_ASSET_FORM);
+        break;
       case AssetTypes.thinking:
         components.push(GLOBAL_DOCUMENT_FORM.DISRUPTION_BRILLIANT_THINKING_FORM);
         break;
@@ -213,6 +217,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.theory:
         formTitle = 'Edit Disruption How tos';
+        break;
+      case AssetTypes.xAsset:
+        formTitle = 'Edit DisruptionX';
         break;
       case AssetTypes.thinking:
         formTitle = 'Edit Things to Steal';
