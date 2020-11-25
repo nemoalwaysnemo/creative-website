@@ -1,7 +1,13 @@
 <ng-container *ngIf="enableFeature">
-  <h2 class="home-heading"><a [routerLink]="['/p/disruption/DisruptionX']">DisruptionX</a></h2>
-  <div class="disruption-form-button right">
-    <disruption-form-button [parent]="parentDocument" [type]="'x asset'" [title]="'New Module'"></disruption-form-button>
+  <div class="row">
+    <div class="col-8">
+      <h2 class="home-heading"><a [routerLink]="['/p/disruption/DisruptionX']">DisruptionX</a></h2>
+    </div>
+    <div class="col-4">
+      <div class="disruption-form-button right">
+        <disruption-form-button [parent]="parentDocument" [type]="'x asset'" [title]="'New Module'"></disruption-form-button>
+      </div>
+    </div>
   </div>
   <div *ngIf="documents && documents.length > 0" [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption-home">
     <div *ngFor="let doc of documents" class="thumbnail-view-item">

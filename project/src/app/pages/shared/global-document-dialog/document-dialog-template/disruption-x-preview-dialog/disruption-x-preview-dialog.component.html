@@ -92,14 +92,13 @@
         </div>
       </ng-container>
       <ng-container *ngIf="attachments && attachments.length !== 0">
-        <div class="attachment-left">&nbsp;</div>
         <div class="right attachment-right">
           <table>
-            <tr>
-              <td><b>Download</b></td>
-            </tr>
-            <tbody *ngFor="let attachment of attachments">
-              <tr>
+            <thead>
+              <td class="download">Download</td>
+            </thead>
+            <tbody>
+              <tr *ngFor="let attachment of attachments">
                 <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
               </tr>
             </tbody>
