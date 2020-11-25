@@ -30,8 +30,9 @@
   margin-left: 0 !important;
   font-size: 18px;
   width: calc(100% - 110px) !important;
+  font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
 }
-  
+
 .thumbnail-img {
   margin-bottom: 45px;
 }
@@ -50,6 +51,13 @@
 }
 
 table {
+  overflow: hidden;
+  .download {
+    border-left: solid 1px #cccccc !important;
+    font-size: 20px;
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  }
+  margin-left: 25px;
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
@@ -67,11 +75,13 @@ table {
     text-align: left;
   }
   td {
+    word-wrap: break-word;
+    padding-left: 25px;
     font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
     font-size: 15px;
     a.text {
       font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
-      font-size: 15px;
+      font-size: 18px;
       color: #000000;
       &:hover {
         text-decoration: none;
@@ -107,8 +117,9 @@ table {
 }
 
 .download-btn {
-  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-  font-size: 15px;
+  margin: 7px 0;
+  font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+  font-size: 16px;
   display: block;
   text-transform: none;
   text-align: left;
