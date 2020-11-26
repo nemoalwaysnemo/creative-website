@@ -4,11 +4,11 @@ import { DocumentModel } from '@core/api';
 import { timer } from 'rxjs';
 
 @Component({
-  selector: 'share-document-button',
-  templateUrl: './share-document-button.component.html',
-  styleUrls: ['./share-document-button.component.scss'],
+  selector: 'document-share-button',
+  templateUrl: './document-share-button.component.html',
+  styleUrls: ['./document-share-button.component.scss'],
 })
-export class ShareDocumentButtonComponent implements AfterViewInit {
+export class DocumentShareButtonComponent implements AfterViewInit {
 
   btn: string = 'Copy';
 

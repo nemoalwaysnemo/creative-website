@@ -9,15 +9,13 @@
     <a href="javascript:;" (click)="openDialog(dialog)" class="download right btn">Download Request</a>
   </ng-container>
   <a href="javascript:;" nbPopoverPlacement="bottom" [nbPopover]="popContent" title="Share" class="right btn">Share</a>
-  <ng-container *ngIf="videoCurrentTime !== null && writePermission$ | async">
-    <a href="javascript:;" (click)="newThumbnail(videoCurrentTime)" class="create-new-thumbnail right btn" title="New poster">New poster</a>
-  </ng-container>
+  <document-new-poster-button [document]="documentModel" [enable]="enableThumbnailCreation"></document-new-poster-button>
   <a href="javascript:;" (click)="goBack()" class="back left btn" title="Back">Back</a>
   <div class="clear"></div>
 </div>
 
 <ng-template #popContent>
-  <share-document-button [document]="documentModel"></share-document-button>
+  <document-share-button [document]="documentModel"></document-share-button>
 </ng-template>
 <ng-template #dialog>
   <global-document-dialog [settings]="dialogSettings" [documentModel]="documentModel" [title]="'Download Request'"></global-document-dialog>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { ShareDocumentButtonComponent } from './share-document-button.component';
+import { DocumentShareButtonComponent } from './document-share-button.component';
 import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
@@ -11,10 +11,10 @@ import { ClipboardModule } from 'ngx-clipboard';
     ClipboardModule,
   ],
   exports: [
-    ShareDocumentButtonComponent,
+    DocumentShareButtonComponent,
   ],
   declarations: [
-    ShareDocumentButtonComponent,
+    DocumentShareButtonComponent,
   ],
 })
-export class ShareDocumentButtonModule { }
+export class DocumentShareButtonModule { }

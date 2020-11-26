@@ -25,6 +25,8 @@ export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemp
 
   attachments: { type: string, url: string, title: string }[] = [];
 
+  enableThumbnailCreation: boolean = true;
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

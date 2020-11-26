@@ -23,7 +23,6 @@ export const TAB_CONFIG: any[] = [
       return advanceSearchService.request(new GlobalSearchParams({
         pageSize: 1,
         currentPageIndex: 0,
-        ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
         ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
         ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_FOLDER_TYPE,
       })).pipe(

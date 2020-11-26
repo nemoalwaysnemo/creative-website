@@ -1,11 +1,10 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf, combineLatest, Subscription, Subject } from 'rxjs';
-import { concatMap, map, share, filter } from 'rxjs/operators';
+import { concatMap, map, share } from 'rxjs/operators';
 import { DocumentPageService } from '../services/document-page.service';
-import { DocumentModel, UserModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { DocumentModel, UserModel, NuxeoPermission } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../global-document-dialog';
-import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -17,13 +16,9 @@ export class DocumentActionGroupComponent {
 
   documentModel: DocumentModel;
 
-  videoCurrentTime: number | null = null;
-
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
   document$: Subject<DocumentModel> = new Subject<DocumentModel>();
-
-  writePermission$: Observable<boolean> = observableOf(false);
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
@@ -49,17 +44,13 @@ export class DocumentActionGroupComponent {
       } else {
         this.downloadPermission$ = observableOf(true);
       }
-      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
     }
   }
 
   constructor(
-    private nuxeoApi: NuxeoApiService,
     private documentPageService: DocumentPageService,
-    private documentVideoViewerService: DocumentVideoViewerService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    this.subscribeServiceEvent();
   }
 
   openDialog(dialog: TemplateRef<any>): void {
@@ -102,28 +93,4 @@ export class DocumentActionGroupComponent {
     this.documentPageService.historyBack();
   }
 
-  newThumbnail(currentTime: number): void {
-    if (typeof currentTime === 'number') {
-      const duration = (currentTime * 10).toString();
-      const subscription = this.nuxeoApi.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.documentModel.uid).subscribe((doc: DocumentModel) => {
-        this.documentPageService.notify(`Video poster has been updated successfully!`, '', 'success');
-        this.documentPageService.refresh(500);
-      });
-      this.subscription.add(subscription);
-    }
-  }
-
-  protected subscribeServiceEvent(): void {
-    const subscription = combineLatest([
-      this.document$,
-      this.documentVideoViewerService.onEvent().pipe(
-        filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPause', 'videoSeeking', 'videoTimeUpdate'].includes(e.name)),
-      ),
-    ]).pipe(
-      filter(([doc, event]: [DocumentModel, DocumentVideoEvent]) => event.docUid === doc.uid),
-    ).subscribe(([doc, e]: [DocumentModel, DocumentVideoEvent]) => {
-      this.videoCurrentTime = e.currentTime;
-    });
-    this.subscription.add(subscription);
-  }
 }

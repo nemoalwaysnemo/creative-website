@@ -34,6 +34,7 @@
           <ng-container *ngIf="writePermission$ | async">
             <button class="right edit" (click)="selectView(getDialogFormTemplateName(document))">Edit</button>
           </ng-container>
+          <document-new-poster-button [document]="document" [enable]="enableThumbnailCreation"></document-new-poster-button>
         </div>
         <div class="clear"></div>
       </div>
@@ -113,5 +114,5 @@
 </div>
 
 <ng-template #popContent>
-  <share-document-button [document]="document" [shareUrl]="shareUrl"></share-document-button>
+  <document-share-button [document]="document" [shareUrl]="shareUrl"></document-share-button>
 </ng-template>
