@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -60,6 +60,21 @@ export class BackslashEdgesAssetFormComponent extends GlobalDocumentFormComponen
         errorMessages: {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
+        },
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Date',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: true,
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
       }),
       new DynamicInputModel({
