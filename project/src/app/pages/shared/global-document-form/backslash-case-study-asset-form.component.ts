@@ -62,6 +62,21 @@ export class BackslashCaseStudyAssetFormComponent extends GlobalDocumentFormComp
           minLength: 'At least 4 characters',
         },
       }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Date',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: true,
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
+      }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
