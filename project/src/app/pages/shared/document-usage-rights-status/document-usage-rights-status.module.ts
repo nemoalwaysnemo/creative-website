@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { UsageRightWidgetComponent } from './usage-right-widget.component';
+import { DocumentUsageRightsStatusComponent } from './document-usage-rights-status.component';
 
 @NgModule({
   imports: [
@@ -9,10 +9,10 @@ import { UsageRightWidgetComponent } from './usage-right-widget.component';
     ThemeModule,
   ],
   exports: [
-    UsageRightWidgetComponent,
+    DocumentUsageRightsStatusComponent,
   ],
   declarations: [
-    UsageRightWidgetComponent,
+    DocumentUsageRightsStatusComponent,
   ],
 })
-export class UsageRightWidgetModule { }
+export class DocumentUsageRightsStatusModule { }

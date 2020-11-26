@@ -33,7 +33,7 @@ import { CreativeAssetTemplateTabInfoComponent } from './creative-asset-template
 import { CreativeAssetTemplateTabUsageRightsComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tab-usage-rights/creative-asset-template-tab-usage-rights.component';
 import { CreativeAssetTemplateTabUsageRightsDetailsComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tab-usage-rights-details/creative-asset-template-tab-usage-rights-details.component';
 import { ListSearchFormInDialogModule } from '../../list-search-form-in-dialog/list-search-form-in-dialog.module';
-import { UsageRightWidgetModule } from '../../usage-right-widget/usage-right-widget.module';
+import { DocumentUsageRightsStatusModule } from '../../document-usage-rights-status/document-usage-rights-status.module';
 import { BackslashAssetPreviewDialogComponent } from './backslash-asset-preview-dialog/backslash-asset-preview-dialog.component';
 import { DisruptionXPreviewDialogComponent } from './disruption-x-preview-dialog/disruption-x-preview-dialog.component';
 import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
@@ -72,12 +72,12 @@ const COMPONENTS = [
     CommonModule,
     ThemeModule,
     ReactiveFormsModule,
-    UsageRightWidgetModule,
     DocumentFormModule,
     DocumentViewerModule,
     DocumentShareButtonModule,
     DocumentBackslashInfoModule,
     DocumentNewPosterButtonModule,
+    DocumentUsageRightsStatusModule,
     DocumentCreativeProjectMgtModule,
     KnowledgeRelatedInfoModule,
     ListSearchFormInDialogModule,
