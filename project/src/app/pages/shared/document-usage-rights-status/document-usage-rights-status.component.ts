@@ -1,27 +1,26 @@
-import { Component, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { DocumentPageService } from '../services/document-page.service';
+import { Component, Input } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoPagination } from '@core/api';
-import { timer, Subscription } from 'rxjs';
+import { DocumentPageService } from '../services/document-page.service';
+import { Subscription } from 'rxjs';
 
 class Light {
   message: string;
   date: Date;
   style: string;
 
-  constructor(message, date, style) {
+  constructor(message: any, date: any, style: string) {
     this.message = message;
     this.date = date;
     this.style = style;
   }
 }
 
-
 @Component({
-  selector: 'usage-right-widget',
-  templateUrl: './usage-right-widget.component.html',
-  styleUrls: ['./usage-right-widget.component.scss'],
+  selector: 'document-usage-rights-status',
+  templateUrl: './document-usage-rights-status.component.html',
+  styleUrls: ['./document-usage-rights-status.component.scss'],
 })
-export class UsageRightWidgetComponent {
+export class DocumentUsageRightsStatusComponent {
 
   @Input()
   set document(doc: DocumentModel) {
@@ -62,7 +61,7 @@ export class UsageRightWidgetComponent {
   }
 
   buildLight(contract: any): Light {
-    let message, date, style;
+    let message: any, date: any, style: string;
     if (contract.info_messages.length > 0) {
       message = contract.info_messages;
       style = 'error';
