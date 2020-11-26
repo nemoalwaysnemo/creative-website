@@ -1,9 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, NuxeoPermission } from '@core/api';
 import { assetPath } from '@core/services/helpers';
-import { Observable, of as observableOf, Subject, Subscription, combineLatest } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { DocumentPageService } from '../services/document-page.service';
@@ -27,8 +25,6 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
 
   shareUrl: string;
 
-  document$: Subject<DocumentModel> = new Subject<DocumentModel>();
-
   writePermission$: Observable<boolean> = observableOf(false);
 
   videoCurrentTime: number | null = null;
@@ -43,7 +39,6 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
   set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
-      this.document$.next(doc);
       this.buildBackslashEdges(doc);
       this.shareUrl = this.buildShareUrl(doc);
       this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
@@ -53,13 +48,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
     }
   }
 
-  constructor(
-    private nuxeoApi: NuxeoApiService,
-    private documentVideoViewerService: DocumentVideoViewerService,
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
-    private documentPageService: DocumentPageService,
-  ) {
-    this.subscribeServiceEvent();
+  constructor(protected globalDocumentDialogService: GlobalDocumentDialogService, private documentPageService: DocumentPageService) {
   }
 
   ngOnDestroy(): void {
@@ -121,31 +110,6 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
       return true;
     }
     return false;
-  }
-
-  newThumbnail(currentTime: number): void {
-    if (typeof currentTime === 'number') {
-      const duration = (currentTime * 10).toString();
-      const subscription = this.nuxeoApi.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.doc.uid).subscribe((doc: DocumentModel) => {
-        this.documentPageService.notify(`Video poster has been updated successfully!`, '', 'success');
-        this.documentPageService.refresh(500);
-      });
-      this.subscription.add(subscription);
-    }
-  }
-
-  protected subscribeServiceEvent(): void {
-    const subscription = combineLatest([
-      this.document$,
-      this.documentVideoViewerService.onEvent().pipe(
-        filter((e: DocumentVideoEvent) => this.enableThumbnailCreation && ['videoPause', 'videoSeeking', 'videoTimeUpdate'].includes(e.name)),
-      ),
-    ]).pipe(
-      filter(([doc, event]: [DocumentModel, DocumentVideoEvent]) => event.docUid === doc.uid),
-    ).subscribe(([doc, e]: [DocumentModel, DocumentVideoEvent]) => {
-      this.videoCurrentTime = e.currentTime;
-    });
-    this.subscription.add(subscription);
   }
 
 }

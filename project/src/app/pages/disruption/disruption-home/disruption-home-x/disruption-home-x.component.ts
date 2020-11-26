@@ -45,7 +45,6 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
   private params: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_FOLDER_TYPE,
   };
@@ -53,7 +52,6 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
   private assetParams: any = {
     pageSize: 8,
     currentPageIndex: 0,
-    ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
   };
@@ -77,9 +75,11 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
     const subscription = this.search(this.params).pipe(
       map((docs: DocumentModel[]) => docs.shift()),
       takeWhile((doc: DocumentModel) => {
-        this.parentDocument = doc;
-        this.disruptionTitle = doc.title;
-        this.enableFeature = doc && doc.get('app_global:enable_feature') === true;
+        if (doc) {
+          this.parentDocument = doc;
+          this.disruptionTitle = doc.title;
+          this.enableFeature = doc && doc.get('app_global:enable_feature');
+        }
         return this.enableFeature;
       }),
       concatMap(_ => this.search(this.assetParams)),

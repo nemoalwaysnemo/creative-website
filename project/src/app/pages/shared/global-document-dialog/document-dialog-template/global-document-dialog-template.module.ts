@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DocumentFormModule } from '../../document-form/document-form.module';
 import { DocumentViewerModule } from '../../document-viewer/document-viewer.module';
 import { DocumentCreativeProjectMgtModule } from '../../document-creative-project-mgt';
-import { ShareDocumentButtonModule } from '../../share-document-button/share-document-button.module';
+import { DocumentShareButtonModule } from '../../document-share-button/document-share-button.module';
 import { DocumentBackslashInfoModule } from '../../document-backslash-info/document-backslash-info.module';
 import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-preview/disruption-asset-preview.component';
 import { DocumentDialogDeletionTemplateComponent } from './document-deletion-template/document-deletion-template.component';
@@ -36,8 +36,11 @@ import { ListSearchFormInDialogModule } from '../../list-search-form-in-dialog/l
 import { UsageRightWidgetModule } from '../../usage-right-widget/usage-right-widget.module';
 import { BackslashAssetPreviewDialogComponent } from './backslash-asset-preview-dialog/backslash-asset-preview-dialog.component';
 import { DisruptionXPreviewDialogComponent } from './disruption-x-preview-dialog/disruption-x-preview-dialog.component';
+import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
 
 const COMPONENTS = [
+  BizdevAssetPreviewDialogComponent,
+  BackslashAssetPreviewDialogComponent,
   BackslashHomeAssetDialogPreviewComponent,
   RelatedBackslashAssetDialogPreviewComponent,
   DisruptionAssetPreviewDialogComponent,
@@ -45,6 +48,7 @@ const COMPONENTS = [
   DocumentDialogConfirmationTemplateComponent,
   DocumentDialogDeletionTemplateComponent,
   DocumentDownloadRequestTemplateComponent,
+  CreativeAssetPreviewDialogComponent,
   CreativeAssetTemplateDialogComponent,
   CreativeAssetTemplateTabsComponent,
   CreativeAssetTemplateTabInfoComponent,
@@ -58,12 +62,9 @@ const COMPONENTS = [
   CreativeProjectAssetImportRequestTemplateComponent,
   CreativeProjectAssetUsageRightsTemplateComponent,
   InnovationAssetPreviewDialogComponent,
-  BizdevAssetPreviewDialogComponent,
   IntelligenceAssetPreviewDialogComponent,
-  CreativeAssetPreviewDialogComponent,
   DocumentShowcaseTemplateComponent,
   DocumentDeleteMultipleTemplateComponent,
-  BackslashAssetPreviewDialogComponent,
 ];
 
 @NgModule({
@@ -71,14 +72,15 @@ const COMPONENTS = [
     CommonModule,
     ThemeModule,
     ReactiveFormsModule,
+    UsageRightWidgetModule,
     DocumentFormModule,
     DocumentViewerModule,
-    ShareDocumentButtonModule,
-    KnowledgeRelatedInfoModule,
+    DocumentShareButtonModule,
     DocumentBackslashInfoModule,
+    DocumentNewPosterButtonModule,
     DocumentCreativeProjectMgtModule,
+    KnowledgeRelatedInfoModule,
     ListSearchFormInDialogModule,
-    UsageRightWidgetModule,
   ],
   declarations: [
     ...COMPONENTS,

@@ -3,16 +3,18 @@ import { NgPipesModule } from 'ngx-pipes';
 import { CommonModule } from '@angular/common';
 import { NbPopoverModule } from '@core/nebular/theme';
 import { DocumentActionGroupComponent } from './document-action-group.component';
-import { ShareDocumentButtonModule } from '../share-document-button/share-document-button.module';
+import { DocumentShareButtonModule } from '../document-share-button/document-share-button.module';
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
+import { DocumentNewPosterButtonModule } from '../document-new-poster-button/document-new-poster-button.module';
 
 @NgModule({
   imports: [
     NgPipesModule,
     CommonModule,
     NbPopoverModule,
-    ShareDocumentButtonModule,
+    DocumentShareButtonModule,
     GlobalDocumentDialogModule,
+    DocumentNewPosterButtonModule,
   ],
   declarations: [
     DocumentActionGroupComponent,

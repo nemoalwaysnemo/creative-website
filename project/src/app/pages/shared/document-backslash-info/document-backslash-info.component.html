@@ -10,9 +10,7 @@
         <ng-container *ngIf="isBackslashHomePage() && enableNewPoster && writePermission$ | async">
           <button class="right edit" (click)="selectView(getDialogFormTemplateName(doc))">Edit</button>
         </ng-container>
-        <ng-container *ngIf="enableNewPoster && videoCurrentTime !== null && writePermission$ | async">
-          <a href="javascript:;" (click)="newThumbnail(videoCurrentTime)" class="right btn new-poster" title="New poster">New poster</a>
-        </ng-container>
+        <document-new-poster-button [document]="doc" [enable]="enableThumbnailCreation"></document-new-poster-button>
       </div>
       <div class="clear"></div>
     </div>
@@ -39,7 +37,7 @@
   </div>
 </ng-container>
 <ng-template #popContent>
-  <share-document-button [document]="doc" [shareUrl]="shareUrl"></share-document-button>
+  <document-share-button [document]="doc" [shareUrl]="shareUrl"></document-share-button>
 </ng-template>
 
 <ng-template #edgeContent let-data>
