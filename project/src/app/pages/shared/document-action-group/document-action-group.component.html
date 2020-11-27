@@ -9,7 +9,7 @@
     <a href="javascript:;" (click)="openDialog(dialog)" class="download right btn">Download Request</a>
   </ng-container>
   <a href="javascript:;" nbPopoverPlacement="bottom" [nbPopover]="popContent" title="Share" class="right btn">Share</a>
-  <document-new-poster-button [document]="documentModel" [enable]="enableThumbnailCreation"></document-new-poster-button>
+  <document-new-poster-button class="poster right btn" [document]="documentModel" [enable]="enableThumbnailCreation"></document-new-poster-button>
   <a href="javascript:;" (click)="goBack()" class="back left btn" title="Back">Back</a>
   <div class="clear"></div>
 </div>

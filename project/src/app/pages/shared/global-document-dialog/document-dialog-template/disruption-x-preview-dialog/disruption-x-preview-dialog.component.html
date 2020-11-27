@@ -18,11 +18,9 @@
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
         <div class="col-8">
-          <a href="{{document.filePath}}" class="right"><button class="inline-middle download right"
-              type="submit">Download</button></a>
+          <a href="{{document.filePath}}" class="right"><button class="inline-middle download right" type="submit">Download</button></a>
           <ng-container *ngIf="getDialogSettings().enablePreview">
-            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button
-                class="right preview">Preview</button></a>
+            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right preview">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
           <ng-container *ngIf="getDialogSettings().enableDetail">
@@ -34,7 +32,7 @@
           <ng-container *ngIf="writePermission$ | async">
             <button class="right edit" (click)="selectView(getDialogFormTemplateName(document))">Edit</button>
           </ng-container>
-          <document-new-poster-button [document]="document" [enable]="enableThumbnailCreation"></document-new-poster-button>
+          <document-new-poster-button class="inline-middle poster right" [document]="document" [enable]="enableThumbnailCreation"></document-new-poster-button>
         </div>
         <div class="clear"></div>
       </div>

@@ -32,26 +32,7 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
         maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: false,
-        hidden: true,
-        formMode: 'create',
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          minLength: 'At least 4 characters',
-        },
-      }),
-      new DynamicInputModel({
-        id: 'dc:title',
-        label: 'Title',
-        maxLength: 150,
-        placeholder: 'Title',
-        autoComplete: 'off',
         required: true,
-        formMode: 'edit',
         validators: {
           required: null,
           minLength: 4,
@@ -66,7 +47,7 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
         formMode: 'create',
         uploadType: 'asset',
         layoutPosition: 'left',
-        queueLimit: 25,
+        queueLimit: 1,
         placeholder: 'Drop to upload Module Video',
         acceptTypes: '.mp4',
       }),
@@ -140,8 +121,8 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          showInput: true,
-          multiUpload: true,
+          showInput: false,
+          multiUpload: false,
         },
       }),
       new DynamicBatchUploadModel<string>({
