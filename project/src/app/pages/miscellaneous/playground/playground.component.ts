@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
-import { DocumentModel, DocumentRepository, UserModel } from '@core/api';
+import { DocumentModel, AdvanceSearchService, UserModel } from '@core/api';
 import { concatMap, map } from 'rxjs/operators';
 import { GlobalDocumentDialogService, OptionModel } from '../../shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
@@ -19,7 +19,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
-  constructor(private documentRepository: DocumentRepository, private globalDocumentDialogService: GlobalDocumentDialogService) {
+  constructor(private advanceSearchService: AdvanceSearchService, private globalDocumentDialogService: GlobalDocumentDialogService) {
 
   }
 
@@ -42,23 +42,23 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private load(uid: string): void {
-    this.documentRepository.get(uid).subscribe((doc: DocumentModel) => {
+    this.advanceSearchService.get(uid).subscribe((doc: DocumentModel) => {
       this.document = doc;
     });
   }
 
   private create(): void {
-    this.documentRepository.get('c4e41076-c38f-4f8a-848b-8ba45e114530').subscribe((doc: DocumentModel) => {
+    this.advanceSearchService.get('c4e41076-c38f-4f8a-848b-8ba45e114530').subscribe((doc: DocumentModel) => {
       this.settings = this.getSettings();
       this.document = new DocumentModel({ path: doc.uid, type: 'App-Library-Image' });
     });
   }
 
   private update(): void {
-    this.documentRepository.get('36d9c0a8-8ed0-470e-a331-6712411da7bc/')
+    this.advanceSearchService.get('36d9c0a8-8ed0-470e-a331-6712411da7bc/')
       .pipe(
         concatMap((parent: DocumentModel) =>
-          this.documentRepository.get('d2ba1dc8-59f4-4142-a5cf-9afa626809d1').pipe(
+          this.advanceSearchService.get('d2ba1dc8-59f4-4142-a5cf-9afa626809d1').pipe(
             map((doc: DocumentModel) => {
               doc.setParent(parent);
               return doc;

@@ -143,6 +143,10 @@ export class DocumentModel extends Base {
     return (this.breadcrumb || []).filter((doc: DocumentModel) => docType.includes(doc.type));
   }
 
+  get options(): any {
+    return { nuxeo: this._nuxeo, repository: this._repository };
+  }
+
   get hasAnyContent(): boolean {
     return this.contextParameters['hasContent'] === undefined ? true : this.contextParameters.hasContent;
   }
