@@ -43,6 +43,8 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   userDocument: DocumentModel = new DocumentModel();
 
+  private imageLimit: number = 5;
+
   private targetDocument: DocumentModel;
 
   private imageDocument: DocumentModel;
@@ -68,7 +70,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
   fetchSite(): void {
     this.fetching = true;
     const link = this.url.nativeElement.value;
-    this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: link }, this.targetDocument.uid, { schemas: '*' }).subscribe((doc: DocumentModel) => {
+    this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: link, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' }).subscribe((doc: DocumentModel) => {
       this.document = this.updateBackslashTriggerProperties(this.targetDocument, doc);
       this.imageDocument = doc;
       this.fetching = false;
@@ -76,23 +78,25 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
   }
 
   onCallback(e: DocumentFormEvent): void {
-    if (e.action === 'Created') {
+    if (['Created', 'Updated'].includes(e.action)) {
       this.document = this.updateBackslashTriggerProperties(e.doc, this.imageDocument);
-      this.triggerFormSettings = Object.assign({}, this.triggerFormSettings, {
-        formMode: 'edit',
-        buttonGroup: [
-          {
-            label: 'RE-SUBMIT',
-            name: 'save',
-            type: 'save',
-          },
-          {
-            label: 'OPEN TRIGGER',
-            name: 'open-trigger',
-            type: 'custom',
-          },
-        ],
-      });
+      if (e.action === 'Created') {
+        this.triggerFormSettings = Object.assign({}, this.triggerFormSettings, {
+          formMode: 'edit',
+          buttonGroup: [
+            {
+              label: 'RE-SUBMIT',
+              name: 'save',
+              type: 'save',
+            },
+            {
+              label: 'OPEN TRIGGER',
+              name: 'open-trigger',
+              type: 'custom',
+            },
+          ],
+        });
+      }
     }
     if (e.button === 'open-trigger' && this.document) {
       this.documentPageService.openNewTab(NuxeoDocumentUrl(this.document.uid));
@@ -114,7 +118,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
       'app_Edges:URL': target.get('web-page-element:page-url'),
       'dc:title': target.title,
     });
-    return new DocumentModel({ path: doc.path, properties });
+    return new DocumentModel({ uid: doc.uid, path: doc.path, properties }, doc.options);
   }
 
 }

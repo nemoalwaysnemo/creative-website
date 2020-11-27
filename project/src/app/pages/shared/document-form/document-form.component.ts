@@ -4,7 +4,7 @@ import { deepExtend, isValueEmpty } from '@core/services/helpers';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
-import { UserModel, DocumentModel, DocumentRepository, NuxeoUploadResponse } from '@core/api';
+import { UserModel, DocumentModel, AdvanceSearchService, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 
@@ -70,7 +70,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
 
-  constructor(private formService: DynamicFormService, private documentRepository: DocumentRepository) {
+  constructor(private formService: DynamicFormService, private advanceSearchService: AdvanceSearchService) {
     this.onDocumentChanged();
   }
 
@@ -309,7 +309,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private createDocument(doc: DocumentModel, user: UserModel): Observable<any> {
-    return this.documentRepository.create(this.beforeSave(doc, user)).pipe(
+    return this.advanceSearchService.create(this.beforeSave(doc, user), { schemas: '*' }).pipe(
       concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
     );
   }
@@ -319,7 +319,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
       properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
     }
-    return updateDoc.set(properties).save().pipe(
+    return updateDoc.set(properties).save({ schemas: '*' }).pipe(
       concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
     );
   }

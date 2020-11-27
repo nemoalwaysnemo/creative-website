@@ -20,6 +20,8 @@ export class SearchResponse {
 })
 export class AdvanceSearchService {
 
+  protected defaultRepository: string;
+
   protected endPoint: string = 'search';
 
   protected provider: string = 'creative_website_search';
@@ -32,6 +34,14 @@ export class AdvanceSearchService {
 
   protected getRequestUrl(provider?: string): string {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
+  }
+
+  get(uuid: string, opts?: any): Observable<DocumentModel> {
+    return this.nuxeoApi.repository(this.defaultRepository, new NuxeoRequestOptions(opts)).fetch(uuid);
+  }
+
+  create(doc: DocumentModel, opts: any = {}): Observable<DocumentModel> {
+    return this.nuxeoApi.repository(this.defaultRepository).create(doc.path, doc, opts);
   }
 
   operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<any> {
