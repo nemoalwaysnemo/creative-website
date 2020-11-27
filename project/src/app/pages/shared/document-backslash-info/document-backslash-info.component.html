@@ -1,16 +1,16 @@
 <ng-container *ngIf="doc">
   <div class="text-content" [nbSpinner]="loading" nbSpinnerStatus="disabled">
     <div class="controls row">
-      <div class="col-9">
+      <div class="col-8">
         <img class="left" [src]="previewBtnImage()">
         <h2 class="left">{{ doc.title }}</h2>
       </div>
-      <div class="col-3 btns">
+      <div class="col-4 btns">
         <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
         <ng-container *ngIf="isBackslashHomePage() && enableNewPoster && writePermission$ | async">
           <button class="right edit" (click)="selectView(getDialogFormTemplateName(doc))">Edit</button>
         </ng-container>
-        <document-new-poster-button [document]="doc" [enable]="enableThumbnailCreation"></document-new-poster-button>
+        <document-new-poster-button class="poster right" [document]="doc" [enable]="enableThumbnailCreation"></document-new-poster-button>
       </div>
       <div class="clear"></div>
     </div>
