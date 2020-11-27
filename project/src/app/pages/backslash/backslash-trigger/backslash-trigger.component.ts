@@ -18,6 +18,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
   fetching: boolean = false;
 
   triggerFormSettings: any = {
+    actionOptions: { schemas: '*' },
     enableLayoutRight: false,
     formMode: 'create',
     buttonGroup: [

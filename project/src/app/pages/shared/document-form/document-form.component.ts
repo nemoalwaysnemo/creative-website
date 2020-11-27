@@ -276,7 +276,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         }
       });
     }
-    this.createDocuments(documents, this.user).subscribe((models: DocumentModel[]) => {
+    this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
       this.updateFormStatus({ submitted: true });
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
       if (this.formSettings.resetFormAfterDone) {
@@ -298,28 +298,29 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
     }
 
-    this.updateDocument(this.documentModel, properties, this.user).subscribe((model: DocumentModel) => {
+    this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
       this.updateFormStatus({ submitted: true });
       this.callback.next(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
     });
   }
 
-  private createDocuments(documents: DocumentModel[], user: UserModel): Observable<DocumentModel[]> {
-    return forkJoin(documents.map(x => this.createDocument(x, user)));
+  private createDocuments(documents: DocumentModel[], user: UserModel, opts: any = {}): Observable<DocumentModel[]> {
+    return forkJoin(documents.map(x => this.createDocument(x, user, opts)));
   }
 
-  private createDocument(doc: DocumentModel, user: UserModel): Observable<any> {
-    return this.advanceSearchService.create(this.beforeSave(doc, user), { schemas: '*' }).pipe(
+  private createDocument(doc: DocumentModel, user: UserModel, opts: any = {}): Observable<any> {
+    console.log(33333, opts);
+    return this.advanceSearchService.create(this.beforeSave(doc, user), opts).pipe(
       concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
     );
   }
 
-  private updateDocument(doc: DocumentModel, properties: any = {}, user: UserModel): Observable<DocumentModel> {
+  private updateDocument(doc: DocumentModel, properties: any = {}, user: UserModel, opts: any = {}): Observable<DocumentModel> {
     const updateDoc = this.beforeSave(doc, user);
     if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
       properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
     }
-    return updateDoc.set(properties).save({ schemas: '*' }).pipe(
+    return updateDoc.set(properties).save(opts).pipe(
       concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
     );
   }
