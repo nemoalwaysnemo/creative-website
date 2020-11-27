@@ -52,6 +52,8 @@ export class DocumentFormStatus {
 
 export class DocumentFormSettings {
 
+  actionOptions: any = {};
+
   formModel: DynamicFormModel = [];
 
   formLayout: DynamicFormLayout = {};
