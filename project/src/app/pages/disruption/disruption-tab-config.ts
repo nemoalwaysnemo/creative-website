@@ -5,18 +5,6 @@ import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 export const TAB_CONFIG: any[] = [
   {
-    title: 'Disruption Roadmaps',
-    route: '/p/disruption/Disruption Roadmaps',
-  },
-  {
-    title: 'Disruption Days',
-    route: '/p/disruption/Disruption Days',
-  },
-  {
-    title: 'Disruption How Tos',
-    route: '/p/disruption/Disruption How Tos',
-  },
-  {
     title: 'DisruptionX',
     route: '/p/disruption/DisruptionX',
     aclFunc: (doc: DocumentModel, advanceSearchService: AdvanceSearchService): Observable<boolean> => {
@@ -30,6 +18,18 @@ export const TAB_CONFIG: any[] = [
         map((d: DocumentModel) => d && d.get('app_global:enable_feature') === true),
       );
     },
+  },
+  {
+    title: 'Disruption Roadmaps',
+    route: '/p/disruption/Disruption Roadmaps',
+  },
+  {
+    title: 'Disruption Days',
+    route: '/p/disruption/Disruption Days',
+  },
+  {
+    title: 'Disruption How Tos',
+    route: '/p/disruption/Disruption How Tos',
   },
   {
     title: 'Things to Steal',
