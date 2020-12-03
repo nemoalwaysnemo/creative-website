@@ -309,7 +309,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private createDocument(doc: DocumentModel, user: UserModel, opts: any = {}): Observable<any> {
-    console.log(33333, opts);
     return this.advanceSearchService.create(this.beforeSave(doc, user), opts).pipe(
       concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
     );

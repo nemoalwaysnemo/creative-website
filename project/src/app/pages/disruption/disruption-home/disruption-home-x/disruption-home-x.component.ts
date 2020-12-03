@@ -78,7 +78,7 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
         if (doc) {
           this.parentDocument = doc;
           this.disruptionTitle = doc.title;
-          this.enableFeature = doc && doc.get('app_global:enable_feature');
+          this.enableFeature = doc && doc.get('app_global:enable_feature') === true;
         }
         return this.enableFeature;
       }),

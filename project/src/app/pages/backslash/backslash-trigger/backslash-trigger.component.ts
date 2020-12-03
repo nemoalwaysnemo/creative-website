@@ -44,7 +44,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   userDocument: DocumentModel = new DocumentModel();
 
-  private imageLimit: number = 5;
+  private imageLimit: number = 3;
 
   private targetDocument: DocumentModel;
 
