@@ -69,24 +69,12 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:library_librarians',
-        label: 'Download Approvers',
-        required: true,
-        settings: {
-          initSearch: false,
-          placeholder: 'Select a value',
-          providerType: SuggestionSettings.USER_GROUP,
-        },
-        validators: { required: null },
-        errorMessages: { required: '{{label}} is required' },
-      }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
         readOnly: true,
-        disabled: true,
         required: true,
+        defaultValue: 'Backslash Report Folder',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
