@@ -1,5 +1,5 @@
-import { Component, TemplateRef } from '@angular/core';
-import { NuxeoPagination, DocumentModel, GlobalSearchParams, NuxeoSearchConstants } from '@core/api';
+import { Component, EventEmitter, Output, TemplateRef } from '@angular/core';
+import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { DocumentPageService } from '../../../shared/services/document-page.service';
 import { concatMap, takeWhile, map } from 'rxjs/operators';
@@ -14,6 +14,8 @@ import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
   templateUrl: './disruption-home-x.component.html',
 })
 export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
+
+  @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
   loading: boolean = true;
 
@@ -50,7 +52,7 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
   };
 
   private assetParams: any = {
-    pageSize: 8,
+    pageSize: 12,
     currentPageIndex: 0,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_TYPE,
     ecm_path: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
@@ -80,6 +82,7 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
           this.disruptionTitle = doc.title;
           this.enableFeature = doc && doc.get('app_global:enable_feature') === true;
         }
+        this.customEvent.next({ featureEnabled: this.enableFeature });
         return this.enableFeature;
       }),
       concatMap(_ => this.search(this.assetParams)),

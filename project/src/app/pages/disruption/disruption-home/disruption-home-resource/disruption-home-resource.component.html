@@ -1,5 +1,5 @@
 <ng-container *ngIf="enableFeature">
-  <h2 class="home-heading">Resources</h2>
+  <h2 class="home-heading" *ngIf="enableTitle">Resources</h2>
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption-home">
     <div *ngFor="let document of documents" class="thumbnail-view-item">
       <div class="description">
