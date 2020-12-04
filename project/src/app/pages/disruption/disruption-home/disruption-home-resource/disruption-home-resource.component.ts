@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { DocumentPageService } from '../../../shared/services/document-page.service';
@@ -11,6 +11,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './disruption-home-resource.component.html',
 })
 export class DisruptionHomeResourceComponent extends BaseDocumentViewComponent {
+
+  @Input() enableTitle: boolean = false;
 
   loading: boolean = true;
 

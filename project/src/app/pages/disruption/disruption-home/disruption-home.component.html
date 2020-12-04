@@ -7,8 +7,8 @@
   <disruption-home-gallery></disruption-home-gallery>
 </div>
 <div class="disruption-home-x">
-  <disruption-home-x></disruption-home-x>
+  <disruption-home-x (customEvent)="onCustomEvent($event)"></disruption-home-x>
 </div>
 <div class="disruption-home-resource">
-  <disruption-home-resource></disruption-home-resource>
+  <disruption-home-resource [enableTitle]="enableResourceTitle"></disruption-home-resource>
 </div>

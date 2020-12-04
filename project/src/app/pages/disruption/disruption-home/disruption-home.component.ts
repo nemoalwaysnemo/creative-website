@@ -13,6 +13,8 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
 
   loading: boolean = true;
 
+  enableResourceTitle: boolean = false;
+
   headline: string = 'You name it.';
 
   extraHeadline: string = 'We\'ve disrupted it.';
@@ -53,6 +55,10 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
 
   onInit(): void {
     this.setCurrentDocument();
+  }
+
+  onCustomEvent(event: any): void {
+    this.enableResourceTitle = event.featureEnabled;
   }
 
 }
