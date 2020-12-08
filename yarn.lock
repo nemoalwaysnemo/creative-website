@@ -1292,17 +1292,17 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.2.0.tgz#5e0b448d27fe3091bae6216456512c5904d05661"
   integrity sha512-fsLxt0CHx2HCV9EL8lDoVkwHffsA0snUpddYjdLyXcG5E41xaamn9ZyQqOE9TUJdrRlH8/hjIf+UdOdDeKCUgg==
 
-"@ng-bootstrap/ng-bootstrap@8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-8.0.0.tgz#7e1b9dc8a147e61ec964af430d1941be377bbe1e"
-  integrity sha512-v77Gfd8xHH+exq0WqIqVRlxbUEHdA/2+RUJenUP2IDTQN9E1rWl7O461/kosr+0XPuxPArHQJxhh/WsCYckcNg==
+"@ng-bootstrap/ng-bootstrap@5.3.1":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-5.3.1.tgz#4cf2929583e9572475d1d0f3c905b05885a086bb"
+  integrity sha512-xlhBJb4oNcOQk04h5sQcq9P1E97sGB1HjqBCqgL0+S2w2uvLWME9F9SuH7wU4S1+eYe7WG9SKFpq+R4BjG2kMw==
   dependencies:
-    tslib "^2.0.0"
+    tslib "^1.9.0"
 
-"@ng-select/ng-select@^5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-5.0.8.tgz#68299204199d8ad2004976f2afeb54e367677f31"
-  integrity sha512-Q7W0NjmTnO2+yUoMfOqOaZyMTCcIRKZUzCaeSW/ucyWk2OwgMwlBLKc+IpzfTWdnInjVtkR0LzC5w1tdrTdLVg==
+"@ng-select/ng-select@^5.0.9":
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-5.0.9.tgz#3b52b49e04280fdddeacd59e79f381219bd2cf16"
+  integrity sha512-YZeSAiS8/Nx/eHZJPmOOYL8YmcvSq+dr1P8WIrsKmRA7mueorBpPc5xlUj+nLQbpLtsiQvdWDQspf/ykOvD/lA==
   dependencies:
     tslib "^2.0.0"
 
@@ -2225,7 +2225,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@^4.3.1:
+bootstrap@^4.5.3:
   version "4.5.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.3.tgz#c6a72b355aaf323920be800246a6e4ef30997fe6"
   integrity sha512-o9ppKQioXGqhw8Z7mah6KdTYpNQY//tipnkxppWhPbiSWdD+1raYsnhwEZjkTHYbGee4cVQ0Rx65EhOY/HNLcQ==
@@ -3104,10 +3104,10 @@ core-js@^3.6.1:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
   integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
 
-core-js@^3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.7.0.tgz#b0a761a02488577afbf97179e4681bf49568520f"
-  integrity sha512-NwS7fI5M5B85EwpWuIwJN4i/fbisQUwLwiSNUWeXlkAZ0sbBjLEvLvFLf1uzAUV66PcEPt4xCGCmOZSxVf3xzA==
+core-js@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.8.1.tgz#f51523668ac8a294d1285c3b9db44025fda66d47"
+  integrity sha512-9Id2xHY1W7m8hCl8NkhQn5CufmF/WuR30BTRewvCXc1aZd3kMECwNZ69ndLbekKfakw9Rf2Xyc+QR6E7Gg+obg==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -6739,10 +6739,10 @@ ngx-clipboard@^14.0.1:
     ngx-window-token ">=4.0.0"
     tslib "^2.0.0"
 
-ngx-device-detector@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-device-detector/-/ngx-device-detector-2.0.0.tgz#1a239d0d65f3cb155221fcdde531b6df4c774863"
-  integrity sha512-0minaW2+Y6dJSKhQrcE3yi8lRa2oAhttgLY5K/K1KRcAPy5yhojY/hpuJko7ANYhttOSxrzxEWhf3novEiSXcg==
+ngx-device-detector@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/ngx-device-detector/-/ngx-device-detector-2.0.4.tgz#891ee088f12e8b2b521dab92d2941dc5f7f7fdb9"
+  integrity sha512-3OE5B9Dzr2gWowD98VeHxTrv+nwiFYGLrZyYpa/Vzq/Pb7/OagyVGH1KzJ9nX5SnOus1s6PQovx7EhgR/9N+RA==
   dependencies:
     tslib "^2.0.0"
 
@@ -6775,10 +6775,10 @@ ngx-pipes@^2.7.5:
   dependencies:
     tslib "^2.0.0"
 
-ngx-scrollbar@^7.3.1:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/ngx-scrollbar/-/ngx-scrollbar-7.3.1.tgz#7673ad35a4d4dbc4caf562141225d22eba1a2dab"
-  integrity sha512-ZeEE0aWSpbhXkLSYhVIkdxydsMjBAtSuHIAsFM9uXFah1xgcpeUT4ukKpRXNmBZmmBuavg/rNo7zG3naCkllww==
+ngx-scrollbar@^7.4.1:
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/ngx-scrollbar/-/ngx-scrollbar-7.4.1.tgz#50a775e6949f4a2f8ae5aecf7b7ac4eb5323adbd"
+  integrity sha512-yuM2oLOJTr6cc6I9pN0Wtq33jK3Thi2ArKObQOwjWpiMBf5ezvXnKYdNHu39rUkkXcITUV5o/tS3eGIW7xWVxw==
   dependencies:
     "@juggle/resize-observer" "*"
     bezier-easing "*"
@@ -10002,11 +10002,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-
-typeface-exo@^0.0.61:
-  version "0.0.61"
-  resolved "https://registry.yarnpkg.com/typeface-exo/-/typeface-exo-0.0.61.tgz#10c6113292da354cb9f26ee9d0b0c996f1a7a3bd"
-  integrity sha512-AH3bMVYnVpg2G+CJbgtogTuJpWGS0zspHJzzVR8cCgTtkbUI0pj8WBB+RFo14CHbF5MmZgYe7TVoWz+j4Yo6Jg==
 
 typescript-tslint-plugin@^0.5.5:
   version "0.5.5"
