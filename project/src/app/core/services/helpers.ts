@@ -208,7 +208,7 @@ export function range(start: number, end: number, step: number = 0, offset: numb
   });
 }
 
-export function filterParams(p: object, keepValues: string[] = []): any {
+export function filterParams(p: any, keepValues: string[] = []): any {
   const _ = {};
   Object.keys(p)
     .filter(key => !!p[key])

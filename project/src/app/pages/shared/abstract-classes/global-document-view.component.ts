@@ -62,7 +62,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
     this.redirectTo404();
   }
 
-  protected getCurrentDocumentSearchParams(): object {
+  protected getCurrentDocumentSearchParams(): any {
     return {};
   }
 
