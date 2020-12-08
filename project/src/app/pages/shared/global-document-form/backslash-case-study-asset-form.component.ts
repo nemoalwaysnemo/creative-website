@@ -116,11 +116,6 @@ export class BackslashCaseStudyAssetFormComponent extends GlobalDocumentFormComp
         id: 'app_Edges:insight',
         label: 'Insight',
       }),
-      new DynamicCheckboxModel({
-        id: 'app_global:asset_request',
-        label: 'Download Requires Approval',
-        required: false,
-      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
