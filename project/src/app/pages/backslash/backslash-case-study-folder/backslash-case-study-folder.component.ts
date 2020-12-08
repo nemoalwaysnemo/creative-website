@@ -21,6 +21,8 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
 
   showFolderInfo: boolean = false;
 
+  showReportButton: boolean = true;
+
   filters: SearchFilterModel[] = [
     // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
@@ -64,6 +66,7 @@ export class BackslashCaseStudyFolderComponent extends GlobalDocumentViewCompone
       }
     }
     if (doc.type === 'App-Backslash-Case-Study-Category') {
+      this.showReportButton = false;
       return this.buildCategoryAssetParams(doc);
     }
     if (doc.type === 'App-Backslash-Case-Study-Region') {

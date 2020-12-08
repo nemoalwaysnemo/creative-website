@@ -1,6 +1,6 @@
 <document-route-tabset [tabConfig]="tabConfig"></document-route-tabset>
 <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
-  <ng-container class="group-left">
+  <ng-container class="group-left" *ngIf="showReportButton">
     <div class="global-search-form-buttons d-flex">
       <backslash-form-button [parent]="document" [type]="'case asset'" [title]="'New Report'"></backslash-form-button>
     </div>
