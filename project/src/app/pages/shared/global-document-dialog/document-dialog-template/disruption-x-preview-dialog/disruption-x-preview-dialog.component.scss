@@ -142,3 +142,7 @@ table {
     text-decoration: none;
   }
 }
+
+::ng-deep .poster-btn {
+  height: 25px;
+}
