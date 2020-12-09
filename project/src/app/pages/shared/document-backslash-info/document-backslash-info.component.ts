@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoQuickFilters, NuxeoPagination, NuxeoPermission } from '@core/api';
-import { assetPath } from '@core/services/helpers';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
@@ -56,7 +55,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
   }
 
   previewBtnImage(): string {
-    return assetPath('assets/images/preview_logo.png');
+    return '/assets/images/preview_logo.png';
   }
 
   buildBackslashEdges(doc: DocumentModel): void {

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel } from '@core/api';
-import { vocabularyFormatter, assetPath } from '@core/services/helpers';
+import { vocabularyFormatter } from '@core/services/helpers';
 import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -99,7 +99,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
   }
 
   previewBtnImage(): string {
-    return assetPath('assets/images/preview_logo.png');
+    return '/assets/images/preview_logo.png';
   }
 
   vocabularyFormatter(list: string[]): string {

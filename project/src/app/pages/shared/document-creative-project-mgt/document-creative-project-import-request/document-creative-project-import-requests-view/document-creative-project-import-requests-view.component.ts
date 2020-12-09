@@ -6,7 +6,7 @@ import { GlobalSearchFormSettings } from '../../../global-search-form/global-sea
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
-import { assetPath } from '@core/services/helpers';
+
 @Component({
   selector: 'document-creative-project-import-requests-view',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -85,7 +85,7 @@ export class DocumentCreativeProjectImportRequestsViewComponent {
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        icon: { url: assetPath('assets/images/App-Library-Package.png') },
+        icon: { url: '/assets/images/App-Library-Package.png' },
         title: doc,
         info: doc,
       }));

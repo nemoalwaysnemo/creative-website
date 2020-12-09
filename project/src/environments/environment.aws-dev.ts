@@ -5,7 +5,6 @@ export const Environment = {
   homePath: '/p/knowledge',
   nuxeoUrl: '/nuxeo/',
   backslashAppUrl: '/nuxeo/edges',
-  assetPath: '/nuxeo/LibraryWebUI/',
   oauth2CallBackPath: '/nuxeo/site/LibraryWebUI/#/',
   production: true,
 };

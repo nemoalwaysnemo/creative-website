@@ -281,10 +281,6 @@ export function convertToBoolean(val: any): boolean {
   return !!val;
 }
 
-export function assetPath(src: string): string {
-  return Environment.assetPath + src;
-}
-
 export function getAssetModuleType(doc: any): string {
   let type = '';
   if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {

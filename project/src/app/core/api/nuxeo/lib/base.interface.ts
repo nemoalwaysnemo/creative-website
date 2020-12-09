@@ -9,14 +9,12 @@ export abstract class AbstractCore {
   protected baseUrl: string = '';
   protected apiPath: string;
   protected restUrl: string;
-  protected assetPath: string;
   protected automationUrl: string;
   protected baseOptions: any = {};
 
   constructor(opts: NuxeoApiOptions) {
     this.apiPath = API_PATH;
     this.baseUrl = opts.baseUrl;
-    this.assetPath = opts.assetPath;
     this.restUrl = join(this.baseUrl, this.apiPath);
     this.automationUrl = join(this.restUrl, 'automation/');
   }
@@ -124,7 +122,6 @@ export class NuxeoApiOptions {
   baseUrl: string = '';
   auth?: Credentials;
   appName: string;
-  assetPath: string;
 
   constructor(opts: any = {}) {
     Object.assign(this, opts);

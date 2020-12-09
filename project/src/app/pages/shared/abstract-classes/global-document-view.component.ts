@@ -40,10 +40,6 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   }
 
-  assetPath(src: string): string {
-    return Environment.assetPath + src;
-  }
-
   onCallback(event: DocumentFormEvent): void {
 
   }

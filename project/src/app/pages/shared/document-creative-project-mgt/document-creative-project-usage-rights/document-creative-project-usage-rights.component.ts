@@ -7,7 +7,6 @@ import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-sea
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
-import { assetPath } from '@core/services/helpers';
 
 enum AssetTypes {
   music = 'App-Library-UsageRights-Music',
@@ -153,20 +152,20 @@ export class DocumentCreativeProjectUsageRightsComponent {
     let imgUrl;
     switch (doc.type) {
       case AssetTypes.stock:
-        imgUrl = 'assets/images/ur_contract_stock.png';
+        imgUrl = '/assets/images/ur_contract_stock.png';
         break;
       case AssetTypes.talent:
-        imgUrl = 'assets/images/ur_contract_talent.png';
+        imgUrl = '/assets/images/ur_contract_talent.png';
         break;
       case AssetTypes.music:
-        imgUrl = 'assets/images/ur_contract_music.png';
+        imgUrl = '/assets/images/ur_contract_music.png';
         break;
       case AssetTypes.photo:
-        imgUrl = 'assets/images/ur_contract_photo.png';
+        imgUrl = '/assets/images/ur_contract_photo.png';
         break;
       default:
         break;
     }
-    return assetPath(imgUrl);
+    return imgUrl;
   }
 }
