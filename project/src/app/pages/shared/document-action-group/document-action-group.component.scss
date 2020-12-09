@@ -33,7 +33,9 @@
   }
 }
 
-::ng-deep .poster-btn {
-  margin: -1px -20px 0 0;
+.poster {
+  margin: 20px 0px 0px 0px;
+  border-right: solid 1px #cccccc !important;
+  height: 20px;
 }
 
