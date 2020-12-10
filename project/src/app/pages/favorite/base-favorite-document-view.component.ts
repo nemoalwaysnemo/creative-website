@@ -45,7 +45,7 @@ export class BaseFavoriteDocumentViewComponent extends GlobalDocumentViewCompone
     );
   }
 
-  protected buildAssetsParams(doc: DocumentModel): object {
+  protected buildAssetsParams(doc: DocumentModel): any {
     return {};
   }
 

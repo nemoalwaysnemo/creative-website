@@ -22,7 +22,6 @@
             "main": "project/src/main.ts",
             "polyfills": "project/src/polyfills.ts",
             "tsConfig": "project/tsconfig.app.json",
-            "rebaseRootRelativeCssUrls": true,
             "aot": true,
             "assets": [
               "project/src/assets",
@@ -32,7 +31,6 @@
             "styles": [
               "node_modules/@videogular/ngx-videogular/fonts/videogular.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "project/src/app/core/nebular/icons/scss/nebular-icons.scss",
@@ -50,38 +48,10 @@
             ]
           },
           "configurations": {
-            "aws-prod": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [{
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ],
-              "deployUrl": "/nuxeo/LibraryWebUI/",
-              "baseHref": "/nuxeo/site/LibraryWebUI/",
-              "fileReplacements": [{
-                "replace": "project/src/environments/environment.ts",
-                "with": "project/src/environments/environment.aws-prod.ts"
-              }]
-            },
             "aws-stg": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -100,7 +70,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -127,7 +96,7 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "tbwa-knowledge-website:build:aws-prod"
+              "browserTarget": "tbwa-knowledge-website:build:aws-stg"
             }
           }
         },
@@ -135,23 +104,6 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "tbwa-knowledge-website:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "project/src/test.ts",
-            "polyfills": "project/src/polyfills.ts",
-            "tsConfig": "project/tsconfig.spec.json",
-            "karmaConfig": "project/karma.conf.js",
-            "assets": [
-              "project/src/favicon.ico",
-              "project/src/assets"
-            ],
-            "styles": [
-              "project/src/styles.scss"
-            ],
-            "scripts": []
           }
         },
         "lint": {
@@ -165,18 +117,6 @@
             "exclude": [
               "**/node_modules/**"
             ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "tbwa-knowledge-website:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "tbwa-knowledge-website:serve:production"
-            }
           }
         }
       }

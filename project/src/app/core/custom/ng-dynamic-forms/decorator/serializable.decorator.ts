@@ -33,7 +33,7 @@ export function getSerializables(target: any): SerializableProperty[] {
   return serializables;
 }
 
-export function serialize(target: any, prototype?: any): object {
+export function serialize(target: any, prototype?: any): any {
 
   return getSerializables(prototype || target).reduce((prev: any, prop: SerializableProperty) => {
 

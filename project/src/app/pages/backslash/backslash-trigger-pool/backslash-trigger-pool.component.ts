@@ -64,7 +64,7 @@ export class BackslashTriggerPoolComponent extends GlobalDocumentViewComponent {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_TRIGGER_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_TRIGGER_SUB_FOLDER_YTPE,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_TRIGGER_SUB_FOLDER_TYPE,
     };
   }
 

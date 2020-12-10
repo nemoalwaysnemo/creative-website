@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DocumentModel, GlobalSearchParams, SearchResponse } from '@core/api';
-import { Observable, Subject, timer, of as observableOf } from 'rxjs';
-import { assetPath } from '@core/services/helpers';
+import { DocumentModel, GlobalSearchParams } from '@core/api';
+import { Subject, timer } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
@@ -103,7 +102,7 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        icon: { url: assetPath('assets/images/App-Library-Package.png') },
+        icon: { url: '/assets/images/App-Library-Package.png' },
         title: doc,
         info: doc,
       }));

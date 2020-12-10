@@ -76,7 +76,7 @@ export class NbNativeDateService extends NbDateService<Date> {
     return getLocaleMonthNames(this.locale, FormStyle.Format, style)[index];
   }
 
-  getDayOfWeekNames(): string[] {
+  getDayOfWeekNames(): any {
     return getLocaleDayNames(this.locale, FormStyle.Format, TranslationWidth.Short);
   }
 

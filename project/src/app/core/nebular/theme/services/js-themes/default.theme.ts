@@ -12,8 +12,8 @@ const palette = {
 export const DEFAULT_THEME: NbJSThemeOptions = {
   name: 'default',
   variables: {
-    fontMain: '"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-    fontSecondary: '"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    fontMain: '"Averta for TBWA W01 Regular", "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    fontSecondary: '"Averta for TBWA W01 Regular", "Segoe UI", "Helvetica Neue", Arial, sans-serif',
 
     bg: '#ffffff',
     fg: '#a4abb3',

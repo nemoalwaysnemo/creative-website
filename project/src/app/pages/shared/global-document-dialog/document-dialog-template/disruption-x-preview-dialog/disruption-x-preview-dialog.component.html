@@ -27,7 +27,7 @@
             <a href="{{shareUrl}}" (click)="close()"><button class="inline-middle details right">Details</button></a>
           </ng-container>
           <ng-container *ngIf="deletePermission$ | async">
-            <button class="right edit delete" (click)="selectView('document-dialog-deletion-template')">Delete</button>
+            <button class="right edit delete" (click)="selectView('document-deletion')">Delete</button>
           </ng-container>
           <ng-container *ngIf="writePermission$ | async">
             <button class="right edit" (click)="selectView(getDialogFormTemplateName(document))">Edit</button>

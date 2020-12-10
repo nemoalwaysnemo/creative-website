@@ -15,7 +15,7 @@ import { NUXEO_PATH_INFO } from '@environment/environment';
 })
 export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  static readonly NAME: string = 'disruption-x-preview-dialog';
+  static readonly NAME: string = 'disruption-x-preview';
 
   writePermission$: Observable<boolean> = observableOf(false);
 

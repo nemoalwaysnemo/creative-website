@@ -9,9 +9,9 @@ import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-pr
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'disruption-asset-preview',
-  styleUrls: ['../global-document-dialog-template.scss', './disruption-asset-preview.component.scss'],
-  templateUrl: './disruption-asset-preview.component.html',
+  selector: 'disruption-asset-preview-dialog',
+  styleUrls: ['../global-document-dialog-template.scss', './disruption-asset-preview-dialog.component.scss'],
+  templateUrl: './disruption-asset-preview-dialog.component.html',
 })
 export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 

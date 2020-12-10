@@ -6,12 +6,11 @@
 // which themes you what to enable (empty to enable all)
 $nb-enabled-themes: (default);
 
-$nb-themes: nb-register-theme((
- // app wise variables for each theme
-  sidebar-header-height: initial,
-  layout-content-width: 1400px,
+$nb-themes: nb-register-theme(( // app wise variables for each theme
+    sidebar-header-height: initial,
+    layout-content-width: 1400px,
 
-  font-main: 'Averta for TBWA W01 Regular',
-  font-secondary: Roboto,
+    font-main: 'Averta for TBWA W01 Regular',
+    font-secondary: 'Averta for TBWA W01 Regular',
 
 ), default, default);

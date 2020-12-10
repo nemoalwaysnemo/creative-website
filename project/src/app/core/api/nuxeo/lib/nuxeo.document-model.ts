@@ -342,7 +342,7 @@ export class DocumentModel extends Base {
   }
 
   private getDefaultThumbnail(): string {
-    return this.assetPath + 'assets/images/no-thumbnail.png';
+    return '/assets/images/no-thumbnail.png';
   }
 
   private getCache(key: string): DocumentModel {

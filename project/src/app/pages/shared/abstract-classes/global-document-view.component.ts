@@ -40,10 +40,6 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   }
 
-  assetPath(src: string): string {
-    return Environment.assetPath + src;
-  }
-
   onCallback(event: DocumentFormEvent): void {
 
   }
@@ -62,7 +58,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
     this.redirectTo404();
   }
 
-  protected getCurrentDocumentSearchParams(): object {
+  protected getCurrentDocumentSearchParams(): any {
     return {};
   }
 

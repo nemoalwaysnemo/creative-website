@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel, SearchResponse, AdvanceSearchService, NuxeoAutomations, NuxeoPagination } from '@core/api';
 import { Subject, timer, Observable, of as observableOf } from 'rxjs';
-import { assetPath } from '@core/services/helpers';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
@@ -58,7 +57,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
             <div class="delivery-title">
               <ul>
                 <li>Production Company</li>
-                <li>${ this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company'])}</li>
+                <li>${this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company'])}</li>
               </ul>
             </div>`;
           },
@@ -75,10 +74,10 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
             return `
             <div class="delivery-title">
               <ul>
-                <li>${ this.formatText(doc.get('The_Loupe_Rights:contract_items_usage_types')[0]['contract_countries'].join(','))}</li>
-                <li>${ this.formatText(doc.get('The_Loupe_Rights:contract_items_usage_types')[0]['media_usage_type'].join(','))}</li>
+                <li>${this.formatText(doc.get('The_Loupe_Rights:contract_items_usage_types')[0]['contract_countries'].join(','))}</li>
+                <li>${this.formatText(doc.get('The_Loupe_Rights:contract_items_usage_types')[0]['media_usage_type'].join(','))}</li>
                 <li>Address</li>
-                <li>${ this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_address'])}</li>
+                <li>${this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_address'])}</li>
               </ul>
             </div>`;
           },
@@ -95,9 +94,9 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
             return `
             <div class="delivery-title">
               <ul>
-                <li>${ this.getMutipleData(doc.get('The_Loupe_Rights:contract_items_usage_types'))}</li>
+                <li>${this.getMutipleData(doc.get('The_Loupe_Rights:contract_items_usage_types'))}</li>
                 <li>Production Company Contact</li>
-                <li>${ this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_contact'])}</li>
+                <li>${this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_contact'])}</li>
               </ul>
             </div>`;
           },
@@ -114,9 +113,9 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
             return `
             <div class="delivery-title">
               <ul>
-                <li>${ this.formatExpire(doc.get('_usage_rights_'))}</li>
+                <li>${this.formatExpire(doc.get('_usage_rights_'))}</li>
                 <li>Phone/Email</li>
-                <li>${ this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_phone_email'])}</li>
+                <li>${this.formatText(doc.get('The_Loupe_ProdCredits:production_company')['production_company_phone_email'])}</li>
               </ul>
             </div>`;
           },
@@ -131,7 +130,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        icon: { url: assetPath('assets/images/app-library-UR-contract-talent.png') },
+        icon: { url: '/assets/images/app-library-UR-contract-talent.png' },
         talentName: doc,
         mediaCovered: doc,
         term: doc,

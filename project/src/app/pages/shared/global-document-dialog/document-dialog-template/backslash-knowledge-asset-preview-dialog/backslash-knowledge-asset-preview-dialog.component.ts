@@ -7,13 +7,13 @@ import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-pr
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'backslash-asset-preview-dialog',
-  templateUrl: './backslash-asset-preview-dialog.component.html',
-  styleUrls: ['./backslash-asset-preview-dialog.component.scss', '../global-document-dialog-template.scss'],
+  selector: 'backslash-knowledge-asset-preview-dialog',
+  templateUrl: './backslash-knowledge-asset-preview-dialog.component.html',
+  styleUrls: ['./backslash-knowledge-asset-preview-dialog.component.scss', '../global-document-dialog-template.scss'],
 })
-export class BackslashAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
+export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  static readonly NAME: string = 'backslash-asset-preview-dialog';
+  static readonly NAME: string = 'backslash-knowledge-asset-preview';
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 

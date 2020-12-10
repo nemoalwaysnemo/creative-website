@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { Subject, timer, Subscription } from 'rxjs';
 
 @Component({
   selector: 'creative-asset-template-tabs',

@@ -9,6 +9,5 @@ export const NUXEO_ENV = new InjectionToken<NuxeoApiOptions>('NUXEO ENV', {
   factory: () => new NuxeoApiOptions({
     baseUrl: Environment.nuxeoUrl,
     appName: Environment.baseTitle,
-    assetPath: Environment.assetPath,
   }),
 });

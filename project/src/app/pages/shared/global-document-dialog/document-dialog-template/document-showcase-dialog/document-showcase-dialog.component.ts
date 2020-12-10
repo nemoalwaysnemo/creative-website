@@ -8,11 +8,11 @@ import { SelectableItemService } from '../../../document-selectable';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 
 @Component({
-  selector: 'document-showcase-template',
-  templateUrl: './document-showcase-template.component.html',
-  styleUrls: ['../global-document-dialog-template.scss', './document-showcase-template.component.scss'],
+  selector: 'document-showcase-dialog',
+  templateUrl: './document-showcase-dialog.component.html',
+  styleUrls: ['../global-document-dialog-template.scss', './document-showcase-dialog.component.scss'],
 })
-export class DocumentShowcaseTemplateComponent extends DocumentDialogCustomTemplateComponent {
+export class DocumentShowcaseDialogComponent extends DocumentDialogCustomTemplateComponent {
 
   documents: DocumentModel[] = [];
 
