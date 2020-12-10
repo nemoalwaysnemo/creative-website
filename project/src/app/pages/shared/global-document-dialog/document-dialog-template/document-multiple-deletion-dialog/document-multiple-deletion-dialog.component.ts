@@ -8,11 +8,11 @@ import { SelectableItemService } from '../../../document-selectable';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 
 @Component({
-  selector: 'document-delete-multiple-template',
-  templateUrl: './document-delete-multiple-template.component.html',
-  styleUrls: ['../global-document-dialog-template.scss', './document-delete-multiple-template.component.scss'],
+  selector: 'document-multiple-deletion-dialog',
+  templateUrl: './document-multiple-deletion-dialog.component.html',
+  styleUrls: ['../global-document-dialog-template.scss', './document-multiple-deletion-dialog.component.scss'],
 })
-export class DocumentDeleteMultipleTemplateComponent extends DocumentDialogCustomTemplateComponent {
+export class DocumentMultipleDeletionComponent extends DocumentDialogCustomTemplateComponent {
 
   documents: DocumentModel[] = [];
 

@@ -7,12 +7,12 @@ import { DocumentViewerModule } from '../../document-viewer/document-viewer.modu
 import { DocumentCreativeProjectMgtModule } from '../../document-creative-project-mgt';
 import { DocumentShareButtonModule } from '../../document-share-button/document-share-button.module';
 import { DocumentBackslashInfoModule } from '../../document-backslash-info/document-backslash-info.module';
-import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-preview/disruption-asset-preview.component';
-import { DocumentDialogDeletionTemplateComponent } from './document-deletion-template/document-deletion-template.component';
-import { BackslashHomeAssetDialogPreviewComponent } from './backslash-home-asset-preview/backslash-home-asset-preview.component';
-import { RelatedBackslashAssetDialogPreviewComponent } from './related-backslash-asset-preview/related-backslash-asset-preview.component';
-import { DocumentDialogConfirmationTemplateComponent } from './document-confirmation-template/document-confirmation-template.component';
-import { DocumentDownloadRequestTemplateComponent } from './document-download-request-template/document-download-request-template.component';
+import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-preview-dialog/disruption-asset-preview-dialog.component';
+import { DocumentDeletionDialogComponent } from './document-deletion-dialog/document-deletion-dialog.component';
+import { BackslashHomeAssetDialogPreviewDialogComponent } from './backslash-home-asset-preview-dialog/backslash-home-asset-preview-dialog.component';
+import { RelatedBackslashAssetDialogPreviewComponent } from './related-backslash-asset-preview-dialog/related-backslash-asset-preview-dialog.component';
+import { DocumentConfirmationDialogComponent } from './document-confirmation-dialog/document-confirmation-dialog.component';
+import { DocumentDownloadRequestDialogComponent } from './document-download-request-dialog/document-download-request-dialog.component';
 import { CreativeProjectAssetTemplateComponent } from './creative-project-asset-template/creative-project-asset-template.component';
 import { CreativeProjectAssetBaseTemplateComponent } from './creative-project-asset-template/creative-project-asset-base-template.component';
 import { CreativeProjectAssetCompletionReportTemplateComponent } from './creative-project-asset-template/creative-project-asset-completion-report-template/creative-project-asset-completion-report-template.component';
@@ -24,8 +24,8 @@ import { InnovationAssetPreviewDialogComponent } from './innovation-asset-previe
 import { BizdevAssetPreviewDialogComponent } from './bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 import { IntelligenceAssetPreviewDialogComponent } from './intelligence-asset-preview-dialog/intelligence-asset-preview-dialog.component';
 import { CreativeAssetPreviewDialogComponent } from './creative-asset-preview-dialog/creative-asset-preview-dialog.component';
-import { DocumentShowcaseTemplateComponent } from './document-showcase-template/document-showcase-template.component';
-import { DocumentDeleteMultipleTemplateComponent } from './document-delete-multiple-template/document-delete-multiple-template.component';
+import { DocumentShowcaseDialogComponent } from './document-showcase-dialog/document-showcase-dialog.component';
+import { DocumentMultipleDeletionComponent } from './document-multiple-deletion-dialog/document-multiple-deletion-dialog.component';
 import { KnowledgeRelatedInfoModule } from '../../knowledge-related-info-view/knowledge-related-info.module';
 import { CreativeAssetTemplateDialogComponent } from './creative-asset-template/creative-asset-template.component';
 import { CreativeAssetTemplateTabsComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tabs.component';
@@ -34,20 +34,20 @@ import { CreativeAssetTemplateTabUsageRightsComponent } from './creative-asset-t
 import { CreativeAssetTemplateTabUsageRightsDetailsComponent } from './creative-asset-template/creative-asset-template-tabs/creative-asset-template-tab-usage-rights-details/creative-asset-template-tab-usage-rights-details.component';
 import { ListSearchFormInDialogModule } from '../../list-search-form-in-dialog/list-search-form-in-dialog.module';
 import { DocumentUsageRightsStatusModule } from '../../document-usage-rights-status/document-usage-rights-status.module';
-import { BackslashAssetPreviewDialogComponent } from './backslash-asset-preview-dialog/backslash-asset-preview-dialog.component';
+import { BackslashKnowledgeAssetPreviewDialogComponent } from './backslash-knowledge-asset-preview-dialog/backslash-knowledge-asset-preview-dialog.component';
 import { DisruptionXPreviewDialogComponent } from './disruption-x-preview-dialog/disruption-x-preview-dialog.component';
 import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
 
 const COMPONENTS = [
   BizdevAssetPreviewDialogComponent,
-  BackslashAssetPreviewDialogComponent,
-  BackslashHomeAssetDialogPreviewComponent,
+  BackslashKnowledgeAssetPreviewDialogComponent,
+  BackslashHomeAssetDialogPreviewDialogComponent,
   RelatedBackslashAssetDialogPreviewComponent,
   DisruptionAssetPreviewDialogComponent,
   DisruptionXPreviewDialogComponent,
-  DocumentDialogConfirmationTemplateComponent,
-  DocumentDialogDeletionTemplateComponent,
-  DocumentDownloadRequestTemplateComponent,
+  DocumentConfirmationDialogComponent,
+  DocumentDeletionDialogComponent,
+  DocumentDownloadRequestDialogComponent,
   CreativeAssetPreviewDialogComponent,
   CreativeAssetTemplateDialogComponent,
   CreativeAssetTemplateTabsComponent,
@@ -63,8 +63,8 @@ const COMPONENTS = [
   CreativeProjectAssetUsageRightsTemplateComponent,
   InnovationAssetPreviewDialogComponent,
   IntelligenceAssetPreviewDialogComponent,
-  DocumentShowcaseTemplateComponent,
-  DocumentDeleteMultipleTemplateComponent,
+  DocumentShowcaseDialogComponent,
+  DocumentMultipleDeletionComponent,
 ];
 
 @NgModule({

@@ -128,7 +128,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       case 'Disruption':
         return 'disruption-asset-preview';
       case 'Intelligence':
-        return 'intelligence-asset-preview-dialog';
+        return 'intelligence-asset-preview';
       default:
         break;
     }

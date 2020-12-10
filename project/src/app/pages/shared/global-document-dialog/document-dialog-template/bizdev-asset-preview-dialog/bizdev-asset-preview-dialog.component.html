@@ -19,7 +19,7 @@
         </div>
         <div class="col-7">
           <ng-container *ngIf="isNeedSendDownloadRequest(document)">
-            <a href="javascript:;" (click)="selectView('document-download-request-template')"><button class="inline-middle download right" title="Download">Download Request</button></a>
+            <a href="javascript:;" (click)="selectView('document-download-request')"><button class="inline-middle download right" title="Download">Download Request</button></a>
           </ng-container>
           <ng-container *ngIf="downloadPermission$ | async">
             <a *ngIf="document.filePath" href="{{document.filePath}}"><button class="inline-middle download right" title="Download">Download</button></a>
@@ -89,7 +89,7 @@
                 <tbody *ngFor="let attachment of attachments">
                   <tr>
                     <td>
-                      <a href="javascript:;" (click)="selectView('document-download-request-template')" class="download-btn">{{ attachment.title }}</a>
+                      <a href="javascript:;" (click)="selectView('document-download-request')" class="download-btn">{{ attachment.title }}</a>
                     </td>
                   </tr>
                 </tbody>

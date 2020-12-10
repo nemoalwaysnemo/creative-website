@@ -4,11 +4,11 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 
 @Component({
-  selector: 'backslash-home-asset-dialog-preview',
+  selector: 'backslash-home-asset-preview-dialog',
   styleUrls: ['../global-document-dialog-template.scss'],
-  templateUrl: './backslash-home-asset-preview.component.html',
+  templateUrl: './backslash-home-asset-preview-dialog.component.html',
 })
-export class BackslashHomeAssetDialogPreviewComponent extends DocumentDialogPreviewTemplateComponent {
+export class BackslashHomeAssetDialogPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
   static readonly NAME: string = 'backslash-home-asset-preview';
 

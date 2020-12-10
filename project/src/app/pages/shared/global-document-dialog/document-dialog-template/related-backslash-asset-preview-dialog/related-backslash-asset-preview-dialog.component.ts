@@ -6,9 +6,9 @@ import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-pr
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'related-backslash-asset-preview',
-  styleUrls: ['../global-document-dialog-template.scss', './related-backslash-asset-preview.component.scss'],
-  templateUrl: './related-backslash-asset-preview.component.html',
+  selector: 'related-backslash-asset-preview-dialog',
+  styleUrls: ['../global-document-dialog-template.scss', './related-backslash-asset-preview-dialog.component.scss'],
+  templateUrl: './related-backslash-asset-preview-dialog.component.html',
 })
 export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogPreviewTemplateComponent {
 
