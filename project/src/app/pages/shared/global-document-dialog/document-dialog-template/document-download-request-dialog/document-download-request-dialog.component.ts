@@ -6,13 +6,13 @@ import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 
 @Component({
-  selector: 'document-download-request-template',
+  selector: 'document-download-request-dialog',
   styleUrls: ['../global-document-dialog-template.scss'],
-  templateUrl: './document-download-request-template.component.html',
+  templateUrl: './document-download-request-dialog.component.html',
 })
-export class DocumentDownloadRequestTemplateComponent extends DocumentDialogCustomTemplateComponent {
+export class DocumentDownloadRequestDialogComponent extends DocumentDialogCustomTemplateComponent {
 
-  static readonly NAME: string = 'document-download-request-template';
+  static readonly NAME: string = 'document-download-request';
 
   formGroup: FormGroup;
 

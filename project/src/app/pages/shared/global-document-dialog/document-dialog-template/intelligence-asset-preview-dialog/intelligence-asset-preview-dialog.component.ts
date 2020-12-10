@@ -12,7 +12,7 @@ import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-pr
 })
 export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  static readonly NAME: string = 'intelligence-asset-preview-dialog';
+  static readonly NAME: string = 'intelligence-asset-preview';
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 

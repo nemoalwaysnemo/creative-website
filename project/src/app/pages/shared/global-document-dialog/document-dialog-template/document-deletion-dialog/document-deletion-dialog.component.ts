@@ -6,13 +6,13 @@ import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 
 @Component({
-  selector: 'document-dialog-deletion-template',
+  selector: 'document-deletion-dialog',
   styleUrls: ['../global-document-dialog-template.scss'],
-  templateUrl: './document-deletion-template.component.html',
+  templateUrl: './document-deletion-dialog.component.html',
 })
-export class DocumentDialogDeletionTemplateComponent extends DocumentDialogCustomTemplateComponent {
+export class DocumentDeletionDialogComponent extends DocumentDialogCustomTemplateComponent {
 
-  static readonly NAME: string = 'document-dialog-deletion-template';
+  static readonly NAME: string = 'document-deletion';
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
