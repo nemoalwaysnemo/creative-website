@@ -1,8 +1,9 @@
-import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, ViewContainerRef, Type, ComponentRef, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel, SearchResponse } from '@core/api';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog';
+import { DOCUMENT_PREVIEW_IN_DIALOG } from '../../document-preview-in-dialog/document-preview-in-dialog-mapping';
 import { TabInfo } from '../knowledge-related-info.component';
 import { Subject, Subscription, timer } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -14,6 +15,8 @@ import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
   templateUrl: './knowledge-related-info-view.component.html',
 })
 export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
+
+  @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
 
   @ViewChild('backslashThumbnailItemView', { static: true }) private backslashItemView: TemplateRef<any>;
 
@@ -31,9 +34,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  private tabInfo$ = new Subject<TabInfo>();
-
-  private subscription: Subscription = new Subscription();
+  currentView: string = 'relatedInfo';
 
   thumbnailItemView: TemplateRef<any>;
 
@@ -47,19 +48,13 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   backslashEdges: DocumentModel[] = [];
 
-  noResultText: string;
-
-  backslashTitle: string = 'Backslash';
-
-  disruptionTitle: string = 'Disruption';
-
-  intelligenceTitle: string = 'Intelligence';
-
   baseParams$: Subject<any> = new Subject<any>();
 
   searchFormSettings: GlobalSearchFormSettings;
 
-  backslashFilters: SearchFilterModel[] = [
+  filters: SearchFilterModel[] = [];
+
+  private backslashFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
     new SearchFilterModel({ key: 'app_edges_backslash_type_agg', placeholder: 'Type' }),
@@ -69,7 +64,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
   ];
 
-  disruptionFilters: SearchFilterModel[] = [
+  private disruptionFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
@@ -77,7 +72,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
-  intelligenceFilters: SearchFilterModel[] = [
+  private intelligenceFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'ecm_tag_agg', placeholder: 'Tag' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
     new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
@@ -88,10 +83,15 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
-  filters: SearchFilterModel[] = [];
+  private tabInfo$ = new Subject<TabInfo>();
+
+  private dynamicComponentRef: ComponentRef<any>;
+
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private globalSearchFormService: GlobalSearchFormService,
+    private componentFactoryResolver: ComponentFactoryResolver,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 
@@ -121,22 +121,22 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  getDialogPrviewTemplateName(type: string): string {
+  getDialogPrviewTemplateName(type: string): Type<any> {
     switch (type) {
       case 'Backslash':
-        return 'related-backslash-asset-preview';
+        return DOCUMENT_PREVIEW_IN_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
       case 'Disruption':
-        return 'disruption-asset-preview';
+        return DOCUMENT_PREVIEW_IN_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
       case 'Intelligence':
-        return 'intelligence-asset-preview';
+        return DOCUMENT_PREVIEW_IN_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
       default:
         break;
     }
   }
 
-  selectView(type: string, doc: DocumentModel): void {
-    const component = this.getDialogPrviewTemplateName(type);
-    this.globalDocumentDialogService.selectView(component, null, { document: doc, title: type });
+  preview(type: string, documentModel: DocumentModel): void {
+    this.currentView = 'previewInfo';
+    this.createDynamicTarget(this.getDialogPrviewTemplateName(type), { documentModel });
   }
 
   close(delay: number = 0): void {
@@ -173,7 +173,6 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       if (this.documents.length === 0) {
         this.triggerSearch(info.document, this.item);
       }
-      this.noResultText = 'No related ' + info.tabItem.name + ' found';
     });
     this.subscription.add(subscription);
   }
@@ -222,6 +221,35 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     } else {
       this.edgeLoading = false;
       this.backslashEdges = [];
+    }
+  }
+
+  private createDynamicTarget(component: Type<any>, metadata: any = {}): void {
+    this.destroyDynamicComponent();
+    const dynamicComponentRef = this.createDynamicComponent(this.dynamicTarget, component);
+    for (const key in metadata) {
+      if (metadata[key]) {
+        dynamicComponentRef.instance[key] = metadata[key];
+      }
+    }
+    this.dynamicComponentRef = dynamicComponentRef;
+    this.dynamicComponentRef.instance.callback.subscribe((e: any) => {
+      if (e.action === 'close') {
+        this.currentView = 'relatedInfo';
+        this.destroyDynamicComponent();
+      }
+    });
+  }
+
+  private createDynamicComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    return dynamicTarget.createComponent(componentFactory);
+  }
+
+  private destroyDynamicComponent(): void {
+    if (this.dynamicComponentRef) {
+      this.dynamicComponentRef.destroy();
+      this.dynamicComponentRef = null;
     }
   }
 

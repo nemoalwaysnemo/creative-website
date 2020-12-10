@@ -1,0 +1,109 @@
+.text-content {
+  margin-top: 10px;
+  margin-left: 80px;
+  .controls {
+    h2, h3, h4 {
+      margin-left: 0;
+    }
+    h4 {
+      font-weight: 400;
+    }
+    button {
+      background: none !important;
+      font-weight: bolder;
+      background-color: white;
+      margin-right: 0 !important;
+      padding: 0 26px !important;
+      height: 30px !important;
+    }
+    .details, .edit, .delete {
+      border-right: solid 1px #cccccc !important;
+    }
+    .preview, .download {
+      border-left: solid 1px #cccccc !important;
+    }
+  }
+}
+
+.description {
+  margin-top: 15px !important;
+  margin-left: 0 !important;
+  font-size: 18px;
+  width: calc(100% - 150px) !important;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-top: 20px;
+  margin-bottom: 17px;
+  th, td {
+    width: 50%;
+    height: 28px;
+    color: #000000;
+  }
+  th {
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+    font-size: 15px;
+    text-align: left;
+  }
+  td {
+    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+    font-size: 15px;
+    a.text {
+      font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+      font-size: 15px;
+      color: #000000;
+      &:hover {
+        text-decoration: none;
+        color: #000000;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.accordion {
+  margin-right: 50px;
+  margin-bottom: 25px;
+  box-shadow: none;
+  border-radius: 0;
+  .accordion-item {
+    border-top: solid 1px #cccccc;
+    &:last-child {
+      border-bottom: solid 1px #cccccc;
+    }
+    .accordion-item-header {
+      font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+      display: block;
+      height: 50px;
+      line-height: 50px;
+      padding: 0 4px;
+      font-size: 15px;
+      color: #000000;
+      border-bottom: none;
+      box-sizing: border-box;
+    }
+  }
+}
+.download-btn {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  font-size: 15px;
+  display: block;
+  text-transform: none;
+  text-align: left;
+  color: #000000;
+  border: none;
+  cursor: pointer !important;
+  &:focus, .focus,
+  &:hover, .hover,
+  &:active, .active {
+    outline: 0;
+    box-shadow: none;
+    color: #000000;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}

@@ -1,42 +1,48 @@
-<h2 class="left">{{item.name}}</h2>
-<global-search-form [searchParams]="baseParams$ | async" [filters]="filters" [settings]="searchFormSettings"></global-search-form>
-<div class="clear"></div>
-<ng-container *ngIf="item.layout === 'backslash'">
-  <h3>\Edges</h3>
-  <div class="line"></div>
-  <div [nbSpinner]="edgeLoading" nbSpinnerStatus="disabled">
-    <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
-      <ul>
-        <li *ngFor="let doc of backslashEdges">
-          <a [href]="getBackslashEdgeUrl(doc.title)" title="{{doc.title}}" target="_blank">
-            <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: doc }" class="share"  nbPopoverTrigger="hover">
-              <img src="{{doc.thumbnailUrl}}" [alt]="doc.title">
-            </button>
-            {{doc.title}}
-          </a>
-        </li>
-      </ul>
-    </ng-container>
-  </div>
-  <ng-template #edgeContent let-data>
-    <div class="edgeHover">
-      <h5>{{ data.text.get('dc:title') }}</h5>
-      <p>{{ data.text.get('dc:description') }}</p>
-    </div>
-  </ng-template>
-  <ng-container *ngIf="!edgeLoading && backslashEdges && backslashEdges.length === 0">
-    <div class="empty text-center"><span class="empty-data">No edge found</span></div>
-  </ng-container>
+<div class="knowledge-related-info-view" [ngStyle]="currentView === 'relatedInfo' ? {} : {'display': 'none'}">
+  <h2 class="left">{{item.name}}</h2>
+  <global-search-form [searchParams]="baseParams$ | async" [filters]="filters" [settings]="searchFormSettings"></global-search-form>
   <div class="clear"></div>
-</ng-container>
-<global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+  <ng-container *ngIf="item.layout === 'backslash'">
+    <h3>\Edges</h3>
+    <div class="line"></div>
+    <div [nbSpinner]="edgeLoading" nbSpinnerStatus="disabled">
+      <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
+        <ul>
+          <li *ngFor="let doc of backslashEdges">
+            <a [href]="getBackslashEdgeUrl(doc.title)" title="{{doc.title}}" target="_blank">
+              <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: doc }" class="share"  nbPopoverTrigger="hover">
+                <img src="{{doc.thumbnailUrl}}" [alt]="doc.title">
+              </button>
+              {{doc.title}}
+            </a>
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+    <ng-template #edgeContent let-data>
+      <div class="edgeHover">
+        <h5>{{ data.text.get('dc:title') }}</h5>
+        <p>{{ data.text.get('dc:description') }}</p>
+      </div>
+    </ng-template>
+    <ng-container *ngIf="!edgeLoading && backslashEdges && backslashEdges.length === 0">
+      <div class="empty text-center"><span class="empty-data">No edge found</span></div>
+    </ng-container>
+    <div class="clear"></div>
+  </ng-container>
+  <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+</div>
+
+<div class="knowledge-related-info-preview" [ngStyle]="currentView === 'previewInfo' ? {} : {'display': 'none'}">
+  <ng-template #dynamicTarget></ng-template>
+</div>
 
 <ng-template #backslashThumbnailItemView let-doc="doc">
   <div class="backslash">
-    <h4 (click)="selectView('Backslash', doc)">{{doc.title}}</h4>
+    <h4 (click)="preview('Backslash', doc)">{{doc.title}}</h4>
     <h4 class="right" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
     <div class="image-holder">
-      <a [title]="doc.title" (click)="selectView('Backslash', doc)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a [title]="doc.title" (click)="preview('Backslash', doc)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
   </div>
 </ng-template>
@@ -44,10 +50,10 @@
 <ng-template #disruptionThumbnailItemView let-doc="doc">
   <div class="disruption">
     <div class="image-holder">
-      <a (click)="selectView('Disruption', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a (click)="preview('Disruption', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
-      <h1 (click)="selectView('Disruption', doc)" [title]="doc.title">{{doc.title}}</h1>
+      <h1 (click)="preview('Disruption', doc)" [title]="doc.title">{{doc.title}}</h1>
     </div>
   </div>
 </ng-template>
@@ -55,10 +61,10 @@
 <ng-template #intelligenceThumbnailItemView let-doc="doc">
   <div class="intelligence">
     <div class="image-holder">
-      <a (click)="selectView('Intelligence', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+      <a (click)="preview('Intelligence', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
-      <h1 (click)="selectView('Intelligence', doc)" [title]="doc.title">{{doc.title}}</h1>
+      <h1 (click)="preview('Intelligence', doc)" [title]="doc.title">{{doc.title}}</h1>
     </div>
   </div>
 </ng-template>

@@ -32,10 +32,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  private tabInfo$ = new Subject<TabInfo>();
-
-  private subscription: Subscription = new Subscription();
-
   thumbnailItemView: TemplateRef<any>;
 
   edgeLoading: boolean = true;
@@ -47,8 +43,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   documents: DocumentModel[] = [];
 
   backslashEdges: DocumentModel[] = [];
-
-  noResultText: string;
 
   dialogMetadata: any = {
     enablePreview: true,
@@ -68,7 +62,9 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   searchFormSettings: GlobalSearchFormSettings;
 
-  backslashFilters: SearchFilterModel[] = [
+  filters: SearchFilterModel[] = [];
+
+  private backslashFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
     new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
     new SearchFilterModel({ key: 'app_edges_backslash_type_agg', placeholder: 'Type' }),
@@ -78,7 +74,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
   ];
 
-  disruptionFilters: SearchFilterModel[] = [
+  private disruptionFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_brand_agg', placeholder: 'Brand' }),
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Country', iteration: true }),
@@ -86,7 +82,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
-  intelligenceFilters: SearchFilterModel[] = [
+  private intelligenceFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'ecm_tag_agg', placeholder: 'Tag' }),
     new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
     new SearchFilterModel({ key: 'app_edges_relevant_country_agg', placeholder: 'Geography', iteration: true }),
@@ -97,7 +93,9 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
   ];
 
-  filters: SearchFilterModel[] = [];
+  private tabInfo$ = new Subject<TabInfo>();
+
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private globalSearchFormService: GlobalSearchFormService,
@@ -180,7 +178,6 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
       if (this.documents.length === 0) {
         this.triggerSearch(info.document, this.item);
       }
-      this.noResultText = 'No related ' + info.tabItem.name + ' found';
     });
     this.subscription.add(subscription);
   }

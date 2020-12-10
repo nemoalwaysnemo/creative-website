@@ -1,0 +1,44 @@
+<div class="dialog-title with_logo">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <ng-container *ngIf="document">
+    <div class="media">
+      <document-viewer [document]="document" [layout]="getDialogSettings().docViewerLayout"></document-viewer>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <div class="text-content">
+      <h3 class="inline-middle">{{document.title}}</h3>
+      <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+      <div class="edges">
+        <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
+          <ul>
+            <li *ngFor="let edge of backslashEdges">
+              <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }"
+                class="share"  nbPopoverTrigger="hover">
+                <img src="{{edge.thumbnailUrl}}" [alt]="edge.title">
+              </button>
+            </li>
+          </ul>
+        </ng-container>
+        <p>{{ document.get('dc:description') }}</p>
+        <p><b>Edges: </b>{{ document.get('app_Edges:Tags_edges') }}<br>
+          <b>Spotter: </b>{{ document.get('app_Edges:Spotter') }}<br>
+          <b>Geography: </b>{{ document.get('app_Edges:Relevant_Country').join(', ') }}</p>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #popContent>
+  <document-share-button [document]="document" [shareUrl]="shareUrl"></document-share-button>
+</ng-template>
+
+<ng-template #edgeContent let-data>
+  <div class="edgeHover">
+    <h5>{{ data.text.get('dc:title') }}</h5>
+    <p>{{ data.text.get('dc:description') }}</p>
+  </div>
+</ng-template>
