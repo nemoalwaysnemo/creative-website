@@ -1,0 +1,35 @@
+.share {
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 8px;
+  margin-left: auto;
+  align-self: start;
+  margin-right: 40px;
+}
+
+.edges {
+  ul {
+    width: 80px;
+    float: left;
+    button {
+      border: none;
+      background: none;
+    	img {
+        margin: 20px 0;
+        width: 70px;
+        height: 78px;
+        -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      }
+    }
+  }
+}
+.edgeHover {
+  margin: 10px;
+  max-width: 50vw;
+  min-width: 20vw;
+  h5 { font-size: calc(17.5px * 1.25); }
+  p { font-size: calc(14px * 1.25); }
+}

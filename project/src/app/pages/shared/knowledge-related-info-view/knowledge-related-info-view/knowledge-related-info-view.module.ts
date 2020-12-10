@@ -5,6 +5,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { GlobalSearchFormModule } from '../../global-search-form/global-search-form.module';
 import { KnowledgeRelatedInfoViewComponent } from './knowledge-related-info-view.component';
 import { DocumentThumbnailViewModule } from '../../document-thumbnail-view/document-thumbnail-view.module';
+import { DocumentPreviewInDialogModule } from '../../document-preview-in-dialog/document-preview-in-dialog-module';
 import { GlobalSearchResultInDialogModule } from '../../global-search-result-in-dialog/global-search-result-in-dialog.module';
 import { GlobalSearchMoreResultInDialogModule } from '../../global-search-more-result-in-dialog/global-search-more-result-in-dialog.module';
 
@@ -14,6 +15,7 @@ import { GlobalSearchMoreResultInDialogModule } from '../../global-search-more-r
     ThemeModule,
     NgPipesModule,
     DocumentThumbnailViewModule,
+    DocumentPreviewInDialogModule,
     GlobalSearchFormModule,
     GlobalSearchResultInDialogModule,
     GlobalSearchMoreResultInDialogModule,
