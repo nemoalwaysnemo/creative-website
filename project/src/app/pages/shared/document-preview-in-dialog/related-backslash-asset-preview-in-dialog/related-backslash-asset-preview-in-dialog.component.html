@@ -16,8 +16,7 @@
         <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
           <ul>
             <li *ngFor="let edge of backslashEdges">
-              <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }"
-                class="share"  nbPopoverTrigger="hover">
+              <button nbPopoverPlacement="right" [nbPopover]="edgeContent" [nbPopoverContext]="{ text: edge }" class="share" nbPopoverTrigger="hover">
                 <img src="{{edge.thumbnailUrl}}" [alt]="edge.title">
               </button>
             </li>

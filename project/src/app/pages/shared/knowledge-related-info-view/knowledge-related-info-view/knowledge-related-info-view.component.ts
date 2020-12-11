@@ -136,7 +136,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   preview(type: string, documentModel: DocumentModel): void {
     this.currentView = 'previewInfo';
-    this.createDynamicTarget(this.getDialogPrviewTemplateName(type), { documentModel });
+    this.createDynamicTarget(this.getDialogPrviewTemplateName(type), { documentModel, title: documentModel.title });
   }
 
   close(delay: number = 0): void {

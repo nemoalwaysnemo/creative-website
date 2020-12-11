@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { getDocumentTypes, vocabularyFormatter } from '@core/services/helpers';
 import { DocumentPageService } from '../../services/document-page.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog';
 import { DocumentPreviewInDialogBaseTemplateComponent } from '../document-preview-in-dialog-base-template.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -14,8 +15,11 @@ export class DisruptionAssetPreviewInDialogComponent extends DocumentPreviewInDi
 
   attachments: { type: string, url: string, title: string }[] = [];
 
-  constructor(protected documentPageService: DocumentPageService) {
-    super(documentPageService);
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService, globalDocumentDialogService);
   }
 
   protected setDocument(doc: DocumentModel): void {
@@ -28,11 +32,11 @@ export class DisruptionAssetPreviewInDialogComponent extends DocumentPreviewInDi
 
   protected getPreviewSettings(): any {
     return {
-      moreInfo: false,
+      moreInfo: true,
       enableEdit: false,
-      enablePreview: false,
+      enablePreview: true,
       enableDeletion: false,
-      enableDetail: false,
+      enableDetail: true,
       enableKnowledgeRelated: false,
     };
   }
