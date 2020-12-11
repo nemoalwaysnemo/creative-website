@@ -79,12 +79,12 @@ export enum NUXEO_DOC_TYPE {
   INNOVATION_FOLDER_TYPE = '["App-Innovation-Folder"]',
   INNOVATION_ASSET_TYPE = '["App-Innovation-Asset"]',
   INNOVATION_SEARCH_TYPE = '["App-Innovation-Folder", "App-Innovation-Asset"]',
+  LEARNING_BASE_FOLDER_TYPE = '["App-Learning-Folder"]',
+  LEARNING_PROGRAM_FOLDER_TYPE = '["App-Learning-Programs"]',
+  LEARNING_PROGRAM_ASSET_TYPE = '["App-Learning-Program"]',
   FRONTPAGE_BANNER_TYPE = '["App-Library-Image"]',
   KNOWLEDGE_ASSET_TYPE = '["App-Library-Image", "App-Library-Video", "App-Library-Audio", "App-Backslash-Article", "App-Backslash-Video", "App-Intelligence-Asset", "App-Innovation-Asset", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset", "App-Disruption-Asset", "App-Disruption-Roadmap-Asset", "App-Disruption-Theory-Asset", "App-Disruption-Day-Asset"]',
   BACKSLASH_ASSET_PAGE_PROVIDER = 'creative_website_backslash_related_assets',
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',
   INTELLIGENCE_ASSET_PAGE_PROVIDER = 'creative_website_intelligence_related_assets',
-}
-
-export enum EXTERNAL_LINK {
 }

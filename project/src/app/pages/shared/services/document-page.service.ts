@@ -182,6 +182,15 @@ export class DocumentPageService {
     return moduleName ? `${url}/p/${moduleName}` : url;
   }
 
+  goToExternalLink(doc: DocumentModel): void {
+    const url = doc.get('The_Loupe_Main:url');
+    if (url) {
+      this.openNewTab(url);
+    } else {
+      this.redirectTo404();
+    }
+  }
+
   private getPageTitle(doc: DocumentModel, event: NavigationEnd): string {
     const list: string[] = [];
     list.push(doc ? doc.title : '');

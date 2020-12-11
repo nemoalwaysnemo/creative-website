@@ -22,5 +22,6 @@
     <a [routerLink]="['/p/creative']" title="Creative" [ngClass]="{'active': selectLayout('creative')}">Creative</a>
     <a [routerLink]="['/p/business-development']" title="Business Development" [ngClass]="{'active': selectLayout('business-development')}">Business Development</a>
     <a [routerLink]="['/p/innovation']" title="Innovation" [ngClass]="{'active': selectLayout('innovation')}">Innovation</a>
+    <a [routerLink]="['/p/learning']" title="learning" [ngClass]="{'active': selectLayout('learning')}" *ngxPermissionsOnly="['DEV']">Learning Journeys</a>
   </div>
 </div>

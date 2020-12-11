@@ -37,4 +37,5 @@ export enum NUXEO_PATH_INFO {
   INNOVATION_10X_FOLDER_PATH = '/know-edge/Innovation/10x/',
   INNOVATION_NEXT_FOLDER_PATH = '/know-edge/Innovation/NEXT/',
   INNOVATION_THINGS_TO_STEAL_FOLDER_PATH = '/know-edge/Innovation/Things to Steal/',
+  LEARNING_BASE_FOLDER_PATH = '/know-edge/Learning Journeys/',
 }
