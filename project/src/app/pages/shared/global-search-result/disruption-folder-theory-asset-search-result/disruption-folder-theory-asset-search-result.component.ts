@@ -17,11 +17,7 @@ export class DisruptionFolderTheoryAssetSearchResultComponent extends BaseSearch
   }
 
   goToLink(doc: DocumentModel): void {
-    const url = doc.get('The_Loupe_Main:url');
-    if (url) {
-      this.documentPageService.openNewTab(url);
-    } else {
-      this.documentPageService.redirectTo404();
-    }
+    this.documentPageService.goToExternalLink(doc);
   }
+
 }

@@ -277,6 +277,7 @@ body {
       }
     }
   }
+  &.learning-home,
   &.disruption-home {
     > .thumbnail-view-item {
       @include media-breakpoint-down(md) {
@@ -379,6 +380,7 @@ body {
     }
   }
   &.biz-dev-home,
+  &.learning-home,
   &.disruption-home,
   &.intelligence-home {
     .image-holder {
