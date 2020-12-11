@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { GlobalDocumentDialogService } from '../global-document-dialog';
 import { DocumentPageService } from '../services/document-page.service';
 import { DocumentModel } from '@core/api';
 import { Subscription } from 'rxjs';
@@ -19,13 +20,6 @@ export class DocumentPreviewInDialogBaseTemplateComponent implements OnInit, OnD
     this.setDocument(doc);
   }
 
-  @Input()
-  set metadata(metadata: any) {
-    if (metadata) {
-      this.dialogSettings = Object.assign({}, this.dialogSettings, this.getPreviewSettings(), metadata);
-    }
-  }
-
   @Output() callback: EventEmitter<any> = new EventEmitter<any>();
 
   protected dialogSettings: any = {
@@ -34,7 +28,10 @@ export class DocumentPreviewInDialogBaseTemplateComponent implements OnInit, OnD
 
   protected subscription: Subscription = new Subscription();
 
-  constructor(protected documentPageService: DocumentPageService) {
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -50,6 +47,7 @@ export class DocumentPreviewInDialogBaseTemplateComponent implements OnInit, OnD
   }
 
   close(): void {
+    this.globalDocumentDialogService.close();
     this.callback.emit({ action: 'close' });
   }
 
@@ -58,7 +56,7 @@ export class DocumentPreviewInDialogBaseTemplateComponent implements OnInit, OnD
   }
 
   protected onInit(): void {
-
+    this.dialogSettings = Object.assign({}, this.dialogSettings, this.getPreviewSettings());
   }
 
   protected onDestroy(): void {

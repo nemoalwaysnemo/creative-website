@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, NuxeoQuickFilters, NuxeoPagination } from '@core/api';
 import { DocumentPageService } from '../../services/document-page.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog';
 import { DocumentPreviewInDialogBaseTemplateComponent } from '../document-preview-in-dialog-base-template.component';
 import { NUXEO_PATH_INFO } from '@environment/environment';
 
@@ -13,8 +14,11 @@ export class RelatedBackslashAssetInDialogPreviewComponent extends DocumentPrevi
 
   backslashEdges: DocumentModel[] = [];
 
-  constructor(protected documentPageService: DocumentPageService) {
-    super(documentPageService);
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService, globalDocumentDialogService);
   }
 
   protected onInit(): void {
