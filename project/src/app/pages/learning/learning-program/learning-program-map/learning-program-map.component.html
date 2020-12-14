@@ -1,0 +1,41 @@
+<div class="outside-biggest-wrapper">
+    <div class="middle-wrapper">
+        <div *ngFor="let document of documents" class="thumbnail-view-item">
+            <div class="yellow-strip-area">
+                {{ document.title }}
+                <div class="right-circle-yellow-wrapper">
+                    <div class="right-circle-black-filling" [ngStyle]="{'background-image': 'url('+document.SmallPicture+')'}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="yellow-strip-area" style="width: 540px">
+            First-time Managers
+            <div class="right-circle-yellow-wrapper">
+                <div class="right-circle-black-filling">
+                </div>
+            </div>
+        </div>
+        <div class="yellow-strip-area" style="width: 640px">
+            Rising leaders
+            <div class="right-circle-yellow-wrapper">
+                <div class="right-circle-black-filling">
+                </div>
+            </div>
+        </div>
+        <div class="yellow-strip-area" style="width: 740px">
+            Senior Leaders
+            <div class="right-circle-yellow-wrapper">
+                <div class="right-circle-black-filling">
+                </div>
+            </div>
+        </div>
+        <div class="yellow-strip-area" style="width: 840px">
+            Execution Leaders
+            <div class="right-circle-yellow-wrapper">
+                <div class="right-circle-black-filling">
+                </div>
+            </div>
+        <div> -->
+    </div>
+</div>

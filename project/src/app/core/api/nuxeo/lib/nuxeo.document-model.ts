@@ -230,6 +230,14 @@ export class DocumentModel extends Base {
   get fullHDPicture(): string {
     return this.pictureViews('FullHD');
   }
+
+  get ThumbnailPicture(): string {
+    return this.pictureViews('Thumbnail');
+  }
+
+  get SmallPicture(): string {
+    return this.pictureViews('Small');
+  }
   // 'Thumbnail', 'Small', 'Medium', 'FullHD', 'OriginalJpeg'
   pictureViews(title: string): string {
     const picture = (this.get('picture:views') || []).filter((item: any) => item.title === title).map((p: any) => p.content.data).shift();
