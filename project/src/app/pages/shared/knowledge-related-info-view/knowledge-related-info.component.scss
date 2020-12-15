@@ -4,15 +4,21 @@ h1 {
 	padding: 0 60px;
 	font-size: 30px;
 }
-.nb-card {
-	.nb-card-body {
-		padding: 0;
-		nb-tabset {
-			padding: 0 30px;
+
+::ng-deep .knowledge-related-info {
+	.nb-card {
+		.nb-card-body {
+			padding: 0;
+			nb-tabset {
+				ul {
+					padding-left: 60px;
+					width: 100% !important;
+				}
+			}
 		}
-		// .nb-tab { margin: 25px auto 0; }
 	}
 }
+
 .line {
 	width: calc(100% - 120px);
 	height: 2px;
