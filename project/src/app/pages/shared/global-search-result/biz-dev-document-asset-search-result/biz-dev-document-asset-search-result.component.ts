@@ -8,7 +8,7 @@ import { DocumentModel } from '@core/api';
 })
 export class BizDevDocumentAssetSearchResultComponent {
 
-  private assetUrlMapping: object = {
+  private assetUrlMapping: any = {
     'App-BizDev-CaseStudy-Folder': '/p/business-development/Case Studies/folder',
     'App-BizDev-Thought-Folder': '/p/business-development/Thought Leadership/folder',
     '*': '/p/business-development/asset',

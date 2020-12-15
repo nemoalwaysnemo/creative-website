@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef, Type } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { getDocumentTypes } from '@core/services/helpers';
+import { getDocumentTypes, matchAssetUrl } from '@core/services/helpers';
 import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
@@ -22,7 +22,7 @@ export class BizDevFolderViewComponent {
 
   @Input() backAssetFlag: boolean = false;
 
-  @Input() assetUrlMapping: object = {};
+  @Input() assetUrlMapping: any = {};
 
   @Input() doc: DocumentModel;
 
@@ -61,11 +61,7 @@ export class BizDevFolderViewComponent {
   ) { }
 
   getAssetUrl(doc: DocumentModel): string {
-    return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
-  }
-
-  private matchAssetUrl(doc: DocumentModel): string {
-    return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    return this.assetUrl ? this.assetUrl : matchAssetUrl(doc, this.assetUrlMapping);
   }
 
   isParentFolder(doc: DocumentModel): boolean {

@@ -28,10 +28,10 @@ export class CreativeHomeComponent extends BaseDocumentViewComponent {
 
   defaultParams: any = {
     pageSize: 10,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
     currentPageIndex: 0,
     ecm_fulltext: '',
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({

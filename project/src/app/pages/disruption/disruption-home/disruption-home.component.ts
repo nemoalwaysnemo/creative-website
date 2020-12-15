@@ -11,8 +11,6 @@ import { NUXEO_PATH_INFO } from '@environment/environment';
 })
 export class DisruptionHomeComponent extends BaseDocumentViewComponent {
 
-  loading: boolean = true;
-
   enableResourceTitle: boolean = false;
 
   headline: string = 'You name it.';
@@ -21,7 +19,7 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
 
   subHead: string = 'Find the who, what, where, when, why and how of our methodology.';
 
-  assetUrlMapping: object = {
+  assetUrlMapping: any = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
     'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder',
     '*': '/p/disruption/asset',

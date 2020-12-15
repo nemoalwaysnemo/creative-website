@@ -5,6 +5,7 @@ import { GlobalDocumentDialogService, DocumentPageService } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO } from '@environment/environment';
+import { matchAssetUrl } from '@core/services/helpers';
 
 @Component({
   selector: 'innovation-folder-view',
@@ -21,7 +22,7 @@ export class InnovationFolderViewComponent {
 
   @Input() backAssetFlag: boolean = false;
 
-  @Input() assetUrlMapping: object = {};
+  @Input() assetUrlMapping: any = {};
 
   @Input() doc: DocumentModel;
 
@@ -66,17 +67,7 @@ export class InnovationFolderViewComponent {
   ) { }
 
   getAssetUrl(doc: DocumentModel): string {
-    return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
-  }
-
-  private matchAssetUrl(doc: DocumentModel): string {
-    let url = '';
-    if (this.assetUrlMapping[doc.type] instanceof Function) {
-      url = this.assetUrlMapping[doc.type].call(this, doc);
-    } else {
-      url = this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
-    }
-    return url;
+    return this.assetUrl ? this.assetUrl : matchAssetUrl(doc, this.assetUrlMapping);
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {

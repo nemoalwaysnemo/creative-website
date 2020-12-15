@@ -281,6 +281,17 @@ export function convertToBoolean(val: any): boolean {
   return !!val;
 }
 
+export function matchAssetUrl(doc: any, mapping: any = {}): string {
+  let url = '';
+  if (mapping[doc.type] instanceof Function) {
+    url = mapping[doc.type].call(this, doc);
+  } else {
+    url = mapping[doc.type] ? mapping[doc.type] : mapping['*'];
+  }
+  url = url.replace(':parentRef', doc.parentRef);
+  return url;
+}
+
 export function getAssetModuleType(doc: any): string {
   let type = '';
   if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {

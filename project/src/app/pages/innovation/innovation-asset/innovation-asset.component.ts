@@ -35,7 +35,7 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
     ecm_mixinType_not_in: '',
   };
 
-  assetUrlMapping: object = {
+  assetUrlMapping: any = {
     'App-Innovation-Folder': this.documentMap,
     'App-Innovation-Asset': this.documentMap,
     '*': '/p/innovation/asset',

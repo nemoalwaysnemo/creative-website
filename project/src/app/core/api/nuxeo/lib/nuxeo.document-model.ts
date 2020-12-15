@@ -1,5 +1,5 @@
 import { Base } from './base.api';
-import { join, deepExtend, mapOrder } from '../../../services/helpers';
+import { join, deepExtend, mapOrder, isValueEmpty } from '../../../services/helpers';
 import { NuxeoEnricher, BatchBlob, NuxeoAutomations } from './base.interface';
 import { Observable, of as observableOf } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -245,10 +245,25 @@ export class DocumentModel extends Base {
     return this.properties[propertyName];
   }
 
+  getCustomFile(propertyName: string): string {
+    const value = this.get(propertyName);
+    return isValueEmpty(value) ? this.getDefaultThumbnail() : value.data;
+  }
+
+  getCustomFiles(propertyName: string): { url: string, type: string, name: string }[] {
+    const list: { url: string, type: string, name: string }[] = [];
+    const value = this.get(propertyName);
+    if (value && Array.isArray(value) && !isValueEmpty(value)) {
+      for (const file of value) {
+        list.push({ url: file.data, type: file['mime-type'], name: file.name });
+      }
+    }
+    return list;
+  }
+
   getAttachmentList(): { type: string, url: string, title: string }[] {
     return (this.get('files:files') || []).filter((entry: any) => entry && entry.file).map((entry: any) => ({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name }));
   }
-
 
   hasVideoContent(): boolean {
     return this.getVideoSources().length > 0;

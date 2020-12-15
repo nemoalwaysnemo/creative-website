@@ -24,7 +24,7 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
 
   subHead: string = 'Material to help inspire and accelerate innovation';
 
-  assetUrlMapping: object = {
+  assetUrlMapping: any = {
     'App-Innovation-Folder': this.documentMapFunc,
     'App-Innovation-Asset': this.documentMapFunc,
     '*': '/p/innovation/asset',
