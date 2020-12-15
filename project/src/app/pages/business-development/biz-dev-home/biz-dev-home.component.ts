@@ -24,7 +24,7 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
 
   subHead: string = 'Find everything you need to grow our business!';
 
-  assetUrlMapping: object = {
+  assetUrlMapping: any = {
     'App-BizDev-CaseStudy-Folder': '/p/business-development/Case Studies/folder',
     'App-BizDev-CaseStudy-Asset': '/p/business-development/Case Studies/folder/:parentRef/asset',
     'App-BizDev-Thought-Folder': '/p/business-development/Thought Leadership/folder',

@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy, TemplateRef, Type } from '@a
 import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '@pages/shared';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { getDocumentTypes, vocabularyFormatter } from '@core/services/helpers';
+import { getDocumentTypes, matchAssetUrl, vocabularyFormatter } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -23,7 +23,7 @@ export class DisruptionFolderViewComponent {
 
   @Input() backAssetFlag: boolean = false;
 
-  @Input() assetUrlMapping: object = {};
+  @Input() assetUrlMapping: any = {};
 
   @Input() showButton: boolean = true;
 
@@ -91,11 +91,7 @@ export class DisruptionFolderViewComponent {
   }
 
   getAssetUrl(doc: DocumentModel): string {
-    return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
-  }
-
-  private matchAssetUrl(doc: DocumentModel): string {
-    return this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
+    return this.assetUrl ? this.assetUrl : matchAssetUrl(doc, this.assetUrlMapping);
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {

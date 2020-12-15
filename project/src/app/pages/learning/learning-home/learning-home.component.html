@@ -1,3 +1,9 @@
+<div class="learning-home-header" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="document" class="document">
+    <div class="learning-banner"><img [src]="document.fullHDPicture"></div>
+    <div class="learning-description"><span>{{ document.get('dc:description') }}</span></div>
+  </div>
+</div>
 <div class="learning-home-form">
   <learning-home-search></learning-home-search>
 </div>

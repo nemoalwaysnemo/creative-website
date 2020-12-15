@@ -23,7 +23,7 @@ export class DisruptionAssetComponent extends GlobalDocumentViewComponent {
 
   deleteRedirectUrl: string;
 
-  assetUrlMapping: object = {
+  assetUrlMapping: any = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
     'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder',
     '*': '/p/disruption/asset',

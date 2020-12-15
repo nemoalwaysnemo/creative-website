@@ -1,3 +1,12 @@
 <div class="learning-home-search">
-learning-home-search
+  <home-search-form [assetUrlMapping]="assetUrlMapping" [searchPageUrl]="'/p/search/learning/asset/'" [settings]="searchFormSettings" [filters]="filters" [searchParams]="defaultParams" [templateRef]="thumbnailItemView">
+  </home-search-form>
+  <ng-template #thumbnailItemView let-doc="doc">
+    <div class="image-holder">
+      <a [routerLink]="[getAssetUrl(doc), doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+    </div>
+    <div class="description">
+      <h1 [title]="doc.title"><a [routerLink]="[getAssetUrl(doc), doc.uid]">{{doc.title}}</a></h1>
+    </div>
+  </ng-template>
 </div>

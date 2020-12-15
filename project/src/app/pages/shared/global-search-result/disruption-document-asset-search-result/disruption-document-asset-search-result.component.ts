@@ -8,7 +8,7 @@ import { DocumentModel } from '@core/api';
 })
 export class DisruptionDocumentAssetSearchResultComponent {
 
-  private assetUrlMapping: object = {
+  private assetUrlMapping: any = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
     '*': '/p/disruption/asset',
   };

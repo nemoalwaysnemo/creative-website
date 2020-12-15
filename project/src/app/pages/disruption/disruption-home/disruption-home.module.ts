@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { RouterModule } from '@angular/router';
-import { HomeSearchFormModule } from '@pages/shared';
 import { SharedModule } from '@pages/shared/shared.module';
 import { DisruptionHomeComponent } from './disruption-home.component';
 import { DisruptionHomeXModule } from './disruption-home-x/disruption-home-x.module';
@@ -13,7 +12,6 @@ import { DisruptionHomeResourceModule } from './disruption-home-resource/disrupt
     ThemeModule,
     RouterModule,
     SharedModule,
-    HomeSearchFormModule,
     DisruptionHomeXModule,
     DisruptionHomeGalleryModule,
     DisruptionHomeResourceModule,

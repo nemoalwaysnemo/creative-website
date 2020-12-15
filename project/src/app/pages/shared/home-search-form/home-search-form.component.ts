@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
+import { matchAssetUrl } from '@core/services/helpers';
 import { DocumentModel, SearchResponse, GlobalSearchParams } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
@@ -36,11 +37,13 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
 
   @Input() assetUrl: string;
 
+  @Input() searchPageUrl: string;
+
   @Input() assetUrlMapping: any = {};
 
-  @Input() openSearchFilter: boolean = false;
+  @Input() templateRef: TemplateRef<any>;
 
-  @Input() redirectUrl: string;
+  @Input() openSearchFilter: boolean = false;
 
   constructor(
     protected router: Router,
@@ -72,18 +75,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   getAssetUrl(doc: DocumentModel): string {
-    return this.assetUrl ? this.assetUrl : this.matchAssetUrl(doc);
-  }
-
-  protected matchAssetUrl(doc: DocumentModel): string {
-    let url = '';
-    if (this.assetUrlMapping[doc.type] instanceof Function) {
-      url = this.assetUrlMapping[doc.type].call(this, doc);
-    } else {
-      url = this.assetUrlMapping[doc.type] ? this.assetUrlMapping[doc.type] : this.assetUrlMapping['*'];
-    }
-    url = url.replace(':parentRef', doc.parentRef);
-    return url;
+    return this.assetUrl ? this.assetUrl : matchAssetUrl(doc, this.assetUrlMapping);
   }
 
   protected isSearchManually(res: SearchResponse): boolean {
@@ -91,7 +83,9 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   protected redirectToListPage(queryParams: any = {}): void {
-    this.router.navigate([this.redirectUrl], { queryParamsHandling: 'merge', queryParams });
+    if (this.searchPageUrl) {
+      this.router.navigate([this.searchPageUrl], { queryParamsHandling: 'merge', queryParams });
+    }
   }
 
   protected onBeforeSearchEvent(res: SearchResponse): Observable<SearchResponse> {

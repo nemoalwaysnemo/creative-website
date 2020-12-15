@@ -48,7 +48,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
     ecm_mixinType_not_in: '',
   };
 
-  assetUrlMapping: object = {
+  assetUrlMapping: any = {
     'App-Backslash-Edges-Folder': '/p/backslash/edge/',
     'App-Backslash-Edges-Assetfolder': '/p/backslash/edge/folder',
     'App-Backslash-Resources-Folder': '/p/backslash/resource/',
