@@ -24,10 +24,10 @@
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
           <ng-container *ngIf="isDisruptionAsset(document) && getDialogSettings().enableDetail && !isDisruptionRoadmapAsset(document)">
-            <a [routerLink]="['/p/disruption/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+            <a [routerLink]="['/p/disruption/asset', document.uid]" (click)="close(true)"><button class="inline-middle details right">Details</button></a>
           </ng-container>
           <ng-container *ngIf="isIntelligenceAsset(document) && getDialogSettings().enableDetail">
-            <a [routerLink]="['/p/intelligence/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+            <a [routerLink]="['/p/intelligence/asset', document.uid]" (click)="close(true)"><button class="inline-middle details right">Details</button></a>
           </ng-container>
         </div>
         <div class="clear"></div>

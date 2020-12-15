@@ -46,9 +46,8 @@ export class DocumentPreviewInDialogBaseTemplateComponent implements OnInit, OnD
     return this.dialogSettings;
   }
 
-  close(): void {
-    this.globalDocumentDialogService.close();
-    this.callback.emit({ action: 'close' });
+  close(all: boolean = false): void {
+    this.callback.emit({ action: 'close', data: { all } });
   }
 
   closeBtnImage(): string {

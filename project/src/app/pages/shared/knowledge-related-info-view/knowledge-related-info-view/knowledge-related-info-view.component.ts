@@ -235,6 +235,9 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
     this.dynamicComponentRef = dynamicComponentRef;
     this.dynamicComponentRef.instance.callback.subscribe((e: any) => {
       if (e.action === 'close') {
+        if (e.data.all) {
+          this.close();
+        }
         this.currentView = 'relatedInfo';
         this.destroyDynamicComponent();
       }
