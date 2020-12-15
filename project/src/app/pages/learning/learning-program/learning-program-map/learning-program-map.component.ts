@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
+import { DocumentModel, GlobalSearchParams, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
 import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -30,7 +30,9 @@ export class LearningProgramMapComponent extends BaseDocumentViewComponent {
   }
 
   private search(params: {}): void {
-    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
+    const options = new NuxeoRequestOptions();
+    options.addSchemas('app_Learning');
+    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params), options)
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;
         this.loading = false;
