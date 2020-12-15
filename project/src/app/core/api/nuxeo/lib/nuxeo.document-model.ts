@@ -231,16 +231,16 @@ export class DocumentModel extends Base {
     return this.pictureViews('FullHD');
   }
 
-  get ThumbnailPicture(): string {
+  get thumbnailPicture(): string {
     return this.pictureViews('Thumbnail');
   }
 
-  get SmallPicture(): string {
+  get smallPicture(): string {
     return this.pictureViews('Small');
   }
   // 'Thumbnail', 'Small', 'Medium', 'FullHD', 'OriginalJpeg'
-  pictureViews(title: string): string {
-    const picture = (this.get('picture:views') || []).filter((item: any) => item.title === title).map((p: any) => p.content.data).shift();
+  pictureViews(type: string): string {
+    const picture = (this.get('picture:views') || []).filter((item: any) => item.title === type).map((p: any) => p.content.data).shift();
     return picture || this.thumbnailUrl;
   }
 
