@@ -86,10 +86,16 @@ ul {
   p { font-size: calc(14px * 1.25); }
 }
 
-.knowledge-related-info-preview {
-    width: calc(100% - 60px);
-    padding: 0;
-    margin: 0 auto;
+.knowledge-related-info-view {
+	padding: 0 30px;
+}
+
+::ng-deep .knowledge-related-info-preview {
+  padding: 0;
+	margin: 0 auto;
+	.text-content {
+		margin: 0 20px 0 80px;
+	}
 }
 
 ::ng-deep {
