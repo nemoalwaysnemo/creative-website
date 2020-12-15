@@ -30,9 +30,7 @@ export class LearningProgramMapComponent extends BaseDocumentViewComponent {
   }
 
   private search(params: {}): void {
-    const options = new NuxeoRequestOptions();
-    options.addSchemas('app_Learning');
-    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params), options)
+    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;
         this.loading = false;
