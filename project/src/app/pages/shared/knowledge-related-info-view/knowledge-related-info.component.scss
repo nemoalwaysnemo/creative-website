@@ -10,7 +10,7 @@ h1 {
 		.nb-card-body {
 			padding: 0;
 			nb-tabset {
-				ul {
+				> ul {
 					width: calc(100% - 120px);
 				}
 			}
