@@ -4,38 +4,11 @@
             <div class="yellow-strip-area">
                 {{ doc.title }}
                 <div class="right-circle-yellow-wrapper">
-                    <div class="right-circle-black-filling" [ngStyle]="{'background-image': 'url('+doc.getCustomFile('file:content')+')'}">
-                    </div>
+                    <a href="{{scrollToDocument(doc)}}">
+                        <img class="right-circle-black-filling" [src]="doc.fullHDPicture">
+                    </a>
                 </div>
             </div>
         </div>
-        <!-- <div class="yellow-strip-area" style="width: 540px">
-            First-time Managers
-            <div class="right-circle-yellow-wrapper">
-                <div class="right-circle-black-filling">
-                </div>
-            </div>
-        </div>
-        <div class="yellow-strip-area" style="width: 640px">
-            Rising leaders
-            <div class="right-circle-yellow-wrapper">
-                <div class="right-circle-black-filling">
-                </div>
-            </div>
-        </div>
-        <div class="yellow-strip-area" style="width: 740px">
-            Senior Leaders
-            <div class="right-circle-yellow-wrapper">
-                <div class="right-circle-black-filling">
-                </div>
-            </div>
-        </div>
-        <div class="yellow-strip-area" style="width: 840px">
-            Execution Leaders
-            <div class="right-circle-yellow-wrapper">
-                <div class="right-circle-black-filling">
-                </div>
-            </div>
-        <div> -->
     </div>
 </div>

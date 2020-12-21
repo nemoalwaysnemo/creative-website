@@ -1,7 +1,7 @@
 <ng-container *ngIf="enableFeature">
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results learning-home">
+    <div class="thumbnail-view-item center-support"></div>
     <div *ngFor="let doc of documents" class="thumbnail-view-item">
-
       <ng-container [ngSwitch]="true">
         <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
           <div class="image-holder">
