@@ -615,6 +615,7 @@ export enum NuxeoAutomations {
   GetDocumentsFromCollection = 'Collection.GetDocumentsFromCollection',
   RemoveFromFavorites = 'Document.RemoveFromFavorites',
   GetVideoScreenshot = 'Backslash.GetVideoScreenshot',
+  TBWARemoteSearch = 'TBWA.RemoteSearch',
   TBWAUserDigest = 'TBWA.GetUserDigest',
   GetAccessTokenInfo = 'TBWA.GetAccessTokenInfo',
   GetWebPageElement = 'TBWA.GetWebPageElement',
