@@ -31,7 +31,7 @@ export class GlobalSearchFormService {
 
   advanceSearch(provider: string, searchParams: GlobalSearchParams = new GlobalSearchParams(), opts: NuxeoRequestOptions = new NuxeoRequestOptions()): Observable<SearchResponse> {
     this.googleAnalyticsTrackEvent(searchParams);
-    return this.advanceSearchService.search(provider, searchParams, opts);
+    return provider === 'RemoteSearch' ? this.advanceSearchService.remoteSearch(searchParams, opts) : this.advanceSearchService.providerSearch(provider, searchParams, opts);
   }
 
   onSearch(): Observable<SearchResponse> {

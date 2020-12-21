@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf, Subject } from 'rxjs';
 import { share, concat, map, tap, filter } from 'rxjs/operators';
-import { DocumentModel } from './nuxeo/lib';
+import { DocumentModel, NuxeoAutomations } from './nuxeo/lib';
 import { join } from '../services/helpers';
 import { NuxeoPagination, GlobalSearchParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
 
@@ -48,9 +48,22 @@ export class AdvanceSearchService {
     return this.nuxeoApi.operation(id, params, input, opts);
   }
 
-  search(provider: string, searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): Observable<SearchResponse> {
+  remoteSearch(searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): Observable<SearchResponse> {
     return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, source: searchParams.source, action: 'beforeSearch' })).pipe(
-      concat(this.request(searchParams, opts, provider).pipe(map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, source: searchParams.source, action: 'afterSearch' }))))),
+      concat(this.operation(NuxeoAutomations.TBWARemoteSearch, searchParams.toRequestParams(), null, opts).pipe(
+        map(res => new NuxeoPagination(res)),
+        map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, source: searchParams.source, action: 'afterSearch' })))),
+      ),
+      tap((res: SearchResponse) => this.entries$.next(res)),
+      share(),
+    );
+  }
+
+  providerSearch(provider: string, searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): Observable<SearchResponse> {
+    return observableOf(new SearchResponse({ response: new NuxeoPagination(), searchParams, source: searchParams.source, action: 'beforeSearch' })).pipe(
+      concat(this.request(searchParams, opts, provider).pipe(
+        map((response: NuxeoPagination) => (new SearchResponse({ response, searchParams, source: searchParams.source, action: 'afterSearch' })))),
+      ),
       tap((res: SearchResponse) => this.entries$.next(res)),
       share(),
     );
