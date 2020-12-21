@@ -37,4 +37,8 @@ export class LearningProgramMapComponent extends BaseDocumentViewComponent {
       });
     this.subscription.add(subscription);
   }
+
+  scrollToDocument(doc: DocumentModel): string{
+    return '#/p/learning/program#program' + doc.uid;
+  }
 }
