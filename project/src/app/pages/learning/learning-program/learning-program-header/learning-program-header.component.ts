@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DocumentModel} from '@core/api';
+import { DocumentModel } from '@core/api';
 import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
 
 @Component({
@@ -9,14 +9,15 @@ import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
 })
 export class LearningProgramHeaderComponent extends BaseDocumentViewComponent {
 
-  loading: boolean = true;
-
   src: string;
 
-  @Input() set programs(programs: DocumentModel) {
-    if (!!programs){
-      this.src = programs.get('app_Learning:program_banner').data;
-      this.loading = false;
+  document: DocumentModel;
+
+  @Input()
+  set programs(doc: DocumentModel) {
+    if (doc) {
+      this.document = doc;
+      this.src = doc.getCustomFile('app_Learning:program_banner', false);
     }
   }
 
