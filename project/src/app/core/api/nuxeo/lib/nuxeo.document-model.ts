@@ -279,7 +279,7 @@ export class DocumentModel extends Base {
 
   getVideoSources(): { url: string, type: string, name: string }[] {
     const sources = this.get('vid:transcodedVideos');
-    if (sources.length !== 0) {
+    if (!!sources && sources.length !== 0) {
       return mapOrder(sources, ['MP4 480p', 'WebM Original', 'WebM 480p'], 'name').map((video: any) => {
         return { url: video.content.data, type: video.content['mime-type'], name: video.name };
       });
@@ -330,6 +330,9 @@ export class DocumentModel extends Base {
       if (this.get('vid:info').format.includes('mp4' || 'mov' || 'm4a' || '3gp' || '3g2' || 'mj2')) {
         return true;
       }
+    }
+    if (this.fileContent && this.filePath && this.fileContent['mime-type'] && this.fileContent['mime-type'].includes('video')) {
+      return true;
     }
     return false;
     // return this.hasFacet('Video') && this.fileMimeType.includes('video');

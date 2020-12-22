@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
+import { Component, Input, OnInit } from '@angular/core';
+import { DocumentModel } from '@core/api';
 import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentVideoSettings } from '@pages/shared/document-viewer/document-video-viewer/document-video-player/document-video-player.interface';
 
 @Component({
   selector: 'learning-program-video',
@@ -10,31 +10,23 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class LearningProgramVideoComponent extends BaseDocumentViewComponent {
 
-  loading: boolean = true;
-
   document: DocumentModel;
 
-  private params: any = {
-    pageSize: 1,
-    currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.LEARNING_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_ASSET_TYPE,
-  };
+  show: boolean = false;
+
+  mute: boolean = false;
+
+  enableGlobalMute: boolean = false;
+
+  @Input()
+  set programs(programs: DocumentModel) {
+    if (!!programs){
+      this.document = programs;
+      this.show = true;
+    }
+  }
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
-  }
-
-  onInit(): void {
-    this.search(this.params);
-  }
-
-  private search(params: {}): void {
-    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
-      .subscribe((res: NuxeoPagination) => {
-        this.document = res.entries.shift();
-        this.loading = false;
-      });
-    this.subscription.add(subscription);
   }
 }

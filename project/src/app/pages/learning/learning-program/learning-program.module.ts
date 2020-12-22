@@ -7,6 +7,7 @@ import { LearningProgramListModule } from './learning-program-list/learning-prog
 import { LearningProgramMapModule } from './learning-program-map/learning-program-map.module';
 import { LearningProgramVideoModule } from './learning-program-video/learning-program-video.module';
 import { LearningProgramHeaderModule } from './learning-program-header/learning-program-header.module';
+import { DocumentViewerModule } from '@pages/shared/document-viewer/document-viewer.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { LearningProgramHeaderModule } from './learning-program-header/learning-
     LearningProgramMapModule,
     LearningProgramVideoModule,
     LearningProgramHeaderModule,
+    DocumentViewerModule,
   ],
   declarations: [
     LearningProgramComponent,
