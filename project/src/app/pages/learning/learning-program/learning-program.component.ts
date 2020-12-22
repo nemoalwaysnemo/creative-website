@@ -32,7 +32,6 @@ export class LearningProgramComponent extends BaseDocumentViewComponent {
   private search(params: {}): void {
     const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
       .subscribe((res: NuxeoPagination) => {
-        console.log(1);
         this.programs = res.entries.shift();
       });
     this.subscription.add(subscription);

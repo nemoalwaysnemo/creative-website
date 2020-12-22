@@ -279,7 +279,7 @@ export class DocumentModel extends Base {
 
   getVideoSources(): { url: string, type: string, name: string }[] {
     const sources = this.get('vid:transcodedVideos');
-    if (sources.length !== 0) {
+    if (!!sources && sources.length !== 0) {
       return mapOrder(sources, ['MP4 480p', 'WebM Original', 'WebM 480p'], 'name').map((video: any) => {
         return { url: video.content.data, type: video.content['mime-type'], name: video.name };
       });

@@ -14,16 +14,15 @@ export class LearningProgramVideoComponent extends BaseDocumentViewComponent {
 
   show: boolean = false;
 
-  mute: boolean = true;
+  mute: boolean = false;
 
-  enableGlobalMute: boolean = true;
+  enableGlobalMute: boolean = false;
 
   @Input()
   set programs(programs: DocumentModel) {
     if (!!programs){
       this.document = programs;
       this.show = true;
-      console.log(13213, this.document);
     }
   }
 

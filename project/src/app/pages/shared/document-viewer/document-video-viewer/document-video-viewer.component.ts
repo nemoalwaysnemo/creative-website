@@ -21,13 +21,11 @@ export class DocumentVideoViewerComponent implements OnDestroy {
 
   @Input()
   set document(doc: DocumentModel) {
-    console.log(222, doc);
     this.document$.next(doc);
   }
 
   @Input()
   set settings(settings: DocumentVideoSettings) {
-    console.log(222, settings);
     if (!isValueEmpty(settings)) {
       this.videoSettings$.next(settings);
     }
@@ -46,8 +44,6 @@ export class DocumentVideoViewerComponent implements OnDestroy {
   }
 
   private onDocumentChanged(): void {
-    console.log(312313213);
-
     const subscription = combineLatest([
       this.videoSettings$,
       this.document$,
@@ -57,7 +53,6 @@ export class DocumentVideoViewerComponent implements OnDestroy {
         poster: doc.videoPoster,
         videoSources: doc.getVideoSources(),
       });
-      console.log(22, this.videoSettings);
     });
     this.subscription.add(subscription);
   }
