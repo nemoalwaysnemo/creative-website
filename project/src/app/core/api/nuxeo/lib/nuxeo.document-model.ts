@@ -253,9 +253,9 @@ export class DocumentModel extends Base {
     return this.properties[propertyName];
   }
 
-  getCustomFile(propertyName: string): string {
+  getCustomFile(propertyName: string, defaultThumbnail: boolean = true): string {
     const value = this.get(propertyName);
-    return isValueEmpty(value) ? this.getDefaultThumbnail() : value.data;
+    return isValueEmpty(value) ? (defaultThumbnail ? this.getDefaultThumbnail() : '') : value.data;
   }
 
   getCustomFiles(propertyName: string): { url: string, type: string, name: string }[] {
