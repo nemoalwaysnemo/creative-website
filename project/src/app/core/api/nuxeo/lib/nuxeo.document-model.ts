@@ -331,6 +331,9 @@ export class DocumentModel extends Base {
         return true;
       }
     }
+    if (this.fileContent && this.filePath && this.fileContent['mime-type'] && this.fileContent['mime-type'].includes('video')) {
+      return true;
+    }
     return false;
     // return this.hasFacet('Video') && this.fileMimeType.includes('video');
   }

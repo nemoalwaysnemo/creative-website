@@ -19,6 +19,8 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   @Input()
   set settings(settings: DocumentVideoSettings) {
+    console.log(333, settings);
+
     if (!isValueEmpty(settings)) {
       this.videoSettings = settings;
     }
