@@ -1,0 +1,74 @@
+<ng-container *ngIf="doc">
+  <div class="text-content">
+    <div class="line"></div>
+    <div class="controls">
+      <div class="doc-header text-center">
+        <img [src]="doc.thumbnailUrl">
+        <h2 class="text-center">{{ doc.title }}</h2>
+        <ng-container *ngIf="hasGroup$ | async">
+          <button type="button" class="text-center" (click)="openDialog(nominateDialog)">Nominate</button>
+        </ng-container>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Experience Level</h4>
+        <p>{{doc.get('app_Learning:program_experience_level')}}</p>
+      </div>
+      <div class="showcase-area">
+        <h4>Overview</h4>
+        <p>{{doc.get('dc:description')}}</p>
+      </div>
+      <div class="showcase-area">
+        <h4>Purpose</h4>
+        <p>{{doc.get('app_Learning:program_purpose')}}</p>
+      </div>
+    </div>
+    <div class="doc-bottom">
+      <div class="showcase-area-left">
+        <div class="showcase-area">
+          <h4>Core Curriculum</h4>
+          <ul *ngFor="let curriculum of curriculumList">
+            <li>{{curriculum}}</li>
+          </ul>
+        </div>
+        <div class="showcase-area">
+          <h4>The Ideal Candidate is:</h4>
+          <p>{{doc.get('app_Learning:program_candidate_description')}}</p>
+        </div>
+        <div class="showcase-area">
+          <h4>Program Candidate Properties</h4>
+          <ul *ngFor="let property of propertiesList">
+            <li>{{property}}</li>
+          </ul>
+        </div>
+        <div class="showcase-area">
+          <h4>Program Duration</h4>
+          <ul *ngFor="let duration of durationList">
+            <li>{{duration}}</li>
+          </ul>
+        </div>
+        <div class="showcase-area">
+          <h4>Program Dates</h4>
+          <ul *ngFor="let date of dateList">
+            <li>{{date}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="showcase-area-right">
+        <div class="showcase-area">
+          <img *ngIf="programPhoto" [src]="programPhoto.url">
+          <!-- <document-viewer [document]="programPhoto"></document-viewer> -->
+        </div>
+        <div class="showcase-area">
+          <img *ngIf="programPhoto" [src]="programPhoto.url">
+          <!-- <document-viewer [document]="doc"></document-viewer> -->
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</ng-container>
+<ng-template #nominateDialog>
+  <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [mainViewChanged]="true"></global-document-dialog>
+</ng-template>

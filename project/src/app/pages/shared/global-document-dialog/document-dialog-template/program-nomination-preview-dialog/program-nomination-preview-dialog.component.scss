@@ -1,0 +1,57 @@
+.text-content {
+  margin-top: 25px;
+  margin-left: 80px;
+  .text-controls {
+    width: 55%;
+    h4 {
+      margin-left: 0;
+      font-weight: 400;
+    }
+    .showcase-area {
+      p {
+        width: calc(100% - 100px) !important;
+        word-break: break-all;
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+        margin: 0 !important;
+        padding: 0 0 5px 16px;
+        font-size: 15px;
+        line-height: 30px;
+      }
+    }
+  }
+  .photo {
+    margin-top: 38px;
+    width: 48%;
+    img {
+      width: 18vw;
+      height: 200px;
+      float: right;
+    }
+  }
+}
+.show-url {
+  text-align: center;
+  margin: 40px 0;
+  a {
+    display: inline-block;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    &:hover {
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+  button {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 35px;
+    font-size: 18px;
+    background: #e1e1e1;
+    color: #000000;
+    border: solid 1px #e1e1e1;
+    cursor: pointer;
+  }
+}
