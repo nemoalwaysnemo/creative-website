@@ -1,0 +1,100 @@
+.text-content {
+  padding: 30px 0 0;
+  .controls {
+    margin: 0 auto;
+    padding-top: 30px;
+    .doc-header {
+      img {
+        width: 15%;
+      }
+      h2 {
+        font-size: calc(27px * 1.25);
+        margin: 0 auto;
+        margin: 30px 0;
+        color: #000000;
+        font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
+      }
+      button {
+        font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 35px;
+        font-size: 18px;
+        background: #e1e1e1;
+        color: #000000;
+        border: solid 1px #e1e1e1;
+        cursor: pointer;
+        display: inline-block;
+      }
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .line {
+    border-top: solid 2px #cccccc;
+    width: 30%;
+    margin: 0 auto;
+  }
+
+  .one-row, .doc-bottom {
+    width: calc(100% - 95px);
+    margin: 10px auto;
+    padding: 10px 0;
+    box-sizing: border-box;
+  
+    .showcase-area {
+      display: inline-block;
+      vertical-align: top;
+      width: 100%;
+      h4 {
+        font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+        font-size: 18px;
+      }
+      ul, p {
+        font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+        font-size: 15px;
+        padding-top: 5px;
+      }
+      p {
+        padding-left: 18px;
+        line-height: 25px;
+      }
+    }
+
+    &::after {
+      content: '';
+      clear: both;
+      display: block;
+    }
+  }
+
+  .doc-bottom {
+    width: calc(100% - 95px);
+    margin: 10px auto;
+    padding: 10px 0;
+    box-sizing: border-box;
+    display: flex;
+    > .showcase-area-left {
+      vertical-align: top;
+      float: left;
+      flex-grow: 3;
+      width: 60%;
+    }
+
+    > .showcase-area-right {
+      vertical-align: top;
+      float: right;
+      flex-grow: 1;
+      margin-top: 25px;
+    }
+    img {
+      width: 18vw;
+      height: 200px;
+      margin: 10px 0;
+      float: right;
+    }
+  }
+}

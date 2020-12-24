@@ -41,3 +41,4 @@ export * from './document-selectable/selectable-action-bar/selectable-action-bar
 export * from './document-selectable/selectable-action-bar/selectable-action-bar.interface';
 export * from './document-featured-carousel/document-featured-carousel.module';
 export * from './document-usage-rights-status/document-usage-rights-status.module';
+export * from './document-learning-program-info/document-learning-program-info.module';

@@ -37,6 +37,7 @@ import { DocumentUsageRightsStatusModule } from '../../document-usage-rights-sta
 import { BackslashKnowledgeAssetPreviewDialogComponent } from './backslash-knowledge-asset-preview-dialog/backslash-knowledge-asset-preview-dialog.component';
 import { DisruptionXPreviewDialogComponent } from './disruption-x-preview-dialog/disruption-x-preview-dialog.component';
 import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
+import { ProgramNominationPreviewDialogComponent } from './program-nomination-preview-dialog/program-nomination-preview-dialog.component';
 
 const COMPONENTS = [
   BizdevAssetPreviewDialogComponent,
@@ -65,6 +66,7 @@ const COMPONENTS = [
   IntelligenceAssetPreviewDialogComponent,
   DocumentShowcaseDialogComponent,
   DocumentMultipleDeletionComponent,
+  ProgramNominationPreviewDialogComponent,
 ];
 
 @NgModule({

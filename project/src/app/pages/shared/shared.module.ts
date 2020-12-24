@@ -24,6 +24,7 @@ import {
   SelectableActionBarModule,
   DocumentFeaturedCarouselModule,
   DocumentUsageRightsStatusModule,
+  DocumentLearningProgramInfoModule,
 } from './';
 
 const EXPORTS = [
@@ -51,6 +52,7 @@ const EXPORTS = [
   SelectableActionBarModule,
   DocumentFeaturedCarouselModule,
   DocumentUsageRightsStatusModule,
+  DocumentLearningProgramInfoModule,
 ];
 
 @NgModule({

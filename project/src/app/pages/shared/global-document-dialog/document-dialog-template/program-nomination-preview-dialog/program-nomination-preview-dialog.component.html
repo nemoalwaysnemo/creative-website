@@ -1,0 +1,41 @@
+<div class="dialog-title text-center">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1 class="left">{{document.title}} Nomination</h1>
+  <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <ng-container *ngIf="document">
+    <div class="text-content" style="padding-top: 0;">
+      <div class="text-controls row left">
+        <div class="one-row">
+          <div class="showcase-area">
+            <h4>Criteria</h4>
+            <ul *ngFor="let criteria of criteriaList">
+              <li>{{criteria}}</li>
+            </ul>
+          </div>
+          <div class="showcase-area">
+            <h4>Cost</h4>
+            <p>{{document.get('app_Learning:program_nomination_cost')}}</p>
+          </div>
+          <div class="showcase-area">
+            <h4>Program Dates</h4>
+            <ul *ngFor="let date of dateList">
+              <li>{{date}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right photo">
+        <img *ngIf="programPhoto" [src]="programPhoto.url">
+      </div>
+    </div>
+    <div class="clear"></div>
+      <div class="show-url">
+        <a href="{{startUrl}}" target="blank" title="Start your nomination">
+          <button type="button" class="icon_btn">Start your nomination</button>
+        </a>
+      </div>
+  </ng-container>
+</div>
