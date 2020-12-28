@@ -5,12 +5,9 @@
       <a (click)="openDialog(dialog)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
     </div>
     <div class="description">
-      <h4 class="type" [title]="getAssetType(doc)">{{ getAssetType(doc).toUpperCase() }}</h4>
-      <h1 [title]="doc.title"><a (click)="openDialog(dialog)">{{doc.title}}</a></h1>
-      <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
-      <span class="dot"></span>
-      <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
-      <h5 class="agency " [title]="doc.get('The_Loupe_Main:agency')">{{ doc.get('The_Loupe_Main:agency') }}</h5>
+      <h1 [title]="doc.title"><a (click)="openDialog(dialog)">Name</a></h1>
+      <h4 class="title" [title]="">Title</h4>
+      <h5 class="agency " [title]="">Agency</h5>
       <div class="line"></div>
     </div>
   </div>

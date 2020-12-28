@@ -122,13 +122,13 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
     const components: Type<DocumentModelForm>[] = [];
     switch (type) {
       case 'backslash':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET);
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_ASSET);
         break;
       case 'disruption':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET);
         break;
       case 'intelligence':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+        components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET);
         break;
       default:
         break;

@@ -42,11 +42,11 @@ export class BackslashPipelineAssetSearchResultComponent extends BaseSearchResul
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
     components: [
-      GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET,
+      GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_HOME_ASSET,
       GLOBAL_DOCUMENT_FORM.BACKSLASH_ASSET_POST_FORM,
       GLOBAL_DOCUMENT_FORM.BACKSLASH_ASSET_VIDEO_FORM,
     ],
-    current: GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_HOME_ASSET,
+    current: GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_HOME_ASSET,
   });
 
   private defaultSettings: any = {

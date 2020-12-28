@@ -2,6 +2,6 @@ import { RelatedBackslashAssetInDialogPreviewComponent } from './related-backsla
 import { DisruptionAssetPreviewInDialogComponent } from './disruption-asset-preview-in-dialog/disruption-asset-preview-in-dialog.component';
 
 export const DOCUMENT_PREVIEW_IN_DIALOG = {
-  PREIVEW_RELATED_BACKSLASH_ASSET: RelatedBackslashAssetInDialogPreviewComponent,
-  PREIVEW_RELATED_DISRUPTION_ASSET: DisruptionAssetPreviewInDialogComponent,
+  PREVIEW_RELATED_BACKSLASH_ASSET: RelatedBackslashAssetInDialogPreviewComponent,
+  PREVIEW_RELATED_DISRUPTION_ASSET: DisruptionAssetPreviewInDialogComponent,
 };

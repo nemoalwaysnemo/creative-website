@@ -23,11 +23,11 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
     components: [
-      GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET,
+      GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET,
       GLOBAL_DOCUMENT_FORM.DISRUPTION_ROADMAP_FORM,
       GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION,
     ],
-    current: GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET,
+    current: GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET,
   });
 
   dialogMetadata: any = {

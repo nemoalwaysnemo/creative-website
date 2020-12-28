@@ -35,7 +35,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
 
   durationList: string[] = [];
 
-  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_PROGRAM_NOMINATION] });
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_LEARNING_PROGRAM] });
 
   dialogMetadata: any = {
     formMode: 'edit',

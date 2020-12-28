@@ -1,4 +1,5 @@
 import { Component, TemplateRef, Type } from '@angular/core';
+import { DocumentModel } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 
 @Component({
@@ -13,20 +14,17 @@ export class LearningProgramAlumniSearchResultComponent {
   dialogMetadata: any = {
   };
 
-  getDialogSettings(type: string): GlobalDocumentDialogSettings {
-    const components: Type<any>[] = [];
-    switch (type) {
-      case 'backslash':
-        components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET);
-        break;
-      default:
-        break;
-    }
+  getDialogSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
+    const components: Type<any>[] = [GLOBAL_DOCUMENT_DIALOG.PREVIEW_LEARNING_ALUMNI];
     return new GlobalDocumentDialogSettings({ components });
   }
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
+  }
+
+  getTitle(doc: DocumentModel): string {
+    return '';
   }
 
 }
