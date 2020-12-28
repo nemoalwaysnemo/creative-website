@@ -6,13 +6,13 @@ import { DatePipe } from '@angular/common';
 import { DocumentModel } from '@core/api';
 
 @Component({
-  selector: 'program-nomination-preview-dialog',
-  styleUrls: ['../global-document-dialog-template.scss', './program-nomination-preview-dialog.component.scss'],
-  templateUrl: './program-nomination-preview-dialog.component.html',
+  selector: 'learning-program-nomination-preview-dialog',
+  styleUrls: ['../global-document-dialog-template.scss', './learning-program-nomination-preview-dialog.component.scss'],
+  templateUrl: './learning-program-nomination-preview-dialog.component.html',
 })
-export class ProgramNominationPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
+export class LearningProgramNominationPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  static readonly NAME: string = 'program-nomination-preview';
+  static readonly NAME: string = 'learning-program-nomination-preview';
 
   startUrl: string;
 

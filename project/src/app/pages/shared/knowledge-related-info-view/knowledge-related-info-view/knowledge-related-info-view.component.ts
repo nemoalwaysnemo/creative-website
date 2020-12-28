@@ -124,11 +124,11 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
   getDialogPrviewTemplateName(type: string): Type<any> {
     switch (type) {
       case 'Backslash':
-        return DOCUMENT_PREVIEW_IN_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
+        return DOCUMENT_PREVIEW_IN_DIALOG.PREVIEW_RELATED_BACKSLASH_ASSET;
       case 'Disruption':
-        return DOCUMENT_PREVIEW_IN_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
+        return DOCUMENT_PREVIEW_IN_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
       case 'Intelligence':
-        return DOCUMENT_PREVIEW_IN_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
+        return DOCUMENT_PREVIEW_IN_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
       default:
         break;
     }

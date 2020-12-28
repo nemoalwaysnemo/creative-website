@@ -14,19 +14,21 @@ import { DocumentMultipleDeletionComponent } from './document-dialog-template/do
 import { BackslashKnowledgeAssetPreviewDialogComponent } from './document-dialog-template/backslash-knowledge-asset-preview-dialog/backslash-knowledge-asset-preview-dialog.component';
 import { DisruptionXPreviewDialogComponent } from './document-dialog-template/disruption-x-preview-dialog/disruption-x-preview-dialog.component';
 import { CreativeAssetTemplateDialogComponent } from './document-dialog-template/creative-asset-template/creative-asset-template.component';
-import { ProgramNominationPreviewDialogComponent } from './document-dialog-template/program-nomination-preview-dialog/program-nomination-preview-dialog.component';
+import { LearningProgramAlumniPreviewDialogComponent } from './document-dialog-template/learning-program-alumni-preview-dialog/learning-program-alumni-preview-dialog.component';
+import { LearningProgramNominationPreviewDialogComponent } from './document-dialog-template/learning-program-nomination-preview-dialog/learning-program-nomination-preview-dialog.component';
 
 export const GLOBAL_DOCUMENT_DIALOG = {
-  PREIVEW_BACKSLASH_HOME_ASSET: BackslashHomeAssetDialogPreviewDialogComponent,
-  PREIVEW_BACKSLASH_KNOWLEDGE_ASSET: BackslashKnowledgeAssetPreviewDialogComponent,
-  PREIVEW_RELATED_BACKSLASH_ASSET: RelatedBackslashAssetDialogPreviewComponent,
-  PREIVEW_RELATED_DISRUPTION_ASSET: DisruptionAssetPreviewDialogComponent,
+  PREVIEW_BACKSLASH_HOME_ASSET: BackslashHomeAssetDialogPreviewDialogComponent,
+  PREVIEW_BACKSLASH_KNOWLEDGE_ASSET: BackslashKnowledgeAssetPreviewDialogComponent,
+  PREVIEW_RELATED_BACKSLASH_ASSET: RelatedBackslashAssetDialogPreviewComponent,
+  PREVIEW_RELATED_DISRUPTION_ASSET: DisruptionAssetPreviewDialogComponent,
   PREVIEW_INTELLIGENCE_ASSET: IntelligenceAssetPreviewDialogComponent,
   PREVIEW_INNOVATION_ASSET: InnovationAssetPreviewDialogComponent,
   PREVIEW_CREATIVE_ASSET: CreativeAssetPreviewDialogComponent,
   PREVIEW_BIZDEV_ASSET: BizdevAssetPreviewDialogComponent,
   PREVIEW_DISRUPTION_X: DisruptionXPreviewDialogComponent,
-  PREVIEW_PROGRAM_NOMINATION: ProgramNominationPreviewDialogComponent,
+  PREVIEW_LEARNING_PROGRAM: LearningProgramNominationPreviewDialogComponent,
+  PREVIEW_LEARNING_ALUMNI: LearningProgramAlumniPreviewDialogComponent,
   CUSTOM_DELETION: DocumentDeletionDialogComponent,
   CUSTOM_CONFIRMATION: DocumentConfirmationDialogComponent,
   CUSTOM_DELETE_MULTIPLE_ASSETS: DocumentMultipleDeletionComponent,

@@ -26,9 +26,9 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     const type = this.getAssetType(doc);
     const components: Type<DocumentModelForm>[] = [];
     // 'Backslash'
-    components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET);
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_ASSET);
     // 'Disruption'
-    components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET);
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET);
     // 'Intelligence'
     components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_INTELLIGENCE_ASSET);
     // 'Innovation'
@@ -39,19 +39,19 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
     components.push(GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST);
     // 'Backslash Asset'
-    components.push(GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_KNOWLEDGE_ASSET);
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_KNOWLEDGE_ASSET);
     let main = null;
     switch (type) {
       case 'Backslash':
         if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
-          main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_BACKSLASH_KNOWLEDGE_ASSET;
+          main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_KNOWLEDGE_ASSET;
           break;
         } else {
-          main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_BACKSLASH_ASSET;
+          main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_ASSET;
           break;
         }
       case 'Disruption':
-        main = GLOBAL_DOCUMENT_DIALOG.PREIVEW_RELATED_DISRUPTION_ASSET;
+        main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
         break;
       case 'Intelligence':
         main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_INTELLIGENCE_ASSET;

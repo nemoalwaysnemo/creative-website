@@ -18,7 +18,7 @@ export class LearningProgramAlumniSearchComponent extends BaseDocumentViewCompon
   ];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    pageProvider: 'RemoteSearch',
+    // pageProvider: 'RemoteSearch',
     enableQueryParams: true,
   });
 
