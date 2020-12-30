@@ -1,3 +1,11 @@
+.dialog-title {
+  background-color: #ffffff;
+  h1 {
+    font-size: calc(27px * 1.25);
+    color: #000000;
+    font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
+  }
+}
 .text-content {
   margin-top: 25px;
   margin-left: 80px;
@@ -5,7 +13,8 @@
     width: 55%;
     h4 {
       margin-left: 0;
-      font-weight: 400;
+      font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+      font-size: 18px;
     }
     .showcase-area {
       p {
@@ -20,7 +29,7 @@
     }
   }
   .photo {
-    margin-top: 38px;
+    margin-top: 36px;
     width: 48%;
     img {
       width: 18vw;
