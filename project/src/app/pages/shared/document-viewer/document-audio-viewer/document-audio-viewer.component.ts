@@ -1,5 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentModel } from '@core/api';
+import { isValueEmpty } from '@core/services/helpers';
+import { DocumentViewerSettings } from '../document-video-viewer/document-viewer.interface';
 
 @Component({
   selector: 'document-audio-viewer',
@@ -11,18 +13,14 @@ export class DocumentAudioViewerComponent {
 
   audioSource: any[] = [];
 
-  controls: string = 'controls';
-
-  documentModel: DocumentModel;
-
-  @Input() styleName: string;
-
-  @Input() autoPlay: boolean = true;
+  viewerSettings: DocumentViewerSettings = new DocumentViewerSettings();
 
   @Input()
-  set document(doc: DocumentModel) {
-    this.documentModel = doc;
-    this.buildAudioInfo(doc);
+  set settings(settings: DocumentViewerSettings) {
+    if (!isValueEmpty(settings)) {
+      this.viewerSettings = settings;
+      this.buildAudioInfo(settings.document);
+    }
   }
 
   private buildAudioInfo(doc: DocumentModel): void {

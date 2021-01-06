@@ -18,6 +18,10 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
 
   shareUrl: string;
 
+  viewerSettings: any = {
+    layout: this.getDialogSettings().docViewerLayout,
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

@@ -1,6 +1,6 @@
-<div class="video-viewer {{styleName}}">
-  <document-video-player [settings]="videoSettings"></document-video-player>
-  <ng-container *ngIf="enableStoryboard">
-    <document-video-storyboard [document]="document$ | async"></document-video-storyboard>
+<div class="video-viewer {{viewerSettings.styleName}}">
+  <document-video-player [settings]="viewerSettings"></document-video-player>
+  <ng-container *ngIf="viewerSettings.enableStoryboard">
+    <document-video-storyboard [document]="viewerSettings.document"></document-video-storyboard>
   </ng-container>
 </div>

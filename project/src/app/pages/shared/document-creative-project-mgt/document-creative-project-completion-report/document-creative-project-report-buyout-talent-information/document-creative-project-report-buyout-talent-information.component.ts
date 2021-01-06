@@ -52,7 +52,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
         title: 'TALENT NAME',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'html',
-          htmlFunc: (doc: DocumentModel) => {
+          htmlFn: (doc: DocumentModel) => {
             return `
             <div class="delivery-title">
               <ul>
@@ -70,7 +70,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
         title: 'TERRITORY / MEDIA COVERED',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'html',
-          htmlFunc: (doc: DocumentModel) => {
+          htmlFn: (doc: DocumentModel) => {
             return `
             <div class="delivery-title">
               <ul>
@@ -90,7 +90,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
         title: 'TERM (months)',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'html',
-          htmlFunc: (doc: DocumentModel) => {
+          htmlFn: (doc: DocumentModel) => {
             return `
             <div class="delivery-title">
               <ul>
@@ -109,7 +109,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
         title: 'Expiry',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'html',
-          htmlFunc: (doc: DocumentModel) => {
+          htmlFn: (doc: DocumentModel) => {
             return `
             <div class="delivery-title">
               <ul>

@@ -7,7 +7,7 @@ export const TAB_CONFIG: any[] = [
   {
     title: 'DisruptionX',
     route: '/p/disruption/DisruptionX',
-    aclFunc: (doc: DocumentModel, advanceSearchService: AdvanceSearchService): Observable<boolean> => {
+    aclFn: (doc: DocumentModel, advanceSearchService: AdvanceSearchService): Observable<boolean> => {
       return advanceSearchService.request(new GlobalSearchParams({
         pageSize: 1,
         currentPageIndex: 0,

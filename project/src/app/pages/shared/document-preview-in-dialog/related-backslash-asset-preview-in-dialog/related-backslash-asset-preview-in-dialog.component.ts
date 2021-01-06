@@ -14,6 +14,10 @@ export class RelatedBackslashAssetInDialogPreviewComponent extends DocumentPrevi
 
   backslashEdges: DocumentModel[] = [];
 
+  viewerSettings: any = {
+    layout: this.getDialogSettings().docViewerLayout,
+  };
+
   constructor(
     protected documentPageService: DocumentPageService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,

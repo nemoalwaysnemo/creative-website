@@ -1,36 +1,40 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { DocumentVideoSettings } from './document-video-viewer/document-video-player/document-video-player.interface';
+import { isValueEmpty } from '@core/services/helpers';
+import { combineLatest, Subject, Subscription } from 'rxjs';
+import { DocumentViewerSettings } from './document-video-viewer/document-viewer.interface';
 
 @Component({
   selector: 'document-viewer',
   styleUrls: ['./document-viewer.component.scss'],
   templateUrl: './document-viewer.component.html',
 })
-export class DocumentViewerComponent implements OnInit {
+export class DocumentViewerComponent {
 
-  videoSettings: DocumentVideoSettings;
+  @Input()
+  set document(doc: DocumentModel) {
+    if (doc) {
+      this.document$.next(doc);
+    }
+  }
 
-  @Input() document: DocumentModel;
+  @Input()
+  set settings(settings: DocumentViewerSettings) {
+    if (!isValueEmpty(settings)) {
+      this.viewerSettings$.next(settings);
+    }
+  }
 
-  @Input() styleName: string;
+  viewerSettings: DocumentViewerSettings = new DocumentViewerSettings();
 
-  @Input() mute: boolean = false;
+  private subscription: Subscription = new Subscription();
 
-  @Input() autoplay: boolean = true;
+  private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
-  @Input() enableGlobalMute: boolean = false;
+  private viewerSettings$: Subject<DocumentViewerSettings> = new Subject<DocumentViewerSettings>();
 
-  @Input() enableStoryboard: boolean = false;
-
-  @Input() layout: 'dialogSlides' | 'slides' = 'slides';
-
-  ngOnInit(): void {
-    this.videoSettings = new DocumentVideoSettings({
-      mute: this.mute,
-      autoplay: this.autoplay,
-      enableGlobalMute: this.enableGlobalMute,
-    });
+  constructor() {
+    this.onDocumentChanged();
   }
 
   getDocumentViewer(doc: DocumentModel): string {
@@ -48,4 +52,16 @@ export class DocumentViewerComponent implements OnInit {
     }
     return type;
   }
+
+  private onDocumentChanged(): void {
+    const subscription = combineLatest([
+      this.viewerSettings$,
+      this.document$,
+    ]).subscribe(([viewerSettings, doc]: [DocumentViewerSettings, DocumentModel]) => {
+      viewerSettings.document = doc;
+      this.viewerSettings.update(viewerSettings);
+    });
+    this.subscription.add(subscription);
+  }
+
 }

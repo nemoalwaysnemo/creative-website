@@ -19,6 +19,6 @@ export const TAB_CONFIG: any[] = [
   {
     title: 'Manage Lists',
     route: '/p/creative/agency/:id/list',
-    aclFunc: (doc: DocumentModel): Observable<boolean> => doc.hasPermission(NuxeoPermission.Write),
+    aclFn: (doc: DocumentModel): Observable<boolean> => doc.hasPermission(NuxeoPermission.Write),
   },
 ];

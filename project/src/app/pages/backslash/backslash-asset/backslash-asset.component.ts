@@ -10,7 +10,9 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class BackslashAssetComponent extends GlobalDocumentViewComponent {
 
-  mute: boolean = true;
+  viewerSettings: any = {
+    mute: true,
+  };
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -20,7 +22,7 @@ export class BackslashAssetComponent extends GlobalDocumentViewComponent {
   }
 
   onPageInit(): void {
-    this.mute = this.documentPageService.isFirstVisitPage();
+    this.viewerSettings.mute = this.documentPageService.isFirstVisitPage();
   }
 
   protected getCurrentDocumentSearchParams(): any {

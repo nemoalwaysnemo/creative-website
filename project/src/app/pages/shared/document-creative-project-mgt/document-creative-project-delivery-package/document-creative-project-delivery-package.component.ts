@@ -63,7 +63,7 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'html',
-          htmlFunc: (doc: DocumentModel) => {
+          htmlFn: (doc: DocumentModel) => {
             return `
             <div class="delivery-title">
               <ul>
@@ -81,7 +81,7 @@ export class DocumentCreativeProjectDeliveryPackageComponent {
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'html',
-          htmlFunc: (doc: DocumentModel) => {
+          htmlFn: (doc: DocumentModel) => {
             return `
             <div class="delivery-info">
               <ul>

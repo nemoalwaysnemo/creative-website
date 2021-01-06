@@ -1,22 +1,20 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { Component, Input } from '@angular/core';
+import { isValueEmpty } from '@core/services/helpers';
+import { DocumentViewerSettings } from '../document-video-viewer/document-viewer.interface';
 
 @Component({
   selector: 'document-image-viewer',
   styleUrls: ['./document-image-viewer.component.scss'],
   templateUrl: './document-image-viewer.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentImageViewerComponent {
 
-  src: string[];
-
-  @Input() styleName: string;
+  viewerSettings: DocumentViewerSettings = new DocumentViewerSettings();
 
   @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      this.src = doc.fullHDPicture ? [doc.fullHDPicture] : ['/assets/images/default.jpg'];
+  set settings(settings: DocumentViewerSettings) {
+    if (!isValueEmpty(settings)) {
+      this.viewerSettings = settings;
     }
   }
 
