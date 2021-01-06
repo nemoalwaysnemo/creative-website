@@ -1,6 +1,8 @@
 <h1>RELATED</h1>
 <global-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
-<global-search-more-result [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)" [searchResultFilter]="searchResultFilter"></global-search-more-result>
+<div class="more-result">
+  <global-search-more-result [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)" [searchResultFilter]="searchResultFilter"></global-search-more-result>
+</div>
 
 <ng-template #thumbnailItemView let-doc="doc">
   <div class="description">
