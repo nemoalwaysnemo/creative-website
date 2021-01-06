@@ -62,7 +62,9 @@ table {
     }
   }
   .td-break {
-    word-break: break-all;
+    word-break: hyphenate;
+    word-wrap: break-word;
+    line-height: 25px;
   }
 }
 .accordion {
