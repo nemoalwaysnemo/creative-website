@@ -20,8 +20,6 @@ export class DocumentRelatedBrandComponent {
 
   documents: DocumentModel[];
 
-  noResultText: string = 'No more assets';
-
   baseParams$: Subject<any> = new Subject<any>();
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -81,15 +79,15 @@ export class DocumentRelatedBrandComponent {
     }
   }
 
-  getSearchParams(doc: DocumentModel): any {
-    const params = this.params;
-    params.the_loupe_main_brand_any = `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`;
-    params.ecm_uuid_not_eq = doc.uid;
-    return Object.assign({}, params);
-  }
-
   searchResultFilter(res: SearchResponse): boolean {
     return res.source === 'document-related-brand';
+  }
+
+  private getSearchParams(doc: DocumentModel): any {
+    return Object.assign({}, this.params, {
+      the_loupe_main_brand_any: `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`,
+      ecm_uuid_not_eq: doc.uid,
+    });
   }
 
 }

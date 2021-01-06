@@ -1,0 +1,15 @@
+<h1>RELATED</h1>
+<global-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
+<global-search-more-result [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)" [searchResultFilter]="searchResultFilter"></global-search-more-result>
+
+<ng-template #thumbnailItemView let-doc="doc">
+  <div class="description">
+    <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/asset', doc.uid]">{{doc.title}}</a></h1>
+  </div>
+  <div class="image-holder">
+    <a [title]="doc.title" (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+  </div>
+  <ng-template #dialog>
+    <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="disruptionTitle" [metadata]="dialogMetadata" [redirectUrl]="getRedirectUrl(doc)"></global-document-dialog>
+  </ng-template>
+</ng-template>

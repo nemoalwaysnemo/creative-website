@@ -24,6 +24,7 @@ import {
   SelectableActionBarModule,
   DocumentFeaturedCarouselModule,
   DocumentUsageRightsStatusModule,
+  DocumentRelatedDisruptionXModule,
   DocumentLearningProgramInfoModule,
 } from './';
 
@@ -40,6 +41,7 @@ const EXPORTS = [
   DocumentRelatedAgencyModule,
   DocumentRelatedInfoModule,
   DocumentRelatedCampaignModule,
+  DocumentRelatedDisruptionXModule,
   DocumentRelatedBrandModule,
   DocumentViewerModule,
   DocumentFormModule,

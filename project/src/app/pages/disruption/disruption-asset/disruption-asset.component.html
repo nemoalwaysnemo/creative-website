@@ -1,7 +1,5 @@
 <ng-container *ngIf="showFolderView(document) && folder">
-  <disruption-folder-view [showButton]="showButton" [loading]="folderLoading" [document]="folder"
-    [backAssetFlag]="backAssetFlag" [assetUrlMapping]="assetUrlMapping"
-    [ngStyle]="{'margin-top': '30px', 'display': 'block'}">
+  <disruption-folder-view [showButton]="showButton" [loading]="folderLoading" [document]="folder" [backAssetFlag]="backAssetFlag" [assetUrlMapping]="assetUrlMapping" [ngStyle]="{'margin-top': '30px', 'display': 'block'}">
   </disruption-folder-view>
 </ng-container>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
@@ -20,7 +18,14 @@
       <document-additional-info [document]="document"></document-additional-info>
     </section>
     <section class="related">
-      <document-related-info [document]="document"></document-related-info>
+      <ng-container [ngSwitch]="true">
+        <ng-container *ngSwitchCase="document.type === 'App-DisruptionX-Module'">
+          <document-related-disruption-x [document]="document"></document-related-disruption-x>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <document-related-info [document]="document"></document-related-info>
+        </ng-container>
+      </ng-container>
     </section>
   </div>
 </div>

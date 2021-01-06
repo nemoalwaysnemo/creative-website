@@ -61,6 +61,9 @@ table {
       }
     }
   }
+  .td-break {
+    word-break: break-all;
+  }
 }
 .accordion {
   margin-bottom: 25px;
