@@ -3,7 +3,7 @@
     <div class="line"></div>
     <div class="controls">
       <div class="doc-header text-center">
-        <img [src]="doc.thumbnailUrl">
+        <document-viewer [document]="doc" [settings]="logoViewerSettings"></document-viewer>
         <h2 class="text-center">{{ doc.title }}</h2>
         <ng-container *ngIf="hasGroup$ | async">
           <button type="button" class="text-center" (click)="openDialog(nominateDialog)">Nominate</button>
@@ -57,12 +57,10 @@
       </div>
       <div class="showcase-area-right">
         <div class="showcase-area">
-          <img *ngIf="programPhoto" [src]="programPhoto.url">
-          <!-- <document-viewer [document]="programPhoto"></document-viewer> -->
+          <document-viewer [document]="doc" [settings]="photoViewerSettings"></document-viewer>
         </div>
         <div class="showcase-area">
-          <img *ngIf="programPhoto" [src]="programPhoto.url">
-          <!-- <document-viewer [document]="doc"></document-viewer> -->
+          <document-viewer [document]="doc" [settings]="videoViewerSettings"></document-viewer>
         </div>
       </div>
     </div>
