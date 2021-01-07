@@ -20,5 +20,5 @@ export class ListSearchRowCustomViewSettings {
 
   dialogParams: Subject<any> = new Subject();
 
-  htmlFunc: (doc: DocumentModel) => string = (doc: DocumentModel) => doc.title;
+  htmlFn: (doc: DocumentModel) => string = (doc: DocumentModel) => doc.title;
 }

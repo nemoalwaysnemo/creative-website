@@ -11,9 +11,10 @@ export class LearningProgramVideoComponent extends BaseDocumentViewComponent {
 
   document: DocumentModel;
 
-  mute: boolean = false;
-
-  enableGlobalMute: boolean = false;
+  viewerSettings: any = {
+    enableGlobalMute: false,
+    mute: false,
+  };
 
   @Input()
   set programs(doc: DocumentModel) {

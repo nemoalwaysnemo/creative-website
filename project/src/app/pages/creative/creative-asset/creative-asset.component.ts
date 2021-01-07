@@ -11,11 +11,13 @@ import { NuxeoRequestOptions } from '@core/api';
 })
 export class CreativeAssetComponent extends GlobalDocumentViewComponent {
 
-  mute: boolean = true;
-
-  enableGlobalMute: boolean = true;
-
   enableThumbnailCreation: boolean = true;
+
+  viewerSettings: any = {
+    styleName: 'creative-asset',
+    enableGlobalMute: true,
+    mute: true,
+  };
 
   constructor(
     protected activatedRoute: ActivatedRoute,

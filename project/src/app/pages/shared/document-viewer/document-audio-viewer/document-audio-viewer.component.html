@@ -1,5 +1,5 @@
-<div class="audio-viewer {{styleName}}">
-  <audio id="documentAudio" preload="auto" controls="controls" [autoplay]="autoPlay">
+<div class="audio-viewer {{viewerSettings.styleName}}">
+  <audio id="documentAudio" preload="viewerSettings.preload" controls="viewerSettings.controls" [autoplay]="viewerSettings.autoplay">
     <source *ngFor="let audio of audioSource" [src]="audio.src" [type]="audio.type">
   </audio>
 </div>

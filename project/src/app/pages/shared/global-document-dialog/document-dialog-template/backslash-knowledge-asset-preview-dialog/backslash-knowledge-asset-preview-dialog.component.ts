@@ -19,6 +19,10 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
 
   attachments: { type: string, url: string, title: string }[] = [];
 
+  viewerSettings: any = {
+    layout: this.getDialogSettings().docViewerLayout,
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

@@ -15,6 +15,10 @@ export class CreativeAssetTemplateDialogComponent extends DocumentDialogPreviewT
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
+  viewerSettings: any = {
+    layout: this.getDialogSettings().docViewerLayout,
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

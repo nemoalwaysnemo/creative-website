@@ -16,7 +16,7 @@ export const TAB_CONFIG: any[] = [
   {
     title: 'Reports',
     route: '/p/backslash/category',
-    activeFunc: (url: string) => url.includes('/p/backslash/category') || url.includes('/p/backslash/report'),
+    activeFn: (url: string) => url.includes('/p/backslash/category') || url.includes('/p/backslash/report'),
   },
   {
     title: 'Trigger Pool',

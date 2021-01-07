@@ -15,6 +15,10 @@ export class DisruptionAssetPreviewInDialogComponent extends DocumentPreviewInDi
 
   attachments: { type: string, url: string, title: string }[] = [];
 
+  viewerSettings: any = {
+    layout: this.getDialogSettings().docViewerLayout,
+  };
+
   constructor(
     protected documentPageService: DocumentPageService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,

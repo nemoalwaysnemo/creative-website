@@ -25,6 +25,10 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
+  viewerSettings: any = {
+    layout: this.getDialogSettings().docViewerLayout,
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

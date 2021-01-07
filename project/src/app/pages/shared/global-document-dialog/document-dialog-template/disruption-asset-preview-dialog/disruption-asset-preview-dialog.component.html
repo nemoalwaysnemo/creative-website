@@ -7,7 +7,7 @@
 <div class="dialog-body">
   <ng-container *ngIf="document">
     <div class="media">
-      <document-viewer [document]="document" [layout]="getDialogSettings().docViewerLayout"></document-viewer>
+      <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
     </div>
   </ng-container>
   <ng-container *ngIf="document">

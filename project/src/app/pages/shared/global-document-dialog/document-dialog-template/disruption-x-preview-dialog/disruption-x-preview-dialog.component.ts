@@ -27,6 +27,10 @@ export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemp
 
   enableThumbnailCreation: boolean = true;
 
+  viewerSettings: any = {
+    layout: this.getDialogSettings().docViewerLayout,
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
