@@ -24,6 +24,9 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
 
   deleteRedirectUrl: string = '';
 
+  viewerSettings: any = {
+  };
+
   backslashEdgeFolderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,

@@ -28,6 +28,9 @@ export class DisruptionDayAssetComponent extends GlobalDocumentViewComponent imp
 
   deleteRedirectUrl: string;
 
+  viewerSettings: any = {
+  };
+
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,

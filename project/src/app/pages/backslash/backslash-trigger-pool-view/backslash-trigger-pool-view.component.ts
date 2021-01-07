@@ -17,6 +17,9 @@ export class BackslashTriggerPoolViewComponent extends GlobalDocumentViewCompone
 
   baseParams$: Subject<any> = new Subject<any>();
 
+  viewerSettings: any = {
+  };
+
   filters: SearchFilterModel[] = [
     // new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
   ];

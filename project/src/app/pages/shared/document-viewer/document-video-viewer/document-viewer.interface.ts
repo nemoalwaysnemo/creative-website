@@ -39,6 +39,10 @@ export class DocumentViewerSettings {
     this.documentModel = doc;
   }
 
+  get document(): DocumentModel {
+    return this.documentModel;
+  }
+
   get docUid(): string {
     return this.documentModel.uid;
   }

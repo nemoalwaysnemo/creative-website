@@ -27,6 +27,9 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
+  viewerSettings: any = {
+  };
+
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,

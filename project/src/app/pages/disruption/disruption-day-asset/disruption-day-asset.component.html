@@ -4,7 +4,7 @@
 <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">
     <div class="showcase left">
-      <document-viewer [document]="document"></document-viewer>
+      <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
       <document-action-group [document]="document" [enableThumbnailCreation]="enableThumbnailCreation"></document-action-group>
     </div>
     <div class="general_info left">

@@ -23,6 +23,9 @@ export class DisruptionAssetComponent extends GlobalDocumentViewComponent {
 
   deleteRedirectUrl: string;
 
+  viewerSettings: any = {
+  };
+
   assetUrlMapping: any = {
     'App-Disruption-Day': '/p/disruption/Disruption Days/day',
     'App-Disruption-Theory-Folder': '/p/disruption/Disruption How Tos/folder',

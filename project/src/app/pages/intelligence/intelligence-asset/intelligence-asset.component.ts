@@ -12,6 +12,9 @@ export class IntelligenceAssetComponent extends GlobalDocumentViewComponent {
 
   enableThumbnailCreation: boolean = true;
 
+  viewerSettings: any = {
+  };
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
