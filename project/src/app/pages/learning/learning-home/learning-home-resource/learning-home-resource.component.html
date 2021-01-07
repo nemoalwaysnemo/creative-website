@@ -4,11 +4,19 @@
     <div *ngFor="let doc of documents" class="thumbnail-view-item">
       <ng-container [ngSwitch]="true">
         <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
+          <div class="description">
+            <h1 [title]="doc.title"><a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener">{{doc.title}}</a></h1>
+          </div>
           <div class="image-holder">
             <a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener" class="btn" [ngStyle]="{'background-image': 'url('+doc.getCustomFile('app_Learning:program_logo')+')'}"></a>
           </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="doc.openLinkInIframe()">
           <div class="description">
-            <h1 [title]="doc.title"><a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener">{{doc.title}}</a></h1>
+            <h1 [title]="doc.title"><a [routerLink]="['/p/learning/remote', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+          </div>
+          <div class="image-holder">
+            <a [routerLink]="['/p/learning/remote', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+doc.getCustomFile('app_Learning:program_logo')+')'}"></a>
           </div>
         </ng-container>
         <ng-container *ngSwitchDefault>

@@ -5,6 +5,7 @@ import { LearningHomeModule } from './learning-home/learning-home.module';
 import { LearningAlumniModule } from './learning-alumni/learning-alumni.module';
 import { LearningProgramModule } from './learning-program/learning-program.module';
 import { LearningPageRoutingModule } from './learning-page-routing.module';
+import { LearningRemotePageModule } from './learning-remote-page/learning-remote-page.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { LearningPageRoutingModule } from './learning-page-routing.module';
     LearningHomeModule,
     LearningAlumniModule,
     LearningProgramModule,
+    LearningRemotePageModule,
     LearningPageRoutingModule,
   ],
   declarations: [

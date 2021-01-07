@@ -6,7 +6,7 @@ import { DocumentPageService, GlobalDocumentViewComponent } from '@pages/shared'
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'backslash-remote-page',
+  selector: 'learning-remote-page',
   template: `
     <div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {'height': '100%'}">
       <ng-container *ngIf="iframeUrl">
@@ -15,7 +15,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
     </div>
   `,
 })
-export class BackslashRemotePageComponent extends GlobalDocumentViewComponent {
+export class LearningRemotePageComponent extends GlobalDocumentViewComponent {
 
   iframeUrl: SafeResourceUrl;
 
@@ -42,8 +42,8 @@ export class BackslashRemotePageComponent extends GlobalDocumentViewComponent {
       currentPageIndex: 0,
       ecm_fulltext: '',
       app_global_ext_app_iframe: true,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ASSET_TYPE,
+      ecm_path: NUXEO_PATH_INFO.LEARNING_BASE_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_FOLDER_TYPE,
     };
   }
 
