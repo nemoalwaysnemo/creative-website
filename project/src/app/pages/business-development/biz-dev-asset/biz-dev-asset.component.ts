@@ -25,6 +25,9 @@ export class BizDevAssetComponent extends GlobalDocumentViewComponent implements
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
+  viewerSettings: any = {
+  };
+
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,

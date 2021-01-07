@@ -1,6 +1,6 @@
 <div class="{{viewerSettings.layout}} {{viewerSettings.styleName}}" [ngSwitch]="true">
-  <document-pdf-viewer *ngSwitchCase="getDocumentViewer(document) === 'pdf'" [settings]="viewerSettings"></document-pdf-viewer>
-  <document-image-viewer *ngSwitchCase="getDocumentViewer(document) === 'picture'" [settings]="viewerSettings"></document-image-viewer>
-  <document-video-viewer *ngSwitchCase="getDocumentViewer(document) === 'video'" [settings]="viewerSettings"></document-video-viewer>
-  <document-audio-viewer *ngSwitchCase="getDocumentViewer(document) === 'audio'" [settings]="viewerSettings"></document-audio-viewer>
+  <document-pdf-viewer *ngSwitchCase="getDocumentViewer() === 'pdf'" [settings]="viewerSettings"></document-pdf-viewer>
+  <document-image-viewer *ngSwitchCase="getDocumentViewer() === 'picture'" [settings]="viewerSettings"></document-image-viewer>
+  <document-video-viewer *ngSwitchCase="getDocumentViewer() === 'video'" [settings]="viewerSettings"></document-video-viewer>
+  <document-audio-viewer *ngSwitchCase="getDocumentViewer() === 'audio'" [settings]="viewerSettings"></document-audio-viewer>
 </div>

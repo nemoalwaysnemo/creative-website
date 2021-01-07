@@ -20,6 +20,9 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
 
   attachments: { type: string, url: string, title: string }[] = [];
 
+  viewerSettings: any = {
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

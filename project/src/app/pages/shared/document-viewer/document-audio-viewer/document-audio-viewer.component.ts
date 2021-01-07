@@ -11,7 +11,7 @@ import { DocumentViewerSettings } from '../document-video-viewer/document-viewer
 })
 export class DocumentAudioViewerComponent {
 
-  audioSource: any[] = [];
+  audioSources: any[] = [];
 
   viewerSettings: DocumentViewerSettings = new DocumentViewerSettings();
 
@@ -19,12 +19,12 @@ export class DocumentAudioViewerComponent {
   set settings(settings: DocumentViewerSettings) {
     if (!isValueEmpty(settings)) {
       this.viewerSettings = settings;
-      this.buildAudioInfo(settings.document);
+      this.audioSources = this.getAudioSources(settings.document);
     }
   }
 
-  private buildAudioInfo(doc: DocumentModel): void {
-    const audioSourceContent = (doc.get('file:content') || {});
-    this.audioSource = [{ src: audioSourceContent.data, type: audioSourceContent['mime-type'] }];
+  private getAudioSources(doc: DocumentModel): any[] {
+    const content = (doc.get('file:content') || {});
+    return [{ src: content.data, type: content['mime-type'] }];
   }
 }

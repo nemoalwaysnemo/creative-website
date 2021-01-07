@@ -12,6 +12,9 @@ export class BackslashHomeAssetDialogPreviewDialogComponent extends DocumentDial
 
   static readonly NAME: string = 'backslash-home-asset-preview';
 
+  viewerSettings: any = {
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

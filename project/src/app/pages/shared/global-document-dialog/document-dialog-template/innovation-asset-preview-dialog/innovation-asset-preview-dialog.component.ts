@@ -17,6 +17,9 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
 
   attachments: { type: string, url: string, title: string }[] = [];
 
+  viewerSettings: any = {
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

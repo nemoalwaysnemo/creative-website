@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { isValueEmpty } from '@core/services/helpers';
 import { combineLatest, Subject, Subscription } from 'rxjs';
 import { DocumentViewerSettings } from './document-video-viewer/document-viewer.interface';
 
@@ -8,6 +7,7 @@ import { DocumentViewerSettings } from './document-video-viewer/document-viewer.
   selector: 'document-viewer',
   styleUrls: ['./document-viewer.component.scss'],
   templateUrl: './document-viewer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentViewerComponent {
 
@@ -20,9 +20,7 @@ export class DocumentViewerComponent {
 
   @Input()
   set settings(settings: DocumentViewerSettings) {
-    if (!isValueEmpty(settings)) {
-      this.viewerSettings$.next(settings);
-    }
+    this.viewerSettings$.next(settings);
   }
 
   viewerSettings: DocumentViewerSettings = new DocumentViewerSettings();
@@ -37,7 +35,8 @@ export class DocumentViewerComponent {
     this.onDocumentChanged();
   }
 
-  getDocumentViewer(doc: DocumentModel): string {
+  getDocumentViewer(): string {
+    const doc = this.viewerSettings.document;
     let type = 'unkonw';
     if (doc) {
       if (doc.isVideo()) {

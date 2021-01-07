@@ -15,12 +15,15 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   viewerSettings: DocumentViewerSettings;
 
+  videoSources: { url: string, type: string, name: string }[] = [];
+
   private subscription: Subscription = new Subscription();
 
   @Input()
   set settings(settings: DocumentViewerSettings) {
     if (!isValueEmpty(settings)) {
       this.viewerSettings = settings;
+      this.videoSources = settings.videoSources;
     }
   }
 

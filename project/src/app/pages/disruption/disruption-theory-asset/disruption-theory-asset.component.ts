@@ -26,6 +26,9 @@ export class DisruptionTheoryAssetComponent extends GlobalDocumentViewComponent 
 
   deleteRedirectUrl: string;
 
+  viewerSettings: any = {
+  };
+
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,

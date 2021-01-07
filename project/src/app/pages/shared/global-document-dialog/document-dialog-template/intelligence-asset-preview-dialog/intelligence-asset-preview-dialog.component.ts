@@ -18,6 +18,9 @@ export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPrevi
 
   attachments: { type: string, url: string, title: string }[] = [];
 
+  viewerSettings: any = {
+  };
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

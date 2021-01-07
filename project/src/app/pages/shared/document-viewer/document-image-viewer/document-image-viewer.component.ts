@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { isValueEmpty } from '@core/services/helpers';
 import { DocumentViewerSettings } from '../document-video-viewer/document-viewer.interface';
 
@@ -6,6 +6,7 @@ import { DocumentViewerSettings } from '../document-video-viewer/document-viewer
   selector: 'document-image-viewer',
   styleUrls: ['./document-image-viewer.component.scss'],
   templateUrl: './document-image-viewer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocumentImageViewerComponent {
 
