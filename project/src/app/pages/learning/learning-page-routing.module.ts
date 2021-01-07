@@ -4,6 +4,7 @@ import { LearningPageComponent } from './learning-page.component';
 import { LearningHomeComponent } from './learning-home/learning-home.component';
 import { LearningAlumniComponent } from './learning-alumni/learning-alumni.component';
 import { LearningProgramComponent } from './learning-program/learning-program.component';
+import { LearningRemotePageComponent } from './learning-remote-page/learning-remote-page.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'alumni',
       component: LearningAlumniComponent,
+    },
+    {
+      path: 'remote/:id',
+      component: LearningRemotePageComponent,
     },
     {
       path: '',
