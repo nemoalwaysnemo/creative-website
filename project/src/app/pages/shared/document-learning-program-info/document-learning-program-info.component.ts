@@ -35,6 +35,23 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
 
   durationList: string[] = [];
 
+  logoViewerSettings: any = {
+    srcFn: (doc: DocumentModel): string => doc.getCustomFile('app_Learning:program_logo'),
+  };
+
+  photoViewerSettings: any = {
+    srcFn: (doc: DocumentModel): string => {
+      const files = doc.getCustomFiles('app_Learning:program_photo');
+      if (files && files.length > 0) {
+        return files[0].url;
+      }
+      return '';
+    },
+  };
+
+  videoViewerSettings: any = {
+  };
+
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_LEARNING_PROGRAM] });
 
   dialogMetadata: any = {
@@ -55,9 +72,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
     }
   }
 
-  constructor(protected globalDocumentDialogService: GlobalDocumentDialogService,
-              protected documentPageService: DocumentPageService,
-  ) {
+  constructor(protected globalDocumentDialogService: GlobalDocumentDialogService, protected documentPageService: DocumentPageService) {
   }
 
   ngOnDestroy(): void {
