@@ -40,6 +40,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
   };
 
   photoViewerSettings: any = {
+    styleName: 'learning-program-info',
     srcFn: (doc: DocumentModel): string => {
       const files = doc.getCustomFiles('app_Learning:program_photo');
       if (files && files.length > 0) {
@@ -50,6 +51,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
   };
 
   videoViewerSettings: any = {
+    styleName: 'learning-program-info',
   };
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_LEARNING_PROGRAM] });
@@ -64,7 +66,6 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
       this.doc = doc;
       this.loading = false;
       // this.hasGroup$ = this.hasUserGroup();
-      this.programPhoto = this.getProgramFiles('app_Learning:program_photo').shift();
       this.curriculumList = this.doc.get('app_Learning:program_curriculum');
       this.propertiesList = this.doc.get('app_Learning:program_candidate_properties');
       this.durationList = this.doc.get('app_Learning:program_duration');
@@ -87,10 +88,6 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
     return this.doc.get('app_Learning:program_dates').map((item: string) => {
       return new DatePipe('en-US').transform(item, 'yyyy-MM-dd');
     });
-  }
-
-  getProgramFiles(type: string): { url: string, type: string, name: string }[] {
-    return this.doc.getCustomFiles(type);
   }
 
   protected hasUserGroup(): Observable<boolean> {

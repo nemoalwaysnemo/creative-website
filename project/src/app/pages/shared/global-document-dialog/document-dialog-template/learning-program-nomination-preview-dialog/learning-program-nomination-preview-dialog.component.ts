@@ -16,11 +16,20 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
 
   startUrl: string;
 
-  programPhoto: { url: string, type: string, name: string };
-
   dateList: string[] = [];
 
   criteriaList: string[] = [];
+
+  photoViewerSettings: any = {
+    styleName: 'learning-program-nomination-preview',
+    srcFn: (doc: DocumentModel): string => {
+      const files = doc.getCustomFiles('app_Learning:program_photo');
+      if (files && files.length > 0) {
+        return files[0].url;
+      }
+      return '';
+    },
+  };
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -32,7 +41,6 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
-      this.programPhoto = this.getProgramFiles('app_Learning:program_photo').shift();
       this.criteriaList = this.document.get('app_Learning:program_nomination_criteria');
       this.dateList = this.parseDate();
     }
@@ -47,5 +55,4 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
   getProgramFiles(type: string): { url: string, type: string, name: string }[] {
     return this.document.getCustomFiles(type);
   }
-
 }

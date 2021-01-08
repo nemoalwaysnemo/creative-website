@@ -30,17 +30,12 @@
   }
   .photo {
     margin-top: 36px;
-    width: 48%;
-    img {
-      width: 18vw;
-      height: 200px;
-      float: right;
-    }
+    width: 45%;
   }
 }
 .show-url {
   text-align: center;
-  margin: 40px 0;
+  padding: 0 0 40px 0;
   a {
     display: inline-block;
     text-align: center;

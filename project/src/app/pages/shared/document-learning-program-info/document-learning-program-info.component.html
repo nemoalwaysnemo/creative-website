@@ -3,11 +3,15 @@
     <div class="line"></div>
     <div class="controls">
       <div class="doc-header text-center">
-        <document-viewer [document]="doc" [settings]="logoViewerSettings"></document-viewer>
-        <h2 class="text-center">{{ doc.title }}</h2>
-        <ng-container *ngIf="hasGroup$ | async">
-          <button type="button" class="text-center" (click)="openDialog(nominateDialog)">Nominate</button>
-        </ng-container>
+        <div class="logo-view">
+          <document-viewer [document]="doc" [settings]="logoViewerSettings"></document-viewer>
+        </div>
+        <div class="nominate-info">
+          <h2 class="text-center">{{ doc.title }}</h2>
+          <ng-container *ngIf="hasGroup$ | async">
+            <button type="button" class="text-center" (click)="openDialog(nominateDialog)">Nominate</button>
+          </ng-container>
+        </div>
       </div>
     </div>
     <div class="one-row">

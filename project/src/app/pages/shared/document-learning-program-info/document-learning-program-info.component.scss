@@ -4,8 +4,16 @@
     margin: 0 auto;
     padding-top: 30px;
     .doc-header {
-      img {
-        width: 15%;
+      .logo-view {
+        width: 20%;
+        margin: 0 auto;
+        height: 180px;
+        position: relative;
+        z-index: 2;
+      }
+      .nominate-info {
+        position: relative;
+        z-index: 999;
       }
       h2 {
         font-size: calc(27px * 1.25);
@@ -49,6 +57,7 @@
       display: inline-block;
       vertical-align: top;
       width: 100%;
+      padding-bottom: 10px;
       h4 {
         font-family: 'Averta for TBWA W01 Black', helvetica, arial;
         font-size: 18px;
@@ -71,6 +80,10 @@
     }
   }
 
+  .area-height {
+    height: 300px;
+  }
+
   .doc-bottom {
     width: calc(100% - 95px);
     margin: 10px auto;
@@ -89,12 +102,11 @@
       float: right;
       flex-grow: 1;
       margin-top: 25px;
-    }
-    img {
-      width: 18vw;
-      height: 200px;
-      margin: 10px 0;
-      float: right;
+      width: 46%;
+      
+      > .showcase-area {
+        margin-bottom: 20px;
+      }
     }
   }
 }
