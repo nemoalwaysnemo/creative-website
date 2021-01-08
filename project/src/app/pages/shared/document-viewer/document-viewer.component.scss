@@ -6,6 +6,9 @@
   &.creative-asset {
     height: calc(100% - 180px);
   }
+  &.learning-program-nomination-preview, &.learning-program-info {
+    min-height: 0;
+  }
 }
 .dialogSlides {
 	position: relative;

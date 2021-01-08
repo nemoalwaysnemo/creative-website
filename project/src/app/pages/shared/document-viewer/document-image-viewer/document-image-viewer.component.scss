@@ -9,4 +9,14 @@
       object-fit: contain;
     }
   }
+  &.learning-program-info {
+    img {
+      height: 320px;
+    }
+  }
+  &.learning-program-nomination-preview {
+    img {
+      height: 260px;
+    }
+  }
 }
