@@ -5,7 +5,7 @@
     <div class="controls">
       <h2 class="left">{{ doc.get('dc:title') }}</h2>
       <ng-container *ngIf="downloadPermission$ | async">
-        <a *ngIf="doc.filePath" href="{{doc.filePath}}"><button class="inline-middle download right" title="Download">Download</button></a>
+        <a *ngIf="doc.filePath" href="{{doc.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download"><button class="inline-middle download right" title="Download">Download</button></a>
       </ng-container>
       <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
       <ng-container *ngIf="hasPermission(doc, 'write') | async">

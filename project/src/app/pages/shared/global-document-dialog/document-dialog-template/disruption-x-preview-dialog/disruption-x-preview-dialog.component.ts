@@ -48,6 +48,10 @@ export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemp
     }
   }
 
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = '', title: string = ''): void {
+    this.documentPageService.googleAnalyticsTrackLink(doc, category, type, title);
+  }
+
   getDialogFormTemplateName(doc: DocumentModel): string {
     let name: string = '';
     if (doc.type === 'App-DisruptionX-Module') {

@@ -97,9 +97,9 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
         event_category: 'Gallery',
         event_action: `Gallery Item Preview`,
         event_label: `Gallery Item Preview - ${doc.title}`,
-        event_value: doc.uid,
         'dimensions.docId': doc.uid,
         'dimensions.docTitle': doc.title,
+        'dimensions.userEvent': 'Backslash Home Gallery Item Preview',
       });
     }
   }

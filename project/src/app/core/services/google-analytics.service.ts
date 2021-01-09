@@ -73,6 +73,7 @@ export class GoogleAnalyticsService {
         event_value: `${encodeURIComponent(url)}`,
       });
       event = removeUselessObject(event, ['queryParams']);
+      event['dimensions.userEvent'] = 'Search';
       this.trackEvent(event);
       delete event['event'];
       this.trackEvent(event);
@@ -101,6 +102,7 @@ export class GoogleAnalyticsService {
       event['dimensions.docId'] = e.doc.uid;
       event['dimensions.docTitle'] = e.doc.title;
     }
+    event['dimensions.userEvent'] = 'Pageview';
     this.event$.next(event);
   }
 

@@ -77,6 +77,10 @@ export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
     return vocabularyFormatter(list);
   }
 
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {
+    this.documentPageService.googleAnalyticsTrackLink(doc, category, type);
+  }
+
   private convertItems(entiries: DocumentModel[]): any[] {
     const items: any[] = [];
     for (const doc of entiries) {

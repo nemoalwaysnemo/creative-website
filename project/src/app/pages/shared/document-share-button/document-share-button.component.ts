@@ -47,9 +47,9 @@ export class DocumentShareButtonComponent implements AfterViewInit {
       event_category: 'Share',
       event_action: 'Share On Workplace',
       event_label: `Share On Workplace - ${this.document.title}`,
-      event_value: this.document.uid,
       'dimensions.docId': this.document.uid,
       'dimensions.docTitle': this.document.title,
+      'dimensions.userEvent': `Share On Workplace`,
     });
   }
 

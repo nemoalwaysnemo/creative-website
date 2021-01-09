@@ -57,6 +57,10 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
     };
   }
 
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {
+    this.documentPageService.googleAnalyticsTrackLink(doc, category, type);
+  }
+
   getDialogFormTemplateName(doc: DocumentModel): string {
     let name: string = '';
     if (doc.type === 'App-Disruption-Roadmap-Asset') {

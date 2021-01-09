@@ -19,9 +19,9 @@
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
         <div class="col-7">
-          <a href="{{document.filePath}}"><button class="inline-middle download right" type="submit">Download</button></a>
+          <a href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download"><button class="inline-middle download right" type="submit">Download</button></a>
           <ng-container *ngIf="getDialogSettings().enablePreview">
-            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="preview right">Preview</button></a>
+            <a href="{{document.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" title="Preview" target="_blank"><button class="preview right">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
           <ng-container *ngIf="getDialogSettings().enableDetail">

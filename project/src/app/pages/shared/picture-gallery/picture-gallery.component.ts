@@ -77,9 +77,9 @@ export class PictureGalleryComponent implements OnInit, OnDestroy, AfterViewInit
         event_category: 'Video',
         event_action: `Video ${event.state}`,
         event_label: `Video ${event.state} - ${event.title}`,
-        event_value: event.uid,
         'dimensions.docId': event.uid,
         'dimensions.docTitle': event.title,
+        'dimensions.userEvent': `Video ${event.state}`,
       });
       // this.displayTitle = event.api.getDefaultMedia().state !== 'playing';
       this.videoPlayers[itemIndex] = event.player;

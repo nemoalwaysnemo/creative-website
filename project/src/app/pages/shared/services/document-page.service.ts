@@ -53,6 +53,19 @@ export class DocumentPageService {
     this.googleAnalyticsService.trackEvent(event);
   }
 
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = '', title: string = ''): void {
+    const action = type ? `${category} ${type}` : category;
+    const label = title ? `${action} - ${doc.title} - ${title}` : `${action} - ${doc.title}`;
+    this.googleAnalyticsTrackEvent({
+      event_category: category,
+      event_action: action,
+      event_label: label,
+      'dimensions.docId': doc.uid,
+      'dimensions.docTitle': doc.title,
+      'dimensions.userEvent': action,
+    });
+  }
+
   updateCurrentDocument(doc: DocumentModel): void {
     if (doc && this.document && doc.uid === this.document.uid) {
       this.document = doc;
