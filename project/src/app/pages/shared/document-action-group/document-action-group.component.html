@@ -1,9 +1,9 @@
 <div class="document-action-group {{styleName}}">
   <ng-container *ngIf="downloadPermission$ | async">
-    <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" class="download right btn" title="Download">Download</a>
+    <a *ngIf="documentModel.filePath" href="{{documentModel.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" class="download right btn" title="Download">Download</a>
   </ng-container>
   <ng-container *ngIf="!isCreativeVideoAsset(documentModel) && downloadPermission$ | async">
-    <a href="{{documentModel.previewUrl}}" class="preview right btn" title="Preview" target="_blank">Preview</a>
+    <a href="{{documentModel.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" class="preview right btn" title="Preview" target="_blank">Preview</a>
   </ng-container>
   <ng-container *ngIf="isNeedSendDownloadRequest(documentModel) && (downloadPermission$ | async) === false">
     <a href="javascript:;" (click)="openDialog(dialog)" class="download right btn">Download Request</a>

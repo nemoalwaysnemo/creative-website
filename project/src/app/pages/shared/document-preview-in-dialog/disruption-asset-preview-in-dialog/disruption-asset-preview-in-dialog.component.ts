@@ -45,6 +45,10 @@ export class DisruptionAssetPreviewInDialogComponent extends DocumentPreviewInDi
     };
   }
 
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {
+    this.documentPageService.googleAnalyticsTrackLink(doc, category, type);
+  }
+
   isDisruptionAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE).includes(doc.type);
   }

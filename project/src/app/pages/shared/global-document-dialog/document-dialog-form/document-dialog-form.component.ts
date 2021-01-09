@@ -34,6 +34,14 @@ export class DocumentDialogFormComponent extends DocumentDialogContainerComponen
           this.close();
         } else if (['Created', 'Updated'].includes(e.action)) {
           this.documentPageService.updateCurrentDocument(e.doc);
+          this.documentPageService.googleAnalyticsTrackEvent({
+            event_category: 'Document',
+            event_action: `Document ${e.action}`,
+            event_label: `${e.action} - ${e.doc.title}`,
+            'dimensions.docId': e.doc.uid,
+            'dimensions.docTitle': e.doc.title,
+            'dimensions.userEvent': `Document ${e.action}`,
+          });
           timer(2000).subscribe(_ => {
             this.close();
             this.refresh(e.getRedirectUrl(e.doc));

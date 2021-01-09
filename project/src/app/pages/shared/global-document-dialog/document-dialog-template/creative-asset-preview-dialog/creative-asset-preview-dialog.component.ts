@@ -48,6 +48,10 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
     };
   }
 
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {
+    this.documentPageService.googleAnalyticsTrackLink(doc, category, type);
+  }
+
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }

@@ -18,9 +18,9 @@
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
         <div class="col-8">
-          <a href="{{document.filePath}}" class="right"><button class="inline-middle download right" type="submit">Download</button></a>
+          <a href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" cclass="right" title="Download"><button class="inline-middle download right" type="submit">Download</button></a>
           <ng-container *ngIf="getDialogSettings().enablePreview">
-            <a href="{{document.previewUrl}}" title="Preview" target="_blank"><button class="right preview">Preview</button></a>
+            <a href="{{document.previewUrl}}" title="Preview" target="_blank" (click)="googleAnalyticsTrackLink(document, 'Preview')"><button class="right preview">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
           <ng-container *ngIf="getDialogSettings().enableDetail">
@@ -98,7 +98,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let attachment of attachments">
-                <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
+                <td><a href="{{ attachment.url }}" (click)="googleAnalyticsTrackLink(document, 'Download', 'Attachment', attachment.title)" class="download-btn">{{ attachment.title }}</a></td>
               </tr>
             </tbody>
           </table>

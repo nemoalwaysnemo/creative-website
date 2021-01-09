@@ -38,10 +38,6 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
     }
   }
 
-  vocabularyFormatter(list: string[]): string {
-    return vocabularyFormatter(list);
-  }
-
   protected getPreviewSettings(): any {
     return {
       moreInfo: true,
@@ -49,6 +45,14 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
       enableDetail: true,
       enableKnowledgeRelated: false,
     };
+  }
+
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {
+    this.documentPageService.googleAnalyticsTrackLink(doc, category, type);
+  }
+
+  vocabularyFormatter(list: string[]): string {
+    return vocabularyFormatter(list);
   }
 
   buildShareUrl(doc: DocumentModel): string {

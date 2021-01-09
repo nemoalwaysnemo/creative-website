@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
+import { getAssetModuleType } from '@core/services/helpers';
 import { DocumentPageService } from '../services/document-page.service';
 import { PictureGallerySettings } from '../picture-gallery/picture-gallery.interface';
 
@@ -52,6 +53,7 @@ export class DocumentFeaturedCarouselComponent implements OnInit, OnDestroy {
   }
 
   toggleInfo(doc: DocumentModel): void {
+    const module = getAssetModuleType(doc);
     this.showInfo = !this.showInfo;
     this.selectedDocument = doc;
     this.onStatusChanged();
@@ -59,11 +61,11 @@ export class DocumentFeaturedCarouselComponent implements OnInit, OnDestroy {
     if (this.showInfo) {
       this.documentPageService.googleAnalyticsTrackEvent({
         event_category: 'Gallery',
-        event_action: `Gallery Item Preview`,
-        event_label: `Gallery Item Preview - ${doc.title}`,
-        event_value: doc.uid,
+        event_action: `${module} Gallery Item Preview`,
+        event_label: `${module} Gallery Item Preview - ${doc.title}`,
         'dimensions.docId': doc.uid,
         'dimensions.docTitle': doc.title,
+        'dimensions.userEvent': `${module} Gallery Item Preview`,
       });
     }
   }

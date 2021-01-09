@@ -119,9 +119,9 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
       event_category: category,
       event_action: 'Dialog Open',
       event_label: `Dialog Open | ${this.document.title}`,
-      event_value: this.document.uid,
       'dimensions.docId': this.document.uid,
       'dimensions.docTitle': this.document.title,
+      'dimensions.userEvent': `Dialog Open`,
     });
   }
 
