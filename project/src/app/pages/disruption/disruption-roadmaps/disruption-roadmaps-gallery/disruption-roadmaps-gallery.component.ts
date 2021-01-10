@@ -85,9 +85,9 @@ export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
     const items: any[] = [];
     for (const doc of entiries) {
       if (doc.isVideo() && doc.hasVideoContent()) {
-        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.thumbnailUrl, poster: doc.videoPoster, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.thumbnailUrl, poster: doc.videoPoster, title: doc.title, uid: doc.uid, docType: doc.type, description: doc.get('dc:description'), doc });
       } else if (doc.isPicture() || doc.isPdf()) {
-        items.push({ src: doc.fullHDPicture, thumb: doc.thumbnailUrl, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+        items.push({ src: doc.fullHDPicture, thumb: doc.thumbnailUrl, title: doc.title, uid: doc.uid, docType: doc.type, description: doc.get('dc:description'), doc });
       }
     }
     return items;

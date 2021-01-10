@@ -93,16 +93,26 @@ export class GoogleAnalyticsService {
 
   trackPageView(e: any = {}): void {
     const event = {
+      'dimensions.userEvent': 'Pageview',
       event: 'google-analytics-pageview',
       page_location: (() => window.location).call(this),
       page_path: `${e.url}`,
       page_title: e.title,
     };
     if (e.doc) {
+      const visit = {
+        event_category: 'Pageview',
+        event_action: 'Pageview',
+        event_label: `Pageview | ${e.title}`,
+      };
+      visit['dimensions.docId'] = e.doc.uid;
+      visit['dimensions.docTitle'] = e.doc.title;
+      visit['dimensions.docType'] = e.doc.type;
       event['dimensions.docId'] = e.doc.uid;
       event['dimensions.docTitle'] = e.doc.title;
+      event['dimensions.docType'] = e.doc.type;
+      this.trackEvent(visit);
     }
-    event['dimensions.userEvent'] = 'Pageview';
     this.event$.next(event);
   }
 

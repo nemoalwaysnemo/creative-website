@@ -40,6 +40,7 @@ export class DocumentDialogFormComponent extends DocumentDialogContainerComponen
             event_label: `${e.action} - ${e.doc.title}`,
             'dimensions.docId': e.doc.uid,
             'dimensions.docTitle': e.doc.title,
+            'dimensions.docType': e.doc.type,
             'dimensions.userEvent': `Document ${e.action}`,
           });
           timer(2000).subscribe(_ => {
