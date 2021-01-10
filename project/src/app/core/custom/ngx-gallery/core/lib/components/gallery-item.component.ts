@@ -125,6 +125,7 @@ export class GalleryItemComponent {
   onCustomEvent(event: any): void {
     event['uid'] = this.data.uid;
     event['title'] = this.data.title;
+    event['docType'] = this.data.docType;
     this.customEvent.emit(event);
   }
 

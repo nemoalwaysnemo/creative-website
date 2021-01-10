@@ -78,10 +78,10 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
     const items: any[] = [];
     for (const doc of entiries) {
       if (doc.isVideo() && doc.hasVideoContent()) {
-        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.thumbnailUrl, poster: doc.videoPoster, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.thumbnailUrl, poster: doc.videoPoster, title: doc.title, uid: doc.uid, docType: doc.type, description: doc.get('dc:description'), doc });
       } else if (doc.isPicture()) {
         const url = doc.attachedImage;
-        items.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), doc });
+        items.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, docType: doc.type, description: doc.get('dc:description'), doc });
       }
     }
     return items;
@@ -99,6 +99,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
         event_label: `Gallery Item Preview - ${doc.title}`,
         'dimensions.docId': doc.uid,
         'dimensions.docTitle': doc.title,
+        'dimensions.docType': doc.type,
         'dimensions.userEvent': 'Backslash Home Gallery Item Preview',
       });
     }

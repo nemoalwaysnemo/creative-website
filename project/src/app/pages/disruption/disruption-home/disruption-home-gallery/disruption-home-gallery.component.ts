@@ -63,10 +63,10 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
     const items = new Array();
     for (const doc of entiries) {
       if (doc.isVideo() && doc.hasVideoContent()) {
-        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.attachedImage, poster: doc.attachedImage, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), link: this.getUrl(doc.get('app_Edges:URL')) });
+        items.push({ src: doc.getCarouselVideoSources(), thumb: doc.attachedImage, poster: doc.attachedImage, title: doc.title, uid: doc.uid, docType: doc.type, description: doc.get('dc:description'), link: this.getUrl(doc.get('app_Edges:URL')) });
       } else if (doc.isPicture()) {
         const url = doc.attachedImage;
-        items.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, description: doc.get('dc:description'), link: this.getUrl(doc.get('app_Edges:URL')) });
+        items.push({ src: url, thumb: url, title: doc.title, uid: doc.uid, docType: doc.type, description: doc.get('dc:description'), link: this.getUrl(doc.get('app_Edges:URL')) });
       }
     }
     return items;

@@ -62,6 +62,7 @@ export class DocumentPageService {
       event_label: label,
       'dimensions.docId': doc.uid,
       'dimensions.docTitle': doc.title,
+      'dimensions.docType': doc.type,
       'dimensions.userEvent': action,
     });
   }

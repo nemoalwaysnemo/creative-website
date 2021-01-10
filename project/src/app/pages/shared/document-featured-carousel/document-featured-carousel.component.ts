@@ -65,6 +65,7 @@ export class DocumentFeaturedCarouselComponent implements OnInit, OnDestroy {
         event_label: `${module} Gallery Item Preview - ${doc.title}`,
         'dimensions.docId': doc.uid,
         'dimensions.docTitle': doc.title,
+        'dimensions.docType ': doc.type,
         'dimensions.userEvent': `${module} Gallery Item Preview`,
       });
     }
