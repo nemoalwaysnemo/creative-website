@@ -76,7 +76,7 @@
             <table>
               <tbody *ngFor="let attachment of attachments">
                 <tr>
-                  <td><a href="{{ attachment.url }}" class="download-btn">{{ attachment.title }}</a></td>
+                  <td><a href="{{ attachment.url }}" (click)="googleAnalyticsTrackLink(document, 'Download', 'Attachment', attachment.title)" class="download-btn">{{ attachment.title }}</a></td>
                 </tr>
               </tbody>
             </table>
