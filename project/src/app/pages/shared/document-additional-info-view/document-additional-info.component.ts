@@ -2,6 +2,7 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes } from '@core/services/helpers';
+import { DocumentPageService } from '../services/document-page.service';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -30,12 +31,17 @@ export class DocumentAdditionalInfoComponent implements OnInit {
     }
   }
 
-  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {
-
-  }
+  constructor(
+    private documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) { }
 
   ngOnInit(): void {
 
+  }
+
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = '', title: string = ''): void {
+    this.documentPageService.googleAnalyticsTrackLink(doc, category, type, title);
   }
 
   openDialog(dialog: TemplateRef<any>): void {
