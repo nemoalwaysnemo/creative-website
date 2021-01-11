@@ -15,6 +15,7 @@ export class LearningProgramListComponent extends BaseDocumentViewComponent {
   documents: DocumentModel[] = [];
 
   private params: any = {
+    pageSize: 5,
     currentPageIndex: 0,
     ecm_path: NUXEO_PATH_INFO.LEARNING_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_ASSET_TYPE,
