@@ -25,8 +25,8 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
   subHead: string = 'Material to help inspire and accelerate innovation';
 
   assetUrlMapping: any = {
-    'App-Innovation-Folder': this.documentMapFunc,
-    'App-Innovation-Asset': this.documentMapFunc,
+    'App-Innovation-Folder': this.documentMapFn,
+    'App-Innovation-Asset': this.documentMapFn,
     '*': '/p/innovation/asset',
   };
 
@@ -125,7 +125,7 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
     });
   }
 
-  documentMapFunc(doc: DocumentModel): string {
+  documentMapFn(doc: DocumentModel): string {
     let url: string;
     if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
       url = '/p/innovation/NEXT/folder';

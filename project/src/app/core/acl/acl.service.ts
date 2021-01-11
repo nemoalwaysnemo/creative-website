@@ -37,13 +37,13 @@ export class ACLService {
   }
 
   filterRouterTabs(tabs: any[], document?: DocumentModel): Observable<any[]> {
-    tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } if (!x.aclFunc) { x.aclFunc = (doc: DocumentModel, advanceSearchService: AdvanceSearchService): Observable<boolean> => observableOf(true); } });
+    tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } if (!x.aclFn) { x.aclFn = (doc: DocumentModel, advanceSearchService: AdvanceSearchService): Observable<boolean> => observableOf(true); } });
     return this.permissionsService.permissions$.pipe(
       filter(_ => Object.keys(_).length !== 0),
       switchMap(_ => forkJoin([
         ...tabs.map((x: any) => zip(
           this.permissionsService.hasPermission(x.acl),
-          this.cacheService.get(`ACL.RouterTab-${x.title}`, x.aclFunc.call(this, document, this.advanceSearchService)),
+          this.cacheService.get(`ACL.RouterTab-${x.title}`, x.aclFn.call(this, document, this.advanceSearchService)),
         )),
       ]).pipe(
         map((r: any[]) => {

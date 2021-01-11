@@ -202,9 +202,9 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     if (!isValueEmpty(params)) {
       for (const key in params) {
         if (params.hasOwnProperty(key)) {
-          const func = this.allowedSettingsParams[key];
-          if (func) {
-            this.searchFormSettings[key] = func.call(this, params[key]);
+          const fn = this.allowedSettingsParams[key];
+          if (fn) {
+            this.searchFormSettings[key] = fn.call(this, params[key]);
           }
         }
       }
