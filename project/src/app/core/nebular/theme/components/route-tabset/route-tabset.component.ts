@@ -76,7 +76,7 @@ import { convertToBoolProperty } from '../helpers';
             </li>
           </ng-container>
 
-          <ng-container *ngSwitchCase="!!tab.activeFunc">
+          <ng-container *ngSwitchCase="!!tab.activeFn">
             <li (click)="$event.preventDefault(); selectTab(tab)"
                   [routerLink]="tab.route"
                   [class.active]="isActive(tab)"
@@ -148,6 +148,6 @@ export class NbRouteTabsetComponent {
   }
 
   isActive(tab: any): boolean {
-    return tab.activeFunc && tab.activeFunc(window.location.href);
+    return tab.activeFn && tab.activeFn(window.location.href);
   }
 }
