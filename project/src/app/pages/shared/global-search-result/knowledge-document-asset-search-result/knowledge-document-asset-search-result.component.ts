@@ -22,6 +22,13 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     enableKnowledgeRelated: true,
   };
 
+  disruptionXdialogMetadata: any = {
+    formMode: 'edit',
+    enableEdit: true,
+    moreInfo: false,
+    enableThumbnailImg: true,
+  };
+
   getDialogSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const type = this.getAssetType(doc);
     const components: Type<DocumentModelForm>[] = [];
@@ -47,19 +54,17 @@ export class KnowledgeDocumentAssetSearchResultComponent {
       case 'Backslash':
         if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
           main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_KNOWLEDGE_ASSET;
-          break;
         } else {
           main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_ASSET;
-          break;
         }
+        break;
       case 'Disruption':
-        if (NUXEO_DOC_TYPE.DISRUPTION_X_TYPE.includes(doc.type)) {
-            main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X;
-            break;
-          } else {
-            main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
-            break;
-          }
+        if (this.isDisruptionX(doc)) {
+          main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X;
+        } else {
+          main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
+        }
+        break;
       case 'Intelligence':
         main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_INTELLIGENCE_ASSET;
         break;
@@ -76,6 +81,10 @@ export class KnowledgeDocumentAssetSearchResultComponent {
         break;
     }
     return new GlobalDocumentDialogSettings({ components, main });
+  }
+
+  isDisruptionX(doc: DocumentModel): boolean {
+    return NUXEO_DOC_TYPE.DISRUPTION_X_TYPE.includes(doc.type);
   }
 
   getAssetType(doc: DocumentModel): string {

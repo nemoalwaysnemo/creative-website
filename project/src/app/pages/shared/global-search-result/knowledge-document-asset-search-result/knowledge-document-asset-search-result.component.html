@@ -15,6 +15,6 @@
     </div>
   </div>
   <ng-template #dialog>
-    <global-document-dialog [settings]="getDialogSettings(doc)" [documentModel]="doc" [title]="getTitle(doc)" [metadata]="dialogMetadata"></global-document-dialog>
+    <global-document-dialog [settings]="getDialogSettings(doc)" [documentModel]="doc" [title]="getTitle(doc)" [metadata]=" isDisruptionX(doc) ? disruptionXdialogMetadata : dialogMetadata"></global-document-dialog>
   </ng-template>
 </ng-template>
