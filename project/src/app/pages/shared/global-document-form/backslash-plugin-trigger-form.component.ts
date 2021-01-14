@@ -30,7 +30,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
 
   private updateUserPreference(doc: DocumentModel, preference: any = {}): DocumentModel {
     const properties = Object.assign({}, doc.properties, {
-      'The_Loupe_Main:agency': preference['backslash-chrome-user-agency'],
+      // 'The_Loupe_Main:agency': preference['backslash-chrome-user-agency'],
       'app_Edges:Relevant_Country': this.convertPreferenceListValue(preference['backslash-chrome-user-country']),
       'app_Edges:spotter_handle': this.convertPreferenceListValue(preference['backslash-chrome-user-spotter-handle']),
     });
@@ -95,17 +95,17 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           providerName: 'App-Edges-Edges',
         },
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:agency',
-        label: 'Agency',
-        required: true,
-        settings: {
-          multiple: false,
-          placeholder: 'Please select agency',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Agencies',
-        },
-      }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'The_Loupe_Main:agency',
+      //   label: 'Agency',
+      //   required: true,
+      //   settings: {
+      //     multiple: false,
+      //     placeholder: 'Please select agency',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'GLOBAL_Agencies',
+      //   },
+      // }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Category',
@@ -115,12 +115,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Backslash-Categories',
         },
-      }),
-      new DynamicTextAreaModel({
-        id: 'app_Edges:insight',
-        label: 'Key Insight',
-        rows: 5,
-        required: true,
       }),
       new DynamicSuggestionModel({
         id: 'app_Edges:format',
@@ -142,12 +136,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           providerName: 'GLOBAL_Geography_TBWA',
         },
       }),
-      new DynamicTextAreaModel({
-        id: 'app_Edges:trigger_text',
-        label: 'Trigger Summary',
-        rows: 5,
-        required: true,
-      }),
       new DynamicOptionTagModel({
         id: 'The_Loupe_Main:brand',
         label: 'Brand(s)',
@@ -155,10 +143,28 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         required: false,
       }),
       new DynamicTextAreaModel({
-        id: 'app_Edges:URL',
-        label: 'Web Link',
+        id: 'app_Edges:insight',
+        label: 'Key Insight',
         rows: 5,
         required: true,
+      }),
+      new DynamicTextAreaModel({
+        id: 'app_Edges:trigger_text',
+        label: 'Trigger Summary',
+        rows: 5,
+        required: true,
+      }),
+      new DynamicTextAreaModel({
+        id: 'app_Edges:URL',
+        label: 'Main Link',
+        rows: 5,
+        required: true,
+      }),
+      new DynamicTextAreaModel({
+        id: 'app_Edges:trigger_support_links',
+        label: 'Additional Links',
+        rows: 5,
+        required: false,
       }),
       new DynamicGalleryUploadModel<string>({
         id: 'galleryUpload',

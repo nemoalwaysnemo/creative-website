@@ -2,8 +2,9 @@
 
     <textarea class="form-control"
               [class.is-invalid]="showErrorMessages"
-              [cols]="model.cols"
+              [class.is-empty]="!model.value"
               [formControlName]="model.field"
+              [cols]="model.cols"
               [id]="id"
               [maxlength]="model.maxLength"
               [minlength]="model.minLength"
