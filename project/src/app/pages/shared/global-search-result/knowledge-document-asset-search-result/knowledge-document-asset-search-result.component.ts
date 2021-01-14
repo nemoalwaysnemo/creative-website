@@ -40,6 +40,8 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     components.push(GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST);
     // 'Backslash Asset'
     components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_KNOWLEDGE_ASSET);
+    // 'DisruptionX Asset'
+    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X);
     let main = null;
     switch (type) {
       case 'Backslash':
@@ -51,8 +53,13 @@ export class KnowledgeDocumentAssetSearchResultComponent {
           break;
         }
       case 'Disruption':
-        main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
-        break;
+        if (NUXEO_DOC_TYPE.DISRUPTION_X_TYPE.includes(doc.type)) {
+            main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X;
+            break;
+          } else {
+            main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
+            break;
+          }
       case 'Intelligence':
         main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_INTELLIGENCE_ASSET;
         break;
