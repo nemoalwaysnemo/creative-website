@@ -24,7 +24,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
 
   disruptionXdialogMetadata: any = {
     formMode: 'edit',
-    enableEdit: true,
+    enableEdit: false,
     moreInfo: false,
     enableThumbnailImg: true,
   };
@@ -46,17 +46,17 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET);
     components.push(GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST);
     // 'Backslash Asset'
-    components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_KNOWLEDGE_ASSET);
+    // components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_KNOWLEDGE_ASSET);
     // 'DisruptionX Asset'
     components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X);
     let main = null;
     switch (type) {
       case 'Backslash':
-        if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
-          main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_KNOWLEDGE_ASSET;
-        } else {
-          main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_ASSET;
-        }
+        // if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
+        //   main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_KNOWLEDGE_ASSET;
+        // } else {
+        // }
+        main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_ASSET;
         break;
       case 'Disruption':
         if (this.isDisruptionX(doc)) {
@@ -99,7 +99,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     let title = '';
     if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
       title = 'Creative';
-    } else if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPES.includes(doc.type)) {
+    } else if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
       title = 'Backslash';
     } else if (NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE.includes(doc.type)) {
       title = 'Intelligence';

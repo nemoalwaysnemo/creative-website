@@ -20,7 +20,7 @@ export class BackslashDocumentAssetSearchComponent extends BaseDocumentViewCompo
     ecm_fulltext: '',
     app_edges_active_article: true,
     ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPES,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE,
   };
 
   filters: SearchFilterModel[] = [

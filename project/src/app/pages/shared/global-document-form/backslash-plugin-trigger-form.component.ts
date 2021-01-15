@@ -23,15 +23,15 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
   }
 
   private getUserSimplePreference(doc: DocumentModel): Observable<any> {
-    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-spotter-handle').pipe(
+    return this.documentPageService.getCache('User.SimplePreference', this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-spotter-handle').pipe(
       map((preference: any) => this.updateUserPreference(doc, preference.value)),
-    );
+    ));
   }
 
   private updateUserPreference(doc: DocumentModel, preference: any = {}): DocumentModel {
     const properties = Object.assign({}, doc.properties, {
       // 'The_Loupe_Main:agency': preference['backslash-chrome-user-agency'],
-      'app_Edges:Relevant_Country': this.convertPreferenceListValue(preference['backslash-chrome-user-country']),
+      // 'app_Edges:Relevant_Country': this.convertPreferenceListValue(preference['backslash-chrome-user-country']),
       'app_Edges:spotter_handle': this.convertPreferenceListValue(preference['backslash-chrome-user-spotter-handle']),
     });
     return new DocumentModel({ path: doc.path, type: this.getDocType(), properties });
@@ -116,16 +116,16 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           providerName: 'App-Backslash-Categories',
         },
       }),
-      new DynamicSuggestionModel({
-        id: 'app_Edges:format',
-        label: 'Format',
-        required: true,
-        settings: {
-          placeholder: 'Please select format',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Backslash-Type',
-        },
-      }),
+      // new DynamicSuggestionModel({
+      //   id: 'app_Edges:format',
+      //   label: 'Format',
+      //   required: true,
+      //   settings: {
+      //     placeholder: 'Please select format',
+      //     providerType: SuggestionSettings.DIRECTORY,
+      //     providerName: 'App-Backslash-Type',
+      //   },
+      // }),
       new DynamicSuggestionModel({
         id: 'app_Edges:Relevant_Country',
         label: 'Relevant Country',
