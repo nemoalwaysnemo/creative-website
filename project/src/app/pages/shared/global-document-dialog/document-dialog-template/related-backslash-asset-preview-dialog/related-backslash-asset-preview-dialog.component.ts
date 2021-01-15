@@ -4,6 +4,7 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { NUXEO_PATH_INFO } from '@environment/environment';
+import { matchAssetUrl } from '@core/services/helpers';
 
 @Component({
   selector: 'related-backslash-asset-preview-dialog',
@@ -20,6 +21,14 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
 
   viewerSettings: any = {
     layout: this.getDialogSettings().docViewerLayout,
+  };
+
+  private assetUrlMapping: any = {
+    'App-Backslash-Edges-Asset': 'backslash/resource/edge/:parentRef/asset/',
+    'App-Backslash-Case-Study': 'backslash/report/folder/:parentRef/asset/',
+    'App-Backslash-Resources-Asset': 'backslash/resource/folder/:parentRef/asset/',
+    'App-Edges-Trigger': 'backslash/Trigger Pool/asset/',
+    '*': 'backslash/asset/',
   };
 
   constructor(
@@ -62,6 +71,6 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
   }
 
   private buildShareUrl(doc: DocumentModel): string {
-    return this.documentPageService.getCurrentAppUrl('backslash/asset/' + doc.uid);
+    return this.documentPageService.getCurrentAppUrl(matchAssetUrl(doc, this.assetUrlMapping) + doc.uid);
   }
 }

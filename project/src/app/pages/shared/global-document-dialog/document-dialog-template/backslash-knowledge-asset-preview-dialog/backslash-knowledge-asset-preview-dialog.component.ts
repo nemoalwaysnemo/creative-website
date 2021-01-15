@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { vocabularyFormatter } from '@core/services/helpers';
+import { matchAssetUrl, vocabularyFormatter } from '@core/services/helpers';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'backslash-knowledge-asset-preview-dialog',
@@ -21,6 +20,14 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
 
   viewerSettings: any = {
     layout: this.getDialogSettings().docViewerLayout,
+  };
+
+  private assetUrlMapping: any = {
+    'App-Backslash-Edges-Asset': 'backslash/resource/edge/:parentRef/asset/',
+    'App-Backslash-Case-Study': 'backslash/report/folder/:parentRef/asset/',
+    'App-Backslash-Resources-Asset': 'backslash/resource/folder/:parentRef/asset/',
+    'App-Edges-Trigger': 'backslash/Trigger Pool/asset/',
+    '*': 'backslash/asset/',
   };
 
   constructor(
@@ -55,15 +62,7 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
     return vocabularyFormatter(list);
   }
 
-  buildShareUrl(doc: DocumentModel): string {
-    let url: string;
-    if (doc.path.includes(NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH)) {
-      url = 'backslash/report/folder/:parentRef/asset/';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH)) {
-      url = 'backslash/edge/folder/:parentRef/asset/';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH)) {
-      url = 'backslash/resource/folder/:parentRef/asset/';
-    }
-    return this.documentPageService.getCurrentAppUrl(url.replace(':parentRef', doc.parentRef) + doc.uid);
+  private buildShareUrl(doc: DocumentModel): string {
+    return this.documentPageService.getCurrentAppUrl(matchAssetUrl(doc, this.assetUrlMapping) + doc.uid);
   }
 }

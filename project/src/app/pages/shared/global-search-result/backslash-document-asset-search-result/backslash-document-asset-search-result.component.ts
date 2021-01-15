@@ -1,10 +1,11 @@
 import { Component, Input, TemplateRef } from '@angular/core';
+import { matchAssetUrl } from '@core/services/helpers';
 import { DocumentModel } from '@core/api';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { BaseSearchResultComponent } from '../base-search-result.component';
+import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
 import { DocumentPageService } from '../../services/document-page.service';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
-import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
 
 
 @Component({
@@ -49,6 +50,14 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
     current: GLOBAL_DOCUMENT_DIALOG.PREVIEW_BACKSLASH_HOME_ASSET,
   });
 
+  assetUrlMapping: any = {
+    'App-Backslash-Edges-Asset': '/p/backslash/resource/edge/:parentRef/asset',
+    'App-Backslash-Case-Study': '/p/backslash/report/folder/:parentRef/asset',
+    'App-Backslash-Resources-Asset': '/p/backslash/resource/folder/:parentRef/asset',
+    'App-Edges-Trigger': '/p/backslash/Trigger Pool/asset',
+    '*': '/p/backslash/asset',
+  };
+
   private defaultSettings: any = {
     columns: {
       title: {
@@ -80,4 +89,9 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
+
+  getAssetUrl(doc: DocumentModel): string {
+    return matchAssetUrl(doc, this.assetUrlMapping);
+  }
+
 }
