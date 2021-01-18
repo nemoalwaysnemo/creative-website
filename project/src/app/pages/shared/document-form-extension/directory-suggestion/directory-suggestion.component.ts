@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, forwardRef, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OptionModel } from '../../option-select/option-select.interface';
 import { SuggestionSettings } from './directory-suggestion.interface';
@@ -29,6 +29,14 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   constructor(private nuxeoApi: NuxeoApiService) { }
 
+  @Input() document: DocumentModel;
+
+  @Input() settings: SuggestionSettings = new SuggestionSettings();
+
+  @Output() blur: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   options$: BehaviorSubject<OptionModel[]> = new BehaviorSubject<OptionModel[]>([]);
@@ -38,10 +46,6 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   selectedItems: OptionModel[] = [];
 
   placeholder: string = '';
-
-  @Input() document: DocumentModel;
-
-  @Input() settings: SuggestionSettings = new SuggestionSettings();
 
   private stack: string[] = [];
 
@@ -85,7 +89,12 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   }
 
   onBlur(event: any): void {
-    if ((this.selectedItems.length < 1 && this.selectedItems) || !this.selectedItems) { this._onTouched(); }
+    if (!this.selectedItems || (this.selectedItems.length < 1 && this.selectedItems)) { this._onTouched(); }
+    this.blur.emit(event);
+  }
+
+  onFocus(event: any): void {
+    this.focus.emit(event);
   }
 
   writeValue(val: any): void {

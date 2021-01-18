@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -15,12 +15,20 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class OptionTagComponent implements ControlValueAccessor {
 
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
   @Input()
   set items(items: string[]) {
     if (items) {
       this.options$ = new BehaviorSubject(items);
     }
   }
+
+  @Input() placeholder: string;
+
+  @Output() blur: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   visible: boolean = true;
 
@@ -32,10 +40,6 @@ export class OptionTagComponent implements ControlValueAccessor {
 
   tags: string[] = [];
 
-  @Input() placeholder: string;
-
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
   options$: Observable<string[]>;
 
   private _onChange = (_) => { };
@@ -44,6 +48,11 @@ export class OptionTagComponent implements ControlValueAccessor {
 
   onBlur(event: any): void {
     if ((this.tags && this.tags.length < 1) || !this.tags) { this._onTouched(); }
+    this.blur.emit(event);
+  }
+
+  onFocus(event: any): void {
+    this.focus.emit(event);
   }
 
   add(event: any): void {
