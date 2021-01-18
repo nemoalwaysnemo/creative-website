@@ -84,6 +84,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   onBlur(event: any): void {
     // console.log(`BLUR event on ${event.model.field}: `, event);
+    this.callback.emit(new DocumentFormEvent({ action: 'onBlur', status: this.formStatus$.value, doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
   }
 
   onChange(event: any): void {

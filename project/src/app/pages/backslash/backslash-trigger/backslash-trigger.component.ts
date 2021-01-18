@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NuxeoDocumentUrl } from '@core/services/helpers';
 import { DocumentModel, NuxeoAutomations } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DocumentFormEvent, DocumentFormStatus } from '../../shared/document-form/document-form.interface';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/environment';
-import { NuxeoDocumentUrl } from '@core/services/helpers';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-trigger',
