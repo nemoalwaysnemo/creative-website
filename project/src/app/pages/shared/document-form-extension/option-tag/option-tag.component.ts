@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -16,6 +16,11 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class OptionTagComponent implements ControlValueAccessor {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  @HostBinding('class.is-empty')
+  get isEmpty(): boolean {
+    return !this.tags || this.tags.length === 0;
+  }
 
   @Input()
   set items(items: string[]) {
