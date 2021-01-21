@@ -2,12 +2,19 @@ export class GalleryImageItem {
   selected: boolean = false;
   uploding: boolean = false;
   uploaded: boolean = false;
+  private file: File;
   private src: string;
   private name: string;
   private dataUrl: string;
 
   constructor(data: any = {}) {
-    Object.assign(this, data);
+    if (data instanceof File) {
+      this.file = data;
+      this.name = data.name;
+      this.dataUrl = URL.createObjectURL(data);
+    } else {
+      Object.assign(this, data);
+    }
   }
 
   getName(): string {
@@ -23,7 +30,7 @@ export class GalleryImageItem {
   }
 
   getFile(): File {
-    return this.dataUrl2File(this.dataUrl, this.getName());
+    return this.file || this.dataUrl2File(this.dataUrl, this.getName());
   }
 
   private dataUrl2File(dataUrl: string, filename: string, type?: string): File {
@@ -48,6 +55,8 @@ export class GalleryUploadStatus {
 
   uploading: boolean = false;
 
+  itemChanged: boolean = false;
+
   constructor(data: any = {}) {
     this.update(data);
   }
@@ -63,9 +72,18 @@ export class GalleryUploadStatus {
 }
 
 export class GalleryUploadSettings {
+
   queueLimit: number = 1;
+
+  enableClipboard: boolean = true;
+
   uploadType: 'asset' | 'attachment';
+
   formMode: 'create' | 'edit' | 'view' = 'create';
+
+  clipboardPlaceholder: string = 'You can also take a screenshot, click this box and paste it in.';
+
+  errorMessage: string = 'Sorry, we could not fetch any images. Please use the Screenshot or Upload feature.';
 
   constructor(data: any = {}) {
     Object.assign(this, data);

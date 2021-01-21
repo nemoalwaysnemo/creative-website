@@ -72,8 +72,11 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   writeValue(images: any): void {
-    if (!isValueEmpty(images)) {
-      this.imageItems$.next(images);
+    if (images !== null) {
+      this.updateUploadStatus({ itemChanged: true });
+      if (!isValueEmpty(images)) {
+        this.imageItems$.next(images);
+      }
     }
   }
 
@@ -124,6 +127,24 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     this.gallery.moveRight();
   }
 
+  onPaste(e: ClipboardEvent): void {
+    if (this.uploadSettings.enableClipboard) {
+      this.imageItems$.next(this.getClipboardImages(e));
+    }
+  }
+
+  private getClipboardImages(event: ClipboardEvent): GalleryImageItem[] {
+    const files: GalleryImageItem[] = [];
+    const items: FileList = event.clipboardData.files;
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.includes('image')) {
+        files.push(new GalleryImageItem(items[i]));
+      }
+    }
+    return files;
+  }
+
   private onUploadFiles(): void {
     const subscription = this.blobs$.pipe(
       mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob)),
@@ -139,7 +160,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
       this.galleryUploadSettings$,
     ]).subscribe(([items, settings]: [GalleryImageItem[], GalleryUploadSettings]) => {
       this.uploadSettings = settings;
-      this.uploadItems = this.buildGalleryImageItem(items, settings);
+      this.uploadItems = this.buildGalleryImageItem(items, settings).concat(this.uploadItems.concat());
     });
     this.subscription.add(subscription);
   }
@@ -178,7 +199,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   private buildGalleryImageItem(images: any[], settings: GalleryUploadSettings): NuxeoUploadResponse[] {
     return (images || []).map((x: any) => {
-      const item = new GalleryImageItem(x);
+      const item = x instanceof GalleryImageItem ? x : new GalleryImageItem(x);
       return new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: item.getFile(), uploadFileType: settings.uploadType, formMode: settings.formMode }), item });
     });
   }
