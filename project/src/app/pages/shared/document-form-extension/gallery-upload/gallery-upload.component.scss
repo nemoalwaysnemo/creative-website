@@ -1,6 +1,12 @@
 ::ng-deep .drag-scroll-container {
+  font-family: "Averta for TBWA W01 Regular", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: #4b4b4b;
   height: 300px !important;
-  // border: dotted 3px lightgray;
+  .clipboard-zone {
+    font-size: 20px;
+    margin: 150px auto;
+    text-align: center
+  }
 }
 
 .picture-select {
@@ -31,7 +37,7 @@
 .next a {
   display: block;
   width: 17px;
-  height: 200px;
+  height: 300px;
 }
 .prev a {
   background: url('/assets/images/scroll_arrow_prev.png') no-repeat center center;
