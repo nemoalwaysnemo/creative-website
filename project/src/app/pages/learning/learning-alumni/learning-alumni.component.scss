@@ -1,3 +1,7 @@
+@import '../../../theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '../../../core/nebular/theme/styles/global/breakpoints';
+@import '../../shared/global-search-result/thumbnail-view.scss';
 .alumni-title {
 	height: 100px;
     font-size: 40px;
