@@ -77,6 +77,18 @@ export class BackslashCaseStudyAssetFormComponent extends GlobalDocumentFormComp
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
       }),
+      new DynamicSuggestionModel<string>({
+        id: 'app_Edges:report_region',
+        label: 'Report Region',
+        required: true,
+        settings: {
+          placeholder: 'select a value',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Backslash-Report-Regions',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+      }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
