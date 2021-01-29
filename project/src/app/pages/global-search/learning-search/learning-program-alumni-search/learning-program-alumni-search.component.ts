@@ -5,6 +5,7 @@ import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base
 
 @Component({
   selector: 'learning-program-alumni-search',
+  styleUrls: ['./learning-program-alumni-search.component.scss'],
   templateUrl: './learning-program-alumni-search.component.html',
 })
 export class LearningProgramAlumniSearchComponent extends BaseDocumentViewComponent {
