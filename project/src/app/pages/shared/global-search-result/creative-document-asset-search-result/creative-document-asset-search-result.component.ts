@@ -96,6 +96,7 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
     moreInfo: true,
     enablePreview: true,
     enableDetail: true,
+    enableKnowledgeRelated: true,
   };
 
   listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {

@@ -11,10 +11,19 @@
 
   <ng-container *ngIf="doc.type === 'App-BizDev-Thought-Asset'">
     <div class="image-holder">
-      <a [routerLink]="['/p/business-development/Thought Leadership/folder', folderId, 'asset', doc.uid ]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+      <ng-container *ngIf="showDialog">
+        <a (click)="openDialog(dialog)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+      </ng-container>
+      <ng-container *ngIf="!showDialog">
+        <a [routerLink]="['/p/business-development/Thought Leadership/folder', folderId, 'asset', doc.uid ]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+      </ng-container>
     </div>
     <div class="description">
       <h1 [title]="doc.title"><a [routerLink]="['/p/business-development/Thought Leadership/folder', folderId, 'asset', doc.uid ]" [queryParams]="queryParams">{{doc.title}}</a></h1>
     </div>
   </ng-container>
+
+  <ng-template #dialog>
+    <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="dialogTitle" [metadata]="dialogMetadata"></global-document-dialog>
+  </ng-template>
 </ng-template>
