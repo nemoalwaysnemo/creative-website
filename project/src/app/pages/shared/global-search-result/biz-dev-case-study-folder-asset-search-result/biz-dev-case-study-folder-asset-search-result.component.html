@@ -16,7 +16,12 @@
     <ng-container *ngSwitchCase="'App-BizDev-CaseStudy-Asset'">
       <div class="thumbnail-view-item">
         <div class="image-holder">
-          <a [routerLink]="['/p/business-development/Case Studies/folder', folderId, 'asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          <ng-container *ngIf="showDialog">
+            <a (click)="openDialog(dialog)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          </ng-container>
+          <ng-container *ngIf="!showDialog">
+            <a [routerLink]="['/p/business-development/Case Studies/folder', folderId, 'asset', doc.uid]" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          </ng-container>
         </div>
         <div class="description">
           <h1 [title]="doc.title"><a [routerLink]="['/p/business-development/Case Studies/folder', folderId, 'asset', doc.uid]">{{doc.title}}</a></h1>
@@ -28,6 +33,8 @@
         </div>
       </div>
     </ng-container>
-
+    <ng-template #dialog>
+      <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="dialogTitle" [metadata]="dialogMetadata"></global-document-dialog>
+    </ng-template>
   </ng-container>
 </ng-template>

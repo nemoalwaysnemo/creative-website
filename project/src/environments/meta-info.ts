@@ -70,6 +70,7 @@ export enum NUXEO_DOC_TYPE {
   BIZ_DEV_THOUGHT_LEADERSHIP_ASSET_TYPE = '["App-BizDev-Thought-Asset"]',
   BIZ_DEV_THOUGHT_LEADERSHIP_SUB_FOLDER_TYPE = '["App-BizDev-Thought-Folder", "App-BizDev-Thought-Asset"]',
   BIZ_DEV_SUB_FOLDER_TYPES = '["App-BizDev-Case-Studies-Folder", "App-BizDev-ThoughtLeadership-Folder"]',
+  BIZ_DEV_CASE_THOUGHT_FOLDER = '["App-BizDev-CaseStudy-Folder", "App-BizDev-Thought-Folder"]',
   BIZ_DEV_SEARCH_TYPE = '["App-BizDev-CaseStudy-Folder", "App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Folder", "App-BizDev-Thought-Asset"]',
   BIZ_DEV_FOLDER_TYPE = '["App-BizDev-Folder"]',
   BIZ_DEV_ASSET_TYPE = '["App-BizDev-CaseStudy-Asset", "App-BizDev-Thought-Asset"]',
