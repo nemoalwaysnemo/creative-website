@@ -26,6 +26,7 @@ import {
   DocumentUsageRightsStatusModule,
   DocumentRelatedDisruptionXModule,
   DocumentLearningProgramInfoModule,
+  DocumentLearningCategoryInfoModule,
 } from './';
 
 const EXPORTS = [
@@ -55,6 +56,7 @@ const EXPORTS = [
   DocumentFeaturedCarouselModule,
   DocumentUsageRightsStatusModule,
   DocumentLearningProgramInfoModule,
+  DocumentLearningCategoryInfoModule,
 ];
 
 @NgModule({

@@ -1,0 +1,7 @@
+<ng-container *ngIf="docs && docs.length !== 0">
+	<div [nbSpinner]="loading" nbSpinnerStatus="disabled">
+		<div *ngFor="let doc of docs" id="category{{doc.uid}}">
+			<document-learning-category-info [document]="doc"></document-learning-category-info>
+		</div>
+	</div>
+</ng-container>
