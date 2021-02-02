@@ -8,15 +8,12 @@ import { DocumentModel } from '@core/api';
 })
 export class LearningProgramCategoryListComponent {
 
-  loading: boolean = true;
-
   docs: DocumentModel[] = [];
 
   @Input()
   set documents(docs: DocumentModel[]) {
     if (docs) {
       this.docs = docs;
-      this.loading = false;
     }
   }
 }
