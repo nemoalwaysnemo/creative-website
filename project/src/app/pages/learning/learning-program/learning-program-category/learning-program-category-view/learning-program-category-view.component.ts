@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'learning-program-category-view',
@@ -8,6 +9,10 @@ import { DocumentModel } from '@core/api';
 })
 export class LearningProgramCategoryViewComponent {
 
+  constructor(
+    private viewportScroller: ViewportScroller,
+  ) {
+  }
   loading: boolean = true;
 
   docs: DocumentModel[] = [];
@@ -20,7 +25,8 @@ export class LearningProgramCategoryViewComponent {
     }
   }
 
-  scrollToDocument(doc: any): string {
-    return '#/p/learning/program#' + doc.title;
+  scrollToDocument(doc: any): void {
+    this.viewportScroller.scrollToAnchor(doc.title);
+    window.scrollTo(window.scrollX, window.scrollY - 131);
   }
 }
