@@ -7,6 +7,7 @@ import { LearningProgramMapModule } from './learning-program-map/learning-progra
 import { LearningProgramVideoModule } from './learning-program-video/learning-program-video.module';
 import { LearningProgramHeaderModule } from './learning-program-header/learning-program-header.module';
 import { LearningProgramCategoryModule } from './learning-program-category/learning-program-category.module';
+import { LearningProgramButtonModule } from './learning-program-button/learning-program-button.module';
 import { DocumentViewerModule } from '@pages/shared/document-viewer/document-viewer.module';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { DocumentViewerModule } from '@pages/shared/document-viewer/document-vie
     LearningProgramVideoModule,
     LearningProgramHeaderModule,
     LearningProgramCategoryModule,
+    LearningProgramButtonModule,
     DocumentViewerModule,
   ],
   declarations: [
