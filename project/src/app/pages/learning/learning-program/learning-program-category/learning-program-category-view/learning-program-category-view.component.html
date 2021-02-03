@@ -1,0 +1,12 @@
+<div class="category-header">
+	<h2 class="title">BROWSE BY LEVEL:</h2>
+</div>
+<ng-container *ngIf="docs && docs.length !== 0">
+	<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="category-view-all">
+		<div *ngFor="let doc of docs" class="category-view">
+			<div class="category-view-box">
+				<a href="{{scrollToDocument(doc)}}" [ngStyle]="{'background-image': 'url('+doc.img+')'}">{{ doc.title }}</a>
+			</div>
+		</div>
+	</div>
+</ng-container>

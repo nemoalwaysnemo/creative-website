@@ -23,10 +23,6 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
 
   hasGroup$: Observable<boolean> = observableOf(true);
 
-  programPhotoList: { url: string, type: string, name: string }[] = [];
-
-  programPhoto: { url: string, type: string, name: string };
-
   curriculumList: string[] = [];
 
   dateList: string[] = [];

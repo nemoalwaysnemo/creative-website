@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { SharedModule } from '@pages/shared/shared.module';
-import { LearningProgramListComponent } from './learning-program-list.component';
+import { LearningProgramCategoryViewComponent } from './learning-program-category-view.component';
 
 @NgModule({
   imports: [
@@ -9,10 +9,10 @@ import { LearningProgramListComponent } from './learning-program-list.component'
     SharedModule,
   ],
   declarations: [
-    LearningProgramListComponent,
+    LearningProgramCategoryViewComponent,
   ],
   exports: [
-    LearningProgramListComponent,
+    LearningProgramCategoryViewComponent,
   ],
 })
-export class LearningProgramListModule { }
+export class LearningProgramCategoryViewModule { }

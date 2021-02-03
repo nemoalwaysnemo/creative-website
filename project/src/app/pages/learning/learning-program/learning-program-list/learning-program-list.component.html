@@ -1,7 +1,0 @@
-<ng-container *ngIf="documents && documents.length !== 0">
-	<div [nbSpinner]="loading" nbSpinnerStatus="disabled">
-		<div *ngFor="let document of documents" id="program{{document.uid}}">
-			<document-learning-program-info [document]="document"></document-learning-program-info>
-		</div>
-	</div>
-</ng-container>

@@ -18,7 +18,7 @@
     }
     .showcase-area {
       p {
-        width: calc(100% - 100px) !important;
+        width: 100%;
         word-break: break-all;
         font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
         margin: 0 !important;
@@ -30,12 +30,13 @@
   }
   .photo {
     margin-top: 36px;
-    width: 45%;
+    width: 42%;
+    margin-left: 30px;
   }
 }
 .show-url {
   text-align: center;
-  padding: 0 0 40px;
+  padding: 20px 0 35px;
   a {
     display: inline-block;
     text-align: center;
