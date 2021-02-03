@@ -21,6 +21,6 @@ export class LearningProgramCategoryViewComponent {
   }
 
   scrollToDocument(doc: any): string {
-    return '#/p/learning/program#category' + doc.uid;
+    return '#/p/learning/program#' + doc.title;
   }
 }
