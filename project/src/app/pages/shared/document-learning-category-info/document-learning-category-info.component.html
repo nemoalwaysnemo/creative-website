@@ -1,21 +1,21 @@
 <ng-container *ngIf="doc">
-	<div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="learning-category-info-main">
-		<div class="category-header">
-			<h2 class="left">{{ doc.title }}</h2>
-		</div>
-		<ng-container *ngIf="documents && documents.length !== 0">
-			<div *ngFor="let document of documents" class="category-body">
-				<nb-accordion class="accordion">
-					<nb-accordion-item class="accordion-item">
-						<nb-accordion-item-header class="accordion-item-header">
-							<span>{{document.title}}</span>
-						</nb-accordion-item-header>
-						<nb-accordion-item-body class="accordion-item-body">
-							<document-learning-program-info [document]="document"></document-learning-program-info>
-						</nb-accordion-item-body>
-					</nb-accordion-item>
-				</nb-accordion>
-			</div>
-		</ng-container>
-	</div>
+  <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="learning-category-info-main">
+    <div class="category-header">
+      <h2 class="left">{{ doc.title }}</h2>
+    </div>
+    <ng-container *ngIf="documents && documents.length !== 0">
+      <div *ngFor="let document of documents" class="category-body">
+        <nb-accordion class="accordion">
+          <nb-accordion-item class="accordion-item">
+            <nb-accordion-item-header class="accordion-item-header">
+              <span>{{document.title}}</span>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body class="accordion-item-body">
+              <document-learning-program-info [document]="document"></document-learning-program-info>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </div>
+    </ng-container>
+  </div>
 </ng-container>
