@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
-import { DocumentPageService } from '@pages/shared';
+import { DocumentPageService } from '../../../shared';
+import { GlobalDocumentDialogService, GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { Subscription } from 'rxjs';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -17,6 +18,17 @@ export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
 
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET] });
+
+  dialogTitle: string = 'Creative';
+
+  dialogMetadata: any = {
+    moreInfo: true,
+    enablePreview: true,
+    enableDetail: true,
+    enableKnowledgeRelated: true,
+  };
+
   private subscription: Subscription = new Subscription();
 
   private params: any = {
@@ -27,6 +39,7 @@ export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
 
   constructor(
     protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
   }
 
@@ -45,5 +58,9 @@ export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
         this.loading = false;
       });
     this.subscription.add(subscription);
+  }
+
+  openDialog(dialog: TemplateRef<any>): void {
+    this.globalDocumentDialogService.open(dialog);
   }
 }

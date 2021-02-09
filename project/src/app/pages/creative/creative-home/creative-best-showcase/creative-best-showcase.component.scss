@@ -58,10 +58,15 @@
 					}
 				}
         h1 {
-          font-size: 28px;
           margin: 25px 0 0;
-          color: #ffffff;
-        }
+					a {
+						font-family: 'Averta for TBWA W01 Extrabold', helvetica, arial;
+    				font-size: 28px;
+    				color: #ffffff;
+    				font-weight: 900;
+						&:hover { text-decoration: none; }
+					}
+				}
         .year, .client, .dot { color: #ffffff; }
         .dot { background: #ffffff; }
         .agency { color: #ffffff; }
