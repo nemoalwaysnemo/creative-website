@@ -11,6 +11,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class LearningProgramComponent extends GlobalDocumentViewComponent {
 
+  description: string = '';
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
@@ -19,7 +21,9 @@ export class LearningProgramComponent extends GlobalDocumentViewComponent {
   }
 
   onInit(): void {
-    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
+    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe(_ => {
+      this.description = this.document.get('dc:description');
+    });
     this.subscription.add(subscription);
   }
 

@@ -1,16 +1,17 @@
 .button {
-  padding: 15px 0 45px;
+  margin: 0 0 0 10px;
+  float: left;
 }
 
 .button div {
   font-size: 15px;
   width: fit-content;
   color: black;
-  background-color: #e1e1e1;
+  background-color: #fdce2a;
   margin: 0 auto;
   font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
-  padding: 5px 55px;
-  border-radius: 25px;
-  -moz-border-radius: 25px;
+  padding: 10px 35px;
+  // border-radius: 25px;
+  // -moz-border-radius: 25px;
   cursor: pointer;
 }
