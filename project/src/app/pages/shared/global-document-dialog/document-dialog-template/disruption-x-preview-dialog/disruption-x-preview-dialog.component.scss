@@ -1,6 +1,6 @@
 .text-content {
   margin-top: 10px;
-  margin-left: 80px;
+  margin-left: 60px;
   .controls {
     h2, h3, h4 {
       margin-left: 0;
@@ -34,7 +34,7 @@
   margin-left: 0 !important;
   font-size: 18px;
   width: calc(100% - 110px) !important;
-  word-break: break-all;
+  word-wrap: break-word;
   font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
 }
 
