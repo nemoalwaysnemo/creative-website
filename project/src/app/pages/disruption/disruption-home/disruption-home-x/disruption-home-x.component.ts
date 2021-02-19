@@ -34,12 +34,14 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
     enableEdit: true,
     moreInfo: false,
     enableThumbnailImg: true,
+    enableDeletion: true,
   };
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
     components: [
       GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X,
       GLOBAL_DOCUMENT_FORM.DISRUPTION_X_MODULE_ASSET_FORM,
+      GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION,
     ],
     main: GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X,
   });
