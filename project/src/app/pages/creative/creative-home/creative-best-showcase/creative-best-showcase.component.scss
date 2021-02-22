@@ -1,76 +1,76 @@
 @import '../../../shared/global-search-result/thumbnail-view.scss';
 
 .agency-thumbnail {
-	width: 100%;
-	padding: 0 30px;
-	margin-top: 45px;
-	box-sizing: border-box;
-	h1 {
-		font-family: 'Averta for TBWA W01 Black', helvetica, arial;
-		font-size: 35px;
-		margin: 0 0 44px 30px;
-		a {
-			color: #2a2a2a;
-			&:hover { text-decoration: none; }
-		}
-	}
-	.see_all {
-		font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-		font-size: 18px;
-		margin: 11px 30px 0 0;
-		color: #afafaf;
-		&:hover { color: #afafaf; }
-	}
-	.image-holder {
-		> a {
+  width: 100%;
+  padding: 0 30px;
+  margin-top: 45px;
+  box-sizing: border-box;
+  h1 {
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+    font-size: 35px;
+    margin: 0 0 44px 30px;
+    a {
+      color: #2a2a2a;
+      &:hover { text-decoration: none; }
+    }
+  }
+  .see_all {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 18px;
+    margin: 11px 30px 0 0;
+    color: #afafaf;
+    &:hover { color: #afafaf; }
+  }
+  .image-holder {
+    > a {
       .description {
-				.abs-pos {
-					position: absolute;
-					bottom: 40px;
-					left: 25px;
-				}
-				.year, .client, .dot {
-					font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-					display: inline-block;
-					vertical-align: middle;
-					font-size: 13px;
-					margin: 0;
-					color: #000000;
-				}
-				.dot {
-					width: 4px;
-					height: 4px;
-					margin: 0 5px;
-					background: #000000;
-					border-radius: 2px;
-				}
-				.agency {
-					font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
-					display: block;
-					height: 14px;
-					margin: 10px 0 0;
-					font-size: 13px;
-					color: #000000;
-					&.abs {
-						position: absolute;
-						bottom: 20px;
-						left: 25px;
-					}
-				}
+        .abs-pos {
+          position: absolute;
+          bottom: 40px;
+          left: 25px;
+        }
+        .year, .client, .dot {
+          font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 13px;
+          margin: 0;
+          color: #000000;
+        }
+        .dot {
+          width: 4px;
+          height: 4px;
+          margin: 0 5px;
+          background: #000000;
+          border-radius: 2px;
+        }
+        .agency {
+          font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+          display: block;
+          height: 14px;
+          margin: 10px 0 0;
+          font-size: 13px;
+          color: #000000;
+          &.abs {
+            position: absolute;
+            bottom: 20px;
+            left: 25px;
+          }
+        }
         h1 {
           margin: 25px 0 0;
-					a {
-						font-family: 'Averta for TBWA W01 Extrabold', helvetica, arial;
-    				font-size: 28px;
-    				color: #ffffff;
-    				font-weight: 900;
-						&:hover { text-decoration: none; }
-					}
-				}
+          a {
+            font-family: 'Averta for TBWA W01 Extrabold', helvetica, arial;
+            font-size: 28px;
+            color: #ffffff;
+            font-weight: 900;
+            &:hover { text-decoration: none; }
+          }
+        }
         .year, .client, .dot { color: #ffffff; }
         .dot { background: #ffffff; }
         .agency { color: #ffffff; }
       }
     }
-	}
+  }
 }
