@@ -19,7 +19,8 @@
   width: calc((100% - 30px * 6) / 5);
   margin-left: 30px;
   .category-view-box {
-		height: calc(100vw / 8);
+    height: calc(100vw / 8);
+    cursor: pointer;
     display: flex;
     a {
       position: relative;
