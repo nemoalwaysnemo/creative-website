@@ -265,6 +265,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private save(): void {
+    this.formStatus$.value.waitingForResponce = true;
     let documents = [];
     this.documentModel.properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
@@ -279,6 +280,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
     this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
       this.updateFormStatus({ submitted: true });
+      this.formStatus$.value.waitingForResponce = false;
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
       if (this.formSettings.resetFormAfterDone) {
         this.resetForm();
@@ -286,7 +288,12 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     });
   }
 
+  showMessageBeforeSuccess(): boolean{
+    return this.formStatus$.value.waitingForResponce;
+  }
+
   private update(): void {
+    this.formStatus$.value.waitingForResponce = true;
     let properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
       properties = this.updateAttachedFiles(properties);
@@ -301,6 +308,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
     this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
       this.updateFormStatus({ submitted: true });
+      this.formStatus$.value.waitingForResponce = false;
       this.callback.next(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
     });
   }

@@ -36,6 +36,8 @@ export class DocumentFormStatus {
 
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
+  waitingForResponce: boolean = false;
+
   constructor(data: any = {}) {
     this.update(data);
   }

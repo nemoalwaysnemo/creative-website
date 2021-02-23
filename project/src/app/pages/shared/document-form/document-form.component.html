@@ -25,5 +25,11 @@
       </div>
     </ng-container>
 
+    <ng-container *ngIf="showMessageBeforeSuccess()">
+      <div class="upload-message">
+        <p>Saving, this may take a moment.. This window will close by itsself when ready</p>
+      </div>
+    </ng-container>
+
   </ng-container>
 </div>
