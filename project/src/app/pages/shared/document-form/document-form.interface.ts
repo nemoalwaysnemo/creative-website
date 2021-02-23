@@ -36,8 +36,6 @@ export class DocumentFormStatus {
 
   uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
-  waitingForResponce: boolean = false;
-
   constructor(data: any = {}) {
     this.update(data);
   }
@@ -73,6 +71,8 @@ export class DocumentFormSettings {
   showUploadMessage: boolean = false;
 
   formMode: 'create' | 'edit' | 'view' = 'create';
+
+  submittedMessage: string = 'Saving, this may take a moment.. This window will close by itsself when ready.';
 
   buttonGroup: any[] = [
     {

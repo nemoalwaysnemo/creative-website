@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { deepExtend, isValueEmpty } from '@core/services/helpers';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, tap } from 'rxjs/operators';
 import { UserModel, DocumentModel, AdvanceSearchService, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
@@ -144,7 +144,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   showMessageAfterUpload(): boolean {
-    return this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.formMode === 'create' && this.formSettings.showUploadMessage;
+    return !this.formStatus$.value.submitted && this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.formMode === 'create' && this.formSettings.showUploadMessage;
+  }
+
+  showMessageBeforeSuccess(): boolean {
+    return this.formStatus$.value.submitted;
   }
 
   private updateFormStatus(status: any = {}): void {
@@ -265,7 +269,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private save(): void {
-    this.formStatus$.value.waitingForResponce = true;
     let documents = [];
     this.documentModel.properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
@@ -278,9 +281,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         }
       });
     }
-    this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
-      this.updateFormStatus({ submitted: true });
-      this.formStatus$.value.waitingForResponce = false;
+    this.createDocuments(documents, this.user, this.formSettings.actionOptions).pipe(
+      tap(_ => this.updateFormStatus({ submitted: true })),
+    ).subscribe((models: DocumentModel[]) => {
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
       if (this.formSettings.resetFormAfterDone) {
         this.resetForm();
@@ -288,12 +291,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  showMessageBeforeSuccess(): boolean{
-    return this.formStatus$.value.waitingForResponce;
-  }
-
   private update(): void {
-    this.formStatus$.value.waitingForResponce = true;
     let properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
       properties = this.updateAttachedFiles(properties);
@@ -306,9 +304,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
     }
 
-    this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
-      this.updateFormStatus({ submitted: true });
-      this.formStatus$.value.waitingForResponce = false;
+    this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).pipe(
+      tap(_ => this.updateFormStatus({ submitted: true })),
+    ).subscribe((model: DocumentModel) => {
       this.callback.next(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
     });
   }
