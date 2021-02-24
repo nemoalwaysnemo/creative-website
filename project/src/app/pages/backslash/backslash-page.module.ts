@@ -14,7 +14,8 @@ import { BackslashResourceFolderModule } from './backslash-resource-folder/backs
 import { BackslashCaseStudyFolderModule } from './backslash-case-study-folder/backslash-case-study-folder.module';
 import { BackslashTriggerPoolViewModule } from './backslash-trigger-pool-view/backslash-trigger-pool-view.module';
 import { BackslashRemotePageModule } from './backslash-remote-page/backslash-remote-page.module';
-import { BackslashCategoryModule } from './backslash-category/backslash-categorymodule';
+import { BackslashCategoryModule } from './backslash-category/backslash-category.module';
+import { BackslashRegionModule } from './backslash-region/backslash-region.module';
 import { BackslashTriggerModule } from './backslash-trigger/backslash-trigger.module';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { BackslashTriggerModule } from './backslash-trigger/backslash-trigger.mo
     BackslashTriggerPoolViewModule,
     BackslashRemotePageModule,
     BackslashCategoryModule,
+    BackslashRegionModule,
     BackslashTriggerModule,
   ],
   declarations: [

@@ -20,14 +20,6 @@ export class BackslashCategoryComponent extends GlobalDocumentViewComponent impl
     // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
 
-  regionAssetParams: any = {
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-    ecm_mixinType_not_in: '',
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_REGION_FOLDER_TYPE,
-  };
-
   categoryAssetParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
@@ -55,7 +47,6 @@ export class BackslashCategoryComponent extends GlobalDocumentViewComponent impl
   ngOnInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);
-    this.getRegions(this.regionAssetParams);
   }
 
   // get all matched assets and their parent folders
@@ -78,15 +69,6 @@ export class BackslashCategoryComponent extends GlobalDocumentViewComponent impl
       ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_BASE_FOLDER_TYPE,
     };
-  }
-
-  private getRegions(params: {}): void {
-    const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
-      .subscribe((res: NuxeoPagination) => {
-        this.regions = res.entries;
-        this.loading = false;
-      });
-    this.subscription.add(subscription);
   }
 
 }

@@ -16,6 +16,7 @@ import { BackslashAssetViewComponent } from './backslash-asset-view/backslash-as
 import { BackslashCaseStudyFolderComponent } from './backslash-case-study-folder/backslash-case-study-folder.component';
 import { BackslashTriggerPoolViewComponent } from './backslash-trigger-pool-view/backslash-trigger-pool-view.component';
 import { BackslashCategoryComponent } from './backslash-category/backslash-category.component';
+import { BackslashRegionComponent } from './backslash-region/backslash-region.component';
 import { BackslashTriggerComponent } from './backslash-trigger/backslash-trigger.component';
 
 const routes: Routes = [{
@@ -57,6 +58,10 @@ const routes: Routes = [{
     {
       path: 'category',
       component: BackslashCategoryComponent,
+    },
+    {
+      path: 'region',
+      component: BackslashRegionComponent,
     },
     {
       path: 'report/folder/:id',
