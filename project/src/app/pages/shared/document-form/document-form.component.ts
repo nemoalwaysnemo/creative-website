@@ -281,9 +281,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         }
       });
     }
-    this.createDocuments(documents, this.user, this.formSettings.actionOptions).pipe(
-      tap(_ => this.updateFormStatus({ submitted: true })),
-    ).subscribe((models: DocumentModel[]) => {
+    this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
       if (this.formSettings.resetFormAfterDone) {
         this.resetForm();
@@ -304,14 +302,13 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
     }
 
-    this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).pipe(
-      tap(_ => this.updateFormStatus({ submitted: true })),
-    ).subscribe((model: DocumentModel) => {
+    this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
       this.callback.next(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
     });
   }
 
   private createDocuments(documents: DocumentModel[], user: UserModel, opts: any = {}): Observable<DocumentModel[]> {
+    this.updateFormStatus({ submitted: true });
     return forkJoin(documents.map(x => this.createDocument(x, user, opts)));
   }
 
@@ -322,6 +319,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private updateDocument(doc: DocumentModel, properties: any = {}, user: UserModel, opts: any = {}): Observable<DocumentModel> {
+    this.updateFormStatus({ submitted: true });
     const updateDoc = this.beforeSave(doc, user);
     if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
       properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
