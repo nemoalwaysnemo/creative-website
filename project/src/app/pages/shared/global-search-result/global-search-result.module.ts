@@ -54,7 +54,7 @@ import { BackslashEdgesFolderAssetSearchResultComponent } from './backslash-edge
 import { BackslashTriggerPoolAssetSearchResultComponent } from './backslash-trigger-pool-asset-search-result/backslash-trigger-pool-asset-search-result.component';
 import { BackslashPipelineAssetSearchResultComponent } from './backslash-pipeline-asset-search-result/backslash-pipeline-asset-search-result.component';
 import { LearningProgramAlumniSearchResultComponent } from './learning-program-alumni-search-result/learning-program-alumni-search-result.component';
-
+import { BackslashRegionSearchResultComponent } from './backslash-region-search-result/backslash-region-search-result.component';
 const COMPONENTS = [
   BaseSearchResultComponent,
   GlobalSearchResultComponent,
@@ -105,6 +105,7 @@ const COMPONENTS = [
   BackslashEdgesFolderAssetSearchResultComponent,
   BackslashTriggerPoolAssetSearchResultComponent,
   LearningProgramAlumniSearchResultComponent,
+  BackslashRegionSearchResultComponent,
 ];
 
 @NgModule({

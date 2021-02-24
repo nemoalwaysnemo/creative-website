@@ -1,32 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
+import { ActivatedRoute } from '@angular/router';
+import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPagination, DocumentModel } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'backslash-case-study',
-  styleUrls: ['./backslash-case-study.component.scss'],
-  templateUrl: './backslash-case-study.component.html',
+  selector: 'backslash-region',
+  styleUrls: ['./backslash-region.component.scss'],
+  templateUrl: './backslash-region.component.html',
 })
-export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent implements OnInit {
+export class BackslashRegionComponent extends GlobalDocumentViewComponent implements OnInit {
 
   tabConfig: any = TAB_CONFIG;
+
+  regions: DocumentModel[] = [];
 
   filters: SearchFilterModel[] = [
     // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
 
-  folderAssetParams: any = {
+  regionAssetParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
     ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER,
+    ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_REGION_FOLDER_TYPE,
   };
 
-  reportSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
+  categorySearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
     if (searchParams.hasKeyword() || searchParams.hasFilters()) {
@@ -68,4 +70,5 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_BASE_FOLDER_TYPE,
     };
   }
+
 }

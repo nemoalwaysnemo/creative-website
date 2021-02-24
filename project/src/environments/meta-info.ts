@@ -21,6 +21,7 @@ export enum NUXEO_DOC_TYPE {
   BACKSLASH_CASE_STUDIES_ALL_FOLDER_TYPE = '["App-Backslash-Case-Study-Folder", "App-Backslash-Case-Study-Category", "App-Backslash-Case-Studies-Folder", "App-Backslash-Case-Study-Region"]',
   BACKSLASH_CASE_STUDIES_SUB_FOLDER_TYPE = '["App-Backslash-Case-Study-Folder", "App-Backslash-Case-Study", "App-Backslash-Case-Study-Category", "App-Backslash-Case-Study-Region"]',
   BACKSLASH_CASE_STUDIES_FOLDER_ASSETS = '["App-Backslash-Case-Study-Folder", "App-Backslash-Case-Study"]',
+  BACKSLASH_CASE_STUDIES_FOLDER = '["App-Backslash-Case-Study-Folder"]',
   BACKSLASH_CASE_STUDIES_ASSET_TYPE = '["App-Backslash-Case-Study"]',
   BACKSLASH_CATEGORY_FOLDER_TYPE = '["App-Backslash-Case-Study-Category"]',
   BACKSLASH_REGION_FOLDER_TYPE = '["App-Backslash-Case-Study-Region"]',

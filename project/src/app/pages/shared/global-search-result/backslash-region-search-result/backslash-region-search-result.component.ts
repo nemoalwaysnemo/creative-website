@@ -4,11 +4,11 @@ import { DocumentPageService } from '../../services/document-page.service';
 import { DocumentModel } from '@core/api';
 
 @Component({
-  selector: 'backslash-category-asset-search-result',
+  selector: 'backslash-region-search-result',
   styleUrls: ['../thumbnail-view.scss'],
-  templateUrl: './backslash-category-asset-search-result.component.html',
+  templateUrl: './backslash-region-search-result.component.html',
 })
-export class BackslashCategoryAssetSearchResultComponent extends BaseSearchResultComponent {
+export class BackslashRegionSearchResultComponent extends BaseSearchResultComponent {
 
   @Input() folderId: string;
 
