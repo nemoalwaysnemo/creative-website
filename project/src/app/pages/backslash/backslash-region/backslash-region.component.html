@@ -1,13 +1,12 @@
 <document-route-tabset [tabConfig]="tabConfig"></document-route-tabset>
-<global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="regionAssetParams"
-    [settings]="categorySearchFormSettings">
-    <ng-container class="group-left">
-        <div class="global-search-form-buttons d-flex">
-            <a [routerLink]="['/p/backslash/report']" title="Categories"><button class="icon_btn">Reports</button></a>
-            <a [routerLink]="['/p/backslash/category']" title="Categories"><button class="icon_btn">Categories</button></a>
-            <a [routerLink]="['/p/backslash/region']" title="Categories"><button class="icon_btn view_selected">Regions</button></a>
-        </div>
-    </ng-container>
+<global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="regionAssetParams" [settings]="categorySearchFormSettings">
+  <ng-container class="group-left">
+    <div class="global-search-form-buttons d-flex">
+      <a [routerLink]="['/p/backslash/report']" title="Reports"><button class="icon_btn">Reports</button></a>
+      <a [routerLink]="['/p/backslash/category']" title="Categories"><button class="icon_btn">Categories</button></a>
+      <a [routerLink]="['/p/backslash/region']" title="Regions"><button class="icon_btn view_selected">Regions</button></a>
+    </div>
+  </ng-container>
 </global-search-form>
 <backslash-region-search-result [regions]="regions" [folderId]="document?.uid">
 </backslash-region-search-result>
