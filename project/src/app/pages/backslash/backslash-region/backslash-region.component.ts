@@ -18,6 +18,7 @@ export class BackslashRegionComponent extends GlobalDocumentViewComponent implem
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
+    new SearchFilterModel({ key: 'app_edges_report_region_agg', placeholder: 'Region' }),
   ];
 
   regionAssetParams: any = {
@@ -46,7 +47,6 @@ export class BackslashRegionComponent extends GlobalDocumentViewComponent implem
 
   ngOnInit(): void {
   }
-
 
   protected buildSearchAssetsParams(searchParams: GlobalSearchParams): GlobalSearchParams {
     const params: any = {
