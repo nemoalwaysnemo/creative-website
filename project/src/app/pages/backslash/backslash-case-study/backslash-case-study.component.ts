@@ -16,6 +16,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
+    new SearchFilterModel({ key: 'app_edges_report_region_agg', placeholder: 'Region' }),
   ];
 
   folderAssetParams: any = {
