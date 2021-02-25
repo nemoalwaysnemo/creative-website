@@ -15,7 +15,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
   tabConfig: any = TAB_CONFIG;
 
   filters: SearchFilterModel[] = [
-    // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
+    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
 
   folderAssetParams: any = {
@@ -47,7 +47,6 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     this.subscription.add(subscription);
   }
 
-  // get all matched assets and their parent folders
   protected buildSearchAssetsParams(searchParams: GlobalSearchParams): GlobalSearchParams {
     const params: any = {
       currentPageIndex: searchParams.getSettings('append') ? searchParams.providerParams.currentPageIndex : 0,

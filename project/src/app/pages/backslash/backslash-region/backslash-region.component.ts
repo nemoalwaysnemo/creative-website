@@ -17,7 +17,7 @@ export class BackslashRegionComponent extends GlobalDocumentViewComponent implem
   regions: DocumentModel[] = [];
 
   filters: SearchFilterModel[] = [
-    // new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
+    new SearchFilterModel({ key: 'app_edges_backslash_category_agg', placeholder: 'Category' }),
   ];
 
   regionAssetParams: any = {
@@ -45,11 +45,9 @@ export class BackslashRegionComponent extends GlobalDocumentViewComponent implem
   }
 
   ngOnInit(): void {
-    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
-    this.subscription.add(subscription);
   }
 
-  // get all matched assets and their parent folders
+
   protected buildSearchAssetsParams(searchParams: GlobalSearchParams): GlobalSearchParams {
     const params: any = {
       currentPageIndex: searchParams.getSettings('append') ? searchParams.providerParams.currentPageIndex : 0,
@@ -60,15 +58,6 @@ export class BackslashRegionComponent extends GlobalDocumentViewComponent implem
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE,
     };
     return searchParams.setParams(params);
-  }
-
-  protected getCurrentDocumentSearchParams(): any {
-    return {
-      pageSize: 1,
-      currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_BASE_FOLDER_TYPE,
-    };
   }
 
 }
