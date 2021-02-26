@@ -32,7 +32,9 @@ export class BackslashCategoryComponent extends GlobalDocumentViewComponent impl
   categorySearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
-    if (searchParams.hasKeyword() || searchParams.hasFilters()) {
+    if (searchParams.hasFilters && searchParams.hasNoFulltextSearch()) {
+      searchParams = this.buildSearchCategoryParams(searchParams);
+    } else if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
     }
     return { searchParams, opts };
@@ -56,6 +58,18 @@ export class BackslashCategoryComponent extends GlobalDocumentViewComponent impl
       ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE,
+    };
+    return searchParams.setParams(params);
+  }
+
+  protected buildSearchCategoryParams(searchParams: GlobalSearchParams): GlobalSearchParams {
+    const params: any = {
+      currentPageIndex: searchParams.getSettings('append') ? searchParams.providerParams.currentPageIndex : 0,
+      pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
+      ecm_mixinType_not_in: '',
+      // ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CATEGORY_FOLDER_TYPE,
     };
     return searchParams.setParams(params);
   }
