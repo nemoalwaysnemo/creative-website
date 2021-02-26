@@ -30,10 +30,12 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
   reportSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
-    if (searchParams.hasKeyword() || searchParams.hasFilters()) {
-      searchParams = this.buildSearchAssetsParams(searchParams);
-    }
-    return { searchParams, opts };
+      if (searchParams.hasFilters && searchParams.hasNoFulltextSearch()) {
+        searchParams = this.buildSearchFolderParams(searchParams);
+      } else if (searchParams.hasKeyword()) {
+        searchParams = this.buildSearchAssetsParams(searchParams);
+      }
+      return { searchParams, opts };
   }
 
   constructor(
@@ -56,6 +58,18 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
       ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
       ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE,
+    };
+    return searchParams.setParams(params);
+  }
+
+  protected buildSearchFolderParams(searchParams: GlobalSearchParams): GlobalSearchParams {
+    const params: any = {
+      currentPageIndex: searchParams.getSettings('append') ? searchParams.providerParams.currentPageIndex : 0,
+      pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
+      ecm_mixinType_not_in: '',
+      // ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
+      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER,
     };
     return searchParams.setParams(params);
   }

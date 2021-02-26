@@ -338,6 +338,10 @@ export class GlobalSearchParams {
     return this.getSettings('fulltextKey') || 'ecm_fulltext';
   }
 
+  hasNoFulltextSearch(): boolean {
+    return !this.searchParams['ecm_fulltext'];
+  }
+
   toFormValues(): any {
     return Object.assign({}, this.searchParams, this.queryParams.toSearchParams());
   }
