@@ -39,7 +39,7 @@ export class DocumentLearningCategoryInfoComponent implements OnDestroy {
       ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_ASSET_TYPE,
     };
     if (doc) {
-
+      params['app_learning_program_category_agg'] = '["' + doc.uid + '"]';
     }
     return params;
   }
