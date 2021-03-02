@@ -1,7 +1,17 @@
 import { Component } from '@angular/core';
-import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
+import { NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { Subscription } from 'rxjs';
+
+export class CategoryItem {
+  readonly title: string;
+  readonly uid: string;
+  readonly img: string;
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+}
 
 @Component({
   selector: 'learning-program-category',
@@ -10,39 +20,40 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class LearningProgramCategoryComponent extends BaseDocumentViewComponent {
 
-  loading: boolean = true;
+  documents: any[] = [];
 
-  documents: any[] = [
-    { title: 'EMERGING TALENT', uid: 'EMERGING TALENT', img: '/assets/images/category_0.png' },
-    { title: 'FIRST TIME MANAGERS', uid: 'FIRST TIME MANAGERS', img: '/assets/images/category_0.png' },
-    { title: 'RISING LEADERS', uid: 'RISING LEADERS', img: '/assets/images/category_0.png' },
-    { title: 'SENIOR LEADERS', uid: 'SENIOR LEADERS', img: '/assets/images/category_0.png' },
-    { title: 'EXECUTIVE LEADERS', uid: 'EXECUTIVE LEADERS', img: '/assets/images/category_0.png' },
-  ];
+  categoryInfo: Map<string, string> = new Map<string, string>([
+    ['Emerging Talent', 'category_emerging_talent.png'],
+    ['First Time Managers', 'category_first_time_managers.png'],
+    ['Rising Leaders', 'category_rising_leaders.png'],
+    ['Senior Leaders', 'category_senior_leaders.png'],
+    ['Executive Leaders', 'category_executive_leaders.png'],
+  ]);
 
-  // documents: DocumentModel[] = [];
+  constructor(
+    private nuxeoApi: NuxeoApiService,
+    protected documentPageService: DocumentPageService) {
+    super(documentPageService);
+  }
 
-  // private params: any = {
-  //   pageSize: 5,
-  //   currentPageIndex: 0,
-  //   ecm_path: NUXEO_PATH_INFO.LEARNING_BASE_FOLDER_PATH,
-  //   ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_ASSET_TYPE,
-  // };
+  onInit(): void {
+    this.search();
+  }
 
-  // constructor(protected documentPageService: DocumentPageService) {
-  //   super(documentPageService);
-  // }
+  private search(): void {
+    const subscription = this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName: 'App-Learning-Program-Categories' })
+    .subscribe((res: any) => {
+      res.map((item: any) => this.documents.push(new CategoryItem({title: this.formatTitle(item.label), uid: item.id, img: this.formatImage(item.id)})));
+    });
+    this.subscription.add(subscription);
+  }
 
-  // onInit(): void {
-  //   this.search(this.params);
-  // }
+  formatImage(id: string): string {
+    const path = '/assets/images/';
+    return this.categoryInfo.has(id) ? path + this.categoryInfo.get(id) : '/assets/images/default.jpg';
+  }
 
-  // private search(params: {}): void {
-  //   const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
-  //     .subscribe((res: NuxeoPagination) => {
-  //       this.documents = res.entries;
-  //       this.loading = false;
-  //     });
-  //   this.subscription.add(subscription);
-  // }
+  formatTitle(name: string): string {
+    return name.toUpperCase();
+  }
 }
