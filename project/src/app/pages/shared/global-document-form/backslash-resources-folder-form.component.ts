@@ -79,7 +79,7 @@ export class BackslashResourcesFolderFormComponent extends GlobalDocumentFormCom
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
         label: 'Backslash Category',
-        required: true,
+        required: false,
         settings: {
           placeholder: 'Select a value',
           providerType: SuggestionSettings.DIRECTORY,
