@@ -1,29 +1,40 @@
-<div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}" cstyle="width: 95%; margin: 0 auto; padding: 0 0 20px;">
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}"
+  cstyle="width: 95%; margin: 0 auto; padding: 0 0 20px;">
   <ng-container *ngIf="formGroup">
-    <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" [modelOperation]="modelOperation | async" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
+    <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" [modelOperation]="modelOperation | async"
+      (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
+      (focus)="onFocus($event)">
     </dynamic-ng-form>
-
+    <ng-container *ngIf="showMessageBeforeSuccess()">
+      <div class="submitted-message">
+        <p>Saving, this may take a moment..</p>
+        <p>window will close by itsself when ready.</p>
+      </div>
+    </ng-container>
     <div class="button-groups left" *ngIf="formSettings && formSettings.enableButtons">
       <ng-container *ngFor="let button of formSettings.buttonGroup">
         <ng-container *ngIf="button.type === 'save'">
-          <button nbButton outline class="btn btn-success btn-xs" status="primary" [disabled]="(formStatus$ | async)?.disableSaveButton()" (click)="onSave($event)">{{button.label}}</button>
+          <button nbButton outline class="btn btn-success btn-xs btn-margin-bottom" status="primary"
+            [disabled]="(formStatus$ | async)?.disableSaveButton()" (click)="onSave($event)">{{button.label}}</button>
         </ng-container>
 
         <ng-container *ngIf="button.type === 'custom'">
-          <button nbButton outline [ngClass]="button.style ? button.style : 'btn btn-info btn-xs'" status="info" [disabled]="button.disabled && button.disabled(formStatus$.value)" (click)="onCustomButton(button)">{{button.label}}</button>
+          <button nbButton outline [ngClass]="button.style ? button.style : 'btn btn-info btn-xs'" status="info"
+            [disabled]="button.disabled && button.disabled(formStatus$.value)"
+            (click)="onCustomButton(button)">{{button.label}}</button>
         </ng-container>
 
         <ng-container *ngIf="button.type === 'cancle'">
-          <button nbButton outline class="btn btn-info btn-xs" status="info" (click)="onCancel($event)">{{button.label}}</button>
+          <button nbButton outline class="btn btn-info btn-xs btn-margin-bottom" status="info"
+            (click)="onCancel($event)">{{button.label}}</button>
         </ng-container>
       </ng-container>
     </div>
-
     <ng-container *ngIf="showMessageAfterUpload()">
       <div class="upload-message">
-        <p>You have successfully uploaded {{uploadCount}} file(s). Please review above and adjust the original <b>File Names</b> to become the actual <b>Asset Titles</b> before finishing by clicking SAVE</p>
+        <p>You have successfully uploaded {{uploadCount}} file(s). Please review above and adjust the original <b>File
+            Names</b> to become the actual <b>Asset Titles</b> before finishing by clicking SAVE</p>
       </div>
     </ng-container>
-
   </ng-container>
 </div>
