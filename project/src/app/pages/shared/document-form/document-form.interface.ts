@@ -72,8 +72,6 @@ export class DocumentFormSettings {
 
   formMode: 'create' | 'edit' | 'view' = 'create';
 
-  submittedMessage: string = 'Saving, this may take a moment.. This window will close by itsself when ready.';
-
   buttonGroup: any[] = [
     {
       label: 'Save',
