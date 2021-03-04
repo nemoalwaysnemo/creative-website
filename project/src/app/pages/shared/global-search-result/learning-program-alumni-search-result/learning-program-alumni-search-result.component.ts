@@ -27,4 +27,11 @@ export class LearningProgramAlumniSearchResultComponent {
     return '';
   }
 
+  getFacebookUrl(doc: DocumentModel): string {
+    if (!doc.get('remote-search-collective-user:facebook_photo_url')) {
+      return '/assets/images/no-thumbnail.png';
+    } else {
+      return doc.get('remote-search-collective-user:facebook_photo_url');
+    }
+  }
 }
