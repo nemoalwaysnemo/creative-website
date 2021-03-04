@@ -190,14 +190,6 @@ export class DocumentModel extends Base {
     return this.facets.includes('Thumbnail') && this.contextParameters && this.contextParameters.thumbnail ? this.contextParameters.thumbnail.url : this.getDefaultThumbnail();
   }
 
-  get faceboolPicUrl(): string {
-    if (!this.get('remote-search-collective-user:facebook_photo_url')) {
-      return this.getDefaultThumbnail();
-    } else {
-      return this.get('remote-search-collective-user:facebook_photo_url');
-    }
-  }
-
   get isFavorites(): boolean {
     return this.contextParameters && this.contextParameters.favorites ? this.contextParameters.favorites.isFavorite : null;
   }
