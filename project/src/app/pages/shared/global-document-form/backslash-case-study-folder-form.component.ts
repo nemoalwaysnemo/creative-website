@@ -74,7 +74,7 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
         label: 'Asset Type',
         readOnly: true,
         required: true,
-        defaultValue: 'Backslash Report Folder',
+        defaultValue: 'Backslash Report',
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:backslash_category',
