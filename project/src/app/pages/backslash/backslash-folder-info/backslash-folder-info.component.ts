@@ -30,7 +30,8 @@ export class BackslashFolderInfoComponent {
 
   @Input() showFolderInfo: boolean = true;
 
-  @Input() set document(doc: DocumentModel) {
+  @Input()
+  set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
       if (this.showButton) {
