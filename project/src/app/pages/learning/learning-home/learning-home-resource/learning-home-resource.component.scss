@@ -2,16 +2,7 @@
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '../../../../core/nebular/theme/styles/global/breakpoints';
 @import '../../../shared/global-search-result/thumbnail-view.scss';
-.center-support {
-   width:  calc((100% - (100% - 60px * 3) / 3 * 2 - 60px * 4 ) / 2) !important;
-}
-@media (min-width: 1400px) {
-    .center-support {
-        width: calc((100% - (100% - 60px * 4) / 4 * 2 - 60px * 4) / 2)!important;
-    }
-}
-@media (max-width: 991.98px) {
-    .center-support {
-        display: none;
-    }
+
+.learning-home > div:first-child {
+    margin-left: calc(50% - 30px * 2 - (100% - 60px * 4) / 4)!important;
 }
