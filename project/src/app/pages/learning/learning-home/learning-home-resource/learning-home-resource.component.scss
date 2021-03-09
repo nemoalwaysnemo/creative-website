@@ -3,6 +3,6 @@
 @import '../../../../core/nebular/theme/styles/global/breakpoints';
 @import '../../../shared/global-search-result/thumbnail-view.scss';
 
-.learning-home >div:first-child{
+.learning-home > div:first-child {
     margin-left: calc(50% - 30px * 2 - (100% - 60px * 4) / 4)!important;
 }

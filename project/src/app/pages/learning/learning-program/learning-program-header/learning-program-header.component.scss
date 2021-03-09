@@ -1,11 +1,11 @@
-.image-viewer img {
+.image-viewer {
+  width: 100%;
+  min-height: 200px;
+}
+.learning-banner {
   width: 100%;
   height: 200px;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position:center center;
   background-size: cover;
 }
-
-// .image-viewer {
-//   padding-bottom: 30px;
-// }

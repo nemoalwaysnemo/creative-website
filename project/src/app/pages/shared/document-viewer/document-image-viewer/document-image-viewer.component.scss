@@ -11,7 +11,9 @@
   }
   &.learning-program-info {
     img {
-      height: 320px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
   &.learning-program-nomination-preview {
