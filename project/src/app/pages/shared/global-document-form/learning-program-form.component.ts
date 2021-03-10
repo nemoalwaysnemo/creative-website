@@ -6,6 +6,7 @@ import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
+import { DefaultDeserializer } from 'v8';
 
 @Component({
   selector: 'disruption-day-asset-form',
@@ -19,6 +20,15 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
+  }
+
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
+    const dates = [];
+    doc.properties['app_Learning:program_dates'].filter((date: any) => {
+      dates.push(date['app_Learning:program_dates_item']);
+    });
+    doc.properties['app_Learning:program_dates'] = dates;
+    return doc;
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
@@ -117,9 +127,9 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         required: false,
         items: [
           new DynamicDatepickerDirectiveModel<string>({
-            id: 'app_Learning:program_dates',
+            id: 'app_Learning:program_dates_item',
             label: 'Program Dates',
-            readonly: false,
+            readonly: true,
             defaultValue: (new Date()),
             required: false,
           }),
