@@ -270,8 +270,17 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private save(): void {
     let documents = [];
+    const dates = [];
     this.documentModel.properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
+      [this.documentModel].forEach(doc => {
+        if (doc.properties['app_Learning:program_dates'] && doc.properties['app_Learning:program_dates'].length > 0) {
+          doc.properties['app_Learning:program_dates'].forEach(date => {
+            dates.push(date['app_Learning:program_dates']);
+          });
+        }
+      });
+      this.documentModel.properties['app_Learning:program_dates'] = dates;
       documents = this.attachFiles(this.documentModel, this.getFormValue(this.uploadModel.field));
     } else {
       documents = [this.documentModel];
@@ -279,8 +288,15 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         if (doc.properties['files:files'] === null) {
           delete doc.properties['files:files'];
         }
+        if (doc.properties['app_Learning:program_dates'] && doc.properties['app_Learning:program_dates'].length > 0) {
+          doc.properties['app_Learning:program_dates'].forEach(date => {
+            dates.push(date['app_Learning:program_dates']);
+          });
+        }
       });
+      this.documentModel.properties['app_Learning:program_dates'] = dates;
     }
+
     this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
       this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
       if (this.formSettings.resetFormAfterDone) {
@@ -290,6 +306,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private update(): void {
+    const dates = [];
     let properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
       properties = this.updateAttachedFiles(properties);
@@ -300,6 +317,15 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
     if (this.documentModel.properties['nxtag:tags'] && properties['nxtag:tags']) {
       this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
+    }
+
+    if (this.documentModel.properties['app_Learning:program_dates'] && this.documentModel.properties['app_Learning:program_dates'].length > 0) {
+      this.documentModel.properties['app_Learning:program_dates'].forEach(date => {
+        if (date['app_Learning:program_dates']) {
+          dates.push(date['app_Learning:program_dates']);
+        }
+      });
+      this.documentModel.properties['app_Learning:program_dates'] = dates;
     }
 
     this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
@@ -405,5 +431,4 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private resetForm(): void {
     this.formGroup.reset();
   }
-
 }

@@ -13,9 +13,19 @@ export class LearningProgramCategoryViewComponent {
     private viewportScroller: ViewportScroller,
   ) {
   }
+
   loading: boolean = true;
 
+  document: DocumentModel;
+
   docs: DocumentModel[] = [];
+
+  @Input()
+  set parentDocument(doc: DocumentModel) {
+    if (doc) {
+      this.document = doc;
+    }
+  }
 
   @Input()
   set documents(docs: DocumentModel[]) {
