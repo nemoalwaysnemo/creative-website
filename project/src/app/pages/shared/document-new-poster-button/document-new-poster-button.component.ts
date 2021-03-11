@@ -3,7 +3,7 @@ import { DocumentModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } fro
 import { Observable, of as observableOf, combineLatest, Subscription, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { DocumentPageService } from '../services/document-page.service';
-import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer/document-video-viewer/document-video-viewer.service';
+import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-viewer';
 
 @Component({
   selector: 'document-new-poster-button',

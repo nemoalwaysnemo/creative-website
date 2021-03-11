@@ -28,6 +28,7 @@ import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
 import { DynamicNGGalleryUploadComponent } from './gallery-upload/dynamic-ng-gallery-upload.component';
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
+import { DynamicNGFieldHeaderComponent } from './field-header/dynamic-ng-field-header.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 import { NbAccordionModule } from '@core/nebular/theme/components/accordion/accordion.module';
 import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.module';
@@ -68,6 +69,7 @@ import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.mod
     DynamicNGTimePickerComponent,
     DynamicNGSuggestionComponent,
     DynamicNGListComponent,
+    DynamicNGFieldHeaderComponent,
     DynamicNGOptionTagComponent,
     DynamicNGGalleryUploadComponent,
     DynamicNGDatepickerDirectiveComponent,
@@ -91,6 +93,7 @@ import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.mod
     DynamicNGSuggestionComponent,
     DynamicNGListComponent,
     DynamicNGOptionTagComponent,
+    DynamicNGFieldHeaderComponent,
     DynamicNGGalleryUploadComponent,
     DynamicNGDatepickerDirectiveComponent,
   ],

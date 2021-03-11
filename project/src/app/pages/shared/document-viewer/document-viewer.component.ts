@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { combineLatest, Subject, Subscription } from 'rxjs';
-import { DocumentViewerSettings } from './document-video-viewer/document-viewer.interface';
+import { DocumentViewerSettings } from './document-viewer.interface';
 
 @Component({
   selector: 'document-viewer',

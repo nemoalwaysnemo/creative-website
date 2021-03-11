@@ -12,6 +12,7 @@ export interface DynamicFormControlModelConfig {
   errorMessages?: DynamicValidatorsConfig;
   hidden?: boolean;
   readOnly?: boolean;
+  enableLabel?: boolean;
   hiddenFn?: (doc: any, user: any, settings: any) => boolean;
   visibleFn?: (doc: any, user: any, settings: any) => boolean;
   defaultValueFn?: (doc: any, user: any, settings: any) => any;
@@ -51,6 +52,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   @serializable() errorMessages: DynamicValidatorsConfig | null;
   @serializable() hidden: boolean;
   @serializable() readOnly: boolean;
+  @serializable() enableLabel: boolean;
   @serializable() id: string;
   @serializable() field: string;
   @serializable() label: string | null;
@@ -80,6 +82,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.errorMessages = config.errorMessages || null;
     this.hidden = isBoolean(config.hidden) ? config.hidden : false;
     this.readOnly = isBoolean(config.readOnly) ? config.readOnly : false;
+    this.enableLabel = isBoolean(config.enableLabel) ? config.enableLabel : true;
     this.hiddenFn = config.hiddenFn || null;
     this.visibleFn = config.visibleFn || null;
     this.defaultValueFn = config.defaultValueFn || null;

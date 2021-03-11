@@ -3,7 +3,6 @@ import { ThemeModule } from '@theme/theme.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@pages/shared/shared.module';
 import { LearningProgramComponent } from './learning-program.component';
-import { LearningProgramMapModule } from './learning-program-map/learning-program-map.module';
 import { LearningProgramVideoModule } from './learning-program-video/learning-program-video.module';
 import { LearningProgramHeaderModule } from './learning-program-header/learning-program-header.module';
 import { LearningProgramCategoryModule } from './learning-program-category/learning-program-category.module';
@@ -15,7 +14,6 @@ import { DocumentViewerModule } from '@pages/shared/document-viewer/document-vie
     ThemeModule,
     RouterModule,
     SharedModule,
-    LearningProgramMapModule,
     LearningProgramVideoModule,
     LearningProgramHeaderModule,
     LearningProgramCategoryModule,

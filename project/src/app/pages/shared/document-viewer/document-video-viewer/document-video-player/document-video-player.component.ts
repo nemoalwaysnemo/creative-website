@@ -1,6 +1,6 @@
 import { Component, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentVideoViewerService, DocumentVideoEvent } from '../document-video-viewer.service';
-import { DocumentViewerSettings } from '../document-viewer.interface';
+import { DocumentViewerSettings } from '../../document-viewer.interface';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { isValueEmpty } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
