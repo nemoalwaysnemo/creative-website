@@ -6,7 +6,6 @@ import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
-import { DefaultDeserializer } from 'v8';
 
 @Component({
   selector: 'disruption-day-asset-form',
