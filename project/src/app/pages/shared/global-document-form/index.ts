@@ -35,3 +35,4 @@ export * from './backslash-resources-asset-form.component';
 export * from './backslash-trigger-form.component';
 export * from './backslash-plugin-trigger-form.component';
 export * from './backslash-plugin-user-preference-form.component';
+export * from './learning-program-form.component';

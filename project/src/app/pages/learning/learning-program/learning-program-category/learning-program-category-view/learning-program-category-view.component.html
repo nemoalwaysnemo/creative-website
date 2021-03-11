@@ -1,5 +1,12 @@
 <div class="category-header">
-  <h2 class="title">BROWSE BY LEVEL:</h2>
+  <div class="col-8">
+    <h2 class="title">BROWSE BY LEVEL:</h2>
+  </div>
+  <div class="col-4">
+    <div class="learning-form-button right">
+      <learning-form-button [parent]="document" [type]="'program'" [title]="'New Program'"></learning-form-button>
+    </div>
+  </div>
 </div>
 <ng-container *ngIf="docs && docs.length !== 0">
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="category-view-all">

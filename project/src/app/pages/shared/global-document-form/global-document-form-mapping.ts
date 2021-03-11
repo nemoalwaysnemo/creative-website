@@ -32,6 +32,7 @@ import { BackslashEdgesFolderFormComponent } from './backslash-edges-folder-form
 import { BackslashResourcesAssetFormComponent } from './backslash-resources-asset-form.component';
 import { BackslashResourcesFolderFormComponent } from './backslash-resources-folder-form.component';
 import { BackslashTriggerFormComponent } from './backslash-trigger-form.component';
+import { LearningProgramFormComponent } from './learning-program-form.component';
 
 export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_ASSET_IMAGE_FORM: CreativeAssetImageFormComponent,
@@ -68,4 +69,5 @@ export const GLOBAL_DOCUMENT_FORM = {
   BACKSLASH_RESOURCES_ASSET_FORM: BackslashResourcesAssetFormComponent,
   BACKSLASH_RESOURCES_FOLDER_FORM: BackslashResourcesFolderFormComponent,
   BACKSLASH_TRIGGER_FORM: BackslashTriggerFormComponent,
+  LEARNING_PROGRAM_FORM: LearningProgramFormComponent,
 };

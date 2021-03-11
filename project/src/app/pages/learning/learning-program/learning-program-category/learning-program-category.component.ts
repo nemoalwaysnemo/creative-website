@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { Component, Input } from '@angular/core';
+import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
 import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
-import { Subscription } from 'rxjs';
 
 export class CategoryItem {
   readonly title: string;
@@ -22,6 +21,8 @@ export class LearningProgramCategoryComponent extends BaseDocumentViewComponent 
 
   documents: any[] = [];
 
+  parentDocument: DocumentModel;
+
   categoryInfo: Map<string, string> = new Map<string, string>([
     ['Emerging Talent', 'category_emerging_talent.png'],
     ['First Time Managers', 'category_first_time_managers.png'],
@@ -34,6 +35,13 @@ export class LearningProgramCategoryComponent extends BaseDocumentViewComponent 
     private nuxeoApi: NuxeoApiService,
     protected documentPageService: DocumentPageService) {
     super(documentPageService);
+  }
+
+  @Input()
+  set programs(doc: DocumentModel) {
+    if (doc) {
+      this.parentDocument = doc;
+    }
   }
 
   onInit(): void {
@@ -50,7 +58,7 @@ export class LearningProgramCategoryComponent extends BaseDocumentViewComponent 
 
   formatImage(id: string): string {
     const path = '/assets/images/';
-    return this.categoryInfo.has(id) ? path + this.categoryInfo.get(id) : '/assets/images/default.jpg';
+    return this.categoryInfo.has(id) ? path + this.categoryInfo.get(id) : '/assets/images/no-thumbnail.png';
   }
 
   formatTitle(name: string): string {

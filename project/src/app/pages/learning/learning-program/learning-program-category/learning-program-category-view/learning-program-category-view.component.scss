@@ -1,13 +1,19 @@
 .category-header {
   margin: 5px 0 30px;
+  display: flex;
+  flex-wrap: wrap;
   .title {
     padding-left: 30px;
+    margin-top: 15px;
   }
   h2 {
     font-size: 20px;
     color: #000000;
     font-family: 'Averta for TBWA W01 Bold', helvetica, arial;
   }
+}
+.learning-form-button {
+  padding: 0 15px;
 }
 .category-view-all {
   height: calc(100vw / 8);
