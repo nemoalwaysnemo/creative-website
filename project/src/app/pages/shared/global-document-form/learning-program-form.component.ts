@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicListModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicListModel, DynamicFieldHeaderModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -132,6 +132,11 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
             required: false,
           }),
         ],
+      }),
+      new DynamicFieldHeaderModel<string>({
+        id: 'visible-only-to-mgt-header',
+        label: 'VISIBLE ONLY TO MGT GROUP',
+        enableLabel: false,
       }),
       new DynamicOptionTagModel({
         id: 'app_Learning:program_nomination_criteria',

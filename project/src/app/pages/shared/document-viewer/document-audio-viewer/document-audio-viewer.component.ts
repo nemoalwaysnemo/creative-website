@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
-import { DocumentViewerSettings } from '../document-video-viewer/document-viewer.interface';
+import { DocumentViewerSettings } from '../document-viewer.interface';
 
 @Component({
   selector: 'document-audio-viewer',

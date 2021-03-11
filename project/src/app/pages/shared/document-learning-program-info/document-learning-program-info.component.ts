@@ -3,6 +3,7 @@ import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DocumentViewerSettings } from '../document-viewer';
 import { GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService } from '../services/document-page.service';
@@ -31,11 +32,13 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
 
   durationList: string[] = [];
 
-  logoViewerSettings: any = {
+  logoViewerSettings: DocumentViewerSettings = new DocumentViewerSettings({
     srcFn: (doc: DocumentModel): string => doc.getCustomFile('app_Learning:program_logo'),
-  };
+    autoplay: false,
+  });
 
-  photoViewerSettings: any = {
+  photoViewerSettings: DocumentViewerSettings = new DocumentViewerSettings({
+    autoplay: false,
     styleName: 'learning-program-info',
     srcFn: (doc: DocumentModel): string => {
       const files = doc.getCustomFiles('app_Learning:program_photo');
@@ -44,11 +47,12 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
       }
       return '';
     },
-  };
+  });
 
-  videoViewerSettings: any = {
+  videoViewerSettings: DocumentViewerSettings = new DocumentViewerSettings({
     styleName: 'learning-program-info',
-  };
+    autoplay: false,
+  });
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_LEARNING_PROGRAM] });
 

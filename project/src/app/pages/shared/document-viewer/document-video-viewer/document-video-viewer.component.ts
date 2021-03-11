@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { isValueEmpty } from '@core/services/helpers';
-import { DocumentViewerSettings } from './document-viewer.interface';
+import { DocumentViewerSettings } from '../document-viewer.interface';
 
 @Component({
   selector: 'document-video-viewer',

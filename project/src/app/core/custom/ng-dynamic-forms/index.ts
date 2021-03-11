@@ -42,6 +42,7 @@ export * from './model/suggestion/dynamic-suggestion.model';
 export * from './model/list/dynamic-list.model';
 export * from './model/option-tag/dynamic-option-tag.model';
 export * from './model/batch-upload/batch-upload.model';
+export * from './model/field-header/dynamic-field-header.model';
 export * from './model/drag-drop-file-zone/drag-drop-file-zone.model';
 export * from './model/gallery-upload/dynamic-gallery-upload.model';
 export * from './model/dynamic-datepicker/dynamic-datepicker-directive.model';
