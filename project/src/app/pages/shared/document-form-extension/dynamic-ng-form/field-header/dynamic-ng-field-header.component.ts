@@ -11,6 +11,7 @@ import {
 @Component({
   selector: 'dynamic-ng-field-header',
   templateUrl: './dynamic-ng-field-header.component.html',
+  styleUrls: ['./dynamic-ng-field-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DynamicNGFieldHeaderComponent extends DynamicFormControlComponent {

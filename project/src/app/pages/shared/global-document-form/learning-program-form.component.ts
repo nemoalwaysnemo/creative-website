@@ -8,7 +8,7 @@ import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
-  selector: 'disruption-day-asset-form',
+  selector: 'learning-program-form',
   template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
@@ -35,6 +35,11 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
 
   protected getFormModels(): any[] {
     return [
+      new DynamicFieldHeaderModel<string>({
+        id: 'visible-to-everyone-header',
+        label: 'VISIBLE TO EVERYONE',
+        enableLabel: false,
+      }),
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Program Title',
@@ -134,8 +139,8 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         ],
       }),
       new DynamicFieldHeaderModel<string>({
-        id: 'visible-only-to-mgt-header',
-        label: 'VISIBLE ONLY TO MGT GROUP',
+        id: 'visible-only-to-program-nominators-group-header',
+        label: 'VISIBLE ONLY TO PROGRAM NOMINATORS GROUP',
         enableLabel: false,
       }),
       new DynamicOptionTagModel({
