@@ -22,11 +22,10 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
   }
 
   beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
-    const dates = [];
-    doc.properties['app_Learning:program_dates'].filter((date: any) => {
-      dates.push(date['app_Learning:program_dates_item']);
-    });
-    doc.properties['app_Learning:program_dates'] = dates;
+    const list = (doc.properties['app_Learning:program_dates'] || []).map((date: any) => date['app_Learning:program_dates_item']);
+    if (list.length > 0) {
+      doc.properties['app_Learning:program_dates'] = list;
+    }
     return doc;
   }
 
