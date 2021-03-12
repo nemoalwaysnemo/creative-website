@@ -4,11 +4,14 @@
     margin: 0 auto;
     .doc-header {
       .logo-view {
-        width: 20%;
         margin: 0 auto;
-        height: 180px;
         position: relative;
         z-index: 2;
+        width: 20%;
+
+        img {
+          max-width: 100%;
+        }
       }
       .nominate-info {
         position: relative;
@@ -51,7 +54,7 @@
     margin: 10px auto;
     padding: 10px 0;
     box-sizing: border-box;
-  
+
     .showcase-area {
       display: inline-block;
       vertical-align: top;
@@ -69,6 +72,12 @@
       p {
         padding-left: 18px;
         line-height: 25px;
+      }
+      img {
+        max-width: 100%;
+      }
+      document-new-poster-button {
+        padding: 10px 0;
       }
     }
 
@@ -102,7 +111,7 @@
       flex-grow: 1;
       margin-top: 25px;
       width: 46%;
-      
+
       > .showcase-area {
         margin-bottom: 20px;
       }

@@ -35,6 +35,12 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
     srcFn: (doc: DocumentModel): string => doc.getCustomFile('app_Learning:program_logo'),
   };
 
+  enableThumbnailCreation: boolean = true;
+
+  logoUrl: string = '';
+
+  photoUrl: string = '';
+
   photoViewerSettings: any = {
     styleName: 'learning-program-info',
     srcFn: (doc: DocumentModel): string => {
@@ -65,6 +71,14 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
       this.curriculumList = this.doc.get('app_Learning:program_curriculum');
       this.propertiesList = this.doc.get('app_Learning:program_candidate_properties');
       this.durationList = this.doc.get('app_Learning:program_duration');
+
+      if (this.doc.get('app_Learning:program_logo')){
+        this.logoUrl = this.doc.get('app_Learning:program_logo').data;
+      }
+
+      if (this.doc.get('app_Learning:program_photo')[0]) {
+        this.photoUrl = this.doc.get('app_Learning:program_photo')[0].data;
+      }
       this.dateList = this.parseDate();
     }
   }
