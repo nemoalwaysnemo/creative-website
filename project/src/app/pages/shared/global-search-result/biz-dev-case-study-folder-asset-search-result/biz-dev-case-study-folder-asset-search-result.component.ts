@@ -28,7 +28,12 @@ export class BizDevCaseStudyFolderAssetSearchResultComponent extends BaseSearchR
     enableKnowledgeRelated: true,
   };
 
-  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET] });
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
+    components: [
+      GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET,
+      GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST,
+    ],
+  });
 
   dialogTitle: string = 'Business Development';
 
