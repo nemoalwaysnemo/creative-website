@@ -109,20 +109,24 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Image/PDF/Video File(s) here!',
-        acceptTypes: 'image/*,.pdf,.mp4',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Image/PDF/Video File(s) here!',
+          acceptTypes: 'image/*,.pdf,.mp4',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'edit',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Image/PDF/Video File(s) here!',
-        acceptTypes: 'image/*,.pdf,.mp4',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Image/PDF/Video File(s) here!',
+          acceptTypes: 'image/*,.pdf,.mp4',
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

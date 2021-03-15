@@ -1,7 +1,17 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicListModel, DynamicFieldHeaderModel } from '@core/custom';
+import { Observable } from 'rxjs';
+import {
+  DynamicListModel,
+  DynamicInputModel,
+  DynamicTextAreaModel,
+  DynamicOptionTagModel,
+  DynamicSuggestionModel,
+  DynamicBatchUploadModel,
+  DynamicDatepickerDirectiveModel,
+  DynamicDragDropFileZoneModel,
+  DynamicFieldHeaderModel,
+} from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -37,8 +47,7 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
     return [
       new DynamicFieldHeaderModel<string>({
         id: 'visible-to-everyone-header',
-        label: 'VISIBLE TO EVERYONE',
-        enableLabel: false,
+        placeholder: 'VISIBLE TO EVERYONE',
       }),
       new DynamicInputModel({
         id: 'dc:title',
@@ -139,9 +148,8 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         ],
       }),
       new DynamicFieldHeaderModel<string>({
-        id: 'visible-only-to-program-nominators-group-header',
-        label: 'VISIBLE ONLY TO PROGRAM NOMINATORS GROUP',
-        enableLabel: false,
+        id: 'visible-only-to-mgt-header',
+        placeholder: 'VISIBLE ONLY TO MGT GROUP',
       }),
       new DynamicOptionTagModel({
         id: 'app_Learning:program_nomination_criteria',
@@ -155,41 +163,49 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         rows: 5,
         required: false,
       }),
-      // new DynamicDragDropFileZoneModel<string>({
-      //   id: 'app_Learning:program_logo',
-      //   formMode: 'create',
-      //   uploadType: 'asset',
-      //   layoutPosition: 'right',
-      //   queueLimit: 1,
-      //   placeholder: 'Drop Logo here!',
-      //   acceptTypes: 'image/*',
-      // }),
-      // new DynamicDragDropFileZoneModel<string>({
-      //   id: 'app_Learning:program_photo',
-      //   formMode: 'create',
-      //   uploadType: 'asset',
-      //   layoutPosition: 'right',
-      //   queueLimit: 1,
-      //   placeholder: 'Drop Image here!',
-      //   acceptTypes: 'image/*',
-      // }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'app_Learning:program_logo',
+        formMode: 'create',
+        layoutPosition: 'right',
+        settings: {
+          queueLimit: 1,
+          xpath: 'app_Learning:program_logo',
+          placeholder: 'Drop Logo here!',
+          acceptTypes: 'image/*',
+        },
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'app_Learning:program_photo',
+        formMode: 'create',
+        layoutPosition: 'right',
+        settings: {
+          queueLimit: 1,
+          xpath: 'app_Learning:program_photo',
+          placeholder: 'Drop Image here!',
+          acceptTypes: 'image/*',
+        },
+      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Video File(s) here!',
-        acceptTypes: '.mov,.mp4,.mp1',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Video File(s) here!',
+          acceptTypes: '.mov,.mp4,.mp1',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'edit',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop Video File(s) here!',
-        acceptTypes: '.mov,.mp4,.mp1',
+        settings: {
+          queueLimit: 20,
+          xpath: 'file:content',
+          placeholder: 'Drop Video File(s) here!',
+          acceptTypes: '.mov,.mp4,.mp1',
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',
@@ -211,6 +227,5 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
       }),
     ];
   }
-
 
 }

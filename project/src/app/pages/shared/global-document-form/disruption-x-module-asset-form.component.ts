@@ -45,20 +45,24 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
-        uploadType: 'asset',
         layoutPosition: 'left',
-        queueLimit: 1,
-        placeholder: 'Drop to upload Module Video',
-        acceptTypes: '.mp4',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop to upload Module Video',
+          acceptTypes: '.mp4',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'edit',
-        uploadType: 'asset',
         layoutPosition: 'left',
-        queueLimit: 1,
-        placeholder: 'Drop to upload Module Video',
-        acceptTypes: '.mp4',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop to upload Module Video',
+          acceptTypes: '.mp4',
+        },
       }),
       new DynamicTextAreaModel({
         id: 'dc:description',
@@ -110,11 +114,13 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAttachmentZone',
         formMode: 'edit',
-        uploadType: 'attachment',
         layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop to upload attachment',
-        acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+        settings: {
+          queueLimit: 20,
+          xpath: 'files:files',
+          placeholder: 'Drop to upload attachment',
+          acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

@@ -171,17 +171,19 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         switchTab: '+ Images',
         settings: {
           queueLimit: 1,
-          uploadType: 'asset',
+          xpath: 'file:content',
         },
         defaultValueFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): any => doc.get('web-page-element:page-images'),
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
-        uploadType: 'asset',
-        queueLimit: 1,
-        placeholder: 'Drop Image File here!',
-        acceptTypes: 'image/*',
-        switchTab: '+ Upload',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Image File here!',
+          acceptTypes: 'image/*',
+          switchTab: '+ Upload',
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

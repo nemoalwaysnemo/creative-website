@@ -309,11 +309,13 @@ export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComp
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'edit',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          acceptTypes: 'image/*',
+          placeholder: 'Drop Logo/Image here!',
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

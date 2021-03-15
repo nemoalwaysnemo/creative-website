@@ -200,7 +200,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   private buildGalleryImageItem(images: any[], settings: GalleryUploadSettings): NuxeoUploadResponse[] {
     return (images || []).map((x: any) => {
       const item = x instanceof GalleryImageItem ? x : new GalleryImageItem(x);
-      return new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: item.getFile(), uploadFileType: settings.uploadType, formMode: settings.formMode }), item });
+      return new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: item.getFile(), xpath: settings.xpath, formMode: settings.formMode }), item });
     });
   }
 

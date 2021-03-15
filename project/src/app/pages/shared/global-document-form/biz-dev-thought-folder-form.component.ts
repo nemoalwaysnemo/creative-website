@@ -168,20 +168,24 @@ export class BizDevThoughtFolderFormComponent extends GlobalDocumentFormComponen
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
-        acceptTypes: 'image/*,.pdf',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
+          acceptTypes: 'image/*,.pdf',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'edit',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
-        acceptTypes: 'image/*,.pdf',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
+          acceptTypes: 'image/*,.pdf',
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

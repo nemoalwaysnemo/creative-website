@@ -24,7 +24,9 @@ export class BatchUploadStatus {
 }
 
 export class BatchUploadSettings {
+
   showInput: boolean = false;
+
   multiUpload: boolean = false;
 
   constructor(data: any = {}) {

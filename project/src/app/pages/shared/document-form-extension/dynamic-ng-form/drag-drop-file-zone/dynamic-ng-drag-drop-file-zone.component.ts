@@ -30,7 +30,7 @@ export class DynamicNGDragDropFileZoneComponent extends DynamicFormControlCompon
     super(layoutService, validationService);
   }
 
-  onValid(event): void {
+  onValid(event: any): void {
     this.customEvent.emit({ customEvent: event, customEventType: 'VALID' });
   }
 }

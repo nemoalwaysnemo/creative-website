@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DragDropFileZoneSettings } from './drag-drop-file-zone.interface';
 import { DragDropFileZoneService } from './drag-drop-file-zone.service';
+import { isValueEmpty } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'drag-drop-file-zone',
-  styleUrls: ['./batch-file-upload.component.scss'],
+  styleUrls: ['./drag-drop-file-zone.component.scss'],
   templateUrl: './drag-drop-file-zone.component.html',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
@@ -16,10 +18,11 @@ import { Subscription } from 'rxjs';
 
 export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  // @Output() fileChange: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(private dragDropFileZoneService: DragDropFileZoneService) {
-
+  @Input()
+  set settings(settings: DragDropFileZoneSettings) {
+    if (!isValueEmpty(settings)) {
+      this.uploadSettings = settings;
+    }
   }
 
   files: File[] = [];
@@ -30,23 +33,17 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
 
   disabled: boolean = false;
 
+  uploadSettings: DragDropFileZoneSettings = new DragDropFileZoneSettings();
+
   private subscription: Subscription = new Subscription();
-
-  @Input() placeholder: string = 'Drop files here';
-
-  @Input() acceptTypes: string = '*';
-
-  @Input() uploadType: string;
-
-  @Input() formMode: string;
-
-  @Input() queueLimit: number = 1;
-
-  @Input() maxSize: number = 1024 * 1024 * 1024 * 100; // 1024 == 1mb
 
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
+
+  constructor(private dragDropFileZoneService: DragDropFileZoneService) {
+
+  }
 
   ngOnInit(): void {
     this.subscription = this.dragDropFileZoneService.onStateChange().subscribe((x: any) => {
@@ -82,7 +79,7 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   }
 
   onFilesChange(files: File[]): void {
-    this.dragDropFileZoneService.changeFiles(this.uploadType, files, this.queueLimit, this.formMode);
+    this.dragDropFileZoneService.changeFiles(this.uploadSettings, files);
   }
 
 }

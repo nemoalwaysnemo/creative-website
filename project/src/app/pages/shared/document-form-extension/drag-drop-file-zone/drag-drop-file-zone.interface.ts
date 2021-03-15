@@ -1,0 +1,24 @@
+export class DragDropFileZoneSettings {
+
+  multiUpload: boolean = false;
+
+  autoUpload: boolean = false;
+
+  placeholder: string = 'Drop files here';
+
+  acceptTypes: string = '*';
+
+  xpath: string;
+
+  label: string;
+
+  formMode: string;
+
+  queueLimit: number = 1;
+
+  maxSize: number = 1024 * 1024 * 1024 * 100; // 1024 == 1mb
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+}

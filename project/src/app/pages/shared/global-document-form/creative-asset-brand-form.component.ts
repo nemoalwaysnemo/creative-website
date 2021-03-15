@@ -184,20 +184,24 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'create',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Brand Logo here (16:9)!',
-        acceptTypes: 'image/*',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Brand Logo here (16:9)!',
+          acceptTypes: 'image/*',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'dragDropAssetZone',
         formMode: 'edit',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Brand Logo here (16:9)!',
-        acceptTypes: 'image/*',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Brand Logo here (16:9)!',
+          acceptTypes: 'image/*',
+        },
       }),
       new DynamicBatchUploadModel<string>({
         id: 'files:files',

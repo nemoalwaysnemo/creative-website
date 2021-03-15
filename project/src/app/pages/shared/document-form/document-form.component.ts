@@ -355,10 +355,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     const attachmens = [];
     const files = this.getFormValue(this.uploadModel.field);
     files.forEach((file: NuxeoUploadResponse) => {
-      if (file.uploadFileType === 'asset') {
+      if (file.xpath === 'file:content') {
         properties['file:content'] = file.batchBlob;
       }
-      if (file.uploadFileType === 'attachment') {
+      if (file.xpath === 'files:files') {
         attachmens.push({ file: file.batchBlob });
       }
     });

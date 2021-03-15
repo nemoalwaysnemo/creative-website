@@ -1,13 +1,12 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgFileModule } from '@core/custom';
 import { APIModule } from '@core/api';
-import { BatchFileUploadComponent } from './batch-file-upload.component';
 import { ThemeModule } from '@theme/theme.module';
+import { BatchFileUploadComponent } from './batch-file-upload.component';
+import { DragDropFileZoneModule } from '../drag-drop-file-zone/drag-drop-file-zone.module';
 import { DynamicFormsBaseNGUIModule } from '../dynamic-ng-form/dynamic-ng-form-base-ui.module';
-import { DragDropFileZoneComponent } from './drag-drop-file-zone.component';
-import { DragDropFileZoneService } from './drag-drop-file-zone.service';
 
 @NgModule({
   imports: [
@@ -16,18 +15,14 @@ import { DragDropFileZoneService } from './drag-drop-file-zone.service';
     FormsModule,
     ThemeModule,
     CommonModule,
+    DragDropFileZoneModule,
     DynamicFormsBaseNGUIModule,
   ],
   declarations: [
     BatchFileUploadComponent,
-    DragDropFileZoneComponent,
-  ],
-  providers: [
-    DragDropFileZoneService,
   ],
   exports: [
     BatchFileUploadComponent,
-    DragDropFileZoneComponent,
   ],
 })
 

@@ -77,7 +77,7 @@ export class GalleryUploadSettings {
 
   enableClipboard: boolean = true;
 
-  uploadType: 'asset' | 'attachment';
+  xpath: string = 'file:content';
 
   formMode: 'create' | 'edit' | 'view' = 'create';
 

@@ -41,8 +41,8 @@ import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 import { DynamicNGDragDropFileZoneComponent } from './drag-drop-file-zone/dynamic-ng-drag-drop-file-zone.component';
 import { DynamicNGGalleryUploadComponent } from './gallery-upload/dynamic-ng-gallery-upload.component';
-import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
 import { DynamicNGFieldHeaderComponent } from './field-header/dynamic-ng-field-header.component';
+import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
 
 export function ngBootstrapUIFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {

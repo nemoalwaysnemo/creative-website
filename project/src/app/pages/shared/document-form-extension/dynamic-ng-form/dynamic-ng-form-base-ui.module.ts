@@ -19,19 +19,21 @@ import { DynamicNGFormArrayComponent } from './form-array/dynamic-ng-form-array.
 import { DynamicNGFormGroupComponent } from './form-group/dynamic-ng-form-group.component';
 import { DynamicNGInputComponent } from './input/dynamic-ng-input.component';
 import { DynamicNGListComponent } from './list/dynamic-ng-list.component';
-import { DynamicNGRadioGroupComponent } from './radio-group/dynamic-ng-radio-group.component';
 import { DynamicNGRatingComponent } from './rating/dynamic-ng-rating.component';
 import { DynamicNGSelectComponent } from './select/dynamic-ng-select.component';
 import { DynamicNGSwitchComponent } from './switch/dynamic-ng-switch.component';
-import { DynamicNGTextAreaComponent } from './textarea/dynamic-ng-textarea.component';
-import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker.component';
-import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
-import { DynamicNGGalleryUploadComponent } from './gallery-upload/dynamic-ng-gallery-upload.component';
-import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
-import { DynamicNGFieldHeaderComponent } from './field-header/dynamic-ng-field-header.component';
-import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
-import { NbAccordionModule } from '@core/nebular/theme/components/accordion/accordion.module';
 import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.module';
+import { DynamicNGTextAreaComponent } from './textarea/dynamic-ng-textarea.component';
+import { DragDropFileZoneModule } from '../drag-drop-file-zone/drag-drop-file-zone.module';
+import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
+import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
+import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker.component';
+import { NbAccordionModule } from '@core/nebular/theme/components/accordion/accordion.module';
+import { DynamicNGRadioGroupComponent } from './radio-group/dynamic-ng-radio-group.component';
+import { DynamicNGFieldHeaderComponent } from './field-header/dynamic-ng-field-header.component';
+import { DynamicNGGalleryUploadComponent } from './gallery-upload/dynamic-ng-gallery-upload.component';
+import { DynamicNGDragDropFileZoneComponent } from './drag-drop-file-zone/dynamic-ng-drag-drop-file-zone.component';
+import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 
 @NgModule({
   imports: [
@@ -46,6 +48,7 @@ import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.mod
     GalleryUploadModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
+    DragDropFileZoneModule,
     DocumentFormListModule,
     DirectorySuggestionModule,
     DatepickerDirectiveModule,
@@ -72,6 +75,7 @@ import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.mod
     DynamicNGFieldHeaderComponent,
     DynamicNGOptionTagComponent,
     DynamicNGGalleryUploadComponent,
+    DynamicNGDragDropFileZoneComponent,
     DynamicNGDatepickerDirectiveComponent,
   ],
   exports: [
@@ -95,6 +99,7 @@ import { NbTabsetModule } from '@core/nebular/theme/components/tabset/tabset.mod
     DynamicNGOptionTagComponent,
     DynamicNGFieldHeaderComponent,
     DynamicNGGalleryUploadComponent,
+    DynamicNGDragDropFileZoneComponent,
     DynamicNGDatepickerDirectiveComponent,
   ],
 })
