@@ -5,6 +5,7 @@ import { ThemeModule } from '@theme/theme.module';
 import { DocumentViewerModule } from '../document-viewer/document-viewer.module';
 import { DocumentLearningProgramInfoComponent } from './document-learning-program-info.component';
 import { GlobalDocumentDialogModule } from '../global-document-dialog/global-document-dialog.module';
+import { DocumentNewPosterButtonModule } from '../document-new-poster-button/document-new-poster-button.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { GlobalDocumentDialogModule } from '../global-document-dialog/global-doc
     CommonModule,
     DocumentViewerModule,
     GlobalDocumentDialogModule,
+    DocumentNewPosterButtonModule,
   ],
   declarations: [
     DocumentLearningProgramInfoComponent,

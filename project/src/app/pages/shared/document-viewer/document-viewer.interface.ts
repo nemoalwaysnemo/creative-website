@@ -26,6 +26,8 @@ export class DocumentViewerSettings {
 
   srcFn: any = (doc: DocumentModel): string => (doc.fullHDPicture ? doc.fullHDPicture : '/assets/images/default.jpg');
 
+  mimeTypeFn: any = (doc: DocumentModel): string => '';
+
   constructor(data: any = {}) {
     this.update(data);
   }
@@ -57,6 +59,10 @@ export class DocumentViewerSettings {
 
   get src(): string {
     return this.srcFn(this.documentModel);
+  }
+
+  get mimeType(): string {
+    return this.mimeTypeFn(this.documentModel);
   }
 
 }

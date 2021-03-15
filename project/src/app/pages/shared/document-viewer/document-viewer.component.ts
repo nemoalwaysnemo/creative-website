@@ -38,7 +38,9 @@ export class DocumentViewerComponent {
     const doc = this.viewerSettings.document;
     let type = 'unkonw';
     if (doc) {
-      if (doc.isVideo()) {
+      if (this.viewerSettings.mimeType) {
+        type = this.viewerSettings.mimeType;
+      } else if (doc.isVideo()) {
         type = 'video';
       } else if (doc.isAudio()) {
         type = 'audio';

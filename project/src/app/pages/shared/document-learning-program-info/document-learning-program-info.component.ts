@@ -33,21 +33,26 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
   durationList: string[] = [];
 
   logoViewerSettings: DocumentViewerSettings = new DocumentViewerSettings({
-    srcFn: (doc: DocumentModel): string => doc.getCustomFile('app_Learning:program_logo'),
     autoplay: false,
+    styleName: 'learning-program-logo',
+    srcFn: (doc: DocumentModel): string => doc.getCustomFile('app_Learning:program_logo'),
+    mimeTypeFn: (doc: DocumentModel): string => 'picture',
   });
 
-  photoViewerSettings: DocumentViewerSettings = new DocumentViewerSettings({
+  enableThumbnailCreation: boolean = true;
+
+  photoViewerSettings: any = {
     autoplay: false,
-    styleName: 'learning-program-info',
+    styleName: 'learning-program-photo',
     srcFn: (doc: DocumentModel): string => {
       const files = doc.getCustomFiles('app_Learning:program_photo');
       if (files && files.length > 0) {
         return files[0].url;
       }
-      return '';
+      return '/assets/images/no-thumbnail.png';
     },
-  });
+    mimeTypeFn: (doc: DocumentModel): string => 'picture',
+  };
 
   videoViewerSettings: DocumentViewerSettings = new DocumentViewerSettings({
     styleName: 'learning-program-info',
@@ -69,6 +74,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
       this.curriculumList = this.doc.get('app_Learning:program_curriculum');
       this.propertiesList = this.doc.get('app_Learning:program_candidate_properties');
       this.durationList = this.doc.get('app_Learning:program_duration');
+
       this.dateList = this.parseDate();
     }
   }
