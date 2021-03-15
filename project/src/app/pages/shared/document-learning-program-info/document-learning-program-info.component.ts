@@ -32,24 +32,23 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
   durationList: string[] = [];
 
   logoViewerSettings: any = {
+    styleName: 'learning-program_logo',
     srcFn: (doc: DocumentModel): string => doc.getCustomFile('app_Learning:program_logo'),
+    mimeTypeFn: (doc: DocumentModel): string => 'picture',
   };
 
   enableThumbnailCreation: boolean = true;
 
-  logoUrl: string = '';
-
-  photoUrl: string = '';
-
   photoViewerSettings: any = {
-    styleName: 'learning-program-info',
+    styleName: 'learning-program_photo',
     srcFn: (doc: DocumentModel): string => {
       const files = doc.getCustomFiles('app_Learning:program_photo');
       if (files && files.length > 0) {
         return files[0].url;
       }
-      return '';
+      return '/assets/images/no-thumbnail.png';
     },
+    mimeTypeFn: (doc: DocumentModel): string => 'picture',
   };
 
   videoViewerSettings: any = {
@@ -72,13 +71,6 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
       this.propertiesList = this.doc.get('app_Learning:program_candidate_properties');
       this.durationList = this.doc.get('app_Learning:program_duration');
 
-      if (this.doc.get('app_Learning:program_logo')){
-        this.logoUrl = this.doc.get('app_Learning:program_logo').data;
-      }
-
-      if (this.doc.get('app_Learning:program_photo')[0]) {
-        this.photoUrl = this.doc.get('app_Learning:program_photo')[0].data;
-      }
       this.dateList = this.parseDate();
     }
   }

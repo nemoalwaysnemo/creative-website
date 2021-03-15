@@ -3,7 +3,7 @@
     <div class="controls">
       <div class="doc-header text-center">
         <div class="logo-view">
-          <img src="{{logoUrl}}">
+          <document-viewer [document]="doc" [settings]="logoViewerSettings"></document-viewer>
         </div>
         <div class="nominate-info">
           <h2 class="text-center">{{ doc.title }}</h2>
@@ -60,8 +60,7 @@
       </div>
       <div class="showcase-area-right">
         <div class="showcase-area">
-          <img src="{{photoUrl}}">
-          <!-- <document-viewer [document]="doc" [settings]="photoViewerSettings"></document-viewer> -->
+          <document-viewer [document]="doc" [settings]="photoViewerSettings"></document-viewer>
         </div>
         <div class="showcase-area">
           <document-viewer [document]="doc" [settings]="videoViewerSettings"></document-viewer>
