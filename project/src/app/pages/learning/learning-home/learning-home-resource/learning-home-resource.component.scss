@@ -4,5 +4,7 @@
 @import '../../../shared/global-search-result/thumbnail-view.scss';
 
 .learning-home > div:first-child {
-    margin-left: calc(50% - 30px * 2 - (100% - 60px * 4) / 4)!important;
-}
+     @media (min-width: 1400px) {
+        margin-left: calc((100% - 30px * 2 - 1220px) / 2)!important;
+     }
+ }
