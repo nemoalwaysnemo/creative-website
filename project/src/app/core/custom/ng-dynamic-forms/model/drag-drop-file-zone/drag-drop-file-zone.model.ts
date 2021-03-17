@@ -13,6 +13,7 @@ export class DynamicDragDropFileZoneModel<T> extends DynamicFormValueControlMode
 
   constructor(config: DynamicDragDropFileZoneConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
+    config.settings.xpath = config.settings.xpath ? config.settings.xpath : (config.field || config.id);
     this.settings = new DragDropFileZoneSettings(config.settings ? Object.assign({}, config.settings, { formMode: config.formMode }) : { formMode: config.formMode });
   }
 }

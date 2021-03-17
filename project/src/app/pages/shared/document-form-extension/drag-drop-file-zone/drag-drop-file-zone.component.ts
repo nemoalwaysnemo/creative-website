@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DragDropFileZoneSettings } from './drag-drop-file-zone.interface';
 import { DragDropFileZoneService } from './drag-drop-file-zone.service';
 import { isValueEmpty } from '@core/services/helpers';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'drag-drop-file-zone',
@@ -56,6 +56,11 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   }
 
   writeValue(value: any): void {
+    if (!isValueEmpty(value)) {
+      const files = Array.isArray(value) ? value : [value];
+      const settings = Object.assign({}, this.uploadSettings, { original: true });
+      timer(0).subscribe(() => { this.dragDropFileZoneService.changeFiles(settings, files); });
+    }
   }
 
   registerOnChange(fn: any): void {

@@ -58,34 +58,31 @@ export class DocumentCreativeProjectImportAssetVideoComponent extends GlobalDocu
   protected getFormModels(): any[] {
     return [
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
         layoutPosition: 'left',
         settings: {
           queueLimit: 25,
-          xpath: 'file:content',
           placeholder: 'Drop Video File here!',
           acceptTypes: '.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'left',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Video File here!',
           acceptTypes: '.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
+        id: 'files:files',
         formMode: 'edit',
         layoutPosition: 'left',
         settings: {
           queueLimit: 20,
-          xpath: 'files:files',
           placeholder: 'Drop to upload attachment',
           acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
         },

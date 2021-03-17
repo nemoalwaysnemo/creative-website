@@ -181,7 +181,7 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         label: 'Program Photo',
         // formMode: 'create',
         settings: {
-          queueLimit: 1,
+          queueLimit: 20,
           layout: 'form-field',
           label: 'Program Photo',
           xpath: 'app_Learning:program_photo',
@@ -190,34 +190,31 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Video File(s) here!',
           acceptTypes: '.mov,.mp4,.mp1',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 20,
-          xpath: 'file:content',
           placeholder: 'Drop Video File(s) here!',
           acceptTypes: '.mov,.mp4,.mp1',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
+        id: 'files:files',
         formMode: 'create',
         layoutPosition: 'right',
         settings: {
           queueLimit: 20,
-          xpath: 'files:files',
           placeholder: 'Drop to upload attachment',
           acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
         },

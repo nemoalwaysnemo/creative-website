@@ -174,7 +174,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private filterPropertie(formValue: any = {}): any {
     const properties = deepExtend({}, formValue);
     Object.keys(properties).forEach((key: string) => {
-      if (!key.includes(':')) { delete properties[key]; }
+      if (!key.includes(':') || ['file:content', 'files:files'].includes(key)) { delete properties[key]; }
     });
     return properties;
   }
@@ -369,7 +369,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     if (!this.uploadModel) {
       this.uploadModel = this.getUploadModel(this.ngFormSettings, event.type);
     }
-    const response: NuxeoUploadResponse[] = event.$event;
+    const response: NuxeoUploadResponse[] = event.$event.filter((res: NuxeoUploadResponse) => !res.original);
     if (response.length === 0) {
       this.updateFormStatus({ uploadState: null });
     } else if (response.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {

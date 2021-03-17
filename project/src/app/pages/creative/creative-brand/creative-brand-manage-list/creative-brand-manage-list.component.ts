@@ -71,12 +71,11 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Logo/Image here!',
           acceptTypes: 'image/*',
         },

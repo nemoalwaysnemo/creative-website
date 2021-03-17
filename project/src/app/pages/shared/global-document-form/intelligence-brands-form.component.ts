@@ -48,34 +48,31 @@ export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent
         required: false,
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
         layoutPosition: 'left',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Image/PDF here!',
           acceptTypes: 'image/*,.pdf',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'left',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Image/PDF here!',
           acceptTypes: 'image/*,.pdf',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
+        id: 'files:files',
         formMode: 'edit',
         layoutPosition: 'left',
         settings: {
           queueLimit: 1,
-          xpath: 'files:files',
           placeholder: 'Drop to upload attachment',
           acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
         },

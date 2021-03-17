@@ -176,7 +176,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         defaultValueFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): any => doc.get('web-page-element:page-images'),
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         settings: {
           queueLimit: 1,
           xpath: 'file:content',

@@ -98,23 +98,21 @@ export class BackslashEdgesFolderFormComponent extends GlobalDocumentFormCompone
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Image/PDF/Video File(s) here!',
           acceptTypes: 'image/*,.pdf,.mp4',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Image/PDF/Video File(s) here!',
           acceptTypes: 'image/*,.pdf,.mp4',
         },

@@ -1,8 +1,10 @@
 export class DragDropFileZoneSettings {
 
-  multiUpload: boolean = false;
+  [key: string]: any;
 
-  autoUpload: boolean = false;
+  original: boolean = false;
+
+  multiUpload: boolean = false;
 
   placeholder: string = 'Drop files here';
 

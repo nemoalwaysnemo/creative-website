@@ -196,34 +196,31 @@ export class BackslashAssetVideoFormComponent extends GlobalDocumentFormComponen
         label: 'Active Article',
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
         layoutPosition: 'right',
         settings: {
           queueLimit: 25,
-          xpath: 'file:content',
           placeholder: 'Drop Video File here!',
           acceptTypes: '.mp4',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Video File here!',
           acceptTypes: '.mp4',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
+        id: 'files:files',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 20,
-          xpath: 'files:files',
           placeholder: 'Drop to upload attachment',
           acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
         },

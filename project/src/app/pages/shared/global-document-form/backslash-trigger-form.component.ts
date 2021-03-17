@@ -142,7 +142,7 @@ export class BackslashTriggerFormComponent extends GlobalDocumentFormComponent {
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,

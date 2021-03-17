@@ -307,12 +307,11 @@ export class CreativeAgencyManageLibraryComponent extends BaseDocumentManageComp
         label: 'enable Collections For Clients',
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           acceptTypes: 'image/*',
           placeholder: 'Drop Logo/Image here!',
         },

@@ -43,23 +43,21 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
         layoutPosition: 'left',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop to upload Module Video',
           acceptTypes: '.mp4',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'left',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop to upload Module Video',
           acceptTypes: '.mp4',
         },
@@ -112,12 +110,11 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
         placeholder: 'Author',
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
+        id: 'files:files',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 20,
-          xpath: 'files:files',
           placeholder: 'Drop to upload attachment',
           acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
         },

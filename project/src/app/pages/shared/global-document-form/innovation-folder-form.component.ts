@@ -156,23 +156,21 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
       //   required: false,
       // }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Folder Image here! This will become the thumbnail for the new folder.',
           acceptTypes: 'image/*,.pdf',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Drop Image/PDF here!',
           acceptTypes: 'image/*,.pdf',
         },

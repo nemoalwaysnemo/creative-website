@@ -435,34 +435,31 @@ export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent
       }),
 
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
         layoutPosition: 'right',
         settings: {
           queueLimit: 25,
-          xpath: 'file:content',
           placeholder: 'Drop Image(s)/PDF(s)here!',
           acceptTypes: 'image/*,.pdf',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          xpath: 'file:content',
           placeholder: 'Replace Main file!',
           acceptTypes: 'image/*,.pdf',
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAttachmentZone',
+        id: 'files:files',
         formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 20,
-          xpath: 'files:files',
           placeholder: 'Drop to upload attachment',
           acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
         },

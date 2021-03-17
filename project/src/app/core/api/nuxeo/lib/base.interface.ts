@@ -546,6 +546,7 @@ export class NuxeoBlob {
   readonly mimeType: string;
   readonly size: number;
   readonly formMode: string;
+  readonly original: boolean;
   readonly isFileList: boolean = false;
   fileIdx: number;
 
@@ -556,9 +557,10 @@ export class NuxeoBlob {
     this.formMode = opts.formMode;
     this.content = opts.content;
     this.fileIdx = opts.fileIdx;
+    this.original = opts.original;
     this.name = opts.name || this.content.name;
     this.mimeType = opts.mimeType || opts['mime-type'] || this.content.type;
-    this.size = opts.size || opts.length || this.content.size;
+    this.size = opts.size || opts.length || this.content.size || this.content.length;
   }
 }
 
@@ -589,6 +591,7 @@ export class NuxeoUploadResponse {
   readonly fileSize: string;
   readonly mimeType: string;
   readonly formMode: string;
+  readonly original: boolean;
   readonly xpath: string;
   readonly label: string;
   fileIdx: number;
@@ -601,6 +604,7 @@ export class NuxeoUploadResponse {
       this.mimeType = response.blob.mimeType;
       this.xpath = response.blob.xpath;
       this.label = response.blob.label;
+      this.original = response.blob.original;
       this.isFileList = response.blob.isFileList;
       this.formMode = response.blob.formMode;
       this.fileSize = response.blob.size.toString();
