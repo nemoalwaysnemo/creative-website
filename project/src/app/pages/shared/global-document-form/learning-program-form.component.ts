@@ -165,10 +165,12 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'app_Learning:program_logo',
-        formMode: 'create',
-        layoutPosition: 'right',
+        label: 'Program Logo',
+        // formMode: 'create',
         settings: {
           queueLimit: 1,
+          layout: 'form-field',
+          label: 'Program Logo',
           xpath: 'app_Learning:program_logo',
           placeholder: 'Drop Logo here!',
           acceptTypes: 'image/*',
@@ -176,10 +178,12 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'app_Learning:program_photo',
-        formMode: 'create',
-        layoutPosition: 'right',
+        label: 'Program Photo',
+        // formMode: 'create',
         settings: {
           queueLimit: 1,
+          layout: 'form-field',
+          label: 'Program Photo',
           xpath: 'app_Learning:program_photo',
           placeholder: 'Drop Image here!',
           acceptTypes: 'image/*',
@@ -207,21 +211,32 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
           acceptTypes: '.mov,.mp4,.mp1',
         },
       }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'dragDropAttachmentZone',
+        formMode: 'create',
+        layoutPosition: 'right',
+        settings: {
+          queueLimit: 20,
+          xpath: 'files:files',
+          placeholder: 'Drop to upload attachment',
+          acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+        },
+      }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          showInput: true,
+          enableInput: true,
           multiUpload: true,
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: true,
         },
       }),

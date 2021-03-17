@@ -1,9 +1,17 @@
 <div class="drag-drop-file-zone">
-  <div class="batch-upload-zone" ngFileDrop [multiple]="uploadSettings.multiUpload" [queueLimit]="uploadSettings.queueLimit" (filesChange)="onFilesChange($event)" [(validDrag)]="validComboDrag" [(files)]="files"
-    [accept]="uploadSettings.acceptTypes"
-    [maxSize]="uploadSettings.maxSize"
-    class="file-drop-zone"
-    [class.invalid-drag]="validComboDrag === false" [class.valid-drag]="validComboDrag" [fileDropDisabled]="disalbed">
+  <div [ngClass]="['file-drop-zone', uploadSettings.layout]"
+          ngFileDrop
+          [multiple]="uploadSettings.multiUpload"
+          [queueLimit]="uploadSettings.queueLimit"
+          [accept]="uploadSettings.acceptTypes"
+          [maxSize]="uploadSettings.maxSize"
+          [class.invalid-drag]="validComboDrag === false"
+          [class.valid-drag]="validComboDrag"
+          [fileDropDisabled]="disalbed"
+          (filesChange)="onFilesChange($event)"
+          [(validDrag)]="validComboDrag"
+          [(files)]="files"
+    >
     <div><strong>{{uploadSettings.placeholder}}</strong></div>
   </div>
 </div>

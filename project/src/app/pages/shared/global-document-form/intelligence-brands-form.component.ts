@@ -81,7 +81,7 @@ export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
@@ -89,11 +89,11 @@ export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: false,
         },
       }),

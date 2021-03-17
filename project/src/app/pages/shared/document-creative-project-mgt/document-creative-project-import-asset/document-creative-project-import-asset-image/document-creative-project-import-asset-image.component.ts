@@ -91,20 +91,20 @@ export class DocumentCreativeProjectImportAssetImageComponent extends GlobalDocu
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'left',
         formMode: 'create',
         settings: {
-          showInput: true,
+          enableInput: true,
           multiUpload: true,
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'left',
         formMode: 'edit',
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: true,
         },
       }),

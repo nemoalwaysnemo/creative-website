@@ -8,9 +8,11 @@ export class DragDropFileZoneSettings {
 
   acceptTypes: string = '*';
 
-  xpath: string;
+  layout: string = '';
 
-  label: string;
+  label: string = '';
+
+  xpath: string;
 
   formMode: string;
 

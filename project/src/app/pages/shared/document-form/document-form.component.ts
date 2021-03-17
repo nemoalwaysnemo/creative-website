@@ -292,10 +292,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private update(): void {
     let properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
-      properties = this.updateAttachedFiles(properties);
-      if (properties['files:files'] === null) {
-        delete properties['files:files'];
-      }
+      const files = this.getFormValue(this.uploadModel.field);
+      properties = this.updateAttachedFiles(properties, files);
     }
 
     if (this.documentModel.properties['nxtag:tags'] && properties['nxtag:tags']) {
@@ -330,14 +328,30 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
-    return files.map((res: NuxeoUploadResponse) => {
-      const model = this.newDocumentModel(doc).attachBatchBlob(res.batchBlob);
+    return files.filter((res: NuxeoUploadResponse) => res.isMainFile()).map((res: NuxeoUploadResponse) => {
+      const model = this.newDocumentModel(doc);
+      model.properties = this.updateAttachedFiles(model.properties, files);
       if (!!res.title && this.uploadModel.settings.multiUpload) {
         model.properties['dc:title'] = res.title;
       }
-      delete model.properties['files:files'];
       return model;
     });
+  }
+
+  private updateAttachedFiles(properties: any, files: NuxeoUploadResponse[]): any {
+    files.forEach((file: NuxeoUploadResponse) => {
+      if (file.isMainFile()) {
+        properties[file.xpath] = file.batchBlob;
+      } else {
+        if (file.isAttachment() || file.isFileList) {
+          properties[file.xpath] = Array.isArray(properties[file.xpath]) ? properties[file.xpath] : [];
+          properties[file.xpath].push({ file: file.batchBlob });
+        } else {
+          properties[file.xpath] = file.batchBlob;
+        }
+      }
+    });
+    return properties;
   }
 
   private newDocumentModel(doc: DocumentModel): DocumentModel {
@@ -349,25 +363,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       }
     }
     return new DocumentModel(deepExtend({}, doc));
-  }
-
-  private updateAttachedFiles(properties: any): any {
-    const attachmens = [];
-    const files = this.getFormValue(this.uploadModel.field);
-    files.forEach((file: NuxeoUploadResponse) => {
-      if (file.xpath === 'file:content') {
-        properties['file:content'] = file.batchBlob;
-      }
-      if (file.xpath === 'files:files') {
-        attachmens.push({ file: file.batchBlob });
-      }
-    });
-    if (attachmens.length > 0) {
-      properties['files:files'] = attachmens;
-    } else {
-      delete properties['files:files'];
-    }
-    return properties;
   }
 
   private performBatchUpload(event: any): void {

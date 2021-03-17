@@ -295,20 +295,20 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          showInput: true,
+          enableInput: true,
           multiUpload: true,
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: true,
         },
       }),

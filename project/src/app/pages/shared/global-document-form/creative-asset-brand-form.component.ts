@@ -204,22 +204,22 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'create',
         required: true,
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: false,
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'edit',
         required: true,
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: true,
         },
       }),

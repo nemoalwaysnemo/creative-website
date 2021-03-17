@@ -25,7 +25,7 @@ export class BatchUploadStatus {
 
 export class BatchUploadSettings {
 
-  showInput: boolean = false;
+  enableInput: boolean = false;
 
   multiUpload: boolean = false;
 
