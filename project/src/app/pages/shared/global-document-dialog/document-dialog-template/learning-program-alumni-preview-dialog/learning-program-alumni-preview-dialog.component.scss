@@ -1,0 +1,18 @@
+.info-card {
+    width: 50%;
+    margin: 30px 25%;
+    text-align: center;
+}
+.headshot {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin-left: calc(50% - 50px);
+}
+.text-area {
+    text-align: left;
+    padding-top: 20px;
+}

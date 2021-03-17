@@ -4,18 +4,48 @@
   <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
   <div class="clear"></div>
 </div>
-<div class="dialog-body">
+<div class="dialog-body info-card">
   <ng-container *ngIf="document">
-    <div>Headshot</div>
-    <div>Name</div>
-    <div>Title</div>
-    <div>Discipline</div>
-    <div>Program(s)</div>
-    <div>Brands Worked On</div>
-    <div>Agencies</div>
-    <div>Languages</div>
-    <div>Contact Info</div>
-    <div>Video</div>
+    <div class="headshot" [ngStyle]="{'background-image': 'url('+getFacebookUrl(document)+')'}"></div>
+    <div class="text-area">
+      <table>
+        <tbody>
+          <tr>
+            <th>Name:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Title:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Discipline:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Program(s):&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Brands Worked On:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Agencies:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Languages:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Contact Info:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div>Video</div>
+    </div>
     <div class="clear"></div>
   </ng-container>
 </div>
