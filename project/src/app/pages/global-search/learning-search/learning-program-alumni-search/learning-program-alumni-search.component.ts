@@ -22,6 +22,7 @@ export class LearningProgramAlumniSearchComponent extends BaseDocumentViewCompon
     // schemas: ['dublincore', 'remote-search-collective-user'],
     // pageProvider: 'RemoteSearch',
     enableQueryParams: true,
+    searchGroupPosition: 'middle',
   });
 
   constructor(protected documentPageService: DocumentPageService) {

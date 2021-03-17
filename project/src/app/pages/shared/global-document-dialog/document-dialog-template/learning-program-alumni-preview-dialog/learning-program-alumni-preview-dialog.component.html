@@ -8,7 +8,38 @@
   <ng-container *ngIf="document">
     <div class="headshot" [ngStyle]="{'background-image': 'url('+getFacebookUrl(document)+')'}"></div>
     <div class="text-area">
-      <table>
+      <div class="info-table-left">
+        <div class="info-name">Ted Colgate</div>
+        <div class="active">active</div>
+      </div>
+      <div class="info-table-right">
+        <div>Contact Information</div>
+          <div class="right-info-top">
+            <div class="icon-mail info-icon"></div>
+            <div class="float-left">Work email: ted.cogote@tbwa.com</div>
+          </div>
+          <div class="right-info-top">
+            <div class="icon-mail info-icon"></div>
+            <div class="float-left">Work email: ted.cogote@tbwa.com</div>
+          </div>
+      </div>
+      <table class="info-table-left">
+        <tbody>
+          <tr>
+            <th>Name:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Title:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+          <tr>
+            <th>Discipline:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>{{ document.title }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="info-table-left">
         <tbody>
           <tr>
             <th>Name:&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -34,17 +65,8 @@
             <th>Agencies:&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <td>{{ document.title }}</td>
           </tr>
-          <tr>
-            <th>Languages:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            <td>{{ document.title }}</td>
-          </tr>
-          <tr>
-            <th>Contact Info:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            <td>{{ document.title }}</td>
-          </tr>
         </tbody>
       </table>
-      <div>Video</div>
     </div>
     <div class="clear"></div>
   </ng-container>

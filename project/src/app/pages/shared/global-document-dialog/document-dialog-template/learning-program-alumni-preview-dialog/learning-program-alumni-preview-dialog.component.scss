@@ -1,6 +1,6 @@
 .info-card {
-    width: 50%;
-    margin: 30px 25%;
+    width: 84%;
+    margin: 30px 8%;
     text-align: center;
 }
 .headshot {
@@ -14,5 +14,47 @@
 }
 .text-area {
     text-align: left;
-    padding-top: 20px;
+    padding: 20px;
+    border: 1px solid #e6e6e6;
+    border-radius: 11px;
+    min-height: 400px;
+    margin: 30px 0;
+}
+.info-table-left {
+    width: 58%;
+    float: left;
+}
+.info-table-right {
+    width: 42%;
+    float: right;
+}
+.info-name {
+    width: 150px;
+    font-size: x-large;
+    float: left;
+}
+.active {
+    background-color: #8aa56d;
+    border-radius: 4px;
+    width: 45px;
+    color: white;
+    float: left;
+    text-align: center;
+    margin: 7px 5px;
+}
+.info-icon {
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+.icon-mail {
+    background-image: url('/assets/images/mail_inbox.png');
+    background-size:30px 30px;
+}
+.float-left {
+    float: left;
+}
+.right-info-top {
+    width: 100%;
+    height: 40px;
 }

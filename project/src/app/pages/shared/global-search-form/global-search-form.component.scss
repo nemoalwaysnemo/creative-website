@@ -43,4 +43,10 @@
       }
     }
   }
+  .middle .search-input > input {
+    clear: both;
+    float: none;
+    width: 550px;
+    background: url('/assets/images/search_icon_small.png') no-repeat 521px center;
+  }
 }
