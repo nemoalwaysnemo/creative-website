@@ -72,6 +72,10 @@
       p {
         padding-left: 18px;
         line-height: 25px;
+        word-wrap: break-word;
+      }
+      li {
+        line-height: 25px;
       }
       img {
         max-width: 100%;

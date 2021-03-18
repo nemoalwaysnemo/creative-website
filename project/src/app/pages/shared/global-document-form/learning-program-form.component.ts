@@ -21,14 +21,6 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
     super(documentPageService);
   }
 
-  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
-    const list = (doc.properties['app_Learning:program_dates'] || []).map((date: any) => date['app_Learning:program_dates_item']);
-    if (list.length > 0) {
-      doc.properties['app_Learning:program_dates'] = list;
-    }
-    return doc;
-  }
-
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
@@ -113,30 +105,16 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         required: false,
       }),
       new DynamicOptionTagModel({
-        id: 'app_Learning:program_candidate_properties',
-        label: 'Candidate Properties',
-        required: false,
-        placeholder: 'Candidate Properties',
-      }),
-      new DynamicOptionTagModel({
         id: 'app_Learning:program_duration',
         label: 'Program Duration',
         required: false,
         placeholder: 'Program Duration',
       }),
-      new DynamicListModel({
+      new DynamicOptionTagModel({
         id: 'app_Learning:program_dates',
         label: 'Program Dates',
         required: false,
-        items: [
-          new DynamicDatepickerDirectiveModel<string>({
-            id: 'app_Learning:program_dates_item',
-            label: 'Program Dates',
-            readonly: true,
-            defaultValue: (new Date()),
-            required: false,
-          }),
-        ],
+        placeholder: 'Program Dates',
       }),
       new DynamicFieldHeaderModel<string>({
         id: 'visible-only-to-program-nominators-group-header',

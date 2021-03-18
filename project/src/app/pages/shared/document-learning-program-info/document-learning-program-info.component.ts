@@ -28,8 +28,6 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
 
   dateList: string[] = [];
 
-  propertiesList: string[] = [];
-
   durationList: string[] = [];
 
   logoViewerSettings: DocumentViewerSettings = new DocumentViewerSettings({
@@ -72,7 +70,6 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
       this.loading = false;
       // this.hasGroup$ = this.hasUserGroup();
       this.curriculumList = this.doc.get('app_Learning:program_curriculum');
-      this.propertiesList = this.doc.get('app_Learning:program_candidate_properties');
       this.durationList = this.doc.get('app_Learning:program_duration');
 
       this.dateList = this.parseDate();
