@@ -56,11 +56,11 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   }
 
   writeValue(value: any): void {
-    if (!isValueEmpty(value)) {
-      const files = Array.isArray(value) ? value : [value];
-      const settings = Object.assign({}, this.uploadSettings, { original: true });
-      timer(0).subscribe(() => { this.dragDropFileZoneService.changeFiles(settings, files); });
-    }
+    // if (!isValueEmpty(value)) {
+    //   const files = Array.isArray(value) ? value.map(v => v.file) : [value];
+    //   const settings = Object.assign({}, this.uploadSettings, { original: true });
+    //   timer(0).subscribe(() => { this.dragDropFileZoneService.changeFiles(settings, files); });
+    // }
   }
 
   registerOnChange(fn: any): void {

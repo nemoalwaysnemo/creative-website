@@ -215,15 +215,15 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   private updateQueueFiles(metadata: { settings: DragDropFileZoneSettings, data: File[] }): void {
-    const formMode = metadata.settings.formMode;
-    const label = metadata.settings.label;
     const xpath = metadata.settings.xpath;
-    const original = metadata.settings.original;
-    const isFileList = metadata.settings.queueLimit > 1;
     this.queueFiles[xpath] = this.queueFiles[xpath] ? this.queueFiles[xpath] : {};
     const droped = metadata.data.filter((f: File) => !this.queueFiles[xpath][f.name]);
     if (droped.length > 0) {
       this.queueFiles[xpath] = {};
+      const formMode = metadata.settings.formMode;
+      const label = metadata.settings.label;
+      const original = metadata.settings.original;
+      const isFileList = metadata.settings.queueLimit > 1;
       const target = droped.map((f: File) => new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: f, xpath, label, original, isFileList, formMode }) }));
       const queued = this.uploadItems.filter((res: NuxeoUploadResponse) => res.xpath === xpath);
       if ((queued.length === 0) || (queued.length + target.length) <= metadata.settings.queueLimit) {
@@ -257,7 +257,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   private upload(items: NuxeoUploadResponse[]): void {
-    items.filter((res: NuxeoUploadResponse) => !res.uploaded).forEach((res: NuxeoUploadResponse) => { this.blobs$.next(res.blob); });
+    items.filter((res: NuxeoUploadResponse) => !res.uploaded && !res.original).forEach((res: NuxeoUploadResponse) => { this.blobs$.next(res.blob); });
   }
 
   private performSubForm(res: NuxeoUploadResponse): void {

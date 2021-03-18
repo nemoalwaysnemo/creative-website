@@ -156,16 +156,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private checkFiles(doc: DocumentModel): DocumentModel {
-    const files = doc.get('files:files');
-    let flag = false;
-    if (!!files) {
-      files.forEach(file => {
-        if (!file.file) {
-          flag = true;
-        }
-      });
-    }
-    if (flag) {
+    const files = doc.get('files:files') || [];
+    if (files.every((f: any) => !f.file)) {
       doc.set({ 'files:files': [] });
     }
     return doc;
@@ -272,7 +264,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     let documents = [];
     this.documentModel.properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
-      documents = this.attachFiles(this.documentModel, this.getFormValue(this.uploadModel.field));
+      documents = this.attachUploadFiles(this.documentModel, this.getFormValue(this.uploadModel.field));
     } else {
       documents = [this.documentModel];
       documents.forEach(doc => {
@@ -293,9 +285,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     let properties = this.filterPropertie(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'uploaded') {
       const files = this.getFormValue(this.uploadModel.field);
-      properties = this.updateAttachedFiles(properties, files);
+      properties = this.updateUploadFiles(properties, files);
     }
-
     if (this.documentModel.properties['nxtag:tags'] && properties['nxtag:tags']) {
       this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
     }
@@ -327,33 +318,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  private attachFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
-    return files.filter((res: NuxeoUploadResponse) => res.isMainFile()).map((res: NuxeoUploadResponse) => {
-      const model = this.newDocumentModel(doc);
-      model.properties = this.updateAttachedFiles(model.properties, files);
-      if (!!res.title && this.uploadModel.settings.multiUpload) {
-        model.properties['dc:title'] = res.title;
-      }
-      return model;
-    });
-  }
-
-  private updateAttachedFiles(properties: any, files: NuxeoUploadResponse[]): any {
-    files.forEach((file: NuxeoUploadResponse) => {
-      if (file.isMainFile()) {
-        properties[file.xpath] = file.batchBlob;
-      } else {
-        if (file.isAttachment() || file.isFileList) {
-          properties[file.xpath] = Array.isArray(properties[file.xpath]) ? properties[file.xpath] : [];
-          properties[file.xpath].push({ file: file.batchBlob });
-        } else {
-          properties[file.xpath] = file.batchBlob;
-        }
-      }
-    });
-    return properties;
-  }
-
   private newDocumentModel(doc: DocumentModel): DocumentModel {
     const list: string[] = ['title', 'uid', 'path', 'type', '_properties'];
     const keys: string[] = Object.keys(doc);
@@ -365,23 +329,53 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return new DocumentModel(deepExtend({}, doc));
   }
 
+  private attachUploadFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
+    return files.filter((res: NuxeoUploadResponse) => res.isMainFile()).map((res: NuxeoUploadResponse) => {
+      const model = this.newDocumentModel(doc);
+      model.properties = this.updateUploadFiles(model.properties, files);
+      if (!!res.title && this.uploadModel.settings.multiUpload) {
+        model.properties['dc:title'] = res.title;
+      }
+      return model;
+    });
+  }
+
+  private updateUploadFiles(properties: any, files: NuxeoUploadResponse[]): any {
+    files.forEach((file: NuxeoUploadResponse) => {
+      if (file.isMainFile()) {
+        properties[file.xpath] = file.batchBlob;
+      } else {
+        if (file.isAttachment() || file.isFileList) {
+          const fileValue = properties[file.xpath];
+          properties[file.xpath] = Array.isArray(fileValue) ? fileValue : [];
+          properties[file.xpath].push({ file: file.batchBlob });
+        } else {
+          properties[file.xpath] = file.batchBlob;
+        }
+      }
+    });
+    return properties;
+  }
+
   private performBatchUpload(event: any): void {
     if (!this.uploadModel) {
       this.uploadModel = this.getUploadModel(this.ngFormSettings, event.type);
     }
-    const response: NuxeoUploadResponse[] = event.$event.filter((res: NuxeoUploadResponse) => !res.original);
-    if (response.length === 0) {
+    const all: NuxeoUploadResponse[] = event.$event;
+    const added: NuxeoUploadResponse[] = all.filter((res: NuxeoUploadResponse) => !res.original);
+    if (added.length === 0 && all.length > 0) {
+    } else if (added.length === 0) {
       this.updateFormStatus({ uploadState: null });
-    } else if (response.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {
+    } else if (added.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {
       this.updateFormStatus({ uploadState: 'preparing' });
-    } else if (response.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
+    } else if (added.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
       this.updateFormStatus({ uploadState: 'uploading' });
-    } else if (response.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
+    } else if (added.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
       this.hideControls(this.uploadModel, this.ngFormSettings);
-      this.setDocumentTitle(this.uploadModel, this.ngFormSettings, response[0]);
+      this.setDocumentTitle(this.uploadModel, this.ngFormSettings, added[0]);
       this.updateFormStatus({ uploadState: 'uploaded' });
     }
-    this.uploadCount = response.length;
+    this.uploadCount = added.length;
   }
 
   private getUploadModel(settings: DynamicNGFormSettings, type: string): DynamicFormControlModel {
