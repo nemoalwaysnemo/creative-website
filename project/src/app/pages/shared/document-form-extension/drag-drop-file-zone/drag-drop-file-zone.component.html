@@ -12,6 +12,12 @@
           [(validDrag)]="validComboDrag"
           [(files)]="files"
     >
-    <div><strong>{{uploadSettings.placeholder}}</strong></div>
+    <div class="placeholder"><strong>{{uploadSettings.placeholder}}</strong></div>
+  </div>
+  <div class="message" *ngIf="message"><strong>{{message}}</strong></div>
+  <div class="files" *ngIf="uploadSettings.enableFileList">
+    <ul>
+      <li *ngFor="let file of files" class="file-name">{{ file.name }}</li>
+    </ul>
   </div>
 </div>

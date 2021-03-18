@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { deepExtend, isValueEmpty } from '@core/services/helpers';
+import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
+import { UserModel, DocumentModel, AdvanceSearchService, NuxeoUploadResponse } from '@core/api';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
-import { UserModel, DocumentModel, AdvanceSearchService, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
-import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 
 @Component({
   selector: 'document-form',
@@ -364,6 +364,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     const all: NuxeoUploadResponse[] = event.$event;
     const added: NuxeoUploadResponse[] = all.filter((res: NuxeoUploadResponse) => !res.original);
     if (added.length === 0 && all.length > 0) {
+      //
     } else if (added.length === 0) {
       this.updateFormStatus({ uploadState: null });
     } else if (added.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {

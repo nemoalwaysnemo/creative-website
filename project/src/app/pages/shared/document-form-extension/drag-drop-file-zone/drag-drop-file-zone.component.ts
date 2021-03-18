@@ -25,7 +25,9 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
     }
   }
 
-  files: File[] = [];
+  files: any[] = [];
+
+  message: string = '';
 
   disalbed: boolean = false;
 
@@ -56,11 +58,11 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   }
 
   writeValue(value: any): void {
-    // if (!isValueEmpty(value)) {
-    //   const files = Array.isArray(value) ? value.map(v => v.file) : [value];
-    //   const settings = Object.assign({}, this.uploadSettings, { original: true });
-    //   timer(0).subscribe(() => { this.dragDropFileZoneService.changeFiles(settings, files); });
-    // }
+    if (!isValueEmpty(value)) {
+      this.files = Array.isArray(value) ? value.map(v => v.file) : [value];
+      // const settings = Object.assign({}, this.uploadSettings, { original: true });
+      // timer(0).subscribe(() => { this.dragDropFileZoneService.changeFiles(settings, files); });
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -84,6 +86,8 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   }
 
   onFilesChange(files: File[]): void {
+    this.files = this.files.concat(files);
+    this.message = `You have added ${files.length} file(s) to the queue, ${this.files.length} file(s) in total.`;
     this.dragDropFileZoneService.changeFiles(this.uploadSettings, files);
   }
 
