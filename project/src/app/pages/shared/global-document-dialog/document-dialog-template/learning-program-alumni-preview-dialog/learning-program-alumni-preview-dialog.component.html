@@ -8,43 +8,86 @@
   <ng-container *ngIf="document">
     <div class="headshot" [ngStyle]="{'background-image': 'url('+getFacebookUrl(document)+')'}"></div>
     <div class="text-area">
-      <table>
+      <div class="info-table-left">
+        <div class="info-name">Ted Colgate</div>
+        <div class="active">Active</div>
+      </div>
+      <div class="info-table-right">
+        <div class="contact-info">Contact Information</div>
+        <div class="right-info-top">
+          <div class="icon-mail info-icon"></div>
+          <div class="float-left icon-info-type">Work email</div>
+          <div class="float-left icon-info-content">ted.cogote@tbwa.com</div>
+        </div>
+        <div class="right-info-top">
+          <div class="icon-mail info-icon"></div>
+          <div class="float-left icon-info-type">Personal email</div>
+          <div class="float-left icon-info-content"></div>
+        </div>
+        <div class="right-info-top">
+          <div class="icon-phone info-icon"></div>
+          <div class="float-left icon-info-type">Work phone</div>
+          <div class="float-left icon-info-content"></div>
+        </div>
+        <div class="right-info-top">
+          <div class="icon-linkedin info-icon"></div>
+          <div class="float-left icon-info-type">LinkedIn</div>
+          <div class="float-left icon-info-content">N/A</div>
+        </div>
+        <div class="right-info-top">
+          <div class="icon-facebook info-icon"></div>
+          <div class="float-left icon-info-type">Facebook</div>
+          <div class="float-left icon-info-content">N/A</div>
+        </div>
+        <div class="right-info-top">
+          <div class="icon-twitter info-icon"></div>
+          <div class="float-left icon-info-type">Twitter</div>
+          <div class="float-left icon-info-content">N/A</div>
+        </div>
+      </div>
+      <div class="info-table-left" style="margin-top: 5px;">
+        <div class="user-main-info">Agency:</div>
+        <div class="main-info-text">TBWA Worldwide, New York</div>
+        <div class="user-main-info">Role</div>
+        <div class="main-info-text">N/A</div>
+        <div class="user-main-info">Tenure</div>
+        <div class="main-info-text">N/A</div>
+      </div>
+      <table class="info-table-left" style="margin-top: 10px;">
         <tbody>
           <tr>
-            <th>Name:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Discipline:</th>
             <td>{{ document.title }}</td>
           </tr>
           <tr>
-            <th>Title:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Program(s):</th>
             <td>{{ document.title }}</td>
           </tr>
           <tr>
-            <th>Discipline:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Brands Works On:</th>
             <td>{{ document.title }}</td>
           </tr>
           <tr>
-            <th>Program(s):&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Agencies:</th>
             <td>{{ document.title }}</td>
           </tr>
           <tr>
-            <th>Brands Worked On:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Languages:</th>
             <td>{{ document.title }}</td>
           </tr>
           <tr>
-            <th>Agencies:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            <td>{{ document.title }}</td>
-          </tr>
-          <tr>
-            <th>Languages:&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            <td>{{ document.title }}</td>
-          </tr>
-          <tr>
-            <th>Contact Info:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Contact Info:</th>
             <td>{{ document.title }}</td>
           </tr>
         </tbody>
       </table>
-      <div>Video</div>
+    </div>
+    <div class="glp-area">
+      <div style="font-weight: bold; margin-bottom: 5px;">GLP</div>
+      <div class="glp-type">Name:</div>
+      <div class="glp-content">AMP</div>
+      <div class="glp-type">Year:</div>
+      <div class="glp-content">2014</div>
     </div>
     <div class="clear"></div>
   </ng-container>
