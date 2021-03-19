@@ -17,7 +17,7 @@
     padding: 20px;
     border: 1px solid #e6e6e6;
     border-radius: 11px;
-    min-height: 400px;
+    min-height: 370px;
     margin: 30px 0;
 }
 .info-table-left {
@@ -50,9 +50,26 @@
     width: 30px;
     height: 30px;
     float: left;
+    margin: 2px 3px;
 }
 .icon-mail {
     background-image: url('/assets/images/mail_inbox.png');
+    background-size:30px 30px;
+}
+.icon-phone {
+    background-image: url('/assets/images/cell-phone.png');
+    background-size:30px 30px;
+}
+.icon-linkedin {
+    background-image: url('/assets/images/linkedin.png');
+    background-size:30px 30px;
+}
+.icon-facebook {
+    background-image: url('/assets/images/facebook.png');
+    background-size:30px 30px;
+}
+.icon-twitter {
+    background-image: url('/assets/images/twitter.png');
     background-size:30px 30px;
 }
 .float-left {
@@ -72,5 +89,36 @@
 }
 .contact-info {
     height: 28px;
-    font-size: 15px;
+    font-size: 19px;
+    font-weight: bold;
+}
+.info-table-left th {
+    width: 45%;
+    font-size: 18px;
+}
+.icon-info-type {
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 80%;
+}
+.icon-info-content {
+    width: 80%;
+    min-height: 21px;
+}
+.glp-area {
+    text-align: left;
+    padding: 20px;
+    border: 1px solid #e6e6e6;
+    min-height: 100px;
+    margin: 30px 0;
+}
+.glp-type {
+    width: 9%;
+    float: left;
+}
+.glp-content {
+    width: 40%;
+    float: left;
 }
