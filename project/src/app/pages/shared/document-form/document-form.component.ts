@@ -84,7 +84,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   onBlur(event: any): void {
     // console.log(`BLUR event on ${event.model.field}: `, event);
-    this.callback.emit(new DocumentFormEvent({ action: 'onBlur', status: this.formStatus$.value, doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
+    this.callback.emit(new DocumentFormEvent({ action: 'onBlur', status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
   }
 
   onChange(event: any): void {
@@ -332,7 +332,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   private attachUploadFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
     return files.filter((res: NuxeoUploadResponse) => res.isMainFile()).map((res: NuxeoUploadResponse) => {
       const model = this.newDocumentModel(doc);
-      model.properties = this.updateUploadFiles(model.properties, files);
+      model.properties = this.updateUploadFiles(model.properties, res);
+      model.properties = this.updateUploadFiles(model.properties, files.filter((r: NuxeoUploadResponse) => !r.isMainFile()));
       if (!!res.title && this.uploadModel.settings.multiUpload) {
         model.properties['dc:title'] = res.title;
       }
@@ -340,8 +341,9 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  private updateUploadFiles(properties: any, files: NuxeoUploadResponse[]): any {
-    files.forEach((file: NuxeoUploadResponse) => {
+  private updateUploadFiles(properties: any, files: NuxeoUploadResponse | NuxeoUploadResponse[]): any {
+    const list = Array.isArray(files) ? files : [files];
+    list.forEach((file: NuxeoUploadResponse) => {
       if (file.isMainFile()) {
         properties[file.xpath] = file.batchBlob;
       } else {

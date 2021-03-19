@@ -18,10 +18,10 @@
               <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" [layout]="formLayout" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
                 (focus)="onFocus($event)"></dynamic-ng-form>
             </td>
-            <td *ngIf="!item.isMainFile() || item.formMode === 'edit'">{{ item.getFileType() }}</td>
+            <td *ngIf="!uploadSettings.enableInput || uploadSettings.enableInput && !item.isMainFile()">{{ item.getFileType() }}</td>
             <td nowrap *ngIf="item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB</td>
             <td nowrap *ngIf="!item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
-            <td nowrap *ngIf="uploadSettings.multiUpload"><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)" [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || item.isMainFile()">Delete</button></td>
+            <td nowrap *ngIf="uploadSettings.multiUpload"><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)" [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (item.isMainFile() && item.formMode === 'edit')">Delete</button></td>
           </tr>
         </tbody>
       </table>

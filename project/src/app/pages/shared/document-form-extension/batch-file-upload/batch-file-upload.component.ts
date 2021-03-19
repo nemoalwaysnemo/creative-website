@@ -77,11 +77,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   writeValue(values: any): void {
-    if (!isValueEmpty(values)) {
-      values.forEach((v: any) => {
-        v.file['size'] = parseInt(v.file.length, 10);
-      });
-    }
+
   }
 
   registerOnChange(fn: any): void {
@@ -168,7 +164,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
       mergeMap((blob: NuxeoBlob) => this.batchUpload.upload(blob)),
     ).subscribe((res: NuxeoUploadResponse) => {
       this.updateFileResponse(res);
-      if (this.uploadSettings.multiUpload) {
+      if (this.uploadSettings.enableInput) {
         this.performSubForm(res);
       }
     });
@@ -264,8 +260,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     if (res.isMainFile() && res.uploaded && res.formMode === 'create') {
       const formModels = this.formService.fromJSON(this.fileInput(res));
       formModels.forEach(formModel => {
-        this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
         const value = {};
+        this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
         const filename = this.filterFileName(res.fileName);
         value[`${res.fileIdx}_title`] = filename;
         this.formGroups[res.fileIdx].patchValue(value);

@@ -87,7 +87,7 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
 
   onFilesChange(files: File[]): void {
     this.files = this.files.concat(files);
-    this.message = `You have added ${files.length} file(s) to the queue, ${this.files.length} file(s) in total.`;
+    this.message = `You have added ${files.length} file(s) to the queue.`;
     this.dragDropFileZoneService.changeFiles(this.uploadSettings, files);
   }
 

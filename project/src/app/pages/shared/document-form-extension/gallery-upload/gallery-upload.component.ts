@@ -72,11 +72,9 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   writeValue(images: any): void {
-    if (images !== null) {
+    if (!isValueEmpty(images) && images.some((x: any) => !(x instanceof NuxeoUploadResponse))) {
       this.updateUploadStatus({ itemChanged: true });
-      if (!isValueEmpty(images)) {
-        this.imageItems$.next(images);
-      }
+      this.imageItems$.next(images);
     }
   }
 
@@ -161,12 +159,13 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     ]).subscribe(([items, settings]: [GalleryImageItem[], GalleryUploadSettings]) => {
       this.uploadSettings = settings;
       this.uploadItems = this.buildGalleryImageItem(items, settings).concat(this.uploadItems.concat());
+      // this.emitUploadResponse(this.uploadItems);
     });
     this.subscription.add(subscription);
   }
 
   private upload(files: NuxeoUploadResponse[]): void {
-    files.filter((res: NuxeoUploadResponse) => !res.uploaded).forEach((res: NuxeoUploadResponse, index: number) => { res.fileIdx = index; res.blob.fileIdx = index; res.item.uploading = true; this.blobs$.next(res.blob); });
+    files.filter((res: NuxeoUploadResponse) => !res.uploaded && !res.original).forEach((res: NuxeoUploadResponse, index: number) => { res.fileIdx = index; res.blob.fileIdx = index; res.item.uploading = true; this.blobs$.next(res.blob); });
   }
 
   private updateUploadStatus(status: any = {}): void {
@@ -184,7 +183,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     const uploadItems = this.uploadItems.filter((res: NuxeoUploadResponse) => res.item.uploading || res.item.uploaded);
     const uploaded = uploadItems.every((res: NuxeoUploadResponse) => res.uploaded);
     this.updateUploadStatus({ uploaded, uploading: !uploaded });
-    this.triggerEvent(uploadItems);
+    this.emitUploadResponse(this.uploadItems);
     this.valid.emit(uploaded);
   }
 
@@ -192,7 +191,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     return this.selectedItems.map((index: number) => this.uploadItems[index]);
   }
 
-  triggerEvent(files: NuxeoUploadResponse[]): void {
+  private emitUploadResponse(files: NuxeoUploadResponse[]): void {
     this.onUpload.emit(files);
     this._onChange(files);
   }
@@ -200,7 +199,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   private buildGalleryImageItem(images: any[], settings: GalleryUploadSettings): NuxeoUploadResponse[] {
     return (images || []).map((x: any) => {
       const item = x instanceof GalleryImageItem ? x : new GalleryImageItem(x);
-      return new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: item.getFile(), xpath: settings.xpath, formMode: settings.formMode }), item });
+      return new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: item.getFile(), xpath: settings.xpath, label: settings.label, original: settings.original, isFileList: settings.isFileList, formMode: settings.formMode }), item });
     });
   }
 
