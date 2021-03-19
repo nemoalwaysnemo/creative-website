@@ -89,20 +89,21 @@ export class CreativeBrandManageLibraryComponent extends BaseDocumentManageCompo
         placeholder: 'description',
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Logo/Image here!',
-        acceptTypes: 'image/*',
+        settings: {
+          queueLimit: 1,
+          placeholder: 'Drop Logo/Image here!',
+          acceptTypes: 'image/*',
+        },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: true,
         },
       }),

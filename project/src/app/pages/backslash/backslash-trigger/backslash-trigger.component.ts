@@ -5,6 +5,8 @@ import { DocumentModel, NuxeoAutomations } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DocumentFormEvent, DocumentFormStatus } from '../../shared/document-form/document-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { Observable, Subject, zip } from 'rxjs';
+import { concatMap, filter, share, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-trigger',
@@ -15,9 +17,13 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   @ViewChild('url', { static: true, read: ElementRef }) url: ElementRef<HTMLTextAreaElement>;
 
+  noImages: boolean = false;
+
   fetching: boolean = false;
 
-  triggerFormSettings: any = {
+  inputUrl: string = '';
+
+  formSettings: any = {
     actionOptions: { schemas: '*' },
     enableLayoutRight: false,
     formMode: 'create',
@@ -44,6 +50,10 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   userDocument: DocumentModel = new DocumentModel();
 
+  private readonly cacheKey: string = 'Backslash-Trigger-Extension-Form';
+
+  private event$: Subject<{ key: string, data: any }> = new Subject<any>();
+
   private imageLimit: number = 3;
 
   private targetDocument: DocumentModel;
@@ -55,34 +65,34 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     protected documentPageService: DocumentPageService,
   ) {
     super(activatedRoute, documentPageService);
+    this.onPageInitialized();
+    this.onInputUrlChanged();
+    this.performActiveTabUrl();
   }
 
   onInit(): void {
-    const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe((doc: DocumentModel) => {
-      this.targetDocument = doc;
-    });
-    this.subscription.add(subscription);
+    this.getDataFromStorage(this.cacheKey);
   }
 
-  isButtonDisabled(): boolean {
-    return this.fetching || !this.targetDocument || !this.url.nativeElement.value;
+  urlChanged(event: any): void {
+    this.noImages = false;
+  }
+
+  isFormDisabled(): boolean {
+    return false;
+    // return this.fetching || !this.targetDocument;
   }
 
   fetchSite(): void {
-    this.fetching = true;
-    const link = this.url.nativeElement.value;
-    this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: link, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' }).subscribe((doc: DocumentModel) => {
-      this.document = this.updateBackslashTriggerProperties(this.targetDocument, doc);
-      this.imageDocument = doc;
-      this.fetching = false;
-    });
+    this.inputUrl = this.url.nativeElement.value;
+    this.event$.next({ key: 'inputUrl', data: this.inputUrl });
   }
 
   onCallback(e: DocumentFormEvent): void {
     if (['Created', 'Updated'].includes(e.action)) {
-      this.document = this.updateBackslashTriggerProperties(e.doc, this.imageDocument);
+      this.document = this.updateProperties(e.doc, this.imageDocument);
       if (e.action === 'Created') {
-        this.triggerFormSettings = Object.assign({}, this.triggerFormSettings, {
+        this.formSettings = Object.assign({}, this.formSettings, {
           formMode: 'edit',
           buttonGroup: [
             {
@@ -98,9 +108,14 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
           ],
         });
       }
+      this.noImages = false;
+      this.clearStorage(this.cacheKey);
+    } else if (e.action === 'onBlur' && !e.status.submitted) {
+      console.log(33333, e.formValue);
+      // this.setDataToStorage(this.cacheKey, e.formValue);
     }
     if (e.button === 'open-trigger' && this.document) {
-      this.documentPageService.openNewTab(NuxeoDocumentUrl(this.document.uid));
+      // chrome.tabs.create({ url: NuxeoDocumentUrl(this.document.uid) });
     }
   }
 
@@ -113,13 +128,78 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     };
   }
 
-  private updateBackslashTriggerProperties(doc: DocumentModel, target: DocumentModel): DocumentModel {
+  private updateProperties(doc: DocumentModel, target: DocumentModel): DocumentModel {
     const properties = Object.assign({}, doc.properties, {
       'web-page-element:page-images': target.get('web-page-element:page-images'),
       'app_Edges:URL': target.get('web-page-element:page-url'),
       'dc:title': target.title,
     });
     return new DocumentModel({ uid: doc.uid, path: doc.path, properties }, doc.options);
+  }
+
+  private hasPageImages(doc: DocumentModel): boolean {
+    return doc.properties['web-page-element:page-images'] && doc.properties['web-page-element:page-images'].length > 0;
+  }
+
+  private performActiveTabUrl(): void {
+    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
+    //   this.inputUrl = tabs ? tabs[0].url : this.inputUrl;
+    // });
+  }
+
+  private onInputUrlChanged(): void {
+    const subscription = this.onEvent('inputUrl').pipe(
+      tap(_ => {
+        this.fetching = true;
+        this.noImages = false;
+      }),
+      concatMap((event: { key: string, data: any }) => this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: event.data, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' })),
+    ).subscribe((doc: DocumentModel) => {
+      this.document = this.updateProperties(this.targetDocument, doc);
+      this.noImages = !this.hasPageImages(this.document);
+      this.imageDocument = doc;
+      this.fetching = false;
+    });
+    this.subscription.add(subscription);
+  }
+
+  private onPageInitialized(): void {
+    const subscription = zip(
+      this.onEvent(this.cacheKey),
+      this.searchCurrentDocument(this.getCurrentDocumentSearchParams()),
+    ).subscribe(([event, doc]: [{ key: string, data: any }, DocumentModel]) => {
+      this.targetDocument = doc;
+      const properties = event.data[this.cacheKey];
+      if (properties && this.inputUrl === properties['app_Edges:URL']) {
+        this.document = new DocumentModel({ path: doc.path, properties }, doc.options);
+        this.imageDocument = new DocumentModel({ path: doc.path, properties }, doc.options);
+      }
+    });
+    this.subscription.add(subscription);
+  }
+
+  private setDataToStorage(key: string, value: any): void {
+    const data = {};
+    data[key] = value;
+    // chrome.storage.local.set(data, () => {
+    console.log('set data to storage', value);
+    // });
+  }
+
+  private getDataFromStorage(key: string): void {
+    // chrome.storage.local.get(key, (data: any) => {
+      const data = {};
+      this.event$.next({ key, data });
+    // });
+  }
+
+  private clearStorage(key: string): void {
+    // chrome.storage.local.get(null, function (data) { console.info(data) });
+    // chrome.storage.local.remove(key);
+  }
+
+  private onEvent(key?: string): Observable<{ key: string, data: any }> {
+    return this.event$.pipe(filter((e: { key: string, data: any }) => key ? e.key === key : true)).pipe(share());
   }
 
 }

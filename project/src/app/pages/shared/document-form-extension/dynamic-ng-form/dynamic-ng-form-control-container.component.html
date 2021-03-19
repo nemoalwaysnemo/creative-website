@@ -1,7 +1,7 @@
 <div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')" [formGroup]="group"
   [ngClass]="['dynamic-forms-'+model.type.toLowerCase(), getClass('element', 'container'), getClass('grid', 'container')]">
   <div *ngIf="isRequired" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</div>
-  <label *ngIf="!isCheckbox && hasLabel && enableLabel" [for]="id" [innerHTML]="model.label" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
+  <label *ngIf="!isCheckbox && hasLabel" [for]="id" [innerHTML]="model.label" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
 
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
 

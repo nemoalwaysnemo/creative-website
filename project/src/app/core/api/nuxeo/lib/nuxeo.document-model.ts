@@ -54,11 +54,6 @@ export class DocumentModel extends Base {
     return op.input(input).params(params).execute();
   }
 
-  attachBatchBlob(batchBlob: BatchBlob): this {
-    this.properties['file:content'] = batchBlob;
-    return this;
-  }
-
   fetchBlob(xpath: string = 'blobholder:0', opts: any = {}): Observable<any> {
     let options = opts;
     let blobXPath = xpath;
@@ -263,7 +258,9 @@ export class DocumentModel extends Base {
     const value = this.get(propertyName);
     if (value && Array.isArray(value) && !isValueEmpty(value)) {
       for (const file of value) {
-        list.push({ url: file.data, type: file['mime-type'], name: file.name });
+        if (file) {
+          list.push({ url: file.data, type: file['mime-type'], name: file.name });
+        }
       }
     }
     return list;

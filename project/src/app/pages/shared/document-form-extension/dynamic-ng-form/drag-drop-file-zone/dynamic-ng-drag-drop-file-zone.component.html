@@ -2,12 +2,8 @@
   <drag-drop-file-zone
       [formControlName]="model.field"
       [id]="id"
-      [placeholder]="model.placeholder"
-      [acceptTypes]="model.acceptTypes"
-      [queueLimit]="model.queueLimit"
-      [uploadType]="model.uploadType"
-      [formMode]="model.formMode"
-      [maxSize]="model.maxSize"
+      [settings]="model.settings"
+      [attr.disabled]="model.disabled"
       [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
       [required]="model.required"
       [tabindex]="model.tabIndex"
@@ -15,6 +11,7 @@
       (change)="onChange($event)"
       (focus)="onFocus($event)"
       (valid)="onValid($event)"
-      (fileChange)="onCustomEvent($event, 'DRAG_DROP_FILE')">
+      (onUpload)="onCustomEvent($event, 'DRAG_DROP_FILE')"
+      >
   </drag-drop-file-zone>
 </ng-container>

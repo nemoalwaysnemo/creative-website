@@ -142,18 +142,20 @@ export class BackslashTriggerFormComponent extends GlobalDocumentFormComponent {
         },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
-        uploadType: 'asset',
+        id: 'file:content',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Image File(s) here!',
-        acceptTypes: 'image/*',
+        settings: {
+          queueLimit: 1,
+          xpath: 'file:content',
+          placeholder: 'Drop Image File(s) here!',
+          acceptTypes: 'image/*',
+        },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: false,
         },
       }),

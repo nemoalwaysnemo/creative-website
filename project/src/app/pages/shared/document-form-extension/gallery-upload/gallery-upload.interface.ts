@@ -73,11 +73,17 @@ export class GalleryUploadStatus {
 
 export class GalleryUploadSettings {
 
-  queueLimit: number = 1;
+  [key: string]: any;
 
   enableClipboard: boolean = true;
 
-  uploadType: 'asset' | 'attachment';
+  original: boolean = false;
+
+  queueLimit: number = 1;
+
+  label: string = '';
+
+  xpath: string = 'file:content';
 
   formMode: 'create' | 'edit' | 'view' = 'create';
 

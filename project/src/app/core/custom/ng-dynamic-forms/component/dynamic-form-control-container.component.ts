@@ -141,10 +141,6 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
     return isString(this.model.label);
   }
 
-  get enableLabel(): boolean {
-    return this.model.enableLabel;
-  }
-
   get hasHint(): boolean {
     return isString((this.model as DynamicFormValueControlModel<any>).hint);
   }

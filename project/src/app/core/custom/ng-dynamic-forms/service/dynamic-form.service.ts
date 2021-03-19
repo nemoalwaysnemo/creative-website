@@ -9,7 +9,6 @@ import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX, DynamicCheckboxModel } from '../mod
 import { DYNAMIC_FORM_CONTROL_TYPE_COLORPICKER, DynamicColorPickerModel } from '../model/colorpicker/dynamic-colorpicker.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER, DynamicDatePickerModel } from '../model/datepicker/dynamic-datepicker.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_EDITOR, DynamicEditorModel } from '../model/editor/dynamic-editor.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_FILE_UPLOAD, DynamicFileUploadModel } from '../model/file-upload/dynamic-file-upload.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_INPUT, DynamicInputModel } from '../model/input/dynamic-input.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP, DynamicRadioGroupModel } from '../model/radio/dynamic-radio-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RATING, DynamicRatingModel } from '../model/rating/dynamic-rating.model';
@@ -342,11 +341,6 @@ export class DynamicFormService {
 
         case DYNAMIC_FORM_CONTROL_TYPE_EDITOR:
           formModel.push(new DynamicEditorModel(model, layout));
-          break;
-
-        case DYNAMIC_FORM_CONTROL_TYPE_FILE_UPLOAD:
-          model.value = null;
-          formModel.push(new DynamicFileUploadModel(model, layout));
           break;
 
         case DYNAMIC_FORM_CONTROL_TYPE_GROUP:

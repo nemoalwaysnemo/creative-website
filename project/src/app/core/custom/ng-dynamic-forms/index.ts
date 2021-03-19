@@ -18,7 +18,6 @@ export * from './model/dynamic-form.model';
 export * from './model/dynamic-form-value-control.model';
 export * from './model/dynamic-check-control.model';
 export * from './model/dynamic-date-control.model';
-export * from './model/dynamic-file-control.model';
 export * from './model/dynamic-input-control.model';
 export * from './model/dynamic-option-control.model';
 
@@ -27,7 +26,6 @@ export * from './model/checkbox/dynamic-checkbox-group.model';
 export * from './model/colorpicker/dynamic-colorpicker.model';
 export * from './model/datepicker/dynamic-datepicker.model';
 export * from './model/editor/dynamic-editor.model';
-export * from './model/file-upload/dynamic-file-upload.model';
 export * from './model/form-group/dynamic-form-group.model';
 export * from './model/form-array/dynamic-form-array.model';
 export * from './model/input/dynamic-input.model';

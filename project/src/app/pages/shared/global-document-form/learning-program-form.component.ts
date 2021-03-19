@@ -1,7 +1,17 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicListModel, DynamicFieldHeaderModel } from '@core/custom';
+import { Observable } from 'rxjs';
+import {
+  DynamicListModel,
+  DynamicInputModel,
+  DynamicTextAreaModel,
+  DynamicOptionTagModel,
+  DynamicSuggestionModel,
+  DynamicBatchUploadModel,
+  DynamicDatepickerDirectiveModel,
+  DynamicDragDropFileZoneModel,
+  DynamicFieldHeaderModel,
+} from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -21,6 +31,18 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
     super(documentPageService);
   }
 
+  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
+    const list = (doc.properties['app_Learning:program_dates'] || []).map((date: any) => date['app_Learning:program_dates_item']);
+    if (list.length > 0) {
+      doc.properties['app_Learning:program_dates'] = list;
+    }
+    const photos = (doc.properties['app_Learning:program_photo'] || []).map((p: any) => p['file']);
+    if (photos.length > 0) {
+      doc.properties['app_Learning:program_photo'] = photos;
+    }
+    return doc;
+  }
+
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }
@@ -29,8 +51,7 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
     return [
       new DynamicFieldHeaderModel<string>({
         id: 'visible-to-everyone-header',
-        label: 'VISIBLE TO EVERYONE',
-        enableLabel: false,
+        placeholder: 'VISIBLE TO EVERYONE',
       }),
       new DynamicInputModel({
         id: 'dc:title',
@@ -116,10 +137,41 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         required: false,
         placeholder: 'Program Dates',
       }),
+      // new DynamicOptionTagModel({
+      //   id: 'app_Learning:program_dates',
+      //   label: 'Program Dates',
+      //   required: false,
+      //   placeholder: 'Program Dates',
+      // }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'app_Learning:program_logo',
+        label: 'Program Logo',
+        // formMode: 'create',
+        settings: {
+          queueLimit: 1,
+          layout: 'form-field',
+          label: 'Program Logo',
+          xpath: 'app_Learning:program_logo',
+          placeholder: 'Drop Logo here!',
+          acceptTypes: 'image/*',
+        },
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'app_Learning:program_photo',
+        label: 'Program Photo',
+        // formMode: 'create',
+        settings: {
+          queueLimit: 20,
+          layout: 'form-field',
+          label: 'Program Photo',
+          xpath: 'app_Learning:program_photo',
+          placeholder: 'Drop Image here!',
+          acceptTypes: 'image/*',
+        },
+      }),
       new DynamicFieldHeaderModel<string>({
         id: 'visible-only-to-program-nominators-group-header',
-        label: 'VISIBLE ONLY TO PROGRAM NOMINATORS GROUP',
-        enableLabel: false,
+        placeholder: 'VISIBLE ONLY TO PROGRAM NOMINATORS GROUP',
       }),
       new DynamicOptionTagModel({
         id: 'app_Learning:program_nomination_criteria',
@@ -133,62 +185,55 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         rows: 5,
         required: false,
       }),
-      // new DynamicDragDropFileZoneModel<string>({
-      //   id: 'app_Learning:program_logo',
-      //   formMode: 'create',
-      //   uploadType: 'asset',
-      //   layoutPosition: 'right',
-      //   queueLimit: 1,
-      //   placeholder: 'Drop Logo here!',
-      //   acceptTypes: 'image/*',
-      // }),
-      // new DynamicDragDropFileZoneModel<string>({
-      //   id: 'app_Learning:program_photo',
-      //   formMode: 'create',
-      //   uploadType: 'asset',
-      //   layoutPosition: 'right',
-      //   queueLimit: 1,
-      //   placeholder: 'Drop Image here!',
-      //   acceptTypes: 'image/*',
-      // }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'create',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 1,
-        placeholder: 'Drop Video File(s) here!',
-        acceptTypes: '.mov,.mp4,.mp1',
+        settings: {
+          queueLimit: 1,
+          placeholder: 'Drop Video File(s) here!',
+          acceptTypes: '.mov,.mp4,.mp1',
+        },
       }),
       new DynamicDragDropFileZoneModel<string>({
-        id: 'dragDropAssetZone',
+        id: 'file:content',
         formMode: 'edit',
-        uploadType: 'asset',
         layoutPosition: 'right',
-        queueLimit: 20,
-        placeholder: 'Drop Video File(s) here!',
-        acceptTypes: '.mov,.mp4,.mp1',
+        settings: {
+          queueLimit: 20,
+          placeholder: 'Drop Video File(s) here!',
+          acceptTypes: '.mov,.mp4,.mp1',
+        },
+      }),
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'files:files',
+        formMode: 'edit',
+        layoutPosition: 'right',
+        settings: {
+          queueLimit: 20,
+          placeholder: 'Drop to upload attachment',
+          acceptTypes: 'image/*,.pdf,.key,.ppt,.zip,.doc,.xls,.mp4',
+        },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          showInput: true,
+          enableInput: true,
           multiUpload: true,
         },
       }),
       new DynamicBatchUploadModel<string>({
-        id: 'files:files',
+        id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          showInput: false,
+          enableInput: false,
           multiUpload: true,
         },
       }),
     ];
   }
-
 
 }

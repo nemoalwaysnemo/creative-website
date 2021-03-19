@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { share, filter, map } from 'rxjs/operators';
+import { DragDropFileZoneSettings } from './drag-drop-file-zone.interface';
 
 @Injectable()
 export class DragDropFileZoneService {
 
-  private event$ = new Subject<any>();
+  private event$: Subject<any> = new Subject<any>();
 
   changeState(disabled: boolean, target?: string): void {
-    this.event$.next({ data: disabled, event: 'state', target });
+    this.event$.next({ data: disabled, event: 'stateChanged', target });
   }
 
   onStateChange(): Observable<any> {
-    return this.filterEvents('state');
+    return this.filterEvents('stateChanged');
   }
 
-  changeFiles(target: string, files: File[], queueLimit: number, formMode: string): void {
-    this.event$.next({ data: files, event: 'files', target, queueLimit, formMode });
+  changeFiles(settings: DragDropFileZoneSettings, files: File[]): void {
+    this.event$.next({ settings, data: files, event: 'fileChanged' });
   }
 
-  onFilesChange(): Observable<{ data: File[], target: string, queueLimit: number }> {
-    return this.filterEvents('files');
+  onFilesChange(): Observable<{ settings: DragDropFileZoneSettings, data: File[] }> {
+    return this.filterEvents('fileChanged');
   }
 
   private filterEvents(event: string): Observable<any> {

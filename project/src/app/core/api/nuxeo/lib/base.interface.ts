@@ -539,23 +539,28 @@ export class NuxeoPagination {
 }
 
 export class NuxeoBlob {
-
   readonly content: any;
   readonly name: string;
-  readonly uploadFileType: string; // asset or attachment
+  readonly xpath: string; // asset or attachment
+  readonly label: string;
   readonly mimeType: string;
   readonly size: number;
   readonly formMode: string;
+  readonly original: boolean;
+  readonly isFileList: boolean = false;
   fileIdx: number;
 
   constructor(opts: any = {}) {
-    this.uploadFileType = opts.uploadFileType;
+    this.xpath = opts.xpath;
+    this.label = opts.label;
+    this.isFileList = opts.isFileList;
     this.formMode = opts.formMode;
     this.content = opts.content;
     this.fileIdx = opts.fileIdx;
+    this.original = opts.original;
     this.name = opts.name || this.content.name;
     this.mimeType = opts.mimeType || opts['mime-type'] || this.content.type;
-    this.size = opts.size || opts.length || this.content.size;
+    this.size = opts.size || opts.length || this.content.size || this.content.length;
   }
 }
 
@@ -580,23 +585,51 @@ export class NuxeoUploadResponse {
   readonly kbLoaded: number = 0;
   readonly percentLoaded: number = 0;
   readonly batchBlob: BatchBlob;
+  readonly blob: NuxeoBlob;
+  readonly isFileList: boolean;
   readonly fileName: string;
   readonly fileSize: string;
   readonly mimeType: string;
-  readonly blob: NuxeoBlob;
   readonly formMode: string;
-  uploadFileType: string; // 'asset' | 'attachment';
+  readonly original: boolean;
+  readonly xpath: string;
+  readonly label: string;
   fileIdx: number;
 
   constructor(response: any = {}) {
     Object.assign(this, response);
     if (response.blob) {
-      this.fileIdx = this.blob.fileIdx;
-      this.fileName = this.blob.name;
-      this.mimeType = this.blob.mimeType;
-      this.uploadFileType = this.blob.uploadFileType;
-      this.formMode = this.blob.formMode;
-      this.fileSize = this.blob.size.toString();
+      this.fileIdx = response.blob.fileIdx;
+      this.fileName = response.blob.name;
+      this.mimeType = response.blob.mimeType;
+      this.xpath = response.blob.xpath;
+      this.label = response.blob.label;
+      this.original = response.blob.original;
+      this.isFileList = response.blob.isFileList;
+      this.formMode = response.blob.formMode;
+      this.fileSize = response.blob.size.toString();
+    }
+  }
+
+  isMainFile(): boolean {
+    return this.xpath === 'file:content';
+  }
+
+  isAttachment(): boolean {
+    return this.xpath === 'files:files';
+  }
+
+  isOtherType(): boolean {
+    return !this.isMainFile() && !this.isAttachment();
+  }
+
+  getFileType(): string {
+    if (this.isMainFile()) {
+      return 'Main File';
+    } else if (this.isAttachment()) {
+      return 'Attachment';
+    } else {
+      return this.label;
     }
   }
 }
