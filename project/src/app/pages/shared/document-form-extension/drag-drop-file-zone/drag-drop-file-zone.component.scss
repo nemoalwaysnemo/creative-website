@@ -27,5 +27,8 @@
 }
 
 .form-field {
-   height: 40px;
+   height: 44px;
+   .placeholder {
+     margin: 0 auto;
+   }
 }

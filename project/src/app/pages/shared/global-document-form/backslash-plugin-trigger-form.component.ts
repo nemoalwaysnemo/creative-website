@@ -177,12 +177,12 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
+        switchTab: '+ Upload',
         settings: {
           queueLimit: 1,
           xpath: 'file:content',
           placeholder: 'Drop Image File here!',
           acceptTypes: 'image/*',
-          switchTab: '+ Upload',
         },
       }),
       new DynamicBatchUploadModel<string>({

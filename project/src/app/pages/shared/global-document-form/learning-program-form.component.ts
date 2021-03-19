@@ -36,6 +36,10 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
     if (list.length > 0) {
       doc.properties['app_Learning:program_dates'] = list;
     }
+    const photos = (doc.properties['app_Learning:program_photo'] || []).map((p: any) => p['file']);
+    if (photos.length > 0) {
+      doc.properties['app_Learning:program_photo'] = photos;
+    }
     return doc;
   }
 
@@ -147,22 +151,12 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
           }),
         ],
       }),
-      new DynamicFieldHeaderModel<string>({
-        id: 'visible-only-to-mgt-header',
-        placeholder: 'VISIBLE ONLY TO MGT GROUP',
-      }),
-      new DynamicOptionTagModel({
-        id: 'app_Learning:program_nomination_criteria',
-        label: 'Nomination Criteria',
-        required: false,
-        placeholder: 'Nomination Criteria',
-      }),
-      new DynamicTextAreaModel({
-        id: 'app_Learning:program_nomination_cost',
-        label: 'Program Nomination Cost',
-        rows: 5,
-        required: false,
-      }),
+      // new DynamicOptionTagModel({
+      //   id: 'app_Learning:program_dates',
+      //   label: 'Program Dates',
+      //   required: false,
+      //   placeholder: 'Program Dates',
+      // }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'app_Learning:program_logo',
         label: 'Program Logo',
@@ -189,6 +183,22 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
           acceptTypes: 'image/*',
         },
       }),
+      new DynamicFieldHeaderModel<string>({
+        id: 'visible-only-to-program-nominators-group-header',
+        placeholder: 'VISIBLE ONLY TO PROGRAM NOMINATORS GROUP',
+      }),
+      new DynamicOptionTagModel({
+        id: 'app_Learning:program_nomination_criteria',
+        label: 'Nomination Criteria',
+        required: false,
+        placeholder: 'Nomination Criteria',
+      }),
+      new DynamicTextAreaModel({
+        id: 'app_Learning:program_nomination_cost',
+        label: 'Program Nomination Cost',
+        rows: 5,
+        required: false,
+      }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
         formMode: 'create',
@@ -211,7 +221,7 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'files:files',
-        formMode: 'create',
+        formMode: 'edit',
         layoutPosition: 'right',
         settings: {
           queueLimit: 20,
