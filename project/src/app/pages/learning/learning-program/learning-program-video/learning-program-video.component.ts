@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
 
@@ -14,6 +14,7 @@ export class LearningProgramVideoComponent extends BaseDocumentViewComponent {
   viewerSettings: any = {
     enableGlobalMute: false,
     mute: false,
+    autoplay: false,
   };
 
   @Input()

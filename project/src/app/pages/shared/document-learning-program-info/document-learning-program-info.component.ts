@@ -71,8 +71,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
       // this.hasGroup$ = this.hasUserGroup();
       this.curriculumList = this.doc.get('app_Learning:program_curriculum');
       this.durationList = this.doc.get('app_Learning:program_duration');
-
-      this.dateList = this.parseDate();
+      this.dateList = this.doc.get('app_Learning:program_date');
     }
   }
 
@@ -85,12 +84,6 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
     this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
-  }
-
-  parseDate(): string[] {
-    return this.doc.get('app_Learning:program_dates').map((item: string) => {
-      return new DatePipe('en-US').transform(item, 'yyyy-MM-dd');
-    });
   }
 
   protected hasUserGroup(): Observable<boolean> {
