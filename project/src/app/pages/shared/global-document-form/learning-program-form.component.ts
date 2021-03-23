@@ -2,13 +2,11 @@ import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable } from 'rxjs';
 import {
-  DynamicListModel,
   DynamicInputModel,
   DynamicTextAreaModel,
   DynamicOptionTagModel,
   DynamicSuggestionModel,
   DynamicBatchUploadModel,
-  DynamicDatepickerDirectiveModel,
   DynamicDragDropFileZoneModel,
   DynamicFieldHeaderModel,
 } from '@core/custom';
@@ -32,10 +30,6 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
   }
 
   beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
-    const list = (doc.properties['app_Learning:program_dates'] || []).map((date: any) => date['app_Learning:program_dates_item']);
-    if (list.length > 0) {
-      doc.properties['app_Learning:program_dates'] = list;
-    }
     const photos = (doc.properties['app_Learning:program_photo'] || []).map((p: any) => p['file']);
     if (photos.length > 0) {
       doc.properties['app_Learning:program_photo'] = photos;
@@ -107,6 +101,12 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         maxLength: 50,
         required: false,
       }),
+      new DynamicInputModel({
+        id: 'app_Learning:program_experience_level',
+        label: 'Program Experience Level',
+        maxLength: 50,
+        required: false,
+      }),
       new DynamicTextAreaModel({
         id: 'dc:description',
         label: 'Overview',
@@ -132,17 +132,11 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         placeholder: 'Program Duration',
       }),
       new DynamicOptionTagModel({
-        id: 'app_Learning:program_dates',
+        id: 'app_Learning:program_date',
         label: 'Program Dates',
         required: false,
         placeholder: 'Program Dates',
       }),
-      // new DynamicOptionTagModel({
-      //   id: 'app_Learning:program_dates',
-      //   label: 'Program Dates',
-      //   required: false,
-      //   placeholder: 'Program Dates',
-      // }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'app_Learning:program_logo',
         label: 'Program Logo',

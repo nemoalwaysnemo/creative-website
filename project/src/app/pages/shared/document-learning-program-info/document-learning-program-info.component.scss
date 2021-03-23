@@ -71,11 +71,11 @@
       }
       p {
         padding-left: 18px;
-        line-height: 25px;
+        line-height: 27px;
         word-wrap: break-word;
       }
       li {
-        line-height: 25px;
+        line-height: 27px;
       }
       img {
         max-width: 100%;
@@ -107,6 +107,7 @@
       float: left;
       flex-grow: 3;
       width: 60%;
+      padding-right: 27px;
     }
 
     > .showcase-area-right {
@@ -115,6 +116,7 @@
       flex-grow: 1;
       margin-top: 25px;
       width: 46%;
+      padding-left: 5px;
 
       > .showcase-area {
         margin-bottom: 20px;

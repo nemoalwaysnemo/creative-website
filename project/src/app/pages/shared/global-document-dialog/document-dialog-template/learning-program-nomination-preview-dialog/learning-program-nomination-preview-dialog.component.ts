@@ -22,13 +22,15 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
 
   photoViewerSettings: any = {
     styleName: 'learning-program-nomination-preview',
+    autoplay: false,
     srcFn: (doc: DocumentModel): string => {
       const files = doc.getCustomFiles('app_Learning:program_photo');
       if (files && files.length > 0) {
         return files[0].url;
       }
-      return '';
+      return '/assets/images/no-thumbnail.png';
     },
+    mimeTypeFn: (doc: DocumentModel): string => 'picture',
   };
 
   constructor(
@@ -42,14 +44,8 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
     if (doc) {
       this.document = doc;
       this.criteriaList = this.document.get('app_Learning:program_nomination_criteria');
-      this.dateList = this.parseDate();
+      this.dateList = this.document.get('app_Learning:program_date');
     }
-  }
-
-  parseDate(): string[] {
-    return this.document.get('app_Learning:program_dates').map((item: string) => {
-      return new DatePipe('en-US').transform(item, 'yyyy-MM-dd');
-    });
   }
 
   getProgramFiles(type: string): { url: string, type: string, name: string }[] {

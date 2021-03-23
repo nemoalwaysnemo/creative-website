@@ -8,6 +8,17 @@
 .body-left {
   width: 60%;
   float: left;
+  .learning-program-video {
+    position: relative;
+  }
+  .learning-program-video::before {
+    content: ' . ';
+    position: relative;
+    color: black;
+  }
+  .learning-program-video::after {
+    content: ' ';
+  }
 }
 
 .body-right {
