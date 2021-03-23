@@ -1,11 +1,11 @@
 import { Component, Input, forwardRef, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BatchUpload, NuxeoApiService, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 import { isValueEmpty } from '@core/services/helpers';
 import { BehaviorSubject, combineLatest, Subject, Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators';
+import { BatchUpload, NuxeoApiService, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { GalleryImageItem, GalleryUploadSettings, GalleryUploadStatus } from './gallery-upload.interface';
 
 @Component({
@@ -73,7 +73,6 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   writeValue(images: any): void {
     if (!isValueEmpty(images) && images.some((x: any) => !(x instanceof NuxeoUploadResponse))) {
-      this.updateUploadStatus({ itemChanged: true });
       this.imageItems$.next(images);
     }
   }
@@ -156,10 +155,14 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     const subscription = combineLatest([
       this.imageItems$,
       this.galleryUploadSettings$,
-    ]).subscribe(([items, settings]: [GalleryImageItem[], GalleryUploadSettings]) => {
+    ]).pipe(
+      distinctUntilChanged(),
+      debounceTime(300),
+    ).subscribe(([items, settings]: [GalleryImageItem[], GalleryUploadSettings]) => {
       this.uploadSettings = settings;
       this.uploadItems = this.buildGalleryImageItem(items, settings).concat(this.uploadItems.concat());
-      // this.emitUploadResponse(this.uploadItems);
+      this.updateUploadStatus({ itemChanged: true });
+      this.emitUploadResponse(this.uploadItems);
     });
     this.subscription.add(subscription);
   }
@@ -192,8 +195,8 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   private emitUploadResponse(files: NuxeoUploadResponse[]): void {
-    this.onUpload.emit(files);
     this._onChange(files);
+    this.onUpload.emit(files);
   }
 
   private buildGalleryImageItem(images: any[], settings: GalleryUploadSettings): NuxeoUploadResponse[] {

@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NuxeoDocumentUrl } from '@core/services/helpers';
-import { DocumentModel, NuxeoAutomations } from '@core/api';
+import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DocumentFormEvent, DocumentFormStatus } from '../../shared/document-form/document-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -53,6 +53,8 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
   private readonly cacheKey: string = 'Backslash-Trigger-Extension-Form';
 
   private event$: Subject<{ key: string, data: any }> = new Subject<any>();
+
+  private imageItems: any[] = [];
 
   private imageLimit: number = 3;
 
@@ -110,9 +112,8 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
       }
       this.noImages = false;
       this.clearStorage(this.cacheKey);
-    } else if (e.action === 'onBlur' && !e.status.submitted) {
-      console.log(33333, e.formValue);
-      // this.setDataToStorage(this.cacheKey, e.formValue);
+    } else if (['UploadFilesChanged', 'onBlur'].includes(e.action) && !e.status.submitted && e.formValue) {
+      this.setDataToStorage(this.cacheKey, e.formValue);
     }
     if (e.button === 'open-trigger' && this.document) {
       // chrome.tabs.create({ url: NuxeoDocumentUrl(this.document.uid) });
@@ -128,11 +129,19 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     };
   }
 
-  private updateProperties(doc: DocumentModel, target: DocumentModel): DocumentModel {
+  private updateImageItems(imageDoc: DocumentModel): DocumentModel {
+    if (this.imageItems && this.imageItems.length > 0) {
+      imageDoc.properties['web-page-element:page-images'] = this.imageItems.concat(imageDoc.properties['web-page-element:page-images']);
+      this.imageItems.length = 0;
+    }
+    return imageDoc;
+  }
+
+  private updateProperties(doc: DocumentModel, imageDoc: DocumentModel): DocumentModel {
     const properties = Object.assign({}, doc.properties, {
-      'web-page-element:page-images': target.get('web-page-element:page-images'),
-      'app_Edges:URL': target.get('web-page-element:page-url'),
-      'dc:title': target.title,
+      'web-page-element:page-images': imageDoc.get('web-page-element:page-images'),
+      'app_Edges:URL': imageDoc.get('web-page-element:page-url'),
+      'dc:title': imageDoc.title,
     });
     return new DocumentModel({ uid: doc.uid, path: doc.path, properties }, doc.options);
   }
@@ -155,9 +164,10 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
       }),
       concatMap((event: { key: string, data: any }) => this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: event.data, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' })),
     ).subscribe((doc: DocumentModel) => {
-      this.document = this.updateProperties(this.targetDocument, doc);
+      const imageDoc = this.updateImageItems(doc);
+      this.document = this.updateProperties(this.targetDocument, imageDoc);
       this.noImages = !this.hasPageImages(this.document);
-      this.imageDocument = doc;
+      this.imageDocument = imageDoc;
       this.fetching = false;
     });
     this.subscription.add(subscription);
@@ -178,18 +188,34 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     this.subscription.add(subscription);
   }
 
+  private buildFormValue(formValue: any): any {
+    const value = {};
+    for (const key in formValue) {
+      if (Object.prototype.hasOwnProperty.call(formValue, key)) {
+        if (key === 'galleryUpload') {
+          value[key] = (formValue[key] || []).map((i: NuxeoUploadResponse) => i.item).map(i => (i.file));
+          this.imageItems = value[key];
+        } else {
+          value[key] = formValue[key];
+        }
+      }
+    }
+    return value;
+  }
+
   private setDataToStorage(key: string, value: any): void {
+    const formValue = this.buildFormValue(value);
     const data = {};
-    data[key] = value;
+    data[key] = formValue;
     // chrome.storage.local.set(data, () => {
-    console.log('set data to storage', value);
+    console.log('set data to storage', formValue);
     // });
   }
 
   private getDataFromStorage(key: string): void {
     // chrome.storage.local.get(key, (data: any) => {
-      const data = {};
-      this.event$.next({ key, data });
+    const data = {};
+    this.event$.next({ key, data });
     // });
   }
 
