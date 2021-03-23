@@ -101,10 +101,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
     if (['BATCH_UPLOAD', 'GALLERY_UPLOAD'].includes(event.type)) {
       this.performBatchUpload(event);
-      this.callback.emit(new DocumentFormEvent({ action: 'UploadFilesChanged', uploadType: event.type, status: this.formStatus$.value, doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
+      this.callback.emit(new DocumentFormEvent({ action: 'UploadFilesChanged', uploadType: event.type, status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
     }
     if (event.type === 'SWITCH_TAB_CHANGED') {
-      this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, doc: this.documentModel }));
+      this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.documentModel }));
     }
   }
 
@@ -274,7 +274,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       });
     }
     this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
-      this.callback.next(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
+      this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
       if (this.formSettings.resetFormAfterDone) {
         this.resetForm();
       }
@@ -292,7 +292,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
 
     this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
-      this.callback.next(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
+      this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
     });
   }
 

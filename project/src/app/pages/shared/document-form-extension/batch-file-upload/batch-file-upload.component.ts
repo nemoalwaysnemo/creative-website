@@ -131,8 +131,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   emitUploadResponse(files: NuxeoUploadResponse[]): void {
-    this.onUpload.emit(files);
     this._onChange(files);
+    this.onUpload.emit(files);
   }
 
   removeOne(index: number): void {
