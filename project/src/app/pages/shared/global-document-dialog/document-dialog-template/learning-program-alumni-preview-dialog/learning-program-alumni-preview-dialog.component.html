@@ -6,28 +6,28 @@
 </div>
 <div class="dialog-body info-card">
   <ng-container *ngIf="document">
-    <div class="headshot" [ngStyle]="{'background-image': 'url('+getFacebookUrl(document)+')'}"></div>
+    <div class="headshot" [ngStyle]="{'background-image': 'url('+getFacebookUrl(document, 120)+')'}"></div>
     <div class="text-area">
       <div class="info-table-left">
-        <div class="info-name">Ted Colgate</div>
-        <div class="active">Active</div>
+        <div class="info-name">{{ document.get('remote-search-collective-user:full_name') }}</div>
+        <div class="active">{{ document.get('remote-search-collective-user:status') }}</div>
       </div>
       <div class="info-table-right">
         <div class="contact-info">Contact Information</div>
         <div class="right-info-top">
           <div class="icon-mail info-icon"></div>
           <div class="float-left icon-info-type">Work email</div>
-          <div class="float-left icon-info-content">ted.cogote@tbwa.com</div>
+          <div class="float-left icon-info-content">{{ document.get('remote-search-collective-user:email') }}</div>
         </div>
         <div class="right-info-top">
           <div class="icon-mail info-icon"></div>
           <div class="float-left icon-info-type">Personal email</div>
-          <div class="float-left icon-info-content"></div>
+          <div class="float-left icon-info-content">{{ document.get('remote-search-collective-user:email') }}</div>
         </div>
         <div class="right-info-top">
           <div class="icon-phone info-icon"></div>
           <div class="float-left icon-info-type">Work phone</div>
-          <div class="float-left icon-info-content"></div>
+          <div class="float-left icon-info-content">N/A</div>
         </div>
         <div class="right-info-top">
           <div class="icon-linkedin info-icon"></div>
@@ -47,7 +47,7 @@
       </div>
       <div class="info-table-left" style="margin-top: 5px;">
         <div class="user-main-info">Agency:</div>
-        <div class="main-info-text">TBWA Worldwide, New York</div>
+        <div class="main-info-text">N/A</div>
         <div class="user-main-info">Role</div>
         <div class="main-info-text">N/A</div>
         <div class="user-main-info">Tenure</div>
@@ -57,27 +57,27 @@
         <tbody>
           <tr>
             <th>Discipline:</th>
-            <td>{{ document.title }}</td>
+            <td>N/A</td>
           </tr>
           <tr>
             <th>Program(s):</th>
-            <td>{{ document.title }}</td>
+            <td>N/A</td>
           </tr>
           <tr>
             <th>Brands Works On:</th>
-            <td>{{ document.title }}</td>
+            <td>N/A</td>
           </tr>
           <tr>
             <th>Agencies:</th>
-            <td>{{ document.title }}</td>
+            <td>N/A</td>
           </tr>
           <tr>
             <th>Languages:</th>
-            <td>{{ document.title }}</td>
+            <td>N/A</td>
           </tr>
           <tr>
             <th>Contact Info:</th>
-            <td>{{ document.title }}</td>
+            <td>N/A</td>
           </tr>
         </tbody>
       </table>
@@ -85,9 +85,9 @@
     <div class="glp-area">
       <div style="font-weight: bold; margin-bottom: 5px;">GLP</div>
       <div class="glp-type">Name:</div>
-      <div class="glp-content">AMP</div>
+      <div class="glp-content">N/A</div>
       <div class="glp-type">Year:</div>
-      <div class="glp-content">2014</div>
+      <div class="glp-content">{{ document.get('remote-search-collective-user:years').join(',') }}</div>
     </div>
     <div class="clear"></div>
   </ng-container>
