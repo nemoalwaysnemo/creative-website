@@ -54,7 +54,7 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         placeholder: 'Program Title',
         autoComplete: 'off',
         required: false,
-        hidden: true,
+        hidden: false,
         formMode: 'create',
         validators: {
           required: null,
@@ -214,8 +214,8 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          enableInput: true,
-          multiUpload: true,
+          enableInput: false,
+          multiUpload: false,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -224,7 +224,7 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         formMode: 'edit',
         settings: {
           enableInput: false,
-          multiUpload: true,
+          multiUpload: false,
         },
       }),
     ];
