@@ -193,7 +193,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     for (const key in formValue) {
       if (Object.prototype.hasOwnProperty.call(formValue, key)) {
         if (key === 'galleryUpload') {
-          value[key] = (formValue[key] || []).map((i: NuxeoUploadResponse) => i.item).map(i => (i.file));
+          value[key] = (formValue[key] || []).map((i: NuxeoUploadResponse) => i.item).map((i: any) => i.file);
           this.imageItems = value[key];
         } else {
           value[key] = formValue[key];
