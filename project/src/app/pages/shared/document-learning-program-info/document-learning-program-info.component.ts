@@ -5,6 +5,7 @@ import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DocumentViewerSettings } from '../document-viewer';
 import { GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../global-document-dialog';
+import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService } from '../services/document-page.service';
 
@@ -57,7 +58,11 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
     autoplay: false,
   });
 
-  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_LEARNING_PROGRAM] });
+  previewDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_LEARNING_PROGRAM] });
+
+  editDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_FORM.LEARNING_PROGRAM_FORM] });
+
+  editRedirectUrl: string = this.documentPageService.getCurrentUrl();
 
   dialogMetadata: any = {
     formMode: 'edit',
