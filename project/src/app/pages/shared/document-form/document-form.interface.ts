@@ -34,7 +34,7 @@ export class DocumentFormStatus {
 
   childrenValid: boolean = true;
 
-  uploadState: 'preparing' | 'uploading' | 'uploaded' | 'changed' | null;
+  uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
 
   constructor(data: any = {}) {
     this.update(data);
