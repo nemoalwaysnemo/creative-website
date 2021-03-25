@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
