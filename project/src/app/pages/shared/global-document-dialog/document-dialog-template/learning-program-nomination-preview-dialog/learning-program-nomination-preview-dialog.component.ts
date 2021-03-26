@@ -3,7 +3,7 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { DocumentModel } from '@core/api';
-import { join } from '../../../../../core/services/helpers';
+import { NUXEO_OUTER_LINK } from '@environment/environment';
 
 @Component({
   selector: 'learning-program-nomination-preview-dialog',
@@ -14,7 +14,7 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
 
   static readonly NAME: string = 'learning-program-nomination-preview';
 
-  startUrl: string = 'https://collective-dev.tbwa.com/nominations/?type=';
+  startUrl: string = NUXEO_OUTER_LINK.nominationUrl;
 
   dateList: string[] = [];
 
@@ -45,7 +45,6 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
       this.document = doc;
       this.criteriaList = this.document.get('app_Learning:program_nomination_criteria');
       this.dateList = this.document.get('app_Learning:program_date');
-      this.startUrl = join(this.startUrl, this.document.title);
     }
   }
 
