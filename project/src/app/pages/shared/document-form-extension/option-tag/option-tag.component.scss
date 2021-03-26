@@ -17,9 +17,13 @@ mat-chip {
 	span {
 		display: inline-block;
 		font-size: 0.9em;
-    padding: 1px 5px;
-    box-sizing: border-box;
-    white-space: nowrap;
+		padding: 1px 5px;
+		box-sizing: border-box;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		max-width: 400px;
 	}
 	span.close {
 		margin: 0;
