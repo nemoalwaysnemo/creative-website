@@ -1,7 +1,7 @@
 @import '../../global-search-result/thumbnail-view.scss';
 @import '../../../../core/nebular/theme/styles/global/breakpoints';
 
-.backslash, .disruption, .intelligence {
+.backslash, .disruption, .intelligence, .creative {
 	h4, h1 {
 		cursor: pointer;
 	}
@@ -88,6 +88,10 @@ ul {
 
 .knowledge-related-info-view {
 	padding: 0 30px;
+}
+
+.brand-top {
+	margin-top: -19px;
 }
 
 ::ng-deep .knowledge-related-info-preview {

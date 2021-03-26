@@ -8,6 +8,7 @@ import { TabInfo } from '../knowledge-related-info.component';
 import { Subject, Subscription, timer } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
+import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
   selector: 'knowledge-related-info-view',
@@ -24,6 +25,8 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('intelligenceThumbnailItemView', { static: true }) private intelligenceItemView: TemplateRef<any>;
 
+  @ViewChild('creativeThumbnailItemView', { static: true }) private creativeItemView: TemplateRef<any>;
+
   @Input() item: any = {};
 
   @Input()
@@ -33,6 +36,10 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       this.tabInfo$.next(info);
     }
   }
+
+  agencyItem: any = {};
+
+  brandItem: any = {};
 
   currentView: string = 'relatedInfo';
 
@@ -50,9 +57,21 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   baseParams$: Subject<any> = new Subject<any>();
 
+  baseParamsBrand$: Subject<any> = new Subject<any>();
+
+  baseParamsAgency$: Subject<any> = new Subject<any>();
+
   searchFormSettings: GlobalSearchFormSettings;
 
+  searchFormAgencySettings: GlobalSearchFormSettings;
+
+  searchFormBrandSettings: GlobalSearchFormSettings;
+
   filters: SearchFilterModel[] = [];
+
+  forbidParams: string[] = [
+    'app_global_networkshare',
+  ];
 
   private backslashFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'app_edges_tags_edges_agg', placeholder: 'Edges' }),
@@ -90,6 +109,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
+    private documentPageService: DocumentPageService,
     private globalSearchFormService: GlobalSearchFormService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private globalDocumentDialogService: GlobalDocumentDialogService,
@@ -109,16 +129,41 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   onLoadMore(res: SearchResponse): void {
     this.append = true;
-    const params = this.getSearchParams(this.document, this.item);
-    params['currentPageIndex'] = res.response.currentPageIndex + 1;
-    params['pageSize'] = 8;
-    this.baseParams$.next(res.searchParams.setParams(params));
+    let params = [];
+    switch (res.source) {
+      case 'document-related-agency':
+        params = this.getRelatedAgencySearchParams(this.document, this.agencyItem);
+        params['currentPageIndex'] = res.response.currentPageIndex + 1;
+        params['pageSize'] = 4;
+        this.baseParamsAgency$.next(res.searchParams.setParams(params));
+        break;
+      case 'document-related-brand':
+        params = this.getRelatedBrandSearchParams(this.document, this.brandItem);
+        params['currentPageIndex'] = res.response.currentPageIndex + 1;
+        params['pageSize'] = 4;
+        this.baseParamsBrand$.next(res.searchParams.setParams(params));
+        break;
+      default:
+        params = this.getSearchParams(this.document, this.item);
+        params['currentPageIndex'] = res.response.currentPageIndex + 1;
+        params['pageSize'] = 8;
+        this.baseParams$.next(res.searchParams.setParams(params));
+        break;
+    }
   }
 
   onResponse(res: SearchResponse): void {
-    if (res.source === 'document-load-more') {
+    if (['document-load-more-in-dialog', 'document-related-agency', 'document-related-brand'].includes(res.source)) {
       this.append = false;
     }
+  }
+
+  searchBrandResultFilter(res: SearchResponse): boolean {
+    return res.source === 'document-related-brand';
+  }
+
+  searchAgencyResultFilter(res: SearchResponse): boolean {
+    return res.source === 'document-related-agency';
   }
 
   getDialogPrviewTemplateName(type: string): Type<any> {
@@ -129,6 +174,8 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
         return DOCUMENT_PREVIEW_IN_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
       case 'Intelligence':
         return DOCUMENT_PREVIEW_IN_DIALOG.PREVIEW_RELATED_DISRUPTION_ASSET;
+      case 'Creative':
+        return DOCUMENT_PREVIEW_IN_DIALOG.PREVIEW_RELATED_CREATIVE_ASSET;
       default:
         break;
     }
@@ -153,28 +200,45 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       if (info.type === 'docChanged') {
         this.documents = [];
       }
-      switch (info.tabItem.layout) {
-        case 'backslash':
-          this.buildBackslashEdges(info.document);
-          this.thumbnailItemView = this.backslashItemView;
-          this.filters = this.backslashFilters;
-          break;
-        case 'disruption':
-          this.thumbnailItemView = this.disruptionItemView;
-          this.filters = this.disruptionFilters;
-          break;
-        case 'intelligence':
-          this.thumbnailItemView = this.intelligenceItemView;
-          this.filters = this.intelligenceFilters;
-          break;
-        default:
-          break;
-      }
-      if (this.documents.length === 0) {
-        this.triggerSearch(info.document, this.item);
+      if (info.tabItem.children) {
+        info.tabItem.children.map((item: any) => {
+          this.getThumbnailItemName(item.layout, info);
+          if (this.documents.length === 0) {
+            this.itemTriggerSearch(info.document, item);
+          }
+        });
+      } else {
+        this.getThumbnailItemName(info.tabItem.layout, info);
+        if (this.documents.length === 0) {
+          this.triggerSearch(info.document, this.item);
+        }
       }
     });
     this.subscription.add(subscription);
+  }
+
+  private getThumbnailItemName(item: string, info: TabInfo): void {
+    switch (item) {
+      case 'backslash':
+        this.buildBackslashEdges(info.document);
+        this.thumbnailItemView = this.backslashItemView;
+        this.filters = this.backslashFilters;
+        break;
+      case 'disruption':
+        this.thumbnailItemView = this.disruptionItemView;
+        this.filters = this.disruptionFilters;
+        break;
+      case 'intelligence':
+        this.thumbnailItemView = this.intelligenceItemView;
+        this.filters = this.intelligenceFilters;
+        break;
+      case 'brand':
+      case 'agency':
+        this.thumbnailItemView = this.creativeItemView;
+        break;
+      default:
+        break;
+    }
   }
 
   private triggerSearch(doc: DocumentModel, item: any): void {
@@ -184,6 +248,42 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       pageProvider: item.provider,
     });
     this.baseParams$.next(this.getSearchParams(doc, item));
+  }
+
+  private triggerBrandSearch(doc: DocumentModel, item: any): void {
+    this.searchFormBrandSettings = new GlobalSearchFormSettings({
+      source: 'document-related-brand',
+      searchGroupPosition: 'right',
+      pageProvider: item.provider,
+      enableSearchInput: item.enableSearchInput,
+    });
+    const params1 = this.getRelatedBrandSearchParams(doc, item);
+    this.baseParamsBrand$.next(params1);
+  }
+
+  private triggerAgencySearch(doc: DocumentModel, item: any): void {
+    this.searchFormAgencySettings = new GlobalSearchFormSettings({
+      source: 'document-related-agency',
+      searchGroupPosition: 'right',
+      pageProvider: item.provider,
+      enableSearchInput: item.enableSearchInput,
+    });
+    this.baseParamsAgency$.next(this.getRelatedAgencySearchParams(doc, item));
+  }
+
+  private itemTriggerSearch(doc: DocumentModel, item: any): void {
+    switch (item.layout) {
+      case 'brand':
+        this.triggerBrandSearch(doc, item);
+        this.brandItem = item;
+        break;
+      case 'agency':
+        this.triggerAgencySearch(doc, item);
+        this.agencyItem = item;
+        break;
+      default:
+        break;
+    }
   }
 
   private getSearchParams(doc: DocumentModel, item: any): any {
@@ -196,6 +296,15 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       }
     }
     return params;
+  }
+
+  private getRelatedBrandSearchParams(doc: DocumentModel, item: any): any {
+    const brands = doc.get('The_Loupe_Main:brand');
+    return Object.assign({ ecm_uuid_not_eq: doc.uid, the_loupe_main_brand_any: brands.length !== 0 ? `["${doc.get('The_Loupe_Main:brand').join('", "')}"]` : '' }, item.params);
+  }
+
+  private getRelatedAgencySearchParams(doc: DocumentModel, item: any): any {
+    return Object.assign({ ecm_uuid_not_eq: doc.uid, the_loupe_main_brand_not_in: `["${doc.get('The_Loupe_Main:brand')}"]`, the_loupe_main_agency: doc.get('The_Loupe_Main:agency') }, item.params);
   }
 
   private getEdgesAggParams(doc: DocumentModel): string {
@@ -255,5 +364,4 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       this.dynamicComponentRef = null;
     }
   }
-
 }

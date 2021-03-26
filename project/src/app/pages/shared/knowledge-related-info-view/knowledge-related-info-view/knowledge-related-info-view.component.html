@@ -1,6 +1,12 @@
 <div class="knowledge-related-info-view" [ngStyle]="currentView === 'relatedInfo' ? {} : {'display': 'none'}">
-  <h2 class="left">{{item.name}}</h2>
-  <global-search-form [searchParams]="baseParams$ | async" [filters]="filters" [settings]="searchFormSettings"></global-search-form>
+  <ng-container *ngIf="item.layout !== 'creative'">
+    <h2 class="left">{{item.name}}</h2>
+    <global-search-form [searchParams]="baseParams$ | async" [forbidParams]="forbidParams" [filters]="filters" [settings]="searchFormSettings"></global-search-form>
+  </ng-container>
+  <ng-container *ngIf="item.layout === 'creative'">
+    <global-search-form [searchParams]="baseParamsBrand$ | async" [forbidParams]="forbidParams" [filters]="filters" [settings]="searchFormBrandSettings"></global-search-form>
+    <global-search-form [searchParams]="baseParamsAgency$ | async" [forbidParams]="forbidParams" [filters]="filters" [settings]="searchFormAgencySettings"></global-search-form>
+  </ng-container>
   <div class="clear"></div>
   <ng-container *ngIf="item.layout === 'backslash'">
     <h3>\Edges</h3>
@@ -30,7 +36,15 @@
     </ng-container>
     <div class="clear"></div>
   </ng-container>
-  <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+  <ng-container *ngIf="item.layout ==='creative' && document">
+    <h2 class="left brand-top">See more {{document.get('The_Loupe_Main:brand')}}</h2>
+    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [searchResultFilter]="searchBrandResultFilter" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+    <h2 class="left">See more {{document.get('The_Loupe_Main:agency')}}</h2>
+    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [searchResultFilter]="searchAgencyResultFilter" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+  </ng-container>
+  <ng-container *ngIf="item.layout !=='creative'">
+    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+  </ng-container>
 </div>
 
 <div class="knowledge-related-info-preview" [ngStyle]="currentView === 'previewInfo' ? {} : {'display': 'none'}">
@@ -65,6 +79,21 @@
     </div>
     <div class="description">
       <h1 (click)="preview('Intelligence', doc)" [title]="doc.title">{{doc.title}}</h1>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #creativeThumbnailItemView let-doc="doc">
+  <div class="creative">
+    <div class="image-holder">
+      <a (click)="preview('Creative', doc)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+    </div>
+    <div class="description">
+      <h1 (click)="preview('Creative', doc)" [title]="doc.title">{{doc.title}}</h1>
+      <h5 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h5>
+      <span class="dot"></span>
+      <h5 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h5>
+      <h5 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h5>
     </div>
   </div>
 </ng-template>

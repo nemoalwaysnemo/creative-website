@@ -64,6 +64,36 @@ export class KnowledgeRelatedInfoComponent {
       },
       provider: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_PAGE_PROVIDER,
     },
+    {
+      name: 'Creative',
+      layout: 'creative',
+      children: [
+        {
+          name: 'Brand',
+          layout: 'brand',
+          enableSearchInput: false,
+          params: {
+            pageSize: 4,
+            ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+            ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
+          },
+          provider: NUXEO_DOC_TYPE.CREATIVE_ASSET_PAGE_PROVIDER,
+
+        },
+        {
+          name: 'Agency',
+          layout: 'agency',
+          enableSearchInput: false,
+          params: {
+            pageSize: 4,
+            app_global_networkshare: true,
+            ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+            ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+          },
+          provider: NUXEO_DOC_TYPE.CREATIVE_ASSET_PAGE_PROVIDER,
+        },
+      ],
+    },
   ];
 
   tabInfo$ = new Subject<TabInfo>();
@@ -74,6 +104,13 @@ export class KnowledgeRelatedInfoComponent {
 
   constructor() {
     this.currentTab = this.tabItems[0];
+  }
+
+  @Input()
+  set hideTab(tab: string) {
+    if (tab) {
+      this.tabItems = this.tabItems.filter((item) => item.name !== tab);
+    }
   }
 
   @Input()
@@ -95,5 +132,4 @@ export class KnowledgeRelatedInfoComponent {
   private getTabItem(tab: NbTabComponent): any {
     return this.tabItems.filter((x) => tab.tabTitle === x.name).shift();
   }
-
 }

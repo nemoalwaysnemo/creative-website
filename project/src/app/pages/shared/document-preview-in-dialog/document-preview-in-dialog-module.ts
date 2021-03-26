@@ -5,6 +5,7 @@ import { DocumentViewerModule } from '../document-viewer/document-viewer.module'
 import { DocumentShareButtonModule } from '../document-share-button/document-share-button.module';
 import { DisruptionAssetPreviewInDialogComponent } from './disruption-asset-preview-in-dialog/disruption-asset-preview-in-dialog.component';
 import { RelatedBackslashAssetInDialogPreviewComponent } from './related-backslash-asset-preview-in-dialog/related-backslash-asset-preview-in-dialog.component';
+import { CreativeAssetPreviewInDialogComponent } from './creative-asset-preview-in-dialog/creative-asset-preview-in-dialog.component';
 
 @NgModule({
   imports: [
@@ -16,10 +17,12 @@ import { RelatedBackslashAssetInDialogPreviewComponent } from './related-backsla
   declarations: [
     DisruptionAssetPreviewInDialogComponent,
     RelatedBackslashAssetInDialogPreviewComponent,
+    CreativeAssetPreviewInDialogComponent,
   ],
   exports: [
     DisruptionAssetPreviewInDialogComponent,
     RelatedBackslashAssetInDialogPreviewComponent,
+    CreativeAssetPreviewInDialogComponent,
   ],
 })
 export class DocumentPreviewInDialogModule {

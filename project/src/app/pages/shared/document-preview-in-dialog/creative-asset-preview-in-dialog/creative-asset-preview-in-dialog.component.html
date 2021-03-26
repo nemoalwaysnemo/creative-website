@@ -18,64 +18,44 @@
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
         <div class="col-8">
-          <a href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" class="right" title="Download"><button class="inline-middle download" type="submit">Download</button></a>
-          <ng-container *ngIf="getDialogSettings().enablePreview">
-            <a href="{{document.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" title="Preview" target="_blank"><button class="right preview">Preview</button></a>
+          <ng-container *ngIf="downloadPermission$ | async">
+            <a *ngIf="document.filePath" href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download"><button class="inline-middle download right" title="Download">Download</button></a>
+          </ng-container>
+          <ng-container *ngIf="getDialogSettings().enablePreview && !isVideoAsset(document)">
+            <a href="{{document.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" title="Preview" target="_blank"><button class="preview right">Preview</button></a>
           </ng-container>
           <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
           <ng-container *ngIf="getDialogSettings().enableDetail">
-            <a href="{{shareUrl}}" (click)="close()"><button class="inline-middle details right">Details</button></a>
+            <a [routerLink]="['/p/creative/asset', document.uid]" (click)="close(true)"><button class="inline-middle details right">Details</button></a>
           </ng-container>
         </div>
         <div class="clear"></div>
       </div>
+
       <ng-container *ngIf="getDialogSettings().moreInfo">
+        <p class="description">{{ document.get('dc:description') }}</p>
         <table>
           <tbody>
             <tr>
-              <th>Descriptions</th>
               <th>Asset Type</th>
+              <th>Country</th>
             </tr>
             <tr>
-              <td>{{ document.get('dc:description') }}</td>
               <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+              <td>{{ vocabularyFormatter(document.get('The_Loupe_Main:country')) }}</td>
             </tr>
             <tr>
-              <th>Industry</th>
-              <th>Geography</th>
-            </tr>
-            <tr>
-              <td>{{ document.get('app_Edges:industry') }}</td>
-              <td>{{ vocabularyFormatter(document.get('app_Edges:Relevant_Country')) }}</td>
-            </tr>
-            <tr>
-              <th>Author</th>
-              <th>Published</th>
-            </tr>
-            <tr>
-              <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
-              <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
-            </tr>
-            <tr>
-              <th>Backslash Category</th>
               <th>Agency</th>
             </tr>
             <tr>
-              <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
-              <td>{{ document.get('The_Loupe_Main:agency') }}</td>
-            </tr>
-            <tr>
-              <th>Edge</th>
-              <th>Brand</th>
-            </tr>
-            <tr>
-              <td>{{ document.get('app_Edges:Tags_edges') }}</td>
-              <td>{{ document.get('The_Loupe_Main:brand') }}</td>
+              <td>
+                {{ document.get('The_Loupe_Main:agency') }}
+              </td>
             </tr>
           </tbody>
         </table>
       </ng-container>
-      <nb-accordion class="accordion" *ngIf="attachments && attachments.length !== 0">
+      <nb-accordion class="accordion" *ngIf="downloadPermission$ && attachments && attachments.length !== 0">
         <nb-accordion-item class="accordion-item">
           <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
           <nb-accordion-item-body class="accordion-item-body">
@@ -90,9 +70,6 @@
         </nb-accordion-item>
       </nb-accordion>
     </div>
-    <section class="related" *ngIf="getDialogSettings().enableKnowledgeRelated">
-      <knowledge-related-info [hideTab]="'Creative'" [document]="document"></knowledge-related-info>
-    </section>
   </ng-container>
 </div>
 
