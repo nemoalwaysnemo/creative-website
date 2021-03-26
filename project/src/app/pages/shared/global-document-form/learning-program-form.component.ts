@@ -29,14 +29,6 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
     super(documentPageService);
   }
 
-  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
-    const photos = (doc.properties['app_Learning:program_photo'] || []).map((p: any) => p['file']);
-    if (photos.length > 0) {
-      doc.properties['app_Learning:program_photo'] = photos;
-    }
-    return doc;
-  }
-
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
   }

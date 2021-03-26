@@ -77,7 +77,7 @@ export class KnowledgeRelatedInfoComponent {
             ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
             ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
           },
-          provider: NUXEO_DOC_TYPE.CREATIVE_ASSET_PAGE_PROVIDER,
+          provider: NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER,
 
         },
         {
@@ -90,7 +90,7 @@ export class KnowledgeRelatedInfoComponent {
             ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
             ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
           },
-          provider: NUXEO_DOC_TYPE.CREATIVE_ASSET_PAGE_PROVIDER,
+          provider: NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER,
         },
       ],
     },

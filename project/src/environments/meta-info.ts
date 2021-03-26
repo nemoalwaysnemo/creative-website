@@ -88,5 +88,5 @@ export enum NUXEO_DOC_TYPE {
   BACKSLASH_ASSET_PAGE_PROVIDER = 'creative_website_backslash_related_assets',
   DISRUPTION_ASSET_PAGE_PROVIDER = 'creative_website_disruption_related_assets',
   INTELLIGENCE_ASSET_PAGE_PROVIDER = 'creative_website_intelligence_related_assets',
-  CREATIVE_ASSET_PAGE_PROVIDER = 'creative_website_search',
+  BASE_SEARCH_PROVIDER = 'creative_website_search',
 }

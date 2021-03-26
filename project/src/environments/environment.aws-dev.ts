@@ -42,5 +42,5 @@ export enum NUXEO_PATH_INFO {
 }
 
 export enum NUXEO_OUTER_LINK {
-  nominationUrl = 'https://collective-dev.tbwa.com/nominations/',
-};
+  COLLECTIVE_NOMINATION_URL = 'https://collective-dev.tbwa.com/nominations/',
+}

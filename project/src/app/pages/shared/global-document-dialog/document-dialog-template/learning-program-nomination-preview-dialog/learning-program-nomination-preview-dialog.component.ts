@@ -14,7 +14,7 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
 
   static readonly NAME: string = 'learning-program-nomination-preview';
 
-  startUrl: string = NUXEO_OUTER_LINK.nominationUrl;
+  nominationUrl: string = NUXEO_OUTER_LINK.COLLECTIVE_NOMINATION_URL;
 
   dateList: string[] = [];
 
