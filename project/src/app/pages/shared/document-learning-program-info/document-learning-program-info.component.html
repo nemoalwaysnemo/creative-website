@@ -51,7 +51,9 @@
             <li>{{date}}</li>
           </ul>
         </div>
-        <button type="button" (click)="openDialog(editDialog, false)" class="icon_btn left">Edit</button>
+        <ng-container *ngIf="writePermission$ | async">
+            <button type="button" (click)="openDialog(editDialog, false)" class="icon_btn left">Edit</button>
+        </ng-container>
       </div>
       <div class="showcase-area-right">
         <div class="showcase-area">

@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
-import { DocumentModel, UserModel } from '@core/api';
+import { DocumentModel, UserModel, NuxeoPermission} from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DocumentViewerSettings } from '../document-viewer';
@@ -61,6 +61,8 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
 
   editDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_FORM.LEARNING_PROGRAM_FORM] });
 
+  writePermission$: Observable<boolean> = observableOf(false);
+
   editRedirectUrl: string = this.documentPageService.getCurrentUrl();
 
   dialogMetadata: any = {
@@ -72,6 +74,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
     if (doc) {
       this.doc = doc;
       this.loading = false;
+      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
       // this.hasGroup$ = this.hasUserGroup();
       this.curriculumList = this.doc.get('app_Learning:program_curriculum');
       this.durationList = this.doc.get('app_Learning:program_duration');
