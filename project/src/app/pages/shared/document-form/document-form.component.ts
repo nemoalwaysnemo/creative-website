@@ -347,14 +347,10 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       if (file.isMainFile()) {
         properties[file.xpath] = file.batchBlob;
       } else {
-        if (file.isAttachment()) {
+        if (file.isAttachment() || file.isFileList) {
           const fileValue = properties[file.xpath];
           properties[file.xpath] = Array.isArray(fileValue) ? fileValue.filter((p: any) => p) : [];
-          properties[file.xpath].push({ file: file.batchBlob });
-        } else if (file.isFileList) {
-          const fileValue = properties[file.xpath];
-          properties[file.xpath] = Array.isArray(fileValue) ? fileValue.filter((p: any) => p) : [];
-          properties[file.xpath].push(file.batchBlob);
+          properties[file.xpath].push(file.isAttachment() ? { file: file.batchBlob } : file.batchBlob);
         } else {
           properties[file.xpath] = file.batchBlob;
         }
