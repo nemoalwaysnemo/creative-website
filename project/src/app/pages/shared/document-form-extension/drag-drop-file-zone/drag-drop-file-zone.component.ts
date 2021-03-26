@@ -39,6 +39,8 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
 
   private subscription: Subscription = new Subscription();
 
+  private fileList: any[] = [];
+
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
@@ -57,12 +59,13 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
     this.subscription.unsubscribe();
   }
 
-  writeValue(value: any): void {
-    if (!isValueEmpty(value)) {
-      this.files = Array.isArray(value) ? value.map(v => v.file) : [value];
-      // const settings = Object.assign({}, this.uploadSettings, { original: true });
-      // timer(0).subscribe(() => { this.dragDropFileZoneService.changeFiles(settings, files); });
-    }
+  writeValue(v: any): void {
+    // const value = (Array.isArray(v) ? v.map(i => i.file) : [v]).filter(i => i);
+    // if (!isValueEmpty(value)) {
+    //   const files = this.fileList = Array.isArray(value) ? value.map(i => i.file) : [value];
+    //   const settings = Object.assign({}, this.uploadSettings, { original: true });
+    //   timer(0).subscribe(() => { this.dragDropFileZoneService.changeFiles(settings, files); });
+    // }
   }
 
   registerOnChange(fn: any): void {
@@ -86,7 +89,7 @@ export class DragDropFileZoneComponent implements OnInit, OnDestroy, ControlValu
   }
 
   onFilesChange(files: File[]): void {
-    this.files = this.files.concat(files);
+    this.files = this.fileList.concat(files);
     this.message = `You have added ${files.length} file(s) to the queue.`;
     this.dragDropFileZoneService.changeFiles(this.uploadSettings, files);
   }

@@ -4,6 +4,7 @@ import { share, concat, map, tap, filter } from 'rxjs/operators';
 import { DocumentModel, NuxeoAutomations } from './nuxeo/lib';
 import { join } from '../services/helpers';
 import { NuxeoPagination, GlobalSearchParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 export class SearchResponse {
   response: NuxeoPagination;
@@ -24,7 +25,7 @@ export class AdvanceSearchService {
 
   protected endPoint: string = 'search';
 
-  protected provider: string = 'creative_website_search';
+  protected provider: string = NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER;
 
   protected entries$ = new Subject<SearchResponse>();
 

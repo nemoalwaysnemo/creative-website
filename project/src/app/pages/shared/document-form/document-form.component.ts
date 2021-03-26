@@ -132,13 +132,13 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   hideControls(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings): void {
     if (settings.formMode === 'create') {
-      const type = uploadModel.settings.multiUpload ? 'delete' : 'show';
+      const type = uploadModel.settings.enableInput ? 'delete' : 'show';
       this.modelOperation.next({ model: 'dc:title', type });
     }
   }
 
   setDocumentTitle(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, res: NuxeoUploadResponse): void {
-    if (settings.formMode === 'create' && !uploadModel.settings.multiUpload && !this.getFormValue('dc:title')) {
+    if (settings.formMode === 'create' && !uploadModel.settings.enableInput && !this.getFormValue('dc:title')) {
       this.formGroup.patchValue({ 'dc:title': this.filterFileName(res.fileName) });
     }
   }
@@ -334,7 +334,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       const model = this.newDocumentModel(doc);
       model.properties = this.updateUploadFiles(model.properties, res);
       model.properties = this.updateUploadFiles(model.properties, files.filter((r: NuxeoUploadResponse) => !r.isMainFile()));
-      if (!!res.title && this.uploadModel.settings.multiUpload) {
+      if (!!res.title && this.uploadModel.settings.enableInput) {
         model.properties['dc:title'] = res.title;
       }
       return model;
@@ -347,10 +347,14 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       if (file.isMainFile()) {
         properties[file.xpath] = file.batchBlob;
       } else {
-        if (file.isAttachment() || file.isFileList) {
+        if (file.isAttachment()) {
           const fileValue = properties[file.xpath];
-          properties[file.xpath] = Array.isArray(fileValue) ? fileValue : [];
+          properties[file.xpath] = Array.isArray(fileValue) ? fileValue.filter((p: any) => p) : [];
           properties[file.xpath].push({ file: file.batchBlob });
+        } else if (file.isFileList) {
+          const fileValue = properties[file.xpath];
+          properties[file.xpath] = Array.isArray(fileValue) ? fileValue.filter((p: any) => p) : [];
+          properties[file.xpath].push(file.batchBlob);
         } else {
           properties[file.xpath] = file.batchBlob;
         }
