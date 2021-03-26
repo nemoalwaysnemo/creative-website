@@ -40,3 +40,7 @@ export enum NUXEO_PATH_INFO {
   LEARNING_BASE_FOLDER_PATH = '/know-edge/Learning Journeys/',
   LEARNING_PROGRAM_FOLDER_PATH = '/know-edge/Learning Journeys/Global Learning Programs/',
 }
+
+export enum NUXEO_OUTER_LINK {
+  nominationUrl = 'https://collective-stg.tbwa.com/nominations/',
+};
