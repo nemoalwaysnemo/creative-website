@@ -36,7 +36,7 @@ export class LearningProgramCategoryViewComponent {
   }
 
   scrollToDocument(doc: any): void {
+    this.viewportScroller.setOffset([0, 131]);
     this.viewportScroller.scrollToAnchor(doc.title);
-    window.scrollTo(window.scrollX, window.scrollY - 131);
   }
 }
