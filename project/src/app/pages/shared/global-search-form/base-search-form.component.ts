@@ -28,13 +28,6 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Input()
-  set forbidParams(params: any) {
-    if (!isValueEmpty(params)) {
-      this.forbidLinkParams = params;
-    }
-  }
-
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
@@ -79,15 +72,9 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     aggregates: {},
   };
 
-  protected allowedLinkParams: string[] = [
-    'app_global_networkshare',
-  ];
-
   protected allowedSettingsParams: any = {
     showFilter: convertToBoolean,
   };
-
-  protected forbidLinkParams: any;
 
   @Input() filters: SearchFilterModel[] = [];
 
@@ -200,7 +187,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected setFormParams(params: any = {}): void {
     if (!isValueEmpty(params)) {
       for (const key in params) {
-        if (params.hasOwnProperty(key) && this.allowedLinkParams.includes(key) && (this.forbidLinkParams && !this.forbidLinkParams.includes(key))) {
+        if (params.hasOwnProperty(key) && this.searchFormSettings.getAllowedLinkParams().includes(key) && !this.searchFormSettings.getforbidLinkParams().includes(key)) {
           this.addControlToSearchForm(key, params[key]);
         }
       }

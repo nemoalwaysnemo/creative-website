@@ -1,11 +1,11 @@
 <div class="knowledge-related-info-view" [ngStyle]="currentView === 'relatedInfo' ? {} : {'display': 'none'}">
   <ng-container *ngIf="item.layout !== 'creative'">
     <h2 class="left">{{item.name}}</h2>
-    <global-search-form [searchParams]="baseParams$ | async" [forbidParams]="forbidParams" [filters]="filters" [settings]="searchFormSettings"></global-search-form>
+    <global-search-form [searchParams]="baseParams$ | async" [filters]="filters" [settings]="searchFormSettings"></global-search-form>
   </ng-container>
   <ng-container *ngIf="item.layout === 'creative'">
-    <global-search-form [searchParams]="baseParamsBrand$ | async" [forbidParams]="forbidParams" [filters]="filters" [settings]="searchFormBrandSettings"></global-search-form>
-    <global-search-form [searchParams]="baseParamsAgency$ | async" [forbidParams]="forbidParams" [filters]="filters" [settings]="searchFormAgencySettings"></global-search-form>
+    <global-search-form [searchParams]="baseParamsBrand$ | async" [filters]="filters" [settings]="searchFormBrandSettings"></global-search-form>
+    <global-search-form [searchParams]="baseParamsAgency$ | async" [filters]="filters" [settings]="searchFormAgencySettings"></global-search-form>
   </ng-container>
   <div class="clear"></div>
   <ng-container *ngIf="item.layout === 'backslash'">
