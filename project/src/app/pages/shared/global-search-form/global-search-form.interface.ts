@@ -26,6 +26,12 @@ export class GlobalSearchSettings {
 
 export class GlobalSearchFormSettings extends GlobalSearchSettings {
 
+  protected allowedLinkParams: string[] = [
+    'app_global_networkshare',
+  ];
+
+  protected forbidLinkParams: string[] = [];
+
   enableSearchInput: boolean = true;
 
   autofocus: boolean = false;
@@ -38,8 +44,20 @@ export class GlobalSearchFormSettings extends GlobalSearchSettings {
 
   source: string = 'global-search-form';
 
+  allowedSearchParams: string[] = [];
+
+  forbidSearchParams: string[] = [];
+
   constructor(data: any = {}) {
     super(data);
     Object.assign(this, data);
+  }
+
+  getAllowedLinkParams(): string[] {
+    return this.allowedLinkParams.concat(this.allowedSearchParams);
+  }
+
+  getforbidLinkParams(): string[] {
+    return this.forbidLinkParams.concat(this.forbidSearchParams);
   }
 }

@@ -246,6 +246,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       source: 'document-load-more-in-dialog',
       searchGroupPosition: 'right',
       pageProvider: item.provider,
+      forbidSearchParams: this.forbidParams,
     });
     this.baseParams$.next(this.getSearchParams(doc, item));
   }
@@ -256,9 +257,9 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       searchGroupPosition: 'right',
       pageProvider: item.provider,
       enableSearchInput: item.enableSearchInput,
+      forbidSearchParams: this.forbidParams,
     });
-    const params1 = this.getRelatedBrandSearchParams(doc, item);
-    this.baseParamsBrand$.next(params1);
+    this.baseParamsBrand$.next(this.getRelatedBrandSearchParams(doc, item));
   }
 
   private triggerAgencySearch(doc: DocumentModel, item: any): void {
@@ -267,6 +268,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       searchGroupPosition: 'right',
       pageProvider: item.provider,
       enableSearchInput: item.enableSearchInput,
+      forbidSearchParams: this.forbidParams,
     });
     this.baseParamsAgency$.next(this.getRelatedAgencySearchParams(doc, item));
   }
