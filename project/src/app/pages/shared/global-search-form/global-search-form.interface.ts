@@ -30,7 +30,7 @@ export class GlobalSearchFormSettings extends GlobalSearchSettings {
     'app_global_networkshare',
   ];
 
-  protected forbidLinkParams: string[] = [];
+  protected forbiddenLinkParams: string[] = [];
 
   enableSearchInput: boolean = true;
 
@@ -46,7 +46,7 @@ export class GlobalSearchFormSettings extends GlobalSearchSettings {
 
   allowedSearchParams: string[] = [];
 
-  forbidSearchParams: string[] = [];
+  forbiddenSearchParams: string[] = [];
 
   constructor(data: any = {}) {
     super(data);
@@ -57,7 +57,7 @@ export class GlobalSearchFormSettings extends GlobalSearchSettings {
     return this.allowedLinkParams.concat(this.allowedSearchParams);
   }
 
-  getforbidLinkParams(): string[] {
-    return this.forbidLinkParams.concat(this.forbidSearchParams);
+  getforbiddenLinkParams(): string[] {
+    return this.forbiddenLinkParams.concat(this.forbiddenSearchParams);
   }
 }

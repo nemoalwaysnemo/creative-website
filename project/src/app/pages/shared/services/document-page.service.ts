@@ -3,11 +3,22 @@ import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { NbToastrService } from '@core/nebular/theme';
 import { Observable, from, Subject, timer, BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, filter, pairwise, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, pairwise, share, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd, RoutesRecognized } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel, NuxeoResponse } from '@core/api';
 import { CacheService, GoogleAnalyticsService } from '@core/services';
 import { Environment } from '@environment/environment';
+
+export class GlobalEvent {
+  [key: string]: any;
+  readonly name: string;
+  readonly type: string;
+  readonly data: any = {};
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+}
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +30,8 @@ export class DocumentPageService {
   private document: DocumentModel; // it should be the doc for current page. every component linked to the route should set this
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
+  private event$: Subject<GlobalEvent> = new Subject<GlobalEvent>();
 
   constructor(
     private router: Router,
@@ -32,6 +45,18 @@ export class DocumentPageService {
     private googleAnalyticsService: GoogleAnalyticsService,
   ) {
     this.subscribeRouteChanged();
+  }
+
+  onEvent(name?: string): Observable<GlobalEvent> {
+    return this.event$.pipe(filter((e: GlobalEvent) => name ? e.name === name : true)).pipe(share());
+  }
+
+  onEventType(type: string): Observable<GlobalEvent> {
+    return this.event$.pipe(filter((e: GlobalEvent) => e.type === type)).pipe(share());
+  }
+
+  triggerEvent(event: GlobalEvent): void {
+    this.event$.next(event);
   }
 
   googleAnalyticsTrackTitle(): void {
