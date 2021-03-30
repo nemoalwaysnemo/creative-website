@@ -367,7 +367,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   }
 
   protected triggerSearch(searchParams: GlobalSearchParams, event: string): void {
-    searchParams.mergeSettings({ source: (searchParams.source || this.getFormSettings('source')), event });
+    searchParams.mergeSettings({ source: (searchParams.source || this.getFormSettings('source')), event, fulltextKey: (this.getSearchSettings('fulltextKey', searchParams) || this.getFormSettings('fulltextKey')) });
     this.searchEvent$.next(searchParams);
   }
 
