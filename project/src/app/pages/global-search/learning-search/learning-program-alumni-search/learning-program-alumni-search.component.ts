@@ -21,8 +21,9 @@ export class LearningProgramAlumniSearchComponent extends BaseDocumentViewCompon
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     schemas: ['dublincore', 'remote-search-collective-user'],
     pageProvider: 'RemoteSearch',
-    enableQueryParams: true,
     searchGroupPosition: 'middle',
+    fulltextKey: 'queryParams',
+    enableQueryParams: true,
   });
 
   constructor(protected documentPageService: DocumentPageService) {
