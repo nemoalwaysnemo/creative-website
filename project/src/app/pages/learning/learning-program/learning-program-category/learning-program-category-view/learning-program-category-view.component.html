@@ -12,7 +12,7 @@
   <div [nbSpinner]="loading" nbSpinnerStatus="disabled" class="category-view-all">
     <div *ngFor="let doc of docs" class="category-view">
       <div class="category-view-box" (click)="scrollToDocument(doc)">
-        <a [ngStyle]="{'background-image': 'url('+doc.img+')'}">{{ doc.title }}</a>
+        <a [ngStyle]="{'background-image': 'url('+doc.img+')'}"></a>
       </div>
     </div>
   </div>
