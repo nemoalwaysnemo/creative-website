@@ -187,7 +187,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
   protected setFormParams(params: any = {}): void {
     if (!isValueEmpty(params)) {
       for (const key in params) {
-        if (params.hasOwnProperty(key) && this.searchFormSettings.getAllowedLinkParams().includes(key) && !this.searchFormSettings.getforbidLinkParams().includes(key)) {
+        if (params.hasOwnProperty(key) && this.searchFormSettings.getAllowedLinkParams().includes(key) && !this.searchFormSettings.getforbiddenLinkParams().includes(key)) {
           this.addControlToSearchForm(key, params[key]);
         }
       }

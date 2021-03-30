@@ -8,7 +8,7 @@ import { TabInfo } from '../knowledge-related-info.component';
 import { Subject, Subscription, timer } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
-import { DocumentPageService } from '../../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../services/document-page.service';
 
 @Component({
   selector: 'knowledge-related-info-view',
@@ -69,7 +69,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
 
   filters: SearchFilterModel[] = [];
 
-  forbidParams: string[] = [
+  forbiddenParams: string[] = [
     'app_global_networkshare',
   ];
 
@@ -246,7 +246,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       source: 'document-load-more-in-dialog',
       searchGroupPosition: 'right',
       pageProvider: item.provider,
-      forbidSearchParams: this.forbidParams,
+      forbiddenSearchParams: this.forbiddenParams,
     });
     this.baseParams$.next(this.getSearchParams(doc, item));
   }
@@ -257,7 +257,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       searchGroupPosition: 'right',
       pageProvider: item.provider,
       enableSearchInput: item.enableSearchInput,
-      forbidSearchParams: this.forbidParams,
+      forbiddenSearchParams: this.forbiddenParams,
     });
     this.baseParamsBrand$.next(this.getRelatedBrandSearchParams(doc, item));
   }
@@ -268,7 +268,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
       searchGroupPosition: 'right',
       pageProvider: item.provider,
       enableSearchInput: item.enableSearchInput,
-      forbidSearchParams: this.forbidParams,
+      forbiddenSearchParams: this.forbiddenParams,
     });
     this.baseParamsAgency$.next(this.getRelatedAgencySearchParams(doc, item));
   }
@@ -351,6 +351,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
         }
         this.currentView = 'relatedInfo';
         this.destroyDynamicComponent();
+        this.documentPageService.triggerEvent(new GlobalEvent({ name: 'Closed', type: 'knowledge-inner-dialog' }));
       }
     });
   }

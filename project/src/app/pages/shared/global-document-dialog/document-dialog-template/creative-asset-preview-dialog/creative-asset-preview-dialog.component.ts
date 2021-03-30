@@ -3,7 +3,7 @@ import { vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
 import { DocumentModel, UserModel, NuxeoPermission } from '@core/api';
-import { DocumentPageService } from '../../../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 
@@ -28,6 +28,9 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
+      // console.log(1111, e);
+    });
   }
 
   protected setDocument(doc: DocumentModel): void {
