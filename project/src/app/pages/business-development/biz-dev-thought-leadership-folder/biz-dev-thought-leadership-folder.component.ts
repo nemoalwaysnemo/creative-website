@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { parseTabRoute } from '@core/services/helpers';
 import { Subject, timer } from 'rxjs';
 import { TAB_CONFIG } from '../business-development-tab-config';
-import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { DocumentModel, NuxeoSearchConstants } from '@core/api';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({

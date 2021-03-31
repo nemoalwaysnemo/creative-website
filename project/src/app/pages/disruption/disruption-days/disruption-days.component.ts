@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
+import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
+import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -48,7 +48,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
     return { searchParams, opts };
   }
 
-  afterSearch: (res: SearchResponse) =>  Observable<SearchResponse> = (res: SearchResponse) => {
+  afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     if (res.searchParams.hasKeyword() && res.action === 'afterSearch') {
       return this.performSearchAssetsResults(res.response).pipe(
         map((response: NuxeoPagination) => { res.response = response; return res; }),

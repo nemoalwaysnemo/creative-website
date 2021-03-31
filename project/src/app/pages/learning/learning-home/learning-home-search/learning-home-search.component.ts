@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DocumentModel, SearchFilterModel } from '@core/api';
-import { BaseDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { DocumentModel } from '@core/api';
+import { BaseDocumentViewComponent, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { matchAssetUrl } from '@core/services/helpers';
 

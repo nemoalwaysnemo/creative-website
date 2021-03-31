@@ -25,6 +25,7 @@ export * from './document-action-group/document-action-group.module';
 export * from './document-route-tabset/document-route-tabset.module';
 export * from './home-search-form/home-search-form.module';
 export * from './knowledge-search-form/knowledge-search-form.module';
+export * from './global-search-filter/global-search-filter.interface';
 export * from './global-search-form/global-search-form.module';
 export * from './global-search-form/global-search-form.interface';
 export * from './global-search-filter/global-search-filter.module';

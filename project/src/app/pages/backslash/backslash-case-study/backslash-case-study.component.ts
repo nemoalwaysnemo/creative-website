@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalSearchParams, SearchFilterModel, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
-import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { ActivatedRoute } from '@angular/router';
+import { GlobalSearchParams, NuxeoRequestOptions } from '@core/api';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../backslash-tab-config';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -30,12 +30,12 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
   reportSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
   beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
-      if (searchParams.hasFilters && searchParams.hasNoFulltextSearch()) {
-        searchParams = this.buildSearchFolderParams(searchParams);
-      } else if (searchParams.hasKeyword()) {
-        searchParams = this.buildSearchAssetsParams(searchParams);
-      }
-      return { searchParams, opts };
+    if (searchParams.hasFilters && searchParams.hasNoFulltextSearch()) {
+      searchParams = this.buildSearchFolderParams(searchParams);
+    } else if (searchParams.hasKeyword()) {
+      searchParams = this.buildSearchAssetsParams(searchParams);
+    }
+    return { searchParams, opts };
   }
 
   constructor(
