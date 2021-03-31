@@ -27,10 +27,11 @@ export class LearningProgramAlumniPreviewDialogComponent extends DocumentDialogP
   }
 
   getFacebookUrl(doc: DocumentModel, width: number): string {
-    if (!doc.get('remote-search-collective-user:facebook_photo_url')) {
-      return '/assets/images/no-thumbnail.png';
+    const url = doc.get('remote-search-collective-user:facebook_photo_url');
+    if (url) {
+      return url + '&width=' + width;
     } else {
-      return doc.get('remote-search-collective-user:facebook_photo_url') + '&width=' + width;
+      return '/assets/images/no-thumbnail.png';
     }
   }
 

@@ -1,6 +1,8 @@
 
 export class GlobalSearchSettings {
 
+  [key: string]: any;
+
   schemas?: string[];
 
   enableLoading: boolean = true;
