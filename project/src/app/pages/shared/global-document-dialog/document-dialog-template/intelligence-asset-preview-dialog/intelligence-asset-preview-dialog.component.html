@@ -1,4 +1,4 @@
-<div class="dialog-title text-center">
+<div class="dialog-title text-center" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
   <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
   <h1 class="left">{{title}}</h1>
   <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
@@ -6,12 +6,12 @@
 </div>
 <div class="dialog-body">
   <ng-container *ngIf="document">
-    <div class="media">
+    <div class="media" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
       <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
     </div>
   </ng-container>
   <ng-container *ngIf="document">
-    <div class="text-content" style="padding-top: 0;">
+    <div class="text-content" style="padding-top: 0;" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
       <div class="controls row">
         <div class="col-5">
           <h3 class="left"><b>{{ document.title }}</b></h3>

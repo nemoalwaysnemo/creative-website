@@ -4,7 +4,7 @@ import { getDocumentTypes, vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
-import { DocumentPageService } from '../../../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -29,11 +29,20 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
     layout: this.getDialogSettings().docViewerLayout,
   };
 
+  hiddenDialogInfo: boolean = false;
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
+      if (e.name === 'Opened') {
+        this.hiddenDialogInfo = true;
+      } else {
+        this.hiddenDialogInfo = false;
+      }
+    });
   }
 
   protected setDocument(doc: DocumentModel): void {

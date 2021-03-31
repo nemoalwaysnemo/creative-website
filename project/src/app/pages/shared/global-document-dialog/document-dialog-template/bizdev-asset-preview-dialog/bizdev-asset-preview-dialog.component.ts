@@ -2,7 +2,7 @@ import { Component, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { vocabularyFormatter, getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
-import { DocumentPageService } from '../../../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -23,11 +23,20 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
   viewerSettings: any = {
   };
 
+  hiddenDialogInfo: boolean = false;
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
+      if (e.name === 'Opened') {
+        this.hiddenDialogInfo = true;
+      } else {
+        this.hiddenDialogInfo = false;
+      }
+    });
   }
 
   protected setDocument(doc: DocumentModel): void {

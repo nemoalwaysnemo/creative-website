@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { matchAssetUrl, vocabularyFormatter } from '@core/services/helpers';
-import { DocumentPageService } from '../../../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 
@@ -22,6 +22,8 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
     layout: this.getDialogSettings().docViewerLayout,
   };
 
+  hiddenDialogInfo: boolean = false;
+
   private assetUrlMapping: any = {
     'App-Backslash-Edges-Asset': 'backslash/resource/edge/:parentRef/asset/',
     'App-Backslash-Case-Study': 'backslash/report/folder/:parentRef/asset/',
@@ -35,6 +37,13 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
+      if (e.name === 'Opened') {
+        this.hiddenDialogInfo = true;
+      } else {
+        this.hiddenDialogInfo = false;
+      }
+    });
   }
 
   protected setDocument(doc: DocumentModel): void {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { vocabularyFormatter } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
-import { DocumentPageService } from '../../../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { GLOBAL_DOCUMENT_FORM } from '../../../../shared/global-document-form';
@@ -31,11 +31,20 @@ export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemp
     layout: this.getDialogSettings().docViewerLayout,
   };
 
+  hiddenDialogInfo: boolean = false;
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
+      if (e.name === 'Opened') {
+        this.hiddenDialogInfo = true;
+      } else {
+        this.hiddenDialogInfo = false;
+      }
+    });
   }
 
   protected setDocument(doc: DocumentModel): void {
