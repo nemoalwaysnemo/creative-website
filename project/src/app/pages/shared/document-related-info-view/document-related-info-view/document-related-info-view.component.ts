@@ -1,11 +1,12 @@
 import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, Type } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel, SearchResponse } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchResponse } from '@core/api';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
+import { SearchFilterModel } from '../../global-search-filter/global-search-filter.interface';
 import { TabInfo } from '../document-related-info.component';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
 

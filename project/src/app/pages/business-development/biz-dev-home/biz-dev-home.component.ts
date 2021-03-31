@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TAB_CONFIG } from '../business-development-tab-config';
-import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
-import { NuxeoPagination, DocumentModel, GlobalSearchParams, SearchFilterModel } from '@core/api';
+import { GlobalSearchFormSettings, DocumentPageService, SearchFilterModel } from '@pages/shared';
+import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 

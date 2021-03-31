@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { SearchFilterModel, GlobalSearchParams } from '@core/api';
+import { GlobalSearchParams } from '@core/api';
 import { Subject, timer } from 'rxjs';
-import { GlobalSearchFormSettings, DocumentPageService, GlobalSearchSettings } from '@pages/shared';
+import { GlobalSearchFormSettings, DocumentPageService, GlobalSearchSettings, SearchFilterModel } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 

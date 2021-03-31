@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { SearchFilterModel, DocumentModel, NuxeoPermission } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/environment';
-import { GlobalSearchFormSettings } from '@pages/shared';
+import { DocumentModel, NuxeoPermission } from '@core/api';
+import { GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { Observable, of as observableOf } from 'rxjs';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/environment';
 
 @Component({
   selector: 'backslash-home-thumbnail',

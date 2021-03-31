@@ -2,8 +2,8 @@ import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of as observableOf, forkJoin, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NuxeoPagination, GlobalSearchParams, SearchFilterModel, DocumentModel } from '@core/api';
-import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
+import { NuxeoPagination, GlobalSearchParams, DocumentModel } from '@core/api';
+import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({

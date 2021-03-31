@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchFilterModel } from '@core/api';
-import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { GlobalSearchFormSettings, DocumentPageService, SearchFilterModel } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 
 @Component({
@@ -16,6 +15,10 @@ export class LearningProgramAlumniSearchComponent extends BaseDocumentViewCompon
   };
 
   filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'nominations', placeholder: 'GPL Program' }),
+    new SearchFilterModel({ key: 'years', placeholder: 'Year' }),
+    new SearchFilterModel({ key: 'agencies', placeholder: 'Agency' }),
+    new SearchFilterModel({ key: 'titles', placeholder: 'Role' }),
   ];
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({

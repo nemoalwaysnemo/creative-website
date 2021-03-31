@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
-import { DocumentModel, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
+import { DocumentModel, NuxeoSearchConstants } from '@core/api';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
-import { ListSearchFormComponent, ListSearchRowCustomDialogComponent } from '../../../shared/list-search-form';
+import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-form';
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
-import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem } from '@pages/shared';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem, SearchFilterModel } from '@pages/shared';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 

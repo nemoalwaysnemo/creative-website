@@ -1,14 +1,15 @@
 import { Component, Input, TemplateRef, ViewChild, OnInit, OnDestroy, ViewContainerRef, Type, ComponentRef, ComponentFactoryResolver } from '@angular/core';
-import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchFilterModel, SearchResponse } from '@core/api';
+import { DocumentModel, NuxeoPagination, NuxeoQuickFilters, SearchResponse } from '@core/api';
+import { DOCUMENT_PREVIEW_IN_DIALOG } from '../../document-preview-in-dialog/document-preview-in-dialog-mapping';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
+import { DocumentPageService, GlobalEvent } from '../../services/document-page.service';
+import { SearchFilterModel } from '../../global-search-filter/global-search-filter.interface';
 import { GlobalDocumentDialogService } from '../../global-document-dialog';
-import { DOCUMENT_PREVIEW_IN_DIALOG } from '../../document-preview-in-dialog/document-preview-in-dialog-mapping';
 import { TabInfo } from '../knowledge-related-info.component';
 import { Subject, Subscription, timer } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
-import { DocumentPageService, GlobalEvent } from '../../services/document-page.service';
 
 @Component({
   selector: 'knowledge-related-info-view',

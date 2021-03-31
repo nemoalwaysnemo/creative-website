@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { getPathPartOfUrl, isValueEmpty, convertToBoolean } from '@core/services/helpers';
 import { BehaviorSubject, Subscription, Subject, Observable, of as observableOf, zip, combineLatest } from 'rxjs';
 import { filter, debounceTime, switchMap, map, startWith, pairwise, concatMap } from 'rxjs/operators';
-import { SearchResponse, GlobalSearchParams, NuxeoRequestOptions, SearchFilterModel, NuxeoQueryParams } from '@core/api';
+import { SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoQueryParams } from '@core/api';
 import { GlobalSearchFormService, GlobalSearchFormEvent } from './global-search-form.service';
 import { GlobalSearchFormSettings, GlobalSearchSettings } from './global-search-form.interface';
+import { SearchFilterModel } from '../global-search-filter/global-search-filter.interface';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({

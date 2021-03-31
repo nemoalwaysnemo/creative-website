@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TAB_CONFIG } from '../innovation-tab-config';
-import { NuxeoPagination, DocumentModel, GlobalSearchParams, SearchFilterModel, NuxeoSearchConstants } from '@core/api';
-import { GlobalSearchFormSettings, DocumentPageService, GlobalDocumentViewComponent, GlobalDocumentDialogService } from '@pages/shared';
+import { NuxeoPagination, DocumentModel, GlobalSearchParams, NuxeoSearchConstants } from '@core/api';
+import { GlobalSearchFormSettings, DocumentPageService, GlobalDocumentViewComponent, GlobalDocumentDialogService, SearchFilterModel } from '@pages/shared';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({

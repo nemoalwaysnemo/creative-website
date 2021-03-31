@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DocumentPageService, GlobalSearchFormSettings } from '@pages/shared';
-import { SearchResponse, NuxeoPagination, SearchFilterModel, GlobalSearchParams } from '@core/api';
+import { DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
+import { SearchResponse, NuxeoPagination, GlobalSearchParams } from '@core/api';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 

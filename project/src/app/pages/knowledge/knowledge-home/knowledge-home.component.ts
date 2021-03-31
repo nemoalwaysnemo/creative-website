@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DocumentModel, SearchFilterModel } from '@core/api';
-import { GlobalSearchFormSettings, DocumentPageService } from '@pages/shared';
+import { DocumentModel } from '@core/api';
+import { GlobalSearchFormSettings, DocumentPageService, SearchFilterModel } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
 
 @Component({

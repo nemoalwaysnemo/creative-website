@@ -1,7 +1,8 @@
 import { Component, Input, forwardRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { AggregateModel, SearchFilterModel, SearchResponse } from '@core/api';
+import { AggregateModel, SearchResponse } from '@core/api';
 import { OptionModel, OptionSettings } from '../option-select/option-select.interface';
+import { SearchFilterModel } from './global-search-filter.interface';
 
 @Component({
   selector: 'global-search-filter',
@@ -111,7 +112,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   private buildAggOptionModel(agg: any = {}, labels: any = {}): OptionModel {
     const aggKey = labels && (labels[agg.label] || labels[agg.key]) ? (labels[agg.label] || labels[agg.key]) : (agg.label || agg.key);
-    const label = `${aggKey} (${agg.docCount})`;
+    const label = agg.docCount > 0 ? `${aggKey} (${agg.docCount})` : aggKey;
     return this.buildOptionModel(label, agg.key);
   }
 
