@@ -1,6 +1,6 @@
 <div class="alumni-title">Global Learning program Alumni</div>
 <div class="search-form-input">
-    <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings">
-    </global-search-form>
+  <global-search-form [filters]="filters" [beforeSearch]="beforeSearch" [searchParams]="defaultParams" [settings]="searchFormSettings">
+  </global-search-form>
 </div>
 <learning-program-alumni-search-result></learning-program-alumni-search-result>
