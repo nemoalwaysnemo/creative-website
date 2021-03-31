@@ -88,7 +88,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
     const settings: OptionSettings[] = [];
     filters.forEach((filter: SearchFilterModel) => {
       if (filter.options) {
-        const options = filter.options.map((opt: any) => this.buildOptionModel(opt.label, opt.value));
+        const options = filter.options.map((opt: any) => new OptionModel({ label: opt.label, value: opt.value }));
         settings.push(new OptionSettings({ id: filter.key, placeholder: filter.placeholder, options }));
       } else {
         const agg: AggregateModel = models.find((x: AggregateModel) => x.id === filter.key);
@@ -100,7 +100,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
           const iteration = filter.iteration;
           for (const bucket of agg.extendedBuckets) {
             if (filter.filterValueFn && filter.filterValueFn(bucket)) {
-              options.push(this.buildAggOptionModel(bucket, filter.optionLabels));
+              options.push(filter.buildAggOptionModel(bucket));
             }
           }
           settings.push(new OptionSettings({ id, placeholder, options, iteration, bufferSize }));
@@ -110,14 +110,4 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
     return settings;
   }
 
-  private buildAggOptionModel(agg: any = {}, labels: any = {}): OptionModel {
-    const aggKey = labels && (labels[agg.label] || labels[agg.key]) ? (labels[agg.label] || labels[agg.key]) : (agg.label || agg.key);
-    const label = agg.docCount > 0 ? `${aggKey} (${agg.docCount})` : aggKey;
-    return this.buildOptionModel(label, agg.key);
-  }
-
-  private buildOptionModel(label: string, val: any): OptionModel {
-    const value = typeof val === 'string' ? val.replace(/\\/gi, String.fromCharCode(92, 92)) : val;
-    return new OptionModel({ label, value });
-  }
 }

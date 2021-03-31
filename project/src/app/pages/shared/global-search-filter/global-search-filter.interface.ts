@@ -6,14 +6,25 @@ export class SearchFilterModel {
   readonly options?: any[];
   readonly placeholder: string;
   readonly iteration?: boolean = false;
-  readonly optionLabels?: any = {};
-  readonly bufferSize?: number = 50;
-  readonly visibleFn: (searchParams: GlobalSearchParams) => boolean = () => true;
-  readonly filterValueFn: (bucket: any) => boolean = () => true;
-  readonly lableFormatFn: (bucket: any) => boolean = () => true;
+  readonly optionLabels: any = {};
+  readonly bufferSize: number = 50;
+  readonly visibleFn: (searchParams: GlobalSearchParams) => boolean = (searchParams: GlobalSearchParams) => true;
+  readonly filterValueFn: (bucket: any) => boolean = (bucket: any) => true;
+  readonly optionModelFn: (agg: any) => any = (agg: any) => ({ label: agg.label, value: agg.key });
 
   constructor(data: any = {}) {
     Object.assign(this, data);
+  }
+
+  buildAggOptionModel(agg: any = {}): OptionModel {
+    agg.label = this.getOptionLabel(agg);
+    return new OptionModel(this.optionModelFn(agg));
+  }
+
+  private getOptionLabel(agg: any = {}): string {
+    const labels = this.optionLabels;
+    const aggKey = labels && (labels[agg.label] || labels[agg.key]) ? (labels[agg.label] || labels[agg.key]) : (agg.label || agg.key);
+    return agg.docCount > 0 ? `${aggKey} (${agg.docCount})` : aggKey;
   }
 
 }
