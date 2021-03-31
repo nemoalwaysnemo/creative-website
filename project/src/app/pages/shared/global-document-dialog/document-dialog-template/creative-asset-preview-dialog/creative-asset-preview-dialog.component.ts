@@ -23,13 +23,19 @@ export class CreativeAssetPreviewDialogComponent extends DocumentDialogPreviewTe
   viewerSettings: any = {
   };
 
+  hiddenDialogInfo: boolean = false;
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
     this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
-      // console.log(1111, e);
+      if (e.name === 'Opened') {
+        this.hiddenDialogInfo = true;
+      } else {
+        this.hiddenDialogInfo = false;
+      }
     });
   }
 

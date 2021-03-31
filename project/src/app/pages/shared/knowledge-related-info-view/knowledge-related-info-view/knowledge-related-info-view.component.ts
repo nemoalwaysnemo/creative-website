@@ -355,6 +355,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
         this.documentPageService.triggerEvent(new GlobalEvent({ name: 'Closed', type: 'knowledge-inner-dialog' }));
       }
     });
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'Opened', type: 'knowledge-inner-dialog' }));
   }
 
   private createDynamicComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {

@@ -3,6 +3,7 @@ import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 
 export class TabInfo {
   readonly type: string;
@@ -102,8 +103,17 @@ export class KnowledgeRelatedInfoComponent {
 
   currentTab: any;
 
-  constructor() {
+  hideRelatedTitle: boolean = false;
+
+  constructor(protected documentPageService: DocumentPageService) {
     this.currentTab = this.tabItems[0];
+    this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
+      if (e.name === 'Opened') {
+        this.hideRelatedTitle = true;
+      } else {
+        this.hideRelatedTitle = false;
+      }
+    });
   }
 
   @Input()
