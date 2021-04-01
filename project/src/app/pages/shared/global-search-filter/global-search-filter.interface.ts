@@ -10,7 +10,7 @@ export class SearchFilterModel {
   readonly bufferSize: number = 50;
   readonly visibleFn: (searchParams: GlobalSearchParams) => boolean = (searchParams: GlobalSearchParams) => true;
   readonly filterValueFn: (bucket: any) => boolean = (bucket: any) => true;
-  readonly optionModelFn: (agg: any) => any = (agg: any) => ({ label: agg.label, value: agg.key });
+  readonly optionModelFn: (agg: any) => any = (agg: any) => ({ label: agg.label, value: (agg.value || agg.key) });
 
   constructor(data: any = {}) {
     Object.assign(this, data);
