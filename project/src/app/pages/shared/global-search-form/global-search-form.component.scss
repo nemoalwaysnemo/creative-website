@@ -44,8 +44,10 @@
     }
   }
   .middle .search-input > input {
+    margin-left: calc( (100% - 550px) / 2 );
+    margin-right: 10px;
     clear: both;
-    float: none;
+    float: left;
     width: 550px;
     background: url('/assets/images/search_icon_small.png') no-repeat 521px center;
   }
