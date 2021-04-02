@@ -39,3 +39,12 @@
 .deep_4 {
   margin-left: 80px;
 }
+ng-select {
+	.ng-value-label {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		max-width: 320px;
+	}
+}
