@@ -55,4 +55,13 @@ export class LearningProgramAlumniPreviewDialogComponent extends DocumentDialogP
       return { name: l[0], year: l[1] };
     });
   }
+
+  getNominationHeight(nomination: any[]): string {
+    if (nomination && nomination.length > 2) {
+      return (100 + (nomination.length - 2) * 22).toString();
+    }
+    else {
+      return '100';
+    }
+  }
 }
