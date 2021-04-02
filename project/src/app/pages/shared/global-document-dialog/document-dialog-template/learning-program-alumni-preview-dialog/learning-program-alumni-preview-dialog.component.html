@@ -1,11 +1,11 @@
 <div class="dialog-title text-center">
   <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
-  <h1 class="left">{{document.title}}</h1>
+  <h1 class="left">{{document?.title}}</h1>
   <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
   <div class="clear"></div>
 </div>
 <div class="dialog-body info-card">
-  <ng-container *ngIf="document">
+  <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
     <div class="headshot" [ngStyle]="{'background-image': 'url('+getFacebookUrl(document, 120)+')'}"></div>
     <div class="text-area">
       <div class="info-table-left">
@@ -22,73 +22,75 @@
         <div class="right-info-top">
           <div class="icon-mail info-icon"></div>
           <div class="float-left icon-info-type">Personal email</div>
-          <div class="float-left icon-info-content">{{ document.get('remote-search-collective-user:email') }}</div>
+          <div class="float-left icon-info-content">{{ document.get('remote-search-collective-user:personal_email') }}</div>
         </div>
         <div class="right-info-top">
           <div class="icon-phone info-icon"></div>
           <div class="float-left icon-info-type">Work phone</div>
-          <div class="float-left icon-info-content">N/A</div>
+          <div class="float-left icon-info-content">{{ document.get('remote-search-collective-user:work_phone') }}</div>
         </div>
         <div class="right-info-top">
           <div class="icon-linkedin info-icon"></div>
           <div class="float-left icon-info-type">LinkedIn</div>
-          <div class="float-left icon-info-content">N/A</div>
+          <div class="float-left icon-info-content">{{ document.get('remote-search-collective-user:linked_in') }}</div>
         </div>
         <div class="right-info-top">
           <div class="icon-facebook info-icon"></div>
           <div class="float-left icon-info-type">Facebook</div>
-          <div class="float-left icon-info-content">N/A</div>
+          <div class="float-left icon-info-content">{{ document.get('remote-search-collective-user:facebook') }}</div>
         </div>
         <div class="right-info-top">
           <div class="icon-twitter info-icon"></div>
           <div class="float-left icon-info-type">Twitter</div>
-          <div class="float-left icon-info-content">N/A</div>
+          <div class="float-left icon-info-content">{{ document.get('remote-search-collective-user:twitter') }}</div>
         </div>
       </div>
       <div class="info-table-left" style="margin-top: 5px;">
         <div class="user-main-info">Agency:</div>
-        <div class="main-info-text">N/A</div>
+        <div class="main-info-text">{{ document.get('remote-search-collective-user:agency') }}</div>
         <div class="user-main-info">Role</div>
-        <div class="main-info-text">N/A</div>
+        <div class="main-info-text">{{ document.get('remote-search-collective-user:title') }}</div>
         <div class="user-main-info">Tenure</div>
-        <div class="main-info-text">N/A</div>
+        <div class="main-info-text">{{ document.get('remote-search-collective-user:tenure') ? document.get('remote-search-collective-user:tenure')  + ' years' : '' }}</div>
       </div>
       <table class="info-table-left" style="margin-top: 10px;">
         <tbody>
           <tr>
             <th>Discipline:</th>
-            <td>N/A</td>
+            <td>{{ document.get('remote-search-collective-user:discipline') }}</td>
           </tr>
           <tr>
             <th>Program(s):</th>
-            <td>N/A</td>
+            <td>{{ document.get('remote-search-collective-user:work_phone') }}</td>
           </tr>
           <tr>
             <th>Brands Works On:</th>
-            <td>N/A</td>
+            <td>{{ document.get('remote-search-collective-user:brands') }}</td>
           </tr>
           <tr>
             <th>Agencies:</th>
-            <td>N/A</td>
+            <td>{{ document.get('remote-search-collective-user:agency') }}</td>
           </tr>
           <tr>
             <th>Languages:</th>
-            <td>N/A</td>
+            <td>{{ document.get('remote-search-collective-user:language') }}</td>
           </tr>
           <tr>
             <th>Contact Info:</th>
-            <td>N/A</td>
+            <td>{{ document.get('remote-search-collective-user:address') }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="glp-area">
       <div style="font-weight: bold; margin-bottom: 5px;">GLP</div>
-      <div class="glp-type">Name:</div>
-      <div class="glp-content">N/A</div>
-      <div class="glp-type">Year:</div>
-      <div class="glp-content">{{ document.get('remote-search-collective-user:years').join(',') }}</div>
+      <ng-container *ngFor="let item of getNominationPairs(document.get('remote-search-collective-user:nomination'))">
+        <div class="glp-type">Name:</div>
+        <div class="glp-content">{{ item.name }}</div>
+        <div class="glp-type">Year:</div>
+        <div class="glp-content">{{ item.year }}</div>
+      </ng-container>
     </div>
     <div class="clear"></div>
-  </ng-container>
+  </div>
 </div>
