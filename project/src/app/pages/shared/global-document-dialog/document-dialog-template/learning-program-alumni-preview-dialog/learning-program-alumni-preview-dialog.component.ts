@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, NuxeoAutomations, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
@@ -22,7 +22,7 @@ export class LearningProgramAlumniPreviewDialogComponent extends DocumentDialogP
 
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
-      this.document = doc;
+      this.getRemoteUserInfo(doc);
     }
   }
 
@@ -35,4 +35,24 @@ export class LearningProgramAlumniPreviewDialogComponent extends DocumentDialogP
     }
   }
 
+  private getRemoteUserInfo(doc: DocumentModel): void {
+    const params: any = {
+      queryParams: [doc.get('remote-search-collective-user:email')],
+      extractorName: 'collective-user-info',
+      currentPageIndex: 0,
+      pageSize: 1,
+    };
+    const options = new NuxeoRequestOptions().setOptions('schemas', ['dublincore', 'remote-search-collective-user']);
+    const subscription = this.documentPageService.operation(NuxeoAutomations.TBWARemoteSearch, params, null, options).subscribe((res: NuxeoPagination) => {
+      this.document = res.entries.shift();
+    });
+    this.subscription.add(subscription);
+  }
+
+  getNominationPairs(programs: any[]): any[] {
+    return (programs || []).map((x: any) => {
+      const l = x.split(' - ');
+      return { name: l[0], year: l[1] };
+    });
+  }
 }
