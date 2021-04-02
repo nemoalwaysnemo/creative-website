@@ -82,7 +82,7 @@
         </tbody>
       </table>
     </div>
-    <div class="glp-area">
+    <div class="glp-area" [ngStyle]="{'min-height': getNominationHeight(document.get('remote-search-collective-user:nomination')) + 'px'}">
       <div style="font-weight: bold; margin-bottom: 5px;">GLP</div>
       <ng-container *ngFor="let item of getNominationPairs(document.get('remote-search-collective-user:nomination'))">
         <div class="glp-type">Name:</div>
