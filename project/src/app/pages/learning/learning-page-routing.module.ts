@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { LearningPageComponent } from './learning-page.component';
-import { LearningAboutComponent } from './learning-about/learning-about.component';
 import { LearningHomeComponent } from './learning-home/learning-home.component';
 import { LearningAlumniComponent } from './learning-alumni/learning-alumni.component';
 import { LearningProgramComponent } from './learning-program/learning-program.component';
@@ -22,10 +21,6 @@ const routes: Routes = [{
     {
       path: 'alumni',
       component: LearningAlumniComponent,
-    },
-    {
-      path: 'about',
-      component: LearningAboutComponent,
     },
     {
       path: 'remote/:id',

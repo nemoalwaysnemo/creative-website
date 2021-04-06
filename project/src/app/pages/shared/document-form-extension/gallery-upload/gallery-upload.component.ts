@@ -160,7 +160,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
       debounceTime(300),
     ).subscribe(([items, settings]: [GalleryImageItem[], GalleryUploadSettings]) => {
       this.uploadSettings = settings;
-      this.uploadItems = this.buildGalleryImageItem(items, settings).concat(this.uploadItems.concat());
+      this.uploadItems = this.buildGalleryImageItem(items, settings).concat(this.uploadItems);
       this.updateUploadStatus({ itemChanged: true });
       this.emitUploadResponse(this.uploadItems);
     });
