@@ -1,19 +1,19 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { NuxeoDocumentUrl } from '@core/services/helpers';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
+import { ActivatedRoute } from '@angular/router';
+import { IndexedDBService } from '@core/services';
+import { from, Observable, Subject, zip } from 'rxjs';
+import { concatMap, filter, share, tap } from 'rxjs/operators';
 import { DocumentFormEvent, DocumentFormStatus } from '../../shared/document-form/document-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
-import { Observable, Subject, zip } from 'rxjs';
-import { concatMap, filter, share, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-trigger',
   styleUrls: ['./backslash-trigger.component.scss'],
   templateUrl: './backslash-trigger.component.html',
 })
-export class BackslashTriggerComponent extends BaseDocumentManageComponent {
+export class BackslashTriggerComponent extends BaseDocumentManageComponent implements AfterViewInit {
 
   @ViewChild('url', { static: true, read: ElementRef }) url: ElementRef<HTMLTextAreaElement>;
 
@@ -50,9 +50,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   userDocument: DocumentModel = new DocumentModel();
 
-  private readonly cacheKey: string = 'Backslash-Trigger-Extension-Form';
-
-  private event$: Subject<{ key: string, data: any }> = new Subject<any>();
+  private event$: Subject<{ event: string, data: any }> = new Subject<any>();
 
   private imageItems: any[] = [];
 
@@ -64,6 +62,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   constructor(
     protected activatedRoute: ActivatedRoute,
+    protected indexedDBService: IndexedDBService,
     protected documentPageService: DocumentPageService,
   ) {
     super(activatedRoute, documentPageService);
@@ -73,21 +72,24 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
   }
 
   onInit(): void {
-    this.getDataFromStorage(this.cacheKey);
+  }
+
+  ngAfterViewInit(): void {
+    this.inputUrl = this.url.nativeElement.value;
+    this.getStoredDataByUrl('pageInitialized', this.inputUrl);
   }
 
   urlChanged(event: any): void {
+    this.inputUrl = this.url.nativeElement.value;
     this.noImages = false;
   }
 
   isFormDisabled(): boolean {
-    return false;
-    // return this.fetching || !this.targetDocument;
+    return this.fetching || !this.targetDocument;
   }
 
   fetchSite(): void {
-    this.inputUrl = this.url.nativeElement.value;
-    this.event$.next({ key: 'inputUrl', data: this.inputUrl });
+    this.getStoredDataByUrl('inputUrlChanged', this.inputUrl);
   }
 
   onCallback(e: DocumentFormEvent): void {
@@ -111,9 +113,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
         });
       }
       this.noImages = false;
-      this.clearStorage(this.cacheKey);
+      this.clearStorage(this.inputUrl);
     } else if (['UploadFilesChanged', 'onBlur'].includes(e.action) && !e.status.submitted && e.formValue) {
-      this.setDataToStorage(this.cacheKey, e.formValue);
+      this.setDataToStorage(this.inputUrl, e.formValue);
     }
     if (e.button === 'open-trigger' && this.document) {
       // chrome.tabs.create({ url: NuxeoDocumentUrl(this.document.uid) });
@@ -153,16 +155,17 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
   private performActiveTabUrl(): void {
     // chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
     //   this.inputUrl = tabs ? tabs[0].url : this.inputUrl;
+    //   this.getDataFromStorage(this.inputUrl);
     // });
   }
 
   private onInputUrlChanged(): void {
-    const subscription = this.onEvent('inputUrl').pipe(
+    const subscription = this.onEvent('inputUrlChanged').pipe(
       tap(_ => {
         this.fetching = true;
         this.noImages = false;
       }),
-      concatMap((event: { key: string, data: any }) => this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: event.data, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' })),
+      concatMap((event: { event: string, data: any }) => this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: this.inputUrl, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' })),
     ).subscribe((doc: DocumentModel) => {
       const imageDoc = this.updateImageItems(doc);
       this.document = this.updateProperties(this.targetDocument, imageDoc);
@@ -175,11 +178,11 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
 
   private onPageInitialized(): void {
     const subscription = zip(
-      this.onEvent(this.cacheKey),
+      this.onEvent('pageInitialized'),
       this.searchCurrentDocument(this.getCurrentDocumentSearchParams()),
-    ).subscribe(([event, doc]: [{ key: string, data: any }, DocumentModel]) => {
+    ).subscribe(([event, doc]: [{ event: string, data: any }, DocumentModel]) => {
       this.targetDocument = doc;
-      const properties = event.data[this.cacheKey];
+      const properties = event.data;
       if (properties && this.inputUrl === properties['app_Edges:URL']) {
         this.document = new DocumentModel({ path: doc.path, properties }, doc.options);
         this.imageDocument = new DocumentModel({ path: doc.path, properties }, doc.options);
@@ -193,7 +196,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     for (const key in formValue) {
       if (Object.prototype.hasOwnProperty.call(formValue, key)) {
         if (key === 'galleryUpload') {
-          value[key] = (formValue[key] || []).map((i: NuxeoUploadResponse) => i.item).map((i: any) => i.file);
+          value[key] = (formValue[key] || []).map((i: NuxeoUploadResponse) => i.item).map((i: any) => i.getFile());
           this.imageItems = value[key];
         } else {
           value[key] = formValue[key];
@@ -203,29 +206,37 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent {
     return value;
   }
 
-  private setDataToStorage(key: string, value: any): void {
-    const formValue = this.buildFormValue(value);
-    const data = {};
-    data[key] = formValue;
-    // chrome.storage.local.set(data, () => {
-    console.log('set data to storage', formValue);
-    // });
+  private getStoredDataByUrl(event: string, url: string): void {
+    if (url) {
+      this.getDataFromStorage(url).subscribe((rows: any) => {
+        this.event$.next({ event, data: rows.length > 0 ? rows.shift() : {} });
+      });
+    }
   }
 
-  private getDataFromStorage(key: string): void {
-    // chrome.storage.local.get(key, (data: any) => {
-    const data = {};
-    this.event$.next({ key, data });
-    // });
+  private setDataToStorage(url: string, value: any): void {
+    this.getDataFromStorage(url).subscribe((data: any) => {
+      const formValue = this.buildFormValue(value);
+      if (data.length === 0) {
+        this.indexedDBService.add('triggers', formValue);
+      } else {
+        const row = data.shift();
+        this.indexedDBService.update('triggers', row.id, formValue);
+      }
+    });
   }
 
-  private clearStorage(key: string): void {
+  private getDataFromStorage(url: string): Observable<any> {
+    return from(this.indexedDBService.filter('triggers', (value: any) => value['app_Edges:URL'] === url).toArray());
+  }
+
+  private clearStorage(url: string): void {
+    this.indexedDBService.filter('triggers', (value: any) => value['app_Edges:URL'] === url).delete();
     // chrome.storage.local.get(null, function (data) { console.info(data) });
-    // chrome.storage.local.remove(key);
   }
 
-  private onEvent(key?: string): Observable<{ key: string, data: any }> {
-    return this.event$.pipe(filter((e: { key: string, data: any }) => key ? e.key === key : true)).pipe(share());
+  private onEvent(event?: string): Observable<{ event: string, data: any }> {
+    return this.event$.pipe(filter((e: { event: string, data: any }) => event ? e.event === event : true)).pipe(share());
   }
 
 }
