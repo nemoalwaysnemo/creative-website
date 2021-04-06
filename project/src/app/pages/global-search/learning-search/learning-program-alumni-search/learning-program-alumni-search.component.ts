@@ -22,7 +22,7 @@ export class LearningProgramAlumniSearchComponent extends BaseDocumentViewCompon
     new SearchFilterModel({ key: 'years', placeholder: 'Year' }),
     new SearchFilterModel({
       key: 'agencies', placeholder: 'Agency', optionModelFn: (agg: any) => {
-        const list = agg.label.split(' - ');
+        const list = agg.key.split(' - ');
         agg.label = list[0];
         agg.value = list[1];
         return agg;
