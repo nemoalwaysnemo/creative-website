@@ -101,7 +101,15 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     }
     if (['BATCH_UPLOAD', 'GALLERY_UPLOAD'].includes(event.type)) {
       this.performBatchUpload(event);
-      this.callback.emit(new DocumentFormEvent({ action: 'UploadFilesChanged', uploadType: event.type, status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
+      this.callback.emit(new DocumentFormEvent({
+        action: 'UploadFilesChanged',
+        actionType: event.$event.type,
+        uploadType: event.type,
+        doc: this.documentModel,
+        status: this.formStatus$.value,
+        formValue: this.getFormValue(),
+        ngFormSettings: this.ngFormSettings,
+      }));
     }
     if (event.type === 'SWITCH_TAB_CHANGED') {
       this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.documentModel }));
@@ -363,7 +371,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     if (!this.uploadModel) {
       this.uploadModel = this.getUploadModel(this.ngFormSettings, event.type);
     }
-    const all: NuxeoUploadResponse[] = event.$event;
+    const all: NuxeoUploadResponse[] = event.$event.response;
     const added: NuxeoUploadResponse[] = all.filter((res: NuxeoUploadResponse) => !res.original);
     if (added.length === 0 && all.length > 0) {
       //

@@ -9,7 +9,7 @@ import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-plugin-trigger-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"><ng-content select=".custom-button"></ng-content></document-form>`,
 })
 export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormComponent {
 
@@ -50,7 +50,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
-    if (event.action === 'UploadFilesChanged') {
+    if (event.action === 'UploadFilesChanged' && event.actionType === 'UploadChanged') {
       event.ngFormSettings.switchTabSettings.forEach((t: any) => { t.disabled = true; });
     }
     return observableOf(event);
@@ -135,12 +135,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Geography_TBWA',
         },
-      }),
-      new DynamicOptionTagModel({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand(s)',
-        placeholder: 'Brand',
-        required: false,
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:insight',

@@ -29,7 +29,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     }
   }
 
-  @Output() onUpload: EventEmitter<NuxeoUploadResponse[]> = new EventEmitter<NuxeoUploadResponse[]>();
+  @Output() onUpload: EventEmitter<{ type: string, response: NuxeoUploadResponse[] }> = new EventEmitter<{ type: string, response: NuxeoUploadResponse[] }>();
 
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -130,21 +130,21 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.upload(files);
   }
 
-  emitUploadResponse(files: NuxeoUploadResponse[]): void {
-    this._onChange(files);
-    this.onUpload.emit(files);
+  emitUploadResponse(type: string, response: NuxeoUploadResponse[]): void {
+    this._onChange(response);
+    this.onUpload.emit({ type, response });
   }
 
   removeOne(index: number): void {
     const file = this.uploadItems[index];
     this.uploadItems.splice(index, 1);
     this.uploadItems.forEach((res: NuxeoUploadResponse, i: number) => { res.fileIdx = i; res.blob.fileIdx = i; this.queueFiles[file.xpath][file.fileName] = false; });
-    this.emitUploadResponse(this.uploadItems);
+    this.emitUploadResponse('FileChanged', this.uploadItems);
   }
 
   removeAll(): void {
     this.uploadItems.length = 0;
-    this.emitUploadResponse([]);
+    this.emitUploadResponse('FileChanged', []);
   }
 
   parseFileName(name: string): string {
@@ -173,9 +173,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private onFilesUploaded(): void {
     const subscription = this.onUpload.pipe(
-      filter((res: NuxeoUploadResponse[]) => {
+      filter((data: any) => {
         let uploaded = false;
-        res.forEach(i => { uploaded = uploaded || i.uploaded; });
+        data.response.forEach(i => { uploaded = uploaded || i.uploaded; });
         return !uploaded;
       },
       ),
@@ -235,7 +235,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   private onFilesChange(files: NuxeoUploadResponse[]): void {
-    this.emitUploadResponse(files);
+    this.emitUploadResponse('FileChanged', files);
     if (!this.uploadSettings.multiUpload) {
       this.uploadFiles(files);
     }
@@ -244,7 +244,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   private updateFileResponse(res: NuxeoUploadResponse): void {
     const index = this.uploadItems.findIndex((response: NuxeoUploadResponse) => res.fileIdx.toString() === response.fileIdx.toString());
     this.uploadItems[index] = res;
-    this.emitUploadResponse(this.uploadItems);
+    this.emitUploadResponse('UploadChanged', this.uploadItems);
     const uploaded = this.uploadItems.every((response: NuxeoUploadResponse) => response.uploaded);
     this.updateUploadStatus({ uploaded, uploading: !uploaded });
     if (uploaded) {

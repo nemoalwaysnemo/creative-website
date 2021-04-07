@@ -31,7 +31,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Output() onUpload: EventEmitter<NuxeoUploadResponse[]> = new EventEmitter<NuxeoUploadResponse[]>();
+  @Output() onUpload: EventEmitter<{ type: string, response: NuxeoUploadResponse[] }> = new EventEmitter<{ type: string, response: NuxeoUploadResponse[] }>();
 
   uploadStatus$: BehaviorSubject<GalleryUploadStatus> = new BehaviorSubject<GalleryUploadStatus>(new GalleryUploadStatus());
 
@@ -162,7 +162,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
       this.uploadSettings = settings;
       this.uploadItems = this.buildGalleryImageItem(items, settings).concat(this.uploadItems);
       this.updateUploadStatus({ itemChanged: true });
-      this.emitUploadResponse(this.uploadItems);
+      this.emitUploadResponse('FileChanged', this.uploadItems);
     });
     this.subscription.add(subscription);
   }
@@ -186,7 +186,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     const uploadItems = this.uploadItems.filter((res: NuxeoUploadResponse) => res.item.uploading || res.item.uploaded);
     const uploaded = uploadItems.every((res: NuxeoUploadResponse) => res.uploaded);
     this.updateUploadStatus({ uploaded, uploading: !uploaded });
-    this.emitUploadResponse(this.uploadItems);
+    this.emitUploadResponse('UploadChanged', this.uploadItems);
     this.valid.emit(uploaded);
   }
 
@@ -194,9 +194,9 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     return this.selectedItems.map((index: number) => this.uploadItems[index]);
   }
 
-  private emitUploadResponse(files: NuxeoUploadResponse[]): void {
-    this._onChange(files);
-    this.onUpload.emit(files);
+  emitUploadResponse(type: string, response: NuxeoUploadResponse[]): void {
+    this._onChange(response);
+    this.onUpload.emit({ type, response });
   }
 
   private buildGalleryImageItem(images: any[], settings: GalleryUploadSettings): NuxeoUploadResponse[] {

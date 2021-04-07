@@ -9,7 +9,11 @@
     <p>We’re sorry but the site does not allow us to fetch any content. Please create the trigger manually.</p>
   </div>
   <div class="backslash-trigger-form" [nbSpinner]="isFormDisabled()" nbSpinnerStatus="disabled">
-    <backslash-plugin-trigger-form [documentModel]="document" [settings]="formSettings" (callback)="onCallback($event)"></backslash-plugin-trigger-form>
+    <backslash-plugin-trigger-form [documentModel]="document" [settings]="formSettings" (callback)="onCallback($event)">
+      <div class="custom-button">
+        <button nbButton class="'btn btn-info btn-xs" status="info" [disabled]="!hasDraft" (click)="onDiscardDraft()">DISCARD DRAFT</button>
+      </div>
+    </backslash-plugin-trigger-form>
     <!-- <backslash-plugin-user-preference-form [documentModel]="userDocument" [settings]="userFormSettings"></backslash-plugin-user-preference-form> -->
   </div>
 </div>
