@@ -576,9 +576,9 @@ export class NuxeoUploadResponse {
   readonly fileSize: string;
   readonly mimeType: string;
   readonly formMode: string;
-  readonly original: boolean;
   readonly xpath: string;
   readonly label: string;
+  original: boolean;
   fileIdx: number;
 
   constructor(response: any = {}) {

@@ -156,7 +156,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   showMessageBeforeSuccess(): boolean {
-    return this.formStatus$.value.submitted;
+    return this.formStatus$.value.submitted && this.formSettings.showMessageBeforeSave;
   }
 
   private updateFormStatus(status: any = {}): void {

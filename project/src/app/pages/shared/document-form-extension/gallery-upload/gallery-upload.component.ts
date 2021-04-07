@@ -191,7 +191,16 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   private getSelectedFiles(): NuxeoUploadResponse[] {
-    return this.selectedItems.map((index: number) => this.uploadItems[index]);
+    const items = [];
+    this.uploadItems.forEach((item: any, i: number) => {
+      if (this.selectedItems.includes(i)) {
+        item.original = false;
+        items.push(item);
+      } else {
+        item.original = true;
+      }
+    });
+    return items;
   }
 
   emitUploadResponse(type: string, response: NuxeoUploadResponse[]): void {

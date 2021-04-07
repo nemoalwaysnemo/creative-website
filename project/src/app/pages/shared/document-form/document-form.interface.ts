@@ -70,6 +70,8 @@ export class DocumentFormSettings {
 
   showUploadMessage: boolean = false;
 
+  showMessageBeforeSave: boolean = true;
+
   formMode: 'create' | 'edit' | 'view' = 'create';
 
   buttonGroup: any[] = [
