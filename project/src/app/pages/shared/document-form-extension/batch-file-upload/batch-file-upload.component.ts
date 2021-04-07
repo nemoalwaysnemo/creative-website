@@ -179,7 +179,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
         return !uploaded;
       },
       ),
-    ).subscribe((response: NuxeoUploadResponse[]) => {
+    ).subscribe((data: any) => {
+      const response = data.response;
       if (response.some((res: NuxeoUploadResponse) => res.formMode === 'create')) {
         this.fileNumber = response.length;
         const formModels = [];
