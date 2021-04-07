@@ -21,6 +21,8 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   fetching: boolean = false;
 
+  hasDraft: boolean = false;
+
   inputUrl: string = '';
 
   formSettings: any = {
@@ -79,6 +81,10 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     this.getStoredDataByUrl('pageInitialized', this.inputUrl);
   }
 
+  onDiscardDraft(): void {
+    this.discardDraft(this.inputUrl);
+  }
+
   urlChanged(event: any): void {
     this.inputUrl = this.url.nativeElement.value;
     this.noImages = false;
@@ -113,7 +119,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
         });
       }
       this.noImages = false;
-      this.clearStorage(this.inputUrl);
+      this.discardDraft(this.inputUrl);
     } else if (['UploadFilesChanged', 'onBlur'].includes(e.action) && !e.status.submitted && e.formValue) {
       this.setDataToStorage(this.inputUrl, e.formValue);
     }
@@ -209,7 +215,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   private getStoredDataByUrl(event: string, url: string): void {
     if (url) {
       this.getDataFromStorage(url).subscribe((rows: any) => {
-        this.event$.next({ event, data: rows.length > 0 ? rows.shift() : {} });
+        const data = rows.length > 0 ? rows[0] : {};
+        this.hasDraft = rows.length > 0;
+        this.event$.next({ event, data });
       });
     }
   }
@@ -223,6 +231,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
         const row = data.shift();
         this.indexedDBService.update('triggers', row.id, formValue);
       }
+      this.hasDraft = true;
     });
   }
 
@@ -230,8 +239,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     return from(this.indexedDBService.filter('triggers', (value: any) => value['app_Edges:URL'] === url).toArray());
   }
 
-  private clearStorage(url: string): void {
+  private discardDraft(url: string): void {
     this.indexedDBService.filter('triggers', (value: any) => value['app_Edges:URL'] === url).delete();
+    this.hasDraft = false;
     // chrome.storage.local.get(null, function (data) { console.info(data) });
   }
 
