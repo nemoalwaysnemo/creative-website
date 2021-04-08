@@ -75,7 +75,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
       this.doc = doc;
       this.loading = false;
       this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
-      // this.hasGroup$ = this.hasUserGroup();
+      this.hasGroup$ = this.hasUserGroup();
       this.curriculumList = this.doc.get('app_Learning:program_curriculum');
       this.durationList = this.doc.get('app_Learning:program_duration');
       this.dateList = this.doc.get('app_Learning:program_date');
@@ -94,7 +94,7 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
   }
 
   protected hasUserGroup(): Observable<boolean> {
-    return this.documentPageService.getCurrentUser().pipe(map((user: UserModel) => user.hasGroup('XYZ')));
+    return this.documentPageService.getCurrentUser().pipe(map((user: UserModel) => user.hasGroup('Nominators-Learning')));
   }
 
 }
