@@ -17,6 +17,7 @@ import { BackslashRemotePageModule } from './backslash-remote-page/backslash-rem
 import { BackslashCategoryModule } from './backslash-category/backslash-category.module';
 import { BackslashRegionModule } from './backslash-region/backslash-region.module';
 import { BackslashTriggerModule } from './backslash-trigger/backslash-trigger.module';
+import { BackslashTriggerPreferenceModule } from './backslash-trigger-preference/backslash-trigger-preference.module';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { BackslashTriggerModule } from './backslash-trigger/backslash-trigger.mo
     BackslashCategoryModule,
     BackslashRegionModule,
     BackslashTriggerModule,
+    BackslashTriggerPreferenceModule,
   ],
   declarations: [
     BackslashPageComponent,

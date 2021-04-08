@@ -1,0 +1,15 @@
+<div class="backslash-trigger-preference">
+  <div class="backslash-trigger-preference-title logo">
+    <h1>My Profile</h1>
+  </div>
+  <div class="backslash-trigger-preference-form">
+    <backslash-plugin-user-preference-form [documentModel]="document" [settings]="formSettings" (callback)="onCallback($event)"></backslash-plugin-user-preference-form>
+  </div>
+  <div class="backslash-trigger-preference-form-errors">
+    <ng-container *ngIf="showErrors">
+      <div class="error-message">
+        <p>You need to complete your profile before you can submit.</p>
+      </div>
+    </ng-container>
+  </div>
+</div>

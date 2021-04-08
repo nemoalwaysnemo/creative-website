@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel } from '@core/custom';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';

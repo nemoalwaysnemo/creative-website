@@ -18,6 +18,7 @@ import { BackslashTriggerPoolViewComponent } from './backslash-trigger-pool-view
 import { BackslashCategoryComponent } from './backslash-category/backslash-category.component';
 import { BackslashRegionComponent } from './backslash-region/backslash-region.component';
 import { BackslashTriggerComponent } from './backslash-trigger/backslash-trigger.component';
+import { BackslashTriggerPreferenceComponent } from './backslash-trigger-preference/backslash-trigger-preference.component';
 
 const routes: Routes = [{
   path: '',
@@ -74,6 +75,10 @@ const routes: Routes = [{
     {
       path: 'trigger',
       component: BackslashTriggerComponent,
+    },
+    {
+      path: 'trigger/preference',
+      component: BackslashTriggerPreferenceComponent,
     },
     {
       path: 'Trigger Pool',
