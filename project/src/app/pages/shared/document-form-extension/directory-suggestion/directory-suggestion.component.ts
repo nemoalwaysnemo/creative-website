@@ -33,6 +33,8 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() settings: SuggestionSettings = new SuggestionSettings();
 
+  @Input() stressInput: boolean = false;
+
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();

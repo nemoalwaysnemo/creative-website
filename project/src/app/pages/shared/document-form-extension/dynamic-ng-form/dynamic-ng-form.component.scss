@@ -13,6 +13,43 @@
 .layout-right {
   padding-top: 30px;
 }
+
+::ng-deep .stress-required-input {
+  background: #e9a1a3 !important;
+  color: #000000 !important;
+}
+::ng-deep .stress-required-input .mat-chip-list-wrapper input {
+  background: #e9a1a3 !important;
+  color: #000000 !important;
+}
+::ng-deep ng-select.stress-required-input > .ng-select-container {
+	background: #e9a1a3 !important;
+  color: #000000 !important;
+}
+// ::ng-deep .is-empty {
+//   background: #e9a1a3 !important;
+// }
+// ::ng-deep .is-empty .mat-chip-list-wrapper input {
+//   background: #e9a1a3 !important;
+// }
+// ::ng-deep ng-select.is-empty > .ng-select-container {
+// 	background: #e9a1a3 !important;
+// }
+// ::ng-deep .text-not-required {
+// 	background: #ffffff !important;
+// }
+// ::ng-deep .text-not-required .mat-chip-list-wrapper input {
+//   background: #ffffff !important;
+// }
+// ::ng-deep ng-select.text-not-required > .ng-select-container {
+// 	background: #ffffff !important;
+// }
+// ::ng-deep .mat-chip-list-wrapper > input {
+//   font-weight: 600;
+// }
+// ::ng-deep .ng-pristine > input {
+//   font-weight: 600;
+// }
 dynamic-ng-form-control {
   padding: 0;
   margin-bottom: 20px;

@@ -9,7 +9,10 @@ import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-plugin-trigger-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"><ng-content select=".custom-button"></ng-content></document-form>`,
+  styleUrls: ['./backslash-plugin-trigger-form.component.scss'],
+  template: `<div style="width: 650px">
+                <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>
+             </div>`,
 })
 export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormComponent {
 
@@ -79,6 +82,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         placeholder: 'Headline',
         autoComplete: 'off',
         required: true,
+        stressInput: true,
         errorMessages: {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
@@ -89,6 +93,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         label: 'Edges',
         required: true,
         document: true,
+        stressInput: true,
         settings: {
           placeholder: 'Please select edges',
           providerType: SuggestionSettings.DIRECTORY,
@@ -110,6 +115,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         id: 'app_Edges:backslash_category',
         label: 'Category',
         required: true,
+        stressInput: true,
         settings: {
           placeholder: 'Please select category',
           providerType: SuggestionSettings.DIRECTORY,
@@ -130,6 +136,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         id: 'app_Edges:Relevant_Country',
         label: 'Relevant Country',
         required: true,
+        stressInput: true,
         settings: {
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
@@ -141,18 +148,21 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         label: 'Key Insight',
         rows: 5,
         required: true,
+        stressInput: true,
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_text',
         label: 'Trigger Summary',
         rows: 5,
         required: true,
+        stressInput: true,
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:URL',
         label: 'Main Link',
         rows: 5,
         required: true,
+        stressInput: true,
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_support_links',

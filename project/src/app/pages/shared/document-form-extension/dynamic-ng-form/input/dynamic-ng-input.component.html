@@ -15,6 +15,7 @@
            [class.form-control-file]="model.inputType === 'file'"
            [class.is-invalid]="showErrorMessages"
            [class.is-empty]="!model.value"
+           [class.stress-required-input]="model.stressInput"
            [dynamicList]="model.listId"
            [formControlName]="model.field"
            [id]="id"

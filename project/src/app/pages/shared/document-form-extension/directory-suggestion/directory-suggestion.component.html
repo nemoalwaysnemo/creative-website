@@ -3,6 +3,7 @@
     <ng-container *ngSwitchCase="getViewType() === 'suggestion'">
       <ng-select
         [class.is-empty]="!selectedItems || selectedItems.length == 0"
+        [class.stress-required-input]="stressInput"
         [addTag]="settings.addTag"
         [items]="options$ | async"
         [placeholder]="placeholder"
@@ -34,6 +35,7 @@
     <ng-container *ngSwitchCase="getViewType() === 'list'">
       <ng-select
         [class.is-empty]="!selectedItems || selectedItems.length == 0"
+        [class.stress-required-input]="stressInput"
         [items]="options$ | async"
         [placeholder]="placeholder"
         [selectOnTab]="true"
