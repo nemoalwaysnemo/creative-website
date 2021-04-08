@@ -225,6 +225,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   private setDataToStorage(url: string, value: any): void {
     this.getDataFromStorage(url).subscribe((data: any) => {
       const formValue = this.buildFormValue(value);
+      if (!formValue['app_Edges:URL']) {
+        formValue['app_Edges:URL'] = url;
+      }
       if (data.length === 0) {
         this.indexedDBService.add('triggers', formValue);
       } else {

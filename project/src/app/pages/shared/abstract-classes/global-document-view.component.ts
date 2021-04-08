@@ -7,7 +7,6 @@ import { tap, distinctUntilChanged, concatMap, map, filter } from 'rxjs/operator
 import { DocumentFormEvent } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { BaseDocumentViewComponent } from './base-document-view.component';
-import { Environment } from '@environment/environment';
 
 @Component({
   template: '',
