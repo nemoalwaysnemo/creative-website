@@ -36,44 +36,6 @@ export interface DynamicFormControlModelConfig {
 
 export abstract class DynamicFormControlModel implements DynamicPathable {
 
-  private readonly disabled$: BehaviorSubject<boolean>;
-
-  private readonly value$: BehaviorSubject<any>;
-
-  readonly valueChanges: Observable<any>;
-
-  readonly disabledChanges: Observable<boolean>;
-
-  abstract readonly type: string;
-
-  @serializable() asyncValidators: DynamicValidatorsConfig | null;
-  @serializable('disabled') _disabled: boolean;
-  @serializable() errorMessages: DynamicValidatorsConfig | null;
-  @serializable() hidden: boolean;
-  @serializable() readOnly: boolean;
-  @serializable() id: string;
-  @serializable() field: string;
-  @serializable() label: string | null;
-  @serializable() labelTooltip: string | null;
-  @serializable() formMode: string | null;
-  @serializable() layoutPosition: string | 'left';
-  @serializable() accordionTab: string | null;
-  @serializable() switchTab: string | null;
-  @serializable() controlTooltip: string | null;
-  @serializable() layout: DynamicFormControlLayout | null;
-  @serializable() name: string;
-  @serializable('value') _value: any | null;
-  @serializable() settings: any;
-  @serializable() document: any;
-  @serializable() defaultValue: any;
-  parent: DynamicPathable | null = null;
-  @serializable() relations: DynamicFormControlRelation[];
-  @serializable() updateOn: DynamicFormHook | null;
-  @serializable() validators: DynamicValidatorsConfig | null;
-  @serializable() hiddenFn: (doc: any, user: any, settings: any) => boolean = () => false;
-  @serializable() visibleFn: (doc: any, user: any, settings: any) => boolean = () => true;
-  @serializable() defaultValueFn: (doc: any, user: any, settings: any) => any = () => null;
-
   protected constructor(config: DynamicFormControlModelConfig, layout: DynamicFormControlLayout | null = null) {
 
     this.asyncValidators = config.asyncValidators || null;
@@ -129,6 +91,44 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   get hasErrorMessages(): boolean {
     return isObject(this.errorMessages);
   }
+
+  private readonly disabled$: BehaviorSubject<boolean>;
+
+  private readonly value$: BehaviorSubject<any>;
+
+  readonly valueChanges: Observable<any>;
+
+  readonly disabledChanges: Observable<boolean>;
+
+  abstract readonly type: string;
+
+  @serializable() asyncValidators: DynamicValidatorsConfig | null;
+  @serializable('disabled') _disabled: boolean;
+  @serializable() errorMessages: DynamicValidatorsConfig | null;
+  @serializable() hidden: boolean;
+  @serializable() readOnly: boolean;
+  @serializable() id: string;
+  @serializable() field: string;
+  @serializable() label: string | null;
+  @serializable() labelTooltip: string | null;
+  @serializable() formMode: string | null;
+  @serializable() layoutPosition: string | 'left';
+  @serializable() accordionTab: string | null;
+  @serializable() switchTab: string | null;
+  @serializable() controlTooltip: string | null;
+  @serializable() layout: DynamicFormControlLayout | null;
+  @serializable() name: string;
+  @serializable('value') _value: any | null;
+  @serializable() settings: any;
+  @serializable() document: any;
+  @serializable() defaultValue: any;
+  parent: DynamicPathable | null = null;
+  @serializable() relations: DynamicFormControlRelation[];
+  @serializable() updateOn: DynamicFormHook | null;
+  @serializable() validators: DynamicValidatorsConfig | null;
+  @serializable() hiddenFn: (doc: any, user: any, settings: any) => boolean = () => false;
+  @serializable() visibleFn: (doc: any, user: any, settings: any) => boolean = () => true;
+  @serializable() defaultValueFn: (doc: any, user: any, settings: any) => any = () => null;
 
   toJSON(): any {
     return serialize(this);

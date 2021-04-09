@@ -9,7 +9,8 @@ import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-plugin-trigger-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"><ng-content select=".custom-button"></ng-content></document-form>`,
+  styleUrls: ['./backslash-plugin-trigger-form.component.scss'],
+  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormComponent {
 
@@ -85,6 +86,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         placeholder: 'Headline',
         autoComplete: 'off',
         required: true,
+        settings: {
+          customClass: 'stress-input',
+        },
         errorMessages: {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
@@ -99,6 +103,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           placeholder: 'Please select edges',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
+          customClass: 'stress-input',
         },
       }),
       // new DynamicSuggestionModel<string>({
@@ -120,6 +125,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           placeholder: 'Please select category',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Backslash-Categories',
+          customClass: 'stress-input',
         },
       }),
       // new DynamicSuggestionModel({
@@ -140,6 +146,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Geography_TBWA',
+          customClass: 'stress-input',
         },
       }),
       new DynamicTextAreaModel({
@@ -148,6 +155,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         rows: 2,
         required: true,
         layoutPosition: 'right',
+        settings: {
+          customClass: 'stress-input',
+        },
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_text',
@@ -155,6 +165,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         rows: 2,
         required: true,
         layoutPosition: 'right',
+        settings: {
+          customClass: 'stress-input',
+        },
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:URL',
@@ -162,6 +175,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         rows: 1,
         required: true,
         layoutPosition: 'right',
+        settings: {
+          customClass: 'stress-input',
+        },
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_support_links',

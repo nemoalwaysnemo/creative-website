@@ -9,7 +9,7 @@
               [maxlength]="model.maxLength"
               [minlength]="model.minLength"
               [name]="model.name"
-              [ngClass]="getClass('element', 'control')"
+              [ngClass]="getClass('element', 'control') + model.settings.customClass"
               [placeholder]="model.placeholder"
               [readonly]="model.readOnly"
               [required]="model.required"
