@@ -82,7 +82,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         placeholder: 'Headline',
         autoComplete: 'off',
         required: true,
-        stressInput: true,
+        settings: {
+          customClass: 'stress-input',
+        },
         errorMessages: {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
@@ -93,11 +95,11 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         label: 'Edges',
         required: true,
         document: true,
-        stressInput: true,
         settings: {
           placeholder: 'Please select edges',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
+          customClass: 'stress-input',
         },
       }),
       // new DynamicSuggestionModel<string>({
@@ -115,11 +117,11 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         id: 'app_Edges:backslash_category',
         label: 'Category',
         required: true,
-        stressInput: true,
         settings: {
           placeholder: 'Please select category',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Backslash-Categories',
+          customClass: 'stress-input',
         },
       }),
       // new DynamicSuggestionModel({
@@ -136,11 +138,11 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         id: 'app_Edges:Relevant_Country',
         label: 'Relevant Country',
         required: true,
-        stressInput: true,
         settings: {
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Geography_TBWA',
+          customClass: 'stress-input',
         },
       }),
       new DynamicTextAreaModel({
@@ -148,21 +150,27 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         label: 'Key Insight',
         rows: 5,
         required: true,
-        stressInput: true,
+        settings: {
+          customClass: 'stress-input',
+        },
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_text',
         label: 'Trigger Summary',
         rows: 5,
         required: true,
-        stressInput: true,
+        settings: {
+          customClass: 'stress-input',
+        },
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:URL',
         label: 'Main Link',
         rows: 5,
         required: true,
-        stressInput: true,
+        settings: {
+          customClass: 'stress-input',
+        },
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_support_links',

@@ -4,7 +4,6 @@
     [id]="id"
     [placeholder]="model.placeholder"
     [attr.disabled]="model.disabled"
-    [class.stress-required-input]="model.stressInput"
     [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
     (blur)="onBlur($event)"
     (change)="onChange($event)"

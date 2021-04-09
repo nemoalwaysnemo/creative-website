@@ -32,7 +32,6 @@ export interface DynamicFormControlModelConfig {
   relations?: DynamicFormControlRelation[];
   updateOn?: DynamicFormHook;
   validators?: DynamicValidatorsConfig;
-  stressInput?: boolean;
 }
 
 export abstract class DynamicFormControlModel implements DynamicPathable {
@@ -63,7 +62,6 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     this.relations = Array.isArray(config.relations) ? config.relations : [];
     this.updateOn = isString(config.updateOn) ? config.updateOn : null;
     this.validators = config.validators || null;
-    this.stressInput = config.stressInput;
 
     this.value$ = new BehaviorSubject(config.value || null);
     this.value$.subscribe(value => this._value = value);
@@ -128,7 +126,6 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
   @serializable() relations: DynamicFormControlRelation[];
   @serializable() updateOn: DynamicFormHook | null;
   @serializable() validators: DynamicValidatorsConfig | null;
-  @serializable() stressInput: boolean | false;
   @serializable() hiddenFn: (doc: any, user: any, settings: any) => boolean = () => false;
   @serializable() visibleFn: (doc: any, user: any, settings: any) => boolean = () => true;
   @serializable() defaultValueFn: (doc: any, user: any, settings: any) => any = () => null;

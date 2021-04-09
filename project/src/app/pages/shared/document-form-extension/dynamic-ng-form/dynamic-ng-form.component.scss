@@ -14,15 +14,15 @@
   padding-top: 30px;
 }
 
-::ng-deep .stress-required-input {
+::ng-deep .stress-input {
   background: #e9a1a3 !important;
   color: #000000 !important;
 }
-::ng-deep .stress-required-input .mat-chip-list-wrapper input {
+::ng-deep .stress-input .mat-chip-list-wrapper input {
   background: #e9a1a3 !important;
   color: #000000 !important;
 }
-::ng-deep ng-select.stress-required-input > .ng-select-container {
+::ng-deep ng-select.stress-input > .ng-select-container {
 	background: #e9a1a3 !important;
   color: #000000 !important;
 }
