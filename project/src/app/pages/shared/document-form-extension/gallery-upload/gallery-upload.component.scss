@@ -14,8 +14,7 @@
   .gallery-list {
     float: left;
     width: 90%;
-    margin-right: 2%;
-    margin-left: 2%;
+    margin: 0 2% 20px;
     .list-item {
       display: inline-block;
       vertical-align: top;
@@ -50,4 +49,9 @@
 }
 .next a {
   background: url('/assets/images/scroll_arrow_next.png') no-repeat center center;
+}
+
+.left {
+  clear: both;
+  float: left;
 }
