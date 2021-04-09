@@ -3,7 +3,7 @@
     <button type="button" class="icon_btn" title="Fetch Site" (click)="fetchSite()">Fetch Site</button>
   </div>
   <div class="form-site-link">
-    <textarea #url autocomplete="off" rows="3" cols="65" placeholder="Please enter the url" (ngModelChange)="urlChanged($event)">https://www.ifanr.com/1378945</textarea>
+    <textarea #url autocomplete="off" rows="3" cols="80" placeholder="Please enter the url" (ngModelChange)="urlChanged($event)">https://www.ifanr.com/1378945</textarea>
   </div>
   <div *ngIf="noImages" class="error-message">
     <p>We’re sorry but the site does not allow us to fetch any content. Please create the trigger manually.</p>
