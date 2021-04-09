@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel, DynamicOptionTagModel } from '@core/custom';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
@@ -73,6 +73,12 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
 
   protected getFormModels(): any[] {
     return [
+      new DynamicOptionTagModel({
+        id: 'app_Edges:spotter_handle',
+        label: 'Spotter Handle',
+        placeholder: 'Spotter Handle',
+        required: true,
+      }),
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Headline',
@@ -146,8 +152,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
       new DynamicTextAreaModel({
         id: 'app_Edges:insight',
         label: 'Key Insight',
-        rows: 5,
+        rows: 2,
         required: true,
+        layoutPosition: 'right',
         settings: {
           customClass: 'stress-input',
         },
@@ -155,8 +162,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_text',
         label: 'Trigger Summary',
-        rows: 5,
+        rows: 2,
         required: true,
+        layoutPosition: 'right',
         settings: {
           customClass: 'stress-input',
         },
@@ -164,8 +172,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
       new DynamicTextAreaModel({
         id: 'app_Edges:URL',
         label: 'Main Link',
-        rows: 5,
+        rows: 1,
         required: true,
+        layoutPosition: 'right',
         settings: {
           customClass: 'stress-input',
         },
@@ -173,8 +182,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_support_links',
         label: 'Additional Links',
-        rows: 5,
+        rows: 1,
         required: false,
+        layoutPosition: 'right',
       }),
       new DynamicGalleryUploadModel<string>({
         id: 'galleryUpload',
