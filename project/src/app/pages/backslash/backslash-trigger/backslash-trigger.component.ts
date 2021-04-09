@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IndexedDBService } from '@core/services';
 import { from, Observable, Subject, zip } from 'rxjs';
 import { concatMap, filter, share, tap } from 'rxjs/operators';
-import { DocumentFormEvent, DocumentFormStatus } from '../../shared/document-form/document-form.interface';
+import { DocumentFormEvent } from '../../shared/document-form/document-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -27,7 +27,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   formSettings: any = {
     actionOptions: { schemas: '*' },
-    enableLayoutRight: false,
+    enableLayoutRight: true,
     formMode: 'create',
     buttonGroup: [
       {
@@ -37,20 +37,6 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
       },
     ],
   };
-
-  userFormSettings: any = {
-    enableLayoutRight: false,
-    buttonGroup: [
-      {
-        label: 'Save',
-        name: 'user-preference',
-        type: 'custom',
-        disabled: (status: DocumentFormStatus) => status.disableSaveButton(),
-      },
-    ],
-  };
-
-  userDocument: DocumentModel = new DocumentModel();
 
   private event$: Subject<{ event: string, data: any }> = new Subject<any>();
 
