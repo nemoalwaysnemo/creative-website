@@ -4,7 +4,7 @@
     [id]="id"
     [placeholder]="model.placeholder"
     [attr.disabled]="model.disabled"
-    [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
+    [ngClass]="[getClass('element', 'control'), getClass('grid', 'control') + model.settings.customClass]"
     (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)">

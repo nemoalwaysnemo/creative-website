@@ -1,35 +1,49 @@
 .backslash-trigger {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 .form-site-link {
-    padding-left: 10px;
+  padding: 0 0 10px 10px;
+  textarea {
+    width: 40%;
+    max-width: 500px;
+  }
 }
 .form-button-group {
-    float: left;
-    padding-left: 10px;
-    padding-bottom: 5px;
-    margin-right: 20px;
-    button {
-        font-family: Averta for TBWA W01 Semibold, helvetica, arial;
-        display: block;
-        height: 50px;
-        line-height: 50px;
-        padding: 0 13px;
-        font-size: 18px;
-        background-color: #40dc7e;
-        color: #fff;
-        border: 1px solid #e1e1e1;
-        cursor: pointer;
-        border-radius: 0.375rem;
-    }
+  float: left;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  margin-right: 20px;
+  button {
+    font-family: Averta for TBWA W01 Semibold, helvetica, arial;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 13px;
+    font-size: 18px;
+    background-color: #40dc7e;
+    color: #fff;
+    border: 1px solid #e1e1e1;
+    cursor: pointer;
+    border-radius: 0.375rem;
+  }
 }
 .custom-button {
-    float: left;
-    button {
-      font-weight: 500;
-      padding: 0.5rem 1.25rem;
-      font-size: 0.75rem;
-      line-height: 1.25;
-      border: 2px solid transparent;
-    }
+  float: left;
+  button {
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+    line-height: 1.25;
+    border: 2px solid transparent;
+  }
+}
+::ng-deep .backslash-trigger-form nb-tabset {
+  .tabset {
+    width: 100% !important;
+  }
+}
+::ng-deep .backslash-trigger-form dynamic-ng-form {
+  .layout-right {
+    padding-top: 0 !important;
+  }
 }

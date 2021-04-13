@@ -53,6 +53,7 @@ $theme: (
   color-warning: #ffa100,
   color-danger: #ff4c6a,
   color-main: #fecc00,
+  color-black: #000000,
 
   // TODO: move to constants
   social-color-facebook: #3b5998,
@@ -397,6 +398,7 @@ $theme: (
   form-control-warning-border-color: color-warning,
 
   form-control-placeholder-color: color-fg,
+  form-control-placeholder-black-color: color-black,
   form-control-placeholder-font-size: 1rem,
 
   form-control-font-size: 1rem,
