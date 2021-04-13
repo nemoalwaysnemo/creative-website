@@ -7,6 +7,7 @@ import { from, Observable, Subject, zip } from 'rxjs';
 import { concatMap, filter, share, tap } from 'rxjs/operators';
 import { DocumentFormEvent } from '../../shared/document-form/document-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NuxeoDocumentUrl } from '@core/services/helpers';
 
 @Component({
   selector: 'backslash-trigger',
@@ -29,6 +30,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     actionOptions: { schemas: '*' },
     enableLayoutRight: true,
     formMode: 'create',
+    showMessageBeforeSave: false,
     buttonGroup: [
       {
         label: 'SUBMIT',
@@ -111,6 +113,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     }
     if (e.button === 'open-trigger' && this.document) {
       // chrome.tabs.create({ url: NuxeoDocumentUrl(this.document.uid) });
+      window.open(NuxeoDocumentUrl(this.document.uid), '_blank');
     }
   }
 

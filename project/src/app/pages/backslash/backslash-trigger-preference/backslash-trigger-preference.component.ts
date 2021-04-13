@@ -16,6 +16,7 @@ export class BackslashTriggerPreferenceComponent extends BaseDocumentViewCompone
 
   formSettings: any = {
     enableLayoutRight: false,
+    showMessageBeforeSave: false,
     buttonGroup: [
       {
         label: 'SAVE',

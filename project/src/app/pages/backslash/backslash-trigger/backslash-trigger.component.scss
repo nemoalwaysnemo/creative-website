@@ -1,5 +1,5 @@
 .backslash-trigger {
-  padding-top: 10px;
+  padding: 10px 15px 0;
 }
 .form-site-link {
   padding: 0 0 10px 10px;
@@ -45,5 +45,27 @@
 ::ng-deep .backslash-trigger-form dynamic-ng-form {
   .layout-right {
     padding-top: 0 !important;
+  }
+  
+}
+::ng-deep .backslash-trigger-form gallery-upload {
+  .gallery-list {
+    width: 94% !important;
+    height: 40vh !important;
+    .list-item {
+      vertical-align: inherit !important;
+      height: 90% !important;
+      width: 25% !important;
+      margin-right: 15px !important;
+      padding: 0 0 0 5px;
+      img {
+        width: 22vw !important;
+        height: 26vh !important;
+      }
+    }
+    .item-selected {
+      height: 92% !important;
+      padding: 0;
+    }
   }
 }
