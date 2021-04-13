@@ -67,6 +67,7 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
           placeholder: 'Please select agency',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Agencies',
+          customClass: 'stress-input',
         },
       }),
       new DynamicSuggestionModel({
@@ -77,12 +78,16 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Geography_TBWA',
+          customClass: 'stress-input',
         },
       }),
       new DynamicOptionTagModel({
         id: 'backslash-chrome-user-spotter-handle',
         label: 'Spotter Handle',
         placeholder: 'Spotter Handle',
+        settings: {
+          customClass: 'stress-input',
+        },
       }),
     ];
   }

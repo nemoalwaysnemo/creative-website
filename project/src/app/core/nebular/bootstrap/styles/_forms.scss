@@ -85,6 +85,17 @@
       nb-theme(form-control-placeholder-font-size));
   }
 
+  .stress-input {
+    @include install-placeholder(nb-theme(form-control-placeholder-black-color), 
+      nb-theme(form-control-placeholder-font-size));
+  }
+  .stress-input {
+    input {
+      @include install-placeholder(nb-theme(form-control-placeholder-black-color), 
+        nb-theme(form-control-placeholder-font-size));
+    }
+  }
+
   select.form-control:not([size]):not([multiple]) {
     height: calc(2rem + 20px);
   }

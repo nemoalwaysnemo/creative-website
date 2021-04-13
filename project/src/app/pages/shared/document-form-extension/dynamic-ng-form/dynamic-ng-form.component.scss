@@ -13,18 +13,28 @@
 .layout-right {
   padding-top: 30px;
 }
-
+::ng-deep .is-empty {
+  &.stress-input {
+    background: #e9a1a3 !important;
+    color: #000000 !important;
+    font-weight: 600;
+    .mat-chip-list-wrapper input {
+      background: #e9a1a3 !important;
+      color: #000000 !important;
+    }
+  }
+}
+::ng-deep ng-select.is-empty {
+  &.stress-input > .ng-select-container {
+    background: #e9a1a3 !important;
+    color: #000000 !important;
+    padding-left: 5px;
+  }
+}
 ::ng-deep .stress-input {
-  background: #e9a1a3 !important;
-  color: #000000 !important;
-}
-::ng-deep .stress-input .mat-chip-list-wrapper input {
-  background: #e9a1a3 !important;
-  color: #000000 !important;
-}
-::ng-deep ng-select.stress-input > .ng-select-container {
-	background: #e9a1a3 !important;
-  color: #000000 !important;
+  input {
+    font-weight: 600;
+  }
 }
 // ::ng-deep .is-empty {
 //   background: #e9a1a3 !important;
@@ -33,16 +43,16 @@
 //   background: #e9a1a3 !important;
 // }
 // ::ng-deep ng-select.is-empty > .ng-select-container {
-// 	background: #e9a1a3 !important;
+//  background: #e9a1a3 !important;
 // }
 // ::ng-deep .text-not-required {
-// 	background: #ffffff !important;
+//  background: #ffffff !important;
 // }
 // ::ng-deep .text-not-required .mat-chip-list-wrapper input {
 //   background: #ffffff !important;
 // }
 // ::ng-deep ng-select.text-not-required > .ng-select-container {
-// 	background: #ffffff !important;
+//  background: #ffffff !important;
 // }
 // ::ng-deep .mat-chip-list-wrapper > input {
 //   font-weight: 600;

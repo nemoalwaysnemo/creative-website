@@ -1,0 +1,31 @@
+.backslash-trigger-preference {
+  padding: 10px 15px 0;
+  .backslash-trigger-preference-title {
+		margin: 20px 0 20px 30px;
+		h1 {
+			padding-left: 80px;
+			padding-top: 10px;
+			margin: 0;
+			font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+			font-size: 30px;
+		}
+	}
+	.logo {
+		height: 8vh;
+    vertical-align: text-bottom;
+    background-image: url('/assets/images/backslash_trigger_preference_logo.png');
+    background-repeat: no-repeat;
+    background-position: top left;
+	}
+
+	.backslash-trigger-preference-form {
+		clear: both;
+    margin: 10px;
+	}
+	.backslash-trigger-preference-form-errors {
+		.error-message {
+			padding: 8px 0 0 150px;
+			color: #ff0000;
+		}
+	}
+}

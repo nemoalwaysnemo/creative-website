@@ -35,8 +35,9 @@ export class BackslashTriggerPreferenceComponent extends BaseDocumentViewCompone
   onCallback(e: DocumentFormEvent): void {
     if (['Created', 'Updated'].includes(e.action)) {
       this.documentPageService.notify(`User preference has been updated successfully!`, '', 'success');
+    } else if (e.action === 'onBlur') {
+      this.showErrors = !e.status.formValid;
     }
-
   }
 
 }
