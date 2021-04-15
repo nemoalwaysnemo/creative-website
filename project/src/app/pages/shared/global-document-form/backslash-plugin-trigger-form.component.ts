@@ -151,6 +151,21 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           customClass: 'stress-input',
         },
       }),
+      new DynamicInputModel({
+        id: 'app_Edges:URL',
+        label: 'Main Link',
+        required: true,
+        layoutPosition: 'right',
+        settings: {
+          customClass: 'stress-input',
+        },
+      }),
+      new DynamicInputModel({
+        id: 'app_Edges:trigger_support_links',
+        label: 'Additional Links',
+        required: false,
+        layoutPosition: 'right',
+      }),
       new DynamicTextAreaModel({
         id: 'app_Edges:insight',
         label: 'Key Insight',
@@ -170,23 +185,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         settings: {
           customClass: 'stress-input',
         },
-      }),
-      new DynamicTextAreaModel({
-        id: 'app_Edges:URL',
-        label: 'Main Link',
-        rows: 1,
-        required: true,
-        layoutPosition: 'right',
-        settings: {
-          customClass: 'stress-input',
-        },
-      }),
-      new DynamicTextAreaModel({
-        id: 'app_Edges:trigger_support_links',
-        label: 'Additional Links',
-        rows: 1,
-        required: false,
-        layoutPosition: 'right',
       }),
       new DynamicGalleryUploadModel<string>({
         id: 'galleryUpload',

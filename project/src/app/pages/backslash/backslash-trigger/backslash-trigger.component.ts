@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse } from '@core/api';
-import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
-import { ActivatedRoute } from '@angular/router';
+import { BaseDocumentManageComponent, DocumentPageService, GlobalEvent } from '@pages/shared';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { IndexedDBService } from '@core/services';
-import { from, Observable, Subject, zip } from 'rxjs';
-import { concatMap, filter, share, tap } from 'rxjs/operators';
+import { from, Observable, zip } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
 import { DocumentFormEvent } from '../../shared/document-form/document-form.interface';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { NuxeoDocumentUrl } from '@core/services/helpers';
@@ -40,7 +40,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     ],
   };
 
-  private event$: Subject<{ event: string, data: any }> = new Subject<any>();
+  private requestedUrl: string;
 
   private imageItems: any[] = [];
 
@@ -48,7 +48,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   private targetDocument: DocumentModel;
 
-  private imageDocument: DocumentModel;
+  // private imageDocument: DocumentModel;
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -56,6 +56,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     protected documentPageService: DocumentPageService,
   ) {
     super(activatedRoute, documentPageService);
+    activatedRoute.queryParamMap.subscribe((map: ParamMap) => {
+      this.inputUrl = map.get('requestedUrl') ? map.get('requestedUrl') : this.inputUrl;
+    });
     this.onPageInitialized();
     this.onInputUrlChanged();
     this.performActiveTabUrl();
@@ -65,7 +68,6 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   }
 
   ngAfterViewInit(): void {
-    this.inputUrl = this.url.nativeElement.value;
     this.getStoredDataByUrl('pageInitialized', this.inputUrl);
   }
 
@@ -88,7 +90,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   onCallback(e: DocumentFormEvent): void {
     if (['Created', 'Updated'].includes(e.action)) {
-      this.document = this.updateProperties(e.doc, this.imageDocument);
+      // this.document = this.updateProperties(e.doc, this.imageDocument);
       if (e.action === 'Created') {
         this.formSettings = Object.assign({}, this.formSettings, {
           formMode: 'edit',
@@ -155,17 +157,17 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   }
 
   private onInputUrlChanged(): void {
-    const subscription = this.onEvent('inputUrlChanged').pipe(
+    const subscription = this.documentPageService.onEvent('inputUrlChanged').pipe(
       tap(_ => {
         this.fetching = true;
         this.noImages = false;
       }),
-      concatMap((event: { event: string, data: any }) => this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: this.inputUrl, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' })),
+      concatMap((event: GlobalEvent) => this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: this.inputUrl, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' })),
     ).subscribe((doc: DocumentModel) => {
       const imageDoc = this.updateImageItems(doc);
       this.document = this.updateProperties(this.targetDocument, imageDoc);
       this.noImages = !this.hasPageImages(this.document);
-      this.imageDocument = imageDoc;
+      // this.imageDocument = imageDoc;
       this.fetching = false;
     });
     this.subscription.add(subscription);
@@ -173,14 +175,14 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   private onPageInitialized(): void {
     const subscription = zip(
-      this.onEvent('pageInitialized'),
+      this.documentPageService.onEvent('pageInitialized'),
       this.searchCurrentDocument(this.getCurrentDocumentSearchParams()),
-    ).subscribe(([event, doc]: [{ event: string, data: any }, DocumentModel]) => {
+    ).subscribe(([event, doc]: [GlobalEvent, DocumentModel]) => {
       this.targetDocument = doc;
       const properties = event.data;
       if (properties && this.inputUrl === properties['app_Edges:URL']) {
         this.document = new DocumentModel({ path: doc.path, properties }, doc.options);
-        this.imageDocument = new DocumentModel({ path: doc.path, properties }, doc.options);
+        // this.imageDocument = new DocumentModel({ path: doc.path, properties }, doc.options);
       }
     });
     this.subscription.add(subscription);
@@ -201,13 +203,15 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     return value;
   }
 
-  private getStoredDataByUrl(event: string, url: string): void {
+  private getStoredDataByUrl(name: string, url: string): void {
     if (url) {
       this.getDataFromStorage(url).subscribe((rows: any) => {
         const data = rows.length > 0 ? rows[0] : {};
         this.hasDraft = rows.length > 0;
-        this.event$.next({ event, data });
+        this.documentPageService.triggerEvent(new GlobalEvent({ name, data, url, type: name }));
       });
+    } else {
+      this.documentPageService.triggerEvent(new GlobalEvent({ name, url, type: name }));
     }
   }
 
@@ -235,10 +239,6 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     this.indexedDBService.filter('triggers', (value: any) => value['app_Edges:URL'] === url).delete();
     this.hasDraft = false;
     // chrome.storage.local.get(null, function (data) { console.info(data) });
-  }
-
-  private onEvent(event?: string): Observable<{ event: string, data: any }> {
-    return this.event$.pipe(filter((e: { event: string, data: any }) => event ? e.event === event : true)).pipe(share());
   }
 
 }
