@@ -1,6 +1,6 @@
 <div class="backslash-trigger">
   <div class="form-button-group">
-    <button type="button" class="icon_btn" title="Fetch Site" (click)="fetchSite()">Fetch Site</button>
+    <button type="button" class="icon_btn" title="Fetch Site" [disabled]="!inputUrl" (click)="fetchSite()">Fetch Site</button>
   </div>
   <div class="form-site-link">
     <textarea #url autocomplete="off" rows="3" cols="80" placeholder="Please enter the url" [ngModel]="inputUrl" (ngModelChange)="urlChanged($event)"></textarea>
