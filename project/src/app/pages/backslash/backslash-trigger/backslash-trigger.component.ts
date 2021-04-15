@@ -57,7 +57,8 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   ) {
     super(activatedRoute, documentPageService);
     activatedRoute.queryParamMap.subscribe((map: ParamMap) => {
-      this.inputUrl = map.get('requestedUrl') ? map.get('requestedUrl') : this.inputUrl;
+      this.requestedUrl = map.get('requestedUrl');
+      this.inputUrl = this.requestedUrl ? this.requestedUrl : this.inputUrl;
     });
     this.onPageInitialized();
     this.onInputUrlChanged();
@@ -85,7 +86,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   }
 
   fetchSite(): void {
-    this.getStoredDataByUrl('inputUrlChanged', this.inputUrl);
+    if (this.inputUrl) {
+      this.getStoredDataByUrl('inputUrlChanged', this.inputUrl);
+    }
   }
 
   onCallback(e: DocumentFormEvent): void {
@@ -183,6 +186,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
       if (properties && this.inputUrl === properties['app_Edges:URL']) {
         this.document = new DocumentModel({ path: doc.path, properties }, doc.options);
         // this.imageDocument = new DocumentModel({ path: doc.path, properties }, doc.options);
+      }
+      if (this.requestedUrl) {
+        this.fetchSite();
       }
     });
     this.subscription.add(subscription);
