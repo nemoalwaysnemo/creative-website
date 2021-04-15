@@ -47,12 +47,12 @@ export class DocumentPageService {
     this.subscribeRouteChanged();
   }
 
-  onEvent(name?: string): Observable<GlobalEvent> {
-    return this.event$.pipe(filter((e: GlobalEvent) => name ? e.name === name : true)).pipe(share());
+  onEvent(name?: string | string[]): Observable<GlobalEvent> {
+    return this.event$.pipe(filter((e: GlobalEvent) => name ? (Array.isArray(name) ? name : [name]).includes(e.name) : true)).pipe(share());
   }
 
-  onEventType(type: string): Observable<GlobalEvent> {
-    return this.event$.pipe(filter((e: GlobalEvent) => e.type === type)).pipe(share());
+  onEventType(type?: string | string[]): Observable<GlobalEvent> {
+    return this.event$.pipe(filter((e: GlobalEvent) => type ? (Array.isArray(type) ? type : [type]).includes(e.type) : true)).pipe(share());
   }
 
   triggerEvent(event: GlobalEvent): void {
