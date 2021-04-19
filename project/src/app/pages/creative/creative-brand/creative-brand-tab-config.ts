@@ -17,27 +17,27 @@ export const TAB_CONFIG: any[] = [
     acl: [UserPermission.Mgt],
   },
   {
-    title: 'Campaigns Mgt',
+    title: 'Campaigns & Projects',
     route: '/p/creative/brand/:id/campaign summary',
     acl: [UserPermission.Mgt],
   },
-  {
-    title: 'Campaigns',
-    route: '/p/creative/brand/:id/campaign',
-    acl: [UserPermission.Mgt],
-  },
-  {
-    title: 'Projects',
-    route: '/p/creative/brand/:id/project',
-    acl: [UserPermission.Mgt],
-  },
+  // {
+  //   title: 'Campaigns',
+  //   route: '/p/creative/brand/:id/campaign',
+  //   acl: [UserPermission.Mgt],
+  // },
+  // {
+  //   title: 'Projects',
+  //   route: '/p/creative/brand/:id/project',
+  //   acl: [UserPermission.Mgt],
+  // },
   {
     title: 'Manage Library',
     route: '/p/creative/brand/:id/library',
     acl: [UserPermission.Mgt],
   },
   {
-    title: 'Manage Lists',
+    title: 'Manage Listings',
     route: '/p/creative/brand/:id/list',
     aclFn: (doc: DocumentModel): Observable<boolean> => doc.hasPermission(NuxeoPermission.Write),
   },
