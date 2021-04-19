@@ -24,7 +24,7 @@
         (close)="onClose()"
       >
         <ng-template ng-label-tmp let-item="item" let-clear="clear">
-          <span class="ng-value-icon left" (click)="clear.call(this, item);" aria-hidden="true">×</span>
+          <span class="ng-value-icon left" (click)="clear(item);" aria-hidden="true">×</span>
           <span class="ng-value-label">{{item.deep || isDisplayLabel() ? item.label : item.value}}</span>
         </ng-template>
         <ng-template ng-option-tmp let-item="item">

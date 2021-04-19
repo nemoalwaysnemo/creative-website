@@ -241,7 +241,6 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     this.subscription.add(subscription);
   }
 
-
   private flatSuggestions(res: any[]): any[] {
     if (!!res[0] && !!res[0].children) {
       this.suggestions = [];

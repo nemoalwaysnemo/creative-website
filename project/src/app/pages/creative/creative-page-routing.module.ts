@@ -63,28 +63,28 @@ const routes: Routes = [{
         },
       },
     },
-    {
-      path: 'brand/:id/campaign',
-      component: CreativeBrandCampaignComponent,
-      canActivate: [NgxPermissionsGuard],
-      data: {
-        permissions: {
-          only: UserPermission.Mgt,
-          redirectTo: 'home',
-        },
-      },
-    },
-    {
-      path: 'brand/:id/project',
-      component: CreativeBrandProjectComponent,
-      canActivate: [NgxPermissionsGuard],
-      data: {
-        permissions: {
-          only: UserPermission.Mgt,
-          redirectTo: 'home',
-        },
-      },
-    },
+    // {
+    //   path: 'brand/:id/campaign',
+    //   component: CreativeBrandCampaignComponent,
+    //   canActivate: [NgxPermissionsGuard],
+    //   data: {
+    //     permissions: {
+    //       only: UserPermission.Mgt,
+    //       redirectTo: 'home',
+    //     },
+    //   },
+    // },
+    // {
+    //   path: 'brand/:id/project',
+    //   component: CreativeBrandProjectComponent,
+    //   canActivate: [NgxPermissionsGuard],
+    //   data: {
+    //     permissions: {
+    //       only: UserPermission.Mgt,
+    //       redirectTo: 'home',
+    //     },
+    //   },
+    // },
     {
       path: 'brand/:id/library',
       component: CreativeBrandManageLibraryComponent,
