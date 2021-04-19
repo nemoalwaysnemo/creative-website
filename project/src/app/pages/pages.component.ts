@@ -22,7 +22,7 @@ export class PagesComponent {
     this.subscription = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
     ).subscribe((e: NavigationEnd) => {
-      if (['/p/knowledge'].some((path: string) => e.url.includes(path)) || '/' === e.url) {
+      if (['/p/knowledge', '/p/backslash/trigger'].some((path: string) => e.url.includes(path)) || '/' === e.url) {
         this.sidebarService.closeAllBars(true);
       } else {
         this.sidebarService.closeAllBars(false);
