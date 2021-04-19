@@ -50,21 +50,22 @@
 }
 ::ng-deep .backslash-trigger-form gallery-upload {
   .gallery-list {
-    width: 94% !important;
-    height: 40vh !important;
+    width: calc(100% - 110px) !important;
+    height: 40% !important;
+    .drag-scroll-content {
+      width: 100% !important;
+    }
     .list-item {
-      vertical-align: inherit !important;
-      height: 90% !important;
-      width: 25% !important;
+      width: 26% !important;
       margin-right: 15px !important;
-      padding: 0 0 0 5px;
+      padding: 5px;
       img {
-        width: 22vw !important;
-        height: 26vh !important;
+        width: 95% !important;
+        height: 95% !important;
       }
     }
     .item-selected {
-      height: 92% !important;
+      height: 90% !important;
       padding: 0;
     }
   }
