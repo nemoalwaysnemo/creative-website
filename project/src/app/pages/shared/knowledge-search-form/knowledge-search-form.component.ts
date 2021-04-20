@@ -104,6 +104,18 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
     return getAssetModuleType(doc);
   }
 
+  goToLink(doc: DocumentModel): void {
+    this.documentPageService.goToExternalLink(doc);
+  }
+
+  getRemoteUrl(doc: DocumentModel): string {
+    let url = '';
+    if (NUXEO_DOC_TYPE.BACKSLASH_REMOTE_TYPE.includes(doc.type)) {
+      url = '/p/backslash/remote';
+    }
+    return url;
+  }
+
   private getHelpLink(): void {
     const params = {
       pageSize: 1,
