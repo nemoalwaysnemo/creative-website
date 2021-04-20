@@ -1,19 +1,61 @@
 <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [enableScrolling]="enableScrolling"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
-  <div class="image-holder">
-    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study-Folder'">
-      <a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+  <ng-container [ngSwitch]="doc.type">
+    <ng-container *ngSwitchCase="'App-Backslash-Case-Study-Folder'">
+      <ng-container [ngSwitch]="true">
+        <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
+          <div class="image-holder">
+            <a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener" class="btn" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          </div>
+          <div class="description">
+            <h1 [title]="doc.title"><a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener">{{doc.title}}</a></h1>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="doc.openLinkInIframe()">
+          <div class="image-holder">
+            <a [routerLink]="['/p/backslash/remote', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          </div>
+          <div class="description">
+            <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/remote', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <div class="image-holder">
+            <a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+          </div>
+          <div class="description">
+            <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+          </div>
+        </ng-container>
+      </ng-container>
     </ng-container>
-    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study'">
-      <a [routerLink]="['/p/backslash/report/folder', folderId, 'asset', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+    <ng-container *ngSwitchCase="'App-Backslash-Case-Study'">
+      <ng-container [ngSwitch]="true">
+        <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
+          <div class="image-holder">
+            <a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener" class="btn" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          </div>
+          <div class="description">
+            <h1 [title]="doc.title"><a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener">{{doc.title}}</a></h1>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="doc.openLinkInIframe()">
+          <div class="image-holder">
+            <a [routerLink]="['/p/backslash/remote', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          </div>
+          <div class="description">
+            <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/remote', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <div class="image-holder">
+            <a [routerLink]="['/p/backslash/report/folder', folderId, 'asset', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+          </div>
+          <div class="description">
+            <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', folderId, 'asset', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+          </div>
+        </ng-container>
+      </ng-container>
     </ng-container>
-  </div>
-  <div class="description">
-    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study-Folder'">
-      <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
-    </ng-container>
-    <ng-container *ngIf="doc.type == 'App-Backslash-Case-Study'">
-      <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/report/folder', folderId, 'asset', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
-    </ng-container>
-  </div>
+  </ng-container>
 </ng-template>

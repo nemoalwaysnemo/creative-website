@@ -1,18 +1,50 @@
 <global-search-result [templateRef]="thumbnailView"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <div class="thumbnail-view-item">
-    <div class="image-holder">
-      <a (click)="openDialog(dialog)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
-    </div>
-    <div class="description">
-      <h4 class="type" [title]="getAssetType(doc)">{{ getAssetType(doc).toUpperCase() }}</h4>
-      <h1 [title]="doc.title"><a (click)="openDialog(dialog)">{{doc.title}}</a></h1>
-      <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
-      <span class="dot"></span>
-      <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
-      <h5 class="agency " [title]="doc.get('The_Loupe_Main:agency')">{{ doc.get('The_Loupe_Main:agency') }}</h5>
-      <div class="line"></div>
-    </div>
+    <ng-container [ngSwitch]="true">
+      <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
+        <div class="image-holder">
+          <a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener" class="btn" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+        </div>
+        <div class="description">
+          <h4 class="type" [title]="getAssetType(doc)">{{ getAssetType(doc).toUpperCase() }}</h4>
+          <h1 [title]="doc.title"><a href="javascript:;" (click)="goToLink(doc)" title="{{doc.title}}" rel="noopener">{{doc.title}}</a></h1>
+          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
+          <span class="dot"></span>
+          <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+          <h5 class="agency " [title]="doc.get('The_Loupe_Main:agency')">{{ doc.get('The_Loupe_Main:agency') }}</h5>
+          <div class="line"></div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="doc.openLinkInIframe()">
+        <div class="image-holder">
+          <a [routerLink]="[getRemoteUrl(doc), doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+        </div>
+        <div class="description">
+          <h4 class="type" [title]="getAssetType(doc)">{{ getAssetType(doc).toUpperCase() }}</h4>
+          <h1 [title]="doc.title"><a [routerLink]="[getRemoteUrl(doc), doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
+          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
+          <span class="dot"></span>
+          <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+          <h5 class="agency " [title]="doc.get('The_Loupe_Main:agency')">{{ doc.get('The_Loupe_Main:agency') }}</h5>
+          <div class="line"></div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <div class="image-holder">
+          <a (click)="openDialog(dialog)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+        </div>
+        <div class="description">
+          <h4 class="type" [title]="getAssetType(doc)">{{ getAssetType(doc).toUpperCase() }}</h4>
+          <h1 [title]="doc.title"><a (click)="openDialog(dialog)">{{doc.title}}</a></h1>
+          <h4 class="year" [title]="doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'">{{doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</h4>
+          <span class="dot"></span>
+          <h4 class="client" [title]="doc.get('The_Loupe_Main:brand').join(', ')">{{doc.get('The_Loupe_Main:brand').join(', ')}}</h4>
+          <h5 class="agency " [title]="doc.get('The_Loupe_Main:agency')">{{ doc.get('The_Loupe_Main:agency') }}</h5>
+          <div class="line"></div>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
   <ng-template #dialog>
     <global-document-dialog [settings]="getDialogSettings(doc)" [documentModel]="doc" [title]="getTitle(doc)" [metadata]=" isDisruptionX(doc) ? disruptionXdialogMetadata : dialogMetadata"></global-document-dialog>

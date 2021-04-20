@@ -4,6 +4,7 @@ import { getAssetModuleType } from '@core/services/helpers';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService } from '../../../shared/services/document-page.service';
 
 @Component({
   selector: 'knowledge-document-asset-search-result',
@@ -13,7 +14,8 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 export class KnowledgeDocumentAssetSearchResultComponent {
 
-  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) { }
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService,
+              protected documentPageService: DocumentPageService) { }
 
   dialogMetadata: any = {
     moreInfo: true,
@@ -117,5 +119,17 @@ export class KnowledgeDocumentAssetSearchResultComponent {
       title = 'Backslash Report';
     }
     return title;
+  }
+
+  goToLink(doc: DocumentModel): void {
+    this.documentPageService.goToExternalLink(doc);
+  }
+
+  getRemoteUrl(doc: DocumentModel): string {
+    let url = '';
+    if (NUXEO_DOC_TYPE.BACKSLASH_REMOTE_TYPE.includes(doc.type)) {
+      url = '/p/backslash/remote';
+    }
+    return url;
   }
 }

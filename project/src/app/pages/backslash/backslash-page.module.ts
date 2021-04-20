@@ -18,6 +18,7 @@ import { BackslashCategoryModule } from './backslash-category/backslash-category
 import { BackslashRegionModule } from './backslash-region/backslash-region.module';
 import { BackslashTriggerModule } from './backslash-trigger/backslash-trigger.module';
 import { BackslashTriggerPreferenceModule } from './backslash-trigger-preference/backslash-trigger-preference.module';
+import { BackslashTriggerHeaderModule } from './backslash-trigger-header/backslash-trigger-header.module';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { BackslashTriggerPreferenceModule } from './backslash-trigger-preference
     BackslashRegionModule,
     BackslashTriggerModule,
     BackslashTriggerPreferenceModule,
+    BackslashTriggerHeaderModule,
   ],
   declarations: [
     BackslashPageComponent,

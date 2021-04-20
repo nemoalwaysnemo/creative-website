@@ -8,6 +8,13 @@
     max-width: 500px;
   }
 }
+.error-message {
+  p {
+    padding-left: 12px;
+    color: #ff0000;
+    font-size: 14px;
+  }
+}
 .form-button-group {
   float: left;
   padding-left: 10px;
@@ -46,7 +53,6 @@
   .layout-right {
     padding-top: 0 !important;
   }
-  
 }
 ::ng-deep .backslash-trigger-form gallery-upload {
   .gallery-list {
@@ -69,4 +75,7 @@
       padding: 0;
     }
   }
+}
+.backslash-trigger-form ::ng-deep .file-drop-zone {
+  margin-top: 20px;
 }
