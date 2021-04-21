@@ -1,22 +1,15 @@
-import { Component, Input, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
-import { of as observableOf, Observable, Subscription, Subject, combineLatest } from 'rxjs';
+import { of as observableOf, Observable, Subject, combineLatest } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
+import { CreativeProjectMgtBaseTemplateComponent } from './document-creative-project-mgt-base-template.component';
 
 @Component({
   template: '',
 })
-export class CreativeProjectMgtBaseComponent implements OnInit, OnDestroy {
-
-  @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
-
-  document: DocumentModel;
-
-  currentUser: UserModel;
-
-  templateSettings: CreativeProjectMgtSettings = new CreativeProjectMgtSettings();
+export class CreativeProjectMgtBaseComponent extends CreativeProjectMgtBaseTemplateComponent {
 
   @Input()
   set documentModel(doc: DocumentModel) {
@@ -34,34 +27,12 @@ export class CreativeProjectMgtBaseComponent implements OnInit, OnDestroy {
 
   protected document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
-  protected dynamicComponentRef: ComponentRef<any>;
-
-  protected subscription: Subscription = new Subscription();
-
-  protected readonly eventType: string = 'CreativeCampaignProjectMgt';
-
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
+    super(documentPageService, componentFactoryResolver);
     this.onDocumentChanged();
-  }
-
-  ngOnInit(): void {
-    this.onInit();
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy();
-  }
-
-  protected onInit(): void {
-
-  }
-
-  protected onDestroy(): void {
-    this.subscription.unsubscribe();
-    this.clearDynamicComponent();
   }
 
   protected setDocument(doc: DocumentModel): void {
@@ -89,35 +60,8 @@ export class CreativeProjectMgtBaseComponent implements OnInit, OnDestroy {
       this.templateSettings = settings;
       this.currentUser = user;
       this.document = doc;
-      console.log(1111111, doc, user, settings);
     });
     this.subscription.add(subscription);
   }
-
-  protected changeView(component: Type<any>, settings: any = {}): void {
-    if (component) {
-      this.clearDynamicComponent();
-      this.buildComponent(this.dynamicTarget, component, settings);
-    }
-  }
-
-  protected clearDynamicComponent(): void {
-    if (this.dynamicComponentRef) {
-      this.dynamicComponentRef.destroy();
-      this.dynamicComponentRef = null;
-    }
-  }
-
-  protected createDynamicComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    return dynamicTarget.createComponent(componentFactory);
-  }
-
-  protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>, settings: any = {}): void {
-    this.dynamicComponentRef = this.createDynamicComponent(dynamicTarget, component);
-    this.dynamicComponentRef.instance.documentModel = this.document;
-    this.dynamicComponentRef.instance.settings = settings;
-  }
-
 
 }

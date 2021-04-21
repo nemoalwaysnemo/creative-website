@@ -1,8 +1,9 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, ComponentFactoryResolver } from '@angular/core';
+import { DocumentModel } from '@core/api';
 import { NbMenuItem } from '@core/nebular/theme';
 import { parseTabRoute } from '@core/services/helpers';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
-import { CreativeProjectMgtBaseComponent } from './document-creative-project-mgt-base.component';
+import { CreativeProjectMgtBaseTemplateComponent } from './document-creative-project-mgt-base-template.component';
 import { TAB_CONFIG } from './document-creative-project-mgt-tab-config';
 
 @Component({
@@ -10,9 +11,16 @@ import { TAB_CONFIG } from './document-creative-project-mgt-tab-config';
   styleUrls: ['./document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-mgt.component.html',
 })
-export class CreativeProjectMgtComponent extends CreativeProjectMgtBaseComponent {
+export class CreativeProjectMgtComponent extends CreativeProjectMgtBaseTemplateComponent {
 
   tabs: NbMenuItem[] = parseTabRoute(TAB_CONFIG);
+
+  @Input()
+  set documentModel(doc: DocumentModel) {
+    if (doc) {
+      this.document = doc;
+    }
+  }
 
   constructor(
     protected documentPageService: DocumentPageService,
@@ -25,14 +33,13 @@ export class CreativeProjectMgtComponent extends CreativeProjectMgtBaseComponent
   protected onInit(): void {
     const defaultPage = this.getDefaultPage();
     if (defaultPage) {
-      console.log(33333, defaultPage);
       this.changeView(defaultPage.component);
     }
   }
 
   private subscribeEvents(): void {
     this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
-      console.log(6666, event);
+
     });
   }
 
