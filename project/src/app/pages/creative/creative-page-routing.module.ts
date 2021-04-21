@@ -16,7 +16,7 @@ import { CreativeBrandManageLibraryComponent } from './creative-brand/creative-b
 import { CreativeAgencyBrandComponent } from './creative-agency/creative-agency-brand/creative-agency-brand.component';
 import { CreativeAgencyShowcaseComponent } from './creative-agency/creative-agency-showcase/creative-agency-showcase.component';
 import { CreativeAgencyManageLibraryComponent } from './creative-agency/creative-agency-manage-library/creative-agency-manage-library.component';
-import { CreativeBrandCampaignSummaryComponent } from './creative-brand/creative-brand-campaign-summary/creative-brand-campaign-summary.component';
+import { CreativeBrandCampaignProjectMgtComponent } from './creative-brand/creative-brand-campaign-project-mgt/creative-brand-campaign-project-mgt.component';
 import { CreativeAgencyManageListComponent } from './creative-agency/creative-agency-manage-list/creative-agency-manage-list.component';
 import { CreativeBrandProject3rdPartyImportComponent } from './creative-brand/creative-brand-project/creative-brand-project-3rd-party-import/creative-brand-project-3rd-party-import.component';
 import { CreativeBrandProject3rdPartyApprovalComponent } from './creative-brand/creative-brand-project/creative-brand-project-3rd-party-approval/creative-brand-project-3rd-party-approval.component';
@@ -53,8 +53,8 @@ const routes: Routes = [{
       },
     },
     {
-      path: 'brand/:id/campaign summary',
-      component: CreativeBrandCampaignSummaryComponent,
+      path: 'brand/:id/campaign&project',
+      component: CreativeBrandCampaignProjectMgtComponent,
       canActivate: [NgxPermissionsGuard],
       data: {
         permissions: {
