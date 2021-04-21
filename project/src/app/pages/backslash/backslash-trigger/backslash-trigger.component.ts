@@ -85,8 +85,14 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     return this.fetching || !this.targetDocument;
   }
 
+  onKeyEnter(event: KeyboardEvent): void {
+    this.fetchSite();
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+
   fetchSite(): void {
-    if (this.inputUrl) {
+    if (this.inputUrl && ['http://', 'https://'].some(p => this.inputUrl.startsWith(p))) {
       this.getStoredDataByUrl('inputUrlChanged', this.inputUrl);
     }
   }
@@ -98,11 +104,11 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
         this.formSettings = Object.assign({}, this.formSettings, {
           formMode: 'edit',
           buttonGroup: [
-            {
-              label: 'RE-SUBMIT',
-              name: 'save',
-              type: 'save',
-            },
+            // {
+            //   label: 'RE-SUBMIT',
+            //   name: 'save',
+            //   type: 'save',
+            // },
             {
               label: 'OPEN TRIGGER',
               name: 'open-trigger',
