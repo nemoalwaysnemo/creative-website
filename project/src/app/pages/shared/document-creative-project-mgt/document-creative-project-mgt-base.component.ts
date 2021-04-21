@@ -1,9 +1,8 @@
 import { Component, Input, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { isValueEmpty } from '@core/services/helpers';
+import { DocumentPageService } from '../services/document-page.service';
 import { of as observableOf, Observable, Subscription, Subject, combineLatest } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
-import { DocumentPageService } from '../services/document-page.service';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
 
 @Component({
@@ -22,7 +21,6 @@ export class CreativeProjectMgtBaseComponent implements OnInit, OnDestroy {
   @Input()
   set documentModel(doc: DocumentModel) {
     if (doc) {
-      console.log(44444, doc);
       this.document$.next(doc);
     }
   }
@@ -39,6 +37,8 @@ export class CreativeProjectMgtBaseComponent implements OnInit, OnDestroy {
   protected dynamicComponentRef: ComponentRef<any>;
 
   protected subscription: Subscription = new Subscription();
+
+  protected readonly eventType: string = 'CreativeCampaignProjectMgt';
 
   constructor(
     protected documentPageService: DocumentPageService,
@@ -94,21 +94,21 @@ export class CreativeProjectMgtBaseComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  private changeView(component: Type<any>, settings: any = {}): void {
+  protected changeView(component: Type<any>, settings: any = {}): void {
     if (component) {
       this.clearDynamicComponent();
       this.buildComponent(this.dynamicTarget, component, settings);
     }
   }
 
-  private clearDynamicComponent(): void {
+  protected clearDynamicComponent(): void {
     if (this.dynamicComponentRef) {
       this.dynamicComponentRef.destroy();
       this.dynamicComponentRef = null;
     }
   }
 
-  private createDynamicComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
+  protected createDynamicComponent(dynamicTarget: ViewContainerRef, component: Type<any>): ComponentRef<any> {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     return dynamicTarget.createComponent(componentFactory);
   }
@@ -116,7 +116,7 @@ export class CreativeProjectMgtBaseComponent implements OnInit, OnDestroy {
   protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>, settings: any = {}): void {
     this.dynamicComponentRef = this.createDynamicComponent(dynamicTarget, component);
     this.dynamicComponentRef.instance.documentModel = this.document;
-    this.dynamicComponentRef.instance.templateSettings = settings;
+    this.dynamicComponentRef.instance.settings = settings;
   }
 
 

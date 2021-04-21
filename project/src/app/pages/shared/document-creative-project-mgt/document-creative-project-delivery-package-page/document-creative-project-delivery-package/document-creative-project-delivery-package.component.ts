@@ -9,7 +9,7 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-delivery-package',
-  styleUrls: ['../document-creative-project-mgt.component.scss'],
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-delivery-package.component.html',
 })
 export class DocumentCreativeProjectDeliveryPackageComponent {

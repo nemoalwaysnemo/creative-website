@@ -12,7 +12,7 @@ import { SuggestionSettings } from '../../document-form-extension';
 
 @Component({
   selector: 'document-creative-project-asset-package',
-  styleUrls: ['../document-creative-project-mgt.component.scss'],
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-asset-package.component.html',
 })
 export class DocumentCreativeProjectAssetPackageComponent extends GlobalDocumentFormComponent {

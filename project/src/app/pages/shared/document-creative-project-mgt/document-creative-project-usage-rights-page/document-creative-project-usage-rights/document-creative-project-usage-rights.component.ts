@@ -17,7 +17,7 @@ enum AssetTypes {
 
 @Component({
   selector: 'document-creative-project-usage-rights',
-  styleUrls: ['../document-creative-project-mgt.component.scss'],
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-usage-rights.component.html',
 })
 export class DocumentCreativeProjectUsageRightsComponent {

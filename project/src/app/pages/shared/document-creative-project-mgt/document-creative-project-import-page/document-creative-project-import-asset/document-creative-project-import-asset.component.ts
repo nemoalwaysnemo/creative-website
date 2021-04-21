@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 
 @Component({
   selector: 'document-creative-project-import-asset',
-  styleUrls: ['../document-creative-project-mgt.component.scss'],
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-import-asset.component.html',
 })
 export class DocumentCreativeProjectImportAssetComponent {

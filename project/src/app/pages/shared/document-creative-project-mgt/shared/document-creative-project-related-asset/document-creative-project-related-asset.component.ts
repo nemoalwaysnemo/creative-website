@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentModel, NuxeoApiService, NuxeoAutomations, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
 import { Subject, timer } from 'rxjs';
-import { ListSearchRowCustomViewComponent } from '../../list-search-form-in-dialog';
-import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
-import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
-import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
+import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
+import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
+import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
+import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-related-asset',
-  styleUrls: ['../document-creative-project-mgt.component.scss'],
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-related-asset.component.html',
 })
 export class DocumentCreativeProjectRelatedAssetComponent {
