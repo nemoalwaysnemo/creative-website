@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { NbMenuItem } from '@core/nebular/theme';
 import { parseTabRoute } from '@core/services/helpers';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
-import { CreativeProjectMgtBaseTemplateComponent } from './document-creative-project-mgt-base-template.component';
+import { DocumentCreativeProjectMgtBasePageComponent } from './document-creative-project-mgt-base-page.component';
 import { TAB_CONFIG } from './document-creative-project-mgt-tab-config';
 
 @Component({
@@ -11,7 +11,7 @@ import { TAB_CONFIG } from './document-creative-project-mgt-tab-config';
   styleUrls: ['./document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-mgt.component.html',
 })
-export class CreativeProjectMgtComponent extends CreativeProjectMgtBaseTemplateComponent {
+export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProjectMgtBasePageComponent {
 
   tabs: NbMenuItem[] = parseTabRoute(TAB_CONFIG);
 
@@ -27,7 +27,6 @@ export class CreativeProjectMgtComponent extends CreativeProjectMgtBaseTemplateC
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(documentPageService, componentFactoryResolver);
-    this.subscribeEvents();
   }
 
   protected onInit(): void {
@@ -37,14 +36,12 @@ export class CreativeProjectMgtComponent extends CreativeProjectMgtBaseTemplateC
     }
   }
 
-  private subscribeEvents(): void {
-    this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
-
-    });
-  }
-
   private getDefaultPage(): NbMenuItem {
     return this.tabs.find((x: NbMenuItem) => x.selected);
+  }
+
+  protected onViewChanged(event: GlobalEvent): void {
+
   }
 
 }

@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreativeProjectMgtComponent } from './document-creative-project-mgt.component';
+import { DocumentCreativeProjectMgtComponent } from './document-creative-project-mgt.component';
+import { DocumentCreativeProjectAssetModule } from './document-creative-project-asset-page/document-creative-project-asset.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    DocumentCreativeProjectAssetModule,
   ],
   declarations: [
-    CreativeProjectMgtComponent,
+    DocumentCreativeProjectMgtComponent,
   ],
   exports: [
-    CreativeProjectMgtComponent,
+    DocumentCreativeProjectMgtComponent,
   ],
 })
 export class DocumentCreativeProjectMgtModule {

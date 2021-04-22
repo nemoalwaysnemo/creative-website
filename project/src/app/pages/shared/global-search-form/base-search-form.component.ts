@@ -15,29 +15,6 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
-  @Input()
-  set settings(settings: GlobalSearchFormSettings) {
-    if (!isValueEmpty(settings)) {
-      this.searchFormSettings$.next(settings);
-    }
-  }
-
-  @Input()
-  set searchParams(params: any) {
-    if (!isValueEmpty(params)) {
-      this.searchParams$.next(params);
-    }
-  }
-
-  constructor(
-    protected router: Router,
-    protected formBuilder: FormBuilder,
-    protected documentPageService: DocumentPageService,
-    protected globalSearchFormService: GlobalSearchFormService,
-  ) {
-    this.subscribeEvents();
-  }
-
   searchForm: FormGroup;
 
   submitted: boolean = false;
@@ -77,6 +54,20 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     showFilter: convertToBoolean,
   };
 
+  @Input()
+  set settings(settings: GlobalSearchFormSettings) {
+    if (!isValueEmpty(settings)) {
+      this.searchFormSettings$.next(settings);
+    }
+  }
+
+  @Input()
+  set searchParams(params: any) {
+    if (!isValueEmpty(params)) {
+      this.searchParams$.next(params);
+    }
+  }
+
   @Input() filters: SearchFilterModel[] = [];
 
   @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
@@ -87,6 +78,15 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
     (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => ({ searchParams, opts })
 
   @Input() afterSearch: (res: SearchResponse) => any = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
+
+  constructor(
+    protected router: Router,
+    protected formBuilder: FormBuilder,
+    protected documentPageService: DocumentPageService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
+    this.subscribeEvents();
+  }
 
   ngOnInit(): void {
     this.onInit();

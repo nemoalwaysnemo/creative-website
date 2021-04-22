@@ -4,12 +4,12 @@ import { DocumentPageService } from '../services/document-page.service';
 import { of as observableOf, Observable, Subject, combineLatest } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
-import { CreativeProjectMgtBaseTemplateComponent } from './document-creative-project-mgt-base-template.component';
+import { DocumentCreativeProjectMgtBasePageComponent } from './document-creative-project-mgt-base-page.component';
 
 @Component({
   template: '',
 })
-export class CreativeProjectMgtBaseComponent extends CreativeProjectMgtBaseTemplateComponent {
+export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativeProjectMgtBasePageComponent {
 
   @Input()
   set documentModel(doc: DocumentModel) {

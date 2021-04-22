@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { Subscription, Subject } from 'rxjs';
-import { DocumentPageService } from '../services/document-page.service';
+import { Subscription } from 'rxjs';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
 
 @Component({
   template: '',
 })
-export class CreativeProjectMgtBaseTemplateComponent implements OnInit, OnDestroy {
+export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDestroy {
 
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
 
@@ -27,6 +27,7 @@ export class CreativeProjectMgtBaseTemplateComponent implements OnInit, OnDestro
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
+    this.subscribeEvents();
   }
 
   ngOnInit(): void {
@@ -69,6 +70,16 @@ export class CreativeProjectMgtBaseTemplateComponent implements OnInit, OnDestro
     this.dynamicComponentRef = this.createDynamicComponent(dynamicTarget, component);
     this.dynamicComponentRef.instance.documentModel = this.document;
     this.dynamicComponentRef.instance.settings = settings;
+  }
+
+  protected subscribeEvents(): void {
+    this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
+      this.onViewChanged(event);
+    });
+  }
+
+  protected onViewChanged(event: GlobalEvent): void {
+
   }
 
 }
