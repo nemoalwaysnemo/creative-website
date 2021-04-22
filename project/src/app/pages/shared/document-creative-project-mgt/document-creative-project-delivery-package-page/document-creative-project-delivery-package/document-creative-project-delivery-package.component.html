@@ -1,6 +1,7 @@
 <div class="document-creative-project-related-asset" [ngStyle]="showInfo ? {'display': 'none'} : {}">
-  <list-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)"></list-search-form>
+  <list-search-form-in-dialog [searchParams]="baseParams$ | async" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)"></list-search-form-in-dialog>
 </div>
 <ng-container *ngIf="showInfo">
-  <document-creative-project-asset-package [documentModel]="packageDocument" [listViewOptions]="listViewOptionsPackage" [settings]="formSettings" [showButton]="showButton" (onResponsed)="onResponse($event)"></document-creative-project-asset-package>
+  <document-creative-project-asset-package [documentModel]="packageDocument" [listViewOptions]="listViewOptionsPackage" [settings]="formSettings" [showButton]="showButton" (onResponsed)="onResponse($event)">
+  </document-creative-project-asset-package>
 </ng-container>

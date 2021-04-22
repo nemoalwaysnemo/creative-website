@@ -1,12 +1,7 @@
 <div class="document-creative-project-related-asset">
   <div class="report-buyout-talent-information">
     <h4 class='title'>Buyout Talent Information</h4>
-    <list-search-form [searchParams]="baseParams$ | async"
-                      [settings]="searchFormSettings"
-                      [listViewSettings]="listViewSettings"
-                      [listViewBuilder]="listViewBuilder"
-                      [afterSearch]="afterSearch"
-                      (onSelected)="onSelected($event)">
-    </list-search-form>
+    <list-search-form-in-dialog [searchParams]="baseParams$ | async" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" [afterSearch]="afterSearch" (onSelected)="onSelected($event)">
+    </list-search-form-in-dialog>
   </div>
 </div>

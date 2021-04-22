@@ -15,13 +15,6 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
 
   tabs: NbMenuItem[] = parseTabRoute(TAB_CONFIG);
 
-  @Input()
-  set documentModel(doc: DocumentModel) {
-    if (doc) {
-      this.document = doc;
-    }
-  }
-
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,

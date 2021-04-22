@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Subscription } from 'rxjs';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
@@ -10,6 +10,13 @@ import { CreativeProjectMgtSettings } from './document-creative-project-mgt.inte
 export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDestroy {
 
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
+
+  @Input()
+  set documentModel(doc: DocumentModel) {
+    if (doc) {
+      this.document = doc;
+    }
+  }
 
   document: DocumentModel;
 

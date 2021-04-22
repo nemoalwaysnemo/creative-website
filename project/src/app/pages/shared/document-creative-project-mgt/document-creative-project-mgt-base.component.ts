@@ -35,12 +35,6 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
     this.onDocumentChanged();
   }
 
-  protected setDocument(doc: DocumentModel): void {
-    if (doc) {
-      this.document = doc;
-    }
-  }
-
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
     return observableOf(doc);
   }
