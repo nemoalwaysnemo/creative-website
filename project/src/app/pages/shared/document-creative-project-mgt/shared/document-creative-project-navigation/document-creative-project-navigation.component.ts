@@ -1,10 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { DocumentPageService } from '../../../services/document-page.service';
+import { NbMenuItem } from '@core/nebular/theme';
 import { Subscription, Subject, combineLatest } from 'rxjs';
+import { OptionModel } from '../../../option-select/option-select.interface';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { SearchFilterModel } from '../../../global-search-filter/global-search-filter.interface';
 import { ProjectMgtNavigationSettings } from './document-creative-project-navigation.interface';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
+import { TAB_CONFIG } from '../../document-creative-project-mgt-tab-config';
 
 @Component({
   selector: 'document-creative-project-navigation',
@@ -17,7 +20,13 @@ export class DocumentCreativeProjectNavigationComponent implements OnInit, OnDes
 
   currentUser: UserModel;
 
+  defaultPage: string = 'AssetPage';
+
+  selectedItem: string;
+
   defaultParams: any;
+
+  options: OptionModel[];
 
   filters: SearchFilterModel[] = [];
 
@@ -43,6 +52,8 @@ export class DocumentCreativeProjectNavigationComponent implements OnInit, OnDes
 
   protected subscription: Subscription = new Subscription();
 
+  private tabs: NbMenuItem[] = TAB_CONFIG;
+
   constructor(
     protected documentPageService: DocumentPageService,
   ) {
@@ -57,20 +68,29 @@ export class DocumentCreativeProjectNavigationComponent implements OnInit, OnDes
     this.onDestroy();
   }
 
-  protected onInit(): void {
+  goHome(): void {
+    this.triggerChangePage(this.defaultPage);
+  }
 
+  onChange(event: any): void {
+    this.triggerChangePage(event.value);
+  }
+
+  protected onInit(): void {
+    this.options = this.buildPageList();
   }
 
   protected onDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  protected onDocumentChanged(): void {
+  private onDocumentChanged(): void {
     const subscription = combineLatest([
       this.document$,
       this.documentPageService.getCurrentUser(),
       this.navSettings$,
     ]).subscribe(([doc, user, settings]: [DocumentModel, UserModel, ProjectMgtNavigationSettings]) => {
+      this.selectedItem = settings.currentPage;
       this.filters = settings.searchFormFilters;
       this.defaultParams = settings.searchFormParams;
       this.searchFormSettings = settings.searchFormSettings;
@@ -79,4 +99,18 @@ export class DocumentCreativeProjectNavigationComponent implements OnInit, OnDes
     });
     this.subscription.add(subscription);
   }
+
+  buildPageList(): OptionModel[] {
+    return this.tabs.map((t: NbMenuItem) => new OptionModel({ label: t.title, value: t.id }));
+  }
+
+  private getPageComponent(view: string): any {
+    const page = this.tabs.find((t: NbMenuItem) => t.id === view);
+    return page || page.component;
+  }
+
+  private triggerChangePage(page: string): void {
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedPageChanged', data: { page, component: this.getPageComponent(page) }, type: 'CreativeCampaignProjectMgt' }));
+  }
+
 }

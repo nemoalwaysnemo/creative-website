@@ -27,9 +27,6 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
     this.performOptions(this.options);
   }
 
-  constructor(private advanceSearchService: AdvanceSearchService) {
-  }
-
   placeholder: string = '';
 
   disabled: boolean = false;
@@ -55,6 +52,9 @@ export class OptionSelectComponent implements OnInit, OnDestroy, ControlValueAcc
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
+
+  constructor(private advanceSearchService: AdvanceSearchService) {
+  }
 
   ngOnInit(): void {
     this.placeholder = this.configs.placeholder;

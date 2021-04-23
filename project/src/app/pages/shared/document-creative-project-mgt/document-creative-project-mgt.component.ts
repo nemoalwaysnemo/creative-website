@@ -1,7 +1,5 @@
 import { Component, Input, ComponentFactoryResolver } from '@angular/core';
-import { DocumentModel } from '@core/api';
 import { NbMenuItem } from '@core/nebular/theme';
-import { parseTabRoute } from '@core/services/helpers';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { DocumentCreativeProjectMgtBasePageComponent } from './document-creative-project-mgt-base-page.component';
 import { TAB_CONFIG } from './document-creative-project-mgt-tab-config';
@@ -13,7 +11,7 @@ import { TAB_CONFIG } from './document-creative-project-mgt-tab-config';
 })
 export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProjectMgtBasePageComponent {
 
-  tabs: NbMenuItem[] = parseTabRoute(TAB_CONFIG);
+  tabs: NbMenuItem[] = TAB_CONFIG;
 
   constructor(
     protected documentPageService: DocumentPageService,
@@ -30,7 +28,7 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
   }
 
   private getDefaultPage(): NbMenuItem {
-    return this.tabs.find((x: NbMenuItem) => x.selected);
+    return this.tabs.find((t: NbMenuItem) => t.selected);
   }
 
   protected onViewChanged(event: GlobalEvent): void {

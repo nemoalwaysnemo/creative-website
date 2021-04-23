@@ -3,15 +3,18 @@ import { DocumentCreativeProjectAssetPageComponent } from './document-creative-p
 
 export const TAB_CONFIG: NbMenuItem[] = [
   {
+    id: 'AssetPage',
     title: 'Assets',
     selected: true,
     component: DocumentCreativeProjectAssetPageComponent,
   },
   // {
+  //   id: 'DeliveryPage',
   //   title: 'Deliverables',
   //   component: CreativeProjectAssetDeliverableTemplateComponent,
   // },
   // {
+  //   id: 'ImportPage',
   //   title: 'Import',
   //   component: CreativeProjectAssetImportLocalTemplateComponent,
   // },

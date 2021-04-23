@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog/list-search-row-custom-view-component';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
+import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
-import { ProjectMgtNavigationSettings } from '../../shared';
 import { of as observableOf, Observable } from 'rxjs';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-asset-home',
@@ -76,6 +76,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
 
   protected buildNavSettings(doc: DocumentModel): any {
     return new ProjectMgtNavigationSettings({
+      currentPage: 'AssetPage',
       searchFormParams: this.buildAssetParams(doc),
       searchFormSettings: new GlobalSearchFormSettings({
         source: 'document-creative-project-asset',
