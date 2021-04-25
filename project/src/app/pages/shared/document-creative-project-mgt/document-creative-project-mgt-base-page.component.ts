@@ -28,7 +28,7 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
 
   protected subscription: Subscription = new Subscription();
 
-  protected readonly eventType: string = 'CreativeCampaignProjectMgt';
+  protected readonly eventType: string = 'creative-campaign-project-mgt';
 
   constructor(
     protected documentPageService: DocumentPageService,
@@ -75,14 +75,26 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
 
   protected buildComponent(dynamicTarget: ViewContainerRef, component: Type<any>, settings: any = {}): void {
     this.dynamicComponentRef = this.createDynamicComponent(dynamicTarget, component);
-    this.dynamicComponentRef.instance.documentModel = this.document;
+    this.dynamicComponentRef.instance.documentModel = settings.document || this.document;
     this.dynamicComponentRef.instance.settings = settings;
   }
 
   protected subscribeEvents(): void {
     this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
-      this.onViewChanged(event);
+      if (event.data.type === 'page') {
+        this.onPageChanged(event);
+      } else if (event.data.type === 'view') {
+        this.onViewChanged(event);
+      }
     });
+  }
+
+  protected triggerChangeView(view: string, type: string, settings: CreativeProjectMgtSettings = {}): void {
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedViewChanged', data: { view, type, settings }, type: this.eventType }));
+  }
+
+  protected onPageChanged(event: GlobalEvent): void {
+
   }
 
   protected onViewChanged(event: GlobalEvent): void {

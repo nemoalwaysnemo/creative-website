@@ -6,6 +6,7 @@ import { ListSearchFormInDialogModule } from '../../list-search-form-in-dialog';
 import { DocumentFormModule } from '../../document-form/document-form.module';
 import { DocumentCreativeProjectAssetPageComponent } from './document-creative-project-asset-page.component';
 import { DocumentCreativeProjectAssetHomeComponent } from './document-creative-project-asset-home/document-creative-project-asset-home.component';
+import { DocumentCreativeProjectAssetDetailComponent } from './document-creative-project-asset-detail/document-creative-project-asset-detail.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { DocumentCreativeProjectAssetHomeComponent } from './document-creative-p
   declarations: [
     DocumentCreativeProjectAssetPageComponent,
     DocumentCreativeProjectAssetHomeComponent,
+    DocumentCreativeProjectAssetDetailComponent,
   ],
 })
 export class DocumentCreativeProjectAssetModule {

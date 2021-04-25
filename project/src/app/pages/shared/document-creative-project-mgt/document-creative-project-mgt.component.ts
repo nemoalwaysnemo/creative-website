@@ -31,8 +31,10 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
     return this.tabs.find((t: NbMenuItem) => t.selected);
   }
 
-  protected onViewChanged(event: GlobalEvent): void {
-
+  protected onPageChanged(event: GlobalEvent): void {
+    if (event.data.component) {
+      this.changeView(event.data.component);
+    }
   }
 
 }

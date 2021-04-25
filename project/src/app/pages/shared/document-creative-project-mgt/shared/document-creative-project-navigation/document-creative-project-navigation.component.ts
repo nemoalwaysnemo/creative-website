@@ -4,6 +4,7 @@ import { NbMenuItem } from '@core/nebular/theme';
 import { Subscription, Subject, combineLatest } from 'rxjs';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { SearchFilterModel } from '../../../global-search-filter/global-search-filter.interface';
 import { ProjectMgtNavigationSettings } from './document-creative-project-navigation.interface';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
@@ -20,7 +21,7 @@ export class DocumentCreativeProjectNavigationComponent implements OnInit, OnDes
 
   currentUser: UserModel;
 
-  defaultPage: string = 'AssetPage';
+  defaultPage: string = 'asset-page';
 
   selectedItem: string;
 
@@ -106,11 +107,11 @@ export class DocumentCreativeProjectNavigationComponent implements OnInit, OnDes
 
   private getPageComponent(view: string): any {
     const page = this.tabs.find((t: NbMenuItem) => t.id === view);
-    return page || page.component;
+    return page ? page.component : null;
   }
 
-  private triggerChangePage(page: string): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedPageChanged', data: { page, component: this.getPageComponent(page) }, type: 'CreativeCampaignProjectMgt' }));
+  private triggerChangePage(view: string, settings: CreativeProjectMgtSettings = {}): void {
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedViewChanged', data: { view, type: 'page', settings, component: this.getPageComponent(view) }, type: 'creative-campaign-project-mgt' }));
   }
 
 }

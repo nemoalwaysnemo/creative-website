@@ -1,11 +1,18 @@
 import { NbMenuItem } from '@core/nebular/theme';
+import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
 import { DocumentCreativeProjectAssetPageComponent } from './document-creative-project-asset-page/document-creative-project-asset-page.component';
 
 export const TAB_CONFIG: NbMenuItem[] = [
   {
-    id: 'AssetPage',
+    id: 'asset-page',
     title: 'Assets',
     selected: true,
+    settings: new CreativeProjectMgtSettings(),
+    component: DocumentCreativeProjectAssetPageComponent,
+  },
+  {
+    id: 'test-page',
+    title: 'Test',
     component: DocumentCreativeProjectAssetPageComponent,
   },
   // {
