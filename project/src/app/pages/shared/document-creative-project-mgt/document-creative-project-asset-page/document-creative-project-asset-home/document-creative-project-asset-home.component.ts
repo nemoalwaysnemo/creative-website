@@ -7,7 +7,6 @@ import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog/list-search-row-custom-view-component';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
-import { DocumentCreativeProjectAssetDetailComponent } from '../document-creative-project-asset-detail/document-creative-project-asset-detail.component';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { of as observableOf, Observable } from 'rxjs';

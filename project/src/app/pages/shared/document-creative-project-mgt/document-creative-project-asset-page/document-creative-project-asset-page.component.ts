@@ -28,7 +28,7 @@ export class DocumentCreativeProjectAssetPageComponent extends DocumentCreativeP
   protected onViewChanged(event: GlobalEvent): void {
     const view = this.getAssetView(event.data.view);
     if (view) {
-      this.changeView(view.component);
+      this.changeView(view.component, event.data.settings);
     }
   }
 
