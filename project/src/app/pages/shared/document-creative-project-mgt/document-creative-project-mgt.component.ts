@@ -23,7 +23,7 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
   protected onInit(): void {
     const defaultPage = this.getDefaultPage();
     if (defaultPage) {
-      this.changeView(defaultPage.component);
+      this.changeView(defaultPage.component, this.templateSettings);
     }
   }
 
@@ -33,7 +33,7 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
 
   protected onPageChanged(event: GlobalEvent): void {
     if (event.data.component) {
-      this.changeView(event.data.component);
+      this.changeView(event.data.component, event.data.settings);
     }
   }
 

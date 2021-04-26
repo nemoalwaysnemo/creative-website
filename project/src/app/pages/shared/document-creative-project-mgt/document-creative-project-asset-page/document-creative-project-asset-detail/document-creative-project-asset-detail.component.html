@@ -1,4 +1,5 @@
 <div class="creative-project-asset-detail-nav">
+  <div class="left logo" title="Home" (click)="goHome()">Assets View</div>
 </div>
 <div class="creative-project-asset-detail-action">
   <div>ACTIONS</div>
@@ -9,6 +10,9 @@
     <li><button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button></li>
     <li>
       <document-new-poster-button class="poster" [document]="document" [enable]="enableThumbnailCreation"></document-new-poster-button>
+    </li>
+    <li *ngIf="deletePermission$ | async">
+      <button class="delete" (click)="changeDialogView('delete')">Delete</button>
     </li>
   </ul>
 </div>

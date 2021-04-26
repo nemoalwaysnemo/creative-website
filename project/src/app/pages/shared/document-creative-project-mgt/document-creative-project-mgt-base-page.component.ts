@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
+import { isValueEmpty } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
@@ -15,6 +16,13 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
   set documentModel(doc: DocumentModel) {
     if (doc) {
       this.document = doc;
+    }
+  }
+
+  @Input()
+  set settings(settings: any) {
+    if (!isValueEmpty(settings)) {
+      this.templateSettings = settings;
     }
   }
 
@@ -90,7 +98,7 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
   }
 
   protected triggerChangeView(view: string, type: string, settings: CreativeProjectMgtSettings = {}): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedViewChanged', data: { view, type, settings }, type: this.eventType }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view, type, settings }, type: this.eventType }));
   }
 
   protected onPageChanged(event: GlobalEvent): void {

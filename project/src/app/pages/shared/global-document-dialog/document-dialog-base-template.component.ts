@@ -65,8 +65,8 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     this.globalDocumentDialogService.selectView(name, component, metadata);
   }
 
-  backToMainView(): void {
-    this.globalDocumentDialogService.selectView(null);
+  backToMainView(view: string = null, component: Type<any> = null, metadata?: any): void {
+    this.globalDocumentDialogService.selectView(view, component, metadata);
   }
 
   confirm(refresh: boolean = true, delay: number = 0): void {

@@ -87,7 +87,15 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
           dialogSettings: new GlobalDocumentDialogSettings({
             components: [
               GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_MGT,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MUSIC_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_PHOTO_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_STOCK_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MODEL_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_IMAGE_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_VIDEO_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_AUDIO_FORM,
               GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM,
+              GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION,
             ],
           }),
         }),

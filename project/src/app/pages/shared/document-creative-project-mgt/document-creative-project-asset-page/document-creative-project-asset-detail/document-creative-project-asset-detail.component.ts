@@ -1,5 +1,4 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
-import { NbMenuItem } from '@core/nebular/theme';
 import { DocumentModel, NuxeoPermission, UserModel } from '@core/api';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
@@ -27,35 +26,15 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
   viewerSettings: any = {
   };
 
-  actions: NbMenuItem[] = [
-    {
-      id: 'edit',
-      title: 'Edit',
-    },
-    {
-      id: 'download',
-      title: 'Download',
-    },
-    {
-      id: 'share',
-      title: 'Share',
-    },
-    {
-      id: 'new-poster',
-      title: ' New Poster',
-    },
-  ];
-
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(documentPageService, componentFactoryResolver);
-
   }
 
-  onMenuClick(item: NbMenuItem): void {
-
+  goHome(): void {
+    this.triggerChangeView('asset-home-view', 'view', new CreativeProjectMgtSettings({ document: this.templateSettings.project }));
   }
 
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
@@ -65,9 +44,21 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
     return observableOf(doc);
   }
 
-
   changeDialogView(type: string): void {
-
+    let view = null;
+    const docType = this.document.type;
+    if (type === 'delete') {
+      view = 'document-deletion';
+    } else if (type === 'edit') {
+      if (docType === 'App-Library-Image') {
+        view = 'creative-asset-image-form';
+      } else if (docType === 'App-Library-Video') {
+        view = 'creative-asset-video-form';
+      } else if (docType === 'App-Library-Audio') {
+        view = 'creative-asset-audio-form';
+      }
+    }
+    this.triggerChangeView(view, 'dialog', new CreativeProjectMgtSettings({ document: this.document, templateSettings: { homePage: 'asset-page', homeView: 'asset-detail-view' } }));
   }
 
   googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {

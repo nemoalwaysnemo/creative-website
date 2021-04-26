@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DocumentModel } from '@core/api';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
-import { DocumentPageService } from '../../../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-project-mgt-template',
@@ -13,11 +13,29 @@ export class CreativeProjectMgtTemplateComponent extends DocumentDialogCustomTem
 
   static readonly NAME: string = 'creative-project-mgt-template';
 
+  templateSettings: any = {};
+
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.subscribeEvents();
+  }
+
+  protected onInit(): void {
+
+  }
+
+  protected subscribeEvents(): void {
+    this.documentPageService.onEventType('creative-campaign-project-mgt').pipe(
+      filter((event: GlobalEvent) => event.data && event.data.view && event.data.type === 'dialog'),
+    ).subscribe((event: GlobalEvent) => {
+      if (event.data && event.data.settings) {
+        this.templateSettings = event.data.settings.templateSettings || {};
+      }
+      this.selectView(event.data.view, null, { document: event.data.document, templateSettings: this.templateSettings });
+    });
   }
 
 }
