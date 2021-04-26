@@ -13,8 +13,6 @@ export class CreativeProjectMgtTemplateComponent extends DocumentDialogCustomTem
 
   static readonly NAME: string = 'creative-project-mgt-template';
 
-  templateSettings: any = {};
-
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
@@ -23,18 +21,11 @@ export class CreativeProjectMgtTemplateComponent extends DocumentDialogCustomTem
     this.subscribeEvents();
   }
 
-  protected onInit(): void {
-
-  }
-
   protected subscribeEvents(): void {
     this.documentPageService.onEventType('creative-campaign-project-mgt').pipe(
       filter((event: GlobalEvent) => event.data && event.data.view && event.data.type === 'dialog'),
     ).subscribe((event: GlobalEvent) => {
-      if (event.data && event.data.settings) {
-        this.templateSettings = event.data.settings.templateSettings || {};
-      }
-      this.selectView(event.data.view, null, { document: event.data.document, templateSettings: this.templateSettings });
+      this.selectView(event.data.view, null, event.data.settings || {});
     });
   }
 

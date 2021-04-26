@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, NuxeoPermission, UserModel } from '@core/api';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
-import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { of as observableOf, Observable, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
 
@@ -58,7 +58,16 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
         view = 'creative-asset-audio-form';
       }
     }
-    this.triggerChangeView(view, 'dialog', new CreativeProjectMgtSettings({ document: this.document, templateSettings: { homePage: 'asset-page', homeView: 'asset-detail-view' } }));
+    this.triggerChangeView(view, 'dialog',
+      new CreativeProjectMgtSettings({
+        document: this.document,
+        dialogDocument: this.document,
+        project: this.templateSettings.project,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: 'asset-page',
+        homeView: 'asset-detail-view',
+        formMode: 'edit',
+      }));
   }
 
   googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {

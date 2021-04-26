@@ -22,17 +22,18 @@ export class DocumentCreativeProjectAssetPageComponent extends DocumentCreativeP
   }
 
   protected onInit(): void {
-    this.changeView(DocumentCreativeProjectAssetHomeComponent);
+    const component = this.templateSettings.homeView ? this.getAssetViewConfig(this.templateSettings.homeView).component : DocumentCreativeProjectAssetHomeComponent;
+    this.changeView(component);
   }
 
   protected onViewChanged(event: GlobalEvent): void {
-    const data = this.getAssetView(event.data.view);
+    const data = this.getAssetViewConfig(event.data.view);
     if (data) {
       this.changeView(data.component, event.data.settings);
     }
   }
 
-  private getAssetView(name: string): any {
+  private getAssetViewConfig(name: string): any {
     return this.tabs.find((t: NbMenuItem) => t.id === name);
   }
 

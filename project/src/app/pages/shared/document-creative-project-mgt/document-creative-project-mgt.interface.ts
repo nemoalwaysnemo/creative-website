@@ -4,8 +4,6 @@ export class CreativeProjectMgtSettings {
 
   [key: string]: any;
 
-  project?: DocumentModel = null;
-
   document?: DocumentModel = null;
 
   selectedDocuments?: DocumentModel[] = [];

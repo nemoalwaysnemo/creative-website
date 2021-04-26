@@ -21,14 +21,18 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
   }
 
   protected onInit(): void {
-    const defaultPage = this.getDefaultPage();
-    if (defaultPage) {
-      this.changeView(defaultPage.component, this.templateSettings);
+    const page = this.getAssetPageConfig(this.templateSettings.homePage) || this.getDefaultPageConfig();
+    if (page) {
+      this.changeView(page.component, this.templateSettings);
     }
   }
 
-  private getDefaultPage(): NbMenuItem {
+  private getDefaultPageConfig(): NbMenuItem {
     return this.tabs.find((t: NbMenuItem) => t.selected);
+  }
+
+  private getAssetPageConfig(name: string): any {
+    return this.tabs.find((t: NbMenuItem) => t.id === name);
   }
 
   protected onPageChanged(event: GlobalEvent): void {
