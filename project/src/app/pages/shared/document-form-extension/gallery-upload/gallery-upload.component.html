@@ -11,7 +11,4 @@
     </div>
   </drag-scroll>
   <div class="next right" (click)="moveRight()"><a href="javascript:;"></a></div>
-  <div class="button-group">
-    <button nbButton class="btn btn-success btn-xs left" status="success" [disabled]="(uploadStatus$ | async)?.disableUploadButton()" (click)="uploadFiles()">Upload</button>
-  </div>
 </div>

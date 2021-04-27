@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { filter, share } from 'rxjs/operators';
 import { AbstractControl, AbstractControlOptions, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
 import { DynamicFormValueControlModel } from '../model/dynamic-form-value-control.model';
@@ -39,16 +41,25 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE, DynamicDatepickerDirect
 })
 export class DynamicFormService {
 
+  private event$: Subject<{ name: string, type: string, data: any }> = new Subject<{ name: string, type: string, data: any }>();
+
   constructor(private componentService: DynamicFormComponentService, private validationService: DynamicFormValidationService) {
   }
 
   private createAbstractControlOptions(validatorsConfig: DynamicValidatorsConfig | null = null, asyncValidatorsConfig: DynamicValidatorsConfig | null = null, updateOn: DynamicFormHook | null = null): AbstractControlOptions {
-
     return {
       asyncValidators: asyncValidatorsConfig !== null ? this.validationService.getAsyncValidators(asyncValidatorsConfig) : null,
       validators: validatorsConfig !== null ? this.validationService.getValidators(validatorsConfig) : null,
       updateOn: updateOn !== null && this.validationService.isFormHook(updateOn) ? updateOn : DynamicFormHook.Change,
     };
+  }
+
+  onEvent(name?: string | string[]): Observable<{ name: string, type: string, data: any }> {
+    return this.event$.pipe(filter((e: { name: string, type: string, data: any }) => name ? (Array.isArray(name) ? name : [name]).includes(e.name) : true)).pipe(share());
+  }
+
+  triggerEvent(event: { name: string, type: string, data: any }): void {
+    this.event$.next(event);
   }
 
   createFormArray(formArrayModel: DynamicFormArrayModel): FormArray {

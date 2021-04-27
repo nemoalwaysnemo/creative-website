@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NuxeoPagination, DocumentModel, AdvanceSearchService, GlobalSearchParams } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService } from '@pages/shared';
 import { Subscription } from 'rxjs';
+import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
+import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-popular-brand-thumbnail',
@@ -24,10 +25,10 @@ export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,
   });
 
-  constructor(private advanceSearchService: AdvanceSearchService) { }
+  constructor(private documentPageService: DocumentPageService) { }
 
   ngOnInit(): void {
-    this.subscription = this.advanceSearchService.request(this.params)
+    this.subscription = this.documentPageService.advanceRequest(this.params)
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;
         this.loading = false;

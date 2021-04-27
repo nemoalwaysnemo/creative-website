@@ -48,7 +48,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   private targetDocument: DocumentModel;
 
-  // private imageDocument: DocumentModel;
+  private imageDocument: DocumentModel;
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -99,7 +99,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   onCallback(e: DocumentFormEvent): void {
     if (['Created', 'Updated'].includes(e.action)) {
-      // this.document = this.updateProperties(e.doc, this.imageDocument);
+      this.document = this.updateProperties(e.doc, this.imageDocument);
       if (e.action === 'Created') {
         this.formSettings = Object.assign({}, this.formSettings, {
           formMode: 'edit',
@@ -123,8 +123,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
       this.setDataToStorage(this.inputUrl, e.formValue);
     }
     if (e.button === 'open-trigger' && this.document) {
-      // chrome.tabs.create({ url: NuxeoDocumentUrl(this.document.uid) });
-      window.open(NuxeoDocumentUrl(this.document.uid), '_blank');
+      window.open(NuxeoDocumentUrl(e.doc.uid), '_blank');
     }
   }
 
@@ -176,7 +175,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
       const imageDoc = this.updateImageItems(doc);
       this.document = this.updateProperties(this.targetDocument, imageDoc);
       this.noImages = !this.hasPageImages(this.document);
-      // this.imageDocument = imageDoc;
+      this.imageDocument = imageDoc;
       this.fetching = false;
     });
     this.subscription.add(subscription);
@@ -191,7 +190,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
       const properties = event.data;
       if (properties && this.inputUrl === properties['app_Edges:URL']) {
         this.document = new DocumentModel({ path: doc.path, properties }, doc.options);
-        // this.imageDocument = new DocumentModel({ path: doc.path, properties }, doc.options);
+        this.imageDocument = new DocumentModel({ path: doc.path, properties }, doc.options);
       }
       if (this.requestedUrl) {
         this.fetchSite();

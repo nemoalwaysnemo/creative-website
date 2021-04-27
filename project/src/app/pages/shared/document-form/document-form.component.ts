@@ -5,7 +5,7 @@ import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-for
 import { UserModel, DocumentModel, AdvanceSearchService, NuxeoUploadResponse } from '@core/api';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, tap } from 'rxjs/operators';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 
 @Component({
@@ -97,7 +97,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   onCustomEvent(event: any): void {
     if (event.type === 'VALID') {
-      this.updateFormStatus({ childrenValid: event.$event });
+      this.updateFormStatus({ childrenValid: event.$event.response });
     }
     if (['BATCH_UPLOAD', 'GALLERY_UPLOAD'].includes(event.type)) {
       this.performBatchUpload(event);
@@ -112,19 +112,21 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
       }));
     }
     if (event.type === 'SWITCH_TAB_CHANGED') {
+      this.performSwitchUploadModel(event.model);
       this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.documentModel }));
     }
   }
 
-  onSave(event?: any): void {
+  onSave(): void {
+    this.updateFormStatus({ submitting: true });
     if (this.formSettings.formMode === 'create') {
-      this.save();
+      this.create();
     } else if (this.formSettings.formMode === 'edit') {
       this.update();
     }
   }
 
-  onCancel(event: any): void {
+  onCancel(): void {
     this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.documentModel }));
     if (this.formSettings.resetFormAfterDone) {
       this.resetForm();
@@ -152,11 +154,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   showMessageAfterUpload(): boolean {
-    return !this.formStatus$.value.submitted && this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.formMode === 'create' && this.formSettings.showUploadMessage;
+    return !this.formStatus$.value.submitting && this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.formMode === 'create' && this.formSettings.showUploadMessage;
   }
 
   showMessageBeforeSuccess(): boolean {
-    return this.formStatus$.value.submitted && this.formSettings.showMessageBeforeSave;
+    return this.formStatus$.value.submitting && this.formSettings.showMessageBeforeSave;
   }
 
   private updateFormStatus(status: any = {}): void {
@@ -268,61 +270,86 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return field ? this.formGroup.value[field] : this.formGroup.value;
   }
 
-  private save(): void {
+  private getUploadFiles(uploadModel: DynamicFormControlModel): NuxeoUploadResponse[] {
+    return uploadModel ? (this.getFormValue(uploadModel.field) || []).filter((res: NuxeoUploadResponse) => !res.original) : [];
+  }
+
+  private getUploadName(model: DynamicFormControlModel): string {
+    if (model instanceof DynamicBatchUploadModel) {
+      return 'BatchUpload';
+    } else if (model instanceof DynamicGalleryUploadModel) {
+      return 'GalleryUpload';
+    }
+  }
+
+  private create(): void {
     let documents = [];
     this.documentModel.properties = this.filterPropertie(this.getFormValue());
-    if (this.formStatus$.value.uploadState === 'uploaded') {
-      documents = this.attachUploadFiles(this.documentModel, this.getFormValue(this.uploadModel.field));
+    if (this.formStatus$.value.uploadState === 'prepared') {
+      if (this.getUploadFiles(this.uploadModel).length > 0) {
+        this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
+      }
     } else {
-      documents = [this.documentModel];
-      documents.forEach(doc => {
-        if (doc.properties['files:files'] === null) {
-          delete doc.properties['files:files'];
+      if (this.formStatus$.value.uploadState === 'uploaded') {
+        documents = this.attachUploadFiles(this.documentModel, this.getUploadFiles(this.uploadModel));
+      } else {
+        documents = [this.documentModel];
+        documents.forEach(doc => {
+          if (doc.properties['files:files'] === null) {
+            delete doc.properties['files:files'];
+          }
+        });
+      }
+      this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
+        this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
+        if (this.formSettings.resetFormAfterDone) {
+          this.resetForm();
         }
       });
     }
-    this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
-      this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
-      if (this.formSettings.resetFormAfterDone) {
-        this.resetForm();
-      }
-    });
   }
 
   private update(): void {
     let properties = this.filterPropertie(this.getFormValue());
-    if (this.formStatus$.value.uploadState === 'uploaded') {
-      const files = this.getFormValue(this.uploadModel.field);
-      properties = this.updateUploadFiles(properties, files);
-    }
-    if (this.documentModel.properties['nxtag:tags'] && properties['nxtag:tags']) {
-      this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
-    }
+    if (this.formStatus$.value.uploadState === 'prepared') {
+      if (this.getUploadFiles(this.uploadModel).length > 0) {
+        this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
+      }
+    } else {
+      if (this.formStatus$.value.uploadState === 'uploaded') {
+        const files = this.getUploadFiles(this.uploadModel);
+        properties = this.updateUploadFiles(properties, files);
+      }
 
-    this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
-      this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
-    });
+      if (this.documentModel.properties['nxtag:tags'] && properties['nxtag:tags']) {
+        this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
+      }
+
+      this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
+        this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
+      });
+    }
   }
 
   private createDocuments(documents: DocumentModel[], user: UserModel, opts: any = {}): Observable<DocumentModel[]> {
-    this.updateFormStatus({ submitted: true });
     return forkJoin(documents.map(x => this.createDocument(x, user, opts)));
   }
 
   private createDocument(doc: DocumentModel, user: UserModel, opts: any = {}): Observable<any> {
     return this.advanceSearchService.create(this.beforeSave(doc, user), opts).pipe(
       concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
+      tap(_ => { this.updateFormStatus({ submitting: false, submitted: true }); }),
     );
   }
 
   private updateDocument(doc: DocumentModel, properties: any = {}, user: UserModel, opts: any = {}): Observable<DocumentModel> {
-    this.updateFormStatus({ submitted: true });
     const updateDoc = this.beforeSave(doc, user);
     if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
       properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
     }
     return updateDoc.set(properties).save(opts).pipe(
       concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
+      tap(_ => { this.updateFormStatus({ submitting: false, submitted: true }); }),
     );
   }
 
@@ -368,34 +395,42 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   }
 
   private performBatchUpload(event: any): void {
-    if (!this.uploadModel) {
-      this.uploadModel = this.getUploadModel(this.ngFormSettings, event.type);
-    }
     const all: NuxeoUploadResponse[] = event.$event.response;
     const added: NuxeoUploadResponse[] = all.filter((res: NuxeoUploadResponse) => !res.original);
     if (added.length === 0 && all.length > 0) {
       //
     } else if (added.length === 0) {
       this.updateFormStatus({ uploadState: null });
-    } else if (added.every((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded === 0)) {
-      this.updateFormStatus({ uploadState: 'preparing' });
+    } else if (event.$event.type === 'FileSelected') {
+      this.updateFormStatus({ uploadState: 'prepared' });
     } else if (added.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
       this.updateFormStatus({ uploadState: 'uploading' });
     } else if (added.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
+      this.performUploadModel(this.ngFormSettings, event.type);
       this.hideControls(this.uploadModel, this.ngFormSettings);
       this.setDocumentTitle(this.uploadModel, this.ngFormSettings, added[0]);
       this.updateFormStatus({ uploadState: 'uploaded' });
+      this.onSave();
     }
     this.uploadCount = added.length;
   }
 
-  private getUploadModel(settings: DynamicNGFormSettings, type: string): DynamicFormControlModel {
-    switch (type) {
-      case 'BATCH_UPLOAD':
-        return settings.formModel.find((v) => (v instanceof DynamicBatchUploadModel));
-      case 'GALLERY_UPLOAD':
-        return settings.formModel.find((v) => (v instanceof DynamicGalleryUploadModel));
+  private performUploadModel(settings: DynamicNGFormSettings, type: string): void {
+    if (!this.uploadModel) {
+      switch (type) {
+        case 'BATCH_UPLOAD':
+          this.uploadModel = settings.formModel.find((v) => (v instanceof DynamicBatchUploadModel));
+          break;
+        case 'GALLERY_UPLOAD':
+          this.uploadModel = settings.formModel.find((v) => (v instanceof DynamicGalleryUploadModel));
+          break;
+      }
     }
+  }
+
+  private performSwitchUploadModel(models: DynamicFormControlModel[]): void {
+    this.updateFormStatus({ uploadState: null });
+    this.uploadModel = models.find((x: any) => x.type.includes('UPLOAD'));
   }
 
   private filterFileName(name: string): string {

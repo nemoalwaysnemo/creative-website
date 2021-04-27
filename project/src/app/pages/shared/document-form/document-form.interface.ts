@@ -30,11 +30,13 @@ export class DocumentFormStatus {
 
   submitted: boolean = false;
 
+  submitting: boolean = false;
+
   formValid: boolean = true;
 
   childrenValid: boolean = true;
 
-  uploadState: 'preparing' | 'uploading' | 'uploaded' | null;
+  uploadState: 'prepared' | 'uploading' | 'uploaded' | null;
 
   constructor(data: any = {}) {
     this.update(data);
@@ -46,7 +48,7 @@ export class DocumentFormStatus {
   }
 
   disableSaveButton(): boolean {
-    return ['preparing', 'uploading'].includes(this.uploadState) || this.submitted || !this.formValid || !this.childrenValid;
+    return ['uploading'].includes(this.uploadState) || this.submitting || this.submitted || !this.formValid || !this.childrenValid;
   }
 }
 
@@ -60,7 +62,7 @@ export class DocumentFormSettings {
 
   accordionSettings: { name: string, position?: string, visibleFn?: any }[] = [];
 
-  switchTabSettings: { name: string, disabledFn?: any, visibleFn?: any }[] = [];
+  switchTabSettings: { name: string, disabledFn?: any, visibleFn?: any, active: boolean }[] = [];
 
   enableLayoutRight: boolean = true;
 
