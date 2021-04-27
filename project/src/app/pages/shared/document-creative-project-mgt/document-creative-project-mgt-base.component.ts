@@ -13,9 +13,7 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
 
   @Input()
   set documentModel(doc: DocumentModel) {
-    if (doc) {
-      this.document$.next(doc);
-    }
+    this.setDocument(doc);
   }
 
   @Input()
@@ -68,7 +66,7 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
       if (campaignMgt) {
         doc.setParent(campaignMgt, 'parent');
       }
-      this.document = doc;
+      this.document$.next(doc);
     }
   }
 
