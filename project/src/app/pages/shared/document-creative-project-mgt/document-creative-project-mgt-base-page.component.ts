@@ -14,9 +14,7 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
 
   @Input()
   set documentModel(doc: DocumentModel) {
-    if (doc) {
-      this.document = doc;
-    }
+    this.setDocument(doc);
   }
 
   @Input()
@@ -95,6 +93,12 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
         this.onViewChanged(event);
       }
     });
+  }
+
+  protected setDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.document = doc;
+    }
   }
 
   protected triggerChangeView(view: string, type: string, settings: CreativeProjectMgtSettings = {}): void {

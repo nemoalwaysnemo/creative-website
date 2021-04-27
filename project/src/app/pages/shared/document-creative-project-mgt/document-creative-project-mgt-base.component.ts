@@ -13,9 +13,7 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
 
   @Input()
   set documentModel(doc: DocumentModel) {
-    if (doc) {
-      this.document$.next(doc);
-    }
+    this.setDocument(doc);
   }
 
   @Input()
@@ -56,6 +54,20 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
       this.document = doc;
     });
     this.subscription.add(subscription);
+  }
+
+  protected setDocument(doc: DocumentModel): void {
+    if (doc) {
+      const brand = doc.filterParents(['App-Library-Folder']).pop();
+      if (brand) {
+        doc.setParent(brand, 'brand');
+      }
+      const campaignMgt = doc.filterParents(['App-Library-Campaign-Mgt-Folder']).pop();
+      if (campaignMgt) {
+        doc.setParent(campaignMgt, 'parent');
+      }
+      this.document$.next(doc);
+    }
   }
 
 }
