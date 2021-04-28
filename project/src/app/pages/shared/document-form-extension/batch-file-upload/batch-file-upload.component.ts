@@ -244,9 +244,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private onFilesChange(files: NuxeoUploadResponse[]): void {
     this.emitUploadResponse('FileChanged', files);
-    if (!this.uploadSettings.multiUpload) {
-      this.uploadFiles(files);
-    } else {
+    if (this.uploadSettings.multiUpload) {
       if (this.uploadSettings.enableInput) {
         this.performSubForm(files);
       }
