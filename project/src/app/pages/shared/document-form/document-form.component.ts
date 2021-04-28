@@ -404,11 +404,11 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     } else if (event.$event.type === 'FileSelected') {
       this.updateFormStatus({ uploadState: 'prepared' });
       this.performUploadModel(this.ngFormSettings, event.type);
+      this.hideControls(this.uploadModel, this.ngFormSettings);
+      this.setDocumentTitle(this.uploadModel, this.ngFormSettings, added[0]);
     } else if (added.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
       this.updateFormStatus({ uploadState: 'uploading' });
     } else if (added.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
-      this.hideControls(this.uploadModel, this.ngFormSettings);
-      this.setDocumentTitle(this.uploadModel, this.ngFormSettings, added[0]);
       this.updateFormStatus({ uploadState: 'uploaded' });
       this.onSave();
     }

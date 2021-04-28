@@ -46,6 +46,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     if (!doc.path) {
+      if (!doc.type) {
+        doc.type = this.getDocType();
+      }
       return observableOf(doc);
     } else if (!doc.type) {
       return observableOf(doc).pipe(concatMap((d: DocumentModel) => this.getUserSimplePreference(d)));

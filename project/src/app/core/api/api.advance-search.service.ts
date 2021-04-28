@@ -42,7 +42,7 @@ export class AdvanceSearchService {
   }
 
   create(doc: DocumentModel, opts: any = {}): Observable<DocumentModel> {
-    return this.nuxeoApi.repository(this.defaultRepository).create(doc.path, doc, opts);
+    return this.nuxeoApi.repository(this.defaultRepository).create(doc.path || doc.uid, doc, opts);
   }
 
   operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<any> {
