@@ -150,7 +150,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
       'app_Edges:URL': imageDoc.get('web-page-element:page-url'),
       'dc:title': imageDoc.title,
     });
-    return new DocumentModel({ uid: doc.uid, path: doc.path, properties }, doc.options);
+    return new DocumentModel({ uid: doc.uid, properties }, doc.options);
   }
 
   private hasPageImages(doc: DocumentModel): boolean {
@@ -189,8 +189,8 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
       this.targetDocument = doc;
       const properties = event.data;
       if (properties && this.inputUrl === properties['app_Edges:URL']) {
-        this.document = new DocumentModel({ path: doc.path, properties }, doc.options);
-        this.imageDocument = new DocumentModel({ path: doc.path, properties }, doc.options);
+        this.document = new DocumentModel({ uid: doc.uid, path: doc.path, properties }, doc.options);
+        this.imageDocument = new DocumentModel({ uid: doc.uid, path: doc.path, properties });
       }
       if (this.requestedUrl) {
         this.fetchSite();
