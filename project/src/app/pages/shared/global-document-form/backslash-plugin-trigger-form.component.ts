@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel, DynamicOptionTagModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel, DynamicOptionTagModel, DynamicListModel } from '@core/custom';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
@@ -18,6 +18,9 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
   protected documentType: string = 'App-Edges-Trigger';
 
   beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
+    if (doc.properties['app_Edges:trigger_additional_links']) {
+      doc.properties['app_Edges:trigger_additional_links'] = doc.properties['app_Edges:trigger_additional_links'].filter((x: any) => x.item).map((x: any) => x.item);
+    }
     delete doc.properties['web-page-element:page-images'];
     return doc;
   }
@@ -42,10 +45,15 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
-    if (!doc.type) {
+    if (!doc.path) {
+      if (!doc.type) {
+        doc.type = this.getDocType();
+      }
+      return observableOf(doc);
+    } else if (!doc.type) {
       return observableOf(doc).pipe(concatMap((d: DocumentModel) => this.getUserSimplePreference(d)));
     } else {
-      return this.initializeDocument(doc, this.getDocType());
+      return this.initializeDocument(doc, this.getDocType()).pipe(concatMap((d: DocumentModel) => this.getUserSimplePreference(d)));
     }
   }
 
@@ -160,11 +168,32 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           customClass: 'stress-input',
         },
       }),
-      new DynamicInputModel({
-        id: 'app_Edges:trigger_support_links',
+      new DynamicListModel({
+        id: 'app_Edges:trigger_additional_links',
         label: 'Additional Links',
         required: false,
         layoutPosition: 'right',
+        items: [
+          new DynamicInputModel({
+            id: 'item',
+            label: 'Additional Link',
+            // maxLength: 50,
+            placeholder: 'Please enter a link',
+            autoComplete: 'off',
+            required: true,
+            validators: {
+              required: null,
+              minLength: 4,
+            },
+            errorMessages: {
+              required: '{{label}} is required',
+              minLength: 'At least 4 characters',
+            },
+          }),
+        ],
+        settings: {
+          customClass: 'stress-input',
+        },
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:insight',

@@ -9,7 +9,7 @@ import { GlobalSearchFormSettings } from '../global-search-form/global-search-fo
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 
 @Component({
-  selector: 'list-search-form',
+  selector: 'list-search-form-in-dialog',
   templateUrl: './list-search-form-in-dialog.component.html',
   styleUrls: ['../list-search-form/list-search-form.component.scss'],
 })

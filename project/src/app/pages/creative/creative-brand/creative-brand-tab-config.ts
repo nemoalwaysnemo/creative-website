@@ -18,7 +18,7 @@ export const TAB_CONFIG: any[] = [
   },
   {
     title: 'Campaigns & Projects',
-    route: '/p/creative/brand/:id/campaign summary',
+    route: '/p/creative/brand/:id/campaign&project',
     acl: [UserPermission.Mgt],
   },
   // {

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 
 @Component({
@@ -8,7 +9,7 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
     <ng-container *ngIf="value" [ngSwitch]="true">
 
       <ng-container *ngSwitchCase="options.viewType === 'thumbnail'">
-        <img style="max-height:100px;" [src]="value.thumbnailUrl">
+        <img style="max-height:100px;" [src]="value.thumbnailUrl" (click)="onClick($event)" >
       </ng-container>
 
       <ng-container *ngSwitchCase="options.viewType === 'icon'">
@@ -60,8 +61,17 @@ export class ListSearchRowCustomViewComponent {
     }
   }
 
+  constructor(protected documentPageService: DocumentPageService) {
+  }
+
   getHtmlTemplate(doc: DocumentModel): string {
     return this.options.htmlFn(doc);
+  }
+
+  onClick(event: Event): void {
+    if (this.options.enableClick) {
+      this.documentPageService.triggerEvent(new GlobalEvent({ name: 'ItemClicked', data: { document: this.value }, type: 'list-search-row-custom-view' }));
+    }
   }
 
 }

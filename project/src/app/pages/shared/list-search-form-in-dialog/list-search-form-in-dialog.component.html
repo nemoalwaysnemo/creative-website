@@ -1,4 +1,4 @@
-<div class="list-search-form">
+<div class="list-search-form" *ngIf="searchFormSettings.enableSearchForm">
   <form class="global-search-form" [formGroup]="searchForm" #form="ngForm" autocomplete="off" novalidate>
     <div [ngClass]="['search-group', searchFormSettings.searchGroupPosition]">
       <ng-container *ngIf="searchFormSettings.enableSearchInput">

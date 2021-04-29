@@ -34,9 +34,13 @@ export class GlobalSearchFormSettings extends GlobalSearchSettings {
 
   protected forbiddenLinkParams: string[] = [];
 
+  enableSearchForm: boolean = true;
+
   enableSearchInput: boolean = true;
 
   autofocus: boolean = false;
+
+  autoSearch: boolean = true;
 
   searchGroupPosition: string = 'left';
 

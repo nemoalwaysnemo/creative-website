@@ -2,6 +2,7 @@ import { Component, Input, forwardRef, OnDestroy, OnInit, ViewChild, Output, Eve
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DragScrollComponent } from 'ngx-drag-scroll';
+import { DynamicFormService } from '@core/custom';
 import { isValueEmpty } from '@core/services/helpers';
 import { BehaviorSubject, combineLatest, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators';
@@ -29,7 +30,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     }
   }
 
-  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() valid: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() onUpload: EventEmitter<{ type: string, response: NuxeoUploadResponse[] }> = new EventEmitter<{ type: string, response: NuxeoUploadResponse[] }>();
 
@@ -57,10 +58,11 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   private _onTouched = () => { };
 
-  constructor(private nuxeoApi: NuxeoApiService, private sanitizer: DomSanitizer) {
+  constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService, private sanitizer: DomSanitizer) {
     this.batchUpload = this.nuxeoApi.batchUpload();
     this.onFilesChanged();
     this.onUploadFiles();
+    this.subscribeEvents();
   }
 
   ngOnInit(): void {
@@ -102,14 +104,10 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
         item.selected = !item.selected;
         this.selectedItems.splice(this.selectedItems.indexOf(index), 1);
       }
-      this.valid.emit(this.selectedItems.length === 0);
+      this.valid.emit({ type: 'valid', response: this.selectedItems.length > 0 });
       this.updateUploadStatus({ selected: this.selectedItems.length > 0 });
+      this.onUpload.emit({ type: 'FileSelected', response: this.getSelectedFiles() });
     }
-  }
-
-  uploadFiles(): void {
-    this.updateUploadStatus({ uploaded: false, uploading: true });
-    this.upload(this.getSelectedFiles());
   }
 
   getSafeImagePath(src: string): SafeUrl {
@@ -128,6 +126,20 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     if (this.uploadSettings.enableClipboard) {
       this.imageItems$.next(this.getClipboardImages(e));
     }
+  }
+
+  private subscribeEvents(): void {
+    const subscription = this.formService.onEvent().subscribe((event: any) => {
+      if (event.name === 'GalleryUpload') {
+        this.uploadFiles();
+      }
+    });
+    this.subscription.add(subscription);
+  }
+
+  private uploadFiles(): void {
+    this.updateUploadStatus({ uploaded: false, uploading: true });
+    this.upload(this.getSelectedFiles());
   }
 
   private getClipboardImages(event: ClipboardEvent): GalleryImageItem[] {
@@ -187,7 +199,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     const uploaded = uploadItems.every((res: NuxeoUploadResponse) => res.uploaded);
     this.updateUploadStatus({ uploaded, uploading: !uploaded });
     this.emitUploadResponse('UploadChanged', this.uploadItems);
-    this.valid.emit(uploaded);
+    this.valid.emit({ type: 'valid', response: uploaded });
   }
 
   private getSelectedFiles(): NuxeoUploadResponse[] {

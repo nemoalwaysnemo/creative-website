@@ -1,6 +1,0 @@
-<div class="document-creative-project-related-asset" *ngIf="showStatus">
-  <list-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)"></list-search-form>
-</div>
-<div class="document-creative-project-related-asset" *ngIf="!showStatus">
-  <document-list-view [loading]="loading" [settings]="listViewSettings" [documents]="assetList"></document-list-view>
-</div>

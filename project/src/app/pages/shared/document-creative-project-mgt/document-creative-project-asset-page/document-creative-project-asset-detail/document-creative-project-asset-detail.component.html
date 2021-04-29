@@ -1,0 +1,26 @@
+<div class="creative-project-asset-detail-nav">
+  <div class="left logo" title="Home" (click)="goHome()">Assets View</div>
+</div>
+<div class="creative-project-asset-detail-action">
+  <div>ACTIONS</div>
+  <ul>
+    <li *ngIf="writePermission$ | async"><button type="button" (click)="changeDialogView('edit')">Edit</button></li>
+    <li *ngIf="downloadPermission$ | async">
+      <a *ngIf="document.filePath" href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download"><button title="Download">Download</button></a></li>
+    <li><button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button></li>
+    <li>
+      <document-new-poster-button class="poster" [document]="document" [enable]="enableThumbnailCreation"></document-new-poster-button>
+    </li>
+    <li *ngIf="deletePermission$ | async">
+      <button class="delete" (click)="changeDialogView('delete')">Delete</button>
+    </li>
+  </ul>
+</div>
+<div class="creative-project-asset-detail-info">
+  <div class="media">
+    <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
+  </div>
+</div>
+<ng-template #popContent>
+  <document-share-button [document]="document" [shareUrl]="shareUrl"></document-share-button>
+</ng-template>

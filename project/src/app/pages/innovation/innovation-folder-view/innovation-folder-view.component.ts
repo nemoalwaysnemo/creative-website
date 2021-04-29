@@ -33,8 +33,8 @@ export class InnovationFolderViewComponent {
       this.doc = doc;
       if (this.showButton) {
         this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
-        this.deletePermission$ = !doc.hasAnyContent ? this.doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
-        this.editRedirectUrl = this.getAssetUrl(this.doc) + doc.uid;
+        this.deletePermission$ = !doc.hasAnyContent ? doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
+        this.editRedirectUrl = this.getAssetUrl(doc) + doc.uid;
       }
     }
   }

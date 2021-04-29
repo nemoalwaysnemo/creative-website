@@ -1,0 +1,11 @@
+<div class="dialog-title text-center">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1 class="left">{{title}}</h1>
+  <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <div class="creative-project-mgt-template-container">
+    <document-creative-project-mgt-page [documentModel]="document" [settings]="getDialogSettings()"></document-creative-project-mgt-page>
+  </div>
+</div>

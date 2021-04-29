@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 import { map, withLatestFrom } from 'rxjs/operators';
 import { Subscription, timer, Subject, forkJoin, of as observableOf, Observable } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
-import { DocumentPageService } from '../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 
 @Component({
   template: '',
@@ -65,8 +65,11 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     this.globalDocumentDialogService.selectView(name, component, metadata);
   }
 
-  backToMainView(): void {
-    this.globalDocumentDialogService.selectView(null);
+  backToMainView(componentName: string = null, component: Type<any> = null, metadata?: any): void {
+    const settings = this.getDialogSettings();
+    const view = componentName || settings.homeTemplate;
+    settings.dialogDocument ? settings.document = settings.dialogDocument : delete settings.document;
+    this.globalDocumentDialogService.selectView(view, component, metadata || settings);
   }
 
   confirm(refresh: boolean = true, delay: number = 0): void {
