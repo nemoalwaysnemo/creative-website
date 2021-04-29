@@ -95,7 +95,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onChange(event: any): void {
-    this.setFileTitle(event.model.field, event.model.value);
+    this.updateFileTitle(event.model.field, event.model.value);
   }
 
   getFieldName(item: any): string {
@@ -106,13 +106,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     } else {
       return item.label;
     }
-  }
-
-  setFileTitle(id: string, value: any): void {
-    let valid: boolean = true;
-    this.formGroups.forEach((group: FormGroup) => { valid = valid && group.valid; });
-    this.valid.emit({ type: 'valid', response: valid });
-    this.uploadItems.find(res => res.fileIdx.toString() === id.split('_')[0]).title = value;
   }
 
   onFocus(event: any): void {
@@ -141,6 +134,12 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   getUploadFileSize(): number {
     return this.uploadItems.filter((res: NuxeoUploadResponse) => !res.original).length;
+  }
+
+  private updateFileTitle(id: string, value: any): void {
+    const valid = this.formGroups.every((group: FormGroup) => group.valid);
+    this.valid.emit({ type: 'valid', response: valid });
+    this.uploadItems.find(res => res.fileIdx.toString() === id.split('_')[0]).title = value;
   }
 
   private subscribeEvents(): void {
@@ -224,10 +223,12 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private updateFileResponse(res: NuxeoUploadResponse): void {
     const index = this.uploadItems.findIndex((response: NuxeoUploadResponse) => res.fileIdx.toString() === response.fileIdx.toString());
-    res.title = this.formGroups[index].value[`${index}_title`];
+    if (this.uploadSettings.enableInput) {
+      res.title = this.formGroups[index].value[`${index}_title`];
+    }
     this.uploadItems[index] = res;
-    this.emitUploadResponse('UploadChanged', this.uploadItems);
     const uploaded = this.uploadItems.every((response: NuxeoUploadResponse) => response.uploaded);
+    this.emitUploadResponse('UploadChanged', this.uploadItems);
     this.updateUploadStatus({ uploaded, uploading: !uploaded });
     if (uploaded) {
       this.valid.emit({ type: 'valid', response: uploaded });
@@ -256,14 +257,15 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   private performSubForm(response: NuxeoUploadResponse[]): void {
     for (const res of response) {
       if (res.isMainFile() && res.formMode === 'create') {
-        const formModels = this.formService.fromJSON(this.fileInput(res));
+        const formModels = this.formService.fromJSON(this.getFileInputSettings(res));
         formModels.forEach(formModel => {
           const value = {};
-          this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
           const filename = this.filterFileName(res.fileName);
-          value[`${res.fileIdx}_title`] = filename;
+          const key = `${res.fileIdx}_title`;
+          value[key] = filename;
+          this.formService.addFormGroupControl(this.formGroups[res.fileIdx], this.formModels[res.fileIdx], formModel);
           this.formGroups[res.fileIdx].patchValue(value);
-          this.setFileTitle(`${res.fileIdx}_title`, filename);
+          this.updateFileTitle(key, filename);
         });
       }
     }
@@ -273,7 +275,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     return name.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\.\w+$/, '');
   }
 
-  private fileInput(res: NuxeoUploadResponse): any[] {
+  private getFileInputSettings(res: NuxeoUploadResponse): any[] {
     return [
       new DynamicInputModel({
         id: `${res.fileIdx}_title`,
