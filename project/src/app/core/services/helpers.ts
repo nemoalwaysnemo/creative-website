@@ -286,9 +286,9 @@ export function matchAssetUrl(doc: any, mapping: any = {}): string {
   if (mapping[doc.type] instanceof Function) {
     url = mapping[doc.type].call(this, doc);
   } else {
-    url = mapping[doc.type] ? mapping[doc.type] : mapping['*'];
+    url = mapping[doc.type] ? mapping[doc.type] : mapping['*'] || '';
   }
-  url = url.replace(':parentRef', doc.parentRef);
+  url = url.replace(':parentRef', doc.parentRef).replace(':uid', doc.uid);
   return url;
 }
 
