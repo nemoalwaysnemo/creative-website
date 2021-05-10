@@ -93,10 +93,10 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         rows: 5,
         required: false,
       }),
-      new DynamicInputModel({
+      new DynamicTextAreaModel({
         id: 'app_Learning:program_experience_level',
         label: 'Program Experience Level',
-        maxLength: 50,
+        rows: 5,
         required: false,
       }),
       new DynamicTextAreaModel({
