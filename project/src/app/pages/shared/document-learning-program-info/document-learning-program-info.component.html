@@ -37,7 +37,7 @@
         </div>
         <div class="showcase-area">
           <h4>The Ideal Candidate is:</h4>
-          <p>{{doc.get('app_Learning:program_candidate_description')}}</p>
+          <p [innerHTML]="sanitizerContent(doc.get('app_Learning:program_candidate_description'))"></p>
         </div>
         <div class="showcase-area">
           <h4>Program Duration</h4>
