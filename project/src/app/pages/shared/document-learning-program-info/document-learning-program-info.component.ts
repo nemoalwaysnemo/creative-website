@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
-import { DocumentModel, UserModel, NuxeoPermission} from '@core/api';
+import { DocumentModel, UserModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DocumentViewerSettings } from '../document-viewer';
@@ -7,7 +7,7 @@ import { GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../global-
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService } from '../services/document-page.service';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'document-learning-program-info',
   styleUrls: ['./document-learning-program-info.component.scss'],
@@ -82,7 +82,14 @@ export class DocumentLearningProgramInfoComponent implements OnDestroy {
     }
   }
 
-  constructor(protected globalDocumentDialogService: GlobalDocumentDialogService, protected documentPageService: DocumentPageService) {
+
+  constructor(protected globalDocumentDialogService: GlobalDocumentDialogService, protected documentPageService: DocumentPageService, private sanitizer: DomSanitizer) {
+  }
+
+  sanitizerContent(htmlContent: string): SafeHtml{
+    if (htmlContent) {
+      return this.sanitizer.bypassSecurityTrustHtml(htmlContent.replace(/\n/g, '<br/>'));
+    }
   }
 
   ngOnDestroy(): void {
