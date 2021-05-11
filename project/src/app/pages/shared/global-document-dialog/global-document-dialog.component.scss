@@ -1,4 +1,6 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
+
+
 .global-document-dialog-container,
 .global-document-dialog-form {
 	@include media-breakpoint-down(lg) { //992px
@@ -13,6 +15,21 @@
 	min-width: 800px;
 	background: #ffffff;
 }
+
+.wide-dialog-container {
+	@include media-breakpoint-down(lg) { //992px
+	width: 840px;
+	}
+	@include media-breakpoint-between(lg, xxl) { //992px - 1400px
+	width: 990px;
+	}
+	@include media-breakpoint-up(xxl) { //1400px
+		width: 1300px;
+	}
+	min-width: 800px;
+	background: #ffffff;
+}
+
 backslash-dialog,
 disruption-dialog,
 intelligence-dialog,
