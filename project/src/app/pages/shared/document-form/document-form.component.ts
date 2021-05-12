@@ -173,8 +173,8 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     return doc;
   }
 
-  private filterPropertie(formValue: any = {}): any {
-    const properties = deepExtend({}, formValue);
+  private filterPropertie(props: any = {}, formValue: any = {}): any {
+    const properties = deepExtend({}, props, formValue);
     Object.keys(properties).forEach((key: string) => {
       if (!key.includes(':') || ['file:content', 'files:files'].includes(key)) { delete properties[key]; }
     });
@@ -284,7 +284,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
 
   private create(): void {
     let documents = [];
-    this.documentModel.properties = this.filterPropertie(this.getFormValue());
+    this.documentModel.properties = this.filterPropertie(this.documentModel.properties, this.getFormValue());
     if (this.formStatus$.value.uploadState === 'prepared') {
       if (this.getUploadFiles(this.uploadModel).length > 0) {
         this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
@@ -294,12 +294,12 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         documents = this.attachUploadFiles(this.documentModel, this.getUploadFiles(this.uploadModel));
       } else {
         documents = [this.documentModel];
-        documents.forEach(doc => {
-          if (doc.properties['files:files'] === null) {
-            delete doc.properties['files:files'];
-          }
-        });
       }
+      documents.forEach(doc => {
+        if (!doc.properties['files:files'] || doc.properties['files:files'].length === 0) {
+          delete doc.properties['files:files'];
+        }
+      });
       this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
         this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
         if (this.formSettings.resetFormAfterDone) {

@@ -12,7 +12,9 @@
   <div class="backslash-trigger-form" [nbSpinner]="isFormDisabled()" nbSpinnerStatus="disabled">
     <backslash-plugin-trigger-form [documentModel]="document" [settings]="formSettings" (callback)="onCallback($event)">
       <div class="custom-button">
-        <button nbButton class="'btn btn-info btn-xs" status="info" [disabled]="!hasDraft" (click)="onDiscardDraft()">DISCARD DRAFT</button>
+        <button *ngIf="enableOpenTriggerButton" nbButton class="'btn btn-info btn-xs" status="info" (click)="onOpenTrigger()">OPEN TRIGGER</button>
+        <button *ngIf="enableDiscardDraftButton" nbButton class="'btn btn-info btn-xs" status="info" (click)="onDiscardDraft()">DISCARD DRAFT</button>
+        <button *ngIf="enableCloseWindowButton" nbButton class="'btn btn-danger btn-xs" status="info" (click)="onCloseWindow()">CLOSE</button>
       </div>
     </backslash-plugin-trigger-form>
   </div>

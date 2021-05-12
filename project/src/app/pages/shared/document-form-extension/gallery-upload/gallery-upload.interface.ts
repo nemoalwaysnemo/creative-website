@@ -87,7 +87,7 @@ export class GalleryUploadSettings {
 
   formMode: 'create' | 'edit' | 'view' = 'create';
 
-  clipboardPlaceholder: string = 'You can also take a screenshot, click this box and paste it in.';
+  clipboardPlaceholder: string = 'Select a picture or take a screenshot, click here and paste from clipboard.';
 
   errorMessage: string = 'Sorry, we could not fetch any images. Please use the Screenshot or Upload feature.';
 

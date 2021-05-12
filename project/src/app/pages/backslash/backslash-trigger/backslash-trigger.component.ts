@@ -22,9 +22,13 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   fetching: boolean = false;
 
-  hasDraft: boolean = false;
+  enableOpenTriggerButton: boolean = false;
 
-  inputUrl: string = '';
+  enableDiscardDraftButton: boolean = false;
+
+  enableCloseWindowButton: boolean = false;
+
+  inputUrl: string = 'https://www.ifanr.com/app/1415848';
 
   formSettings: any = {
     actionOptions: { schemas: '*' },
@@ -42,8 +46,6 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   private requestedUrl: string;
 
-  private imageItems: any[] = [];
-
   private imageLimit: number = 3;
 
   private targetDocument: DocumentModel;
@@ -56,13 +58,10 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     protected documentPageService: DocumentPageService,
   ) {
     super(activatedRoute, documentPageService);
-    activatedRoute.queryParamMap.subscribe((map: ParamMap) => {
-      this.requestedUrl = map.get('requestedUrl');
-      this.inputUrl = this.requestedUrl ? this.requestedUrl : this.inputUrl;
-    });
+    this.checkUserPreference();
+    this.checkRequestedUrl();
     this.onPageInitialized();
     this.onInputUrlChanged();
-    this.performActiveTabUrl();
   }
 
   onInit(): void {
@@ -72,8 +71,18 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     this.getStoredDataByUrl('pageInitialized', this.inputUrl);
   }
 
+  onOpenTrigger(): void {
+    if (this.document) {
+      window.open(NuxeoDocumentUrl(this.document.uid), '_blank');
+    }
+  }
+
   onDiscardDraft(): void {
     this.discardDraft(this.inputUrl);
+  }
+
+  onCloseWindow(): void {
+    window.close();
   }
 
   urlChanged(event: any): void {
@@ -104,26 +113,21 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
         this.formSettings = Object.assign({}, this.formSettings, {
           formMode: 'edit',
           buttonGroup: [
-            // {
-            //   label: 'RE-SUBMIT',
-            //   name: 'save',
-            //   type: 'save',
-            // },
             {
-              label: 'OPEN TRIGGER',
-              name: 'open-trigger',
-              type: 'custom',
+              label: 'RE-SUBMIT',
+              name: 'save',
+              type: 'save',
             },
           ],
         });
       }
       this.noImages = false;
       this.discardDraft(this.inputUrl);
-    } else if (['UploadFilesChanged', 'onBlur'].includes(e.action) && !e.status.submitted && e.formValue) {
+      this.enableOpenTriggerButton = true;
+      this.enableDiscardDraftButton = false;
+      this.enableCloseWindowButton = true;
+    } else if (['UploadFilesChanged', 'onBlur'].includes(e.action) && !e.status.submitted && e.formValue && e.ngFormSettings.formMode === 'create') {
       this.setDataToStorage(this.inputUrl, e.formValue);
-    }
-    if (e.button === 'open-trigger' && this.document) {
-      window.open(NuxeoDocumentUrl(e.doc.uid), '_blank');
     }
   }
 
@@ -136,17 +140,9 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     };
   }
 
-  private updateImageItems(imageDoc: DocumentModel): DocumentModel {
-    if (this.imageItems && this.imageItems.length > 0) {
-      imageDoc.properties['web-page-element:page-images'] = this.imageItems.concat(imageDoc.properties['web-page-element:page-images']);
-      this.imageItems.length = 0;
-    }
-    return imageDoc;
-  }
-
   private updateProperties(doc: DocumentModel, imageDoc: DocumentModel): DocumentModel {
     const properties = Object.assign({}, doc.properties, {
-      'web-page-element:page-images': imageDoc.get('web-page-element:page-images'),
+      'web-page-element:page-images': imageDoc.get('web-page-element:page-images') || imageDoc.get('galleryUpload'),
       'app_Edges:URL': imageDoc.get('web-page-element:page-url'),
       'dc:title': imageDoc.title,
     });
@@ -157,13 +153,6 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     return doc.properties['web-page-element:page-images'] && doc.properties['web-page-element:page-images'].length > 0;
   }
 
-  private performActiveTabUrl(): void {
-    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-    //   this.inputUrl = tabs ? tabs[0].url : this.inputUrl;
-    //   this.getDataFromStorage(this.inputUrl);
-    // });
-  }
-
   private onInputUrlChanged(): void {
     const subscription = this.documentPageService.onEvent('inputUrlChanged').pipe(
       tap(_ => {
@@ -171,8 +160,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
         this.noImages = false;
       }),
       concatMap((event: GlobalEvent) => this.documentPageService.operation(NuxeoAutomations.GetWebPageElement, { url: this.inputUrl, imageLimit: this.imageLimit }, this.targetDocument.uid, { schemas: '*' })),
-    ).subscribe((doc: DocumentModel) => {
-      const imageDoc = this.updateImageItems(doc);
+    ).subscribe((imageDoc: DocumentModel) => {
       this.document = this.updateProperties(this.targetDocument, imageDoc);
       this.noImages = !this.hasPageImages(this.document);
       this.imageDocument = imageDoc;
@@ -199,13 +187,31 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     this.subscription.add(subscription);
   }
 
+  private checkRequestedUrl(): void {
+    this.activatedRoute.queryParamMap.subscribe((map: ParamMap) => {
+      this.requestedUrl = map.get('requestedUrl');
+      this.inputUrl = this.requestedUrl ? this.requestedUrl : this.inputUrl;
+    });
+  }
+
+  private checkUserPreference(): void {
+    this.getUserSimplePreference().subscribe((preference: any) => {
+      if (!this.isUserPreferenceValid(preference.value || {})) {
+        this.documentPageService.redirect('/p/backslash/trigger/preference');
+      }
+    });
+  }
+
+  private getUserSimplePreference(): Observable<any> {
+    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-city, backslash-chrome-user-spotter-handle');
+  }
+
   private buildFormValue(formValue: any): any {
     const value = {};
     for (const key in formValue) {
       if (Object.prototype.hasOwnProperty.call(formValue, key)) {
         if (key === 'galleryUpload') {
           value[key] = (formValue[key] || []).map((i: NuxeoUploadResponse) => i.item).map((i: any) => i.getFile());
-          this.imageItems = value[key];
         } else {
           value[key] = formValue[key];
         }
@@ -218,7 +224,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     if (url) {
       this.getDataFromStorage(url).subscribe((rows: any) => {
         const data = rows.length > 0 ? rows[0] : {};
-        this.hasDraft = rows.length > 0;
+        this.enableDiscardDraftButton = rows.length > 0;
         this.documentPageService.triggerEvent(new GlobalEvent({ name, data, url, type: name }));
       });
     } else {
@@ -238,7 +244,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
         const row = data.shift();
         this.indexedDBService.update('triggers', row.id, formValue);
       }
-      this.hasDraft = true;
+      this.enableDiscardDraftButton = true;
     });
   }
 
@@ -246,9 +252,14 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     return from(this.indexedDBService.filter('triggers', (value: any) => value['app_Edges:URL'] === url).toArray());
   }
 
+  private isUserPreferenceValid(preference: any = {}): boolean {
+    const settings = ['backslash-chrome-user-country', 'backslash-chrome-user-agency'].map((k: string) => preference[k]);
+    return settings.every((v: any) => v && v !== '' && v !== 'null' && v.length !== 0);
+  }
+
   private discardDraft(url: string): void {
     this.indexedDBService.filter('triggers', (value: any) => value['app_Edges:URL'] === url).delete();
-    this.hasDraft = false;
+    this.enableDiscardDraftButton = false;
     // chrome.storage.local.get(null, function (data) { console.info(data) });
   }
 
