@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Type, Input, ComponentRef, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, Type, Input, ComponentRef, ViewContainerRef, ViewChild, HostBinding } from '@angular/core';
 import { GoogleAnalyticsService } from '@core/services/google-analytics.service';
 import { DocumentDialogContainerComponent } from './document-dialog-container.component';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
@@ -12,7 +12,12 @@ import { GlobalDocumentDialogSettings } from './global-document-dialog.interface
   styleUrls: ['./global-document-dialog.component.scss'],
   templateUrl: './global-document-dialog.component.html',
 })
+
 export class GlobalDocumentDialogComponent extends DocumentDialogContainerComponent {
+
+  dialogContainerWidth: string = 'global-document-dialog-container';
+
+  WIDE_DIALOG_COMPONENTS = ['creative-project-mgt-template'];
 
   @Input()
   set settings(settings: GlobalDocumentDialogSettings) {
@@ -20,6 +25,9 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
       this.components = settings.components;
       this.dialogSettings = Object.assign({}, this.dialogSettings, settings.metadata);
       this.mainComponent = settings.main || settings.components[0];
+      if (this.WIDE_DIALOG_COMPONENTS.includes(this.mainComponent.NAME)) {
+        this.dialogContainerWidth = 'wide-dialog-container';
+      }
     }
   }
 
