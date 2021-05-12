@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel, NuxeoResponse, UserModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicOptionTagModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicOptionTagModel, DynamicInputModel } from '@core/custom';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
@@ -16,7 +16,7 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
   static readonly NAME: string = 'backslash-plugin-user-preference-form';
 
   private getUserSimplePreference(): Observable<DocumentModel> {
-    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-spotter-handle')
+    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-city, backslash-chrome-user-spotter-handle')
       .pipe(map((preference: NuxeoResponse) => this.getUserPreferenceDocument(preference.value)));
   }
 
@@ -26,6 +26,7 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
 
   private getUserPreferenceDocument(preference: any = {}): DocumentModel {
     const properties = {
+      'backslash-chrome-user-city': preference['backslash-chrome-user-city'],
       'backslash-chrome-user-agency': preference['backslash-chrome-user-agency'],
       'backslash-chrome-user-country': this.convertPreferenceListValue(preference['backslash-chrome-user-country']),
       'backslash-chrome-user-spotter-handle': this.convertPreferenceListValue(preference['backslash-chrome-user-spotter-handle']),
@@ -79,6 +80,21 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Geography_TBWA',
           customClass: 'stress-input',
+        },
+      }),
+      new DynamicInputModel({
+        id: 'backslash-chrome-user-city',
+        label: 'City',
+        maxLength: 100,
+        placeholder: 'City',
+        autoComplete: 'off',
+        required: false,
+        settings: {
+          customClass: 'stress-input',
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
         },
       }),
       new DynamicOptionTagModel({
