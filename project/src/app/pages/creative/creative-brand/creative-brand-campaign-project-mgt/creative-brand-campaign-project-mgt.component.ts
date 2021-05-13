@@ -97,6 +97,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
               GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM,
               GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION,
             ],
+            containerType: 'wide-dialog-container',
           }),
         }),
         renderComponent: ListSearchRowCustomDialogComponent,

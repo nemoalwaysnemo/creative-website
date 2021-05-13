@@ -6,6 +6,8 @@ export class GlobalDocumentDialogSettings {
 
   components: any[];
 
+  containerType: string;
+
   main?: Type<any>;
 
   constructor(data: any = {}) {
