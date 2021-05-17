@@ -28,7 +28,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
 
   enableCloseWindowButton: boolean = false;
 
-  inputUrl: string = 'https://www.ifanr.com/app/1415848';
+  inputUrl: string = '';
 
   formSettings: any = {
     actionOptions: { schemas: '*' },
@@ -203,7 +203,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   }
 
   private getUserSimplePreference(): Observable<any> {
-    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-city, backslash-chrome-user-spotter-handle');
+    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-city, backslash-chrome-user-spotter, backslash-chrome-user-spotter-handle');
   }
 
   private buildFormValue(formValue: any): any {
@@ -253,7 +253,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   }
 
   private isUserPreferenceValid(preference: any = {}): boolean {
-    const settings = ['backslash-chrome-user-country', 'backslash-chrome-user-agency'].map((k: string) => preference[k]);
+    const settings = ['backslash-chrome-user-country', 'backslash-chrome-user-agency', 'backslash-chrome-user-city'].map((k: string) => preference[k]);
     return settings.every((v: any) => v && v !== '' && v !== 'null' && v.length !== 0);
   }
 
