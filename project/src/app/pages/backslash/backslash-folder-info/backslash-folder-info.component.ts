@@ -160,7 +160,7 @@ export class BackslashFolderInfoComponent {
       case 'App-Backslash-Case-Study-Region':
         return {
           rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
-          urlRootPath: '/p/backslash/category/',
+          urlRootPath: '/p/backslash/region/',
           urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Studies-Folder':
