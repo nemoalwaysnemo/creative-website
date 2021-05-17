@@ -91,7 +91,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     this.disabled = isDisabled;
   }
 
-  clickItem(index: number, item: GalleryImageItem): void {
+  selectItem(index: number, item: GalleryImageItem): void {
     if (!this.uploadStatus$.value.uploaded) {
       if (!item.selected) {
         item.selected = !item.selected;
@@ -173,8 +173,10 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     ).subscribe(([items, settings]: [GalleryImageItem[], GalleryUploadSettings]) => {
       this.uploadSettings = settings;
       this.uploadItems = this.buildGalleryImageItem(items, settings).concat(this.uploadItems);
+      this.valid.emit({ type: 'valid', response: false });
       this.updateUploadStatus({ itemChanged: true });
       this.emitUploadResponse('FileChanged', this.uploadItems);
+      this.autoSelectItem();
     });
     this.subscription.add(subscription);
   }
@@ -215,7 +217,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     return items;
   }
 
-  emitUploadResponse(type: string, response: NuxeoUploadResponse[]): void {
+  private emitUploadResponse(type: string, response: NuxeoUploadResponse[]): void {
     this._onChange(response);
     this.onUpload.emit({ type, response });
   }
@@ -225,6 +227,13 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
       const item = x instanceof GalleryImageItem ? x : new GalleryImageItem(x);
       return new NuxeoUploadResponse({ blob: new NuxeoBlob({ content: item.getFile(), xpath: settings.xpath, label: settings.label, original: settings.original, isFileList: settings.isFileList, formMode: settings.formMode }), item });
     });
+  }
+
+  private autoSelectItem(): void {
+    if (this.selectedItems.length === 0 && this.uploadItems.length > 0) {
+      const res = this.uploadItems[0];
+      this.selectItem(0, res.item);
+    }
   }
 
 }

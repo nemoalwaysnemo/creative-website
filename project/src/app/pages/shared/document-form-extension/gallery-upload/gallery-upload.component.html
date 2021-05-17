@@ -2,10 +2,12 @@
   <div class="error-message" *ngIf="(uploadStatus$ | async)?.itemChanged && (!uploadItems || uploadItems.length === 0)">
     <p>{{uploadSettings.errorMessage}}</p>
   </div>
+  <div class="clipboard-message" *ngIf="uploadSettings.enableClipboard">
+    <p>{{uploadSettings.clipboardPlaceholder}}</p>
+  </div>
   <div class="prev left" (click)="moveLeft()"><a href="javascript:;"></a></div>
   <drag-scroll #gallery class="gallery-list" drag-scroll-y-disabled="true" scrollbar-hidden="true" (paste)="onPaste($event)">
-    <div class="clipboard-zone" *ngIf="uploadSettings.enableClipboard && (!uploadItems || uploadItems.length === 0)"><strong>{{uploadSettings.clipboardPlaceholder}}</strong></div>
-    <div drag-scroll-item *ngFor="let response of uploadItems; let i = index" [ngClass]="{'item-selected': response.item.selected}" (click)="clickItem(i, response.item)" [title]="response.item.getName()" class="list-item">
+    <div drag-scroll-item *ngFor="let response of uploadItems; let i = index" [ngClass]="{'item-selected': response.item.selected}" (click)="selectItem(i, response.item)" [title]="response.item.getName()" class="list-item">
       <span class="upload-info">{{ response.fileSize/1024/1024 | number:'.2' }} MB, {{ response.percentLoaded }}%</span>
       <div class="img-info" [attr.source-info]="response.item.getSrc()"><img [src]="getSafeImagePath(response.item.getSource())" /></div>
     </div>
