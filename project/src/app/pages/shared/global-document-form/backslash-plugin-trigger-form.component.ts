@@ -215,6 +215,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
       new DynamicGalleryUploadModel<string>({
         id: 'galleryUpload',
         switchTab: '+ Images',
+        required: true,
         settings: {
           queueLimit: 1,
           xpath: 'file:content',
