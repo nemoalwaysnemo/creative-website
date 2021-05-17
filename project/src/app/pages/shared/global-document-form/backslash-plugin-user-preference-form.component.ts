@@ -16,7 +16,7 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
   static readonly NAME: string = 'backslash-plugin-user-preference-form';
 
   private getUserSimplePreference(): Observable<DocumentModel> {
-    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-city, backslash-chrome-user-spotter-handle')
+    return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-city, backslash-chrome-user-spotter, backslash-chrome-user-spotter-handle')
       .pipe(map((preference: NuxeoResponse) => this.getUserPreferenceDocument(preference.value)));
   }
 
@@ -28,6 +28,7 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
     const properties = {
       'backslash-chrome-user-city': preference['backslash-chrome-user-city'],
       'backslash-chrome-user-agency': preference['backslash-chrome-user-agency'],
+      'backslash-chrome-user-spotter': preference['backslash-chrome-user-spotter'],
       'backslash-chrome-user-country': this.convertPreferenceListValue(preference['backslash-chrome-user-country']),
       'backslash-chrome-user-spotter-handle': this.convertPreferenceListValue(preference['backslash-chrome-user-spotter-handle']),
     };
@@ -87,6 +88,21 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
         label: 'City',
         maxLength: 100,
         placeholder: 'City',
+        autoComplete: 'off',
+        required: false,
+        settings: {
+          customClass: 'stress-input',
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
+      }),
+      new DynamicInputModel({
+        id: 'backslash-chrome-user-spotter',
+        label: 'Spotter',
+        maxLength: 50,
+        placeholder: 'Spotter',
         autoComplete: 'off',
         required: false,
         settings: {
