@@ -99,83 +99,85 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
         label: 'Contract Items',
         layoutPosition: 'bottom',
         required: false,
-        items: [
-          new DynamicInputModel({
-            id: 'item',
-            label: 'Stock ID',
-            maxLength: 50,
-            placeholder: 'item',
-            autoComplete: 'off',
-            required: true,
-            validators: {
-              required: null,
-              minLength: 4,
-            },
-            errorMessages: {
-              required: '{{label}} is required',
-              minLength: 'At least 4 characters',
-            },
-          }),
-          new DynamicSuggestionModel<string>({
-            id: 'media_usage_type',
-            label: 'Media Usage Types',
-            required: true,
-            document: true,
-            settings: {
-              placeholder: 'Media Usage Types',
-              providerType: SuggestionSettings.OPERATION,
-              providerName: 'javascript.provideURmediatypes',
-            },
-            validators: { required: null },
-            errorMessages: { required: '{{label}} is required' },
-            onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-          }),
-          new DynamicSuggestionModel<string>({
-            id: 'contract_countries',
-            label: 'Contract Countries',
-            document: true,
-            required: true,
-            settings: {
-              placeholder: 'Please select country',
-              providerType: SuggestionSettings.DIRECTORY,
-              providerName: 'GLOBAL_Countries',
-            },
-            validators: { required: null },
-            errorMessages: { required: '{{label}} is required' },
-          }),
-          new DynamicDatepickerDirectiveModel<string>({
-            id: 'start_airing_date',
-            label: 'Start Airing Date',
-            readonly: false,
-            defaultValue: (new Date()),
-            required: true,
-            validators: {
-              required: null,
-              dateFormatValidator: null,
-            },
-            errorMessages: {
-              required: '{{label}} is required',
-              dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
-            },
-          }),
-          new DynamicInputModel({
-            id: 'contract_duration',
-            label: 'Duration (months)',
-            required: true,
-            validators: {
-              required: null,
-              pattern: /^[0-9]*[1-9][0-9]*$/,
-            },
-            errorMessages: {
-              required: '{{label}} is required',
-              pattern: 'Must positive integer',
-            },
-          }),
-          new DynamicCheckboxModel({
-            id: 'active_media_usage',
-            label: 'Active Media Usage',
-          }),
-        ],
+        settings: {
+          items: [
+            new DynamicInputModel({
+              id: 'item',
+              label: 'Stock ID',
+              maxLength: 50,
+              placeholder: 'item',
+              autoComplete: 'off',
+              required: true,
+              validators: {
+                required: null,
+                minLength: 4,
+              },
+              errorMessages: {
+                required: '{{label}} is required',
+                minLength: 'At least 4 characters',
+              },
+            }),
+            new DynamicSuggestionModel<string>({
+              id: 'media_usage_type',
+              label: 'Media Usage Types',
+              required: true,
+              document: true,
+              settings: {
+                placeholder: 'Media Usage Types',
+                providerType: SuggestionSettings.OPERATION,
+                providerName: 'javascript.provideURmediatypes',
+              },
+              validators: { required: null },
+              errorMessages: { required: '{{label}} is required' },
+              onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+            }),
+            new DynamicSuggestionModel<string>({
+              id: 'contract_countries',
+              label: 'Contract Countries',
+              document: true,
+              required: true,
+              settings: {
+                placeholder: 'Please select country',
+                providerType: SuggestionSettings.DIRECTORY,
+                providerName: 'GLOBAL_Countries',
+              },
+              validators: { required: null },
+              errorMessages: { required: '{{label}} is required' },
+            }),
+            new DynamicDatepickerDirectiveModel<string>({
+              id: 'start_airing_date',
+              label: 'Start Airing Date',
+              readonly: false,
+              defaultValue: (new Date()),
+              required: true,
+              validators: {
+                required: null,
+                dateFormatValidator: null,
+              },
+              errorMessages: {
+                required: '{{label}} is required',
+                dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+              },
+            }),
+            new DynamicInputModel({
+              id: 'contract_duration',
+              label: 'Duration (months)',
+              required: true,
+              validators: {
+                required: null,
+                pattern: /^[0-9]*[1-9][0-9]*$/,
+              },
+              errorMessages: {
+                required: '{{label}} is required',
+                pattern: 'Must positive integer',
+              },
+            }),
+            new DynamicCheckboxModel({
+              id: 'active_media_usage',
+              label: 'Active Media Usage',
+            }),
+          ],
+        },
       }),
 
       // #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('brand_activation')=="0" ? 'hidden' : 'edit'}

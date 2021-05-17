@@ -95,80 +95,82 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         id: 'The_Loupe_Rights:contract_items_usage_types',
         label: 'Contract Items',
         required: false,
-        items: [
-          new DynamicInputModel({
-            id: 'item',
-            label: 'item name',
-            maxLength: 50,
-            placeholder: 'item',
-            autoComplete: 'off',
-            required: true,
-            validators: {
-              required: null,
-              minLength: 4,
-            },
-            errorMessages: {
-              required: '{{label}} is required',
-              minLength: 'At least 4 characters',
-            },
-            hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
-          }),
-          new DynamicSuggestionModel<string>({
-            id: 'media_usage_type',
-            label: 'Media Usage Types',
-            required: true,
-            document: true,
-            settings: {
-              placeholder: 'Where is this used?',
-              providerType: SuggestionSettings.OPERATION,
-              providerName: 'javascript.provideURmediatypes',
-            },
-            validators: { required: null },
-            errorMessages: { required: '{{label}} is required' },
-            onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-            // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
-          }),
-          new DynamicSuggestionModel<string>({
-            id: 'contract_countries',
-            label: 'Country',
-            required: true,
-            settings: {
-              placeholder: 'Country',
-              providerType: SuggestionSettings.DIRECTORY,
-              providerName: 'GLOBAL_Countries',
-            },
-          }),
-          new DynamicInputModel({
-            id: 'contract_duration',
-            label: 'Duration',
-            placeholder: 'month',
-            required: true,
-            validators: { required: null, minLength: 1 },
-            errorMessages: {
-              required: '{{label}} is required',
-              minLength: 'At least 1 characters',
-            },
-          }),
-          new DynamicDatepickerDirectiveModel<string>({
-            id: 'start_airing_date',
-            label: 'Production Date',
-            readonly: false,
-            defaultValue: (new Date()),
-            required: true,
-            validators: {
-              required: null,
-              dateFormatValidator: null,
-            },
-            errorMessages: {
-              required: '{{label}} is required',
-              dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
-            },
-          }),
-          new DynamicCheckboxModel({
-            id: 'active_media_usage',
-            label: 'Active',
-          }),
-        ],
+        settings: {
+          items: [
+            new DynamicInputModel({
+              id: 'item',
+              label: 'item name',
+              maxLength: 50,
+              placeholder: 'item',
+              autoComplete: 'off',
+              required: true,
+              validators: {
+                required: null,
+                minLength: 4,
+              },
+              errorMessages: {
+                required: '{{label}} is required',
+                minLength: 'At least 4 characters',
+              },
+              hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
+            }),
+            new DynamicSuggestionModel<string>({
+              id: 'media_usage_type',
+              label: 'Media Usage Types',
+              required: true,
+              document: true,
+              settings: {
+                placeholder: 'Where is this used?',
+                providerType: SuggestionSettings.OPERATION,
+                providerName: 'javascript.provideURmediatypes',
+              },
+              validators: { required: null },
+              errorMessages: { required: '{{label}} is required' },
+              onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+              // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
+            }),
+            new DynamicSuggestionModel<string>({
+              id: 'contract_countries',
+              label: 'Country',
+              required: true,
+              settings: {
+                placeholder: 'Country',
+                providerType: SuggestionSettings.DIRECTORY,
+                providerName: 'GLOBAL_Countries',
+              },
+            }),
+            new DynamicInputModel({
+              id: 'contract_duration',
+              label: 'Duration',
+              placeholder: 'month',
+              required: true,
+              validators: { required: null, minLength: 1 },
+              errorMessages: {
+                required: '{{label}} is required',
+                minLength: 'At least 1 characters',
+              },
+            }),
+            new DynamicDatepickerDirectiveModel<string>({
+              id: 'start_airing_date',
+              label: 'Production Date',
+              readonly: false,
+              defaultValue: (new Date()),
+              required: true,
+              validators: {
+                required: null,
+                dateFormatValidator: null,
+              },
+              errorMessages: {
+                required: '{{label}} is required',
+                dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+              },
+            }),
+            new DynamicCheckboxModel({
+              id: 'active_media_usage',
+              label: 'Active',
+            }),
+          ],
+        },
       }),
     ];
   }

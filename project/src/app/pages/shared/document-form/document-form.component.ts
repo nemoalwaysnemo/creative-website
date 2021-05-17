@@ -215,7 +215,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
         model.value = modelValue;
       }
       if (model instanceof DynamicListModel) {
-        this.prepareFormModel(doc, user, settings, model.items);
+        this.prepareFormModel(doc, user, settings, model.settings.items);
       }
     });
     return formModel;

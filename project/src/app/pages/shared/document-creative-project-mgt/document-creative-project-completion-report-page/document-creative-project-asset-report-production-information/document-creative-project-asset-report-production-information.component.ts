@@ -131,36 +131,38 @@ export class DocumentCreativeProjectReportProductionInformationComponent extends
         id: 'The_Loupe_Rights:contract_items_usage_types',
         label: 'TYPE',
         required: false,
-        items: [
-          new DynamicSuggestionModel<string>({
-            id: 'media_usage_type',
-            label: 'Media Usage Type',
-            required: true,
-            document: true,
-            settings: {
-              placeholder: '',
-              providerType: SuggestionSettings.DIRECTORY,
-              providerName: 'App-Library-UR-contract-mediatypes',
-            },
-            validators: { required: null },
-            errorMessages: { required: '{{label}} is required' },
-          }),
-          new DynamicDatepickerDirectiveModel<string>({
-            id: 'start_airing_date',
-            label: 'Start Airing Date',
-            readonly: false,
-            defaultValue: (new Date()),
-            required: true,
-            validators: {
-              required: null,
-              dateFormatValidator: null,
-            },
-            errorMessages: {
-              required: '{{label}} is required',
-              dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
-            },
-          }),
-        ],
+        settings: {
+          items: [
+            new DynamicSuggestionModel<string>({
+              id: 'media_usage_type',
+              label: 'Media Usage Type',
+              required: true,
+              document: true,
+              settings: {
+                placeholder: '',
+                providerType: SuggestionSettings.DIRECTORY,
+                providerName: 'App-Library-UR-contract-mediatypes',
+              },
+              validators: { required: null },
+              errorMessages: { required: '{{label}} is required' },
+            }),
+            new DynamicDatepickerDirectiveModel<string>({
+              id: 'start_airing_date',
+              label: 'Start Airing Date',
+              readonly: false,
+              defaultValue: (new Date()),
+              required: true,
+              validators: {
+                required: null,
+                dateFormatValidator: null,
+              },
+              errorMessages: {
+                required: '{{label}} is required',
+                dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+              },
+            }),
+          ],
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Credits:producer',

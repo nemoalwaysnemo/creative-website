@@ -8,8 +8,10 @@ import {
   DynamicFormArrayModel,
   DynamicFormComponentService,
 } from '@core/custom/ng-dynamic-forms';
+import { isValueEmpty } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { DocumentFormListSettings } from './document-form-list.interface';
 
 @Component({
   selector: 'document-form-list',
@@ -31,7 +33,12 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
 
   @Input() loading: boolean = true;
 
-  @Input() settings: DynamicFormModel = [];
+  @Input()
+  set settings(settings: DocumentFormListSettings) {
+    if (!isValueEmpty(settings)) {
+      this.formListSettings = settings;
+    }
+  }
 
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
@@ -46,6 +53,8 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
   formArrayModel: DynamicFormArrayModel;
 
   disabled: boolean = false;
+
+  private formListSettings: DocumentFormListSettings = new DocumentFormListSettings();
 
   private subscription: Subscription = new Subscription();
 
@@ -62,7 +71,7 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
   }
 
   writeValue(values: any[]): void {
-    this.createForm(this.settings, values);
+    this.createForm(this.formListSettings, values);
   }
 
   registerOnChange(fn: any): void {
@@ -84,24 +93,37 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
   }
 
   getColumns(): number {
-    return this.settings.length + 1;
+    return this.formListSettings.items.length + 1;
   }
 
-  private getFormArrayModel(settings: DynamicFormModel, rows: number = 1): DynamicFormArrayModel {
+  private getFormArrayModel(items: DynamicFormModel, rows: number = 1): DynamicFormArrayModel {
     return this.formArrayModel || (this.formArrayModel = new DynamicFormArrayModel({
       id: this.modelId,
       initialCount: rows,
-      groupFactory: () => settings,
+      groupFactory: () => items,
     }));
   }
 
-  private createForm(settings: DynamicFormModel, values: any[] = []): void {
+  private createForm(settings: DocumentFormListSettings, values: any[] = []): void {
     const rows = values && values.length > 0 ? values.length : 0;
-    const models = [this.getFormArrayModel(settings, rows)];
+    const models = [this.getFormArrayModel(settings.items, rows)];
     const formGroupModels = this.formService.fromJSON(models);
     this.formGroup = this.formService.createFormGroup(formGroupModels);
-    if (rows > 0) { this.formGroup.get(this.modelId).patchValue(values, { onlySelf: true, emitEvent: false }); }
-    this.subscription = this.formGroup.get(this.modelId).valueChanges.pipe(debounceTime(300)).subscribe(val => { this._onChange(val); });
+    if (rows > 0) {
+      const formArray = (this.formGroup.get(this.modelId) as FormArray);
+      let v = values;
+      if (settings.subPathKey) {
+        v = values.map(x => { const list = {}; list[settings.subPathKey] = x; return list; });
+      }
+      formArray.patchValue(v, { onlySelf: true, emitEvent: false });
+    }
+    this.subscription = this.formGroup.get(this.modelId).valueChanges.pipe(debounceTime(300)).subscribe(val => {
+      if (settings.subPathKey) {
+        this._onChange(val.map(x => x[settings.subPathKey]));
+      } else {
+        this._onChange(val);
+      }
+    });
   }
 
 }
