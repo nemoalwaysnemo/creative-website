@@ -39,11 +39,11 @@ export class AuthenticationToken {
 export class AggregateModel {
   readonly id: string;
   readonly entityType: string;
-  readonly buckets: {}[] = [];
-  readonly extendedBuckets: {}[] = [];
-  readonly ranges: {}[];
+  readonly buckets: any[] = [];
+  readonly extendedBuckets: any[] = [];
+  readonly ranges: any[];
   readonly selection: [];
-  readonly properties: {};
+  readonly properties: any;
   readonly field: string;
   readonly type: string;
 

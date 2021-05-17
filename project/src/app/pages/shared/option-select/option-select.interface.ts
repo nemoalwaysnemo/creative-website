@@ -10,9 +10,6 @@ export class OptionModel {
   constructor(data: any = {}) {
     Object.assign(this, data);
     this.inputLabel = this.label;
-    if (typeof this.value === 'string') {
-      this.value = this.value.replace(/\\/gi, String.fromCharCode(92, 92));
-    }
   }
 }
 

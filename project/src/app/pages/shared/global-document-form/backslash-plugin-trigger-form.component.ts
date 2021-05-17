@@ -170,26 +170,27 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         label: 'Additional Links',
         required: false,
         layoutPosition: 'right',
-        items: [
-          new DynamicInputModel({
-            id: 'item',
-            label: 'Additional Link',
-            // maxLength: 50,
-            placeholder: 'Please enter a link',
-            autoComplete: 'off',
-            required: true,
-            validators: {
-              required: null,
-              minLength: 4,
-            },
-            errorMessages: {
-              required: '{{label}} is required',
-              minLength: 'At least 4 characters',
-            },
-          }),
-        ],
         settings: {
           customClass: 'stress-input',
+          subPathKey: 'item',
+          items: [
+            new DynamicInputModel({
+              id: 'item',
+              label: 'Additional Link',
+              // maxLength: 50,
+              placeholder: 'Please enter a link',
+              autoComplete: 'off',
+              required: true,
+              validators: {
+                required: null,
+                minLength: 4,
+              },
+              errorMessages: {
+                required: '{{label}} is required',
+                minLength: 'At least 4 characters',
+              },
+            }),
+          ],
         },
       }),
       new DynamicTextAreaModel({

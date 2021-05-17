@@ -58,33 +58,35 @@ export class DocumentCreativeProjectReportAllowableVersionsComponent extends Bas
         id: 'The_Loupe_ProdCredits:allowable_versions',
         label: 'Allowable Versions',
         required: false,
-        items: [
-          new DynamicInputModel({
-            id: 'code_number',
-            label: 'Code Number',
-            required: false,
-          }),
-          new DynamicInputModel({
-            id: 'title',
-            label: 'Title',
-            required: false,
-          }),
-          new DynamicInputModel({
-            id: 'length',
-            label: 'Length',
-            required: false,
-          }),
-          new DynamicInputModel({
-            id: 'type',
-            label: 'Type',
-            required: false,
-          }),
-          new DynamicInputModel({
-            id: 'notes',
-            label: 'Notes',
-            required: false,
-          }),
-        ],
+        settings: {
+          items: [
+            new DynamicInputModel({
+              id: 'code_number',
+              label: 'Code Number',
+              required: false,
+            }),
+            new DynamicInputModel({
+              id: 'title',
+              label: 'Title',
+              required: false,
+            }),
+            new DynamicInputModel({
+              id: 'length',
+              label: 'Length',
+              required: false,
+            }),
+            new DynamicInputModel({
+              id: 'type',
+              label: 'Type',
+              required: false,
+            }),
+            new DynamicInputModel({
+              id: 'notes',
+              label: 'Notes',
+              required: false,
+            }),
+          ],
+        },
       }),
     ];
   }
