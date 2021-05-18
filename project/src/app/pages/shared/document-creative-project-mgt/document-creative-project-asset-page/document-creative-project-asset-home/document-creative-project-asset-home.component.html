@@ -1,11 +1,11 @@
-<div class="creative-project-asset-home-nav">
-  <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
-</div>
-<div class="creative-project-asset-home-action">
-  <div>ACTIONS</div>
+<div class="document-creative-project-home-action">
+  <div class="actions-title">ACTIONS</div>
   <nb-menu [items]="actions" (itemClick)="onMenuClick($event)"></nb-menu>
 </div>
-<div class="creative-project-asset-home-list">
+<div class="document-creative-project-home-nav">
+  <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
+</div>
+<div class="document-creative-project-home-list">
   <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset">
   </list-search-form-in-dialog>
 </div>

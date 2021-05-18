@@ -1,0 +1,21 @@
+<div class="document-creative-project-home-action">
+  <div class="actions-title">ACTIONS</div>
+  <nb-menu [items]="actions" (itemClick)="changeMenuView('package-send-view', 'view', 'create')"></nb-menu>
+</div>
+<div class="document-creative-project-home-nav">
+  <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
+</div>
+<div class="document-creative-project-home-list">
+  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsPackageHome" [listViewSettings]="listViewSettingsPackage" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)"></list-search-form-in-dialog>
+</div>
+<ng-container *ngIf="historyItemList.length > 0">
+  <div class="creative-project-delivery-package-history-main">
+    <div class="creative-project-delivery-package-history-top">
+      <h2 class="left">Delivery History</h2>
+      <button type="button" class="history-btn" (click)="changeMenuView('package-send-view', 'view', 'edit')">Edit / Resend</button>
+    </div>
+    <div class="creative-project-delivery-package-history-body">
+      <document-list-view [settings]="listViewSettingsHistory" [documents]="historyItemList"></document-list-view>
+    </div>
+  </div>
+</ng-container>
