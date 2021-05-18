@@ -430,7 +430,7 @@ export class GlobalSearchParams {
 export class NuxeoRequestOptions {
   [key: string]: any;
   skipAggregates?: boolean = true;
-  schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'app_global', 'app_global_fields', 'app_Edges', 'app_Learning', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights', 'collectionMember'];
+  schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'app_global', 'app_global_fields', 'app_Edges', 'app_Learning', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights', 'collectionMember', 'The_Loupe_Delivery', 'collection'];
   enrichers?: {} = {
     document: [
       NuxeoEnricher.document.PREVIEW,
@@ -635,6 +635,7 @@ export enum NuxeoAutomations {
   AddToFavorites = 'Document.AddToFavorites',
   AddToCollection = 'Document.AddToCollection',
   GetDocumentsFromCollection = 'Collection.GetDocumentsFromCollection',
+  RemoveDocumentsFromCollection = 'Collection.RemoveFromCollection',
   RemoveFromFavorites = 'Document.RemoveFromFavorites',
   GetVideoScreenshot = 'Backslash.GetVideoScreenshot',
   TBWARemoteSearch = 'TBWA.RemoteSearch',
@@ -643,7 +644,7 @@ export enum NuxeoAutomations {
   GetWebPageElement = 'TBWA.GetWebPageElement',
   MoveToTrash = 'Document.Trash',
   DownloadRequest = 'App-BizDev-Asset-Download-Request-email',
-  SendDeliveryPackage = 'App-Library-Delivery-Package-Send',
+  SendDeliveryPackage = 'App-Library-Delivery-Package-Send-on-Slingshot',
   GetSimpleUserPreferences = 'TBWA.GetSimpleUserPreferences',
   SetSimpleUserPreferences = 'TBWA.SetSimpleUserPreferences',
 }

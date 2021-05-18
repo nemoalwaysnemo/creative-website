@@ -1,0 +1,47 @@
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '250px'} : {}">
+  <div class="document-creative-project-asset-package-send" *ngIf="document">
+    <div class="document-creative-project-asset-package-send-form">
+      <div class="actions-title">PACKAGE SLIP</div>
+      <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings"
+        [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>
+    </div>
+    <!-- <div class="creative-project-asset-package-send-nav">
+        <div class="left logo" title="Home" (click)="goHome()">Package View</div>
+    </div> -->
+    <div class="document-creative-project-asset-package-send-detail">
+      <ng-container *ngIf="document.title !== 'Untitled' && formSettings.formMode !== 'create'">
+        <h3>{{document.title}}</h3>
+      </ng-container>
+      <div class="document-creative-project-asset-package-send-content">
+        <ng-container *ngIf="formSettings.formMode === 'create'">
+          <document-creative-project-related-asset [documentModel]="assetSettingsRelatedSelected.source"
+            [formSettings]="formSettings" [assetSettings]="assetSettingsRelatedSelected"
+            [listViewOptions]="listViewOptionsPackage" (assetSelected)="onAssetSelected($event)">
+          </document-creative-project-related-asset>
+        </ng-container>
+        <ng-container *ngIf="formSettings.formMode !== 'create'">
+          <document-creative-project-related-asset [documentModel]="currentDocument" [formSettings]="formSettings"
+            [assetSettings]="assetSettingsSelected" [listViewOptions]="listViewOptionsPackage"
+            (assetSelected)="onAssetSelected($event)"></document-creative-project-related-asset>
+        </ng-container>
+      </div>
+      <div class="document-creative-project-asset-package-send-library">
+        <ng-container *ngIf="formSettings.formMode === 'create'">
+          <document-creative-project-related-asset [documentModel]="currentDocument" [formSettings]="formSettings"
+            [assetSettings]="assetSettingsRelated" [listViewOptions]="listViewOptionsPackage"
+            (assetSelected)="onAssetSelected($event)"></document-creative-project-related-asset>
+        </ng-container>
+        <ng-container *ngIf="formSettings.formMode !== 'create' && libraryView === 'linkBrand'">
+          <document-creative-project-related-asset [documentModel]="currentDocument" [formSettings]="formSettings"
+            [assetSettings]="assetSettingsLinkBrand" [listViewOptions]="listViewOptionsPackage"
+            (assetSelected)="onAssetSelected($event)" (assetAction)="onAssetAction($event)"></document-creative-project-related-asset>
+        </ng-container>
+        <ng-container *ngIf="formSettings.formMode !== 'create' && libraryView === 'linkProject'">
+          <document-creative-project-related-asset [documentModel]="currentDocument" [formSettings]="formSettings"
+            [assetSettings]="assetSettingsLinkProjcet" [listViewOptions]="listViewOptionsPackage"
+            (assetSelected)="onAssetSelected($event)" (assetAction)="onAssetAction($event)"></document-creative-project-related-asset>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

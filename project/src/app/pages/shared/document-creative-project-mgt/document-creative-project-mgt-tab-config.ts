@@ -3,6 +3,8 @@ import { CreativeProjectMgtSettings } from './document-creative-project-mgt.inte
 import { DocumentCreativeProjectAssetPageComponent } from './document-creative-project-asset-page/document-creative-project-asset-page.component';
 import { DocumentCreativeProjectImportAssetComponent } from './document-creative-project-import-asset-page/document-creative-project-import-asset.component';
 import { DocumentCreativeProject3rdPartyImportComponent } from './document-creative-project-3rd-party-import-page/document-creative-project-3rd-party-import-page.component';
+import { DocumentCreativeProjectDeliveryPackagePageComponent } from './document-creative-project-delivery-package-page/document-creative-project-delivery-package-page.component';
+
 export const TAB_CONFIG: NbMenuItem[] = [
   {
     id: 'asset-page',
@@ -16,11 +18,6 @@ export const TAB_CONFIG: NbMenuItem[] = [
     title: 'Test',
     component: DocumentCreativeProjectAssetPageComponent,
   },
-  // {
-  //   id: 'DeliveryPage',
-  //   title: 'Deliverables',
-  //   component: CreativeProjectAssetDeliverableTemplateComponent,
-  // },
   {
     id: 'ImportPage',
     title: 'Import',
@@ -31,12 +28,11 @@ export const TAB_CONFIG: NbMenuItem[] = [
     title: '3rd-import',
     component: DocumentCreativeProject3rdPartyImportComponent,
   },
-
-
-  // {
-  //   title: '3rd Party Import',
-  //   component: CreativeProjectAssetImportRequestTemplateComponent,
-  // },
+  {
+    id: 'delivery-page',
+    title: 'Delivery Packages',
+    component: DocumentCreativeProjectDeliveryPackagePageComponent,
+  },
   // {
   //   title: 'Usage Rights',
   //   component: CreativeProjectAssetUsageRightsTemplateComponent,
