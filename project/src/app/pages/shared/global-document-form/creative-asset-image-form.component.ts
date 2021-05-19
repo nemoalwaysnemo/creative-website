@@ -433,7 +433,6 @@ export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent
           providerName: 'App-Lib-UR-PageProvider-Stock',
         },
       }),
-
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
         formMode: 'create',
@@ -550,64 +549,4 @@ export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent
     ];
   }
 
-  protected getFormLayout(): any {
-    return {
-      'dc:title': {
-        grid: {
-          host: 'title',
-        },
-      },
-      'The_Loupe_Main:jobtitle': {
-        grid: {
-          host: 'search-project',
-        },
-      },
-      'The_Loupe_ProdCredits:production_date': {
-        grid: {
-          host: 'production-date',
-        },
-      },
-      'The_Loupe_Main:assettype': {
-        grid: {
-          host: 'asset-type',
-        },
-      },
-      'The_Loupe_Rights:first-airing': {
-        grid: {
-          host: 'first-airing',
-        },
-      },
-      'The_Loupe_Rights:contract_mediatypes': {
-        grid: {
-          host: 'media-types',
-        },
-      },
-      'The_Loupe_Rights:asset_countries': {
-        grid: {
-          host: 'asset-country',
-        },
-      },
-      'dc:description': {
-        grid: {
-          host: 'asset-country',
-        },
-      },
-      'The_Loupe_Main:po_number_internal': {
-        grid: {
-          host: 'asset-country',
-        },
-      },
-      'app_global:networkshare': {
-        element: {
-          container: '',
-          label: 'showcase',
-        },
-      },
-      dragDropAssetZone: {
-        grid: {
-          host: 'drag-drop',
-        },
-      },
-    };
-  }
 }

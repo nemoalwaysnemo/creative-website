@@ -4,8 +4,6 @@ export class DynamicNGFormSettings {
 
   formModel: DynamicFormModel = [];
 
-  formLayout: DynamicFormLayout = {};
-
   accordionSettings: { name: string, position?: string, models: DynamicFormModel }[] = [];
 
   switchTabSettings: { name: string, disabled?: boolean, models: DynamicFormModel, active: boolean }[] = [];

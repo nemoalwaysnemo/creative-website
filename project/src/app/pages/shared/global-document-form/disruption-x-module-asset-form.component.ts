@@ -140,33 +140,4 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
     ];
   }
 
-  protected getFormLayout(): any {
-    return {
-      'dc:title': {
-        grid: {
-          host: 'title',
-        },
-      },
-      'dc:description': {
-        grid: {
-          host: 'asset-description',
-        },
-      },
-      'The_Loupe_ProdCredits:production_date': {
-        grid: {
-          host: 'production-date',
-        },
-      },
-      'The_Loupe_Main:created_by': {
-        grid: {
-          host: 'created-by',
-        },
-      },
-      dragDropAttachmentZone: {
-        grid: {
-          host: 'drag-attachment',
-        },
-      },
-    };
-  }
 }

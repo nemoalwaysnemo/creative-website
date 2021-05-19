@@ -2,10 +2,11 @@ import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, TemplateRef } f
 import { DocumentModel, AdvanceSearchService, UserModel } from '@core/api';
 import { concatMap, map } from 'rxjs/operators';
 import { GlobalDocumentDialogService, OptionModel } from '../../shared';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { SuggestionSettings } from '../../shared/document-form-extension';
 import { DocumentFormSettings } from '../../shared/document-form/document-form.interface';
+import { DocumentBulkImportSettings } from '../../shared/document-bulk-import';
 
 @Component({
   selector: 'playground',
@@ -17,6 +18,92 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   document: DocumentModel;
 
+  bulkImportSettings: DocumentBulkImportSettings = new DocumentBulkImportSettings({
+    formModel: [
+      new DynamicDragDropFileZoneModel<string>({
+        id: 'file:content',
+        formMode: 'create',
+        layoutPosition: 'left',
+        settings: {
+          queueLimit: 25,
+          placeholder: 'Drop Image(s)/PDF(s)here!',
+          acceptTypes: 'image/*,.pdf',
+        },
+      }),
+      new DynamicBatchUploadModel<string>({
+        id: 'batchUpload',
+        layoutPosition: 'bottom',
+        formMode: 'create',
+        settings: {
+          enableInput: true,
+          multiUpload: true,
+        },
+      }),
+      // new DynamicInputModel({
+      //   id: 'dc:title',
+      //   label: 'Title',
+      //   maxLength: 150,
+      //   placeholder: 'Title',
+      //   autoComplete: 'off',
+      //   required: true,
+      //   validators: {
+      //     required: null,
+      //     minLength: 4,
+      //   },
+      //   errorMessages: {
+      //     required: '{{label}} is required',
+      //     minLength: 'At least 4 characters',
+      //   },
+      //   hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => settings.formMode === 'create',
+      // }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'The_Loupe_Main:jobtitle',
+      //   label: 'Search Project',
+      //   document: true,
+      //   required: true,
+      //   settings: {
+      //     placeholder: 'Search Project',
+      //     providerType: SuggestionSettings.CONTENT_VIEW,
+      //     providerName: 'App-Library-PageProvider-Projects',
+      //   },
+      //   validators: { required: null },
+      //   errorMessages: { required: '' },
+      //   visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:campaign_mgt'),
+      // }),
+      // new DynamicDatepickerDirectiveModel<string>({
+      //   id: 'The_Loupe_ProdCredits:production_date',
+      //   label: 'Production Date',
+      //   readonly: false,
+      //   defaultValue: (new Date()),
+      //   required: true,
+      //   layoutPosition: 'left',
+      //   validators: {
+      //     required: null,
+      //     dateFormatValidator: null,
+      //   },
+      //   errorMessages: {
+      //     required: '{{label}} is required',
+      //     dateFormatValidator: 'Invalid format. Valid Format MMM D, YYYY',
+      //   },
+      // }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'The_Loupe_Main:assettype',
+      //   label: 'Asset Type',
+      //   document: true,
+      //   required: true,
+      //   settings: {
+      //     multiple: false,
+      //     placeholder: 'What is this asset?',
+      //     providerType: SuggestionSettings.OPERATION,
+      //     providerName: 'javascript.provideAssetType_Image',
+      //   },
+      //   validators: { required: null },
+      //   errorMessages: { required: '' },
+      //   onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+      // }),
+    ],
+  });
+
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
   constructor(private advanceSearchService: AdvanceSearchService, private globalDocumentDialogService: GlobalDocumentDialogService) {
@@ -24,7 +111,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.load('3b3a3694-67c6-4963-bfb7-9a276b95333d');
+    this.load('3953fd2c-777f-4264-914e-4ca5fc63750e');
     // this.create();
     // this.update();
   }

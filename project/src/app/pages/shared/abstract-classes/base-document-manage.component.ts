@@ -35,7 +35,6 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
     const settings = this.getFormSettings();
     settings.accordionSettings = this.getFormAccordion();
     settings.switchTabSettings = this.getFormSwitchTab();
-    settings.formLayout = this.getFormLayout();
     settings.formModel = this.getFormModels();
     return new DocumentFormSettings(settings);
   }
@@ -54,10 +53,6 @@ export class BaseDocumentManageComponent extends GlobalDocumentViewComponent {
 
   protected getFormModels(): any[] {
     return [];
-  }
-
-  protected getFormLayout(): any {
-    return {};
   }
 
   protected performForm(): void {

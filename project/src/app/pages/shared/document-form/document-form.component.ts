@@ -4,9 +4,9 @@ import { deepExtend, isValueEmpty } from '@core/services/helpers';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { UserModel, DocumentModel, AdvanceSearchService, NuxeoUploadResponse } from '@core/api';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
+import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
-import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 
 @Component({
   selector: 'document-form',
@@ -238,7 +238,6 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
     ngFormSettings.switchTabSettings = this.prepareSwitchTab(doc, user, settings, models);
     ngFormSettings.formModel = this.createFormModel(models);
     ngFormSettings.enableLayoutRight = settings.enableLayoutRight;
-    ngFormSettings.formLayout = settings.formLayout;
     ngFormSettings.formMode = settings.formMode;
     this.ngFormSettings = ngFormSettings;
   }

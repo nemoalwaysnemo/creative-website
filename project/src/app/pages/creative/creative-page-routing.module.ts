@@ -58,7 +58,7 @@ const routes: Routes = [{
       canActivate: [NgxPermissionsGuard],
       data: {
         permissions: {
-          only: UserPermission.Mgt,
+          only: UserPermission.Dev,
           redirectTo: 'home',
         },
       },

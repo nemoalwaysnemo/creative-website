@@ -15,7 +15,7 @@
           <tr *ngFor="let item of uploadItems; let i=index">
             <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
             <td *ngIf="uploadSettings.enableInput && item.isMainFile()">
-              <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" [layout]="formLayout" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
+              <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
                 (focus)="onFocus($event)"></dynamic-ng-form>
             </td>
             <td *ngIf="!uploadSettings.enableInput || uploadSettings.enableInput && !item.isMainFile()">{{ item.getFileType() }}</td>
