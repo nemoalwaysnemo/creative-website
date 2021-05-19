@@ -173,10 +173,10 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     ).subscribe(([items, settings]: [GalleryImageItem[], GalleryUploadSettings]) => {
       this.uploadSettings = settings;
       this.uploadItems = this.buildGalleryImageItem(items, settings).concat(this.uploadItems);
-      this.valid.emit({ type: 'valid', response: false });
+      this.valid.emit({ type: 'valid', response: settings.formMode !== 'create' });
       this.updateUploadStatus({ itemChanged: true });
       this.emitUploadResponse('FileChanged', this.uploadItems);
-      this.autoSelectItem();
+      this.autoSelectItem(settings);
     });
     this.subscription.add(subscription);
   }
@@ -229,8 +229,8 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
     });
   }
 
-  private autoSelectItem(): void {
-    if (this.selectedItems.length === 0 && this.uploadItems.length > 0) {
+  private autoSelectItem(settings: GalleryUploadSettings): void {
+    if (settings.formMode === 'create' && this.selectedItems.length === 0 && this.uploadItems.length > 0) {
       const res = this.uploadItems[0];
       this.selectItem(0, res.item);
     }

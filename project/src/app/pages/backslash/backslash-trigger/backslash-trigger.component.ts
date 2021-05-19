@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse } from '@core/api';
+import { DocumentModel, NuxeoAutomations, NuxeoRequestOptions, NuxeoUploadResponse } from '@core/api';
 import { BaseDocumentManageComponent, DocumentPageService, GlobalEvent } from '@pages/shared';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { IndexedDBService } from '@core/services';
@@ -172,7 +172,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   private onPageInitialized(): void {
     const subscription = zip(
       this.documentPageService.onEvent('pageInitialized'),
-      this.searchCurrentDocument(this.getCurrentDocumentSearchParams()),
+      this.searchCurrentDocument(this.getCurrentDocumentSearchParams(), new NuxeoRequestOptions().setOptions('schemas', [])),
     ).subscribe(([event, doc]: [GlobalEvent, DocumentModel]) => {
       this.targetDocument = doc;
       const properties = event.data;
