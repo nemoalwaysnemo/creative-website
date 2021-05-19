@@ -105,8 +105,9 @@ export class DocumentModel extends Base {
     return this._repository.fetch(uid, options);
   }
 
-  setParent(doc: DocumentModel, key: string = 'parent'): void {
+  setParent(doc: DocumentModel, key: string = 'parent'): this {
     this.setCache(key, doc);
+    return this;
   }
 
   getParent(key: string = 'parent'): DocumentModel {

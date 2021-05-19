@@ -1,3 +1,4 @@
+import { DynamicFormModel } from '@core/custom';
 
 export class BatchUploadStatus {
 
@@ -24,6 +25,8 @@ export class BatchUploadStatus {
 }
 
 export class BatchUploadSettings {
+
+  formModel: DynamicFormModel = [];
 
   enableInput: boolean = false;
 

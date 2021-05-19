@@ -12,6 +12,7 @@ export * from './document-form-extension/document-form-list/document-form-list.m
 export * from './document-form-extension/batch-file-upload/batch-file-upload.module';
 export * from './document-form-extension/option-tag/option-tag.module';
 export * from './document-viewer/document-viewer.module';
+export * from './document-bulk-import/document-bulk-import.module';
 export * from './document-form/document-form.module';
 export * from './document-list-view/document-list-view.interface';
 export * from './document-list-view/document-list-view.module';

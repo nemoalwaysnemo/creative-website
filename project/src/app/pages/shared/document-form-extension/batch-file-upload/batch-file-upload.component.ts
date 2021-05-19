@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormLayout, DynamicFormService, DynamicInputModel } from '@core/custom';
+import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@core/custom';
 import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { BatchUploadSettings, BatchUploadStatus } from './batch-file-upload.interface';
 import { DragDropFileZoneSettings } from '../drag-drop-file-zone/drag-drop-file-zone.interface';
 import { DragDropFileZoneService } from '../drag-drop-file-zone/drag-drop-file-zone.service';
 import { isValueEmpty } from '@core/services/helpers';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { mergeMap, filter } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'batch-file-upload',
@@ -42,8 +42,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   disabled: boolean = false;
 
   formModels: DynamicFormControlModel[][] = [];
-
-  formLayout: DynamicFormLayout;
 
   formGroups: FormGroup[] = [];
 

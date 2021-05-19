@@ -118,7 +118,6 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
       this.layoutAccordion = settings.accordionSettings;
       this.layoutSwitchTab = settings.switchTabSettings;
       this.enableLayoutRight = settings.enableLayoutRight;
-      this.layout = settings.formLayout;
       this.formClass = settings.formClass;
     }
   }

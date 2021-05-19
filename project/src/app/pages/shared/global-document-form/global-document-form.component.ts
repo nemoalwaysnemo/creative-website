@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
+import { isValueEmpty } from '@core/services/helpers';
 import { of as observableOf, Observable, Subscription, Subject, combineLatest } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
-import { concatMap, tap } from 'rxjs/operators';
-import { isValueEmpty } from '@core/services/helpers';
 
 export interface DocumentModelForm {
   metadata: any;
@@ -41,10 +41,6 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     this.afterSave = metadata.afterSave || this.afterSave;
   }
 
-  constructor(protected documentPageService: DocumentPageService) {
-    this.onDocumentChanged();
-  }
-
   static readonly COMPONENT_TYPE: string = 'form';
 
   formSettings: DocumentFormSettings;
@@ -67,22 +63,16 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
 
+  constructor(protected documentPageService: DocumentPageService) {
+    this.onDocumentChanged();
+  }
+
   ngOnInit(): void {
     this.onInit();
   }
 
   ngOnDestroy(): void {
     this.onDestroy();
-  }
-
-  getDocType(): string {
-    return this.documentType;
-  }
-
-  setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
-    this.formSettings = settings;
-    this.currentUser = user;
-    this.document = doc;
   }
 
   onCallback(event: DocumentFormEvent): void {
@@ -94,6 +84,14 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected onInit(): void {
 
+  }
+
+  protected onDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  protected getDocType(): string {
+    return this.documentType;
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
@@ -123,10 +121,6 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     return observableOf(doc);
   }
 
-  protected onDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
   protected onDocumentChanged(): void {
     const subscription = combineLatest([
       this.document$,
@@ -144,6 +138,12 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     this.subscription.add(subscription);
   }
 
+  protected setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
+    this.formSettings = settings;
+    this.currentUser = user;
+    this.document = doc;
+  }
+
   protected setFormSettings(settings: any = {}): void {
     this.formSettings$.next(this.getDocumentFormSettings().update(settings));
   }
@@ -152,7 +152,6 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     const settings = this.getFormSettings();
     settings.accordionSettings = this.getFormAccordion();
     settings.switchTabSettings = this.getFormSwitchTab();
-    settings.formLayout = this.getFormLayout();
     settings.formModel = this.getFormModels();
     return new DocumentFormSettings(settings);
   }

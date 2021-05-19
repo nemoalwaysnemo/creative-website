@@ -1,6 +1,7 @@
 <div class="playground">
-  <a href="javascript:;" (click)="openDialog(dialog)" class="icon_btn">Download Request</a>
+  <document-bulk-import [documentModel]="document" [settings]="bulkImportSettings"></document-bulk-import>
+  <!-- <a href="javascript:;" (click)="openDialog(dialog)" class="icon_btn">Download Request</a> -->
 </div>
-<ng-template #dialog>
+<!-- <ng-template #dialog>
   <global-document-dialog [settings]="dialogSettings" [documentModel]="document"></global-document-dialog>
-</ng-template>
+</ng-template> -->

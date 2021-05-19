@@ -58,8 +58,6 @@ export class DocumentFormSettings {
 
   formModel: DynamicFormModel = [];
 
-  formLayout: DynamicFormLayout = {};
-
   accordionSettings: { name: string, position?: string, visibleFn?: any }[] = [];
 
   switchTabSettings: { name: string, disabledFn?: any, visibleFn?: any, active: boolean }[] = [];
@@ -67,6 +65,8 @@ export class DocumentFormSettings {
   enableLayoutRight: boolean = true;
 
   enableButtons: boolean = true;
+
+  enableBulkImport: boolean = false;
 
   resetFormAfterDone: boolean = false;
 
