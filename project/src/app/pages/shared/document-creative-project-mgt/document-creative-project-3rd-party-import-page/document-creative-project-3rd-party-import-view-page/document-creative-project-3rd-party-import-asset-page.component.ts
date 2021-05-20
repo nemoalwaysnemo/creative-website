@@ -1,6 +1,7 @@
 import { Component, Input, ComponentFactoryResolver } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { Subject, timer } from 'rxjs';
+import { DocumentModel, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
+import { Subject, timer, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
@@ -9,6 +10,8 @@ import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
 import { DocumentCreativeProjectMgtBasePageComponent } from '../../document-creative-project-mgt-base-page.component';
 import { DocumentCreativeProjectImportNewRequestComponent } from '../document-creative-project-3rd-party-import-new-request/document-creative-project-import-new-request.component';
+import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
 @Component({
   selector: 'creative-brand-project-3rd-party-import',
   templateUrl: './document-creative-project-3rd-party-import-asset-page.component.html',
@@ -108,6 +111,7 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
     }
     return items;
   }
+
   protected buildAssetParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMPORT_REQUEST_TYPE,
@@ -120,7 +124,26 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
     }
     return params;
   }
+
   onSelected(row: any): void {
-    window.open('/#/p/creative/project/' + this.doc.uid + '/request/' + row.data.uid + '/import', '_blank');
+    this.getRequestDocument(row.data.info);
+  }
+
+  getRequestDocument(request_doc: DocumentModel): void {
+    this.changeMenuView('3rd-import-request-review', 'view', 'edit', request_doc);
+  }
+
+  changeMenuView(name: string, type: string, formMode: string, request_doc: DocumentModel): void {
+    this.triggerChangeView(name, type,
+      new CreativeProjectMgtSettings({
+        document: request_doc,
+        // dialogDocument: request_doc,
+        project: this.templateSettings.project,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: '3rd-import-Page',
+        homeView: '3rd-import-home-view',
+        formMode,
+        showMessageBeforeSave: false,
+      }));
   }
 }

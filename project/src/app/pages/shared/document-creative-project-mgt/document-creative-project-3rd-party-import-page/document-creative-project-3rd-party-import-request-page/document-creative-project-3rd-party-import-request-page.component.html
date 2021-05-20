@@ -1,10 +1,10 @@
-<div class="creative-project-asset-home-nav">
+<div class="document-creative-project-home-action">
+  <div class="actions-title">ACTIONS</div>
+  <nb-menu [items]="actions" (itemClick)="changeMenuView('3rd-import-new-request', 'view', 'create')" ></nb-menu>
+</div>
+<div class="document-creative-project-home-nav">
   <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
 </div>
-<div *ngIf="document">
+<div *ngIf="document" class="document-creative-project-home-list">
   <creative-brand-project-3rd-party-import [documentModel]='document'></creative-brand-project-3rd-party-import>
-</div>
-<div class="creative-project-asset-home-action">
-  <div>ACTIONS</div>
-  <nb-menu [items]="actions" (itemClick)="onMenuClick($event)"></nb-menu>
 </div>

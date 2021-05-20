@@ -11,6 +11,7 @@ import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/
 import { DocumentCreativeProject3rdImportRequestComponent } from './document-creative-project-3rd-party-import-request-page/document-creative-project-3rd-party-import-request-page.component';
 import { CreativeBrandProject3rdPartyImportComponent } from './document-creative-project-3rd-party-import-view-page/document-creative-project-3rd-party-import-asset-page.component';
 import { DocumentCreativeProjectImportNewRequestComponent } from './document-creative-project-3rd-party-import-new-request/document-creative-project-import-new-request.component';
+import { DocumentCreativeProject3rdPartyImportReviewComponent } from './document-creative-project-3rd-party-import-review-page/document-creative-project-3rd-party-import-review-page.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +28,7 @@ import { DocumentCreativeProjectImportNewRequestComponent } from './document-cre
     DocumentCreativeProject3rdImportRequestComponent,
     CreativeBrandProject3rdPartyImportComponent,
     DocumentCreativeProjectImportNewRequestComponent,
+    DocumentCreativeProject3rdPartyImportReviewComponent,
   ],
 })
 export class DocumentCreativeProject3rdPartyImportAssetModule {

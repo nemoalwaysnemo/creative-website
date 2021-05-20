@@ -11,7 +11,7 @@ import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { of as observableOf, Observable } from 'rxjs';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
-
+import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
 @Component({
   selector: 'document-creative-project-3rd-import-request-page',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -21,33 +21,9 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
 
   actions: NbMenuItem[] = [
     {
-      id: 'import',
-      title: 'Import',
-      type: 'page',
-    },
-    {
-      id: '3rd-import',
-      title: 'Create 3rd Party Import',
-      type: 'page',
-    },
-    {
       id: '3rd-import-new-request',
-      title: 'Create 3rd Party Import',
-      type: 'page',
-    },
-    {
-      id: 'delivery',
-      title: 'Create Delivery Package',
-      type: 'page',
-    },
-    {
-      id: 'modif-assets',
-      title: ' Modify Assets',
-    },
-    {
-      id: 'set-usage-rights',
-      title: ' Set Usage Rights',
-      type: 'page',
+      title: 'Request Import',
+      type: 'view',
     },
   ];
 
@@ -106,8 +82,32 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
     this.subscribeHomeEvents();
   }
 
-  onMenuClick(item: NbMenuItem): void {
-    this.triggerChangeView(item.id, item.type);
+  changeMenuView(name: string, type: string, formMode: string): void {
+    this.triggerChangeView(name, type,
+      new CreativeProjectMgtSettings({
+        document: this.document,
+        dialogDocument: this.document,
+        project: this.templateSettings.project,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: '3rd-import-Page',
+        homeView: '3rd-import-home-view',
+        formMode,
+        showMessageBeforeSave: false,
+        buttonGroup: [
+          {
+            label: 'create',
+            name: 'create',
+            type: 'custom',
+            disabled: (status: DocumentFormStatus) => status.submitted || !status.formValid,
+            triggerSave: true,
+          },
+          {
+            label: 'cancel',
+            name: 'cancel',
+            type: 'cancel',
+          },
+        ],
+      }));
   }
 
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
@@ -115,13 +115,14 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
     return observableOf(doc);
   }
 
-  private buildNavSettings(doc: DocumentModel): any {
+  protected buildNavSettings(doc: DocumentModel): any {
     return new ProjectMgtNavigationSettings({
-      currentPage: 'asset-page',
+      currentPage: '3rd-import-Page',
       searchFormParams: this.buildAssetParams(doc),
       searchFormSettings: new GlobalSearchFormSettings({
         source: 'document-creative-project-asset',
         searchGroupPosition: 'right',
+        enableSearchForm: false,
       }),
     });
   }
