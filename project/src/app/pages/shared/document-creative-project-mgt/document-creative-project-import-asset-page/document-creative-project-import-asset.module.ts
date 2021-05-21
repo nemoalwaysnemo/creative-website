@@ -8,8 +8,8 @@ import { DocumentViewerModule } from '../../document-viewer/document-viewer.modu
 import { DocumentShareButtonModule } from '../../document-share-button/document-share-button.module';
 import { DocumentCreativeProjectImportAssetComponent } from './document-creative-project-import-asset.component';
 import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
-import { DocumentCreativeProjectAssetHomeComponent } from './document-creative-project-asset-home/document-creative-project-asset-home.component';
-import { DocumentCreativeProjectImportAssetImageComponent } from './document-creative-project-import-asset-image/document-creative-project-import-asset-image.component';
+import { DocumentCreativeProjectImportAssetHomeComponent } from './document-creative-project-import-asset-home/document-creative-project-import-asset-home.component';
+import { DocumentCreativeProjectImportAssetFormComponent } from './document-creative-project-import-asset-form/document-creative-project-import-asset-form.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,8 +23,8 @@ import { DocumentCreativeProjectImportAssetImageComponent } from './document-cre
   ],
   declarations: [
     DocumentCreativeProjectImportAssetComponent,
-    DocumentCreativeProjectAssetHomeComponent,
-    DocumentCreativeProjectImportAssetImageComponent,
+    DocumentCreativeProjectImportAssetHomeComponent,
+    DocumentCreativeProjectImportAssetFormComponent,
   ],
 })
 export class DocumentCreativeProjectImportAssetModule {

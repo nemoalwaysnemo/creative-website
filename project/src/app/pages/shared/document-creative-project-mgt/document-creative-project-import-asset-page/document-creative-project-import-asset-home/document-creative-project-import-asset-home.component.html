@@ -1,0 +1,7 @@
+<div class="document-creative-project-home-nav">
+  <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
+</div>
+<div *ngIf="document">
+  <document-creative-project-import-asset-form [documentModel]='document'>
+  </document-creative-project-import-asset-form>
+</div>
