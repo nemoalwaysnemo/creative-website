@@ -14,7 +14,7 @@ export const TAB_CONFIG: NbMenuItem[] = [
     component: DocumentCreativeProjectAssetPageComponent,
   },
   {
-    id: 'ImportPage',
+    id: 'Import-Page',
     title: 'Import',
     component: DocumentCreativeProjectImportAssetComponent,
   },

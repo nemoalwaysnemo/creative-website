@@ -12,7 +12,7 @@ import { TAB_CONFIG } from '../../document-creative-project-mgt-tab-config';
 
 @Component({
   selector: 'document-creative-project-navigation',
-  styleUrls: ['../../document-creative-project-mgt.component.scss'],
+  styleUrls: ['../../document-creative-project-mgt.component.scss', './document-creative-project-navigation.component.scss'],
   templateUrl: './document-creative-project-navigation.component.html',
 })
 export class DocumentCreativeProjectNavigationComponent implements OnInit, OnDestroy {

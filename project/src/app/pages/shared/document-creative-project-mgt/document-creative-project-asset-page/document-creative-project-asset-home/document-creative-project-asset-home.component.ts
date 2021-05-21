@@ -117,6 +117,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       searchFormSettings: new GlobalSearchFormSettings({
         source: 'document-creative-project-asset',
         searchGroupPosition: 'right',
+        enableSearchForm: false,
       }),
     });
   }
