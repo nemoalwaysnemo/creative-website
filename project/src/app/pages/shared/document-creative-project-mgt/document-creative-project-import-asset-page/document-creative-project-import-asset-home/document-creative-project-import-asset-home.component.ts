@@ -85,7 +85,7 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
 
   private buildNavSettings(doc: DocumentModel): any {
     return new ProjectMgtNavigationSettings({
-      currentPage: 'asset-page',
+      currentPage: 'Import-Page',
       searchFormParams: this.buildAssetParams(doc),
       searchFormSettings: new GlobalSearchFormSettings({
         source: 'document-creative-project-asset',
