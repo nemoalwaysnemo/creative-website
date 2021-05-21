@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DocumentModel, NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { DocumentModel, NuxeoAutomations } from '@core/api';
 import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
 
 export class CategoryItem {
@@ -32,7 +32,6 @@ export class LearningProgramCategoryComponent extends BaseDocumentViewComponent 
   ]);
 
   constructor(
-    private nuxeoApi: NuxeoApiService,
     protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
@@ -49,10 +48,10 @@ export class LearningProgramCategoryComponent extends BaseDocumentViewComponent 
   }
 
   private search(): void {
-    const subscription = this.nuxeoApi.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName: 'App-Learning-Program-Categories' })
-    .subscribe((res: any) => {
-      res.map((item: any) => this.documents.push(new CategoryItem({title: this.formatTitle(item.label), uid: item.id, img: this.formatImage(item.id)})));
-    });
+    const subscription = this.documentPageService.operation(NuxeoAutomations.DirectorySuggestEntries, { directoryName: 'App-Learning-Program-Categories' })
+      .subscribe((res: any) => {
+        res.map((item: any) => this.documents.push(new CategoryItem({ title: this.formatTitle(item.label), uid: item.id, img: this.formatImage(item.id) })));
+      });
     this.subscription.add(subscription);
   }
 

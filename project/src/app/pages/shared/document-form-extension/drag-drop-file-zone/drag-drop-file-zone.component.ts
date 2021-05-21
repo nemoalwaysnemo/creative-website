@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DragDropFileZoneSettings } from './drag-drop-file-zone.interface';
 import { DragDropFileZoneService } from './drag-drop-file-zone.service';
 import { isValueEmpty } from '@core/services/helpers';
-import { Subscription, timer } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'drag-drop-file-zone',

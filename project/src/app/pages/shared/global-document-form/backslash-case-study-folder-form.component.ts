@@ -131,8 +131,8 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          enableInput: false,
-          multiUpload: false,
+          enableForm: false,
+          enableAction: false,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -140,8 +140,8 @@ export class BackslashCaseStudyFolderFormComponent extends GlobalDocumentFormCom
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
     ];

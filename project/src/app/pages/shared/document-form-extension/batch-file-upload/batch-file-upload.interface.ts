@@ -28,9 +28,9 @@ export class BatchUploadSettings {
 
   formModel: DynamicFormModel = [];
 
-  enableInput: boolean = false;
+  enableForm: boolean = false;
 
-  multiUpload: boolean = false;
+  enableAction: boolean = false;
 
   constructor(data: any = {}) {
     Object.assign(this, data);

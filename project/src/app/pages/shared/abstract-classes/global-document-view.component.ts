@@ -19,7 +19,7 @@ export class GlobalDocumentViewComponent extends BaseDocumentViewComponent {
 
   loading: boolean = true;
 
-  enableInput: boolean = true;
+  enableForm: boolean = true;
 
   protected primaryKey: string = 'id';
 

@@ -91,8 +91,8 @@ export class DocumentCreativeProjectImportAssetImageComponent extends GlobalDocu
         layoutPosition: 'left',
         formMode: 'create',
         settings: {
-          enableInput: true,
-          multiUpload: true,
+          enableForm: true,
+          enableAction: true,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -100,8 +100,8 @@ export class DocumentCreativeProjectImportAssetImageComponent extends GlobalDocu
         layoutPosition: 'left',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
       new DynamicInputModel({

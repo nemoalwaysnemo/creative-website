@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { DocumentModel, NuxeoApiService, NuxeoAutomations, UserModel } from '@core/api';
+import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
 import { Subject, of as observableOf, Observable, concat } from 'rxjs';
 import { DynamicInputModel, DynamicTextAreaModel, DynamicSuggestionModel, DynamicOptionTagModel, DynamicCheckboxModel } from '@core/custom';
 import { DocumentPageService } from '../../../services/document-page.service';
@@ -140,7 +140,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
-    protected nuxeoApi: NuxeoApiService,
   ) {
     super(documentPageService);
   }
@@ -289,7 +288,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     const packageId = packageDoc.uid;
     const assetIds: string[] = this.selectedAddRows.map((doc: DocumentModel) => doc.uid);
     if (assetIds.length > 0) {
-      return this.nuxeoApi.operation(NuxeoAutomations.AddToCollection, { collection: packageId }, assetIds);
+      return this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: packageId }, assetIds);
     } else {
       return observableOf(true);
     }
@@ -299,7 +298,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     const packageId = packageDoc.uid;
     const assetIds: string[] = this.selectedRemoveRows.map((doc: DocumentModel) => doc.uid);
     if (assetIds.length > 0) {
-      return this.nuxeoApi.operation(NuxeoAutomations.RemoveDocumentsFromCollection, { collection: packageId }, assetIds);
+      return this.documentPageService.operation(NuxeoAutomations.RemoveDocumentsFromCollection, { collection: packageId }, assetIds);
     } else {
       return observableOf(true);
     }
@@ -307,6 +306,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
 
   protected sendPackage(packageDoc: any): Observable<any> {
     const packageId = packageDoc.uid;
-    return this.nuxeoApi.operation(NuxeoAutomations.SendDeliveryPackage, { uuid: packageId });
+    return this.documentPageService.operation(NuxeoAutomations.SendDeliveryPackage, { uuid: packageId });
   }
 }

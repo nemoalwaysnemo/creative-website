@@ -155,8 +155,8 @@ export class BackslashTriggerFormComponent extends GlobalDocumentFormComponent {
         id: 'batchUpload',
         layoutPosition: 'bottom',
         settings: {
-          enableInput: false,
-          multiUpload: false,
+          enableForm: false,
+          enableAction: false,
         },
       }),
     ];

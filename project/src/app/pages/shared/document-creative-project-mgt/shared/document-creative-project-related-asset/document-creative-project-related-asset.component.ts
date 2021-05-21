@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ComponentFactoryResolver } from '@angular/core';
-import { DocumentModel, NuxeoApiService } from '@core/api';
+import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
@@ -17,11 +17,11 @@ import { DocumentPageService } from '../../../../shared/services/document-page.s
 })
 export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreativeProjectMgtBaseComponent {
 
-  constructor(protected nuxeoApi: NuxeoApiService,
-              protected documentPageService: DocumentPageService,
-              protected componentFactoryResolver: ComponentFactoryResolver) {
-      super(documentPageService, componentFactoryResolver);
-    }
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected componentFactoryResolver: ComponentFactoryResolver) {
+    super(documentPageService, componentFactoryResolver);
+  }
 
   static readonly NAME: string = 'creative-project-related-asset';
 

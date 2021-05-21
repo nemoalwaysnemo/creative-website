@@ -225,8 +225,8 @@ export class BizDevCaseStudyAssetFormComponent extends GlobalDocumentFormCompone
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          enableInput: true,
-          multiUpload: true,
+          enableForm: true,
+          enableAction: true,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -234,8 +234,8 @@ export class BizDevCaseStudyAssetFormComponent extends GlobalDocumentFormCompone
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
     ];

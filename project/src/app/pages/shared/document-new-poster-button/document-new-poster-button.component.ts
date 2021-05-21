@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DocumentModel, NuxeoPermission, NuxeoApiService, NuxeoAutomations } from '@core/api';
+import { DocumentModel, NuxeoPermission, NuxeoAutomations } from '@core/api';
 import { Observable, of as observableOf, combineLatest, Subscription, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { DocumentPageService } from '../services/document-page.service';
@@ -34,7 +34,6 @@ export class DocumentNewPosterButtonComponent {
   }
 
   constructor(
-    private nuxeoApi: NuxeoApiService,
     private documentPageService: DocumentPageService,
     private documentVideoViewerService: DocumentVideoViewerService,
   ) {
@@ -44,7 +43,7 @@ export class DocumentNewPosterButtonComponent {
   newThumbnail(currentTime: number): void {
     if (typeof currentTime === 'number') {
       const duration = (currentTime * 10).toString();
-      const subscription = this.nuxeoApi.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.documentModel.uid).subscribe((doc: DocumentModel) => {
+      const subscription = this.documentPageService.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.documentModel.uid).subscribe((doc: DocumentModel) => {
         this.documentPageService.notify(`Video poster has been updated successfully!`, '', 'success');
         this.documentPageService.refresh(500);
       });

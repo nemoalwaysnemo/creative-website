@@ -252,7 +252,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          multiUpload: false,
+          enableAction: false,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -260,8 +260,8 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
     ];

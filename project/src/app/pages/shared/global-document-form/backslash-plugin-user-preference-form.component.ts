@@ -98,21 +98,6 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
           minLength: 'At least 4 characters',
         },
       }),
-      // new DynamicInputModel({
-      //   id: 'backslash-chrome-user-spotter',
-      //   label: 'Spotter',
-      //   maxLength: 50,
-      //   placeholder: 'Spotter',
-      //   autoComplete: 'off',
-      //   required: false,
-      //   settings: {
-      //     customClass: 'stress-input',
-      //   },
-      //   errorMessages: {
-      //     required: '{{label}} is required',
-      //     minLength: 'At least 4 characters',
-      //   },
-      // }),
       new DynamicOptionTagModel({
         id: 'backslash-chrome-user-spotter-handle',
         label: 'Spotter Handle',

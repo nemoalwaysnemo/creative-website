@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@core/custom';
-import { NuxeoApiService, BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
+import { DynamicFormControlModel, DynamicFormService } from '@core/custom';
+import { BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { BatchUploadSettings, BatchUploadStatus } from './batch-file-upload.interface';
 import { DragDropFileZoneSettings } from '../drag-drop-file-zone/drag-drop-file-zone.interface';
 import { DragDropFileZoneService } from '../drag-drop-file-zone/drag-drop-file-zone.service';
+import { DocumentPageService } from '../../services/document-page.service';
 import { isValueEmpty } from '@core/services/helpers';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -57,8 +58,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private _onTouched = () => { };
 
-  constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService, private dragDropFileZoneService: DragDropFileZoneService) {
-    this.batchUpload = this.nuxeoApi.batchUpload();
+  constructor(private documentPageService: DocumentPageService, private formService: DynamicFormService, private dragDropFileZoneService: DragDropFileZoneService) {
+    this.batchUpload = this.documentPageService.batchUpload();
     this.onUploadFiles();
     this.onFilesChanged();
     this.subscribeEvents();
@@ -213,7 +214,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   private onFilesChange(files: NuxeoUploadResponse[]): void {
     this.emitUploadResponse('FileChanged', files);
     this.onUpload.emit({ type: 'FileSelected', response: files });
-    if (this.uploadSettings.enableInput) {
+    if (this.uploadSettings.enableForm) {
       this.createSubForm(files);
       this.performSubForm(files);
     }
@@ -221,7 +222,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private updateFileResponse(res: NuxeoUploadResponse): void {
     const index = this.uploadItems.findIndex((response: NuxeoUploadResponse) => res.fileIdx.toString() === response.fileIdx.toString());
-    if (this.uploadSettings.enableInput) {
+    if (this.uploadSettings.enableForm) {
       res.title = this.formGroups[index].value[`${index}_title`];
     }
     this.uploadItems[index] = res;
@@ -255,7 +256,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   private performSubForm(response: NuxeoUploadResponse[]): void {
     for (const res of response) {
       if (res.isMainFile() && res.formMode === 'create') {
-        const formModels = this.formService.fromJSON(this.getFileInputSettings(res));
+        const formModels = this.formService.fromJSON(this.getFormModel(res));
         formModels.forEach(formModel => {
           const value = {};
           const filename = this.filterFileName(res.fileName);
@@ -273,23 +274,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     return name.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\.\w+$/, '');
   }
 
-  private getFileInputSettings(res: NuxeoUploadResponse): any[] {
-    return [
-      new DynamicInputModel({
-        id: `${res.fileIdx}_title`,
-        maxLength: 150,
-        placeholder: `Asset title`,
-        autoComplete: 'off',
-        required: false,
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '{{placeholder}} is required',
-          minLength: 'At least 4 characters',
-        },
-      }),
-    ];
+  private getFormModel(res: NuxeoUploadResponse): any[] {
+    return (this.uploadSettings.formModel || []).map(m => { m.field = `${m.id}_${res.fileIdx}`; return m; });
   }
 }

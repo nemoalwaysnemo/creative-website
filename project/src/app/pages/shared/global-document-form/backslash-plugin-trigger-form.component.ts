@@ -31,7 +31,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
 
   private updateUserPreference(doc: DocumentModel, user: UserModel, preference: any = {}): DocumentModel {
     const properties = Object.assign({}, doc.properties, {
-      'app_Edges:Spotter': preference['backslash-chrome-user-spotter'] || user.username,
+      'app_Edges:Spotter': user.username,
       'The_Loupe_Main:city': preference['backslash-chrome-user-city'],
       'The_Loupe_Main:agency': preference['backslash-chrome-user-agency'],
       'The_Loupe_Main:country': this.convertPreferenceListValue(preference['backslash-chrome-user-country']),
@@ -235,8 +235,8 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         id: 'batchUpload',
         switchTab: '+ Upload',
         settings: {
-          enableInput: false,
-          multiUpload: false,
+          enableForm: false,
+          enableAction: false,
         },
       }),
     ];
