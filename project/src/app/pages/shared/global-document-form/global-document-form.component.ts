@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
+import { DocumentModel, UserModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
 import { of as observableOf, Observable, Subscription, Subject, combineLatest } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
@@ -99,14 +99,7 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
-    return this.documentPageService.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
-      .pipe(
-        tap((doc: DocumentModel) => {
-          doc.setParent(parent);
-          doc.path = parent.uid;
-          doc.parentRef = parent.uid;
-        }),
-      );
+    return this.documentPageService.initializeDocument(parent, docType);
   }
 
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {

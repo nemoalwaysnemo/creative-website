@@ -5,9 +5,11 @@ import { ReactiveFormsModule, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angula
 import { customValidator, customDateRangeValidator, customAsyncFormGroupValidator, dateFormatValidator } from './document-form.validators';
 import { Validator, DYNAMIC_VALIDATORS, ValidatorFactory } from '@core/custom/ng-dynamic-forms/service/dynamic-form-validators';
 import { DynamicFormsNGUIModule } from '../document-form-extension/dynamic-ng-form';
+import { BaseDocumentFormComponent } from './base-document-form.component';
+import { DocumentImportComponent } from './document-import.component';
 import { DocumentFormComponent } from './document-form.component';
 
-const COMPONENTS = [DocumentFormComponent];
+const COMPONENTS = [BaseDocumentFormComponent, DocumentFormComponent, DocumentImportComponent];
 
 @NgModule({
   imports: [

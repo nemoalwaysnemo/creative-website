@@ -3,9 +3,9 @@ import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { NbToastrService } from '@core/nebular/theme';
 import { Observable, from, Subject, timer, BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, filter, pairwise, share, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, pairwise, share, tap, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd, RoutesRecognized } from '@angular/router';
-import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel, NuxeoResponse } from '@core/api';
+import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel, NuxeoResponse, NuxeoAutomations, BatchUpload, NuxeoApiService, DirectoryEntry } from '@core/api';
 import { CacheService, GoogleAnalyticsService } from '@core/services';
 import { Environment } from '@environment/environment';
 
@@ -38,6 +38,7 @@ export class DocumentPageService {
     private location: Location,
     private titleService: Title,
     private userService: UserService,
+    private nuxeoApi: NuxeoApiService,
     private cacheService: CacheService,
     private toastrService: NbToastrService,
     private activatedRoute: ActivatedRoute,
@@ -139,7 +140,15 @@ export class DocumentPageService {
     this.toastrService.show(message, title, { status });
   }
 
-  operation(id: string, params: any = {}, input: string = null, opts: any = null): Observable<any> {
+  batchUpload(opts: any = {}): BatchUpload {
+    return this.nuxeoApi.batchUpload(opts);
+  }
+
+  directory(directoryName: string, opts: any = {}): Observable<DirectoryEntry[]> {
+    return this.nuxeoApi.directory(directoryName, opts);
+  }
+
+  operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<NuxeoResponse> {
     return this.advanceSearchService.operation(id, params, input, opts);
   }
 
@@ -149,6 +158,17 @@ export class DocumentPageService {
 
   advanceRequestTitleByUIDs(res: NuxeoPagination, properties: string[]): Observable<NuxeoPagination> {
     return this.advanceSearchService.requestTitleByUIDs(res, properties);
+  }
+
+  initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
+    return this.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
+      .pipe(
+        tap((doc: DocumentModel) => {
+          doc.setParent(parent);
+          doc.path = parent.uid;
+          doc.parentRef = parent.uid;
+        }),
+      );
   }
 
   changeQueryParams(queryParams: any = {}, state: any = {}, queryParamsHandling: 'merge' | 'preserve' | '' = '', skipLocationChange: boolean = false): Observable<boolean> {

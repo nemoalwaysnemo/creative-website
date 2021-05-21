@@ -190,8 +190,8 @@ export class InnovationAssetFormComponent extends GlobalDocumentFormComponent {
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          enableInput: true,
-          multiUpload: true,
+          enableForm: true,
+          enableAction: true,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -199,8 +199,8 @@ export class InnovationAssetFormComponent extends GlobalDocumentFormComponent {
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
     ];

@@ -103,8 +103,8 @@ export class CreativeBrandManageLibraryComponent extends BaseDocumentManageCompo
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
       new DynamicSuggestionModel<string>({

@@ -161,8 +161,8 @@ export class CreativeAgencyManageListComponent extends BaseDocumentManageCompone
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
     ];

@@ -207,8 +207,8 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         formMode: 'create',
         required: true,
         settings: {
-          enableInput: false,
-          multiUpload: false,
+          enableForm: false,
+          enableAction: false,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -217,8 +217,8 @@ export class CreativeAssetBrandFormComponent extends GlobalDocumentFormComponent
         formMode: 'edit',
         required: true,
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
     ];

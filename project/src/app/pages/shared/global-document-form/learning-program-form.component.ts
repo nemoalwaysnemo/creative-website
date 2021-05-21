@@ -186,8 +186,8 @@ export class LearningProgramFormComponent extends GlobalDocumentFormComponent {
         id: 'batchUpload',
         layoutPosition: 'bottom',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
     ];

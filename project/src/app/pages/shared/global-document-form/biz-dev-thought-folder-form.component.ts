@@ -190,8 +190,8 @@ export class BizDevThoughtFolderFormComponent extends GlobalDocumentFormComponen
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          enableInput: false,
-          multiUpload: false,
+          enableForm: false,
+          enableAction: false,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -199,8 +199,8 @@ export class BizDevThoughtFolderFormComponent extends GlobalDocumentFormComponen
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: true,
+          enableForm: false,
+          enableAction: true,
         },
       }),
     ];

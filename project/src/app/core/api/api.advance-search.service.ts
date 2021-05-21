@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf, Subject } from 'rxjs';
 import { share, concat, map, tap, filter } from 'rxjs/operators';
-import { DocumentModel, NuxeoAutomations } from './nuxeo/lib';
-import { join } from '../services/helpers';
+import { DocumentModel, NuxeoAutomations, NuxeoResponse } from './nuxeo/lib';
 import { NuxeoPagination, GlobalSearchParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
+import { join } from '../services/helpers';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 export class SearchResponse {
@@ -45,7 +45,7 @@ export class AdvanceSearchService {
     return this.nuxeoApi.repository(this.defaultRepository).create(doc.path || doc.uid, doc, opts);
   }
 
-  operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<any> {
+  operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<NuxeoResponse> {
     return this.nuxeoApi.operation(id, params, input, opts);
   }
 

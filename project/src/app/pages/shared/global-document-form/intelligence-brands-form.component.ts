@@ -82,7 +82,7 @@ export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          multiUpload: false,
+          enableAction: false,
         },
       }),
       new DynamicBatchUploadModel<string>({
@@ -90,8 +90,8 @@ export class IntelligenceBrandsFormComponent extends GlobalDocumentFormComponent
         layoutPosition: 'bottom',
         formMode: 'edit',
         settings: {
-          enableInput: false,
-          multiUpload: false,
+          enableForm: false,
+          enableAction: false,
         },
       }),
     ];

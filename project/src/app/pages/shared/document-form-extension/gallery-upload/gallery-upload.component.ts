@@ -4,9 +4,10 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DynamicFormService } from '@core/custom';
 import { isValueEmpty } from '@core/services/helpers';
+import { DocumentPageService } from '../../services/document-page.service';
 import { BehaviorSubject, combineLatest, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators';
-import { BatchUpload, NuxeoApiService, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
+import { BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { GalleryImageItem, GalleryUploadSettings, GalleryUploadStatus } from './gallery-upload.interface';
 
 @Component({
@@ -58,8 +59,8 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   private _onTouched = () => { };
 
-  constructor(private nuxeoApi: NuxeoApiService, private formService: DynamicFormService, private sanitizer: DomSanitizer) {
-    this.batchUpload = this.nuxeoApi.batchUpload();
+  constructor(private documentPageService: DocumentPageService, private formService: DynamicFormService, private sanitizer: DomSanitizer) {
+    this.batchUpload = this.documentPageService.batchUpload();
     this.onFilesChanged();
     this.onUploadFiles();
     this.subscribeEvents();
