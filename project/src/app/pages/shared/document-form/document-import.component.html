@@ -1,0 +1,25 @@
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}" cstyle="width: 95%; margin: 0 auto; padding: 0 0 20px;">
+  <ng-container *ngIf="formGroup">
+    <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" [modelOperation]="modelOperation | async" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
+    </dynamic-ng-form>
+
+    <div class="button-groups left" *ngIf="formSettings && formSettings.enableButtons">
+      <ng-container *ngFor="let button of formSettings.buttonGroup">
+        <ng-container *ngIf="button.type === 'save'">
+          <button nbButton outline class="btn btn-success btn-xs btn-margin-bottom" status="primary" [disabled]="(formStatus$ | async)?.disableSaveButton()" (click)="onSave($event)">{{button.label}}</button>
+        </ng-container>
+
+        <ng-container *ngIf="button.type === 'custom'">
+          <button nbButton outline [ngClass]="button.style ? button.style : 'btn btn-info btn-xs'" status="info" [disabled]="button.disabled && button.disabled(formStatus$.value)" (click)="onCustomButton(button)">{{button.label}}</button>
+        </ng-container>
+
+        <ng-container *ngIf="button.type === 'cancle'">
+          <button nbButton outline class="btn btn-info btn-xs btn-margin-bottom" status="info" (click)="onCancel($event)">{{button.label}}</button>
+        </ng-container>
+      </ng-container>
+
+      <ng-content></ng-content>
+    </div>
+
+  </ng-container>
+</div>

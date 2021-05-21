@@ -25,9 +25,9 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   formStatus$: BehaviorSubject<DocumentFormStatus> = new BehaviorSubject<DocumentFormStatus>(new DocumentFormStatus());
 
-  protected user: UserModel;
+  protected currentUser: UserModel;
 
-  protected documentModel: DocumentModel;
+  protected currentDocument: DocumentModel;
 
   protected uploadModel: DynamicFormControlModel;
 
@@ -42,7 +42,14 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
-      this.document$.next(this.checkFiles(doc));
+      this.document$.next(this.prepareFiles(doc));
+    }
+  }
+
+  @Input()
+  set user(user: UserModel) {
+    if (!isValueEmpty(user)) {
+      this.currentUser$.next(user);
     }
   }
 
@@ -50,13 +57,6 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   set settings(settings: DocumentFormSettings) {
     if (!isValueEmpty(settings)) {
       this.formSettings$.next(settings);
-    }
-  }
-
-  @Input()
-  set currentUser(user: UserModel) {
-    if (!isValueEmpty(user)) {
-      this.currentUser$.next(user);
     }
   }
 
@@ -81,16 +81,15 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onBlur(event: any): void {
-    // console.log(`BLUR event on ${event.model.field}: `, event);
-    this.callback.emit(new DocumentFormEvent({ action: 'onBlur', status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.documentModel, ngFormSettings: this.ngFormSettings }));
+    this.callback.emit(new DocumentFormEvent({ action: 'onBlur', status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.currentDocument, ngFormSettings: this.ngFormSettings }));
   }
 
   onChange(event: any): void {
-    // console.log(`CHANGE event on ${event.model.field}: `, event);
+
   }
 
   onFocus(event: any): void {
-    // console.log(`FOCUS event on ${event.model.field}: `, event);
+
   }
 
   onCustomEvent(event: any): void {
@@ -98,20 +97,10 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       this.updateFormStatus({ childrenValid: event.$event.response });
     }
     if (['BATCH_UPLOAD', 'GALLERY_UPLOAD'].includes(event.type)) {
-      this.performBatchUpload(event);
-      this.callback.emit(new DocumentFormEvent({
-        action: 'UploadFilesChanged',
-        actionType: event.$event.type,
-        uploadType: event.type,
-        doc: this.documentModel,
-        status: this.formStatus$.value,
-        formValue: this.getFormValue(),
-        ngFormSettings: this.ngFormSettings,
-      }));
+      this.performUploadEvent(event);
     }
     if (event.type === 'SWITCH_TAB_CHANGED') {
-      this.performSwitchUploadModel(event.model);
-      this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.documentModel }));
+      this.performSwitchEvent(event);
     }
   }
 
@@ -125,38 +114,17 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onCancel(): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.documentModel }));
+    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.currentDocument }));
     if (this.formSettings.resetFormAfterDone) {
       this.resetForm();
     }
   }
 
   onCustomButton(button: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, formValue: this.getFormValue(), doc: this.documentModel }));
+    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, formValue: this.getFormValue(), doc: this.currentDocument }));
     if (button.triggerSave) {
       this.onSave();
     }
-  }
-
-  hideControls(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings): void {
-    if (settings.formMode === 'create') {
-      const type = uploadModel.settings.enableForm ? 'delete' : 'show';
-      this.modelOperation.next({ model: 'dc:title', type });
-    }
-  }
-
-  setDocumentTitle(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, res: NuxeoUploadResponse): void {
-    if (settings.formMode === 'create' && !uploadModel.settings.enableForm && !this.getFormValue('dc:title')) {
-      this.formGroup.patchValue({ 'dc:title': this.filterFileName(res.fileName) });
-    }
-  }
-
-  showMessageAfterUpload(): boolean {
-    return !this.formStatus$.value.submitting && this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.formMode === 'create' && this.formSettings.showUploadMessage;
-  }
-
-  showMessageBeforeSuccess(): boolean {
-    return this.formStatus$.value.submitting && this.formSettings.showMessageBeforeSave;
   }
 
   protected onInit(): void {
@@ -167,15 +135,32 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     this.formStatus$.next(this.formStatus$.value.update(status));
   }
 
-  protected checkFiles(doc: DocumentModel): DocumentModel {
-    const files = doc.get('files:files') || [];
-    if (files.every((f: any) => !f.file)) {
+  private performUploadEvent(event: any): void {
+    this.performBatchUpload(event);
+    this.callback.emit(new DocumentFormEvent({
+      action: 'UploadFilesChanged',
+      actionType: event.$event.type,
+      uploadType: event.type,
+      doc: this.currentDocument,
+      status: this.formStatus$.value,
+      formValue: this.getFormValue(),
+      ngFormSettings: this.ngFormSettings,
+    }));
+  }
+
+  private performSwitchEvent(event: any): void {
+    this.performSwitchUploadModel(event.model);
+    this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.currentDocument }));
+  }
+
+  protected prepareFiles(doc: DocumentModel): DocumentModel {
+    if ((doc.get('files:files') || []).every((f: any) => !f.file)) {
       doc.set({ 'files:files': [] });
     }
     return doc;
   }
 
-  protected filterPropertie(props: any = {}, formValue: any = {}): any {
+  protected prepareProperties(props: any = {}, formValue: any = {}): any {
     const properties = deepExtend({}, props, formValue);
     Object.keys(properties).forEach((key: string) => {
       if (!key.includes(':') || ['file:content', 'files:files'].includes(key)) { delete properties[key]; }
@@ -189,16 +174,6 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected createFormGroup(formModel: DynamicFormModel): FormGroup {
     return this.formService.createFormGroup(formModel);
-  }
-
-  protected prepareAccordionTab(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): any[] {
-    const accordionSettings = (settings.accordionSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, user, settings));
-    return accordionSettings.map((s: { name: string, position: string }) => ({ name: s.name, position: s.position, models: models.filter(m => m.accordionTab === s.name) }));
-  }
-
-  protected prepareSwitchTab(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): any[] {
-    const tabSettings = (settings.switchTabSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, user, settings));
-    return tabSettings.map((s: { name: string, active: boolean, disabledFn?: any }) => ({ name: s.name, active: s.active, disabled: (s.disabledFn && s.disabledFn(doc, user, settings)), models: models.filter(m => m.switchTab === s.name) }));
   }
 
   protected prepareFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, formModel: DynamicFormModel): DynamicFormModel {
@@ -236,10 +211,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected performNgFormSettings(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): void {
     const ngFormSettings = new DynamicNGFormSettings();
-    ngFormSettings.accordionSettings = this.prepareAccordionTab(doc, user, settings, models);
-    ngFormSettings.switchTabSettings = this.prepareSwitchTab(doc, user, settings, models);
     ngFormSettings.formModel = this.createFormModel(models);
-    ngFormSettings.enableLayoutRight = settings.enableLayoutRight;
     ngFormSettings.formMode = settings.formMode;
     this.ngFormSettings = ngFormSettings;
   }
@@ -259,12 +231,16 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       this.formSettings$,
     ]).subscribe(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => {
       this.loading = false;
-      this.user = user;
-      this.documentModel = doc;
-      this.formSettings = settings;
+      this.setFormDocument(doc, user, settings);
       this.performDocumentForm(doc, user, settings);
     });
     this.subscription.add(subscription);
+  }
+
+  protected setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
+    this.currentUser = user;
+    this.currentDocument = doc;
+    this.formSettings = settings;
   }
 
   protected getFormValue(field?: string): any {
@@ -285,16 +261,16 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected create(): void {
     let documents = [];
-    this.documentModel.properties = this.filterPropertie(this.documentModel.properties, this.getFormValue());
+    this.currentDocument.properties = this.prepareProperties(this.currentDocument.properties, this.getFormValue());
     if (this.formStatus$.value.uploadState === 'prepared') {
       if (this.getUploadFiles(this.uploadModel).length > 0) {
         this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
       }
     } else {
       if (this.formStatus$.value.uploadState === 'uploaded') {
-        documents = this.attachUploadFiles(this.documentModel, this.getUploadFiles(this.uploadModel));
+        documents = this.attachUploadFiles(this.currentDocument, this.getUploadFiles(this.uploadModel));
       } else {
-        documents = [this.documentModel];
+        documents = [this.currentDocument];
       }
       documents.forEach(doc => {
         if (!doc.properties['files:files'] || doc.properties['files:files'].length === 0) {
@@ -311,7 +287,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected update(): void {
-    let properties = this.filterPropertie(this.getFormValue());
+    let properties = this.prepareProperties(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'prepared') {
       if (this.getUploadFiles(this.uploadModel).length > 0) {
         this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
@@ -322,11 +298,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
         properties = this.updateUploadFiles(properties, files);
       }
 
-      if (this.documentModel.properties['nxtag:tags'] && properties['nxtag:tags']) {
-        this.documentModel.properties['nxtag:tags'] = properties['nxtag:tags'];
+      if (this.currentDocument.properties['nxtag:tags'] && properties['nxtag:tags']) {
+        this.currentDocument.properties['nxtag:tags'] = properties['nxtag:tags'];
       }
 
-      this.updateDocument(this.documentModel, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
+      this.updateDocument(this.currentDocument, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
         this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
       });
     }
@@ -405,8 +381,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     } else if (event.$event.type === 'FileSelected') {
       this.updateFormStatus({ uploadState: 'prepared' });
       this.performUploadModel(this.ngFormSettings, event.type);
-      this.hideControls(this.uploadModel, this.ngFormSettings);
-      this.setDocumentTitle(this.uploadModel, this.ngFormSettings, added[0]);
+      this.onUploadFileSelected(this.uploadModel, this.ngFormSettings, added);
     } else if (added.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
       this.updateFormStatus({ uploadState: 'uploading' });
     } else if (added.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
@@ -414,6 +389,10 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       this.onSave();
     }
     this.uploadCount = added.length;
+  }
+
+  protected onUploadFileSelected(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, res: NuxeoUploadResponse[]): void {
+
   }
 
   protected performUploadModel(settings: DynamicNGFormSettings, type: string): void {

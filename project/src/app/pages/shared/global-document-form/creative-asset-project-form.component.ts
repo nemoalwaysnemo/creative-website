@@ -10,7 +10,7 @@ import { DocumentFormSettings } from '../document-form/document-form.interface';
 
 @Component({
   selector: 'creative-asset-project-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
 

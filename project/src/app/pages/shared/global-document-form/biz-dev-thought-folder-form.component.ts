@@ -9,7 +9,7 @@ import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
   selector: 'biz-dev-thought-folder-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class BizDevThoughtFolderFormComponent extends GlobalDocumentFormComponent {
 
