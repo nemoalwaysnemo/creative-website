@@ -3,7 +3,7 @@
     <div class="left logo" title="Home" (click)="goHome()"></div>
   </div>
   <div class="creative-project-navigation-page-list">
-    <ng-select [items]="options" bindLabel="label" bindValue="value" [(ngModel)]="selectedItem" (change)="onChange($event)" [hideSelected]="true" [clearable]='false' [searchable]='false'></ng-select>
+    <ng-select [items]="options" #select (close)="select.blur()" bindLabel="label" bindValue="value" [(ngModel)]="selectedItem" (change)="onChange($event)" [hideSelected]="true" [clearable]='false' [searchable]='false'></ng-select>
   </div>
   <div class="creative-project-navigation-search">
     <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings"></global-search-form>

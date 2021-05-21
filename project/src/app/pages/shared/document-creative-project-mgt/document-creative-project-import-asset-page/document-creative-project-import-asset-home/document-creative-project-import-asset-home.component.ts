@@ -13,38 +13,11 @@ import { of as observableOf, Observable } from 'rxjs';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'document-creative-project-asset-home',
-  styleUrls: ['../../document-creative-project-mgt.component.scss', '../document-creative-project-import-asset.component.scss'],
-  templateUrl: './document-creative-project-asset-home.component.html',
+  selector: 'document-creative-project-import-asset-home',
+  styleUrls: ['../../document-creative-project-mgt.component.scss'],
+  templateUrl: './document-creative-project-import-asset-home.component.html',
 })
-export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeProjectMgtBaseComponent {
-
-  actions: NbMenuItem[] = [
-    {
-      id: 'import',
-      title: 'Import',
-      type: 'page',
-    },
-    {
-      id: '3rd-import',
-      title: 'Create 3rd Party Import',
-      type: 'page',
-    },
-    {
-      id: 'delivery',
-      title: 'Create Delivery Package',
-      type: 'page',
-    },
-    {
-      id: 'modif-assets',
-      title: ' Modify Assets',
-    },
-    {
-      id: 'set-usage-rights',
-      title: ' Set Usage Rights',
-      type: 'page',
-    },
-  ];
+export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCreativeProjectMgtBaseComponent {
 
   defaultParams: any = {
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
