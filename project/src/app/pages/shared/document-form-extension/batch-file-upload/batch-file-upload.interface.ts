@@ -26,6 +26,8 @@ export class BatchUploadStatus {
 
 export class BatchUploadSettings {
 
+  formMode: 'create' | 'edit' | 'view' = 'create';
+
   formModel: DynamicFormModel = [];
 
   enableForm: boolean = false;

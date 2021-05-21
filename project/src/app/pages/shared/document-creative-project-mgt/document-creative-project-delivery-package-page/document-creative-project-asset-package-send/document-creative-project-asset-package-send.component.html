@@ -2,7 +2,7 @@
   <div class="document-creative-project-asset-package-send" *ngIf="document">
     <div class="document-creative-project-asset-package-send-form">
       <div class="actions-title">PACKAGE SLIP</div>
-      <document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings"
+      <document-form [user]="currentUser" [document]="document" [settings]="formSettings"
         [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>
     </div>
     <!-- <div class="creative-project-asset-package-send-nav">

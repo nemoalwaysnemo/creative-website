@@ -9,7 +9,7 @@ import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-plugin-trigger-form',
-  template: `<document-form [currentUser]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"><ng-content select=".custom-button"></ng-content></document-form>`,
+  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"><ng-content select=".custom-button"></ng-content></document-form>`,
 })
 export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormComponent {
 

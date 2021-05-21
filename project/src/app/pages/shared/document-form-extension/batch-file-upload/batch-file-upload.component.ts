@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormService } from '@core/custom';
+import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@core/custom';
 import { BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { BatchUploadSettings, BatchUploadStatus } from './batch-file-upload.interface';
 import { DragDropFileZoneSettings } from '../drag-drop-file-zone/drag-drop-file-zone.interface';
@@ -256,7 +256,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   private performSubForm(response: NuxeoUploadResponse[]): void {
     for (const res of response) {
       if (res.isMainFile() && res.formMode === 'create') {
-        const formModels = this.formService.fromJSON(this.getFormModel(res));
+        const formModels = this.formService.fromJSON(this.getFileInputSettings(res));
         formModels.forEach(formModel => {
           const value = {};
           const filename = this.filterFileName(res.fileName);
@@ -276,5 +276,26 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private getFormModel(res: NuxeoUploadResponse): any[] {
     return (this.uploadSettings.formModel || []).map(m => { m.field = `${m.id}_${res.fileIdx}`; return m; });
+  }
+
+  private getFileInputSettings(res: NuxeoUploadResponse): any[] {
+    return [
+      new DynamicInputModel({
+        id: `${res.fileIdx}_title`,
+        maxLength: 150,
+        placeholder: `Asset title`,
+        autoComplete: 'off',
+        required: false,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{placeholder}} is required',
+          minLength: 'At least 4 characters',
+        },
+      }),
+    ];
+
   }
 }
