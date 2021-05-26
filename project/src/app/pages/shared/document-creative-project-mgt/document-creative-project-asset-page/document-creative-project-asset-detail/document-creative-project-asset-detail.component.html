@@ -1,24 +1,33 @@
-<div class="creative-project-asset-detail-nav">
-  <div class="left logo" title="Home" (click)="goHome()">Assets View</div>
-</div>
-<div class="creative-project-asset-detail-action">
-  <div>ACTIONS</div>
+<div class="document-creative-project-home-action">
+  <div class="actions-title">ACTIONS</div>
   <ul>
-    <li *ngIf="writePermission$ | async"><button type="button" (click)="changeDialogView('edit')">Edit</button></li>
+    <li *ngIf="writePermission$ | async">
+      <button type="button" class="action-btn" (click)="changeDialogView('edit')">Edit</button>
+    </li>
     <li *ngIf="downloadPermission$ | async">
-      <a *ngIf="document.filePath" href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download"><button title="Download">Download</button></a></li>
-    <li><button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button></li>
+      <a *ngIf="document.filePath" href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download">
+        <button title="Download" class="action-btn">Download</button>
+      </a>
+    </li>
+    <li><button class="share right action-btn" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button></li>
     <li>
       <document-new-poster-button class="poster" [document]="document" [enable]="enableThumbnailCreation"></document-new-poster-button>
     </li>
     <li *ngIf="deletePermission$ | async">
-      <button class="delete" (click)="changeDialogView('delete')">Delete</button>
+      <button class="delete" class="action-btn" (click)="changeDialogView('delete')">Delete</button>
     </li>
   </ul>
 </div>
-<div class="creative-project-asset-detail-info">
-  <div class="media">
+<div class="document-creative-project-home-nav detail-menu">
+  <div class="left logo" title="Home" (click)="goHome()">Assets View</div>
+  <h3>{{document.title}}</h3>
+</div>
+<div class="document-creative-project-home-list">
+  <div class="asset-media">
     <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
+  </div>
+  <div class="asset-info">
+    <document-creative-project-asset-detail-info [documentModel]="document"></document-creative-project-asset-detail-info>
   </div>
 </div>
 <ng-template #popContent>

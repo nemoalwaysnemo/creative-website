@@ -1,11 +1,13 @@
 <div class="document-creative-project-home-action">
   <div class="actions-title">ACTIONS</div>
   <nb-menu [items]="actions" (itemClick)="onMenuClick($event)"></nb-menu>
+  <div class="document-creative-project-info">
+    <document-creative-project-info [document]='document'></document-creative-project-info>
+  </div>
 </div>
 <div class="document-creative-project-home-nav">
   <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
 </div>
 <div class="document-creative-project-home-list">
-  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset">
-  </list-search-form-in-dialog>
+  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset" [afterSearch]="afterSearch"></list-search-form-in-dialog>
 </div>

@@ -18,13 +18,13 @@
 
 .wide-dialog-container {
 	@include media-breakpoint-down(lg) { //992px
-	width: 840px;
+		width: 840px;
 	}
-	@include media-breakpoint-between(lg, xxl) { //992px - 1400px
-	width: 990px;
+	@include media-breakpoint-between(lg, xxl) { //992px - 1700px
+		width: 990px;
 	}
-	@include media-breakpoint-up(xxl) { //1400px
-		width: 1300px;
+	@include media-breakpoint-up(xxl) { //1700px
+		width: 1700px;
 	}
 	min-width: 800px;
 	background: #ffffff;

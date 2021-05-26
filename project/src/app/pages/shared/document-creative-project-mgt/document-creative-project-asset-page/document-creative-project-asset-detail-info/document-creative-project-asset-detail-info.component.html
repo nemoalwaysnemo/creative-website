@@ -1,0 +1,19 @@
+<document-usage-rights-status [document]="document"></document-usage-rights-status>
+<div class="creative-project-asset-detail-info">
+  <div class="page-content">
+    <nb-tabset fullWidth (changeTab)="onChangTab($event)">
+      <nb-tab *ngFor="let item of tabItems" [active]="currentTab && currentTab.name === item.name" tabTitle="{{item.name}}" class="nb-tab" responsive>
+        <ng-template [ngTemplateOutlet]="templateRef"></ng-template>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</div>
+<ng-template #assetInfoItemView>
+  <document-creative-project-tab-asset-info [documentModel]="document"></document-creative-project-tab-asset-info>
+</ng-template>
+<ng-template #usageRightsItemView>
+  <document-creative-project-tab-asset-usage-rights [documentModel]="document"></document-creative-project-tab-asset-usage-rights>
+</ng-template>
+<ng-template #assetRequestsItemView>
+  <document-creative-project-tab-asset-request [documentModel]="document"></document-creative-project-tab-asset-request>
+</ng-template>
