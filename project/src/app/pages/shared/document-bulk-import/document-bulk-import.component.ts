@@ -1,13 +1,11 @@
 import { Component, Input, Output, OnInit, OnDestroy, forwardRef, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DocumentModel, UserModel } from '@core/api';
-import { DynamicBatchUploadModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { isValueEmpty } from '@core/services/helpers';
+import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { of as observableOf, Observable, Subscription, Subject, combineLatest } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
-import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
-import { DocumentPageService } from '../services/document-page.service';
-import { DocumentBulkImportSettings } from './document-bulk-import.interface';
 
 @Component({
   selector: 'document-bulk-import',
@@ -45,7 +43,7 @@ export class DocumentBulkImportComponent implements OnInit, OnDestroy, ControlVa
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
-  private formSettings$: Subject<DocumentBulkImportSettings> = new Subject<DocumentBulkImportSettings>();
+  private formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
 
   private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
@@ -106,7 +104,7 @@ export class DocumentBulkImportComponent implements OnInit, OnDestroy, ControlVa
     return observableOf(event);
   }
 
-  private beforeSetDocument(doc: DocumentModel, user: UserModel, settings: DocumentBulkImportSettings): Observable<DocumentModel> {
+  private beforeSetDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): Observable<DocumentModel> {
     return observableOf(doc);
   }
 
@@ -116,49 +114,21 @@ export class DocumentBulkImportComponent implements OnInit, OnDestroy, ControlVa
       this.documentPageService.getCurrentUser(),
       this.formSettings$,
     ]).pipe(
-      concatMap(([doc, user, settings]: [DocumentModel, UserModel, DocumentBulkImportSettings]) => combineLatest([
+      concatMap(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => combineLatest([
         this.beforeSetDocument(doc, user, settings),
         observableOf(user),
         observableOf(settings),
       ])),
-    ).subscribe(([doc, user, settings]: [DocumentModel, UserModel, DocumentBulkImportSettings]) => {
+    ).subscribe(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => {
       this.setFormDocument(doc, user, settings);
     });
     this.subscription.add(subscription);
   }
 
-  private setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentBulkImportSettings): void {
-    this.formSettings = this.performFormSettings(settings);
+  private setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
+    this.formSettings = settings;
     this.currentUser = user;
     this.document = doc;
   }
 
-  private performFormSettings(settings: DocumentBulkImportSettings): DocumentFormSettings {
-    settings.formSettings.formModel = this.getDefaultFormModel(settings);
-    return settings.formSettings;
-  }
-
-  private getDefaultFormModel(settings: DocumentBulkImportSettings): any[] {
-    return [
-      new DynamicDragDropFileZoneModel<string>({
-        id: 'file:content',
-        formMode: 'create',
-        settings: {
-          xpath: 'file:content',
-          queueLimit: settings.queueLimit,
-          placeholder: settings.placeholder,
-          acceptTypes: settings.acceptTypes,
-        },
-      }),
-      new DynamicBatchUploadModel<string>({
-        id: 'batchUpload',
-        formMode: 'create',
-        settings: {
-          enableForm: true,
-          enableAction: true,
-          formModel: settings.formModel,
-        },
-      }),
-    ];
-  }
 }

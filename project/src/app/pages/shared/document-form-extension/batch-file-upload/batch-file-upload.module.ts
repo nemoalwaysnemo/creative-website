@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgFileModule } from '@core/custom';
 import { APIModule } from '@core/api';
 import { ThemeModule } from '@theme/theme.module';
+import { NbSpinnerModule } from '@core/nebular/theme';
 import { BatchFileUploadComponent } from './batch-file-upload.component';
 import { DragDropFileZoneModule } from '../drag-drop-file-zone/drag-drop-file-zone.module';
 import { DynamicFormsBaseNGUIModule } from '../dynamic-ng-form/dynamic-ng-form-base-ui.module';
@@ -15,6 +16,7 @@ import { DynamicFormsBaseNGUIModule } from '../dynamic-ng-form/dynamic-ng-form-b
     FormsModule,
     ThemeModule,
     CommonModule,
+    NbSpinnerModule,
     DragDropFileZoneModule,
     DynamicFormsBaseNGUIModule,
   ],

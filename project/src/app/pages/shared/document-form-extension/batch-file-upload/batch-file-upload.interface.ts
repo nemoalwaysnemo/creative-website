@@ -1,4 +1,7 @@
+import { NuxeoUploadResponse } from '@core/api';
 import { DynamicFormModel } from '@core/custom';
+import { DynamicInputModel } from '@core/custom/ng-dynamic-forms/model/input/dynamic-input.model';
+import { Observable, of as observableOf } from 'rxjs';
 
 export class BatchUploadStatus {
 
@@ -28,11 +31,29 @@ export class BatchUploadSettings {
 
   formMode: 'create' | 'edit' | 'view' = 'create';
 
-  formModel: DynamicFormModel = [];
+  formModel: DynamicFormModel = [
+    new DynamicInputModel({
+      id: 'dc:title',
+      maxLength: 150,
+      placeholder: `Asset title`,
+      autoComplete: 'off',
+      required: false,
+      validators: {
+        required: null,
+        minLength: 4,
+      },
+      errorMessages: {
+        required: '{{placeholder}} is required',
+        minLength: 'At least 4 characters',
+      },
+    }),
+  ];
 
   enableForm: boolean = false;
 
   enableAction: boolean = false;
+
+  onFilesChangedFn: (items: NuxeoUploadResponse[]) => Observable<NuxeoUploadResponse[]> = (items: NuxeoUploadResponse[]) => observableOf(items);
 
   constructor(data: any = {}) {
     Object.assign(this, data);

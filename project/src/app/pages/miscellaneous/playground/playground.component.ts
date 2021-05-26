@@ -2,11 +2,10 @@ import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, TemplateRef } f
 import { DocumentModel, AdvanceSearchService, UserModel } from '@core/api';
 import { concatMap, map } from 'rxjs/operators';
 import { GlobalDocumentDialogService, OptionModel } from '../../shared';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
-import { SuggestionSettings } from '../../shared/document-form-extension';
 import { DocumentFormSettings } from '../../shared/document-form/document-form.interface';
-import { DocumentBulkImportSettings } from '../../shared/document-bulk-import';
+import { SuggestionSettings } from '../../shared/document-form-extension';
 
 @Component({
   selector: 'playground',
@@ -18,7 +17,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   document: DocumentModel;
 
-  bulkImportSettings: DocumentBulkImportSettings = new DocumentBulkImportSettings({
+  bulkImportSettings: DocumentFormSettings = new DocumentFormSettings({
     formModel: [
       new DynamicInputModel({
         id: 'dc:title',
@@ -92,7 +91,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.load('236d22bb-e220-4a42-a7f5-610fa8a96b19');
+    this.load('883c3b10-a3e7-4f4f-a5fd-a44abaa7f856');
     // this.create();
     // this.update();
   }
