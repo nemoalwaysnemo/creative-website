@@ -1,0 +1,150 @@
+<div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="document" class="document">
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Project</h4><span>{{jobTitle}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Campaign</h4><span>{{campaignName}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Jobnumber</h4><span>{{document.get('The_Loupe_Main:jobnumber')}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Production Date</h4>
+        <span>{{document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Brand</h4><span>{{document.get('The_Loupe_Main:brand')}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Asset Type</h4><span>{{document.get('The_Loupe_Main:assettype')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Client</h4><span>{{document.get('The_Loupe_Main:clientName')}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Business Unit</h4><span>{{document.get('The_Loupe_Main:business_unit')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Industry</h4><span>{{document.get('app_Edges:industry')}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Product</h4><span>{{document.get('The_Loupe_Main:productModel')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>About</h4><span>{{document.get('dc:description')}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Product Year</h4><span>{{document.get('The_Loupe_Product_Info:productYear2')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Agency Network</h4><span>{{document.get('The_Loupe_Main:agency_network')}}</span>
+      </div>
+      <!-- #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('enable_region')=="0" ? 'hidden' : 'view'} -->
+      <div class="showcase-area" *ngIf="document.get('app_global_fields:enable_region') !== 'false'">
+        <h4>Region</h4><span>{{document.get('The_Loupe_Main:region')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Agency</h4><span>{{document.get('The_Loupe_Main:agency')}}</span>
+      </div>
+      <!-- #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('enable_po_number_internal')=="0" ? 'hidden' : 'view'} -->
+      <div class="showcase-area" *ngIf="document.get('app_global_fields:enable_po_number_internal') !== 'false'">
+        <h4>PO Number</h4><span>{{document.get('The_Loupe_Main:po_number_internal')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <div class="showcase-area">
+        <h4>Country</h4><span>{{document.get('The_Loupe_Main:country')}}</span>
+      </div>
+      <div class="showcase-area">
+        <h4>Category</h4><span>{{document.get('app_Edges:backslash_category')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <!-- #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('backslash')=="0" ? 'hidden' : 'view'} -->
+      <div class="showcase-area" *ngIf="document.get('app_global:backslash') !== 'false'">
+        <h4>\Edges</h4><span>{{document.get('app_Edges:Tags_edges')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <!-- #{currentUser.isMemberOf('Everyone-o-tbwa-AUTOPOP') && documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('networkshare') ? 'view' : 'hidden'} -->
+      <div class="showcase-area" *ngIf="document.getParentProperty('app_global:networkshare') === 'true' && hasGroup$ | async">
+        <h4>Published to Showcase</h4><span>{{document.get('app_global:networkshare')}}</span>
+      </div>
+    </div>
+    <div class="one-row">
+      <!-- #{currentUser.isMemberOf('Everyone-o-tbwa-AUTOPOP') && documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('collections') ? 'view' : 'hidden'} -->
+      <div class="showcase-area" *ngIf="document.getParentProperty('app_global:collections') === 'true' && hasGroup$ | async">
+        <h4>Collections</h4><span>{{document.get('collectionMember:collectionIds')}}</span>
+      </div>
+      <!-- #{currentUser.isMemberOf('Everyone-o-users-AUTOPOP') && documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('collections_for_clients') ? 'view' : 'hidden'} -->
+      <div class="showcase-area" *ngIf="document.getParentProperty('app_global:collections_for_clients') === 'true' && hasGroup$ | async">
+        <h4>Collections</h4><span>{{document.get('collectionMember:collectionIds')}}</span>
+      </div>
+    </div>
+    <nb-accordion class="accordion asset-info-accordion">
+      <nb-accordion-item [collapsed]="true" class="accordion-item">
+        <nb-accordion-item-header class="accordion-item-header">
+          <span class="asset-info-accordion-header">Agency Credits</span>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body class="accordion-item-body">
+          <table>
+            <tbody>
+              <tr>
+                <th>Account Director:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:accountDirector')}}</td>
+              </tr>
+              <tr>
+                <th>Creative Director:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:creativeDirector')}}</td>
+              </tr>
+              <tr>
+                <th>Art Director:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:artDirector')}}</td>
+              </tr>
+              <tr>
+                <th>Copy Writer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:copyWriter')}}</td>
+              </tr>
+              <tr>
+                <th>Broadcast Producer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:broadcastProducer')}}</td>
+              </tr>
+              <tr>
+                <th>Print Producer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:printProducer')}}</td>
+              </tr>
+              <tr>
+                <th>Digital Producer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:digitalProducer')}}</td>
+              </tr>
+              <tr>
+                <th>Agency Executive Producer:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:agencyExecutiveProducer')}}</td>
+              </tr>
+              <tr>
+                <th>Project Manager:&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <td>{{document.get('The_Loupe_Credits:projectManager')}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+</div>

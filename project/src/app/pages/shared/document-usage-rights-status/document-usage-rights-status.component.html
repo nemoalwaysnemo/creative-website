@@ -1,7 +1,8 @@
-<div>
+<div class="document-usage-rights-status">
   <ul class="light">
     <ng-container *ngFor="let light of lights">
       <li>
+        <h4>{{light.type}}</h4>
         <div class="{{light.style}} ">{{light.message}}</div>
         {{light.date ? (light.date | date:'MMM d, yyyy':'UTC') : 'N/A'}}
       </li>

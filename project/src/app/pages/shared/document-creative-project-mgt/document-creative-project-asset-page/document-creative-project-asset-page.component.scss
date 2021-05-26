@@ -1,0 +1,96 @@
+.document-creative-project-info {
+  background-color: #e1e1e1;
+  padding: 5px;
+  margin-top: 5px;
+}
+.creative-project-asset-page {
+  margin: 10px;
+}
+.creative-project-asset-page ::ng-deep document-list-view {
+  img {
+    cursor: pointer;
+  }
+}
+.creative-project-asset-page ::ng-deep .poster-btn {
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  width: 100%;
+  background-color: #e1e1e1;
+  border: solid 1px #e1e1e1;
+  cursor: pointer;
+  font-weight: 400;
+  text-align: center;
+}
+.detail-menu {
+  background-color: #5c5858;
+  width: 79.2%;
+}
+.logo {
+  margin: 8px;
+  color: #ffffff;
+  font-weight: 600;
+}
+h3 {
+  font-size: 18px;
+  color: #ffffff;
+  padding-left: 10px;
+  line-height: 30px;
+  height: 30px;
+  margin-left: 5px;
+  padding-top: 3px;
+}
+.document-creative-project-asset-detail ::ng-deep document-image-viewer {
+  img {
+    height: 400px;
+  }
+}
+.asset-media {
+  width: 30%;
+  float: left;
+}
+.asset-info {
+  width: 70%;
+  float: right;
+}
+.one-row {
+  width: calc(100% - 30px);
+  margin: 10px auto;
+  box-sizing: border-box;
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  > .showcase-area {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    margin: 0 0 10px;
+  }
+  &::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+}
+.asset-info-accordion {
+  margin-left: 15px;
+  margin-bottom: 10px;
+  .asset-info-accordion-header {
+    font-family: 'Averta for TBWA W01 Regular', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: #2a2a2a;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .accordion-item-header {
+    padding: 0;
+    border-bottom-style: none;
+  }
+}
+.creative-project-asset-detail-info ::ng-deep nb-tabset {
+  .tabset {
+    width: 102.2%;
+    padding-left: 15px;
+  }
+}

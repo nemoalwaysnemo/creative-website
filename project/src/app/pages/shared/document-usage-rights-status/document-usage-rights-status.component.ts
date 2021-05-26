@@ -7,11 +7,13 @@ class Light {
   message: string;
   date: Date;
   style: string;
+  type: string;
 
-  constructor(message: any, date: any, style: string) {
+  constructor(message: any, date: any, style: string, type: string) {
     this.message = message;
     this.date = date;
     this.style = style;
+    this.type = type;
   }
 }
 
@@ -31,7 +33,14 @@ export class DocumentUsageRightsStatusComponent {
 
   usageRights: any = {};
 
-  lights: Light[] = [new Light('no', null, 'no  '), new Light('no', null, 'no  ')];
+  lights: Light[] = [new Light('no', null, 'no  ', ''), new Light('no', null, 'no  ', '')];
+
+  urList: Map<string, string> = new Map<string, string>([
+    ['App-Library-UsageRights-Talent', 'Talent'],
+    ['App-Library-UsageRights-Music', 'Music'],
+    ['App-Library-UsageRights-Photographer', 'Photographer'],
+    ['App-Library-UsageRights-Stock', 'Stock'],
+  ]);
 
   constructor(
     private documentPageService: DocumentPageService,
@@ -53,25 +62,41 @@ export class DocumentUsageRightsStatusComponent {
   buildLightList(): void {
     if (this.hasUsageRight()) {
       this.lights = [];
-      this.lights.push(this.buildLight(this.usageRights.MUSIC));
       this.lights.push(this.buildLight(this.usageRights.MODEL));
+      this.lights.push(this.buildLight(this.usageRights.MUSIC));
       this.lights.push(this.buildLight(this.usageRights.PHOTO));
       this.lights.push(this.buildLight(this.usageRights.STOCK));
     }
   }
 
   buildLight(contract: any): Light {
-    let message: any, date: any, style: string;
+    let message: any, date: any, style: string, type: string;
     if (contract.info_messages.length > 0) {
       message = contract.info_messages;
-      style = 'error';
+      style = 'warning';
     } else {
       message = contract.days_left;
       if (!!contract.end_date) {
         date = new Date(contract.end_date);
       }
-      style = parseInt(message, 10) > 0 ? 'info' : 'waring';
+      style = this.getExpiredType(message);
     }
-    return new Light(message, date, style);
+    type = this.urList.get(contract.doc_type);
+    return new Light(message, date, style, type);
+  }
+
+  getExpiredType(left: string): string {
+    const days_left = parseInt(left, 10);
+    if (days_left > 90) {
+      return 'notExpired';
+    } else if (days_left > 30) {
+      return 'expiring';
+    } else if (days_left > 0) {
+      return 'expiringSoon';
+    } else if (days_left <= 0) {
+      return 'expired';
+    } else {
+      return 'warning';
+    }
   }
 }

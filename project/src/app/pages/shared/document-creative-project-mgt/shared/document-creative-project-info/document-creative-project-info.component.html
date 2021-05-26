@@ -1,13 +1,13 @@
 <ng-container *ngIf="doc">
   <div class="doc-info"[nbSpinner]="loading" nbSpinnerStatus="disabled">
-    <h2>{{ doc.title }}</h2>
-    <h4>{{ doc.get('The_Loupe_Main:description') }}</h4>
     <div class="details">
-      <p><b>Campaign</b></p>
-      <p><b>Live Date</b>
+      <p><b>Campaign</b><br>
+        <span> {{ campaignName }}</span>
+      </p>
+      <p><b>Live Date</b><br>
         <span> {{ doc.get('The_Loupe_Main:liveDate2') }}</span>
       </p>
-      <p><b>Start Date</b>
+      <p><b>Start Date</b><br>
         <span></span>
       </p>
       <p><b>Agency</b><br>
