@@ -1,5 +1,6 @@
-import { DocumentModel } from '@core/api';
-import { DynamicFormLayout, DynamicFormModel } from '@core/custom';
+import { DocumentModel, NuxeoUploadResponse } from '@core/api';
+import { DynamicFormModel } from '@core/custom';
+import { Observable, of as observableOf } from 'rxjs';
 
 export class DocumentFormEvent {
   [key: string]: any;
@@ -52,11 +53,33 @@ export class DocumentFormStatus {
   }
 }
 
+export class DocumentImportSettings {
+
+  placeholder: string = 'Drop files here!';
+
+  acceptTypes: string = '*';
+
+  queueLimit: number = 10;
+
+  initializeDocument: boolean = true;
+
+  getDocType(item: NuxeoUploadResponse): string {
+    return 'App-Library-Image';
+  }
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+    return this;
+  }
+}
+
 export class DocumentFormSettings {
 
   actionOptions: any = {};
 
   formModel: DynamicFormModel = [];
+
+  importSettings: DocumentImportSettings = new DocumentImportSettings();
 
   accordionSettings: { name: string, position?: string, visibleFn?: any }[] = [];
 

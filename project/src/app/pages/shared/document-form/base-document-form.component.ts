@@ -177,7 +177,8 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected prepareFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, formModel: DynamicFormModel): DynamicFormModel {
-    formModel.forEach((model: DynamicFormControlModel) => {
+    const formModels = formModel.map((m: DynamicFormControlModel) => {
+      const model = Object.assign(Object.create(Object.getPrototypeOf(m)), m);
       const modelValue = doc.get(model.field);
       if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, user, settings); }
       if (model.settings) { model.settings.formMode = settings.formMode; }
@@ -192,10 +193,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
         model.value = modelValue;
       }
       if (model instanceof DynamicListModel) {
-        this.prepareFormModel(doc, user, settings, model.settings.items);
+        model.settings.items = this.prepareFormModel(doc, user, settings, model.settings.items);
       }
+      return model;
     });
-    return formModel;
+    return formModels;
   }
 
   protected performFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): DynamicFormModel {
@@ -210,10 +212,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected performNgFormSettings(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): void {
-    const ngFormSettings = new DynamicNGFormSettings();
-    ngFormSettings.formModel = this.createFormModel(models);
-    ngFormSettings.formMode = settings.formMode;
-    this.ngFormSettings = ngFormSettings;
+    this.ngFormSettings = new DynamicNGFormSettings();
   }
 
   protected createDocumentForm(models: DynamicFormModel): void {
@@ -346,8 +345,9 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       const model = this.newDocumentModel(doc);
       model.properties = this.updateUploadFiles(model.properties, res);
       model.properties = this.updateUploadFiles(model.properties, files.filter((r: NuxeoUploadResponse) => !r.isMainFile()));
-      if (!!res.title && this.uploadModel.settings.enableForm) {
-        model.properties['dc:title'] = res.title;
+      if (!isValueEmpty(res.attributes) && this.uploadModel.settings.enableForm) {
+        model.properties = Object.assign({}, model.properties, res.attributes);
+        delete res.attributes;
       }
       return model;
     });
