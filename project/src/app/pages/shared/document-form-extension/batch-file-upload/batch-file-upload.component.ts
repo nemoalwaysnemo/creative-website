@@ -264,8 +264,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
           this.documents[item.fileIdx] = item.document;
           delete item.document;
         }
-        const model = item.formModel || this.uploadSettings.formModel;
-        // const model = Object.assign(Object.create(Object.getPrototypeOf(m)), JSON.parse(JSON.stringify(item.formModel)));
+        const model = item.formModel || this.uploadSettings.formModel.map(m => Object.assign({}, m));
         const models = model.map((m: DynamicFormControlModel) => {
           m.field = m.id.split('__').shift();
           m.id = `${m.field}__${item.fileIdx}`;
