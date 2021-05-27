@@ -307,7 +307,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   private getRequestParams(doc: DocumentModel): any {
     const jobTitle = doc.get('The_Loupe_Main:jobtitle');
-    return { ecm_uuid: `["${jobTitle.join('", "')}"]`, pageSize: jobTitle.length };
+    return { ecm_uuid: `["${jobTitle.join('", "')}"]`, pageSize: jobTitle.length, ecm_mixinType_not_in: ''};
   }
 
   hasBrand(): boolean {
