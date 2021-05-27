@@ -21,11 +21,11 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
     acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
     importSettings: {
       getDocType: (item: NuxeoUploadResponse): string => {
-        if (['video'].includes(item.mimeType)) {
+        if (['video'].some(x => item.mimeType.includes(x))) {
           return 'App-Library-Video';
-        } else if (['image', 'pdf'].includes(item.mimeType)) {
+        } else if (['image', 'pdf'].some(x => item.mimeType.includes(x))) {
           return 'App-Library-Image';
-        } else if (['audio'].includes(item.mimeType)) {
+        } else if (['audio'].some(x => item.mimeType.includes(x))) {
           return 'App-Library-Audio';
         }
       },

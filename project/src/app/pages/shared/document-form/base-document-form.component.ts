@@ -277,7 +277,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
           delete doc.properties['files:files'];
         }
       });
-      this.createDocuments(documents, this.user, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
+      this.createDocuments(documents, this.currentUser, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
         this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
         if (this.formSettings.resetFormAfterDone) {
           this.resetForm();
@@ -302,7 +302,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
         this.currentDocument.properties['nxtag:tags'] = properties['nxtag:tags'];
       }
 
-      this.updateDocument(this.currentDocument, properties, this.user, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
+      this.updateDocument(this.currentDocument, properties, this.currentUser, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
         this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
       });
     }

@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, OnDestroy, forwardRef, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DocumentModel, UserModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
 import { DocumentPageService } from '../services/document-page.service';
@@ -17,7 +17,7 @@ import { concatMap, tap } from 'rxjs/operators';
     multi: true,
   }],
 })
-export class DocumentBulkImportComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class DocumentBulkImportComponent implements OnInit, OnDestroy {
 
   @Input()
   set documentModel(doc: DocumentModel) {
@@ -49,32 +49,12 @@ export class DocumentBulkImportComponent implements OnInit, OnDestroy, ControlVa
 
   private subscription: Subscription = new Subscription();
 
-  private _onChange = (_) => { };
-
-  private _onTouched = () => { };
-
   beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => doc;
 
   afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
 
   constructor(private documentPageService: DocumentPageService) {
     this.onDocumentChanged();
-  }
-
-  writeValue(values: any): void {
-
-  }
-
-  registerOnChange(fn: any): void {
-    this._onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this._onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
   }
 
   ngOnInit(): void {
