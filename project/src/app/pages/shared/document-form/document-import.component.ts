@@ -28,6 +28,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   }
 
   protected performDocumentForm(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
+    settings.enableBulkImport = true;
     const models = this.getImportFormModel(settings);
     this.performNgFormSettings(doc, user, settings, models);
     this.createDocumentForm(models);
@@ -70,9 +71,10 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   }
 
   protected initializeImportFormModel(parent: DocumentModel, settings: DocumentFormSettings, item: NuxeoUploadResponse): Observable<NuxeoUploadResponse> {
-    return (settings.importSettings.initializeDocument ? this.initializeDocument(parent, settings, item) : observableOf(parent.newInstance(settings.importSettings.getDocType(item)))).pipe(
+    return (settings.importSettings.initializeDocument ? this.initializeDocument(parent, settings, item) : observableOf(parent.newInstance(this.getDocType(settings, item)))).pipe(
       map((doc: DocumentModel) => {
         if (!item.formModel) {
+          item.document = doc;
           item.formModel = this.performFormModel(doc, this.currentUser, settings);
         }
         return item;
@@ -85,7 +87,15 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   }
 
   protected initializeDocument(parent: DocumentModel, settings: DocumentFormSettings, item: NuxeoUploadResponse): Observable<DocumentModel> {
-    return this.documentPageService.initializeDocument(parent, settings.importSettings.getDocType(item));
+    return this.documentPageService.initializeDocument(parent, this.getDocType(settings, item));
+  }
+
+  protected getDocType(settings: DocumentFormSettings, item: NuxeoUploadResponse): string {
+    const type = settings.importSettings.getDocType(item);
+    if (!type) {
+      throw new Error(`unknown document type for '${item.fileName}'`);
+    }
+    return type;
   }
 
 }

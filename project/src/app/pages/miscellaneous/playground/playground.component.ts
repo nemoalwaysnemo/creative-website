@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
-import { DocumentModel, AdvanceSearchService, UserModel } from '@core/api';
+import { DocumentModel, AdvanceSearchService, UserModel, NuxeoUploadResponse } from '@core/api';
 import { concatMap, map } from 'rxjs/operators';
 import { GlobalDocumentDialogService, OptionModel } from '../../shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
@@ -18,6 +18,18 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   document: DocumentModel;
 
   bulkImportSettings: DocumentFormSettings = new DocumentFormSettings({
+    acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
+    importSettings: {
+      getDocType: (item: NuxeoUploadResponse): string => {
+        if (['video'].includes(item.mimeType)) {
+          return 'App-Library-Video';
+        } else if (['image', 'pdf'].includes(item.mimeType)) {
+          return 'App-Library-Image';
+        } else if (['audio'].includes(item.mimeType)) {
+          return 'App-Library-Audio';
+        }
+      },
+    },
     formModel: [
       new DynamicInputModel({
         id: 'dc:title',

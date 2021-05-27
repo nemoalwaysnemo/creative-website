@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@core/custom';
-import { BatchUpload, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
-import { BatchUploadSettings, BatchUploadStatus } from './batch-file-upload.interface';
+import { BatchUpload, DocumentModel, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { DragDropFileZoneSettings } from '../drag-drop-file-zone/drag-drop-file-zone.interface';
 import { DragDropFileZoneService } from '../drag-drop-file-zone/drag-drop-file-zone.service';
-import { DocumentPageService } from '../../services/document-page.service';
-import { isValueEmpty } from '@core/services/helpers';
 import { BehaviorSubject, Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { concatMap, filter, mergeMap, tap } from 'rxjs/operators';
+import { BatchUploadSettings, BatchUploadStatus } from './batch-file-upload.interface';
+import { DynamicFormControlModel, DynamicFormService } from '@core/custom';
+import { DocumentPageService } from '../../services/document-page.service';
+import { isValueEmpty } from '@core/services/helpers';
 
 @Component({
   selector: 'batch-file-upload',
@@ -44,11 +44,13 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   loading: boolean = false;
 
-  formModels: DynamicFormControlModel[] = [];
-
   formGroups: FormGroup[] = [];
 
+  formModels: DynamicFormControlModel[] = [];
+
   private batchUpload: BatchUpload;
+
+  private documents: DocumentModel[] = [];
 
   private subscription: Subscription = new Subscription();
 
@@ -92,15 +94,15 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onBlur(event: any): void {
-    // console.log(`BLUR event on ${event.model.field}: `, event);
+    this.checkSubFormStatus();
   }
 
   onChange(event: any): void {
-    // this.updateFileTitle(event.model.field, event.model.value);
+
   }
 
   onFocus(event: any): void {
-    // console.log(`FOCUS event on ${event.model.field}: `, event);
+
   }
 
   onCustomEvent(event: any): void {
@@ -119,14 +121,18 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   removeOne(index: number): void {
     const file = this.uploadItems[index];
-    this.uploadItems.splice(index, 1);
+    this.documents.splice(index, 1);
     this.formModels.splice(index, 1);
     this.formGroups.splice(index, 1);
+    this.uploadItems.splice(index, 1);
     this.uploadItems.forEach((res: NuxeoUploadResponse, i: number) => { res.fileIdx = i; res.blob.fileIdx = i; this.queueFiles[file.xpath][file.fileName] = false; });
     this.emitUploadResponse('FileChanged', this.uploadItems);
   }
 
   removeAll(): void {
+    this.documents.length = 0;
+    this.formModels.length = 0;
+    this.formGroups.length = 0;
     this.uploadItems.length = 0;
     this.emitUploadResponse('FileChanged', []);
   }
@@ -222,13 +228,22 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.onUpload.emit({ type: 'FileSelected', response: items });
     if (this.uploadSettings.enableForm) {
       this.performSubForm(items);
+      this.checkSubFormStatus();
+    } else {
+      this.valid.emit({ type: 'valid', response: true });
     }
   }
 
   private updateFileResponse(item: NuxeoUploadResponse): void {
     const index = this.uploadItems.findIndex((response: NuxeoUploadResponse) => item.fileIdx.toString() === response.fileIdx.toString());
     if (this.uploadSettings.enableForm) {
-      item.attributes = this.formGroups[index].value;
+      const formValue = this.formGroups[index].value;
+      item.document = this.documents[item.fileIdx];
+      if (item.document) {
+        item.document.properties = Object.assign({}, item.document.properties, formValue);
+      } else {
+        item.attributes = formValue;
+      }
     }
     this.uploadItems[index] = item;
     const uploaded = this.uploadItems.every((response: NuxeoUploadResponse) => response.uploaded);
@@ -245,8 +260,13 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     const formGroups = [];
     items.forEach((item: NuxeoUploadResponse, index: number) => {
       if (item.isMainFile() && item.formMode === 'create') {
+        if (item.document) {
+          this.documents[item.fileIdx] = item.document;
+          delete item.document;
+        }
         const model = item.formModel || this.uploadSettings.formModel;
-        const models = model.map((m: any) => {
+        // const model = Object.assign(Object.create(Object.getPrototypeOf(m)), JSON.parse(JSON.stringify(item.formModel)));
+        const models = model.map((m: DynamicFormControlModel) => {
           m.field = m.id.split('__').shift();
           m.id = `${m.field}__${item.fileIdx}`;
           if (!m.value || m.value.length === 0) {
@@ -269,10 +289,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.formGroups = formGroups;
   }
 
-  private updateFileTitle(id: string, value: any): void {
+  private checkSubFormStatus(): void {
     const valid = this.formGroups.every((group: FormGroup) => group.valid);
     this.valid.emit({ type: 'valid', response: valid });
-    this.uploadItems.find(res => res.fileIdx.toString() === id.split('_')[1]).title = value;
   }
 
   private performFileName(name: string): string {

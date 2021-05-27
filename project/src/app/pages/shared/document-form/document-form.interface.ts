@@ -1,5 +1,6 @@
 import { DocumentModel, NuxeoUploadResponse } from '@core/api';
 import { DynamicFormModel } from '@core/custom';
+import { isValueEmpty } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 
 export class DocumentFormEvent {
@@ -64,7 +65,7 @@ export class DocumentImportSettings {
   initializeDocument: boolean = true;
 
   getDocType(item: NuxeoUploadResponse): string {
-    return 'App-Library-Image';
+    throw new Error(`unknown document type for '${item.fileName}'`);
   }
 
   constructor(data: any = {}) {
@@ -120,6 +121,10 @@ export class DocumentFormSettings {
   ];
 
   constructor(data: any = {}) {
+    if (!isValueEmpty(data.importSettings)) {
+      this.importSettings = new DocumentImportSettings(data.importSettings);
+      delete data.importSettings;
+    }
     this.update(data);
   }
 

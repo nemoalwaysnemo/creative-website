@@ -161,10 +161,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected prepareProperties(props: any = {}, formValue: any = {}): any {
-    const properties = deepExtend({}, props, formValue);
-    Object.keys(properties).forEach((key: string) => {
-      if (!key.includes(':') || ['file:content', 'files:files'].includes(key)) { delete properties[key]; }
+    const formValues = Object.keys(formValue).filter((k: string) => k.includes(':')).map((k: string) => formValue[k]);
+    Object.keys(props).forEach((key: string) => {
+      if (!key.includes(':') || ['file:content', 'files:files'].includes(key)) { delete props[key]; }
     });
+    const properties = deepExtend({}, props, formValues);
     return properties;
   }
 
@@ -178,7 +179,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected prepareFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, formModel: DynamicFormModel): DynamicFormModel {
     const formModels = formModel.map((m: DynamicFormControlModel) => {
-      const model = Object.assign(Object.create(Object.getPrototypeOf(m)), m);
+      const model = this.formSettings.enableBulkImport ? Object.assign({}, m) : m;
       const modelValue = doc.get(model.field);
       if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, user, settings); }
       if (model.settings) { model.settings.formMode = settings.formMode; }
@@ -260,12 +261,12 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected create(): void {
     let documents = [];
-    this.currentDocument.properties = this.prepareProperties(this.currentDocument.properties, this.getFormValue());
     if (this.formStatus$.value.uploadState === 'prepared') {
       if (this.getUploadFiles(this.uploadModel).length > 0) {
         this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
       }
     } else {
+      this.currentDocument.properties = this.prepareProperties(this.currentDocument.properties, this.getFormValue());
       if (this.formStatus$.value.uploadState === 'uploaded') {
         documents = this.attachUploadFiles(this.currentDocument, this.getUploadFiles(this.uploadModel));
       } else {
@@ -286,12 +287,12 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected update(): void {
-    let properties = this.prepareProperties(this.getFormValue());
     if (this.formStatus$.value.uploadState === 'prepared') {
       if (this.getUploadFiles(this.uploadModel).length > 0) {
         this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
       }
     } else {
+      let properties = this.prepareProperties(this.getFormValue());
       if (this.formStatus$.value.uploadState === 'uploaded') {
         const files = this.getUploadFiles(this.uploadModel);
         properties = this.updateUploadFiles(properties, files);
@@ -329,7 +330,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  protected newDocumentModel(doc: DocumentModel): DocumentModel {
+  protected newDocumentModel(doc: DocumentModel, properties: any = {}): DocumentModel {
     const list: string[] = ['title', 'uid', 'path', 'type', '_properties'];
     const keys: string[] = Object.keys(doc);
     for (const key of keys) {
@@ -337,20 +338,32 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
         delete doc[key];
       }
     }
-    return new DocumentModel(deepExtend({}, doc));
+    if (!isValueEmpty(properties)) {
+      doc.properties = Object.assign({}, doc.properties, properties);
+    }
+    return new DocumentModel(deepExtend({}, doc, properties));
   }
 
   protected attachUploadFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
     return files.filter((res: NuxeoUploadResponse) => res.isMainFile()).map((res: NuxeoUploadResponse) => {
-      const model = this.newDocumentModel(doc);
-      model.properties = this.updateUploadFiles(model.properties, res);
-      model.properties = this.updateUploadFiles(model.properties, files.filter((r: NuxeoUploadResponse) => !r.isMainFile()));
-      if (!isValueEmpty(res.attributes) && this.uploadModel.settings.enableForm) {
-        model.properties = Object.assign({}, model.properties, res.attributes);
-        delete res.attributes;
+      let model: DocumentModel;
+      if (this.uploadModel.settings.enableForm) {
+        if (res.document) {
+          model = res.document;
+        } else if (!isValueEmpty(res.attributes)) {
+          model = this.newDocumentModel(doc, res.attributes);
+        }
+      } else {
+        model = this.newDocumentModel(doc);
       }
+      if (model) {
+        model.properties = this.updateUploadFiles(model.properties, res);
+        model.properties = this.updateUploadFiles(model.properties, files.filter((r: NuxeoUploadResponse) => !r.isMainFile()));
+      }
+      delete res.document;
+      delete res.attributes;
       return model;
-    });
+    }).filter((d: DocumentModel) => d);
   }
 
   protected updateUploadFiles(properties: any, files: NuxeoUploadResponse | NuxeoUploadResponse[]): any {
