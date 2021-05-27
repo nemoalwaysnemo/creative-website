@@ -8,8 +8,6 @@ import { CreativeAssetComponent } from './creative-asset/creative-asset.componen
 import { CreativeMyAgencyComponent } from './creative-my-agency/creative-my-agency.component';
 import { CreativeBrandAssetComponent } from './creative-brand/creative-brand-asset/creative-brand-asset.component';
 import { CreativeBrandShowcaseComponent } from './creative-brand/creative-brand-showcase/creative-brand-showcase.component';
-import { CreativeBrandCampaignComponent } from './creative-brand/creative-brand-campaign/creative-brand-campaign.component';
-import { CreativeBrandProjectComponent } from './creative-brand/creative-brand-project/creative-brand-project.component';
 import { CreativeBrandUsageRightsComponent } from './creative-brand/creative-brand-usage-rights/creative-brand-usage-rights.component';
 import { CreativeBrandManageListComponent } from './creative-brand/creative-brand-manage-list/creative-brand-manage-list.component';
 import { CreativeBrandManageLibraryComponent } from './creative-brand/creative-brand-manage-library/creative-brand-manage-library.component';
@@ -58,33 +56,11 @@ const routes: Routes = [{
       canActivate: [NgxPermissionsGuard],
       data: {
         permissions: {
-          only: UserPermission.Dev,
+          only: UserPermission.Mgt,
           redirectTo: 'home',
         },
       },
     },
-    // {
-    //   path: 'brand/:id/campaign',
-    //   component: CreativeBrandCampaignComponent,
-    //   canActivate: [NgxPermissionsGuard],
-    //   data: {
-    //     permissions: {
-    //       only: UserPermission.Mgt,
-    //       redirectTo: 'home',
-    //     },
-    //   },
-    // },
-    // {
-    //   path: 'brand/:id/project',
-    //   component: CreativeBrandProjectComponent,
-    //   canActivate: [NgxPermissionsGuard],
-    //   data: {
-    //     permissions: {
-    //       only: UserPermission.Mgt,
-    //       redirectTo: 'home',
-    //     },
-    //   },
-    // },
     {
       path: 'brand/:id/library',
       component: CreativeBrandManageLibraryComponent,
