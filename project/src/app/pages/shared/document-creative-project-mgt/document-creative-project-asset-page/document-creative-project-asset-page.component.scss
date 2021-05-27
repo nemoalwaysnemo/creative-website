@@ -30,6 +30,7 @@
   margin: 8px;
   color: #ffffff;
   font-weight: 600;
+  cursor: pointer;
 }
 h3 {
   font-size: 18px;
@@ -73,24 +74,46 @@ h3 {
     display: block;
   }
 }
-.asset-info-accordion {
-  margin-left: 15px;
-  margin-bottom: 10px;
-  .asset-info-accordion-header {
-    font-family: 'Averta for TBWA W01 Regular', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    color: #2a2a2a;
-    font-weight: 600;
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  .accordion-item-header {
-    padding: 0;
-    border-bottom-style: none;
+.accordion {
+  margin: 0 50px 25px 14px;
+  box-shadow: none;
+  border-radius: 0;
+  .accordion-item {
+    .accordion-item-header {
+      font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+      display: block;
+      height: 50px;
+      line-height: 50px;
+      padding: 0 4px;
+      font-size: 15px;
+      color: #000000;
+      border-bottom: none;
+      box-sizing: border-box;
+      width: 17%;
+    }
+    .accordion-item-body {
+      margin-left: 3px;
+    }
   }
 }
 .creative-project-asset-detail-info ::ng-deep nb-tabset {
   .tabset {
     width: 102.2%;
     padding-left: 15px;
+  }
+}
+::ng-deep .document-creative-project-home-list {
+  .asset-mediatype {
+    height: 25px;
+    text-align: center;
+    background-color: #e5e4e2;
+    border: 1px #e5e4e2;
+    border-radius: 5px;
+    padding-top: 5px;
+    margin-bottom: 5px;
+  }
+  .asset-country {
+    height: 25px;
+    text-align: center;
   }
 }

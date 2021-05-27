@@ -108,10 +108,7 @@ export class DocumentCreativeProjectAssetUsageRightsListComponent {
   set document(doc: DocumentModel) {
     this.doc = doc;
     this.loading = false;
-    this.buildContract(doc);
-    if (this.contractUid.length > 0) {
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
-    }
+    timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
   }
 
   listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
@@ -131,13 +128,8 @@ export class DocumentCreativeProjectAssetUsageRightsListComponent {
     return this.getUsageRightsStatus(res);
   }
 
-  protected buildContract(doc: DocumentModel): void {
-    if (doc) {
-      this.contractUid = this.buildContractUid(doc);
-    }
-  }
-
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
+    let uuids: string[] = [], contractUids: any;
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_UR_CONTRACT_TYPES,
       currentPageIndex: 0,
@@ -147,22 +139,31 @@ export class DocumentCreativeProjectAssetUsageRightsListComponent {
       params['ecm_path'] = brand.path;
     }
     if (doc) {
-      params['ecm_uuid'] = `["${this.contractUid.join('", "')}"]`;
+      this.buildContractUid(doc);
+      uuids = Array.from(new Set(this.contractUid));
+      contractUids = uuids.length > 0 ? uuids.join('", "') : 'a string that nothing will match';
+      params['ecm_uuid'] = `["${contractUids}"]`;
     }
     return params;
   }
 
-  protected buildContractUid(doc: DocumentModel): string[] {
-    const contract: string[] = [];
-    const model: string = doc.get('The_Loupe_Talent:Contract-Model-IDs').join(',');
-    if (model.length > 0) { contract.push(model); }
-    const music: string = doc.get('The_Loupe_Talent:Contract-Music-IDs').join(',');
-    if (music.length > 0) { contract.push(music); }
-    const photo: string = doc.get('The_Loupe_Talent:Contract-Photographer-IDs').join(',');
-    if (photo.length > 0) { contract.push(photo); }
-    const stock: string = doc.get('The_Loupe_Talent:Contract-Stock-IDs').join(',');
-    if (stock.length > 0) { contract.push(stock); }
-    return contract;
+  protected buildContractUid(doc: DocumentModel): void {
+    const model: string = doc.get('The_Loupe_Talent:Contract-Model-IDs');
+    if (model.length > 0) { this.buildData(model); }
+    const music: string = doc.get('The_Loupe_Talent:Contract-Music-IDs');
+    if (music.length > 0) { this.buildData(music); }
+    const photo: string = doc.get('The_Loupe_Talent:Contract-Photographer-IDs');
+    if (photo.length > 0) { this.buildData(photo); }
+    const stock: string = doc.get('The_Loupe_Talent:Contract-Stock-IDs');
+    if (stock.length > 0) { this.buildData(stock); }
+  }
+
+  protected buildData(data: any): void {
+    if (typeof (data) === 'string') {
+      this.contractUid.push(data);
+    } else {
+      this.contractUid = this.contractUid.concat(data);
+    }
   }
 
   protected getUsageRightsStatus(res: SearchResponse): Observable<SearchResponse> {

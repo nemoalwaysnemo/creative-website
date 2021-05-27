@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { AdvanceSearchService, DocumentModel, NuxeoAutomations, NuxeoPagination, SearchResponse, UserModel } from '@core/api';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
@@ -14,6 +14,24 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DatePipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { vocabularyFormatter } from '@core/services/helpers';
+
+@Component({
+  template: `
+    <ng-container *ngIf="value" [ngSwitch]="true">
+      <ng-container *ngFor="let type of value.mediatypes">
+        <div class="asset-mediatype">
+          <span>{{type}}</span>
+        </div>
+      </ng-container>
+        <div class="asset-country">
+          <span>{{value.countries}}</span>
+        </div>
+    </ng-container>
+  `,
+})
+export class DocumentCreativeProjectAssetRowRenderComponent {
+  @Input() value: { mediatypes: any , countries: string };
+}
 
 @Component({
   selector: 'document-creative-project-asset-home',
@@ -58,7 +76,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
   navSettings: ProjectMgtNavigationSettings;
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    // schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
     source: 'document-creative-project-asset',
     enableSearchForm: false,
     autoSearch: false,
@@ -98,19 +116,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
         title: 'Coverage',
         sort: false,
         type: 'custom',
-        renderComponentData: new ListSearchRowCustomViewSettings({
-          viewType: 'html',
-          htmlFn: (doc: DocumentModel) => {
-            return `
-            <div class="asset-coverage">
-              <ul>
-                <li>${doc.get('The_Loupe_Rights:contract_mediatypes').join(', ')}</li>
-                <li>${doc.get('The_Loupe_Rights:asset_countries').join(', ')}</li>
-              </ul>
-            </div>`;
-          },
-        }),
-        renderComponent: ListSearchRowCustomViewComponent,
+        renderComponent: DocumentCreativeProjectAssetRowRenderComponent,
       },
       usageRights: {
         title: 'Status',
@@ -133,7 +139,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
         title: doc.title,
         type: doc.get('The_Loupe_Main:assettype'),
         date: doc.get('The_Loupe_Rights:first-airing'),
-        coverage: doc,
+        coverage: { mediatypes: doc.get('The_Loupe_Rights:contract_mediatypes'), countries: vocabularyFormatter(doc.get('The_Loupe_Rights:asset_countries')) },
         usageRights: doc.get('_usage_rights_'),
       }));
     }
@@ -204,7 +210,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
   private getUsageRightsStatus(res: SearchResponse): Observable<SearchResponse> {
     const uids: string[] = res.response.entries.map((doc: DocumentModel) => doc.uid);
     if (uids.length > 0) {
-      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { uuids: `${uids.join(',')}`, entityType: 'contract' }).pipe(
+      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { uuids: `${uids.join(',')}`, entityType: 'asset' }).pipe(
         map((response: NuxeoPagination) => {
           res.response.entries.forEach((doc: DocumentModel) => {
             const status = response.entries.find((x: any) => x.uuid === doc.uid);

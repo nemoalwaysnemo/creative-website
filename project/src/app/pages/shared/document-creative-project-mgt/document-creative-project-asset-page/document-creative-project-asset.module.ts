@@ -8,7 +8,7 @@ import { DocumentViewerModule } from '../../document-viewer/document-viewer.modu
 import { DocumentShareButtonModule } from '../../document-share-button/document-share-button.module';
 import { DocumentCreativeProjectAssetPageComponent } from './document-creative-project-asset-page.component';
 import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
-import { DocumentCreativeProjectAssetHomeComponent } from './document-creative-project-asset-home/document-creative-project-asset-home.component';
+import { DocumentCreativeProjectAssetHomeComponent, DocumentCreativeProjectAssetRowRenderComponent } from './document-creative-project-asset-home/document-creative-project-asset-home.component';
 import { DocumentCreativeProjectAssetDetailModule } from './document-creative-project-asset-detail/document-creative-project-asset-detail.module';
 
 @NgModule({
@@ -27,6 +27,7 @@ import { DocumentCreativeProjectAssetDetailModule } from './document-creative-pr
   declarations: [
     DocumentCreativeProjectAssetPageComponent,
     DocumentCreativeProjectAssetHomeComponent,
+    DocumentCreativeProjectAssetRowRenderComponent,
   ],
 })
 export class DocumentCreativeProjectAssetModule {
