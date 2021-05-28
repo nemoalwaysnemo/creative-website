@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { AdvanceSearchService, DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
+import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
 import { DynamicBatchUploadModel, DynamicDragDropFileZoneModel, DynamicFormControlModel, DynamicFormModel, DynamicFormService } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { BaseDocumentFormComponent } from './base-document-form.component';
-import { DocumentPageService } from '../services/document-page.service';
-import { DocumentFormSettings } from './document-form.interface';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
+import { DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { forkJoin, Observable, of as observableOf } from 'rxjs';
-import { concatMap, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'document-import',
@@ -15,12 +15,14 @@ import { concatMap, map, tap } from 'rxjs/operators';
 })
 export class DocumentImportComponent extends BaseDocumentFormComponent {
 
+  protected formName: string = 'document-import-form';
+
   constructor(
     protected formService: DynamicFormService,
-    protected advanceSearchService: AdvanceSearchService,
     protected documentPageService: DocumentPageService,
   ) {
-    super(formService, advanceSearchService);
+    super(documentPageService, formService);
+    this.subscribeFormStatusEvents();
   }
 
   protected onUploadFileSelected(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, res: NuxeoUploadResponse[]): void {
@@ -96,6 +98,13 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
       throw new Error(`unknown document type for '${item.fileName}'`);
     }
     return type;
+  }
+
+  protected subscribeFormStatusEvents(): void {
+    const subscription = this.formStatus$.subscribe((status: DocumentFormStatus) => {
+      this.documentPageService.triggerEvent(new GlobalEvent({ name: 'updateFormStatus', type: 'document-form', data: { childrenValid: !status.disableSaveButton() } }));
+    });
+    this.subscription.add(subscription);
   }
 
 }

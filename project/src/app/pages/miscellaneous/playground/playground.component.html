@@ -1,5 +1,7 @@
 <div class="playground">
-  <document-bulk-import [documentModel]="document" [settings]="bulkImportSettings"></document-bulk-import>
+  <document-bulk-import [documentModel]="document" [settings]="bulkImportSettings" (callback)="onCallback($event)"></document-bulk-import>
+
+  <button nbButton outline class="btn btn-info btn-xs btn-margin-bottom" status="info" (click)="onClick($event)">Save</button>
   <!-- <a href="javascript:;" (click)="openDialog(dialog)" class="icon_btn">Download Request</a> -->
 </div>
 <!-- <ng-template #dialog>

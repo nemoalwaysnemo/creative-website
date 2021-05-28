@@ -1,12 +1,13 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { deepExtend, isValueEmpty } from '@core/services/helpers';
+import { UserModel, DocumentModel, NuxeoUploadResponse } from '@core/api';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
-import { UserModel, DocumentModel, AdvanceSearchService, NuxeoUploadResponse } from '@core/api';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
-import { concatMap, tap } from 'rxjs/operators';
+import { concatMap, filter, tap } from 'rxjs/operators';
 
 @Component({
   template: '',
@@ -24,6 +25,8 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   formSettings: DocumentFormSettings = new DocumentFormSettings();
 
   formStatus$: BehaviorSubject<DocumentFormStatus> = new BehaviorSubject<DocumentFormStatus>(new DocumentFormStatus());
+
+  protected formName: string = 'base-document-form';
 
   protected currentUser: UserModel;
 
@@ -68,8 +71,9 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   @Input() afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
 
-  constructor(protected formService: DynamicFormService, protected advanceSearchService: AdvanceSearchService) {
+  constructor(protected documentPageService: DocumentPageService, protected formService: DynamicFormService) {
     this.onDocumentChanged();
+    this.subscribeEvents();
   }
 
   ngOnInit(): void {
@@ -237,10 +241,24 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
+  protected subscribeEvents(): void {
+    const subscription = this.documentPageService.onEventType('document-form').pipe(
+      filter((event: GlobalEvent) => event.formName === this.formName && !this.formStatus$.value.disableSaveButton()),
+    ).subscribe((event: GlobalEvent) => {
+      if (event.name === 'triggerSaveForm') {
+        this.onSave();
+      } else if (event.name === 'updateFormStatus') {
+        // this.updateFormStatus(event.data);
+      }
+    });
+    this.subscription.add(subscription);
+  }
+
   protected setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
     this.currentUser = user;
     this.currentDocument = doc;
     this.formSettings = settings;
+    this.formName = settings.formName || this.formName;
   }
 
   protected getFormValue(field?: string): any {
@@ -313,7 +331,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected createDocument(doc: DocumentModel, user: UserModel, opts: any = {}): Observable<any> {
-    return this.advanceSearchService.create(this.beforeSave(doc, user), opts).pipe(
+    return this.documentPageService.createDocument(this.beforeSave(doc, user), opts).pipe(
       concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
       tap(_ => { this.updateFormStatus({ submitting: false, submitted: true }); }),
     );

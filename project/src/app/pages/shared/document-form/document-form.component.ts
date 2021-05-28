@@ -12,6 +12,8 @@ import { DocumentFormSettings } from './document-form.interface';
 })
 export class DocumentFormComponent extends BaseDocumentFormComponent {
 
+  protected formName: string = 'document-form';
+
   showMessageAfterUpload(): boolean {
     return !this.formStatus$.value.submitting && this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.formMode === 'create' && this.formSettings.showUploadMessage;
   }

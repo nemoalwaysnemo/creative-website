@@ -5,7 +5,7 @@ import { NbToastrService } from '@core/nebular/theme';
 import { Observable, from, Subject, timer, BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, pairwise, share, tap, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd, RoutesRecognized } from '@angular/router';
-import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel, NuxeoResponse, NuxeoAutomations, BatchUpload, NuxeoApiService, DirectoryEntry } from '@core/api';
+import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel, NuxeoResponse, NuxeoAutomations, BatchUpload, DirectoryEntry } from '@core/api';
 import { CacheService, GoogleAnalyticsService } from '@core/services';
 import { Environment } from '@environment/environment';
 
@@ -38,7 +38,6 @@ export class DocumentPageService {
     private location: Location,
     private titleService: Title,
     private userService: UserService,
-    private nuxeoApi: NuxeoApiService,
     private cacheService: CacheService,
     private toastrService: NbToastrService,
     private activatedRoute: ActivatedRoute,
@@ -140,12 +139,16 @@ export class DocumentPageService {
     this.toastrService.show(message, title, { status });
   }
 
+  createDocument(doc: DocumentModel, opts: any = {}): Observable<DocumentModel> {
+    return this.advanceSearchService.create(doc, opts);
+  }
+
   batchUpload(opts: any = {}): BatchUpload {
-    return this.nuxeoApi.batchUpload(opts);
+    return this.advanceSearchService.batchUpload(opts);
   }
 
   directory(directoryName: string, opts: any = {}): Observable<DirectoryEntry[]> {
-    return this.nuxeoApi.directory(directoryName, opts);
+    return this.advanceSearchService.directory(directoryName, opts);
   }
 
   operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<NuxeoResponse> {

@@ -76,6 +76,8 @@ export class DocumentImportSettings {
 
 export class DocumentFormSettings {
 
+  formName: string;
+
   actionOptions: any = {};
 
   formModel: DynamicFormModel = [];
