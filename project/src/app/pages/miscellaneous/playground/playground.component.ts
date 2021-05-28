@@ -1,10 +1,10 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
 import { DocumentModel, AdvanceSearchService, UserModel, NuxeoUploadResponse } from '@core/api';
 import { concatMap, map } from 'rxjs/operators';
-import { GlobalDocumentDialogService, OptionModel } from '../../shared';
+import { DocumentPageService, GlobalDocumentDialogService, GlobalEvent, OptionModel } from '../../shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
-import { DocumentFormSettings } from '../../shared/document-form/document-form.interface';
+import { DocumentFormEvent, DocumentFormSettings } from '../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../shared/document-form-extension';
 
 @Component({
@@ -98,8 +98,14 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 
-  constructor(private advanceSearchService: AdvanceSearchService, private globalDocumentDialogService: GlobalDocumentDialogService) {
+  constructor(
+    private advanceSearchService: AdvanceSearchService,
+    private documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    this.documentPageService.onEventType('document-form').subscribe((event: GlobalEvent) => {
 
+    });
   }
 
   ngOnInit(): void {
@@ -113,6 +119,14 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
+
+  }
+
+  onClick(event: any): void {
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'triggerSaveForm', type: 'document-form', formName: 'document-import-form' }));
+  }
+
+  onCallback(event: DocumentFormEvent): void {
 
   }
 

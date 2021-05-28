@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf, Subject } from 'rxjs';
 import { share, concat, map, tap, filter } from 'rxjs/operators';
-import { DocumentModel, NuxeoAutomations, NuxeoResponse } from './nuxeo/lib';
+import { BatchUpload, DirectoryEntry, DocumentModel, NuxeoAutomations, NuxeoResponse } from './nuxeo/lib';
 import { NuxeoPagination, GlobalSearchParams, NuxeoRequestOptions, NuxeoApiService } from './nuxeo';
 import { join } from '../services/helpers';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -37,6 +37,10 @@ export class AdvanceSearchService {
     return join(this.endPoint, 'pp', (provider || this.provider), 'execute');
   }
 
+  batchUpload(opts: any = {}): BatchUpload {
+    return this.nuxeoApi.batchUpload(opts);
+  }
+
   get(uuid: string, opts?: any): Observable<DocumentModel> {
     return this.nuxeoApi.repository(this.defaultRepository, new NuxeoRequestOptions(opts)).fetch(uuid);
   }
@@ -47,6 +51,10 @@ export class AdvanceSearchService {
 
   operation(id: string, params: any = {}, input: string | string[] = null, opts: any = null): Observable<NuxeoResponse> {
     return this.nuxeoApi.operation(id, params, input, opts);
+  }
+
+  directory(directoryName: string, opts: any = {}): Observable<DirectoryEntry[]> {
+    return this.nuxeoApi.directory(directoryName, opts);
   }
 
   remoteSearch(searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): Observable<SearchResponse> {

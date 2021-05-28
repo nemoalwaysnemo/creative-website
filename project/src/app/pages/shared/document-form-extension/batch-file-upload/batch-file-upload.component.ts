@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup } from '@angular/for
 import { BatchUpload, DocumentModel, NuxeoBlob, NuxeoUploadResponse } from '@core/api';
 import { DragDropFileZoneSettings } from '../drag-drop-file-zone/drag-drop-file-zone.interface';
 import { DragDropFileZoneService } from '../drag-drop-file-zone/drag-drop-file-zone.service';
-import { BehaviorSubject, Observable, of as observableOf, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf, Subject, Subscription, timer } from 'rxjs';
 import { concatMap, filter, mergeMap, tap } from 'rxjs/operators';
 import { BatchUploadSettings, BatchUploadStatus } from './batch-file-upload.interface';
 import { DynamicFormControlModel, DynamicFormService } from '@core/custom';
@@ -70,7 +70,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   ngOnInit(): void {
-
+    timer(0).subscribe(() => { this.valid.emit({ type: 'valid', response: !this.uploadSettings.enableForm }); });
   }
 
   ngOnDestroy(): void {
@@ -94,11 +94,11 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   onBlur(event: any): void {
-    this.checkSubFormStatus();
+    this.emitSubFormStatus();
   }
 
   onChange(event: any): void {
-
+    this.emitSubFormStatus();
   }
 
   onFocus(event: any): void {
@@ -127,6 +127,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.uploadItems.splice(index, 1);
     this.uploadItems.forEach((res: NuxeoUploadResponse, i: number) => { res.fileIdx = i; res.blob.fileIdx = i; this.queueFiles[file.xpath][file.fileName] = false; });
     this.emitUploadResponse('FileChanged', this.uploadItems);
+    this.emitSubFormStatus();
   }
 
   removeAll(): void {
@@ -228,7 +229,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.onUpload.emit({ type: 'FileSelected', response: items });
     if (this.uploadSettings.enableForm) {
       this.performSubForm(items);
-      this.checkSubFormStatus();
+      this.emitSubFormStatus();
     } else {
       this.valid.emit({ type: 'valid', response: true });
     }
@@ -288,7 +289,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.formGroups = formGroups;
   }
 
-  private checkSubFormStatus(): void {
+  private emitSubFormStatus(): void {
     const valid = this.formGroups.every((group: FormGroup) => group.valid);
     this.valid.emit({ type: 'valid', response: valid });
   }
