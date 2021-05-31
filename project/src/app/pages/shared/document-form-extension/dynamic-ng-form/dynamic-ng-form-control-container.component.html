@@ -1,11 +1,14 @@
-<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')" [formGroup]="group"
+<div
+  [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
+  [class.direction-horizontal]="model.settings.direction == 'horizontal'" [formGroup]="group"
   [ngClass]="['dynamic-forms-'+model.type.toLowerCase(), getClass('element', 'container'), getClass('grid', 'container')]">
   <div *ngIf="isRequired" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</div>
-  <label *ngIf="!isCheckbox && hasLabel" [for]="id" [innerHTML]="model.label" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
+  <label *ngIf="!isCheckbox && hasLabel" [for]="id" [innerHTML]="model.label"
+    [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]" [class.horizontal-lable] = "model.settings.direction == 'horizontal'"></label>
 
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
 
-  <div [ngClass]="getClass('grid', 'control')">
+  <div [ngClass]="getClass('grid', 'control')" [class.horizontal-div] = "model.settings.direction == 'horizontal'">
     <ng-container #componentViewContainer></ng-container>
 
     <small *ngIf="hasHint" class="text-muted" [innerHTML]="hint" [ngClass]="getClass('element', 'hint')"></small>

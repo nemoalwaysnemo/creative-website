@@ -6,6 +6,7 @@ import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveMo
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { DocumentFormEvent, DocumentFormSettings } from '../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../shared/document-form-extension';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'playground',
@@ -57,6 +58,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           placeholder: 'Search Project',
           providerType: SuggestionSettings.CONTENT_VIEW,
           providerName: 'App-Library-PageProvider-Projects',
+          direction: 'horizontal',
         },
         validators: { required: null },
         errorMessages: { required: '' },
@@ -69,6 +71,9 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         defaultValue: (new Date()),
         required: true,
         layoutPosition: 'left',
+        settings: {
+          direction: 'horizontal',
+        },
         validators: {
           required: null,
           dateFormatValidator: null,
@@ -88,6 +93,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           placeholder: 'What is this asset?',
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideAssetType_Image',
+          direction: 'horizontal',
         },
         validators: { required: null },
         errorMessages: { required: '' },

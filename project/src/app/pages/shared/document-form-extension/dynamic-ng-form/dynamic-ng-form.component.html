@@ -89,3 +89,16 @@
                           (customEvent)="onCustomEvent($event, customEvent)">
   </dynamic-ng-form-control>
 </div>
+<div class="default-layout layout-bottom horizontal-layout" >
+  <dynamic-ng-form-control *ngFor="let model of getFormModel('horizontal'); trackBy: trackByFn"
+                          [group]="group"
+                          [hidden]="model.hidden"
+                          [layout]="layout"
+                          [model]="model"
+                          [templates]="templates"
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"
+                          (customEvent)="onCustomEvent($event, customEvent)">
+  </dynamic-ng-form-control>
+</div>

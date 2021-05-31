@@ -1,6 +1,10 @@
 import { DocumentModel } from '@core/api/nuxeo/lib';
 
 export class SuggestionSettings {
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
   static readonly PROVIDER: string = 'PageProvider'; // document page-provider
   static readonly DIRECTORY: string = 'Directory'; // vocabulary
   static readonly OPERATION: string = 'Operation'; // operation
@@ -21,9 +25,6 @@ export class SuggestionSettings {
   readonly providerName: string;
   readonly pageSize: number = 20;
   readonly displayLabel: boolean = false;
+  readonly direction: string = '';
   readonly inputTarget: (doc: DocumentModel) => string = (doc: DocumentModel) => doc.getParent().uid;
-
-  constructor(data: any = {}) {
-    Object.assign(this, data);
-  }
 }
