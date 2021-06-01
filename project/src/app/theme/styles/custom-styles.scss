@@ -13,6 +13,31 @@
 	vertical-align: top;
 }
 .form-group { margin: 0; }
+.horizontal-layout {
+  width: calc(100% - 260px);
+  height: 70px;
+  float: left;
+}
+.direction-horizontal {
+  width: 200px;
+  float: left;
+}
+.horizontal-lable {
+  height: 22px;
+}
+.horizontal-hidden {
+  display: none!important;
+}
+.horizontal-font-weight {
+  font-weight: 700;
+}
+.horizontal-first-line {
+  border-top: 2px solid #dee2e6;
+  padding-top: 3px;
+}
+.horizontal-rest-line {
+  padding-top: 3px;
+}
 body {
   overflow: auto!important;
 }

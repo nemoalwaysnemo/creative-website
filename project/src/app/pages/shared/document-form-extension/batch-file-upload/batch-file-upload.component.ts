@@ -27,6 +27,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   set settings(settings: BatchUploadSettings) {
     if (!isValueEmpty(settings)) {
       this.uploadSettings = settings;
+      if (settings['fieldsOneLine']) {
+        this.fieldsOneLine = settings['fieldsOneLine'];
+      }
     }
   }
 
@@ -47,6 +50,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   formGroups: FormGroup[] = [];
 
   formModels: DynamicFormControlModel[] = [];
+
+  fieldsOneLine: number = 5;
 
   private batchUpload: BatchUpload;
 
@@ -277,6 +282,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
               m.value = formValue[m.field];
             }
           }
+          if ( this.uploadSettings.arrangeDirection === 'horizontal' && index > 0){
+            m['hideLabel'] = true;
+          }
           return m;
         });
         delete item.formModel;
@@ -287,6 +295,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     });
     this.formModels = formModels;
     this.formGroups = formGroups;
+    this.addFieldPieces();
   }
 
   private emitSubFormStatus(): void {
@@ -298,4 +307,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     return name.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\.\w+$/, '');
   }
 
+  private addFieldPieces(): void {
+    this.formGroups.forEach((value, index: number) => {
+      this.uploadItems[index]['fieldPieces'] = Object.keys(value.value).length;
+    });
+  }
 }

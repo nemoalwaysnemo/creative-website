@@ -63,6 +63,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
           enableForm: true,
           enableAction: true,
           onFilesChangedFn: this.onFilesChangedFn.bind(this),
+          arrangeDirection: 'horizontal',
         },
       }),
     ];
