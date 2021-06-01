@@ -6,7 +6,6 @@ import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveMo
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { DocumentFormEvent, DocumentFormSettings } from '../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../shared/document-form-extension';
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'playground',
