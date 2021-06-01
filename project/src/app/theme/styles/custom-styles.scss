@@ -25,8 +25,17 @@
 .horizontal-lable {
   height: 22px;
 }
-.horizontal-div {
+.horizontal-hidden {
+  display: none!important;
+}
+.horizontal-font-weight {
+  font-weight: 700;
+}
+.horizontal-first-line {
   border-top: 2px solid #dee2e6;
+  padding-top: 3px;
+}
+.horizontal-rest-line {
   padding-top: 3px;
 }
 body {

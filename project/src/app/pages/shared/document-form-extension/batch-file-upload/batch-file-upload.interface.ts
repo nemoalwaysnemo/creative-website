@@ -29,6 +29,10 @@ export class BatchUploadStatus {
 
 export class BatchUploadSettings {
 
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+
   formMode: 'create' | 'edit' | 'view' = 'create';
 
   formModel: DynamicFormModel = [
@@ -53,9 +57,7 @@ export class BatchUploadSettings {
 
   enableAction: boolean = false;
 
-  onFilesChangedFn: (items: NuxeoUploadResponse[]) => Observable<NuxeoUploadResponse[]> = (items: NuxeoUploadResponse[]) => observableOf(items);
+  arrangeDirection: string;
 
-  constructor(data: any = {}) {
-    Object.assign(this, data);
-  }
+  onFilesChangedFn: (items: NuxeoUploadResponse[]) => Observable<NuxeoUploadResponse[]> = (items: NuxeoUploadResponse[]) => observableOf(items);
 }

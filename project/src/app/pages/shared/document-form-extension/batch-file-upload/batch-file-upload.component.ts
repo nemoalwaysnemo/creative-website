@@ -282,6 +282,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
               m.value = formValue[m.field];
             }
           }
+          if ( this.uploadSettings.arrangeDirection === 'horizontal' && index > 0){
+            m['hideLabel'] = true;
+          }
           return m;
         });
         delete item.formModel;
