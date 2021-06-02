@@ -85,7 +85,8 @@ export class DocumentBulkImportComponent implements OnInit, OnDestroy {
   }
 
   private beforeSetDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): Observable<DocumentModel> {
-    return observableOf(doc);
+    const document = new DocumentModel({ uid: doc.uid, path: doc.path }, doc.options).setParent(doc);
+    return observableOf(document);
   }
 
   private onDocumentChanged(): void {

@@ -73,7 +73,6 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   constructor(protected documentPageService: DocumentPageService, protected formService: DynamicFormService) {
     this.onDocumentChanged();
-    this.subscribeEvents();
   }
 
   ngOnInit(): void {
@@ -165,7 +164,10 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected prepareProperties(props: any = {}, formValue: any = {}): any {
-    const formValues = Object.keys(formValue).filter((k: string) => k.includes(':')).map((k: string) => formValue[k]);
+    const formValues = {};
+    Object.keys(formValue).forEach((key: string) => {
+      if (key.includes(':')) { formValues[key] = formValue[key]; }
+    });
     Object.keys(props).forEach((key: string) => {
       if (!key.includes(':') || ['file:content', 'files:files'].includes(key)) { delete props[key]; }
     });
@@ -241,19 +243,6 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     this.subscription.add(subscription);
   }
 
-  protected subscribeEvents(): void {
-    const subscription = this.documentPageService.onEventType('document-form').pipe(
-      filter((event: GlobalEvent) => event.formName === this.formName && !this.formStatus$.value.disableSaveButton()),
-    ).subscribe((event: GlobalEvent) => {
-      if (event.name === 'triggerSaveForm') {
-        this.onSave();
-      } else if (event.name === 'updateFormStatus') {
-        // this.updateFormStatus(event.data);
-      }
-    });
-    this.subscription.add(subscription);
-  }
-
   protected setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
     this.currentUser = user;
     this.currentDocument = doc;
@@ -310,7 +299,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
         this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
       }
     } else {
-      let properties = this.prepareProperties(this.getFormValue());
+      let properties = this.prepareProperties({}, this.getFormValue());
       if (this.formStatus$.value.uploadState === 'uploaded') {
         const files = this.getUploadFiles(this.uploadModel);
         properties = this.updateUploadFiles(properties, files);
@@ -367,6 +356,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       let model: DocumentModel;
       if (this.uploadModel.settings.enableForm) {
         if (res.document) {
+          res.document.properties = this.prepareProperties(res.document.properties, this.getFormValue());
           model = res.document;
         } else if (!isValueEmpty(res.attributes)) {
           model = this.newDocumentModel(doc, res.attributes);

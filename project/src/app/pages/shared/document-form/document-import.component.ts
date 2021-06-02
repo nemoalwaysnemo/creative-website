@@ -22,16 +22,21 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
     protected documentPageService: DocumentPageService,
   ) {
     super(documentPageService, formService);
-    this.subscribeFormStatusEvents();
   }
 
   protected onUploadFileSelected(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, res: NuxeoUploadResponse[]): void {
 
   }
 
+  protected performSharedFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): DynamicFormModel {
+    const sharedModels = this.getImportFormModel(settings);
+    const models = sharedModels.filter((v) => v.formMode === null || v.formMode === settings.formMode).filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(doc, user, settings));
+    return this.prepareFormModel(doc, user, settings, models);
+  }
+
   protected performDocumentForm(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
     settings.enableBulkImport = true;
-    const models = this.getImportFormModel(settings);
+    const models = this.performSharedFormModel(doc, user, settings);
     this.performNgFormSettings(doc, user, settings, models);
     this.createDocumentForm(models);
   }
@@ -39,13 +44,13 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   protected performNgFormSettings(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): void {
     const ngFormSettings = new DynamicNGFormSettings();
     ngFormSettings.formModel = this.createFormModel(models);
+    ngFormSettings.enableLayoutRight = settings.enableLayoutRight;
     ngFormSettings.formMode = settings.formMode;
-    ngFormSettings.enableLayoutRight = false;
     this.ngFormSettings = ngFormSettings;
   }
 
   protected getImportFormModel(settings: DocumentFormSettings): DynamicFormModel {
-    return [
+    const importModel = [
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
         formMode: 'create',
@@ -55,6 +60,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
           placeholder: settings.importSettings.placeholder,
           acceptTypes: settings.importSettings.acceptTypes,
         },
+        layoutPosition: settings.importSettings.layoutPosition,
       }),
       new DynamicBatchUploadModel<string>({
         id: 'batchUpload',
@@ -65,8 +71,10 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
           onFilesChangedFn: this.onFilesChangedFn.bind(this),
           arrangeDirection: 'horizontal',
         },
+        layoutPosition: settings.importSettings.layoutPosition,
       }),
     ];
+    return (settings.sharedModel || []).concat(importModel);
   }
 
   protected onFilesChangedFn(items: NuxeoUploadResponse[]): Observable<NuxeoUploadResponse[]> {
@@ -99,13 +107,6 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
       throw new Error(`unknown document type for '${item.fileName}'`);
     }
     return type;
-  }
-
-  protected subscribeFormStatusEvents(): void {
-    const subscription = this.formStatus$.subscribe((status: DocumentFormStatus) => {
-      this.documentPageService.triggerEvent(new GlobalEvent({ name: 'updateFormStatus', type: 'document-form', data: { childrenValid: !status.disableSaveButton() } }));
-    });
-    this.subscription.add(subscription);
   }
 
 }

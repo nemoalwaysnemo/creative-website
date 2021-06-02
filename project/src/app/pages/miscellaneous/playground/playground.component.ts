@@ -30,6 +30,86 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         }
       },
     },
+    sharedModel: [
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:jobtitle',
+        label: 'Search Project',
+        document: true,
+        required: true,
+        settings: {
+          placeholder: 'Search Project',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Library-PageProvider-Projects',
+        },
+        validators: { required: null },
+        errorMessages: { required: '' },
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:campaign_mgt'),
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Production Date',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: true,
+        layoutPosition: 'left',
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid format. Valid Format MMM D, YYYY',
+        },
+      }),
+      // #{changeableDocument.type == 'App-Library-Image' ? 'edit' : 'hidden'}
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        document: true,
+        required: true,
+        settings: {
+          multiple: false,
+          placeholder: 'What is this asset?',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideAssetType_Image',
+        },
+        validators: { required: null },
+        errorMessages: { required: '' },
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+      }),
+      // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_Rights:first-airing',
+        label: 'Live date / publishing',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: true,
+        layoutPosition: 'left',
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
+      }),
+      // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_Rights:first-airing',
+        label: 'Live date / publishing',
+        required: false,
+        readonly: false,
+        validators: {
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
+        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:UsageRights'),
+      }),
+    ],
     formModel: [
       new DynamicInputModel({
         id: 'dc:title',
@@ -114,7 +194,8 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.load('883c3b10-a3e7-4f4f-a5fd-a44abaa7f856');
+    // https://library-dev.factory.tools/nuxeo/nxdoc/default/883c3b10-a3e7-4f4f-a5fd-a44abaa7f856/view_documents?tabIds=%3A
+    this.load('883c3b10-a3e7-4f4f-a5fd-a44abaa7f856'); // brand
     // this.create();
     // this.update();
   }
@@ -125,10 +206,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
 
-  }
-
-  onClick(event: any): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'triggerSaveForm', type: 'document-form', formName: 'document-import-form' }));
   }
 
   onCallback(event: DocumentFormEvent): void {
