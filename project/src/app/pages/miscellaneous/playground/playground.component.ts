@@ -126,7 +126,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
-        hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => settings.formMode === 'create',
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',

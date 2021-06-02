@@ -3,8 +3,8 @@ import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
 import { DynamicBatchUploadModel, DynamicDragDropFileZoneModel, DynamicFormControlModel, DynamicFormModel, DynamicFormService } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { BaseDocumentFormComponent } from './base-document-form.component';
-import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
-import { DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
+import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormSettings } from './document-form.interface';
 import { forkJoin, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 
