@@ -58,6 +58,8 @@ export class DocumentImportSettings {
 
   placeholder: string = 'Drop files here!';
 
+  layoutPosition: string = 'right';
+
   acceptTypes: string = '*';
 
   queueLimit: number = 10;
@@ -81,6 +83,8 @@ export class DocumentFormSettings {
   actionOptions: any = {};
 
   formModel: DynamicFormModel = [];
+
+  sharedModel: DynamicFormModel = [];
 
   importSettings: DocumentImportSettings = new DocumentImportSettings();
 
