@@ -2,12 +2,12 @@ import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angu
 import { FormGroup } from '@angular/forms';
 import { deepExtend, isValueEmpty } from '@core/services/helpers';
 import { UserModel, DocumentModel, NuxeoUploadResponse } from '@core/api';
-import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
-import { concatMap, filter, tap } from 'rxjs/operators';
+import { concatMap, tap } from 'rxjs/operators';
 
 @Component({
   template: '',
