@@ -36,6 +36,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         label: 'Search Project',
         document: true,
         required: true,
+        layoutPosition: 'leftShared',
         settings: {
           placeholder: 'Search Project',
           providerType: SuggestionSettings.CONTENT_VIEW,
@@ -51,7 +52,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         readonly: false,
         defaultValue: (new Date()),
         required: true,
-        layoutPosition: 'left',
+        layoutPosition: 'leftShared',
         validators: {
           required: null,
           dateFormatValidator: null,
@@ -67,6 +68,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         label: 'Asset Type',
         document: true,
         required: true,
+        layoutPosition: 'leftShared',
         settings: {
           multiple: false,
           placeholder: 'What is this asset?',
@@ -84,7 +86,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         readonly: false,
         defaultValue: (new Date()),
         required: true,
-        layoutPosition: 'left',
+        layoutPosition: 'leftShared',
         validators: {
           required: null,
           dateFormatValidator: null,
@@ -101,6 +103,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         label: 'Live date / publishing',
         required: false,
         readonly: false,
+        layoutPosition: 'leftShared',
         validators: {
           dateFormatValidator: null,
         },
@@ -118,6 +121,9 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
+        settings: {
+          direction: 'horizontal',
+        },
         validators: {
           required: null,
           minLength: 4,
@@ -126,6 +132,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
+        // hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => settings.formMode === 'create',
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',

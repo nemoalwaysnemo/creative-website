@@ -12,6 +12,8 @@ export class DynamicNGFormSettings {
 
   enableLayoutRight: boolean = true;
 
+  enableWideHorizontal: boolean = false;
+
   formClass: string;
 
   constructor(data: any = {}) {

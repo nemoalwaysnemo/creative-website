@@ -38,6 +38,8 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   enableLayoutRight: boolean = false;
 
+  enableWideHorizontal: boolean = false;
+
   private ngFormModel: DynamicFormModel = [];
 
   @Input()
@@ -69,7 +71,6 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
   @Input() group: FormGroup;
   @Input() layout: DynamicFormLayout;
   @Input() formClass: string;
-
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -118,6 +119,7 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
       this.layoutAccordion = settings.accordionSettings;
       this.layoutSwitchTab = settings.switchTabSettings;
       this.enableLayoutRight = settings.enableLayoutRight;
+      this.enableWideHorizontal = settings.enableWideHorizontal;
       this.formClass = settings.formClass;
     }
   }

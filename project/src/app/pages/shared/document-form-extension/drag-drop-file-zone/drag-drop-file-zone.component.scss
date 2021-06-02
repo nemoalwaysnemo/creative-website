@@ -16,7 +16,17 @@
   font-size: 20px;
   background: url('/assets/images/download.png') no-repeat left center;
 }
-
+.file-drop-zone > .placeholder-low {
+  width: 280px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin: 30px auto;
+  padding-left: 50px;
+  box-sizing: border-box;
+  font-size: 20px;
+  background: url('/assets/images/download.png') no-repeat left center;
+}
 /* Default class applied to drop zones on over */
 .invalid-drag {
   border: dotted 3px red;

@@ -1,5 +1,5 @@
 <div class="drag-drop-file-zone">
-  <div [ngClass]="['file-drop-zone', uploadSettings.layout]"
+  <div    [ngClass]="['file-drop-zone', uploadSettings.layout]"
           ngFileDrop
           [multiple]="uploadSettings.multiUpload"
           [queueLimit]="uploadSettings.queueLimit"
@@ -11,8 +11,11 @@
           (filesChange)="onFilesChange($event)"
           [(validDrag)]="validComboDrag"
           [(files)]="files"
+          [ngStyle]="uploadSettings.dragZoneSource === 'documentImport'? {'height': '100px'} : {'height': '400px'}"
     >
-    <div class="placeholder"><strong>{{uploadSettings.placeholder}}</strong></div>
+    <div class="placeholder"
+    [class.placeholder-low]= "uploadSettings.dragZoneSource === 'documentImport'"
+    ><strong>{{uploadSettings.placeholder}}</strong></div>
   </div>
   <div class="message" *ngIf="message"><strong>{{message}}</strong></div>
   <div class="files" *ngIf="uploadSettings.enableFileList">
