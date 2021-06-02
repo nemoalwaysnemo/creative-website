@@ -12,6 +12,20 @@
   </dynamic-ng-form-control>
 </div>
 
+<div [ngClass]="{ 'default-layout': true, 'layout-left left': enableLayoutRight, formClass: true, 'layout-left-shared': true}">
+  <dynamic-ng-form-control *ngFor="let model of getFormModel('leftShared'); trackBy: trackByFn"
+                          [group]="group"
+                          [hidden]="model.hidden"
+                          [layout]="layout"
+                          [model]="model"
+                          [templates]="templates"
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"
+                          (customEvent)="onCustomEvent($event, customEvent)">
+  </dynamic-ng-form-control>
+</div>
+
 <ng-container *ngIf="layoutAccordion && layoutAccordion.length > 0">
   <div class="default-layout layout-left left accordion {{formClass}}">
     <div *ngFor="let accordion of layoutAccordion">
@@ -40,7 +54,7 @@
 <!-- position of accordion should be fixed, temperaryly on the right top;  customization of accordion positions causes problems -->
 <!-- for ex: 2 models under the same accordion tab but different layout position -->
 <ng-container *ngIf="enableLayoutRight">
-  <div class="default-layout layout-right right">
+  <div class="default-layout layout-right right" [class.right-layout-widely] = "enableWideHorizontal" >
     <dynamic-ng-form-control *ngFor="let model of getFormModel('right'); trackBy: trackByFn"
                             [group]="group"
                             [hidden]="model.hidden"

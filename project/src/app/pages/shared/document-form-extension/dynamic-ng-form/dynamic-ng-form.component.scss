@@ -5,6 +5,9 @@
 .layout-right {
   width: 50%;
 }
+.layout-left-shared {
+  max-width: 250px;
+}
 .layout-left-accordion,
 .layout-right-accordion {
   width: 51%;
@@ -12,6 +15,9 @@
 }
 .layout-right {
   padding-top: 30px;
+}
+.right-layout-widely {
+  width: calc(100% - 280px);
 }
 ::ng-deep .is-empty {
   &.stress-input {

@@ -46,6 +46,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
     ngFormSettings.formModel = this.createFormModel(models);
     ngFormSettings.enableLayoutRight = settings.enableLayoutRight;
     ngFormSettings.formMode = settings.formMode;
+    ngFormSettings.enableWideHorizontal = true;
     this.ngFormSettings = ngFormSettings;
   }
 
@@ -59,6 +60,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
           queueLimit: settings.importSettings.queueLimit,
           placeholder: settings.importSettings.placeholder,
           acceptTypes: settings.importSettings.acceptTypes,
+          dragZoneSource: 'documentImport',
         },
         layoutPosition: settings.importSettings.layoutPosition,
       }),
