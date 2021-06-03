@@ -133,7 +133,6 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         icon: { url: '/assets/images/App-Library-Package.png' },
-        // receipient: doc.get('The_Loupe_Delivery:delivery_email'),
         receipient: doc.get('The_Loupe_Delivery:slingshot_delivery_email').join(', '),
         date: doc.get('dc:created'),
         sender: doc.get('dc:creator'),
@@ -206,6 +205,7 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
       currentPage: 'delivery-page',
       searchFormParams: this.buildAssetParams(doc),
       searchFormSettings: new GlobalSearchFormSettings({
+        schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'collection'],
         source: 'document-creative-project-delivery-package',
         searchGroupPosition: 'right',
         enableSearchForm: false,

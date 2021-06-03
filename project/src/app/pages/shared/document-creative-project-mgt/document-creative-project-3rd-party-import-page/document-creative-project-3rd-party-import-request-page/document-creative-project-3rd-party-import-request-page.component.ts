@@ -36,7 +36,8 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
   navSettings: ProjectMgtNavigationSettings;
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'document-creative-project-asset',
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery'],
+    source: 'document-creative-project-3rd-party-import-request',
     enableSearchForm: false,
     autoSearch: false,
   });
@@ -120,7 +121,8 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
       currentPage: '3rd-import-Page',
       searchFormParams: this.buildAssetParams(doc),
       searchFormSettings: new GlobalSearchFormSettings({
-        source: 'document-creative-project-asset',
+        schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery'],
+        source: 'document-creative-project-3rd-party-import-request',
         searchGroupPosition: 'right',
         enableSearchForm: false,
       }),

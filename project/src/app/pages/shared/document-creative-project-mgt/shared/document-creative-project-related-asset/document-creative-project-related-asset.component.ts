@@ -31,8 +31,6 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
 
   isPackage: boolean = false;
 
-  selectedRows: any = [];
-
   listViewSettings: any;
 
   packageViewSettings: any;
@@ -171,7 +169,6 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
   }
 
   onSelected(row: any): void {
-    this.selectedRows = row.selected;
     row.selectedType = this.packageViewSettings.type;
     this.assetSelected.emit(row);
   }

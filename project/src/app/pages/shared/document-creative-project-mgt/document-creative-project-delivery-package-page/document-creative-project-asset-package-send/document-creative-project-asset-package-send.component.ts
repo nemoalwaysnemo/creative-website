@@ -2,13 +2,12 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
 import { Subject, of as observableOf, Observable, concat } from 'rxjs';
 import { DynamicInputModel, DynamicTextAreaModel, DynamicSuggestionModel, DynamicOptionTagModel, DynamicCheckboxModel } from '@core/custom';
-import { DocumentPageService } from '../../../services/document-page.service';
-import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
-import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
+import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 
 
 @Component({
@@ -39,8 +38,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   actionButton: string;
 
   libraryView: string = 'linkBrand';
-
-  navSettings: ProjectMgtNavigationSettings;
 
   listViewOptionsPackage: any = {
     hideHeader: false,
@@ -95,12 +92,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     layout: 'bg-gray',
   };
 
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-asset-package-send',
-    enableSearchInput: false,
-  });
-
   @Input()
   set assetData(data: any) {
     if (data) {
@@ -120,7 +111,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   }
 
   afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => {
-    if (this.actionButton === 'Send' || this.assetAction === 'Resend') {
+    if (this.actionButton === 'Send' || this.actionButton === 'Resend') {
       const subscription = concat(
         this.removeFromCollection(doc),
         this.addToCollection(doc),
@@ -134,6 +125,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
       ).subscribe();
       this.subscription.add(subscription);
     }
+    this.showMsg(doc);
     return observableOf(doc);
   }
 
@@ -218,6 +210,8 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
         id: 'The_Loupe_Delivery:delivery_option',
         label: 'Delivery Options',
         settings: {
+          displayLabel: true,
+          multiple: false,
           placeholder: 'Delivery Options',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-Delivery-Option',
@@ -241,6 +235,8 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
         id: 'The_Loupe_Delivery:authorization_option',
         label: 'Authorization Options',
         settings: {
+          displayLabel: true,
+          multiple: false,
           placeholder: 'Authorization Options',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-Delivery-Authorization',
@@ -284,6 +280,11 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     }
   }
 
+  goHome(): void {
+    const settings = new CreativeProjectMgtSettings({ document: this.currentDocument });
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'package-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+  }
+
   protected addToCollection(packageDoc: DocumentModel): Observable<any> {
     const packageId = packageDoc.uid;
     const assetIds: string[] = this.selectedAddRows.map((doc: DocumentModel) => doc.uid);
@@ -307,5 +308,10 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   protected sendPackage(packageDoc: any): Observable<any> {
     const packageId = packageDoc.uid;
     return this.documentPageService.operation(NuxeoAutomations.SendDeliveryPackage, { uuid: packageId });
+  }
+
+  protected showMsg(doc: DocumentModel): void {
+    this.documentPageService.updateCurrentDocument(doc);
+    this.documentPageService.notify(`${doc.title} has been send successfully!`, '', 'success');
   }
 }
