@@ -33,12 +33,22 @@
     width: 0;
   }
 }
+.creative-project-asset-package-send-nav {
+  width: 100%;
+  float: left;
+  padding: 5px;
+  margin-left: 5px;
+  margin-bottom: 7px;
+  background-color: #5c5858;
+  .logo {
+    color: #ffffff;
+    padding: 0 5px;
+    cursor: pointer;
+  }
+}
 h3 {
   font-size: 18px;
-  background-color: #5c5858;
   color: #ffffff;
   padding-left: 10px;
-  line-height: 30px;
-  height: 30px;
   margin-left: 5px;
 }

@@ -177,6 +177,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       currentPage: 'asset-page',
       searchFormParams: this.buildAssetParams(doc, doc.getParent('brand')),
       searchFormSettings: new GlobalSearchFormSettings({
+        schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
         source: 'document-creative-project-asset',
         searchGroupPosition: 'right',
         enableSearchForm: false,

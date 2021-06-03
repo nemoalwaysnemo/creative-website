@@ -28,7 +28,7 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
   navSettings: ProjectMgtNavigationSettings;
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'document-creative-project-asset',
+    source: 'document-creative-project-import-asset',
     enableSearchForm: false,
     autoSearch: false,
   });
@@ -88,7 +88,7 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
       currentPage: 'Import-Page',
       searchFormParams: this.buildAssetParams(doc),
       searchFormSettings: new GlobalSearchFormSettings({
-        source: 'document-creative-project-asset',
+        source: 'document-creative-project-import-asset',
         searchGroupPosition: 'right',
       }),
     });
