@@ -90,6 +90,7 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
       searchFormSettings: new GlobalSearchFormSettings({
         source: 'document-creative-project-import-asset',
         searchGroupPosition: 'right',
+        enableSearchForm: false,
       }),
     });
   }
