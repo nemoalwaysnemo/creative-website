@@ -14,6 +14,7 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DatePipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { vocabularyFormatter } from '@core/services/helpers';
+import { SearchFilterModel } from '../../../../shared/global-search-filter/global-search-filter.interface';
 
 @Component({
   template: `
@@ -56,15 +57,20 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       title: 'Create Delivery Package',
       type: 'page',
     },
-    {
-      id: 'modif-assets',
-      title: ' Modify Assets',
-    },
+    // {
+    //   id: 'modif-assets',
+    //   title: ' Modify Assets',
+    // },
     {
       id: 'set-usage-rights',
       title: ' Set Usage Rights',
       type: 'page',
     },
+  ];
+
+  filters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
+    new SearchFilterModel({ key: 'the_loupe_rights_contract_mediatypes_agg', placeholder: 'Media Usage' }),
   ];
 
   defaultParams: any = {
@@ -176,11 +182,13 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     return new ProjectMgtNavigationSettings({
       currentPage: 'asset-page',
       searchFormParams: this.buildAssetParams(doc, doc.getParent('brand')),
+      searchFormFilters: this.filters,
       searchFormSettings: new GlobalSearchFormSettings({
         schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
         source: 'document-creative-project-asset',
         searchGroupPosition: 'right',
-        enableSearchForm: false,
+        enableSearchForm: true,
+        enableSearchInput: false,
       }),
     });
   }

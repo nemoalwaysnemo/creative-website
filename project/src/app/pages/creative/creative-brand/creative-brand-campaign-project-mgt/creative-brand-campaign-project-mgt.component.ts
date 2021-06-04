@@ -30,9 +30,17 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
 
   private selectedProject: DocumentModel = null;
 
-  filters: SearchFilterModel[] = [
-    new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),
-    new SearchFilterModel({ key: 'app_edges_industry_agg', placeholder: 'Industry', iteration: true }),
+  campaignFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_prodCredits_production_date_agg', placeholder: 'Year', filterValueFn: (bucket: any) => bucket.docCount > 0 }),
+  ];
+
+  projectFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_jobnumber_agg', placeholder: 'Job Number' }),
+  ];
+
+  assetFilters: SearchFilterModel[] = [
+    new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
+    new SearchFilterModel({ key: 'the_loupe_rights_contract_mediatypes_agg', placeholder: 'Media Usage' }),
   ];
 
   searchFormSettingsCampaign: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -46,6 +54,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
   });
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
     source: 'list-search-form-campaign-asset',
   });
 
@@ -62,7 +71,15 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
         sort: false,
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
-          viewType: 'thumbnail',
+          viewType: 'button',
+          enableClick: true,
+          dialogSettings: new GlobalDocumentDialogSettings({
+            components: [
+              GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_MGT,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM,
+            ],
+            containerType: 'wide-dialog-container',
+          }),
         }),
         renderComponent: ListSearchRowCustomDialogComponent,
       },

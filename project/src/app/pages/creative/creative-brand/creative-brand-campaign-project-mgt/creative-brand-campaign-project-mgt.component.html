@@ -1,7 +1,7 @@
 <creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
 <div class="creative-brand-campaign-project-mgt row">
   <div class="creative-brand-campaign col">
-    <list-search-form [filters]="filters" [searchParams]="baseParamsCampaign$ | async" [settings]="searchFormSettingsCampaign" [listViewSettings]="listViewSettingsCampaign" [listViewBuilder]="listViewBuilderCampaign"
+    <list-search-form [filters]="campaignFilters" [searchParams]="baseParamsCampaign$ | async" [settings]="searchFormSettingsCampaign" [listViewSettings]="listViewSettingsCampaign" [listViewBuilder]="listViewBuilderCampaign"
       (onSelected)="onSelectedCampaign($event)">
       <ng-container class="group-left">
         <div class="global-search-form-buttons">
@@ -12,7 +12,7 @@
     </list-search-form>
   </div>
   <div class="creative-brand-project col">
-    <list-search-form [filters]="filters" [searchParams]="baseParamsProject$ | async" [settings]="searchFormSettingsProject" [listViewSettings]="listViewSettingsProject" [listViewBuilder]="listViewBuilderProject"
+    <list-search-form [filters]="projectFilters" [searchParams]="baseParamsProject$ | async" [settings]="searchFormSettingsProject" [listViewSettings]="listViewSettingsProject" [listViewBuilder]="listViewBuilderProject"
       (onSelected)="onSelectedProject($event)">
       <ng-container class="group-left">
         <div class="global-search-form-buttons">
@@ -23,7 +23,7 @@
     </list-search-form>
   </div>
   <div class="creative-brand-campaign-asset col">
-    <list-search-form [filters]="filters" [searchParams]="baseParamsAsset$ | async" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset">
+    <list-search-form [filters]="assetFilters" [searchParams]="baseParamsAsset$ | async" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset">
       <ng-container class="group-left">
         <div class="global-search-form-buttons">
           <button type="button" class="creative-brand-campaign-asset-btn icon_btn" title="Asset">Asset</button>
