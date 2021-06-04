@@ -25,7 +25,7 @@ export class LearningProgramCategoryComponent extends BaseDocumentViewComponent 
 
   categoryInfo: Map<string, string> = new Map<string, string>([
     ['Emerging Talent', 'category_emerging_talent.png'],
-    ['First Time Managers', 'category_first_time_managers.png'],
+    ['First-Time Managers', 'category_first_time_managers.png'],
     ['Rising Leaders', 'category_rising_leaders.png'],
     ['Senior Leaders', 'category_senior_leaders.png'],
     ['Executive Leaders', 'category_executive_leaders.png'],
