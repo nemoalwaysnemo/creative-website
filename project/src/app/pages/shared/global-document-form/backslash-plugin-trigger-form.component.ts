@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicDragDropFileZoneModel, DynamicTextAreaModel, DynamicGalleryUploadModel, DynamicOptionTagModel, DynamicListModel } from '@core/custom';
-import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
 import { concatMap, map } from 'rxjs/operators';
@@ -17,10 +17,10 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
 
   protected documentType: string = 'App-Edges-Trigger';
 
-  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
+  beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     doc.properties['app_Edges:trigger_additional_links'] = (doc.properties['app_Edges:trigger_additional_links'] || []).filter((x: any) => x);
     delete doc.properties['web-page-element:page-images'];
-    return doc;
+    return observableOf(doc);
   }
 
   private getUserSimplePreference(doc: DocumentModel, user: UserModel): Observable<any> {
@@ -219,7 +219,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           queueLimit: 1,
           xpath: 'file:content',
         },
-        defaultValueFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): any => doc.get('web-page-element:page-images'),
+        defaultValueFn: (ctx: DocumentFormContext): any => ctx.currentDocument.get('web-page-element:page-images'),
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',

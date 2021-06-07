@@ -3,7 +3,7 @@ import { DocumentModel, UserModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
 import { of as observableOf, Observable, Subscription, Subject, combineLatest } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
-import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 
 export interface DocumentModelForm {
@@ -37,8 +37,9 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
     } else {
       this.setFormSettings({ formMode: (metadata.formMode || 'create') });
     }
-    this.beforeSave = metadata.beforeSave || this.beforeSave;
     this.afterSave = metadata.afterSave || this.afterSave;
+    this.beforeSave = metadata.beforeSave || this.beforeSave;
+    this.beforeSaveValidation = metadata.beforeSaveValidation || this.beforeSaveValidation;
   }
 
   static readonly COMPONENT_TYPE: string = 'form';
@@ -59,9 +60,11 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
 
   protected documentType: string;
 
-  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => doc;
+  beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => observableOf(doc);
 
-  afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
+  afterSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => observableOf(doc);
+
+  beforeSaveValidation: (ctx: DocumentFormContext) => Observable<boolean> = (ctx: DocumentFormContext) => observableOf(true);
 
   constructor(protected documentPageService: DocumentPageService) {
     this.onDocumentChanged();

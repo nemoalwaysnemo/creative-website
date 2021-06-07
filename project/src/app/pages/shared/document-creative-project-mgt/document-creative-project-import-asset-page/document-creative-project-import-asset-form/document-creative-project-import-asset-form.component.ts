@@ -1,8 +1,8 @@
-import { Component, OnInit, OnChanges, OnDestroy, Input} from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, Input } from '@angular/core';
 import { DocumentModel, UserModel, NuxeoUploadResponse, AdvanceSearchService } from '@core/api';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel, DynamicListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
-import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 import { Observable } from 'rxjs';
@@ -51,7 +51,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
-        // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:campaign_mgt'),
+        // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -101,7 +101,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
           required: '{{label}} is required',
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicDatepickerDirectiveModel<string>({
@@ -116,7 +116,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
         errorMessages: {
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (ctx: DocumentFormContext): boolean => !ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicSuggestionModel<string>({
@@ -133,7 +133,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
@@ -148,7 +148,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
           providerName: 'javascript.provideURmediatypes',
         },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (ctx: DocumentFormContext): boolean => !ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',
@@ -195,7 +195,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
       //   },
       //   validators: { required: null },
       //   errorMessages: { required: '' },
-      //   visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:campaign_mgt'),
+      //   visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:campaign_mgt'),
       // }),
       // new DynamicDatepickerDirectiveModel<string>({
       //   id: 'The_Loupe_ProdCredits:production_date',
@@ -279,7 +279,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
-        hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
+        hiddenFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:UsageRights'),
       }),
       new DynamicListModel({
         id: 'The_Loupe_Rights:contract_items_usage_types',
@@ -302,7 +302,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
                 required: '{{label}} is required',
                 minLength: 'At least 4 characters',
               },
-              hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
+              hiddenFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:UsageRights'),
             }),
             new DynamicSuggestionModel<string>({
               id: 'media_usage_type',
@@ -317,7 +317,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
               validators: { required: null },
               errorMessages: { required: '{{label}} is required' },
               onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-              // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
+              // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
             }),
             new DynamicSuggestionModel<string>({
               id: 'contract_countries',

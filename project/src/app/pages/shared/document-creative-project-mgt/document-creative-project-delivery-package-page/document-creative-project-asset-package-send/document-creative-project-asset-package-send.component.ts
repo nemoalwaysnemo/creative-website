@@ -5,7 +5,7 @@ import { DynamicInputModel, DynamicTextAreaModel, DynamicSuggestionModel, Dynami
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
-import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 
@@ -101,32 +101,33 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
 
   @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
 
-  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
+  beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     if (this.formSettings.formMode === 'create') {
       doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
       doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
       doc.properties['The_Loupe_Delivery:agency_disclaimer'] = doc.getParent().uid;
     }
-    return doc;
+    return observableOf(doc);
   }
 
-  afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => {
+  afterSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
+    const document = ctx.savedDocuments[0];
     if (this.actionButton === 'Send' || this.actionButton === 'Resend') {
       const subscription = concat(
-        this.removeFromCollection(doc),
-        this.addToCollection(doc),
-        this.sendPackage(doc),
+        this.removeFromCollection(document),
+        this.addToCollection(document),
+        this.sendPackage(document),
       ).subscribe();
       this.subscription.add(subscription);
     } else {
       const subscription = concat(
-        this.removeFromCollection(doc),
-        this.addToCollection(doc),
+        this.removeFromCollection(document),
+        this.addToCollection(document),
       ).subscribe();
       this.subscription.add(subscription);
     }
-    this.showMsg(doc);
-    return observableOf(doc);
+    this.showMsg(document);
+    return observableOf(document);
   }
 
   constructor(

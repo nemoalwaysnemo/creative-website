@@ -30,15 +30,15 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
     return [
       {
         name: '+ Agency Credits',
-        // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+        // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().getParent().get('app_global:campaign_mgt'),
       },
       {
         name: '+ Backslash',
-        // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:backslash'),
+        // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().getParent().get('app_global:backslash'),
       },
       {
         name: '+ Usage Rights',
-        // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:UsageRights'),
+        // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().getParent().get('app_global:UsageRights'),
       },
     ];
   }
