@@ -29,7 +29,7 @@
       }
     }
   }
-  .creative-brand-project, .creative-brand-campaign-asset {
+  .creative-brand-project, .creative-brand-campaign-asset, .creative-brand-campaign {
     .list-search-result {
       table {
         tbody {
@@ -41,6 +41,9 @@
               }
               border: none;
             }
+          }
+          tr td:nth-child(2) {
+            float: right;
           }
           tr:hover {
             background-color: #fecc00 !important;

@@ -1,15 +1,37 @@
 .creative-project-navigation {
-    background-color: #434343;
-    width: 100%;
-    height: 36px;
+  background-color: #434343;
+  width: 100%;
 }
 .creative-project-navigation-home {
-    width: 80px;
-    height: 100%;
-    float: left;
+  width: 80px;
+  height: 100%;
+  float: left;
+  h3 {
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+    font-size: 18px;
+    color: #ffffff;
+    padding: 7px;
+    text-align: center;
+  }
 }
 .creative-project-navigation-page-list {
-    width: 200px;
-    height: 100%;
-    float: left;
+  width: 200px;
+  height: 100%;
+  float: left;
+}
+.creative-project-navigation ::ng-deep .creative-project-navigation-search {
+  .global-search-form {
+    margin: 0 !important;
+    .advanced-filters-trigger.success {
+      border: #ffcb00 !important;
+    }
+  }
+  .icon_btn {
+    height: 25px;
+    line-height: 25px;
+    background-color: #fecc00;
+    color: #ffffff !important;
+    border: 0;
+    margin-top: 5px;
+  }
 }
