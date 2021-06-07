@@ -162,26 +162,26 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
       }),
     ],
     formModel: [
-      // new DynamicInputModel({
-      //   id: 'dc:title',
-      //   label: 'Title',
-      //   maxLength: 150,
-      //   placeholder: 'Title',
-      //   autoComplete: 'off',
-      //   required: true,
-      //   settings: {
-      //     direction: 'horizontal',
-      //   },
-      //   validators: {
-      //     required: null,
-      //     minLength: 4,
-      //   },
-      //   errorMessages: {
-      //     required: '{{label}} is required',
-      //     minLength: 'At least 4 characters',
-      //   },
-      //   // hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => settings.formMode === 'create',
-      // }),
+      new DynamicInputModel({
+        id: 'dc:title',
+        label: 'Title',
+        maxLength: 150,
+        placeholder: 'Title',
+        autoComplete: 'off',
+        required: true,
+        settings: {
+          direction: 'horizontal',
+        },
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
+        // hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => settings.formMode === 'create',
+      }),
       // new DynamicSuggestionModel<string>({
       //   id: 'The_Loupe_Main:jobtitle',
       //   label: 'Search Project',
@@ -221,7 +221,6 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
         label: 'Asset Type',
         document: true,
         required: true,
-        layoutPosition: 'leftShared',
         settings: {
           multiple: false,
           placeholder: 'What is this asset?',
@@ -239,9 +238,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
 
   constructor(
     private advanceSearchService: AdvanceSearchService,
-
   ) {
-
   }
 
   ngOnInit(): void {
@@ -261,13 +258,6 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
   private load(uid: string): void {
     this.advanceSearchService.get(uid).subscribe((doc: DocumentModel) => {
       this.document = doc;
-    });
-  }
-
-  private create(): void {
-    this.advanceSearchService.get('c4e41076-c38f-4f8a-848b-8ba45e114530').subscribe((doc: DocumentModel) => {
-      this.settings = this.getSettings();
-      this.document = new DocumentModel({ path: doc.uid, type: 'App-Library-Image' });
     });
   }
 

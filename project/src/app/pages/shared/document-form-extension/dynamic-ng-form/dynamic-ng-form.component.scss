@@ -17,7 +17,8 @@
   padding-top: 30px;
 }
 .right-layout-widely {
-  width: calc(100% - 280px);
+  width: 80%;
+  max-width: calc(100% - 280px);
 }
 ::ng-deep .is-empty {
   &.stress-input {
