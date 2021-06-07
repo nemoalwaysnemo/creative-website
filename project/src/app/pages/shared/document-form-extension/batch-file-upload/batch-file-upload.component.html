@@ -1,11 +1,11 @@
 <div class="batch-upload" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div class="batch-upload-queue">
     <h6 *ngIf="uploadSettings.enableAction">{{ uploadItems.length }} Queued Files</h6>
-    <table class="table">
+    <table class="table" >
       <tbody>
         <tr>
           <td class="file-info-zone">
-            <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0">
+            <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0" [ngStyle]="uploadSettings.arrangeDirection == 'horizontal'? {} : {'width': '100%'}">
               <thead>
                 <tr *ngIf="uploadItems.length > 0">
                   <th>Name</th>
@@ -14,7 +14,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of uploadItems; let i=index" [ngStyle]="item.fieldPieces < fieldsOneLine ? {'height': '40px'} : {'height': '100px'}">
+                <tr *ngFor="let item of uploadItems; let i=index" style="height: 40px;">
                   <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
                   <td *ngIf="!uploadSettings.enableForm || uploadSettings.enableForm && !item.isMainFile()">{{ item.getFileType() }}</td>
                   <td nowrap *ngIf="item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB</td>
@@ -23,7 +23,7 @@
               </tbody>
             </table>
           </td>
-          <td style="padding: 0;">
+          <td style="padding: 0;" *ngIf="uploadSettings.arrangeDirection == 'horizontal'">
             <div *ngFor="let group of formGroups; let i=index" style="clear:both; min-width: 60px; width: 100%;">
               <div *ngIf="uploadSettings.enableForm && uploadItems[i].isMainFile()">
                 <dynamic-ng-form [formClass]="'document-form'" [group]="group" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">

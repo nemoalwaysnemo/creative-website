@@ -12,6 +12,7 @@ import { DocumentCreativeProjectMgtBasePageComponent } from '../../document-crea
 import { DocumentCreativeProjectImportNewRequestComponent } from '../document-creative-project-3rd-party-import-new-request/document-creative-project-import-new-request.component';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'creative-brand-project-3rd-party-import',
   templateUrl: './document-creative-project-3rd-party-import-asset-page.component.html',
@@ -35,7 +36,7 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
     enableSearchInput: false,
   });
   listViewSettings: any = {
-    hideHeader: true,
+    hideHeader: false,
     hideSubHeader: true,
     columns: {
       icon: {
@@ -47,40 +48,22 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
-      title: {
+      recipient: {
         sort: false,
-        type: 'custom',
-        renderComponentData: new ListSearchRowCustomViewSettings({
-          viewType: 'html',
-          htmlFn: (doc: DocumentModel) => {
-            return `
-            <div class="delivery-title">
-              <ul>
-                <li>Uploader:</li>
-                <li>Requested By:</li>
-                <li>Status:</li>
-              </ul>
-            </div>`;
-          },
-        }),
+        title: 'Recipient',
         renderComponent: ListSearchRowCustomViewComponent,
       },
-      info: {
+      dateSent: {
         sort: false,
-        type: 'custom',
-        renderComponentData: new ListSearchRowCustomViewSettings({
-          viewType: 'html',
-          htmlFn: (doc: DocumentModel) => {
-            return `
-            <div class="delivery-info">
-              <ul>
-                <li>${doc.get('The_Loupe_Delivery:delivery_email')}</li>
-                <li>${doc.get('dc:creator')}</li>
-                <li>${doc.get('The_Loupe_Delivery:status')}</li>
-              </ul>
-            </div>`;
-          },
-        }),
+        title: 'Date sent',
+        valuePrepareFunction: (value: any) => {
+          return value ? new DatePipe('en-US').transform(value, 'yyyy-MM-dd') : null;
+        },
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+      sendBy: {
+        sort: false,
+        title: 'Send By',
         renderComponent: ListSearchRowCustomViewComponent,
       },
     },
@@ -103,10 +86,11 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
-        uid: doc.uid,
-        icon: { url: '/assets/images/App-Library-Package.png' },
-        title: doc,
         info: doc,
+        icon: { url: '/assets/images/App-Library-Package.png' },
+        recipient: doc.get('The_Loupe_Delivery:delivery_email'),
+        dateSent: doc.get('The_Loupe_Delivery:delivery_send_date'),
+        sendBy: doc.get('The_Loupe_Delivery:request_user'),
       }));
     }
     return items;

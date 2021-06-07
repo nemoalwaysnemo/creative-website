@@ -27,9 +27,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   set settings(settings: BatchUploadSettings) {
     if (!isValueEmpty(settings)) {
       this.uploadSettings = settings;
-      if (settings['fieldsOneLine']) {
-        this.fieldsOneLine = settings['fieldsOneLine'];
-      }
     }
   }
 
@@ -50,8 +47,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   formGroups: FormGroup[] = [];
 
   formModels: DynamicFormControlModel[] = [];
-
-  fieldsOneLine: number = 5;
 
   private batchUpload: BatchUpload;
 

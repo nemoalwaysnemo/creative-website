@@ -161,7 +161,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
         },
       }),
     ],
-    formModel: [
+    importModel: [
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
