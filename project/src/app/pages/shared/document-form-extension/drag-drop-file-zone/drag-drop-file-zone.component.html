@@ -1,5 +1,5 @@
 <div class="drag-drop-file-zone">
-  <div    [ngClass]="['file-drop-zone', uploadSettings.layout]"
+  <div [ngClass]="['file-drop-zone', uploadSettings.layout]"
           ngFileDrop
           [multiple]="uploadSettings.multiUpload"
           [queueLimit]="uploadSettings.queueLimit"
@@ -13,8 +13,7 @@
           [(files)]="files"
           [ngStyle]="uploadSettings.dragZoneStyle"
     >
-    <div class="placeholder"  [ngStyle]="uploadSettings.placeholderClass"
-    ><strong>{{uploadSettings.placeholder}}</strong></div>
+    <div class="placeholder" [ngStyle]="uploadSettings.placeholderClass"><strong>{{uploadSettings.placeholder}}</strong></div>
   </div>
   <div class="message" *ngIf="message"><strong>{{message}}</strong></div>
   <div class="files" *ngIf="uploadSettings.enableFileList">

@@ -4,10 +4,10 @@ import { deepExtend, isValueEmpty } from '@core/services/helpers';
 import { UserModel, DocumentModel, NuxeoUploadResponse } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
-import { DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
 import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
-import { concatMap, tap } from 'rxjs/operators';
+import { concatMap, filter, map, tap } from 'rxjs/operators';
 
 @Component({
   template: '',
@@ -20,32 +20,26 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   uploadCount: number = 0;
 
-  ngFormSettings: DynamicNGFormSettings;
+  ctx: DocumentFormContext;
 
-  formSettings: DocumentFormSettings = new DocumentFormSettings();
+  ngFormSettings: DynamicNGFormSettings;
 
   formStatus$: BehaviorSubject<DocumentFormStatus> = new BehaviorSubject<DocumentFormStatus>(new DocumentFormStatus());
 
-  protected formName: string = 'base-document-form';
-
-  protected currentUser: UserModel;
-
-  protected currentDocument: DocumentModel;
-
-  protected uploadModel: DynamicFormControlModel;
-
   protected subscription: Subscription = new Subscription();
 
-  protected document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+  protected documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
 
   protected currentUser$: Subject<UserModel> = new Subject<UserModel>();
 
   protected formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
 
+  protected saveEvent$: Subject<DocumentFormContext> = new Subject<DocumentFormContext>();
+
   @Input()
-  set document(doc: DocumentModel) {
-    if (doc) {
-      this.document$.next(this.prepareFiles(doc));
+  set document(docs: DocumentModel | DocumentModel[]) {
+    if (docs) {
+      this.documents$.next(this.prepareFiles(docs));
     }
   }
 
@@ -67,12 +61,15 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
-  @Input() beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => doc;
+  @Input() beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => observableOf(doc);
 
-  @Input() afterSave: (doc: DocumentModel, user: UserModel) => Observable<DocumentModel> = (doc: DocumentModel, user: UserModel) => observableOf(doc);
+  @Input() afterSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => observableOf(doc);
+
+  @Input() beforeSaveValidation: (ctx: DocumentFormContext) => Observable<boolean> = (ctx: DocumentFormContext) => observableOf(true);
 
   constructor(protected documentPageService: DocumentPageService, protected formService: DynamicFormService) {
-    this.onDocumentChanged();
+    this.onDocumentsChanged();
+    this.onSavePerformed();
   }
 
   ngOnInit(): void {
@@ -84,7 +81,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   onBlur(event: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'onBlur', status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.currentDocument, ngFormSettings: this.ngFormSettings }));
+    this.callback.emit(new DocumentFormEvent({ action: 'onBlur', status: this.getFormStatus(), formValue: this.getFormValue(), doc: this.ctx.currentDocument, ngFormSettings: this.ngFormSettings }));
   }
 
   onChange(event: any): void {
@@ -109,22 +106,18 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   onSave(): void {
     this.updateFormStatus({ submitting: true });
-    if (this.formSettings.formMode === 'create') {
-      this.create();
-    } else if (this.formSettings.formMode === 'edit') {
-      this.update();
-    }
+    this.triggerUpload(this.ctx);
   }
 
   onCancel(): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.currentDocument }));
-    if (this.formSettings.resetFormAfterDone) {
+    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.ctx.currentDocument }));
+    if (this.ctx.formSettings.resetFormAfterDone) {
       this.resetForm();
     }
   }
 
   onCustomButton(button: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, formValue: this.getFormValue(), doc: this.currentDocument }));
+    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, formValue: this.getFormValue(), doc: this.ctx.currentDocument }));
     if (button.triggerSave) {
       this.onSave();
     }
@@ -138,14 +131,18 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     this.formStatus$.next(this.formStatus$.value.update(status));
   }
 
+  protected getFormStatus(key?: string): any {
+    return key ? this.formStatus$.value[key] : this.formStatus$.value;
+  }
+
   private performUploadEvent(event: any): void {
     this.performBatchUpload(event);
     this.callback.emit(new DocumentFormEvent({
       action: 'UploadFilesChanged',
       actionType: event.$event.type,
       uploadType: event.type,
-      doc: this.currentDocument,
-      status: this.formStatus$.value,
+      doc: this.ctx.currentDocument,
+      status: this.getFormStatus(),
       formValue: this.getFormValue(),
       ngFormSettings: this.ngFormSettings,
     }));
@@ -153,14 +150,107 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   private performSwitchEvent(event: any): void {
     this.performSwitchUploadModel(event.model);
-    this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.formStatus$.value, formValue: this.getFormValue(), doc: this.currentDocument }));
+    this.callback.emit(new DocumentFormEvent({ action: 'SwitchTabChanged', tabs: event.tabs, selected: event.selected, model: event.model, status: this.getFormStatus(), formValue: this.getFormValue(), doc: this.ctx.currentDocument }));
   }
 
-  protected prepareFiles(doc: DocumentModel): DocumentModel {
-    if ((doc.get('files:files') || []).every((f: any) => !f.file)) {
-      doc.set({ 'files:files': [] });
-    }
-    return doc;
+  protected createFormModel(settings: string | any[]): DynamicFormModel {
+    return this.formService.fromJSON(settings);
+  }
+
+  protected createFormGroup(formModel: DynamicFormModel): FormGroup {
+    return this.formService.createFormGroup(formModel);
+  }
+
+  protected prepareFormModel(ctx: DocumentFormContext, formModel: DynamicFormModel): DynamicFormModel {
+    const formModels = formModel.map((m: DynamicFormControlModel) => {
+      const model = ctx.formSettings.enableBulkImport ? Object.assign({}, m) : m;
+      const modelValue = ctx.currentDocument.get(model.field);
+      if (model.hiddenFn) { model.hidden = model.hiddenFn(ctx); }
+      if (model.settings) { model.settings.formMode = ctx.formSettings.formMode; }
+      if (model.document) { model.document = ctx.currentDocument; }
+      if (isValueEmpty(modelValue)) {
+        if (model.defaultValueFn) {
+          model.value = model.defaultValueFn(ctx);
+        } else if (!!model.defaultValue) {
+          model.value = model.defaultValue;
+        }
+      } else {
+        model.value = modelValue;
+      }
+      if (model instanceof DynamicListModel) {
+        model.settings.items = this.prepareFormModel(ctx, model.settings.items);
+      }
+      return model;
+    });
+    return formModels;
+  }
+
+  protected performFormModel(ctx: DocumentFormContext, formModel: DynamicFormModel): DynamicFormModel {
+    const models = formModel.filter((v) => v.formMode === null || v.formMode === ctx.formSettings.formMode).filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(ctx));
+    return this.prepareFormModel(ctx, models);
+  }
+
+  protected performDocumentForm(ctx: DocumentFormContext): void {
+    const models = this.performFormModel(ctx, ctx.formSettings.formModel);
+    this.performNgFormSettings(ctx, models);
+    this.createDocumentForm(models);
+  }
+
+  protected performNgFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
+    this.ngFormSettings = new DynamicNGFormSettings();
+  }
+
+  protected createDocumentForm(models: DynamicFormModel): void {
+    this.formGroup = this.createFormGroup(models);
+    const subscription = this.formGroup.statusChanges.subscribe((valid: any) => {
+      timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID', submitted: false }); });
+    });
+    this.subscription.add(subscription);
+  }
+
+  protected onBeforeSave(ctx: DocumentFormContext): Observable<DocumentFormContext> {
+    return observableOf(ctx);
+  }
+
+  protected onAfterSave(ctx: DocumentFormContext): Observable<DocumentFormContext> {
+    return observableOf(ctx);
+  }
+
+  protected onSavePerformed(): void {
+    const subscription = this.saveEvent$.pipe(
+      tap((ctx: DocumentFormContext) => {
+        ctx.afterSave = this.afterSave;
+        ctx.beforeSave = this.beforeSave;
+        ctx.beforeSaveValidation = this.beforeSaveValidation;
+      }),
+      concatMap((ctx: DocumentFormContext) => ctx.beforeSaveValidation(ctx).pipe(map((formValid: boolean) => ctx.update({ formValid })))),
+      filter((ctx: DocumentFormContext) => ctx.formValid),
+      concatMap((ctx: DocumentFormContext) => this.onBeforeSave(ctx)),
+      concatMap((ctx: DocumentFormContext) => this.performSave(ctx).pipe(
+        map((docs: DocumentModel[]) => ctx.updatePerformedDocuments(docs)),
+      )),
+      concatMap((ctx: DocumentFormContext) => this.performSaved(ctx)),
+      concatMap((ctx: DocumentFormContext) => this.onAfterSave(ctx)),
+      tap(_ => { this.updateFormStatus({ submitting: false, submitted: true }); }),
+    ).subscribe();
+    this.subscription.add(subscription);
+  }
+
+  protected onDocumentsChanged(): void {
+    const subscription = combineLatest([
+      this.documents$,
+      this.currentUser$,
+      this.formSettings$,
+    ]).subscribe(([docs, user, settings]: [DocumentModel[], UserModel, DocumentFormSettings]) => {
+      this.loading = false;
+      this.setFormDocument(docs, user, settings);
+      this.performDocumentForm(this.ctx);
+    });
+    this.subscription.add(subscription);
+  }
+
+  protected setFormDocument(documents: DocumentModel[], user: UserModel, formSettings: DocumentFormSettings): void {
+    this.ctx = this.newSaveContext(documents, user, formSettings);
   }
 
   protected prepareProperties(props: any = {}, formValue: any = {}): any {
@@ -175,81 +265,6 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     return properties;
   }
 
-  protected createFormModel(settings: string | any[]): DynamicFormModel {
-    return this.formService.fromJSON(settings);
-  }
-
-  protected createFormGroup(formModel: DynamicFormModel): FormGroup {
-    return this.formService.createFormGroup(formModel);
-  }
-
-  protected prepareFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, formModel: DynamicFormModel): DynamicFormModel {
-    const formModels = formModel.map((m: DynamicFormControlModel) => {
-      const model = this.formSettings.enableBulkImport ? Object.assign({}, m) : m;
-      const modelValue = doc.get(model.field);
-      if (model.hiddenFn) { model.hidden = model.hiddenFn(doc, user, settings); }
-      if (model.settings) { model.settings.formMode = settings.formMode; }
-      if (model.document) { model.document = doc; }
-      if (isValueEmpty(modelValue)) {
-        if (model.defaultValueFn) {
-          model.value = model.defaultValueFn(doc, user, settings);
-        } else if (!!model.defaultValue) {
-          model.value = model.defaultValue;
-        }
-      } else {
-        model.value = modelValue;
-      }
-      if (model instanceof DynamicListModel) {
-        model.settings.items = this.prepareFormModel(doc, user, settings, model.settings.items);
-      }
-      return model;
-    });
-    return formModels;
-  }
-
-  protected performFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): DynamicFormModel {
-    const models = settings.formModel.filter((v) => v.formMode === null || v.formMode === settings.formMode).filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(doc, user, settings));
-    return this.prepareFormModel(doc, user, settings, models);
-  }
-
-  protected performDocumentForm(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
-    const models = this.performFormModel(doc, user, settings);
-    this.performNgFormSettings(doc, user, settings, models);
-    this.createDocumentForm(models);
-  }
-
-  protected performNgFormSettings(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): void {
-    this.ngFormSettings = new DynamicNGFormSettings();
-  }
-
-  protected createDocumentForm(models: DynamicFormModel): void {
-    this.formGroup = this.createFormGroup(this.ngFormSettings.formModel);
-    const subscription = this.formGroup.statusChanges.subscribe((valid: any) => {
-      timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID', submitted: false }); });
-    });
-    this.subscription.add(subscription);
-  }
-
-  protected onDocumentChanged(): void {
-    const subscription = combineLatest([
-      this.document$,
-      this.currentUser$,
-      this.formSettings$,
-    ]).subscribe(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => {
-      this.loading = false;
-      this.setFormDocument(doc, user, settings);
-      this.performDocumentForm(doc, user, settings);
-    });
-    this.subscription.add(subscription);
-  }
-
-  protected setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
-    this.currentUser = user;
-    this.currentDocument = doc;
-    this.formSettings = settings;
-    this.formName = settings.formName || this.formName;
-  }
-
   protected getFormValue(field?: string): any {
     return field ? this.formGroup.value[field] : this.formGroup.value;
   }
@@ -258,82 +273,93 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     return uploadModel ? (this.getFormValue(uploadModel.field) || []).filter((res: NuxeoUploadResponse) => !res.original) : [];
   }
 
-  protected getUploadName(model: DynamicFormControlModel): string {
-    if (model instanceof DynamicBatchUploadModel) {
-      return 'BatchUpload';
-    } else if (model instanceof DynamicGalleryUploadModel) {
-      return 'GalleryUpload';
-    }
-  }
-
-  protected create(): void {
-    let documents = [];
-    if (this.formStatus$.value.uploadState === 'prepared') {
-      if (this.getUploadFiles(this.uploadModel).length > 0) {
-        this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
-      }
+  protected triggerUpload(ctx: DocumentFormContext): void {
+    if (this.getFormStatus('uploadState') === 'prepared' && this.getUploadFiles(ctx.uploadModel).length > 0) {
+      this.formService.triggerEvent({ name: this.getUploadName(ctx.uploadModel), type: 'FileUpload', data: {} });
     } else {
-      this.currentDocument.properties = this.prepareProperties(this.currentDocument.properties, this.getFormValue());
-      if (this.formStatus$.value.uploadState === 'uploaded') {
-        documents = this.attachUploadFiles(this.currentDocument, this.getUploadFiles(this.uploadModel));
-      } else {
-        documents = [this.currentDocument];
-      }
-      documents.forEach(doc => {
-        if (!doc.properties['files:files'] || doc.properties['files:files'].length === 0) {
-          delete doc.properties['files:files'];
-        }
-      });
-      this.createDocuments(documents, this.currentUser, this.formSettings.actionOptions).subscribe((models: DocumentModel[]) => {
-        this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: models[0], docs: models }));
-        if (this.formSettings.resetFormAfterDone) {
-          this.resetForm();
-        }
-      });
+      this.triggerSave(ctx);
     }
   }
 
-  protected update(): void {
-    if (this.formStatus$.value.uploadState === 'prepared') {
-      if (this.getUploadFiles(this.uploadModel).length > 0) {
-        this.formService.triggerEvent({ name: this.getUploadName(this.uploadModel), type: 'FileUpload', data: {} });
-      }
+  protected triggerSave(ctx: DocumentFormContext): void {
+    this.saveEvent$.next(ctx);
+  }
+
+  protected newSaveContext(documents: DocumentModel[], user: UserModel, formSettings: DocumentFormSettings, uploadModel?: DynamicFormControlModel): DocumentFormContext {
+    return new DocumentFormContext({ user, documents, formSettings, uploadModel });
+  }
+
+  protected performSave(ctx: DocumentFormContext): Observable<DocumentModel[]> {
+    if (ctx.formSettings.formMode === 'create') {
+      return this.performCreate(ctx);
+    } else if (ctx.formSettings.formMode === 'edit') {
+      return this.performUpdate(ctx);
     } else {
-      let properties = this.prepareProperties({}, this.getFormValue());
-      if (this.formStatus$.value.uploadState === 'uploaded') {
-        const files = this.getUploadFiles(this.uploadModel);
-        properties = this.updateUploadFiles(properties, files);
-      }
-
-      if (this.currentDocument.properties['nxtag:tags'] && properties['nxtag:tags']) {
-        this.currentDocument.properties['nxtag:tags'] = properties['nxtag:tags'];
-      }
-
-      this.updateDocument(this.currentDocument, properties, this.currentUser, this.formSettings.actionOptions).subscribe((model: DocumentModel) => {
-        this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: model }));
-      });
+      throw new Error(`Invalid form mode ${ctx.formSettings.formMode}!`);
     }
   }
 
-  protected createDocuments(documents: DocumentModel[], user: UserModel, opts: any = {}): Observable<DocumentModel[]> {
-    return forkJoin(documents.map(x => this.createDocument(x, user, opts)));
+  protected performCreate(ctx: DocumentFormContext): Observable<DocumentModel[]> {
+    ctx.currentDocument.properties = this.prepareProperties(ctx.currentDocument.properties, this.getFormValue());
+    const documents = this.getFormStatus('uploadState') === 'uploaded' ? this.attachUploadFiles(ctx) : [ctx.currentDocument];
+    return this.createDocuments(documents, ctx);
   }
 
-  protected createDocument(doc: DocumentModel, user: UserModel, opts: any = {}): Observable<any> {
-    return this.documentPageService.createDocument(this.beforeSave(doc, user), opts).pipe(
-      concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
-      tap(_ => { this.updateFormStatus({ submitting: false, submitted: true }); }),
+  protected performUpdate(ctx: DocumentFormContext): Observable<DocumentModel[]> {
+    let properties = this.prepareProperties({}, this.getFormValue());
+    if (this.getFormStatus('uploadState') === 'uploaded') {
+      const files = this.getUploadFiles(ctx.uploadModel);
+      properties = this.updateUploadFiles(properties, files);
+    }
+    return this.updateDocuments(ctx.documents, properties, ctx);
+  }
+
+  protected performSaved(ctx: DocumentFormContext): Observable<DocumentFormContext> {
+    if (ctx.formSettings.formMode === 'create') {
+      return this.onCreated(ctx);
+    } else if (ctx.formSettings.formMode === 'edit') {
+      return this.onUpdated(ctx);
+    }
+  }
+
+  protected onCreated(ctx: DocumentFormContext): Observable<DocumentFormContext> {
+    this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: ctx.performedDocuments[0], docs: ctx.performedDocuments }));
+    if (ctx.formSettings.resetFormAfterDone) {
+      this.resetForm();
+    }
+    return observableOf(ctx);
+  }
+
+  protected onUpdated(ctx: DocumentFormContext): Observable<DocumentFormContext> {
+    this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: ctx.performedDocuments[0] }));
+    return observableOf(ctx);
+  }
+
+  protected createDocuments(docs: DocumentModel[], ctx: DocumentFormContext): Observable<DocumentModel[]> {
+    return forkJoin(docs.map(x => this.createDocument(x, ctx)));
+  }
+
+  protected createDocument(doc: DocumentModel, ctx: DocumentFormContext): Observable<any> {
+    return ctx.beforeSave(doc, ctx).pipe(
+      concatMap((d: DocumentModel) => this.documentPageService.createDocument(d, ctx.formSettings.actionOptions)),
+      concatMap((d: DocumentModel) => ctx.afterSave(d, ctx)),
     );
   }
 
-  protected updateDocument(doc: DocumentModel, properties: any = {}, user: UserModel, opts: any = {}): Observable<DocumentModel> {
-    const updateDoc = this.beforeSave(doc, user);
-    if (properties['nxtag:tags'] && updateDoc.properties['nxtag:tags']) {
-      properties['nxtag:tags'] = updateDoc.properties['nxtag:tags'];
-    }
-    return updateDoc.set(properties).save(opts).pipe(
-      concatMap((newDoc: DocumentModel) => this.afterSave(newDoc, user)),
-      tap(_ => { this.updateFormStatus({ submitting: false, submitted: true }); }),
+  protected updateDocuments(docs: DocumentModel[], properties: any = {}, ctx: DocumentFormContext): Observable<DocumentModel[]> {
+    return forkJoin(docs.map(x => this.updateDocument(x, properties, ctx)));
+  }
+
+  protected updateDocument(doc: DocumentModel, properties: any = {}, ctx: DocumentFormContext): Observable<DocumentModel> {
+    return ctx.beforeSave(doc, ctx).pipe(
+      map((d: DocumentModel) => {
+        if (properties['nxtag:tags'] && d.properties['nxtag:tags']) {
+          properties['nxtag:tags'] = d.properties['nxtag:tags'];
+        }
+        return d;
+      }),
+      concatMap((d: DocumentModel) => d.set(properties).save(ctx.formSettings.actionOptions)),
+      concatMap((d: DocumentModel) => ctx.afterSave(d, ctx)),
     );
   }
 
@@ -351,18 +377,19 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     return new DocumentModel(deepExtend({}, doc, properties));
   }
 
-  protected attachUploadFiles(doc: DocumentModel, files: NuxeoUploadResponse[]): DocumentModel[] {
+  protected attachUploadFiles(ctx: DocumentFormContext): DocumentModel[] {
+    const files = this.getUploadFiles(ctx.uploadModel);
     return files.filter((res: NuxeoUploadResponse) => res.isMainFile()).map((res: NuxeoUploadResponse) => {
       let model: DocumentModel;
-      if (this.uploadModel.settings.enableForm) {
+      if (ctx.uploadModel.settings.enableForm) {
         if (res.document) {
           res.document.properties = this.prepareProperties(res.document.properties, this.getFormValue());
           model = res.document;
         } else if (!isValueEmpty(res.attributes)) {
-          model = this.newDocumentModel(doc, res.attributes);
+          model = this.newDocumentModel(ctx.currentDocument, res.attributes);
         }
       } else {
-        model = this.newDocumentModel(doc);
+        model = this.newDocumentModel(ctx.currentDocument);
       }
       if (model) {
         model.properties = this.updateUploadFiles(model.properties, res);
@@ -402,12 +429,12 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     } else if (event.$event.type === 'FileSelected') {
       this.updateFormStatus({ uploadState: 'prepared' });
       this.performUploadModel(this.ngFormSettings, event.type);
-      this.onUploadFileSelected(this.uploadModel, this.ngFormSettings, added);
+      this.onUploadFileSelected(this.ctx.uploadModel, this.ngFormSettings, added);
     } else if (added.some((res: NuxeoUploadResponse) => !res.uploaded && res.kbLoaded > 0)) {
       this.updateFormStatus({ uploadState: 'uploading' });
     } else if (added.every((res: NuxeoUploadResponse) => res.uploaded && res.kbLoaded > 0)) {
       this.updateFormStatus({ uploadState: 'uploaded' });
-      this.onSave();
+      this.triggerSave(this.ctx);
     }
     this.uploadCount = added.length;
   }
@@ -416,14 +443,22 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   }
 
+  protected getUploadName(model: DynamicFormControlModel): string {
+    if (model instanceof DynamicBatchUploadModel) {
+      return 'BatchUpload';
+    } else if (model instanceof DynamicGalleryUploadModel) {
+      return 'GalleryUpload';
+    }
+  }
+
   protected performUploadModel(settings: DynamicNGFormSettings, type: string): void {
-    if (!this.uploadModel) {
+    if (!this.ctx.uploadModel) {
       switch (type) {
         case 'BATCH_UPLOAD':
-          this.uploadModel = settings.formModel.find((v) => (v instanceof DynamicBatchUploadModel));
+          this.ctx.uploadModel = settings.formModel.find((v) => (v instanceof DynamicBatchUploadModel));
           break;
         case 'GALLERY_UPLOAD':
-          this.uploadModel = settings.formModel.find((v) => (v instanceof DynamicGalleryUploadModel));
+          this.ctx.uploadModel = settings.formModel.find((v) => (v instanceof DynamicGalleryUploadModel));
           break;
       }
     }
@@ -431,7 +466,17 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected performSwitchUploadModel(models: DynamicFormControlModel[]): void {
     this.updateFormStatus({ uploadState: null });
-    this.uploadModel = models.find((x: any) => x.type.includes('UPLOAD'));
+    this.ctx.uploadModel = models.find((x: any) => x.type.includes('UPLOAD'));
+  }
+
+  protected prepareFiles(doc: DocumentModel | DocumentModel[]): DocumentModel[] {
+    const docs = Array.isArray(doc) ? doc : [doc];
+    docs.forEach((d: DocumentModel) => {
+      if ((d.get('files:files') || []).every((f: any) => !f.file)) {
+        delete d.properties['files:files'];
+      }
+    });
+    return docs;
   }
 
   protected filterFileName(name: string): string {

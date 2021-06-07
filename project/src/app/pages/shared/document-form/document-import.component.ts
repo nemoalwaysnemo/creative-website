@@ -4,7 +4,7 @@ import { DynamicBatchUploadModel, DynamicDragDropFileZoneModel, DynamicFormContr
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { BaseDocumentFormComponent } from './base-document-form.component';
 import { DocumentPageService } from '../services/document-page.service';
-import { DocumentFormSettings } from './document-form.interface';
+import { DocumentFormContext, DocumentFormSettings } from './document-form.interface';
 import { forkJoin, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,8 +15,6 @@ import { map } from 'rxjs/operators';
 })
 export class DocumentImportComponent extends BaseDocumentFormComponent {
 
-  protected formName: string = 'document-import-form';
-
   constructor(
     protected formService: DynamicFormService,
     protected documentPageService: DocumentPageService,
@@ -24,28 +22,19 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
     super(documentPageService, formService);
   }
 
-  protected onUploadFileSelected(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, res: NuxeoUploadResponse[]): void {
-
-  }
-
-  protected performSharedFormModel(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): DynamicFormModel {
-    const sharedModels = this.getImportFormModel(settings);
-    const models = sharedModels.filter((v) => v.formMode === null || v.formMode === settings.formMode).filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(doc, user, settings));
-    return this.prepareFormModel(doc, user, settings, models);
-  }
-
-  protected performDocumentForm(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
-    settings.enableBulkImport = true;
-    const models = this.performSharedFormModel(doc, user, settings);
-    this.performNgFormSettings(doc, user, settings, models);
+  protected performDocumentForm(ctx: DocumentFormContext): void {
+    ctx.formSettings.enableBulkImport = true;
+    const sharedModels = this.getImportFormModel(ctx.formSettings);
+    const models = this.performFormModel(ctx, sharedModels);
+    this.performNgFormSettings(ctx, models);
     this.createDocumentForm(models);
   }
 
-  protected performNgFormSettings(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): void {
+  protected performNgFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
     const ngFormSettings = new DynamicNGFormSettings();
-    ngFormSettings.formModel = this.createFormModel(models);
-    ngFormSettings.enableLayoutRight = settings.enableLayoutRight;
-    ngFormSettings.formMode = settings.formMode;
+    ngFormSettings.formModel = this.createFormModel(formModel);
+    ngFormSettings.enableLayoutRight = ctx.formSettings.enableLayoutRight;
+    ngFormSettings.formMode = ctx.formSettings.formMode;
     ngFormSettings.enableWideHorizontal = true;
     this.ngFormSettings = ngFormSettings;
   }
@@ -60,8 +49,8 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
           queueLimit: settings.importSettings.queueLimit,
           placeholder: settings.importSettings.placeholder,
           acceptTypes: settings.importSettings.acceptTypes,
-          dragZoneStyle: {height: '100px'},
-          placeholderClass: {height: '40px', margin: '30px auto'},
+          dragZoneStyle: { height: '100px' },
+          placeholderClass: { height: '40px', margin: '30px auto' },
         },
         layoutPosition: settings.importSettings.layoutPosition,
       }),
@@ -81,27 +70,27 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   }
 
   protected onFilesChangedFn(items: NuxeoUploadResponse[]): Observable<NuxeoUploadResponse[]> {
-    return this.initializeImportFormModels(this.currentDocument, this.formSettings, items);
+    return this.initializeImportFormModels(this.ctx, items);
   }
 
-  protected initializeImportFormModel(parent: DocumentModel, settings: DocumentFormSettings, item: NuxeoUploadResponse): Observable<NuxeoUploadResponse> {
-    return (settings.importSettings.initializeDocument ? this.initializeDocument(parent, settings, item) : observableOf(parent.newInstance(this.getDocType(settings, item)))).pipe(
+  protected initializeImportFormModel(ctx: DocumentFormContext, item: NuxeoUploadResponse): Observable<NuxeoUploadResponse> {
+    return (ctx.formSettings.importSettings.initializeDocument ? this.initializeDocument(ctx, item) : observableOf(ctx.currentDocument.newInstance(this.getDocType(ctx.formSettings, item)))).pipe(
       map((doc: DocumentModel) => {
         if (!item.formModel) {
           item.document = doc;
-          item.formModel = this.performFormModel(doc, this.currentUser, settings);
+          item.formModel = this.performFormModel(ctx, ctx.formSettings.importModel);
         }
         return item;
       }),
     );
   }
 
-  protected initializeImportFormModels(parent: DocumentModel, settings: DocumentFormSettings, items: NuxeoUploadResponse[]): Observable<NuxeoUploadResponse[]> {
-    return forkJoin(items.map((res: NuxeoUploadResponse) => this.initializeImportFormModel(parent, settings, res)));
+  protected initializeImportFormModels(ctx: DocumentFormContext, items: NuxeoUploadResponse[]): Observable<NuxeoUploadResponse[]> {
+    return forkJoin(items.map((res: NuxeoUploadResponse) => this.initializeImportFormModel(ctx, res)));
   }
 
-  protected initializeDocument(parent: DocumentModel, settings: DocumentFormSettings, item: NuxeoUploadResponse): Observable<DocumentModel> {
-    return this.documentPageService.initializeDocument(parent, this.getDocType(settings, item));
+  protected initializeDocument(ctx: DocumentFormContext, item: NuxeoUploadResponse): Observable<DocumentModel> {
+    return this.documentPageService.initializeDocument(ctx.currentDocument, this.getDocType(ctx.formSettings, item));
   }
 
   protected getDocType(settings: DocumentFormSettings, item: NuxeoUploadResponse): string {

@@ -3,7 +3,7 @@ import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
 import { DynamicFormControlModel, DynamicFormModel } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { BaseDocumentFormComponent } from './base-document-form.component';
-import { DocumentFormSettings } from './document-form.interface';
+import { DocumentFormContext, DocumentFormSettings } from './document-form.interface';
 
 @Component({
   selector: 'document-form',
@@ -12,34 +12,32 @@ import { DocumentFormSettings } from './document-form.interface';
 })
 export class DocumentFormComponent extends BaseDocumentFormComponent {
 
-  protected formName: string = 'document-form';
-
   showMessageAfterUpload(): boolean {
-    return !this.formStatus$.value.submitting && this.formStatus$.value.uploadState === 'uploaded' && this.formSettings.formMode === 'create' && this.formSettings.showUploadMessage;
+    return !this.formStatus$.value.submitting && this.formStatus$.value.uploadState === 'uploaded' && this.ctx.formSettings.formMode === 'create' && this.ctx.formSettings.showUploadMessage;
   }
 
   showMessageBeforeSuccess(): boolean {
-    return this.formStatus$.value.submitting && this.formSettings.showMessageBeforeSave;
+    return this.formStatus$.value.submitting && this.ctx.formSettings.showMessageBeforeSave;
   }
 
-  protected performNgFormSettings(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): void {
+  protected performNgFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
     const ngFormSettings = new DynamicNGFormSettings();
-    ngFormSettings.accordionSettings = this.prepareAccordionTab(doc, user, settings, models);
-    ngFormSettings.switchTabSettings = this.prepareSwitchTab(doc, user, settings, models);
-    ngFormSettings.formModel = this.createFormModel(models);
-    ngFormSettings.enableLayoutRight = settings.enableLayoutRight;
-    ngFormSettings.formMode = settings.formMode;
+    ngFormSettings.accordionSettings = this.prepareAccordionTab(ctx, formModel);
+    ngFormSettings.switchTabSettings = this.prepareSwitchTab(ctx, formModel);
+    ngFormSettings.formModel = this.createFormModel(formModel);
+    ngFormSettings.enableLayoutRight = ctx.formSettings.enableLayoutRight;
+    ngFormSettings.formMode = ctx.formSettings.formMode;
     this.ngFormSettings = ngFormSettings;
   }
 
-  protected prepareAccordionTab(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): any[] {
-    const accordionSettings = (settings.accordionSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, user, settings));
-    return accordionSettings.map((s: { name: string, position: string }) => ({ name: s.name, position: s.position, models: models.filter(m => m.accordionTab === s.name) }));
+  protected prepareAccordionTab(ctx: DocumentFormContext, formModel: DynamicFormModel): any[] {
+    const accordionSettings = (ctx.formSettings.accordionSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(ctx));
+    return accordionSettings.map((s: { name: string, position: string }) => ({ name: s.name, position: s.position, models: formModel.filter(m => m.accordionTab === s.name) }));
   }
 
-  protected prepareSwitchTab(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings, models: DynamicFormModel): any[] {
-    const tabSettings = (settings.switchTabSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(doc, user, settings));
-    return tabSettings.map((s: { name: string, active: boolean, disabledFn?: any }) => ({ name: s.name, active: s.active, disabled: (s.disabledFn && s.disabledFn(doc, user, settings)), models: models.filter(m => m.switchTab === s.name) }));
+  protected prepareSwitchTab(ctx: DocumentFormContext, formModel: DynamicFormModel): any[] {
+    const s = (ctx.formSettings.switchTabSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(ctx));
+    return s.map((x: { name: string, active: boolean, disabledFn?: any }) => ({ name: x.name, active: x.active, disabled: (x.disabledFn && x.disabledFn(ctx)), models: formModel.filter(m => m.switchTab === x.name) }));
   }
 
   protected onUploadFileSelected(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, added: NuxeoUploadResponse[]): void {

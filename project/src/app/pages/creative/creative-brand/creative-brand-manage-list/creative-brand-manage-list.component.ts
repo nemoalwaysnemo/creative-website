@@ -3,7 +3,7 @@ import { DocumentModel, UserModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { BaseDocumentManageComponent, DocumentPageService } from '@pages/shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
-import { DocumentFormEvent, DocumentFormSettings } from '../../../shared/document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../../shared/document-form-extension';
 
 @Component({
@@ -100,7 +100,7 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
         label: 'Brand',
         placeholder: 'Brand',
         required: false,
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:brand_activation'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:brand_activation'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'app_Edges:industry',
@@ -116,7 +116,7 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
         label: 'Regions',
         placeholder: 'Please add region',
         required: false,
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global_fields:enable_region'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global_fields:enable_region'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_librarians',
@@ -126,7 +126,7 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
           placeholder: 'Please select librarians',
           providerType: SuggestionSettings.USER_GROUP,
         },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => user.isAdmin(),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.user.isAdmin(),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:library_owners',
@@ -149,7 +149,7 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
       new DynamicCheckboxModel({
         id: 'app_global:UsageRights_enable_firstairing_mandatory',
         label: 'Make First Airing Mandatory',
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
@@ -159,7 +159,7 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-UR-contract-mediatypes',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettypes_image',
@@ -191,7 +191,7 @@ export class CreativeBrandManageListComponent extends BaseDocumentManageComponen
         label: 'Product',
         placeholder: 'Please add product',
         required: false,
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global_fields:enable_productlist'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global_fields:enable_productlist'),
       }),
     ];
   }

@@ -5,7 +5,7 @@
       <tbody>
         <tr>
           <td class="file-info-zone">
-            <table class="table-detail">
+            <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0">
               <thead>
                 <tr *ngIf="uploadItems.length > 0">
                   <th>Name</th>

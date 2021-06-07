@@ -139,7 +139,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private getInputTargetValue(doc: DocumentModel, settings: SuggestionSettings): string {
     if (!doc) {
-      throw new Error(`current document is null!.`);
+      throw new Error(`current document is null!`);
     }
     return settings.inputTarget(doc);
   }

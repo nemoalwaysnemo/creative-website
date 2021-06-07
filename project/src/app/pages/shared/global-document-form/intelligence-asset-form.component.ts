@@ -12,7 +12,7 @@ import {
   isString,
 } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
 
@@ -28,11 +28,11 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
 
   protected documentType: string = 'App-Intelligence-Asset';
 
-  beforeSave: (doc: DocumentModel, user: UserModel) => DocumentModel = (doc: DocumentModel, user: UserModel) => {
+  beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: string) => {
-      return { label: tag, username: user.username };
+      return { label: tag, username: ctx.user.username };
     });
-    return doc;
+    return observableOf(doc);
   }
 
   protected buildTags(doc: DocumentModel): any {

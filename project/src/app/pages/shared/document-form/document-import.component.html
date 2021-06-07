@@ -3,8 +3,8 @@
     <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" [modelOperation]="modelOperation | async" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
     </dynamic-ng-form>
 
-    <div class="button-groups left" *ngIf="formSettings && formSettings.enableButtons">
-      <ng-container *ngFor="let button of formSettings.buttonGroup">
+    <div class="button-groups left" *ngIf="ctx.formSettings && ctx.formSettings.enableButtons">
+      <ng-container *ngFor="let button of ctx.formSettings.buttonGroup">
         <ng-container *ngIf="button.type === 'save'">
           <button nbButton outline class="btn btn-success btn-xs btn-margin-bottom" status="primary" [disabled]="(formStatus$ | async)?.disableSaveButton()" (click)="onSave($event)">{{button.label}}</button>
         </ng-container>

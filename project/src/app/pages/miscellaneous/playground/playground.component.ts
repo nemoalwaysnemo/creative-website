@@ -4,7 +4,7 @@ import { concatMap, map } from 'rxjs/operators';
 import { DocumentPageService, GlobalDocumentDialogService, GlobalEvent, OptionModel } from '../../shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
-import { DocumentFormEvent, DocumentFormSettings } from '../../shared/document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../shared/document-form-extension';
 
 @Component({
@@ -44,7 +44,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:campaign_mgt'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -95,7 +95,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           required: '',
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
       new DynamicDatepickerDirectiveModel<string>({
@@ -110,10 +110,10 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         errorMessages: {
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().get('app_global:UsageRights'),
+        visibleFn: (ctx: DocumentFormContext): boolean => !ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
     ],
-    formModel: [
+    importModel: [
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
@@ -147,7 +147,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:campaign_mgt'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_ProdCredits:production_date',
@@ -270,7 +270,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
-        hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
+        hiddenFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:UsageRights'),
       }),
       new DynamicListModel({
         id: 'The_Loupe_Rights:contract_items_usage_types',
@@ -293,7 +293,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
                 required: '{{label}} is required',
                 minLength: 'At least 4 characters',
               },
-              hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.get('app_global:UsageRights'),
+              hiddenFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:UsageRights'),
             }),
             new DynamicSuggestionModel<string>({
               id: 'media_usage_type',
@@ -308,7 +308,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
               validators: { required: null },
               errorMessages: { required: '{{label}} is required' },
               onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-              // visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().get('app_global:UsageRights'),
+              // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
             }),
             new DynamicSuggestionModel<string>({
               id: 'contract_countries',

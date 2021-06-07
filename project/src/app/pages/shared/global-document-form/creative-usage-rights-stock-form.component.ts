@@ -5,7 +5,7 @@ import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../document-form-extension';
-import { DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
@@ -55,13 +55,13 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
           providerType: SuggestionSettings.CONTENT_VIEW,
           providerName: 'App-Library-PageProvider-Projects-UR-create',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:campaign_mgt'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       // #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('campaign_mgt')=="0" ? 'edit' : 'hidden'}
       new DynamicInputModel({
         id: 'The_Loupe_Main:campaign',
         label: 'Campaign / Project',
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().getParent().get('app_global:campaign_mgt'),
+        visibleFn: (ctx: DocumentFormContext): boolean => !ctx.currentDocument.getParent().getParent().get('app_global:campaign_mgt'),
       }),
       new DynamicOptionTagModel<string>({
         id: 'The_Loupe_Main:po_number_internal',
@@ -192,7 +192,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideBrands',
         },
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => doc.getParent().getParent().get('app_global:brand_activation'),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().getParent().get('app_global:brand_activation'),
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       // #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('brand_activation')=="0" ? 'edit' : 'hidden'}
@@ -203,7 +203,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
         document: true,
         placeholder: 'Brand',
         layoutPosition: 'right',
-        visibleFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => !doc.getParent().getParent().get('app_global:brand_activation'),
+        visibleFn: (ctx: DocumentFormContext): boolean => !ctx.currentDocument.getParent().getParent().get('app_global:brand_activation'),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',

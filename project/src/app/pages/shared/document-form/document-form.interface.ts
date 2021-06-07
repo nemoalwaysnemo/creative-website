@@ -1,7 +1,8 @@
-import { DocumentModel, NuxeoUploadResponse } from '@core/api';
-import { DynamicFormModel } from '@core/custom';
+import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
+import { DynamicFormControlModel, DynamicFormModel } from '@core/custom';
 import { isValueEmpty } from '@core/services/helpers';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
+import { concatMap, filter, map, tap } from 'rxjs/operators';
 
 export class DocumentFormEvent {
   [key: string]: any;
@@ -54,6 +55,66 @@ export class DocumentFormStatus {
   }
 }
 
+export class DocumentFormContext {
+  [key: string]: any;
+
+  formValid: boolean;
+
+  user: UserModel;
+
+  documents: DocumentModel[] = [];
+
+  formSettings: DocumentFormSettings;
+
+  uploadModel: DynamicFormControlModel;
+
+  performedDocuments: DocumentModel[];
+
+  beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => observableOf(doc);
+
+  afterSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => observableOf(doc);
+
+  beforeSaveValidation: (ctx: DocumentFormContext) => Observable<boolean> = (ctx: DocumentFormContext) => observableOf(true);
+
+  constructor(data: any = {}) {
+    this.update(data);
+  }
+
+  get formMode(): string {
+    return this.formSettings.formMode;
+  }
+
+  get currentDocument(): DocumentModel {
+    return this.documents[0];
+  }
+
+  update(params: any = {}): this {
+    if (params.user) {
+      this.user = params.user;
+      delete params.user;
+    }
+    if (params.documents) {
+      this.documents = params.documents;
+      delete params.documents;
+    }
+    if (params.formSettings) {
+      this.formSettings = params.formSettings;
+      delete params.formSettings;
+    }
+    if (params.uploadModel) {
+      this.uploadModel = params.uploadModel;
+      delete params.uploadModel;
+    }
+    Object.assign(this, params);
+    return this;
+  }
+
+  updatePerformedDocuments(docs: DocumentModel[]): this {
+    this.performedDocuments = docs;
+    return this;
+  }
+}
+
 export class DocumentImportSettings {
 
   placeholder: string = 'Drop files here!';
@@ -78,11 +139,11 @@ export class DocumentImportSettings {
 
 export class DocumentFormSettings {
 
-  formName: string;
-
   actionOptions: any = {};
 
   formModel: DynamicFormModel = [];
+
+  importModel: DynamicFormModel = [];
 
   sharedModel: DynamicFormModel = [];
 
