@@ -196,7 +196,7 @@ export class DocumentCreativeProjectReportBuyontTalentInformationComponent {
         map((response: NuxeoPagination) => {
           res.response.entries.forEach((doc: DocumentModel) => {
             const status = response.entries.find((x: any) => x.uuid === doc.uid);
-            doc.properties['_usage_rights_'] = status || {};
+            doc.setProperty('_usage_rights_', status || {}, true);
           });
           return res;
         }),

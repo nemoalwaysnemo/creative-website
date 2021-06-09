@@ -150,7 +150,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
   }
 
   private hasPageImages(doc: DocumentModel): boolean {
-    return doc.properties['web-page-element:page-images'] && doc.properties['web-page-element:page-images'].length > 0;
+    return (doc.get('web-page-element:page-images') || []).length > 0;
   }
 
   private onInputUrlChanged(): void {

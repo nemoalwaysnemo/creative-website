@@ -16,8 +16,6 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup;
 
-  modelOperation: Subject<{ model: string, type: string }> = new Subject();
-
   uploadCount: number = 0;
 
   ctx: DocumentFormContext;
@@ -186,12 +184,16 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected performFormModel(ctx: DocumentFormContext, formModel: DynamicFormModel): DynamicFormModel {
-    const models = formModel.filter((v) => v.formMode === null || v.formMode === ctx.formSettings.formMode).filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(ctx));
+    const models = (formModel || []).filter((v) => v.formMode === null || v.formMode === ctx.formSettings.formMode).filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(ctx));
     return this.prepareFormModel(ctx, models);
   }
 
   protected performDocumentForm(ctx: DocumentFormContext): void {
-    const models = this.performFormModel(ctx, ctx.formSettings.formModel);
+    this.prepareDocumentForm(ctx, ctx.formSettings.formModel);
+  }
+
+  protected prepareDocumentForm(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
+    const models = this.performFormModel(ctx, formModel);
     this.performNgFormSettings(ctx, models);
     this.createDocumentForm(models);
   }
@@ -351,14 +353,9 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected updateDocument(doc: DocumentModel, properties: any = {}, ctx: DocumentFormContext): Observable<DocumentModel> {
-    return ctx.beforeSave(doc, ctx).pipe(
-      map((d: DocumentModel) => {
-        if (properties['nxtag:tags'] && d.properties['nxtag:tags']) {
-          properties['nxtag:tags'] = d.properties['nxtag:tags'];
-        }
-        return d;
-      }),
-      concatMap((d: DocumentModel) => d.set(properties).save(ctx.formSettings.actionOptions)),
+    return observableOf(doc.set(properties)).pipe(
+      concatMap((d: DocumentModel) => ctx.beforeSave(d, ctx)),
+      concatMap((d: DocumentModel) => d.save(ctx.formSettings.actionOptions)),
       concatMap((d: DocumentModel) => ctx.afterSave(d, ctx)),
     );
   }
@@ -368,7 +365,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     const keys: string[] = Object.keys(doc);
     for (const key of keys) {
       if (!list.includes(key)) {
-        delete doc[key];
+        doc.removeProperties(key);
       }
     }
     if (!isValueEmpty(properties)) {
@@ -473,7 +470,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     const docs = Array.isArray(doc) ? doc : [doc];
     docs.forEach((d: DocumentModel) => {
       if ((d.get('files:files') || []).every((f: any) => !f.file)) {
-        delete d.properties['files:files'];
+        d.removeProperties('files:files');
       }
     });
     return docs;
