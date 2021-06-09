@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
+import { NuxeoUploadResponse } from '@core/api';
 import { DynamicFormControlModel, DynamicFormModel } from '@core/custom';
+import { Subject } from 'rxjs';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { BaseDocumentFormComponent } from './base-document-form.component';
 import { DocumentFormContext, DocumentFormSettings } from './document-form.interface';
@@ -11,6 +12,8 @@ import { DocumentFormContext, DocumentFormSettings } from './document-form.inter
   templateUrl: './document-form.component.html',
 })
 export class DocumentFormComponent extends BaseDocumentFormComponent {
+
+  modelOperation: Subject<{ model: string, type: string }> = new Subject();
 
   showMessageAfterUpload(): boolean {
     return !this.formStatus$.value.submitting && this.formStatus$.value.uploadState === 'uploaded' && this.ctx.formSettings.formMode === 'create' && this.ctx.formSettings.showUploadMessage;

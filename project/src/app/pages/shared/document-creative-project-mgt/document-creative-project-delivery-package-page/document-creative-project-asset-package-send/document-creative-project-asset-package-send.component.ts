@@ -103,9 +103,9 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     if (this.formSettings.formMode === 'create') {
-      doc.properties['dc:title'] = 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber');
-      doc.properties['The_Loupe_Main:jobtitle'] = [doc.getParent().uid];
-      doc.properties['The_Loupe_Delivery:agency_disclaimer'] = doc.getParent().uid;
+      doc.setProperty('dc:title', 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber'));
+      doc.setProperty('The_Loupe_Main:jobtitle', [doc.getParent().uid]);
+      doc.setProperty('The_Loupe_Delivery:agency_disclaimer', doc.getParent().uid);
     }
     return observableOf(doc);
   }

@@ -13,17 +13,7 @@
 </div>
 
 <div [ngClass]="{ 'default-layout': true, 'layout-left left': enableLayoutRight, formClass: true, 'layout-left-shared': true}">
-  <dynamic-ng-form-control *ngFor="let model of getFormModel('leftShared'); trackBy: trackByFn"
-                          [group]="group"
-                          [hidden]="model.hidden"
-                          [layout]="layout"
-                          [model]="model"
-                          [templates]="templates"
-                          (blur)="onBlur($event)"
-                          (change)="onChange($event)"
-                          (focus)="onFocus($event)"
-                          (customEvent)="onCustomEvent($event, customEvent)">
-  </dynamic-ng-form-control>
+  <ng-content></ng-content>
 </div>
 
 <ng-container *ngIf="layoutAccordion && layoutAccordion.length > 0">

@@ -18,8 +18,8 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
   protected documentType: string = 'App-Edges-Trigger';
 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
-    doc.properties['app_Edges:trigger_additional_links'] = (doc.properties['app_Edges:trigger_additional_links'] || []).filter((x: any) => x);
-    delete doc.properties['web-page-element:page-images'];
+    doc.setProperty('app_Edges:trigger_additional_links', (doc.get('app_Edges:trigger_additional_links') || []).filter((x: any) => x));
+    doc.removeProperties('web-page-element:page-images');
     return observableOf(doc);
   }
 

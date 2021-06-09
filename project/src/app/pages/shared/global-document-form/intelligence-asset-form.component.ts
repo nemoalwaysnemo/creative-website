@@ -29,20 +29,18 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
   protected documentType: string = 'App-Intelligence-Asset';
 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
-    doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: string) => {
-      return { label: tag, username: ctx.user.username };
-    });
+    doc.setProperty('nxtag:tags', doc.get('nxtag:tags').map((tag: string) => ({ label: tag, username: ctx.user.username })));
     return observableOf(doc);
   }
 
   protected buildTags(doc: DocumentModel): any {
-    doc.properties['nxtag:tags'] = doc.properties['nxtag:tags'].map((tag: any) => {
+    doc.setProperty('nxtag:tags', (doc.get('nxtag:tags') || []).map((tag: any) => {
       if (!isString(tag)) {
         return tag.label;
       } else {
         return tag;
       }
-    });
+    }));
     return doc;
   }
 

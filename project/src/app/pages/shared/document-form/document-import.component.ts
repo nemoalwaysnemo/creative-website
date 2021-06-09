@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
-import { DynamicBatchUploadModel, DynamicDragDropFileZoneModel, DynamicFormControlModel, DynamicFormModel, DynamicFormService } from '@core/custom';
+import { FormGroup } from '@angular/forms';
+import { DocumentModel, NuxeoUploadResponse } from '@core/api';
+import { DynamicBatchUploadModel, DynamicDragDropFileZoneModel, DynamicFormModel, DynamicFormService } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { BaseDocumentFormComponent } from './base-document-form.component';
 import { DocumentPageService } from '../services/document-page.service';
 import { DocumentFormContext, DocumentFormSettings } from './document-form.interface';
-import { forkJoin, Observable, of as observableOf } from 'rxjs';
+import { forkJoin, Observable, of as observableOf, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -15,6 +16,10 @@ import { map } from 'rxjs/operators';
 })
 export class DocumentImportComponent extends BaseDocumentFormComponent {
 
+  sharedGroup: FormGroup;
+
+  sharedFormSettings: DynamicNGFormSettings;
+
   constructor(
     protected formService: DynamicFormService,
     protected documentPageService: DocumentPageService,
@@ -23,11 +28,24 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   }
 
   protected performDocumentForm(ctx: DocumentFormContext): void {
+    const models = this.getImportFormModel(ctx.formSettings);
+    this.prepareDocumentForm(ctx, models);
+    this.performSharedDocumentForm(ctx);
+  }
+
+  protected performSharedDocumentForm(ctx: DocumentFormContext): void {
     ctx.formSettings.enableBulkImport = true;
-    const sharedModels = this.getImportFormModel(ctx.formSettings);
-    const models = this.performFormModel(ctx, sharedModels);
-    this.performNgFormSettings(ctx, models);
-    this.createDocumentForm(models);
+    const models = this.performFormModel(ctx, ctx.formSettings.sharedModel);
+    this.performSharedFormSettings(ctx, models);
+    this.createSharedDocumentForm(models);
+  }
+
+  protected createSharedDocumentForm(models: DynamicFormModel): void {
+    this.sharedGroup = this.createFormGroup(models);
+    // const subscription = this.sharedGroup.statusChanges.subscribe((valid: any) => {
+    //   timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID', submitted: false }); });
+    // });
+    // this.subscription.add(subscription);
   }
 
   protected performNgFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
@@ -37,6 +55,14 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
     ngFormSettings.formMode = ctx.formSettings.formMode;
     ngFormSettings.enableWideHorizontal = true;
     this.ngFormSettings = ngFormSettings;
+  }
+
+  protected performSharedFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
+    const ngFormSettings = new DynamicNGFormSettings();
+    ngFormSettings.formModel = this.createFormModel(formModel);
+    ngFormSettings.formMode = ctx.formSettings.formMode;
+    ngFormSettings.enableLayoutRight = false;
+    this.sharedFormSettings = ngFormSettings;
   }
 
   protected getImportFormModel(settings: DocumentFormSettings): DynamicFormModel {
@@ -66,7 +92,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
         layoutPosition: settings.importSettings.layoutPosition,
       }),
     ];
-    return (settings.sharedModel || []).concat(importModel);
+    return (settings.formModel || []).concat(importModel);
   }
 
   protected onFilesChangedFn(items: NuxeoUploadResponse[]): Observable<NuxeoUploadResponse[]> {

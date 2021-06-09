@@ -29,8 +29,28 @@ export class DocumentModel extends Base {
     Object.assign(this, doc);
   }
 
+  get(propertyName: string): any {
+    return this._dirtyProperties[propertyName] || this.properties[propertyName];
+  }
+
   set(properties: any = {}): DocumentModel {
     this._dirtyProperties = deepExtend(this._dirtyProperties, properties);
+    return this;
+  }
+
+  setProperty(key: string, property: any, propertyOnly: boolean = false): DocumentModel {
+    this.properties[key] = property;
+    if (!propertyOnly) {
+      this._dirtyProperties[key] = property;
+    }
+    return this;
+  }
+
+  removeProperties(key: string | string[]): DocumentModel {
+    (Array.isArray(key) ? key : [key]).forEach((k: string) => {
+      delete this.properties[k];
+      this._dirtyProperties[k];
+    });
     return this;
   }
 
@@ -243,10 +263,6 @@ export class DocumentModel extends Base {
   get attachedImage(): string {
     const images = (this.get('files:files') || []).filter((item: any) => item.file['mime-type'].includes('image')).map((p: any) => p.file.data);
     return images[0] || this.pictureViews('FullHD');
-  }
-
-  get(propertyName: string): any {
-    return this.properties[propertyName];
   }
 
   getCustomFile(propertyName: string, defaultThumbnail: boolean = true): string {

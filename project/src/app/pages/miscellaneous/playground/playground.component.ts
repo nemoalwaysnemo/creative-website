@@ -30,13 +30,31 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         }
       },
     },
+    formModel: [
+      new DynamicInputModel({
+        id: 'dc:title',
+        label: 'Title',
+        maxLength: 150,
+        placeholder: 'Title',
+        autoComplete: 'off',
+        required: true,
+        validators: {
+          required: null,
+          minLength: 4,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          minLength: 'At least 4 characters',
+        },
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.formSettings.formMode === 'create',
+      }),
+    ],
     sharedModel: [
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:jobtitle',
         label: 'Search Project',
         document: true,
         required: true,
-        layoutPosition: 'leftShared',
         settings: {
           placeholder: 'Search Project',
           providerType: SuggestionSettings.CONTENT_VIEW,
@@ -52,7 +70,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         readonly: false,
         defaultValue: (new Date()),
         required: true,
-        layoutPosition: 'leftShared',
         validators: {
           required: null,
           dateFormatValidator: null,
@@ -68,7 +85,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         label: 'Asset Type',
         document: true,
         required: true,
-        layoutPosition: 'leftShared',
         settings: {
           multiple: false,
           placeholder: 'What is this asset?',
@@ -86,7 +102,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         readonly: false,
         defaultValue: (new Date()),
         required: true,
-        layoutPosition: 'leftShared',
         validators: {
           required: null,
           dateFormatValidator: null,
@@ -103,7 +118,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         label: 'Live date / publishing',
         required: false,
         readonly: false,
-        layoutPosition: 'leftShared',
         validators: {
           dateFormatValidator: null,
         },
