@@ -1,60 +1,90 @@
-import { Component } from '@angular/core';
-import { DocumentModel, UserModel  } from '@core/api';
+import { Component, OnChanges } from '@angular/core';
+import { DocumentModel, UserModel, NuxeoRequestOptions } from '@core/api';
 import { DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel } from '@core/custom';
 import { SuggestionSettings } from '../../../document-form-extension';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
+import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog/list-search-row-custom-view-component';
+import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
+import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
+import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
+import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { of as observableOf, Observable, Subject, timer } from 'rxjs';
 @Component({
   selector: 'creative-brand-project-3rd-party-import-review',
   templateUrl: './document-creative-project-3rd-party-import-review-page.component.html',
-  styleUrls: ['../../../../../theme/styles/document-metadata-view.scss'],
+  styleUrls: ['../../document-creative-project-mgt.component.scss', './document-creative-project-3rd-party-import-review-page.component.scss'],
 })
-export class DocumentCreativeProject3rdPartyImportReviewComponent extends GlobalDocumentFormComponent {
-
-
-  static readonly NAME: string = 'creative-project-import-project-request-review-form';
-
-  protected documentType: string = 'App-Library-Import-Project-Request-Review';
+export class DocumentCreativeProject3rdPartyImportReviewComponent extends DocumentCreativeProjectMgtBaseComponent {
 
   loading: boolean = true;
 
-  loadingRequest: boolean = true;
-
   requestDocument: DocumentModel;
 
-  setFormDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): void {
-    super.setFormDocument(doc, user, formSettings);
-    this.loading = false;
-    this.requestDocument = this.document;
-    this.loadingRequest = false;
+  baseParams$: Subject<any> = new Subject<any>();
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'collection'],
+    source: 'document-creative-project-import-requests-review',
+    enableSearchInput: false,
+  });
+
+  listViewSettings: any = {
+    hideHeader: false,
+    hideSubHeader: true,
+    columns: {
+      thumbnail: {
+        sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'thumbnail',
+          enableClick: true,
+        }),
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+      title: {
+        sort: false,
+        title: 'title',
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
+    },
+  };
+
+  listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
+    const items = [];
+    for (const doc of docs) {
+      items.push(new DocumentListViewItem({
+        thumbnail: doc,
+        title: doc.title,
+      }));
+    }
+    return items;
+  }
+
+  protected setDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.requestDocument = doc;
+      this.loading = false;
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(this.requestDocument)); });
+    }
+  }
+
+  protected buildAssetParams(doc: DocumentModel): any {
+    const params: any = {
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      ecm_path: doc.path,
+      currentPageIndex: 0,
+      ecm_fulltext: '',
+    };
+    return params;
   }
 
   protected onInit(): void {
   }
 
-  protected getFormModels(): any[] {
-    return [
-      new DynamicInputModel({
-        id: 'The_Loupe_Delivery:delivery_email',
-        label: 'Uploader email',
-      }),
-      new DynamicTextAreaModel({
-        id: 'The_Loupe_Main:description',
-        label: 'Message',
-        rows: 3,
-        required: false,
-      }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Delivery:expiry_days',
-        label: 'Maximum days for upload',
-        defaultValue: 3,
-        settings: {
-          placeholder: 3,
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Library-Delivery-expiry-days',
-        },
-      }),
-    ];
+  onSelected(row: any): void {
   }
 
   }

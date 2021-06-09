@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
-import { DocumentFormContext, DocumentFormSettings } from '../../../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormSettings, DocumentFormEvent} from '../../../document-form/document-form.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 import { Observable, of as observableOf } from 'rxjs';
 import { OptionModel } from '../../../option-select/option-select.interface';
+import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 @Component({
   selector: 'document-creative-project-import-new-request',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -35,6 +37,24 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  onCallback(event: DocumentFormEvent): void {
+    if (event.action === 'Created') {
+      this.goToRequest();
+    } else if (event.action === 'Canceled') {
+      this.cancelForm();
+    }
+  }
+
+  cancelForm(): void{
+    const settings = new CreativeProjectMgtSettings();
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: '3rd-import-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+  }
+
+  goToRequest(): void{
+    const settings = new CreativeProjectMgtSettings({ document: this.document });
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: '3rd-import-request-review', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected getFormModels(): any[] {
