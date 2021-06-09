@@ -11,10 +11,14 @@ import { filter } from 'rxjs/operators';
     <ng-container *ngIf="value" [ngSwitch]="true">
 
       <ng-container *ngSwitchCase="options.viewType === 'button'">
-        <button type="button" (click)="openDialog(dialog)" class="icon_btn">Detail</button>
+        <button type="button" (click)="openDialog(dialog)" class="icon_btn">Details</button>
         <ng-template #dialog>
           <global-document-dialog [settings]="options.dialogSettings" [documentModel]="value" [title]="getTitle(value)"></global-document-dialog>
         </ng-template>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="options.viewType === 'html'">
+        <div class="html-template" [innerHTML]="getHtmlTemplate(value)"></div>
       </ng-container>
 
       <ng-container *ngSwitchCase="options.viewType === 'thumbnail'">
@@ -76,6 +80,10 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
       const options = Object.assign({}, { closeOnBackdropClick: false }, opts);
       this.globalDocumentDialogService.open(dialog, options);
     }
+  }
+
+  getHtmlTemplate(doc: DocumentModel): string {
+    return this.options.htmlFn(doc);
   }
 
   private triggerDialog(event: DocumentDialogEvent): void {

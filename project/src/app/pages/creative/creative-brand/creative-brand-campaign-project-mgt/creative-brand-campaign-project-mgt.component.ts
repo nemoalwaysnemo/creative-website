@@ -8,6 +8,7 @@ import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-for
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem, SearchFilterModel } from '@pages/shared';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'creative-brand-campaign-project-mgt',
@@ -91,8 +92,21 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     hideSubHeader: true,
     columns: {
       title: {
-        title: 'Title',
         sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'html',
+          htmlFn: (doc: DocumentModel) => {
+            return `
+            <div class="project-info">
+              <ul>
+                <li class="project-title">${doc.title}</li>
+                <li class="project-jobnumber">${doc.get('The_Loupe_Main:jobnumber')}</li>
+              </ul>
+            </div>`;
+          },
+        }),
+        renderComponent: ListSearchRowCustomDialogComponent,
       },
       action: {
         title: 'Action',
@@ -127,8 +141,23 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     hideSubHeader: true,
     columns: {
       title: {
-        title: 'Title',
         sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'html',
+          htmlFn: (doc: DocumentModel) => {
+            return `
+            <div class="asset-info">
+                <div class="asset-title">${doc.title}</div>
+                <div>
+                  <div class="asset-type">${doc.get('The_Loupe_Main:assettype')}</div>
+                  <div class="asset-date">${formatDate(doc.get('The_Loupe_ProdCredits:production_date'), 'MMM d, yyyy', 'en-US')}</div>
+                </div>
+                </div>
+            </div>`;
+          },
+        }),
+        renderComponent: ListSearchRowCustomDialogComponent,
       },
       action: {
         title: 'Action',
@@ -165,7 +194,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: doc.title,
+        title: doc,
         action: doc,
       }));
     }
@@ -177,7 +206,8 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: doc.title,
+        title: doc,
+        date: doc.get('The_Loupe_ProdCredits:production_date'),
         action: doc,
       }));
     }
@@ -201,11 +231,13 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
   onSelectedCampaign(row: any): void {
     this.selectedProject = null;
     this.baseParamsProject$.next(this.buildProjectParams(this.document, row.isSelected ? row.data.action : null));
+    this.baseParamsAsset$.next(this.buildAssetParams(this.document, row.isSelected ? row.data.action : null));
   }
 
   onSelectedProject(row: any): void {
-    this.selectedProject = row.data.action;
-    this.baseParamsAsset$.next(this.buildAssetParams(this.document, row.isSelected ? row.data.action : null));
+    this.selectedProject = row.selected[0];
+    this.baseParamsCampaign$.next(this.buildCampaignParams(this.document, row.isSelected ? row.data.action : null));
+    this.baseParamsAsset$.next(this.buildAssetParams(this.document, null, row.isSelected ? row.data.action : null));
   }
 
   openDialog(type: string, selectedMenu: string = '', selectedTab: string = ''): void {
@@ -239,7 +271,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     }
   }
 
-  protected buildCampaignParams(doc: DocumentModel): any {
+  protected buildCampaignParams(doc: DocumentModel, campaign?: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_CAMPAIGN_TYPE,
       currentPageIndex: 0,
@@ -247,6 +279,10 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     };
     if (doc) {
       params['ecm_path'] = doc.path;
+    }
+    if (campaign) {
+      const campaigns = this.getCampaignParams(campaign);
+      params['the_loupe_main_campaign'] = `["${campaigns.join('", "')}"]`;
     }
     return params;
   }
@@ -267,7 +303,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     return params;
   }
 
-  protected buildAssetParams(doc: DocumentModel, campaign?: DocumentModel): any {
+  protected buildAssetParams(doc: DocumentModel, campaign?: DocumentModel, project?: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
@@ -277,9 +313,27 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       params['ecm_path'] = doc.path;
     }
     if (campaign) {
-      params['the_loupe_main_campaign'] = `["${campaign.uid}"]`;
+      params['the_loupe_main_campaign'] = `["${campaign.get('The_Loupe_Main:campaign')}"]`;
+      params['ecm_uuid_not_eq'] = doc.uid;
+    }
+
+    if (project) {
+      params['the_loupe_main_jobtitle_any'] = `["${project.uid}"]`;
+      params['ecm_uuid_not_eq'] = doc.uid;
     }
     return params;
+  }
+
+  private getCampaignParams(doc: DocumentModel): any {
+    let ids = [], campaigns = [];
+    const campaign = doc.get('The_Loupe_Main:campaign');
+    if (typeof (campaign) === 'string') {
+      ids.push(campaign);
+    } else {
+      ids = ids.concat(campaign);
+    }
+    campaigns = Array.from(new Set(ids));
+    return campaigns;
   }
 
 }

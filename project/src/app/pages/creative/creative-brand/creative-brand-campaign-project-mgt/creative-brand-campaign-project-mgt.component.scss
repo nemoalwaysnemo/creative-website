@@ -42,12 +42,44 @@
               border: none;
             }
           }
-          tr td:nth-child(2) {
+          tr td:last-child {
             float: right;
           }
           tr:hover {
             background-color: #fecc00 !important;
             background: #fecc00 !important;
+          }
+          .project-info {
+            li {
+              padding: 5px 0;
+            }
+            .project-title {
+              font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+              font-size: 15px;
+            }
+            .project-jobnumber {
+              font-size: 13px;
+            }
+          }
+          .asset-info {
+            .asset-type {
+              height: 25px;
+              text-align: center;
+              background-color: #e5e4e2;
+              border: 1px #e5e4e2;
+              border-radius: 5px;
+              padding-top: 5px;
+              margin: 5px 0;
+              float: left;
+              width: 50%;
+            }
+            .asset-date {
+              float: left;
+              margin: 10px;
+            }
+          }
+          img {
+            max-width: 160px;
           }
         }
       }
