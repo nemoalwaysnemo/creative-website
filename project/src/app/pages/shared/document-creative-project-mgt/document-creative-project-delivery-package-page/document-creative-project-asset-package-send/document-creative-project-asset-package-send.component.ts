@@ -283,7 +283,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
 
   goHome(): void {
     const settings = new CreativeProjectMgtSettings({ document: this.currentDocument });
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'package-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: '3rd-import-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected addToCollection(packageDoc: DocumentModel): Observable<any> {

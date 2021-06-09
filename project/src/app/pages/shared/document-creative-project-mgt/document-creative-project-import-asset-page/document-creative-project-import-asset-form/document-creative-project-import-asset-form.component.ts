@@ -7,6 +7,8 @@ import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 import { Observable } from 'rxjs';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
+import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 @Component({
   selector: 'document-creative-project-import-asset-form',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -14,6 +16,11 @@ import { GlobalSearchFormSettings } from '../../../global-search-form/global-sea
 })
 export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, OnDestroy {
 
+  constructor(
+    private advanceSearchService: AdvanceSearchService,
+    private documentPageService: DocumentPageService,
+  ) {
+  }
   settings: any[] = [];
 
   @Input() documentModel: DocumentModel;
@@ -236,10 +243,24 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
     ],
   });
 
-  constructor(
-    private advanceSearchService: AdvanceSearchService,
-  ) {
+  onCallback(event: DocumentFormEvent): void {
+    if (event.action === 'Created') {
+      this.goToAssetHome();
+    } else if (event.action === 'Canceled') {
+      this.cancelForm();
+    }
   }
+
+  cancelForm(): void{
+    const settings = new CreativeProjectMgtSettings();
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'import-asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+  }
+
+  goToAssetHome(): void{
+    const settings = new CreativeProjectMgtSettings();
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+  }
+
 
   ngOnInit(): void {
     this.load(this.documentModel.getParent('brand').uid); // brand
@@ -249,11 +270,6 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
   ngOnDestroy(): void {
 
   }
-
-  onCallback(event: DocumentFormEvent): void {
-
-  }
-
 
   private load(uid: string): void {
     this.advanceSearchService.get(uid).subscribe((doc: DocumentModel) => {

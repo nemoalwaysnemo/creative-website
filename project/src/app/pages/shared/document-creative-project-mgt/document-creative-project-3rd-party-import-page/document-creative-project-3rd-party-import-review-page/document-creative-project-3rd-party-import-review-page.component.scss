@@ -1,0 +1,23 @@
+.creative-project-navigation {
+    background-color: #434343;
+    width: 100%;
+    min-height: 36px;
+  }
+  .creative-project-navigation-home {
+    width: 180px;
+    height: 100%;
+    float: left;
+    h3 {
+      font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+      font-size: 18px;
+      color: #ffffff;
+      padding: 7px;
+      text-align: center;
+    }
+  }
+  .import-queue {
+    background-color: #f0c233;
+  }
+  .accepted-queue {
+    background-color: #6aa84f;
+  }
