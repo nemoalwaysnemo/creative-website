@@ -23,17 +23,15 @@
               </tbody>
             </table>
           </td>
-          <td style="padding: 0;" *ngIf="uploadSettings.arrangeDirection == 'horizontal'">
+          <td style="padding: 0;" *ngIf="uploadSettings.enableForm">
             <div *ngFor="let group of formGroups; let i=index" style="clear:both; min-width: 60px; width: 100%;">
               <div *ngIf="uploadSettings.enableForm && uploadItems[i].isMainFile()">
                 <dynamic-ng-form [formClass]="'document-form'" [group]="group" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
                 </dynamic-ng-form>
                 <div [ngStyle]="i > 0 ? {'margin-top': '5px'} : {'margin-top': '34px'}" class="float-right" nowrap *ngIf="uploadSettings.enableAction">
-                  <button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)"
-                    [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadSettings.formMode === 'edit')">Delete</button>
+                  <button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)" [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadSettings.formMode === 'edit')">Delete</button>
                 </div>
               </div>
-
             </div>
           </td>
         </tr>

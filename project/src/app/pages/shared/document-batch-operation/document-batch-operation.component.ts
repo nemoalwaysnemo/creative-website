@@ -5,24 +5,24 @@ import { isValueEmpty } from '@core/services/helpers';
 import { DocumentPageService } from '../services/document-page.service';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { of as observableOf, Observable, Subscription, Subject, combineLatest } from 'rxjs';
-import { concatMap, tap } from 'rxjs/operators';
+import { concatMap, map, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'document-bulk-import',
-  styleUrls: ['./document-bulk-import.component.scss'],
-  templateUrl: './document-bulk-import.component.html',
+  selector: 'document-batch-operation',
+  styleUrls: ['./document-batch-operation.component.scss'],
+  templateUrl: './document-batch-operation.component.html',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => DocumentBulkImportComponent),
+    useExisting: forwardRef(() => DocumentBatchOperationComponent),
     multi: true,
   }],
 })
-export class DocumentBulkImportComponent implements OnInit, OnDestroy {
+export class DocumentBatchOperationComponent implements OnInit, OnDestroy {
 
   @Input()
-  set documentModel(doc: DocumentModel) {
-    if (doc) {
-      this.document$.next(doc);
+  set documentModel(doc: DocumentModel | DocumentModel[]) {
+    if (doc && !Array.isArray(doc) || Array.isArray(doc) && doc.length > 0) {
+      this.documents$.next(Array.isArray(doc) ? doc : [doc]);
     }
   }
 
@@ -35,17 +35,15 @@ export class DocumentBulkImportComponent implements OnInit, OnDestroy {
 
   formSettings: DocumentFormSettings;
 
-  document: DocumentModel;
+  documents: DocumentModel[];
 
   currentUser: UserModel;
-
-  disabled: boolean = false;
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
   private formSettings$: Subject<DocumentFormSettings> = new Subject<DocumentFormSettings>();
 
-  private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+  private documents$: Subject<DocumentModel[]> = new Subject<DocumentModel[]>();
 
   private subscription: Subscription = new Subscription();
 
@@ -86,32 +84,43 @@ export class DocumentBulkImportComponent implements OnInit, OnDestroy {
     return observableOf(event);
   }
 
-  private beforeSetDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): Observable<DocumentModel> {
-    const document = new DocumentModel({ uid: doc.uid, path: doc.path }, doc.options).setParent(doc);
-    return observableOf(document);
+  protected beforeSetDocument(docs: DocumentModel[], user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel[]> {
+    return formSettings.formMode === 'create' ? this.beforeOnCreation(docs[0], user, formSettings) : this.beforeOnEdit(docs, user, formSettings);
+  }
+
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel[]> {
+    if (formSettings.docType) {
+      return this.documentPageService.initializeDocument(doc, formSettings.docType).pipe(map((d: DocumentModel) => [d]));
+    } else {
+      return observableOf([new DocumentModel({ uid: doc.uid, path: doc.path }, doc.options).setParent(doc)]);
+    }
+  }
+
+  protected beforeOnEdit(docs: DocumentModel[], user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel[]> {
+    return observableOf(docs);
   }
 
   private onDocumentChanged(): void {
     const subscription = combineLatest([
-      this.document$,
+      this.documents$,
       this.documentPageService.getCurrentUser(),
       this.formSettings$,
     ]).pipe(
-      concatMap(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => combineLatest([
-        this.beforeSetDocument(doc, user, settings),
+      concatMap(([docs, user, settings]: [DocumentModel[], UserModel, DocumentFormSettings]) => combineLatest([
+        this.beforeSetDocument(docs, user, settings),
         observableOf(user),
         observableOf(settings),
       ])),
-    ).subscribe(([doc, user, settings]: [DocumentModel, UserModel, DocumentFormSettings]) => {
-      this.setFormDocument(doc, user, settings);
+    ).subscribe(([docs, user, settings]: [DocumentModel[], UserModel, DocumentFormSettings]) => {
+      this.setFormDocument(docs, user, settings);
     });
     this.subscription.add(subscription);
   }
 
-  private setFormDocument(doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): void {
+  private setFormDocument(docs: DocumentModel[], user: UserModel, settings: DocumentFormSettings): void {
     this.formSettings = settings;
     this.currentUser = user;
-    this.document = doc;
+    this.documents = docs;
   }
 
 }

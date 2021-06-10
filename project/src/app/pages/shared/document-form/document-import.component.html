@@ -1,7 +1,7 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}" cstyle="width: 95%; margin: 0 auto; padding: 0 0 20px;">
   <ng-container *ngIf="formGroup">
     <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
-      <dynamic-ng-form [formClass]="'document-form'" [group]="sharedGroup" [settings]="sharedFormSettings" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
+      <dynamic-ng-form [formClass]="'document-form'" [group]="sharedGroup" [settings]="sharedFormSettings">
       </dynamic-ng-form>
     </dynamic-ng-form>
 

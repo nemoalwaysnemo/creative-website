@@ -17,7 +17,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   document: DocumentModel;
 
-  bulkImportSettings: DocumentFormSettings = new DocumentFormSettings({
+  batchOperationSettings: DocumentFormSettings = new DocumentFormSettings({
     acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
     importSettings: {
       getDocType: (item: NuxeoUploadResponse): string => {

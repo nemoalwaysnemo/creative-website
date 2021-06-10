@@ -1,8 +1,7 @@
 import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
 import { DynamicFormControlModel, DynamicFormModel } from '@core/custom';
 import { isValueEmpty } from '@core/services/helpers';
-import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
-import { concatMap, filter, map, tap } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
 
 export class DocumentFormEvent {
   [key: string]: any;
@@ -89,22 +88,12 @@ export class DocumentFormContext {
   }
 
   update(params: any = {}): this {
-    if (params.user) {
-      this.user = params.user;
-      delete params.user;
-    }
-    if (params.documents) {
-      this.documents = params.documents;
-      delete params.documents;
-    }
-    if (params.formSettings) {
-      this.formSettings = params.formSettings;
-      delete params.formSettings;
-    }
-    if (params.uploadModel) {
-      this.uploadModel = params.uploadModel;
-      delete params.uploadModel;
-    }
+    ['user', 'documents', 'formSettings', 'uploadModel'].forEach((prop: string) => {
+      if (params[prop]) {
+        this[prop] = params[prop];
+        delete params[prop];
+      }
+    });
     Object.assign(this, params);
     return this;
   }
@@ -116,6 +105,8 @@ export class DocumentFormContext {
 }
 
 export class DocumentImportSettings {
+
+  [key: string]: any;
 
   placeholder: string = 'Drop files here!';
 
@@ -138,6 +129,8 @@ export class DocumentImportSettings {
 }
 
 export class DocumentFormSettings {
+
+  [key: string]: any;
 
   actionOptions: any = {};
 

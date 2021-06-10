@@ -10,7 +10,7 @@ import { DocumentCreativeProjectImportAssetComponent } from './document-creative
 import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
 import { DocumentCreativeProjectImportAssetHomeComponent } from './document-creative-project-import-asset-home/document-creative-project-import-asset-home.component';
 import { DocumentCreativeProjectImportAssetFormComponent } from './document-creative-project-import-asset-form/document-creative-project-import-asset-form.component';
-import { DocumentBulkImportModule } from '../../document-bulk-import/document-bulk-import.module';
+import { DocumentBatchOperationModule } from '../../document-batch-operation/document-batch-operation.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +21,7 @@ import { DocumentBulkImportModule } from '../../document-bulk-import/document-bu
     ListSearchFormInDialogModule,
     DocumentNewPosterButtonModule,
     DocumentCreativeProjectNavigationModule,
-    DocumentBulkImportModule,
+    DocumentBatchOperationModule,
   ],
   declarations: [
     DocumentCreativeProjectImportAssetComponent,
