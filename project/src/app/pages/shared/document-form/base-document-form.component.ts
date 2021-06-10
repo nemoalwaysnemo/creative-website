@@ -35,9 +35,9 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   protected saveEvent$: Subject<DocumentFormContext> = new Subject<DocumentFormContext>();
 
   @Input()
-  set document(docs: DocumentModel | DocumentModel[]) {
-    if (docs) {
-      this.documents$.next(this.prepareFiles(docs));
+  set document(doc: DocumentModel | DocumentModel[]) {
+    if (doc && !Array.isArray(doc) || Array.isArray(doc) && doc.length > 0) {
+      this.documents$.next(this.prepareFiles(doc));
     }
   }
 
@@ -302,8 +302,14 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected performCreate(ctx: DocumentFormContext): Observable<DocumentModel[]> {
-    ctx.currentDocument.properties = this.prepareProperties(ctx.currentDocument.properties, this.getFormValue());
-    const documents = this.getFormStatus('uploadState') === 'uploaded' ? this.attachUploadFiles(ctx) : [ctx.currentDocument];
+    let documents = [];
+    if (ctx.currentDocument.type && !isValueEmpty(ctx.formSettings.formModel)) {
+      ctx.currentDocument.properties = this.prepareProperties(ctx.currentDocument.properties, this.getFormValue());
+      documents.push(ctx.currentDocument);
+    }
+    if (this.getFormStatus('uploadState') === 'uploaded') {
+      documents = documents.concat(this.attachUploadFiles(ctx));
+    }
     return this.createDocuments(documents, ctx);
   }
 
@@ -361,26 +367,30 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected newDocumentModel(doc: DocumentModel, properties: any = {}): DocumentModel {
-    const list: string[] = ['title', 'uid', 'path', 'type', '_properties'];
     const keys: string[] = Object.keys(doc);
     for (const key of keys) {
-      if (!list.includes(key)) {
+      if (!['title', 'uid', 'path', 'type', '_properties'].includes(key)) {
         doc.removeProperties(key);
       }
     }
     if (!isValueEmpty(properties)) {
       doc.properties = Object.assign({}, doc.properties, properties);
     }
-    return new DocumentModel(deepExtend({}, doc, properties));
+    return new DocumentModel(Object.assign({}, doc));
+  }
+
+  protected getUploadFileSharedProperties(ctx: DocumentFormContext): any {
+    return {};
   }
 
   protected attachUploadFiles(ctx: DocumentFormContext): DocumentModel[] {
     const files = this.getUploadFiles(ctx.uploadModel);
+    const sharedProperties = this.getUploadFileSharedProperties(ctx);
     return files.filter((res: NuxeoUploadResponse) => res.isMainFile()).map((res: NuxeoUploadResponse) => {
       let model: DocumentModel;
       if (ctx.uploadModel.settings.enableForm) {
         if (res.document) {
-          res.document.properties = this.prepareProperties(res.document.properties, this.getFormValue());
+          res.document.properties = this.prepareProperties(res.document.properties, sharedProperties);
           model = res.document;
         } else if (!isValueEmpty(res.attributes)) {
           model = this.newDocumentModel(ctx.currentDocument, res.attributes);

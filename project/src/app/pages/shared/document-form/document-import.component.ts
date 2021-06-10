@@ -31,10 +31,10 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
     const models = this.getImportFormModel(ctx.formSettings);
     this.prepareDocumentForm(ctx, models);
     this.performSharedDocumentForm(ctx);
+    ctx.formSettings.enableBulkImport = true;
   }
 
   protected performSharedDocumentForm(ctx: DocumentFormContext): void {
-    ctx.formSettings.enableBulkImport = true;
     const models = this.performFormModel(ctx, ctx.formSettings.sharedModel);
     this.performSharedFormSettings(ctx, models);
     this.createSharedDocumentForm(models);
@@ -42,10 +42,10 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
 
   protected createSharedDocumentForm(models: DynamicFormModel): void {
     this.sharedGroup = this.createFormGroup(models);
-    // const subscription = this.sharedGroup.statusChanges.subscribe((valid: any) => {
-    //   timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID', submitted: false }); });
-    // });
-    // this.subscription.add(subscription);
+    const subscription = this.sharedGroup.statusChanges.subscribe((valid: any) => {
+      timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID' && this.getFormStatus('formValid'), submitted: false }); });
+    });
+    this.subscription.add(subscription);
   }
 
   protected performNgFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
@@ -63,6 +63,10 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
     ngFormSettings.formMode = ctx.formSettings.formMode;
     ngFormSettings.enableLayoutRight = false;
     this.sharedFormSettings = ngFormSettings;
+  }
+
+  protected getUploadFileSharedProperties(ctx: DocumentFormContext): any {
+    return this.sharedGroup.value;
   }
 
   protected getImportFormModel(settings: DocumentFormSettings): DynamicFormModel {
@@ -92,7 +96,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
         layoutPosition: settings.importSettings.layoutPosition,
       }),
     ];
-    return (settings.formModel || []).concat(importModel);
+    return (settings.formModel || []).concat(settings.formMode === 'create' ? importModel : []);
   }
 
   protected onFilesChangedFn(items: NuxeoUploadResponse[]): Observable<NuxeoUploadResponse[]> {

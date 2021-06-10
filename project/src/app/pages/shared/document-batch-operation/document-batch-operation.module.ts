@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DocumentBulkImportComponent } from './document-bulk-import.component';
+import { DocumentBatchOperationComponent } from './document-batch-operation.component';
 import { DocumentFormModule } from '../document-form/document-form.module';
 
 @NgModule({
@@ -9,11 +9,11 @@ import { DocumentFormModule } from '../document-form/document-form.module';
     DocumentFormModule,
   ],
   declarations: [
-    DocumentBulkImportComponent,
+    DocumentBatchOperationComponent,
   ],
   exports: [
-    DocumentBulkImportComponent,
+    DocumentBatchOperationComponent,
   ],
 })
-export class DocumentBulkImportModule {
+export class DocumentBatchOperationModule {
 }
