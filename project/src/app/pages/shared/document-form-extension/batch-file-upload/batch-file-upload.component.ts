@@ -307,4 +307,9 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
       this.uploadItems[index]['fieldPieces'] = Object.keys(value.value).length;
     });
   }
+
+  isOrdinaryImport(): boolean {
+    return this.uploadSettings.enableAction && this.uploadSettings.formModel.length === 1 && this.uploadSettings.formModel[0].id === 'dc:title';
+  }
+
 }
