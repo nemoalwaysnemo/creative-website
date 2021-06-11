@@ -4,6 +4,7 @@ import { DocumentCreativeProjectAssetPageComponent } from './document-creative-p
 import { DocumentCreativeProjectImportAssetComponent } from './document-creative-project-import-asset-page/document-creative-project-import-asset.component';
 import { DocumentCreativeProject3rdPartyImportComponent } from './document-creative-project-3rd-party-import-page/document-creative-project-3rd-party-import-page.component';
 import { DocumentCreativeProjectDeliveryPackagePageComponent } from './document-creative-project-delivery-package-page/document-creative-project-delivery-package-page.component';
+import { DocumentCreativeProjectUsageRightsComponent } from './document-creative-project-usage-rights-page/document-creative-project-usage-rights-page.component';
 
 export const TAB_CONFIG: NbMenuItem[] = [
   {
@@ -28,10 +29,11 @@ export const TAB_CONFIG: NbMenuItem[] = [
     title: 'Delivery Packages',
     component: DocumentCreativeProjectDeliveryPackagePageComponent,
   },
-  // {
-  //   title: 'Usage Rights',
-  //   component: CreativeProjectAssetUsageRightsTemplateComponent,
-  // },
+  {
+    id: 'usage-rights-Page',
+    title: 'Usage Rights',
+    component: DocumentCreativeProjectUsageRightsComponent,
+  },
   // {
   //   title: 'Completion Report',
   //   component: CreativeProjectAssetCompletionReportTemplateComponent,
