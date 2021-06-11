@@ -1,0 +1,20 @@
+<div class="document-creative-project-home-action">
+  <div class="actions-title">ACTIONS</div>
+  <nb-menu [items]="actions" (itemClick)="changeMenuView($event)"></nb-menu>
+</div>
+
+
+<div class="document-creative-project-home-nav">
+  <document-creative-project-navigation [documentModel]='document' [settings]="usageRightNavSettings"></document-creative-project-navigation>
+</div>
+<div class="document-creative-project-home-list">
+  <document-creative-project-usage-rights-list [document]="document"></document-creative-project-usage-rights-list>
+</div>
+
+<div hidden>
+  <document-creative-project-navigation [documentModel]='document' [settings]="assetNavSettings"></document-creative-project-navigation>
+</div>
+<div class="document-creative-project-home-list">
+  <document-creative-project-assets-list [document]="document" (onSelectDocument)="onSelectAsset($event)"></document-creative-project-assets-list>
+</div>
+
