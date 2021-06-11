@@ -1,5 +1,5 @@
 import { Component, OnChanges } from '@angular/core';
-import { DocumentModel, UserModel, NuxeoRequestOptions } from '@core/api';
+import { DocumentModel, UserModel, NuxeoRequestOptions, NuxeoAutomations } from '@core/api';
 import { DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel } from '@core/custom';
@@ -56,6 +56,7 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
+        info: doc,
         thumbnail: doc,
         title: doc.title,
       }));
@@ -84,7 +85,14 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
   protected onInit(): void {
   }
 
+  protected acceptAsset(request_id: any, assets_ids: any): Observable<any> {
+    return this.documentPageService.operation(NuxeoAutomations.MoveAssetToLibrary, { request_id, assets_ids});
+  }
+
+
   onSelected(row: any): void {
+    this.acceptAsset(this.requestDocument.uid, row.data.info.uid).subscribe((res) => {
+    });
   }
 
   }

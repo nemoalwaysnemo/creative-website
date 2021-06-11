@@ -645,6 +645,7 @@ export enum NuxeoAutomations {
   MoveToTrash = 'Document.Trash',
   DownloadRequest = 'App-BizDev-Asset-Download-Request-email',
   SendDeliveryPackage = 'App-Library-Delivery-Package-Send-on-Slingshot',
+  MoveAssetToLibrary = 'App-Library-Import-Project-Request-3-Gcl-Move-to-Library',
   GetSimpleUserPreferences = 'TBWA.GetSimpleUserPreferences',
   SetSimpleUserPreferences = 'TBWA.SetSimpleUserPreferences',
 }
