@@ -1,41 +1,83 @@
-<div class="batch-upload" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+<div class="batch-upload" [nbSpinner]="loading" nbSpinnerStatus="disabled"
+  [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div class="batch-upload-queue">
     <h6 *ngIf="uploadSettings.enableAction">{{ uploadItems.length }} Queued Files</h6>
-    <table class="table" >
-      <tbody>
-        <tr>
-          <td class="file-info-zone">
-            <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0" [ngStyle]="uploadSettings.arrangeDirection == 'horizontal'? {} : {'width': '100%'}">
-              <thead>
-                <tr *ngIf="uploadItems.length > 0">
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Size</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of uploadItems; let i=index" style="height: 40px;">
-                  <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
-                  <td *ngIf="!uploadSettings.enableForm || uploadSettings.enableForm && !item.isMainFile()">{{ item.getFileType() }}</td>
-                  <td nowrap *ngIf="item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB</td>
-                  <td nowrap *ngIf="!item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-          <td style="padding: 0;" *ngIf="uploadSettings.enableForm">
-            <div *ngFor="let group of formGroups; let i=index" style="clear:both; min-width: 60px; width: 100%;">
-              <div *ngIf="uploadSettings.enableForm && uploadItems[i].isMainFile()">
-                <dynamic-ng-form [formClass]="'document-form'" [group]="group" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
-                </dynamic-ng-form>
-                <div [ngStyle]="i > 0 ? {'margin-top': '5px'} : {'margin-top': '34px'}" class="float-right" nowrap *ngIf="uploadSettings.enableAction">
-                  <button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)" [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadSettings.formMode === 'edit')">Delete</button>
+    <ng-container *ngIf="!isOrdinaryImport()">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="file-info-zone">
+              <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0"
+                [ngStyle]="uploadSettings.arrangeDirection == 'horizontal'? {} : {'width': '100%'}">
+                <thead>
+                  <tr *ngIf="uploadItems.length > 0">
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Size</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of uploadItems; let i=index" style="height: 40px;">
+                    <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
+                    <td *ngIf="!uploadSettings.enableForm || uploadSettings.enableForm && !item.isMainFile()">{{
+                      item.getFileType() }}</td>
+                    <td nowrap *ngIf="item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB</td>
+                    <td nowrap *ngIf="!item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{
+                      item.percentLoaded }}%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td style="padding: 0;" *ngIf="uploadSettings.enableForm">
+              <div *ngFor="let group of formGroups; let i=index" style="clear:both; min-width: 60px; width: 100%;">
+                <div *ngIf="uploadSettings.enableForm && uploadItems[i].isMainFile()">
+                  <dynamic-ng-form [formClass]="'document-form'" [group]="group" [formModel]="formModels[i]"
+                    (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
+                    (focus)="onFocus($event)">
+                  </dynamic-ng-form>
+                  <div [ngStyle]="i > 0 ? {'margin-top': '5px'} : {'margin-top': '34px'}" class="float-right" nowrap
+                    *ngIf="uploadSettings.enableAction">
+                    <button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)"
+                      [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadSettings.formMode === 'edit')">Delete</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-container *ngIf="isOrdinaryImport()">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Field</th>
+            <th>Size</th>
+            <th *ngIf="uploadSettings.enableAction">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of uploadItems; let i=index">
+            <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
+            <td *ngIf="uploadSettings.enableForm && item.isMainFile()">
+              <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]"
+                (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
+                (focus)="onFocus($event)">
+              </dynamic-ng-form>
+            </td>
+            <td *ngIf="!uploadSettings.enableForm || uploadSettings.enableForm && !item.isMainFile()">{{
+              item.getFileType() }}</td>
+            <td nowrap *ngIf="item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB</td>
+            <td nowrap *ngIf="!item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%
+            </td>
+            <td nowrap *ngIf="uploadSettings.enableAction"><button nbButton outline class="btn btn-danger btn-xs"
+                status="danger" (click)="removeOne(i)"
+                [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (item.isMainFile() && item.formMode === 'edit')">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
   </div>
 </div>
