@@ -1,5 +1,4 @@
-<div class="batch-upload" [nbSpinner]="loading" nbSpinnerStatus="disabled"
-  [ngStyle]="loading ? {'min-height': '150px'} : {}">
+<div class="batch-upload" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div class="batch-upload-queue">
     <h6 *ngIf="uploadSettings.enableAction">{{ uploadItems.length }} Queued Files</h6>
     <ng-container *ngIf="!isOrdinaryImport()">
@@ -7,8 +6,7 @@
         <tbody>
           <tr>
             <td class="file-info-zone">
-              <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0"
-                [ngStyle]="uploadSettings.arrangeDirection == 'horizontal'? {} : {'width': '100%'}">
+              <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0" [ngStyle]="uploadSettings.arrangeDirection == 'horizontal'? {} : {'width': '100%'}">
                 <thead>
                   <tr *ngIf="uploadItems.length > 0">
                     <th>Name</th>
@@ -31,12 +29,9 @@
             <td style="padding: 0;" *ngIf="uploadSettings.enableForm">
               <div *ngFor="let group of formGroups; let i=index" style="clear:both; min-width: 60px; width: 100%;">
                 <div *ngIf="uploadSettings.enableForm && uploadItems[i].isMainFile()">
-                  <dynamic-ng-form [formClass]="'document-form'" [group]="group" [formModel]="formModels[i]"
-                    (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
-                    (focus)="onFocus($event)">
+                  <dynamic-ng-form [formClass]="'document-form'" [group]="group" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
                   </dynamic-ng-form>
-                  <div [ngStyle]="i > 0 ? {'margin-top': '5px'} : {'margin-top': '34px'}" class="float-right" nowrap
-                    *ngIf="uploadSettings.enableAction">
+                  <div [ngStyle]="i > 0 ? {'margin-top': '5px'} : {'margin-top': '34px'}" class="float-right" nowrap *ngIf="uploadSettings.enableAction">
                     <button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)"
                       [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadSettings.formMode === 'edit')">Delete</button>
                   </div>
@@ -61,9 +56,7 @@
           <tr *ngFor="let item of uploadItems; let i=index">
             <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
             <td *ngIf="uploadSettings.enableForm && item.isMainFile()">
-              <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]"
-                (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)"
-                (focus)="onFocus($event)">
+              <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
               </dynamic-ng-form>
             </td>
             <td *ngIf="!uploadSettings.enableForm || uploadSettings.enableForm && !item.isMainFile()">{{
@@ -71,8 +64,7 @@
             <td nowrap *ngIf="item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB</td>
             <td nowrap *ngIf="!item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%
             </td>
-            <td nowrap *ngIf="uploadSettings.enableAction"><button nbButton outline class="btn btn-danger btn-xs"
-                status="danger" (click)="removeOne(i)"
+            <td nowrap *ngIf="uploadSettings.enableAction"><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)"
                 [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (item.isMainFile() && item.formMode === 'edit')">Delete</button>
             </td>
           </tr>
