@@ -15,6 +15,8 @@ import { CreativeUsageRightsSearchResultComponent } from './creative-usage-right
 import { CreativeBrandCampaignSearchResultComponent } from './creative-brand-campaign-search-result/creative-brand-campaign-search-result.component';
 import { CreativeBrandProjectSearchResultComponent } from './creative-brand-project-search-result/creative-brand-project-search-result.component';
 import { CreativeDocumentAssetSearchResultComponent, CreativeDocumentAssetRowRenderComponent } from './creative-document-asset-search-result/creative-document-asset-search-result.component';
+import { CreativeRingMyCollectionsSearchResultComponent } from './creative-ring-my-collections-search-result/creative-ring-my-collections-search-result.component';
+import { CreativeRingAllCollectionsSearchResultComponent } from './creative-ring-all-collections-search-result/creative-ring-all-collections-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
 import { CreativeBrandAssetSearchResultComponent, CreativeBrandRowRenderComponent } from './creative-brand-asset-search-result/creative-brand-asset-search-result.component';
 import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
@@ -68,6 +70,8 @@ const COMPONENTS = [
   CreativeBrandCampaignSearchResultComponent,
   CreativeBrandProjectSearchResultComponent,
   CreativeDocumentAssetSearchResultComponent,
+  CreativeRingMyCollectionsSearchResultComponent,
+  CreativeRingAllCollectionsSearchResultComponent,
   CreativeAgencyAssetSearchResultComponent,
   BackslashDocumentAssetSearchResultComponent,
   BackslashPipelineAssetSearchResultComponent,

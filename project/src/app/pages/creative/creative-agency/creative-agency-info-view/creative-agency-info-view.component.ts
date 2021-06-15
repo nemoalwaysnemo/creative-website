@@ -20,7 +20,7 @@ export class CreativeAgencyInfoViewComponent extends BaseDocumentViewComponent {
   set document(doc: DocumentModel) {
     if (doc) {
       this.documentModel = doc;
-      this.parseTabRoute();
+      this.parseTabRoute(doc);
     }
   }
 
@@ -38,10 +38,10 @@ export class CreativeAgencyInfoViewComponent extends BaseDocumentViewComponent {
     return vocabularyFormatter(list);
   }
 
-  protected parseTabRoute(): void {
+  protected parseTabRoute(doc: DocumentModel): void {
     if (this.tabs.length === 0) {
       const tabs = parseTabRoute(this.tabConfig, this.activatedRoute.snapshot.params);
-      const subscription = this.aclService.filterRouterTabs(tabs, this.documentModel).subscribe((r: any[]) => {
+      const subscription = this.aclService.filterRouterTabs(tabs, doc).subscribe((r: any[]) => {
         this.tabs = r;
       });
       this.subscription.add(subscription);

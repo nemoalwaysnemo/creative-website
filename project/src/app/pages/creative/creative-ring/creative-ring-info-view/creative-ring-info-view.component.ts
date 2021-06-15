@@ -2,17 +2,16 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { ACLService } from '@core/acl';
-import { DocumentPageService } from '@pages/shared';
+import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
-import { TAB_CONFIG } from '../creative-brand-tab-config';
-import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
+import { TAB_CONFIG } from '../creative-ring-tab-config';
 
 @Component({
-  selector: 'creative-brand-info-view',
-  styleUrls: ['../../../../theme/styles/document-metadata-view.scss', './creative-brand-info-view.scss'],
-  templateUrl: './creative-brand-info-view.component.html',
+  selector: 'creative-ring-info-view',
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss', './creative-ring-info-view.scss'],
+  templateUrl: './creative-ring-info-view.component.html',
 })
-export class CreativeBrandInfoViewComponent extends BaseDocumentViewComponent {
+export class CreativeRingInfoViewComponent extends BaseDocumentViewComponent {
 
   @Input() loading: boolean;
 
@@ -30,7 +29,11 @@ export class CreativeBrandInfoViewComponent extends BaseDocumentViewComponent {
 
   private tabConfig: any[] = TAB_CONFIG;
 
-  constructor(protected activatedRoute: ActivatedRoute, private aclService: ACLService, protected documentPageService: DocumentPageService) {
+  constructor(
+    private aclService: ACLService,
+    protected activatedRoute: ActivatedRoute,
+    protected documentPageService: DocumentPageService,
+  ) {
     super(documentPageService);
   }
 
