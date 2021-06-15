@@ -228,12 +228,9 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       concatMap((ctx: DocumentFormContext) => ctx.beforeSaveValidation(ctx).pipe(map((formValid: boolean) => ctx.update({ formValid })))),
       filter((ctx: DocumentFormContext) => ctx.formValid),
       concatMap((ctx: DocumentFormContext) => this.onBeforeSave(ctx)),
-      concatMap((ctx: DocumentFormContext) => this.performSave(ctx).pipe(
-        map((docs: DocumentModel[]) => ctx.updatePerformedDocuments(docs)),
-      )),
-      concatMap((ctx: DocumentFormContext) => this.performSaved(ctx)),
+      concatMap((ctx: DocumentFormContext) => this.performSave(ctx)),
       concatMap((ctx: DocumentFormContext) => this.onAfterSave(ctx)),
-      tap(_ => { this.updateFormStatus({ submitting: false, submitted: true }); }),
+      concatMap((ctx: DocumentFormContext) => this.performSaved(ctx)),
     ).subscribe();
     this.subscription.add(subscription);
   }
@@ -291,14 +288,10 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     return new DocumentFormContext({ user, documents, formSettings, uploadModel });
   }
 
-  protected performSave(ctx: DocumentFormContext): Observable<DocumentModel[]> {
-    if (ctx.formSettings.formMode === 'create') {
-      return this.performCreate(ctx);
-    } else if (ctx.formSettings.formMode === 'edit') {
-      return this.performUpdate(ctx);
-    } else {
-      throw new Error(`Invalid form mode ${ctx.formSettings.formMode}!`);
-    }
+  protected performSave(ctx: DocumentFormContext): Observable<DocumentFormContext> {
+    return (ctx.formSettings.formMode === 'create' ? this.performCreate(ctx) : this.performUpdate(ctx)).pipe(
+      map((docs: DocumentModel[]) => ctx.updatePerformedDocuments(docs)),
+    );
   }
 
   protected performCreate(ctx: DocumentFormContext): Observable<DocumentModel[]> {
@@ -308,7 +301,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       documents.push(ctx.currentDocument);
     }
     if (this.getFormStatus('uploadState') === 'uploaded') {
-      documents = documents.concat(this.attachUploadFiles(ctx));
+      if (ctx.formSettings.enableBatchSyncCreate) {
+        documents = documents.concat(this.attachUploadFiles(ctx));
+      } else {
+        ctx.documents = ctx.documents.concat(this.attachUploadFiles(ctx));
+      }
     }
     return this.createDocuments(documents, ctx);
   }
@@ -323,11 +320,12 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected performSaved(ctx: DocumentFormContext): Observable<DocumentFormContext> {
-    if (ctx.formSettings.formMode === 'create') {
-      return this.onCreated(ctx);
-    } else if (ctx.formSettings.formMode === 'edit') {
-      return this.onUpdated(ctx);
-    }
+    return (ctx.formSettings.formMode === 'create' ? this.onCreated(ctx) : this.onUpdated(ctx)).pipe(
+      tap(_ => {
+        ctx.documents.length = 0;
+        this.updateFormStatus({ submitting: false, submitted: true });
+      }),
+    );
   }
 
   protected onCreated(ctx: DocumentFormContext): Observable<DocumentFormContext> {

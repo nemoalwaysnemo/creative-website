@@ -150,6 +150,8 @@ export class DocumentFormSettings {
 
   enableButtons: boolean = true;
 
+  enableBatchSyncCreate: boolean = true;
+
   enableBulkImport: boolean = false;
 
   resetFormAfterDone: boolean = false;
