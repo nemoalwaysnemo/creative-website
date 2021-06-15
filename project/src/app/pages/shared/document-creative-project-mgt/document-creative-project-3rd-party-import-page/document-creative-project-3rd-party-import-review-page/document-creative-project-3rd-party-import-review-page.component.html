@@ -22,6 +22,7 @@
       <div>{{ requestDocument.get('The_Loupe_Delivery:request_user') }}</div>
       <div>Upload expires by</div>
       <div>{{ requestDocument.get('The_Loupe_Delivery:delivery_email') }}</div>
+      <button (click)="moveAssets()">Approve and move selected assets to library</button>
   </div>
 </div>
 <div class="document-creative-project-home-nav"> 
@@ -31,6 +32,7 @@
       <list-search-form-in-dialog [searchParams]="baseParams$ | async" [settings]="searchFormSettings"
       [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)">
       </list-search-form-in-dialog>
+
     </div>
   </div>
 </div>
