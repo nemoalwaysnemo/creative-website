@@ -1,15 +1,41 @@
-<creative-brand-info-view [loading]="loading" [document]="document"></creative-brand-info-view>
-<div class="creative-brand-asset" [nbSpinner]="loading" nbSpinnerStatus="disabled">
-  <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
-    <ng-container class="group-right">
-      <div class="global-search-form-buttons">
-        <creative-brand-form-button [parent]="document" [type]="'image'" [title]="'Upload Image'"></creative-brand-form-button>
-        <creative-brand-form-button [parent]="document" [type]="'video'" [title]="'Upload Video'"></creative-brand-form-button>
-        <creative-brand-form-button [parent]="document" [type]="'audio'" [title]="'Upload Audio'"></creative-brand-form-button>
-        <global-search-button [enableSlider]="true"></global-search-button>
-      </div>
-    </ng-container>
-  </global-search-form>
-  <selectable-action-bar [settings]="actionBarsettings" [document]="document"></selectable-action-bar>
-  <creative-document-asset-search-result [layout]="layout" [selectableSettings]="selectableSettings" [showDialog]="'true'"></creative-document-asset-search-result>
+<creative-ring-info-view [loading]="loading" [document]="document"></creative-ring-info-view>
+<div class="creative-ring-collection" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+  <ng-container *ngIf="isViewEnabled('myCollectionsView')">
+    <div [ngStyle]="currentView === 'myCollectionsView' ? {} : {'display': 'none'}">
+      <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings" (onLoading)="onLoading($event)">
+        <ng-container class="group-left">
+          <div class="global-search-form-buttons">
+            <button type="button" (click)="selectView('myCollectionsView')" class="icon_btn roadmap-btn" title="My Collections">My Collections</button>
+            <button type="button" (click)="selectView('allCollectionsView')" class="icon_btn roadmap-btn" title="All Collections">All Collections</button>
+          </div>
+        </ng-container>
+        <ng-container class="group-right">
+          <div class="global-search-form-buttons">
+            <creative-ring-form-button [parent]="document" [type]="'image'" [title]="'New Collection'"></creative-ring-form-button>
+          </div>
+        </ng-container>
+      </global-search-form>
+      <creative-ring-my-collections-search-result [enableScrolling]="enableScrolling['myCollectionsView']"></creative-ring-my-collections-search-result>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isViewEnabled('allCollectionsView')">
+    <div [ngStyle]="currentView === 'allCollectionsView' ? {} : {'display': 'none'}">
+      <global-search-form [filters]="filters" [searchParams]="featuredParams" [settings]="featuredSearchFormSettings" (onLoading)="onLoading($event)">
+        <ng-container class="group-left">
+          <div class="global-search-form-buttons">
+            <button type="button" (click)="selectView('myCollectionsView')" class="icon_btn roadmap-btn" title="My Collections">My Collections</button>
+            <button type="button" (click)="selectView('allCollectionsView')" class="icon_btn roadmap-btn" title="All Collections">All Collections</button>
+          </div>
+        </ng-container>
+        <ng-container class="group-right">
+          <div class="global-search-form-buttons">
+            <creative-ring-form-button [parent]="document" [type]="'image'" [title]="'New Collection'"></creative-ring-form-button>
+          </div>
+        </ng-container>
+      </global-search-form>
+      <creative-ring-all-collections-search-result [enableScrolling]="enableScrolling['allCollectionsView']"></creative-ring-all-collections-search-result>
+    </div>
+  </ng-container>
+
 </div>
