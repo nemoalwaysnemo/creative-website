@@ -77,6 +77,7 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
         production_date: doc.properties['dc:created'],
         asset_countries: doc.properties['The_Loupe_Main:country'].join(','),
         job_number: doc.properties['The_Loupe_Main:jobnumber'],
+        uid: doc.uid,
       }));
     }
     return items;
@@ -109,18 +110,14 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
 
   moveAssets(): void {
     this.assetsMovingQueue.forEach((row) => {
-      if (row.isSelected) {
-        this.acceptAsset(this.requestDocument.uid, row.data.info.uid).subscribe(_ => {
-          this.refresh();
-        });
-      }
+      this.acceptAsset(this.requestDocument.uid, row.uid).subscribe(_ => {
+        this.refresh();
+      });
     });
   }
 
   onSelected(row: any): void {
-    if (row.isSelected) {
-      this.assetsMovingQueue.push(row);
-    }
+    this.assetsMovingQueue = row.selected;
   }
 
   private refresh(): void {

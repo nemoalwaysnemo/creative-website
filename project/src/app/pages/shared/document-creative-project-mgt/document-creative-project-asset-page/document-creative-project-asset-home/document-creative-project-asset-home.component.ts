@@ -41,6 +41,15 @@ export class DocumentCreativeProjectAssetRowRenderComponent {
 })
 export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeProjectMgtBaseComponent {
 
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    private advanceSearchService: AdvanceSearchService,
+  ) {
+    super(documentPageService, componentFactoryResolver);
+    this.subscribeHomeEvents();
+  }
+
   actions: NbMenuItem[] = [
     {
       id: 'import',
@@ -136,6 +145,8 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     },
   };
 
+  selectedItems: any[] = [];
+
   listViewBuilderAsset: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
@@ -150,15 +161,6 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       }));
     }
     return items;
-  }
-
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected componentFactoryResolver: ComponentFactoryResolver,
-    private advanceSearchService: AdvanceSearchService,
-  ) {
-    super(documentPageService, componentFactoryResolver);
-    this.subscribeHomeEvents();
   }
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
@@ -230,5 +232,9 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       );
     }
     return observableOf(res);
+  }
+
+  onSelected(row: any): void {
+    this.selectedItems = row.selected;
   }
 }

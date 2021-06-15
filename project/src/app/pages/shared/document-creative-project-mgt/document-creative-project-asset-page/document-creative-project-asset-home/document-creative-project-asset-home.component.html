@@ -9,5 +9,5 @@
   <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
 </div>
 <div class="document-creative-project-home-list">
-  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset" [afterSearch]="afterSearch"></list-search-form-in-dialog>
+  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset" [afterSearch]="afterSearch" (onSelected)="onSelected($event)"></list-search-form-in-dialog>
 </div>
