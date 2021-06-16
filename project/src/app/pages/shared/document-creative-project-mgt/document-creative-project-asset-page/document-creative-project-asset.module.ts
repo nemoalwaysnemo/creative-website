@@ -10,7 +10,7 @@ import { DocumentCreativeProjectAssetPageComponent } from './document-creative-p
 import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
 import { DocumentCreativeProjectAssetHomeComponent, DocumentCreativeProjectAssetRowRenderComponent } from './document-creative-project-asset-home/document-creative-project-asset-home.component';
 import { DocumentCreativeProjectAssetDetailModule } from './document-creative-project-asset-detail/document-creative-project-asset-detail.module';
-
+import { DocumentCreativeProjectModifyAssetsComponent } from './document-creative-project-modify-assets/document-creative-project-modify-assets.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,6 +28,7 @@ import { DocumentCreativeProjectAssetDetailModule } from './document-creative-pr
     DocumentCreativeProjectAssetPageComponent,
     DocumentCreativeProjectAssetHomeComponent,
     DocumentCreativeProjectAssetRowRenderComponent,
+    DocumentCreativeProjectModifyAssetsComponent,
   ],
 })
 export class DocumentCreativeProjectAssetModule {

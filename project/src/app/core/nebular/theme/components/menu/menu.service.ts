@@ -111,6 +111,7 @@ export class NbMenuItem {
 
   fragment?: string;
 
+  triggerChangeSettings?: {};
   /**
    * @returns item parents in top-down order
    */

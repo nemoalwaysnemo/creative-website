@@ -9,13 +9,13 @@ import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative
 import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
-import { of as observableOf, Observable } from 'rxjs';
+import { Subject, of as observableOf, Observable } from 'rxjs';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DatePipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { vocabularyFormatter } from '@core/services/helpers';
-import { SearchFilterModel } from '../../../../shared/global-search-filter/global-search-filter.interface';
-import { DocumentCreativeProjectImportNewRequestComponent } from '../../document-creative-project-3rd-party-import-page/document-creative-project-3rd-party-import-new-request/document-creative-project-import-new-request.component';
+import { SearchFilterModel } from '../../../global-search-filter/global-search-filter.interface';
+import { TrurthifyPipe } from 'ngx-pipes';
 @Component({
   template: `
     <ng-container *ngIf="value" [ngSwitch]="true">
@@ -35,11 +35,11 @@ export class DocumentCreativeProjectAssetRowRenderComponent {
 }
 
 @Component({
-  selector: 'document-creative-project-asset-home',
+  selector: 'document-creative-project-modify-assets',
   styleUrls: ['../../document-creative-project-mgt.component.scss', '../document-creative-project-asset-page.component.scss'],
-  templateUrl: './document-creative-project-asset-home.component.html',
+  templateUrl: './document-creative-project-modify-assets.component.html',
 })
-export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeProjectMgtBaseComponent {
+export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreativeProjectMgtBaseComponent {
 
   constructor(
     protected documentPageService: DocumentPageService,
@@ -55,18 +55,11 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       id: 'import',
       title: 'Import',
       type: 'page',
-
     },
     {
-      id: '3rd-import-new-request',
+      id: '3rd-import',
       title: 'Create 3rd Party Import',
       type: 'page',
-      triggerChangeSettings: {
-        name: '3rd-import-new-request',
-        type: 'view',
-        formMode: 'create',
-        document: this.document,
-      },
     },
     {
       id: 'delivery',
@@ -84,6 +77,8 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       type: 'page',
     },
   ];
+
+  disableButtons: boolean = true;
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
@@ -176,18 +171,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
   }
 
   onMenuClick(item: NbMenuItem): void {
-    const itemInfo = item.triggerChangeSettings;
-    this.triggerChangeView(itemInfo['name'], itemInfo['type'],
-      new CreativeProjectMgtSettings({
-        document: this.document,
-        dialogDocument: this.document,
-        project: this.templateSettings.project,
-        homeTemplate: 'creative-project-mgt-template',
-        homePage: '3rd-import-Page',
-        homeView: '3rd-import-home-view',
-        formMode: itemInfo['formMode'],
-        showMessageBeforeSave: false,
-      }));
+    this.triggerChangeView(item.id, item.type);
   }
 
   vocabularyFormatter(list: string[]): string {
@@ -255,5 +239,9 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
 
   onSelected(row: any): void {
     this.selectedItems = row.selected;
+    if (this.selectedItems.length > 0){
+      this.disableButtons = false;
+    }
   }
+
 }
