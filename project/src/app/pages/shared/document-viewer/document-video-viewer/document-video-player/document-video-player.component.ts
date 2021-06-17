@@ -57,7 +57,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
       if (this.viewerSettings.enableGlobalMute) {
         const presentVolume = res.target.volume;
         setVolume(api, presentVolume);
-        this.documentVideoViewerService.setCookie('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'Lax');
+        this.documentVideoViewerService.setCookie('defaultVolume', presentVolume.toString(), 3600, '/', undefined, true, 'None');
       }
     });
     this.subscription.add(subscription1);
