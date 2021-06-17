@@ -31,6 +31,8 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
 
   private selectedProject: DocumentModel = null;
 
+  private selectedCampaign: DocumentModel = null;
+
   campaignFilters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_prodCredits_production_date_agg', placeholder: 'Year', filterValueFn: (bucket: any) => bucket.docCount > 0 }),
   ];
@@ -76,8 +78,8 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
           enableClick: true,
           dialogSettings: new GlobalDocumentDialogSettings({
             components: [
-              GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_MGT,
-              GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM,
+              GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_CAMPAIGN_MGT,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM,
             ],
             containerType: 'wide-dialog-container',
           }),
@@ -90,6 +92,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
   listViewSettingsProject: any = {
     hideHeader: true,
     hideSubHeader: true,
+    enableCustomClick: true,
     columns: {
       title: {
         sort: false,
@@ -230,14 +233,22 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
 
   onSelectedCampaign(row: any): void {
     this.selectedProject = null;
-    this.baseParamsProject$.next(this.buildProjectParams(this.document, row.isSelected ? row.data.action : null));
-    this.baseParamsAsset$.next(this.buildAssetParams(this.document, row.isSelected ? row.data.action : null));
+    this.selectedCampaign = row.isSelected ? row.selected[0].action : null;
+    if (!this.selectedCampaign) {
+      this.baseParamsCampaign$.next(this.buildCampaignParams(this.target));
+    }
+    this.baseParamsProject$.next(this.buildProjectParams(this.target, this.selectedCampaign));
+    this.baseParamsAsset$.next(this.buildAssetParams(this.document, this.selectedCampaign));
   }
 
   onSelectedProject(row: any): void {
-    this.selectedProject = row.selected[0];
-    this.baseParamsCampaign$.next(this.buildCampaignParams(this.document, row.isSelected ? row.data.action : null));
-    this.baseParamsAsset$.next(this.buildAssetParams(this.document, null, row.isSelected ? row.data.action : null));
+    this.selectedProject = row.isSelected ? row.selected[0].action : null;
+    if (!this.selectedCampaign) {
+      this.baseParamsCampaign$.next(this.buildCampaignParams(this.target, this.selectedProject));
+      this.baseParamsAsset$.next(this.buildAssetParams(this.document, null, this.selectedProject));
+    } else {
+      this.baseParamsAsset$.next(this.buildAssetParams(this.document, this.selectedCampaign, this.selectedProject));
+    }
   }
 
   openDialog(type: string, selectedMenu: string = '', selectedTab: string = ''): void {
@@ -256,9 +267,6 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
-      timer(0).subscribe(() => { this.baseParamsCampaign$.next(this.buildCampaignParams(doc)); });
-      timer(0).subscribe(() => { this.baseParamsProject$.next(this.buildProjectParams(doc)); });
-      timer(0).subscribe(() => { this.baseParamsAsset$.next(this.buildAssetParams(doc)); });
       this.getTargetDocumentModel({
         pageSize: 1,
         currentPageIndex: 0,
@@ -267,6 +275,9 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       }).subscribe((target: DocumentModel) => {
         this.target = target;
         this.target.setParent(doc);
+        timer(0).subscribe(() => { this.baseParamsCampaign$.next(this.buildCampaignParams(target)); });
+        timer(0).subscribe(() => { this.baseParamsProject$.next(this.buildProjectParams(target)); });
+        timer(0).subscribe(() => { this.baseParamsAsset$.next(this.buildAssetParams(doc)); });
       });
     }
   }
@@ -276,6 +287,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_CAMPAIGN_TYPE,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 100,
     };
     if (doc) {
       params['ecm_path'] = doc.path;
@@ -293,6 +305,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 100,
     };
     if (doc) {
       params['ecm_path'] = doc.path;
@@ -308,6 +321,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 100,
     };
     if (doc) {
       params['ecm_path'] = doc.path;

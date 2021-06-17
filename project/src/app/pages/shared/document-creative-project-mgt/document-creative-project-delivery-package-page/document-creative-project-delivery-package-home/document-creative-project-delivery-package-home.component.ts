@@ -223,6 +223,7 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_DELIVERY_PACKAGE_TYPE,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 100,
     };
     if (doc) {
       params['ecm_path'] = doc.path;

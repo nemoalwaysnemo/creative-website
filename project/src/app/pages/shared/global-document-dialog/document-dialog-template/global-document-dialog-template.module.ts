@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DocumentFormModule } from '../../document-form/document-form.module';
 import { DocumentViewerModule } from '../../document-viewer/document-viewer.module';
 import { DocumentCreativeProjectMgtModule } from '../../document-creative-project-mgt';
+import { DocumentCreativeCampaignMgtModule } from '../../document-creative-campaign-mgt';
 import { DocumentShareButtonModule } from '../../document-share-button/document-share-button.module';
 import { DocumentBackslashInfoModule } from '../../document-backslash-info/document-backslash-info.module';
 import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-preview-dialog/disruption-asset-preview-dialog.component';
@@ -14,6 +15,7 @@ import { RelatedBackslashAssetDialogPreviewComponent } from './related-backslash
 import { DocumentConfirmationDialogComponent } from './document-confirmation-dialog/document-confirmation-dialog.component';
 import { DocumentDownloadRequestDialogComponent } from './document-download-request-dialog/document-download-request-dialog.component';
 import { CreativeProjectMgtTemplateComponent } from './creative-project-mgt-template/creative-project-mgt-template.component';
+import { CreativeCampaignMgtTemplateComponent } from './creative-campaign-mgt-template/creative-campaign-mgt-template.component';
 import { InnovationAssetPreviewDialogComponent } from './innovation-asset-preview-dialog/innovation-asset-preview-dialog.component';
 import { BizdevAssetPreviewDialogComponent } from './bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 import { IntelligenceAssetPreviewDialogComponent } from './intelligence-asset-preview-dialog/intelligence-asset-preview-dialog.component';
@@ -41,6 +43,7 @@ const COMPONENTS = [
   DocumentDownloadRequestDialogComponent,
   CreativeAssetPreviewDialogComponent,
   CreativeProjectMgtTemplateComponent,
+  CreativeCampaignMgtTemplateComponent,
   InnovationAssetPreviewDialogComponent,
   IntelligenceAssetPreviewDialogComponent,
   DocumentShowcaseDialogComponent,
@@ -63,7 +66,7 @@ const COMPONENTS = [
     DocumentNewPosterButtonModule,
     DocumentUsageRightsStatusModule,
     DocumentCreativeProjectMgtModule,
-    DocumentCreativeProjectMgtModule,
+    DocumentCreativeCampaignMgtModule,
   ],
   declarations: [
     ...COMPONENTS,

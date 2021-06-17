@@ -1,0 +1,45 @@
+<div *ngIf="doc" class="doc-info" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+  <div class="details">
+    <p><b>Title</b><br>
+      <span> {{ doc.title }} </span>
+    </p>
+    <p><b>Global Master Campaign</b><br>
+      <span> {{ doc.get('The_Loupe_Main:campaign_parent') }} </span>
+    </p>
+    <p><b>Client</b><br>
+      <span> {{ doc.get('The_Loupe_Main:clientName') }} </span>
+    </p>
+    <p><b>Brand</b><br>
+      <span> {{ doc.get('The_Loupe_Main:brand') }} </span>
+    </p>
+    <p><b>Description</b><br>
+      <span> {{ doc.get('The_Loupe_Main:description') }} </span>
+    </p>
+    <p><b>Category</b><br>
+      <span *ngFor="let category of formatData(doc.get('app_Edges:backslash_category'))">
+        <span> {{category}} <br></span>
+      </span>
+    </p>
+    <p><b>Edges</b><br>
+      <span *ngFor="let edge of formatData(doc.get('app_Edges:Tags_edges'))">
+        <span> {{edge}} <br></span>
+      </span>
+    </p>
+    <p><b>Campaign Geography</b><br>
+      <span *ngFor="let geography of formatData(doc.get('app_Edges:Relevant_Country'))">
+        <span> {{geography}} <br></span>
+      </span>
+    </p>
+    <p><b>Start Date</b><br>
+      <span> {{ doc.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC' }} </span>
+    </p>
+    <p><b>Agency</b><br>
+      <span> {{ doc.get('The_Loupe_Main:agency') }} </span>
+    </p>
+    <p><b>Country</b><br>
+      <span *ngFor="let country of formatData(doc.get('The_Loupe_Main:country'))">
+        <span> {{country}} <br></span>
+      </span>
+    </p>
+  </div>
+</div>

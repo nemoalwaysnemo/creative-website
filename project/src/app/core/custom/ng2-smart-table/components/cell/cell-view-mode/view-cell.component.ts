@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-
+import { Grid } from '../../../lib/grid';
 import { Cell } from '../../../lib/data-set/cell';
 
 @Component({
@@ -7,7 +7,7 @@ import { Cell } from '../../../lib/data-set/cell';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [ngSwitch]="cell.getColumn().type">
-        <custom-view-component *ngSwitchCase="'custom'" [cell]="cell"></custom-view-component>
+        <custom-view-component *ngSwitchCase="'custom'" [cell]="cell" [grid]="grid"></custom-view-component>
         <div *ngSwitchCase="'html'" [innerHTML]="cell.getValue()"></div>
         <div *ngSwitchDefault>{{ cell.getValue() }}</div>
     </div>
@@ -16,4 +16,7 @@ import { Cell } from '../../../lib/data-set/cell';
 export class ViewCellComponent {
 
   @Input() cell: Cell;
+
+  @Input() grid: Grid;
+
 }

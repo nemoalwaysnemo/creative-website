@@ -43,6 +43,8 @@ export class Ng2SmartTableComponent implements OnChanges {
     hideHeader: false,
     hideSubHeader: false,
     showCheckbox: false,
+    enableCustomClick: false,
+    enableSelectFirstRow: false,
     actions: {
       columnTitle: 'Actions',
       add: true,
@@ -89,6 +91,7 @@ export class Ng2SmartTableComponent implements OnChanges {
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }): void {
     if (this.grid) {
+      this.grid.setSelectFirstRow(this.grid.getSetting('enableSelectFirstRow'));
       if (changes['settings']) {
         this.grid.setSettings(this.prepareSettings());
       }

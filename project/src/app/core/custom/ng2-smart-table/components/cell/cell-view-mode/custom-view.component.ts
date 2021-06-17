@@ -1,4 +1,5 @@
 import { Component, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Grid } from '../../../lib/grid';
 import { Cell } from '../../../lib/data-set/cell';
 import { ViewCell } from './view-cell';
 
@@ -14,12 +15,16 @@ export class CustomViewComponent implements OnInit, OnDestroy {
 
   @Input() cell: Cell;
 
+  @Input() grid: Grid;
+
   @ViewChild('dynamicTarget', { read: ViewContainerRef, static: true }) dynamicTarget: any;
 
   @HostListener('click', ['$event'])
   onClick(event: Event): void {
-    event.preventDefault();
-    event.stopImmediatePropagation();
+    if (!this.grid.getSetting('enableCustomClick')) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
   }
 
   constructor(private resolver: ComponentFactoryResolver) {

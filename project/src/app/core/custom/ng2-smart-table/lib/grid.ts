@@ -267,4 +267,8 @@ export class Grid {
     return this.dataSet.getLastRow();
   }
 
+  setSelectFirstRow(setting: boolean): void {
+    this.dataSet.setShowFirstRow(setting);
+  }
+
 }

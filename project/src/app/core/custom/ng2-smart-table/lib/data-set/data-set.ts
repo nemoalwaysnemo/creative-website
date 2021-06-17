@@ -10,6 +10,7 @@ export class DataSet {
   protected rows: Row[] = [];
   protected selectedRow: Row;
   protected willSelect: string = 'first';
+  protected showFirstRow: boolean = false;
 
   constructor(data: any[] = [], protected columnSettings: any) {
     this.createColumns(columnSettings);
@@ -36,6 +37,10 @@ export class DataSet {
 
   getLastRow(): Row {
     return this.rows[this.rows.length - 1];
+  }
+
+  setShowFirstRow(setting: boolean): void {
+    this.showFirstRow = setting;
   }
 
   findRowByData(data: any): Row {
@@ -102,8 +107,9 @@ export class DataSet {
     if (this.getRows().length === 0) {
       return;
     }
+
     if (this.willSelect) {
-      if (this.willSelect === 'first') {
+      if (this.willSelect === 'first' && this.showFirstRow) {
         this.selectFirstRow();
       }
       if (this.willSelect === 'last') {
@@ -111,7 +117,9 @@ export class DataSet {
       }
       this.willSelect = '';
     } else {
-      this.selectFirstRow();
+      if (this.showFirstRow) {
+        this.selectFirstRow();
+      }
     }
 
     return this.selectedRow;

@@ -5,6 +5,7 @@ import { DocumentConfirmationDialogComponent } from './document-dialog-template/
 import { DocumentDownloadRequestDialogComponent } from './document-dialog-template/document-download-request-dialog/document-download-request-dialog.component';
 import { DocumentDeletionDialogComponent } from './document-dialog-template/document-deletion-dialog/document-deletion-dialog.component';
 import { CreativeProjectMgtTemplateComponent } from './document-dialog-template/creative-project-mgt-template/creative-project-mgt-template.component';
+import { CreativeCampaignMgtTemplateComponent } from './document-dialog-template/creative-campaign-mgt-template/creative-campaign-mgt-template.component';
 import { InnovationAssetPreviewDialogComponent } from './document-dialog-template/innovation-asset-preview-dialog/innovation-asset-preview-dialog.component';
 import { BizdevAssetPreviewDialogComponent } from './document-dialog-template/bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 import { IntelligenceAssetPreviewDialogComponent } from './document-dialog-template/intelligence-asset-preview-dialog/intelligence-asset-preview-dialog.component';
@@ -33,5 +34,6 @@ export const GLOBAL_DOCUMENT_DIALOG = {
   CUSTOM_DELETE_MULTIPLE_ASSETS: DocumentMultipleDeletionComponent,
   CUSTOM_DOWNLOAD_REQUEST: DocumentDownloadRequestDialogComponent,
   CUSTOM_CREATIVE_PROJECT_MGT: CreativeProjectMgtTemplateComponent,
+  CUSTOM_CREATIVE_CAMPAIGN_MGT: CreativeCampaignMgtTemplateComponent,
   CUSTOM_SHOWCASE_ADD_REMOVE: DocumentShowcaseDialogComponent,
 };
