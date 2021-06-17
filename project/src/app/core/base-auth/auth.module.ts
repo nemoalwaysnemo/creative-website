@@ -2,7 +2,7 @@ import { Injector, ModuleWithProviders, NgModule } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
 import { NbAuthOptions, NbAuthStrategyClass, NB_AUTH_USER_OPTIONS, NB_AUTH_OPTIONS, NB_AUTH_TOKENS, NB_AUTH_STRATEGIES, NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from './base-auth.options';
 import { NbAuthStrategy, NbAuthStrategyOptions, NbOAuth2AuthStrategy } from './strategies';
-import { NbAuthTokenClass, NB_AUTH_FALLBACK_TOKEN, NbTokenStorage, NbAuthSimpleToken, NbTokenLocalStorage, NbAuthTokenParceler, NbAuthService, NbTokenService } from './services';
+import { NbAuthTokenClass, NB_AUTH_FALLBACK_TOKEN, NbTokenStorage, NbAuthOAuth2Token, NbTokenLocalStorage, NbAuthTokenParceler, NbAuthService, NbTokenService } from './services';
 import { deepExtend } from '@core/services/helpers';
 
 export function nbStrategiesFactory(options: NbAuthOptions, injector: Injector): NbAuthStrategy[] {
@@ -44,7 +44,7 @@ export class NbAuthModule {
         { provide: NB_AUTH_OPTIONS, useFactory: nbOptionsFactory, deps: [NB_AUTH_USER_OPTIONS] },
         { provide: NB_AUTH_STRATEGIES, useFactory: nbStrategiesFactory, deps: [NB_AUTH_OPTIONS, Injector] },
         { provide: NB_AUTH_TOKENS, useFactory: nbTokensFactory, deps: [NB_AUTH_STRATEGIES] },
-        { provide: NB_AUTH_FALLBACK_TOKEN, useValue: NbAuthSimpleToken },
+        { provide: NB_AUTH_FALLBACK_TOKEN, useValue: NbAuthOAuth2Token },
         { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: noOpInterceptorFilter },
         { provide: NbTokenStorage, useClass: NbTokenLocalStorage },
         NbAuthTokenParceler,
