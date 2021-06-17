@@ -23,8 +23,8 @@ export class NbAuthTokenParceler {
 
   wrap(token: NbAuthToken): string {
     return JSON.stringify({
-      name: token.getName(),
-      strategyName: token.getOwnerStrategyName(),
+      // name: token.getName(),
+      // strategyName: token.getOwnerStrategyName(),
       createdAt: token.getCreatedAt().getTime(),
       value: token.toString(),
     });
@@ -40,7 +40,7 @@ export class NbAuthTokenParceler {
     if (tokenPack) {
       tokenClass = this.getClassByName(tokenPack.name) || this.fallbackClass;
       tokenValue = tokenPack.value;
-      tokenOwnerStrategyName = tokenPack.strategyName;
+      tokenOwnerStrategyName = tokenPack.strategyName || 'oauth2';
       tokenCreatedAt = new Date(Number(tokenPack.createdAt));
     }
 
