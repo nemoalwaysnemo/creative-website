@@ -1,7 +1,10 @@
-button {
+button.button {
   padding: 0 30px;
   height: 35px;
   background: #ffffff;
   border: solid 1px #e1e1e1;
   width: 140px;
+  &:disabled {
+    background-color: #f4f6fb;
+  }
 }

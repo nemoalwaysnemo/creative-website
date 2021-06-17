@@ -59,8 +59,8 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
           },
           {
             label: 'cancel',
-            name: 'cancel',
-            type: 'cancel',
+            name: 'mgt-cancel',
+            type: 'custom',
           },
         ],
       }));
@@ -69,7 +69,6 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
     this.usageRightNavSettings = this.buildUsageRightNavSettings(doc);
     this.assetNavSettings = this.buildAssetNavSettings(doc);
-    console.log(doc.getParent('brand').uid);
     return observableOf(doc).pipe(
       concatMap(_ =>
         this.documentPageService.advanceRequest(new GlobalSearchParams({
@@ -130,6 +129,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_UR_CONTRACT_TYPES,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 99,
     };
     if (doc) {
       params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
@@ -145,6 +145,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 99,
     };
     if (doc) {
       params['ecm_uuid_not_eq'] = doc.uid;
@@ -183,14 +184,18 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
     const type = CONTRACT_YTPES[contract.type];
     const UR_ids: string[] = asset.get(type);
     if (UR_ids.indexOf(contract.uid) === -1){
+    // if (true){
       const opt = {};
       UR_ids.push(contract.uid);
       opt[type] = UR_ids;
-      asset.set(opt).save().subscribe(doc => {
-        console.log(doc);
+      // opt[type] = [];
+      asset.set(opt).save().subscribe(_ => {
+        this.documentPageService.notify(`${asset.title} linked successfully!`, '', 'success');
+        this.documentPageService.triggerEvent(new GlobalEvent({ name: 'AfterLinkAssetClick', value: contract.uid}));
       });
     }else{
-      console.log(contract.uid);
+      this.documentPageService.notify(`${asset.title} has been linked!`, '', 'info');
+      this.documentPageService.triggerEvent(new GlobalEvent({ name: 'AfterLinkAssetClick', value: contract.uid}));
     }
   }
 }
