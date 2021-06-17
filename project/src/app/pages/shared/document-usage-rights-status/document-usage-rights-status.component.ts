@@ -62,15 +62,15 @@ export class DocumentUsageRightsStatusComponent {
   buildLightList(): void {
     if (this.hasUsageRight()) {
       this.lights = [];
-      this.lights.push(this.buildLight(this.usageRights.MODEL));
-      this.lights.push(this.buildLight(this.usageRights.MUSIC));
-      this.lights.push(this.buildLight(this.usageRights.PHOTO));
-      this.lights.push(this.buildLight(this.usageRights.STOCK));
+      this.lights.push(this.buildLight(this.usageRights.MODEL, 'Talent'));
+      this.lights.push(this.buildLight(this.usageRights.MUSIC, 'Music'));
+      this.lights.push(this.buildLight(this.usageRights.PHOTO, 'Photographer'));
+      this.lights.push(this.buildLight(this.usageRights.STOCK, 'Stock'));
     }
   }
 
-  buildLight(contract: any): Light {
-    let message: any, date: any, style: string, type: string;
+  buildLight(contract: any, type: string): Light {
+    let message: any, date: any, style: string;
     if (contract.info_messages.length > 0) {
       message = contract.info_messages;
       style = 'warning';
@@ -81,7 +81,7 @@ export class DocumentUsageRightsStatusComponent {
       }
       style = this.getExpiredType(message);
     }
-    type = this.urList.get(contract.doc_type);
+    // type = this.urList.get(contract.doc_type);
     return new Light(message, date, style, type);
   }
 

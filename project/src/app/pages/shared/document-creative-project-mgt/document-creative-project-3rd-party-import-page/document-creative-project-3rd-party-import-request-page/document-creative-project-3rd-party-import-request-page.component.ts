@@ -134,6 +134,7 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 100,
     };
     // if (doc) {
     //   params['ecm_path'] = doc.path;

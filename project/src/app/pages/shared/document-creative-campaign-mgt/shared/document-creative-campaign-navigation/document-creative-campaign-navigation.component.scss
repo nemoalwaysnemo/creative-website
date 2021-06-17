@@ -1,9 +1,9 @@
-.creative-project-navigation {
+.creative-campaign-navigation {
   background-color: #434343;
   width: 100%;
   min-height: 36px;
 }
-.creative-project-navigation-home {
+.creative-campaign-navigation-home {
   width: 80px;
   height: 100%;
   float: left;
@@ -15,12 +15,12 @@
     text-align: center;
   }
 }
-.creative-project-navigation-page-list {
+.creative-campaign-navigation-page-list {
   width: 200px;
   height: 100%;
   float: left;
 }
-.creative-project-navigation ::ng-deep .creative-project-navigation-search {
+.creative-campaign-navigation ::ng-deep .creative-campaign-navigation-search {
   .global-search-form {
     margin: 0 !important;
     .advanced-filters-trigger.success {

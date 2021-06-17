@@ -97,6 +97,7 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
       ecm_path: doc.path,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 100,
     };
     return params;
   }

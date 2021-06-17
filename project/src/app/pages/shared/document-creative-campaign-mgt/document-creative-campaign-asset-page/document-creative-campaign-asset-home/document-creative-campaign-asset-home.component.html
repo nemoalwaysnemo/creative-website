@@ -1,0 +1,11 @@
+<div class="document-creative-campaign-home-action">
+  <div class="document-creative-campaign-info">
+    <document-creative-campaign-info [document]='document'></document-creative-campaign-info>
+  </div>
+</div>
+<div class="document-creative-campaign-home-nav">
+  <document-creative-campaign-navigation [documentModel]='document' [settings]="navSettings"></document-creative-campaign-navigation>
+</div>
+<div class="document-creative-campaign-home-list">
+  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset" [afterSearch]="afterSearch"></list-search-form-in-dialog>
+</div>

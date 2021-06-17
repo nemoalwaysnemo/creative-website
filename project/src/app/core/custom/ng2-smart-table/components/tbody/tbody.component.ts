@@ -40,7 +40,8 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
 
   get tableColumnsCount(): number {
     const actionColumns = this.isActionAdd || this.isActionEdit || this.isActionDelete ? 1 : 0;
-    return this.grid.getColumns().length + actionColumns;
+    const selectColumns = this.grid.isMultiSelectVisible() ? 1 : 0;
+    return this.grid.getColumns().length + selectColumns + actionColumns;
   }
 
   ngOnChanges(): void {

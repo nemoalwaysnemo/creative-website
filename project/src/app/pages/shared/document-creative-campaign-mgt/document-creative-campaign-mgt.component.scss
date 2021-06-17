@@ -1,0 +1,57 @@
+.creative-campaign-dynamic-component {
+  margin: 10px;
+  min-height: 350px;
+}
+.document-creative-campaign-home-action {
+  float: left;
+  width: 20%;
+  .actions-title {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 18px;
+    text-align: center;
+    background-color: #fecc00;
+    line-height:  30px;
+    color: #ffffff;
+  }
+  .action-btn {
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    width: 100%;
+    background-color: #e1e1e1;
+    border: solid 1px #e1e1e1;
+    cursor: pointer;
+    margin: 5px 0;
+  }
+  ul {
+    padding: 0;
+  }
+}
+.document-creative-campaign-home-nav {
+  float: right;
+  width: 80%;
+  padding-left: 10px;
+}
+.document-creative-campaign-home-action ::ng-deep .menu-items {
+  margin-top: 0;
+  a {
+    text-align: center;
+  }
+  .menu-title {
+    line-height: 35px;
+    height: 35px;
+    font-size: 14px;
+    padding: 0 25px;
+    width: 100%;
+    background-color: #e1e1e1;
+    border: solid 1px #e1e1e1;
+    cursor: pointer;
+    margin: 5px 0;
+  }
+}
+.document-creative-campaign-home-list {
+  float: right;
+  width: 79.3%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

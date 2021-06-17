@@ -102,6 +102,7 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
       ecm_path: doc.path,
       currentPageIndex: 0,
       ecm_fulltext: '',
+      pageSize: 100,
     };
     if (doc) {
       params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;

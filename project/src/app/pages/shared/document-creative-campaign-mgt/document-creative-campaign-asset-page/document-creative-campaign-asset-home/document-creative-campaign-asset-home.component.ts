@@ -5,9 +5,9 @@ import { DocumentListViewItem } from '../../../document-list-view/document-list-
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog/list-search-row-custom-view-component';
-import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
-import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
-import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { DocumentCreativeCampaignMgtBaseComponent } from '../../document-creative-campaign-mgt-base.component';
+import { CampaignMgtNavigationSettings } from '../../shared/document-creative-campaign-navigation/document-creative-campaign-navigation.interface';
+import { CreativeCampaignMgtSettings } from '../../document-creative-campaign-mgt.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { of as observableOf, Observable } from 'rxjs';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { vocabularyFormatter } from '@core/services/helpers';
 import { SearchFilterModel } from '../../../../shared/global-search-filter/global-search-filter.interface';
-import { DocumentCreativeProjectImportNewRequestComponent } from '../../document-creative-project-3rd-party-import-page/document-creative-project-3rd-party-import-new-request/document-creative-project-import-new-request.component';
+
 @Component({
   template: `
     <ng-container *ngIf="value" [ngSwitch]="true">
@@ -30,60 +30,16 @@ import { DocumentCreativeProjectImportNewRequestComponent } from '../../document
     </ng-container>
   `,
 })
-export class DocumentCreativeProjectAssetRowRenderComponent {
-  @Input() value: { mediatypes: any, countries: string };
+export class DocumentCreativeCampaignAssetRowRenderComponent {
+  @Input() value: { mediatypes: any , countries: string };
 }
 
 @Component({
-  selector: 'document-creative-project-asset-home',
-  styleUrls: ['../../document-creative-project-mgt.component.scss', '../document-creative-project-asset-page.component.scss'],
-  templateUrl: './document-creative-project-asset-home.component.html',
+  selector: 'document-creative-campaign-asset-home',
+  styleUrls: ['../../document-creative-campaign-mgt.component.scss', '../document-creative-campaign-asset-page.component.scss'],
+  templateUrl: './document-creative-campaign-asset-home.component.html',
 })
-export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeProjectMgtBaseComponent {
-
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected componentFactoryResolver: ComponentFactoryResolver,
-    private advanceSearchService: AdvanceSearchService,
-  ) {
-    super(documentPageService, componentFactoryResolver);
-    this.subscribeHomeEvents();
-  }
-
-  actions: NbMenuItem[] = [
-    {
-      id: 'import',
-      title: 'Import',
-      type: 'page',
-
-    },
-    {
-      id: '3rd-import-new-request',
-      title: 'Create 3rd Party Import',
-      type: 'page',
-      triggerChangeSettings: {
-        name: '3rd-import-new-request',
-        type: 'view',
-        formMode: 'create',
-        document: this.document,
-      },
-    },
-    {
-      id: 'delivery',
-      title: 'Create Delivery Package',
-      type: 'page',
-    },
-    {
-      id: 'modify-assets',
-      title: 'Modify Assets',
-      // hidden: this.disabledCheck('modif-assets'),
-    },
-    {
-      id: 'set-usage-rights',
-      title: 'Set Usage Rights',
-      type: 'page',
-    },
-  ];
+export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreativeCampaignMgtBaseComponent {
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
@@ -96,27 +52,24 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     ecm_fulltext: '',
   };
 
-  navSettings: ProjectMgtNavigationSettings;
+  navSettings: CampaignMgtNavigationSettings;
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-asset',
+    source: 'document-creative-campaign-asset',
     enableSearchForm: false,
     autoSearch: false,
   });
 
   listViewSettingsAsset: any = {
     hideHeader: false,
-    selectMode: 'multi',
     hideSubHeader: true,
-    showCheckbox: true,
     columns: {
       action: {
         sort: false,
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'thumbnail',
-          enableClick: true,
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
@@ -139,7 +92,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
         title: 'Coverage',
         sort: false,
         type: 'custom',
-        renderComponent: DocumentCreativeProjectAssetRowRenderComponent,
+        renderComponent: DocumentCreativeCampaignAssetRowRenderComponent,
       },
       usageRights: {
         title: 'Status',
@@ -152,8 +105,6 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       },
     },
   };
-
-  selectedItems: any[] = [];
 
   listViewBuilderAsset: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
@@ -171,42 +122,40 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     return items;
   }
 
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    private advanceSearchService: AdvanceSearchService,
+  ) {
+    super(documentPageService, componentFactoryResolver);
+    this.subscribeHomeEvents();
+  }
+
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
   }
 
   onMenuClick(item: NbMenuItem): void {
-    const itemInfo = item.triggerChangeSettings;
-    this.triggerChangeView(itemInfo['name'], itemInfo['type'],
-      new CreativeProjectMgtSettings({
-        document: this.document,
-        dialogDocument: this.document,
-        project: this.templateSettings.project,
-        homeTemplate: 'creative-project-mgt-template',
-        homePage: '3rd-import-Page',
-        homeView: '3rd-import-home-view',
-        formMode: itemInfo['formMode'],
-        showMessageBeforeSave: false,
-      }));
+    this.triggerChangeView(item.id, item.type);
   }
 
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
 
-  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
+  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeCampaignMgtSettings): Observable<DocumentModel> {
     this.navSettings = this.buildNavSettings(doc);
     return observableOf(doc);
   }
 
   private buildNavSettings(doc: DocumentModel): any {
-    return new ProjectMgtNavigationSettings({
+    return new CampaignMgtNavigationSettings({
       currentPage: 'asset-page',
       searchFormParams: this.buildAssetParams(doc, doc.getParent('brand')),
       searchFormFilters: this.filters,
       searchFormSettings: new GlobalSearchFormSettings({
         schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-        source: 'document-creative-project-asset',
+        source: 'document-creative-campaign-asset',
         searchGroupPosition: 'right',
         enableSearchForm: true,
         enableSearchInput: false,
@@ -223,7 +172,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     };
     if (doc) {
       params['ecm_uuid_not_eq'] = doc.uid;
-      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
+      params['the_loupe_main_campaign'] = `["${doc.get('The_Loupe_Main:campaign')}"]`;
     }
     if (brand) {
       params['ecm_path'] = brand.path;
@@ -233,7 +182,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
 
   private subscribeHomeEvents(): void {
     const subscription = this.documentPageService.onEventType('list-search-row-custom-view').subscribe((event: GlobalEvent) => {
-      this.triggerChangeView('asset-detail-view', 'view', new CreativeProjectMgtSettings({ project: this.document, document: event.data.document }));
+      this.triggerChangeView('asset-detail-view', 'view', new CreativeCampaignMgtSettings({ project: this.document, document: event.data.document }));
     });
     this.subscription.add(subscription);
   }
@@ -245,16 +194,12 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
         map((response: NuxeoPagination) => {
           res.response.entries.forEach((doc: DocumentModel) => {
             const status = response.entries.find((x: any) => x.uuid === doc.uid);
-            doc.setProperty('_usage_rights_', status || {}, true);
+            doc.properties['_usage_rights_'] = status || {};
           });
           return res;
         }),
       );
     }
     return observableOf(res);
-  }
-
-  onSelected(row: any): void {
-    this.selectedItems = row.selected;
   }
 }

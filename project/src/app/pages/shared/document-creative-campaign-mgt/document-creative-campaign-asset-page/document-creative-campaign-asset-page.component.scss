@@ -1,0 +1,118 @@
+.document-creative-campaign-info {
+  background-color: #e1e1e1;
+  padding: 5px;
+}
+.creative-campaign-asset-page {
+  margin: 10px;
+}
+.creative-campaign-asset-page ::ng-deep document-list-view {
+  img {
+    cursor: pointer;
+  }
+}
+.creative-campaign-asset-page ::ng-deep .poster-btn {
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  width: 100%;
+  background-color: #e1e1e1;
+  border: solid 1px #e1e1e1;
+  cursor: pointer;
+  font-weight: 400;
+  text-align: center;
+}
+.detail-menu {
+  background-color: #5c5858;
+  width: 79.2%;
+}
+.logo {
+  margin: 8px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+h3 {
+  font-size: 18px;
+  color: #ffffff;
+  padding-left: 10px;
+  line-height: 30px;
+  height: 30px;
+  margin-left: 5px;
+  padding-top: 3px;
+}
+.document-creative-campaign-asset-detail ::ng-deep document-image-viewer {
+  img {
+    height: 400px;
+  }
+}
+.asset-media {
+  width: 30%;
+  float: left;
+}
+.asset-info {
+  width: 70%;
+  float: right;
+}
+.one-row {
+  width: calc(100% - 30px);
+  margin: 10px auto;
+  box-sizing: border-box;
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  > .showcase-area {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    margin: 0 0 10px;
+  }
+  &::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+}
+.accordion {
+  margin: 0 50px 25px 14px;
+  box-shadow: none;
+  border-radius: 0;
+  .accordion-item {
+    .accordion-item-header {
+      font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+      display: block;
+      height: 50px;
+      line-height: 50px;
+      padding: 0 4px;
+      font-size: 15px;
+      color: #000000;
+      border-bottom: none;
+      box-sizing: border-box;
+      width: 17%;
+    }
+    .accordion-item-body {
+      margin-left: 3px;
+    }
+  }
+}
+.creative-campaign-asset-detail-info ::ng-deep nb-tabset {
+  .tabset {
+    width: 102.2%;
+    padding-left: 15px;
+  }
+}
+::ng-deep .document-creative-campaign-home-list {
+  .asset-mediatype {
+    height: 25px;
+    text-align: center;
+    background-color: #e5e4e2;
+    border: 1px #e5e4e2;
+    border-radius: 5px;
+    padding-top: 5px;
+    margin-bottom: 5px;
+  }
+  .asset-country {
+    height: 25px;
+    text-align: center;
+  }
+}
