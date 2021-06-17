@@ -1,8 +1,8 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AdvanceSearchService, DocumentModel, NuxeoAutomations, NuxeoPagination, SearchResponse } from '@core/api';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
-import { Observable, of as observableOf, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog/list-search-row-custom-view-component';
@@ -43,18 +43,39 @@ export class DocumentCreativeUsageRightsRowRenderComponent {
 
 @Component({
   styleUrls: ['../../document-creative-project-mgt.component.scss', '../document-creative-project-usage-rights-page.component.scss'],
-  template: `<button (click)='onClick()'>Link Asset</button>`,
+  template: `<button class="button" (click)="onClick()">Link Asset</button>`,
 })
-export class DocumentCreativeUsageRightsLinkButtonComponent {
+
+export class DocumentCreativeUsageRightsLinkButtonComponent implements OnInit, OnDestroy{
 
   constructor(
     protected documentPageService: DocumentPageService,
   ) {}
 
+  subscription: Subscription = new Subscription();
+
   @Input() value: { uid: any, type: any };
 
   onClick(): void {
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'LinkAssetClick', data: this.value}));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.afterLink();
+  }
+
+  afterLink(): void {
+    const subscription = this.documentPageService.onEvent('AfterLinkAssetClick').pipe(
+      map(data => data.value),
+      filter(uid => uid === this.value.uid),
+    ).subscribe(_ => {
+      // something wrong?!
+    });
+    this.subscription.add(subscription);
   }
 }
 

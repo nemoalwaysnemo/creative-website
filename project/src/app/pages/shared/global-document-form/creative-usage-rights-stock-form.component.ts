@@ -5,8 +5,9 @@ import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { Observable } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../document-form-extension';
-import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
-import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
+import { CreativeProjectMgtSettings } from '../document-creative-project-mgt/document-creative-project-mgt.interface';
 
 @Component({
   selector: 'creative-usage-rights-stock-form',
@@ -24,6 +25,17 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  onCallback(event: DocumentFormEvent): void {
+    if (event.action === 'CustomButtonClicked' && event.button === 'mgt-cancel') {
+      this.goToUsageRights();
+    }
+  }
+
+  goToUsageRights(): void {
+    const setting = new CreativeProjectMgtSettings();
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'usage-rights-home-view', type: 'view', setting }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected getFormModels(): any[] {
