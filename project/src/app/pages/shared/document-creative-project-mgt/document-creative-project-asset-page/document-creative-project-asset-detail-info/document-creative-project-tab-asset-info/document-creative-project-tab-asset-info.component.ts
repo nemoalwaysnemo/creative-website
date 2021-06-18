@@ -62,7 +62,7 @@ export class DocumentCreativeProjectTabAssetInfoComponent extends DocumentCreati
   }
 
   private hasCampaignValue(doc: DocumentModel): boolean {
-    return doc.get('The_Loupe_Main:campaign').length > 0;
+    return doc.get('The_Loupe_Main:campaign') && doc.get('The_Loupe_Main:campaign').length > 0;
   }
 
   private getCampaignParams(doc: DocumentModel): any {

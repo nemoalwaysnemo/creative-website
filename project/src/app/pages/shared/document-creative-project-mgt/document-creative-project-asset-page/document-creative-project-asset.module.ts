@@ -11,6 +11,7 @@ import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/
 import { DocumentCreativeProjectAssetHomeComponent, DocumentCreativeProjectAssetRowRenderComponent } from './document-creative-project-asset-home/document-creative-project-asset-home.component';
 import { DocumentCreativeProjectAssetDetailModule } from './document-creative-project-asset-detail/document-creative-project-asset-detail.module';
 import { DocumentCreativeProjectModifyAssetsComponent } from './document-creative-project-modify-assets/document-creative-project-modify-assets.component';
+import { DocumentBatchOperationModule } from '../../document-batch-operation/document-batch-operation.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +24,7 @@ import { DocumentCreativeProjectModifyAssetsComponent } from './document-creativ
     DocumentCreativeProjectNavigationModule,
     DocumentCreativeProjectInfoComponentModule,
     DocumentCreativeProjectAssetDetailModule,
+    DocumentBatchOperationModule,
   ],
   declarations: [
     DocumentCreativeProjectAssetPageComponent,
