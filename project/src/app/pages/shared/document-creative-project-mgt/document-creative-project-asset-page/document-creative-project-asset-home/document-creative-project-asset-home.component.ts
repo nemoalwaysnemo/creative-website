@@ -15,7 +15,6 @@ import { DatePipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { vocabularyFormatter } from '@core/services/helpers';
 import { SearchFilterModel } from '../../../../shared/global-search-filter/global-search-filter.interface';
-import { DocumentCreativeProjectImportNewRequestComponent } from '../../document-creative-project-3rd-party-import-page/document-creative-project-3rd-party-import-new-request/document-creative-project-import-new-request.component';
 @Component({
   template: `
     <ng-container *ngIf="value" [ngSwitch]="true">
@@ -52,10 +51,15 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
 
   actions: NbMenuItem[] = [
     {
-      id: 'import',
+      id: 'import-asset-page',
       title: 'Import',
       type: 'page',
-
+      triggerChangeSettings: {
+        name: 'import-asset-page',
+        type: 'view',
+        formMode: 'create',
+        document: this.document,
+      },
     },
     {
       id: '3rd-import-new-request',
@@ -76,7 +80,13 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     {
       id: 'modify-assets',
       title: 'Modify Assets',
-      // hidden: this.disabledCheck('modif-assets'),
+      type: 'page',
+      triggerChangeSettings: {
+        name: 'modify-assets',
+        type: 'view',
+        formMode: 'edit',
+        document: this.document,
+      },
     },
     {
       id: 'set-usage-rights',
@@ -152,8 +162,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       },
     },
   };
-
-  selectedItems: any[] = [];
+  selectedItems: DocumentModel[] = [];
 
   listViewBuilderAsset: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
@@ -187,6 +196,8 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
         homeView: '3rd-import-home-view',
         formMode: itemInfo['formMode'],
         showMessageBeforeSave: false,
+        batchDocuments: this.selectedItems,
+        brand: this.document.getParent(),
       }));
   }
 
@@ -255,6 +266,6 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
   }
 
   onSelected(row: any): void {
-    this.selectedItems = row.selected;
+    this.selectedItems = row.selected.map((item: DocumentListViewItem) => item.action);
   }
 }
