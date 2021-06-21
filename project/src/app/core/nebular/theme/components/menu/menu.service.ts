@@ -80,6 +80,11 @@ export class NbMenuItem {
    */
   hidden?: boolean;
   /**
+   * Enable Item
+   * @type {boolean}
+   */
+  enable?: boolean = true;
+  /**
    * Item is selected when partly or fully equal to the current url
    * @type {string}
    */

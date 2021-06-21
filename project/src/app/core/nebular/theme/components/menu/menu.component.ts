@@ -185,6 +185,7 @@ export class NbMenuItemComponent implements DoCheck, AfterViewInit, OnDestroy {
       <ng-container *ngFor="let item of items">
         <li nbMenuItem *ngIf="!item.hidden"
             [class.active]="item.selected"
+            [class.disabled]="!item.enable"
             [menuItem]="item"
             [class.menu-group]="item.group"
             (hoverItem)="onHoverItem($event)"
@@ -302,7 +303,9 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onHoverItem(item: NbMenuItem): void {
-    this.menuInternalService.itemHover(item, this.tag);
+    if (item.enable) {
+      this.menuInternalService.itemHover(item, this.tag);
+    }
   }
 
   onToggleSubMenu(item: NbMenuItem): void {
@@ -319,9 +322,11 @@ export class NbMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onItemClick(item: NbMenuItem): void {
-    this.setItemActive(item);
-    this.itemClick.emit(item);
-    this.menuInternalService.itemClick(item, this.tag);
+    if (item.enable) {
+      this.setItemActive(item);
+      this.itemClick.emit(item);
+      this.menuInternalService.itemClick(item, this.tag);
+    }
   }
 
   ngOnDestroy(): void {

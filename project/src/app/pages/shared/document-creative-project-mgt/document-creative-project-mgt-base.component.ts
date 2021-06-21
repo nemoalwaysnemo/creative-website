@@ -1,7 +1,8 @@
 import { Component, Input, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
+import { NbMenuItem } from '@core/nebular/theme';
 import { DocumentPageService } from '../services/document-page.service';
-import { of as observableOf, Observable, Subject, combineLatest } from 'rxjs';
+import { of as observableOf, Observable, Subject, combineLatest, BehaviorSubject } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
 import { DocumentCreativeProjectMgtBasePageComponent } from './document-creative-project-mgt-base-page.component';
@@ -10,6 +11,8 @@ import { DocumentCreativeProjectMgtBasePageComponent } from './document-creative
   template: '',
 })
 export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativeProjectMgtBasePageComponent {
+
+  actions$: Subject<NbMenuItem[]> = new BehaviorSubject<NbMenuItem[]>([]);
 
   @Input()
   set documentModel(doc: DocumentModel) {

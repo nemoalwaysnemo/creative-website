@@ -8,7 +8,7 @@
     <div class="button-groups left" *ngIf="ctx.formSettings && ctx.formSettings.enableButtons">
       <ng-container *ngFor="let button of ctx.formSettings.buttonGroup">
         <ng-container *ngIf="button.type === 'save'">
-          <button nbButton outline class="btn btn-success btn-xs btn-margin-bottom" status="primary" [disabled]="(formStatus$ | async)?.disableSaveButton()" (click)="onSave($event)">{{button.label}}</button>
+          <button nbButton outline class="btn btn-success btn-xs btn-margin-bottom" status="primary" [disabled]="(formStatus$ | async)?.disableSaveButton()" (click)="onSave()">{{button.label}}</button>
         </ng-container>
 
         <ng-container *ngIf="button.type === 'custom'">
@@ -16,7 +16,7 @@
         </ng-container>
 
         <ng-container *ngIf="button.type === 'cancle'">
-          <button nbButton outline class="btn btn-info btn-xs btn-margin-bottom" status="info" (click)="onCancel($event)">{{button.label}}</button>
+          <button nbButton outline class="btn btn-info btn-xs btn-margin-bottom" status="info" (click)="onCancel()">{{button.label}}</button>
         </ng-container>
       </ng-container>
 

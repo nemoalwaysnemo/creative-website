@@ -57,6 +57,8 @@ export class DocumentFormStatus {
 export class DocumentFormContext {
   [key: string]: any;
 
+  action: any = {};
+
   formValid: boolean;
 
   user: UserModel;
