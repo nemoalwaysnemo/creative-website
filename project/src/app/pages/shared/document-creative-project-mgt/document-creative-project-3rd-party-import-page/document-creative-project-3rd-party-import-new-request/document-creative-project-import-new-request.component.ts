@@ -40,21 +40,14 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
   }
 
   onCallback(event: DocumentFormEvent): void {
-    if (event.action === 'Created') {
-      this.goToRequest();
-    } else if (event.action === 'Canceled') {
-      this.cancelForm();
+    if (event.action === 'Created' || event.action === 'Canceled') {
+      this.goHome();
     }
   }
 
-  cancelForm(): void{
+  goHome(): void{
     const settings = new CreativeProjectMgtSettings();
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: '3rd-import-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
-  }
-
-  goToRequest(): void{
-    const settings = new CreativeProjectMgtSettings({ document: this.document });
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: '3rd-import-request-review', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected getFormModels(): any[] {
@@ -69,6 +62,7 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
         rows: 3,
         required: false,
       }),
+      // to do: should change output from array to string
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Delivery:expiry_days',
         label: 'Maximum days for upload',

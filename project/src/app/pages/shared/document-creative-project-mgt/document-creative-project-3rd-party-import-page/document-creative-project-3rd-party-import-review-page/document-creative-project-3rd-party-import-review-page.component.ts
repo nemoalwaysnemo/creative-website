@@ -9,6 +9,7 @@ import { GlobalSearchFormSettings } from '../../../global-search-form/global-sea
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { Observable, Subject, timer } from 'rxjs';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'creative-brand-project-3rd-party-import-review',
   templateUrl: './document-creative-project-3rd-party-import-review-page.component.html',
@@ -55,6 +56,10 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
         title: 'Production Date',
         renderComponent: ListSearchRowCustomViewComponent,
       },
+      modified_date: {
+        sort: false,
+        title: 'Upload Date',
+      },
       asset_countries: {
         sort: false,
         title: 'Asset Countries',
@@ -68,19 +73,23 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
 
   listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
-
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         info: doc,
         thumbnail: doc,
         title: doc.title,
-        production_date: doc.properties['dc:created'],
+        modified_date: this.formateDate(doc.properties['dc:modified']),
+        production_date: this.formateDate(doc.properties['dc:created']),
         asset_countries: doc.properties['The_Loupe_Main:country'].join(','),
         job_number: doc.properties['The_Loupe_Main:jobnumber'],
         uid: doc.uid,
       }));
     }
     return items;
+  }
+
+  private formateDate(date: any): any{
+   return date ? new DatePipe('en-US').transform(date, 'yyyy-MM-dd') : null;
   }
 
   protected setDocument(doc: DocumentModel): void {
@@ -105,8 +114,8 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
   protected onInit(): void {
   }
 
-  protected acceptAsset(request_id: string, assets_ids: string): Observable<any> {
-    return this.documentPageService.operation(NuxeoAutomations.MoveAssetToLibrary, { request_id, assets_ids });
+  protected acceptAsset(request_id: string, assets_id: string): Observable<any> {
+    return this.documentPageService.operation(NuxeoAutomations.MoveAssetToLibrary, { request_id, assets_id });
   }
 
   moveAssets(): void {

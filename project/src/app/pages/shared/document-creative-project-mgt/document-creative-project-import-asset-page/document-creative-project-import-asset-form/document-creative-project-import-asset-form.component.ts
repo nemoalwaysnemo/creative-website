@@ -74,23 +74,21 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
           dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
       }),
-      // new DynamicSuggestionModel<string>({
-      //   id: 'The_Loupe_Main:assettype',
-      //   label: 'Asset Type',
-      //   document: true,
-      //   required: true,
-      //   layoutPosition: 'leftShared',
-      //   settings: {
-      //     multiple: false,
-      //     placeholder: 'What is this asset?',
-      //     providerType: SuggestionSettings.OPERATION,
-      //     providerName: 'javascript.provideAssetType_Image',
-      //   },
-      //   validators: { required: null },
-      //   errorMessages: { required: '{{label}} is required' },
-      //   onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-      // }),
-      // #{changeableDocument.type == 'App-Library-Image' ? 'edit' : 'hidden'}
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:assettype',
+        label: 'Asset Type',
+        document: true,
+        required: true,
+        settings: {
+          multiple: false,
+          placeholder: 'What is this asset?',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideAssetType_Image',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+      }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
         label: 'Live date / publishing',
@@ -180,7 +178,6 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
-        // hiddenFn: (doc: DocumentModel, user: UserModel, settings: DocumentFormSettings): boolean => settings.formMode === 'create',
       }),
       // new DynamicSuggestionModel<string>({
       //   id: 'The_Loupe_Main:jobtitle',
@@ -261,7 +258,6 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
 
 
   ngOnDestroy(): void {
-
   }
 
   private load(uid: string): void {
@@ -269,109 +265,4 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
       this.document = doc;
     });
   }
-
-
-  private getSettings(): object[] {
-    return [
-      new DynamicInputModel({
-        id: 'dc:title',
-        label: 'Title',
-        maxLength: 50,
-        placeholder: 'Title',
-        autoComplete: 'off',
-        required: false,
-        validators: {
-          required: null,
-          minLength: 4,
-        },
-        errorMessages: {
-          required: '{{label}} is required',
-          minLength: 'At least 4 characters',
-        },
-        hiddenFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:UsageRights'),
-      }),
-      new DynamicListModel({
-        id: 'The_Loupe_Rights:contract_items_usage_types',
-        label: 'Contract Items',
-        required: false,
-        settings: {
-          items: [
-            new DynamicInputModel({
-              id: 'item',
-              label: 'item name',
-              maxLength: 50,
-              placeholder: 'item',
-              autoComplete: 'off',
-              required: true,
-              validators: {
-                required: null,
-                minLength: 4,
-              },
-              errorMessages: {
-                required: '{{label}} is required',
-                minLength: 'At least 4 characters',
-              },
-              hiddenFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:UsageRights'),
-            }),
-            new DynamicSuggestionModel<string>({
-              id: 'media_usage_type',
-              label: 'Media Usage Types',
-              required: true,
-              document: true,
-              settings: {
-                placeholder: 'Where is this used?',
-                providerType: SuggestionSettings.OPERATION,
-                providerName: 'javascript.provideURmediatypes',
-              },
-              validators: { required: null },
-              errorMessages: { required: '{{label}} is required' },
-              onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-              // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
-            }),
-            new DynamicSuggestionModel<string>({
-              id: 'contract_countries',
-              label: 'Country',
-              required: true,
-              settings: {
-                placeholder: 'Country',
-                providerType: SuggestionSettings.DIRECTORY,
-                providerName: 'GLOBAL_Countries',
-              },
-            }),
-            new DynamicInputModel({
-              id: 'contract_duration',
-              label: 'Duration',
-              placeholder: 'month',
-              required: true,
-              validators: { required: null, minLength: 1 },
-              errorMessages: {
-                required: '{{label}} is required',
-                minLength: 'At least 1 characters',
-              },
-            }),
-            new DynamicDatepickerDirectiveModel<string>({
-              id: 'start_airing_date',
-              label: 'Production Date',
-              readonly: false,
-              defaultValue: (new Date()),
-              required: true,
-              validators: {
-                required: null,
-                dateFormatValidator: null,
-              },
-              errorMessages: {
-                required: '{{label}} is required',
-                dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
-              },
-            }),
-            new DynamicCheckboxModel({
-              id: 'active_media_usage',
-              label: 'Active',
-            }),
-          ],
-        },
-      }),
-    ];
-  }
-
 }
