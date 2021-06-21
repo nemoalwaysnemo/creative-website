@@ -26,10 +26,10 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
 
   batchOperationSettings: DocumentFormSettings = new DocumentFormSettings({
     formMode: 'edit',
-    sharedModel: [
+    formModel: [
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
-        label: 'Asset Type',
+        label: 'New Asset Type',
         document: true,
         required: true,
         settings: {
@@ -44,7 +44,7 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
-        label: 'Live date / publishing',
+        label: 'New First Airing',
         required: false,
         readonly: false,
         validators: {
@@ -56,7 +56,7 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
-        label: 'Media Usage Types',
+        label: 'New Media Usage Types',
         required: true,
         document: true,
         settings: {
@@ -70,7 +70,7 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',
-        label: 'Asset Country',
+        label: 'New Asset Country',
         settings: {
           placeholder: 'Leave blank to copy from agency\\brand',
           providerType: SuggestionSettings.DIRECTORY,
@@ -90,6 +90,8 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
   }
 
   onCallback(event: DocumentFormEvent): void {
+    if (event.action === 'Updated' || event.action === 'Canceled') {
+      this.triggerChangeView('asset-home-view', 'view', new CreativeProjectMgtSettings({ document: this.templateSettings.project }));
+    }
   }
-
 }

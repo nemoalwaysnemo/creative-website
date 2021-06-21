@@ -13,16 +13,16 @@
       <div>Status</div>
       <div>{{ requestDocument.get('The_Loupe_Delivery:status') }}</div>
       <div>Request sent</div>
-      <div>{{ requestDocument.get('The_Loupe_Delivery:delivery_send_date') }}</div>
-      <div>Upload expires by</div>
-      <div>{{ requestDocument.get('The_Loupe_Delivery:delivery_expiration_date') }}></div>
-      <div>Message</div>
-      <div>{{ requestDocument.get('The_Loupe_Main:description') }}</div>
+      <div>{{ requestDocument.get('The_Loupe_Delivery:delivery_email') }}</div>
       <div>Requested by</div>
       <div>{{ requestDocument.get('The_Loupe_Delivery:request_user') }}</div>
+      <div>Message</div>
+      <div>{{ requestDocument.get('The_Loupe_Main:description') }}</div>
       <div>Upload expires by</div>
-      <div>{{ requestDocument.get('The_Loupe_Delivery:delivery_email') }}</div>
-      <button (click)="moveAssets()">Approve and move selected assets to library</button>
+      <div>{{ formateDate(requestDocument.get('The_Loupe_Delivery:delivery_expiration_date')) }}</div>
+      <div>Request sent</div>
+      <div>{{ formateDate(requestDocument.get('The_Loupe_Delivery:delivery_send_date')) }}</div>
+      <button (click)="moveAssets()" class="approve-button">Approve and move selected assets to library</button>
   </div>
 </div>
 <div class="document-creative-project-home-nav"> 

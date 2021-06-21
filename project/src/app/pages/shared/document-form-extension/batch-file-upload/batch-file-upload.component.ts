@@ -309,7 +309,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   }
 
   isOrdinaryImport(): boolean {
-    return this.uploadSettings.enableAction && this.uploadSettings.formModel.length === 1 && this.uploadSettings.formModel[0].id === 'dc:title';
+    return this.uploadSettings.enableAction && this.uploadSettings.arrangeDirection !== 'horizontal' && this.uploadSettings.formModel.length === 1 && this.uploadSettings.formModel[0].id === 'dc:title';
   }
 
 }
