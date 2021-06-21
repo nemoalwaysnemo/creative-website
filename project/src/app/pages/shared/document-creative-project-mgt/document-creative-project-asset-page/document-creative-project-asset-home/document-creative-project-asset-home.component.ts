@@ -49,7 +49,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     this.subscribeHomeEvents();
   }
 
-  actions: NbMenuItem[] = [
+  private actions: NbMenuItem[] = [
     {
       id: 'import-asset-page',
       title: 'Import',
@@ -205,6 +205,15 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     return vocabularyFormatter(list);
   }
 
+  onSelected(row: any): void {
+    this.selectedItems = row.selected.map((item: DocumentListViewItem) => item.action);
+    this.actions$.next(this.buildActions(this.selectedItems.length > 0));
+  }
+
+  protected onInit(): void {
+    this.actions$.next(this.buildActions(false));
+  }
+
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
     this.navSettings = this.buildNavSettings(doc);
     return observableOf(doc);
@@ -265,7 +274,12 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     return observableOf(res);
   }
 
-  onSelected(row: any): void {
-    this.selectedItems = row.selected.map((item: DocumentListViewItem) => item.action);
+  private buildActions(enable: boolean): any {
+    return this.actions.map((a: any) => {
+      if (['modify-assets', 'set-usage-rights'].includes(a.id)) {
+        a.enable = enable;
+      }
+      return a;
+    });
   }
 }

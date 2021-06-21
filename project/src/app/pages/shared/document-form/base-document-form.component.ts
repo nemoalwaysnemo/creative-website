@@ -59,11 +59,15 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
+  @Input() beforeSaveValidation: (ctx: DocumentFormContext) => Observable<boolean> = (ctx: DocumentFormContext) => observableOf(true);
+
   @Input() beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => observableOf(doc);
 
   @Input() afterSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => observableOf(doc);
 
-  @Input() beforeSaveValidation: (ctx: DocumentFormContext) => Observable<boolean> = (ctx: DocumentFormContext) => observableOf(true);
+  @Input() beforeFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => observableOf(ctx);
+
+  @Input() afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => observableOf(ctx);
 
   constructor(protected documentPageService: DocumentPageService, protected formService: DynamicFormService) {
     this.onDocumentsChanged();
@@ -102,22 +106,33 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSave(): void {
+  onSave(context?: DocumentFormContext): void {
+    const ctx = context || this.ctx;
+    if (isValueEmpty(ctx.action)) {
+      ctx.action = {
+        action: 'SaveButtonClicked',
+        button: 'save',
+      };
+    }
     this.updateFormStatus({ submitting: true });
-    this.triggerUpload(this.ctx);
+    this.triggerUpload(ctx || this.ctx);
   }
 
   onCancel(): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.ctx.currentDocument }));
+    this.callback.emit(new DocumentFormEvent({ action: 'Canceled', doc: this.ctx.currentDocument, context: this.ctx }));
     if (this.ctx.formSettings.resetFormAfterDone) {
       this.resetForm();
     }
   }
 
   onCustomButton(button: any): void {
-    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, formValue: this.getFormValue(), doc: this.ctx.currentDocument }));
+    this.callback.emit(new DocumentFormEvent({ action: 'CustomButtonClicked', button: button.name, formValue: this.getFormValue(), doc: this.ctx.currentDocument, context: this.ctx }));
     if (button.triggerSave) {
-      this.onSave();
+      this.ctx.action = {
+        action: 'CustomButtonClicked',
+        button: button.name,
+      };
+      this.onSave(this.ctx);
     }
   }
 
@@ -211,11 +226,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected onBeforeSave(ctx: DocumentFormContext): Observable<DocumentFormContext> {
-    return observableOf(ctx);
+    return this.beforeFormSave(ctx);
   }
 
   protected onAfterSave(ctx: DocumentFormContext): Observable<DocumentFormContext> {
-    return observableOf(ctx);
+    return this.afterFormSave(ctx);
   }
 
   protected onSavePerformed(): void {
@@ -304,7 +319,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       if (ctx.formSettings.enableBatchSyncCreate) {
         documents = documents.concat(this.attachUploadFiles(ctx));
       } else {
-        ctx.documents = ctx.documents.concat(this.attachUploadFiles(ctx));
+        ctx.documents = this.attachUploadFiles(ctx);
       }
     }
     return this.createDocuments(documents, ctx);
@@ -329,7 +344,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected onCreated(ctx: DocumentFormContext): Observable<DocumentFormContext> {
-    this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: ctx.performedDocuments[0], docs: ctx.performedDocuments }));
+    this.callback.emit(new DocumentFormEvent({ action: 'Created', messageType: 'success', messageContent: 'Document has been created successfully!', doc: ctx.performedDocuments[0], docs: ctx.performedDocuments, context: this.ctx }));
     if (ctx.formSettings.resetFormAfterDone) {
       this.resetForm();
     }
@@ -337,7 +352,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected onUpdated(ctx: DocumentFormContext): Observable<DocumentFormContext> {
-    this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: ctx.performedDocuments[0] }));
+    this.callback.emit(new DocumentFormEvent({ action: 'Updated', messageType: 'success', messageContent: 'Document has been updated successfully!', doc: ctx.performedDocuments[0], context: this.ctx }));
     return observableOf(ctx);
   }
 
