@@ -1,3 +1,4 @@
+@import '../../../../../core/nebular/theme/styles/global/breakpoints';
 .share {
   border: none;
   background: none;
@@ -33,3 +34,101 @@
   h5 { font-size: calc(17.5px * 1.25); }
   p { font-size: calc(14px * 1.25); }
 }
+.dialog-viewer-container {
+  @include media-breakpoint-down(lg) { //992px
+		width: 580px;
+	}
+	@include media-breakpoint-between(lg, xxl) { //992px - 1700px
+		width: 670px;
+	}
+	@include media-breakpoint-up(xxl) { //1700px
+		width: 750px;
+	}
+	min-width: 600px;
+	background: #ffffff;
+  float: left;
+  a {
+    font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 13px;
+    font-weight: 200;
+    color: black;
+  }
+}
+.dialog-info {
+  padding: 0 22px;
+  float: left;
+  @include media-breakpoint-down(lg) { //992px
+    width: calc(100% - 600px);
+	}
+	@include media-breakpoint-between(lg, xxl) { //992px - 1700px
+		width: calc(100% - 690px);
+	}
+	@include media-breakpoint-up(xxl) { //1700px
+		width: calc(100% - 770px);
+	}
+  h1 {
+    font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #2a2a2a;
+    font-weight: 400;
+  }
+  h2 {
+    font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+    margin-bottom: 43px;
+    font-size: 20px;
+    color: #000000;
+  }
+  table {
+    width: 100%;
+  }
+    th {
+      font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 200;
+    }
+    td {
+      font-size: 20px;
+    }
+}
+.btn {
+  font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+  font-size: 15px;
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  text-transform: none;
+  padding: 0 20px 0 13px;
+  color: #000000;
+  cursor: pointer !important;
+  border: none;
+  border-right: solid 1px #cccccc;
+  border-radius: 0;
+  margin: 10px 7px;
+  &:focus, .focus,
+  &:hover, .hover,
+  &:active, .active {
+    outline: 0;
+    box-shadow: none;
+    color: #000000;
+  }
+  &.right:first-child {
+    border-right: none;
+  }
+  &.left {
+    border-right: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.poster {
+  margin: 20px 0 0;
+  border-right: solid 1px #cccccc !important;
+  height: 20px;
+}
+

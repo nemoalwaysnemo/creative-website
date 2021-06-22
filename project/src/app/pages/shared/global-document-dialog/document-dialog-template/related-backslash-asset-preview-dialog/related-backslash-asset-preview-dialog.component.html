@@ -4,16 +4,80 @@
   <div class="clear"></div>
 </div>
 <div class="dialog-body">
-  <ng-container *ngIf="document">
-    <div class="media">
+  <div class="dialog-viewer-container">
+    <ng-container *ngIf="document">
       <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
-    </div>
+      <a *ngIf="document.filePath" href="{{document.filePath}}"
+        (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" class="download right btn"
+        title="Download">Download</a>
+      <a href="{{document.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" class="preview right btn"
+        title="Preview" target="_blank">Preview</a>
+      <a href="javascript:;" nbPopoverPlacement="bottom" [nbPopover]="popContent" title="Share"
+        class="right btn">Share</a>
+    </ng-container>
+ </div>
+ <div class="dialog-info">
+  <h1>{{ document.title }}</h1>
+  <h2>{{ document.get('The_Loupe_Main:brand') }}</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Descriptions</th>
+        <th>Asset Type</th>
+      </tr>
+      <tr>
+
+        <td>{{ document.get('dc:description') }}</td>
+        <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+      </tr>
+      <tr>
+        <th>Industry</th>
+        <th>Geography</th>
+      </tr>
+      <tr>
+        <td>{{ document.get('app_Edges:industry') }}</td>
+        <td>{{ vocabularyFormatter(document.get('app_Edges:Relevant_Country')) }}</td>
+      </tr>
+      <tr>
+        <th>Author</th>
+        <th>Published</th>
+      </tr>
+      <tr>
+        <!-- <td *ngIf="isDisruptionAsset(document)">{{ document.get('dc:creator') }}</td> -->
+        <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
+        <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
+      </tr>
+      <tr>
+        <th>Backslash Category</th>
+        <th>Edge</th>
+      </tr>
+      <tr>
+        <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
+        <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+      </tr>
+      <tr>
+        <th>Agency</th>
+        <th>Brand</th>
+      </tr>
+      <tr>
+        <td>{{ document.get('The_Loupe_Main:agency') }}</td>
+        <td>{{ document.get('The_Loupe_Main:brand') }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <ng-container *ngIf="deletePermission$ | async">
+    <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete" class="delete right icon_btn">Delete</a>
   </ng-container>
-  <ng-container *ngIf="document">
+  <ng-container *ngIf="writePermission$ | async">
+    <a href="javascript:;" (click)="openDialog(editDialog, false)" title="Edit" class="edit right icon_btn">Edit</a>
+  </ng-container> -->
+</div>
+<!-- <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button> -->
+  <!-- <ng-container *ngIf="document">
     <div class="text-content">
       <img [src]="previewBtnImage()" class="inline-middle">
       <h3 class="inline-middle">{{document.title}}</h3>
-      <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+      
       <div class="edges">
         <ng-container *ngIf="backslashEdges && backslashEdges.length !== 0">
           <ul>
@@ -28,19 +92,28 @@
         <p>{{ document.get('dc:description') }}</p>
         <p><b>Edges: </b>{{ document.get('app_Edges:Tags_edges') }}<br>
           <b>Spotter: </b>{{ document.get('app_Edges:Spotter') }}<br>
-          <b>Geography: </b>{{ document.get('app_Edges:Relevant_Country').join(', ') }}</p>
+          <b>Geography: </b>{{ document.get('app_Edges:Relevant_Country').join(', ') }}
+        </p>
       </div>
     </div>
-  </ng-container>
+  </ng-container> -->
+
 </div>
 
 <ng-template #popContent>
   <document-share-button [document]="document" [shareUrl]="shareUrl"></document-share-button>
 </ng-template>
 
-<ng-template #edgeContent let-data>
+<!-- <ng-template #edgeContent let-data>
   <div class="edgeHover">
     <h5>{{ data.text.get('dc:title') }}</h5>
     <p>{{ data.text.get('dc:description') }}</p>
   </div>
+</ng-template> -->
+
+<!-- <ng-template #editDialog>
+  <global-document-dialog [settings]="getDialogFormSettings(documentModel)" [documentModel]="document" [metadata]="dialogMetadata" [title]="getFormTitle(documentModel)" [redirectUrl]="editRedirectUrl"></global-document-dialog>
 </ng-template>
+<ng-template #deleteDialog>
+  <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="documentModel" [metadata]="dialogMetadata" [title]="deleteTitle" [redirectUrl]="deleteRedirectUrl"></global-document-dialog>
+</ng-template> -->
