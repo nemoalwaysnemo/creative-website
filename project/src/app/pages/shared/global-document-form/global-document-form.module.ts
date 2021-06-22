@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from '@theme/theme.module';
 import { DocumentFormModule } from '../document-form/document-form.module';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
+import { DocumentBatchOperationModule } from '../document-batch-operation/document-batch-operation.module';
 import {
   CreativeAssetImageFormComponent,
   CreativeAssetVideoFormComponent,
@@ -13,6 +14,7 @@ import {
   CreativeUsageRightsStockComponent,
   CreativeCampaignFormComponent,
   CreativeProjectFormComponent,
+  CreativeRingCollectionFormComponent,
   DisruptionRoadmapFormComponent,
   DisruptionBrilliantThinkingFormComponent,
   DisruptionDayFolderFormComponent,
@@ -53,6 +55,7 @@ const COMPONENTS = [
   CreativeUsageRightsStockComponent,
   CreativeCampaignFormComponent,
   CreativeProjectFormComponent,
+  CreativeRingCollectionFormComponent,
   DisruptionRoadmapFormComponent,
   DisruptionBrilliantThinkingFormComponent,
   DisruptionDayFolderFormComponent,
@@ -87,6 +90,7 @@ const COMPONENTS = [
   imports: [
     ThemeModule,
     DocumentFormModule,
+    DocumentBatchOperationModule,
   ],
   declarations: [
     ...COMPONENTS,
