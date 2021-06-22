@@ -317,3 +317,7 @@ export function mapOrder(array: any[], order: any[], key: string): any[] {
 export function NuxeoDocumentUrl(uid: string): string {
   return `${Environment.nuxeoUrl}nxdoc/default/${uid}/view_documents`;
 }
+
+export function escapeValue(value: string): string {
+  return typeof value === 'string' ? value.replace(/\\/gi, String.fromCharCode(92, 92)) : value;
+}

@@ -1,6 +1,7 @@
 import { Component, Input, forwardRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { AggregateModel, SearchResponse } from '@core/api';
+import { escapeValue } from '@core/services/helpers';
 import { OptionModel, OptionSettings } from '../option-select/option-select.interface';
 import { SearchFilterModel } from './global-search-filter.interface';
 
@@ -88,7 +89,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
     const settings: OptionSettings[] = [];
     filters.forEach((filter: SearchFilterModel) => {
       if (filter.options) {
-        const options = filter.options.map((opt: any) => new OptionModel({ label: opt.label, value: this.escapeValue(opt.value) }));
+        const options = filter.options.map((opt: any) => new OptionModel({ label: opt.label, value: escapeValue(opt.value) }));
         settings.push(new OptionSettings({ id: filter.key, placeholder: filter.placeholder, options }));
       } else {
         const agg: AggregateModel = models.find((x: AggregateModel) => x.id === filter.key);
@@ -100,7 +101,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
           const iteration = filter.iteration;
           for (const bucket of agg.extendedBuckets) {
             if (filter.filterValueFn && filter.filterValueFn(bucket)) {
-              bucket.value = this.escapeValue(bucket.key);
+              bucket.value = escapeValue(bucket.key);
               options.push(filter.buildAggOptionModel(bucket));
             }
           }
@@ -109,9 +110,5 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
       }
     });
     return settings;
-  }
-
-  private escapeValue(value: string): string {
-    return typeof value === 'string' ? value.replace(/\\/gi, String.fromCharCode(92, 92)) : value;
   }
 }

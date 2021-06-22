@@ -152,7 +152,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
         id: 'The_Loupe_Rights:contract_items_usage_types',
         label: 'Contract Items',
         layoutPosition: 'bottom',
-        required: false,
+        required: true,
         settings: {
           items: [
             new DynamicInputModel({
