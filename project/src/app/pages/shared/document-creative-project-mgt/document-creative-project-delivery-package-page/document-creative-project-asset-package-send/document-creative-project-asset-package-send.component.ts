@@ -1,13 +1,14 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
 import { Subject, of as observableOf, Observable, concat } from 'rxjs';
 import { DynamicInputModel, DynamicTextAreaModel, DynamicSuggestionModel, DynamicOptionTagModel, DynamicCheckboxModel } from '@core/custom';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
-import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormSettings, DocumentFormStatus } from '../../../document-form/document-form.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -36,6 +37,25 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   currentDocument: DocumentModel;
 
   actionButton: string;
+
+  formSettings: any = {
+    formMode: 'create',
+    showMessageBeforeSave: false,
+    buttonGroup: [
+      {
+        label: 'Send',
+        name: 'Send',
+        type: 'custom',
+        disabled: (status: DocumentFormStatus) => status.submitted || !status.formValid,
+        triggerSave: true,
+      },
+      {
+        label: 'Save draft',
+        name: 'Save draft',
+        type: 'save',
+      },
+    ],
+  };
 
   libraryView: string = 'linkBrand';
 
@@ -92,13 +112,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     layout: 'bg-gray',
   };
 
-  @Input()
-  set assetData(data: any) {
-    if (data) {
-      this.assetSettingsRelatedSelected = Object.assign({}, this.assetSettingsRelatedSelected, data);
-    }
-  }
-
   @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
@@ -111,23 +124,28 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   }
 
   afterSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
-    const document = ctx.savedDocuments[0];
+    this.actionButton = ctx.action.button ? ctx.action.button : null;
     if (this.actionButton === 'Send' || this.actionButton === 'Resend') {
       const subscription = concat(
-        this.removeFromCollection(document),
-        this.addToCollection(document),
-        this.sendPackage(document),
+        this.removeFromCollection(doc),
+        this.addToCollection(doc),
+        this.sendPackage(doc).pipe(map((res: any) => {
+          this.showMsg(doc);
+          this.goHome();
+        })),
       ).subscribe();
       this.subscription.add(subscription);
     } else {
       const subscription = concat(
-        this.removeFromCollection(document),
-        this.addToCollection(document),
+        this.removeFromCollection(doc),
+        this.addToCollection(doc).pipe(map((res: any) => {
+          this.showMsg(doc);
+          this.goHome();
+        })),
       ).subscribe();
       this.subscription.add(subscription);
     }
-    this.showMsg(document);
-    return observableOf(document);
+    return observableOf(doc);
   }
 
   constructor(
@@ -143,9 +161,8 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     this.loading = false;
   }
 
-  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
-    this.actionButton = event.button;
-    return observableOf(event);
+  protected onInit(): void {
+    this.setFormSettings(this.formSettings);
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
@@ -282,8 +299,8 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   }
 
   goHome(): void {
-    const settings = new CreativeProjectMgtSettings({ document: this.currentDocument });
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: '3rd-import-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+    const settings = new CreativeProjectMgtSettings();
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'package-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected addToCollection(packageDoc: DocumentModel): Observable<any> {
@@ -312,7 +329,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   }
 
   protected showMsg(doc: DocumentModel): void {
-    this.documentPageService.updateCurrentDocument(doc);
-    this.documentPageService.notify(`${doc.title} has been send successfully!`, '', 'success');
+    const action = this.actionButton.toLowerCase();
+    this.documentPageService.notify(`${doc.title} has been ${action} successfully!`, '', 'success');
   }
 }

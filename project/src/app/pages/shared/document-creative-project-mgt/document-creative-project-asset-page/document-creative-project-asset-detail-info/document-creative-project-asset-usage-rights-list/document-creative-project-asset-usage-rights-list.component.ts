@@ -65,7 +65,8 @@ export class DocumentCreativeProjectAssetUsageRightsListComponent {
   baseParams$: Subject<any> = new Subject<any>();
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'document-creative-project-usage-rights-list',
+    schemas: ['dublincore', 'The_Loupe_Talent', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-asset-usage-rights-list',
     enableSearchInput: false,
   });
 

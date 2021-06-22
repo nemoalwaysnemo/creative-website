@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'document-creative-project-tab-asset-request',
-  styleUrls: ['../../../document-creative-project-mgt.component.scss', '../../document-creative-project-asset-page.component.scss'],
+  styleUrls: ['../../../document-creative-project-mgt.component.scss', './document-creative-project-tab-asset-request.component.scss'],
   templateUrl: './document-creative-project-tab-asset-request.component.html',
 })
 export class DocumentCreativeProjectTabAssetRequestComponent extends DocumentCreativeProjectMgtBaseComponent {

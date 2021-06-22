@@ -1,20 +1,18 @@
-<!-- <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}"> -->
-  <div *ngIf="document" class="document">
-    <div class="one-row">
-      <div class="showcase-area">
-        <h4>First-Airing</h4><span>{{document.get('The_Loupe_Rights:first-airing') | date:'MMM d, yyyy':'UTC'}}</span>
-      </div>
-      <div class="showcase-area">
-        <h4>Media Usage Types</h4><span>{{document.get('The_Loupe_Rights:contract_mediatypes')}}</span>
-      </div>
+<div *ngIf="document" class="document">
+  <div class="one-row">
+    <div class="showcase-area">
+      <h4>First-Airing</h4><span>{{document.get('The_Loupe_Rights:first-airing') | date:'MMM d, yyyy':'UTC'}}</span>
     </div>
-    <div class="one-row">
-      <div class="showcase-area">
-        <h4>Asset Country</h4><span>{{document.get('The_Loupe_Rights:asset_countries')}}</span>
-      </div>
-    </div>
-    <div class="creative-project-asset-usage-rights-list">
-      <document-creative-project-asset-usage-rights-list [document]="document"></document-creative-project-asset-usage-rights-list>
+    <div class="showcase-area">
+      <h4>Media Usage Types</h4><span>{{document.get('The_Loupe_Rights:contract_mediatypes')}}</span>
     </div>
   </div>
-<!-- </div> -->
+  <div class="one-row">
+    <div class="showcase-area">
+      <h4>Asset Country</h4><span>{{document.get('The_Loupe_Rights:asset_countries')}}</span>
+    </div>
+  </div>
+  <div class="creative-project-asset-usage-rights-list">
+    <document-creative-project-asset-usage-rights-list [document]="document"></document-creative-project-asset-usage-rights-list>
+  </div>
+</div>

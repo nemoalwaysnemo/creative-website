@@ -73,9 +73,15 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       },
     },
     {
-      id: 'delivery',
+      id: 'delivery-package',
       title: 'Create Delivery Package',
       type: 'page',
+      triggerChangeSettings: {
+        name: 'delivery-package',
+        type: 'view',
+        formMode: 'create',
+        document: this.document,
+      },
     },
     {
       id: 'modify-assets',
@@ -109,7 +115,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
   navSettings: ProjectMgtNavigationSettings;
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    schemas: ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights', 'The_Loupe_Talent'],
     source: 'document-creative-project-asset',
     enableSearchForm: false,
     autoSearch: false,
@@ -192,8 +198,8 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
         dialogDocument: this.document,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
-        homePage: '3rd-import-Page',
-        homeView: '3rd-import-home-view',
+        homePage: 'asset-page',
+        homeView: 'asset-home-view',
         formMode: itemInfo['formMode'],
         showMessageBeforeSave: false,
         batchDocuments: this.selectedItems,
@@ -225,7 +231,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       searchFormParams: this.buildAssetParams(doc, doc.getParent('brand')),
       searchFormFilters: this.filters,
       searchFormSettings: new GlobalSearchFormSettings({
-        schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+        schemas: ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights', 'The_Loupe_Talent'],
         source: 'document-creative-project-asset',
         searchGroupPosition: 'right',
         enableSearchForm: true,

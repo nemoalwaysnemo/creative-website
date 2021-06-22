@@ -23,7 +23,7 @@ export class SearchFilterModel {
 
   private getOptionLabel(agg: any = {}): string {
     const labels = this.optionLabels;
-    const aggKey = labels && (labels[agg.label] || labels[agg.key]) ? (labels[agg.label] || labels[agg.key]) : (agg.label || agg.key);
+    const aggKey = labels && (labels[agg.label] || labels[agg.key]) ? (labels[agg.label] || labels[agg.key]) : agg.key;
     return agg.docCount > 0 ? `${aggKey} (${agg.docCount})` : aggKey;
   }
 
