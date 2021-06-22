@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentModel, NuxeoPermission} from '@core/api';
+import { DocumentModel, NuxeoQuickFilters, NuxeoPagination } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { vocabularyFormatter, matchAssetUrl } from '@core/services/helpers';
-import { Observable, of as observableOf } from 'rxjs';
+import { NUXEO_PATH_INFO } from '@environment/environment';
+import { matchAssetUrl } from '@core/services/helpers';
+
 @Component({
   selector: 'related-backslash-asset-preview-dialog',
   styleUrls: ['../global-document-dialog-template.scss', './related-backslash-asset-preview-dialog.component.scss'],
@@ -22,10 +23,6 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
     layout: this.getDialogSettings().docViewerLayout,
   };
 
-  writePermission$: Observable<boolean> = observableOf(false);
-
-  deletePermission$: Observable<boolean> = observableOf(false);
-
   private assetUrlMapping: any = {
     'App-Backslash-Edges-Asset': 'backslash/resource/edge/:parentRef/asset/',
     'App-Backslash-Case-Study': 'backslash/report/folder/:parentRef/asset/',
@@ -42,7 +39,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
   }
 
   protected onInit(): void {
-    // this.buildBackslashEdges(this.document);
+    this.buildBackslashEdges(this.document);
     this.shareUrl = this.buildShareUrl(this.document);
   }
 
@@ -50,23 +47,30 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
     return '/assets/images/preview_logo.png';
   }
 
-  private buildShareUrl(doc: DocumentModel): string {
-    return this.documentPageService.getCurrentAppUrl(matchAssetUrl(doc, this.assetUrlMapping) + doc.uid);
+  private getEdgesAggParams(doc: DocumentModel): string {
+    const edges = doc.get('app_Edges:Tags_edges');
+    return edges.length !== 0 ? `["${edges.join('", "')}"]` : '';
   }
 
-  protected setDocument(doc: DocumentModel): void {
-    if (doc) {
-      this.document = doc;
-      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
-      this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
+  private buildBackslashEdges(doc: DocumentModel): void {
+    const edgesParams = this.getEdgesAggParams(doc);
+    if (edgesParams) {
+      const params: any = {
+        // app_edges_active_article: true,
+        app_edges_tags_edges: edgesParams,
+        quickFilters: NuxeoQuickFilters.BackslashEdgePage,
+        ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+      };
+      const subscription = this.documentPageService.advanceRequest(params).subscribe((res: NuxeoPagination) => {
+        this.backslashEdges = res.entries;
+      });
+      this.subscription.add(subscription);
+    } else {
+      this.backslashEdges = [];
     }
   }
 
-  vocabularyFormatter(list: string[]): string {
-    return vocabularyFormatter(list);
-  }
-
-  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {
-    this.documentPageService.googleAnalyticsTrackLink(doc, category, type);
+  private buildShareUrl(doc: DocumentModel): string {
+    return this.documentPageService.getCurrentAppUrl(matchAssetUrl(doc, this.assetUrlMapping) + doc.uid);
   }
 }

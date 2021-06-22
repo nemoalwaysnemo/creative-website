@@ -16,11 +16,12 @@ import { BackslashKnowledgeAssetPreviewDialogComponent } from './document-dialog
 import { DisruptionXPreviewDialogComponent } from './document-dialog-template/disruption-x-preview-dialog/disruption-x-preview-dialog.component';
 import { LearningProgramAlumniPreviewDialogComponent } from './document-dialog-template/learning-program-alumni-preview-dialog/learning-program-alumni-preview-dialog.component';
 import { LearningProgramNominationPreviewDialogComponent } from './document-dialog-template/learning-program-nomination-preview-dialog/learning-program-nomination-preview-dialog.component';
-
+import { RelatedBackslashReportAssetDialogPreviewComponent } from './document-dialog-template/related-backslash-report-asset-preview-dialog/related-backslash-report-asset-preview-dialog.component';
 export const GLOBAL_DOCUMENT_DIALOG = {
   PREVIEW_BACKSLASH_HOME_ASSET: BackslashHomeAssetDialogPreviewDialogComponent,
   PREVIEW_BACKSLASH_KNOWLEDGE_ASSET: BackslashKnowledgeAssetPreviewDialogComponent,
   PREVIEW_RELATED_BACKSLASH_ASSET: RelatedBackslashAssetDialogPreviewComponent,
+  PREVIEW_RELATED_BACKSLASH_REPORT_ASSET: RelatedBackslashReportAssetDialogPreviewComponent,
   PREVIEW_RELATED_DISRUPTION_ASSET: DisruptionAssetPreviewDialogComponent,
   PREVIEW_INTELLIGENCE_ASSET: IntelligenceAssetPreviewDialogComponent,
   PREVIEW_INNOVATION_ASSET: InnovationAssetPreviewDialogComponent,

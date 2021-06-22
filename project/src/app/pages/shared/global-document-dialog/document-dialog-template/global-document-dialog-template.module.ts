@@ -12,6 +12,7 @@ import { DisruptionAssetPreviewDialogComponent } from './disruption-asset-previe
 import { DocumentDeletionDialogComponent } from './document-deletion-dialog/document-deletion-dialog.component';
 import { BackslashHomeAssetDialogPreviewDialogComponent } from './backslash-home-asset-preview-dialog/backslash-home-asset-preview-dialog.component';
 import { RelatedBackslashAssetDialogPreviewComponent } from './related-backslash-asset-preview-dialog/related-backslash-asset-preview-dialog.component';
+import { RelatedBackslashReportAssetDialogPreviewComponent } from './related-backslash-report-asset-preview-dialog/related-backslash-report-asset-preview-dialog.component';
 import { DocumentConfirmationDialogComponent } from './document-confirmation-dialog/document-confirmation-dialog.component';
 import { DocumentDownloadRequestDialogComponent } from './document-download-request-dialog/document-download-request-dialog.component';
 import { CreativeProjectMgtTemplateComponent } from './creative-project-mgt-template/creative-project-mgt-template.component';
@@ -36,6 +37,7 @@ const COMPONENTS = [
   BackslashKnowledgeAssetPreviewDialogComponent,
   BackslashHomeAssetDialogPreviewDialogComponent,
   RelatedBackslashAssetDialogPreviewComponent,
+  RelatedBackslashReportAssetDialogPreviewComponent,
   DisruptionAssetPreviewDialogComponent,
   DisruptionXPreviewDialogComponent,
   DocumentConfirmationDialogComponent,

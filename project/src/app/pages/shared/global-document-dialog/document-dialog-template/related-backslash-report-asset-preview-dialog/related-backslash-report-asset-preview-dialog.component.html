@@ -1,0 +1,76 @@
+<div class="dialog-title with_logo">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <div class="dialog-viewer-container">
+    <ng-container *ngIf="document">
+      <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
+      <a *ngIf="document.filePath" href="{{document.filePath}}"
+        (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" class="download right btn"
+        title="Download">Download</a>
+      <a href="{{document.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" class="preview right btn"
+        title="Preview" target="_blank">Preview</a>
+      <a href="javascript:;" nbPopoverPlacement="bottom" [nbPopover]="popContent" title="Share"
+        class="right btn">Share</a>
+    </ng-container>
+ </div>
+ <div class="dialog-info">
+  <h1>{{ document.title }}</h1>
+  <h2>{{ document.get('The_Loupe_Main:brand') }}</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Descriptions</th>
+        <th>Asset Type</th>
+      </tr>
+      <tr>
+
+        <td>{{ document.get('dc:description') }}</td>
+        <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+      </tr>
+      <tr>
+        <th>Industry</th>
+        <th>Geography</th>
+      </tr>
+      <tr>
+        <td>{{ document.get('app_Edges:industry') }}</td>
+        <td>{{ vocabularyFormatter(document.get('app_Edges:Relevant_Country')) }}</td>
+      </tr>
+      <tr>
+        <th>Author</th>
+        <th>Published</th>
+      </tr>
+      <tr>
+        <!-- <td *ngIf="isDisruptionAsset(document)">{{ document.get('dc:creator') }}</td> -->
+        <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
+        <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
+      </tr>
+      <tr>
+        <th>Backslash Category</th>
+        <th>Edge</th>
+      </tr>
+      <tr>
+        <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
+        <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+      </tr>
+      <tr>
+        <th>Agency</th>
+        <th>Brand</th>
+      </tr>
+      <tr>
+        <td>{{ document.get('The_Loupe_Main:agency') }}</td>
+        <td>{{ document.get('The_Loupe_Main:brand') }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="related related-info" *ngIf="getDialogSettings().enableKnowledgeRelated">
+  <knowledge-related-info [document]="document"></knowledge-related-info>
+</div>
+</div>
+
+<ng-template #popContent>
+  <document-share-button [document]="document" [shareUrl]="shareUrl"></document-share-button>
+</ng-template>
