@@ -10,6 +10,7 @@ import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative
 import { Observable, Subject, timer } from 'rxjs';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DatePipe } from '@angular/common';
+import { GlobalEvent } from '../../../../shared/services/document-page.service';
 @Component({
   selector: 'creative-brand-project-3rd-party-import-review',
   templateUrl: './document-creative-project-3rd-party-import-review-page.component.html',
@@ -24,6 +25,8 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
   baseParams$: Subject<any> = new Subject<any>();
 
   assetsMovingQueue: any[] = [];
+
+  disabled: string = 'disabled';
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'collection'],
@@ -121,13 +124,28 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
   moveAssets(): void {
     this.assetsMovingQueue.forEach((row) => {
       this.acceptAsset(this.requestDocument.uid, row.uid).subscribe(_ => {
+        this.showMsg();
         this.refresh();
       });
     });
   }
 
   onSelected(row: any): void {
+    if (row.selected && row.selected.length > 0) {
+      this.disabled = '';
+    } else {
+      this.disabled = 'disabled';
+    }
     this.assetsMovingQueue = row.selected;
+  }
+
+  goHome(): void {
+    const settings = new CreativeProjectMgtSettings();
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: '3rd-import-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+  }
+
+  showMsg(): void {
+    this.documentPageService.notify(`Documents have been approved successfully!`, '', 'success');
   }
 
   private refresh(): void {

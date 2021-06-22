@@ -2,44 +2,42 @@
   <div class="actions-title">Request Info</div>
 </div>
 <div class="document-creative-project-home-nav"> 
-  <div class="creative-project-navigation"> 
+  <div class="creative-project-navigation">
     <div class="creative-project-navigation-home">
+      <div class="left logo" title="Home" (click)="goHome()">3rd-import View</div>
       <h3>Import Request</h3>
     </div>
   </div>
 </div>
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" style="float: left;">
-    <div *ngIf="requestDocument" class="document">
-      <div>Status</div>
+    <div *ngIf="requestDocument" class="document request-info">
+      <div><b>Status</b></div>
       <div>{{ requestDocument.get('The_Loupe_Delivery:status') }}</div>
-      <div>Request sent</div>
+      <div><b>Request sent</b></div>
       <div>{{ requestDocument.get('The_Loupe_Delivery:delivery_email') }}</div>
-      <div>Requested by</div>
+      <div><b>Requested by</b></div>
       <div>{{ requestDocument.get('The_Loupe_Delivery:request_user') }}</div>
-      <div>Message</div>
+      <div><b>Message</b></div>
       <div>{{ requestDocument.get('The_Loupe_Main:description') }}</div>
-      <div>Upload expires by</div>
+      <div><b>Upload expires by</b></div>
       <div>{{ formateDate(requestDocument.get('The_Loupe_Delivery:delivery_expiration_date')) }}</div>
-      <div>Request sent</div>
+      <div><b>Request sent</b></div>
       <div>{{ formateDate(requestDocument.get('The_Loupe_Delivery:delivery_send_date')) }}</div>
-      <button (click)="moveAssets()" class="approve-button">Approve and move selected assets to library</button>
+      <button (click)="moveAssets()" class="approve-button {{disabled}}">Approve and move selected assets to library</button>
   </div>
 </div>
 <div class="document-creative-project-home-nav"> 
   <div class="creative-project-navigation import-queue"> 
     <div class="creative-project-navigation-home">
-      <h3>Import Queue</h3>
-      <list-search-form-in-dialog [searchParams]="baseParams$ | async" [settings]="searchFormSettings"
-      [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)">
-      </list-search-form-in-dialog>
-
+      <div class="queue-title">Import Queue</div>
+      <list-search-form-in-dialog [searchParams]="baseParams$ | async" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)"></list-search-form-in-dialog>
     </div>
   </div>
 </div>
 <div class="document-creative-project-home-nav"> 
   <div class="creative-project-navigation accepted-queue"> 
     <div class="creative-project-navigation-home">
-      <h3>Accept Queue</h3>
+      <div class="queue-title">Accepted Imports</div>
     </div>
   </div>
 </div>
