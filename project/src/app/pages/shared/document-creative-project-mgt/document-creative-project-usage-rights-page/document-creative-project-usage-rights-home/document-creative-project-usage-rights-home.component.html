@@ -1,6 +1,6 @@
 <div class="document-creative-project-home-action">
   <div class="actions-title">ACTIONS</div>
-  <nb-menu [items]="actions" (itemClick)="changeMenuView($event)"></nb-menu>
+  <nb-menu  [items]="actions$ | async" (itemClick)="changeMenuView($event)"></nb-menu>
 </div>
 
 

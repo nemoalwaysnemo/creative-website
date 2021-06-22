@@ -28,6 +28,9 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
   }
 
   onCallback(event: DocumentFormEvent): void {
+    if (!!event.context && event.context.action.button === 'mgt-create') {
+      this.goToUsageRights();
+    }
     if (event.action === 'CustomButtonClicked' && event.button === 'mgt-cancel') {
       this.goToUsageRights();
     }

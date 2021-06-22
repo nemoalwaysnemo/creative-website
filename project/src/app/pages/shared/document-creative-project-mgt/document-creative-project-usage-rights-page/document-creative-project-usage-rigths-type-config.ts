@@ -19,20 +19,24 @@ export const ACTIONS: NbMenuItem[] = [
     id: 'New-Talent',
     title: 'New Talent Contract',
     type: 'page',
+    enable: false,
   },
   {
     id: 'New-Music',
     title: 'New Music Contract',
     type: 'page',
+    enable: false,
   },
   {
     id: 'New-Phototgrapher',
     title: 'New Phototgrapher Contract',
     type: 'page',
+    enable: false,
   },
   {
     id: 'New-Stock',
     title: 'New Slock Contract',
     type: 'page',
+    enable: false,
   },
 ];

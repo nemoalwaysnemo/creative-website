@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { DocumentModel, GlobalSearchParams, NuxeoPagination, UserModel } from '@core/api';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
@@ -17,7 +17,7 @@ import { DocumentFormStatus } from '@pages/shared/document-form/document-form.in
   styleUrls: ['../../document-creative-project-mgt.component.scss', '../document-creative-project-usage-rights-page.component.scss'],
   templateUrl: './document-creative-project-usage-rights-home.component.html',
 })
-export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCreativeProjectMgtBaseComponent implements OnInit {
+export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCreativeProjectMgtBaseComponent {
 
   actions: NbMenuItem[] = ACTIONS;
 
@@ -26,23 +26,38 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
   usageRightNavSettings: ProjectMgtNavigationSettings;
   assetNavSettings: ProjectMgtNavigationSettings;
 
+  target: DocumentModel;
+
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(documentPageService, componentFactoryResolver);
     this.subscribeHomeEvents();
+    this.afterSetDocument();
   }
 
-  ngOnInit(): void {
+  protected onInit(): void {
     this.onClickLink();
+    this.actions$.next(this.actions);
+  }
+
+  protected onDestroy(): void {
+    super.onDestroy();
+    this.buildActions(false);
+  }
+
+  private buildActions(enable: boolean): any {
+    return this.actions.forEach((a: any) => {
+        a.enable = enable;
+    });
   }
 
   changeMenuView(item: NbMenuItem, type: string = 'view', formMode: string = 'create'): void {
     this.triggerChangeView(item.id, type,
       new CreativeProjectMgtSettings({
-        document: this.document,
-        dialogDocument: this.document,
+        document: this.target,
+        dialogDocument: this.target,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
         homePage: 'usage-rights-Page',
@@ -52,7 +67,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
         buttonGroup: [
           {
             label: 'create',
-            name: 'create',
+            name: 'mgt-create',
             type: 'custom',
             disabled: (status: DocumentFormStatus) => status.submitted || !status.formValid,
             triggerSave: true,
@@ -66,11 +81,9 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
       }));
   }
 
-  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
-    this.usageRightNavSettings = this.buildUsageRightNavSettings(doc);
-    this.assetNavSettings = this.buildAssetNavSettings(doc);
-    return observableOf(doc).pipe(
-      concatMap(_ =>
+  afterSetDocument(): void {
+    this.document$.pipe(
+      concatMap(doc =>
         this.documentPageService.advanceRequest(new GlobalSearchParams({
           pageSize: 1,
           currentPageIndex: 0,
@@ -92,11 +105,20 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
           map((res: NuxeoPagination) => {
             const target = res.entries.shift();
             target.setParent(brand);
+            this.target = target;
             return target;
           }),
         ),
       ),
-    );
+    ).subscribe(_ => {
+      this.buildActions(true);
+    });
+  }
+
+  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
+    this.usageRightNavSettings = this.buildUsageRightNavSettings(doc);
+    this.assetNavSettings = this.buildAssetNavSettings(doc);
+    return observableOf(doc);
   }
 
   private buildUsageRightNavSettings(doc: DocumentModel): any {
@@ -184,11 +206,9 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
     const type = CONTRACT_YTPES[contract.type];
     const UR_ids: string[] = asset.get(type);
     if (UR_ids.indexOf(contract.uid) === -1){
-    // if (true){
       const opt = {};
       UR_ids.push(contract.uid);
       opt[type] = UR_ids;
-      // opt[type] = [];
       asset.set(opt).save().subscribe(_ => {
         this.documentPageService.notify(`${asset.title} linked successfully!`, '', 'success');
         this.documentPageService.triggerEvent(new GlobalEvent({ name: 'AfterLinkAssetClick', value: contract.uid}));
