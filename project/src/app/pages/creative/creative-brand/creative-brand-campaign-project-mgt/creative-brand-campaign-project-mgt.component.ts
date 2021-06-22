@@ -149,15 +149,16 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'html',
           htmlFn: (doc: DocumentModel) => {
+            const assettype = doc.get('The_Loupe_Main:assettype') ? `<div class="asset-type">${doc.get('The_Loupe_Main:assettype')}</div>` : '';
             return `
-            <div class="asset-info">
+              <div class="asset-info">
                 <div class="asset-title">${doc.title}</div>
                 <div>
-                  <div class="asset-type">${doc.get('The_Loupe_Main:assettype')}</div>
+                  ${assettype}
                   <div class="asset-date">${formatDate(doc.get('The_Loupe_ProdCredits:production_date'), 'MMM d, yyyy', 'en-US')}</div>
                 </div>
                 </div>
-            </div>`;
+              </div>`;
           },
         }),
         renderComponent: ListSearchRowCustomDialogComponent,
