@@ -60,6 +60,9 @@ export class KnowledgeDocumentAssetSearchResultComponent {
         // } else {
         // }
         main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_ASSET;
+        break;
+      case 'Backslash Report':
+        main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_REPORT_ASSET;
         containerType = 'middle-dialog-container';
         break;
       case 'Disruption':
