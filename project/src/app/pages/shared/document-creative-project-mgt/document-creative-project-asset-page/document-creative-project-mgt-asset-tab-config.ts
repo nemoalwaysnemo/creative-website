@@ -4,6 +4,7 @@ import { DocumentCreativeProjectAssetDetailComponent } from './document-creative
 import { DocumentCreativeProjectModifyAssetsComponent } from './document-creative-project-modify-assets/document-creative-project-modify-assets.component';
 import { DocumentCreativeProjectImportNewRequestComponent } from '../document-creative-project-3rd-party-import-page/document-creative-project-3rd-party-import-new-request/document-creative-project-import-new-request.component';
 import { DocumentCreativeProjectImportAssetHomeComponent } from '../document-creative-project-import-asset-page/document-creative-project-import-asset-home/document-creative-project-import-asset-home.component';
+import { DocumentCreativeProjectAssetPackageSendComponent } from '../document-creative-project-delivery-package-page/document-creative-project-asset-package-send/document-creative-project-asset-package-send.component';
 export const TAB_CONFIG: NbMenuItem[] = [
   {
     id: 'asset-home-view',
@@ -40,5 +41,14 @@ export const TAB_CONFIG: NbMenuItem[] = [
     title: 'Asset Home',
     component: DocumentCreativeProjectAssetHomeComponent,
   },
-
+  {
+    id: 'delivery-package',
+    title: 'Create Delivery Package',
+    component: DocumentCreativeProjectAssetPackageSendComponent,
+  },
+  {
+    id: 'package-home-view',
+    title: 'Asset Home',
+    component: DocumentCreativeProjectAssetHomeComponent,
+  },
 ];

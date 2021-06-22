@@ -1,11 +1,9 @@
-import { Component, OnInit, OnChanges, OnDestroy, Input } from '@angular/core';
-import { DocumentModel, UserModel, NuxeoUploadResponse, AdvanceSearchService } from '@core/api';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel, DynamicListModel } from '@core/custom';
-import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { DocumentModel, NuxeoUploadResponse, AdvanceSearchService } from '@core/api';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
-import { Observable } from 'rxjs';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
@@ -235,6 +233,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
 
   onCallback(event: DocumentFormEvent): void {
     if (event.action === 'Created') {
+      this.showMsg();
       this.goToAssetHome();
     } else if (event.action === 'Canceled') {
       this.cancelForm();
@@ -251,13 +250,15 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
-
   ngOnInit(): void {
     this.load(this.documentModel.getParent('brand').uid); // brand
   }
 
-
   ngOnDestroy(): void {
+  }
+
+  protected showMsg(): void {
+    this.documentPageService.notify(`Documents have been created successfully!`, '', 'success');
   }
 
   private load(uid: string): void {

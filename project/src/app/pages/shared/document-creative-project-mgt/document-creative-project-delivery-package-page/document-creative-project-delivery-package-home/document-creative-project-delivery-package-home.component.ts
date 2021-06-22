@@ -35,7 +35,7 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
 
   actions: NbMenuItem[] = [
     {
-      id: 'delivery',
+      id: 'delivery-package',
       title: 'Create New Package',
       type: 'page',
     },
@@ -133,7 +133,8 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         icon: { url: '/assets/images/App-Library-Package.png' },
-        receipient: doc.get('The_Loupe_Delivery:slingshot_delivery_email').join(', '),
+        // receipient: doc.get('The_Loupe_Delivery:slingshot_delivery_email').join(', '),
+        receipient: doc.get('The_Loupe_Delivery:delivery_email'),
         date: doc.get('dc:created'),
         sender: doc.get('dc:creator'),
       }));

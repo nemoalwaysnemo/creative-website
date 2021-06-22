@@ -4,10 +4,10 @@ import { DynamicSuggestionModel, DynamicInputModel, DynamicTextAreaModel, Dynami
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { DocumentFormContext, DocumentFormSettings, DocumentFormEvent} from '../../../document-form/document-form.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
-import { Observable, of as observableOf } from 'rxjs';
+import { concat, Observable, of as observableOf } from 'rxjs';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
-import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { GlobalEvent } from '../../../services/document-page.service';
 @Component({
   selector: 'document-creative-project-import-new-request',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -32,7 +32,9 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
   }
 
   protected onInit(): void {
-    this.setFormSettings({});
+    this.setFormSettings({
+      showMessageBeforeSave: false,
+    });
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
@@ -55,6 +57,9 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
       new DynamicInputModel({
         id: 'The_Loupe_Delivery:delivery_email',
         label: 'Uploader email',
+        required: true,
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
       }),
       new DynamicTextAreaModel({
         id: 'The_Loupe_Main:description',
