@@ -1,38 +1,24 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn, FormControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors, FormControl, AsyncValidatorFn } from '@angular/forms';
+import { DocumentPageService } from '../services/document-page.service';
+import { GlobalSearchParams, NuxeoPagination } from '@core/api';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-export function customValidator(control: AbstractControl): ValidationErrors | null {
-  const hasError = control.value ? (control.value as string).startsWith('abc') : false;
-  return hasError ? { customValidator: true } : null;
-}
-
-export function customDateRangeValidator(group: FormGroup): ValidationErrors | null {
-  const dateArrival = group.get('arrivalDate').value as Date;
-  const dateDeparture = group.get('departureDate').value as Date;
-  let hasError = false;
-  if (dateArrival && dateDeparture) {
-    hasError = dateArrival >= dateDeparture || dateDeparture <= dateArrival;
-  }
-  return hasError ? { customDateRangeValidator: true } : null;
-}
-
-export function customForbiddenValidator(forbiddenValue: string): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    if (control && control.value === forbiddenValue) {
-      return { forbidden: true };
-    }
-    return null;
-  };
-}
-
-export function customAsyncFormGroupValidator(formGroup: FormGroup): Promise<ValidationErrors | null> {
-  return new Promise((resolve, reject) => {
-    console.log('async validation');
-    resolve(null);
-  });
-}
-
-export function dateFormatValidator(control: FormControl): any {
+export function dateFormatValidator(control: FormControl): ValidationErrors | null {
   let hasError = false;
   (control.value && (control.value.toString() === 'Invalid Date')) ? (hasError = true) : (hasError = false);
-  return hasError ? {dateFormatValidator: true} : null;
+  return hasError ? { dateFormatValidator: true } : null;
+}
+
+export function uniqueDocumentValidator(data: { searchParams: any, documentPageService: DocumentPageService }): AsyncValidatorFn {
+  return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+    const params: any = {
+      title_eq: control.value,
+      currentPageIndex: 0,
+      pageSize: 1,
+    };
+    return data.documentPageService.advanceRequest(new GlobalSearchParams(Object.assign({}, params, data.searchParams))).pipe(
+      map((res: NuxeoPagination) => res.entries.length > 0 ? { uniqueDocumentValidator: true } : null),
+    );
+  };
 }

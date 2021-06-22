@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { UserModel, DocumentModel, NuxeoUploadResponse, GlobalSearchParams, NuxeoPagination } from '@core/api';
-import { of as observableOf, Observable } from 'rxjs';
-import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
-import { SuggestionSettings } from '../document-form-extension';
+import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicFormHook } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
+import { SuggestionSettings } from '../document-form-extension';
+import { of as observableOf, Observable } from 'rxjs';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
-import { map, tap } from 'rxjs/operators';
-import { escapeValue } from '@core/services/helpers';
 
 @Component({
   selector: 'creative-ring-collection-form',
@@ -26,30 +24,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return observableOf(doc);
-  }
-
-  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
-    console.log(33333, event);
-    if (event.action === 'onBlur' && event.model && event.model.id === 'dc:title') {
-      return this.checkCollectionName(event.formValue['dc:title']).pipe(
-        tap((d: DocumentModel) => {
-          console.log(44444, d);
-        }),
-        map((d: DocumentModel) => event),
-      );
-    }
-    return observableOf(event);
-  }
-
-  private checkCollectionName(title: string): Observable<DocumentModel> {
-    const params: any = {
-      currentPageIndex: 0,
-      pageSize: 1,
-      title_eq: escapeValue(title),
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
-      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
-    };
-    return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(map((res: NuxeoPagination) => res.entries.shift()));
   }
 
   protected getDocumentFormSettings(): DocumentFormSettings {
@@ -79,10 +53,21 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
             required: null,
             minLength: 4,
           },
+          asyncValidators: {
+            uniqueDocumentValidator: {
+              documentPageService: this.documentPageService,
+              searchParams: {
+                ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+                ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
+              },
+            },
+          },
           errorMessages: {
             required: '{{label}} is required',
             minLength: 'At least 4 characters',
+            uniqueDocumentValidator: 'The collection {{value}} already exists, please change one',
           },
+          // updateOn: DynamicFormHook.Blur,
         }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:assettype',

@@ -39,7 +39,6 @@ export class DynamicNGFormControlContainerComponent extends DynamicFormControlCo
 
   @HostBinding('class') klass = '';
 
-  @Input() asBootstrapFormGroup = true;
   @Input() context: DynamicFormArrayGroupModel | null = null;
   @Input() group: FormGroup;
   @Input() hostClass: string[];
