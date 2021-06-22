@@ -51,8 +51,6 @@ import { DynamicFormArrayComponent } from './dynamic-form-array.component';
 })
 export class DynamicFormControlContainerComponent implements OnChanges, OnDestroy {
 
-  private _hasFocus = false;
-
   context: DynamicFormArrayGroupModel | null = null;
   control: FormControl;
   group: FormGroup;
@@ -75,6 +73,7 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
   protected componentSubscriptions: Subscription[] = [];
   protected controlLayout: DynamicFormControlLayout;
   protected subscriptions: Subscription[] = [];
+  private _hasFocus = false;
 
   constructor(protected changeDetectorRef: ChangeDetectorRef,
               protected componentFactoryResolver: ComponentFactoryResolver,
