@@ -1,4 +1,4 @@
-import { Component, Input, Output, SimpleChange, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, Output, SimpleChange, EventEmitter, OnChanges, TemplateRef } from '@angular/core';
 
 import { Grid } from './lib/grid';
 import { DataSource } from './lib/data-source/data-source';
@@ -15,6 +15,7 @@ export class Ng2SmartTableComponent implements OnChanges {
 
   @Input() source: any;
   @Input() settings: any = {};
+  @Input() extendRowRef: TemplateRef<any>;
 
   @Output() rowSelect = new EventEmitter<any>();
   @Output() userRowSelect = new EventEmitter<any>();
@@ -79,6 +80,7 @@ export class Ng2SmartTableComponent implements OnChanges {
       class: '',
     },
     noDataMessage: 'No data found',
+    extendRow: {},
     columns: {},
     pager: {
       display: true,

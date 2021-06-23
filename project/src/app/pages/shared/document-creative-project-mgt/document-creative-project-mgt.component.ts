@@ -1,4 +1,4 @@
-import { Component, Input, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { DocumentCreativeProjectMgtBasePageComponent } from './document-creative-project-mgt-base-page.component';

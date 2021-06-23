@@ -11,8 +11,10 @@
                       (filter)="filter($event)">
   </thead>
 
-  <tbody ng2-st-tbody [grid]="grid"
+  <tbody ng2-st-tbody
+                      [grid]="grid"
                       [source]="source"
+                      [extendRowRef]="extendRowRef"
                       [deleteConfirm]="deleteConfirm"
                       [editConfirm]="editConfirm"
                       [rowClassFunction]="rowClassFunction"

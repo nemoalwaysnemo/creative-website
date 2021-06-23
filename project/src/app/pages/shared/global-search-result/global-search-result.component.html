@@ -7,7 +7,7 @@
     </document-thumbnail-view>
   </ng-container>
   <ng-container *ngIf="isViewEnabled('listView')">
-    <document-list-view [hide]="currentView !== 'listView'" [loading]="loading" [settings]="listViewOptions" [documents]="listDocuments"></document-list-view>
+    <document-list-view [hide]="currentView !== 'listView'" [loading]="loading" [settings]="listViewOptions" [documents]="listDocuments" [extendRowRef]="extendRowRef"></document-list-view>
   </ng-container>
 </div>
 <div *ngIf="hasPagination" class="search-pagination">

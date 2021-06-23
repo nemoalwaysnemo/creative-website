@@ -6,9 +6,10 @@
   <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
 </div>
 <div class="document-creative-project-home-list">
-  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsPackageHome" [listViewSettings]="listViewSettingsPackage" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)"></list-search-form-in-dialog>
+  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsPackageHome" [listViewSettings]="listViewSettingsPackage" [extendRowRef]="extendRowView" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)">
+  </list-search-form-in-dialog>
 </div>
-<ng-container *ngIf="historyItemList.length > 0">
+<ng-template #extendRowView let-row="row">
   <div class="creative-project-delivery-package-history-main">
     <div class="creative-project-delivery-package-history-top">
       <h2 class="left">Delivery History</h2>
@@ -18,4 +19,4 @@
       <document-list-view [settings]="listViewSettingsHistory" [documents]="historyItemList"></document-list-view>
     </div>
   </div>
-</ng-container>
+</ng-template>
