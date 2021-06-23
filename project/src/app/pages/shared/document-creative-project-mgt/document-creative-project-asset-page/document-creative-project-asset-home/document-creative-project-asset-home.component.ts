@@ -98,6 +98,12 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       id: 'set-usage-rights',
       title: 'Set Usage Rights',
       type: 'page',
+      triggerChangeSettings: {
+        name: 'set-usage-rights',
+        type: 'view',
+        formMode: 'edit',
+        document: this.document,
+      },
     },
   ];
 
