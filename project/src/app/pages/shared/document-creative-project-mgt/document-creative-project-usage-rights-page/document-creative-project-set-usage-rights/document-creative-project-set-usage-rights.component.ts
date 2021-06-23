@@ -5,15 +5,15 @@ import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.
 import { DocumentPageService } from '../../../services/document-page.service';
 import { of as observableOf, Observable } from 'rxjs';
 import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
-import { DynamicSuggestionModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { DynamicSuggestionModel } from '@core/custom';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 @Component({
-  selector: 'document-creative-project-modify-assets',
+  selector: 'document-creative-project-set-usage-rights',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
-  templateUrl: './document-creative-project-modify-assets.component.html',
+  templateUrl: './document-creative-project-set-usage-rights.component.html',
 })
-export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreativeProjectMgtBaseComponent {
+export class DocumentCreativeProjectSetUsageRightsComponent extends DocumentCreativeProjectMgtBaseComponent {
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
@@ -27,54 +27,49 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
     formMode: 'edit',
     formModel: [
       new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:assettype',
-        label: 'New Asset Type',
+        id: 'The_Loupe_Rights:modify_contract_talent',
+        label: 'Talent Contracts',
         document: true,
-        required: true,
-        settings: {
-          multiple: false,
-          placeholder: 'What is this asset?',
-          providerType: SuggestionSettings.OPERATION,
-          providerName: 'javascript.provideAssetType_Image',
-        },
-        validators: { required: null },
-        errorMessages: { required: '' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
-      }),
-      new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_Rights:first-airing',
-        label: 'New First Airing',
         required: false,
-        readonly: false,
-        validators: {
-          dateFormatValidator: null,
-        },
-        errorMessages: {
-          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        settings: {
+          placeholder: 'Select a value',
         },
       }),
       new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Rights:contract_mediatypes',
-        label: 'New Media Usage Types',
-        required: true,
+        id: 'The_Loupe_Rights:modify_contract_music',
+        label: 'Music Contracts',
         document: true,
+        required: false,
         settings: {
-          placeholder: 'Where is this used?',
+          placeholder: 'Select Music Contracts to apply.',
           providerType: SuggestionSettings.OPERATION,
-          providerName: 'javascript.provideURmediatypes',
+          providerName: 'javascript.provideProject_UR_modify_music',
         },
-        validators: { required: null },
-        errorMessages: { required: '' },
         onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Rights:asset_countries',
-        label: 'New Asset Country',
+        id: 'The_Loupe_Rights:modify_contract_photographer',
+        label: 'Photographer Contracts',
+        document: true,
+        required: false,
         settings: {
-          placeholder: 'Leave blank to copy from agency\\brand',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Countries',
+          placeholder: 'Select Photographer Contracts to apply.',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideProject_UR_modify_photographer',
         },
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+      }),
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Rights:modify_contract_stock',
+        label: 'Stock Contracts',
+        document: true,
+        required: false,
+        settings: {
+          placeholder: 'Select Stock Contracts to apply.',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideProject_UR_modify_stock',
+        },
+        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
     ],
   });

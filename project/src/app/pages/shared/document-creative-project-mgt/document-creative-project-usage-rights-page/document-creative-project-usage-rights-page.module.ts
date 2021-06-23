@@ -11,6 +11,8 @@ import { DocumentCreativeProjectUsageRightsComponent } from './document-creative
 import { DocumentCreativeProjectUsageRightHomeComponent } from './document-creative-project-usage-rights-home/document-creative-project-usage-rights-home.component';
 import { DocumentCreativeProjectUsageRightsListComponent, DocumentCreativeUsageRightsRowRenderComponent, DocumentCreativeUsageRightsLinkButtonComponent } from './document-creative-project-usage-rigths-list/document-creative-project-usage-rigths-list.component';
 import { DocumentCreativeProjectAssetsListComponent, DocumentCreativeProjectAssetRowRenderComponent } from './document-creative-project-usage-rigths-list/document-creative-project-assets-list.component';
+import { DocumentCreativeProjectSetUsageRightsComponent } from './document-creative-project-set-usage-rights/document-creative-project-set-usage-rights.component';
+import { DocumentBatchOperationModule } from '../../document-batch-operation/document-batch-operation.module';
 
 @NgModule({
   imports: [
@@ -22,6 +24,7 @@ import { DocumentCreativeProjectAssetsListComponent, DocumentCreativeProjectAsse
     ListSearchFormInDialogModule,
     DocumentNewPosterButtonModule,
     DocumentCreativeProjectNavigationModule,
+    DocumentBatchOperationModule,
   ],
   declarations: [
     DocumentCreativeProjectUsageRightsComponent,
@@ -31,6 +34,7 @@ import { DocumentCreativeProjectAssetsListComponent, DocumentCreativeProjectAsse
     DocumentCreativeUsageRightsLinkButtonComponent,
     DocumentCreativeProjectAssetsListComponent,
     DocumentCreativeProjectAssetRowRenderComponent,
+    DocumentCreativeProjectSetUsageRightsComponent,
   ],
 })
 export class DocumentCreativeProjectUsageRightsModule {
