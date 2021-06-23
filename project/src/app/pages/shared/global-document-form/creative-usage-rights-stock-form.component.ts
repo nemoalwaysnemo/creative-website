@@ -65,6 +65,13 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
         id: 'The_Loupe_Main:jobtitle',
         label: 'Search Project',
         document: true,
+        required: true,
+        validators: {
+          required: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+        },
         settings: {
           placeholder: 'Search Project',
           providerType: SuggestionSettings.CONTENT_VIEW,
@@ -246,7 +253,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
         formMode: 'create',
         layoutPosition: 'right',
         settings: {
-          queueLimit: 25,
+          queueLimit: 1,
           placeholder: 'Drop Image/PDF here!',
           acceptTypes: 'image/*,.pdf',
         },
@@ -276,8 +283,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
         layoutPosition: 'bottom',
         formMode: 'create',
         settings: {
-          enableForm: true,
-          enableAction: true,
+          enableAction: false,
         },
       }),
       new DynamicBatchUploadModel<string>({

@@ -35,7 +35,7 @@ export const ACTIONS: NbMenuItem[] = [
   },
   {
     id: 'New-Stock',
-    title: 'New Slock Contract',
+    title: 'New Stock Contract',
     type: 'page',
     enable: false,
   },
