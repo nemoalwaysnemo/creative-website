@@ -21,7 +21,7 @@
 		width: 840px;
 	}
 	@include media-breakpoint-between(lg, xxl) { //992px - 1700px
-		width: 990px;
+		width: 1100px;
 	}
 	@include media-breakpoint-up(xxl) { //1700px
 		width: 1700px;
