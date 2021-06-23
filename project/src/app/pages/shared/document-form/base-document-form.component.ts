@@ -311,8 +311,8 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected performCreate(ctx: DocumentFormContext): Observable<DocumentModel[]> {
     let documents = [];
-    if (ctx.currentDocument.type && !isValueEmpty(ctx.formSettings.formModel)) {
-      ctx.currentDocument.properties = this.prepareProperties(ctx.currentDocument.properties, this.getFormValue());
+    ctx.currentDocument.properties = this.prepareProperties(ctx.currentDocument.properties, this.getFormValue());
+    if (ctx.currentDocument.type && !isValueEmpty(ctx.formSettings.formModel) && (!ctx.uploadModel || !ctx.formSettings.enableBatchSyncCreate)) {
       documents.push(ctx.currentDocument);
     }
     if (this.getFormStatus('uploadState') === 'uploaded') {

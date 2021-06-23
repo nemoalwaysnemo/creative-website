@@ -124,10 +124,10 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
   moveAssets(): void {
     this.assetsMovingQueue.forEach((row) => {
       this.acceptAsset(this.requestDocument.uid, row.uid).subscribe(_ => {
-        this.showMsg();
         this.refresh();
       });
     });
+    this.showMsg();
   }
 
   onSelected(row: any): void {
