@@ -43,7 +43,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   protected createSharedDocumentForm(models: DynamicFormModel): void {
     this.sharedGroup = this.createFormGroup(models);
     const subscription = this.sharedGroup.statusChanges.subscribe((valid: any) => {
-      timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID' && this.getFormStatus('formValid'), submitted: false }); });
+      timer(0).subscribe(() => { this.updateFormStatus({ sharedModelValid: valid === 'VALID' && this.getFormStatus('formValid'), submitted: false }); });
     });
     this.subscription.add(subscription);
   }
