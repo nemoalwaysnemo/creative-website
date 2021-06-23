@@ -38,6 +38,8 @@ export class DocumentFormStatus {
 
   childrenValid: boolean = true;
 
+  sharedModelValid: boolean = true;
+
   uploadState: 'prepared' | 'uploading' | 'uploaded' | null;
 
   constructor(data: any = {}) {
@@ -50,7 +52,7 @@ export class DocumentFormStatus {
   }
 
   disableSaveButton(): boolean {
-    return ['uploading'].includes(this.uploadState) || this.submitting || this.submitted || !this.formValid || !this.childrenValid;
+    return ['uploading'].includes(this.uploadState) || this.submitting || this.submitted || !this.formValid || !this.childrenValid || !this.sharedModelValid;
   }
 }
 

@@ -82,7 +82,6 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
         id: 'The_Loupe_Main:brand',
         label: 'Brand',
         required: false,
-        layoutPosition: 'right',
         document: true,
         readOnly: true,
         settings: {
