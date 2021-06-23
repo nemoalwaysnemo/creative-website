@@ -34,5 +34,5 @@
   </form>
 </div>
 <div class="list-search-result">
-  <document-list-view [loading]="loading" [settings]="listViewOptions" [documents]="documents" (onRowSelect)="onRowSelect($event)"></document-list-view>
+  <document-list-view [loading]="loading" [settings]="listViewOptions" [documents]="documents" [extendRowRef]="extendRowRef" (onRowSelect)="onRowSelect($event)"></document-list-view>
 </div>

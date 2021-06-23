@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
@@ -14,6 +14,8 @@ import { GlobalSearchFormService } from '../global-search-form/global-search-for
   styleUrls: ['./list-search-form.component.scss'],
 })
 export class ListSearchFormComponent extends BaseSearchFormComponent {
+
+  @Input() extendRowRef: TemplateRef<any>;
 
   @Input()
   set listViewSettings(settings: any) {

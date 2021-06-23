@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Row } from '../../../lib/data-set/row';
-
 import { Grid } from '../../../lib/grid';
 
 @Component({

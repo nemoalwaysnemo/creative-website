@@ -13,6 +13,8 @@ export class GlobalSearchResultComponent extends BaseGlobalSearchResultComponent
 
   @Input() templateRef: TemplateRef<any>;
 
+  @Input() extendRowRef: TemplateRef<any>;
+
   @Input() hasPagination: boolean = true;
 
   @Input() hideEmpty: boolean = false;

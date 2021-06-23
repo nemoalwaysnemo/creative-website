@@ -1,56 +1,64 @@
-<tr *ngFor="let row of grid.getRows()" (click)="userSelectRow.emit(row)" (mouseover)="rowHover.emit(row)" class="ng2-smart-row" [className]="rowClassFunction(row)" [ngClass]="{selected: row.isSelected}">
-  <td *ngIf="isMultiSelectVisible && isShowCheckbox" class="ng2-smart-action-multiple-select" (click)="multipleSelectRow.emit(row)">
-    <input type="checkbox" [ngModel]="row.isSelected">
-  </td>
-  <td *ngIf="isMultiSelectVisible && !isShowCheckbox" class="ng2-smart-action-multiple-select" (click)="multipleSelectRow.emit(row)">
-    <input type="checkbox" class="form-control" [ngModel]="row.isSelected">
-  </td>
-  <td *ngIf="!row.isInEditing && showActionColumnLeft" class="ng2-smart-actions">
-    <ng2-st-tbody-custom [grid]="grid" (custom)="custom.emit($event)" [row]="row" [source]="source"></ng2-st-tbody-custom>
+<ng-container *ngFor="let row of grid.getRows()">
+  <tr (click)="onUserSelectRow(row)" (mouseover)="rowHover.emit(row)" class="ng2-smart-row" [className]="rowClassFunction(row)" [ngClass]="{selected: row.isSelected}">
+    <td *ngIf="isMultiSelectVisible && isShowCheckbox" class="ng2-smart-action-multiple-select" (click)="multipleSelectRow.emit(row)">
+      <input type="checkbox" [ngModel]="row.isSelected">
+    </td>
+    <td *ngIf="isMultiSelectVisible && !isShowCheckbox" class="ng2-smart-action-multiple-select" (click)="multipleSelectRow.emit(row)">
+      <input type="checkbox" class="form-control" [ngModel]="row.isSelected">
+    </td>
+    <td *ngIf="!row.isInEditing && showActionColumnLeft" class="ng2-smart-actions">
+      <ng2-st-tbody-custom [grid]="grid" (custom)="custom.emit($event)" [row]="row" [source]="source"></ng2-st-tbody-custom>
 
-    <ng2-st-tbody-edit-delete [grid]="grid"
-                              [deleteConfirm]="deleteConfirm"
-                              [editConfirm]="editConfirm"
-                              (edit)="edit.emit(row)"
-                              (delete)="delete.emit(row)"
-                              (editRowSelect)="editRowSelect.emit($event)"
-                              [row]="row"
-                              [source]="source">
-    </ng2-st-tbody-edit-delete>
-  </td>
-   <td *ngIf="row.isInEditing && showActionColumnLeft" class="ng2-smart-actions">
-    <ng2-st-tbody-create-cancel [grid]="grid" [row]="row" [editConfirm]="editConfirm"></ng2-st-tbody-create-cancel>
-  </td>
-  <td *ngFor="let cell of row.cells">
-    <ng2-smart-table-cell [cell]="cell"
-                          [grid]="grid"
-                          [row]="row"
-                          [isNew]="false"
-                          [mode]="mode"
-                          [editConfirm]="editConfirm"
-                          [inputClass]="editInputClass"
-                          [isInEditing]="row.isInEditing">
-    </ng2-smart-table-cell>
-  </td>
+      <ng2-st-tbody-edit-delete [grid]="grid"
+                                [deleteConfirm]="deleteConfirm"
+                                [editConfirm]="editConfirm"
+                                (edit)="edit.emit(row)"
+                                (delete)="delete.emit(row)"
+                                (editRowSelect)="editRowSelect.emit($event)"
+                                [row]="row"
+                                [source]="source">
+      </ng2-st-tbody-edit-delete>
+    </td>
+    <td *ngIf="row.isInEditing && showActionColumnLeft" class="ng2-smart-actions">
+      <ng2-st-tbody-create-cancel [grid]="grid" [row]="row" [editConfirm]="editConfirm"></ng2-st-tbody-create-cancel>
+    </td>
+    <td *ngFor="let cell of row.cells">
+      <ng2-smart-table-cell [cell]="cell"
+                            [grid]="grid"
+                            [row]="row"
+                            [isNew]="false"
+                            [mode]="mode"
+                            [editConfirm]="editConfirm"
+                            [inputClass]="editInputClass"
+                            [isInEditing]="row.isInEditing">
+      </ng2-smart-table-cell>
+    </td>
 
-  <td *ngIf="row.isInEditing && showActionColumnRight" class="ng2-smart-actions">
-    <ng2-st-tbody-create-cancel [grid]="grid" [row]="row" [editConfirm]="editConfirm"></ng2-st-tbody-create-cancel>
-  </td>
+    <td *ngIf="row.isInEditing && showActionColumnRight" class="ng2-smart-actions">
+      <ng2-st-tbody-create-cancel [grid]="grid" [row]="row" [editConfirm]="editConfirm"></ng2-st-tbody-create-cancel>
+    </td>
 
-  <td *ngIf="!row.isInEditing && showActionColumnRight" class="ng2-smart-actions">
-    <ng2-st-tbody-custom [grid]="grid" (custom)="custom.emit($event)" [row]="row" [source]="source"></ng2-st-tbody-custom>
+    <td *ngIf="!row.isInEditing && showActionColumnRight" class="ng2-smart-actions">
+      <ng2-st-tbody-custom [grid]="grid" (custom)="custom.emit($event)" [row]="row" [source]="source"></ng2-st-tbody-custom>
 
-    <ng2-st-tbody-edit-delete [grid]="grid"
-                              [deleteConfirm]="deleteConfirm"
-                              [editConfirm]="editConfirm"
-                              [row]="row"
-                              [source]="source"
-                              (edit)="edit.emit(row)"
-                              (delete)="delete.emit(row)"
-                              (editRowSelect)="editRowSelect.emit($event)">
-    </ng2-st-tbody-edit-delete>
-  </td>
-</tr>
+      <ng2-st-tbody-edit-delete [grid]="grid"
+                                [deleteConfirm]="deleteConfirm"
+                                [editConfirm]="editConfirm"
+                                [row]="row"
+                                [source]="source"
+                                (edit)="edit.emit(row)"
+                                (delete)="delete.emit(row)"
+                                (editRowSelect)="editRowSelect.emit($event)">
+      </ng2-st-tbody-edit-delete>
+    </td>
+  </tr>
+
+  <tr *ngIf="extendRowRef" [ngStyle]="extendRowState[row.index] ? {} : {'display': 'none'}" class="ng2-smart-extend-row">
+    <td [attr.colspan]="tableColumnsCount">
+      <ng2-st-tbody-custom-row [templateRef]="extendRowRef" [grid]="grid" [row]="row"></ng2-st-tbody-custom-row>
+    </td>
+  </tr>
+</ng-container>
 
 <tr *ngIf="grid.getRows().length == 0">
   <td [attr.colspan]="tableColumnsCount">
