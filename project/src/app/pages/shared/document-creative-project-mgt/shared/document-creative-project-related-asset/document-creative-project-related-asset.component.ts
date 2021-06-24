@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ComponentFactoryResolver } from '@angular/core';
-import { DocumentModel } from '@core/api';
-import { Subject, timer } from 'rxjs';
+import { AdvanceSearchService, DocumentModel, NuxeoAutomations, NuxeoPagination, SearchResponse } from '@core/api';
+import { Subject, timer, of as observableOf, Observable } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
@@ -9,6 +9,7 @@ import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 import { DatePipe } from '@angular/common';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { DocumentPageService } from '../../../../shared/services/document-page.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'document-creative-project-related-asset',
@@ -19,8 +20,43 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
 
   constructor(
     protected documentPageService: DocumentPageService,
-    protected componentFactoryResolver: ComponentFactoryResolver) {
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    private advanceSearchService: AdvanceSearchService,
+    ) {
     super(documentPageService, componentFactoryResolver);
+  }
+
+  @Input()
+  set listViewOptions(settings: any) {
+    if (settings) {
+      if (settings.deliverPackage) {
+        this.isPackage = settings.deliverPackage;
+        delete settings.deliverPackage;
+      }
+      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
+    } else {
+      this.listViewSettings = this.defaultSettings;
+    }
+  }
+
+  @Input()
+  set assetSettings(settings: any) {
+    if (settings) {
+      this.packageViewSettings = settings;
+    }
+    if (settings.isChecked) {
+      this.isChecked = settings.isChecked;
+    }
+    if (settings.layout) {
+      this.layout = settings.layout;
+    }
+  }
+
+  @Input()
+  set formSettings(settings: any) {
+    if (settings) {
+      this.formViewSettings = settings;
+    }
   }
 
   static readonly NAME: string = 'creative-project-related-asset';
@@ -95,7 +131,7 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
         sort: false,
       },
       type: {
-        title: 'Asset Type',
+        title: 'Assettype',
         sort: false,
       },
       date: {
@@ -105,41 +141,17 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
           return value ? new DatePipe('en-US').transform(value, 'yyyy-MM-dd') : null;
         },
       },
+      usageRights: {
+        title: 'UR Forecast',
+        sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          viewType: 'usage-rights-expiry',
+        }),
+        renderComponent: ListSearchRowCustomViewComponent,
+      },
     },
   };
-
-  @Input()
-  set listViewOptions(settings: any) {
-    if (settings) {
-      if (settings.deliverPackage) {
-        this.isPackage = settings.deliverPackage;
-        delete settings.deliverPackage;
-      }
-      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
-    } else {
-      this.listViewSettings = this.defaultSettings;
-    }
-  }
-
-  @Input()
-  set assetSettings(settings: any) {
-    if (settings) {
-      this.packageViewSettings = settings;
-    }
-    if (settings.isChecked) {
-      this.isChecked = settings.isChecked;
-    }
-    if (settings.layout) {
-      this.layout = settings.layout;
-    }
-  }
-
-  @Input()
-  set formSettings(settings: any) {
-    if (settings) {
-      this.formViewSettings = settings;
-    }
-  }
 
   @Output() assetSelected: EventEmitter<any> = new EventEmitter<any>();
 
@@ -163,9 +175,14 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
         type: doc.get('The_Loupe_Main:assettype'),
         docView: doc,
         date: doc.get('The_Loupe_Rights:first-airing'),
+        usageRights: doc.get('_usage_rights_'),
       }));
     }
     return items;
+  }
+
+  afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
+    return this.getUsageRightsStatus(res);
   }
 
   onSelected(row: any): void {
@@ -267,5 +284,21 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
       params['ecm_path'] = brand.path;
     }
     return params;
+  }
+
+  private getUsageRightsStatus(res: SearchResponse): Observable<SearchResponse> {
+    const uids: string[] = res.response.entries.map((doc: DocumentModel) => doc.uid);
+    if (uids.length > 0) {
+      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { uuids: `${uids.join(',')}`, entityType: 'asset' }).pipe(
+        map((response: NuxeoPagination) => {
+          res.response.entries.forEach((doc: DocumentModel) => {
+            const status = response.entries.find((x: any) => x.uuid === doc.uid);
+            doc.setProperty('_usage_rights_', status || {}, true);
+          });
+          return res;
+        }),
+      );
+    }
+    return observableOf(res);
   }
 }

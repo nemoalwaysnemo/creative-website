@@ -2,6 +2,11 @@
   margin: 10px;
   min-height: 350px;
 }
+.creative-project-dynamic-component ::ng-deep .list-search-result {
+  img {
+    max-width: 110px;
+  }
+}
 .document-creative-project-home-action {
   float: left;
   width: 20%;
