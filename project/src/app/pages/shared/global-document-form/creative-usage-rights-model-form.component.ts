@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { OptionModel } from '../option-select/option-select.interface';
 import { SuggestionSettings } from '../document-form-extension';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
@@ -27,13 +27,14 @@ export class CreativeUsageRightsModelComponent extends GlobalDocumentFormCompone
     return this.initializeDocument(doc, this.getDocType());
   }
 
-  onCallback(event: DocumentFormEvent): void {
-    if (!!event.context && event.context.action.button === 'mgt-create'){
+  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
+    if (!!event.context && event.context.action.button === 'mgt-create') {
       this.goToUsageRights();
     }
-    if (event.action === 'CustomButtonClicked' && event.button === 'mgt-cancel'){
+    if (event.action === 'CustomButtonClicked' && event.button === 'mgt-cancel') {
       this.goToUsageRights();
     }
+    return observableOf(event);
   }
 
   goToUsageRights(): void {
