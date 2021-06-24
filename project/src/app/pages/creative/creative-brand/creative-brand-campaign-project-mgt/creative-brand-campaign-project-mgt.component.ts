@@ -5,7 +5,7 @@ import { DocumentModel, NuxeoSearchConstants } from '@core/api';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-form';
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
-import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem, SearchFilterModel } from '@pages/shared';
+import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem, SearchFilterModel, SearchConditionModel, SearchDateRangeModel } from '@pages/shared';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { formatDate } from '@angular/common';
@@ -41,9 +41,10 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     new SearchFilterModel({ key: 'the_loupe_main_jobnumber_agg', placeholder: 'Job Number' }),
   ];
 
-  assetFilters: SearchFilterModel[] = [
+  assetFilters: SearchConditionModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     new SearchFilterModel({ key: 'the_loupe_rights_contract_mediatypes_agg', placeholder: 'Media Usage' }),
+    new SearchDateRangeModel({ minKey: 'the_loupe_rights_first-airing_min', maxKey: 'the_loupe_rights_first-airing_max', placeholder: 'Airing Date Range' }),
   ];
 
   searchFormSettingsCampaign: GlobalSearchFormSettings = new GlobalSearchFormSettings({

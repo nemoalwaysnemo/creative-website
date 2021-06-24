@@ -1,12 +1,14 @@
 <div class="advanced_filters flex">
-  <div *ngFor="let item of optionSettings" class="dropdown_container">
-    <option-select
-      (change)="onChange()"
-      [(ngModel)]="aggregateModel[item.id]"
-      (ngModelChange)="onModelChange()"
-      [settings]="item"
-      [className]="item.id"
-      [disabled]="disabled" class="form-control">
-    </option-select>
+  <div *ngFor="let item of searchOptions" class="dropdown_container">
+    <ng-container [ngSwitch]="true">
+      <ng-container *ngSwitchCase="item.type === 'search-filter'">
+        <option-select class="form-control" (change)="onFilterChange()" [(ngModel)]="aggregateModel[item.id]" (ngModelChange)="onModelChange()" [settings]="item" [className]="item.id" [disabled]="disabled">
+        </option-select>
+      </ng-container>
+      <ng-container *ngSwitchCase="item.type === 'date-range'">
+        <input type="text" class="form-control datepicker" [placeholder]="item.placeholder" [readonly]="readonly" [nbDatepicker]="searchDateRange">
+        <nb-rangepicker #searchDateRange (rangeChange)="onDateRangeChange($event, item)"></nb-rangepicker>
+      </ng-container>
+    </ng-container>
   </div>
 </div>
