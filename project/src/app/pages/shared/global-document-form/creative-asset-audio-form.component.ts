@@ -4,9 +4,10 @@ import { Observable } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '../document-form-extension';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
-import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { OptionModel } from '../option-select/option-select.interface';
+import { CreativeProjectMgtSettings } from '../document-creative-project-mgt/document-creative-project-mgt.interface';
 
 @Component({
   selector: 'creative-asset-audio-form',
@@ -16,10 +17,26 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
 
   static readonly NAME: string = 'creative-asset-audio-form';
 
+  static readonly COMPONENT_TYPE: string = 'form';
+
   protected documentType: string = 'App-Library-Audio';
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
+  }
+
+  onCallback(event: DocumentFormEvent): void {
+    if (!!event.context && event.context.action.button === 'mgt-asset-save') {
+      this.goToAssetDetail();
+    }
+    if (event.action === 'CustomButtonClicked' && event.button === 'mgt-asset-cancel') {
+      this.goToAssetDetail();
+    }
+  }
+
+  goToAssetDetail(): void {
+    const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-detail-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {

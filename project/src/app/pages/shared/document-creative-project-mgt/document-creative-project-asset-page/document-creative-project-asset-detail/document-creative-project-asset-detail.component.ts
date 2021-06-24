@@ -5,6 +5,7 @@ import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.
 import { DocumentPageService } from '../../../services/document-page.service';
 import { of as observableOf, Observable, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
+import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
 
 @Component({
   selector: 'document-creative-project-asset-detail',
@@ -44,21 +45,8 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
     return observableOf(doc);
   }
 
-  changeDialogView(type: string): void {
-    let view = null;
-    const docType = this.document.type;
-    if (type === 'delete') {
-      view = 'document-deletion';
-    } else if (type === 'edit') {
-      if (docType === 'App-Library-Image') {
-        view = 'creative-asset-image-form';
-      } else if (docType === 'App-Library-Video') {
-        view = 'creative-asset-video-form';
-      } else if (docType === 'App-Library-Audio') {
-        view = 'creative-asset-audio-form';
-      }
-    }
-    this.triggerChangeView(view, 'dialog',
+  changeDialogView(type: string, view = 'view'): void {
+    this.triggerChangeView(type, view,
       new CreativeProjectMgtSettings({
         document: this.document,
         dialogDocument: this.document,
@@ -67,6 +55,20 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
         homePage: 'asset-page',
         homeView: 'asset-detail-view',
         formMode: 'edit',
+        buttonGroup: [
+          {
+            label: 'save',
+            name: 'mgt-asset-save',
+            type: 'custom',
+            disabled: (status: DocumentFormStatus) => status.submitted || !status.formValid,
+            triggerSave: true,
+          },
+          {
+            label: 'cancel',
+            name: 'mgt-asset-cancel',
+            type: 'custom',
+          },
+        ],
       }));
   }
 

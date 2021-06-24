@@ -6,6 +6,8 @@ import { DocumentCreativeProjectImportNewRequestComponent } from '../document-cr
 import { DocumentCreativeProjectImportAssetHomeComponent } from '../document-creative-project-import-asset-page/document-creative-project-import-asset-home/document-creative-project-import-asset-home.component';
 import { DocumentCreativeProjectAssetPackageSendComponent } from '../document-creative-project-delivery-package-page/document-creative-project-asset-package-send/document-creative-project-asset-package-send.component';
 import { DocumentCreativeProjectSetUsageRightsComponent } from '../document-creative-project-usage-rights-page/document-creative-project-set-usage-rights/document-creative-project-set-usage-rights.component';
+import { CreativeAssetAudioFormComponent, CreativeAssetImageFormComponent, CreativeAssetVideoFormComponent } from '@pages/shared/global-document-form';
+import { DocumentDeletionDialogComponent } from '@pages/shared/global-document-dialog/document-dialog-template/document-deletion-dialog/document-deletion-dialog.component';
 export const TAB_CONFIG: NbMenuItem[] = [
   {
     id: 'asset-home-view',
@@ -56,5 +58,20 @@ export const TAB_CONFIG: NbMenuItem[] = [
     id: 'set-usage-rights',
     title: 'Set Usage Rights',
     component: DocumentCreativeProjectSetUsageRightsComponent,
+  },
+  {
+    id: 'App-Library-Image',
+    title: 'Asset Image',
+    component: CreativeAssetImageFormComponent,
+  },
+  {
+    id: 'App-Library-Video',
+    title: 'Asset Video',
+    component: CreativeAssetVideoFormComponent,
+  },
+  {
+    id: 'App-Library-Audio',
+    title: 'Asset Audio',
+    component: CreativeAssetAudioFormComponent,
   },
 ];
