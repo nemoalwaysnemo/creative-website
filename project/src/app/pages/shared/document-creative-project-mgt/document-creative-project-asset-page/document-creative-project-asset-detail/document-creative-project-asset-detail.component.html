@@ -2,7 +2,7 @@
   <div class="actions-title">ACTIONS</div>
   <ul>
     <li *ngIf="writePermission$ | async">
-      <button type="button" class="action-btn" (click)="changeDialogView('edit')">Edit</button>
+      <button type="button" class="action-btn" (click)="changeDialogView(document.type)">Edit</button>
     </li>
     <li *ngIf="downloadPermission$ | async">
       <a *ngIf="document.filePath" href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download">
@@ -14,7 +14,7 @@
       <document-new-poster-button class="poster" [document]="document" [enable]="enableThumbnailCreation"></document-new-poster-button>
     </li>
     <li *ngIf="deletePermission$ | async">
-      <button class="delete" class="action-btn" (click)="changeDialogView('delete')">Delete</button>
+      <button class="delete" class="action-btn" (click)="changeDialogView('document-deletion', 'dialog')">Delete</button>
     </li>
   </ul>
 </div>
