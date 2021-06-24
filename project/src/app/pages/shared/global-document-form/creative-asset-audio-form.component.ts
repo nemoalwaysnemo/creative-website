@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserModel, DocumentModel } from '@core/api';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
 import { SuggestionSettings } from '../document-form-extension';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
@@ -25,13 +25,14 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
     super(documentPageService);
   }
 
-  onCallback(event: DocumentFormEvent): void {
+  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
     if (!!event.context && event.context.action.button === 'mgt-asset-save') {
       this.goToAssetDetail();
     }
     if (event.action === 'CustomButtonClicked' && event.button === 'mgt-asset-cancel') {
       this.goToAssetDetail();
     }
+    return observableOf(event);
   }
 
   goToAssetDetail(): void {
