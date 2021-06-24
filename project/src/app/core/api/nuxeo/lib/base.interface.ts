@@ -418,7 +418,7 @@ export class GlobalSearchParams {
           const k = key.replace('__eq', '');
           params[k] = aggregates[key];
         } else {
-          params[key] = `["${aggregates[key].join('", "')}"]`;
+          params[key] = Array.isArray(aggregates[key]) ? `["${aggregates[key].join('", "')}"]` : aggregates[key];
         }
       }
     }

@@ -1,9 +1,10 @@
+import { formatDate } from '@angular/common';
 import { Component, Input, forwardRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { AggregateModel, SearchResponse } from '@core/api';
 import { escapeValue } from '@core/services/helpers';
 import { OptionModel, OptionSettings } from '../option-select/option-select.interface';
-import { SearchFilterModel } from './global-search-filter.interface';
+import { SearchConditionModel, SearchDateRangeModel, SearchFilterModel } from './global-search-filter.interface';
 
 @Component({
   selector: 'global-search-filter',
@@ -19,7 +20,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   aggregateModel: any = {};
 
-  optionSettings: OptionSettings[] = [];
+  searchOptions: any[] = [];
 
   closeOnSelect: boolean = true;
 
@@ -27,9 +28,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   @Input() searchResponse: SearchResponse;
 
-  @Input() aggregateModels: AggregateModel[] = [];
-
-  @Input() filterSettings: SearchFilterModel[] = [];
+  @Input() filterSettings: SearchConditionModel[] = [];
 
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();
 
@@ -38,13 +37,11 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
   private _onTouched = () => { };
 
   ngOnChanges(c: SimpleChanges): void {
-    if (this.filterSettings) {
-      if (c.aggregateModels && c.aggregateModels.currentValue) {
-        this.optionSettings = this.buildAggOptionSettings(this.filterSettings, c.aggregateModels.currentValue);
-      } else if (c.searchResponse && c.searchResponse.currentValue) {
-        this.optionSettings = this.buildDynamicOptionSettings(this.filterSettings, c.searchResponse.currentValue);
+    if (this.filterSettings && this.filterSettings.length > 0) {
+      if (c.searchResponse && c.searchResponse.currentValue) {
+        this.searchOptions = this.buildDynamicSearchOptions(this.filterSettings, c.searchResponse.currentValue);
       } else {
-        this.optionSettings = this.buildDefaultOptionSettings(this.filterSettings);
+        this.searchOptions = this.buildDefaultSearchOptions(this.filterSettings);
       }
     }
   }
@@ -54,7 +51,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
     this.selected.emit(this.aggregateModel);
   }
 
-  onChange(): void {
+  onFilterChange(): void {
 
   }
 
@@ -76,39 +73,61 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
     this.disabled = isDisabled;
   }
 
-  private buildDefaultOptionSettings(filters: SearchFilterModel[]): OptionSettings[] {
-    return (filters || []).map((f: SearchFilterModel) => new OptionSettings({ id: f.key, placeholder: f.placeholder, bufferSize: f.bufferSize }));
+  onDateRangeChange(range: { start: Date, end?: Date }, model: SearchDateRangeModel): void {
+    this.aggregateModel[model.minKey] = formatDate(range.start, 'yyyy-MM-dd', 'en-US');
+    if (range.end) {
+      // endDate = new Date(new Date());
+      // endDate.setDate(endDate.getDate() + 1);
+      // endDate.setHours(0, 0, 0, 0);
+      this.aggregateModel[model.maxKey] = formatDate(range.end, 'yyyy-MM-dd', 'en-US');
+      this.onModelChange();
+    }
   }
 
-  private buildDynamicOptionSettings(filters: SearchFilterModel[] = [], search: SearchResponse): OptionSettings[] {
-    const visibleFilters = filters.filter((x: SearchFilterModel) => x.visibleFn(search.searchParams));
-    return this.buildAggOptionSettings(visibleFilters, search.response.buildAggregateModels());
-  }
-
-  private buildAggOptionSettings(filters: SearchFilterModel[] = [], models: AggregateModel[] = []): OptionSettings[] {
-    const settings: OptionSettings[] = [];
-    filters.forEach((filter: SearchFilterModel) => {
-      if (filter.options) {
-        const options = filter.options.map((opt: any) => new OptionModel({ label: opt.label, value: escapeValue(opt.value) }));
-        settings.push(new OptionSettings({ id: filter.key, placeholder: filter.placeholder, options }));
-      } else {
-        const agg: AggregateModel = models.find((x: AggregateModel) => x.id === filter.key);
-        if (agg) {
-          const options = [];
-          const id = agg.id;
-          const placeholder = filter.placeholder;
-          const bufferSize = filter.bufferSize;
-          const iteration = filter.iteration;
-          for (const bucket of agg.extendedBuckets) {
-            if (filter.filterValueFn && filter.filterValueFn(bucket)) {
-              bucket.value = escapeValue(bucket.key);
-              options.push(filter.buildAggOptionModel(bucket));
-            }
-          }
-          settings.push(new OptionSettings({ id, placeholder, options, iteration, bufferSize }));
-        }
+  private buildDefaultSearchOptions(filters: SearchConditionModel[]): any[] {
+    return (filters || []).map((model: SearchConditionModel) => {
+      if (model.type === 'search-filter') {
+        const f = model as SearchFilterModel;
+        return new OptionSettings({ id: f.key, placeholder: f.placeholder, bufferSize: f.bufferSize, type: f.type });
+      } else if (model.type === 'date-range') {
+        return model;
       }
     });
+  }
+
+  private buildDynamicSearchOptions(filters: SearchConditionModel[] = [], search: SearchResponse): any[] {
+    const visibleFilters = filters.filter((x: SearchFilterModel) => x.visibleFn(search.searchParams));
+    return visibleFilters.map((model: SearchConditionModel) => {
+      if (model.type === 'search-filter') {
+        return this.buildAggOptionSettings(model as SearchFilterModel, search.response.buildAggregateModels());
+      } else if (model.type === 'date-range') {
+        return model;
+      }
+    });
+  }
+
+  private buildAggOptionSettings(m: SearchFilterModel, models: AggregateModel[] = []): OptionSettings {
+    let settings: OptionSettings = null;
+    if (m.options) {
+      const options = m.options.map((opt: any) => new OptionModel({ label: opt.label, value: escapeValue(opt.value) }));
+      settings = new OptionSettings({ id: m.key, placeholder: m.placeholder, type: m.type, options });
+    } else {
+      const agg: AggregateModel = models.find((x: AggregateModel) => x.id === m.key);
+      if (agg) {
+        const options = [];
+        const bufferSize = m.bufferSize;
+        const iteration = m.iteration;
+        for (const bucket of agg.extendedBuckets) {
+          if (m.filterValueFn && m.filterValueFn(bucket)) {
+            bucket.value = escapeValue(bucket.key);
+            options.push(m.buildAggOptionModel(bucket));
+          }
+        }
+        settings = new OptionSettings({ id: agg.id, placeholder: m.placeholder, options, iteration, bufferSize, type: m.type });
+      } else {
+        settings = new OptionSettings({ id: m.key, placeholder: m.placeholder, type: m.type });
+      }
+    }
     return settings;
   }
 }

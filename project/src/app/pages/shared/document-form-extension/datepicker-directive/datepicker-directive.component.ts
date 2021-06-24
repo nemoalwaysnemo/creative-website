@@ -1,7 +1,6 @@
-import { Component, forwardRef, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { NullTemplateVisitor } from '@angular/compiler';
 
 @Component({
   selector: 'datepicker-directive',
