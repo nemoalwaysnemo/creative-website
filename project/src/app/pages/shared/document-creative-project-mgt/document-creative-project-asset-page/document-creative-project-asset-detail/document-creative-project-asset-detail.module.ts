@@ -5,6 +5,7 @@ import { DocumentCreativeProjectAssetDetailComponent } from './document-creative
 import { DocumentCreativeProjectAssetDetailInfoModule } from '../document-creative-project-asset-detail-info/document-creative-project-asset-detail-info.module';
 import { DocumentNewPosterButtonModule } from '../../../document-new-poster-button/document-new-poster-button.module';
 import { DocumentViewerModule } from '../../../document-viewer/document-viewer.module';
+import { DocumentShareButtonModule } from '../../../../shared/document-share-button/document-share-button.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { DocumentViewerModule } from '../../../document-viewer/document-viewer.m
     ThemeModule,
     DocumentNewPosterButtonModule,
     DocumentViewerModule,
+    DocumentShareButtonModule,
     DocumentCreativeProjectAssetDetailInfoModule,
   ],
   declarations: [
