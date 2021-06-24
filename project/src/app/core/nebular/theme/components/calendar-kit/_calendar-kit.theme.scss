@@ -46,10 +46,7 @@
 
   nb-calendar-navigation button[nbButton] {
     width: nb-theme(calendar-navigation-button-width);
-
-    @include nb-for-theme(default) {
-      @include btn-success();
-    }
+    background-color: nb-theme(calendar-navigation-button-bg);
   }
 
   nb-calendar-day-picker .day-cell,
