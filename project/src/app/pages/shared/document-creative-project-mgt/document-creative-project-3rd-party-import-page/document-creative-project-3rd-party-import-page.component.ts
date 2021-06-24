@@ -7,7 +7,7 @@ import { TAB_CONFIG } from './document-creative-project-mgt-asset-tab-config';
 
 @Component({
   selector: 'document-creative-project-3rd-party-import-asset-page',
-  styleUrls: ['../document-creative-project-mgt.component.scss'],
+  styleUrls: ['../document-creative-project-mgt.component.scss', './document-creative-project-3rd-party-import-page.component.scss'],
   templateUrl: './document-creative-project-3rd-party-import-page.component.html',
 })
 export class DocumentCreativeProject3rdPartyImportComponent extends DocumentCreativeProjectMgtBasePageComponent {

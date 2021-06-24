@@ -14,7 +14,7 @@ import { DocumentFormStatus } from '@pages/shared/document-form/document-form.in
 })
 export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativeProjectMgtBaseComponent {
 
-  shareUrl: string = '';
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   enableThumbnailCreation: boolean = true;
 
@@ -32,6 +32,14 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(documentPageService, componentFactoryResolver);
+  }
+
+  protected onInit(): void {
+    this.shareUrl = this.buildShareUrl(this.document);
+  }
+
+  buildShareUrl(doc: DocumentModel): string {
+    return this.documentPageService.getCurrentAppUrl('creative/asset/' + doc.uid);
   }
 
   goHome(): void {
