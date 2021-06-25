@@ -53,7 +53,7 @@
     </td>
   </tr>
 
-  <tr *ngIf="extendRowRef" [ngStyle]="extendRowState[row.index] ? {} : {'display': 'none'}" class="ng2-smart-extend-row">
+  <tr *ngIf="extendRowRef" [ngStyle]="extendRowState[row.index] ? {} : {'display': 'none'}" class="ng2-smart-extend-row custom-extend-row">
     <td [attr.colspan]="tableColumnsCount">
       <ng2-st-tbody-custom-row [templateRef]="extendRowRef" [grid]="grid" [row]="row"></ng2-st-tbody-custom-row>
     </td>

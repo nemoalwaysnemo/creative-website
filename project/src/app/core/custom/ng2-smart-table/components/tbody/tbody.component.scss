@@ -9,6 +9,11 @@
       }
     }
   }
+  .custom-extend-row {
+    &:hover {
+      background: #f5f7fc !important;
+    }
+  }
   .no-data {
     font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
     font-size: 20px;

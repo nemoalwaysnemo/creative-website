@@ -98,8 +98,7 @@ h3 {
 }
 .creative-project-asset-detail-info ::ng-deep nb-tabset {
   .tabset {
-    width: 102.2%;
-    padding-left: 15px;
+    width: calc(100% - 30px);
   }
 }
 ::ng-deep .document-creative-project-home-list {
