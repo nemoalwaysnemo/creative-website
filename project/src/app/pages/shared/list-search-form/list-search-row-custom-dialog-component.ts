@@ -24,12 +24,12 @@ import { filter } from 'rxjs/operators';
       <ng-container *ngSwitchCase="options.viewType === 'thumbnail'">
 
         <ng-container *ngIf="!options.dialogSettings" >
-          <img style="max-height:100px;" [src]="value.thumbnailUrl">
+          <img style="max-height:68px;" [src]="value.thumbnailUrl">
         </ng-container>
 
         <ng-container *ngIf="options.dialogSettings">
           <a href="javascript:;" (click)="openDialog(dialog)" class="property-intro inline-top" title="getTitle(value)">
-            <img style="max-height:100px;" [src]="value.thumbnailUrl">
+            <img style="max-height:68px;" [src]="value.thumbnailUrl">
           </a>
           <ng-template #dialog>
             <global-document-dialog [settings]="options.dialogSettings" [documentModel]="value" [title]="getTitle(value)"></global-document-dialog>
