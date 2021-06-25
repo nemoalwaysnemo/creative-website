@@ -9,7 +9,6 @@ import { CreativeBrandListManageModule } from './creative-brand-manage-list/crea
 import { CreativeBrandManageLibraryModule } from './creative-brand-manage-library/creative-brand-manage-library.module';
 import { CreativeBrandCampaignProjectMgtModule } from './creative-brand-campaign-project-mgt/creative-brand-campaign-project-mgt.module';
 import { CreativeBrandCampaignModule } from './creative-brand-campaign/creative-brand-campaign.module';
-import { CreativeBrandProjectModule } from './creative-brand-project/creative-brand-project.module';
 
 @NgModule({
   imports: [
@@ -18,7 +17,6 @@ import { CreativeBrandProjectModule } from './creative-brand-project/creative-br
     CreativeBrandAssetModule,
     CreativeBrandShowcaseModule,
     CreativeBrandCampaignModule,
-    CreativeBrandProjectModule,
     CreativeBrandUsageRightsModule,
     CreativeBrandListManageModule,
     CreativeBrandManageLibraryModule,

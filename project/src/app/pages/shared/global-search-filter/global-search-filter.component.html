@@ -6,7 +6,7 @@
         </option-select>
       </ng-container>
       <ng-container *ngSwitchCase="item.type === 'date-range'">
-        <input type="text" [placeholder]="item.placeholder" [ngClass]="['form-control', 'datepicker', item.styles]" [readonly]="readonly" [nbDatepicker]="searchDateRange">
+        <input type="text" [placeholder]="item.placeholder" [ngClass]="['form-control', 'datepicker', item.customClass, item.styles]" [readonly]="readonly" [nbDatepicker]="searchDateRange">
         <nb-rangepicker #searchDateRange (rangeChange)="onDateRangeChange($event, item)"></nb-rangepicker>
       </ng-container>
     </ng-container>
