@@ -9,11 +9,11 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
     <ng-container *ngIf="value" [ngSwitch]="true">
 
       <ng-container *ngSwitchCase="options.viewType === 'thumbnail'">
-        <img style="max-height:100px;" [src]="value.thumbnailUrl" (click)="onClick($event)" >
+        <img style="max-height:68px;" [src]="value.thumbnailUrl" (click)="onClick($event)" >
       </ng-container>
 
       <ng-container *ngSwitchCase="options.viewType === 'icon'">
-        <img style="max-height:100px;" [src]="value.url">
+        <img style="max-height:68px;" [src]="value.url">
       </ng-container>
 
       <ng-container *ngSwitchCase="options.viewType === 'html'">
