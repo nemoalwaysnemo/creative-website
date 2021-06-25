@@ -13,7 +13,7 @@ export class SearchConditionModel {
 
 export class SearchDateRangeModel extends SearchConditionModel {
   readonly type: string = 'date-range';
-  readonly styles: string = '';
+  readonly customClass: string = '';
   readonly minKey: string;
   readonly maxKey: string;
 
