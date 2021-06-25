@@ -11,24 +11,25 @@ import { DocumentListViewItem } from '../../../document-list-view/document-list-
 import { ASSET_TYPES } from '../document-creative-project-usage-rigths-type-config';
 
 @Component({
+  styleUrls: ['../document-creative-project-usage-rights-page.component.scss'],
   template: `
   <ng-container *ngIf="value" [ngSwitch]="true">
   <h4>{{value.title}}</h4>
       <ng-container *ngFor="let item of value.types">
         <div class="usage-rights-list">
-          <div class="media-usage-type left">
+          <div class="usage-rights-item left">
             <span>{{item.media_usage_type}}</span>
           </div>
-          <div class="contract-countries left">
+          <div class="usage-rights-item left">
             <span>{{item.contract_countries}}</span>
           </div>
-          <div class="start-airing-date left">
+          <div class="usage-rights-item left">
             <span>{{item.start_airing_date | date :'MMM d, yyyy':'UTC'}}</span>
           </div>
-          <div class="contract-duration left">
+          <div class="usage-rights-item left">
             <span>{{item.contract_duration}}</span>
           </div>
-          <div class="usage-item left">
+          <div class="usage-rights-item left">
             <span>{{item.item}}</span>
           </div>
         </div>
