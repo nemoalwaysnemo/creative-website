@@ -34,8 +34,4 @@ export const TAB_CONFIG: NbMenuItem[] = [
     title: 'Usage Rights',
     component: DocumentCreativeProjectUsageRightsComponent,
   },
-  // {
-  //   title: 'Completion Report',
-  //   component: CreativeProjectAssetCompletionReportTemplateComponent,
-  // },
 ];

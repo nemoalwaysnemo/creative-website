@@ -7,8 +7,6 @@ import { CreativeAssetModule } from './creative-asset/creative-asset.module';
 import { CreativeBrandModule } from './creative-brand/creative-brand.module';
 import { CreativeAgencyModule } from './creative-agency/creative-agency.module';
 import { CreativeMyAgencyModule } from './creative-my-agency/creative-my-agency.module';
-import { CreativeBrandProject3rdPartyImportModule } from './creative-brand/creative-brand-project/creative-brand-project-3rd-party-import/creative-brand-project-3rd-party-import.module';
-import { CreativeBrandProject3rdPartyApprovalModule } from './creative-brand/creative-brand-project/creative-brand-project-3rd-party-approval/creative-brand-project-3rd-party-approval.module';
 
 @NgModule({
   imports: [
@@ -19,8 +17,6 @@ import { CreativeBrandProject3rdPartyApprovalModule } from './creative-brand/cre
     CreativeAgencyModule,
     CreativeMyAgencyModule,
     CreativePageRoutingModule,
-    CreativeBrandProject3rdPartyImportModule,
-    CreativeBrandProject3rdPartyApprovalModule,
   ],
   declarations: [
     CreativePageComponent,

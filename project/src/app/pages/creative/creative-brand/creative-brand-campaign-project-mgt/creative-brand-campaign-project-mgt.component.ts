@@ -44,7 +44,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
   assetFilters: SearchConditionModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
     new SearchFilterModel({ key: 'the_loupe_rights_contract_mediatypes_agg', placeholder: 'Media Usage' }),
-    new SearchDateRangeModel({ minKey: 'the_loupe_rights_first-airing_min', maxKey: 'the_loupe_rights_first-airing_max', placeholder: 'Airing Date Range' }),
+    new SearchDateRangeModel({ minKey: 'the_loupe_rights_first-airing_min', maxKey: 'the_loupe_rights_first-airing_max', placeholder: 'Airing Date Range', customClass: 'set-min-width' }),
   ];
 
   searchFormSettingsCampaign: GlobalSearchFormSettings = new GlobalSearchFormSettings({
