@@ -23,7 +23,7 @@
       <div>{{ formateDate(requestDocument.get('The_Loupe_Delivery:delivery_expiration_date')) }}</div>
       <div><b>Request sent</b></div>
       <div>{{ formateDate(requestDocument.get('The_Loupe_Delivery:delivery_send_date')) }}</div>
-      <button (click)="moveAssets()" class="approve-button {{disabled}}">Approve and move selected assets to library</button>
+      <button (click)="moveAssets()" disabled="{{disabled}}" class="approve-button {{disabled}}">Approve and move selected assets to library</button>
   </div>
 </div>
 <div class="document-creative-project-home-nav"> 
