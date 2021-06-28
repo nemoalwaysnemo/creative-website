@@ -8,6 +8,10 @@
 .layout-left-shared {
   max-width: 220px;
 }
+.layout-left-narrow {
+  width: 19%;
+  min-width: 220px;
+}
 .layout-left-accordion,
 .layout-right-accordion {
   width: 51%;
