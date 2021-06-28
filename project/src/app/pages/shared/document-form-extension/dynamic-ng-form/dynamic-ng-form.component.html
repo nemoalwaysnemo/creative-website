@@ -12,6 +12,20 @@
   </dynamic-ng-form-control>
 </div>
 
+<div [ngClass]="{ 'default-layout': true, 'layout-left left': enableLayoutRight, formClass: true, 'layout-left-narrow': true}">
+  <dynamic-ng-form-control *ngFor="let model of getFormModel('leftNarrow'); trackBy: trackByFn"
+                          [group]="group"
+                          [hidden]="model.hidden"
+                          [layout]="layout"
+                          [model]="model"
+                          [templates]="templates"
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"
+                          (customEvent)="onCustomEvent($event, customEvent)">
+  </dynamic-ng-form-control>
+</div>
+
 <div [ngClass]="{ 'default-layout': true, 'layout-left left': enableLayoutRight, formClass: true, 'layout-left-shared': true}">
   <ng-content></ng-content>
 </div>
