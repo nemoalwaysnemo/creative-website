@@ -1,0 +1,12 @@
+<div class="ring-brand-thumbnail">
+  <global-search-result [templateRef]="thumbnailView" [enableScrolling]="enableScrolling" [listViewBuilder]="listViewBuilder" [listViewSettings]="listViewSettings" [searchResultFilter]="searchResultFilter" [selectedView]="currentView" [loadingStyle]="loadingStyle"></global-search-result>
+</div>
+<ng-template #thumbnailView let-doc="doc">
+  <div class="image-holder">
+    <a [routerLink]="['/p/creative/ring/brand', doc.uid, 'asset']" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
+  </div>
+  <div class="description">
+    <h1 [title]="doc.title"><a [routerLink]="['/p/creative/brand', doc.uid, 'asset']">{{doc.title}}</a></h1>
+    <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
+  </div>
+</ng-template>
