@@ -164,7 +164,7 @@ export class DocumentPageService {
   }
 
   initializeDocument(parent: DocumentModel, docType: string): Observable<DocumentModel> {
-    return this.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid, { schemas: '*' })
+    return this.operation(NuxeoAutomations.InitializeDocument, { type: docType }, parent.uid || parent.path, { schemas: '*' })
       .pipe(
         tap((doc: DocumentModel) => {
           doc.setParent(parent);

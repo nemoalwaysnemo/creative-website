@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { DocumentModel, NuxeoUploadResponse, UserModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicFormHook } from '@core/custom';
+import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse, UserModel } from '@core/api';
+import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'creative-ring-collection-form',
-  template: `<document-batch-operation [documentModel]="document" [settings]="formSettings" [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-batch-operation>`,
+  template: `<document-batch-operation [documentModel]="document" [settings]="formSettings" [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-batch-operation>`,
 })
 export class CreativeRingCollectionFormComponent extends GlobalDocumentFormComponent {
 
@@ -22,6 +23,14 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     super(documentPageService);
   }
 
+  afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {
+    const collection = ctx.performedDocuments.shift();
+    const assetIds = ctx.performedDocuments.map((d: DocumentModel) => d.uid);
+    return this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: collection.uid }, assetIds).pipe(
+      map(_ => ctx),
+    );
+  }
+
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return observableOf(doc);
   }
@@ -29,6 +38,8 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
   protected getDocumentFormSettings(): DocumentFormSettings {
     return new DocumentFormSettings({
       acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
+      docType: this.documentType,
+      enableCreateMain: true,
       importSettings: {
         placeholder: 'Upload Assets',
         getDocType: (item: NuxeoUploadResponse): string => {
@@ -85,20 +96,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           errorMessages: { required: '' },
         }),
         new DynamicSuggestionModel<string>({
-          id: 'The_Loupe_Main:brand',
-          label: 'Brand',
-          required: true,
-          settings: {
-            multiple: false,
-            placeholder: 'What is this brand?',
-            providerType: SuggestionSettings.DIRECTORY,
-            providerName: 'App-Library-CreativeRing-Brands',
-          },
-          layoutPosition: 'leftNarrow',
-          validators: { required: null },
-          errorMessages: { required: '' },
-        }),
-        new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:agency',
           label: 'Agency',
           required: true,
@@ -141,7 +138,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           label: 'Brand',
           required: true,
           settings: {
-            multiple: false,
             placeholder: 'What is this brand?',
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'App-Library-CreativeRing-Brands',

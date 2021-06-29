@@ -11,7 +11,7 @@ import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './docu
     <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? loadingStyle : {}">
       <ng-container *ngIf="documentList && documentList.length !== 0">
         <div class="s-results {{layout}}" [ngStyle]="hide ? {'display': 'none'} : {}">
-          <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass, (selectableItemSettings.enableSelectable ? 'enableSelectable' : '')]" [attr.doc-type]="document.type">
+          <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass, (selectableItemSettings.enableSelectable ? 'enableSelectable' : '')]" [attr.doc-uid]="document.uid" [attr.doc-type]="document.type">
             <ng-template #itemTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
           </div>
           <div class="clear"></div>

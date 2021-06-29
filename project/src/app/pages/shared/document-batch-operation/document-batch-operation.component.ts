@@ -94,7 +94,7 @@ export class DocumentBatchOperationComponent implements OnInit, OnDestroy {
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel[]> {
     if (formSettings.docType) {
-      return this.documentPageService.initializeDocument(doc, formSettings.docType).pipe(map((d: DocumentModel) => [d]));
+      return this.documentPageService.initializeDocument(doc, formSettings.docType).pipe(map((d: DocumentModel) => [d.setParent(doc, 'target')]));
     } else {
       return observableOf([new DocumentModel({ uid: doc.uid, path: doc.path }, doc.options).setParent(doc)]);
     }

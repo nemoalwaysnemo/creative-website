@@ -50,7 +50,7 @@ export class Repository extends Base {
   }
 
   _computePath(ref: string): string {
-    return join(ref.indexOf('/') === 0 ? 'path' : 'id', ref);
+    return join(ref.includes('/') ? 'path' : 'id', ref);
   }
 
 }
