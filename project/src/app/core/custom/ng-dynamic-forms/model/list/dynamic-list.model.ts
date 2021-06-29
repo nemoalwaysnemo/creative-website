@@ -1,7 +1,7 @@
 import { DynamicFormControlLayout } from '../misc/dynamic-form-control-layout.model';
 import { serializable } from '../../decorator/serializable.decorator';
 import { DynamicFormValueControlModelConfig, DynamicFormValueControlModel } from '../dynamic-form-value-control.model';
-import { DocumentFormListSettings } from '../../../../../pages/shared/document-form-extension/document-form-list/document-form-list.interface';
+import { DocumentFieldListSettings } from '../../../../../pages/shared/document-form-extension/document-field-list/document-field-list.interface';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_LIST = 'LIST';
 
@@ -13,6 +13,6 @@ export class DynamicListModel<T> extends DynamicFormValueControlModel<T> {
 
   constructor(config: DynamicListModelConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
-    this.settings = new DocumentFormListSettings(config.settings ? Object.assign({}, config.settings, { formMode: config.formMode }) : { formMode: config.formMode });
+    this.settings = new DocumentFieldListSettings(config.settings ? Object.assign({}, config.settings, { formMode: config.formMode }) : { formMode: config.formMode });
   }
 }
