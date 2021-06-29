@@ -18,6 +18,8 @@ export enum NUXEO_DOC_TYPE {
   CREATIVE_ASSET_REQUEST_TYPE = '["App-Library-Asset-Request"]',
   CREATIVE_RING_FOLDER_TYPE = '["App-Library-CreativeRing-Folder"]',
   CREATIVE_RING_COLLECTION_TYPE = '["App-Library-CreativeRing-Collection"]',
+  CREATIVE_BRAND_COLLECTION_TYPE = '["Brand Collection"]',
+  CREATIVE_AGENCY_COLLECTION_TYPE = '["Agency Collection"]',
   BACKSLASH_ASSET_TYPE = '["App-Backslash-Article", "App-Backslash-Video", "App-Backslash-Case-Study", "App-Backslash-Edges-Asset", "App-Backslash-Resources-Asset", "App-Edges-Trigger"]',
   BACKSLASH_ARTICLE_VIDEO_POST_TYPES = '["App-Backslash-Article", "App-Backslash-Video", "App-Backslasht-Post"]',
   BACKSLASH_CASE_STUDIES_BASE_FOLDER_TYPE = '["App-Backslash-Case-Studies-Folder"]',
