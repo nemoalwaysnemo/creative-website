@@ -7,7 +7,7 @@ import { OptionTagModule } from '../option-tag/option-tag.module';
 import { GalleryUploadModule } from '../gallery-upload/gallery-upload.module';
 import { DatepickerDirectiveModule } from '../datepicker-directive/datepicker-directive.module';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
-import { DocumentFormListModule } from '../document-form-list/document-form-list.module';
+import { DocumentFieldListModule } from '../document-field-list/document-field-list.module';
 import { NgbDatepickerModule, NgbButtonsModule, NgbTimepickerModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
 import { DynamicNGFormComponent } from './dynamic-ng-form.component';
@@ -49,7 +49,7 @@ import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dy
     NgbDatepickerModule,
     NgbTimepickerModule,
     DragDropFileZoneModule,
-    DocumentFormListModule,
+    DocumentFieldListModule,
     DirectorySuggestionModule,
     DatepickerDirectiveModule,
     DynamicFormsCoreModule,

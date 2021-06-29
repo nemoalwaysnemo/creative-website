@@ -8,7 +8,7 @@ export * from './document-related-campaign/document-related-campaign.module';
 export * from './document-related-disruption-x/document-related-disruption-x.module';
 export * from './document-form-extension/directory-suggestion/directory-suggestion.module';
 export * from './document-form-extension/datepicker-directive/datepicker-directive.module';
-export * from './document-form-extension/document-form-list/document-form-list.module';
+export * from './document-form-extension/document-field-list/document-field-list.module';
 export * from './document-form-extension/batch-file-upload/batch-file-upload.module';
 export * from './document-form-extension/option-tag/option-tag.module';
 export * from './document-viewer/document-viewer.module';

@@ -1,15 +1,15 @@
 <ng-container [formGroup]="formGroup">
-  <div class="document-form-list">
+  <div class="document-field-list">
     <table>
       <tbody>
-        <document-form-list-row
+        <document-field-list-row
           [arrayModel]="formArrayModel"
           [group]="formGroup"
           (blur)="onBlur($event)"
           (change)="onChange($event)"
           (focus)="onFocus($event)"
           (customEvent)="onCustomEvent($event, customEvent)">
-        </document-form-list-row>
+        </document-field-list-row>
       </tbody>
       <tfoot>
         <tr>

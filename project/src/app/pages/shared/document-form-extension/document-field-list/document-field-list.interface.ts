@@ -1,6 +1,6 @@
 import { DynamicFormModel } from '@core/custom';
 
-export class DocumentFormListSettings {
+export class DocumentFieldListSettings {
 
   items: DynamicFormModel = [];
 

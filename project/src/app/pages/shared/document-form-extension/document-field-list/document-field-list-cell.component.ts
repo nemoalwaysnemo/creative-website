@@ -8,10 +8,10 @@ import {
 import { DynamicNGFormControlContainerComponent } from '../dynamic-ng-form/dynamic-ng-form-control-container.component';
 
 @Component({
-  selector: 'document-form-list-cell',
-  templateUrl: './document-form-list-cell.component.html',
+  selector: 'document-field-list-cell',
+  templateUrl: './document-field-list-cell.component.html',
 })
-export class DocumentFormListCellComponent extends DynamicNGFormControlContainerComponent {
+export class DocumentFieldListCellComponent extends DynamicNGFormControlContainerComponent {
 
   constructor(protected changeDetectorRef: ChangeDetectorRef,
               protected componentFactoryResolver: ComponentFactoryResolver,

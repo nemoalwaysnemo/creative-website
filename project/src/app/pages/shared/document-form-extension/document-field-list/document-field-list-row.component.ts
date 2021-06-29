@@ -3,10 +3,10 @@ import { DynamicFormArrayComponent, DynamicFormArrayModel, DynamicFormLayoutServ
 import { FormGroup, FormArray } from '@angular/forms';
 
 @Component({
-  selector: 'document-form-list-row',
-  templateUrl: './document-form-list-row.component.html',
+  selector: 'document-field-list-row',
+  templateUrl: './document-field-list-row.component.html',
 })
-export class DocumentFormListRowComponent extends DynamicFormArrayComponent {
+export class DocumentFieldListRowComponent extends DynamicFormArrayComponent {
 
   headers: any[] = [];
 

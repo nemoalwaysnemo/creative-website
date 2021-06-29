@@ -11,19 +11,19 @@ import {
 import { isValueEmpty } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { DocumentFormListSettings } from './document-form-list.interface';
+import { DocumentFieldListSettings } from './document-field-list.interface';
 
 @Component({
-  selector: 'document-form-list',
-  styleUrls: ['./document-form-list.component.scss'],
-  templateUrl: './document-form-list.component.html',
+  selector: 'document-field-list',
+  styleUrls: ['./document-field-list.component.scss'],
+  templateUrl: './document-field-list.component.html',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => DocumentFormListComponent),
+    useExisting: forwardRef(() => DocumentFieldListComponent),
     multi: true,
   }],
 })
-export class DocumentFormListComponent extends DynamicFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class DocumentFieldListComponent extends DynamicFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
   constructor(protected formService: DynamicFormService, protected changeDetectorRef: ChangeDetectorRef, protected componentService: DynamicFormComponentService) {
     super(changeDetectorRef, componentService);
@@ -34,7 +34,7 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
   @Input() loading: boolean = true;
 
   @Input()
-  set settings(settings: DocumentFormListSettings) {
+  set settings(settings: DocumentFieldListSettings) {
     if (!isValueEmpty(settings)) {
       this.formListSettings = settings;
     }
@@ -54,7 +54,7 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
 
   disabled: boolean = false;
 
-  private formListSettings: DocumentFormListSettings = new DocumentFormListSettings();
+  private formListSettings: DocumentFieldListSettings = new DocumentFieldListSettings();
 
   private subscription: Subscription = new Subscription();
 
@@ -104,7 +104,7 @@ export class DocumentFormListComponent extends DynamicFormComponent implements O
     }));
   }
 
-  private createForm(settings: DocumentFormListSettings, values: any[] = []): void {
+  private createForm(settings: DocumentFieldListSettings, values: any[] = []): void {
     const rows = values && values.length > 0 ? values.length : 0;
     const models = [this.getFormArrayModel(settings.items, rows)];
     const formGroupModels = this.formService.fromJSON(models);
