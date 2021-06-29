@@ -15,6 +15,7 @@ import { CreativeAgencyBrandComponent } from './creative-agency/creative-agency-
 import { CreativeRingCollectionComponent } from './creative-ring/creative-ring-collection/creative-ring-collection.component';
 import { CreativeRingAgencyComponent } from './creative-ring/creative-ring-agency/creative-ring-agency.component';
 import { CreativeRingBrandComponent } from './creative-ring/creative-ring-brand/creative-ring-brand.component';
+import { CreativeRingCollectionFolderComponent } from './creative-ring/creative-ring-collection-folder/creative-ring-collection-folder.component';
 import { CreativeAgencyShowcaseComponent } from './creative-agency/creative-agency-showcase/creative-agency-showcase.component';
 import { CreativeAgencyManageLibraryComponent } from './creative-agency/creative-agency-manage-library/creative-agency-manage-library.component';
 import { CreativeBrandCampaignProjectMgtComponent } from './creative-brand/creative-brand-campaign-project-mgt/creative-brand-campaign-project-mgt.component';
@@ -119,6 +120,10 @@ const routes: Routes = [{
     {
       path: 'ring/brand/:id/asset',
       component: CreativeRingBrandComponent,
+    },
+    {
+      path: 'ring/collection/folder/:id',
+      component: CreativeRingCollectionFolderComponent,
     },
     {
       path: '',

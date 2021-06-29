@@ -5,7 +5,7 @@ import { CreativeRingPageComponent } from './creative-ring.component';
 import { CreativeRingCollectionModule } from './creative-ring-collection/creative-ring-collection.module';
 import { CreativeRingBrandModule } from './creative-ring-brand/creative-ring-brand.module';
 import { CreativeRingAgencyModule } from './creative-ring-agency/creative-ring-agency.module';
-
+import { CreativeRingCollectionFolderModule } from './creative-ring-collection-folder/creative-ring-collection-folder.module';
 @NgModule({
   imports: [
     ThemeModule,
@@ -13,6 +13,7 @@ import { CreativeRingAgencyModule } from './creative-ring-agency/creative-ring-a
     CreativeRingCollectionModule,
     CreativeRingBrandModule,
     CreativeRingAgencyModule,
+    CreativeRingCollectionFolderModule,
   ],
   declarations: [
     CreativeRingPageComponent,
