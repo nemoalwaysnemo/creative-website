@@ -120,7 +120,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   }
 
   protected initializeDocument(ctx: DocumentFormContext, item: NuxeoUploadResponse): Observable<DocumentModel> {
-    return this.documentPageService.initializeDocument(ctx.currentDocument, this.getDocType(ctx.formSettings, item));
+    return this.documentPageService.initializeDocument(ctx.targetDocument, this.getDocType(ctx.formSettings, item));
   }
 
   protected getDocType(settings: DocumentFormSettings, item: NuxeoUploadResponse): string {

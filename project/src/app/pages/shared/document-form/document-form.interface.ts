@@ -65,6 +65,8 @@ export class DocumentFormContext {
 
   user: UserModel;
 
+  targetFolder: DocumentModel;
+
   documents: DocumentModel[] = [];
 
   formSettings: DocumentFormSettings;
@@ -91,14 +93,22 @@ export class DocumentFormContext {
     return this.documents[0];
   }
 
+  get targetDocument(): DocumentModel {
+    return this.targetFolder || this.currentDocument;
+  }
+
   update(params: any = {}): this {
-    ['user', 'documents', 'formSettings', 'uploadModel'].forEach((prop: string) => {
+    ['user', 'documents', 'formSettings', 'uploadModel', 'targetFolder'].forEach((prop: string) => {
       if (params[prop]) {
         this[prop] = params[prop];
         delete params[prop];
       }
     });
     Object.assign(this, params);
+    if (this.currentDocument.hasParent('target')) {
+      this.targetFolder = this.currentDocument.getParent('target');
+      this.currentDocument.removeParent('target');
+    }
     return this;
   }
 
@@ -154,7 +164,9 @@ export class DocumentFormSettings {
 
   enableButtons: boolean = true;
 
-  enableBatchSyncCreate: boolean = true;
+  enableCreateMain: boolean = false;
+
+  enableCreateBatch: boolean = true;
 
   enableBulkImport: boolean = false;
 

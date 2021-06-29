@@ -134,6 +134,14 @@ export class DocumentModel extends Base {
     return this.getCache(key);
   }
 
+  hasParent(key: string): boolean {
+    return this.hasCache(key);
+  }
+
+  removeParent(key: string): void {
+    this.removeCache(key);
+  }
+
   getParentPropertyByOperation(propertyName: string, key: string = 'parent'): Observable<any> {
     if (this.hasCache(key)) {
       return observableOf(this.getParent(key).get(propertyName));
@@ -395,6 +403,10 @@ export class DocumentModel extends Base {
 
   private hasCache(key: string): boolean {
     return this.cache.has(key);
+  }
+
+  private removeCache(key: string): boolean {
+    return this.cache.delete(key);
   }
 
 }

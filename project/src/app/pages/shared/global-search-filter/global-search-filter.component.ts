@@ -24,6 +24,8 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
 
   closeOnSelect: boolean = true;
 
+  readonly: boolean = true;
+
   disabled: boolean = false;
 
   @Input() searchResponse: SearchResponse;
