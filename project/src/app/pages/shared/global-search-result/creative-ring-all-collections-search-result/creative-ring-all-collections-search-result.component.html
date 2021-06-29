@@ -1,7 +1,7 @@
 <global-search-result [loadingStyle]="loadingStyle" [enableScrolling]="enableScrolling" [searchResultFilter]="searchResultFilter" [templateRef]="thumbnailView"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
-    <a [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+    <a [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}" [routerLink]="['/p/creative/ring/collection/folder/', doc.uid]"></a>
   </div>
   <div class="description">
     <h1 [title]="doc.title">{{doc.title}}</h1>
