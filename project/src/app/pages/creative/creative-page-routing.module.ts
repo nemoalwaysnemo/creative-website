@@ -13,6 +13,7 @@ import { CreativeBrandManageListComponent } from './creative-brand/creative-bran
 import { CreativeBrandManageLibraryComponent } from './creative-brand/creative-brand-manage-library/creative-brand-manage-library.component';
 import { CreativeAgencyBrandComponent } from './creative-agency/creative-agency-brand/creative-agency-brand.component';
 import { CreativeRingCollectionComponent } from './creative-ring/creative-ring-collection/creative-ring-collection.component';
+import { CreativeRingAgencyComponent } from './creative-ring/creative-ring-agency/creative-ring-agency.component';
 import { CreativeAgencyShowcaseComponent } from './creative-agency/creative-agency-showcase/creative-agency-showcase.component';
 import { CreativeAgencyManageLibraryComponent } from './creative-agency/creative-agency-manage-library/creative-agency-manage-library.component';
 import { CreativeBrandCampaignProjectMgtComponent } from './creative-brand/creative-brand-campaign-project-mgt/creative-brand-campaign-project-mgt.component';
@@ -105,6 +106,10 @@ const routes: Routes = [{
     {
       path: 'ring/collection',
       component: CreativeRingCollectionComponent,
+    },
+    {
+      path: 'ring/agency',
+      component: CreativeRingAgencyComponent,
     },
     {
       path: '',
