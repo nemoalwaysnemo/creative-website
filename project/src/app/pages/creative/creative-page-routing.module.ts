@@ -122,7 +122,7 @@ const routes: Routes = [{
       component: CreativeRingBrandComponent,
     },
     {
-      path: 'ring/collection/folder/:id',
+      path: 'ring/collection/:id/asset',
       component: CreativeRingCollectionFolderComponent,
     },
     {
