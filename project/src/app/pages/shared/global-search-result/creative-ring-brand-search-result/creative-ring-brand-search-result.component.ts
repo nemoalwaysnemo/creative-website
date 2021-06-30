@@ -76,7 +76,7 @@ export class CreativeRingBrandSearchResultComponent extends BaseSearchResultComp
         uid: doc.uid,
         action: doc,
         brand: { title: doc.title, uid: doc.uid },
-        assets: doc.get('The_Loupe_Main:agency'),
+        assets: doc.get('collection:documentIds') ? doc.get('collection:documentIds').length : 0,
       }));
     }
     return items;
