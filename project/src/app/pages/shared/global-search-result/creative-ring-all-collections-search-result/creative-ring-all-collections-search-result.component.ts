@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SearchResponse } from '@core/api';
+import { DocumentModel, SearchResponse } from '@core/api';
 
 @Component({
   selector: 'creative-ring-all-collections-search-result',
@@ -14,6 +14,22 @@ export class CreativeRingAllCollectionsSearchResultComponent {
 
   searchResultFilter(res: SearchResponse): boolean {
     return res.source === 'creative-ring-all-collections';
+  }
+
+  getAssetUrl(doc: DocumentModel): string {
+    let url: string = '/p/creative/ring/:type/:uid/asset';
+    switch (doc.get('The_Loupe_Main:collection_type')) {
+      case 'Agency Collection':
+        url = url.replace(':type', 'agency');
+        break;
+      case 'Brand Collection':
+        url = url.replace(':type', 'brand');
+        break;
+      default:
+        url = url.replace(':type', 'collection');
+        break;
+    }
+    return url.replace(':uid', doc.uid);
   }
 
 }

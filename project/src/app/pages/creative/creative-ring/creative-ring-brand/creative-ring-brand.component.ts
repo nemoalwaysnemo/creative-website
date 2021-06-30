@@ -24,7 +24,7 @@ export class CreativeRingBrandComponent extends GlobalDocumentViewComponent {
     ecm_fulltext: '',
     ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
-    the_loupe_main_collection_type: NUXEO_DOC_TYPE.CREATIVE_BRAND_COLLECTION_TYPE,
+    the_loupe_main_collection_type: NUXEO_DOC_TYPE.CREATIVE_RING_BRAND_COLLECTION_TYPE,
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
