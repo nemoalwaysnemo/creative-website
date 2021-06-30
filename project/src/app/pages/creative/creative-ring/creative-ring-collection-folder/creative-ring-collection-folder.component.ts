@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, UserModel, NuxeoPermission, GlobalSearchParams } from '@core/api';
-import { SelectableItemService } from '../../../shared/document-selectable';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { DocumentModel, NuxeoPermission, GlobalSearchParams } from '@core/api';
+import { GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-ring-collection-folder',
@@ -21,31 +19,33 @@ export class CreativeRingCollectionFolderComponent extends GlobalDocumentViewCom
     enableQueryParams: true,
   });
 
+  currentView: string = 'thumbnailView';
+
+  onSearching: boolean = true;
+
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
+
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc)); });
-      this.addChildrenPermission$ = !doc.hasFolderishChild ? doc.hasPermission(NuxeoPermission.AddChildren) : observableOf(false);
     }
   }
   protected buildAssetParams(doc: DocumentModel): any {
+    const ids = doc.get('collection:documentIds');
     const params: any = {
+      ecm_uuid: `["${ids.join('", "')}"]`,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       currentPageIndex: 0,
       ecm_fulltext: '',
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_RING_PATH,
       pageSize: 100,
     };
-    if (doc) {
-      if (doc.get('The_Loupe_Main:collection_type') === 'Agency Collection'){
-        params['the_loupe_main_agency'] = doc.get('dc:title');
-      }else if (doc.get('The_Loupe_Main:collection_type') === 'Brand Collection'){
-        params['the_loupe_main_brand_any'] = `["${doc.get('dc:title')}"]`;
-      }else{
-        params['pageSize'] = 0;
-      }
-    }
-    return new GlobalSearchParams(params);
+    return params;
   }
+
+  onLoading(loading: boolean): void {
+    this.onSearching = loading;
+  }
+
 
 }

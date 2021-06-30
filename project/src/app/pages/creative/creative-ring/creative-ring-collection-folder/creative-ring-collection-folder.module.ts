@@ -7,7 +7,7 @@ import { CreativeRingFormButtonModule } from '../creative-ring-form-button/creat
 import { GlobalSearchButtonModule } from '../../../shared/global-search-button/global-search-button.module';
 import { CreativeRingInfoViewModule } from '../creative-ring-info-view/creative-ring-info-view.module';
 import { CreativeRingFolderInfoModule } from '../creative-ring-folder-info/creative-ring-folder-info.module';
-
+import { DocumentShareButtonModule } from '../../../shared/document-share-button/document-share-button.module';
 @NgModule({
   imports: [
     ThemeModule,
@@ -18,6 +18,7 @@ import { CreativeRingFolderInfoModule } from '../creative-ring-folder-info/creat
     CreativeRingInfoViewModule,
     CreativeRingFormButtonModule,
     CreativeRingFolderInfoModule,
+    DocumentShareButtonModule,
   ],
   declarations: [
     CreativeRingCollectionFolderComponent,
