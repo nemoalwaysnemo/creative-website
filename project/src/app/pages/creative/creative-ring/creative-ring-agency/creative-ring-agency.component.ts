@@ -13,12 +13,22 @@ import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 })
 export class CreativeRingAgencyComponent extends GlobalDocumentViewComponent {
 
-  baseParams$: Subject<any> = new Subject<any>();
+  defaultParams: any = {
+    currentPageIndex: 0,
+    ecm_fulltext: '',
+    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
+    the_loupe_main_collection_type: NUXEO_DOC_TYPE.CREATIVE_RING_AGENCY_COLLECTION_TYPE,
+  };
 
-  // searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-  //   source: 'creative-ring-my-collections',
-  //   enableQueryParams: true,
-  // });
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'creative-ring-agency',
+    enableQueryParams: true,
+  });
+
+  currentView: string = 'listView';
+
+  filters: SearchFilterModel[] = [];
 
   onSearching: boolean = true;
 
@@ -39,13 +49,12 @@ export class CreativeRingAgencyComponent extends GlobalDocumentViewComponent {
     this.onSearching = loading;
   }
 
+  onResultViewChanged(name: string): void {
+    this.currentView = name;
+  }
 
   protected setCurrentDocument(doc: DocumentModel, user: UserModel): void {
     super.setCurrentDocument(doc, user);
-    // if (doc) {
-    //   timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams(doc, user)); });
-    //   this.selectableItemService.clear();
-    // }
   }
 
   protected getCurrentDocumentSearchParams(): any {
@@ -56,19 +65,5 @@ export class CreativeRingAgencyComponent extends GlobalDocumentViewComponent {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_FOLDER_TYPE,
     };
   }
-
-  // protected buildAssetsParams(doc: DocumentModel, user: UserModel): any {
-  //   // my collections
-  //   const params: any = {
-  //     currentPageIndex: 0,
-  //     ecm_fulltext: '',
-  //     ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
-  //     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
-  //   };
-  //   if (doc) {
-  //     params['dc_creator'] = `["${user.username}"]`;
-  //   }
-  //   return params;
-  // }
 
 }

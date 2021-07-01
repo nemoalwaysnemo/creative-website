@@ -1,2 +1,5 @@
 <creative-ring-info-view [loading]="loading" [document]="document"></creative-ring-info-view>
-AGENCY PAGE HERE
+<div class="creative-ring-agency" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+  <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings" (onLoading)="onLoading($event)"></global-search-form>
+  <creative-ring-agency-search-result [selectedView]="currentView"></creative-ring-agency-search-result>
+</div>
