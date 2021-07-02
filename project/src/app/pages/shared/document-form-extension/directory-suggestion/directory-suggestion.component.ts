@@ -56,13 +56,13 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private subscription: Subscription = new Subscription();
 
-  @Input() afterSearch: (options: OptionModel[]) => Observable<OptionModel[]> = (options: OptionModel[]) => observableOf(options);
-
-  @Input() onResponsed: (res: any) => any = (res: any) => res;
-
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
+
+  @Input() afterSearch: (options: OptionModel[]) => Observable<OptionModel[]> = (options: OptionModel[]) => observableOf(options);
+
+  @Input() onResponse: (res: any) => any = (res: any) => res;
 
   ngOnInit(): void {
     this.placeholder = this.settings.placeholder;
@@ -224,7 +224,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     if (input) {
       params['docId'] = input;
     }
-    return this.documentPageService.operation(operationName, params, input).pipe(map((res: any) => this.onResponsed(res)));
+    return this.documentPageService.operation(operationName, params, input).pipe(map((res: any) => this.onResponse(res)));
   }
 
   private getDirectoryEntries(directoryName: string): void {

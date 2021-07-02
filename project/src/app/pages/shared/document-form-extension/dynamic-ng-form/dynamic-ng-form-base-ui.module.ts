@@ -8,6 +8,7 @@ import { GalleryUploadModule } from '../gallery-upload/gallery-upload.module';
 import { DatepickerDirectiveModule } from '../datepicker-directive/datepicker-directive.module';
 import { DirectorySuggestionModule } from '../directory-suggestion/directory-suggestion.module';
 import { DocumentFieldListModule } from '../document-field-list/document-field-list.module';
+import { DocumentSelectListModule } from '../document-select-list/document-select-list.module';
 import { NgbDatepickerModule, NgbButtonsModule, NgbTimepickerModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
 import { DynamicNGFormComponent } from './dynamic-ng-form.component';
@@ -34,6 +35,7 @@ import { DynamicNGFieldHeaderComponent } from './field-header/dynamic-ng-field-h
 import { DynamicNGGalleryUploadComponent } from './gallery-upload/dynamic-ng-gallery-upload.component';
 import { DynamicNGDragDropFileZoneComponent } from './drag-drop-file-zone/dynamic-ng-drag-drop-file-zone.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
+import { DynamicNGDocumentSelectListComponent } from './document-select-list/dynamic-ng-document-select-list.component';
 
 @NgModule({
   imports: [
@@ -50,6 +52,7 @@ import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dy
     NgbTimepickerModule,
     DragDropFileZoneModule,
     DocumentFieldListModule,
+    DocumentSelectListModule,
     DirectorySuggestionModule,
     DatepickerDirectiveModule,
     DynamicFormsCoreModule,
@@ -77,6 +80,7 @@ import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dy
     DynamicNGGalleryUploadComponent,
     DynamicNGDragDropFileZoneComponent,
     DynamicNGDatepickerDirectiveComponent,
+    DynamicNGDocumentSelectListComponent,
   ],
   exports: [
     DynamicFormsCoreModule,
@@ -101,6 +105,7 @@ import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dy
     DynamicNGGalleryUploadComponent,
     DynamicNGDragDropFileZoneComponent,
     DynamicNGDatepickerDirectiveComponent,
+    DynamicNGDocumentSelectListComponent,
   ],
 })
 export class DynamicFormsBaseNGUIModule {

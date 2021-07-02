@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NuxeoUploadResponse } from '@core/api';
 import { DynamicFormControlModel, DynamicFormModel } from '@core/custom';
-import { Subject } from 'rxjs';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { BaseDocumentFormComponent } from './base-document-form.component';
-import { DocumentFormContext, DocumentFormSettings } from './document-form.interface';
+import { DocumentFormContext } from './document-form.interface';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'document-form',

@@ -18,7 +18,8 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD,
   DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE,
-  DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE,
+  DYNAMIC_FORM_CONTROL_TYPE_DRAG_DROP_FILE_ZONE,
+  DYNAMIC_FORM_CONTROL_TYPE_DOCUMENT_SELECT_LIST,
   DYNAMIC_FORM_CONTROL_TYPE_LIST,
   DYNAMIC_FORM_CONTROL_TYPE_GALLERY_UPLOAD,
   DYNAMIC_FORM_CONTROL_TYPE_FIELD_HEADER,
@@ -38,6 +39,7 @@ import { DynamicNGTimePickerComponent } from './timepicker/dynamic-ng-timepicker
 import { DynamicNGBatchUploadComponent } from './batch-upload/dynamic-ng-batch-upload.component';
 import { DynamicNGSuggestionComponent } from './suggestion/dynamic-ng-suggestion.component';
 import { DynamicNGOptionTagComponent } from './option-tag/dynamic-ng-option-tag.component';
+import { DynamicNGDocumentSelectListComponent } from './document-select-list/dynamic-ng-document-select-list.component';
 import { DynamicNGDatepickerDirectiveComponent } from './datepicker-directive/dynamic-ng-datepicker-directive.component';
 import { DynamicNGDragDropFileZoneComponent } from './drag-drop-file-zone/dynamic-ng-drag-drop-file-zone.component';
 import { DynamicNGGalleryUploadComponent } from './gallery-upload/dynamic-ng-gallery-upload.component';
@@ -77,8 +79,10 @@ export function ngBootstrapUIFormControlMapFn(model: DynamicFormControlModel): T
       return DynamicNGOptionTagComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE:
       return DynamicNGDatepickerDirectiveComponent;
-    case DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE:
+    case DYNAMIC_FORM_CONTROL_TYPE_DRAG_DROP_FILE_ZONE:
       return DynamicNGDragDropFileZoneComponent;
+    case DYNAMIC_FORM_CONTROL_TYPE_DOCUMENT_SELECT_LIST:
+      return DynamicNGDocumentSelectListComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_FIELD_HEADER:
       return DynamicNGFieldHeaderComponent;
     case DYNAMIC_FORM_CONTROL_TYPE_GALLERY_UPLOAD:

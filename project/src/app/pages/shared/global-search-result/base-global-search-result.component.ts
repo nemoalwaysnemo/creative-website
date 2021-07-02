@@ -58,7 +58,10 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   @Input() searchResultFilter: (res: SearchResponse) => boolean = (res: SearchResponse) => res.source === 'global-search-form';
 
-  @Input() listViewBuilder: (documents: DocumentModel[]) => any[] = (documents: DocumentModel[]) => documents;
+  @Input() listViewBuilder: (docs: DocumentModel[]) => DocumentListViewItem[] = (docs: DocumentModel[]) => docs.map((d: DocumentModel) => new DocumentListViewItem({
+    uid: d.uid,
+    title: d.title,
+  }))
 
   protected onInit(): void {
     this.onSearch();

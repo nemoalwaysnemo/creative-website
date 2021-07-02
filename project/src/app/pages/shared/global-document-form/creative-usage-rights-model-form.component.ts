@@ -178,7 +178,7 @@ export class CreativeUsageRightsModelComponent extends GlobalDocumentFormCompone
               },
               validators: { required: null },
               errorMessages: { required: '{{label}} is required' },
-              onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+              onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
             }),
             new DynamicDatepickerDirectiveModel<string>({
               id: 'start_airing_date',

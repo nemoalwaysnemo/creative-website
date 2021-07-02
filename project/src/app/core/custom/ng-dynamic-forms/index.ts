@@ -43,6 +43,7 @@ export * from './model/batch-upload/batch-upload.model';
 export * from './model/field-header/dynamic-field-header.model';
 export * from './model/drag-drop-file-zone/drag-drop-file-zone.model';
 export * from './model/gallery-upload/dynamic-gallery-upload.model';
+export * from './model/document-select-list/document-select-list.model';
 export * from './model/dynamic-datepicker/dynamic-datepicker-directive.model';
 
 export * from './model/misc/dynamic-form-control-layout.model';

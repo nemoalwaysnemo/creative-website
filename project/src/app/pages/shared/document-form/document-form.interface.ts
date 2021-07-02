@@ -65,6 +65,8 @@ export class DocumentFormContext {
 
   user: UserModel;
 
+  formValue: any = {};
+
   targetFolder: DocumentModel;
 
   documents: DocumentModel[] = [];
@@ -114,6 +116,11 @@ export class DocumentFormContext {
 
   updatePerformedDocuments(docs: DocumentModel[]): this {
     this.performedDocuments = docs;
+    return this;
+  }
+
+  updateFormValue(value: any): this {
+    this.formValue = value;
     return this;
   }
 }

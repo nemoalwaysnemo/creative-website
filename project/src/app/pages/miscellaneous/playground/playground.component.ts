@@ -93,7 +93,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicDatepickerDirectiveModel<string>({
@@ -196,7 +196,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
     ],
   });
@@ -321,7 +321,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
               },
               validators: { required: null },
               errorMessages: { required: '{{label}} is required' },
-              onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+              onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
               // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
             }),
             new DynamicSuggestionModel<string>({

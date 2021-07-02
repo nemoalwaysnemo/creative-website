@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { isValueEmpty } from '@core/services/helpers';
 import { DocumentListViewSettings, DocumentListViewItem } from './document-list-view.interface';
 
 @Component({
@@ -10,6 +11,8 @@ export class DocumentListViewComponent {
 
   options: any = {};
 
+  items: DocumentListViewItem[] = [];
+
   @Input() layout: string;
 
   @Input() loading: boolean;
@@ -18,7 +21,12 @@ export class DocumentListViewComponent {
 
   @Input() extendRowRef: TemplateRef<any>;
 
-  @Input() documents: DocumentListViewItem[];
+  @Input()
+  set documents(items: DocumentListViewItem[]) {
+    if (!isValueEmpty(items)) {
+      this.items = items;
+    }
+  }
 
   @Input()
   set settings(opts: any) {

@@ -185,9 +185,9 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
     return this.getUsageRightsStatus(res);
   }
 
-  onSelected(row: any): void {
-    row.selectedType = this.packageViewSettings.type;
-    this.assetSelected.emit(row);
+  onSelected(event: any): void {
+    event.selectedType = this.packageViewSettings.type;
+    this.assetSelected.emit(event);
   }
 
   onCheckedChange($event: Event): void {

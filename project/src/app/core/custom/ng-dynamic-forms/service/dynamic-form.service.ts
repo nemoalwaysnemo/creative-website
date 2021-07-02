@@ -4,21 +4,6 @@ import { filter, share } from 'rxjs/operators';
 import { AbstractControl, AbstractControlOptions, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
 import { DynamicFormValueControlModel } from '../model/dynamic-form-value-control.model';
-import { DynamicFormArrayModel, DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormArrayGroupModel } from '../model/form-array/dynamic-form-array.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormGroupModel } from '../model/form-group/dynamic-form-group.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP, DynamicCheckboxGroupModel } from '../model/checkbox/dynamic-checkbox-group.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX, DynamicCheckboxModel } from '../model/checkbox/dynamic-checkbox.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_COLORPICKER, DynamicColorPickerModel } from '../model/colorpicker/dynamic-colorpicker.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER, DynamicDatePickerModel } from '../model/datepicker/dynamic-datepicker.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_EDITOR, DynamicEditorModel } from '../model/editor/dynamic-editor.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_INPUT, DynamicInputModel } from '../model/input/dynamic-input.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP, DynamicRadioGroupModel } from '../model/radio/dynamic-radio-group.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RATING, DynamicRatingModel } from '../model/rating/dynamic-rating.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_SELECT, DynamicSelectModel } from '../model/select/dynamic-select.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_SLIDER, DynamicSliderModel } from '../model/slider/dynamic-slider.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_SWITCH, DynamicSwitchModel } from '../model/switch/dynamic-switch.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA, DynamicTextAreaModel } from '../model/textarea/dynamic-textarea.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER, DynamicTimePickerModel } from '../model/timepicker/dynamic-timepicker.model';
 import { DynamicFormValidationService } from './dynamic-form-validation.service';
 import { DynamicFormModel, DynamicUnionFormModel } from '../model/dynamic-form.model';
 import { DynamicPathable } from '../model/misc/dynamic-form-control-path.model';
@@ -27,13 +12,29 @@ import { maskFromString, parseReviver } from '../utils/json.utils';
 import { isString } from '../utils/core.utils';
 import { DynamicFormComponent } from '../component/dynamic-form.component';
 import { DynamicFormComponentService } from './dynamic-form-component.service';
+import { DynamicFormArrayModel, DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormArrayGroupModel } from '../model/form-array/dynamic-form-array.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormGroupModel } from '../model/form-group/dynamic-form-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP, DynamicCheckboxGroupModel } from '../model/checkbox/dynamic-checkbox-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX, DynamicCheckboxModel } from '../model/checkbox/dynamic-checkbox.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_COLORPICKER, DynamicColorPickerModel } from '../model/colorpicker/dynamic-colorpicker.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER, DynamicDatePickerModel } from '../model/datepicker/dynamic-datepicker.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_LIST, DynamicListModel } from '../model/list/dynamic-list.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION, DynamicSuggestionModel } from '../model/suggestion/dynamic-suggestion.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_INPUT, DynamicInputModel } from '../model/input/dynamic-input.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SLIDER, DynamicSliderModel } from '../model/slider/dynamic-slider.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SELECT, DynamicSelectModel } from '../model/select/dynamic-select.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_EDITOR, DynamicEditorModel } from '../model/editor/dynamic-editor.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RATING, DynamicRatingModel } from '../model/rating/dynamic-rating.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SWITCH, DynamicSwitchModel } from '../model/switch/dynamic-switch.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA, DynamicTextAreaModel } from '../model/textarea/dynamic-textarea.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP, DynamicRadioGroupModel } from '../model/radio/dynamic-radio-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER, DynamicTimePickerModel } from '../model/timepicker/dynamic-timepicker.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_OPTION_TAG, DynamicOptionTagModel } from '../model/option-tag/dynamic-option-tag.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SUGGESTION, DynamicSuggestionModel } from '../model/suggestion/dynamic-suggestion.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD, DynamicBatchUploadModel } from '../model/batch-upload/batch-upload.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE, DynamicDragDropFileZoneModel } from '../model/drag-drop-file-zone/drag-drop-file-zone.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_FIELD_HEADER, DynamicFieldHeaderModel } from '../model/field-header/dynamic-field-header.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_GALLERY_UPLOAD, DynamicGalleryUploadModel } from '../model/gallery-upload/dynamic-gallery-upload.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DRAG_DROP_FILE_ZONE, DynamicDragDropFileZoneModel } from '../model/drag-drop-file-zone/drag-drop-file-zone.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DOCUMENT_SELECT_LIST, DynamicDocumentSelectListModel } from '../model/document-select-list/document-select-list.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE, DynamicDatepickerDirectiveModel } from '../model/dynamic-datepicker/dynamic-datepicker-directive.model';
 
 @Injectable({
@@ -411,8 +412,12 @@ export class DynamicFormService {
           formModel.push(new DynamicBatchUploadModel(model, layout));
           break;
 
-        case DYNAMIC_FORM_CONTROL_TYPE_DRAG_GROP_FILE_ZONE:
+        case DYNAMIC_FORM_CONTROL_TYPE_DRAG_DROP_FILE_ZONE:
           formModel.push(new DynamicDragDropFileZoneModel(model, layout));
+          break;
+
+        case DYNAMIC_FORM_CONTROL_TYPE_DOCUMENT_SELECT_LIST:
+          formModel.push(new DynamicDocumentSelectListModel(model, layout));
           break;
 
         case DYNAMIC_FORM_CONTROL_TYPE_FIELD_HEADER:
