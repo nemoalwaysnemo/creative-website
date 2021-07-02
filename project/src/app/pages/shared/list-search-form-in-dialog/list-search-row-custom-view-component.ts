@@ -9,7 +9,7 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
     <ng-container *ngIf="value" [ngSwitch]="true">
 
       <ng-container *ngSwitchCase="options.viewType === 'thumbnail'">
-        <img style="max-height:68px;" [src]="value.thumbnailUrl" (click)="onClick($event)" >
+        <img [attr.doc-uid]="value.uid" style="max-height:68px;" [src]="value.thumbnailUrl" (click)="onClick($event)" >
       </ng-container>
 
       <ng-container *ngSwitchCase="options.viewType === 'icon'">
@@ -17,7 +17,7 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
       </ng-container>
 
       <ng-container *ngSwitchCase="options.viewType === 'html'">
-        <div class="html-template" [innerHTML]="getHtmlTemplate(value)"></div>
+        <div [attr.doc-uid]="value.uid"class="html-template" [innerHTML]="getHtmlTemplate(value)"></div>
       </ng-container>
 
       <ng-container *ngSwitchCase="options.viewType === 'usage-rights-expiry'">

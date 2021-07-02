@@ -31,6 +31,7 @@ export class Ng2SmartTableComponent implements OnChanges {
   tableClass: string;
   tableId: string;
   perPageSelect: any;
+  allSelected: boolean;
   isHideHeader: boolean;
   isHideSubHeader: boolean;
   isPagerDisplay: boolean;
@@ -41,6 +42,7 @@ export class Ng2SmartTableComponent implements OnChanges {
   defaultSettings: any = {
     mode: 'inline', // inline|external|click-to-edit
     selectMode: 'single', // single|multi
+    allSelected: false,
     hideHeader: false,
     hideSubHeader: false,
     showCheckbox: false,
@@ -108,6 +110,7 @@ export class Ng2SmartTableComponent implements OnChanges {
     this.tableClass = this.grid.getSetting('attr.class');
     this.isHideHeader = this.grid.getSetting('hideHeader');
     this.isHideSubHeader = this.grid.getSetting('hideSubHeader');
+    this.isAllSelected = this.grid.getSetting('allSelected');
     this.isPagerDisplay = this.grid.getSetting('pager.display');
     this.isPagerDisplay = this.grid.getSetting('pager.display');
     this.perPageSelect = this.grid.getSetting('pager.perPageSelect');

@@ -148,9 +148,6 @@ export class DataSet {
    * @private
    */
   createRows(): void {
-    this.rows = [];
-    this.data.forEach((el, index) => {
-      this.rows.push(new Row(index, el, this));
-    });
+    this.rows = this.data.map((el, index) => new Row(index, el, this));
   }
 }

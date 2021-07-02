@@ -9,6 +9,7 @@ export class Row {
   cells: Cell[] = [];
 
   constructor(public index: number, protected data: any, protected _dataSet: DataSet) {
+    this.isSelected = data.isSelected;
     this.process();
   }
 

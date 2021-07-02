@@ -124,6 +124,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           label: 'Selected Documents',
           formMode: 'create',
           layoutPosition: 'bottom',
+          defaultValue: ['9a6b9268-0431-4b83-b0cc-fec09fd46b4c', 'd1887a73-b4e4-45d5-aea3-00074d9905da'],
           settings: {
             searchParams: {
               pageSize: 10,
