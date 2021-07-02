@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnChanges, TemplateRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, TemplateRef, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { DataSource } from '../../lib/data-source/data-source';
 import { Row } from '../../lib/data-set/row';
 import { Grid } from '../../lib/grid';
+import { timer } from 'rxjs';
 
 @Component({
   selector: '[ng2-st-tbody]',
@@ -39,7 +40,12 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
   noDataMessage: boolean;
   isShowCheckbox: boolean;
 
+  rows: Row[] = [];
   extendRowState: any = {};
+
+  constructor(private ref: ChangeDetectorRef) {
+
+  }
 
   get tableColumnsCount(): number {
     const actionColumns = this.isActionAdd || this.isActionEdit || this.isActionDelete ? 1 : 0;
@@ -47,7 +53,7 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
     return this.grid.getColumns().length + selectColumns + actionColumns;
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.isMultiSelectVisible = this.grid.isMultiSelectVisible();
     this.showActionColumnLeft = this.grid.showActionColumn('left');
     this.mode = this.grid.getSetting('mode');
@@ -58,6 +64,7 @@ export class Ng2SmartTableTbodyComponent implements OnChanges {
     this.isActionDelete = this.grid.getSetting('actions.delete');
     this.noDataMessage = this.grid.getSetting('noDataMessage');
     this.isShowCheckbox = this.grid.getSetting('showCheckbox');
+    timer(0).subscribe(() => { this.rows = this.grid.getRows(); this.ref.detectChanges(); });
   }
 
   onUserSelectRow(row: Row): void {

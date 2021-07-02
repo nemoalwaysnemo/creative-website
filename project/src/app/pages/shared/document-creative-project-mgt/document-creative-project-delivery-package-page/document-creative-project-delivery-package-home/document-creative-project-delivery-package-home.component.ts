@@ -214,9 +214,9 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
     });
   }
 
-  onSelected(row: any): void {
-    this.packageDocument = this.assetList.filter((item: any) => item.uid === row.data.uid)[0];
-    this.showHistory(row.data);
+  onSelected(event: any): void {
+    this.packageDocument = this.assetList.filter((item: any) => item.uid === event.data.uid)[0];
+    this.showHistory(event.data);
   }
 
   protected buildAssetParams(doc: DocumentModel): GlobalSearchParams {

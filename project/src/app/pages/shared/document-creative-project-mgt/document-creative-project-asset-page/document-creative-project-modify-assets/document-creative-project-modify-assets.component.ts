@@ -39,7 +39,7 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
@@ -65,7 +65,7 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:asset_countries',

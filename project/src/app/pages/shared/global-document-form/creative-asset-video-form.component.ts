@@ -133,7 +133,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
       new DynamicDatepickerDirectiveModel<string>({
@@ -181,7 +181,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
       // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
@@ -197,7 +197,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
         },
         validators: { required: null },
         errorMessages: { required: '' },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (ctx: DocumentFormContext): boolean => !ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
@@ -219,7 +219,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideRegions',
         },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global_fields:enable_region'),
       }),
       // new DynamicInputModel({
@@ -264,7 +264,7 @@ export class CreativeAssetVideoFormComponent extends GlobalDocumentFormComponent
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideProducts',
         },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global_fields:enable_productlist'),
       }),
       // #{currentDocument.getPropertyValue('app_global:networkshare')=="0" ? 'hidden' : 'edit'}

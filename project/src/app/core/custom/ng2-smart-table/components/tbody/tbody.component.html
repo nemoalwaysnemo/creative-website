@@ -1,4 +1,4 @@
-<ng-container *ngFor="let row of grid.getRows()">
+<ng-container *ngFor="let row of rows">
   <tr (click)="onUserSelectRow(row)" (mouseover)="rowHover.emit(row)" class="ng2-smart-row" [className]="rowClassFunction(row)" [ngClass]="{selected: row.isSelected}">
     <td *ngIf="isMultiSelectVisible && isShowCheckbox" class="ng2-smart-action-multiple-select" (click)="multipleSelectRow.emit(row)">
       <input type="checkbox" [ngModel]="row.isSelected">
@@ -60,7 +60,7 @@
   </tr>
 </ng-container>
 
-<tr *ngIf="grid.getRows().length == 0">
+<tr *ngIf="rows.length == 0">
   <td [attr.colspan]="tableColumnsCount">
     {{ noDataMessage }}
   </td>

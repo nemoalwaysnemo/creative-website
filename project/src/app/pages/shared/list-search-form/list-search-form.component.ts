@@ -7,6 +7,7 @@ import { DocumentPageService } from '../services/document-page.service';
 import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
+import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 
 @Component({
   selector: 'list-search-form',
@@ -14,6 +15,16 @@ import { GlobalSearchFormService } from '../global-search-form/global-search-for
   styleUrls: ['./list-search-form.component.scss'],
 })
 export class ListSearchFormComponent extends BaseSearchFormComponent {
+
+  items: DocumentListViewItem[] = [];
+
+  layout: string = 'list-search-form';
+
+  listViewOptions: any = {};
+
+  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    source: 'list-search-form',
+  });
 
   @Input() extendRowRef: TemplateRef<any>;
 
@@ -38,26 +49,19 @@ export class ListSearchFormComponent extends BaseSearchFormComponent {
     );
   }
 
-  documents: DocumentModel[] = [];
-
-  layout: string = 'list-search-form';
-
-  listViewOptions: any = {};
-
-  searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'list-search-form',
-  });
-
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
 
-  @Input() listViewBuilder: (documents: DocumentModel[]) => any[] = (documents: DocumentModel[]) => documents;
+  @Input() listViewBuilder: (docs: DocumentModel[]) => DocumentListViewItem[] = (docs: DocumentModel[]) => docs.map((d: DocumentModel) => new DocumentListViewItem({
+    uid: d.uid,
+    title: d.title,
+  }))
 
   onRowSelect(item: any): void {
     this.onSelected.emit(item);
   }
 
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {
-    this.documents = this.listViewBuilder(res.response.entries);
+    this.items = this.listViewBuilder(res.response.entries);
     return observableOf(res);
   }
 

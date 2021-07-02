@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse, UserModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDocumentSelectListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -8,6 +8,9 @@ import { SuggestionSettings } from '../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
+import { ListSearchRowCustomViewComponent } from '../list-search-form-in-dialog';
+import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 
 @Component({
   selector: 'creative-ring-collection-form',
@@ -35,7 +38,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     return observableOf(doc);
   }
 
-  protected getDocumentFormSettings(): DocumentFormSettings {
+  protected getDocumentFormSettings(opts: any = {}): DocumentFormSettings {
     return new DocumentFormSettings({
       acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
       docType: this.documentType,
@@ -59,6 +62,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           maxLength: 150,
           placeholder: 'Title',
           autoComplete: 'off',
+          formMode: 'create',
           required: true,
           validators: {
             required: null,
@@ -84,6 +88,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:assettype',
           label: 'Asset Type',
+          formMode: 'create',
           required: true,
           settings: {
             multiple: false,
@@ -98,6 +103,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:agency',
           label: 'Agency',
+          formMode: 'create',
           required: true,
           layoutPosition: 'leftNarrow',
           settings: {
@@ -110,7 +116,59 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
         new DynamicInputModel({
           id: 'dc:description',
           label: 'Description',
+          formMode: 'create',
           layoutPosition: 'leftNarrow',
+        }),
+        new DynamicDocumentSelectListModel({
+          id: 'selected-documents',
+          label: 'Selected Documents',
+          formMode: 'create',
+          layoutPosition: 'bottom',
+          settings: {
+            searchParams: {
+              pageSize: 10,
+              currentPageIndex: 0,
+              ecm_fulltext: '',
+              ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+              ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+            },
+            listViewSettings: {
+              hideHeader: false,
+              selectMode: 'multi',
+              showCheckbox: true,
+              hideSubHeader: true,
+              columns: {
+                thumbnail: {
+                  title: 'Thumbnail',
+                  sort: false,
+                  type: 'custom',
+                  renderComponentData: new ListSearchRowCustomViewSettings({
+                    viewType: 'thumbnail',
+                    enableClick: true,
+                  }),
+                  renderComponent: ListSearchRowCustomViewComponent,
+                },
+                title: {
+                  title: 'Title',
+                  sort: false,
+                },
+              },
+            },
+            listViewBuilder: (docs: DocumentModel[]) => {
+              const items = [];
+              for (const doc of docs) {
+                items.push(new DocumentListViewItem({
+                  uid: doc.uid,
+                  title: doc.title,
+                  thumbnail: doc,
+                }));
+              }
+              return items;
+            },
+            searchFormSettings: {
+              skipAggregates: true,
+            },
+          },
         }),
       ],
       importModel: [

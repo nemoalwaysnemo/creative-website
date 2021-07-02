@@ -112,7 +112,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     layout: 'bg-gray',
   };
 
-  @Output() onResponsed: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onResponse: EventEmitter<any> = new EventEmitter<any>();
 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     if (this.formSettings.formMode === 'create') {

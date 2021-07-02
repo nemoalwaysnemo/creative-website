@@ -1,17 +1,14 @@
 <ng-container [formGroup]="group">
-  <directory-suggestion
+  <document-select-list
       [formControlName]="model.field"
       [id]="id"
-      [document]="model.document"
       [settings]="model.settings"
       [attr.disabled]="model.disabled"
-      [afterSearch]="model.afterSearch"
-      [onResponse]="model.onResponse"
       [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
       [required]="model.required"
       [tabindex]="model.tabIndex"
       (blur)="onBlur($event)"
       (change)="onChange($event)"
       (focus)="onFocus($event)">
-  </directory-suggestion>
+  </document-select-list>
 </ng-container>

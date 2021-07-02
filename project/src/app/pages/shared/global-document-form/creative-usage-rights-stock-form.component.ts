@@ -152,7 +152,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
               },
               validators: { required: null },
               errorMessages: { required: '{{label}} is required' },
-              onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+              onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
             }),
             new DynamicSuggestionModel<string>({
               id: 'contract_countries',
@@ -216,7 +216,7 @@ export class CreativeUsageRightsStockComponent extends GlobalDocumentFormCompone
           providerName: 'javascript.provideBrands',
         },
         visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().getParent().get('app_global:brand_activation'),
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       // #{documentManager.getParentDocument(currentDocument.getRef()).getPropertyValue('brand_activation')=="0" ? 'edit' : 'hidden'}
       new DynamicOptionTagModel({

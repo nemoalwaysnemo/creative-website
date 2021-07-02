@@ -101,7 +101,7 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideBrands',
         },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -263,7 +263,7 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideURmediatypes',
         },
-        onResponsed: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
         accordionTab: '+ Usage Rights',
       }),
       new DynamicCheckboxModel({

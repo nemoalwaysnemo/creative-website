@@ -45,7 +45,7 @@ export class DocumentCreativeProjectSetUsageRightsComponent extends DocumentCrea
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideProject_UR_modify_music',
         },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:modify_contract_photographer',
@@ -57,7 +57,7 @@ export class DocumentCreativeProjectSetUsageRightsComponent extends DocumentCrea
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideProject_UR_modify_photographer',
         },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:modify_contract_stock',
@@ -69,7 +69,7 @@ export class DocumentCreativeProjectSetUsageRightsComponent extends DocumentCrea
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideProject_UR_modify_stock',
         },
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
     ],
   });

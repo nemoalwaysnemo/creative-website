@@ -128,7 +128,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
           providerName: 'javascript.provideBrands',
         },
         visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().getParent().get('app_global:brand_activation'),
-        onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:agency',
@@ -184,7 +184,7 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
               },
               validators: { required: null },
               errorMessages: { required: '{{label}} is required' },
-              onResponsed: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+              onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
             }),
             new DynamicDatepickerDirectiveModel<string>({
               id: 'start_airing_date',
