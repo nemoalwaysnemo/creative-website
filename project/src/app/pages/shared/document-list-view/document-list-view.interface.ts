@@ -19,6 +19,7 @@ export class DocumentListViewItem {
   [key: string]: any;
   readonly uid: string;
   readonly title: string;
+  isSelected: boolean = false;
 
   constructor(data: any = {}) {
     Object.assign(this, data);

@@ -5,7 +5,7 @@ import { isValueEmpty } from '@core/services/helpers';
 import { GlobalSearchFormSettings } from '../../global-search-form/global-search-form.interface';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { DocumentSelectListSettings } from './document-select-list.interface';
-import { Observable, Subject, Subscription, timer } from 'rxjs';
+import { combineLatest, Observable, Subject, Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'document-select-list',
@@ -22,7 +22,7 @@ export class DocumentSelectListComponent implements OnInit, OnDestroy, ControlVa
   @Input()
   set settings(settings: DocumentSelectListSettings) {
     if (!isValueEmpty(settings)) {
-      this.setFormSettings(settings);
+      this.settings$.next(settings);
     }
   }
 
@@ -30,11 +30,15 @@ export class DocumentSelectListComponent implements OnInit, OnDestroy, ControlVa
 
   baseParams$: Subject<any> = new Subject<any>();
 
+  settings$: Subject<DocumentSelectListSettings> = new Subject<DocumentSelectListSettings>();
+
+  value$: Subject<string[]> = new Subject<string[]>();
+
   searchFormSettings: GlobalSearchFormSettings;
 
   listViewSettings: any = {};
 
-  listViewBuilder: (docs: DocumentModel[]) => DocumentListViewItem[];
+  listViewBuilder: (docs: DocumentModel[], selected: string[]) => DocumentListViewItem[];
 
   private disabled: boolean = false;
 
@@ -43,6 +47,10 @@ export class DocumentSelectListComponent implements OnInit, OnDestroy, ControlVa
   private _onChange = (_) => { };
 
   private _onTouched = () => { };
+
+  constructor() {
+    this.onDocumentChanged();
+  }
 
   ngOnInit(): void {
 
@@ -61,6 +69,7 @@ export class DocumentSelectListComponent implements OnInit, OnDestroy, ControlVa
   }
 
   writeValue(value: any): void {
+    this.value$.next(value);
   }
 
   registerOnChange(fn: any): void {
@@ -75,7 +84,18 @@ export class DocumentSelectListComponent implements OnInit, OnDestroy, ControlVa
     this.disabled = isDisabled;
   }
 
-  private setFormSettings(settings: DocumentSelectListSettings): void {
+  private onDocumentChanged(): void {
+    const subscription = combineLatest([
+      this.value$,
+      this.settings$,
+    ]).subscribe(([selected, settings]: [string[], DocumentSelectListSettings]) => {
+      this.setFormSettings(settings, selected || []);
+    });
+    this.subscription.add(subscription);
+  }
+
+  private setFormSettings(settings: DocumentSelectListSettings, selected: string[] = []): void {
+    settings.listViewSettings.selected = selected;
     this.listViewSettings = settings.listViewSettings;
     this.listViewBuilder = settings.listViewBuilder;
     this.documents = settings.documents;

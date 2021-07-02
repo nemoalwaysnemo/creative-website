@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef, OnInit, OnDestroy } from '@angular/core';
 import { isValueEmpty } from '@core/services/helpers';
+import { combineLatest, Subject, Subscription } from 'rxjs';
 import { DocumentListViewSettings, DocumentListViewItem } from './document-list-view.interface';
 
 @Component({
@@ -7,9 +8,11 @@ import { DocumentListViewSettings, DocumentListViewItem } from './document-list-
   styleUrls: ['./document-list-view.component.scss'],
   templateUrl: './document-list-view.component.html',
 })
-export class DocumentListViewComponent {
+export class DocumentListViewComponent implements OnInit, OnDestroy {
 
-  options: any = {};
+  options: any = {
+    actions: null,
+  };
 
   items: DocumentListViewItem[] = [];
 
@@ -23,18 +26,56 @@ export class DocumentListViewComponent {
 
   @Input()
   set documents(items: DocumentListViewItem[]) {
-    if (!isValueEmpty(items)) {
-      this.items = items;
+    if (items) {
+      this.items$.next(items);
     }
   }
 
   @Input()
   set settings(opts: any) {
     if (opts) {
-      this.options = DocumentListViewSettings.OptionsFactory(opts);
+      this.settings$.next(opts);
     }
   }
 
   @Output() onRowSelect = new EventEmitter<any>();
+
+  private settings$: Subject<any> = new Subject<any>();
+
+  private items$: Subject<DocumentListViewItem[]> = new Subject<DocumentListViewItem[]>();
+
+  private subscription: Subscription = new Subscription();
+
+  constructor() {
+    this.onDocumentChanged();
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  private onDocumentChanged(): void {
+    const subscription = combineLatest([
+      this.items$,
+      this.settings$,
+    ]).subscribe(([items, settings]: [DocumentListViewItem[], any]) => {
+      this.performItems(items, settings);
+    });
+    this.subscription.add(subscription);
+  }
+
+  private performItems(items: DocumentListViewItem[], settings: any = {}): void {
+    if (!isValueEmpty(settings.selected)) {
+      this.items = items.map((i: DocumentListViewItem) => { i.isSelected = settings.selected.includes(i.uid); return i; });
+      delete settings.selected;
+    } else {
+      this.items = items;
+    }
+    this.options = DocumentListViewSettings.OptionsFactory(settings);
+  }
 
 }

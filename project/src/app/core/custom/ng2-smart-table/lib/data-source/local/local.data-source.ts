@@ -17,39 +17,33 @@ export class LocalDataSource extends DataSource {
 
   constructor(data: any[] = []) {
     super();
-
     this.data = data;
   }
 
   load(data: any[]): Promise<any> {
     this.data = data;
-
     return super.load(data);
   }
 
   prepend(element: any): Promise<any> {
     this.reset(true);
-
     this.data.unshift(element);
     return super.prepend(element);
   }
 
   append(element: any): Promise<any> {
     this.reset(true);
-
     this.data.push(element);
     return super.append(element);
   }
 
   add(element: any): Promise<any> {
     this.data.push(element);
-
     return super.add(element);
   }
 
   remove(element: any): Promise<any> {
     this.data = this.data.filter(el => el !== element);
-
     return super.remove(element);
   }
 
@@ -67,7 +61,6 @@ export class LocalDataSource extends DataSource {
     if (found) {
       return Promise.resolve(found);
     }
-
     return Promise.reject(new Error('Element was not found in the dataset'));
   }
 
@@ -104,7 +97,6 @@ export class LocalDataSource extends DataSource {
 
   empty(): Promise<any> {
     this.data = [];
-
     return super.empty();
   }
 
@@ -124,7 +116,6 @@ export class LocalDataSource extends DataSource {
    */
   setSort(conf: any[], doEmit = true): LocalDataSource {
     if (conf !== null) {
-
       conf.forEach((fieldConf) => {
         if (!fieldConf['field'] || typeof fieldConf['direction'] === 'undefined') {
           throw new Error('Sort configuration object is not valid');
@@ -132,7 +123,6 @@ export class LocalDataSource extends DataSource {
       });
       this.sortConf = conf;
     }
-
     super.setSort(conf, doEmit);
     return this;
   }
@@ -161,7 +151,6 @@ export class LocalDataSource extends DataSource {
     }
     this.filterConf.andOperator = andOperator;
     this.pagingConf['page'] = 1;
-
     super.setFilter(conf, andOperator, doEmit);
     return this;
   }
@@ -170,7 +159,6 @@ export class LocalDataSource extends DataSource {
     if (!fieldConf['field'] || typeof fieldConf['search'] === 'undefined') {
       throw new Error('Filter configuration object is not valid');
     }
-
     let found = false;
     this.filterConf.filters.forEach((currentFieldConf: any, index: any) => {
       if (currentFieldConf['field'] === fieldConf['field']) {
@@ -189,7 +177,6 @@ export class LocalDataSource extends DataSource {
   setPaging(page: number, perPage: number, doEmit: boolean = true): LocalDataSource {
     this.pagingConf['page'] = page;
     this.pagingConf['perPage'] = perPage;
-
     super.setPaging(page, perPage, doEmit);
     return this;
   }
@@ -216,7 +203,6 @@ export class LocalDataSource extends DataSource {
     data = this.filter(data);
     data = this.sort(data);
     this.filteredAndSorted = data.slice(0);
-
     return this.paginate(data);
   }
 
