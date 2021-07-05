@@ -32,17 +32,27 @@ export class CreativeRingCollectionFolderComponent extends GlobalDocumentViewCom
     }
   }
   protected buildAssetParams(doc: DocumentModel): any {
-    // if( doc.get('collection:documentIds').length === 0 ){
-    // }
-    const ids = doc.get('collection:documentIds');
-    const params: any = {
-      ecm_uuid: `["${ids.join('", "')}"]`,
-      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-      currentPageIndex: 0,
-      ecm_fulltext: '',
-      pageSize: 100,
-    };
-    return params;
+    if ( doc.get('collection:documentIds').length > 0 ){
+      const ids = doc.get('collection:documentIds');
+      const params: any = {
+        ecm_uuid: `["${ids.join('", "')}"]`,
+        ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+        currentPageIndex: 0,
+        ecm_fulltext: '',
+        pageSize: 100,
+      };
+      return params;
+    } else {
+      const params: any = {
+        ecm_path: doc.path,
+        ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+        currentPageIndex: 0,
+        ecm_fulltext: '',
+        pageSize: 100,
+      };
+      return params;
+    }
+
   }
 
   onLoading(loading: boolean): void {
