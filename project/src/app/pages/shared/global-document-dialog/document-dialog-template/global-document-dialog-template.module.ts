@@ -32,6 +32,7 @@ import { DisruptionXPreviewDialogComponent } from './disruption-x-preview-dialog
 import { DocumentNewPosterButtonModule } from '../../document-new-poster-button/document-new-poster-button.module';
 import { LearningProgramAlumniPreviewDialogComponent } from './learning-program-alumni-preview-dialog/learning-program-alumni-preview-dialog.component';
 import { LearningProgramNominationPreviewDialogComponent } from './learning-program-nomination-preview-dialog/learning-program-nomination-preview-dialog.component';
+import { CreativeCollectionMgtDialogModule } from './creative-collection-mgt-dialog/creative-collection-mgt-dialog.module';
 
 const COMPONENTS = [
   BizdevAssetPreviewDialogComponent,
@@ -71,6 +72,7 @@ const COMPONENTS = [
     DocumentUsageRightsStatusModule,
     DocumentCreativeProjectMgtModule,
     DocumentCreativeCampaignMgtModule,
+    CreativeCollectionMgtDialogModule,
   ],
   declarations: [
     ...COMPONENTS,

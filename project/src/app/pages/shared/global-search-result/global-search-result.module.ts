@@ -20,6 +20,7 @@ import { CreativeRingAllCollectionsSearchResultComponent } from './creative-ring
 import { CreativeRingBrandSearchResultComponent, CreativeRingBrandRowRenderComponent } from './creative-ring-brand-search-result/creative-ring-brand-search-result.component';
 import { CreativeRingAgencySearchResultComponent, CreativeRingAgencyRowRenderComponent } from './creative-ring-agency-search-result/creative-ring-agency-search-result.component';
 import { CreativeRingCollectionFolderAssetSearchResultComponent } from './creative-ring-collection-folder-asset-search-result/creative-ring-collection-folder-asset-search-result.component';
+import { CreativeRingBrandAssetSearchResultComponent } from './creative-ring-brand-asset-search-result/creative-ring-brand-asset-search-result.component';
 import { IntelligenceDocumentAssetSearchResultComponent } from './intelligence-document-asset-search-result/intelligence-document-asset-search-result.component';
 import { CreativeBrandAssetSearchResultComponent, CreativeBrandRowRenderComponent } from './creative-brand-asset-search-result/creative-brand-asset-search-result.component';
 import { DisruptionRoadmapsAssetSearchResultComponent } from './disruption-roadmaps-asset-search-result/disruption-roadmaps-asset-search-result.component';
@@ -81,6 +82,7 @@ const COMPONENTS = [
   CreativeRingBrandRowRenderComponent,
   CreativeRingAgencySearchResultComponent,
   CreativeRingAgencyRowRenderComponent,
+  CreativeRingBrandAssetSearchResultComponent,
   BackslashDocumentAssetSearchResultComponent,
   BackslashPipelineAssetSearchResultComponent,
   DisruptionDaysAssetSearchResultComponent,

@@ -1,0 +1,18 @@
+<div class="ring-brand-collection-view" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div *ngIf="doc" class="property-section">
+    <a [routerLink]="[getAssetUrl(doc),  doc.uid, 'asset']" class="property-intro inline-top">
+      <div [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></div>
+    </a>
+    <div class="property-info inline-top">
+      <h1>{{ doc.title }}</h1>
+      <br><br>
+      <ng-container *ngIf="writePermission$ | async">
+        <button type="button" (click)="openDialog(editDialog, false)" class="icon_btn left">Edit Logo</button>
+      </ng-container>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+<ng-template #editDialog>
+  <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [title]="dialogTitle" [redirectUrl]="editRedirectUrl"></global-document-dialog>
+</ng-template>

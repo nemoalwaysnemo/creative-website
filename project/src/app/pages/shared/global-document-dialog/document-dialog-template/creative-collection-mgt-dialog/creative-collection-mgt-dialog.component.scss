@@ -1,0 +1,13 @@
+@import '../../../global-search-result/thumbnail-view.scss';
+@import '../../../../../core/nebular/theme/styles/global/breakpoints';
+.dialog-body {
+  .global-search-form-buttons {
+    margin-right: 60px;
+    .icon_btn {
+      padding: 0 20px;
+    }
+  }
+  .s-results {
+    margin: 0 30px !important;
+  }
+}

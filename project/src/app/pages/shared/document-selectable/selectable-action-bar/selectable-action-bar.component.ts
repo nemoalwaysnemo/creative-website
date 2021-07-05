@@ -26,6 +26,12 @@ import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDial
           <ng-container *ngIf="actionSettings.enableRemoveFromShowcase">
             <a href="javascript:;" (click)="openDialog(showcaseDialog)" title="Remove from Showcase">Remove from Showcase</a>&nbsp;&nbsp;
           </ng-container>
+          <ng-container *ngIf="actionSettings.enableAddToCollection">
+            <a href="javascript:;" (click)="openDialog(showCollectionDialog)" title="Add to Collection">Add to Collection</a>&nbsp;&nbsp;
+          </ng-container>
+          <ng-container *ngIf="actionSettings.enableRemoveFromCollection">
+            <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete">Delete</a>
+          </ng-container>
           <ng-container *ngIf="actionSettings.enableDeleteDocuments">
             <a href="javascript:;" (click)="openDialog(deleteDialog)" title="Delete">Delete</a>
           </ng-container>
@@ -33,10 +39,13 @@ import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDial
       </div>
     </ng-container>
     <ng-template #showcaseDialog>
-      <global-document-dialog [settings]="showcaseDialogSettings"[documentModel]="document" [metadata]="getShowcaseMetadata()" [title]="'Add To Showcase'"></global-document-dialog>
+      <global-document-dialog [settings]="showcaseDialogSettings" [documentModel]="document" [metadata]="getShowcaseMetadata()" [title]="'Add To Showcase'"></global-document-dialog>
     </ng-template>
+    <ng-template #showCollectionDialog>
+    <global-document-dialog [settings]="showCollectionDialogSettings" [documentModel]="document" [title]="'Add to Collection'"></global-document-dialog>
+  </ng-template>
     <ng-template #deleteDialog>
-      <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="document" [title]="'Delete'"></global-document-dialog>
+      <global-document-dialog [settings]="deleteDialogSettings" [documentModel]="document" [metadata]="getDeleteMetada()" [title]="'Delete'"></global-document-dialog>
     </ng-template>
   `,
 })
@@ -57,6 +66,8 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
   actionSettings: SelectableActionBarSettings = new SelectableActionBarSettings();
 
   showcaseDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_SHOWCASE_ADD_REMOVE] });
+
+  showCollectionDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_COLLECTION_MGT] });
 
   deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETE_MULTIPLE_ASSETS] });
 
@@ -106,6 +117,11 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
   getShowcaseMetadata(): any {
     const { enableAddToShowcase, enableRemoveFromShowcase } = this.actionSettings;
     return { showcaseSettings: { enableAddToShowcase, enableRemoveFromShowcase } };
+  }
+
+  getDeleteMetada(): any {
+    const { enableDeleteDocuments, enableRemoveFromCollection } = this.actionSettings;
+    return { showDeleteSettings: { enableDeleteDocuments, enableRemoveFromCollection } };
   }
 
   private getFavoriteDocument(): void {

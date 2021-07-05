@@ -1,0 +1,27 @@
+<div class="dialog-title text-center">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1 class="left">{{title}}</h1>
+  <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <global-search-form [searchParams]="baseParams$ | async" [filters]="filters" [settings]="searchFormSettings">
+    <ng-container class="group-right">
+      <div class="global-search-form-buttons">
+        <button (click)="addToCollection()" class="icon_btn">OK</button>
+        <!-- <creative-ring-form-button [parent]="document" [type]="'collection'" [title]="'Upload'"></creative-ring-form-button> -->
+      </div>
+    </ng-container>
+  </global-search-form>
+  <global-search-more-result-in-dialog [templateRef]="collectionThumbnailView" [selectableSettings]="selectableSettings" [searchResultFilter]="searchResultFilter" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+</div>
+<ng-template #collectionThumbnailView let-doc="doc">
+  <div class="collection">
+    <div class="image-holder">
+      <a [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+    </div>
+    <div class="description">
+      <h1 [title]="doc.title">{{doc.title}}</h1>
+    </div>
+  </div>
+</ng-template>
