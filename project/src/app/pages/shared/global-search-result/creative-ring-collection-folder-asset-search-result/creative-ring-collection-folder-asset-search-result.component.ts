@@ -1,10 +1,7 @@
-import { Component, Input, TemplateRef, Type } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { DatePipe } from '@angular/common';
-import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
-import { SelectableItemSettings } from '../../document-selectable';
-import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
 
 @Component({
@@ -14,12 +11,7 @@ import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDial
 })
 export class CreativeRingCollectionFolderAssetSearchResultComponent extends BaseSearchResultComponent {
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    private globalDocumentDialogService: GlobalDocumentDialogService,
-  ) {
-    super(documentPageService);
-  }
+  documents: DocumentModel[] = [];
 
   dialogMetadata: any = {
     moreInfo: true,
@@ -30,8 +22,20 @@ export class CreativeRingCollectionFolderAssetSearchResultComponent extends Base
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_RING_ASSET] });
 
+  @Input() loading: boolean = true;
+
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService);
+  }
+
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
   }
 
+  searchResult(docs: DocumentModel[]): void {
+    this.documents = docs;
+  }
 }

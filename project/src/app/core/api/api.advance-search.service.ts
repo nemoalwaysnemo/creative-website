@@ -27,7 +27,7 @@ export class AdvanceSearchService {
 
   protected provider: string = NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER;
 
-  protected entries$ = new Subject<SearchResponse>();
+  protected entries$: Subject<SearchResponse> = new Subject<SearchResponse>();
 
   constructor(protected nuxeoApi: NuxeoApiService) {
 

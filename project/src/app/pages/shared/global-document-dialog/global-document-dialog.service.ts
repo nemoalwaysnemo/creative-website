@@ -4,6 +4,15 @@ import { Observable, Subject } from 'rxjs';
 import { share, filter, map } from 'rxjs/operators';
 import { DocumentModel } from '@core/api';
 
+export class DocumentDialogItems {
+  readonly type: string;
+  readonly documents: DocumentModel[];
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+}
+
 export class DocumentDialogEvent {
   readonly name: string;
   readonly type: string;
