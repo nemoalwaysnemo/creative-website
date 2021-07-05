@@ -19,9 +19,6 @@ export class CreativeRingAllCollectionsSearchResultComponent {
   getAssetUrl(doc: DocumentModel): string {
     let url: string = '/p/creative/ring/:type/:uid/asset';
     switch (doc.get('The_Loupe_Main:collection_type')) {
-      case 'Agency Collection':
-        url = url.replace(':type', 'agency');
-        break;
       case 'Brand Collection':
         url = url.replace(':type', 'brand');
         break;
