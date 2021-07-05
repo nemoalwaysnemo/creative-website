@@ -11,6 +11,10 @@ export class SelectableActionBarSettings {
 
   enableRemoveFromShowcase: boolean = false;
 
+  enableAddToCollection: boolean = false;
+
+  enableRemoveFromCollection: boolean = false;
+
   constructor(data: any = {}) {
     Object.assign(this, data);
   }

@@ -1,0 +1,14 @@
+<document-route-tabset [tabConfig]="tabConfig"></document-route-tabset>
+<creative-ring-brand-collection-view [loading]="loading" [assetUrl]="'/p/creative/ring/brand/'" [document]="document"></creative-ring-brand-collection-view>
+<div class="creative-ring-brand-asset" [nbSpinner]="loading" nbSpinnerStatus="disabled">
+  <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings">
+    <ng-container class="group-right">
+      <div class="global-search-form-buttons">
+        <creative-ring-form-button [parent]="document" [type]="'collection'" [title]="'Upload'"></creative-ring-form-button>
+        <global-search-button [enableSlider]="true"></global-search-button>
+      </div>
+    </ng-container>
+  </global-search-form>
+  <selectable-action-bar [settings]="actionBarsettings" [document]="document"></selectable-action-bar>
+  <creative-ring-brand-asset-search-result [loading]="loading" [selectableSettings]="selectableSettings" [showDialog]="'true'"></creative-ring-brand-asset-search-result>
+</div>

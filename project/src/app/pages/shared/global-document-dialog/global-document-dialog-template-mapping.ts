@@ -6,6 +6,7 @@ import { DocumentDownloadRequestDialogComponent } from './document-dialog-templa
 import { DocumentDeletionDialogComponent } from './document-dialog-template/document-deletion-dialog/document-deletion-dialog.component';
 import { CreativeProjectMgtTemplateComponent } from './document-dialog-template/creative-project-mgt-template/creative-project-mgt-template.component';
 import { CreativeCampaignMgtTemplateComponent } from './document-dialog-template/creative-campaign-mgt-template/creative-campaign-mgt-template.component';
+import { CreativeCollectionMgtDialogComponent } from './document-dialog-template/creative-collection-mgt-dialog/creative-collection-mgt-dialog.component';
 import { InnovationAssetPreviewDialogComponent } from './document-dialog-template/innovation-asset-preview-dialog/innovation-asset-preview-dialog.component';
 import { BizdevAssetPreviewDialogComponent } from './document-dialog-template/bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 import { IntelligenceAssetPreviewDialogComponent } from './document-dialog-template/intelligence-asset-preview-dialog/intelligence-asset-preview-dialog.component';
@@ -38,5 +39,6 @@ export const GLOBAL_DOCUMENT_DIALOG = {
   CUSTOM_DOWNLOAD_REQUEST: DocumentDownloadRequestDialogComponent,
   CUSTOM_CREATIVE_PROJECT_MGT: CreativeProjectMgtTemplateComponent,
   CUSTOM_CREATIVE_CAMPAIGN_MGT: CreativeCampaignMgtTemplateComponent,
+  CUSTOM_CREATIVE_COLLECTION_MGT: CreativeCollectionMgtDialogComponent,
   CUSTOM_SHOWCASE_ADD_REMOVE: DocumentShowcaseDialogComponent,
 };
