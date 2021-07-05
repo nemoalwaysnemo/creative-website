@@ -21,6 +21,7 @@ import { InnovationAssetPreviewDialogComponent } from './innovation-asset-previe
 import { BizdevAssetPreviewDialogComponent } from './bizdev-asset-preview-dialog/bizdev-asset-preview-dialog.component';
 import { IntelligenceAssetPreviewDialogComponent } from './intelligence-asset-preview-dialog/intelligence-asset-preview-dialog.component';
 import { CreativeAssetPreviewDialogComponent } from './creative-asset-preview-dialog/creative-asset-preview-dialog.component';
+import { CreativeRingAssetPreviewDialogComponent } from './creative-ring-asset-preview-dialog/creative-ring-asset-preview-dialog.component';
 import { DocumentShowcaseDialogComponent } from './document-showcase-dialog/document-showcase-dialog.component';
 import { DocumentMultipleDeletionComponent } from './document-multiple-deletion-dialog/document-multiple-deletion-dialog.component';
 import { KnowledgeRelatedInfoModule } from '../../knowledge-related-info-view/knowledge-related-info.module';
@@ -44,6 +45,7 @@ const COMPONENTS = [
   DocumentDeletionDialogComponent,
   DocumentDownloadRequestDialogComponent,
   CreativeAssetPreviewDialogComponent,
+  CreativeRingAssetPreviewDialogComponent,
   CreativeProjectMgtTemplateComponent,
   CreativeCampaignMgtTemplateComponent,
   InnovationAssetPreviewDialogComponent,

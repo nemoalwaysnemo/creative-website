@@ -1,0 +1,81 @@
+  <div class="dialog-title text-center" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
+  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <h1 class="left">{{title}}</h1>
+  <div class="clear"></div>
+</div>
+<div class="dialog-body">
+  <ng-container *ngIf="document">
+    <div class="media" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
+      <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <div class="text-content" style="padding-top: 0;" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
+      <div class="controls row">
+        <div class="col-5">
+          <h3 class="left"><b>{{ document.title }}</b></h3>
+          <div class="clear"></div>
+          <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
+        </div>
+        <div class="col-7">
+          <ng-container *ngIf="downloadPermission$ | async">
+            <a *ngIf="document.filePath" href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download"><button class="inline-middle download right" title="Download">Download</button></a>
+          </ng-container>
+          <ng-container *ngIf="getDialogSettings().enablePreview && !isVideoAsset(document)">
+            <a href="{{document.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" title="Preview" target="_blank"><button class="preview right">Preview</button></a>
+          </ng-container>
+          <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+          <ng-container *ngIf="getDialogSettings().enableDetail">
+            <a [routerLink]="['/p/creative/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          </ng-container>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <ng-container *ngIf="getDialogSettings().moreInfo">
+        <p class="description">{{ document.get('dc:description') }}</p>
+        <table>
+          <tbody>
+            <tr>
+              <th>Asset Type</th>
+              <th>Country</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+              <td>{{ vocabularyFormatter(document.get('The_Loupe_Main:country')) }}</td>
+            </tr>
+            <tr>
+              <th>Agency</th>
+            </tr>
+            <tr>
+              <td>
+                {{ document.get('The_Loupe_Main:agency') }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      
+      <nb-accordion class="accordion" *ngIf="downloadPermission$ && attachments && attachments.length !== 0">
+        <nb-accordion-item class="accordion-item">
+          <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
+          <nb-accordion-item-body class="accordion-item-body">
+            <table>
+              <tbody *ngFor="let attachment of attachments">
+                <tr>
+                  <td><a href="{{ attachment.url }}" (click)="googleAnalyticsTrackLink(document, 'Download', 'Attachment', attachment.title)" class="download-btn">{{ attachment.title }}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+    <section class="related" *ngIf="getDialogSettings().enableKnowledgeRelated">
+      <knowledge-related-info [document]="document" [tabItems]="tabItems"></knowledge-related-info>
+    </section>
+  </ng-container>
+</div>
+
+<ng-template #popContent>
+  <document-share-button [document]="document" [shareUrl]="shareUrl"></document-share-button>
+</ng-template>
