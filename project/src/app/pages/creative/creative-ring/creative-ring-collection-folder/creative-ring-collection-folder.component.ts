@@ -32,6 +32,8 @@ export class CreativeRingCollectionFolderComponent extends GlobalDocumentViewCom
     }
   }
   protected buildAssetParams(doc: DocumentModel): any {
+    // if( doc.get('collection:documentIds').length === 0 ){
+    // }
     const ids = doc.get('collection:documentIds');
     const params: any = {
       ecm_uuid: `["${ids.join('", "')}"]`,

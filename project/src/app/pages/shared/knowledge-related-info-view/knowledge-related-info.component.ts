@@ -23,7 +23,7 @@ export class TabInfo {
 })
 export class KnowledgeRelatedInfoComponent {
 
-  tabItems = [
+  @Input() tabItems = [
     {
       name: 'Backslash',
       layout: 'backslash',
