@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { DocumentModel } from '@core/api';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, NuxeoPermission, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/shared';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -21,43 +21,34 @@ export class CreativeRingCollectionFolderComponent extends GlobalDocumentViewCom
 
   currentView: string = 'thumbnailView';
 
+  loading: boolean = true;
+
   onSearching: boolean = true;
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
-    if (doc) {
+    if (doc.get('collection:documentIds').length > 0) {
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc)); });
+    } else {
+      this.loading = false;
     }
   }
-  protected buildAssetParams(doc: DocumentModel): any {
-    if ( doc.get('collection:documentIds').length > 0 ){
-      const ids = doc.get('collection:documentIds');
-      const params: any = {
-        ecm_uuid: `["${ids.join('", "')}"]`,
-        ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-        currentPageIndex: 0,
-        ecm_fulltext: '',
-        pageSize: 100,
-      };
-      return params;
-    } else {
-      const params: any = {
-        ecm_path: doc.path,
-        ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-        currentPageIndex: 0,
-        ecm_fulltext: '',
-        pageSize: 100,
-      };
-      return params;
-    }
 
+  protected buildAssetParams(doc: DocumentModel): any {
+    const params: any = {
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+      ecm_uuid: `["${doc.get('collection:documentIds').join('", "')}"]`,
+      currentPageIndex: 0,
+      ecm_fulltext: '',
+      pageSize: 100,
+    };
+    return params;
   }
 
   onLoading(loading: boolean): void {
     this.onSearching = loading;
   }
-
 
 }

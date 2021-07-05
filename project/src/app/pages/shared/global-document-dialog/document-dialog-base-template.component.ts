@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 import { map, withLatestFrom } from 'rxjs/operators';
 import { Subscription, timer, Subject, forkJoin, of as observableOf, Observable } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentDialogEvent } from './global-document-dialog.service';
-import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
+import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   template: '',

@@ -12,22 +12,6 @@ import { concatMap, filter } from 'rxjs/operators';
 })
 export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
-  @Input()
-  set listViewSettings(settings: any) {
-    if (settings) {
-      this.listViewOptions = settings;
-    }
-  }
-
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected globalSearchFormService: GlobalSearchFormService,
-  ) {
-    super(documentPageService);
-  }
-
-  loading: boolean = true;
-
   layout: string = 'search-results';
 
   documents: DocumentModel[] = [];
@@ -50,11 +34,22 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   protected canScrollDown: boolean = false;
 
+  @Input() loading: boolean = true;
+
   @Input() append: boolean = false;
 
   @Input() enableScrolling: boolean = true;
 
+  @Input()
+  set listViewSettings(settings: any) {
+    if (settings) {
+      this.listViewOptions = settings;
+    }
+  }
+
   @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+
+  @Output() searchResult: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
 
   @Input() searchResultFilter: (res: SearchResponse) => boolean = (res: SearchResponse) => res.source === 'global-search-form';
 
@@ -62,6 +57,13 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     uid: d.uid,
     title: d.title,
   }))
+
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected globalSearchFormService: GlobalSearchFormService,
+  ) {
+    super(documentPageService);
+  }
 
   protected onInit(): void {
     this.onSearch();
@@ -132,5 +134,6 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     } else {
       this.documents = res.response.entries;
     }
+    this.searchResult.emit(this.documents);
   }
 }
