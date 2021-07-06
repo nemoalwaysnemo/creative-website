@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentDialogContainerComponent } from '../document-dialog-container.component';
-import { GlobalDocumentDialogService } from '../global-document-dialog.service';
+import { DocumentDialogEvent, GlobalDocumentDialogService } from '../global-document-dialog.service';
 import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
@@ -16,6 +16,15 @@ export class DocumentDialogCustomComponent extends DocumentDialogContainerCompon
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(globalDocumentDialogService, documentPageService, componentFactoryResolver);
+    this.subscribeEvents();
   }
 
+  protected subscribeEvents(): void {
+    this.subscription = this.globalDocumentDialogService.onEventName('ViewChanged').subscribe((e: DocumentDialogEvent) => {
+      this.loading = true;
+      this.destroyDynamicComponent();
+      this.createComponent(this.component, e.options.document, e.options.metadata || this.dialogSettings);
+      this.loading = false;
+    });
+  }
 }

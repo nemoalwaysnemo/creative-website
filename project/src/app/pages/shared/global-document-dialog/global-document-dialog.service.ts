@@ -4,15 +4,6 @@ import { Observable, Subject } from 'rxjs';
 import { share, filter, map } from 'rxjs/operators';
 import { DocumentModel } from '@core/api';
 
-export class DocumentDialogItems {
-  readonly type: string;
-  readonly documents: DocumentModel[];
-
-  constructor(data: any = {}) {
-    Object.assign(this, data);
-  }
-}
-
 export class DocumentDialogEvent {
   readonly name: string;
   readonly type: string;
@@ -83,7 +74,11 @@ export class GlobalDocumentDialogService {
   }
 
   selectView(componentName: string, component: Type<any> = null, metadata?: any): void {
-    this.triggerEvent({ name: 'ViewChanged', type: 'built-in', messageContent: 'View Changed', options: { componentName, component, metadata } });
+    this.triggerEvent({ name: 'ComponentChanged', type: 'built-in', messageContent: 'Component Changed', options: { componentName, component, metadata } });
+  }
+
+  refreshView(document: DocumentModel, metadata: any = {}): void {
+    this.triggerEvent({ name: 'ViewChanged', type: 'built-in', messageContent: 'View Changed', options: { document, metadata } });
   }
 
 }

@@ -1,9 +1,9 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
-import { DocumentDialogContainerComponent } from '../document-dialog-container.component';
-import { GlobalDocumentDialogService } from '../global-document-dialog.service';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
-import { DocumentPageService } from '../../services/document-page.service';
+import { DocumentDialogContainerComponent } from '../document-dialog-container.component';
 import { DocumentFormEvent } from '../../document-form/document-form.interface';
+import { GlobalDocumentDialogService } from '../global-document-dialog.service';
+import { DocumentPageService } from '../../services/document-page.service';
 import { timer } from 'rxjs';
 
 @Component({
@@ -22,7 +22,7 @@ export class DocumentDialogFormComponent extends DocumentDialogContainerComponen
   }
 
   protected onInit(): void {
-    super.createComponent(this.component);
+    super.createComponent(this.component, this.document, this.dialogSettings);
     this.subscribeComponentEvent();
   }
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
+import { NbSpinnerModule } from '@core/nebular/theme';
 import { GlobalDocumentDialogComponent } from './global-document-dialog.component';
 import { DocumentDialogContainerComponent } from './document-dialog-container.component';
 import { DocumentDialogBaseTemplateComponent } from './document-dialog-base-template.component';
@@ -14,6 +15,7 @@ import { GlobalDocumentDialogTemplateModule } from './document-dialog-template/g
   imports: [
     CommonModule,
     ThemeModule,
+    NbSpinnerModule,
     GlobalDocumentDialogTemplateModule,
   ],
   declarations: [

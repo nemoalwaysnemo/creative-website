@@ -23,7 +23,7 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
   viewerSettings: any = {
   };
 
-  hiddenDialogInfo: boolean = false;
+  hideDialogInfo: boolean = false;
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
@@ -32,9 +32,9 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
     super(globalDocumentDialogService, documentPageService);
     this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
       if (e.name === 'Opened') {
-        this.hiddenDialogInfo = true;
+        this.hideDialogInfo = true;
       } else {
-        this.hiddenDialogInfo = false;
+        this.hideDialogInfo = false;
       }
     });
   }
