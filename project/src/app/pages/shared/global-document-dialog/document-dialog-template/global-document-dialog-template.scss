@@ -145,3 +145,28 @@
 		}
 	}
 }
+.relative {
+	position: relative;
+  }
+.prev, .next {
+	position: absolute;
+	top: calc( (100% - 300px) / 2 );
+	z-index: 1000;
+    a {
+		display: block;
+		width: 17px;
+  		height: 300px;
+    }
+}
+.prev {
+left: 5px;
+	a {
+	background: url('/assets/images/scroll_arrow_prev.png') no-repeat center center;
+	}
+}
+.next {
+right: 5px;
+	a {
+	background: url('/assets/images/scroll_arrow_next.png') no-repeat center center;
+	}
+}

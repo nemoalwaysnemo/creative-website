@@ -3,7 +3,7 @@
 </ng-container>
 <div class="agency-thumbnail">
   <global-search-result [templateRef]="thumbnailView" [loading]="loading" [afterSearch]="afterSearch" [selectableSettings]="selectableSettings" [listViewBuilder]="listViewBuilder" [listViewSettings]="listViewSettings" [selectedView]="currentView"
-    [hideEmpty]="hideEmpty" [layout]="layout"></global-search-result>
+    [hideEmpty]="hideEmpty" [layout]="layout" (searchResult)="searchResult($event)"></global-search-result>
 </div>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
@@ -22,6 +22,6 @@
     <h4 class="agency" [title]="doc.get('The_Loupe_Main:agency')">{{doc.get('The_Loupe_Main:agency')}}</h4>
   </div>
   <ng-template #dialog>
-    <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="dialogTitle" [metadata]="dialogMetadata"></global-document-dialog>
+    <global-document-dialog [settings]="dialogSettings" [documents]="documents" [documentModel]="doc" [title]="dialogTitle" [metadata]="dialogMetadata"></global-document-dialog>
   </ng-template>
 </ng-template>

@@ -30,6 +30,9 @@
   height: 100%;
   float: left;
   margin: 0 60px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   @include media-breakpoint-down(md) {
     // < 768px
     width: calc((100% - 60px * 2) / 2);

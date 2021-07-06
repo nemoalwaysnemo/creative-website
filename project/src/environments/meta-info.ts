@@ -21,6 +21,7 @@ export enum NUXEO_DOC_TYPE {
   CREATIVE_RING_ASSET_COLLECTION_TYPE = '["Asset Collection"]',
   CREATIVE_RING_BRAND_COLLECTION_TYPE = '["Brand Collection"]',
   CREATIVE_RING_AGENCY_COLLECTION_TYPE = '["Agency Collection"]',
+  CREATIVE_RING_AGENCY_ASSETS_COLLECTION_TYPE = '["Agency Collection", "Asset Collection"]',
   BACKSLASH_ASSET_TYPE = '["App-Backslash-Article", "App-Backslash-Video", "App-Backslash-Case-Study", "App-Backslash-Edges-Asset", "App-Backslash-Resources-Asset", "App-Edges-Trigger"]',
   BACKSLASH_ARTICLE_VIDEO_POST_TYPES = '["App-Backslash-Article", "App-Backslash-Video", "App-Backslasht-Post"]',
   BACKSLASH_CASE_STUDIES_BASE_FOLDER_TYPE = '["App-Backslash-Case-Studies-Folder"]',

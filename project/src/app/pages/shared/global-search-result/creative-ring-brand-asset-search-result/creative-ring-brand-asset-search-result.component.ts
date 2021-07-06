@@ -43,6 +43,8 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
     enableSelectable: false,
   });
 
+  documents: DocumentModel[] = [];
+
   listViewSettings: any;
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_RING_ASSET] });
@@ -115,5 +117,9 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);
+  }
+
+  searchResult(docs: DocumentModel[]): void {
+    this.documents = docs;
   }
 }
