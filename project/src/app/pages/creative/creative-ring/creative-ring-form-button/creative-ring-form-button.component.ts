@@ -56,7 +56,7 @@ export class CreativeRingFormButtonComponent {
         throw new Error(`unknown document form component for '${type}'`);
     }
     return new GlobalDocumentDialogSettings({
-      containerType: 'wide-dialog-container',
+      containerType: 'middle-dialog-container',
       components,
     });
   }

@@ -3,11 +3,11 @@
   <h1 class="left">{{title}}</h1>
   <div class="clear"></div>
 </div>
-<button *ngIf="hasPrev()" nbButton class="'btn btn-info btn-xs" status="info" (click)="prev()">Previous</button>
-<button *ngIf="hasNext()" nbButton class="'btn btn-info btn-xs" status="info" (click)="next()">Next</button>
 <div class="dialog-body">
   <ng-container *ngIf="document">
-    <div class="media" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {}">
+    <div class="media relative" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {} ">
+      <div class="prev" [ngStyle]=" hasPrev() ? {} : {'display': 'none'}" (click)="prev()"><a href="javascript:;"></a></div>
+      <div class="next" [ngStyle]=" hasNext() ? {} : {'display': 'none'}" (click)="next()"><a href="javascript:;"></a></div>
       <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
     </div>
   </ng-container>
