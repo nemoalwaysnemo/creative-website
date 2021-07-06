@@ -5,4 +5,12 @@
     font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
     text-decoration: none;
   }
+
+  .see_all {
+    padding-left: 10px;
+
+    &:hover {
+      color: #fecc00;
+    }
+  }
 }
