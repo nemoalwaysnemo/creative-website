@@ -85,6 +85,13 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           },
           // updateOn: DynamicFormHook.Blur,
         }),
+        new DynamicInputModel({
+          id: 'The_Loupe_Main:collection_type',
+          label: 'Collection Type',
+          required: false,
+          hidden: true,
+          defaultValue: 'Asset Collection',
+        }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:assettype',
           label: 'Asset Type',
@@ -119,58 +126,58 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           formMode: 'create',
           layoutPosition: 'leftNarrow',
         }),
-        new DynamicDocumentSelectListModel({
-          id: 'selected-documents',
-          label: 'Selected Documents',
-          formMode: 'create',
-          layoutPosition: 'bottom',
-          defaultValue: ['9a6b9268-0431-4b83-b0cc-fec09fd46b4c', 'd1887a73-b4e4-45d5-aea3-00074d9905da'],
-          settings: {
-            searchParams: {
-              pageSize: 10,
-              currentPageIndex: 0,
-              ecm_fulltext: '',
-              ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
-              ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-            },
-            listViewSettings: {
-              hideHeader: false,
-              selectMode: 'multi',
-              showCheckbox: true,
-              hideSubHeader: true,
-              columns: {
-                thumbnail: {
-                  title: 'Thumbnail',
-                  sort: false,
-                  type: 'custom',
-                  renderComponentData: new ListSearchRowCustomViewSettings({
-                    viewType: 'thumbnail',
-                    enableClick: true,
-                  }),
-                  renderComponent: ListSearchRowCustomViewComponent,
-                },
-                title: {
-                  title: 'Title',
-                  sort: false,
-                },
-              },
-            },
-            listViewBuilder: (docs: DocumentModel[]) => {
-              const items = [];
-              for (const doc of docs) {
-                items.push(new DocumentListViewItem({
-                  uid: doc.uid,
-                  title: doc.title,
-                  thumbnail: doc,
-                }));
-              }
-              return items;
-            },
-            searchFormSettings: {
-              skipAggregates: true,
-            },
-          },
-        }),
+        // new DynamicDocumentSelectListModel({
+        //   id: 'selected-documents',
+        //   label: 'Selected Documents',
+        //   formMode: 'create',
+        //   layoutPosition: 'bottom',
+        //   defaultValue: ['9a6b9268-0431-4b83-b0cc-fec09fd46b4c', 'd1887a73-b4e4-45d5-aea3-00074d9905da'],
+        //   settings: {
+        //     searchParams: {
+        //       pageSize: 10,
+        //       currentPageIndex: 0,
+        //       ecm_fulltext: '',
+        //       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+        //       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+        //     },
+        //     listViewSettings: {
+        //       hideHeader: false,
+        //       selectMode: 'multi',
+        //       showCheckbox: true,
+        //       hideSubHeader: true,
+        //       columns: {
+        //         thumbnail: {
+        //           title: 'Thumbnail',
+        //           sort: false,
+        //           type: 'custom',
+        //           renderComponentData: new ListSearchRowCustomViewSettings({
+        //             viewType: 'thumbnail',
+        //             enableClick: true,
+        //           }),
+        //           renderComponent: ListSearchRowCustomViewComponent,
+        //         },
+        //         title: {
+        //           title: 'Title',
+        //           sort: false,
+        //         },
+        //       },
+        //     },
+        //     listViewBuilder: (docs: DocumentModel[]) => {
+        //       const items = [];
+        //       for (const doc of docs) {
+        //         items.push(new DocumentListViewItem({
+        //           uid: doc.uid,
+        //           title: doc.title,
+        //           thumbnail: doc,
+        //         }));
+        //       }
+        //       return items;
+        //     },
+        //     searchFormSettings: {
+        //       skipAggregates: true,
+        //     },
+        //   },
+        // }),
       ],
       importModel: [
         new DynamicInputModel({
