@@ -150,23 +150,26 @@
   }
 .prev, .next {
 	position: absolute;
-	top: calc( (100% - 300px) / 2 );
+	top: calc( (100% - 40px) / 2 );
 	z-index: 1000;
+	background-color: white;
     a {
 		display: block;
-		width: 17px;
-  		height: 300px;
+		width: 40px;
+  		height: 40px;
     }
 }
 .prev {
 left: 5px;
 	a {
-	background: url('/assets/images/scroll_arrow_prev.png') no-repeat center center;
+		background: url('/assets/images/left-chevron.png') no-repeat center center;
+		background-size: cover;
 	}
 }
 .next {
 right: 5px;
 	a {
-	background: url('/assets/images/scroll_arrow_next.png') no-repeat center center;
+		background: url('/assets/images/right-chevron.png') no-repeat center center;
+		background-size: cover;
 	}
 }
