@@ -1,6 +1,6 @@
-import { Component, ViewChild, TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { vocabularyFormatter } from '@core/services/helpers';
-import { Observable, of as observableOf, combineLatest, Subject, Subscription, timer } from 'rxjs';
+import { Observable, of as observableOf, combineLatest, Subject, timer } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
 import { DocumentModel, UserModel, NuxeoPermission } from '@core/api';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
@@ -16,8 +16,6 @@ import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 })
 export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPreviewTemplateComponent {
 
-  @ViewChild('creativeThumbnailItemView', { static: true }) private creativeItemView: TemplateRef<any>;
-
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   downloadPermission$: Observable<boolean> = observableOf(false);
@@ -27,7 +25,7 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
   viewerSettings: any = {
   };
 
-  hiddenDialogInfo: boolean = false;
+  hideDialogInfo: boolean = false;
 
   searchFormBrandSettings: GlobalSearchFormSettings;
 
@@ -78,9 +76,9 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
     super(globalDocumentDialogService, documentPageService);
     this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
       if (e.name === 'Opened') {
-        this.hiddenDialogInfo = true;
+        this.hideDialogInfo = true;
       } else {
-        this.hiddenDialogInfo = false;
+        this.hideDialogInfo = false;
       }
     });
   }

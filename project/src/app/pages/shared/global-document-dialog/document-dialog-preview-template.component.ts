@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { DocumentModel } from '@core/api';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { DocumentDialogCustomTemplateComponent } from './document-dialog-custom-template.component';
 import { GlobalDocumentDialogService } from './global-document-dialog.service';
 import { DocumentPageService } from '../services/document-page.service';
-import { DocumentDialogCustomTemplateComponent } from './document-dialog-custom-template.component';
 
 @Component({
   template: '',
@@ -15,19 +17,86 @@ export class DocumentDialogPreviewTemplateComponent extends DocumentDialogCustom
     }
   }
 
+  @Input()
+  set documents(docs: DocumentModel[]) {
+    if (docs && docs.length > 0) {
+      this.documents$.next(docs);
+    }
+  }
+
+  enableGallery: boolean = false;
+
+  currentDocIndex: number = -1;
+
   protected dialogSettings: any = {
     docViewerLayout: 'dialogSlides',
   };
+
+  protected documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
+
+  protected subscription: Subscription = new Subscription();
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.onDocumentsChanged();
+  }
+
+  prev(): void {
+    this.refreshView(this.getSelectedDocument(this.getIndex(false)));
+  }
+
+  next(): void {
+    this.refreshView(this.getSelectedDocument(this.getIndex(true)));
+  }
+
+  hasPrev(): boolean {
+    return this.enableGallery && this.currentDocIndex > 0;
+  }
+
+  hasNext(): boolean {
+    return this.enableGallery && this.currentDocIndex >= 0 && this.currentDocIndex < this.documents$.value.length - 1;
   }
 
   protected getPreviewSettings(): any {
     return {};
   }
 
+  protected onDocumentsChanged(): void {
+    const subscription = this.documents$.subscribe((docs: DocumentModel[]) => {
+      this.performGallerySettings(docs);
+    });
+    this.subscription.add(subscription);
+  }
+
+  protected refreshView(document: DocumentModel, metadata: any = {}): void {
+    if (document) {
+      this.globalDocumentDialogService.refreshView(document, metadata);
+    }
+  }
+
+  protected performGallerySettings(docs: DocumentModel[]): void {
+    if (docs && docs.length > 0) {
+      this.enableGallery = true;
+      this.currentDocIndex = docs.findIndex((d: DocumentModel) => d.uid === this.document.uid);
+    } else {
+      this.enableGallery = false;
+      this.currentDocIndex = -1;
+    }
+  }
+
+  protected getSelectedDocument(i: number): DocumentModel {
+    return this.documents$.value[i] ? this.documents$.value[i] : null;
+  }
+
+  private getIndex(next: boolean): number {
+    if (!next && this.hasPrev()) {
+      this.currentDocIndex = this.currentDocIndex - 1;
+    } else if (next && this.hasNext()) {
+      this.currentDocIndex = this.currentDocIndex + 1;
+    }
+    return this.currentDocIndex;
+  }
 }

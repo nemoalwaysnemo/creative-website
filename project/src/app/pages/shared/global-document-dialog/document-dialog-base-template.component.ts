@@ -11,9 +11,11 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
-  document: DocumentModel;
+  loading: boolean = false;
 
   mainViewChanged = false;
+
+  document: DocumentModel;
 
   callbackEvent: DocumentDialogEvent;
 

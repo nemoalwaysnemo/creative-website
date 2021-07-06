@@ -22,7 +22,7 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
     layout: this.getDialogSettings().docViewerLayout,
   };
 
-  hiddenDialogInfo: boolean = false;
+  hideDialogInfo: boolean = false;
 
   private assetUrlMapping: any = {
     'App-Backslash-Edges-Asset': 'backslash/resource/edge/:parentRef/asset/',
@@ -39,9 +39,9 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
     super(globalDocumentDialogService, documentPageService);
     this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
       if (e.name === 'Opened') {
-        this.hiddenDialogInfo = true;
+        this.hideDialogInfo = true;
       } else {
-        this.hiddenDialogInfo = false;
+        this.hideDialogInfo = false;
       }
     });
   }

@@ -1,16 +1,18 @@
-  <div class="dialog-title text-center" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
+<div class="dialog-title text-center" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {}">
   <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
   <h1 class="left">{{title}}</h1>
   <div class="clear"></div>
 </div>
+<button *ngIf="hasPrev()" nbButton class="'btn btn-info btn-xs" status="info" (click)="prev()">Previous</button>
+<button *ngIf="hasNext()" nbButton class="'btn btn-info btn-xs" status="info" (click)="next()">Next</button>
 <div class="dialog-body">
   <ng-container *ngIf="document">
-    <div class="media" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
+    <div class="media" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {}">
       <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
     </div>
   </ng-container>
   <ng-container *ngIf="document">
-    <div class="text-content" style="padding-top: 0;" [ngStyle]=" hiddenDialogInfo ? {'display': 'none'} : {}">
+    <div class="text-content" style="padding-top: 0;" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {}">
       <div class="controls row">
         <div class="col-5">
           <h3 class="left"><b>{{ document.title }}</b></h3>
@@ -54,7 +56,7 @@
           </tbody>
         </table>
       </ng-container>
-      
+
       <nb-accordion class="accordion" *ngIf="downloadPermission$ && attachments && attachments.length !== 0">
         <nb-accordion-item class="accordion-item">
           <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
