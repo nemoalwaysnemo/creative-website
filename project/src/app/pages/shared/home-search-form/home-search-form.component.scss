@@ -81,6 +81,9 @@ $main-yellow: #fecc00;
     margin-bottom: 10px;
     color: #000000;
   }
+  &:hover {
+    color: #fecc00;
+  }
   &:focus { outline: 0; }
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
