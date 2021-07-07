@@ -58,6 +58,9 @@ export class CreativeRingFormButtonComponent {
     return new GlobalDocumentDialogSettings({
       containerType: 'middle-dialog-container',
       components,
+      metadata: {
+        formSettings: { formType: 'new' },
+      },
     });
   }
 

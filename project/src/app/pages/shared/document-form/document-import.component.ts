@@ -28,16 +28,18 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
   }
 
   protected performDocumentForm(ctx: DocumentFormContext): void {
+    ctx.formSettings.enableBulkImport = ctx.formSettings.enableBulkImport === null ? true : ctx.formSettings.enableBulkImport;
     const models = this.getImportFormModel(ctx.formSettings);
     this.prepareDocumentForm(ctx, models);
     this.performSharedDocumentForm(ctx);
-    ctx.formSettings.enableBulkImport = true;
   }
 
   protected performSharedDocumentForm(ctx: DocumentFormContext): void {
-    const models = this.performFormModel(ctx, ctx.formSettings.sharedModel);
-    this.performSharedFormSettings(ctx, models);
-    this.createSharedDocumentForm(models);
+    if (ctx.formSettings.enableBulkImport) {
+      const models = this.performFormModel(ctx, ctx.formSettings.sharedModel);
+      this.performSharedFormSettings(ctx, models);
+      this.createSharedDocumentForm(models);
+    }
   }
 
   protected createSharedDocumentForm(models: DynamicFormModel): void {
@@ -96,7 +98,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
         layoutPosition: settings.importSettings.layoutPosition,
       }),
     ];
-    return (settings.formModel || []).concat(settings.formMode === 'create' ? importModel : []);
+    return (settings.formModel || []).concat(settings.formMode === 'create' && settings.enableBulkImport ? importModel : []);
   }
 
   protected onFilesChangedFn(items: NuxeoUploadResponse[]): Observable<NuxeoUploadResponse[]> {

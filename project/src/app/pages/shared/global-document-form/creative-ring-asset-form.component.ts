@@ -108,7 +108,7 @@ export class CreativeRingAssetFormComponent extends GlobalDocumentFormComponent 
           placeholder: 'Replace Main file!',
           acceptTypes: '.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
         },
-        hiddenFn: (): boolean => this.document.type === 'App-Library-Image' || this.document.type === 'App-Library-Audio',
+        visibleFn: (): boolean => this.document.type === 'App-Library-Image' || this.document.type === 'App-Library-Audio',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
@@ -118,7 +118,7 @@ export class CreativeRingAssetFormComponent extends GlobalDocumentFormComponent 
           placeholder: 'Replace Main file!',
           acceptTypes: 'image/*,.pdf',
         },
-        hiddenFn: (): boolean => this.document.type === 'App-Library-Video' || this.document.type === 'App-Library-Audio',
+        visibleFn: (): boolean => this.document.type === 'App-Library-Video' || this.document.type === 'App-Library-Audio',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
@@ -128,7 +128,7 @@ export class CreativeRingAssetFormComponent extends GlobalDocumentFormComponent 
           placeholder: 'Replace Main file!',
           acceptTypes: '.mp3,.mp4',
         },
-        hiddenFn: (): boolean => this.document.type === 'App-Library-Image' || this.document.type === 'App-Library-Video',
+        visibleFn: (): boolean => this.document.type === 'App-Library-Image' || this.document.type === 'App-Library-Video',
       }),
       new DynamicBatchUploadModel<string>({
         id: 'batchUpload',

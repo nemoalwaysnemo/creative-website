@@ -8,7 +8,6 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
-import { CreativeRingAssetFormComponent, GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 
 @Component({
   selector: 'creative-ring-asset-preview-dialog',

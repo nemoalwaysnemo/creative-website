@@ -38,9 +38,10 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     return observableOf(doc);
   }
 
-  protected getDocumentFormSettings(opts: any = {}): DocumentFormSettings {
+  protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
     return new DocumentFormSettings({
       acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
+      enableBulkImport: options.formType === 'new',
       docType: this.documentType,
       enableCreateMain: true,
       importSettings: {
@@ -126,58 +127,59 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           formMode: 'create',
           layoutPosition: 'leftNarrow',
         }),
-        // new DynamicDocumentSelectListModel({
-        //   id: 'selected-documents',
-        //   label: 'Selected Documents',
-        //   formMode: 'create',
-        //   layoutPosition: 'bottom',
-        //   defaultValue: ['9a6b9268-0431-4b83-b0cc-fec09fd46b4c', 'd1887a73-b4e4-45d5-aea3-00074d9905da'],
-        //   settings: {
-        //     searchParams: {
-        //       pageSize: 10,
-        //       currentPageIndex: 0,
-        //       ecm_fulltext: '',
-        //       ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
-        //       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-        //     },
-        //     listViewSettings: {
-        //       hideHeader: false,
-        //       selectMode: 'multi',
-        //       showCheckbox: true,
-        //       hideSubHeader: true,
-        //       columns: {
-        //         thumbnail: {
-        //           title: 'Thumbnail',
-        //           sort: false,
-        //           type: 'custom',
-        //           renderComponentData: new ListSearchRowCustomViewSettings({
-        //             viewType: 'thumbnail',
-        //             enableClick: true,
-        //           }),
-        //           renderComponent: ListSearchRowCustomViewComponent,
-        //         },
-        //         title: {
-        //           title: 'Title',
-        //           sort: false,
-        //         },
-        //       },
-        //     },
-        //     listViewBuilder: (docs: DocumentModel[]) => {
-        //       const items = [];
-        //       for (const doc of docs) {
-        //         items.push(new DocumentListViewItem({
-        //           uid: doc.uid,
-        //           title: doc.title,
-        //           thumbnail: doc,
-        //         }));
-        //       }
-        //       return items;
-        //     },
-        //     searchFormSettings: {
-        //       skipAggregates: true,
-        //     },
-        //   },
-        // }),
+        new DynamicDocumentSelectListModel({
+          id: 'selected-documents',
+          label: 'Selected Documents',
+          formMode: 'create',
+          layoutPosition: 'bottom',
+          defaultValue: (options.selectedDocuments || []).map((d: DocumentModel) => d.uid),
+          settings: {
+            searchParams: {
+              pageSize: 10,
+              currentPageIndex: 0,
+              ecm_fulltext: '',
+              ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+              ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
+            },
+            listViewSettings: {
+              hideHeader: false,
+              selectMode: 'multi',
+              showCheckbox: true,
+              hideSubHeader: true,
+              columns: {
+                thumbnail: {
+                  title: 'Thumbnail',
+                  sort: false,
+                  type: 'custom',
+                  renderComponentData: new ListSearchRowCustomViewSettings({
+                    viewType: 'thumbnail',
+                    enableClick: true,
+                  }),
+                  renderComponent: ListSearchRowCustomViewComponent,
+                },
+                title: {
+                  title: 'Title',
+                  sort: false,
+                },
+              },
+            },
+            listViewBuilder: (docs: DocumentModel[]) => {
+              const items = [];
+              for (const doc of docs) {
+                items.push(new DocumentListViewItem({
+                  uid: doc.uid,
+                  title: doc.title,
+                  thumbnail: doc,
+                }));
+              }
+              return items;
+            },
+            searchFormSettings: {
+              skipAggregates: true,
+            },
+          },
+          visibleFn: (): boolean => options.formType === 'add',
+        }),
       ],
       importModel: [
         new DynamicInputModel({
@@ -198,6 +200,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
             required: '{{label}} is required',
             minLength: 'At least 4 characters',
           },
+          visibleFn: (): boolean => options.formType === 'new',
         }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:brand',
@@ -211,6 +214,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           },
           validators: { required: null },
           errorMessages: { required: '' },
+          visibleFn: (): boolean => options.formType === 'new',
         }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:assettype',
@@ -225,6 +229,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           },
           validators: { required: null },
           errorMessages: { required: '' },
+          visibleFn: (): boolean => options.formType === 'new',
         }),
       ],
     });

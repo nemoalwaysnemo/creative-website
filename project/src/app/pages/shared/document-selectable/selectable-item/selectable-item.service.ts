@@ -61,7 +61,7 @@ export class SelectableItemService {
     return Object.values(this.selectedItems).filter((i: any) => i.dataType === event.type).map((i: any) => i.document.uid);
   }
 
-  setQueueLimit(num): void {
+  setQueueLimit(num: number): void {
     this.queueLimit = num;
   }
 }
