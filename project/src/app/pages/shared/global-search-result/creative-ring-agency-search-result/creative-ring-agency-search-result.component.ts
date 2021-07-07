@@ -15,7 +15,7 @@ export class CreativeRingAgencyRowRenderComponent {
 
 @Component({
   selector: 'creative-ring-agency-search-result',
-  styleUrls: ['../thumbnail-view.scss'],
+  styleUrls: ['../thumbnail-view.scss', './creative-ring-agency-search-result.component.scss'],
   templateUrl: './creative-ring-agency-search-result.component.html',
 })
 export class CreativeRingAgencySearchResultComponent extends BaseSearchResultComponent {
@@ -59,6 +59,11 @@ export class CreativeRingAgencySearchResultComponent extends BaseSearchResultCom
         type: 'custom',
         renderComponent: CreativeRingAgencyRowRenderComponent,
       },
+      country: {
+        sort: false,
+        type: 'custom',
+        renderComponent: CreativeRingAgencyRowRenderComponent,
+      },
     },
   };
 
@@ -73,6 +78,7 @@ export class CreativeRingAgencySearchResultComponent extends BaseSearchResultCom
         uid: doc.uid,
         action: doc,
         agency: { title: doc.title, uid: doc.uid },
+        country: doc.get('The_Loupe_Main:country'),
       }));
     }
     return items;

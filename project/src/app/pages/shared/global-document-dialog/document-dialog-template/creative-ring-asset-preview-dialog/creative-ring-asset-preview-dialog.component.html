@@ -30,6 +30,9 @@
           <ng-container *ngIf="getDialogSettings().enableDetail">
             <a [routerLink]="['/p/creative/asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
           </ng-container>
+          <ng-container *ngIf="writePermission$ | async">
+            <button class="edit right" type="button" (click)="selectView('creative-ring-asset-form')">Edit</button>
+          </ng-container>
         </div>
         <div class="clear"></div>
       </div>
