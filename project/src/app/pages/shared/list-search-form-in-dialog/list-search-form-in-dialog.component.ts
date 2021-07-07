@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { isValueEmpty } from '@core/services/helpers';
 import { DocumentModel, SearchResponse } from '@core/api';
-import { Observable, of as observableOf, Subject } from 'rxjs';
+import { Observable, of as observableOf, Subject, timer } from 'rxjs';
 import { DocumentPageService } from '../services/document-page.service';
 import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
@@ -25,12 +25,13 @@ export class ListSearchFormInDialogComponent extends BaseSearchFormComponent {
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'list-search-form-in-dialog',
+    enableSearchInput: false,
   });
 
   @Input()
   set documents(docs: DocumentModel[]) {
     if (!isValueEmpty(docs)) {
-      this.items$.next(this.listViewBuilder(docs));
+      timer(0).subscribe(() => { this.items$.next(this.listViewBuilder(docs)); });
     }
   }
 
