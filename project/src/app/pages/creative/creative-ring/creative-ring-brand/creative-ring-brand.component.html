@@ -1,7 +1,7 @@
 <creative-ring-info-view [loading]="loading" [document]="document"></creative-ring-info-view>
 <div class="creative-ring-brand" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings" (onLoading)="onLoading($event)">
-    <global-search-button class="group-right" [enableViewSwitcher]="true" (onResultViewChanged)="onResultViewChanged($event)"></global-search-button>
+    <global-search-button class="group-right" [enableViewSwitcher]="true" [currentView]="currentView" (onResultViewChanged)="onResultViewChanged($event)"></global-search-button>
   </global-search-form>
   <creative-ring-brand-search-result [selectedView]="currentView"></creative-ring-brand-search-result>
 </div>
