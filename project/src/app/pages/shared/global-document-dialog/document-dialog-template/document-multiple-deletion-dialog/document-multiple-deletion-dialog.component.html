@@ -6,14 +6,29 @@
 </div>
 <div class="dialog-body">
   <div class="text-content pure-text" *ngIf="!documents || documents.length === 0">You don't have permission for the selected assets.</div>
-  <div class="documents" *ngIf="documents && documents.length !== 0">
-    <div class="text-content pure-text">Are you sure you want to delete these assets from the library permanently?</div>
-    <ul>
-      <li *ngFor="let doc of documents; index as i" class="doc-title">{{ doc.title }}</li>
-    </ul>
-  </div>
-  <div class="action-content text-right">
-    <button (click)="delete()" *ngIf="documents && documents.length !== 0" class="btn btn-success">Yes</button>
-    <button (click)="cancel()" class="btn btn-danger">Cancel</button>
-  </div>
+  <ng-container *ngIf="showDeleteSettings.enableDeleteDocuments">
+    <div class="documents" *ngIf="documents && documents.length !== 0">
+      <div class="text-content pure-text">Are you sure you want to delete these assets from the library permanently?</div>
+      <ul>
+        <li *ngFor="let doc of documents; index as i" class="doc-title">{{ doc.title }}</li>
+      </ul>
+    </div>
+    <div class="action-content text-right">
+      <button (click)="delete()" *ngIf="documents && documents.length !== 0" class="btn btn-success">Yes</button>
+      <button (click)="cancel()" class="btn btn-danger">Cancel</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="showDeleteSettings.enableRemoveFromCollection">
+    <div class="documents" *ngIf="documents && documents.length !== 0">
+      <div class="text-content pure-text">Are you sure, this asset is used in {{document.title}} Collections?</div>
+      <ul>
+        <li *ngFor="let doc of documents; index as i" class="doc-title">{{ doc.title }}</li>
+      </ul>
+    </div>
+    <div class="action-content text-right">
+      <!-- <button (click)="removeFromCollection(documents)" *ngIf="documents && documents.length !== 0" class="btn btn-success">Yes</button> -->
+      <button (click)="delete()" *ngIf="documents && documents.length !== 0" class="btn btn-success">Yes</button>
+      <button (click)="cancel()" class="btn btn-danger">Cancel</button>
+    </div>
+  </ng-container>
 </div>

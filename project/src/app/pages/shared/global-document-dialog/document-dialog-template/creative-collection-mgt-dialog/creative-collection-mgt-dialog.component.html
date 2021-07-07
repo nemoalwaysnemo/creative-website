@@ -4,12 +4,12 @@
   <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
   <div class="clear"></div>
 </div>
-<div class="dialog-body">
+<div class="dialog-body creative-collection-mgt-dialog">
   <global-search-form [searchParams]="baseParams$ | async" [filters]="filters" [settings]="searchFormSettings">
     <ng-container class="group-right">
       <div class="global-search-form-buttons">
-        <button (click)="addToCollection()" class="icon_btn">OK</button>
-        <!-- <creative-ring-form-button [parent]="document" [type]="'collection'" [title]="'Upload'"></creative-ring-form-button> -->
+        <button type="button" class="icon_btn left" (click)="openDialog('creative-ring-collection-form')">New Collection</button>
+        <button type="button" [ngClass]="{'btn-disabled': !targetCollection || targetCollection.length === 0}" [disabled]="!targetCollection || targetCollection.length === 0" (click)="addToCollection()" class="icon_btn">OK</button>
       </div>
     </ng-container>
   </global-search-form>

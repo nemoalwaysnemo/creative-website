@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentModel, NuxeoPermission } from '@core/api';
+import { DocumentModel, NuxeoAutomations, NuxeoPermission } from '@core/api';
 import { Observable, forkJoin, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DocumentPageService } from '../../../services/document-page.service';
@@ -16,6 +16,8 @@ export class DocumentMultipleDeletionComponent extends DocumentDialogCustomTempl
 
   documents: DocumentModel[] = [];
 
+  showDeleteSettings: any = { enableDeleteDocuments: false, enableRemoveFromCollection: false };
+
   redirectUrl: string = this.documentPageService.getCurrentUrl();
 
   constructor(
@@ -27,6 +29,9 @@ export class DocumentMultipleDeletionComponent extends DocumentDialogCustomTempl
   }
 
   protected onInit(): void {
+    if (this.dialogSettings.showDeleteSettings) {
+      this.showDeleteSettings = this.dialogSettings.showDeleteSettings;
+    }
     if (this.dialogSettings.documents) {
       const subscription = this.getValidDocuments(this.dialogSettings.documents).subscribe((docs: DocumentModel[]) => this.documents = docs);
       this.subscription.add(subscription);
@@ -38,7 +43,19 @@ export class DocumentMultipleDeletionComponent extends DocumentDialogCustomTempl
       this.globalDocumentDialogService.close();
       this.selectableItemService.clear();
       this.refresh(this.documentPageService.getCurrentUrl());
-      this.documentPageService.notify(`Assets Deleted!`, 'Assets Deleted!', 'success');
+      this.documentPageService.notify(`Assets Deleted!`, '', 'success');
+    });
+    this.subscription.add(subscription);
+  }
+
+  removeFromCollection(): void {
+    const collection: any = this.document.uid;
+    const assetIds: string[] = this.documents.map((doc: DocumentModel) => doc.uid);
+    const subscription = this.documentPageService.operation(NuxeoAutomations.RemoveDocumentsFromCollection, { collection }, assetIds).subscribe((models: DocumentModel[]) => {
+      this.globalDocumentDialogService.close();
+      this.selectableItemService.clear();
+      this.refresh(this.documentPageService.getCurrentUrl());
+      this.documentPageService.notify(`Removed from Collection successfully!`, '', 'success');
     });
     this.subscription.add(subscription);
   }

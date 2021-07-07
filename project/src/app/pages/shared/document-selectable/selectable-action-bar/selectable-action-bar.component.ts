@@ -6,6 +6,7 @@ import { DocumentPageService } from '../../services/document-page.service';
 import { SelectableActionBarSettings } from './selectable-action-bar.interface';
 import { SelectableItemService, SelectableItemEvent } from '../selectable-item/selectable-item.service';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
+import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 
 @Component({
   selector: 'selectable-action-bar',
@@ -67,7 +68,13 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
 
   showcaseDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_SHOWCASE_ADD_REMOVE] });
 
-  showCollectionDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_COLLECTION_MGT] });
+  showCollectionDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
+    components: [
+      GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_COLLECTION_MGT,
+      GLOBAL_DOCUMENT_FORM.CREATIVE_RING_COLLECTION_FORM,
+    ],
+    current: GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_COLLECTION_MGT,
+  });
 
   deleteDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETE_MULTIPLE_ASSETS] });
 

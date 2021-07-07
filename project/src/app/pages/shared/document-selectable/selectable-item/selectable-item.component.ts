@@ -1,4 +1,4 @@
-import { Component, Input, Output, HostBinding, EventEmitter } from '@angular/core';
+import { Component, Input, Output, HostBinding, EventEmitter, OnInit } from '@angular/core';
 import { SelectableItemService, SelectableItemEvent } from './selectable-item.service';
 import { DocumentModel } from '@core/api';
 
@@ -10,7 +10,7 @@ import { DocumentModel } from '@core/api';
     </div>
   `,
 })
-export class SelectableItemComponent {
+export class SelectableItemComponent implements OnInit {
 
   @HostBinding('class.item-selected')
   get isSelected(): boolean {
@@ -25,11 +25,17 @@ export class SelectableItemComponent {
 
   @Input() selected: boolean = false;
 
+  @Input() queueLimit: number = 100;
+
   @Input() document: DocumentModel;
 
   @Output() onSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private selectableItemService: SelectableItemService) {
+  }
+
+  ngOnInit(): void {
+    this.selectableItemService.setQueueLimit(this.queueLimit);
   }
 
   onChecked(checked: boolean): void {

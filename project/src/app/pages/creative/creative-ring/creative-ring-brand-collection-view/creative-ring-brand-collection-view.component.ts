@@ -40,7 +40,7 @@ export class CreativeRingBrandCollectionViewComponent {
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_FORM.CREATIVE_RING_BRAND_COLLECTION_FORM] });
 
-  dialogTitle: string = 'Creative';
+  dialogTitle: string = 'Upload Logo';
 
   dialogMetadata: any = {
     formMode: 'edit',
