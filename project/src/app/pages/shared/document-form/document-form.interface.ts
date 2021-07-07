@@ -175,7 +175,7 @@ export class DocumentFormSettings {
 
   enableCreateBatch: boolean = true;
 
-  enableBulkImport: boolean = false;
+  enableBulkImport: boolean = null;
 
   resetFormAfterDone: boolean = false;
 

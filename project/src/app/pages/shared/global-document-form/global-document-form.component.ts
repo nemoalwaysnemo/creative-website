@@ -145,35 +145,32 @@ export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, O
   }
 
   protected setFormSettings(settings: any = {}): void {
-    this.formSettings$.next(this.getDocumentFormSettings().update(settings));
+    const defaultSettings = this.getDocumentFormSettings(settings);
+    this.formSettings$.next(defaultSettings.update(settings));
   }
 
-  protected getDocumentFormSettings(): DocumentFormSettings {
-    const settings = this.getFormSettings();
-    settings.accordionSettings = this.getFormAccordion();
-    settings.switchTabSettings = this.getFormSwitchTab();
-    settings.formModel = this.getFormModels();
+  protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
+    const settings = this.getFormSettings(options);
+    settings.accordionSettings = this.getFormAccordion(options);
+    settings.switchTabSettings = this.getFormSwitchTab(options);
+    settings.formModel = this.getFormModels(options);
     return new DocumentFormSettings(settings);
   }
 
-  protected getFormSettings(): any {
+  protected getFormSettings(options: any = {}): any {
     return {};
   }
 
-  protected getFormAccordion(): any[] {
+  protected getFormAccordion(options: any = {}): any[] {
     return [];
   }
 
-  protected getFormSwitchTab(): any[] {
+  protected getFormSwitchTab(options: any = {}): any[] {
     return [];
   }
 
-  protected getFormModels(): any[] {
+  protected getFormModels(options: any = {}): any[] {
     return [];
-  }
-
-  protected getFormLayout(): any {
-    return {};
   }
 
 }
