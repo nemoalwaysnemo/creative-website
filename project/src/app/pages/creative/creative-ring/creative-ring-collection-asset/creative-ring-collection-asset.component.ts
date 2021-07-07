@@ -5,11 +5,11 @@ import { GlobalDocumentViewComponent, GlobalSearchFormSettings } from '@pages/sh
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
-  selector: 'creative-ring-collection-folder',
-  styleUrls: ['../../../../theme/styles/document-metadata-view.scss', './creative-ring-collection-folder.component.scss'],
-  templateUrl: './creative-ring-collection-folder.component.html',
+  selector: 'creative-ring-collection-asset',
+  styleUrls: ['../../../../theme/styles/document-metadata-view.scss', './creative-ring-collection-asset.component.scss'],
+  templateUrl: './creative-ring-collection-asset.component.html',
 })
-export class CreativeRingCollectionFolderComponent extends GlobalDocumentViewComponent {
+export class CreativeRingCollectionAssetComponent extends GlobalDocumentViewComponent {
 
   baseParams$: Subject<any> = new Subject<any>();
 

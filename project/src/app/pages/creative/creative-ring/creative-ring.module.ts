@@ -5,7 +5,7 @@ import { CreativeRingPageComponent } from './creative-ring.component';
 import { CreativeRingCollectionModule } from './creative-ring-collection/creative-ring-collection.module';
 import { CreativeRingBrandModule } from './creative-ring-brand/creative-ring-brand.module';
 import { CreativeRingAgencyModule } from './creative-ring-agency/creative-ring-agency.module';
-import { CreativeRingCollectionFolderModule } from './creative-ring-collection-folder/creative-ring-collection-folder.module';
+import { CreativeRingCollectionAssetModule } from './creative-ring-collection-asset/creative-ring-collection-asset.module';
 import { CreativeRingBrandAssetModule } from './creative-ring-brand-asset/creative-ring-brand-asset.module';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { CreativeRingBrandAssetModule } from './creative-ring-brand-asset/creati
     CreativeRingCollectionModule,
     CreativeRingBrandModule,
     CreativeRingAgencyModule,
-    CreativeRingCollectionFolderModule,
+    CreativeRingCollectionAssetModule,
     CreativeRingBrandAssetModule,
   ],
   declarations: [
