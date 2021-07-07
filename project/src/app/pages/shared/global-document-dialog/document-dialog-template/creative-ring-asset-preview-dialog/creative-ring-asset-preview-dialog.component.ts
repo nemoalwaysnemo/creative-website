@@ -8,6 +8,7 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { CreativeRingAssetFormComponent, GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 
 @Component({
   selector: 'creative-ring-asset-preview-dialog',
@@ -19,6 +20,8 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
   downloadPermission$: Observable<boolean> = observableOf(false);
+
+  writePermission$: Observable<boolean> = observableOf(false);
 
   attachments: { type: string, url: string, title: string }[] = [];
 
@@ -89,6 +92,7 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
       this.shareUrl = this.buildShareUrl(doc);
       this.attachments = doc.getAttachmentList();
       this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
+      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
       timer(0).subscribe(() => { this.baseParamsBrand$.next(this.buildBrandAssetParams(doc)); });
     }
   }

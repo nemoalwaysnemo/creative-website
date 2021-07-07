@@ -10,6 +10,7 @@ import { CreativeCampaignFormComponent } from './creative-asset-campaign-form.co
 import { CreativeProjectFormComponent } from './creative-asset-project-form.component';
 import { CreativeRingCollectionFormComponent } from './creative-ring-collection-form.component';
 import { CreativeRingBrandCollectionFormComponent } from './creative-ring-brand-collection-form.component';
+import { CreativeRingAssetFormComponent } from './creative-ring-asset-form.component';
 import { DisruptionRoadmapFormComponent } from './disruption-roadmap-form.component';
 import { DisruptionDayFolderFormComponent } from './disruption-day-folder-form.component';
 import { DisruptionBrilliantThinkingFormComponent } from './disruption-brilliant-thinking-form.component';
@@ -49,6 +50,7 @@ export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_PROJECT_FORM: CreativeProjectFormComponent,
   CREATIVE_RING_COLLECTION_FORM: CreativeRingCollectionFormComponent,
   CREATIVE_RING_BRAND_COLLECTION_FORM: CreativeRingBrandCollectionFormComponent,
+  CREATIVE_RING_ASSET_FORM: CreativeRingAssetFormComponent,
   DISRUPTION_ROADMAP_FORM: DisruptionRoadmapFormComponent,
   DISRUPTION_BRILLIANT_THINKING_FORM: DisruptionBrilliantThinkingFormComponent,
   DISRUPTION_DAY_FORM: DisruptionDayFolderFormComponent,
