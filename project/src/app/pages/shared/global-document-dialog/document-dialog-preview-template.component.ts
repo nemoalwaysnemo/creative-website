@@ -45,11 +45,11 @@ export class DocumentDialogPreviewTemplateComponent extends DocumentDialogCustom
   }
 
   prev(): void {
-    this.refreshView(this.getSelectedDocument(this.getIndex(false)));
+    this.refreshView(this.getSelectedDocument(this.getIndex(false)), this.dialogSettings);
   }
 
   next(): void {
-    this.refreshView(this.getSelectedDocument(this.getIndex(true)));
+    this.refreshView(this.getSelectedDocument(this.getIndex(true)), this.dialogSettings);
   }
 
   hasPrev(): boolean {
