@@ -9,8 +9,6 @@ import { DocumentThumbnailViewService } from '../document-thumbnail-view/documen
 })
 export class GlobalSearchButtonComponent {
 
-  currentView: string = 'thumbnailView';
-
   enableSliderAction: boolean = false;
 
   enableSliderBar: boolean = false;
@@ -45,6 +43,8 @@ export class GlobalSearchButtonComponent {
   }
 
   @Input() enableViewSwitcher: boolean = false;
+
+  @Input() currentView: string = 'thumbnailView';
 
   @Output() onResultViewChanged: EventEmitter<string> = new EventEmitter();
 

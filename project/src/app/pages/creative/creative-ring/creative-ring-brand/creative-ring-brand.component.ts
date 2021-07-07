@@ -36,7 +36,7 @@ export class CreativeRingBrandComponent extends GlobalDocumentViewComponent {
 
   onSearching: boolean = true;
 
-  currentView: string = 'thumbnailView';
+  currentView: string = 'listView';
 
   constructor(
     protected activatedRoute: ActivatedRoute,
