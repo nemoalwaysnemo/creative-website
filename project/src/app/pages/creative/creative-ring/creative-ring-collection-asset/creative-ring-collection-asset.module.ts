@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeModule } from '@theme/theme.module';
-import { CreativeRingCollectionFolderComponent } from './creative-ring-collection-folder.component';
+import { CreativeRingCollectionAssetComponent } from './creative-ring-collection-asset.component';
 import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared';
 import { CreativeRingFormButtonModule } from '../creative-ring-form-button/creative-ring-form-button.module';
 import { GlobalSearchButtonModule } from '../../../shared/global-search-button/global-search-button.module';
@@ -21,7 +21,7 @@ import { DocumentShareButtonModule } from '../../../shared/document-share-button
     DocumentShareButtonModule,
   ],
   declarations: [
-    CreativeRingCollectionFolderComponent,
+    CreativeRingCollectionAssetComponent,
   ],
 })
-export class CreativeRingCollectionFolderModule { }
+export class CreativeRingCollectionAssetModule { }
