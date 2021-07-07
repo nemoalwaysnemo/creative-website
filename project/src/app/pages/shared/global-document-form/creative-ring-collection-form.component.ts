@@ -132,15 +132,8 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           label: 'Selected Documents',
           formMode: 'create',
           layoutPosition: 'bottom',
-          defaultValue: (options.selectedDocuments || []).map((d: DocumentModel) => d.uid),
           settings: {
-            searchParams: {
-              pageSize: 10,
-              currentPageIndex: 0,
-              ecm_fulltext: '',
-              ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
-              ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-            },
+            documents: options.selectedDocuments,
             listViewSettings: {
               hideHeader: false,
               selectMode: 'multi',
@@ -173,9 +166,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
                 }));
               }
               return items;
-            },
-            searchFormSettings: {
-              skipAggregates: true,
             },
           },
           visibleFn: (): boolean => options.formType === 'add',
