@@ -7,6 +7,8 @@ export class SelectableItemSettings {
 
   enableSelectable: boolean = false;
 
+  queueLimit: number = 100;
+
   constructor(data: any = {}) {
     Object.assign(this, data);
   }

@@ -2,12 +2,50 @@
 @import '../../../../../core/nebular/theme/styles/global/breakpoints';
 .dialog-body {
   .global-search-form-buttons {
-    margin-right: 60px;
+    margin-right: 10px;
     .icon_btn {
-      padding: 0 20px;
+			padding: 0 20px;
+			margin-right: 20px;
     }
   }
   .s-results {
     margin: 0 30px !important;
   }
 }
+::ng-deep .creative-collection-mgt-dialog {
+  .search-input.left {
+    margin: 0 27px 28px 43px !important;
+  }
+	.dates {
+		.thumbnail-view-item {
+			h4 {
+				width: 110px;
+			}
+			@include media-breakpoint-down(md) {
+				// < 768px
+				width: calc((100% - 60px * 2) / 2) !important;
+			}
+			@include media-breakpoint-between(md, lg) {
+				//768px - 992px
+				width: calc((100% - 60px * 2) / 2) !important;
+			}
+			@include media-breakpoint-between(lg, xl) {
+				//992px - 1200px
+				width: calc((100% - 60px * 2) / 2) !important;
+			}
+			@include media-breakpoint-between(xl, xxl) {
+				// 1200px - 1400px
+				width: calc((100% - 60px * 2) / 2) !important;
+			}
+			@include media-breakpoint-between(xxl, xxxl) {
+				// 1400px - 1600px
+				width: calc((100% - 60px * 3) / 3) !important;
+			}
+			@include media-breakpoint-up(xxxl) {
+				// > 1600px
+				width: calc((100% - 60px * 3) / 3) !important;
+			}
+	  }
+	}
+}
+

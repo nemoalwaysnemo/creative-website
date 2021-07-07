@@ -90,6 +90,7 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
     instance.disabled = this.disabled;
     instance.selected = this.selected;
     instance.dataType = this.selectableSettings.dataType;
+    instance.queueLimit = this.selectableSettings.queueLimit;
     typeof this.document !== 'undefined' && (instance.document = this.document);
     this.subscription = instance.onSelected.subscribe((selected: boolean) => this.selected = selected);
   }

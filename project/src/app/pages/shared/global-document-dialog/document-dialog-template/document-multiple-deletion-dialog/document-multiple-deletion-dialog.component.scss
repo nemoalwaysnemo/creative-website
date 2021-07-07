@@ -1,11 +1,13 @@
 .dialog-body {
   .documents {
     padding-left: 30px;
+    .text-content {
+      padding: 22px;
+    }
     .doc-title {
       font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
       font-size: 20px;
       padding-left: 5px;
-      list-style: outside;
     }
   }
 }

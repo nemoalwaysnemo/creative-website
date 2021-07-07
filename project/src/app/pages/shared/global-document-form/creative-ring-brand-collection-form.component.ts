@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { DynamicInputModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel } from '@core/custom';
+import { DynamicInputModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -49,6 +49,10 @@ export class CreativeRingBrandCollectionFormComponent extends GlobalDocumentForm
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
         },
+      }),
+      new DynamicCheckboxModel({
+        id: 'app_global:enable_thumbnail',
+        label: 'Enable Thumbnail',
       }),
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',

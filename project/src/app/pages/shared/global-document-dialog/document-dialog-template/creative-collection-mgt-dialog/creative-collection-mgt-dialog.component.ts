@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoPermission, SearchResponse } from '@core/api';
 import { Observable, forkJoin, zip, Subject, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DocumentPageService } from '../../../services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
@@ -30,6 +30,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
     dataType: 'collection-view-selectable',
     enableSelectable: true,
+    queueLimit: 1,
   });
 
   filters: SearchFilterModel[] = [
@@ -59,22 +60,24 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
   }
 
   addToCollection(): void {
-    const collection: any = this.targetCollection;
+    const collection: any = this.targetCollection ? this.targetCollection.shift() : '';
     const assetIds: string[] = this.documents.map((doc: DocumentModel) => doc.uid);
-    const subscription = this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection }, assetIds).subscribe((models: DocumentModel[]) => {
-      this.globalDocumentDialogService.close();
-      this.selectableItemService.clear();
-      this.refresh(this.documentPageService.getCurrentUrl());
-      this.documentPageService.notify(`Added to Collection successfully!`, 'Added to Collection successfully!', 'success');
-    });
-    this.subscription.add(subscription);
+    if (collection && assetIds.length > 0) {
+      const subscription = this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: collection.uid }, assetIds).subscribe(_ => {
+        this.globalDocumentDialogService.close();
+        this.selectableItemService.clear();
+        this.documentPageService.notify(`Added to Collection successfully!`, '', 'success');
+        this.refresh(this.documentPageService.getCurrentUrl());
+      });
+      this.subscription.add(subscription);
+    }
   }
 
   onLoadMore(res: SearchResponse): void {
     this.append = true;
-    const params = [];
+    const params = this.buildAssetsParams();
     params['currentPageIndex'] = res.response.currentPageIndex + 1;
-    params['pageSize'] = 8;
+    params['pageSize'] = 4;
     this.baseParams$.next(res.searchParams.setParams(params));
   }
 
@@ -84,10 +87,14 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
     }
   }
 
+  openDialog(name: string): void {
+    this.selectView(name);
+  }
+
   private triggerSearch(): void {
     this.searchFormSettings = new GlobalSearchFormSettings({
       source: 'creative-collections-mgt',
-      enableQueryParams: true,
+      enableQueryParams: false,
     });
     timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetsParams()); });
   }
