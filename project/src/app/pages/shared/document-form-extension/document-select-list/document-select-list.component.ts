@@ -95,10 +95,15 @@ export class DocumentSelectListComponent implements OnInit, OnDestroy, ControlVa
   }
 
   private setFormSettings(settings: DocumentSelectListSettings, selected: string[] = []): void {
-    settings.listViewSettings.selected = selected;
     this.listViewSettings = settings.listViewSettings;
     this.listViewBuilder = settings.listViewBuilder;
     this.documents = settings.documents;
+    if (settings.formMode === 'create') {
+      settings.listViewSettings.selected = settings.documents.map((d: DocumentModel) => d.uid);
+      timer(0).subscribe(() => { this._onChange(settings.listViewSettings.selected); });
+    } else {
+      settings.listViewSettings.selected = [];
+    }
     if (settings.searchParams) {
       this.searchFormSettings = new GlobalSearchFormSettings(Object.assign({ source: 'document-select-list', enableSearchInput: false }, settings.searchFormSettings || {}));
       timer(0).subscribe(() => { this.baseParams$.next(settings.searchParams); });
