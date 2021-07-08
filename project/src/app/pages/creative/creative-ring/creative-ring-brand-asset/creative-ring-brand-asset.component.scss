@@ -1,5 +1,4 @@
 ::ng-deep .layout-left {
-  clear: both;
 
   .production-date, .first-airing {
     width: 40%;
@@ -53,8 +52,6 @@
 }
 
 ::ng-deep .layout-right {
-  float: none !important;
-  margin-left: 50%;
 
   .drag-drop {
     .ng-pristine {
