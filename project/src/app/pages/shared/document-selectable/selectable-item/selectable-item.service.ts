@@ -52,9 +52,16 @@ export class SelectableItemService {
     this.triggerEvent(event);
   }
 
-  clear(): void {
-    Object.values(this.selectedItems).forEach((c: any) => c.onChecked(false));
-    this.selectedItems = {};
+  clear(type?: string): void {
+    if (type) {
+      Object.values(this.selectedItems).filter((i: any) => i.dataType === type).map((i: any) => {
+        i.onChecked(false);
+        delete this.selectedItems[i.document.uid];
+      });
+    } else {
+      Object.values(this.selectedItems).forEach((c: any) => c.onChecked(false));
+      this.selectedItems = {};
+    }
   }
 
   getSelectedIds(event: SelectableItemEvent): string[] {
