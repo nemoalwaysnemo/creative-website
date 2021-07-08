@@ -27,11 +27,15 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
   }
 
   afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {
-    const collection = ctx.performedDocuments.shift();
-    const assetIds = ctx.performedDocuments.map((d: DocumentModel) => d.uid);
-    return this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: collection.uid }, assetIds).pipe(
-      map(_ => ctx),
-    );
+    const collection = ctx.performedDocuments[0];
+    const assetIds = ctx.formValue['selected-documents'] ? ctx.formValue['selected-documents'] : ctx.performedDocuments.slice(1).map((d: DocumentModel) => d.uid);
+    if (assetIds.length > 0) {
+      return this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: collection.uid }, assetIds).pipe(
+        map(_ => ctx),
+      );
+    } else {
+      return observableOf(ctx);
+    }
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
