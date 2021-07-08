@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoPermission, SearchResponse } from '@core/api';
 import { Observable, forkJoin, zip, Subject, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
@@ -94,6 +94,12 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
         formType: 'add',
       },
     });
+  }
+
+  close(): void {
+    this.selectableItemService.setQueueLimit(100);
+    this.selectableItemService.clear(this.selectableSettings.dataType);
+    super.close();
   }
 
   private triggerSearch(): void {
