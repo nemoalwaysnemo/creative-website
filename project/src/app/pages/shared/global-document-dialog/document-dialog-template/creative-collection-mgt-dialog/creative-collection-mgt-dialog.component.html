@@ -1,5 +1,5 @@
 <div class="dialog-title text-center">
-  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <a (click)="close()" class="left" title="Close"><img [src]="closeBtnImage()"></a>
   <h1 class="left">{{title}}</h1>
   <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
   <div class="clear"></div>
@@ -8,7 +8,7 @@
   <global-search-form [searchParams]="baseParams$ | async" [filters]="filters" [settings]="searchFormSettings">
     <ng-container class="group-right">
       <div class="global-search-form-buttons">
-        <button type="button" class="icon_btn left" (click)="openDialog('creative-ring-collection-form')">Add Selected Assets To New Collection</button>
+        <button type="button" [ngClass]="{'btn-disabled': (targetCollection || []).length > 0}" [disabled]="(targetCollection || []).length > 0" class="icon_btn left" (click)="openDialog('creative-ring-collection-form')">Add Selected Assets To New Collection</button>
         <button type="button" [ngClass]="{'btn-disabled': !targetCollection || targetCollection.length === 0}" [disabled]="!targetCollection || targetCollection.length === 0" (click)="addToCollection()" class="icon_btn">OK</button>
       </div>
     </ng-container>
