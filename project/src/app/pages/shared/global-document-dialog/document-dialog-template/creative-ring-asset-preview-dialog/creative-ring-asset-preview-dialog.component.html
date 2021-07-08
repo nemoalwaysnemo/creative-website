@@ -1,13 +1,13 @@
 <div class="dialog-title text-center" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {}">
-  <a (click)="close()" class="left"><img [src]="closeBtnImage()"></a>
+  <a (click)="close()" class="left" title="Close"><img [src]="closeBtnImage()"></a>
   <h1 class="left">{{title}}</h1>
   <div class="clear"></div>
 </div>
 <div class="dialog-body">
   <ng-container *ngIf="document">
     <div class="media relative" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {} ">
-      <div class="prev" [ngStyle]=" hasPrev() ? {} : {'display': 'none'}" (click)="prev()"><a href="javascript:;"></a></div>
-      <div class="next" [ngStyle]=" hasNext() ? {} : {'display': 'none'}" (click)="next()"><a href="javascript:;"></a></div>
+      <div class="prev" title="Previous" [ngStyle]="hasPrev() ? {} : {'display': 'none'}" (click)="prev()"><a href="javascript:;"></a></div>
+      <div class="next" title="Next" [ngStyle]="hasNext() ? {} : {'display': 'none'}" (click)="next()"><a href="javascript:;"></a></div>
       <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
     </div>
   </ng-container>

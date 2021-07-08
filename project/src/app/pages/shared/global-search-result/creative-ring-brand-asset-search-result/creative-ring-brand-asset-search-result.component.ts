@@ -1,10 +1,11 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
-import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { SelectableItemSettings } from '../../document-selectable';
-import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
+import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
+import { BaseSearchResultComponent } from '../base-search-result.component';
+import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
 
 @Component({
@@ -47,7 +48,12 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
 
   listViewSettings: any;
 
-  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_RING_ASSET] });
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
+    components: [
+      GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_RING_ASSET,
+      GLOBAL_DOCUMENT_FORM.CREATIVE_RING_ASSET_FORM,
+    ],
+  });
 
   dialogTitle: string = 'Creative';
 
@@ -88,6 +94,7 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
   };
 
   dialogMetadata: any = {
+    formMode: 'edit',
     moreInfo: true,
     enablePreview: true,
     enableDetail: false,

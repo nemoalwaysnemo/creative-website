@@ -88,12 +88,11 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
   }
 
   openDialog(name: string): void {
-    this.selectView(name, null, {
-      formSettings: {
-        selectedDocuments: this.documents,
-        formType: 'add',
-      },
-    });
+    const formSettings = this.getDialogSettings().formSettings ? this.getDialogSettings().formSettings : {
+      selectedDocuments: this.documents,
+      formType: 'add',
+    };
+    this.selectView(name, null, { formSettings });
   }
 
   close(): void {

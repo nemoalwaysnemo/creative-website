@@ -22,10 +22,12 @@ export class CreativeRingCollectionFolderAssetSearchResultComponent extends Base
     enableKnowledgeRelated: true,
   };
 
-  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [
-    GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_RING_ASSET,
-    GLOBAL_DOCUMENT_FORM.CREATIVE_RING_ASSET_FORM,
-  ] });
+  dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
+    components: [
+      GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_RING_ASSET,
+      GLOBAL_DOCUMENT_FORM.CREATIVE_RING_ASSET_FORM,
+    ],
+  });
 
   @Input() loading: boolean = true;
 
