@@ -1,4 +1,4 @@
-<creative-ring-info-view [loading]="loading" [document]="document"></creative-ring-info-view>
+<creative-ring-info-view [loading]="loading" [document]="parentDocument"></creative-ring-info-view>
 <creative-ring-folder-info [loading]="loading" [document]="document"></creative-ring-folder-info>
 <global-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings" (onLoading)="onLoading($event)">
   <ng-container class="group-left">

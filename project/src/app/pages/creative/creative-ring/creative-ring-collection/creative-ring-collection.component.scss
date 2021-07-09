@@ -1,6 +1,13 @@
 button {
-    padding-left: 13px;
+  padding-left: 13px;
 }
 .view-selected {
-    background-color: #fecc00;
+  background-color: #fecc00;
+}
+.creative-ring-collection ::ng-deep {
+	.search-results {
+		h1 {
+			padding-left: 30px;
+		}
+	}
 }

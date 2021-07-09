@@ -5,10 +5,10 @@
         </div>
         <div *ngIf="doc" class="folder-thumbnail folder-info">
             <h1>{{ doc.title }}</h1>
-            <div>Authur: {{ doc.get('dc:creator') }}</div>
+            <div>Author: {{ doc.get('dc:creator') }}</div>
             <div>Contributors: {{ doc.get('dc:contributors').join(',') }}</div>
-            <div>Brands: </div>
-            <div>Last Update: {{ doc.get('dc:modified') | date:'MMM d, yyyy':'UTC' }}</div>
+            <div>Collection type: {{ doc.get('The_Loupe_Main:collection_type') }}</div>
+            <div>Latest Update: {{ doc.get('dc:modified') | date:'MMM d, yyyy':'UTC' }}</div>
         </div>
    </div>
 </div>

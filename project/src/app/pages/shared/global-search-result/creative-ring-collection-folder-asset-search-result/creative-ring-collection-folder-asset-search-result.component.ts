@@ -14,6 +14,8 @@ export class CreativeRingCollectionFolderAssetSearchResultComponent extends Base
 
   documents: DocumentModel[] = [];
 
+  dialogTitle: string = 'Creative';
+
   dialogMetadata: any = {
     formMode: 'edit',
     moreInfo: true,
