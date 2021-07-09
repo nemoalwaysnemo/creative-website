@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { UserModel, DocumentModel } from '@core/api';
-import { Observable, of as observableOf } from 'rxjs';
-import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel, DynamicCheckboxModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicBatchUploadModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicDragDropFileZoneModel } from '@core/custom';
 import { SuggestionSettings } from '../document-form-extension';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
-import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
+import { DocumentPageService } from '../services/document-page.service';
 import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({

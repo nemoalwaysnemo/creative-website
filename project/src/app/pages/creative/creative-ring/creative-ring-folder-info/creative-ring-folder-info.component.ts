@@ -1,10 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, UserModel, NuxeoPermission, GlobalSearchParams } from '@core/api';
-import { SelectableItemService } from '../../../shared/document-selectable';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel, BaseDocumentViewComponent } from '@pages/shared';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { DocumentModel } from '@core/api';
+import { BaseDocumentViewComponent } from '@pages/shared';
 
 @Component({
   selector: 'creative-ring-folder-info',
