@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse, UserModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicDocumentSelectListModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDocumentSelectListModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -11,6 +11,7 @@ import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { ListSearchRowCustomViewComponent } from '../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
+import { SelectableItemService } from '../document-selectable/selectable-item/selectable-item.service';
 
 @Component({
   selector: 'creative-ring-collection-form',
@@ -22,11 +23,14 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
 
   protected documentType: string = 'App-Library-CreativeRing-Collection';
 
-  constructor(protected documentPageService: DocumentPageService) {
+  constructor(
+    private selectableItemService: SelectableItemService,
+    protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
 
   afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {
+    this.selectableItemService.clear();
     const collection = ctx.performedDocuments[0];
     const assetIds = ctx.formValue['selected-documents'] ? ctx.formValue['selected-documents'] : ctx.performedDocuments.slice(1).map((d: DocumentModel) => d.uid);
     if (assetIds.length > 0) {
@@ -129,6 +133,11 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           id: 'dc:description',
           label: 'Description',
           formMode: 'create',
+          layoutPosition: 'leftNarrow',
+        }),
+        new DynamicCheckboxModel({
+          id: 'app_global:enable_thumbnail',
+          label: 'Enable Thumbnail',
           layoutPosition: 'leftNarrow',
         }),
         new DynamicDocumentSelectListModel({
