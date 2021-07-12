@@ -30,7 +30,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     const collection = ctx.performedDocuments[0];
     const assetIds = ctx.formValue['selected-documents'] ? ctx.formValue['selected-documents'] : ctx.performedDocuments.slice(1).map((d: DocumentModel) => d.uid);
     if (assetIds.length > 0) {
-      return this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: collection.uid }, assetIds).pipe(
+      return this.documentPageService.operation(NuxeoAutomations.AddAssetsToRingCollection, { collection: collection.uid }, assetIds).pipe(
         map(_ => ctx),
       );
     } else {

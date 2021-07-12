@@ -621,6 +621,8 @@ export class NuxeoUploadResponse {
 
 export enum NuxeoAutomations {
   GetDocumentURStatus = 'Creative.GetDocumentAllURStatus',
+  UpdateRringCollectionPoster = 'Creative.UpdateRingCollectionPoster',
+  AddAssetsToRingCollection = 'Creative.AddAssetsToRingCollection',
   DirectorySuggestEntries = 'Directory.SuggestEntries',
   UserGroupSuggestion = 'UserGroup.Suggestion',
   TagSuggestion = 'Tag.Suggestion',
