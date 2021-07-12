@@ -1,14 +1,13 @@
-<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled"
-    [ngStyle]="loading ? {'min-height': '150px'} : {}">
-    <div class="info-content">
-        <div *ngIf="doc" class="folder-thumbnail" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}">
-        </div>
-        <div *ngIf="doc" class="folder-thumbnail folder-info">
-            <h1>{{ doc.title }}</h1>
-            <div>Author: {{ doc.get('dc:creator') }}</div>
-            <div>Contributors: {{ doc.get('dc:contributors').join(',') }}</div>
-            <div>Collection type: {{ doc.get('The_Loupe_Main:collection_type') }}</div>
-            <div>Latest Update: {{ doc.get('dc:modified') | date:'MMM d, yyyy':'UTC' }}</div>
-        </div>
-   </div>
+<div class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
+  <div class="info-content">
+    <div *ngIf="doc" class="folder-thumbnail" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}">
+    </div>
+    <div *ngIf="doc" class="folder-thumbnail folder-info">
+      <h1>{{ doc.title }}</h1>
+      <div>Author: {{ doc.get('dc:creator') }}</div>
+      <div>Contributors: {{ doc.get('dc:contributors').join(', ') }}</div>
+      <div>Collection type: {{ doc.get('The_Loupe_Main:collection_type') }}</div>
+      <div>Latest Update: {{ doc.get('dc:modified') | date:'MMM d, yyyy':'UTC' }}</div>
+    </div>
+  </div>
 </div>

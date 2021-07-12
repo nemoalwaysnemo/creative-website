@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { DocumentModel, UserModel } from '@core/api';
+import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
 import { DynamicInputModel, DynamicDragDropFileZoneModel, DynamicBatchUploadModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { of as observableOf, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-ring-brand-collection-form',
-  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-form>`,
 })
 export class CreativeRingBrandCollectionFormComponent extends GlobalDocumentFormComponent {
 
@@ -20,6 +21,17 @@ export class CreativeRingBrandCollectionFormComponent extends GlobalDocumentForm
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
+  }
+
+  afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {
+    const collection = ctx.performedDocuments[0];
+    if (collection.get('app_global:enable_thumbnail')) {
+      return this.documentPageService.operation(NuxeoAutomations.UpdateRringCollectionPoster, {}, collection.uid).pipe(
+        map(_ => ctx),
+      );
+    } else {
+      return observableOf(ctx);
+    }
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
@@ -78,7 +90,6 @@ export class CreativeRingBrandCollectionFormComponent extends GlobalDocumentForm
         id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'create',
-        required: true,
         settings: {
           enableForm: false,
           enableAction: false,
@@ -88,7 +99,6 @@ export class CreativeRingBrandCollectionFormComponent extends GlobalDocumentForm
         id: 'batchUpload',
         layoutPosition: 'bottom',
         formMode: 'edit',
-        required: true,
         settings: {
           enableForm: false,
           enableAction: true,
