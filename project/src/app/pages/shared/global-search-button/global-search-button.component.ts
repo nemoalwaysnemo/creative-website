@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Options, ChangeContext } from '@angular-slider/ngx-slider';
-import { DocumentThumbnailViewService } from '../document-thumbnail-view/document-thumbnail-view.service';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 
 @Component({
   selector: 'global-search-button',
@@ -48,7 +48,7 @@ export class GlobalSearchButtonComponent {
 
   @Output() onResultViewChanged: EventEmitter<string> = new EventEmitter();
 
-  constructor(private thumbnailViewService: DocumentThumbnailViewService) {
+  constructor(private documentPageService: DocumentPageService) {
 
   }
 
@@ -59,7 +59,7 @@ export class GlobalSearchButtonComponent {
   }
 
   sliderValueChanged(event: ChangeContext): void {
-    this.thumbnailViewService.triggerEvent({ name: 'SliderValueChanged', payload: event });
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SliderValueChanged', type: 'document-thumbnail-view', payload: event }));
   }
 
 }
