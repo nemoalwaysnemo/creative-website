@@ -14,7 +14,7 @@
       <div class="clear"></div>
       <span *ngIf="!helpLink" title="Help" class="help">Help</span>
       <a *ngIf="helpLink" [routerLink]="[helpLink]" title="Help" class="help">Help</a>
-      <document-thumbnail-view [hide]="hideView" [loading]="loading" [loadingStyle]="loadingStyle" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents" [hideEmpty]="true" [tabIndex]="0"></document-thumbnail-view>
+      <document-thumbnail-view [hide]="hideView" [loading]="loading" [templateRef]="thumbnailItemView" [documents]="documents" [settings]="thumbnailViewOptions" [tabIndex]="0"></document-thumbnail-view>
     </div>
   </section>
   <div class="clear"></div>

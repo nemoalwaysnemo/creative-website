@@ -14,7 +14,9 @@ export class CreativePopularBrandAssetSearchComponent extends GlobalDocumentView
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'my_brand full-width';
+  thumbnailViewSettings: any = {
+    layout: 'my_brand full-width',
+  };
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_agency_agg', placeholder: 'Agency' }),

@@ -12,7 +12,9 @@ export class BackslashDocumentAssetSearchComponent extends BaseDocumentViewCompo
 
   resultHeader: string;
 
-  layout: string = 's-results my_agency dates full-width backslash_asset_search';
+  thumbnailViewSettings: any = {
+    layout: 's-results my_agency dates full-width backslash_asset_search',
+  };
 
   defaultParams: any = {
     currentPageIndex: 0,

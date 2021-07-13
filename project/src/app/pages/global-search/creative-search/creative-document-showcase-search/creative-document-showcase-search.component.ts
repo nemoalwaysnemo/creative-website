@@ -15,7 +15,9 @@ export class CreativeDocumentShowcaseSearchComponent extends BaseDocumentViewCom
 
   resultHeader: string = `Best of TBWA\\`;
 
-  layout: string = 'creative_asset_search';
+  thumbnailViewSettings: any = {
+    layout: 'creative_asset_search',
+  };
 
   currentView: string = 'thumbnailView';
 

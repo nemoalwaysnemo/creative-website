@@ -3,7 +3,7 @@
 </ng-container>
 <div class="agency-thumbnail">
   <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [selectableSettings]="selectableSettings" [listViewBuilder]="listViewBuilder" [listViewSettings]="listViewSettings" [selectedView]="currentView"
-    [hideEmpty]="hideEmpty" [layout]="layout"></global-search-result>
+    [thumbnailViewSettings]="thumbnailViewOptions"></global-search-result>
 </div>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">

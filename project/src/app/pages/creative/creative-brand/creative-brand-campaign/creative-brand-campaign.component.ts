@@ -18,7 +18,9 @@ export class CreativeBrandCampaignComponent extends GlobalDocumentViewComponent 
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'creative_brand_campaign full-width';
+  thumbnailViewSettings: any = {
+    layout: 'creative_brand_campaign full-width',
+  };
 
   filters: SearchFilterModel[] = [];
 

@@ -18,7 +18,9 @@ export class CreativeBrandUsageRightsComponent extends GlobalDocumentViewCompone
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'creative-brand-usage-rights full-width';
+  thumbnailViewSettings: any = {
+    layout: 'creative-brand-usage-rights full-width',
+  };
 
   filters: SearchFilterModel[] = [];
 

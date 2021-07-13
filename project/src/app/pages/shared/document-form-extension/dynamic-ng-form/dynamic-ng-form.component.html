@@ -1,8 +1,7 @@
 <div [ngClass]="{ 'default-layout': true, 'layout-left left': enableLayoutRight, formClass: true}">
-  <dynamic-ng-form-control *ngFor="let model of getFormModel('left'); trackBy: trackByFn"
+  <dynamic-ng-form-control *ngFor="let model of getFormModelsByPosition('left'); trackBy: trackByFn"
                           [group]="group"
                           [hidden]="model.hidden"
-                          [layout]="layout"
                           [model]="model"
                           [templates]="templates"
                           (blur)="onBlur($event)"
@@ -13,10 +12,9 @@
 </div>
 
 <div [ngClass]="{ 'default-layout': true, 'layout-left left': enableLayoutRight, formClass: true, 'layout-left-narrow': true}">
-  <dynamic-ng-form-control *ngFor="let model of getFormModel('leftNarrow'); trackBy: trackByFn"
+  <dynamic-ng-form-control *ngFor="let model of getFormModelsByPosition('leftNarrow'); trackBy: trackByFn"
                           [group]="group"
                           [hidden]="model.hidden"
-                          [layout]="layout"
                           [model]="model"
                           [templates]="templates"
                           (blur)="onBlur($event)"
@@ -40,7 +38,6 @@
               <dynamic-ng-form-control *ngFor="let model of accordion.models; trackBy: trackByFn"
                                       [group]="group"
                                       [hidden]="model.hidden"
-                                      [layout]="layout"
                                       [model]="model"
                                       [templates]="templates"
                                       (blur)="onBlur($event)"
@@ -59,10 +56,9 @@
 <!-- for ex: 2 models under the same accordion tab but different layout position -->
 <ng-container *ngIf="enableLayoutRight">
   <div class="default-layout layout-right right" [class.right-layout-widely] = "enableWideHorizontal" >
-    <dynamic-ng-form-control *ngFor="let model of getFormModel('right'); trackBy: trackByFn"
+    <dynamic-ng-form-control *ngFor="let model of getFormModelsByPosition('right'); trackBy: trackByFn"
                             [group]="group"
                             [hidden]="model.hidden"
-                            [layout]="layout"
                             [model]="model"
                             [templates]="templates"
                             (blur)="onBlur($event)"
@@ -81,7 +77,6 @@
           <dynamic-ng-form-control *ngFor="let model of tab.models; trackBy: trackByFn"
                             [group]="group"
                             [hidden]="model.hidden"
-                            [layout]="layout"
                             [model]="model"
                             [templates]="templates"
                             (blur)="onBlur($event)"
@@ -95,10 +90,9 @@
 </ng-container>
 
 <div class="default-layout layout-bottom">
-  <dynamic-ng-form-control *ngFor="let model of getFormModel('bottom'); trackBy: trackByFn"
+  <dynamic-ng-form-control *ngFor="let model of getFormModelsByPosition('bottom'); trackBy: trackByFn"
                           [group]="group"
                           [hidden]="model.hidden"
-                          [layout]="layout"
                           [model]="model"
                           [templates]="templates"
                           (blur)="onBlur($event)"

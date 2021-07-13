@@ -83,7 +83,11 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
     super(changeDetectorRef, componentService);
   }
 
-  getFormModel(position: string): DynamicFormModel {
+  getFormModelsById(id: string): DynamicFormModel {
+    return this.ngFormModel.filter((model: DynamicFormControlModel) => model.id === id);
+  }
+
+  getFormModelsByPosition(position: string): DynamicFormModel {
     return this.ngFormModel.filter((model: DynamicFormControlModel) => (position === 'left' ? model.layoutPosition === 'left' || !model.layoutPosition : model.layoutPosition === position) && !model.accordionTab && !model.switchTab);
   }
 

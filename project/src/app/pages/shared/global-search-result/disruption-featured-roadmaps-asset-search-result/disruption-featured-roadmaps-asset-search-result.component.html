@@ -1,4 +1,4 @@
-<global-search-result [loadingStyle]="loadingStyle" [enableScrolling]="enableScrolling" [searchResultFilter]="searchResultFilter" [templateRef]="thumbnailView"></global-search-result>
+<global-search-result [enableScrolling]="enableScrolling" [searchResultFilter]="searchResultFilter" [templateRef]="thumbnailView" [thumbnailViewSettings]="thumbnailViewSettings"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
     <a (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>

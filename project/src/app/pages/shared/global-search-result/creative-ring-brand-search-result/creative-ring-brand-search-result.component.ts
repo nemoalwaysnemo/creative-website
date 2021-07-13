@@ -30,8 +30,6 @@ export class CreativeRingBrandSearchResultComponent extends BaseSearchResultComp
 
   @Input() layout: string;
 
-  @Input() hideEmpty: boolean = false;
-
   @Input() enableScrolling: boolean = true;
 
   @Input() selectableSettings: SelectableItemSettings = new SelectableItemSettings({
@@ -39,8 +37,6 @@ export class CreativeRingBrandSearchResultComponent extends BaseSearchResultComp
   });
 
   listViewSettings: any;
-
-  loadingStyle: any = { 'min-height': '400px' };
 
   private defaultSettings: any = {
     columns: {
@@ -84,5 +80,11 @@ export class CreativeRingBrandSearchResultComponent extends BaseSearchResultComp
 
   protected onInit(): void {
     this.onQueryParamsChanged();
+  }
+
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      loadingStyle: { 'min-height': '400px' },
+    };
   }
 }

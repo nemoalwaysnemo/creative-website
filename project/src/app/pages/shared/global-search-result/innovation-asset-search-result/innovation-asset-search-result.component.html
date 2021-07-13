@@ -1,6 +1,5 @@
 <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
-
   <ng-container *ngIf="doc.type == 'App-Innovation-Folder' && !isParentFolder(doc)">
     <ng-container [ngSwitch]="true">
       <ng-container *ngSwitchCase="doc.openLinkInNewTab()">

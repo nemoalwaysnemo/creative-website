@@ -26,7 +26,6 @@ export class CreativePopularBrandSearchResultComponent extends BaseSearchResultC
     }
   }
 
-  @Input() layout: string = 'quarter';
   listViewSettings: any;
 
   private defaultSettings: any = {
@@ -66,4 +65,9 @@ export class CreativePopularBrandSearchResultComponent extends BaseSearchResultC
 
   }
 
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      layout: 'quarter',
+    };
+  }
 }

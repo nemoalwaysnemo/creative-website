@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { DocumentPageService } from '../../../shared';
+import { DocumentThumbnailViewSettings } from '../../../shared/document-thumbnail-view';
 import { GlobalDocumentDialogService, GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { Subscription } from 'rxjs';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
@@ -12,11 +13,13 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
 
-  layout: string = 'full-width agency';
-
   documents: DocumentModel[];
 
   loading: boolean = true;
+
+  thumbnailViewSettings: DocumentThumbnailViewSettings = new DocumentThumbnailViewSettings({
+    layout: 'full-width agency',
+  });
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET] });
 

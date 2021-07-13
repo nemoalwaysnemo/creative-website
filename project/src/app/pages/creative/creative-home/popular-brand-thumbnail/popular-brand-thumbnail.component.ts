@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DocumentPageService } from '@pages/shared';
+import { DocumentPageService } from '../../../shared';
 import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
+import { DocumentThumbnailViewSettings } from '../../../shared/document-thumbnail-view';
 import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -11,11 +12,13 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
 
-  layout: string = 'full-width popular_brand';
-
   loading: boolean = true;
 
   documents: DocumentModel[];
+
+  thumbnailViewSettings: DocumentThumbnailViewSettings = new DocumentThumbnailViewSettings({
+    layout: 'full-width popular_brand',
+  });
 
   private subscription: Subscription = new Subscription();
 

@@ -9,15 +9,11 @@ import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
 })
 export class DisruptionRoadmapsAssetSearchResultComponent {
 
-  @Input() enableScrolling: boolean = true;
-
-  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {
-
-  }
-
   title: string = 'Disruption Roadmaps';
 
-  loadingStyle: any = { 'min-height': '400px' };
+  thumbnailViewSettings: any = {
+    loadingStyle: { 'min-height': '400px' },
+  };
 
   redirectUrl: string = '/p/disruption/Disruption Roadmaps';
 
@@ -36,6 +32,12 @@ export class DisruptionRoadmapsAssetSearchResultComponent {
     enableDeletion: true,
     moreInfo: true,
   };
+
+  @Input() enableScrolling: boolean = true;
+
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) {
+
+  }
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });

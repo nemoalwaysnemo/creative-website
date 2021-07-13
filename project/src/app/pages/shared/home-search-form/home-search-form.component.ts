@@ -2,9 +2,10 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
-import { matchAssetUrl } from '@core/services/helpers';
+import { isValueEmpty, matchAssetUrl } from '@core/services/helpers';
 import { DocumentModel, SearchResponse, GlobalSearchParams } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
+import { DocumentThumbnailViewSettings } from '../document-thumbnail-view';
 import { BaseSearchFormComponent } from '../global-search-form/base-search-form.component';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
@@ -21,9 +22,10 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
 
   hideView: boolean = false;
 
-  loadingStyle: any = {};
-
-  layout: string = 'suggestion-inline';
+  thumbnailViewOptions: any = {
+    layout: 'suggestion-inline',
+    loadingStyle: {},
+  };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     source: 'home-search-form',
@@ -44,6 +46,13 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   @Input() templateRef: TemplateRef<any>;
 
   @Input() openSearchFilter: boolean = false;
+
+  @Input()
+  set thumbnailViewSettings(settings: any) {
+    if (!isValueEmpty(settings)) {
+      this.thumbnailViewOptions = new DocumentThumbnailViewSettings(Object.assign({}, this.getDefaultThumbnailViewSettings(), settings));
+    }
+  }
 
   constructor(
     protected router: Router,
@@ -89,7 +98,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   }
 
   protected onBeforeSearchEvent(res: SearchResponse): Observable<SearchResponse> {
-    this.loadingStyle = this.isSearchManually(res) ? { 'min-height': '60px' } : {};
+    this.thumbnailViewOptions = Object.assign({}, this.thumbnailViewOptions, { loadingStyle: this.isSearchManually(res) ? { 'min-height': '60px' } : {} });
     return observableOf(res);
   }
 
@@ -97,5 +106,13 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
     this.documents = this.isSearchManually(res) ? res.response.entries : [];
     this.show();
     return observableOf(res);
+  }
+
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      layout: 'suggestion-inline',
+      loadingStyle: {},
+      hideEmpty: true,
+    };
   }
 }

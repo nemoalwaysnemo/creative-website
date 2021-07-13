@@ -2,8 +2,7 @@
   <h1 *ngIf="!!searchParams.providerParams.ecm_fulltext" class="left">Results for "{{searchParams.providerParams.ecm_fulltext}}" ({{totalResults}})</h1>
   <div class="clear"></div>
   <ng-container *ngIf="isViewEnabled('thumbnailView')">
-    <document-thumbnail-view [hide]="currentView !== 'thumbnailView'" [loading]="loading" [loadingStyle]="loadingStyle" [templateRef]="templateRef" [documents]="documents" [layout]="layout" [hideEmpty]="hideEmpty"
-      [selectableSettings]="selectableSettings">
+    <document-thumbnail-view [hide]="currentView !== 'thumbnailView'" [loading]="loading" [templateRef]="templateRef" [documents]="documents" [settings]="thumbnailViewOptions" [selectableSettings]="selectableSettings">
     </document-thumbnail-view>
   </ng-container>
   <ng-container *ngIf="isViewEnabled('listView')">

@@ -21,9 +21,9 @@ export class GlobalSearchMoreResultInDialogComponent extends BaseGlobalSearchRes
 
   @Input() templateRef: TemplateRef<any>;
 
-  @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
-
   @Input() selectableSettings: SelectableItemSettings;
+
+  @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   @Input() searchResultFilter: (res: SearchResponse) => boolean = (res: SearchResponse) => res.source === 'document-load-more-in-dialog';
 
