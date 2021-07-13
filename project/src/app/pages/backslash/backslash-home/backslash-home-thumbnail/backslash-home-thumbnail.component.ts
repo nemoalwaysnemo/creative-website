@@ -11,6 +11,8 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/envir
 })
 export class BackslashHomeThumbnailComponent {
 
+  doc: DocumentModel;
+
   onSearching: boolean = true;
 
   currentView: string = 'liveView';
@@ -21,9 +23,9 @@ export class BackslashHomeThumbnailComponent {
 
   enableScrolling: any = { liveView: true, pipeLineView: true };
 
-  doc: DocumentModel;
-
-  layout: string = 's-results my_agency dates full-width backslash_asset_search';
+  thumbnailViewSettings: any = {
+    layout: 's-results my_agency dates full-width backslash_asset_search',
+  };
 
   protected enabledView: any = { liveView: true };
 

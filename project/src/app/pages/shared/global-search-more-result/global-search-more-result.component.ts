@@ -3,6 +3,7 @@ import { SearchResponse } from '@core/api/api.advance-search.service';
 import { DocumentPageService } from '../services/document-page.service';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { BaseGlobalSearchResultComponent } from '../global-search-result/base-global-search-result.component';
+import { DocumentThumbnailViewSettings } from '../document-thumbnail-view';
 import { SelectableItemSettings } from '../document-selectable';
 
 @Component({
@@ -31,6 +32,12 @@ export class GlobalSearchMoreResultComponent extends BaseGlobalSearchResultCompo
     if (!this.loading) {
       this.onLoadMore.emit(this.searchResponse);
     }
+  }
+
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      layout: 'my_agency dates full-width',
+    };
   }
 
 }

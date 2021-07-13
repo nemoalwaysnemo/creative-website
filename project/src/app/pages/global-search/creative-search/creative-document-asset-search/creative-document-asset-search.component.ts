@@ -16,9 +16,11 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
 
   resultHeader: string = '';
 
-  layout: string = 'creative_asset_search';
-
   currentView: string = 'thumbnailView';
+
+  thumbnailViewSettings: any = {
+    layout: 'creative_asset_search',
+  };
 
   defaultParams: any = {
     currentPageIndex: 0,

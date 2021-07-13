@@ -1,5 +1,7 @@
 import { Component, TemplateRef, Type } from '@angular/core';
 import { DocumentModel } from '@core/api';
+import { DocumentPageService } from '../../services/document-page.service';
+import { BaseSearchResultComponent } from '../base-search-result.component';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 
 @Component({
@@ -7,12 +9,14 @@ import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDial
   styleUrls: ['./learning-program-alumni-search-result.component.scss'],
   templateUrl: './learning-program-alumni-search-result.component.html',
 })
-export class LearningProgramAlumniSearchResultComponent {
-
-  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) { }
+export class LearningProgramAlumniSearchResultComponent extends BaseSearchResultComponent {
 
   dialogMetadata: any = {
   };
+
+  constructor(private globalDocumentDialogService: GlobalDocumentDialogService, protected documentPageService: DocumentPageService) {
+    super(documentPageService);
+  }
 
   getDialogSettings(doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<any>[] = [GLOBAL_DOCUMENT_DIALOG.PREVIEW_LEARNING_ALUMNI];
@@ -34,4 +38,11 @@ export class LearningProgramAlumniSearchResultComponent {
       return doc.get('remote-search-collective-user:facebook_photo_url') + '&width=' + width;
     }
   }
+
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      layout: 'alumni-results',
+    };
+  }
+
 }

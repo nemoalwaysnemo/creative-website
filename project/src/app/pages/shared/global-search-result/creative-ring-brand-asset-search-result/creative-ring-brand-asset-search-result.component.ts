@@ -30,11 +30,7 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
     super(documentPageService);
   }
 
-  @Input() layout: string = 'ring_brand_asset full-width';
-
   @Input() resultHeader: string = '';
-
-  @Input() hideEmpty: boolean = false;
 
   @Input() showDialog: boolean = false;
 
@@ -129,4 +125,11 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
   searchResult(docs: DocumentModel[]): void {
     this.documents = docs;
   }
+
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      layout: 'ring_brand_asset full-width',
+    };
+  }
+
 }

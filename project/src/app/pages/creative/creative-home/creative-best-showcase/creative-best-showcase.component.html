@@ -2,7 +2,7 @@
   <h1 class="left"><a [routerLink]="['/p/search/creative/showcase']">Best of TBWA\</a></h1>
   <a [routerLink]="['/p/search/creative/asset']" [queryParams]="{app_global_networkshare: true}" class="see_all right" title="Global Showcase">Global Showcase</a>
   <div class="clear"></div>
-  <document-thumbnail-view [loading]="loading" [layout]="layout" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
+  <document-thumbnail-view [loading]="loading" [settings]="thumbnailViewSettings" [templateRef]="thumbnailItemView" [documents]="documents"></document-thumbnail-view>
 </div>
 <div class="clear"></div>
 <ng-template #thumbnailItemView let-doc="doc">

@@ -20,11 +20,7 @@ export class CreativeBrandProjectSearchResultComponent extends BaseSearchResultC
     }
   }
 
-  @Input() layout: string;
-
   @Input() resultHeader: string;
-
-  @Input() hideEmpty: boolean = false;
 
   listViewSettings: any;
 

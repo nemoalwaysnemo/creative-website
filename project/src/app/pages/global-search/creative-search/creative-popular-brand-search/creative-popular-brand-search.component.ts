@@ -10,7 +10,9 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class CreativePopularBrandSearchComponent extends BaseDocumentViewComponent {
 
-  layout: string = 'popular_brand_search full-width';
+  thumbnailViewSettings: any = {
+    layout: 'popular_brand_search full-width',
+  };
 
   defaultParams: any = {
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,

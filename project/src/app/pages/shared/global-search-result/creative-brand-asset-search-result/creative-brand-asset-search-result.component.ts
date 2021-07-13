@@ -28,8 +28,6 @@ export class CreativeBrandAssetSearchResultComponent extends BaseSearchResultCom
 
   @Input() resultHeader: string;
 
-  @Input() layout: string = 'my_brand full-width';
-
   listViewSettings: any;
 
   private defaultSettings: any = {
@@ -66,6 +64,12 @@ export class CreativeBrandAssetSearchResultComponent extends BaseSearchResultCom
 
   protected onInit(): void {
 
+  }
+
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      layout: 'my_brand full-width',
+    };
   }
 
 }

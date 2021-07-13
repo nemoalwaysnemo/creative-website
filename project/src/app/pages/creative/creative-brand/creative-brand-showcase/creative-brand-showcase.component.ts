@@ -15,7 +15,9 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
 
   baseParams$: Subject<any> = new Subject<any>();
 
-  layout: string = 'creative_brand_showcase full-width';
+  thumbnailViewSettings: any = {
+    layout: 'creative_brand_showcase full-width',
+  };
 
   filters: SearchFilterModel[] = [];
 

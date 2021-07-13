@@ -36,11 +36,7 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
     super(documentPageService);
   }
 
-  @Input() layout: string;
-
   @Input() resultHeader: string = '';
-
-  @Input() hideEmpty: boolean = false;
 
   @Input() showDialog: boolean = false;
 

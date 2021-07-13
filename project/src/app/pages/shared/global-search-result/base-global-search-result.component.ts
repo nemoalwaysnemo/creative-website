@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentModel, GlobalSearchParams, SearchResponse } from '@core/api';
+import { isValueEmpty } from '@core/services/helpers';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
-import { DocumentPageService } from '../services/document-page.service';
 import { BaseSearchResultComponent } from './base-search-result.component';
+import { DocumentPageService } from '../services/document-page.service';
 import { PaginationDataSource } from '../pagination/pagination-data-source';
 import { concatMap, filter } from 'rxjs/operators';
 
@@ -11,8 +12,6 @@ import { concatMap, filter } from 'rxjs/operators';
   template: '',
 })
 export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
-
-  layout: string = 'search-results';
 
   documents: DocumentModel[] = [];
 
@@ -42,7 +41,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
 
   @Input()
   set listViewSettings(settings: any) {
-    if (settings) {
+    if (!isValueEmpty(settings)) {
       this.listViewOptions = settings;
     }
   }
@@ -136,4 +135,5 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     }
     this.searchResult.emit(this.documents);
   }
+
 }

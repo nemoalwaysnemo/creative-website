@@ -15,12 +15,6 @@ export class GlobalSearchResultInDialogComponent extends BaseGlobalSearchResultC
 
   @Input() hasPagination: boolean = true;
 
-  @Input() hideEmpty: boolean = false;
-
-  @Input() layout: string = 'disruption-home';
-
-  @Input() loadingStyle: any = { 'min-height': '120px' };
-
   @Input() selectableSettings: SelectableItemSettings;
 
   constructor(
@@ -28,6 +22,12 @@ export class GlobalSearchResultInDialogComponent extends BaseGlobalSearchResultC
     protected globalSearchFormService: GlobalSearchFormService,
   ) {
     super(documentPageService, globalSearchFormService);
+  }
+
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      layout: 'disruption-home',
+    };
   }
 
 }

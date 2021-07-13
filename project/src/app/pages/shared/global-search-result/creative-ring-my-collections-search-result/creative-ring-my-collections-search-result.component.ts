@@ -8,9 +8,11 @@ import { DocumentModel, SearchResponse } from '@core/api';
 })
 export class CreativeRingMyCollectionsSearchResultComponent {
 
-  @Input() enableScrolling: boolean = true;
+  thumbnailViewSettings: any = {
+    loadingStyle: { 'min-height': '400px' },
+  };
 
-  loadingStyle: any = { 'min-height': '400px' };
+  @Input() enableScrolling: boolean = true;
 
   searchResultFilter(res: SearchResponse): boolean {
     return res.source === 'creative-ring-my-collections';
