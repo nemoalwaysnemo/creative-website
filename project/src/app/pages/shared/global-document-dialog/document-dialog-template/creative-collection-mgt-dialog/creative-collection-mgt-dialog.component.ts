@@ -27,6 +27,11 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
 
   searchFormSettings: GlobalSearchFormSettings;
 
+  thumbnailViewSettings: any = {
+    customGridTitle: 'New Collection',
+    enableCustomGrid: true,
+  };
+
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
     dataType: 'collection-view-selectable',
     enableSelectable: true,
@@ -48,6 +53,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
     protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.subscribeEvents();
   }
 
   protected onInit(): void {
@@ -56,7 +62,6 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
       this.subscription.add(subscription);
     }
     this.triggerSearch();
-    this.subscribeEvents();
   }
 
   addToCollection(): void {
@@ -133,11 +138,16 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
   }
 
   private subscribeEvents(): void {
-    const subscription = this.selectableItemService.onEvent('collection-view-selectable').pipe(
+    const subscription1 = this.selectableItemService.onEvent('collection-view-selectable').pipe(
       map((event: SelectableItemEvent) => event.collection),
     ).subscribe((collection: DocumentModel[]) => {
       this.targetCollection = collection;
     });
-    this.subscription.add(subscription);
+    this.subscription.add(subscription1);
+    const subscription2 = this.documentPageService.onEvent('CustomGridClick').pipe(
+    ).subscribe(_ => {
+      this.openDialog('creative-ring-collection-form');
+    });
+    this.subscription.add(subscription2);
   }
 }

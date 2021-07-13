@@ -3,8 +3,8 @@ import { DocumentModel } from '@core/api/nuxeo/lib';
 import { isValueEmpty } from '@core/services/helpers';
 import { BehaviorSubject, combineLatest, Subject, Subscription } from 'rxjs';
 import { SelectableItemSettings } from '../document-selectable';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { DocumentThumbnailViewSettings } from './document-thumbnail-view.interface';
-import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './document-thumbnail-view.service';
 
 @Component({
   selector: 'document-thumbnail-view',
@@ -13,11 +13,8 @@ import { DocumentThumbnailViewService, DocumentThumbnailViewEvent } from './docu
     <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? viewSettings.loadingStyle : {}">
       <ng-container *ngIf="documentList && documentList.length !== 0">
         <div class="s-results {{viewSettings.layout}}" [ngStyle]="hide ? {'display': 'none'} : {}">
-          <div class="custom-grid" *ngIf="viewSettings.enableCustomGrid">
-              <div class="image-holder">
-              </div>
-              <div class="description">
-              </div>
+          <div class="thumbnail-view-custom-item" *ngIf="viewSettings.enableCustomGrid">
+              <div [ngClass]="['custom-grid', (viewSettings.disableCustomGrid ? 'disable' : '')]" title="{{viewSettings.customGridTitle}}" (click)="onCustomGridClick($event)"></div>
           </div>
           <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass, (selectableItemSettings.enableSelectable ? 'enableSelectable' : '')]" [attr.doc-uid]="document.uid" [attr.doc-type]="document.type">
             <ng-template #itemTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
@@ -74,7 +71,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private thumbnailViewService: DocumentThumbnailViewService) {
+  constructor(private documentPageService: DocumentPageService) {
     this.subscribeEvents();
   }
 
@@ -86,12 +83,16 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  onCustomGridClick(event: any): void {
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'CustomGridClick', type: 'document-thumbnail-view' }));
+  }
+
   private performSettings(settings: DocumentThumbnailViewSettings): void {
     this.viewSettings = settings;
   }
 
   protected subscribeEvents(): void {
-    const subscription1 = this.thumbnailViewService.onEvent('SliderValueChanged').subscribe((e: DocumentThumbnailViewEvent) => {
+    const subscription1 = this.documentPageService.onEvent('SliderValueChanged').subscribe((e: GlobalEvent) => {
       if (e.payload.value === 1) {
         this.sliderClass = e.payload.className || 'half-size';
       } else {

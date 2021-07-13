@@ -13,7 +13,7 @@
       </div>
     </ng-container>
   </global-search-form>
-  <global-search-more-result-in-dialog [templateRef]="collectionThumbnailView" [selectableSettings]="selectableSettings" [searchResultFilter]="searchResultFilter" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+  <global-search-more-result-in-dialog [templateRef]="collectionThumbnailView" [selectableSettings]="selectableSettings" [searchResultFilter]="searchResultFilter" [thumbnailViewSettings]="thumbnailViewSettings" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
 </div>
 <ng-template #collectionThumbnailView let-doc="doc">
   <div class="collection">
