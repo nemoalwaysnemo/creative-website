@@ -25,6 +25,7 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   thumbnailViewOptions: any = {
     layout: 'suggestion-inline',
     loadingStyle: {},
+    hideEmpty: true,
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -46,13 +47,6 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
   @Input() templateRef: TemplateRef<any>;
 
   @Input() openSearchFilter: boolean = false;
-
-  @Input()
-  set thumbnailViewSettings(settings: any) {
-    if (!isValueEmpty(settings)) {
-      this.thumbnailViewOptions = new DocumentThumbnailViewSettings(Object.assign({}, this.getDefaultThumbnailViewSettings(), settings));
-    }
-  }
 
   constructor(
     protected router: Router,
@@ -108,11 +102,4 @@ export class HomeSearchFormComponent extends BaseSearchFormComponent {
     return observableOf(res);
   }
 
-  protected getDefaultThumbnailViewSettings(): any {
-    return {
-      layout: 'suggestion-inline',
-      loadingStyle: {},
-      hideEmpty: true,
-    };
-  }
 }

@@ -13,7 +13,11 @@ export class DocumentThumbnailViewSettings {
 
   enableCustomGrid: boolean = false;
 
+  enableShuffle: boolean = false;
+
   customGridTitle: string = 'New';
+
+  shuffleOptions: any = {};
 
   hideEmpty: boolean = false;
 
