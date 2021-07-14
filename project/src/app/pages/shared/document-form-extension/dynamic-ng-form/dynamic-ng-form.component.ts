@@ -1,28 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ContentChildren,
-  EventEmitter,
-  Input,
-  Output,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import {
-  DynamicFormComponent, DynamicFormComponentService,
-  DynamicFormControlEvent,
-  DynamicFormLayout,
-  DynamicFormModel,
-  DynamicTemplateDirective,
-  DynamicFormService,
-  DynamicFormControlModel,
-} from '@core/custom';
-import { isValueEmpty } from '@core/services/helpers';
-import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import { DynamicFormComponent, DynamicFormComponentService, DynamicFormControlEvent, DynamicFormLayout, DynamicFormModel, DynamicTemplateDirective, DynamicFormService, DynamicFormControlModel } from '@core/custom';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
+import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
 import { DynamicNGFormSettings } from './dynamic-ng-form.interface';
+import { isValueEmpty } from '@core/services/helpers';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'dynamic-ng-form',
@@ -81,10 +63,6 @@ export class DynamicNGFormComponent extends DynamicFormComponent {
 
   constructor(protected formService: DynamicFormService, protected changeDetectorRef: ChangeDetectorRef, protected componentService: DynamicFormComponentService) {
     super(changeDetectorRef, componentService);
-  }
-
-  getFormModelsById(id: string): DynamicFormModel {
-    return this.ngFormModel.filter((model: DynamicFormControlModel) => model.id === id);
   }
 
   getFormModelsByPosition(position: string): DynamicFormModel {

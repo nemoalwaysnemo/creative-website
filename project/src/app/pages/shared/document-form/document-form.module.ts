@@ -23,6 +23,7 @@ const COMPONENTS = [BaseDocumentFormComponent, DocumentFormComponent, DocumentIm
   ],
   exports: [
     ...COMPONENTS,
+    DynamicFormsNGUIModule,
   ],
   providers: [
     {

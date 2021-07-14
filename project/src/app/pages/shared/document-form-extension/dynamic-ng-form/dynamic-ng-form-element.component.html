@@ -1,0 +1,14 @@
+<ng-container *ngIf="group && model">
+  <div class="ng-form-control-element">
+    <dynamic-ng-form-control *ngFor="let m of model; trackBy: trackByFn"
+                            [group]="group"
+                            [hidden]="m.hidden"
+                            [model]="m"
+                            [templates]="templates"
+                            (blur)="onBlur($event)"
+                            (change)="onChange($event)"
+                            (focus)="onFocus($event)"
+                            (customEvent)="onCustomEvent($event, customEvent)">
+    </dynamic-ng-form-control>
+  </div>
+</ng-container>
