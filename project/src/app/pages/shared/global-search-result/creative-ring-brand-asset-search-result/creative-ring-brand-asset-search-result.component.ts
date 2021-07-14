@@ -93,7 +93,7 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
     formMode: 'edit',
     moreInfo: true,
     enablePreview: true,
-    enableDetail: false,
+    enableDetail: true,
     enableKnowledgeRelated: true,
   };
 
