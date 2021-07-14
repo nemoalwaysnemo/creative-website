@@ -12,6 +12,7 @@ export class SuggestionSettings {
   static readonly USER_GROUP: string = 'UserGroup'; // content view page-provider
   static readonly TAG: string = 'Tag'; // nuxeo tag
 
+  readonly formMode: 'create' | 'edit' | 'view' = 'create';
   readonly viewType: 'suggestion' | 'list' = 'suggestion';
   readonly placeholder: string = 'Please select value';
   readonly prompt: string = 'Search';
@@ -26,5 +27,6 @@ export class SuggestionSettings {
   readonly pageSize: number = 20;
   readonly displayLabel: boolean = false;
   readonly direction: string = '';
+  readonly selectedItems: any;
   readonly inputTarget: (doc: DocumentModel) => string = (doc: DocumentModel) => doc.getParent().uid;
 }

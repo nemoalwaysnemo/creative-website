@@ -101,7 +101,9 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   writeValue(val: any): void {
     const value = (val === null || val === undefined || val === '' ? [] : val);
     this.buildDefaultOptions(value);
-    this.selectedItems = value;
+    if ((val === null || val === undefined) && this.settings.formMode === 'create' && !this.settings.selectedItems){
+      this.selectedItems = value;
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -177,10 +179,29 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       concatMap((options: OptionModel[]) => this.afterSearch(options)),
       share(),
     ).subscribe((res: OptionModel[]) => {
+      this.checkDefaultOption(res);
       this.options$.next(res);
       this.loading$.next(false);
     });
     this.subscription.add(subscription);
+  }
+
+  private checkDefaultOption(res: OptionModel[]): void {
+    const selectedItems = [];
+    // delete undefined, '', false, null
+    const inputItems = this.settings.selectedItems ? this.settings.selectedItems.filter(r => r) : [];
+
+    inputItems.forEach(item => {
+      const opt = res.find(option => option.value === item);
+      if (opt) {
+        selectedItems.push(opt);
+      }
+    });
+
+    if (selectedItems.length > 0 ){
+      this.selectedItems = this.settings.multiple ? selectedItems.map(items => items.value) : selectedItems[0].value;
+      this._onChange(this.selectedItems);
+    }
   }
 
   private getDirectorySuggestions(searchTerm: string, settings: SuggestionSettings): Observable<OptionModel[]> {

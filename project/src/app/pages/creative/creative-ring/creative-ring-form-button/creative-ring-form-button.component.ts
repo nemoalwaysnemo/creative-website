@@ -1,7 +1,7 @@
-import { Component, Input, Type, TemplateRef } from '@angular/core';
+import { Component, Input, Type, TemplateRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
-import { Observable, of as observableOf } from 'rxjs';
+import { combineLatest, Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentModelForm } from '../../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
 import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
@@ -11,7 +11,7 @@ import { GlobalDocumentDialogSettings } from '../../../shared/global-document-di
   styleUrls: ['./creative-ring-form-button.component.scss'],
   templateUrl: './creative-ring-form-button.component.html',
 })
-export class CreativeRingFormButtonComponent {
+export class CreativeRingFormButtonComponent implements OnDestroy{
 
   document: DocumentModel;
 
@@ -25,32 +25,57 @@ export class CreativeRingFormButtonComponent {
 
   @Input()
   set type(type: string) {
-    this.dialogSettings = this.getDialogFormSettings(type);
+    this.dialogSettings$.next(type);
   }
 
   @Input()
   set parent(doc: DocumentModel) {
     if (doc) {
-      this.document = doc;
+      this.document$.next(doc);
       this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
     }
   }
+
+  private dialogSettings$: Subject<any> = new Subject<any>();
+
+  private document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
+  private subscription: Subscription = new Subscription();
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     private router: Router,
   ) {
+    this.onDocumentChanged();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick: false });
   }
 
-  private getDialogFormSettings(type: string): GlobalDocumentDialogSettings {
+  protected onDocumentChanged(): void {
+    const subscription = combineLatest([
+      this.document$,
+      this.dialogSettings$,
+    ]).subscribe(([doc, type]: [DocumentModel, any]) => {
+      this.document = doc;
+      this.dialogSettings = this.getDialogFormSettings(type, doc);
+    });
+    this.subscription.add(subscription);
+  }
+
+  private getDialogFormSettings(type: string, doc: DocumentModel): GlobalDocumentDialogSettings {
     const components: Type<DocumentModelForm>[] = [];
     switch (type) {
       case 'collection':
         components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_RING_COLLECTION_FORM);
+        break;
+      case 'upload-collection':
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_RING_UPDATE_COLLECTION_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
@@ -59,7 +84,7 @@ export class CreativeRingFormButtonComponent {
       containerType: 'middle-dialog-container',
       components,
       metadata: {
-        formSettings: { formType: 'new' },
+        formSettings: { formType: 'new', collectionType: doc.get('The_Loupe_Main:collection_type'), collectionName: doc.title },
       },
     });
   }

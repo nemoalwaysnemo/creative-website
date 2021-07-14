@@ -9,6 +9,7 @@ import { CreativeUsageRightsStockComponent } from './creative-usage-rights-stock
 import { CreativeCampaignFormComponent } from './creative-asset-campaign-form.component';
 import { CreativeProjectFormComponent } from './creative-asset-project-form.component';
 import { CreativeRingCollectionFormComponent } from './creative-ring-collection-form.component';
+import { CreativeRingUpdateCollectionFormComponent } from './creative-ring-update-collection-form.component';
 import { CreativeRingBrandCollectionFormComponent } from './creative-ring-brand-collection-form.component';
 import { CreativeRingAssetFormComponent } from './creative-ring-asset-form.component';
 import { DisruptionRoadmapFormComponent } from './disruption-roadmap-form.component';
@@ -49,6 +50,7 @@ export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_CAMPAIGN_FORM: CreativeCampaignFormComponent,
   CREATIVE_PROJECT_FORM: CreativeProjectFormComponent,
   CREATIVE_RING_COLLECTION_FORM: CreativeRingCollectionFormComponent,
+  CREATIVE_RING_UPDATE_COLLECTION_FORM: CreativeRingUpdateCollectionFormComponent,
   CREATIVE_RING_BRAND_COLLECTION_FORM: CreativeRingBrandCollectionFormComponent,
   CREATIVE_RING_ASSET_FORM: CreativeRingAssetFormComponent,
   DISRUPTION_ROADMAP_FORM: DisruptionRoadmapFormComponent,
