@@ -1,22 +1,16 @@
 import { join, isValueEmpty, objHasKey } from '../../../services/helpers';
 import { DocumentModel } from './nuxeo.document-model';
 
-const API_PATH = 'api/v1/';
-
 export abstract class AbstractCore {
 
   protected opts: any;
   protected baseUrl: string = '';
-  protected apiPath: string;
-  protected restUrl: string;
-  protected automationUrl: string;
+  protected apiUrl: string;
   protected baseOptions: any = {};
 
   constructor(opts: NuxeoApiOptions) {
-    this.apiPath = API_PATH;
     this.baseUrl = opts.baseUrl;
-    this.restUrl = join(this.baseUrl, this.apiPath);
-    this.automationUrl = join(this.restUrl, 'automation/');
+    this.apiUrl = join(this.baseUrl, 'api/v1/');
   }
 }
 

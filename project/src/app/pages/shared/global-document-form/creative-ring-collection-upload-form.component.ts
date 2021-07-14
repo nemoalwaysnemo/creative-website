@@ -1,24 +1,20 @@
 import { Component } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse, UserModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicDocumentSelectListModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
-import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
-import { ListSearchRowCustomViewComponent } from '../list-search-form-in-dialog';
-import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 
 @Component({
-  selector: 'creative-ring-udpate-collection-form',
+  selector: 'creative-ring-collection-upload-form',
   template: `<document-batch-operation [documentModel]="document" [settings]="formSettings" [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-batch-operation>`,
 })
-export class CreativeRingUpdateCollectionFormComponent extends GlobalDocumentFormComponent {
+export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'ccreative-ring-udpate-collection-form';
+  static readonly NAME: string = 'creative-ring-collection-upload-form';
 
   protected documentType: string = 'App-Library-CreativeRing-Collection';
 
@@ -45,9 +41,9 @@ export class CreativeRingUpdateCollectionFormComponent extends GlobalDocumentFor
   protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
     let agencyName = null;
     let brandName = null;
-    if (options.collectionType === 'Agency Collection'){
+    if (options.collectionType === 'Agency Collection') {
       agencyName = options.collectionName;
-    } else if (options.collectionType === 'Brand Collection'){
+    } else if (options.collectionType === 'Brand Collection') {
       brandName = options.collectionName;
     }
 
@@ -94,7 +90,6 @@ export class CreativeRingUpdateCollectionFormComponent extends GlobalDocumentFor
             providerName: 'GLOBAL_Agencies',
             selectedItems: [agencyName],
           },
-
         }),
       ],
       importModel: [

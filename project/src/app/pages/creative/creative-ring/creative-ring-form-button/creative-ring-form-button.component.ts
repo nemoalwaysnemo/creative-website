@@ -11,7 +11,7 @@ import { GlobalDocumentDialogSettings } from '../../../shared/global-document-di
   styleUrls: ['./creative-ring-form-button.component.scss'],
   templateUrl: './creative-ring-form-button.component.html',
 })
-export class CreativeRingFormButtonComponent implements OnDestroy{
+export class CreativeRingFormButtonComponent implements OnDestroy {
 
   document: DocumentModel;
 
@@ -75,7 +75,7 @@ export class CreativeRingFormButtonComponent implements OnDestroy{
         components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_RING_COLLECTION_FORM);
         break;
       case 'upload-collection':
-        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_RING_UPDATE_COLLECTION_FORM);
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_RING_UPLOAD_COLLECTION_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);

@@ -101,7 +101,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   writeValue(val: any): void {
     const value = (val === null || val === undefined || val === '' ? [] : val);
     this.buildDefaultOptions(value);
-    if ((val === null || val === undefined) && this.settings.formMode === 'create' && !this.settings.selectedItems){
+    if ((val === null || val === undefined) && this.settings.formMode === 'create' && !this.settings.selectedItems) {
       this.selectedItems = value;
     }
   }
@@ -198,7 +198,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
       }
     });
 
-    if (selectedItems.length > 0 ){
+    if (selectedItems.length > 0) {
       this.selectedItems = this.settings.multiple ? selectedItems.map(items => items.value) : selectedItems[0].value;
       this._onChange(this.selectedItems);
     }

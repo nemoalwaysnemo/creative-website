@@ -14,7 +14,7 @@ export class Operation extends Base {
     const options = Object.assign({}, opts);
     super(options);
     this._id = options.id;
-    this._url = this.automationUrl;
+    this._url = join(this.apiUrl, 'automation/');
     this._nuxeo = options.nuxeo;
     this._automationParams = {
       params: {},
@@ -67,9 +67,9 @@ export class Operation extends Base {
   _computeRequestURL(): string {
     const input = this._automationParams.input;
     if (isBatchBlob(input)) {
-      return join(this.restUrl, 'upload', input['upload-batch'], input['upload-fileId'], 'execute', this._id);
+      return join(this.apiUrl, 'upload', input['upload-batch'], input['upload-fileId'], 'execute', this._id);
     } else if (isBatchUpload(input)) {
-      return join(this.restUrl, 'upload', input._batchId, 'execute', this._id);
+      return join(this.apiUrl, 'upload', input._batchId, 'execute', this._id);
     }
     return join(this._url, encodePath(this._id));
   }
