@@ -59,6 +59,7 @@
     "parse5": "^6.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.7",
+    "shufflejs": "^5.4.1",
     "ts-md5": "^1.2.7",
     "tslib": "^2.2.0",
     "web-animations-js": "^2.3.2",
