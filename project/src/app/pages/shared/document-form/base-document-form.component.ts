@@ -6,8 +6,8 @@ import { DocumentPageService } from '../services/document-page.service';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
-import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer } from 'rxjs';
-import { concatMap, delay, filter, map, tap } from 'rxjs/operators';
+import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer, zip, concat } from 'rxjs';
+import { concatMap, filter, map, tap, toArray } from 'rxjs/operators';
 
 @Component({
   template: '',
@@ -364,7 +364,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected createDocuments(docs: DocumentModel[], ctx: DocumentFormContext): Observable<DocumentModel[]> {
-    return forkJoin(docs.map(x => this.createDocument(x, ctx).pipe(delay(1000))));
+    return concat(...docs.map(x => this.createDocument(x, ctx))).pipe(toArray());
   }
 
   protected createDocument(doc: DocumentModel, ctx: DocumentFormContext): Observable<any> {

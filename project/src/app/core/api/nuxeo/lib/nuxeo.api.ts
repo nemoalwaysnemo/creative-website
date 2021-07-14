@@ -27,10 +27,11 @@ import {
 import { Observable } from 'rxjs';
 import { tap, map, mergeMap } from 'rxjs/operators';
 import { UserModel } from './nuxeo.user-model';
+import { join } from '../../../services/helpers';
 
 export class Nuxeo extends Base {
-
   private auth: Credentials;
+  private automationUrl: string;
   private _connected: boolean = false;
   private _serverVersion: ServerVersion;
   private _nuxeoVersion: string;
@@ -38,6 +39,7 @@ export class Nuxeo extends Base {
   constructor(protected httpClient: HttpClient, protected opts: NuxeoApiOptions) {
     super(opts);
     this.auth = opts.auth;
+    this.automationUrl = join(this.apiUrl, 'automation/');
     this._initUnmarshaller();
   }
 
@@ -97,7 +99,7 @@ export class Nuxeo extends Base {
   }
 
   request(path: string, opts: any = {}): Request {
-    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, path, url: this.restUrl }, opts));
+    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, path, url: this.apiUrl }, opts));
     return new Request(finalOptions);
   }
 
@@ -107,7 +109,7 @@ export class Nuxeo extends Base {
   }
 
   batchUpload(opts: any = {}): BatchUpload {
-    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, url: this.restUrl }, opts));
+    const finalOptions = this._computeOptions(Object.assign({ nuxeo: this, url: this.apiUrl }, opts));
     return new BatchUpload(finalOptions);
   }
 
