@@ -11,6 +11,7 @@ import { DocumentFieldListModule } from '../document-field-list/document-field-l
 import { DocumentSelectListModule } from '../document-select-list/document-select-list.module';
 import { NgbDatepickerModule, NgbButtonsModule, NgbTimepickerModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
+import { DynamicNgFormElementComponent } from './dynamic-ng-form-element.component';
 import { DynamicNGFormComponent } from './dynamic-ng-form.component';
 import { DynamicNGCalendarComponent } from './calendar/dynamic-ng-calendar.component';
 import { DynamicNGCheckboxComponent } from './checkbox/dynamic-ng-checkbox.component';
@@ -65,6 +66,7 @@ import { DynamicNGDocumentSelectListComponent } from './document-select-list/dyn
     DynamicNGDatePickerComponent,
     DynamicNGFormArrayComponent,
     DynamicNGFormComponent,
+    DynamicNgFormElementComponent,
     DynamicNGFormControlContainerComponent,
     DynamicNGFormGroupComponent,
     DynamicNGInputComponent,
@@ -90,6 +92,7 @@ import { DynamicNGDocumentSelectListComponent } from './document-select-list/dyn
     DynamicNGDatePickerComponent,
     DynamicNGFormArrayComponent,
     DynamicNGFormComponent,
+    DynamicNgFormElementComponent,
     DynamicNGFormControlContainerComponent,
     DynamicNGFormGroupComponent,
     DynamicNGInputComponent,

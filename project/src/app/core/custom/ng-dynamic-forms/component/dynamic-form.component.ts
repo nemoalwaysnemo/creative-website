@@ -28,11 +28,11 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.componentService.registerForm(this);
+    this.registerForm();
   }
 
   ngOnDestroy(): void {
-    this.componentService.unregisterForm(this);
+    this.unregisterForm();
   }
 
   trackByFn(_index: number, model: DynamicFormControlModel): string {
@@ -65,5 +65,13 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   onCustomEvent($event: DynamicFormControlEvent, customEventEmitter: EventEmitter<DynamicFormControlEvent>): void {
     customEventEmitter.emit($event);
+  }
+
+  protected registerForm(): void {
+    this.componentService.registerForm(this);
+  }
+
+  protected unregisterForm(): void {
+    this.componentService.unregisterForm(this);
   }
 }

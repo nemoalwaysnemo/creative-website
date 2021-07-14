@@ -1,9 +1,18 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}" cstyle="width: 95%; margin: 0 auto; padding: 0 0 20px;">
   <ng-container *ngIf="formGroup">
-    <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
-      <dynamic-ng-form [formClass]="'document-form'" [group]="sharedGroup" [settings]="sharedFormSettings">
-      </dynamic-ng-form>
-    </dynamic-ng-form>
+
+    <ng-container [ngSwitch]="true">
+      <ng-container *ngSwitchCase="!!templateRef">
+        <ng-template #formTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{form: this, group: formGroup}"></ng-template>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="!templateRef">
+        <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
+          <dynamic-ng-form [formClass]="'document-form'" [group]="sharedGroup" [settings]="sharedFormSettings">
+          </dynamic-ng-form>
+        </dynamic-ng-form>
+      </ng-container>
+    </ng-container>
 
     <div class="button-groups left" *ngIf="ctx.formSettings && ctx.formSettings.enableButtons">
       <ng-container *ngFor="let button of ctx.formSettings.buttonGroup">

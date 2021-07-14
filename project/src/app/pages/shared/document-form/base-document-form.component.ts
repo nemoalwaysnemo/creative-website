@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { deepExtend, isValueEmpty } from '@core/services/helpers';
 import { UserModel, DocumentModel, NuxeoUploadResponse } from '@core/api';
@@ -56,6 +56,8 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   @Input() loading: boolean = true;
+
+  @Input() templateRef: TemplateRef<any>;
 
   @Output() callback: EventEmitter<DocumentFormEvent> = new EventEmitter<DocumentFormEvent>();
 
@@ -134,6 +136,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       };
       this.onSave(this.ctx);
     }
+  }
+
+  getFormModels(id: string | string[]): DynamicFormModel {
+    const ids = Array.isArray(id) ? id : [id];
+    return (this.ngFormSettings.formModel || []).filter((model: DynamicFormControlModel) => ids.includes(model.id));
   }
 
   protected onInit(): void {

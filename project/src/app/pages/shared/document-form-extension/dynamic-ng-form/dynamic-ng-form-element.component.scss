@@ -1,0 +1,17 @@
+
+dynamic-ng-form-control {
+  padding: 0;
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  flex: none;
+  max-width: none;
+  .document-form {
+    float: none;
+    width: 100%;
+  }
+  .document-form + div {
+    display: none;
+    float: none;
+  }
+}

@@ -1,3 +1,4 @@
 <div class="document-batch-operation">
-  <document-import [user]="currentUser" [document]="documents" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-import>
+  <document-import [user]="currentUser" [document]="documents" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" [templateRef]="templateRef" (callback)="onCallback($event)">
+  </document-import>
 </div>

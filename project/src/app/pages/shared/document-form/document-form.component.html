@@ -1,7 +1,16 @@
 <div [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}" cstyle="width: 95%; margin: 0 auto; padding: 0 0 20px;">
   <ng-container *ngIf="formGroup">
-    <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" [modelOperation]="modelOperation | async" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
-    </dynamic-ng-form>
+
+    <ng-container [ngSwitch]="true">
+      <ng-container *ngSwitchCase="!!templateRef">
+        <ng-template #formTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{form: this, group: formGroup}"></ng-template>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="!templateRef">
+        <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" [modelOperation]="modelOperation | async" (blur)="onBlur($event)" (focus)="onFocus($event)" (change)="onChange($event)" (customEvent)="onCustomEvent($event)">
+        </dynamic-ng-form>
+      </ng-container>
+    </ng-container>
 
     <ng-container *ngIf="showMessageBeforeSuccess()">
       <div class="submitted-message">

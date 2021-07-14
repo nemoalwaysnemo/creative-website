@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnDestroy, forwardRef, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, forwardRef, EventEmitter, TemplateRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DocumentModel, UserModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
@@ -18,6 +18,8 @@ import { concatMap, map, tap } from 'rxjs/operators';
   }],
 })
 export class DocumentBatchOperationComponent implements OnInit, OnDestroy {
+
+  @Input() templateRef: TemplateRef<any>;
 
   @Input()
   set documentModel(doc: DocumentModel | DocumentModel[]) {
