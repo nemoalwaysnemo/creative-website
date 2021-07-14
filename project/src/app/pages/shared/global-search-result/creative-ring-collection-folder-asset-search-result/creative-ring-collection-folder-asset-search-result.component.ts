@@ -20,7 +20,7 @@ export class CreativeRingCollectionFolderAssetSearchResultComponent extends Base
     formMode: 'edit',
     moreInfo: true,
     enablePreview: true,
-    enableDetail: false,
+    enableDetail: true,
     enableKnowledgeRelated: true,
   };
 

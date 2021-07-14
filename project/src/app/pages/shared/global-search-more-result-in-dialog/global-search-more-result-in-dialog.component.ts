@@ -33,4 +33,9 @@ export class GlobalSearchMoreResultInDialogComponent extends BaseGlobalSearchRes
     }
   }
 
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      layout: 'my_agency dates full-width',
+    };
+  }
 }

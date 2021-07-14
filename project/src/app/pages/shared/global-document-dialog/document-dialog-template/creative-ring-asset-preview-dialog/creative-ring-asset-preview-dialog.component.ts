@@ -50,11 +50,10 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
           params: {
             pageSize: 4,
             app_global_networkshare: true,
-            ecm_path: NUXEO_PATH_INFO.CREATIVE_RING_PATH,
-            ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
+            ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+            ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
           },
           provider: NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER,
-
         },
         {
           name: 'Agency',
@@ -63,8 +62,8 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
           params: {
             pageSize: 4,
             app_global_networkshare: true,
+            ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
             ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-            ecm_path: NUXEO_PATH_INFO.CREATIVE_RING_PATH,
           },
           provider: NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER,
         },
