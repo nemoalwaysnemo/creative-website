@@ -21,7 +21,7 @@ export class DynamicSuggestionModel<T> extends DynamicFormValueControlModel<T> {
 
   constructor(config: DynamicSuggestionModelConfig<T>, layout?: DynamicFormControlLayout) {
     super(config, layout);
-    this.settings = new SuggestionSettings(config.settings || {});
+    this.settings = new SuggestionSettings(config.settings ? Object.assign({}, config.settings, { formMode: config.formMode }) : { formMode: config.formMode });
     this.defaultValue = this.settings.multiple ? [] : null;
     this.defaultValue = config.defaultValue ? config.defaultValue : this.defaultValue;
     this.afterSearch = isFunction(config.afterSearch) ? config.afterSearch : (options: any[]): Observable<any[]> => observableOf(options);

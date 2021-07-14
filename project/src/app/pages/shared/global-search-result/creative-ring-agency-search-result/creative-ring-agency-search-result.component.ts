@@ -7,7 +7,7 @@ import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-for
 import { ListSearchRowCustomViewComponent } from '../../../shared/list-search-form-in-dialog/list-search-row-custom-view-component';
 
 @Component({
-  template: `<a [routerLink]="">{{ value.title }}</a>`,
+  template: `<a [routerLink]="['/p/creative/ring/collection/', value.uid, 'asset']">{{ value.title }}</a>`,
 })
 export class CreativeRingAgencyRowRenderComponent {
   @Input() value: { title: string, uid: string };
