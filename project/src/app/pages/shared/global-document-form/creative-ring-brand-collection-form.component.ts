@@ -26,7 +26,7 @@ export class CreativeRingBrandCollectionFormComponent extends GlobalDocumentForm
   afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {
     const collection = ctx.performedDocuments[0];
     if (collection.get('app_global:enable_thumbnail')) {
-      return this.documentPageService.operation(NuxeoAutomations.UpdateRringCollectionPoster, {}, collection.uid).pipe(
+      return this.documentPageService.operation(NuxeoAutomations.GenerateCollectionPoster, {}, collection.uid).pipe(
         map(_ => ctx),
       );
     } else {
