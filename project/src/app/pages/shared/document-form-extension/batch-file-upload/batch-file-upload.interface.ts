@@ -29,11 +29,15 @@ export class BatchUploadStatus {
 
 export class BatchUploadSettings {
 
-  constructor(data: any = {}) {
-    Object.assign(this, data);
-  }
+  uploadZoneTitle: string = ':queueSize file(s) queued for upload';
 
   formMode: 'create' | 'edit' | 'view' = 'create';
+
+  enableForm: boolean = false;
+
+  enableAction: boolean = false;
+
+  arrangeDirection: string;
 
   formModel: DynamicFormModel = [
     new DynamicInputModel({
@@ -53,11 +57,10 @@ export class BatchUploadSettings {
     }),
   ];
 
-  enableForm: boolean = false;
-
-  enableAction: boolean = false;
-
-  arrangeDirection: string;
-
   onFilesChangedFn: (items: NuxeoUploadResponse[]) => Observable<NuxeoUploadResponse[]> = (items: NuxeoUploadResponse[]) => observableOf(items);
+
+  constructor(data: any = {}) {
+    Object.assign(this, data);
+  }
+
 }

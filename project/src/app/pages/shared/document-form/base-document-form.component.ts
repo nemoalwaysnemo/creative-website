@@ -6,7 +6,7 @@ import { DocumentPageService } from '../services/document-page.service';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings, DocumentFormStatus } from './document-form.interface';
 import { DynamicFormService, DynamicFormControlModel, DynamicBatchUploadModel, DynamicGalleryUploadModel, DynamicFormModel, DynamicListModel } from '@core/custom';
-import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer, zip, concat } from 'rxjs';
+import { Observable, of as observableOf, forkJoin, Subject, Subscription, combineLatest, BehaviorSubject, timer, concat } from 'rxjs';
 import { concatMap, filter, map, tap, toArray } from 'rxjs/operators';
 
 @Component({

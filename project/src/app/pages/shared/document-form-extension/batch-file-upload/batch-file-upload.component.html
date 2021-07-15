@@ -1,6 +1,6 @@
 <div class="batch-upload" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div class="batch-upload-queue">
-    <h6 *ngIf="uploadSettings.enableAction">{{ uploadItems.length }} Queued Files</h6>
+    <h6 *ngIf="uploadSettings.enableAction">{{ uploadZoneTitle }}</h6>
     <ng-container *ngIf="!isOrdinaryImport()">
       <table class="table">
         <tbody>

@@ -109,6 +109,10 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   }
 
+  get uploadZoneTitle(): string {
+    return this.uploadSettings.uploadZoneTitle.replace(':queueSize', this.uploadItems.length.toString());
+  }
+
   getFieldName(item: any): string {
     if (item.xpath === 'file:content') {
       return 'Main File';
