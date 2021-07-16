@@ -27,7 +27,7 @@ export interface DocumentDialogOption {
 })
 export class GlobalDocumentDialogService {
 
-  private event: Subject<DocumentDialogEvent> = new Subject<DocumentDialogEvent>();
+  private event$: Subject<DocumentDialogEvent> = new Subject<DocumentDialogEvent>();
 
   private options: DocumentDialogOption = {};
 
@@ -43,6 +43,7 @@ export class GlobalDocumentDialogService {
   }
 
   close(): void {
+    this.triggerEvent({ name: 'Closed', type: 'built-in', messageContent: 'Closed' });
     this.dialogService.close();
   }
 
@@ -60,16 +61,16 @@ export class GlobalDocumentDialogService {
     );
   }
 
-  onEventName(name?: string): Observable<DocumentDialogEvent> {
-    return this.event.pipe(filter((e: DocumentDialogEvent) => name ? e.name === name : true)).pipe(share());
+  onEvent(name?: string | string[]): Observable<DocumentDialogEvent> {
+    return this.event$.pipe(filter((e: DocumentDialogEvent) => name ? (Array.isArray(name) ? name : [name]).includes(e.name) : true)).pipe(share());
   }
 
-  onEventType(type: string): Observable<DocumentDialogEvent> {
-    return this.event.pipe(filter((e: DocumentDialogEvent) => e.type === type)).pipe(share());
+  onEventType(type?: string | string[]): Observable<DocumentDialogEvent> {
+    return this.event$.pipe(filter((e: DocumentDialogEvent) => type ? (Array.isArray(type) ? type : [type]).includes(e.type) : true)).pipe(share());
   }
 
   triggerEvent(event: DocumentDialogEvent): this {
-    this.event.next(event);
+    this.event$.next(event);
     return this;
   }
 

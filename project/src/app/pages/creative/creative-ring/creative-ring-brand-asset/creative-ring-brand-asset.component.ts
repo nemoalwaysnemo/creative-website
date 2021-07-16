@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel } from '@core/api';
-import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SelectableItemSettings, SelectableActionBarSettings, SearchFilterModel } from '@pages/shared';
-import { SelectableItemService } from '../../../shared/document-selectable';
+import { DocumentPageService } from '../../../shared/services/document-page.service';
+import { SelectableItemSettings, SelectableItemService } from '../../../shared/document-selectable/';
+import { DocumentDialogEvent, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
+import { GlobalDocumentViewComponent, GlobalSearchFormSettings, SelectableActionBarSettings, SearchFilterModel } from '../../../shared';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 import { TAB_CONFIG } from '../creative-ring-tab-config';
 
@@ -34,7 +36,9 @@ export class CreativeRingBrandAssetComponent extends GlobalDocumentViewComponent
   });
 
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
+    dataType: 'ring-brand-asset-selectable',
     enableSelectable: true,
+    allowShiftMultiSelect: true,
   });
 
   actionBarsettings: SelectableActionBarSettings = new SelectableActionBarSettings({
@@ -47,8 +51,10 @@ export class CreativeRingBrandAssetComponent extends GlobalDocumentViewComponent
     private selectableItemService: SelectableItemService,
     protected activatedRoute: ActivatedRoute,
     protected documentPageService: DocumentPageService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(activatedRoute, documentPageService);
+    this.subscribeEvents();
   }
 
   protected setCurrentDocument(doc: DocumentModel): void {
@@ -80,5 +86,19 @@ export class CreativeRingBrandAssetComponent extends GlobalDocumentViewComponent
       ecm_fulltext: '',
     };
     return params;
+  }
+
+  private subscribeEvents(): void {
+    const eventType = ['callback', 'built-in'];
+    const subscription = this.globalDocumentDialogService.onEventType(eventType).pipe(
+    ).subscribe((e: DocumentDialogEvent) => {
+      if (['FormCreated', 'Closed'].includes(e.name)) {
+        this.selectableItemService.setQueueLimit(this.selectableSettings.dataType, this.selectableSettings.queueLimit);
+        if (e.name !== 'Closed') {
+          this.selectableItemService.clear(this.selectableSettings.dataType);
+        }
+      }
+    });
+    this.subscription.add(subscription);
   }
 }

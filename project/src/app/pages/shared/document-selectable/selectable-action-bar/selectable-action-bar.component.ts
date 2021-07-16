@@ -7,6 +7,7 @@ import { SelectableActionBarSettings } from './selectable-action-bar.interface';
 import { SelectableItemService, SelectableItemEvent } from '../selectable-item/selectable-item.service';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
+import { SelectableItemSettings } from '../selectable-item/selectable-item.interface';
 
 @Component({
   selector: 'selectable-action-bar',
@@ -62,6 +63,13 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
     this.actionSettings = settings;
   }
 
+  @Input()
+  set selectableSettings(settings: SelectableItemSettings) {
+    if (settings) {
+      this.selectableItemSettings = settings;
+    }
+  }
+
   favoriteWritePermission$: Observable<boolean> = observableOf(false);
 
   actionSettings: SelectableActionBarSettings = new SelectableActionBarSettings();
@@ -83,6 +91,8 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
   private documents: DocumentModel[] = [];
 
   private subscription: Subscription = new Subscription();
+
+  private selectableItemSettings: SelectableItemSettings = new SelectableItemSettings();
 
   constructor(
     private selectableItemService: SelectableItemService,
@@ -139,7 +149,7 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
   }
 
   private subscribeEvents(): void {
-    const subscription = this.selectableItemService.onEvent('thumbnail-view').pipe(
+    const subscription = this.selectableItemService.onEvent(this.selectableItemSettings.dataType).pipe(
       map((event: SelectableItemEvent) => event.collection),
     ).subscribe((collection: DocumentModel[]) => {
       this.count = collection.length;
@@ -148,5 +158,4 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
     });
     this.subscription.add(subscription);
   }
-
 }

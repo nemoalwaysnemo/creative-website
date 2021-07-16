@@ -7,6 +7,8 @@ export class SelectableItemSettings {
 
   enableSelectable: boolean = false;
 
+  allowShiftMultiSelect: boolean = false;
+
   queueLimit: number = 100;
 
   constructor(data: any = {}) {

@@ -27,6 +27,7 @@ export class CreativeBrandShowcaseComponent extends GlobalDocumentViewComponent 
   });
 
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
+    dataType: 'brand-showcase-selectable',
     enableSelectable: true,
   });
 

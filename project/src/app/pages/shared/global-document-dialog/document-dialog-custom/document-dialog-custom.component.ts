@@ -20,7 +20,7 @@ export class DocumentDialogCustomComponent extends DocumentDialogContainerCompon
   }
 
   protected subscribeEvents(): void {
-    this.subscription = this.globalDocumentDialogService.onEventName('ViewChanged').subscribe((e: DocumentDialogEvent) => {
+    this.subscription = this.globalDocumentDialogService.onEvent('ViewChanged').subscribe((e: DocumentDialogEvent) => {
       this.loading = true;
       this.destroyDynamicComponent();
       this.createComponent(this.component, e.options.document, e.options.metadata || this.dialogSettings);

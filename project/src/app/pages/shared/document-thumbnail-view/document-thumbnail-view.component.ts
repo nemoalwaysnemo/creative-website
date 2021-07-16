@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, TemplateRef, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
 import { isValueEmpty } from '@core/services/helpers';
 import Shuffle from 'shufflejs';
@@ -17,9 +17,12 @@ import { DocumentThumbnailViewSettings } from './document-thumbnail-view.interfa
         <ng-container *ngIf="documentList && documentList.length !== 0">
           <div class="s-results {{viewSettings.layout}}" [ngStyle]="hide ? {'display': 'none'} : {}">
             <div class="thumbnail-view-custom-item" *ngIf="viewSettings.enableCustomGrid">
-                <div [ngClass]="['custom-grid', (viewSettings.disableCustomGrid ? 'disable' : '')]" title="{{viewSettings.customGridTitle}}" (click)="onCustomGridClick($event)"></div>
+              <div [ngClass]="['custom-grid', (viewSettings.disableCustomGrid ? 'disable' : '')]" title="{{viewSettings.customGridTitle}}" (click)="onCustomGridClick($event)">
+                <div class="custom-add"><h1>+</h1></div>
+              </div>
+              <div class="description"><h1 title="{{viewSettings.customGridTitle}}">{{viewSettings.customGridTitle}}</h1></div>
             </div>
-            <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [ngClass]="['thumbnail-view-item', sliderClass, (selectableItemSettings.enableSelectable ? 'enableSelectable' : '')]" [attr.doc-uid]="document.uid" [attr.doc-type]="document.type">
+            <div *ngFor="let document of documentList; let i=index" [selectable]="document" [settings]="selectableItemSettings" [selectableCheckboxStyle]="selectableCheckboxStyle" [ngClass]="['thumbnail-view-item', sliderClass, (selectClass ? selectClass : '')]" [attr.doc-uid]="document.uid" [attr.doc-type]="document.type">
               <ng-template #itemTemplate [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{doc: document}"></ng-template>
             </div>
             <div class="clear"></div>
@@ -36,20 +39,6 @@ import { DocumentThumbnailViewSettings } from './document-thumbnail-view.interfa
   `,
 })
 export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterViewInit {
-
-  sliderClass: string = '';
-
-  documentList: DocumentModel[] = [];
-
-  viewSettings: DocumentThumbnailViewSettings = new DocumentThumbnailViewSettings();
-
-  selectableItemSettings: SelectableItemSettings = new SelectableItemSettings();
-
-  @Input() templateRef: TemplateRef<any>;
-
-  @Input() loading: boolean = false;
-
-  @Input() hide: boolean = false;
 
   @Input()
   set selectableSettings(settings: SelectableItemSettings) {
@@ -70,6 +59,28 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
     }
   }
 
+  constructor(private documentPageService: DocumentPageService) {
+    this.subscribeEvents();
+  }
+
+  sliderClass: string = '';
+
+  documentList: DocumentModel[] = [];
+
+  selectClass: string = '';
+
+  selectableCheckboxStyle: string;
+
+  viewSettings: DocumentThumbnailViewSettings = new DocumentThumbnailViewSettings();
+
+  selectableItemSettings: SelectableItemSettings = new SelectableItemSettings();
+
+  @Input() templateRef: TemplateRef<any>;
+
+  @Input() loading: boolean = false;
+
+  @Input() hide: boolean = false;
+
   @ViewChild('shuffleContainer') private shuffleContainer: ElementRef;
 
   @ViewChild('shuffleSizer') private shuffleSizer: ElementRef;
@@ -82,16 +93,50 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private documentPageService: DocumentPageService) {
-    this.subscribeEvents();
+  @HostListener('keydown', ['$event'])
+  keyDownEvent(event: KeyboardEvent): void {
+    if (this.selectableItemSettings.allowShiftMultiSelect) {
+      if (event.key === 'Shift') {
+        this.selectClass = 'enableSelectable';
+        this.selectableCheckboxStyle = 'item-selectable-checkbox-block';
+
+      } else {
+        this.selectClass = '';
+        this.selectableCheckboxStyle = 'item-selectable-checkbox-hide';
+      }
+    }
+  }
+
+  @HostListener('keyup', ['$event'])
+  keyUpEvent(event: KeyboardEvent): void {
+    if (this.selectableItemSettings.allowShiftMultiSelect) {
+      if (event.key === 'Shift') {
+        this.selectClass = '';
+        this.selectableCheckboxStyle = 'item-selectable-checkbox-hide';
+      }
+    } else if (this.selectableItemSettings.enableSelectable) {
+      this.selectClass = 'enableSelectable';
+    }
   }
 
   ngOnInit(): void {
-
+    this.selectableCheckboxShow();
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  private selectableCheckboxShow(): void {
+    if (this.selectableItemSettings.enableSelectable) {
+      if (!this.selectableItemSettings.allowShiftMultiSelect) {
+        this.selectClass = 'enableSelectable';
+        this.selectableCheckboxStyle = 'item-selectable-checkbox-block';
+      } else {
+        this.selectClass = '';
+        this.selectableCheckboxStyle = 'item-selectable-checkbox-hide';
+      }
+    }
   }
 
   ngAfterViewInit(): void {
@@ -105,7 +150,9 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
   }
 
   onCustomGridClick(event: any): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'CustomGridClick', type: 'document-thumbnail-view' }));
+    if (!this.viewSettings.disableCustomGrid) {
+      this.documentPageService.triggerEvent(new GlobalEvent({ name: 'CustomGridClick', type: 'document-thumbnail-view' }));
+    }
   }
 
   private performSettings(settings: DocumentThumbnailViewSettings): void {
@@ -141,5 +188,4 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
     });
     this.subscription.add(subscription2);
   }
-
 }

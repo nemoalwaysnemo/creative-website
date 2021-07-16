@@ -24,7 +24,7 @@ export class SelectableItemService {
 
   private event = new Subject<SelectableItemEvent>();
 
-  private queueLimit: number;
+  private queueLimit: { [key: string]: number } = {};
 
   triggerEvent(event: SelectableItemEvent): this {
     this.event.next(event);
@@ -38,9 +38,9 @@ export class SelectableItemService {
   change(event: SelectableItemEvent): void {
     if (event.selected) {
       this.selectedItems[event.doc.uid] = event.component;
-      if (this.queueLimit > 0) {
+      if (this.queueLimit[event.type] > 0) {
         const currentSelectedIds: string[] = this.getSelectedIds(event);
-        if ( currentSelectedIds.length - this.queueLimit > 0 ) {
+        if ( currentSelectedIds.length - this.queueLimit[event.type] > 0 ) {
           Object.values(this.selectedItems).filter((i: any) => i.document.uid === currentSelectedIds[0]).map((i: any) => i.onChecked(false));
           delete this.selectedItems[currentSelectedIds[0]];
         }
@@ -68,7 +68,7 @@ export class SelectableItemService {
     return Object.values(this.selectedItems).filter((i: any) => i.dataType === event.type).map((i: any) => i.document.uid);
   }
 
-  setQueueLimit(num: number): void {
-    this.queueLimit = num;
+  setQueueLimit(type: string, num: number): void {
+    this.queueLimit[type] = num;
   }
 }

@@ -31,6 +31,7 @@ export class CreativeBrandAssetComponent extends GlobalDocumentViewComponent {
   });
 
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
+    dataType: 'brand-asset-selectable',
     enableSelectable: true,
   });
 

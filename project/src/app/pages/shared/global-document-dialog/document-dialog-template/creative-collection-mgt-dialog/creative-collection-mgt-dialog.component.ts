@@ -30,6 +30,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
   thumbnailViewSettings: any = {
     customGridTitle: 'New Collection',
     enableCustomGrid: true,
+    layout: 'ring_brand_asset',
   };
 
   selectableSettings: SelectableItemSettings = new SelectableItemSettings({
@@ -100,12 +101,6 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
     this.selectView(name, null, { formSettings });
   }
 
-  close(): void {
-    this.selectableItemService.setQueueLimit(100);
-    this.selectableItemService.clear(this.selectableSettings.dataType);
-    super.close();
-  }
-
   private triggerSearch(): void {
     this.searchFormSettings = new GlobalSearchFormSettings({
       source: 'creative-collections-mgt',
@@ -137,11 +132,22 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
       );
   }
 
+  private disableCustomGridView(): void {
+    const opts: any = {};
+    if ((this.targetCollection || []).length > 0) {
+      opts.disableCustomGrid = true;
+    } else {
+      opts.disableCustomGrid = false;
+    }
+    this.thumbnailViewSettings = Object.assign({}, this.thumbnailViewSettings, opts);
+  }
+
   private subscribeEvents(): void {
     const subscription1 = this.selectableItemService.onEvent('collection-view-selectable').pipe(
       map((event: SelectableItemEvent) => event.collection),
     ).subscribe((collection: DocumentModel[]) => {
       this.targetCollection = collection;
+      this.disableCustomGridView();
     });
     this.subscription.add(subscription1);
     const subscription2 = this.documentPageService.onEvent('CustomGridClick').pipe(
