@@ -236,7 +236,7 @@ body {
   &.creative_brand_showcase,
   &.creative_agency_brand,
   &.creative_agency_showcase {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -264,7 +264,7 @@ body {
       float: left;
       margin: 0 30px 30px;
       overflow: hidden;
-      .image-holder {
+      .image-holder, .custom-grid {
         width: 100%;
         @include media-breakpoint-down(md) {
           // < 768px
@@ -304,7 +304,7 @@ body {
     }
   }
   &.learning-home {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -366,7 +366,7 @@ body {
     }
   }
   &.disruption-home {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -424,7 +424,7 @@ body {
     }
   }
   &.alumni-results {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
         // < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -483,7 +483,7 @@ body {
   }
   &.biz-dev-home,
   &.intelligence-home {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -550,7 +550,7 @@ body {
   }
   &.creative_asset_search,
   &.popular_brand_search {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -640,7 +640,7 @@ body {
   }
   &.agency,
   &.popular_brand {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -721,7 +721,7 @@ body {
     }
   }
   &.quarter {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -753,7 +753,7 @@ body {
     }
   }
   &.third {
-    > .thumbnail-view-item {
+    > .thumbnail-view-item, .thumbnail-view-custom-item {
       @include media-breakpoint-down(md) {
       	// < 768px
         width: calc((100% - 60px * 2) / 2);
@@ -878,5 +878,6 @@ selectable-checkbox {
   }
 }
 .thumbnail-view-item:hover {
-  .item-selectable-checkbox { display: block; }
+  .item-selectable-checkbox-block { display: block; }
+  .item-selectable-checkbox-hide { display: none; }
 }

@@ -5,7 +5,7 @@ import { DocumentModel } from '@core/api';
 @Component({
   selector: 'selectable-checkbox',
   template: `
-    <div class="item-selectable-checkbox" [ngStyle]="selected ? {'display': 'block'} : {}">
+    <div [ngClass]="[selectClass]" [ngStyle]="selected ? {'display': 'block'} : {}">
       <nb-checkbox [checked]="selected" [disabled]="disabled" [status]="status" (checkedChange)="onChecked($event)"></nb-checkbox>
     </div>
   `,
@@ -31,11 +31,13 @@ export class SelectableItemComponent implements OnInit {
 
   @Output() onSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  selectClass: string = '';
+
   constructor(private selectableItemService: SelectableItemService) {
   }
 
   ngOnInit(): void {
-    this.selectableItemService.setQueueLimit(this.queueLimit);
+    this.selectableItemService.setQueueLimit(this.dataType, this.queueLimit);
   }
 
   onChecked(checked: boolean): void {
@@ -46,5 +48,9 @@ export class SelectableItemComponent implements OnInit {
 
   toggleChecked(): void {
     this.onChecked(!this.selected);
+  }
+
+  checkboxSelectStyle(style: string): void {
+    this.selectClass = style;
   }
 }

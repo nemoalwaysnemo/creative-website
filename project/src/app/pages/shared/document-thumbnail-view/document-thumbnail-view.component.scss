@@ -1,3 +1,4 @@
+@import '../../../core/nebular/theme/styles/global/breakpoints';
 .thumbnail-view-item {
   // box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
   // transition: 0.4s;
@@ -8,6 +9,51 @@
   &.half-size {
   	width: calc( 16.6% - 34px);
   	margin:15px;
+  }
+}
+.thumbnail-view-custom-item {
+  .custom-grid {
+    position: relative;
+    border: dotted 2px #3d3c3a;
+    cursor: pointer;
+    .custom-add {
+      text-align: center;
+      @include media-breakpoint-down(md) {
+        // < 768px
+        margin: calc((((100vw - 60px * 3) / 2 * 9 / 16) - 42px) / 2);
+      }
+      @include media-breakpoint-between(md, lg) {
+        //768px - 992px
+        margin: calc((((100vw - 60px * 3) / 2 * 9 / 16) - 42px) / 2);
+      }
+      @include media-breakpoint-between(lg, xl) {
+        //992px - 1200px
+        margin: calc((((100vw - 60px * 4) / 3 * 9 / 16) - 42px) / 2);
+      }
+      @include media-breakpoint-between(xl, xxl) {
+        // 1200px - 1400px
+        margin: calc((((100vw - 60px * 4) / 3 * 9 / 16) - 42px) / 2);
+      }
+      @include media-breakpoint-between(xxl, xxxl) {
+        // 1400px - 1600px
+        margin: calc((((100vw - 60px * 4) / 3 * 9 / 16) - 42px) / 2);
+      }
+      @include media-breakpoint-up(xxxl) {
+        // > 1600px
+        margin: calc((((100vw - 60px * 5) / 4 * 9 / 16) - 42px) / 2);
+      }
+      h1 {
+        width: 100%;
+        font-size: 35px;
+        color: #2a2a2a;
+      }
+    }
+  }
+  .custom-grid.disable {
+    border: dotted 3px lightgray;
+    h1 {
+      color: #e1e1e1 !important;
+    }
   }
 }
 .enableSelectable:hover {

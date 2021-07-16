@@ -101,7 +101,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
   }
 
   protected subscribeEvents(): void {
-    this.subscription = this.globalDocumentDialogService.onEventName('ComponentChanged').subscribe((e: DocumentDialogEvent) => {
+    this.subscription = this.globalDocumentDialogService.onEvent('ComponentChanged').subscribe((e: DocumentDialogEvent) => {
       const main = this.mainComponent.NAME;
       const name = e.options.componentName || main;
       const component = name === main ? this.mainComponent : e.options.component;

@@ -9,6 +9,8 @@ import { SelectableItemSettings } from './selectable-item.interface';
 })
 export class SelectableItemDirective implements OnInit, OnDestroy {
 
+  checkboxStyle: string;
+
   @Input()
   set selectable(doc: DocumentModel) {
     this.document = doc;
@@ -19,6 +21,12 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
     if (settings) {
       this.selectableSettings = settings;
     }
+  }
+
+  @Input()
+  set selectableCheckboxStyle(style: string){
+    this.checkboxStyle = style;
+    this.setCheckboxStyle(style);
   }
 
   @HostBinding('class.item-selected')
@@ -53,7 +61,7 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
     event.preventDefault();
     event.stopImmediatePropagation();
     const target = event.target as HTMLElement;
-    if (this.selectableSettings.enableSelectable && (!this.selectableSettings.selector || (this.selectableSettings.selector && target.closest(this.selectableSettings.selector)))) {
+    if (this.selectableSettings.enableSelectable && !this.selectableSettings.allowShiftMultiSelect && (!this.selectableSettings.selector || (this.selectableSettings.selector && target.closest(this.selectableSettings.selector)))) {
       this.toggleCheckboxStatus();
     }
   }
@@ -61,6 +69,7 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.selectableSettings.enableSelectable) {
       this.createComponent();
+      this.setCheckboxStyle(this.checkboxStyle);
     }
   }
 
@@ -101,4 +110,9 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
     }
   }
 
+  private setCheckboxStyle(style: any): void {
+    if (this.componentRef) {
+      this.componentRef.instance.checkboxSelectStyle(style);
+    }
+  }
 }
