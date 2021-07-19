@@ -15,7 +15,8 @@ import { SelectableItemService } from '../document-selectable/selectable-item/se
 
 @Component({
   selector: 'creative-ring-collection-form',
-  template: `<document-batch-operation [documentModel]="document" [settings]="formSettings" [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-batch-operation>`,
+  templateUrl: './creative-ring-collection-form.component.html',
+  styleUrls: ['./global-document-form.component.scss'],
 })
 export class CreativeRingCollectionFormComponent extends GlobalDocumentFormComponent {
 
