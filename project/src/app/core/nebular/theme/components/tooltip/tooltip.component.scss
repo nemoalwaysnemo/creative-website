@@ -4,6 +4,8 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
+@use "sass:math";
+
 :host {
   $arrow-size: 5px;
 
@@ -52,8 +54,8 @@
   }
 
   &.left .arrow {
-    right: round(-$arrow-size - $arrow-size / 2.5);
-    top: calc(50% - #{$arrow-size / 2.5});
+    right: round(-$arrow-size - math.div($arrow-size, 2.5));
+    top: calc(50% - #{math.div($arrow-size, 2.5)});
     transform: rotate(90deg);
   }
 
@@ -64,8 +66,8 @@
   }
 
   &.right .arrow {
-    left: round(-$arrow-size - $arrow-size / 2.5);
-    top: calc(50% - #{$arrow-size / 2.5});
+    left: round(-$arrow-size - math.div($arrow-size, 2.5));
+    top: calc(50% - #{math.div($arrow-size, 2.5)});
     transform: rotate(270deg);
   }
 }

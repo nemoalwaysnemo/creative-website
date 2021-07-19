@@ -22,7 +22,6 @@
             "main": "project/src/main.ts",
             "polyfills": "project/src/polyfills.ts",
             "tsConfig": "project/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "project/src/assets",
               "project/src/favicon.ico",
@@ -45,7 +44,13 @@
               "rxjs",
               "lodash",
               "angular2-text-mask"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "aws-stg": {
@@ -84,7 +89,8 @@
                 "with": "project/src/environments/environment.aws-dev.ts"
               }]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

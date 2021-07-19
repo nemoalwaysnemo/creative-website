@@ -1,4 +1,4 @@
-<nb-route-tabset fullWidth [tabs]="tabs" activeLinkOptions="{ exact: false }"></nb-route-tabset>
+<nb-route-tabset fullWidth [tabs]="tabs"></nb-route-tabset>
 <innovation-folder-view [loading]="folderLoading" [document]="folder" [showButton]="showButton" [assetUrlMapping]="assetUrlMapping" [showFolderInfo]="showFolderInfo"></innovation-folder-view>
 <div *ngIf="document" class="document" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <section class="general">

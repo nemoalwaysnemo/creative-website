@@ -407,7 +407,7 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
         .pipe(
           takeWhile(() => this.alive),
         )
-        .subscribe((_) => resolve());
+        .subscribe((_) => resolve(_));
     }));
     this.spinnerService.load();
 

@@ -4,7 +4,7 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
-@mixin nb-scrollbars($fg, $bg, $size, $border-radius: $size / 2) {
+@mixin nb-scrollbars($fg, $bg, $size, $border-radius: $size * 0.5) {
   ::-webkit-scrollbar {
     width: $size;
     height: $size;
