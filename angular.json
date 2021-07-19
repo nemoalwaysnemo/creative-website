@@ -30,10 +30,10 @@
             ],
             "styles": [
               "node_modules/@videogular/ngx-videogular/fonts/videogular.css",
-              "node_modules/bootstrap/dist/css/bootstrap.css",
-              "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "project/src/app/core/nebular/icons/scss/nebular-icons.scss",
+              "project/src/assets/css/bootstrap.min.css",
               "project/src/app/theme/fonts/custom-fonts.scss",
               "project/src/app/theme/styles/styles.scss"
             ],
