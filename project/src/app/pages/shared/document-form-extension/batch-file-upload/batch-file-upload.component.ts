@@ -6,7 +6,7 @@ import { DragDropFileZoneService } from '../drag-drop-file-zone/drag-drop-file-z
 import { BehaviorSubject, Observable, of as observableOf, Subject, Subscription, timer } from 'rxjs';
 import { concatMap, filter, mergeMap, tap } from 'rxjs/operators';
 import { BatchUploadSettings, BatchUploadStatus } from './batch-file-upload.interface';
-import { DynamicFormControlModel, DynamicFormService } from '@core/custom';
+import { DynamicFormControlModel, DynamicFormModel, DynamicFormService } from '@core/custom';
 import { DocumentPageService } from '../../services/document-page.service';
 import { isValueEmpty } from '@core/services/helpers';
 
@@ -39,6 +39,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   uploadSettings: BatchUploadSettings = new BatchUploadSettings();
 
   uploadItems: NuxeoUploadResponse[] = [];
+
+  columnHeaders: any[] = [];
 
   disabled: boolean = false;
 
@@ -270,7 +272,10 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
           delete item.document;
         }
         const model = item.formModel || this.uploadSettings.formModel.map(m => Object.assign({}, m));
+        this.performTableHeaders(model);
         const models = model.map((m: DynamicFormControlModel) => {
+          delete m.label;
+          m.enableRequiredLabel = false;
           m.field = m.id.split('__').shift();
           m.id = `${m.field}__${item.fileIdx}`;
           if (!m.value || m.value.length === 0) {
@@ -280,9 +285,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
               const formValue = this.formGroups[index].value;
               m.value = formValue[m.field];
             }
-          }
-          if (this.uploadSettings.arrangeDirection === 'horizontal' && index > 0) {
-            m['hideLabel'] = true;
           }
           return m;
         });
@@ -294,7 +296,6 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     });
     this.formModels = formModels;
     this.formGroups = formGroups;
-    this.addFieldPieces();
   }
 
   private emitSubFormStatus(): void {
@@ -306,14 +307,10 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     return name.replace(/_/g, ' ').replace(/\s+/g, ' ').replace(/\.\w+$/, '');
   }
 
-  private addFieldPieces(): void {
-    this.formGroups.forEach((value, index: number) => {
-      this.uploadItems[index]['fieldPieces'] = Object.keys(value.value).length;
-    });
-  }
-
-  isOrdinaryImport(): boolean {
-    return this.uploadSettings.enableAction && this.uploadSettings.arrangeDirection !== 'horizontal' && this.uploadSettings.formModel.length === 1 && this.uploadSettings.formModel[0].id === 'dc:title';
+  private performTableHeaders(models: DynamicFormModel): void {
+    if (this.columnHeaders.length === 0) {
+      this.columnHeaders = models.map((m: DynamicFormControlModel) => ({ label: m.label, required: m.required }));
+    }
   }
 
 }

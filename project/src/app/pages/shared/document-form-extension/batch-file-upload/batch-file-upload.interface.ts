@@ -37,8 +37,6 @@ export class BatchUploadSettings {
 
   enableAction: boolean = false;
 
-  arrangeDirection: string;
-
   formModel: DynamicFormModel = [
     new DynamicInputModel({
       id: 'dc:title',

@@ -7,7 +7,6 @@ import { isBoolean, isObject } from '../utils/core.utils';
 export interface DynamicFormValueControlModelConfig<T> extends DynamicFormControlModelConfig {
   additional?: { [key: string]: any };
   hint?: string;
-  required?: boolean;
   tabIndex?: number;
 }
 
@@ -15,7 +14,6 @@ export abstract class DynamicFormValueControlModel<T> extends DynamicFormControl
 
   @serializable() additional: { [key: string]: any } | null;
   @serializable() hint: string | null;
-  @serializable() required: boolean;
   @serializable() tabIndex: number | null;
 
   protected constructor(config: DynamicFormValueControlModelConfig<T>, layout?: DynamicFormControlLayout) {
@@ -23,7 +21,6 @@ export abstract class DynamicFormValueControlModel<T> extends DynamicFormControl
     super(config, layout);
     this.additional = isObject(config.additional) ? config.additional : null;
     this.hint = config.hint || null;
-    this.required = isBoolean(config.required) ? config.required : false;
     this.tabIndex = config.tabIndex || null;
   }
 

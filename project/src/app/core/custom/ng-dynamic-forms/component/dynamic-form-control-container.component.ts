@@ -136,6 +136,14 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
     return this.validationService.showErrorMessages(this.control, this.model, this.hasFocus);
   }
 
+  get enableRequiredLabel(): boolean {
+    return (this.model as DynamicFormValueControlModel<any>).enableRequiredLabel;
+  }
+
+  get isRequired(): boolean {
+    return (this.model as DynamicFormValueControlModel<any>).required;
+  }
+
   get hasLabel(): boolean {
     return isString(this.model.label);
   }
@@ -164,10 +172,6 @@ export class DynamicFormControlContainerComponent implements OnChanges, OnDestro
   get endTemplate(): DynamicTemplateDirective | undefined {
     return this.model.type !== DYNAMIC_FORM_CONTROL_TYPE_ARRAY ?
       this.layoutService.getEndTemplate(this.model, this.templates) : undefined;
-  }
-
-  get isRequired(): boolean {
-    return (this.model as DynamicFormValueControlModel<any>).required;
   }
 
   getClass(context: DynamicFormControlLayoutContext, place: DynamicFormControlLayoutPlace): string {
