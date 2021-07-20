@@ -23,6 +23,8 @@
 .right-layout-widely {
   width: 80%;
   max-width: calc(100% - 220px);
+  margin-left: 0!important;
+  float: right!important;
 }
 ::ng-deep .is-empty {
   &.stress-input {
