@@ -72,7 +72,7 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
             placeholder: 'What is this brand?',
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'App-Library-CreativeRing-Brands',
-            direction: 'horizontal',
+            layout: 'direction-horizontal',
             selectedItems: [brandName],
           },
           validators: { required: null },
@@ -101,7 +101,7 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
           autoComplete: 'off',
           required: true,
           settings: {
-            direction: 'horizontal',
+            layout: 'direction-horizontal',
           },
           validators: {
             required: null,
@@ -122,7 +122,7 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
             placeholder: 'What is this asset?',
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'App-Library-MediaTypes-Mixed',
-            direction: 'horizontal',
+            layout: 'direction-horizontal',
           },
           validators: { required: null },
           errorMessages: { required: '' },

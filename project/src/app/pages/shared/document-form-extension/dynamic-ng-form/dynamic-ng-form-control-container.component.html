@@ -1,12 +1,10 @@
-<div [class.form-group]="model.type !== 'GROUP' || getClass('element', 'container').includes('form-group')" [class.direction-horizontal]="model.settings.direction == 'horizontal'" [formGroup]="group"
-  [ngClass]="['dynamic-forms-'+model.type.toLowerCase(), getClass('element', 'container'), getClass('grid', 'container')]">
-  <div *ngIf="isRequired" class="required" style="display: inline-block; margin-right: 4px; color: red;" [class.horizontal-hidden]="model.hideLabel">*</div>
-  <label *ngIf="!isCheckbox && hasLabel" [for]="id" [innerHTML]="model.label" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]" [class.horizontal-lable]="model.settings.direction == 'horizontal'"
-    [class.horizontal-hidden]="model.hideLabel" [class.horizontal-font-weight]="model.settings.direction == 'horizontal'"></label>
+<div [formGroup]="group" [ngClass]="['dynamic-forms-'+model.type.toLowerCase(), model.settings.layout || '']">
+  <div *ngIf="isRequired && enableRequiredLabel" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</div>
+  <label *ngIf="!isCheckbox && hasLabel" [for]="id" [innerHTML]="model.label"></label>
 
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
 
-  <div [ngClass]="getClass('grid', 'control')" [class.horizontal-first-line]="!model.hideLabel && model.settings.direction == 'horizontal'" [class.horizontal-rest-line]="model.hideLabel && model.settings.direction == 'horizontal'">
+  <div [ngClass]="getClass('grid', 'control')">
     <ng-container #componentViewContainer></ng-container>
     <small *ngIf="hasHint" class="text-muted" [innerHTML]="hint" [ngClass]="getClass('element', 'hint')"></small>
     <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">

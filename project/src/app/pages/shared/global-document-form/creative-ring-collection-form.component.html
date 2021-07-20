@@ -1,30 +1,24 @@
-<document-batch-operation [documentModel]="document" [settings]="formSettings"
-    [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave"
-    [afterFormSave]="afterFormSave" (callback)="onCallback($event)" [templateRef]="formTemplate">
-</document-batch-operation>
+<document-batch-operation [documentModel]="document" [settings]="formSettings" [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)" [templateRef]="formTemplate"></document-batch-operation>
 <ng-template #formTemplate let-form="form" let-group="group">
-    <div class="colletion-form-template">
-        <document-form-element [formModel]="'form'"></document-form-element>
-        <document-form-element [group]="group" [formModel]="form.getFormModels('file:content')"
-            (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
-            (customEvent)="form.onCustomEvent($event)"></document-form-element>
-        <div class="ring-colletion-header">
-            <div class="ring-colletion-title">
-                <document-form-element [group]="group" [formModel]="form.getFormModels('dc:title')" (blur)="form.onBlur($event)"
-                (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
-                </document-form-element>
-            </div>
-            <div class="ring-collection-agency-country">
-                User:<br>
-                agency(auto), country(auto)
-            </div>
-        </div>
-        <document-form-element [group]="group" [formModel]="form.getFormModels('batchUpload')"
-            (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
-            (customEvent)="form.onCustomEvent($event)"></document-form-element>
-        <!-- <document-form-element [group]="group"
+  <div class="colletion-form-template">
+    <document-form-element [formModel]="'form'"></document-form-element>
+    <document-form-element [group]="group" [formModel]="form.getFormModels('file:content')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
+    </document-form-element>
+    <div class="ring-colletion-header">
+      <div class="ring-colletion-title">
+        <document-form-element [group]="group" [formModel]="form.getFormModels('dc:title')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
+        </document-form-element>
+      </div>
+      <div class="ring-collection-agency-country">
+        User:<br>
+        agency(auto), country(auto)
+      </div>
+    </div>
+    <document-form-element [group]="group" [formModel]="form.getFormModels('batchUpload')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
+    </document-form-element>
+    <!-- <document-form-element [group]="group"
             [formModel]="form.getFormModels(['The_Loupe_Main:collection_type', 'The_Loupe_Main:assettype'])"
             (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
             (customEvent)="form.onCustomEvent($event)"></document-form-element> -->
-    </div>
+  </div>
 </ng-template>

@@ -121,7 +121,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         autoComplete: 'off',
         required: true,
         settings: {
-          direction: 'horizontal',
+          layout: 'direction-horizontal',
         },
         validators: {
           required: null,
@@ -140,7 +140,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           placeholder: 'What is this brand?',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-CreativeRing-Brands',
-          direction: 'horizontal',
+          layout: 'direction-horizontal',
         },
         validators: { required: null },
         errorMessages: { required: '' },
@@ -154,7 +154,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           placeholder: 'What is this asset?',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Library-MediaTypes-Mixed',
-          direction: 'horizontal',
+          layout: 'direction-horizontal',
         },
         validators: { required: null },
         errorMessages: { required: '' },

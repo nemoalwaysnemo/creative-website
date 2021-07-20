@@ -1,75 +1,34 @@
 <div class="batch-upload" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div class="batch-upload-queue">
     <h6 *ngIf="uploadSettings.enableAction">{{ uploadZoneTitle }}</h6>
-    <ng-container *ngIf="!isOrdinaryImport()">
-      <table class="table">
-        <tbody>
-          <tr>
-            <td class="file-info-zone">
-              <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0" [ngStyle]="uploadSettings.arrangeDirection == 'horizontal'? {} : {'width': '100%'}">
-                <thead>
-                  <tr *ngIf="uploadItems.length > 0">
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of uploadItems; let i=index" style="height: 40px;">
-                    <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
-                    <td *ngIf="!uploadSettings.enableForm || uploadSettings.enableForm && !item.isMainFile()">{{
-                      item.getFileType() }}</td>
-                    <td nowrap *ngIf="item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB</td>
-                    <td nowrap *ngIf="!item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{
-                      item.percentLoaded }}%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td style="padding-top:3.2px ;" *ngIf="uploadSettings.enableForm">
-              <div *ngFor="let group of formGroups; let i=index" style="clear:both; min-width: 60px; width: 100%;">
-                <div *ngIf="uploadSettings.enableForm && uploadItems[i].isMainFile()">
-                  <dynamic-ng-form [formClass]="'document-form'" [group]="group" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
-                  </dynamic-ng-form>
-                  <div [ngStyle]="i > 0 ? {'margin-top': '5px'} : {'margin-top': '34px'}" class="float-right" nowrap *ngIf="uploadSettings.enableAction">
-                    <button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)"
-                      [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadSettings.formMode === 'edit')">Delete</button>
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </ng-container>
-    <ng-container *ngIf="isOrdinaryImport()">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>File Name</th>
-            <th>Field</th>
-            <th>Size</th>
-            <th *ngIf="uploadSettings.enableAction">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of uploadItems; let i=index">
-            <td nowrap title="{{item.fileName}}"><strong>{{ parseFileName(item.fileName) }}</strong></td>
-            <td *ngIf="uploadSettings.enableForm && item.isMainFile()">
-              <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
-              </dynamic-ng-form>
-            </td>
-            <td *ngIf="!uploadSettings.enableForm || uploadSettings.enableForm && !item.isMainFile()">{{
-              item.getFileType() }}</td>
-            <td nowrap *ngIf="item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB</td>
-            <td nowrap *ngIf="!item.original">{{ item.fileSize/1024/1024 | number:'.2' }} MB, {{ item.percentLoaded }}%
-            </td>
-            <td nowrap *ngIf="uploadSettings.enableAction"><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)"
-                [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (item.isMainFile() && item.formMode === 'edit')">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </ng-container>
+    <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0" [ngStyle]="{'width': '100%'}">
+      <thead>
+        <tr>
+          <th><span>Name</span></th>
+          <th><span>Type</span></th>
+          <th><span>Size</span></th>
+          <th>
+            <span *ngFor="let header of columnHeaders">
+              <div *ngIf="header.required" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</div>{{header.label}}
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of (formGroups.length > 0 ? formGroups : uploadItems); let i=index;" style="height: 40px;">
+          <td nowrap><strong>{{ parseFileName(uploadItems[i].fileName) }}</strong></td>
+          <td nowrap>{{ uploadItems[i].getFileType() }}</td>
+          <td nowrap *ngIf="uploadItems[i].original">{{ uploadItems[i].fileSize/1024/1024 | number:'.2' }} MB</td>
+          <td nowrap *ngIf="!uploadItems[i].original">{{ uploadItems[i].fileSize/1024/1024 | number:'.2' }} MB, {{ uploadItems[i].percentLoaded }}%</td>
+          <td *ngIf="formGroups.length > 0 && uploadSettings.enableForm && uploadItems[i].isMainFile()">
+            <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
+            </dynamic-ng-form>
+          </td>
+          <td nowrap *ngIf="uploadSettings.enableAction"><button nbButton outline class="btn btn-danger btn-xs" status="danger" (click)="removeOne(i)"
+              [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadItems[i].formMode === 'edit')">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
