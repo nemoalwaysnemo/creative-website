@@ -10,3 +10,19 @@
     border: solid 1px #e1e1e1;
     cursor: pointer;
 }
+
+::ng-deep creative-ring-collection-upload-form {
+  div.default-layout.formClass.layout-left-narrow {
+    float: left;
+    .form-group {
+      .horizontal-first-line {
+        border-top: none;
+        padding-top: 0;
+      }
+      label {
+        font-weight: normal;
+      }
+      min-width: 200px;
+    }
+  }
+}
