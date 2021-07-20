@@ -1,74 +1,103 @@
-<div class="dialog-title with_logo">
+<div class="dialog-title text-center" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {}">
   <a (click)="close()" class="left" title="Close"><img [src]="closeBtnImage()"></a>
-  <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
+  <h1 class="left">{{title}}</h1>
   <div class="clear"></div>
 </div>
 <div class="dialog-body">
-  <div class="dialog-viewer-container">
-    <ng-container *ngIf="document">
+  <ng-container *ngIf="document">
+    <div class="media" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {}">
       <document-viewer [document]="document" [settings]="viewerSettings"></document-viewer>
-      <a *ngIf="document.filePath" href="{{document.filePath}}"
-        (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" class="download right btn"
-        title="Download">Download</a>
-      <a href="{{document.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" class="preview right btn"
-        title="Preview" target="_blank">Preview</a>
-      <a href="javascript:;" nbPopoverPlacement="bottom" [nbPopover]="popContent" title="Share"
-        class="right btn">Share</a>
-    </ng-container>
- </div>
- <div class="dialog-info">
-  <h1>{{ document.title }}</h1>
-  <h2>{{ document.get('The_Loupe_Main:brand') }}</h2>
-  <table>
-    <tbody>
-      <tr>
-        <th>Descriptions</th>
-        <th>Asset Type</th>
-      </tr>
-      <tr>
-
-        <td>{{ document.get('dc:description') }}</td>
-        <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
-      </tr>
-      <tr>
-        <th>Industry</th>
-        <th>Geography</th>
-      </tr>
-      <tr>
-        <td>{{ document.get('app_Edges:industry') }}</td>
-        <td>{{ vocabularyFormatter(document.get('app_Edges:Relevant_Country')) }}</td>
-      </tr>
-      <tr>
-        <th>Author</th>
-        <th>Published</th>
-      </tr>
-      <tr>
-        <!-- <td *ngIf="isDisruptionAsset(document)">{{ document.get('dc:creator') }}</td> -->
-        <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
-        <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
-      </tr>
-      <tr>
-        <th>Backslash Category</th>
-        <th>Edge</th>
-      </tr>
-      <tr>
-        <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
-        <td>{{ document.get('app_Edges:Tags_edges') }}</td>
-      </tr>
-      <tr>
-        <th>Agency</th>
-        <th>Brand</th>
-      </tr>
-      <tr>
-        <td>{{ document.get('The_Loupe_Main:agency') }}</td>
-        <td>{{ document.get('The_Loupe_Main:brand') }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="related related-info" *ngIf="getDialogSettings().enableKnowledgeRelated">
-  <knowledge-related-info [document]="document"></knowledge-related-info>
-</div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="document">
+    <div class="text-content" style="padding-top: 0;" [ngStyle]=" hideDialogInfo ? {'display': 'none'} : {}">
+      <div class="controls row">
+        <div class="col-5">
+          <h3 class="left"><b>{{ document.title }}</b></h3>
+          <div class="clear"></div>
+          <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
+        </div>
+        <div class="col-7">
+          <ng-container *ngIf="downloadPermission$ | async">
+            <a *ngIf="document.filePath" href="{{document.filePath}}" (click)="googleAnalyticsTrackLink(document, 'Download', 'File')" title="Download"><button class="inline-middle download right" title="Download">Download</button></a>
+          </ng-container>
+          <ng-container *ngIf="getDialogSettings().enablePreview && !isVideoAsset(document)">
+            <a href="{{document.previewUrl}}" (click)="googleAnalyticsTrackLink(document, 'Preview')" title="Preview" target="_blank"><button class="preview right">Preview</button></a>
+          </ng-container>
+          <button class="share right" nbPopoverPlacement="bottom" [nbPopover]="popContent">Share</button>
+          <ng-container *ngIf="getDialogSettings().enableDetail">
+            <a [routerLink]="['/p/backslash/report/folder', document.parentRef, 'asset', document.uid]" (click)="close()"><button class="inline-middle details right">Details</button></a>
+          </ng-container>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <ng-container *ngIf="getDialogSettings().moreInfo">
+        <p class="description">{{ document.get('dc:description') }}</p>
+        <table>
+          <tbody>
+            <tr>
+              <th>Descriptions</th>
+              <th>Asset Type</th>
+            </tr>
+            <tr>
+      
+              <td>{{ document.get('dc:description') }}</td>
+              <td>{{ document.get('The_Loupe_Main:assettype') }}</td>
+            </tr>
+            <tr>
+              <th>Industry</th>
+              <th>Geography</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('app_Edges:industry') }}</td>
+              <td>{{ vocabularyFormatter(document.get('app_Edges:Relevant_Country')) }}</td>
+            </tr>
+            <tr>
+              <th>Author</th>
+              <th>Published</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('The_Loupe_Main:created_by') }}</td>
+              <td>{{ document.get('The_Loupe_ProdCredits:production_date') | date:'MMM d, yyyy':'UTC'}}</td>
+            </tr>
+            <tr>
+              <th>Backslash Category</th>
+              <th>Edge</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('app_Edges:backslash_category').join(', ') }}</td>
+              <td>{{ document.get('app_Edges:Tags_edges') }}</td>
+            </tr>
+            <tr>
+              <th>Agency</th>
+              <th>Brand</th>
+            </tr>
+            <tr>
+              <td>{{ document.get('The_Loupe_Main:agency') }}</td>
+              <td>{{ document.get('The_Loupe_Main:brand') }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <nb-accordion class="accordion" *ngIf="downloadPermission$ && attachments && attachments.length !== 0">
+        <nb-accordion-item class="accordion-item">
+          <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
+          <nb-accordion-item-body class="accordion-item-body">
+            <table>
+              <tbody *ngFor="let attachment of attachments">
+                <tr>
+                  <td><a href="{{ attachment.url }}" (click)="googleAnalyticsTrackLink(document, 'Download', 'Attachment', attachment.title)" class="download-btn">{{ attachment.title }}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+    <section class="related" *ngIf="getDialogSettings().enableKnowledgeRelated">
+      <knowledge-related-info [document]="document"></knowledge-related-info>
+    </section>
+  </ng-container>
 </div>
 
 <ng-template #popContent>

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { DocumentModel, NuxeoPermission} from '@core/api';
+import { vocabularyFormatter } from '@core/services/helpers';
+import { Observable, of as observableOf, combineLatest } from 'rxjs';
+import { concatMap, map, share } from 'rxjs/operators';
+import { DocumentModel, UserModel, NuxeoPermission } from '@core/api';
+import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
-import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { vocabularyFormatter, matchAssetUrl } from '@core/services/helpers';
-import { Observable, of as observableOf } from 'rxjs';
+
 @Component({
   selector: 'related-backslash-report-asset-preview-dialog',
   styleUrls: ['../global-document-dialog-template.scss', './related-backslash-report-asset-preview-dialog.component.scss'],
@@ -12,61 +14,76 @@ import { Observable, of as observableOf } from 'rxjs';
 })
 export class RelatedBackslashReportAssetDialogPreviewComponent extends DocumentDialogPreviewTemplateComponent {
 
-  static readonly NAME: string = 'related-backslash-asset-preview';
+  shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
-  backslashEdges: DocumentModel[] = [];
+  downloadPermission$: Observable<boolean> = observableOf(false);
 
-  shareUrl: string;
+  attachments: { type: string, url: string, title: string }[] = [];
 
   viewerSettings: any = {
-    layout: this.getDialogSettings().docViewerLayout,
   };
 
-  writePermission$: Observable<boolean> = observableOf(false);
-
-  deletePermission$: Observable<boolean> = observableOf(false);
-
-  private assetUrlMapping: any = {
-    'App-Backslash-Edges-Asset': 'backslash/resource/edge/:parentRef/asset/',
-    'App-Backslash-Case-Study': 'backslash/report/folder/:parentRef/asset/',
-    'App-Backslash-Resources-Asset': 'backslash/resource/folder/:parentRef/asset/',
-    'App-Edges-Trigger': 'backslash/Trigger Pool/asset/',
-    '*': 'backslash/asset/',
-  };
+  hideDialogInfo: boolean = false;
 
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
-  }
-
-  protected onInit(): void {
-    // this.buildBackslashEdges(this.document);
-    this.shareUrl = this.buildShareUrl(this.document);
-  }
-
-  previewBtnImage(): string {
-    return '/assets/images/preview_logo.png';
-  }
-
-  private buildShareUrl(doc: DocumentModel): string {
-    return this.documentPageService.getCurrentAppUrl(matchAssetUrl(doc, this.assetUrlMapping) + doc.uid);
+    this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
+      if (e.name === 'Opened') {
+        this.hideDialogInfo = true;
+      } else {
+        this.hideDialogInfo = false;
+      }
+    });
   }
 
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
-      this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
-      this.deletePermission$ = doc.hasPermission(NuxeoPermission.Delete);
+      this.shareUrl = this.buildShareUrl(doc);
+      this.attachments = doc.getAttachmentList();
+      this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
     }
+  }
+
+  protected getPreviewSettings(): any {
+    return {
+      moreInfo: true,
+      enablePreview: true,
+      enableDetail: true,
+      enableKnowledgeRelated: false,
+    };
+  }
+
+  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {
+    this.documentPageService.googleAnalyticsTrackLink(doc, category, type);
   }
 
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
 
-  googleAnalyticsTrackLink(doc: DocumentModel, category: string, type: string = ''): void {
-    this.documentPageService.googleAnalyticsTrackLink(doc, category, type);
+  buildShareUrl(doc: DocumentModel): string {
+    return this.documentPageService.getCurrentAppUrl('backslash/report/folder/' + doc.parentRef + '/asset/' + doc.uid);
+  }
+
+  canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
+    return combineLatest([
+      doc.hasPermission(NuxeoPermission.ReadWrite),
+      doc.hasPermission(NuxeoPermission.Everything),
+      this.documentPageService.getCurrentUser().pipe(
+        concatMap((user: UserModel) => doc.getParentPropertyByOperation('app_global:download_mainfile').pipe(
+          map((permission: boolean) => user.canAccess() && permission === true),
+        )),
+      )]).pipe(
+        map(results => (results[0] || results[1] || results[2])),
+        share(),
+      );
+  }
+
+  isVideoAsset(doc: DocumentModel): boolean {
+    return (doc.type === 'App-Library-Video') ? true : false;
   }
 }
