@@ -17,8 +17,8 @@ td {
   float: right;
 }
 
-tbody tr :nth-child(-n+3) :not(button) {
-  width: 100px;
+tbody tr td:nth-child(-n+3) {
+  width: 95px;
 }
 
 .header-labels {
