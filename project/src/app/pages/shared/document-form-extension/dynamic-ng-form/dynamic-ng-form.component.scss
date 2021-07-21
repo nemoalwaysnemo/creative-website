@@ -26,6 +26,9 @@
   margin-left: 0!important;
   float: right!important;
 }
+::ng-deep .gcl-theme-default .horizontal-input {
+  font-size: 15.5px;
+}
 ::ng-deep .is-empty {
   &.stress-input {
     background: #e9a1a3 !important;
