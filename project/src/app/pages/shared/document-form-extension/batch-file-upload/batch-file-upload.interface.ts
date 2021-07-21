@@ -41,8 +41,8 @@ export class BatchUploadSettings {
     new DynamicInputModel({
       id: 'dc:title',
       maxLength: 150,
-      label: 'Asset title',
-      placeholder: 'Asset title',
+      label: 'Asset Title',
+      placeholder: 'Asset Title',
       autoComplete: 'off',
       required: false,
       validators: {
