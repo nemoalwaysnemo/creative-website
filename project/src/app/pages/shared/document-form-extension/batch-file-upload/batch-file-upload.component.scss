@@ -16,3 +16,27 @@ td {
 .float-right {
   float: right;
 }
+
+tbody tr :nth-child(-n+3) :not(button) {
+  width: 100px;
+}
+
+.header-labels {
+  padding-left: 12px;
+}
+
+.labels-names {
+  display: block;
+  width: 158px;
+  float: left;
+}
+::ng-deep dynamic-ng-form-control {
+  margin-bottom: 0!important;
+}
+.btn-right {
+  width: 80px;
+}
+
+::ng-deep dynamic-ng-form-control .direction-horizontal {
+  padding-right: 4px;
+}
