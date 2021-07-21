@@ -4,12 +4,12 @@ import { Subject, timer, of as observableOf, Observable } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
-import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 import { DatePipe } from '@angular/common';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
-import { DocumentPageService } from '../../../../shared/services/document-page.service';
+import { DocumentPageService, GlobalEvent } from '../../../../shared/services/document-page.service';
 import { map } from 'rxjs/operators';
+import { isValueEmpty } from '@core/services/helpers';
 
 @Component({
   selector: 'document-creative-project-related-asset',
@@ -18,54 +18,11 @@ import { map } from 'rxjs/operators';
 })
 export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreativeProjectMgtBaseComponent {
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected componentFactoryResolver: ComponentFactoryResolver,
-    private advanceSearchService: AdvanceSearchService,
-    ) {
-    super(documentPageService, componentFactoryResolver);
-  }
-
-  @Input()
-  set listViewOptions(settings: any) {
-    if (settings) {
-      if (settings.deliverPackage) {
-        this.isPackage = settings.deliverPackage;
-        delete settings.deliverPackage;
-      }
-      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
-    } else {
-      this.listViewSettings = this.defaultSettings;
-    }
-  }
-
-  @Input()
-  set assetSettings(settings: any) {
-    if (settings) {
-      this.packageViewSettings = settings;
-    }
-    if (settings.isChecked) {
-      this.isChecked = settings.isChecked;
-    }
-    if (settings.layout) {
-      this.layout = settings.layout;
-    }
-  }
-
-  @Input()
-  set formSettings(settings: any) {
-    if (settings) {
-      this.formViewSettings = settings;
-    }
-  }
-
   static readonly NAME: string = 'creative-project-related-asset';
 
   loading: boolean = true;
 
-  layout: string;
-
-  isPackage: boolean = false;
+  enButtonClick: boolean = false;
 
   listViewSettings: any;
 
@@ -73,13 +30,11 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
 
   formViewSettings: any;
 
-  isRefresh: boolean = true;
-
-  isChecked: boolean = false;
-
   doc: DocumentModel;
 
   assetList: DocumentModel[] = [];
+
+  searchFormSettings: any;
 
   baseParamsSelected$: Subject<any> = new Subject<any>();
 
@@ -88,30 +43,6 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
   baseParamsLinkProject$: Subject<any> = new Subject<any>();
 
   baseParamsRelatedAssets$: Subject<any> = new Subject<any>();
-
-  searchFormSelectedSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-asset-selected',
-    enableSearchInput: true,
-  });
-
-  searchFormLinkBrandSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-link-brand',
-    enableSearchInput: true,
-  });
-
-  searchFormLinkProjectSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-link-project',
-    enableSearchInput: true,
-  });
-
-  searchFormRelatedAssetsSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
-    source: 'document-creative-project-related-asset',
-    enableSearchInput: true,
-  });
 
   defaultSettings: any = {
     hideHeader: false,
@@ -153,9 +84,47 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
     },
   };
 
+  @Input()
+  set listViewOptions(settings: any) {
+    if (settings) {
+      this.listViewSettings = Object.assign({}, this.defaultSettings, settings);
+    } else {
+      this.listViewSettings = this.defaultSettings;
+    }
+  }
+
+  @Input()
+  set assetSettings(settings: any) {
+    if (!isValueEmpty(settings)) {
+      this.packageViewSettings = Object.assign({}, this.packageViewSettings, settings);
+    }
+  }
+
+  @Input()
+  set searchSettings(settings: any) {
+    if (!isValueEmpty(settings)) {
+      this.searchFormSettings = Object.assign({}, this.searchFormSettings, settings);
+    }
+  }
+
+  @Input()
+  set formSettings(settings: any) {
+    if (!isValueEmpty(settings)) {
+      this.formViewSettings = settings;
+    }
+  }
+
   @Output() assetSelected: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() assetAction: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    private advanceSearchService: AdvanceSearchService,
+  ) {
+    super(documentPageService, componentFactoryResolver);
+  }
 
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
@@ -202,21 +171,30 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
     }
   }
 
+  onClick(data: any): void {
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: data.type, type: 'mgt-delivery-package', data: { settings: this.packageViewSettings } }));
+  }
+
   protected buildAssetParams(doc: any): void {
     switch (this.packageViewSettings.type) {
       case 'assetSelected':
+        this.enButtonClick = true;
         this.baseParamsSelected$.next(this.buildSelectedAssetsParams(doc));
         break;
       case 'linkBrand':
+        this.enButtonClick = true;
         this.baseParamsLinkBrand$.next(this.buildLinkAssetsBrandParams(doc));
         break;
       case 'linkProject':
+        this.enButtonClick = true;
         this.baseParamsLinkProject$.next(this.buildLinkAssetsProjectParams(doc));
         break;
       case 'linkRelated':
+        this.enButtonClick = false;
         this.baseParamsRelatedAssets$.next(this.buildRelatedAssetsParams(doc, doc.getParent('brand')));
         break;
       case 'assetRelatedSelected':
+        this.enButtonClick = false;
         this.buildSelectedRelatedAssetsParams(doc);
         break;
       default:

@@ -1,30 +1,33 @@
 <div class="document-creative-project-related-asset">
-  <div *ngIf="packageViewSettings.title" class="related-asset-title {{layout}}">{{packageViewSettings.title}}</div>
-  <div *ngIf="packageViewSettings.info" class="related-asset-info">{{packageViewSettings.info}}</div>
-  <ng-container *ngIf="packageViewSettings.showProject">
+  <div *ngIf="packageViewSettings.title" class="related-asset-title {{packageViewSettings.layout}}">{{packageViewSettings.title}}</div>
+  <div *ngIf="packageViewSettings.info" class="related-asset-info">
+    <button *ngIf="enButtonClick" (click)="onClick(packageViewSettings)" class="related-asset-button icon_point">{{packageViewSettings.info}}</button>
+    <button *ngIf="!enButtonClick" class="related-asset-button">{{packageViewSettings.info}}</button>
+  </div>
+  <ng-container *ngIf="packageViewSettings.showProject || packageViewSettings.showBrand">
     <div class="related-asset-show">
-      <input class="show-check" type="checkbox" name="showProject" (change)="onCheckedChange($event)" [checked]="isChecked">show only this project
+      <input class="show-check" type="checkbox" name="showProject" (change)="onCheckedChange($event)" [checked]="packageViewSettings.isChecked">show only this project
     </div>
   </ng-container>
   <div class="document-creative-project-related-asset-list">
     <ng-container [ngSwitch]="packageViewSettings.type">
       <ng-container *ngSwitchCase="'assetSelected'">
-        <list-search-form-in-dialog [searchParams]="baseParamsSelected$ | async" [settings]="searchFormSelectedSettings"
+        <list-search-form-in-dialog [searchParams]="baseParamsSelected$ | async" [settings]="searchFormSettings"
           [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)" [afterSearch]="afterSearch">
         </list-search-form-in-dialog>
       </ng-container>
       <ng-container *ngSwitchCase="'linkBrand'">
-        <list-search-form-in-dialog [searchParams]="baseParamsLinkBrand$ | async" [settings]="searchFormLinkBrandSettings"
+        <list-search-form-in-dialog [searchParams]="baseParamsLinkBrand$ | async" [settings]="searchFormSettings"
           [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)" [afterSearch]="afterSearch">
         </list-search-form-in-dialog>
       </ng-container>
       <ng-container *ngSwitchCase="'linkProject'">
-        <list-search-form-in-dialog [searchParams]="baseParamsLinkProject$ | async" [settings]="searchFormLinkProjectSettings"
+        <list-search-form-in-dialog [searchParams]="baseParamsLinkProject$ | async" [settings]="searchFormSettings"
           [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)" [afterSearch]="afterSearch">
         </list-search-form-in-dialog>
       </ng-container>
       <ng-container *ngSwitchCase="'linkRelated'">
-        <list-search-form-in-dialog [searchParams]="baseParamsRelatedAssets$ | async" [settings]="searchFormRelatedAssetsSettings"
+        <list-search-form-in-dialog [searchParams]="baseParamsRelatedAssets$ | async" [settings]="searchFormSettings"
           [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)" [afterSearch]="afterSearch">
         </list-search-form-in-dialog>
       </ng-container>
