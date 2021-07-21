@@ -127,16 +127,18 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   removeOne(index: number): void {
     const file = this.uploadItems[index];
+    if (file) { this.queueFiles[file.xpath][file.fileName] = false; }
     this.documents.splice(index, 1);
     this.formModels.splice(index, 1);
     this.formGroups.splice(index, 1);
     this.uploadItems.splice(index, 1);
-    this.uploadItems.forEach((res: NuxeoUploadResponse, i: number) => { res.fileIdx = i; res.blob.fileIdx = i; this.queueFiles[file.xpath][file.fileName] = false; });
+    this.uploadItems.forEach((res: NuxeoUploadResponse, i: number) => { res.fileIdx = i; res.blob.fileIdx = i; });
     this.emitUploadResponse('FileChanged', this.uploadItems);
     this.emitSubFormStatus();
   }
 
   removeAll(): void {
+    this.queueFiles = {};
     this.documents.length = 0;
     this.formModels.length = 0;
     this.formGroups.length = 0;
