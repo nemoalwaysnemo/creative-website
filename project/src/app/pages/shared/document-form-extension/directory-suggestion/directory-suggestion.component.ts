@@ -101,7 +101,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
   writeValue(val: any): void {
     const value = (val === null || val === undefined || val === '' ? [] : val);
     this.buildDefaultOptions(value);
-    if ((val === null || val === undefined) && this.settings.formMode === 'create' && !this.settings.selectedItems) {
+    if (this.settings.formMode !== 'create' || (val === null || val === undefined) && this.settings.formMode === 'create' && !this.settings.selectedItems) {
       this.selectedItems = value;
     }
   }

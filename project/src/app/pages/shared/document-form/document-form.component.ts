@@ -15,14 +15,6 @@ export class DocumentFormComponent extends BaseDocumentFormComponent {
 
   modelOperation: Subject<{ model: string, type: string }> = new Subject();
 
-  showMessageAfterUpload(): boolean {
-    return !this.formStatus$.value.submitting && this.formStatus$.value.uploadState === 'uploaded' && this.ctx.formSettings.formMode === 'create' && this.ctx.formSettings.showUploadMessage;
-  }
-
-  showMessageBeforeSuccess(): boolean {
-    return this.formStatus$.value.submitting && this.ctx.formSettings.showMessageBeforeSave;
-  }
-
   protected performNgFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
     const ngFormSettings = new DynamicNGFormSettings();
     ngFormSettings.accordionSettings = this.prepareAccordionTab(ctx, formModel);

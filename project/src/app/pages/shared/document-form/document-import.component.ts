@@ -12,13 +12,9 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'document-import',
   styleUrls: ['./document-form.component.scss'],
-  templateUrl: './document-import.component.html',
+  templateUrl: './document-form.component.html',
 })
 export class DocumentImportComponent extends BaseDocumentFormComponent {
-
-  sharedGroup: FormGroup;
-
-  sharedFormSettings: DynamicNGFormSettings;
 
   constructor(
     protected formService: DynamicFormService,
