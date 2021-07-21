@@ -93,7 +93,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
 
   private subscription: Subscription = new Subscription();
 
-  @HostListener('keydown', ['$event'])
+  @HostListener('window:keydown', ['$event'])
   keyDownEvent(event: KeyboardEvent): void {
     if (this.selectableItemSettings.allowShiftMultiSelect) {
       if (event.key === 'Shift') {
@@ -107,7 +107,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
     }
   }
 
-  @HostListener('keyup', ['$event'])
+  @HostListener('window:up', ['$event'])
   keyUpEvent(event: KeyboardEvent): void {
     if (this.selectableItemSettings.allowShiftMultiSelect) {
       if (event.key === 'Shift') {

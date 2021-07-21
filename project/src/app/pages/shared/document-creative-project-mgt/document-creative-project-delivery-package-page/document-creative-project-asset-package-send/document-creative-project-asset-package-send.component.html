@@ -21,24 +21,28 @@
         <ng-container *ngIf="formSettings.formMode !== 'create'">
           <document-creative-project-related-asset [documentModel]="currentDocument" [formSettings]="formSettings"
             [assetSettings]="assetSettingsSelected" [listViewOptions]="listViewOptionsPackage"
-            (assetSelected)="onAssetSelected($event)"></document-creative-project-related-asset>
+            [searchSettings]="searchFormSelectedSettings" (assetSelected)="onAssetSelected($event)">
+          </document-creative-project-related-asset>
         </ng-container>
       </div>
       <div class="document-creative-project-asset-package-send-library">
         <ng-container *ngIf="formSettings.formMode === 'create'">
           <document-creative-project-related-asset [documentModel]="currentDocument" [formSettings]="formSettings"
             [assetSettings]="assetSettingsRelated" [listViewOptions]="listViewOptionsPackage"
-            (assetSelected)="onAssetSelected($event)"></document-creative-project-related-asset>
+            [searchSettings]="searchFormRelatedAssetsSettings" (assetSelected)="onAssetSelected($event)">
+          </document-creative-project-related-asset>
         </ng-container>
         <ng-container *ngIf="formSettings.formMode !== 'create' && libraryView === 'linkBrand'">
           <document-creative-project-related-asset [documentModel]="currentDocument" [formSettings]="formSettings"
             [assetSettings]="assetSettingsLinkBrand" [listViewOptions]="listViewOptionsPackage"
-            (assetSelected)="onAssetSelected($event)" (assetAction)="onAssetAction($event)"></document-creative-project-related-asset>
+            [searchSettings]="searchFormLinkBrandSettings" (assetSelected)="onAssetSelected($event)" (assetAction)="onAssetAction($event)">
+          </document-creative-project-related-asset>
         </ng-container>
         <ng-container *ngIf="formSettings.formMode !== 'create' && libraryView === 'linkProject'">
           <document-creative-project-related-asset [documentModel]="currentDocument" [formSettings]="formSettings"
             [assetSettings]="assetSettingsLinkProjcet" [listViewOptions]="listViewOptionsPackage"
-            (assetSelected)="onAssetSelected($event)" (assetAction)="onAssetAction($event)"></document-creative-project-related-asset>
+            [searchSettings]="searchFormLinkProjectSettings" (assetSelected)="onAssetSelected($event)" (assetAction)="onAssetAction($event)">
+          </document-creative-project-related-asset>
         </ng-container>
       </div>
     </div>

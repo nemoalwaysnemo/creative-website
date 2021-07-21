@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
-import { Subject, of as observableOf, Observable, concat } from 'rxjs';
+import { Subject, of as observableOf, Observable, concat, timer } from 'rxjs';
 import { DynamicInputModel, DynamicTextAreaModel, DynamicSuggestionModel, DynamicOptionTagModel, DynamicCheckboxModel } from '@core/custom';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
@@ -9,6 +9,7 @@ import { DocumentFormContext, DocumentFormSettings, DocumentFormStatus } from '.
 import { SuggestionSettings } from '../../../document-form-extension';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { map } from 'rxjs/operators';
+import { GlobalSearchFormSettings } from '../../../../shared/global-search-form/global-search-form.interface';
 
 
 @Component({
@@ -62,7 +63,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   listViewOptionsPackage: any = {
     hideHeader: false,
     selectMode: 'multi',
-    deliverPackage: true,
     showCheckbox: true,
   };
 
@@ -73,7 +73,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     info: 'Remove selected asset from package',
     title: 'Package Content',
     type: 'assetSelected',
-    showProject: false,
   };
 
   assetSettingsRelatedSelected: any = {
@@ -81,7 +80,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     info: 'Remove selected asset from package',
     title: 'Package Content',
     type: 'assetRelatedSelected',
-    showProject: false,
     source: [],
   };
 
@@ -90,7 +88,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     info: 'Add selected assets to package',
     title: 'Library',
     type: 'linkRelated',
-    showProject: false,
     layout: 'bg-gray',
   };
 
@@ -99,7 +96,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     info: 'Add selected assets to package',
     title: 'Library',
     type: 'linkBrand',
-    showProject: true,
+    showBrand: true,
     layout: 'bg-gray',
   };
 
@@ -111,6 +108,30 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     showProject: true,
     layout: 'bg-gray',
   };
+
+  searchFormSelectedSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-asset-selected',
+    enableSearchInput: true,
+  });
+
+  searchFormLinkBrandSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-link-brand',
+    enableSearchInput: true,
+  });
+
+  searchFormLinkProjectSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-link-project',
+    enableSearchInput: true,
+  });
+
+  searchFormRelatedAssetsSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
+    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    source: 'document-creative-project-related-asset',
+    enableSearchInput: true,
+  });
 
   @Output() onResponse: EventEmitter<any> = new EventEmitter<any>();
 
@@ -153,6 +174,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     protected documentPageService: DocumentPageService,
   ) {
     super(documentPageService);
+    this.subscribeEvents();
   }
 
   setFormDocument(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): void {
@@ -291,10 +313,40 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
         info: 'Add selected assets to package',
         title: 'Library',
         type: 'linkBrand',
-        showProject: true,
+        showBrand: true,
         action: 'changeBrand',
         isChecked: false,
       };
+    }
+  }
+
+  subscribeCollection(settings: any): void {
+    if (settings) {
+      if (['linkProject', 'linkBrand'].includes(settings.name)) {
+        if (this.selectedAddRows.length > 0) {
+          this.addToCollection(this.currentDocument).subscribe((res: any) => {
+            if (settings.name === 'linkBrand') {
+              timer(500).subscribe(() => { this.searchFormLinkBrandSettings = Object.assign({}, this.searchFormLinkBrandSettings); });
+            } else {
+              timer(500).subscribe(() => {this.searchFormLinkProjectSettings = Object.assign({}, this.searchFormLinkProjectSettings); });
+            }
+            timer(1000).subscribe(() => { this.searchFormSelectedSettings = Object.assign({}, this.searchFormSelectedSettings); });
+            this.selectedAddRows = [];
+          });
+        }
+      } else {
+        if (this.selectedRemoveRows.length > 0) {
+          this.removeFromCollection(this.currentDocument).subscribe((res: any) => {
+            if (this.libraryView === 'linkBrand') {
+              timer(500).subscribe(() => { this.searchFormLinkBrandSettings = Object.assign({}, this.searchFormLinkBrandSettings); });
+            } else {
+              timer(500).subscribe(() => {this.searchFormLinkProjectSettings = Object.assign({}, this.searchFormLinkProjectSettings); });
+            }
+            timer(1000).subscribe(() => { this.searchFormSelectedSettings = Object.assign({}, this.searchFormSelectedSettings); });
+            this.selectedRemoveRows = [];
+          });
+        }
+      }
     }
   }
 
@@ -331,5 +383,12 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   protected showMsg(doc: DocumentModel): void {
     const action = this.actionButton.toLowerCase();
     this.documentPageService.notify(`${doc.title} has been ${action} successfully!`, '', 'success');
+  }
+
+  private subscribeEvents(): void {
+    const subscription = this.documentPageService.onEventType('mgt-delivery-package').subscribe((e: GlobalEvent) => {
+      this.subscribeCollection(e);
+    });
+    this.subscription.add(subscription);
   }
 }
