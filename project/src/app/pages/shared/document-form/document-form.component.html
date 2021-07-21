@@ -8,6 +8,7 @@
 
       <ng-container *ngSwitchCase="!templateRef">
         <dynamic-ng-form [group]="formGroup" [settings]="ngFormSettings" [modelOperation]="modelOperation | async" (blur)="onBlur($event)" (focus)="onFocus($event)" (change)="onChange($event)" (customEvent)="onCustomEvent($event)">
+          <dynamic-ng-form *ngIf="sharedGroup && sharedGroup.length >0" [formClass]="'document-form'" [group]="sharedGroup" [settings]="sharedFormSettings"></dynamic-ng-form>
         </dynamic-ng-form>
       </ng-container>
     </ng-container>

@@ -16,11 +16,15 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup;
 
+  ngFormSettings: DynamicNGFormSettings;
+
+  sharedGroup: FormGroup;
+
+  sharedFormSettings: DynamicNGFormSettings;
+
   uploadCount: number = 0;
 
   ctx: DocumentFormContext;
-
-  ngFormSettings: DynamicNGFormSettings;
 
   formStatus$: BehaviorSubject<DocumentFormStatus> = new BehaviorSubject<DocumentFormStatus>(new DocumentFormStatus());
 
@@ -142,6 +146,15 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     const ids = Array.isArray(id) ? id : [id];
     return (this.ngFormSettings.formModel || []).filter((model: DynamicFormControlModel) => ids.includes(model.id));
   }
+
+  showMessageAfterUpload(): boolean {
+    return !this.formStatus$.value.submitting && this.formStatus$.value.uploadState === 'uploaded' && this.ctx.formSettings.formMode === 'create' && this.ctx.formSettings.showUploadMessage;
+  }
+
+  showMessageBeforeSuccess(): boolean {
+    return this.formStatus$.value.submitting && this.ctx.formSettings.showMessageBeforeSave;
+  }
+
 
   protected onInit(): void {
 
