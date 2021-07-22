@@ -63,7 +63,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
 
   private searchRelatedCampaign(doc: DocumentModel): void {
     const campaign = doc.get('The_Loupe_Main:campaign');
-    if (campaign == null) {
+    if (campaign === null) {
       this.loading = false;
       this.relatedDocs = [];
     } else {

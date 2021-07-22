@@ -120,7 +120,7 @@ export class CreativeAssetImageFormComponent extends GlobalDocumentFormComponent
           dateFormatValidator: 'Invalid format. Valid Format MMM D, YYYY',
         },
       }),
-      // #{changeableDocument.type == 'App-Library-Image' ? 'edit' : 'hidden'}
+      // #{changeableDocument.type === 'App-Library-Image' ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',

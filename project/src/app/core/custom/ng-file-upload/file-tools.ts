@@ -139,7 +139,7 @@ export function dataUrl(
 ): Promise<string> {
   if (!file) { return Promise.resolve(file); }
 
-  if ((disallowObjectUrl && file.$ngfDataUrl != null) || (!disallowObjectUrl && file.$ngfBlobUrl != null)) {
+  if ((disallowObjectUrl && file.$ngfDataUrl !== null) || (!disallowObjectUrl && file.$ngfBlobUrl !== null)) {
     return Promise.resolve(disallowObjectUrl ? file.$ngfDataUrl : file.$ngfBlobUrl);
   }
 

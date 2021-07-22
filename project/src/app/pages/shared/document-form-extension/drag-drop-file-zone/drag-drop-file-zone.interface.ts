@@ -22,7 +22,7 @@ export class DragDropFileZoneSettings {
 
   queueLimit: number = 1;
 
-  maxSize: number = 1024 * 1024 * 1024 * 100; // 1024 == 1mb
+  maxSize: number = 1024 * 1024 * 1024 * 100; // 1024 = 1mb
 
   constructor(data: any = {}) {
     Object.assign(this, data);

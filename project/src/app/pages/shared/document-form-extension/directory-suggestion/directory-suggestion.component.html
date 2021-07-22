@@ -2,7 +2,7 @@
   <ng-container [ngSwitch]="true">
     <ng-container *ngSwitchCase="getViewType() === 'suggestion'">
       <ng-select
-        [class.is-empty]="!selectedItems || selectedItems.length == 0"
+        [class.is-empty]="!selectedItems || selectedItems.length === 0"
         [ngClass]="settings.customClass"
         [addTag]="settings.addTag"
         [items]="options$ | async"
@@ -34,7 +34,7 @@
     </ng-container>
     <ng-container *ngSwitchCase="getViewType() === 'list'">
       <ng-select
-        [class.is-empty]="!selectedItems || selectedItems.length == 0"
+        [class.is-empty]="!selectedItems || selectedItems.length === 0"
         [ngClass]="settings.customClass"
         [items]="options$ | async"
         [placeholder]="placeholder"

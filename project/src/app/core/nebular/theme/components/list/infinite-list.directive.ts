@@ -139,7 +139,7 @@ export class NbInfiniteListDirective implements AfterViewInit, OnDestroy {
   }
 
   checkPosition({ scrollHeight, scrollTop, clientHeight }: NbScrollableContainerDimentions): void {
-    const initialCheck = this.lastScrollPosition == null;
+    const initialCheck = this.lastScrollPosition === null;
     const manualCheck = this.lastScrollPosition === scrollTop;
     const scrollUp = scrollTop < this.lastScrollPosition;
     const scrollDown = scrollTop > this.lastScrollPosition;

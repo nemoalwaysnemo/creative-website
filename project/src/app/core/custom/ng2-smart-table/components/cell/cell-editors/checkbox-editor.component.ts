@@ -11,7 +11,7 @@ import { DefaultEditorComponent } from './default-editor';
            class="form-control"
            [name]="cell.getId()"
            [disabled]="!cell.isEditable()"
-           [checked]="cell.getValue() == (cell.getColumn().getConfig()?.true || true)"
+           [checked]="cell.getValue() === (cell.getColumn().getConfig()?.true || true)"
            (click)="onClick.emit($event)"
            (change)="onChange($event)">
     `,
