@@ -69,7 +69,6 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
           placeholder: 'Please select agency',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Agencies',
-          customClass: 'stress-input',
         },
       }),
       new DynamicSuggestionModel({
@@ -80,7 +79,6 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Geography_TBWA',
-          customClass: 'stress-input',
         },
       }),
       new DynamicInputModel({
@@ -90,9 +88,6 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
         placeholder: 'City',
         autoComplete: 'off',
         required: false,
-        settings: {
-          customClass: 'stress-input',
-        },
         errorMessages: {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
@@ -102,9 +97,6 @@ export class BackslashPluginUserPreferenceFormComponent extends GlobalDocumentFo
         id: 'backslash-chrome-user-spotter-handle',
         label: 'Spotter Handle',
         placeholder: 'Spotter Handle',
-        settings: {
-          customClass: 'stress-input',
-        },
       }),
     ];
   }
