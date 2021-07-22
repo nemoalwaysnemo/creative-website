@@ -80,9 +80,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         label: 'Spotter Handle',
         placeholder: 'Spotter Handle',
         required: true,
-        settings: {
-          customClass: 'stress-input',
-        },
       }),
       new DynamicInputModel({
         id: 'dc:title',
@@ -91,9 +88,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         placeholder: 'Headline',
         autoComplete: 'off',
         required: true,
-        settings: {
-          customClass: 'stress-input',
-        },
         errorMessages: {
           required: '{{label}} is required',
           minLength: 'At least 4 characters',
@@ -108,7 +102,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           placeholder: 'Please select edges',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Edges-Edges',
-          customClass: 'stress-input',
         },
       }),
       // new DynamicSuggestionModel<string>({
@@ -130,7 +123,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           placeholder: 'Please select category',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'App-Backslash-Categories',
-          customClass: 'stress-input',
         },
       }),
       // new DynamicSuggestionModel({
@@ -151,7 +143,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
           placeholder: 'Please select country',
           providerType: SuggestionSettings.DIRECTORY,
           providerName: 'GLOBAL_Geography_TBWA',
-          customClass: 'stress-input',
         },
       }),
       new DynamicInputModel({
@@ -159,9 +150,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         label: 'Main Link',
         required: true,
         layoutPosition: 'right',
-        settings: {
-          customClass: 'stress-input',
-        },
       }),
       new DynamicListModel({
         id: 'app_Edges:trigger_additional_links',
@@ -169,7 +157,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         required: false,
         layoutPosition: 'right',
         settings: {
-          customClass: 'stress-input',
           subPathKey: 'item',
           items: [
             new DynamicInputModel({
@@ -197,9 +184,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         rows: 2,
         required: true,
         layoutPosition: 'right',
-        settings: {
-          customClass: 'stress-input',
-        },
       }),
       new DynamicTextAreaModel({
         id: 'app_Edges:trigger_text',
@@ -207,9 +191,6 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
         rows: 2,
         required: true,
         layoutPosition: 'right',
-        settings: {
-          customClass: 'stress-input',
-        },
       }),
       new DynamicGalleryUploadModel<string>({
         id: 'galleryUpload',
