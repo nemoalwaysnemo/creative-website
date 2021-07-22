@@ -268,7 +268,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     const formModels = [];
     const formGroups = [];
     items.forEach((item: NuxeoUploadResponse, index: number) => {
-      if (item.isMainFile() && item.formMode === 'create') {
+      if (item.isMainFile() && (!item.formMode || item.formMode === 'create')) {
         if (item.document) {
           this.documents[item.fileIdx] = item.document;
           delete item.document;
@@ -276,7 +276,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
         const model = item.formModel || this.uploadSettings.formModel.map(m => Object.assign({}, m));
         this.performTableHeaders(model);
         const models = model.map((m: DynamicFormControlModel) => {
-          delete m.label;
+          m.enableLabel = false;
           m.enableRequiredLabel = false;
           m.field = m.id.split('__').shift();
           m.id = `${m.field}__${item.fileIdx}`;

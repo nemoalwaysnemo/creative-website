@@ -154,10 +154,6 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         placeholder: 'Title',
         autoComplete: 'off',
         required: true,
-        settings: {
-          layout: 'direction-horizontal',
-          customClass: 'horizontal-input',
-        },
         validators: {
           required: null,
           minLength: 4,
@@ -211,10 +207,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           placeholder: 'What is this asset?',
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideAssetType_Image',
-          layout: 'direction-horizontal',
-          customClass: 'horizontal-input',
         },
-
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),

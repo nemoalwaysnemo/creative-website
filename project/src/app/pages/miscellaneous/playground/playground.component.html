@@ -6,8 +6,10 @@
       </document-form-element>
       <document-form-element [group]="group" [formModel]="form.getFormModels('batchUpload')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
       </document-form-element>
-      <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels(['The_Loupe_Main:jobtitle', 'The_Loupe_ProdCredits:production_date'])" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)"
-        (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+      <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels(['The_Loupe_Main:jobtitle', 'The_Loupe_ProdCredits:production_date', 'The_Loupe_Main:assettype',
+        'The_Loupe_Rights:first-airing','The_Loupe_Rights:contract_mediatypes','The_Loupe_Rights:asset_countries'])" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
+        (customEvent)="form.onCustomEvent($event)">
+      </document-form-element>
     </div>
   </ng-template>
   <!-- <a href="javascript:;" (click)="openDialog(dialog)" class="icon_btn">Download Request</a> -->
