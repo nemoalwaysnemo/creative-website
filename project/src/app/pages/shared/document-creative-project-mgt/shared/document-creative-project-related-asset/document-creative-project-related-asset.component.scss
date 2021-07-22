@@ -21,9 +21,12 @@
     margin: 0 auto;
     line-height: 25px;
     height: 25px;
-    cursor: none;
+    cursor: default;
     &.icon_point {
       cursor: pointer !important;
+      &:hover {
+        background-color: #fecc00;
+      }
     }
   }
 }
@@ -49,14 +52,6 @@
   float: right;
   margin-bottom: 5px;
 }
-// ::ng-deep document-creative-project-related-asset td {
-//   max-width: 100px;
-//   img {
-//     max-height: 45px !important;
-//     max-width: 75px !important;
-//   }
-// }
-
 .document-creative-project-related-asset ::ng-deep .list-search-result {
   td {
     max-width: 100px;

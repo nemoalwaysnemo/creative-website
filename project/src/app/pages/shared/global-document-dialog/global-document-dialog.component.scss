@@ -1,6 +1,5 @@
 @import '../../../core/nebular/theme/styles/global/breakpoints';
 
-
 .global-document-dialog-container,
 .global-document-dialog-form {
 	@include media-breakpoint-down(lg) { //992px
@@ -27,7 +26,13 @@
 		width: 1700px;
 	}
 	min-width: 800px;
+	height: 700px;
+	min-height: 500px;
 	background: #ffffff;
+}
+
+::ng-deep .wide-dialog-container .dialog-body {
+	max-height: 620px !important;
 }
 
 .middle-dialog-container {

@@ -75,7 +75,6 @@ export class DocumentCreativeProjectAssetUsageRightsListComponent {
     hideSubHeader: true,
     columns: {
       type: {
-        title: 'Type',
         sort: false,
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
@@ -90,7 +89,7 @@ export class DocumentCreativeProjectAssetUsageRightsListComponent {
         renderComponent: DocumentCreativeAssetUsageRightsRowRenderComponent,
       },
       usageRights: {
-        title: 'Expiry Date / Days of use',
+        title: 'Expiry Date / Days of Use',
         sort: false,
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
