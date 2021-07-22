@@ -16,11 +16,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup;
 
-  ngFormSettings: DynamicNGFormSettings;
-
   sharedGroup: FormGroup;
 
-  sharedFormSettings: DynamicNGFormSettings;
+  ngFormSettings: DynamicNGFormSettings;
+
+  ngSharedFormSettings: DynamicNGFormSettings;
 
   uploadCount: number = 0;
 
@@ -143,8 +143,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   getFormModels(id: string | string[]): DynamicFormModel {
-    const ids = Array.isArray(id) ? id : [id];
-    return (this.ngFormSettings.formModel || []).filter((model: DynamicFormControlModel) => ids.includes(model.id));
+    return this.getModels(id, this.ngFormSettings.formModel);
+  }
+
+  getSharedFormModels(id: string | string[]): DynamicFormModel {
+    return this.getModels(id, this.ngSharedFormSettings ? this.ngSharedFormSettings.formModel : []);
   }
 
   showMessageAfterUpload(): boolean {
@@ -158,6 +161,11 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected onInit(): void {
 
+  }
+
+  protected getModels(id: string | string[], formModel: DynamicFormModel): DynamicFormModel {
+    const ids = Array.isArray(id) ? id : [id];
+    return (formModel || []).filter((model: DynamicFormControlModel) => ids.includes(model.id));
   }
 
   protected updateFormStatus(status: any = {}): void {
@@ -239,10 +247,14 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected createDocumentForm(models: DynamicFormModel): void {
     this.formGroup = this.createFormGroup(models);
-    const subscription = this.formGroup.statusChanges.subscribe((valid: any) => {
+    const subscription1 = this.formGroup.statusChanges.subscribe((valid: any) => {
       timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID', submitted: false }); });
     });
-    this.subscription.add(subscription);
+    this.subscription.add(subscription1);
+    const subscription2 = this.formGroup.valueChanges.subscribe((valid: any) => {
+      timer(0).subscribe(() => this.callback.emit(new DocumentFormEvent({ action: 'FormValueChanged', status: this.getFormStatus(), formValue: this.getFormValue(), doc: this.ctx.currentDocument })));
+    });
+    this.subscription.add(subscription2);
   }
 
   protected onBeforeSave(ctx: DocumentFormContext): Observable<DocumentFormContext> {
@@ -301,6 +313,10 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
 
   protected getFormValue(field?: string): any {
     return field ? this.formGroup.value[field] : this.formGroup.value;
+  }
+
+  protected getSharedFormValue(field?: string): any {
+    return this.sharedGroup ? (field ? this.sharedGroup.value[field] : this.sharedGroup.value) : {};
   }
 
   protected getUploadFiles(uploadModel: DynamicFormControlModel): NuxeoUploadResponse[] {

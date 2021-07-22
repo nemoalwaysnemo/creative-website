@@ -20,11 +20,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   batchOperationSettings: DocumentFormSettings = new DocumentFormSettings({
     acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
-    enableBulkImport: true,
-    docType: 'App-Library-CreativeRing-Collection',
-    enableCreateMain: true,
     importSettings: {
-      placeholder: 'Upload Assets',
       getDocType: (item: NuxeoUploadResponse): string => {
         if (['video'].some(x => item.mimeType.includes(x))) {
           return 'App-Library-Video';
@@ -35,81 +31,119 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         }
       },
     },
-    formModel: [
-      new DynamicInputModel({
-        id: 'dc:title',
-        label: 'Title',
-        maxLength: 150,
-        placeholder: 'Title',
-        autoComplete: 'off',
-        formMode: 'create',
+    sharedModel: [
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:jobtitle',
+        label: 'Search Project',
+        document: true,
+        required: true,
+        settings: {
+          placeholder: 'Search Project',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Library-PageProvider-Projects',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+        // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:campaign_mgt'),
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_ProdCredits:production_date',
+        label: 'Production Date',
+        readonly: false,
+        defaultValue: (new Date()),
         required: true,
         validators: {
           required: null,
-          minLength: 4,
-        },
-        layoutPosition: 'leftNarrow',
-        asyncValidators: {
-          uniqueDocumentValidator: {
-            documentPageService: this.documentPageService,
-            searchParams: {
-              ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
-              ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
-            },
-          },
+          dateFormatValidator: null,
         },
         errorMessages: {
           required: '{{label}} is required',
-          minLength: 'At least 4 characters',
-          uniqueDocumentValidator: 'The collection {{value}} already exists, please change one',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
         },
-        // updateOn: DynamicFormHook.Blur,
-      }),
-      new DynamicInputModel({
-        id: 'The_Loupe_Main:collection_type',
-        label: 'Collection Type',
-        required: false,
-        hidden: true,
-        defaultValue: 'Asset Collection',
       }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
-        formMode: 'create',
+        document: true,
         required: true,
         settings: {
           multiple: false,
           placeholder: 'What is this asset?',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Library-MediaTypes-Mixed',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideAssetType_Image',
         },
-        layoutPosition: 'leftNarrow',
         validators: { required: null },
-        errorMessages: { required: '' },
+        errorMessages: { required: '{{label}} is required' },
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+      }),
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_Rights:first-airing',
+        label: 'Live date / publishing',
+        readonly: false,
+        defaultValue: (new Date()),
+        required: true,
+        validators: {
+          required: null,
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          required: '{{label}} is required',
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
+      }),
+      // #{currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
+      new DynamicDatepickerDirectiveModel<string>({
+        id: 'The_Loupe_Rights:first-airing',
+        label: 'Live date / publishing',
+        required: false,
+        readonly: false,
+        validators: {
+          dateFormatValidator: null,
+        },
+        errorMessages: {
+          dateFormatValidator: 'Invalid {{label}}. Valid Format MMM D, YYYY',
+        },
+        visibleFn: (ctx: DocumentFormContext): boolean => !ctx.currentDocument.getParent().get('app_global:UsageRights'),
+      }),
+      // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'hidden' : 'edit'}
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Rights:contract_mediatypes',
+        label: 'Media Usage Types',
+        required: true,
+        document: true,
+        settings: {
+          placeholder: 'Where is this used?',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideURmediatypes',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:UsageRights'),
+      }),
+      // {currentDocument.getPropertyValue('app_global:UsageRights')=="0" ? 'edit' : 'hidden'}
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Rights:contract_mediatypes',
+        label: 'Media Usage Type(s)',
+        required: false,
+        document: true,
+        settings: {
+          placeholder: 'Where is this used?',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideURmediatypes',
+        },
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
+        visibleFn: (ctx: DocumentFormContext): boolean => !ctx.currentDocument.getParent().get('app_global:UsageRights'),
       }),
       new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:agency',
-        label: 'Agency',
-        formMode: 'create',
-        required: true,
-        layoutPosition: 'leftNarrow',
+        id: 'The_Loupe_Rights:asset_countries',
+        label: 'Asset Country',
         settings: {
-          multiple: false,
-          placeholder: 'What is this agency?',
+          placeholder: 'Leave blank to copy from agency\\brand',
           providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'GLOBAL_Agencies',
+          providerName: 'GLOBAL_Countries',
         },
-      }),
-      new DynamicInputModel({
-        id: 'dc:description',
-        label: 'Description',
-        formMode: 'create',
-        layoutPosition: 'leftNarrow',
-      }),
-      new DynamicCheckboxModel({
-        id: 'app_global:enable_thumbnail',
-        label: 'Enable Thumbnail',
-        layoutPosition: 'leftNarrow',
       }),
     ],
     importModel: [
@@ -122,6 +156,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
         required: true,
         settings: {
           layout: 'direction-horizontal',
+          customClass: 'horizontal-input',
         },
         validators: {
           required: null,
@@ -132,32 +167,57 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
           minLength: 'At least 4 characters',
         },
       }),
-      new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:brand',
-        label: 'Brand',
-        required: true,
-        settings: {
-          placeholder: 'What is this brand?',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Library-CreativeRing-Brands',
-          layout: 'direction-horizontal',
-        },
-        validators: { required: null },
-        errorMessages: { required: '' },
-      }),
+      // new DynamicSuggestionModel<string>({
+      //   id: 'The_Loupe_Main:jobtitle',
+      //   label: 'Search Project',
+      //   document: true,
+      //   required: true,
+      //   settings: {
+      //     placeholder: 'Search Project',
+      //     providerType: SuggestionSettings.CONTENT_VIEW,
+      //     providerName: 'App-Library-PageProvider-Projects',
+      //     direction: 'horizontal',
+      //   },
+      //   validators: { required: null },
+      //   errorMessages: { required: '' },
+      //   visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.getParent().get('app_global:campaign_mgt'),
+      // }),
+      // new DynamicDatepickerDirectiveModel<string>({
+      //   id: 'The_Loupe_ProdCredits:production_date',
+      //   label: 'Production Date',
+      //   readonly: false,
+      //   defaultValue: (new Date()),
+      //   required: true,
+      //   layoutPosition: 'left',
+      //   settings: {
+      //     direction: 'horizontal',
+      //   },
+      //   validators: {
+      //     required: null,
+      //     dateFormatValidator: null,
+      //   },
+      //   errorMessages: {
+      //     required: '{{label}} is required',
+      //     dateFormatValidator: 'Invalid format. Valid Format MMM D, YYYY',
+      //   },
+      // }),
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
+        document: true,
         required: true,
         settings: {
           multiple: false,
           placeholder: 'What is this asset?',
-          providerType: SuggestionSettings.DIRECTORY,
-          providerName: 'App-Library-MediaTypes-Mixed',
+          providerType: SuggestionSettings.OPERATION,
+          providerName: 'javascript.provideAssetType_Image',
           layout: 'direction-horizontal',
+          customClass: 'horizontal-input',
         },
+
         validators: { required: null },
-        errorMessages: { required: '' },
+        errorMessages: { required: '{{label}} is required' },
+        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
     ],
   });
@@ -190,7 +250,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onCallback(event: DocumentFormEvent): void {
-
+    // console.log(111111, event);
   }
 
   openDialog(dialog: TemplateRef<any>): void {

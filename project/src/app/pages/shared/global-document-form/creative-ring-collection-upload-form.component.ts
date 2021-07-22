@@ -68,7 +68,6 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:brand',
           label: 'Brand',
-          layoutPosition: 'leftNarrow',
           required: true,
           settings: {
             placeholder: 'What is this brand?',
@@ -83,7 +82,6 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:agency',
           label: 'Agency',
-          layoutPosition: 'leftNarrow',
           required: true,
           settings: {
             multiple: false,
