@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { DynamicFormComponent, DynamicFormComponentService, DynamicFormControlEvent, DynamicFormModel, DynamicTemplateDirective, DynamicFormService, DynamicFormControlModel } from '@core/custom';
 import { DynamicNGFormControlContainerComponent } from './dynamic-ng-form-control-container.component';
 import { FormGroup } from '@angular/forms';
@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './dynamic-ng-form-element.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicNgFormElementComponent extends DynamicFormComponent implements OnInit, OnDestroy {
+export class DynamicNgFormElementComponent extends DynamicFormComponent {
 
   @Input()
   set formModel(model: string | DynamicFormControlModel | DynamicFormModel) {
@@ -29,18 +29,8 @@ export class DynamicNgFormElementComponent extends DynamicFormComponent implemen
     super(changeDetectorRef, componentService);
   }
 
-  ngOnInit(): void {
-
-  }
-
-  ngOnDestroy(): void {
-
-  }
-
   private performFormModel(model: string | DynamicFormControlModel | DynamicFormModel): void {
-    if (!model || typeof model === 'string' && model === 'form') {
-      this.registerForm();
-    } else if (model instanceof DynamicFormControlModel) {
+    if (model instanceof DynamicFormControlModel) {
       this.model = [model];
     } else if (Array.isArray(model)) {
       this.model = model;

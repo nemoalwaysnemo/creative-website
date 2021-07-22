@@ -78,7 +78,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
             required: null,
             minLength: 4,
           },
-          layoutPosition: 'leftNarrow',
           asyncValidators: {
             uniqueDocumentValidator: {
               documentPageService: this.documentPageService,
@@ -113,7 +112,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'App-Library-MediaTypes-Mixed',
           },
-          layoutPosition: 'leftNarrow',
           validators: { required: null },
           errorMessages: { required: '' },
         }),
@@ -122,7 +120,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           label: 'Agency',
           formMode: 'create',
           required: true,
-          layoutPosition: 'leftNarrow',
           settings: {
             multiple: false,
             placeholder: 'What is this agency?',
@@ -134,12 +131,10 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           id: 'dc:description',
           label: 'Description',
           formMode: 'create',
-          layoutPosition: 'leftNarrow',
         }),
         new DynamicCheckboxModel({
           id: 'app_global:enable_thumbnail',
           label: 'Enable Thumbnail',
-          layoutPosition: 'leftNarrow',
         }),
         new DynamicDocumentSelectListModel({
           id: 'selected-documents',

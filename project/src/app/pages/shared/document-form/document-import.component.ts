@@ -5,7 +5,7 @@ import { DynamicBatchUploadModel, DynamicDragDropFileZoneModel, DynamicFormModel
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';
 import { BaseDocumentFormComponent } from './base-document-form.component';
 import { DocumentPageService } from '../services/document-page.service';
-import { DocumentFormContext, DocumentFormSettings } from './document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from './document-form.interface';
 import { forkJoin, Observable, of as observableOf, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -40,10 +40,14 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
 
   protected createSharedDocumentForm(models: DynamicFormModel): void {
     this.sharedGroup = this.createFormGroup(models);
-    const subscription = this.sharedGroup.statusChanges.subscribe((valid: any) => {
+    const subscription1 = this.sharedGroup.statusChanges.subscribe((valid: any) => {
       timer(0).subscribe(() => { this.updateFormStatus({ sharedModelValid: valid === 'VALID' && this.getFormStatus('formValid'), submitted: false }); });
     });
-    this.subscription.add(subscription);
+    const subscription2 = this.formGroup.valueChanges.subscribe((valid: any) => {
+      timer(0).subscribe(() => this.callback.emit(new DocumentFormEvent({ action: 'SharedValueChanged', status: this.getFormStatus(), formValue: this.getSharedFormValue(), doc: this.ctx.currentDocument })));
+    });
+    this.subscription.add(subscription1);
+    this.subscription.add(subscription2);
   }
 
   protected performNgFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
@@ -60,18 +64,17 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
     ngFormSettings.formModel = this.createFormModel(formModel);
     ngFormSettings.formMode = ctx.formSettings.formMode;
     ngFormSettings.enableLayoutRight = false;
-    this.sharedFormSettings = ngFormSettings;
+    this.ngSharedFormSettings = ngFormSettings;
   }
 
   protected getUploadFileSharedProperties(ctx: DocumentFormContext): any {
-    return this.sharedGroup.value;
+    return this.getSharedFormValue();
   }
 
   protected getImportFormModel(settings: DocumentFormSettings): DynamicFormModel {
     const importModel = [
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
-        formMode: 'create',
         settings: {
           xpath: 'file:content',
           queueLimit: settings.importSettings.queueLimit,
@@ -84,7 +87,6 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
       }),
       new DynamicBatchUploadModel<string>({
         id: 'batchUpload',
-        formMode: 'create',
         settings: {
           enableForm: true,
           enableAction: true,
@@ -93,7 +95,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
         layoutPosition: settings.importSettings.layoutPosition,
       }),
     ];
-    return (settings.formModel || []).concat(settings.formMode === 'create' && settings.enableBulkImport ? importModel : []);
+    return (settings.formModel || []).concat(settings.enableBulkImport ? importModel : []);
   }
 
   protected onFilesChangedFn(items: NuxeoUploadResponse[]): Observable<NuxeoUploadResponse[]> {
