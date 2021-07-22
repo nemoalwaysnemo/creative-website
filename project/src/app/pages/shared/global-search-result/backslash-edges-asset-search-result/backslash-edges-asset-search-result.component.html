@@ -1,6 +1,6 @@
 <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [selectableSettings]="selectableSettings"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
-  <ng-container *ngIf="doc.type == 'App-Backslash-Edges-Assetfolder'">
+  <ng-container *ngIf="doc.type === 'App-Backslash-Edges-Assetfolder'">
     <div class="image-holder">
       <a [routerLink]="['/p/backslash/edge/folder', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
     </div>
@@ -8,7 +8,7 @@
       <h1 [title]="doc.title"><a [routerLink]="['/p/backslash/edge/folder', doc.uid]" [queryParams]="queryParams">{{doc.title}}</a></h1>
     </div>
   </ng-container>
-  <ng-container *ngIf="doc.type == 'App-Backslash-Edges-Asset'">
+  <ng-container *ngIf="doc.type === 'App-Backslash-Edges-Asset'">
     <div class="image-holder">
       <a [routerLink]="['/p/backslash/edge/folder/', folderId, 'asset', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
     </div>

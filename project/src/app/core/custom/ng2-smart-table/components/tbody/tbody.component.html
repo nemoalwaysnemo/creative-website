@@ -60,7 +60,7 @@
   </tr>
 </ng-container>
 
-<tr *ngIf="rows.length == 0">
+<tr *ngIf="rows.length === 0">
   <td [attr.colspan]="tableColumnsCount">
     {{ noDataMessage }}
   </td>

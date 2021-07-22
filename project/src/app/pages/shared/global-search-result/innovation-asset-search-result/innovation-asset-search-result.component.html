@@ -1,6 +1,6 @@
 <global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
-  <ng-container *ngIf="doc.type == 'App-Innovation-Folder' && !isParentFolder(doc)">
+  <ng-container *ngIf="doc.type === 'App-Innovation-Folder' && !isParentFolder(doc)">
     <ng-container [ngSwitch]="true">
       <ng-container *ngSwitchCase="doc.openLinkInNewTab()">
         <div class="image-holder">
@@ -29,7 +29,7 @@
     </ng-container>
   </ng-container>
 
-  <ng-container *ngIf="doc.type == 'App-Innovation-Asset'">
+  <ng-container *ngIf="doc.type === 'App-Innovation-Asset'">
     <div class="image-holder">
       <a [routerLink]="[folderUrl, folderId, 'asset', doc.uid]" [queryParams]="queryParams" [ngStyle]="{'background-image': 'url('+getThumbnailUrl(doc)+')'}"></a>
     </div>

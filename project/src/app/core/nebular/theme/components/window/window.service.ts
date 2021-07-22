@@ -124,7 +124,7 @@ export class NbWindowService {
     windowContent: TemplateRef<any> | NbComponentType,
     windowConfig: Partial<NbWindowConfig> = {},
   ): NbWindowRef {
-    if (this.windowsContainerViewRef == null) {
+    if (this.windowsContainerViewRef === null) {
       this.createWindowsContainer();
     }
 

@@ -559,8 +559,8 @@ export class NbLayoutComponent implements AfterViewInit, OnDestroy {
 
   private scroll(x: number = null, y: number = null): void {
     const { x: currentX, y: currentY } = this.getScrollPosition();
-    x = x == null ? currentX : x;
-    y = y == null ? currentY : y;
+    x = x === null ? currentX : x;
+    y = y === null ? currentY : y;
 
     if (!isPlatformBrowser(this.platformId)) {
       return;

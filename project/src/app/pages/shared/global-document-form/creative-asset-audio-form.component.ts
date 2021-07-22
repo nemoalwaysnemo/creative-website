@@ -119,7 +119,7 @@ export class CreativeAssetAudioFormComponent extends GlobalDocumentFormComponent
           dateFormatValidator: 'Invalid format. Valid Format MMM D, YYYY',
         },
       }),
-      // #{changeableDocument.type == 'App-Library-Audio' ? 'edit' : 'hidden'}
+      // #{changeableDocument.type === 'App-Library-Audio' ? 'edit' : 'hidden'}
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
