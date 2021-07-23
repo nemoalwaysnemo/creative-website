@@ -266,7 +266,7 @@ export function vocabularyFormatter(list: string[]): string {
 }
 
 export function isValueEmpty(n: any): boolean {
-  return n !== 0 && !(!!n ? typeof n === 'object' ? Array.isArray(n) ? !!n.length : !!Object.keys(n).length : true : false);
+  return n !== 0 && !(n instanceof Date) && !(!!n ? typeof n === 'object' ? Array.isArray(n) ? !!n.length : !!Object.keys(n).length : true : false);
 }
 
 export function objHasKey(obj: any, name: string = ''): boolean {

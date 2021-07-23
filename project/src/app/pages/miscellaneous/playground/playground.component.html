@@ -2,9 +2,10 @@
   <document-batch-operation [documentModel]="document" [settings]="batchOperationSettings" [templateRef]="formTemplate" (callback)="onCallback($event)"></document-batch-operation>
   <ng-template #formTemplate let-form="form" let-group="group">
     <div class="title">
-      <document-form-element [group]="group" [formModel]="form.getFormModels('file:content')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
+      <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('file:content')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
       </document-form-element>
-      <document-form-element [group]="group" [formModel]="form.getFormModels('batchUpload')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
+      <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('batchUpload')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
+        (customEvent)="form.onCustomEvent($event)">
       </document-form-element>
       <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels(['The_Loupe_Main:jobtitle', 'The_Loupe_ProdCredits:production_date', 'The_Loupe_Main:assettype',
         'The_Loupe_Rights:first-airing','The_Loupe_Rights:contract_mediatypes','The_Loupe_Rights:asset_countries'])" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"

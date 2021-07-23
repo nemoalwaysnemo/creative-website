@@ -1,12 +1,12 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
-import { DocumentModel, AdvanceSearchService, UserModel, NuxeoUploadResponse } from '@core/api';
+import { DocumentModel, AdvanceSearchService, NuxeoUploadResponse } from '@core/api';
+import { isValueEmpty } from '@core/services/helpers';
 import { concatMap, map } from 'rxjs/operators';
 import { DocumentPageService, GlobalDocumentDialogService, GlobalEvent, OptionModel } from '../../shared';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, DynamicListModel, DynamicCheckboxModel } from '@core/custom';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../shared/document-form/document-form.interface';
 import { SuggestionSettings } from '../../shared/document-form-extension';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'playground',
@@ -15,6 +15,8 @@ import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
 
   settings: any[] = [];
+
+  enableUpload: boolean = false;
 
   document: DocumentModel;
 
@@ -243,7 +245,9 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onCallback(event: DocumentFormEvent): void {
-    // console.log(111111, event);
+    if (!this.enableUpload && event.action === 'SharedValueChanged' && Object.values(event.formValue).every((v: any) => !isValueEmpty(v))) {
+      this.enableUpload = true;
+    }
   }
 
   openDialog(dialog: TemplateRef<any>): void {

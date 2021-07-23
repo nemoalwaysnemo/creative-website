@@ -251,7 +251,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       timer(0).subscribe(() => { this.updateFormStatus({ formValid: valid === 'VALID', submitted: false }); });
     });
     this.subscription.add(subscription1);
-    const subscription2 = this.formGroup.valueChanges.subscribe((valid: any) => {
+    const subscription2 = this.formGroup.valueChanges.subscribe((data: any) => {
       timer(0).subscribe(() => this.callback.emit(new DocumentFormEvent({ action: 'FormValueChanged', status: this.getFormStatus(), formValue: this.getFormValue(), doc: this.ctx.currentDocument })));
     });
     this.subscription.add(subscription2);
