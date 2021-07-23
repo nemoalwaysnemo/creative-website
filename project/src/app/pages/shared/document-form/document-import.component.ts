@@ -107,7 +107,7 @@ export class DocumentImportComponent extends BaseDocumentFormComponent {
       map((doc: DocumentModel) => {
         if (!item.formModel) {
           item.document = doc;
-          item.formModel = this.performFormModel(ctx, ctx.formSettings.importModel);
+          item.formModel = this.performFormModel(ctx, ctx.formSettings.importModel, this.getSharedFormValue());
         }
         return item;
       }),
