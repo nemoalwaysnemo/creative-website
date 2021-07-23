@@ -202,10 +202,10 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     return this.formService.createFormGroup(formModel);
   }
 
-  protected prepareFormModel(ctx: DocumentFormContext, formModel: DynamicFormModel): DynamicFormModel {
+  protected prepareFormModel(ctx: DocumentFormContext, formModel: DynamicFormModel, defaultValue: any = {}): DynamicFormModel {
     const formModels = formModel.map((m: DynamicFormControlModel) => {
       const model = ctx.formSettings.enableBulkImport ? Object.assign({}, m) : m;
-      const modelValue = ctx.currentDocument.get(model.field);
+      const modelValue = defaultValue[model.field] !== undefined ? defaultValue[model.field] : ctx.currentDocument.get(model.field);
       if (model.hiddenFn) { model.hidden = model.hiddenFn(ctx); }
       if (model.settings) { model.settings.formMode = ctx.formSettings.formMode; }
       if (model.document) { model.document = ctx.currentDocument; }
@@ -219,24 +219,24 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
         model.value = modelValue;
       }
       if (model instanceof DynamicListModel) {
-        model.settings.items = this.prepareFormModel(ctx, model.settings.items);
+        model.settings.items = this.prepareFormModel(ctx, model.settings.items, defaultValue);
       }
       return model;
     });
     return formModels;
   }
 
-  protected performFormModel(ctx: DocumentFormContext, formModel: DynamicFormModel): DynamicFormModel {
+  protected performFormModel(ctx: DocumentFormContext, formModel: DynamicFormModel, defaultValue: any = {}): DynamicFormModel {
     const models = (formModel || []).filter((v) => v.formMode === null || v.formMode === ctx.formSettings.formMode).filter((m: DynamicFormControlModel) => !m.visibleFn || m.visibleFn(ctx));
-    return this.prepareFormModel(ctx, models);
+    return this.prepareFormModel(ctx, models, defaultValue);
   }
 
   protected performDocumentForm(ctx: DocumentFormContext): void {
     this.prepareDocumentForm(ctx, ctx.formSettings.formModel);
   }
 
-  protected prepareDocumentForm(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
-    const models = this.performFormModel(ctx, formModel);
+  protected prepareDocumentForm(ctx: DocumentFormContext, formModel: DynamicFormModel, defaultValue: any = {}): void {
+    const models = this.performFormModel(ctx, formModel, defaultValue);
     this.performNgFormSettings(ctx, models);
     this.createDocumentForm(models);
   }

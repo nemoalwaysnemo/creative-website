@@ -149,6 +149,20 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
       }),
     ],
     importModel: [
+      new DynamicSuggestionModel<string>({
+        id: 'The_Loupe_Main:jobtitle',
+        label: 'Search Project',
+        document: true,
+        required: true,
+        settings: {
+          placeholder: 'Search Project',
+          providerType: SuggestionSettings.CONTENT_VIEW,
+          providerName: 'App-Library-PageProvider-Projects',
+        },
+        validators: { required: null },
+        errorMessages: { required: '{{label}} is required' },
+        // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:campaign_mgt'),
+      }),
       new DynamicInputModel({
         id: 'dc:title',
         label: 'Title',
