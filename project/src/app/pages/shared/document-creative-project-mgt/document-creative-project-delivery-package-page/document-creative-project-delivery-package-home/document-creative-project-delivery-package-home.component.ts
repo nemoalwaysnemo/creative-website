@@ -1,18 +1,19 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { DocumentModel, GlobalSearchParams, UserModel } from '@core/api';
+import { NbMenuItem } from '@core/nebular/theme';
 import { Observable, of as observableOf } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
-import { NbMenuItem } from '@core/nebular/theme';
 import { DocumentPageService } from '../../../../shared/services/document-page.service';
-import { DatePipe } from '@angular/common';
-import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
+import { DocumentFormStatus } from '../../../document-form/document-form.interface';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 export class PackageHistoryListViewItem {
   [key: string]: any;
@@ -164,8 +165,9 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   changeMenuView(name: string, type: string, formMode: string): void {

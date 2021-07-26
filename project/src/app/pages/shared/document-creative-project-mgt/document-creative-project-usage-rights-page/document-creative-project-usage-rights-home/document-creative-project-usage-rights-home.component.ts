@@ -4,13 +4,14 @@ import { DocumentModel, GlobalSearchParams, NuxeoPagination, UserModel } from '@
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
-import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
-import { of as observableOf, Observable } from 'rxjs';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { DocumentFormStatus } from '../../../document-form/document-form.interface';
 import { ACTIONS, CONTRACT_YTPES } from '../document-creative-project-usage-rigths-type-config';
+import { of as observableOf, Observable } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
-import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-usage-rights-home',
@@ -31,8 +32,9 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
     this.subscribeHomeEvents();
     this.afterSetDocument();
   }
@@ -49,7 +51,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
 
   private buildActions(enable: boolean): any {
     return this.actions.forEach((a: any) => {
-        a.enable = enable;
+      a.enable = enable;
     });
   }
 
@@ -192,30 +194,30 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
 
   onClickLink(): void {
     const subscription = this.documentPageService.onEvent('LinkAssetClick')
-    .pipe(
-      map((res) => res.data),
-    ).subscribe(data => {
-      this.selectAssets.forEach(asset => {
-        this.linkAssetToContract(asset, data);
+      .pipe(
+        map((res) => res.data),
+      ).subscribe(data => {
+        this.selectAssets.forEach(asset => {
+          this.linkAssetToContract(asset, data);
+        });
       });
-    });
     this.subscription.add(subscription);
   }
 
   linkAssetToContract(asset: DocumentModel, contract: any): void {
     const type = CONTRACT_YTPES[contract.type];
     const UR_ids: string[] = asset.get(type);
-    if (UR_ids.indexOf(contract.uid) === -1){
+    if (UR_ids.indexOf(contract.uid) === -1) {
       const opt = {};
       UR_ids.push(contract.uid);
       opt[type] = UR_ids;
       asset.set(opt).save().subscribe(_ => {
         this.documentPageService.notify(`${asset.title} linked successfully!`, '', 'success');
-        this.documentPageService.triggerEvent(new GlobalEvent({ name: 'AfterLinkAssetClick', value: contract.uid}));
+        this.documentPageService.triggerEvent(new GlobalEvent({ name: 'AfterLinkAssetClick', value: contract.uid }));
       });
-    }else{
+    } else {
       this.documentPageService.notify(`${asset.title} has been linked!`, '', 'info');
-      this.documentPageService.triggerEvent(new GlobalEvent({ name: 'AfterLinkAssetClick', value: contract.uid}));
+      this.documentPageService.triggerEvent(new GlobalEvent({ name: 'AfterLinkAssetClick', value: contract.uid }));
     }
   }
 }

@@ -8,10 +8,12 @@ import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-d
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { DocumentFormStatus } from '../../../document-form/document-form.interface';
 import { of as observableOf, Observable } from 'rxjs';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
-import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
+
 @Component({
   selector: 'document-creative-project-3rd-import-request-page',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -78,8 +80,9 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
     this.subscribeHomeEvents();
   }
 

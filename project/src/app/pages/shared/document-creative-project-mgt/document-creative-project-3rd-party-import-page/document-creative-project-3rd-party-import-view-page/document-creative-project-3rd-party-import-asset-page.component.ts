@@ -1,18 +1,18 @@
-import { Component, Input, ComponentFactoryResolver } from '@angular/core';
-import { DocumentModel, NuxeoRequestOptions, NuxeoPagination } from '@core/api';
-import { Subject, timer, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { Component, ComponentFactoryResolver } from '@angular/core';
+import { DocumentModel } from '@core/api';
+import { Subject, timer } from 'rxjs';
+import { DatePipe } from '@angular/common';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentCreativeProjectMgtBasePageComponent } from '../../document-creative-project-mgt-base-page.component';
 import { DocumentCreativeProjectImportNewRequestComponent } from '../document-creative-project-3rd-party-import-new-request/document-creative-project-import-new-request.component';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
-import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
-import { DatePipe } from '@angular/common';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
+
 @Component({
   selector: 'creative-brand-project-3rd-party-import',
   templateUrl: './document-creative-project-3rd-party-import-asset-page.component.html',
@@ -23,8 +23,9 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   doc: DocumentModel;

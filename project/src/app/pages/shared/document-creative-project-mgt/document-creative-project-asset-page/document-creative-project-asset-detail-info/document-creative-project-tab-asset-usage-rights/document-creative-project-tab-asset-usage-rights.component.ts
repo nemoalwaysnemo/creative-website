@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../../document-creative-project-mgt-base.component';
+import { GlobalDocumentDialogService } from '../../../../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService } from '../../../../services/document-page.service';
 
 @Component({
@@ -13,8 +14,9 @@ export class DocumentCreativeProjectTabAssetUsageRightsComponent extends Documen
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   setDocument(doc: DocumentModel): void {

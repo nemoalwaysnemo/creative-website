@@ -2,6 +2,7 @@ import { Component, ComponentFactoryResolver } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { DocumentPageService, GlobalEvent } from '../../services/document-page.service';
 import { TAB_CONFIG } from './document-creative-project-mgt-package-tab-config';
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { DocumentCreativeProjectMgtBasePageComponent } from '../document-creative-project-mgt-base-page.component';
 import { DocumentCreativeProjectDeliveryPackageHomeComponent } from './document-creative-project-delivery-package-home/document-creative-project-delivery-package-home.component';
 
@@ -17,8 +18,9 @@ export class DocumentCreativeProjectDeliveryPackagePageComponent extends Documen
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   protected onInit(): void {

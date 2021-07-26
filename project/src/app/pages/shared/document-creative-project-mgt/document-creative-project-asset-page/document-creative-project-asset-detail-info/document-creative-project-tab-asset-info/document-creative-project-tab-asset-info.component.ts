@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, NuxeoPagination, NuxeoRequestOptions, UserModel } from '@core/api';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../../document-creative-project-mgt-base.component';
+import { GlobalDocumentDialogService } from '../../../../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService } from '../../../../services/document-page.service';
 import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -25,8 +26,9 @@ export class DocumentCreativeProjectTabAssetInfoComponent extends DocumentCreati
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   setDocument(doc: DocumentModel): void {
@@ -45,19 +47,21 @@ export class DocumentCreativeProjectTabAssetInfoComponent extends DocumentCreati
 
   protected getJob(doc: DocumentModel): void {
     if (this.jobTitle === undefined && this.hasJobValue(doc)) {
-      this.documentPageService.advanceRequest(this.getJobParams(doc))
+      const subscription = this.documentPageService.advanceRequest(this.getJobParams(doc))
         .subscribe((res: NuxeoPagination) => {
           this.jobTitle = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
         });
+      this.subscription.add(subscription);
     }
   }
 
   protected getCampaign(doc: DocumentModel): void {
     if (this.campaignName === undefined && this.hasCampaignValue(doc)) {
-      this.documentPageService.advanceRequest(this.getCampaignParams(doc), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
-      .subscribe((res: NuxeoPagination) => {
-        this.campaignName = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
-      });
+      const subscription = this.documentPageService.advanceRequest(this.getCampaignParams(doc), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
+        .subscribe((res: NuxeoPagination) => {
+          this.campaignName = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
+        });
+      this.subscription.add(subscription);
     }
   }
 

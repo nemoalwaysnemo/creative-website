@@ -1,11 +1,12 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, NuxeoPermission, UserModel } from '@core/api';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { DocumentFormStatus } from '../../../document-form/document-form.interface';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { of as observableOf, Observable, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
-import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
 
 @Component({
   selector: 'document-creative-project-asset-detail',
@@ -30,8 +31,9 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   protected onInit(): void {

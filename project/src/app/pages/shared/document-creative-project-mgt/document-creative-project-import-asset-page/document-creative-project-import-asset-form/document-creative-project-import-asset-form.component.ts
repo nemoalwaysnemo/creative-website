@@ -7,6 +7,8 @@ import { SuggestionSettings } from '../../../document-form-extension';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'document-creative-project-import-asset-form',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -14,11 +16,6 @@ import { DocumentPageService, GlobalEvent } from '../../../services/document-pag
 })
 export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, OnDestroy {
 
-  constructor(
-    private advanceSearchService: AdvanceSearchService,
-    private documentPageService: DocumentPageService,
-  ) {
-  }
   settings: any[] = [];
 
   @Input() documentModel: DocumentModel;
@@ -233,6 +230,14 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
     ],
   });
 
+  protected subscription: Subscription = new Subscription();
+
+  constructor(
+    private advanceSearchService: AdvanceSearchService,
+    private documentPageService: DocumentPageService,
+  ) {
+  }
+
   onCallback(event: DocumentFormEvent): void {
     if (event.action === 'Created') {
       this.showMsg();
@@ -257,6 +262,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
   }
 
   ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   protected showMsg(): void {
@@ -264,8 +270,9 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
   }
 
   private load(uid: string): void {
-    this.advanceSearchService.get(uid).subscribe((doc: DocumentModel) => {
+    const subscription = this.advanceSearchService.get(uid).subscribe((doc: DocumentModel) => {
       this.document = doc;
     });
+    this.subscription.add(subscription);
   }
 }

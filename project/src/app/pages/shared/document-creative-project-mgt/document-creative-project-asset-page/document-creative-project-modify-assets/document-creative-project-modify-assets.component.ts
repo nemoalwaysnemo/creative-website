@@ -1,25 +1,22 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
+import { DynamicSuggestionModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
+import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentPageService } from '../../../services/document-page.service';
-import { of as observableOf, Observable } from 'rxjs';
-import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
-import { DynamicSuggestionModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
+import { of as observableOf, Observable } from 'rxjs';
+
 @Component({
   selector: 'document-creative-project-modify-assets',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-modify-assets.component.html',
 })
 export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreativeProjectMgtBaseComponent {
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected componentFactoryResolver: ComponentFactoryResolver,
-  ) {
-    super(documentPageService, componentFactoryResolver);
-  }
+
 
   batchDocuments: DocumentModel[];
 
@@ -79,11 +76,19 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
     ],
   });
 
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
+  }
+
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
     this.batchDocuments = formSettings.batchDocuments;
     this.batchDocuments.forEach((item) => {
       item.setParent(formSettings.brand);
-      },
+    },
     );
     return observableOf(doc);
   }
