@@ -7,6 +7,7 @@ import { SuggestionSettings } from '../../../document-form-extension';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { isValueEmpty } from '@core/services/helpers';
 @Component({
   selector: 'document-creative-project-import-asset-form',
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
@@ -24,6 +25,8 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
   @Input() documentModel: DocumentModel;
 
   document: DocumentModel;
+
+  enableUpload: boolean = false;
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     enableSearchForm: false,
@@ -164,7 +167,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
         maxLength: 150,
         placeholder: 'Title',
         autoComplete: 'off',
-        required: true,
+        required: false,
         settings: {
           layout: 'direction-horizontal',
           customClass: 'horizontal-input',
@@ -216,7 +219,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
         id: 'The_Loupe_Main:assettype',
         label: 'Asset Type',
         document: true,
-        required: true,
+        required: false,
         settings: {
           multiple: false,
           placeholder: 'What is this asset?',
@@ -237,10 +240,13 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
     if (event.action === 'Created') {
       this.showMsg();
       this.goToAssetHome();
+    } else if (!this.enableUpload && event.action === 'SharedValueChanged' && Object.values(event.formValue).every((v: any) => !isValueEmpty(v))) {
+      this.enableUpload = true;
     } else if (event.action === 'Canceled') {
       this.cancelForm();
     }
   }
+
 
   cancelForm(): void{
     const settings = new CreativeProjectMgtSettings();
