@@ -101,12 +101,17 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
   }
 
   protected subscribeEvents(): void {
-    this.subscription = this.globalDocumentDialogService.onEvent('ComponentChanged').subscribe((e: DocumentDialogEvent) => {
-      const main = this.mainComponent.NAME;
-      const name = e.options.componentName || main;
-      const component = name === main ? this.mainComponent : e.options.component;
-      this.mainViewChanged = main !== name || (e.options && e.options.metadata && e.options.metadata.document);
-      this.selectView(name, component, e.options.metadata);
+    this.subscription = this.globalDocumentDialogService.onEventType('built-in').subscribe((e: DocumentDialogEvent) => {
+      const options = e.options || {};
+      if (e.name === 'ComponentChanged') {
+        const main = this.mainComponent.NAME;
+        const name = options.componentName || main;
+        const component = name === main ? this.mainComponent : options.component;
+        this.mainViewChanged = options.mainViewChanged !== undefined ? options.mainViewChanged : main !== name || (options.metadata && options.metadata.document);
+        this.selectView(name, component, options.metadata);
+      } else if (e.name === 'mainViewChanged') {
+        this.mainViewChanged = options.mainViewChanged;
+      }
     });
   }
 

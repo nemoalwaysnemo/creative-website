@@ -18,15 +18,6 @@ export class CreativeCampaignMgtTemplateComponent extends DocumentDialogCustomTe
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
-    this.subscribeEvents();
-  }
-
-  protected subscribeEvents(): void {
-    this.documentPageService.onEventType('creative-campaign-project-mgt').pipe(
-      filter((event: GlobalEvent) => event.data && event.data.view && event.data.type === 'dialog'),
-    ).subscribe((event: GlobalEvent) => {
-      this.selectView(event.data.view, null, event.data.settings || {});
-    });
   }
 
 }

@@ -52,7 +52,7 @@
           </ul>
         </div>
         <ng-container *ngIf="writePermission$ | async">
-            <button type="button" (click)="openDialog(editDialog, false)" class="icon_btn left">Edit</button>
+          <button type="button" (click)="openDialog(editDialog, false)" class="icon_btn left">Edit</button>
         </ng-container>
       </div>
       <div class="showcase-area-right">
@@ -69,7 +69,7 @@
   </div>
 </ng-container>
 <ng-template #nominateDialog>
-  <global-document-dialog [settings]="previewDialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [mainViewChanged]="true"></global-document-dialog>
+  <global-document-dialog [settings]="previewDialogSettings" [documentModel]="doc" [metadata]="dialogMetadata"></global-document-dialog>
 </ng-template>
 <ng-template #editDialog>
   <global-document-dialog [settings]="editDialogSettings" [documentModel]="doc" [metadata]="dialogMetadata" [title]="'Edit Program'" [redirectUrl]="editRedirectUrl"></global-document-dialog>

@@ -68,10 +68,7 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
   }
 
   backToMainView(componentName: string = null, component: Type<any> = null, metadata?: any): void {
-    const settings = this.getDialogSettings();
-    const view = componentName || settings.homeTemplate;
-    settings.dialogDocument ? settings.document = settings.dialogDocument : delete settings.document;
-    this.globalDocumentDialogService.selectView(view, component, metadata || settings);
+    this.globalDocumentDialogService.backToMainView(componentName, metadata || this.getDialogSettings(), component);
   }
 
   confirm(refresh: boolean = true, delay: number = 0): void {

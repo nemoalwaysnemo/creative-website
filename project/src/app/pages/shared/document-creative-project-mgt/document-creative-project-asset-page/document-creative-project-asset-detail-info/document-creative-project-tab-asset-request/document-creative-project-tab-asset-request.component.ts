@@ -1,14 +1,15 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel } from '@core/api';
-import { DocumentPageService } from '../../../../services/document-page.service';
+import { DatePipe } from '@angular/common';
 import { Subject, timer } from 'rxjs';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService } from '../../../../services/document-page.service';
 import { DocumentListViewItem } from '../../../../../shared/document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../../../../shared/global-search-form/global-search-form.interface';
 import { ListSearchRowCustomViewSettings } from '../../../../../shared/list-search-form/list-search-form.interface';
 import { ListSearchRowCustomViewComponent } from '../../../../../shared/list-search-form-in-dialog/list-search-row-custom-view-component';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../../document-creative-project-mgt-base.component';
-import { DatePipe } from '@angular/common';
+import { GlobalDocumentDialogService } from '../../../../global-document-dialog/global-document-dialog.service';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-tab-asset-request',
@@ -82,8 +83,9 @@ export class DocumentCreativeProjectTabAssetRequestComponent extends DocumentCre
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   setDocument(doc: DocumentModel): void {

@@ -1,15 +1,16 @@
 import { Component, Input, Output, EventEmitter, ComponentFactoryResolver } from '@angular/core';
-import { AdvanceSearchService, DocumentModel, NuxeoAutomations, NuxeoPagination, SearchResponse } from '@core/api';
+import { DocumentModel, NuxeoAutomations, NuxeoPagination, SearchResponse } from '@core/api';
+import { isValueEmpty } from '@core/services/helpers';
+import { DatePipe } from '@angular/common';
 import { Subject, timer, of as observableOf, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
-import { DatePipe } from '@angular/common';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../../../../shared/services/document-page.service';
-import { map } from 'rxjs/operators';
-import { isValueEmpty } from '@core/services/helpers';
+import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-related-asset',
@@ -121,9 +122,9 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
-    private advanceSearchService: AdvanceSearchService,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   protected setDocument(doc: DocumentModel): void {
@@ -267,7 +268,7 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
   private getUsageRightsStatus(res: SearchResponse): Observable<SearchResponse> {
     const uids: string[] = res.response.entries.map((doc: DocumentModel) => doc.uid);
     if (uids.length > 0) {
-      return this.advanceSearchService.operation(NuxeoAutomations.GetDocumentURStatus, { uuids: `${uids.join(',')}`, entityType: 'asset' }).pipe(
+      return this.documentPageService.operation(NuxeoAutomations.GetDocumentURStatus, { uuids: `${uids.join(',')}`, entityType: 'asset' }).pipe(
         map((response: NuxeoPagination) => {
           res.response.entries.forEach((doc: DocumentModel) => {
             const status = response.entries.find((x: any) => x.uuid === doc.uid);
