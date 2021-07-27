@@ -88,7 +88,6 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
 
   protected subscribeEvents(): void {
     const subscription = this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
-      console.log(11111, event.type, event.data);
       if (event.data.type === 'page') {
         this.onPageChanged(event);
       } else if (event.data.type === 'view') {
