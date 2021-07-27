@@ -65,7 +65,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     },
     {
       id: '3rd-import-new-request',
-      title: 'Create 3rd Party Import',
+      title: 'Request 3rd Paryt Import',
       type: 'page',
       triggerChangeSettings: {
         name: '3rd-import-new-request',
@@ -102,6 +102,17 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       type: 'page',
       triggerChangeSettings: {
         name: 'set-usage-rights',
+        type: 'view',
+        formMode: 'edit',
+        document: this.document,
+      },
+    },
+    {
+      id: 'edit-project',
+      title: 'Edit Project',
+      type: 'page',
+      triggerChangeSettings: {
+        name: 'edit-project',
         type: 'view',
         formMode: 'edit',
         document: this.document,
