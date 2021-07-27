@@ -1,6 +1,9 @@
 .creative-project-dynamic-component {
   margin: 10px;
-  min-height: 500px;
+  height: 90vh;
+}
+.creative-project-dynamic-component ::ng-deep .button-groups {
+  padding: 10px;
 }
 .creative-project-dynamic-component ::ng-deep .list-search-result {
   img {

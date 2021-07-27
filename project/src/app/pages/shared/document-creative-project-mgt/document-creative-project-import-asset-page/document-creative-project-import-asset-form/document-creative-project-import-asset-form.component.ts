@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'document-creative-project-import-asset-form',
-  styleUrls: ['../../document-creative-project-mgt.component.scss'],
+  styleUrls: ['../../document-creative-project-mgt.component.scss', './document-creative-project-import-asset-form.component.scss'],
   templateUrl: './document-creative-project-import-asset-form.component.html',
 })
 export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, OnDestroy {

@@ -26,12 +26,10 @@
 		width: 1700px;
 	}
 	min-width: 800px;
-	height: 700px;
-	min-height: 500px;
 	background: #ffffff;
 }
 
-::ng-deep .wide-dialog-container .dialog-body {
+::ng-deep .wide-dialog-container creative-project-mgt-template .dialog-body {
 	max-height: 620px !important;
 }
 
