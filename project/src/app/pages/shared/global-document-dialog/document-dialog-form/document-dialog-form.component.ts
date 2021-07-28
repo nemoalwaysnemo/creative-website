@@ -23,10 +23,15 @@ export class DocumentDialogFormComponent extends DocumentDialogContainerComponen
 
   protected onInit(): void {
     super.createComponent(this.component, this.document, this.dialogSettings);
-    this.subscribeComponentEvent();
+    this.subscribeDialogEvents();
   }
 
-  protected subscribeComponentEvent(): void {
+  protected subscribeDialogEvents(): void {
+    // this.subscribeDialogBuiltInEvents();
+    this.subscribeComponentEvents();
+  }
+
+  protected subscribeComponentEvents(): void {
     if (this.dynamicComponent) {
       this.dynamicComponent.instance.callback.subscribe((e: DocumentFormEvent) => {
         this.globalDocumentDialogService.triggerEvent({ name: `Form${e.action}`, type: 'callback', messageType: e.messageType, messageContent: e.messageContent, options: { doc: e.doc } });

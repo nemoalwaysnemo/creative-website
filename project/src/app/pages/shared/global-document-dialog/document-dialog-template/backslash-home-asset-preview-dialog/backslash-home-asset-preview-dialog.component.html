@@ -1,7 +1,7 @@
 <div class="dialog-title text-center">
   <a (click)="close()" class="left" title="Close"><img [src]="closeBtnImage()"></a>
   <h1 class="left">{{title}}</h1>
-  <a (click)="backToMainView()" *ngIf="mainViewChanged" class="right"><img [src]="backBtnImage()"></a>
+  <a (click)="backToMainView()" *ngIf="mainViewChanged && mainViewChanged.changed" class="right"><img [src]="backBtnImage()"></a>
   <div class="clear"></div>
 </div>
 <div class="dialog-body">

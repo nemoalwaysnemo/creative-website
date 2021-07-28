@@ -17,6 +17,6 @@ export class DocumentConfirmationDialogComponent extends DocumentDialogCustomTem
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    // this.subscribeDialogEvents();
   }
-
 }

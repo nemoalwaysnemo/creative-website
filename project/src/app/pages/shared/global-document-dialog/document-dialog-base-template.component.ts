@@ -13,7 +13,12 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
-  mainViewChanged = false;
+  mainViewChanged: any = {
+    changed: false,
+    metadata: null,
+    component: null,
+    componentName: null,
+  };
 
   document: DocumentModel;
 
@@ -68,7 +73,8 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
   }
 
   backToMainView(componentName: string = null, component: Type<any> = null, metadata?: any): void {
-    this.globalDocumentDialogService.backToMainView(componentName, metadata || this.getDialogSettings(), component);
+    const m = this.mainViewChanged;
+    this.globalDocumentDialogService.backToMainView(componentName || m.componentName, (metadata || m.metadata) || this.getDialogSettings(), component || m.component);
   }
 
   confirm(refresh: boolean = true, delay: number = 0): void {
@@ -118,6 +124,10 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  protected subscribeDialogEvents(): void {
+
+  }
+
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
@@ -143,6 +153,16 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   protected onCancelled(): void { }
 
+  protected subscribeDialogBuiltInEvents(): void {
+    const subscription = this.globalDocumentDialogService.onEventType('built-in').subscribe((e: DocumentDialogEvent) => {
+      const options = e.options || {};
+      if (e.name === 'MainViewChanged') {
+        this.mainViewChanged = options.mainViewChanged;
+      }
+    });
+    this.subscription.add(subscription);
+  }
+
   private registerListeners(): void {
     const a = this.lifeCycle$.pipe(
       withLatestFrom(this.globalDocumentDialogService.onOpen()),
@@ -154,5 +174,4 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     this.subscription.add(b);
     this.subscription.add(c);
   }
-
 }

@@ -54,7 +54,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
     protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(globalDocumentDialogService, documentPageService);
-    this.subscribeEvents();
+    this.subscribeDialogEvents();
   }
 
   protected onInit(): void {
@@ -140,6 +140,11 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
       opts.disableCustomGrid = false;
     }
     this.thumbnailViewSettings = Object.assign({}, this.thumbnailViewSettings, opts);
+  }
+
+  protected subscribeDialogEvents(): void {
+    // this.subscribeDialogBuiltInEvents();
+    this.subscribeEvents();
   }
 
   private subscribeEvents(): void {

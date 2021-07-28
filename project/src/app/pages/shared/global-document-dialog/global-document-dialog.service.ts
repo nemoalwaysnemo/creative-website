@@ -83,6 +83,11 @@ export class GlobalDocumentDialogService {
     this.triggerEvent({ name: 'ViewChanged', type: 'built-in', messageContent: 'View Changed', options: { document, metadata } });
   }
 
+  mainViewChanged(changed: boolean, metadata: any = {}): void {
+    const mainViewChanged = Object.assign({}, { changed }, metadata);
+    this.triggerEvent({ name: 'MainViewChanged', type: 'built-in', messageContent: 'Main View Changed', options: { mainViewChanged } });
+  }
+
   backToMainView(componentName: string, settings: any, component: Type<any> = null): void {
     const view = componentName || settings.homeTemplate;
     settings.dialogDocument ? settings.document = settings.dialogDocument : delete settings.document;

@@ -19,6 +19,7 @@ export class DocumentDeletionDialogComponent extends DocumentDialogCustomTemplat
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    // this.subscribeDialogEvents();
   }
 
   delete(): void {

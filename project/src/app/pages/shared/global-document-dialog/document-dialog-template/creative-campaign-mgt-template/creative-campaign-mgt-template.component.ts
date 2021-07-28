@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
-import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { DocumentPageService } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-campaign-mgt-template',
@@ -18,6 +17,7 @@ export class CreativeCampaignMgtTemplateComponent extends DocumentDialogCustomTe
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    this.subscribeDialogEvents();
   }
 
 }
