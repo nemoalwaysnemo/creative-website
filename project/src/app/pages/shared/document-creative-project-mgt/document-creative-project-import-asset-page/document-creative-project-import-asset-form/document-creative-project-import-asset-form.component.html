@@ -1,4 +1,25 @@
 <div class="document-creative-project-home-action">
   <div class="actions-title">DEFAULT DATA</div>
 </div>
-<document-batch-operation [documentModel]="document" [settings]="batchOperationSettings" (callback)="onCallback($event)"></document-batch-operation>
+<document-batch-operation [documentModel]="document" [settings]="batchOperationSettings" (callback)="onCallback($event)" [templateRef]="formTemplate"></document-batch-operation>
+<ng-template #formTemplate let-form="form" let-group="group">
+  <div class="title">
+    <div class="upload-zone" *ngIf="enableUpload" style="height: 520px; padding: 100px 0; text-align:center; width: 80%; float: right;">
+      <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('file:content')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
+      </document-form-element>
+      <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('batchUpload')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
+        (customEvent)="form.onCustomEvent($event)">
+      </document-form-element>
+    </div>
+    <div class="left-shared">
+      <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels(['The_Loupe_Main:jobtitle', 'The_Loupe_ProdCredits:production_date', 'The_Loupe_Main:assettype',
+        'The_Loupe_Rights:first-airing','The_Loupe_Rights:contract_mediatypes','The_Loupe_Rights:asset_countries'])" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
+        (customEvent)="form.onCustomEvent($event)">
+      </document-form-element>
+    </div>
+    <div *ngIf="!enableUpload" class="upload-remind" style="height: 540px; padding: 200px 0; text-align:center; line-height: 100px;">
+      <h2>You are about to import assets for the project.</h2>
+      <h2>Please set the default meta information on the left.</h2>
+    </div>
+  </div>
+</ng-template>
