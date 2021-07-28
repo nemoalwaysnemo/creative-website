@@ -42,7 +42,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
     protected googleAnalyticsService: GoogleAnalyticsService,
   ) {
     super(globalDocumentDialogService, documentPageService, componentFactoryResolver);
-    this.subscribeEvents();
+    this.subscribeDialogEvents();
   }
 
   selectView(name: string, component?: Type<any>, metadata?: any): void {
@@ -53,6 +53,10 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
 
   protected onInit(): void {
 
+  }
+
+  protected subscribeDialogEvents(): void {
+    this.subscribeGlobalDialogEvents();
   }
 
   protected onInitialized(e: DocumentDialogEvent): void {
@@ -100,14 +104,18 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
     this.dynamicComponent.instance.component = component;
   }
 
-  protected subscribeEvents(): void {
-    this.subscription = this.globalDocumentDialogService.onEvent('ComponentChanged').subscribe((e: DocumentDialogEvent) => {
-      const main = this.mainComponent.NAME;
-      const name = e.options.componentName || main;
-      const component = name === main ? this.mainComponent : e.options.component;
-      this.mainViewChanged = main !== name || (e.options && e.options.metadata && e.options.metadata.document);
-      this.selectView(name, component, e.options.metadata);
+  protected subscribeGlobalDialogEvents(): void {
+    const subscription = this.globalDocumentDialogService.onEventType('built-in').subscribe((e: DocumentDialogEvent) => {
+      const options = e.options || {};
+      if (e.name === 'ComponentChanged') {
+        const main = this.mainComponent.NAME;
+        const name = options.componentName || main;
+        const component = name === main ? this.mainComponent : options.component;
+        this.mainViewChanged.changed = options.mainViewChanged !== undefined ? options.mainViewChanged : main !== name || (options.metadata && options.metadata.document);
+        this.selectView(name, component, options.metadata);
+      }
     });
+    this.subscription.add(subscription);
   }
 
   protected googleAnalyticsTrackEvent(type: string): void {

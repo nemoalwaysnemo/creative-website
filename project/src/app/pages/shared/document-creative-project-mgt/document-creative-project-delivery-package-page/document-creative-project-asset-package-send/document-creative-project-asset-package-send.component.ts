@@ -4,7 +4,6 @@ import { Subject, of as observableOf, Observable, concat, timer } from 'rxjs';
 import { DynamicInputModel, DynamicTextAreaModel, DynamicSuggestionModel, DynamicOptionTagModel, DynamicCheckboxModel } from '@core/custom';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
-import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentFormContext, DocumentFormSettings, DocumentFormStatus } from '../../../document-form/document-form.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
@@ -170,7 +169,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
   }
 
   constructor(
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,
   ) {
     super(documentPageService);
@@ -324,27 +322,29 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     if (settings) {
       if (['linkProject', 'linkBrand'].includes(settings.name)) {
         if (this.selectedAddRows.length > 0) {
-          this.addToCollection(this.currentDocument).subscribe((res: any) => {
+          const subscription = this.addToCollection(this.currentDocument).subscribe((res: any) => {
             if (settings.name === 'linkBrand') {
               timer(500).subscribe(() => { this.searchFormLinkBrandSettings = Object.assign({}, this.searchFormLinkBrandSettings); });
             } else {
-              timer(500).subscribe(() => {this.searchFormLinkProjectSettings = Object.assign({}, this.searchFormLinkProjectSettings); });
+              timer(500).subscribe(() => { this.searchFormLinkProjectSettings = Object.assign({}, this.searchFormLinkProjectSettings); });
             }
             timer(1000).subscribe(() => { this.searchFormSelectedSettings = Object.assign({}, this.searchFormSelectedSettings); });
             this.selectedAddRows = [];
           });
+          this.subscription.add(subscription);
         }
       } else {
         if (this.selectedRemoveRows.length > 0) {
-          this.removeFromCollection(this.currentDocument).subscribe((res: any) => {
+          const subscription = this.removeFromCollection(this.currentDocument).subscribe((res: any) => {
             if (this.libraryView === 'linkBrand') {
               timer(500).subscribe(() => { this.searchFormLinkBrandSettings = Object.assign({}, this.searchFormLinkBrandSettings); });
             } else {
-              timer(500).subscribe(() => {this.searchFormLinkProjectSettings = Object.assign({}, this.searchFormLinkProjectSettings); });
+              timer(500).subscribe(() => { this.searchFormLinkProjectSettings = Object.assign({}, this.searchFormLinkProjectSettings); });
             }
             timer(1000).subscribe(() => { this.searchFormSelectedSettings = Object.assign({}, this.searchFormSelectedSettings); });
             this.selectedRemoveRows = [];
           });
+          this.subscription.add(subscription);
         }
       }
     }

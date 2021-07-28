@@ -1,7 +1,7 @@
 
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { DocumentModel, NuxeoAutomations } from '@core/api';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog/list-search-row-custom-view-component';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
@@ -9,8 +9,9 @@ import { GlobalSearchFormSettings } from '../../../global-search-form/global-sea
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { Observable, Subject, timer } from 'rxjs';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
-import { DatePipe } from '@angular/common';
 import { GlobalEvent } from '../../../../shared/services/document-page.service';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
+
 @Component({
   selector: 'creative-brand-project-3rd-party-import-review',
   templateUrl: './document-creative-project-3rd-party-import-review-page.component.html',

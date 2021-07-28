@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { DocumentModel, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
+import { Subscription } from 'rxjs';
 import { DocumentPageService } from '../../../../shared/services/document-page.service';
 
 @Component({
@@ -7,17 +8,13 @@ import { DocumentPageService } from '../../../../shared/services/document-page.s
   styleUrls: ['../../document-creative-project-mgt.component.scss'],
   templateUrl: './document-creative-project-info.component.html',
 })
-export class DocumentCreativeProjectInfoComponent {
+export class DocumentCreativeProjectInfoComponent implements OnDestroy {
 
   loading: boolean = true;
 
   doc: DocumentModel;
 
   campaignName: string;
-
-  constructor(
-    protected documentPageService: DocumentPageService,
-  ) {}
 
   @Input()
   set document(doc: DocumentModel) {
@@ -28,13 +25,24 @@ export class DocumentCreativeProjectInfoComponent {
     }
   }
 
+  protected subscription: Subscription = new Subscription();
+
+  constructor(
+    protected documentPageService: DocumentPageService,
+  ) { }
+
   getCampaign(doc: DocumentModel): void {
     if (this.campaignName === undefined && this.hasCampaignValue(doc)) {
-      this.documentPageService.advanceRequest(this.getCampaignParams(doc), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
-      .subscribe((res: NuxeoPagination) => {
-        this.campaignName = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
-      });
+      const subscription = this.documentPageService.advanceRequest(this.getCampaignParams(doc), new NuxeoRequestOptions({ schemas: ['The_Loupe_Main'] }))
+        .subscribe((res: NuxeoPagination) => {
+          this.campaignName = res.entries.map((entry: DocumentModel) => entry.title).join(', ');
+        });
+      this.subscription.add(subscription);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   private hasCampaignValue(doc: DocumentModel): boolean {

@@ -22,6 +22,7 @@ export class DocumentDownloadRequestDialogComponent extends DocumentDialogCustom
     protected formBuilder: FormBuilder,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    // this.subscribeDialogEvents();
   }
 
   submit(): void {

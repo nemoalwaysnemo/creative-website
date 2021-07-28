@@ -4,8 +4,9 @@ import { DocumentModel, UserModel } from '@core/api';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { ProjectMgtNavigationSettings } from '../../shared/document-creative-project-navigation/document-creative-project-navigation.interface';
-import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
+import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { of as observableOf, Observable } from 'rxjs';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -27,8 +28,9 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
     this.subscribeHomeEvents();
   }
 

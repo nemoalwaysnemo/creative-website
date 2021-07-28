@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { DocumentPageService, GlobalEvent } from '../../services/document-page.service';
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { DocumentCreativeProjectMgtBasePageComponent } from '../document-creative-project-mgt-base-page.component';
 import { DocumentCreativeProjectAssetHomeComponent } from './document-creative-project-asset-home/document-creative-project-asset-home.component';
 import { TAB_CONFIG } from './document-creative-project-mgt-asset-tab-config';
@@ -17,8 +18,9 @@ export class DocumentCreativeProjectAssetPageComponent extends DocumentCreativeP
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   protected onInit(): void {

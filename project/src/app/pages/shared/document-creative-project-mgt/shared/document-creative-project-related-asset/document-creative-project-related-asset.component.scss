@@ -55,6 +55,7 @@
 .document-creative-project-related-asset ::ng-deep .list-search-result {
   td {
     max-width: 100px;
+    word-break: break-word;
     img {
       max-height: 45px !important;
       max-width: 75px !important;

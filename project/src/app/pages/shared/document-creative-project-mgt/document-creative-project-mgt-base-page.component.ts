@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ComponentRef, ViewChild, ViewConta
 import { DocumentModel, UserModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
 
@@ -39,7 +40,7 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
-  ) {
+    protected globalDocumentDialogService: GlobalDocumentDialogService) {
     this.subscribeEvents();
   }
 
@@ -86,13 +87,17 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
   }
 
   protected subscribeEvents(): void {
-    this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
+    const subscription = this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
       if (event.data.type === 'page') {
         this.onPageChanged(event);
       } else if (event.data.type === 'view') {
         this.onViewChanged(event);
+        this.globalDocumentDialogService.mainViewChanged(true);
+      } else if (event.data.type === 'dialog') {
+        this.globalDocumentDialogService.selectView(event.data.view, null, event.data.settings || {});
       }
     });
+    this.subscription.add(subscription);
   }
 
   protected setDocument(doc: DocumentModel): void {

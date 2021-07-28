@@ -1,6 +1,9 @@
 .creative-project-dynamic-component {
   margin: 10px;
-  min-height: 500px;
+  height: 90vh;
+}
+.creative-project-dynamic-component ::ng-deep .button-groups {
+  padding: 10px;
 }
 .creative-project-dynamic-component ::ng-deep .list-search-result {
   img {
@@ -52,6 +55,9 @@
     border: solid 1px #e1e1e1;
     cursor: pointer;
     margin: 5px 0;
+  }
+  span:hover {
+    background-color: #fecc00;;
   }
 }
 .document-creative-project-home-list {

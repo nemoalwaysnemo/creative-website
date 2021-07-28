@@ -1,11 +1,12 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, NuxeoPermission, UserModel } from '@core/api';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
+import { DocumentFormStatus } from '../../../document-form/document-form.interface';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { of as observableOf, Observable, combineLatest } from 'rxjs';
 import { concatMap, map, share } from 'rxjs/operators';
-import { DocumentFormStatus } from '@pages/shared/document-form/document-form.interface';
 
 @Component({
   selector: 'document-creative-project-asset-detail',
@@ -30,12 +31,20 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   protected onInit(): void {
     this.shareUrl = this.buildShareUrl(this.document);
+  }
+
+  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
+    this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
+    this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
+    this.deletePermission$ = !doc.hasAnyContent ? doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
+    return observableOf(doc);
   }
 
   buildShareUrl(doc: DocumentModel): string {
@@ -44,13 +53,6 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
 
   goHome(): void {
     this.triggerChangeView('asset-home-view', 'view', new CreativeProjectMgtSettings({ document: this.templateSettings.project }));
-  }
-
-  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
-    this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
-    this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
-    this.deletePermission$ = !doc.hasAnyContent ? doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
-    return observableOf(doc);
   }
 
   changeDialogView(type: string, view = 'view'): void {
