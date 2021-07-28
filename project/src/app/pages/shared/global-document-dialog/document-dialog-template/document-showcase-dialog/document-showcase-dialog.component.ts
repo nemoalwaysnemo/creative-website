@@ -24,6 +24,7 @@ export class DocumentShowcaseDialogComponent extends DocumentDialogCustomTemplat
     protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(globalDocumentDialogService, documentPageService);
+    // this.subscribeDialogEvents();
   }
 
   protected onInit(): void {

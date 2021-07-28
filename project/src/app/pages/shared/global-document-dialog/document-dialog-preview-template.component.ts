@@ -41,7 +41,7 @@ export class DocumentDialogPreviewTemplateComponent extends DocumentDialogCustom
     protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
-    this.onDocumentsChanged();
+    this.subscribeDialogEvents();
   }
 
   prev(): void {
@@ -62,6 +62,11 @@ export class DocumentDialogPreviewTemplateComponent extends DocumentDialogCustom
 
   protected getPreviewSettings(): any {
     return {};
+  }
+
+  protected subscribeDialogEvents(): void {
+    // this.subscribeDialogBuiltInEvents();
+    this.onDocumentsChanged();
   }
 
   protected onDocumentsChanged(): void {

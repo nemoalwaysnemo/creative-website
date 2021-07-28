@@ -91,8 +91,8 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
       if (event.data.type === 'page') {
         this.onPageChanged(event);
       } else if (event.data.type === 'view') {
-        // this.documentPageService.triggerEvent();
         this.onViewChanged(event);
+        this.globalDocumentDialogService.mainViewChanged(true);
       } else if (event.data.type === 'dialog') {
         this.globalDocumentDialogService.selectView(event.data.view, null, event.data.settings || {});
       }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentPageService } from '../services/document-page.service';
-import { GlobalDocumentDialogService } from './global-document-dialog.service';
+import { DocumentDialogEvent, GlobalDocumentDialogService } from './global-document-dialog.service';
 import { DocumentDialogBaseTemplateComponent } from './document-dialog-base-template.component';
 
 @Component({
@@ -17,4 +17,7 @@ export class DocumentDialogCustomTemplateComponent extends DocumentDialogBaseTem
     super(globalDocumentDialogService, documentPageService);
   }
 
+  protected subscribeDialogEvents(): void {
+    this.subscribeDialogBuiltInEvents();
+  }
 }

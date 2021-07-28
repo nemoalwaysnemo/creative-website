@@ -16,15 +16,20 @@ export class DocumentDialogCustomComponent extends DocumentDialogContainerCompon
     protected componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(globalDocumentDialogService, documentPageService, componentFactoryResolver);
-    this.subscribeEvents();
+    this.subscribeDialogEvents();
   }
 
-  protected subscribeEvents(): void {
-    this.subscription = this.globalDocumentDialogService.onEvent('ViewChanged').subscribe((e: DocumentDialogEvent) => {
+  protected subscribeDialogEvents(): void {
+    this.subscribeCustomDialogEvents();
+  }
+
+  protected subscribeCustomDialogEvents(): void {
+    const subscription = this.globalDocumentDialogService.onEvent('ViewChanged').subscribe((e: DocumentDialogEvent) => {
       this.loading = true;
       this.destroyDynamicComponent();
       this.createComponent(this.component, e.options.document, e.options.metadata || this.dialogSettings);
       this.loading = false;
     });
+    this.subscription.add(subscription);
   }
 }

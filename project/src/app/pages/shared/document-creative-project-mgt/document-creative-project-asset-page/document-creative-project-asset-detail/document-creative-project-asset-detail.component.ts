@@ -40,19 +40,19 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
     this.shareUrl = this.buildShareUrl(this.document);
   }
 
+  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
+    this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
+    this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
+    this.deletePermission$ = !doc.hasAnyContent ? doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
+    return observableOf(doc);
+  }
+
   buildShareUrl(doc: DocumentModel): string {
     return this.documentPageService.getCurrentAppUrl('creative/asset/' + doc.uid);
   }
 
   goHome(): void {
     this.triggerChangeView('asset-home-view', 'view', new CreativeProjectMgtSettings({ document: this.templateSettings.project }));
-  }
-
-  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
-    this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
-    this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
-    this.deletePermission$ = !doc.hasAnyContent ? doc.hasPermission(NuxeoPermission.Delete) : observableOf(false);
-    return observableOf(doc);
   }
 
   changeDialogView(type: string, view = 'view'): void {
