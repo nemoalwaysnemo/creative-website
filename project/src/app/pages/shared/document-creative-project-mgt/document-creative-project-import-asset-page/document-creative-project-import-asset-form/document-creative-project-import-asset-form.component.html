@@ -1,6 +1,7 @@
 <div class="document-creative-project-home-action">
-  <div class="actions-title">DEFAULT DATA</div>
+  <div class="actions-title">Set Default Data</div>
 </div>
+<button *ngIf="enableUpload" (click)="openFileSelectWindow($event)">Add</button>
 <document-batch-operation [documentModel]="document" [settings]="batchOperationSettings" (callback)="onCallback($event)" [templateRef]="formTemplate"></document-batch-operation>
 <ng-template #formTemplate let-form="form" let-group="group">
   <div class="title">

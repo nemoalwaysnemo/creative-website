@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { DocumentModel, NuxeoUploadResponse, AdvanceSearchService } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, NgFileService } from '@core/custom';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
@@ -32,6 +32,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
   batchOperationSettings: DocumentFormSettings = new DocumentFormSettings({
     acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
     importSettings: {
+      placeholder: 'Drag and Drop files here or click Add',
       getDocType: (item: NuxeoUploadResponse): string => {
         if (['video'].some(x => item.mimeType.includes(x))) {
           return 'App-Library-Video';
@@ -238,6 +239,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
   constructor(
     private advanceSearchService: AdvanceSearchService,
     private documentPageService: DocumentPageService,
+    private ngFileService: NgFileService,
   ) {
   }
 
@@ -252,13 +254,16 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
     }
   }
 
+  openFileSelectWindow(event: any): void {
+    this.ngFileService.triggerEvent({ name: 'openSelectWindow', type: 'ng-file', data: { event } });
+  }
 
-  cancelForm(): void{
+  cancelForm(): void {
     const settings = new CreativeProjectMgtSettings();
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'import-asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
-  goToAssetHome(): void{
+  goToAssetHome(): void {
     const settings = new CreativeProjectMgtSettings();
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
