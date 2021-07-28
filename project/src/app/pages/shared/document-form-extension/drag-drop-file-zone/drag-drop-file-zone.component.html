@@ -1,6 +1,7 @@
 <div class="drag-drop-file-zone">
   <div [ngClass]="['file-drop-zone', uploadSettings.layout]"
           ngFileDrop
+          [selectable]="uploadSettings.enableSelect"
           [multiple]="uploadSettings.multiUpload"
           [queueLimit]="uploadSettings.queueLimit"
           [accept]="uploadSettings.acceptTypes"
