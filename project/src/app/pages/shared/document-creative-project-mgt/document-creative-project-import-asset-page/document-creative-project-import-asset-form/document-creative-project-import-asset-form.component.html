@@ -1,24 +1,35 @@
 <div class="document-creative-project-home-action">
   <div class="actions-title">Set Default Data</div>
 </div>
-<button *ngIf="enableUpload" (click)="openFileSelectWindow($event)">Add</button>
-<document-batch-operation [documentModel]="document" [settings]="batchOperationSettings" (callback)="onCallback($event)" [templateRef]="formTemplate"></document-batch-operation>
+<document-batch-operation [documentModel]="document" [settings]="batchOperationSettings" (callback)="onCallback($event)"
+  [templateRef]="formTemplate"></document-batch-operation>
 <ng-template #formTemplate let-form="form" let-group="group">
   <div class="title">
-    <div class="upload-zone" *ngIf="enableUpload" style="height: 520px; padding: 100px 0; text-align:center; width: 80%; float: right;">
-      <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('file:content')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)">
-      </document-form-element>
-      <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('batchUpload')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
-        (customEvent)="form.onCustomEvent($event)">
-      </document-form-element>
+    <div *ngIf="enableUpload" style="width: 70%; float: right;margin-right: 5%;">
+      <div style="height: 35px;text-align:center; width: 100%; float: right; background-color: #EFEFEF;">
+        <div style="height: 35px; width: 40%; float: left; margin-left: 30%; font-weight: 700; line-height: 35px; font-size: 15px;">Drag & Drop / Bulk Edit</div>
+        <button style="float: right; color: #FFFFFF; font-weight: 700;height: 35px; width: 100px; background-color: #F9DA78; border-radius: 10px; border: none;" *ngIf="enableUpload" (click)="openFileSelectWindow($event)">Add</button>
+      </div>
+      <div style="height: 520px; padding: 100px 0; text-align:center; width: 100%; float: right;">
+        <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('file:content')"
+          (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
+          (customEvent)="form.onCustomEvent($event)">
+        </document-form-element>
+        <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('batchUpload')"
+          (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
+          (customEvent)="form.onCustomEvent($event)">
+        </document-form-element>
+      </div>
     </div>
     <div class="left-shared">
       <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels(['The_Loupe_Main:jobtitle', 'The_Loupe_ProdCredits:production_date', 'The_Loupe_Main:assettype',
-        'The_Loupe_Rights:first-airing','The_Loupe_Rights:contract_mediatypes','The_Loupe_Rights:asset_countries'])" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
+        'The_Loupe_Rights:first-airing','The_Loupe_Rights:contract_mediatypes','The_Loupe_Rights:asset_countries'])"
+        (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)"
         (customEvent)="form.onCustomEvent($event)">
       </document-form-element>
     </div>
-    <div *ngIf="!enableUpload" class="upload-remind" style="height: 540px; padding: 200px 0; text-align:center; line-height: 100px;">
+    <div *ngIf="!enableUpload" class="upload-remind"
+      style="height: 540px; padding: 200px 0; text-align:center; line-height: 100px;">
       <h2>You are about to import assets for the project.</h2>
       <h2>Please set the default meta information on the left.</h2>
     </div>
