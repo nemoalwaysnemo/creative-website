@@ -13,7 +13,7 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
-  mainViewChanged: any = { changed: false };
+  mainViewChanged: any = { changed: false, metadata: [] };
 
   document: DocumentModel;
 
@@ -69,7 +69,7 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   backToMainView(componentName: string = null, component: Type<any> = null, metadata?: any): void {
     const m = this.mainViewChanged;
-    const settings = metadata || m.metadata;
+    const settings = metadata || (m.metadata || []).pop();
     this.globalDocumentDialogService.backToMainView(componentName || m.componentName, settings || this.getDialogSettings(), component || m.component);
   }
 
@@ -153,7 +153,9 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
     const subscription = this.globalDocumentDialogService.onEventType('built-in').subscribe((e: DocumentDialogEvent) => {
       const options = e.options || {};
       if (e.name === 'MainViewChanged') {
-        this.mainViewChanged = options.mainViewChanged;
+        this.mainViewChanged.metadata = this.mainViewChanged.metadata || [];
+        this.mainViewChanged.changed = options.changed;
+        this.mainViewChanged.metadata.push(options.metadata);
       }
     });
     this.subscription.add(subscription);

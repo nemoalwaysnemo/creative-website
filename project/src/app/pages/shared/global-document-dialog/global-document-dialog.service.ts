@@ -85,8 +85,7 @@ export class GlobalDocumentDialogService {
   }
 
   mainViewChanged(changed: boolean, metadata: any = {}): void {
-    const mainViewChanged = { changed, metadata };
-    this.triggerEvent({ name: 'MainViewChanged', type: 'built-in', messageContent: 'Main View Changed', options: { mainViewChanged } });
+    this.triggerEvent({ name: 'MainViewChanged', type: 'built-in', messageContent: 'Main View Changed', options: { changed, metadata } });
   }
 
   backToMainView(componentName: string, settings: any, component: Type<any> = null): void {
