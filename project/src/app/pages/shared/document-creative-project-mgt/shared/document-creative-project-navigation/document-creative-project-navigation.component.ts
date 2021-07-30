@@ -111,7 +111,7 @@ export class DocumentCreativeProjectNavigationComponent implements OnInit, OnDes
   }
 
   private triggerChangePage(view: string, settings: CreativeProjectMgtSettings = {}): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedViewChanged', data: { view, type: 'page', settings, component: this.getPageComponent(view) }, type: 'creative-campaign-project-mgt' }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view, type: 'page', settings, component: this.getPageComponent(view) }, type: 'creative-campaign-project-mgt' }));
   }
 
 }

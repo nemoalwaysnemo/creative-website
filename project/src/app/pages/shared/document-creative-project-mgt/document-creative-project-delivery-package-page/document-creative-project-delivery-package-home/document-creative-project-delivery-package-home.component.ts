@@ -174,7 +174,6 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
     this.triggerChangeView(name, type,
       new CreativeProjectMgtSettings({
         document: (formMode === 'edit' && this.packageDocument) ? this.packageDocument : this.document,
-        dialogDocument: (formMode === 'edit' && this.packageDocument) ? this.packageDocument : this.document,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
         homePage: 'delivery-page',

@@ -13,12 +13,7 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
-  mainViewChanged: any = {
-    changed: false,
-    metadata: null,
-    component: null,
-    componentName: null,
-  };
+  mainViewChanged: any = { changed: false };
 
   document: DocumentModel;
 
@@ -74,7 +69,8 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
 
   backToMainView(componentName: string = null, component: Type<any> = null, metadata?: any): void {
     const m = this.mainViewChanged;
-    this.globalDocumentDialogService.backToMainView(componentName || m.componentName, (metadata || m.metadata) || this.getDialogSettings(), component || m.component);
+    const settings = metadata || m.metadata;
+    this.globalDocumentDialogService.backToMainView(componentName || m.componentName, settings || this.getDialogSettings(), component || m.component);
   }
 
   confirm(refresh: boolean = true, delay: number = 0): void {

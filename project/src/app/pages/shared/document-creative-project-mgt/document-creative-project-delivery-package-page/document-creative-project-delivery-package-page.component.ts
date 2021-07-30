@@ -21,6 +21,7 @@ export class DocumentCreativeProjectDeliveryPackagePageComponent extends Documen
     protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
+    this.subscribeEvents();
   }
 
   protected onInit(): void {

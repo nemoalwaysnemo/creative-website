@@ -1,7 +1,7 @@
-import { Component, Type } from '@angular/core';
+import { Component } from '@angular/core';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
+import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
-import { DocumentDialogEvent, GlobalDocumentDialogService } from '../../global-document-dialog.service';
 
 @Component({
   selector: 'creative-project-mgt-template',

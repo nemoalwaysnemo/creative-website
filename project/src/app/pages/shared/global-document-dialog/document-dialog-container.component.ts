@@ -30,8 +30,6 @@ export class DocumentDialogContainerComponent extends DocumentDialogBaseTemplate
 
   protected dynamicComponent: ComponentRef<any>;
 
-  protected subscription: Subscription = new Subscription();
-
   constructor(
     protected globalDocumentDialogService: GlobalDocumentDialogService,
     protected documentPageService: DocumentPageService,

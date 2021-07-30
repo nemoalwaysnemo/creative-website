@@ -58,8 +58,8 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
   changeDialogView(type: string, view = 'view'): void {
     this.triggerChangeView(type, view,
       new CreativeProjectMgtSettings({
+        mainViewChanged: true,
         document: this.document,
-        dialogDocument: this.document,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
         homePage: 'asset-page',
