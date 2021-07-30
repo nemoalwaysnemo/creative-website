@@ -213,8 +213,8 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     const itemInfo = item.triggerChangeSettings;
     this.triggerChangeView(itemInfo['name'], itemInfo['type'],
       new CreativeProjectMgtSettings({
+        mainViewChanged: true,
         document: this.document,
-        dialogDocument: this.document,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
         homePage: 'asset-page',
@@ -278,7 +278,15 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
 
   private subscribeHomeEvents(): void {
     const subscription = this.documentPageService.onEventType('list-search-row-custom-view').subscribe((event: GlobalEvent) => {
-      this.triggerChangeView('asset-detail-view', 'view', new CreativeProjectMgtSettings({ project: this.document, document: event.data.document }));
+      this.triggerChangeView('asset-detail-view', 'view', new CreativeProjectMgtSettings({
+        mainViewChanged: true,
+        project: this.document,
+        document: event.data.document,
+        mainViewDocument: this.document,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: 'asset-page',
+        homeView: 'asset-home-view',
+      }));
     });
     this.subscription.add(subscription);
   }

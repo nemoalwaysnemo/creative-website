@@ -90,7 +90,6 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
     this.triggerChangeView(name, type,
       new CreativeProjectMgtSettings({
         document: this.document,
-        dialogDocument: this.document,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
         homePage: '3rd-import-Page',

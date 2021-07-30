@@ -2,6 +2,7 @@ import { Directive, EventEmitter, ElementRef, Input, Output, HostListener, OnDes
 import { createInvisibleFileInputWrap, isFileInput, detectSwipe } from './helpers';
 import { acceptType, InvalidFileItem, dataUrl } from './file-tools';
 import { NgFileEvent, NgFileService } from './ng-file.service';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[ngFile]',
@@ -35,6 +36,8 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   @Input() files: File[] = [];
   @Output() filesChange: EventEmitter<File[]> = new EventEmitter<File[]>();
 
+  private subscription: Subscription = new Subscription();
+
   constructor(protected element: ElementRef, protected ngFileService: NgFileService) {
     this.subscribeEvents();
     this.initFilters();
@@ -52,6 +55,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     delete this.fileElm; // faster memory release of dom element
+    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -305,11 +309,12 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   }
 
   protected subscribeEvents(): void {
-    this.ngFileService.onEventType('ng-file').subscribe((event: NgFileEvent) => {
+    const subscription = this.ngFileService.onEventType('ng-file').subscribe((event: NgFileEvent) => {
       if (event.name === 'openSelectWindow') {
         this.clickHandler(event.data.event);
       }
     });
+    this.subscription.add(subscription);
   }
 
   /*protected _fileTypeFilter(item:File):boolean {

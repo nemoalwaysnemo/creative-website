@@ -41,7 +41,6 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected globalDocumentDialogService: GlobalDocumentDialogService) {
-    this.subscribeEvents();
   }
 
   ngOnInit(): void {
@@ -88,13 +87,18 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
 
   protected subscribeEvents(): void {
     const subscription = this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
-      if (event.data.type === 'page') {
-        this.onPageChanged(event);
-      } else if (event.data.type === 'view') {
-        this.onViewChanged(event);
-        this.globalDocumentDialogService.mainViewChanged(true);
-      } else if (event.data.type === 'dialog') {
-        this.globalDocumentDialogService.selectView(event.data.view, null, event.data.settings || {});
+      if (event.name === 'SelectedComponentChanged') {
+        if (event.data.type === 'page') {
+          this.onPageChanged(event);
+          this.globalDocumentDialogService.mainViewChanged(false);
+        } else if (event.data.type === 'view') {
+          this.onViewChanged(event);
+          const settings = event.data.settings;
+          if (settings.mainViewDocument) { settings.document = settings.mainViewDocument; delete settings.mainViewDocument; }
+          this.globalDocumentDialogService.mainViewChanged(settings.mainViewChanged, settings);
+        } else if (event.data.type === 'dialog') {
+          this.globalDocumentDialogService.selectView(event.data.view, null, event.data.settings || {});
+        }
       }
     });
     this.subscription.add(subscription);

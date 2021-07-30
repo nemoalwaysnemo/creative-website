@@ -20,6 +20,7 @@ export class DocumentCreativeProjectUsageRightsComponent extends DocumentCreativ
     protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
+    this.subscribeEvents();
   }
 
   protected onInit(): void {

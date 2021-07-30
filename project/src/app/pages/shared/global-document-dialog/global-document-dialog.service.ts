@@ -3,6 +3,7 @@ import { NbDialogService } from '@core/nebular/theme';
 import { Observable, Subject } from 'rxjs';
 import { share, filter, map } from 'rxjs/operators';
 import { DocumentModel } from '@core/api';
+import { isBoolean } from '@core/custom';
 
 export class DocumentDialogEvent {
   readonly name: string;
@@ -17,7 +18,7 @@ export class DocumentDialogEvent {
 export interface DocumentDialogOption {
   [key: string]: any;
   closeOnBackdropClick?: boolean;
-  mainViewChanged?: boolean;
+  mainViewChanged?: any;
   componentName?: string;
   component?: any;
   metadata?: any;
@@ -84,13 +85,12 @@ export class GlobalDocumentDialogService {
   }
 
   mainViewChanged(changed: boolean, metadata: any = {}): void {
-    const mainViewChanged = Object.assign({}, { changed }, metadata);
+    const mainViewChanged = { changed, metadata };
     this.triggerEvent({ name: 'MainViewChanged', type: 'built-in', messageContent: 'Main View Changed', options: { mainViewChanged } });
   }
 
   backToMainView(componentName: string, settings: any, component: Type<any> = null): void {
     const view = componentName || settings.homeTemplate;
-    settings.dialogDocument ? settings.document = settings.dialogDocument : delete settings.document;
     this.selectView(view, component, settings);
   }
 

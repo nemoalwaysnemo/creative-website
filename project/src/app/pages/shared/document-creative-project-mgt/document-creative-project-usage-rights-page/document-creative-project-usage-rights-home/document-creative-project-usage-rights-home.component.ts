@@ -59,7 +59,6 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
     this.triggerChangeView(item.id, type,
       new CreativeProjectMgtSettings({
         document: this.target,
-        dialogDocument: this.target,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
         homePage: 'usage-rights-Page',

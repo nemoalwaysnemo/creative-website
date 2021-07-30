@@ -123,7 +123,6 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
     this.triggerChangeView(name, type,
       new CreativeProjectMgtSettings({
         document: request_doc,
-        // dialogDocument: request_doc,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
         homePage: '3rd-import-Page',
