@@ -21,6 +21,7 @@ export class DocumentCreativeProjectSetUsageRightsComponent extends DocumentCrea
 
   batchOperationSettings: DocumentFormSettings = new DocumentFormSettings({
     formMode: 'edit',
+    enableBulkImport: false,
     formModel: [
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:modify_contract_talent',

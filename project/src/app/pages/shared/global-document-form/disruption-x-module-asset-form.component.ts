@@ -45,7 +45,7 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
         formMode: 'create',
-        layoutPosition: 'left',
+        layoutPosition: 'right',
         settings: {
           queueLimit: 1,
           placeholder: 'Drop to upload Module Video',
@@ -55,7 +55,7 @@ export class DisruptionXModuleAssetFormComponent extends GlobalDocumentFormCompo
       new DynamicDragDropFileZoneModel<string>({
         id: 'file:content',
         formMode: 'edit',
-        layoutPosition: 'left',
+        layoutPosition: 'right',
         settings: {
           queueLimit: 1,
           placeholder: 'Drop to upload Module Video',

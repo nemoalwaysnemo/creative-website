@@ -22,6 +22,7 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
 
   batchOperationSettings: DocumentFormSettings = new DocumentFormSettings({
     formMode: 'edit',
+    enableBulkImport: false,
     formModel: [
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Main:assettype',
