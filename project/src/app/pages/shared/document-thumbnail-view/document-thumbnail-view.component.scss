@@ -16,6 +16,9 @@
     position: relative;
     border: dotted 2px #3d3c3a;
     cursor: pointer;
+    &:hover {
+      border: dotted 2px #fecc26;
+    }
     .custom-add {
       text-align: center;
       @include media-breakpoint-down(md) {
