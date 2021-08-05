@@ -17,6 +17,10 @@ export class LearningHomeComponent extends GlobalDocumentViewComponent {
     super(activatedRoute, documentPageService);
   }
 
+  headline: string = 'We are perpetual learners.';
+
+  subHead: string = 'Continuous growth is the cornerstone of success throughout the TBWA Collective.';
+
   onInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();
     this.subscription.add(subscription);

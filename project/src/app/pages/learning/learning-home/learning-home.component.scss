@@ -14,3 +14,25 @@
     height: 55px;
     line-height: 55px;
  }
+h1 {
+   font-family: 'Averta for TBWA W01 Black', helvetica, arial;
+   font-size: 107px;
+   line-height: 42px;
+   margin-top: 112px;
+   margin-left: 60px;
+   color: #fecc00;
+}
+h4 {
+   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
+    font-size: 26px;
+    line-height: 30px;
+    margin-top: 26px;
+    margin-left: 60px;
+    margin: 20px 60px;
+    color: #010101;
+}
+.left-margin {
+   @media (min-width: 1400px) {
+      margin-left: calc((100% - 30px * 2 - 1220px) / 2)!important;
+   }
+}

@@ -1,9 +1,6 @@
-<div class="learning-home-header" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
-  <div *ngIf="document" class="document">
-    <div class="learning-banner" [ngStyle]="{'background-image': 'url('+document.fullHDPicture+')'}"></div>
-    <div class="learning-description"><span>{{ document.get('dc:description') }}</span></div>
-  </div>
-</div>
+<h1 class="headline left-margin" *ngIf="headline" title="{{headline}}">{{headline}}</h1>
+<h4 class="left-margin" title="{{subHead}}">{{subHead}}</h4>
+
 <!-- <div class="learning-home-form">
   <learning-home-search></learning-home-search>
 </div> -->
