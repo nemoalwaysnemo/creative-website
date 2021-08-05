@@ -21,6 +21,8 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
 
   targetCollection: any;
 
+  parentDocument: DocumentModel;
+
   append: boolean = false;
 
   baseParams$: Subject<any> = new Subject<any>();
@@ -62,6 +64,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
       const subscription = this.getValidDocuments(this.dialogSettings.documents).subscribe((docs: DocumentModel[]) => this.documents = docs);
       this.subscription.add(subscription);
     }
+    this.getParentDocument();
     this.triggerSearch();
   }
 
@@ -93,12 +96,19 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
     }
   }
 
+  getParentDocument(): void {
+    this.documentPageService.operation(NuxeoAutomations.GetDocument, { uuid: this.document.parentRef }, null, { schemas: '*' }).subscribe((doc: DocumentModel) => {
+      this.parentDocument = doc;
+    });
+  }
+
   openDialog(name: string): void {
     const formSettings = this.getDialogSettings().formSettings ? this.getDialogSettings().formSettings : {
       selectedDocuments: this.documents,
       formType: 'add',
     };
-    this.selectView(name, null, { formSettings });
+    const document = this.parentDocument ;
+    this.selectView(name, null, { formSettings, document });
   }
 
   private triggerSearch(): void {

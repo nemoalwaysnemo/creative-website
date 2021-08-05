@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse, UserModel } from '@core/api';
+import { DocumentModel, GlobalSearchParams, NuxeoAutomations, NuxeoPagination, NuxeoUploadResponse, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDocumentSelectListModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { ListSearchRowCustomViewComponent } from '../list-search-form-in-dialog';
@@ -43,8 +43,43 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     }
   }
 
+  private getPreference(doc: DocumentModel, user: UserModel): Observable<any> {
+    const params = {
+      ecm_fulltext: '',
+      currentPageIndex: 0,
+      pageSize: 1,
+      the_loupe_main_companycode: user.companycode,
+      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
+      the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
+    };
+    if (user.companycode) {
+      return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
+        map((res: NuxeoPagination) => this.updatePreference(doc, user, res.entries.shift())));
+    }
+  }
+
+  private updatePreference(doc: DocumentModel, user: UserModel, val: DocumentModel): DocumentModel {
+    const properties = Object.assign({}, doc.properties, {
+      'The_Loupe_Main:agency': val.get('The_Loupe_Main:agency'),
+      'The_Loupe_Main:country': this.formatData(user.get('fullCountry')),
+    });
+    return new DocumentModel({ uid: doc.uid, path: doc.path, title: doc.title, parentRef: doc.parentRef, type: this.getDocType(), properties });
+  }
+
+  protected formatData(data: any): string[] {
+    let formats = [];
+    if (typeof (data) === 'string') {
+      formats.push(data);
+    } else {
+      formats = formats.concat(data);
+    }
+    data = Array.from(new Set(formats));
+    return data;
+  }
+
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
-    return observableOf(doc);
+    return observableOf(doc).pipe(concatMap((d: DocumentModel) => this.getPreference(d, user)));
   }
 
   protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
@@ -68,7 +103,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
       formModel: [
         new DynamicInputModel({
           id: 'dc:title',
-          label: 'Title',
+          label: 'Collection Title',
           maxLength: 150,
           placeholder: 'Title',
           autoComplete: 'off',
@@ -102,35 +137,23 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           defaultValue: 'Asset Collection',
         }),
         new DynamicSuggestionModel<string>({
-          id: 'The_Loupe_Main:assettype',
-          label: 'Asset Type',
-          formMode: 'create',
-          required: true,
-          settings: {
-            multiple: false,
-            placeholder: 'What is this asset?',
-            providerType: SuggestionSettings.DIRECTORY,
-            providerName: 'App-Library-MediaTypes-Mixed',
-          },
-          validators: { required: null },
-          errorMessages: { required: '' },
-        }),
-        new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:agency',
           label: 'Agency',
-          formMode: 'create',
-          required: true,
+          defaultValueFn: (ctx: DocumentFormContext): any => ctx.currentDocument.getParent().get('The_Loupe_Main:agency'),
           settings: {
             multiple: false,
-            placeholder: 'What is this agency?',
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'GLOBAL_Agencies',
           },
         }),
-        new DynamicInputModel({
-          id: 'dc:description',
-          label: 'Description',
-          formMode: 'create',
+        new DynamicSuggestionModel<string>({
+          id: 'The_Loupe_Main:country',
+          label: 'Country',
+          defaultValueFn: (ctx: DocumentFormContext): any => ctx.currentDocument.getParent().get('The_Loupe_Main:country'),
+          settings: {
+            providerType: SuggestionSettings.DIRECTORY,
+            providerName: 'GLOBAL_Countries',
+          },
         }),
         new DynamicCheckboxModel({
           id: 'app_global:enable_thumbnail',
