@@ -207,7 +207,6 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
           providerName: 'javascript.provideURmediatypes',
           layout: 'direction-horizontal',
         },
-        validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
@@ -224,8 +223,6 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
           layout: 'direction-horizontal',
           customClass: 'horizontal-input',
         },
-
-        validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
         onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
@@ -243,7 +240,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
 
   onCallback(event: DocumentFormEvent): void {
     if (event.action === 'Created') {
-      this.showMsg();
+      // this.showMsg();
       this.goToAssetHome();
     } else if (!this.enableUpload && event.action === 'SharedValueChanged' && Object.values(event.formValue).every((v: any) => !isValueEmpty(v))) {
       this.enableUpload = true;
