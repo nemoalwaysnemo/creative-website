@@ -1,9 +1,5 @@
 <div class="document-creative-project-home-action">
-  <div class="actions-title">ACTIONS</div>
-  <nb-menu [items]="actions$ | async" (itemClick)="onMenuClick($event)"></nb-menu>
-  <div class="document-creative-project-info">
-    <document-creative-project-info [document]='document'></document-creative-project-info>
-  </div>
+  <ng-template #dynamicTarget></ng-template>
 </div>
 <div class="document-creative-project-home-nav">
   <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>

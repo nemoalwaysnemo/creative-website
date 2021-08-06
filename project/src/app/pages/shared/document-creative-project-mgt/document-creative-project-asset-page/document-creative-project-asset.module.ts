@@ -12,6 +12,8 @@ import { DocumentCreativeProjectAssetHomeComponent, DocumentCreativeProjectAsset
 import { DocumentCreativeProjectAssetDetailModule } from './document-creative-project-asset-detail/document-creative-project-asset-detail.module';
 import { DocumentCreativeProjectModifyAssetsComponent } from './document-creative-project-modify-assets/document-creative-project-modify-assets.component';
 import { DocumentBatchOperationModule } from '../../document-batch-operation/document-batch-operation.module';
+import { DocumentCreativeProjectAssetHomeMenuComponent } from './document-creative-project-asset-home/document-creative-project-asset-home-action/document-creative-project-asset-home-menu.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { DocumentBatchOperationModule } from '../../document-batch-operation/doc
     DocumentBatchOperationModule,
   ],
   declarations: [
+    DocumentCreativeProjectAssetHomeMenuComponent,
     DocumentCreativeProjectAssetPageComponent,
     DocumentCreativeProjectAssetHomeComponent,
     DocumentCreativeProjectAssetRowRenderComponent,
