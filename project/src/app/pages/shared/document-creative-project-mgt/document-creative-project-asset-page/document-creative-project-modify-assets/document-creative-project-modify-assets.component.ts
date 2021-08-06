@@ -28,7 +28,6 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
         id: 'The_Loupe_Main:assettype',
         label: 'New Asset Type',
         document: true,
-        required: true,
         settings: {
           multiple: false,
           placeholder: 'What is this asset?',
@@ -42,7 +41,6 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
       new DynamicDatepickerDirectiveModel<string>({
         id: 'The_Loupe_Rights:first-airing',
         label: 'New First Airing',
-        required: false,
         readonly: false,
         validators: {
           dateFormatValidator: null,
@@ -54,7 +52,6 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
       new DynamicSuggestionModel<string>({
         id: 'The_Loupe_Rights:contract_mediatypes',
         label: 'New Media Usage Types',
-        required: true,
         document: true,
         settings: {
           placeholder: 'Where is this used?',

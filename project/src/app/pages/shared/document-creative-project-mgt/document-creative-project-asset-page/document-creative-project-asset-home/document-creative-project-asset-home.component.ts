@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, Input, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { vocabularyFormatter } from '@core/services/helpers';
 import { DocumentModel, NuxeoAutomations, NuxeoPagination, SearchResponse, UserModel } from '@core/api';
@@ -16,6 +16,8 @@ import { of as observableOf, Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentCreativeProjectAssetHomeMenuComponent } from './document-creative-project-asset-home-action/document-creative-project-asset-home-menu.component';
+import { DocumentCreativeProjectModifyAssetsComponent } from '../document-creative-project-modify-assets/document-creative-project-modify-assets.component';
 
 @Component({
   template: `
@@ -50,6 +52,15 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
     this.subscribeHomeEvents();
   }
+
+  @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
+
+  dynamicComponent: ComponentRef<any>;
+
+  LEFT_COMP = {
+    home_menu: DocumentCreativeProjectAssetHomeMenuComponent,
+    modify_assets: DocumentCreativeProjectModifyAssetsComponent,
+  };
 
   private actions: NbMenuItem[] = [
     {
@@ -209,39 +220,64 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     return this.getUsageRightsStatus(res);
   }
 
-  onMenuClick(item: NbMenuItem): void {
-    const itemInfo = item.triggerChangeSettings;
-    this.triggerChangeView(itemInfo['name'], itemInfo['type'],
-      new CreativeProjectMgtSettings({
-        mainViewChanged: true,
-        document: this.document,
-        project: this.templateSettings.project,
-        homeTemplate: 'creative-project-mgt-template',
-        homePage: 'asset-page',
-        homeView: 'asset-home-view',
-        formMode: itemInfo['formMode'],
-        showMessageBeforeSave: false,
-        batchDocuments: this.selectedItems,
-        brand: this.document.getParent(),
-      }));
-  }
-
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
 
   onSelected(row: any): void {
     this.selectedItems = row.selected.map((item: DocumentListViewItem) => item.action);
-    this.actions$.next(this.buildActions(this.selectedItems.length > 0));
+    this.dynamicComponent.instance.actions$.next(this.buildActions(this.selectedItems.length > 0));
   }
 
   protected onInit(): void {
-    this.actions$.next(this.buildActions(false));
+    this.createComponent(this.LEFT_COMP.home_menu);
   }
 
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
     this.navSettings = this.buildNavSettings(doc);
     return observableOf(doc);
+  }
+
+   protected createComponent(component: Type<any>): void {
+     this.dynamicComponent = this.createDynamicMenuComponent(component);
+     this.dynamicComponent.instance.actions$.next(this.buildActions(false));
+     this.dynamicComponent.instance.document = this.document;
+     const subscription = this.dynamicComponent.instance.itemClick.subscribe((item: NbMenuItem) => {
+       if (item.id !== 'modify-assets'){
+         const itemInfo = item.triggerChangeSettings;
+         this.triggerChangeView(itemInfo['name'], itemInfo['type'], this.createMgtSettings(itemInfo['formMode']));
+       }else{
+         this.setFormComponent();
+       }
+     });
+     this.subscription.add(subscription);
+  }
+
+  private setFormComponent(): void {
+    this.dynamicComponent = this.createDynamicMenuComponent(this.LEFT_COMP.modify_assets);
+    this.dynamicComponent.instance.documentModel = this.document;
+    this.dynamicComponent.instance.settings = this.createMgtSettings();
+  }
+
+  private createDynamicMenuComponent(component: Type<any>): ComponentRef<any> {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    this.dynamicTarget.clear();
+    return this.dynamicTarget.createComponent(componentFactory);
+  }
+
+  private createMgtSettings(mode: string = 'eidt'): CreativeProjectMgtSettings {
+    return new CreativeProjectMgtSettings({
+      mainViewChanged: true,
+      document: this.document,
+      project: this.templateSettings.project,
+      homeTemplate: 'creative-project-mgt-template',
+      homePage: 'asset-page',
+      homeView: 'asset-home-view',
+      formMode: mode,
+      showMessageBeforeSave: false,
+      batchDocuments: this.selectedItems,
+      brand: this.document.getParent(),
+    });
   }
 
   private buildNavSettings(doc: DocumentModel): any {
