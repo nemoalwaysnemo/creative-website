@@ -30,7 +30,7 @@ export const TAB_CONFIG: NbMenuItem[] = [
     component: DocumentCreativeProjectDeliveryPackagePageComponent,
   },
   {
-    id: 'usage-rights-Page',
+    id: 'usage-rights-page',
     title: 'Usage Rights',
     component: DocumentCreativeProjectUsageRightsComponent,
   },

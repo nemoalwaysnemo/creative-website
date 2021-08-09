@@ -154,8 +154,10 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
       const options = e.options || {};
       if (e.name === 'MainViewChanged') {
         this.mainViewChanged.metadata = this.mainViewChanged.metadata || [];
-        this.mainViewChanged.changed = options.changed;
-        this.mainViewChanged.metadata.push(options.metadata);
+        if (options.metadata && options.metadata.homeView && !this.mainViewChanged.metadata.find((x: any) => x.homeView === options.metadata.homeView)) {
+          this.mainViewChanged.changed = options.changed;
+          this.mainViewChanged.metadata.push(options.metadata);
+        }
       }
     });
     this.subscription.add(subscription);

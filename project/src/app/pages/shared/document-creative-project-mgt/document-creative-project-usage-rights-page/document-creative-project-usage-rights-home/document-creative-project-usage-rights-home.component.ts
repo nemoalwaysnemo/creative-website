@@ -58,10 +58,11 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
   changeMenuView(item: NbMenuItem, type: string = 'view', formMode: string = 'create'): void {
     this.triggerChangeView(item.id, type,
       new CreativeProjectMgtSettings({
+        mainViewChanged: true,
         document: this.target,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
-        homePage: 'usage-rights-Page',
+        homePage: 'usage-rights-page',
         homeView: 'usage-rights-home-view',
         formMode,
         showMessageBeforeSave: false,
@@ -124,7 +125,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
 
   private buildUsageRightNavSettings(doc: DocumentModel): any {
     return new ProjectMgtNavigationSettings({
-      currentPage: 'usage-rights-Page',
+      currentPage: 'usage-rights-page',
       searchFormParams: this.buildUsageRightParams(doc, doc.getParent('brand')),
       searchFormSettings: new GlobalSearchFormSettings({
         source: 'document-creative-project-usage-right',
@@ -136,7 +137,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
 
   private buildAssetNavSettings(doc: DocumentModel): any {
     return new ProjectMgtNavigationSettings({
-      currentPage: 'usage-rights-Page',
+      currentPage: 'usage-rights-page',
       searchFormParams: this.buildAssetParams(doc, doc.getParent('brand')),
       searchFormSettings: new GlobalSearchFormSettings({
         source: 'document-creative-project-asset',
@@ -182,7 +183,14 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
 
   private subscribeHomeEvents(): void {
     const subscription = this.documentPageService.onEventType('list-search-row-custom-view').subscribe((event: GlobalEvent) => {
-      this.triggerChangeView('asset-detail-view', 'view', new CreativeProjectMgtSettings({ project: this.document, document: event.data.document }));
+      this.triggerChangeView('asset-detail-view', 'view', new CreativeProjectMgtSettings({
+        mainViewChanged: true,
+        project: this.document,
+        document: event.data.document,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: 'usage-rights-page',
+        homeView: 'usage-rights-home-view',
+      }));
     });
     this.subscription.add(subscription);
   }

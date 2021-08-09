@@ -31,7 +31,7 @@ import { SearchFilterModel } from '../../../../shared/global-search-filter/globa
   `,
 })
 export class DocumentCreativeCampaignAssetRowRenderComponent {
-  @Input() value: { mediatypes: any , countries: string };
+  @Input() value: { mediatypes: any, countries: string };
 }
 
 @Component({
@@ -182,7 +182,14 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
 
   private subscribeHomeEvents(): void {
     const subscription = this.documentPageService.onEventType('list-search-row-custom-view').subscribe((event: GlobalEvent) => {
-      this.triggerChangeView('asset-detail-view', 'view', new CreativeCampaignMgtSettings({ project: this.document, document: event.data.document }));
+      this.triggerChangeView('asset-detail-view', 'view', new CreativeCampaignMgtSettings({
+        mainViewChanged: true,
+        document: event.data.document,
+        project: this.document,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: 'asset-page',
+        homeView: 'asset-detail-view',
+      }));
     });
     this.subscription.add(subscription);
   }

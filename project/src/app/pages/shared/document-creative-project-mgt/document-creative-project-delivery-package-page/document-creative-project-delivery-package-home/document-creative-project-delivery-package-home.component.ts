@@ -173,6 +173,7 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
   changeMenuView(name: string, type: string, formMode: string): void {
     this.triggerChangeView(name, type,
       new CreativeProjectMgtSettings({
+        mainViewChanged: true,
         document: (formMode === 'edit' && this.packageDocument) ? this.packageDocument : this.document,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',

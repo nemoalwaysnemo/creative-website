@@ -90,7 +90,13 @@ export class DocumentCreativeProjectSetUsageRightsComponent extends DocumentCrea
 
   onCallback(event: DocumentFormEvent): void {
     if (event.action === 'Updated' || event.action === 'Canceled') {
-      this.triggerChangeView('asset-home-view', 'view', new CreativeProjectMgtSettings({ document: this.templateSettings.project }));
+      this.triggerChangeView('asset-home-view', 'view', new CreativeProjectMgtSettings({
+        mainViewChanged: true,
+        document: this.templateSettings.project,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: 'asset-page',
+        homeView: 'asset-home-view',
+      }));
     }
   }
 }
