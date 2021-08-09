@@ -47,12 +47,14 @@ h3 {
   }
 }
 .asset-media {
-  width: 30%;
+  width: 60%;
   float: left;
+  padding-left: 2px;
 }
 .asset-info {
-  width: 70%;
+  width: 40%;
   float: right;
+  margin-top: 10px;
 }
 .one-row {
   width: calc(100% - 30px);
@@ -89,7 +91,7 @@ h3 {
       color: #000000;
       border-bottom: none;
       box-sizing: border-box;
-      width: 17%;
+      width: 32%;
     }
     .accordion-item-body {
       margin-left: 3px;

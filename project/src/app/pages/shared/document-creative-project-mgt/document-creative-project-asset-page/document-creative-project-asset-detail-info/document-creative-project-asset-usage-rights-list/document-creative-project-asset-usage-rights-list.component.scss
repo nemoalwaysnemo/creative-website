@@ -34,4 +34,17 @@
   .usage-item {
     width: 18%;
   }
+  img {
+    max-height: 40px !important;
+    max-width: 70px !important;
+  }
+  .list-view-table {
+    table {
+      tr {
+        th {
+          font-size: 0.875em;
+        }
+      }
+    }
+  }
 }
