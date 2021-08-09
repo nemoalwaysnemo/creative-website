@@ -122,6 +122,7 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
   changeMenuView(name: string, type: string, formMode: string, request_doc: DocumentModel): void {
     this.triggerChangeView(name, type,
       new CreativeProjectMgtSettings({
+        mainViewChanged: true,
         document: request_doc,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',

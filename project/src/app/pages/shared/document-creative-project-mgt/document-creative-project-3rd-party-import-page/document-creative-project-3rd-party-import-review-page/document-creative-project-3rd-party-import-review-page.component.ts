@@ -152,6 +152,7 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
   private refresh(): void {
     this.triggerChangeView('3rd-import-request-review', 'view',
       new CreativeProjectMgtSettings({
+        mainViewChanged: true,
         document: this.requestDocument,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',

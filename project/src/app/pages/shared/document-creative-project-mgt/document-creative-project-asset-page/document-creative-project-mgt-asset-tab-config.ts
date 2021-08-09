@@ -7,6 +7,7 @@ import { DocumentCreativeProjectImportAssetHomeComponent } from '../document-cre
 import { DocumentCreativeProjectAssetPackageSendComponent } from '../document-creative-project-delivery-package-page/document-creative-project-asset-package-send/document-creative-project-asset-package-send.component';
 import { DocumentCreativeProjectSetUsageRightsComponent } from '../document-creative-project-usage-rights-page/document-creative-project-set-usage-rights/document-creative-project-set-usage-rights.component';
 import { CreativeAssetAudioFormComponent, CreativeAssetImageFormComponent, CreativeAssetVideoFormComponent, CreativeProjectFormComponent } from '../../../shared/global-document-form';
+
 export const TAB_CONFIG: NbMenuItem[] = [
   {
     id: 'asset-home-view',

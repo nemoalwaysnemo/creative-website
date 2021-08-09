@@ -19,12 +19,6 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
 
   navSettings: ProjectMgtNavigationSettings;
 
-  searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    source: 'document-creative-project-import-asset',
-    enableSearchForm: false,
-    autoSearch: false,
-  });
-
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
@@ -32,10 +26,6 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
   ) {
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
     this.subscribeHomeEvents();
-  }
-
-  onMenuClick(item: NbMenuItem): void {
-    this.triggerChangeView(item.id, item.type);
   }
 
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
@@ -69,7 +59,14 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
 
   private subscribeHomeEvents(): void {
     const subscription = this.documentPageService.onEventType('list-search-row-custom-view').subscribe((event: GlobalEvent) => {
-      this.triggerChangeView('asset-detail-view', 'view', new CreativeProjectMgtSettings({ project: this.document, document: event.data.document }));
+      this.triggerChangeView('asset-detail-view', 'view', new CreativeProjectMgtSettings({
+        mainViewChanged: true,
+        project: this.document,
+        document: event.data.document,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: 'asset-page',
+        homeView: 'asset-detail-view',
+      }));
     });
     this.subscription.add(subscription);
   }
