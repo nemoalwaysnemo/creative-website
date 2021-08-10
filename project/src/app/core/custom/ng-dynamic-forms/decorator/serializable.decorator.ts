@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import 'reflect-metadata';
 
 declare const Reflect: any;

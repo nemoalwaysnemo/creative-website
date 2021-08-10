@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 export const AUTOCOMPLETE_OFF = 'off';
 export const AUTOCOMPLETE_ON = 'on';
 
