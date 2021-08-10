@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { DocumentModel, NuxeoUploadResponse } from '@core/api';
 import { DynamicBatchUploadModel, DynamicDragDropFileZoneModel, DynamicFormModel, DynamicFormService } from '@core/custom';
 import { DynamicNGFormSettings } from '../document-form-extension/dynamic-ng-form';

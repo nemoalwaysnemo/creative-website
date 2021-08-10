@@ -96,7 +96,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "tbwa-knowledge-website:build",
-            "sslKey": "cert/ssl.local-key.pem",
+            "sslKey": "cert/ssl.local-key",
             "sslCert": "cert/ssl.local.pem",
             "ssl": true
           },

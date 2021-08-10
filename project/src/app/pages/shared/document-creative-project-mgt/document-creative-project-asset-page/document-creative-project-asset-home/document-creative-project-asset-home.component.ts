@@ -318,6 +318,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
         mainViewChanged: true,
         project: this.document,
         document: event.data.document,
+        mainViewDocument: this.document,
         homeTemplate: 'creative-project-mgt-template',
         homePage: 'asset-page',
         homeView: 'asset-home-view',
