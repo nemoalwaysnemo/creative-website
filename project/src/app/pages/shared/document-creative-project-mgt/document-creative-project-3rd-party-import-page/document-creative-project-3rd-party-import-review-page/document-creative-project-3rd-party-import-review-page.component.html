@@ -1,7 +1,7 @@
 <div class="document-creative-project-home-action">
   <div class="actions-title">Request Info</div>
 </div>
-<div class="document-creative-project-home-nav"> 
+<div class="document-creative-project-home-nav">
   <div class="creative-project-navigation">
     <div class="creative-project-navigation-home">
       <div class="left logo" title="Home" (click)="goHome()">3rd-import View</div>
@@ -26,16 +26,16 @@
       <button (click)="moveAssets()" disabled="{{disabled}}" class="approve-button {{disabled}}">Approve and move selected assets to library</button>
   </div>
 </div>
-<div class="document-creative-project-home-nav"> 
-  <div class="creative-project-navigation import-queue"> 
+<div class="document-creative-project-home-nav">
+  <div class="creative-project-navigation import-queue">
     <div class="creative-project-navigation-home">
       <div class="queue-title">Import Queue</div>
-      <list-search-form-in-dialog [searchParams]="baseParams$ | async" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)"></list-search-form-in-dialog>
+      <list-search-form-in-dialog [searchParams]="baseParams$ | async" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (rowSelect)="onSelected($event)"></list-search-form-in-dialog>
     </div>
   </div>
 </div>
-<div class="document-creative-project-home-nav"> 
-  <div class="creative-project-navigation accepted-queue"> 
+<div class="document-creative-project-home-nav">
+  <div class="creative-project-navigation accepted-queue">
     <div class="creative-project-navigation-home">
       <div class="queue-title">Accepted Imports</div>
     </div>

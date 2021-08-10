@@ -72,7 +72,7 @@ export class BackslashDocumentAssetSearchResultComponent extends BaseSearchResul
       }));
     }
     return items;
-  }
+  };
 
   constructor(private globalDocumentDialogService: GlobalDocumentDialogService, documentPageService: DocumentPageService) {
     super(documentPageService);

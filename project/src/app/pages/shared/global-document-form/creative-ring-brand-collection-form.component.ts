@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-ring-brand-collection-form',
-  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-form>`,
+  template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-form>',
 })
 export class CreativeRingBrandCollectionFormComponent extends GlobalDocumentFormComponent {
 
@@ -32,7 +32,7 @@ export class CreativeRingBrandCollectionFormComponent extends GlobalDocumentForm
     } else {
       return observableOf(ctx);
     }
-  }
+  };
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());

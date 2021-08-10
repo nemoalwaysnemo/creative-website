@@ -34,7 +34,7 @@ import { DocumentCreativeProjectModifyAssetsComponent } from '../document-creati
   `,
 })
 export class DocumentCreativeProjectAssetRowRenderComponent {
-  @Input() value: { mediatypes: any, countries: string };
+  @Input() value: { mediatypes: any; countries: string };
 }
 
 @Component({
@@ -214,11 +214,11 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       }));
     }
     return items;
-  }
+  };
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
-  }
+  };
 
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
@@ -238,19 +238,19 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     return observableOf(doc);
   }
 
-   protected createComponent(component: Type<any>): void {
-     this.dynamicComponent = this.createDynamicMenuComponent(component);
-     this.dynamicComponent.instance.actions$.next(this.buildActions(false));
-     this.dynamicComponent.instance.document = this.document;
-     const subscription = this.dynamicComponent.instance.itemClick.subscribe((item: NbMenuItem) => {
-       if (item.id !== 'modify-assets'){
-         const itemInfo = item.triggerChangeSettings;
-         this.triggerChangeView(itemInfo['name'], itemInfo['type'], this.createMgtSettings(itemInfo['formMode']));
-       }else{
-         this.setFormComponent();
-       }
-     });
-     this.subscription.add(subscription);
+  protected createComponent(component: Type<any>): void {
+    this.dynamicComponent = this.createDynamicMenuComponent(component);
+    this.dynamicComponent.instance.actions$.next(this.buildActions(false));
+    this.dynamicComponent.instance.document = this.document;
+    const subscription = this.dynamicComponent.instance.itemClick.subscribe((item: NbMenuItem) => {
+      if (item.id !== 'modify-assets'){
+        const itemInfo = item.triggerChangeSettings;
+        this.triggerChangeView(itemInfo['name'], itemInfo['type'], this.createMgtSettings(itemInfo['formMode']));
+      }else{
+        this.setFormComponent();
+      }
+    });
+    this.subscription.add(subscription);
   }
 
   private setFormComponent(): void {

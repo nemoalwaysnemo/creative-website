@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 export function compareValues(direction: any, a: any, b: any): any {
   if (a < b) {
     return -1 * direction;

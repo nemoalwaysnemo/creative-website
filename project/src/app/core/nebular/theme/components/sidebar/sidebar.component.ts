@@ -299,7 +299,7 @@ export class NbSidebarComponent implements OnChanges, OnInit, OnDestroy {
     this.mediaQuerySubscription = this.onMediaQueryChanges();
     this.sidebarService.onToggle()
       .pipe(takeWhile(() => this.alive))
-      .subscribe((data: { compact: boolean, tag: string }) => {
+      .subscribe((data: { compact: boolean; tag: string }) => {
         if (!this.tag || this.tag === data.tag) {
           this.toggle(data.compact);
         }

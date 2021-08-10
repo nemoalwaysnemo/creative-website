@@ -2,7 +2,7 @@ import { DynamicFormValueControlModelConfig, DynamicFormValueControlModel } from
 import { DynamicFormControlLayout } from './misc/dynamic-form-control-layout.model';
 import { serializable } from '../decorator/serializable.decorator';
 
-export type DynamicDateControlValue = string | object | Date;
+export type DynamicDateControlValue = string | any | Date;
 
 export interface DynamicDateControlModelConfig extends DynamicFormValueControlModelConfig<DynamicDateControlValue> {
 

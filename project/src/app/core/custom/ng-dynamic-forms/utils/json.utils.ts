@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { isString } from './core.utils';
 
 export function maskToString(mask: string | RegExp | (string | RegExp)[]): string | string[] | null {

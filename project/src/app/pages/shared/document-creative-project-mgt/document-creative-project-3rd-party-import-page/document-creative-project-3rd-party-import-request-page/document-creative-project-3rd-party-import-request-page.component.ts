@@ -75,7 +75,7 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
       }));
     }
     return items;
-  }
+  };
 
   constructor(
     protected documentPageService: DocumentPageService,

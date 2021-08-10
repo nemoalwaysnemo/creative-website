@@ -4,9 +4,9 @@ export class DynamicNGFormSettings {
 
   formModel: DynamicFormModel = [];
 
-  accordionSettings: { name: string, position?: string, models: DynamicFormModel }[] = [];
+  accordionSettings: { name: string; position?: string; models: DynamicFormModel }[] = [];
 
-  switchTabSettings: { name: string, disabled?: boolean, models: DynamicFormModel, active: boolean }[] = [];
+  switchTabSettings: { name: string; disabled?: boolean; models: DynamicFormModel; active: boolean }[] = [];
 
   formMode: 'create' | 'edit' | 'view' = 'create';
 

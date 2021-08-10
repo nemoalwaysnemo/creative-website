@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { ComponentFactoryResolver, ComponentRef, Injectable, TemplateRef, Type } from '@angular/core';
 
 import {
@@ -24,7 +25,7 @@ export function createContainer<T>(
   container: NbComponentType<T>,
   context: any,
   componentFactoryResolver?: ComponentFactoryResolver,
-  ): ComponentRef<T> {
+): ComponentRef<T> {
   const containerRef = ref.attach(new NbComponentPortal(container, null, null, componentFactoryResolver));
   patch(containerRef, context);
   return containerRef;

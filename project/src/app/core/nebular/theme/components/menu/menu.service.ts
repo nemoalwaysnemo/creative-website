@@ -11,7 +11,7 @@ import { Observable, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { isUrlPathContain, isUrlPathEqual } from './url-matching-helpers';
 
-export interface NbMenuBag { tag: string; item: NbMenuItem; }
+export interface NbMenuBag { tag: string; item: NbMenuItem }
 
 const itemClick$ = new Subject<NbMenuBag>();
 const addItems$ = new ReplaySubject<{ tag: string; items: NbMenuItem[] }>(1);
@@ -116,7 +116,7 @@ export class NbMenuItem {
 
   fragment?: string;
 
-  triggerChangeSettings?: {};
+  triggerChangeSettings?: any;
   /**
    * @returns item parents in top-down order
    */

@@ -425,7 +425,7 @@ export class NuxeoRequestOptions {
   [key: string]: any;
   skipAggregates?: boolean = true;
   schemas?: string[] = ['dublincore', 'file', 'files', 'video', 'picture', 'facetedTag', 'app_global', 'app_global_fields', 'app_Edges', 'app_Learning', 'The_Loupe_Main', 'The_Loupe_ProdCredits', 'The_Loupe_Rights', 'collectionMember', 'collection'];
-  enrichers?: {} = {
+  enrichers?: any = {
     document: [
       NuxeoEnricher.document.PREVIEW,
       // NuxeoEnricher.document.SUBTYPES,

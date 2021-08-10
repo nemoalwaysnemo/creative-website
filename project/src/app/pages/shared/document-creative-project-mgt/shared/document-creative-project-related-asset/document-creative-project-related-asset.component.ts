@@ -149,11 +149,11 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
       }));
     }
     return items;
-  }
+  };
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
-  }
+  };
 
   onSelected(event: any): void {
     event.selectedType = this.packageViewSettings.type;

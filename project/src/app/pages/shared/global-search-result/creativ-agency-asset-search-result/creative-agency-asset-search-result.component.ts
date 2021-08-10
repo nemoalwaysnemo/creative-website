@@ -41,7 +41,7 @@ export class CreativeAgencyAssetSearchResultComponent extends BaseSearchResultCo
       }));
     }
     return items;
-  }
+  };
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);

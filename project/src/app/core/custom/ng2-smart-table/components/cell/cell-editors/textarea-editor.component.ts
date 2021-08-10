@@ -12,9 +12,9 @@ import { DefaultEditorComponent } from './default-editor';
               [name]="cell.getId()"
               [disabled]="!cell.isEditable()"
               [placeholder]="cell.getTitle()"
-              (click)="onClick.emit($event)"
-              (keydown.enter)="onEdited.emit($event)"
-              (keydown.esc)="onStopEditing.emit()">
+              (click)="click.emit($event)"
+              (keydown.enter)="edited.emit($event)"
+              (keydown.esc)="stopEditing.emit()">
     </textarea>
     `,
 })

@@ -58,7 +58,7 @@ export class NgFileDropDirective extends NgFileDirective {
   /** browsers try hard to conceal data about file drags, this tends to undo that */
   filesToWriteableObject(files: File[]): DragMeta[] {
     const jsonFiles: DragMeta[] = [];
-    // tslint:disable-next-line:prefer-for-of
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let x = 0; x < files.length; ++x) {
       jsonFiles.push({
         type: files[x].type,

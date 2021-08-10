@@ -68,10 +68,10 @@ export class CreativeMyAgencyActionComponent implements OnInit, OnDestroy {
     return forkJoin(
       docs.map((doc: DocumentModel) => zip(doc.hasPermission(NuxeoPermission.Write)),
       )).pipe(
-        map((r: any[]) => {
-          return r.map((b: boolean[]) => b.some((x: boolean) => x)).some((x: boolean) => x);
-        }),
-      );
+      map((r: any[]) => {
+        return r.map((b: boolean[]) => b.some((x: boolean) => x)).some((x: boolean) => x);
+      }),
+    );
   }
 
 }

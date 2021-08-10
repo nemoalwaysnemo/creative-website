@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { DocumentModel } from './nuxeo.document-model';
 import { BatchUpload } from './nuxeo.batch-upload';
 import { BatchBlob } from './base.interface';

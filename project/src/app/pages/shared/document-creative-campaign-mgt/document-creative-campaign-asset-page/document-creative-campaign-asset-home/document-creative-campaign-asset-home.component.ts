@@ -31,7 +31,7 @@ import { SearchFilterModel } from '../../../../shared/global-search-filter/globa
   `,
 })
 export class DocumentCreativeCampaignAssetRowRenderComponent {
-  @Input() value: { mediatypes: any, countries: string };
+  @Input() value: { mediatypes: any; countries: string };
 }
 
 @Component({
@@ -120,7 +120,7 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
       }));
     }
     return items;
-  }
+  };
 
   constructor(
     protected documentPageService: DocumentPageService,
@@ -133,7 +133,7 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
-  }
+  };
 
   onMenuClick(item: NbMenuItem): void {
     this.triggerChangeView(item.id, item.type);

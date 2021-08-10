@@ -42,7 +42,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
       doc.setProperty('The_Loupe_Main:country', !isValueEmpty(doc.get('The_Loupe_Main:country')) ? doc.get('The_Loupe_Main:country') : country);
     }
     return observableOf(doc);
-  }
+  };
 
   afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {
     this.selectableItemService.clear();
@@ -55,7 +55,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     } else {
       return observableOf(ctx);
     }
-  }
+  };
 
   private getPreference(doc: DocumentModel, user: UserModel): Observable<any> {
     const params = {

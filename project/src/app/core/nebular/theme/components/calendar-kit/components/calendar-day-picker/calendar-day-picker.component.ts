@@ -26,7 +26,7 @@ import { NbCalendarCell, NbCalendarSize } from '../../model';
  */
 @Component({
   selector: 'nb-calendar-day-picker',
-  styles: [` :host { display: block; } `],
+  styles: [' :host { display: block; } '],
   template: `
     <nb-calendar-days-names></nb-calendar-days-names>
     <nb-calendar-picker

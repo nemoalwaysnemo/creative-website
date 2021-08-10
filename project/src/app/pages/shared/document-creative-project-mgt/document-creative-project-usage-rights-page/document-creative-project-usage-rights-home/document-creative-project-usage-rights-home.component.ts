@@ -213,11 +213,11 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
 
   linkAssetToContract(asset: DocumentModel, contract: any): void {
     const type = CONTRACT_YTPES[contract.type];
-    const UR_ids: string[] = asset.get(type);
-    if (UR_ids.indexOf(contract.uid) === -1) {
+    const ids: string[] = asset.get(type);
+    if (ids.indexOf(contract.uid) === -1) {
       const opt = {};
-      UR_ids.push(contract.uid);
-      opt[type] = UR_ids;
+      ids.push(contract.uid);
+      opt[type] = ids;
       asset.set(opt).save().subscribe(_ => {
         this.documentPageService.notify(`${asset.title} linked successfully!`, '', 'success');
         this.documentPageService.triggerEvent(new GlobalEvent({ name: 'AfterLinkAssetClick', value: contract.uid }));

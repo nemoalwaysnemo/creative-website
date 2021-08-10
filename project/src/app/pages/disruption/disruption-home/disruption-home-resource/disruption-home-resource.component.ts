@@ -37,7 +37,7 @@ export class DisruptionHomeResourceComponent extends BaseDocumentViewComponent {
     this.search(this.params);
   }
 
-  private search(params: {}): void {
+  private search(params: any = {}): void {
     const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title));

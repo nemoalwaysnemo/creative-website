@@ -9,15 +9,15 @@ export class DefaultEditorComponent implements Editor {
   @Input() cell: Cell;
   @Input() inputClass: string;
 
-  @Output() onStopEditing = new EventEmitter<any>();
-  @Output() onEdited = new EventEmitter<any>();
-  @Output() onClick = new EventEmitter<any>();
+  @Output() stopEditing = new EventEmitter<any>();
+  @Output() edited = new EventEmitter<any>();
+  @Output() click = new EventEmitter<any>();
 }
 
 export interface Editor {
   cell: Cell;
   inputClass: string;
-  onStopEditing: EventEmitter<any>;
-  onEdited: EventEmitter<any>;
-  onClick: EventEmitter<any>;
+  stopEditing: EventEmitter<any>;
+  edited: EventEmitter<any>;
+  click: EventEmitter<any>;
 }

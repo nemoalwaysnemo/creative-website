@@ -22,9 +22,10 @@ import { NbDateService } from '../../services';
   selector: 'nb-calendar-day-cell',
   template: '{{ day }}',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'day-cell' },
 })
 export class NbCalendarDayCellComponent<D> implements NbCalendarCell<D, D> {
+
+  @HostBinding('class.day-cell')
 
   @Input() date: D;
 

@@ -90,7 +90,7 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
     this.performFolders(doc);
   }
 
-  private search(params: {}): Observable<DocumentModel[]> {
+  private search(params: any = {}): Observable<DocumentModel[]> {
     return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries),
     );

@@ -12,8 +12,8 @@ export class Column {
   isFilterable: boolean = false;
   sortDirection: string = '';
   defaultSortDirection: string = '';
-  editor: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
-  filter: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
+  editor: { type: string; config: any; component: any } = { type: '', config: {}, component: null };
+  filter: { type: string; config: any; component: any } = { type: '', config: {}, component: null };
   renderComponent: any = null;
   renderComponentData: any = {};
   compareFunction: () => any;

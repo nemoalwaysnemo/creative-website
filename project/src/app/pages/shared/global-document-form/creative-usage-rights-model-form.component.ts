@@ -11,7 +11,7 @@ import { CreativeProjectMgtSettings } from '../document-creative-project-mgt/doc
 
 @Component({
   selector: 'creative-usage-rights-model-form',
-  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>',
 })
 export class CreativeUsageRightsModelComponent extends GlobalDocumentFormComponent {
 

@@ -23,13 +23,13 @@ export class GlobalSearchMoreResultInDialogComponent extends BaseGlobalSearchRes
 
   @Input() selectableSettings: SelectableItemSettings;
 
-  @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+  @Output() loadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   @Input() searchResultFilter: (res: SearchResponse) => boolean = (res: SearchResponse) => res.source === 'document-load-more-in-dialog';
 
-  loadMore(): void {
+  loadMoreData(): void {
     if (!this.loading) {
-      this.onLoadMore.emit(this.searchResponse);
+      this.loadMore.emit(this.searchResponse);
     }
   }
 

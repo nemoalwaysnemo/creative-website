@@ -76,7 +76,7 @@ export class LearningAlumniComponent extends BaseDocumentViewComponent {
     this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
   }
 
-  private search(params: {}): void {
+  private search(params: any = {}): void {
     const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;
@@ -85,4 +85,3 @@ export class LearningAlumniComponent extends BaseDocumentViewComponent {
     this.subscription.add(subscription);
   }
 }
-

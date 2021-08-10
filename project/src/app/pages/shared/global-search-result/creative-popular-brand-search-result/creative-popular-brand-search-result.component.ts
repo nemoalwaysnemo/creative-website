@@ -5,10 +5,11 @@ import { DocumentListViewItem } from '../../document-list-view/document-list-vie
 import { DocumentPageService } from '../../services/document-page.service';
 
 @Component({
-  template: `<a [routerLink]="['/p/search/creative/popularBrandAsset', value.uid]">{{ value.title }}</a>`,
+  template: `<a [routerLink]="['/p/search/creative/popularBrandAsset', value.uid]">{{ value.title }}</a>
+  `,
 })
 export class CreativePopularBrandRowRenderComponent {
-  @Input() value: { title: string, uid: string };
+  @Input() value: { title: string; uid: string };
 }
 
 @Component({
@@ -54,7 +55,7 @@ export class CreativePopularBrandSearchResultComponent extends BaseSearchResultC
       }));
     }
     return items;
-  }
+  };
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);

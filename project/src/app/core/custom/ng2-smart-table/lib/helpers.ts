@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { cloneDeep } from 'lodash';
 
 /**
@@ -86,7 +87,7 @@ export class Deferred {
 }
 
 // getDeepFromObject({result: {data: 1}}, 'result.data', 2); // returns 1
-export function getDeepFromObject(object = {}, name: string, defaultValue?: any): any {
+export function getDeepFromObject(object: any = {}, name: string, defaultValue?: any): any {
   const keys = name.split('.');
   // clone the object
   let level = deepExtend({}, object);

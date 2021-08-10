@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Injector, ModuleWithProviders, NgModule } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
 import { NbAuthOptions, NbAuthStrategyClass, NB_AUTH_USER_OPTIONS, NB_AUTH_OPTIONS, NB_AUTH_TOKENS, NB_AUTH_STRATEGIES, NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from './base-auth.options';

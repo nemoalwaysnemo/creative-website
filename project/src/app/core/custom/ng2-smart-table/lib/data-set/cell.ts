@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Column } from './column';
 import { DataSet } from './data-set';
 import { Row } from './row';

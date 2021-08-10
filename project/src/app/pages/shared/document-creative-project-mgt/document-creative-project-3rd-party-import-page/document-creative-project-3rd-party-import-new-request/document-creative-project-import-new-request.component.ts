@@ -29,7 +29,7 @@ export class DocumentCreativeProjectImportNewRequestComponent extends GlobalDocu
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     doc.setProperty('dc:title', '3rd-party-import');
     return observableOf(doc);
-  }
+  };
 
   protected onInit(): void {
     this.setFormSettings({

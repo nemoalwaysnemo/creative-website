@@ -5,8 +5,7 @@ import { DocumentSelectListSettings } from '../../../../../pages/shared/document
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DOCUMENT_SELECT_LIST = 'DOCUMENT_SELECT_LIST';
 
-export interface DynamicDocumentSelectListConfig<T> extends DynamicFormValueControlModelConfig<T> {
-}
+export type DynamicDocumentSelectListConfig<T> = DynamicFormValueControlModelConfig<T>;
 
 export class DynamicDocumentSelectListModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DOCUMENT_SELECT_LIST;

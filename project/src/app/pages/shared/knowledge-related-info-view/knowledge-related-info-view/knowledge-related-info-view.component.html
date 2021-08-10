@@ -38,12 +38,12 @@
   </ng-container>
   <ng-container *ngIf="item.layout ==='creative' && document">
     <h2 class="left brand-top">See more {{document.get('The_Loupe_Main:brand')}}</h2>
-    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [searchResultFilter]="searchBrandResultFilter" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [searchResultFilter]="searchBrandResultFilter" [append]="append" (loadMore)="onLoadMore($event)" (response)="onResponse($event)"></global-search-more-result-in-dialog>
     <h2 class="left">See more {{document.get('The_Loupe_Main:agency')}}</h2>
-    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [searchResultFilter]="searchAgencyResultFilter" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [searchResultFilter]="searchAgencyResultFilter" [append]="append" (loadMore)="onLoadMore($event)" (response)="onResponse($event)"></global-search-more-result-in-dialog>
   </ng-container>
   <ng-container *ngIf="item.layout !=='creative'">
-    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result-in-dialog>
+    <global-search-more-result-in-dialog [templateRef]="thumbnailItemView" [append]="append" (loadMore)="onLoadMore($event)" (response)="onResponse($event)"></global-search-more-result-in-dialog>
   </ng-container>
 </div>
 

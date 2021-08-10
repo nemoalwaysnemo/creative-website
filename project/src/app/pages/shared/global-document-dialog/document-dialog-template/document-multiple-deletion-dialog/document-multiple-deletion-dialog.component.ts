@@ -43,7 +43,7 @@ export class DocumentMultipleDeletionComponent extends DocumentDialogCustomTempl
       this.globalDocumentDialogService.close();
       this.selectableItemService.clear();
       this.refresh(this.documentPageService.getCurrentUrl());
-      this.documentPageService.notify(`Assets Deleted!`, '', 'success');
+      this.documentPageService.notify('Assets Deleted!', '', 'success');
     });
     this.subscription.add(subscription);
   }
@@ -55,7 +55,7 @@ export class DocumentMultipleDeletionComponent extends DocumentDialogCustomTempl
       this.globalDocumentDialogService.close();
       this.selectableItemService.clear();
       this.refresh(this.documentPageService.getCurrentUrl());
-      this.documentPageService.notify(`Removed from Collection successfully!`, '', 'success');
+      this.documentPageService.notify('Removed from Collection successfully!', '', 'success');
     });
     this.subscription.add(subscription);
   }
@@ -64,12 +64,12 @@ export class DocumentMultipleDeletionComponent extends DocumentDialogCustomTempl
     return forkJoin(
       docs.map((doc: DocumentModel) => zip(doc.hasPermission(NuxeoPermission.Write)),
       )).pipe(
-        map((r: any[]) => {
-          const list = [];
-          r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(docs[i]); } });
-          return list;
-        }),
-      );
+      map((r: any[]) => {
+        const list = [];
+        r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(docs[i]); } });
+        return list;
+      }),
+    );
   }
 
   private deleteDocuments(documents: DocumentModel[]): Observable<DocumentModel[]> {

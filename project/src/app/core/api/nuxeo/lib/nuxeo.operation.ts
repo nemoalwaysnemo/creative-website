@@ -28,7 +28,7 @@ export class Operation extends Base {
     return this;
   }
 
-  params(params: {}): this {
+  params(params: any = {}): this {
     this._automationParams.params = Object.assign({}, this._automationParams.params, params);
     return this;
   }

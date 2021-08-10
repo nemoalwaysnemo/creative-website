@@ -19,7 +19,7 @@ export class DocumentAdditionalInfoComponent implements OnInit {
 
   docType: string;
 
-  attachments: { type: any, url: any, title: any }[] = [];
+  attachments: { type: any; url: any; title: any }[] = [];
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST] });
 

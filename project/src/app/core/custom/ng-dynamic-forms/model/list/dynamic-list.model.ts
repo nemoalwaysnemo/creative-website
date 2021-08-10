@@ -5,8 +5,7 @@ import { DocumentFieldListSettings } from '../../../../../pages/shared/document-
 
 export const DYNAMIC_FORM_CONTROL_TYPE_LIST = 'LIST';
 
-export interface DynamicListModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
-}
+export type DynamicListModelConfig<T> = DynamicFormValueControlModelConfig<T>;
 
 export class DynamicListModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_LIST;

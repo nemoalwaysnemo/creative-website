@@ -1,7 +1,7 @@
 <div class="backslash-home-search">
   <ng-container *ngIf="isViewEnabled('liveView')">
     <div [ngStyle]="currentView === 'liveView' ? {} : {'display': 'none'}">
-      <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings" (onLoading)="onLoading($event)">
+      <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings" (whenLoading)="onLoading($event)">
         <ng-container class="group-left">
           <div class="global-search-form-buttons d-flex">
             <backslash-form-button [parent]="doc" [type]="'video'" [title]="'New Video'"></backslash-form-button>
@@ -22,7 +22,7 @@
   </ng-container>
   <ng-container *ngIf="isViewEnabled('pipeLineView')">
     <div [ngStyle]="currentView === 'pipeLineView' ? {} : {'display': 'none'}">
-      <global-search-form [filters]="filters" [searchParams]="pipeLineParams" [settings]="pipeLineSearchFormSettings" (onLoading)="onLoading($event)">
+      <global-search-form [filters]="filters" [searchParams]="pipeLineParams" [settings]="pipeLineSearchFormSettings" (whenLoading)="onLoading($event)">
         <ng-container class="group-left">
           <div class="global-search-form-buttons d-flex">
             <backslash-form-button [parent]="doc" [type]="'video'" [title]="'New Video'"></backslash-form-button>

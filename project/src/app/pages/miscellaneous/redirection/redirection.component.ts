@@ -75,7 +75,7 @@ class ParamsInfo {
 
 @Component({
   selector: 'page-redirection',
-  template: ``,
+  template: '',
 })
 export class RedirectionComponent implements OnDestroy {
 

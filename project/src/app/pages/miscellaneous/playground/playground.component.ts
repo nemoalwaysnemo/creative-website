@@ -299,7 +299,7 @@ export class PlaygroundComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
-  private getSettings(): object[] {
+  private getSettings(): any[] {
     return [
       new DynamicInputModel({
         id: 'dc:title',

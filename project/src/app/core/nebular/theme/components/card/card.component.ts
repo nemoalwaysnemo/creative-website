@@ -28,7 +28,7 @@ import { Component, Input, HostBinding } from '@angular/core';
  */
 @Component({
   selector: 'nb-card-header',
-  template: `<ng-content></ng-content>`,
+  template: '<ng-content></ng-content>',
 })
 export class NbCardHeaderComponent {
 }
@@ -39,7 +39,7 @@ export class NbCardHeaderComponent {
  */
 @Component({
   selector: 'nb-card-body',
-  template: `<ng-content></ng-content>`,
+  template: '<ng-content></ng-content>',
 })
 export class NbCardBodyComponent {
 }
@@ -50,7 +50,7 @@ export class NbCardBodyComponent {
  */
 @Component({
   selector: 'nb-card-footer',
-  template: `<ng-content></ng-content>`,
+  template: '<ng-content></ng-content>',
 })
 export class NbCardFooterComponent {
 }

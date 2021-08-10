@@ -31,7 +31,7 @@ export class NbContextMenuComponent extends NbPositionedContainerComponent imple
   @Input() items: NbMenuItem[] = [];
   @Input() tag: string;
 
-  @Input() context: { items: NbMenuItem[], tag?: string } = { items: [] };
+  @Input() context: { items: NbMenuItem[]; tag?: string } = { items: [] };
 
 
   /**

@@ -20,7 +20,7 @@ export class DragDropFileZoneService {
     this.event$.next({ settings, data: files, event: 'fileChanged' });
   }
 
-  onFilesChange(): Observable<{ settings: DragDropFileZoneSettings, data: File[] }> {
+  onFilesChange(): Observable<{ settings: DragDropFileZoneSettings; data: File[] }> {
     return this.filterEvents('fileChanged');
   }
 

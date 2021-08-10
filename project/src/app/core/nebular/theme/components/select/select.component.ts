@@ -274,8 +274,8 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
   /**
    * Function passed through control value accessor to propagate changes.
    */
-  protected onChange: Function = () => {};
-  protected onTouched: Function = () => {};
+  protected onChange: any = () => {};
+  protected onTouched: any = () => {};
 
   constructor(@Inject(NB_DOCUMENT) protected document,
               protected overlay: NbOverlayService,
@@ -522,11 +522,11 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
   }
 
   protected getContainer() {
-    return this.ref && this.ref.hasAttached() && <ComponentRef<any>> {
+    return this.ref && this.ref.hasAttached() && {
       location: {
         nativeElement: this.ref.overlayElement,
       },
-    };
+    } as ComponentRef<any>;
   }
 
   /**
@@ -554,9 +554,9 @@ export class NbSelectComponent<T> implements OnInit, AfterViewInit, AfterContent
     this.cleanSelection();
 
     if (isArray) {
-      (<T[]> value).forEach((option: T) => this.selectValue(option));
+      (value as T[]).forEach((option: T) => this.selectValue(option));
     } else {
-      this.selectValue(<T> value);
+      this.selectValue(value as T);
     }
 
     this.cd.markForCheck();

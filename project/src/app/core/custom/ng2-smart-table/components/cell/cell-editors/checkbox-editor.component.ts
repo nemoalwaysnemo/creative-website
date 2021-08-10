@@ -12,7 +12,7 @@ import { DefaultEditorComponent } from './default-editor';
            [name]="cell.getId()"
            [disabled]="!cell.isEditable()"
            [checked]="cell.getValue() === (cell.getColumn().getConfig()?.true || true)"
-           (click)="onClick.emit($event)"
+           (click)="click.emit($event)"
            (change)="onChange($event)">
     `,
 })

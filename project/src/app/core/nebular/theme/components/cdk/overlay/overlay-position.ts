@@ -1,8 +1,7 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { ElementRef, Inject, Injectable } from '@angular/core';
-
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
 import { NB_DOCUMENT } from '../../../theme.options';
 import {
   NbConnectedOverlayPositionChange,
@@ -18,7 +17,6 @@ import { NbOverlayContainerAdapter } from '../adapter/overlay-container-adapter'
 import { NbViewportRulerAdapter } from '../adapter/viewport-ruler-adapter';
 import { NbGlobalLogicalPosition } from './position-helper';
 import { GlobalPositionStrategy } from '@angular/cdk/overlay';
-
 
 export enum NbAdjustment {
   NOOP = 'noop',
@@ -38,16 +36,16 @@ export enum NbPosition {
 }
 
 const POSITIONS = {
-  [NbPosition.RIGHT](offset): any {
+  [NbPosition.RIGHT](offset: any): any {
     return { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX: offset };
   },
-  [NbPosition.BOTTOM](offset): any {
+  [NbPosition.BOTTOM](offset: any): any {
     return { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: offset };
   },
-  [NbPosition.LEFT](offset): any {
+  [NbPosition.LEFT](offset: number): any {
     return { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX: -offset };
   },
-  [NbPosition.TOP](offset): any {
+  [NbPosition.TOP](offset: number): any {
     return { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -offset };
   },
 };
@@ -77,7 +75,7 @@ export class NbAdjustableConnectedPositionStrategy
   protected _offset: number = 15;
   protected _adjustment: NbAdjustment;
 
-  protected appliedPositions: { key: NbPosition, connectedPosition: NbConnectedPosition }[];
+  protected appliedPositions: { key: NbPosition; connectedPosition: NbConnectedPosition }[];
 
   readonly positionChange: Observable<NbPosition> = this.positionChanges.pipe(
     map((positionChange: NbConnectedOverlayPositionChange) => positionChange.connectionPair),

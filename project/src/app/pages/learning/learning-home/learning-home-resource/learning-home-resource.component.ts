@@ -48,7 +48,7 @@ export class LearningHomeResourceComponent extends BaseDocumentViewComponent {
     this.documentPageService.goToExternalLink(doc);
   }
 
-  private search(params: {}): void {
+  private search(params: any = {}): void {
     const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params))
       .subscribe((res: NuxeoPagination) => {
         this.documents = res.entries;

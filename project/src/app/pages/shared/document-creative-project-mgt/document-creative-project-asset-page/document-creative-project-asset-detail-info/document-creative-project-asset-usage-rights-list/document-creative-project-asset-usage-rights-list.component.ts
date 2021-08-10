@@ -44,7 +44,7 @@ enum AssetTypes {
   `,
 })
 export class DocumentCreativeAssetUsageRightsRowRenderComponent {
-  @Input() value: { types: any, title: string };
+  @Input() value: { types: any; title: string };
 }
 
 @Component({
@@ -122,11 +122,11 @@ export class DocumentCreativeProjectAssetUsageRightsListComponent {
       }));
     }
     return items;
-  }
+  };
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
-  }
+  };
 
   protected buildAssetParams(doc: DocumentModel, brand: DocumentModel): any {
     let uuids: string[] = [], contractUids: any;

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.

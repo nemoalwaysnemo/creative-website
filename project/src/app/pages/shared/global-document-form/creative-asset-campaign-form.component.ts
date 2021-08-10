@@ -9,7 +9,7 @@ import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
   selector: 'creative-asset-campaign-form',
-  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>',
 })
 export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
 

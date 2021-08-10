@@ -86,14 +86,14 @@ export class DocumentUsageRightsStatusComponent {
   }
 
   getExpiredType(left: string): string {
-    const days_left = parseInt(left, 10);
-    if (days_left > 90) {
+    const daysLeft = parseInt(left, 10);
+    if (daysLeft > 90) {
       return 'notExpired';
-    } else if (days_left > 30) {
+    } else if (daysLeft > 30) {
       return 'expiring';
-    } else if (days_left > 0) {
+    } else if (daysLeft > 0) {
       return 'expiringSoon';
-    } else if (days_left <= 0) {
+    } else if (daysLeft <= 0) {
       return 'expired';
     } else {
       return 'warning';

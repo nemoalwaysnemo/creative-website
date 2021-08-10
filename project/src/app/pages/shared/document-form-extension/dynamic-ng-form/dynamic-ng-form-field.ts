@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Type } from '@angular/core';
 import {
   DynamicFormControl,

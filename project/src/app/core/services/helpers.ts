@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Environment, NUXEO_DOC_TYPE } from '@environment/environment';
 
 export function join(...args: string[]): string {
@@ -134,7 +135,7 @@ function deepCloneArray(arr: any[]): any {
 }
 
 // getDeepFromObject({result: {data: 1}}, 'result.data', 2); // returns 1
-export function getDeepFromObject(object = {}, name: string, defaultValue?: any): any {
+export function getDeepFromObject(object: any = {}, name: string, defaultValue?: any): any {
   const keys = name.split('.');
   // clone the object
   let level = deepExtend({}, object || {});
@@ -169,21 +170,20 @@ export function b64decode(str: string): string {
   str = String(str).replace(/=+$/, '');
 
   if (str.length % 4 === 1) {
-    throw new Error(`'atob' failed: The string to be decoded is not correctly encoded.`);
+    throw new Error('\'atob\' failed: The string to be decoded is not correctly encoded.');
   }
 
   for (
     // initialize result and counters
     let bc: number = 0, bs: any, buffer: any, idx: number = 0;
     // get next character
-    // tslint:disable-next-line:no-conditional-assignment
+    // eslint-disable-next-line no-cond-assign
     buffer = str.charAt(idx++);
     // character found in table? initialize bit storage and add its ascii value;
-    // tslint:disable-next-line:no-conditional-assignment
     ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
       // and if not first of each 4 characters,
       // convert the first 8 bits to one ascii character
-      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+    bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
   ) {
     // try to find character in table (0-63, not found => -1)
     buffer = chars.indexOf(buffer);
@@ -218,13 +218,13 @@ export function filterParams(p: any, keepValues: string[] = []): any {
   return _;
 }
 
-export function selectObjectByKeys(p: object = {}, keys: string[] = []): any {
+export function selectObjectByKeys(p: any = {}, keys: string[] = []): any {
   const _ = {};
   Object.keys(p).filter(key => keys.includes(key)).forEach(key => { _[key] = p[key]; });
   return _;
 }
 // not sure about this one
-export function removeUselessObject(p: object = {}, keys: string[] | (() => any)): any {
+export function removeUselessObject(p: any = {}, keys: string[] | (() => any)): any {
   if (typeof keys === 'function') {
     Object.keys(p).filter((k: string) => keys.call(this, k, p[k])).forEach((k: string) => delete p[k]);
   } else {

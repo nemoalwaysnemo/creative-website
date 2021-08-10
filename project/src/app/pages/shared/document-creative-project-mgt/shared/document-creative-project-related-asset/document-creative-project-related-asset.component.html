@@ -13,26 +13,26 @@
     <ng-container [ngSwitch]="packageViewSettings.type">
       <ng-container *ngSwitchCase="'assetSelected'">
         <list-search-form-in-dialog [searchParams]="baseParamsSelected$ | async" [settings]="searchFormSettings"
-          [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)" [afterSearch]="afterSearch">
+          [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (rowSelect)="onSelected($event)" [afterSearch]="afterSearch">
         </list-search-form-in-dialog>
       </ng-container>
       <ng-container *ngSwitchCase="'linkBrand'">
         <list-search-form-in-dialog [searchParams]="baseParamsLinkBrand$ | async" [settings]="searchFormSettings"
-          [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)" [afterSearch]="afterSearch">
+          [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (rowSelect)="onSelected($event)" [afterSearch]="afterSearch">
         </list-search-form-in-dialog>
       </ng-container>
       <ng-container *ngSwitchCase="'linkProject'">
         <list-search-form-in-dialog [searchParams]="baseParamsLinkProject$ | async" [settings]="searchFormSettings"
-          [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)" [afterSearch]="afterSearch">
+          [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (rowSelect)="onSelected($event)" [afterSearch]="afterSearch">
         </list-search-form-in-dialog>
       </ng-container>
       <ng-container *ngSwitchCase="'linkRelated'">
         <list-search-form-in-dialog [searchParams]="baseParamsRelatedAssets$ | async" [settings]="searchFormSettings"
-          [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)" [afterSearch]="afterSearch">
+          [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (rowSelect)="onSelected($event)" [afterSearch]="afterSearch">
         </list-search-form-in-dialog>
       </ng-container>
       <ng-container *ngSwitchCase="'assetRelatedSelected'">
-        <document-list-view [loading]="loading" [settings]="listViewSettings" [documents]="packageViewSettings.selectedSource" (onRowSelect)="onSelected($event)" [afterSearch]="afterSearch"></document-list-view>
+        <document-list-view [loading]="loading" [settings]="listViewSettings" [documents]="packageViewSettings.selectedSource" (rowSelect)="onSelected($event)" [afterSearch]="afterSearch"></document-list-view>
       </ng-container>
     </ng-container>
   </div>

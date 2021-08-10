@@ -70,12 +70,12 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   @Input() filters: SearchFilterModel[] = [];
 
-  @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+  @Output() response: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
-  @Output() onLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() whenLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Input() beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => any =
-    (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } => ({ searchParams, opts })
+    (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions): { searchParams: GlobalSearchParams; opts: NuxeoRequestOptions } => ({ searchParams, opts });
 
   @Input() afterSearch: (res: SearchResponse) => any = (res: SearchResponse): Observable<SearchResponse> => observableOf(res);
 
@@ -396,7 +396,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
       concatMap((res: SearchResponse) => this.afterSearch(res)),
       concatMap((res: SearchResponse) => this.onAfterSearchEvent(res)),
     ).subscribe((res: SearchResponse) => {
-      this.onResponse.emit(res);
+      this.response.emit(res);
       this.triggerLoading(false, res.searchParams);
       this.hasAggs = res.response.hasAgg();
       this.submitted = false;
@@ -406,7 +406,7 @@ export class BaseSearchFormComponent implements OnInit, OnDestroy {
 
   protected triggerLoading(loading: boolean, searchParams: GlobalSearchParams): void {
     if (this.checkSearchSettings('enableLoading', searchParams)) {
-      this.onLoading.emit(loading);
+      this.whenLoading.emit(loading);
       this.loading = loading;
     }
   }

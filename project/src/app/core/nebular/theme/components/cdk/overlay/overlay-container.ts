@@ -26,7 +26,7 @@ export interface NbRenderableContainer {
 }
 
 @Component({
-  template: ``,
+  template: '',
 })
 export class NbPositionedContainerComponent {
   @Input() position: NbPosition;

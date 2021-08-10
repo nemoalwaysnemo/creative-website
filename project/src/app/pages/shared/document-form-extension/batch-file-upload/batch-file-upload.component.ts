@@ -30,7 +30,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     }
   }
 
-  @Output() onUpload: EventEmitter<{ type: string, response: NuxeoUploadResponse[] }> = new EventEmitter<{ type: string, response: NuxeoUploadResponse[] }>();
+  @Output() uploading: EventEmitter<{ type: string; response: NuxeoUploadResponse[] }> = new EventEmitter<{ type: string; response: NuxeoUploadResponse[] }>();
 
   @Output() valid: EventEmitter<any> = new EventEmitter<any>();
 
@@ -170,7 +170,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private emitUploadResponse(type: string, response: NuxeoUploadResponse[]): void {
     this._onChange(response);
-    this.onUpload.emit({ type, response });
+    this.uploading.emit({ type, response });
   }
 
   private updateUploadStatus(status: any = {}): void {
@@ -189,8 +189,8 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
   private onFilesChanged(): void {
     const subscription = this.dragDropFileZoneService.onFilesChange().pipe(
       tap(_ => this.loading = true),
-      filter((m: { settings: DragDropFileZoneSettings, data: File[] }) => this.checkDropedFiles(m)),
-      concatMap((m: { settings: DragDropFileZoneSettings, data: File[] }) => this.updateQueueFiles(m)),
+      filter((m: { settings: DragDropFileZoneSettings; data: File[] }) => this.checkDropedFiles(m)),
+      concatMap((m: { settings: DragDropFileZoneSettings; data: File[] }) => this.updateQueueFiles(m)),
       concatMap((items: NuxeoUploadResponse[]) => this.uploadSettings.onFilesChangedFn(items)),
     ).subscribe((items: NuxeoUploadResponse[]) => {
       this.loading = false;
@@ -199,11 +199,11 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
     this.subscription.add(subscription);
   }
 
-  private checkDropedFiles(m: { settings: DragDropFileZoneSettings, data: File[] }): boolean {
+  private checkDropedFiles(m: { settings: DragDropFileZoneSettings; data: File[] }): boolean {
     return (m.settings.queueLimit > 1 && !this.uploadStatus$.value.uploaded) || (m.settings.queueLimit === 1 && this.uploadItems.filter((res: NuxeoUploadResponse) => res.uploaded && res.xpath === m.settings.xpath).length === 0);
   }
 
-  private updateQueueFiles(metadata: { settings: DragDropFileZoneSettings, data: File[] }): Observable<NuxeoUploadResponse[]> {
+  private updateQueueFiles(metadata: { settings: DragDropFileZoneSettings; data: File[] }): Observable<NuxeoUploadResponse[]> {
     const xpath = metadata.settings.xpath;
     this.queueFiles[xpath] = this.queueFiles[xpath] ? this.queueFiles[xpath] : {};
     const dropped = metadata.data.filter((f: File) => !this.queueFiles[xpath][f.name]);
@@ -234,7 +234,7 @@ export class BatchFileUploadComponent implements OnInit, OnDestroy, ControlValue
 
   private onFilesChange(items: NuxeoUploadResponse[]): void {
     this.emitUploadResponse('FileChanged', items);
-    this.onUpload.emit({ type: 'FileSelected', response: items });
+    this.uploading.emit({ type: 'FileSelected', response: items });
     if (this.uploadSettings.enableForm) {
       this.performSubForm(items);
       this.emitSubFormStatus();

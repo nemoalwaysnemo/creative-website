@@ -51,7 +51,7 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
       );
     }
     return observableOf(res);
-  }
+  };
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);

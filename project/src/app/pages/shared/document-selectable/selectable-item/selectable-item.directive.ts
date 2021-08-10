@@ -97,11 +97,11 @@ export class SelectableItemDirective implements OnInit, OnDestroy {
 
   private setInstanceInputs(instance: SelectableItemComponent): void {
     instance.disabled = this.disabled;
-    instance.selected = this.selected;
+    instance.active = this.selected;
     instance.dataType = this.selectableSettings.dataType;
     instance.queueLimit = this.selectableSettings.queueLimit;
     typeof this.document !== 'undefined' && (instance.document = this.document);
-    this.subscription = instance.onSelected.subscribe((selected: boolean) => this.selected = selected);
+    this.subscription = instance.select.subscribe((selected: boolean) => this.selected = selected);
   }
 
   private toggleCheckboxStatus(): void {

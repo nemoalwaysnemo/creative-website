@@ -5,8 +5,7 @@ import { DragDropFileZoneSettings } from '../../../../../pages/shared/document-f
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DRAG_DROP_FILE_ZONE = 'DRAG_DROP_FILE_ZONE';
 
-export interface DynamicDragDropFileZoneConfig<T> extends DynamicFormValueControlModelConfig<T> {
-}
+export type DynamicDragDropFileZoneConfig<T> = DynamicFormValueControlModelConfig<T>;
 
 export class DynamicDragDropFileZoneModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DRAG_DROP_FILE_ZONE;

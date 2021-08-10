@@ -9,7 +9,7 @@ import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
   selector: 'disruption-brilliant-thinking-form',
-  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>',
 })
 export class DisruptionBrilliantThinkingFormComponent extends GlobalDocumentFormComponent {
 

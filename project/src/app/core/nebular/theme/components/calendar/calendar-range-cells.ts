@@ -28,6 +28,7 @@ import { NbCalendarRange } from './calendar-range.component';
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { '(click)': 'onClick()', class: 'range-cell' },
 })
 export class NbCalendarRangeDayCellComponent<D> implements NbCalendarCell<D, NbCalendarRange<D>> {
@@ -112,11 +113,13 @@ export class NbCalendarRangeDayCellComponent<D> implements NbCalendarCell<D, NbC
 
 @Component({
   selector: 'nb-calendar-range-year-cell',
-  template: `{{ year }}`,
+  template: '{{ year }}',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'year-cell' },
 })
 export class NbCalendarRangeYearCellComponent<D> implements NbCalendarCell<D, NbCalendarRange<D>> {
+
+  @HostBinding('class.year-cell')
+
   @Input() date: D;
 
   @Input() min: D;

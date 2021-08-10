@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'creative-ring-collection-upload-form',
-  template: `<document-batch-operation [documentModel]="document" [settings]="formSettings" [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-batch-operation>`,
+  template: '<document-batch-operation [documentModel]="document" [settings]="formSettings" [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-batch-operation>',
 })
 export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFormComponent {
 
@@ -32,7 +32,7 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
     } else {
       return observableOf(ctx);
     }
-  }
+  };
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return observableOf(doc);

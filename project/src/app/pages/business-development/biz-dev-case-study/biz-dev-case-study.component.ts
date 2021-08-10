@@ -29,12 +29,12 @@ export class BizDevCaseStudyComponent extends GlobalDocumentViewComponent implem
     enableQueryParams: true,
   });
 
-  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
+  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams; opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
     }
     return { searchParams, opts };
-  }
+  };
 
   constructor(
     protected activatedRoute: ActivatedRoute,

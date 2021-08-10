@@ -33,7 +33,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   @Output() valid: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output() onUpload: EventEmitter<{ type: string, response: NuxeoUploadResponse[] }> = new EventEmitter<{ type: string, response: NuxeoUploadResponse[] }>();
+  @Output() uploading: EventEmitter<{ type: string; response: NuxeoUploadResponse[] }> = new EventEmitter<{ type: string; response: NuxeoUploadResponse[] }>();
 
   uploadStatus$: BehaviorSubject<GalleryUploadStatus> = new BehaviorSubject<GalleryUploadStatus>(new GalleryUploadStatus());
 
@@ -107,7 +107,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
       }
       this.valid.emit({ type: 'valid', response: this.selectedItems.length > 0 });
       this.updateUploadStatus({ selected: this.selectedItems.length > 0 });
-      this.onUpload.emit({ type: 'FileSelected', response: this.getSelectedFiles() });
+      this.uploading.emit({ type: 'FileSelected', response: this.getSelectedFiles() });
     }
   }
 
@@ -146,7 +146,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
   private getClipboardImages(event: ClipboardEvent): GalleryImageItem[] {
     const files: GalleryImageItem[] = [];
     const items: FileList = event.clipboardData.files;
-    // tslint:disable-next-line:prefer-for-of
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < items.length; i++) {
       if (items[i].type.includes('image')) {
         files.push(new GalleryImageItem(items[i]));
@@ -220,7 +220,7 @@ export class GalleryUploadComponent implements OnInit, OnDestroy, ControlValueAc
 
   private emitUploadResponse(type: string, response: NuxeoUploadResponse[]): void {
     this._onChange(response);
-    this.onUpload.emit({ type, response });
+    this.uploading.emit({ type, response });
   }
 
   private buildGalleryImageItem(images: any[], settings: GalleryUploadSettings): NuxeoUploadResponse[] {

@@ -119,7 +119,7 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
     const uids = this.documents.map((doc: DocumentModel) => doc.uid);
     const subscription = this.documentPageService.addToFavorites(uids).subscribe((res: NuxeoResponse) => {
       if (res.entries.length > 0) {
-        this.documentPageService.notify(`Added successfully!`, 'Added successfully!', 'success');
+        this.documentPageService.notify('Added successfully!', 'Added successfully!', 'success');
       }
     });
     this.subscription.add(subscription);

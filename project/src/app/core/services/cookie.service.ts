@@ -18,7 +18,7 @@ export class CookieService {
     // Fix: https://github.com/angular/angular/pull/14894
     @Inject(DOCUMENT) private document: any,
     // Get the `PLATFORM_ID` so we can check if we're in a browser.
-    @Inject(PLATFORM_ID) private platformId: InjectionToken<object>,
+    @Inject(PLATFORM_ID) private platformId: InjectionToken<any>,
   ) {
     this.documentIsAccessible = isPlatformBrowser(this.platformId);
   }
@@ -128,7 +128,7 @@ export class CookieService {
     if (secure === false && sameSite === 'None') {
       secure = true;
       console.warn(`[ngx-cookie-service] Cookie ${name} was forced with secure flag because sameSite=None.` +
-        `More details : https://github.com/stevermeister/ngx-cookie-service/issues/86#issuecomment-597720130`);
+        'More details : https://github.com/stevermeister/ngx-cookie-service/issues/86#issuecomment-597720130');
     }
 
     if (secure) {

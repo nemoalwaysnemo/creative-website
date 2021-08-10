@@ -19,11 +19,13 @@ import { NbCalendarCell } from '../../model';
 
 @Component({
   selector: 'nb-calendar-year-cell',
-  template: `{{ year }}`,
+  template: '{{ year }}',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'year-cell' },
 })
 export class NbCalendarYearCellComponent<D> implements NbCalendarCell<D, D> {
+
+  @HostBinding('class.year-cell')
+
   @Input() date: D;
 
   @Input() min: D;

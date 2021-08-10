@@ -113,7 +113,7 @@ export class DocumentCreativeProjectTabAssetRequestComponent extends DocumentCre
       }));
     }
     return items;
-  }
+  };
 
   protected buildAssetParams(doc: DocumentModel): any {
     const params: any = {

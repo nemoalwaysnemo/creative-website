@@ -18,7 +18,7 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
-  attachments: { type: string, url: string, title: string }[] = [];
+  attachments: { type: string; url: string; title: string }[] = [];
 
   viewerSettings: any = {
   };

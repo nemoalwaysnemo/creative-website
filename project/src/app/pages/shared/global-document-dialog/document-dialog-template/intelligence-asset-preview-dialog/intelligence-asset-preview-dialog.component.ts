@@ -16,7 +16,7 @@ export class IntelligenceAssetPreviewDialogComponent extends DocumentDialogPrevi
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
-  attachments: { type: string, url: string, title: string }[] = [];
+  attachments: { type: string; url: string; title: string }[] = [];
 
   viewerSettings: any = {
   };

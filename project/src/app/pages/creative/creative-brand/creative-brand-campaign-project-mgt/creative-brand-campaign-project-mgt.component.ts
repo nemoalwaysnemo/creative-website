@@ -192,7 +192,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       }));
     }
     return items;
-  }
+  };
 
   listViewBuilderProject: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
@@ -204,7 +204,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       }));
     }
     return items;
-  }
+  };
 
   listViewBuilderAsset: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
@@ -217,7 +217,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       }));
     }
     return items;
-  }
+  };
 
   constructor(
     protected activatedRoute: ActivatedRoute,

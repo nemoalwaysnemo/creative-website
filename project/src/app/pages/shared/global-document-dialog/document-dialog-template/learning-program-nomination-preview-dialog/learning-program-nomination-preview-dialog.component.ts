@@ -48,7 +48,7 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
     }
   }
 
-  getProgramFiles(type: string): { url: string, type: string, name: string }[] {
+  getProgramFiles(type: string): { url: string; type: string; name: string }[] {
     return this.document.getCustomFiles(type);
   }
 }

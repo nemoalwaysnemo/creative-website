@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 export function filterValues(value: string, search: string): boolean {
   return value.toString().toLowerCase().includes(search.toString().toLowerCase());
 }

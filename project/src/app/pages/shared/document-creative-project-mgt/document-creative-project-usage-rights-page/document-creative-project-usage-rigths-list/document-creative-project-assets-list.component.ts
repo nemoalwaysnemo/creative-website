@@ -26,13 +26,13 @@ import { map } from 'rxjs/operators';
   `,
 })
 export class DocumentCreativeProjectAssetRowRenderComponent {
-  @Input() value: { mediatypes: any, countries: string };
+  @Input() value: { mediatypes: any; countries: string };
 }
 
 @Component({
   selector: 'document-creative-project-assets-list',
   styleUrls: ['../../document-creative-project-mgt.component.scss', '../document-creative-project-usage-rights-page.component.scss'],
-  template: `<list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (onSelected)="formatAsset($event)" [afterSearch]="afterSearch"></list-search-form-in-dialog>`,
+  template: '<list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" (rowSelect)="formatAsset($event)" [afterSearch]="afterSearch"></list-search-form-in-dialog>',
 })
 export class DocumentCreativeProjectAssetsListComponent {
 
@@ -110,7 +110,7 @@ export class DocumentCreativeProjectAssetsListComponent {
     private advanceSearchService: AdvanceSearchService,
   ) { }
 
-  @Output() onSelectDocument: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
+  @Output() selectDocuments: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
 
   @Input()
   set document(doc: DocumentModel) {
@@ -136,14 +136,14 @@ export class DocumentCreativeProjectAssetsListComponent {
       }));
     }
     return items;
-  }
+  };
 
   formatAsset(row: any): void {
     const items = [];
     for (const item of row.selected){
       items.push(item.action);
     }
-    this.onSelectDocument.emit(items);
+    this.selectDocuments.emit(items);
   }
 
   vocabularyFormatter(list: string[]): string {
@@ -152,7 +152,7 @@ export class DocumentCreativeProjectAssetsListComponent {
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
-  }
+  };
 
   private getUsageRightsStatus(res: SearchResponse): Observable<SearchResponse> {
     const uids: string[] = res.response.entries.map((doc: DocumentModel) => doc.uid);

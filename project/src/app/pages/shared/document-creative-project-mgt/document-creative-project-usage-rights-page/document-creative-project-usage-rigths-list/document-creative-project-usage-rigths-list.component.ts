@@ -38,13 +38,13 @@ import { ASSET_TYPES } from '../document-creative-project-usage-rigths-type-conf
   `,
 })
 export class DocumentCreativeUsageRightsRowRenderComponent {
-  @Input() value: { types: any, title: string };
+  @Input() value: { types: any; title: string };
 }
 
 
 @Component({
   styleUrls: ['../../document-creative-project-mgt.component.scss', '../document-creative-project-usage-rights-page.component.scss'],
-  template: `<button class="button" (click)="onClick()">Link Asset</button>`,
+  template: '<button class="button" (click)="onClick()">Link Asset</button>',
 })
 
 export class DocumentCreativeUsageRightsLinkButtonComponent implements OnInit, OnDestroy{
@@ -55,7 +55,7 @@ export class DocumentCreativeUsageRightsLinkButtonComponent implements OnInit, O
 
   subscription: Subscription = new Subscription();
 
-  @Input() value: { uid: any, type: any };
+  @Input() value: { uid: any; type: any };
 
   onClick(): void {
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'LinkAssetClick', data: this.value}));
@@ -83,7 +83,7 @@ export class DocumentCreativeUsageRightsLinkButtonComponent implements OnInit, O
 @Component({
   selector: 'document-creative-project-usage-rights-list',
   styleUrls: ['../../document-creative-project-mgt.component.scss', '../document-creative-project-usage-rights-page.component.scss'],
-  template: `<list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" [afterSearch]="afterSearch"></list-search-form-in-dialog>`,
+  template: '<list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettings" [listViewSettings]="listViewSettings" [listViewBuilder]="listViewBuilder" [afterSearch]="afterSearch"></list-search-form-in-dialog>',
 })
 export class DocumentCreativeProjectUsageRightsListComponent {
 
@@ -171,11 +171,11 @@ export class DocumentCreativeProjectUsageRightsListComponent {
       }));
     }
     return items;
-  }
+  };
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
-  }
+  };
 
   protected buildContractUid(doc: DocumentModel): void {
     const model: string = doc.get('The_Loupe_Talent:Contract-Model-IDs');

@@ -13,5 +13,5 @@
   <document-creative-project-navigation [documentModel]='document' [settings]="assetNavSettings"></document-creative-project-navigation>
 </div>
 <div class="document-creative-project-home-list">
-  <document-creative-project-assets-list [document]="document" (onSelectDocument)="onSelectAsset($event)"></document-creative-project-assets-list>
+  <document-creative-project-assets-list [document]="document" (selectDocuments)="onSelectAsset($event)"></document-creative-project-assets-list>
 </div>

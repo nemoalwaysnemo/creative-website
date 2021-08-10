@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpRequest } from '@angular/common/http';
 import { BaseAuthInterceptor } from './services/base-auth-interceptor';

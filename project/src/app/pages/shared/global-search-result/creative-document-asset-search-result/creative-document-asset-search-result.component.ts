@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, Type } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
@@ -8,10 +8,11 @@ import { DocumentPageService } from '../../services/document-page.service';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
 
 @Component({
-  template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>`,
+  template: `<a [routerLink]="['/p/creative/asset', value.uid]">{{ value.title }}</a>
+  `,
 })
 export class CreativeDocumentAssetRowRenderComponent {
-  @Input() value: { title: string, uid: string };
+  @Input() value: { title: string; uid: string };
 }
 
 @Component({
@@ -110,7 +111,7 @@ export class CreativeDocumentAssetSearchResultComponent extends BaseSearchResult
       }));
     }
     return items;
-  }
+  };
 
   protected onInit(): void {
     this.onQueryParamsChanged();

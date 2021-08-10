@@ -5,8 +5,7 @@ import { BatchUploadSettings } from '../../../../../pages/shared/document-form-e
 
 export const DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD = 'BATCH_UPLOAD';
 
-export interface DynamicBatchUploadModelConfig<T> extends DynamicFormValueControlModelConfig<T> {
-}
+export type DynamicBatchUploadModelConfig<T> = DynamicFormValueControlModelConfig<T>;
 
 export class DynamicBatchUploadModel<T> extends DynamicFormValueControlModel<T> {
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_BATCH_UPLOAD;

@@ -50,7 +50,7 @@ export class DocumentShareButtonComponent implements AfterViewInit {
       'dimensions.docId': this.document.uid,
       'dimensions.docTitle': this.document.title,
       'dimensions.docType': this.document.type,
-      'dimensions.userEvent': `Share On Workplace`,
+      'dimensions.userEvent': 'Share On Workplace',
     });
   }
 

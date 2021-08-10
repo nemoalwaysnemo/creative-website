@@ -12,9 +12,8 @@ import { NbViewportRulerAdapter } from './viewport-ruler-adapter';
  */
 @Injectable()
 export class NbBlockScrollStrategyAdapter extends BlockScrollStrategy {
-  constructor(@Inject(NB_DOCUMENT) document: any,
-              viewportRuler: NbViewportRulerAdapter,
-              protected scrollService: NbLayoutScrollService) {
+
+  constructor(@Inject(NB_DOCUMENT) document: any, viewportRuler: NbViewportRulerAdapter, protected scrollService: NbLayoutScrollService) {
     super(viewportRuler, document);
   }
 

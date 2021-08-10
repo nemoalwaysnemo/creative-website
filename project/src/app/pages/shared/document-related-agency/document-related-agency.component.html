@@ -1,6 +1,6 @@
 <h1>See more {{documentModel.get('The_Loupe_Main:agency')}}</h1>
 <global-search-form [searchParams]="baseParams$ | async" [settings]="searchFormSettings"></global-search-form>
-<global-search-more-result [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)" [searchResultFilter]="searchResultFilter"></global-search-more-result>
+<global-search-more-result [templateRef]="thumbnailItemView" [append]="append" (loadMore)="onLoadMore($event)" (response)="onResponse($event)" [searchResultFilter]="searchResultFilter"></global-search-more-result>
 
 <ng-template #thumbnailItemView let-doc="doc">
   <div class="image-holder">

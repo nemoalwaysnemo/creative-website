@@ -90,10 +90,10 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
       }));
     }
     return items;
-  }
+  };
 
-  private formateDate(date: any): any{
-   return date ? new DatePipe('en-US').transform(date, 'yyyy-MM-dd') : null;
+  private formateDate(date: any): any {
+    return date ? new DatePipe('en-US').transform(date, 'yyyy-MM-dd') : null;
   }
 
   protected setDocument(doc: DocumentModel): void {
@@ -118,8 +118,8 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
   protected onInit(): void {
   }
 
-  protected acceptAsset(request_id: string, assets_id: string): Observable<any> {
-    return this.documentPageService.operation(NuxeoAutomations.MoveAssetToLibrary, { request_id, assets_id });
+  protected acceptAsset(requestId: string, assetsId: string): Observable<any> {
+    return this.documentPageService.operation(NuxeoAutomations.MoveAssetToLibrary, { request_id: requestId, assets_id: assetsId });
   }
 
   moveAssets(): void {
@@ -146,7 +146,7 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
   }
 
   showMsg(): void {
-    this.documentPageService.notify(`Documents have been approved successfully!`, '', 'success');
+    this.documentPageService.notify('Documents have been approved successfully!', '', 'success');
   }
 
   private refresh(): void {

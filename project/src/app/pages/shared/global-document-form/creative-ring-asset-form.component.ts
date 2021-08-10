@@ -7,7 +7,7 @@ import { OptionModel } from '../option-select/option-select.interface';
 
 @Component({
   selector: 'creative-ring-asset-form',
-  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>',
 })
 export class CreativeRingAssetFormComponent extends GlobalDocumentFormComponent {
 

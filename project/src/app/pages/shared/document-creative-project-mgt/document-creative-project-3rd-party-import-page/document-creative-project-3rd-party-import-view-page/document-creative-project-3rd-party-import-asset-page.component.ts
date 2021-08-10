@@ -20,14 +20,6 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativeProjectMgtBasePageComponent {
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected componentFactoryResolver: ComponentFactoryResolver,
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
-  ) {
-    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
-  }
-
   doc: DocumentModel;
   loading: boolean = true;
   baseParams$: Subject<any> = new Subject<any>();
@@ -70,6 +62,13 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
     },
   };
 
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
+  }
 
   protected setDocument(doc: DocumentModel): void {
     if (doc) {
@@ -95,7 +94,7 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
       }));
     }
     return items;
-  }
+  };
 
   protected buildAssetParams(doc: DocumentModel): any {
     const params: any = {
@@ -115,15 +114,15 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
     this.getRequestDocument(row.data.info);
   }
 
-  getRequestDocument(request_doc: DocumentModel): void {
-    this.changeMenuView('3rd-import-request-review', 'view', 'edit', request_doc);
+  getRequestDocument(doc: DocumentModel): void {
+    this.changeMenuView('3rd-import-request-review', 'view', 'edit', doc);
   }
 
-  changeMenuView(name: string, type: string, formMode: string, request_doc: DocumentModel): void {
+  changeMenuView(name: string, type: string, formMode: string, doc: DocumentModel): void {
     this.triggerChangeView(name, type,
       new CreativeProjectMgtSettings({
         mainViewChanged: true,
-        document: request_doc,
+        document: doc,
         project: this.templateSettings.project,
         homeTemplate: 'creative-project-mgt-template',
         homePage: '3rd-import-Page',

@@ -13,7 +13,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class DisruptionAssetPreviewInDialogComponent extends DocumentPreviewInDialogBaseTemplateComponent {
 
-  attachments: { type: string, url: string, title: string }[] = [];
+  attachments: { type: string; url: string; title: string }[] = [];
 
   viewerSettings: any = {
     layout: this.getDialogSettings().docViewerLayout,

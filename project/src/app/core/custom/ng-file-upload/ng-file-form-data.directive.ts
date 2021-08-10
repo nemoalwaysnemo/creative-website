@@ -15,7 +15,7 @@ export class NgFileFormDataDirective implements DoCheck {
 
   @Output() FormDataChange: EventEmitter<FormData> = new EventEmitter();
 
-  private differ: IterableDiffer<{}>;
+  private differ: IterableDiffer<any>;
 
   constructor(iterableDiffers: IterableDiffers) {
     this.differ = iterableDiffers.find([]).create();

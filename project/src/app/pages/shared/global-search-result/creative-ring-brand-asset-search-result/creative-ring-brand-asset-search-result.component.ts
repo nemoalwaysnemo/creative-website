@@ -112,7 +112,7 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
       }));
     }
     return items;
-  }
+  };
 
   protected onInit(): void {
     this.onQueryParamsChanged();

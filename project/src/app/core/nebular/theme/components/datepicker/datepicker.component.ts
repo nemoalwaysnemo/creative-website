@@ -54,7 +54,7 @@ import { NB_DATE_SERVICE_OPTIONS, NbDatepicker, NbPickerValidatorConfig } from '
  * The `NbBasePickerComponent` component concentrates overlay manipulation logic.
  */
 @Component({
-  template: ``,
+  template: '',
 })
 export class NbBasePickerComponent<D, T, P> extends NbDatepicker<T> implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 

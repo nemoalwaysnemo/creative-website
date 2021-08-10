@@ -145,7 +145,7 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
       }));
     }
     return items;
-  }
+  };
 
   listViewBuilderHistory: (docs: DocumentModel[], uid: string) => any = (docs: DocumentModel[], uid: string) => {
     const items = [];
@@ -160,7 +160,7 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
       }));
     }
     return items;
-  }
+  };
 
   constructor(
     protected documentPageService: DocumentPageService,

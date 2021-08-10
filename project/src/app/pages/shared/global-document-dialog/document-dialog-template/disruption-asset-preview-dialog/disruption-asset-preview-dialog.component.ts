@@ -17,7 +17,7 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
 
   static readonly NAME: string = 'disruption-asset-preview';
 
-  attachments: { type: string, url: string, title: string }[] = [];
+  attachments: { type: string; url: string; title: string }[] = [];
 
   writePermission$: Observable<boolean> = observableOf(false);
 
