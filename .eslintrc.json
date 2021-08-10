@@ -6,7 +6,7 @@
       ],
       "parserOptions": {
         "project": [
-          "./project/tsconfig.app.json"
+          "./tsconfig.eslint.json"
         ],
         "createDefaultProgram": true
       },
