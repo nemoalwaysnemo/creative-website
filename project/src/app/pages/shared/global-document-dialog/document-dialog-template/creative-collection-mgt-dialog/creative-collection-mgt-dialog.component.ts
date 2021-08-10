@@ -97,7 +97,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
   }
 
   getParentDocument(): void {
-    this.documentPageService.operation(NuxeoAutomations.GetDocument, { uuid: this.document.parentRef }, null, { schemas: '*' }).subscribe((doc: DocumentModel) => {
+    this.documentPageService.operation(NuxeoAutomations.GetDocument, { uuid: this.document.parentRef }).subscribe((doc: DocumentModel) => {
       this.parentDocument = doc;
     });
   }
