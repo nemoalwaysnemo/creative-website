@@ -67,6 +67,8 @@ export class DocumentFormContext {
 
   formValue: any = {};
 
+  sharedFormValue: any = {};
+
   targetFolder: DocumentModel;
 
   documents: DocumentModel[] = [];
@@ -121,6 +123,11 @@ export class DocumentFormContext {
 
   updateFormValue(value: any): this {
     this.formValue = value;
+    return this;
+  }
+
+  updateSharedFormValue(value: any): this {
+    this.sharedFormValue = value;
     return this;
   }
 }

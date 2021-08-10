@@ -89,6 +89,7 @@ export class GlobalDocumentDialogService {
   }
 
   backToMainView(componentName: string, settings: any, component: Type<any> = null): void {
+    if (settings.mainViewDocument) { settings.document = settings.mainViewDocument; delete settings.mainViewDocument; }
     const view = componentName || settings.homeTemplate;
     this.selectView(view, component, settings);
   }

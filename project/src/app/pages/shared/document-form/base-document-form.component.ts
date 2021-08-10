@@ -340,8 +340,9 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   protected performSave(ctx: DocumentFormContext): Observable<DocumentFormContext> {
-    return (ctx.formSettings.formMode === 'create' ? this.performCreate(ctx) : this.performUpdate(ctx)).pipe(
-      map((docs: DocumentModel[]) => ctx.updatePerformedDocuments(docs).updateFormValue(this.getFormValue())),
+    return observableOf(ctx.updateFormValue(this.getFormValue()).updateSharedFormValue(this.getSharedFormValue())).pipe(
+      concatMap((c: DocumentFormContext) => c.formSettings.formMode === 'create' ? this.performCreate(c) : this.performUpdate(c)),
+      map((docs: DocumentModel[]) => ctx.updatePerformedDocuments(docs)),
     );
   }
 
