@@ -12,6 +12,7 @@ import { DocumentListViewItem } from '../document-list-view/document-list-view.i
 import { ListSearchRowCustomViewComponent } from '../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 import { SelectableItemService } from '../document-selectable/selectable-item/selectable-item.service';
+import { isValueEmpty } from '@core/services/helpers';
 
 @Component({
   selector: 'creative-ring-collection-form',
@@ -28,6 +29,19 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     private selectableItemService: SelectableItemService,
     protected documentPageService: DocumentPageService) {
     super(documentPageService);
+  }
+
+  beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
+    if (doc.type === 'App-Library-CreativeRing-Collection') {
+      doc.setProperty('The_Loupe_Main:agency', null);
+      doc.setProperty('The_Loupe_Main:country', []);
+    } else {
+      const agency = ctx.targetDocument.get('The_Loupe_Main:agency') ? ctx.targetDocument.get('The_Loupe_Main:agency') : null;
+      const country = ctx.targetDocument.get('The_Loupe_Main:country') ? ctx.targetDocument.get('The_Loupe_Main:country') : [];
+      doc.setProperty('The_Loupe_Main:agency', !isValueEmpty(doc.get('The_Loupe_Main:agency')) ? doc.get('The_Loupe_Main:agency') : agency);
+      doc.setProperty('The_Loupe_Main:country', !isValueEmpty(doc.get('The_Loupe_Main:country')) ? doc.get('The_Loupe_Main:country') : country);
+    }
+    return observableOf(doc);
   }
 
   afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {

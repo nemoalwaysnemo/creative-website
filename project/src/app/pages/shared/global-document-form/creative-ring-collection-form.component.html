@@ -4,8 +4,13 @@
     <document-form-element [formModel]="'form'"></document-form-element>
     <document-form-element [group]="group" [formModel]="form.getFormModels('file:content')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
     <div class="ring-colletion-header">
-      <div class="ring-colletion-title">
-        <document-form-element [group]="group" [formModel]="form.getFormModels('dc:title')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+      <div class="ring-colletion-form-model">
+        <div class="ring-collection-form-title">
+          <document-form-element [group]="group" [formModel]="form.getFormModels('dc:title')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+        </div>
+        <div class="ring-collection-form-thumbnail">
+          <document-form-element [group]="group" [formModel]="form.getFormModels('app_global:enable_thumbnail')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+        </div>
       </div>
       <div class="ring-collection-user">
         <p class="ring-collection-user-label">User</p>
