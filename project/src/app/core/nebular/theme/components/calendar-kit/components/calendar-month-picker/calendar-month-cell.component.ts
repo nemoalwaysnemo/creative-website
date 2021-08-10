@@ -19,11 +19,13 @@ import { NbDateService } from '../../services';
 
 @Component({
   selector: 'nb-calendar-month-cell',
-  template: `{{ month }}`,
+  template: '{{ month }}',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'month-cell' },
 })
 export class NbCalendarMonthCellComponent<D> implements NbCalendarCell<D, D> {
+
+  @HostBinding('class.month-cell')
+
   @Input() date: D;
 
   @Input() selectedValue: D;

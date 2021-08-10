@@ -155,7 +155,7 @@ export class NbDialogService {
    * Opens new instance of the dialog, may receive optional config.
    */
   open<T>(content: Type<T> | TemplateRef<T>,
-          userConfig: Partial<NbDialogConfig<Partial<T> | string>> = {}): NbDialogRef<T> {
+    userConfig: Partial<NbDialogConfig<Partial<T> | string>> = {}): NbDialogRef<T> {
     const config = new NbDialogConfig({ ...this.globalConfig, ...userConfig });
     const overlayRef = this.createOverlay(config);
     const dialogRef = new NbDialogRef<T>(overlayRef);
@@ -202,9 +202,9 @@ export class NbDialogService {
   }
 
   protected createContent<T>(config: NbDialogConfig,
-                             content: Type<T> | TemplateRef<T>,
-                             container: NbDialogContainerComponent,
-                             dialogRef: NbDialogRef<T>): void {
+    content: Type<T> | TemplateRef<T>,
+    container: NbDialogContainerComponent,
+    dialogRef: NbDialogRef<T>): void {
     if (content instanceof TemplateRef) {
       const portal = this.createTemplatePortal(config, content, dialogRef);
       container.attachTemplatePortal(portal);
@@ -219,8 +219,8 @@ export class NbDialogService {
   }
 
   protected createTemplatePortal<T>(config: NbDialogConfig,
-                                    content: TemplateRef<T>,
-                                    dialogRef: NbDialogRef<T>): NbTemplatePortal {
+    content: TemplateRef<T>,
+    dialogRef: NbDialogRef<T>): NbTemplatePortal {
     return new NbTemplatePortal(content, null, { $implicit: config.context, dialogRef } as any);
   }
 
@@ -229,8 +229,8 @@ export class NbDialogService {
    * This approach provides us capability inject `NbDialogRef` in dialog component.
    */
   protected createComponentPortal<T>(config: NbDialogConfig,
-                                     content: Type<T>,
-                                     dialogRef: NbDialogRef<T>): NbComponentPortal {
+    content: Type<T>,
+    dialogRef: NbDialogRef<T>): NbComponentPortal {
     const injector = this.createInjector(config);
     const portalInjector = new NbPortalInjector(injector, new WeakMap([[NbDialogRef, dialogRef]]));
     return new NbComponentPortal(content, config.viewContainerRef, portalInjector);

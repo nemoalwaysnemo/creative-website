@@ -40,13 +40,13 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
   };
 
-  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
+  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams; opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
       opts.setEnrichers('document', [NuxeoEnricher.document.HIGHLIGHT]);
     }
     return { searchParams, opts };
-  }
+  };
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     if (res.searchParams.hasKeyword() && res.action === 'afterSearch') {
@@ -55,7 +55,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
       );
     }
     return observableOf(res);
-  }
+  };
 
   ngOnInit(): void {
     const subscription = this.searchCurrentDocument(this.getCurrentDocumentSearchParams()).subscribe();

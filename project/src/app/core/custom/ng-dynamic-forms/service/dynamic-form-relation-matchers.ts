@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { InjectionToken, Injector, ValueProvider } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DynamicFormControlModel } from '../model/dynamic-form-control.model';

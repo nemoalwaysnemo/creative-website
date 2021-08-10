@@ -64,7 +64,7 @@ export type YoutubeItemData = IframeItemData & {
 };
 
 export type VideoItemData = GalleryItemModel & {
-  src?: string | { url: string, type: string }[];
+  src?: string | { url: string; type: string }[];
   thumb?: string;
   poster?: string;
   controls?: boolean;

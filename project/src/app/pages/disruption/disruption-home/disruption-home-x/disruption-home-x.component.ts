@@ -95,7 +95,7 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
     this.subscription.add(subscription);
   }
 
-  private search(params: {}): Observable<DocumentModel[]> {
+  private search(params: any = {}): Observable<DocumentModel[]> {
     return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries),
     );

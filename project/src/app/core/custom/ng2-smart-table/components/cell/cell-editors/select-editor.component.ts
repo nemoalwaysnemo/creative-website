@@ -10,9 +10,9 @@ import { DefaultEditorComponent } from './default-editor';
             [(ngModel)]="cell.newValue"
             [name]="cell.getId()"
             [disabled]="!cell.isEditable()"
-            (click)="onClick.emit($event)"
-            (keydown.enter)="onEdited.emit($event)"
-            (keydown.esc)="onStopEditing.emit()">
+            (click)="click.emit($event)"
+            (keydown.enter)="edited.emit($event)"
+            (keydown.esc)="stopEditing.emit()">
 
         <option *ngFor="let option of cell.getColumn().getConfig()?.list" [value]="option.value"
                 [selected]="option.value === cell.getValue()">{{ option.title }}

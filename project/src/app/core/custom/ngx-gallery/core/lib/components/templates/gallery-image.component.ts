@@ -111,7 +111,7 @@ export class GalleryImageComponent implements OnInit, OnDestroy {
     this._state.complete();
   }
 
-  onProgress({ loaded, total }: { loaded: number, total: number }): void {
+  onProgress({ loaded, total }: { loaded: number; total: number }): void {
     this.progress = loaded * 100 / total;
   }
 

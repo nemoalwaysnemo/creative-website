@@ -170,9 +170,9 @@ export class DocumentFormSettings {
 
   importSettings: DocumentImportSettings = new DocumentImportSettings();
 
-  accordionSettings: { name: string, position?: string, visibleFn?: any }[] = [];
+  accordionSettings: { name: string; position?: string; visibleFn?: any }[] = [];
 
-  switchTabSettings: { name: string, disabledFn?: any, visibleFn?: any, active: boolean }[] = [];
+  switchTabSettings: { name: string; disabledFn?: any; visibleFn?: any; active: boolean }[] = [];
 
   enableLayoutRight: boolean = true;
 

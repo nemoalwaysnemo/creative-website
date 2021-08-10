@@ -22,15 +22,15 @@ export class GlobalSearchMoreResultComponent extends BaseGlobalSearchResultCompo
 
   @Input() templateRef: TemplateRef<any>;
 
-  @Output() onLoadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+  @Output() loadMore: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   @Input() selectableSettings: SelectableItemSettings;
 
   @Input() searchResultFilter: (res: SearchResponse) => boolean = (res: SearchResponse) => res.source === 'document-load-more';
 
-  loadMore(): void {
+  loadMoreData(): void {
     if (!this.loading) {
-      this.onLoadMore.emit(this.searchResponse);
+      this.loadMore.emit(this.searchResponse);
     }
   }
 

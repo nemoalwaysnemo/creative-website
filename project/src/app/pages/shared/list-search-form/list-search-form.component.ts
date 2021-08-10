@@ -35,6 +35,13 @@ export class ListSearchFormComponent extends BaseSearchFormComponent {
     }
   }
 
+  @Input() listViewBuilder: (docs: DocumentModel[]) => DocumentListViewItem[] = (docs: DocumentModel[]) => docs.map((d: DocumentModel) => new DocumentListViewItem({
+    uid: d.uid,
+    title: d.title,
+  }));
+
+  @Output() rowSelect: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(
     protected router: Router,
     protected formBuilder: FormBuilder,
@@ -47,17 +54,6 @@ export class ListSearchFormComponent extends BaseSearchFormComponent {
       documentPageService,
       globalSearchFormService,
     );
-  }
-
-  @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
-
-  @Input() listViewBuilder: (docs: DocumentModel[]) => DocumentListViewItem[] = (docs: DocumentModel[]) => docs.map((d: DocumentModel) => new DocumentListViewItem({
-    uid: d.uid,
-    title: d.title,
-  }))
-
-  onRowSelect(item: any): void {
-    this.onSelected.emit(item);
   }
 
   protected onAfterSearchEvent(res: SearchResponse): Observable<SearchResponse> {

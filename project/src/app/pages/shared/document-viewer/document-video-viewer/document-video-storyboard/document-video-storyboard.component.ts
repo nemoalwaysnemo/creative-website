@@ -13,7 +13,7 @@ export class DocumentVideoStoryboardComponent implements OnInit {
 
   @Input() document: DocumentModel;
 
-  storyboards: { source: any, time: number }[] = [];
+  storyboards: { source: any; time: number }[] = [];
 
   @ViewChild('nav', { static: true, read: DragScrollComponent }) ds: DragScrollComponent;
 

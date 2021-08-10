@@ -12,9 +12,9 @@ import { DefaultEditorComponent } from './default-editor';
            [name]="cell.getId()"
            [placeholder]="cell.getTitle()"
            [disabled]="!cell.isEditable()"
-           (click)="onClick.emit($event)"
-           (keydown.enter)="onEdited.emit($event)"
-           (keydown.esc)="onStopEditing.emit()">
+           (click)="click.emit($event)"
+           (keydown.enter)="edited.emit($event)"
+           (keydown.esc)="stopEditing.emit()">
     `,
 })
 export class InputEditorComponent extends DefaultEditorComponent {

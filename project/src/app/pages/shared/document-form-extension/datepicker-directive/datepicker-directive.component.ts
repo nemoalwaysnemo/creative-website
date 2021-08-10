@@ -32,12 +32,12 @@ export class DatepickerDirectiveComponent implements ControlValueAccessor {
   }
 
   inputChange(event: any): void {
-    const date_input = event.target.value;
-    if (date_input === '') {
+    const input = event.target.value;
+    if (input === '') {
       this._onChange(null);
     } else {
       const validDateExp = /^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) ([1-9]|[1-2][0-9]|(3)[0-1]), (?:19[0-9]\d|2\d{3})$/i;
-      (validDateExp.test(date_input)) ? this._onChange(new Date(date_input)) : this._onChange(new Date(''));
+      (validDateExp.test(input)) ? this._onChange(new Date(input)) : this._onChange(new Date(''));
     }
   }
 

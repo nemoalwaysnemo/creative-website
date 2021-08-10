@@ -17,7 +17,7 @@ export class DocumentSelectListSettings {
   listViewBuilder: (docs: DocumentModel[]) => DocumentListViewItem[] = (docs: DocumentModel[]) => docs.map((d: DocumentModel) => new DocumentListViewItem({
     uid: d.uid,
     title: d.title,
-  }))
+  }));
 
   constructor(data: any = {}) {
     Object.assign(this, data);

@@ -14,7 +14,7 @@ import { DocumentPreviewInDialogBaseTemplateComponent } from '../document-previe
 })
 export class CreativeAssetPreviewInDialogComponent extends DocumentPreviewInDialogBaseTemplateComponent {
 
-  attachments: { type: string, url: string, title: string }[] = [];
+  attachments: { type: string; url: string; title: string }[] = [];
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
@@ -68,9 +68,9 @@ export class CreativeAssetPreviewInDialogComponent extends DocumentPreviewInDial
           map((permission: boolean) => user.canAccess() && permission === true),
         )),
       )]).pipe(
-        map(results => (results[0] || results[1] || results[2])),
-        share(),
-      );
+      map(results => (results[0] || results[1] || results[2])),
+      share(),
+    );
   }
 
   isVideoAsset(doc: DocumentModel): boolean {

@@ -66,7 +66,7 @@ export class CreativeUsageRightsSearchResultComponent extends BaseSearchResultCo
       }));
     }
     return items;
-  }
+  };
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);

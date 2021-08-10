@@ -29,14 +29,14 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
 
   reportSearchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings();
 
-  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
+  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams; opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
     if (searchParams.hasFilters && searchParams.hasNoFulltextSearch()) {
       searchParams = this.buildSearchFolderParams(searchParams);
     } else if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
     }
     return { searchParams, opts };
-  }
+  };
 
   constructor(
     protected activatedRoute: ActivatedRoute,

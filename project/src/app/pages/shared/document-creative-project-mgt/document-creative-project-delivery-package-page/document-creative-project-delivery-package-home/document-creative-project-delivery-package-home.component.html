@@ -6,7 +6,7 @@
   <document-creative-project-navigation [documentModel]='document' [settings]="navSettings"></document-creative-project-navigation>
 </div>
 <div class="document-creative-project-home-list">
-  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsPackageHome" [listViewSettings]="listViewSettingsPackage" [extendRowRef]="extendRowView" [listViewBuilder]="listViewBuilder" (onSelected)="onSelected($event)">
+  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsPackageHome" [listViewSettings]="listViewSettingsPackage" [extendRowRef]="extendRowView" [listViewBuilder]="listViewBuilder" (rowSelect)="onSelected($event)">
   </list-search-form-in-dialog>
 </div>
 <ng-template #extendRowView let-row="row">

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 export abstract class NbAuthToken {
   protected payload: any = null;
   abstract getValue(): string;

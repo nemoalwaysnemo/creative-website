@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { FormControl, FormGroup } from '@angular/forms';
 import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
 import { DynamicFormArrayGroupModel } from '../model/form-array/dynamic-form-array.model';

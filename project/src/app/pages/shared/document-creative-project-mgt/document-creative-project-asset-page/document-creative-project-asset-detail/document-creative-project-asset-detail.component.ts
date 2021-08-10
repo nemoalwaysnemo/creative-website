@@ -95,8 +95,8 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
           map((permission: boolean) => user.canAccess() && permission === true),
         )),
       )]).pipe(
-        map(results => (results[0] || results[1] || results[2])),
-        share(),
-      );
+      map(results => (results[0] || results[1] || results[2])),
+      share(),
+    );
   }
 }

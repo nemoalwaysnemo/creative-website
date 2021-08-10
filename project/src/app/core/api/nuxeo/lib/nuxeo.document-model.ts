@@ -275,8 +275,8 @@ export class DocumentModel extends Base {
     return isValueEmpty(value) ? (defaultThumbnail ? this.getDefaultThumbnail() : '') : value.data;
   }
 
-  getCustomFiles(propertyName: string): { url: string, type: string, name: string }[] {
-    const list: { url: string, type: string, name: string }[] = [];
+  getCustomFiles(propertyName: string): { url: string; type: string; name: string }[] {
+    const list: { url: string; type: string; name: string }[] = [];
     const value = this.get(propertyName);
     if (value && Array.isArray(value) && !isValueEmpty(value)) {
       for (const file of value) {
@@ -288,7 +288,7 @@ export class DocumentModel extends Base {
     return list;
   }
 
-  getAttachmentList(): { type: string, url: string, title: string }[] {
+  getAttachmentList(): { type: string; url: string; title: string }[] {
     return (this.get('files:files') || []).filter((entry: any) => entry && entry.file).map((entry: any) => ({ type: entry.file['mime-type'], url: entry.file.data, title: entry.file.name }));
   }
 
@@ -296,7 +296,7 @@ export class DocumentModel extends Base {
     return this.getVideoSources().length > 0;
   }
 
-  getVideoSources(): { url: string, type: string, name: string }[] {
+  getVideoSources(): { url: string; type: string; name: string }[] {
     const sources = this.get('vid:transcodedVideos');
     if (!!sources && sources.length !== 0) {
       return mapOrder(sources, ['MP4 480p', 'WebM Original', 'WebM 480p'], 'name').map((video: any) => {
@@ -307,7 +307,7 @@ export class DocumentModel extends Base {
     }
   }
 
-  getCarouselVideoSources(): { url: string, type: string, name: string }[] {
+  getCarouselVideoSources(): { url: string; type: string; name: string }[] {
     const sources = this.get('vid:transcodedVideos') || [];
     const webMOriginal = sources.find((x: any) => x.name === 'WebM Original');
     if (webMOriginal) {

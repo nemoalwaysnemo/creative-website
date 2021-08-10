@@ -16,7 +16,7 @@ export class BackslashKnowledgeAssetPreviewDialogComponent extends DocumentDialo
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
-  attachments: { type: string, url: string, title: string }[] = [];
+  attachments: { type: string; url: string; title: string }[] = [];
 
   viewerSettings: any = {
     layout: this.getDialogSettings().docViewerLayout,

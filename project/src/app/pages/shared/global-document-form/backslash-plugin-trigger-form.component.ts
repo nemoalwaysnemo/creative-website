@@ -9,7 +9,7 @@ import { concatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'backslash-plugin-trigger-form',
-  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"><ng-content select=".custom-button"></ng-content></document-form>`,
+  template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"><ng-content select=".custom-button"></ng-content></document-form>',
 })
 export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormComponent {
 
@@ -21,7 +21,7 @@ export class BackslashPluginTriggerFormComponent extends GlobalDocumentFormCompo
     doc.setProperty('app_Edges:trigger_additional_links', (doc.get('app_Edges:trigger_additional_links') || []).filter((x: any) => x));
     doc.removeProperties('web-page-element:page-images');
     return observableOf(doc);
-  }
+  };
 
   private getUserSimplePreference(doc: DocumentModel, user: UserModel): Observable<any> {
     return this.documentPageService.getSimplePreference('backslash-chrome-user-country, backslash-chrome-user-agency, backslash-chrome-user-city, backslash-chrome-user-spotter, backslash-chrome-user-spotter-handle').pipe(

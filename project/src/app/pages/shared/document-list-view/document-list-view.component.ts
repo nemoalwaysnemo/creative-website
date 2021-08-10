@@ -38,7 +38,7 @@ export class DocumentListViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Output() onRowSelect = new EventEmitter<any>();
+  @Output() rowSelect = new EventEmitter<any>();
 
   private settings$: Subject<any> = new Subject<any>();
 

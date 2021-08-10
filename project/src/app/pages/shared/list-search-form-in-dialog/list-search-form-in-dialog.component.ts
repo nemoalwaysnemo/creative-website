@@ -44,12 +44,12 @@ export class ListSearchFormInDialogComponent extends BaseSearchFormComponent {
     }
   }
 
-  @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() rowSelect: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() listViewBuilder: (docs: DocumentModel[]) => DocumentListViewItem[] = (docs: DocumentModel[]) => docs.map((d: DocumentModel) => new DocumentListViewItem({
     uid: d.uid,
     title: d.title,
-  }))
+  }));
 
   constructor(
     protected router: Router,

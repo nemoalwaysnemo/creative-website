@@ -7,10 +7,11 @@ import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-for
 import { ListSearchRowCustomViewComponent } from '../../../shared/list-search-form-in-dialog/list-search-row-custom-view-component';
 
 @Component({
-  template: `<a [routerLink]="['/p/creative/ring/brand/', value.uid, 'asset']">{{ value.title }}</a>`,
+  template: `<a [routerLink]="['/p/creative/ring/brand/', value.uid, 'asset']">{{ value.title }}</a>
+  `,
 })
 export class CreativeRingBrandRowRenderComponent {
-  @Input() value: { title: string, uid: string };
+  @Input() value: { title: string; uid: string };
 }
 
 @Component({
@@ -76,7 +77,7 @@ export class CreativeRingBrandSearchResultComponent extends BaseSearchResultComp
       }));
     }
     return items;
-  }
+  };
 
   protected onInit(): void {
     this.onQueryParamsChanged();

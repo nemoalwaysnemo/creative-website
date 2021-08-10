@@ -15,7 +15,7 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   viewerSettings: DocumentViewerSettings;
 
-  videoSources: { url: string, type: string, name: string }[] = [];
+  videoSources: { url: string; type: string; name: string }[] = [];
 
   private subscription: Subscription = new Subscription();
 
@@ -43,6 +43,17 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
 
   onPlayerReady(api: VgApiService): void {
     this.api = api;
+
+    const setVolume = (vgApi: VgApiService, volume: any): void => {
+      vgApi.$$setAllProperties('volume', volume);
+    };
+
+    const setTime = (vgApi: VgApiService, time: any): void => {
+      if (time) {
+        vgApi.$$setAllProperties('currentTime', time);
+      }
+    };
+
     if (this.viewerSettings.enableGlobalMute) {
       const defaultVolume = this.documentVideoViewerService.getCookie('defaultVolume');
       setVolume(api, defaultVolume ? Number(defaultVolume) : 0);
@@ -89,15 +100,6 @@ export class DocumentVideoPlayerComponent implements OnDestroy {
       this.api.play();
     }
 
-    function setVolume(vgApi: VgApiService, volume: any): void {
-      vgApi.$$setAllProperties('volume', volume);
-    }
-
-    function setTime(vgApi: VgApiService, time: any): void {
-      if (time) {
-        vgApi.$$setAllProperties('currentTime', time);
-      }
-    }
   }
 
 }

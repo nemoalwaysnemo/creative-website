@@ -1,4 +1,4 @@
 <global-search-form [filters]="filters" [searchParams]="defaultParams" [settings]="searchFormSettings">
-  <global-search-button class="group-right" [enableViewSwitcher]="true" (onResultViewChanged)="onResultViewChanged($event)"></global-search-button>
+  <global-search-button class="group-right" [enableViewSwitcher]="true" (resultViewChange)="onResultViewChanged($event)"></global-search-button>
 </global-search-form>
 <creative-popular-brand-search-result [selectedView]="currentView" [thumbnailViewSettings]="thumbnailViewSettings"></creative-popular-brand-search-result>

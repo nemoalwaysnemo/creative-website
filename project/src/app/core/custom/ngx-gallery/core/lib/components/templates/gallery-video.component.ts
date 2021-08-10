@@ -15,7 +15,7 @@ import { VgApiService } from '@videogular/ngx-videogular/core';
 })
 export class GalleryVideoComponent implements OnInit {
 
-  @Input() src: string | { url: string, type?: string }[];
+  @Input() src: string | { url: string; type?: string }[];
 
   @Input() poster: string;
 
@@ -45,7 +45,7 @@ export class GalleryVideoComponent implements OnInit {
 
   preload: string = 'metadata';
 
-  videoSources: { url: string, type?: string }[];
+  videoSources: { url: string; type?: string }[];
 
   constructor(private api: VgApiService) {
   }

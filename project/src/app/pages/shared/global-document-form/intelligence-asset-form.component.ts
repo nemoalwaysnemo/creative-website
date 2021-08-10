@@ -18,7 +18,7 @@ import { SuggestionSettings } from '../document-form-extension';
 
 @Component({
   selector: 'intelligence-asset-form',
-  template: `<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>`,
+  template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>',
 })
 export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent {
 
@@ -31,7 +31,7 @@ export class IntelligenceAssetFormComponent extends GlobalDocumentFormComponent 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     doc.setProperty('nxtag:tags', doc.get('nxtag:tags').map((tag: string) => ({ label: tag, username: ctx.user.username })));
     return observableOf(doc);
-  }
+  };
 
   protected buildTags(doc: DocumentModel): any {
     doc.setProperty('nxtag:tags', (doc.get('nxtag:tags') || []).map((tag: any) => {

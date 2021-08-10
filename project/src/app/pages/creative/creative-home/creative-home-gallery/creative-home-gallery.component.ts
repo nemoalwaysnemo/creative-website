@@ -89,7 +89,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
       this.shareUrl = this.buildShareUrl(doc);
       this.documentPageService.googleAnalyticsTrackEvent({
         event_category: 'Gallery',
-        event_action: `Gallery Item Preview`,
+        event_action: 'Gallery Item Preview',
         event_label: `Gallery Item Preview - ${doc.title}`,
         'dimensions.docId': doc.uid,
         'dimensions.docTitle': doc.title,

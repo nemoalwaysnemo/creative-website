@@ -12,7 +12,7 @@ export interface DocumentModelForm {
 }
 
 @Component({
-  template: ``,
+  template: '',
 })
 export class GlobalDocumentFormComponent implements DocumentModelForm, OnInit, OnDestroy {
 

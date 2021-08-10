@@ -44,7 +44,7 @@ export class DocumentNewPosterButtonComponent {
     if (typeof currentTime === 'number') {
       const duration = (currentTime * 10).toString();
       const subscription = this.documentPageService.operation(NuxeoAutomations.GetVideoScreenshot, { duration }, this.documentModel.uid).subscribe((doc: DocumentModel) => {
-        this.documentPageService.notify(`Video poster has been updated successfully!`, '', 'success');
+        this.documentPageService.notify('Video poster has been updated successfully!', '', 'success');
         this.documentPageService.refresh(500);
       });
       this.subscription.add(subscription);

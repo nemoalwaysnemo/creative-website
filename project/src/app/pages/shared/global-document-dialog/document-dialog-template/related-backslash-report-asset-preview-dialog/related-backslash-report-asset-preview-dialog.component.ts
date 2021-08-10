@@ -18,7 +18,7 @@ export class RelatedBackslashReportAssetDialogPreviewComponent extends DocumentD
 
   downloadPermission$: Observable<boolean> = observableOf(false);
 
-  attachments: { type: string, url: string, title: string }[] = [];
+  attachments: { type: string; url: string; title: string }[] = [];
 
   viewerSettings: any = {
   };
@@ -78,9 +78,9 @@ export class RelatedBackslashReportAssetDialogPreviewComponent extends DocumentD
           map((permission: boolean) => user.canAccess() && permission === true),
         )),
       )]).pipe(
-        map(results => (results[0] || results[1] || results[2])),
-        share(),
-      );
+      map(results => (results[0] || results[1] || results[2])),
+      share(),
+    );
   }
 
   isVideoAsset(doc: DocumentModel): boolean {

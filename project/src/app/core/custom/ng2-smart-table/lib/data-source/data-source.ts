@@ -86,7 +86,7 @@ export abstract class DataSource {
     }
   }
 
-  addFilter(fieldConf: {}, andOperator?: boolean, doEmit?: boolean): void {
+  addFilter(fieldConf: any, andOperator?: boolean, doEmit?: boolean): void {
     if (doEmit) {
       this.emitOnChanged('filter');
     }

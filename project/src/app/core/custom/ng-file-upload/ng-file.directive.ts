@@ -11,7 +11,7 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
 
   protected fileElm: any;
 
-  protected filters: { name: string, fn: (file: File) => boolean }[] = [];
+  protected filters: { name: string; fn: (file: File) => boolean }[] = [];
 
   protected lastFileCount: number = 0;
 
@@ -22,10 +22,10 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
 
   @Input() fileDropDisabled: boolean = false;
   @Input() selectable: boolean = false;
-  @Output() onInit: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() onInit: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() lastInvalids: InvalidFileItem[] = [];
-  @Output() lastInvalidsChange: EventEmitter<{ file: File, type: string }[]> = new EventEmitter();
+  @Output() lastInvalidsChange: EventEmitter<{ file: File; type: string }[]> = new EventEmitter();
 
   @Input() lastBaseUrl: string; // base64 last file uploaded url
   @Output() lastBaseUrlChange: EventEmitter<string> = new EventEmitter();
@@ -68,9 +68,9 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
     }
 
     // create reference to this class with one cycle delay to avoid ExpressionChangedAfterItHasBeenCheckedError
-    setTimeout(() => {
-      this.onInit.emit(this);
-    }, 0);
+    // setTimeout(() => {
+    //   this.onInit.emit(this);
+    // }, 0);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -265,7 +265,8 @@ export class NgFileDirective implements OnInit, OnDestroy, OnChanges {
   }
 
   getFileFilterFailName(file: File): string | undefined {
-    // tslint:disable-next-line:prefer-for-of
+
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < this.filters.length; i++) {
       if (!this.filters[i].fn.call(this, file)) {
         return this.filters[i].name;

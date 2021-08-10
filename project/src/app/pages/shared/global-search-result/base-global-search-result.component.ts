@@ -46,7 +46,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
     }
   }
 
-  @Output() onResponse: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+  @Output() response: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
 
   @Output() searchResult: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
 
@@ -55,7 +55,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
   @Input() listViewBuilder: (docs: DocumentModel[]) => DocumentListViewItem[] = (docs: DocumentModel[]) => docs.map((d: DocumentModel) => new DocumentListViewItem({
     uid: d.uid,
     title: d.title,
-  }))
+  }));
 
   constructor(
     protected documentPageService: DocumentPageService,
@@ -79,7 +79,7 @@ export class BaseGlobalSearchResultComponent extends BaseSearchResultComponent {
       } else {
         this.triggerLoading(false, res.searchParams);
         this.searchParams = res.searchParams;
-        this.onResponse.emit(res);
+        this.response.emit(res);
         this.performResponse(res);
       }
     });

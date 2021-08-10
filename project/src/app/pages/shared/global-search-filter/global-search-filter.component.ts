@@ -75,7 +75,7 @@ export class GlobalSearchFilterComponent implements ControlValueAccessor, OnChan
     this.disabled = isDisabled;
   }
 
-  onDateRangeChange(range: { start: Date, end?: Date }, model: SearchDateRangeModel): void {
+  onDateRangeChange(range: { start: Date; end?: Date }, model: SearchDateRangeModel): void {
     this.aggregateModel[model.minKey] = formatDate(range.start, 'yyyy-MM-dd', 'en-US');
     if (range.end) {
       // endDate = new Date(new Date());

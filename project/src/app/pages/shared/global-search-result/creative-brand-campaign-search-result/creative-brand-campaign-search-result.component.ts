@@ -50,7 +50,7 @@ export class CreativeBrandCampaignSearchResultComponent extends BaseSearchResult
       }));
     }
     return items;
-  }
+  };
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);

@@ -27,13 +27,13 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
     enableQueryParams: true,
   });
 
-  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
+  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams; opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
     if (searchParams.hasKeyword()) {
       searchParams = this.buildSearchAssetsParams(searchParams);
       opts.setEnrichers('document', [NuxeoEnricher.document.BREADCRUMB, NuxeoEnricher.document.HIGHLIGHT]);
     }
     return { searchParams, opts };
-  }
+  };
 
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     if (res.searchParams.hasKeyword() && res.action === 'afterSearch') {
@@ -42,7 +42,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
       );
     }
     return observableOf(res);
-  }
+  };
 
   constructor(
     protected activatedRoute: ActivatedRoute,

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 export function getWindow(): any { return window; }
 
 export function acceptType(accept: string, type: string, name?: string): boolean {
@@ -258,7 +259,7 @@ export function restoreExif(orig: any, resized: any): string {
 
   ExifRestorer.getExifArray = (segments: number[][]): any[] => {
     let seg;
-    // tslint:disable-next-line:prefer-for-of
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let x = 0; x < segments.length; x++) {
       seg = segments[x];
       if (seg[0] === 255 && seg[1] === 225) { // (ff e1)

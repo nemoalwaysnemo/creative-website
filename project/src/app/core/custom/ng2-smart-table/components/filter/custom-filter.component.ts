@@ -12,7 +12,7 @@ import { FilterDefaultComponent } from './filter-default';
 
 @Component({
   selector: 'custom-table-filter',
-  template: `<ng-template #dynamicTarget></ng-template>`,
+  template: '<ng-template #dynamicTarget></ng-template>',
 })
 export class CustomFilterComponent extends FilterDefaultComponent implements OnChanges, OnDestroy {
   @Input() query: string;

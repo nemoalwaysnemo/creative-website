@@ -113,20 +113,19 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "project/tsconfig.app.json",
-              "project/tsconfig.spec.json",
-              "project/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "project/**/*.ts",
+              "project/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "tbwa-knowledge-website"
+  "defaultProject": "tbwa-knowledge-website",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

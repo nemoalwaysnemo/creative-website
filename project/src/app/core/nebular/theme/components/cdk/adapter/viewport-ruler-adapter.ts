@@ -13,7 +13,7 @@ export class NbViewportRulerAdapter extends ViewportRuler {
     super(platform, ngZone, document);
   }
 
-  getViewportSize(): Readonly<{ width: number; height: number; }> {
+  getViewportSize(): Readonly<{ width: number; height: number }> {
     let res;
     /*
     * getDimensions call is really synchronous operation.

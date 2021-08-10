@@ -23,7 +23,7 @@ export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemp
 
   shareUrl: string = this.documentPageService.getCurrentFullUrl();
 
-  attachments: { type: string, url: string, title: string }[] = [];
+  attachments: { type: string; url: string; title: string }[] = [];
 
   enableThumbnailCreation: boolean = true;
 

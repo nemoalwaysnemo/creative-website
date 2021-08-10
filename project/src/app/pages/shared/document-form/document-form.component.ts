@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 })
 export class DocumentFormComponent extends BaseDocumentFormComponent {
 
-  modelOperation: Subject<{ model: string, type: string }> = new Subject();
+  modelOperation: Subject<{ model: string; type: string }> = new Subject();
 
   protected performNgFormSettings(ctx: DocumentFormContext, formModel: DynamicFormModel): void {
     const ngFormSettings = new DynamicNGFormSettings();
@@ -27,12 +27,12 @@ export class DocumentFormComponent extends BaseDocumentFormComponent {
 
   protected prepareAccordionTab(ctx: DocumentFormContext, formModel: DynamicFormModel): any[] {
     const accordionSettings = (ctx.formSettings.accordionSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(ctx));
-    return accordionSettings.map((s: { name: string, position: string }) => ({ name: s.name, position: s.position, models: formModel.filter(m => m.accordionTab === s.name) }));
+    return accordionSettings.map((s: { name: string; position: string }) => ({ name: s.name, position: s.position, models: formModel.filter(m => m.accordionTab === s.name) }));
   }
 
   protected prepareSwitchTab(ctx: DocumentFormContext, formModel: DynamicFormModel): any[] {
     const s = (ctx.formSettings.switchTabSettings || []).filter((item: any) => !item.visibleFn || item.visibleFn(ctx));
-    return s.map((x: { name: string, active: boolean, disabledFn?: any }) => ({ name: x.name, active: x.active, disabled: (x.disabledFn && x.disabledFn(ctx)), models: formModel.filter(m => m.switchTab === x.name) }));
+    return s.map((x: { name: string; active: boolean; disabledFn?: any }) => ({ name: x.name, active: x.active, disabled: (x.disabledFn && x.disabledFn(ctx)), models: formModel.filter(m => m.switchTab === x.name) }));
   }
 
   protected onUploadFileSelected(uploadModel: DynamicFormControlModel, settings: DynamicNGFormSettings, added: NuxeoUploadResponse[]): void {

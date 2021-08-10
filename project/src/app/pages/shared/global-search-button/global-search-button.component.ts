@@ -46,7 +46,7 @@ export class GlobalSearchButtonComponent {
 
   @Input() currentView: string = 'thumbnailView';
 
-  @Output() onResultViewChanged: EventEmitter<string> = new EventEmitter();
+  @Output() resultViewChange: EventEmitter<string> = new EventEmitter();
 
   constructor(private documentPageService: DocumentPageService) {
 
@@ -55,7 +55,7 @@ export class GlobalSearchButtonComponent {
   changeResultView(view: string): void {
     this.currentView = view;
     this.enableSliderBar = this.enableSliderAction && view === 'thumbnailView';
-    this.onResultViewChanged.emit(view);
+    this.resultViewChange.emit(view);
   }
 
   sliderValueChanged(event: ChangeContext): void {

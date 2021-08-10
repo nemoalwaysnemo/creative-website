@@ -272,7 +272,7 @@ export class DocumentCreativeProjectImportAssetFormComponent implements OnInit, 
   }
 
   protected showMsg(): void {
-    this.documentPageService.notify(`Documents have been created successfully!`, '', 'success');
+    this.documentPageService.notify('Documents have been created successfully!', '', 'success');
   }
 
   private load(uid: string): void {

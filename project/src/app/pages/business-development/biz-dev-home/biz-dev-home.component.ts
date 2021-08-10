@@ -89,7 +89,7 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
     });
   }
 
-  private search(params: {}): Observable<DocumentModel[]> {
+  private search(params: any = {}): Observable<DocumentModel[]> {
     return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries.filter((doc: DocumentModel) => this.tabs.some(x => doc.title === x.title))),
     );

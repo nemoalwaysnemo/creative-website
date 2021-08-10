@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component} from '@angular/core';
 import { DocumentModel, NuxeoAutomations, UserModel } from '@core/api';
 import { Subject, of as observableOf, Observable, concat, timer } from 'rxjs';
 import { DynamicInputModel, DynamicTextAreaModel, DynamicSuggestionModel, DynamicOptionTagModel, DynamicCheckboxModel } from '@core/custom';
@@ -132,8 +132,6 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
     enableSearchInput: true,
   });
 
-  @Output() onResponse: EventEmitter<any> = new EventEmitter<any>();
-
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     if (this.formSettings.formMode === 'create') {
       doc.setProperty('dc:title', 'Package-' + doc.getParent().get('The_Loupe_Main:jobnumber'));
@@ -141,7 +139,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
       doc.setProperty('The_Loupe_Delivery:agency_disclaimer', doc.getParent().uid);
     }
     return observableOf(doc);
-  }
+  };
 
   afterSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     this.actionButton = ctx.action.button ? ctx.action.button : null;
@@ -166,7 +164,7 @@ export class DocumentCreativeProjectAssetPackageSendComponent extends GlobalDocu
       this.subscription.add(subscription);
     }
     return observableOf(doc);
-  }
+  };
 
   constructor(
     protected documentPageService: DocumentPageService,

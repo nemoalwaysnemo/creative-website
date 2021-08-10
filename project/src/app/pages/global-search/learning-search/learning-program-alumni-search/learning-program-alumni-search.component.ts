@@ -39,7 +39,7 @@ export class LearningProgramAlumniSearchComponent extends BaseDocumentViewCompon
     enableQueryParams: true,
   });
 
-  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams, opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
+  beforeSearch: (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => { searchParams: GlobalSearchParams; opts: NuxeoRequestOptions } = (searchParams: GlobalSearchParams, opts: NuxeoRequestOptions) => {
     if (searchParams.providerParams.hasFilters()) {
       const namedParameters = Object.assign({}, searchParams.providerParams.aggregates);
       for (const key in namedParameters) {
@@ -50,7 +50,7 @@ export class LearningProgramAlumniSearchComponent extends BaseDocumentViewCompon
       searchParams.mergeParams({ namedParameters });
     }
     return { searchParams, opts };
-  }
+  };
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);

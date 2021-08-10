@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
@@ -55,9 +56,9 @@ export class NbThemeModule {
    * @returns {ModuleWithProviders}
    */
   static forRoot(nbThemeOptions: NbThemeOptions = { name: 'default' },
-                 nbJSThemes?: NbJSThemeOptions[],
-                 nbMediaBreakpoints?: NbMediaBreakpoint[],
-                 layoutDirection?: NbLayoutDirection): ModuleWithProviders<NbThemeModule> {
+    nbJSThemes?: NbJSThemeOptions[],
+    nbMediaBreakpoints?: NbMediaBreakpoint[],
+    layoutDirection?: NbLayoutDirection): ModuleWithProviders<NbThemeModule> {
 
     return {
       ngModule: NbThemeModule,

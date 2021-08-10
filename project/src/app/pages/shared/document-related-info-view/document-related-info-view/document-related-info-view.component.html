@@ -29,7 +29,7 @@
   </ng-container>
   <div class="clear"></div>
 </ng-container>
-<global-search-more-result [templateRef]="thumbnailItemView" [append]="append" (onLoadMore)="onLoadMore($event)" (onResponse)="onResponse($event)"></global-search-more-result>
+<global-search-more-result [templateRef]="thumbnailItemView" [append]="append" (loadMore)="onLoadMore($event)" (response)="onResponse($event)"></global-search-more-result>
 <ng-template #backslashThumbnailItemView let-doc="doc">
   <div class="backslash">
     <h4>{{doc.title}}</h4>

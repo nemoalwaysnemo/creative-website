@@ -44,7 +44,7 @@ export class DocumentDownloadRequestDialogComponent extends DocumentDialogCustom
     const subscription = this.documentPageService.operation(NuxeoAutomations.DownloadRequest, { uuid: doc.uid, message }).subscribe((res: DocumentModel) => {
       const messageType = res.uid ? 'success' : 'error';
       const messageContent = res.uid ? 'The request has been successfully sent!' : 'Request failed to send, please try again';
-      this.globalDocumentDialogService.triggerEvent({ name: `DocumentDownloadRequest`, type: 'callback', messageType, messageContent });
+      this.globalDocumentDialogService.triggerEvent({ name: 'DocumentDownloadRequest', type: 'callback', messageType, messageContent });
       this.close(3000);
     });
     this.subscription.add(subscription);

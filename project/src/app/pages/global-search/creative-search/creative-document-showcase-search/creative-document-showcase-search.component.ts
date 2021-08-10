@@ -13,7 +13,7 @@ import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class CreativeDocumentShowcaseSearchComponent extends BaseDocumentViewComponent {
 
-  resultHeader: string = `Best of TBWA\\`;
+  resultHeader: string = 'Best of TBWA\\';
 
   thumbnailViewSettings: any = {
     layout: 'creative_asset_search',
@@ -50,7 +50,7 @@ export class CreativeDocumentShowcaseSearchComponent extends BaseDocumentViewCom
       );
     }
     return observableOf(res);
-  }
+  };
 
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);

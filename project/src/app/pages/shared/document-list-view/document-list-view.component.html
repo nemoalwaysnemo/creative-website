@@ -1,3 +1,3 @@
 <div [nbSpinner]="loading" [ngStyle]="hide ? {'display': 'none'} : {}">
-  <ng2-smart-table [settings]="options" [source]="items" [extendRowRef]="extendRowRef" (userRowSelect)="onRowSelect.emit($event)"></ng2-smart-table>
+  <ng2-smart-table [settings]="options" [source]="items" [extendRowRef]="extendRowRef" (userRowSelect)="rowSelect.emit($event)"></ng2-smart-table>
 </div>

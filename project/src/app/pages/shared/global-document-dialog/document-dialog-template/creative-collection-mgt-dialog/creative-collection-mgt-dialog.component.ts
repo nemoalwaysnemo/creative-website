@@ -75,7 +75,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
       const subscription = this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: collection.uid }, assetIds).subscribe(_ => {
         this.globalDocumentDialogService.close();
         this.selectableItemService.clear();
-        this.documentPageService.notify(`Added to Collection successfully!`, '', 'success');
+        this.documentPageService.notify('Added to Collection successfully!', '', 'success');
         this.refresh(this.documentPageService.getCurrentUrl());
       });
       this.subscription.add(subscription);
@@ -134,12 +134,12 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
     return forkJoin(
       docs.map((doc: DocumentModel) => zip(doc.hasPermission(NuxeoPermission.Write)),
       )).pipe(
-        map((r: any[]) => {
-          const list = [];
-          r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(docs[i]); } });
-          return list;
-        }),
-      );
+      map((r: any[]) => {
+        const list = [];
+        r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(docs[i]); } });
+        return list;
+      }),
+    );
   }
 
   private disableCustomGridView(): void {

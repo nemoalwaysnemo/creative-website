@@ -2,7 +2,7 @@
 <div class="creative-ring-collection" [nbSpinner]="loading" nbSpinnerStatus="disabled">
   <ng-container *ngIf="isViewEnabled('myCollectionsView')">
     <div [ngStyle]="currentView === 'myCollectionsView' ? {} : {'display': 'none'}">
-      <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings" (onLoading)="onLoading($event)">
+      <global-search-form [filters]="filters" [searchParams]="baseParams$ | async" [settings]="searchFormSettings" (whenLoading)="onLoading($event)">
         <ng-container class="group-left">
           <div class="global-search-form-buttons">
             <button type="button" (click)="selectView('myCollectionsView')" class="icon_btn roadmap-btn view-selected" title="My Collections">My Collections</button>
@@ -21,7 +21,7 @@
 
   <ng-container *ngIf="isViewEnabled('allCollectionsView')">
     <div [ngStyle]="currentView === 'allCollectionsView' ? {} : {'display': 'none'}">
-      <global-search-form [filters]="filters" [searchParams]="featuredParams" [settings]="featuredSearchFormSettings" (onLoading)="onLoading($event)">
+      <global-search-form [filters]="filters" [searchParams]="featuredParams" [settings]="featuredSearchFormSettings" (whenLoading)="onLoading($event)">
         <ng-container class="group-left">
           <div class="global-search-form-buttons">
             <button type="button" (click)="selectView('myCollectionsView')" class="icon_btn roadmap-btn" title="My Collections">My Collections</button>

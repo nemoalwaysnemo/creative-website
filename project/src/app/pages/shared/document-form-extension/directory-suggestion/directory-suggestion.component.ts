@@ -62,7 +62,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   @Input() afterSearch: (options: OptionModel[]) => Observable<OptionModel[]> = (options: OptionModel[]) => observableOf(options);
 
-  @Input() onResponse: (res: any) => any = (res: any) => res;
+  @Input() response: (res: any) => any = (res: any) => res;
 
   ngOnInit(): void {
     this.placeholder = this.settings.placeholder;
@@ -141,7 +141,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   private getInputTargetValue(doc: DocumentModel, settings: SuggestionSettings): string {
     if (!doc) {
-      throw new Error(`current document is null!`);
+      throw new Error('current document is null!');
     }
     return settings.inputTarget(doc);
   }
@@ -245,7 +245,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
     if (input) {
       params['docId'] = input;
     }
-    return this.documentPageService.operation(operationName, params, input).pipe(map((res: any) => this.onResponse(res)));
+    return this.documentPageService.operation(operationName, params, input).pipe(map((res: any) => this.response(res)));
   }
 
   private getDirectoryEntries(directoryName: string): void {

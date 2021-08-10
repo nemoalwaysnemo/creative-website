@@ -42,7 +42,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER_DIRECTIVE, DynamicDatepickerDirect
 })
 export class DynamicFormService {
 
-  private event$: Subject<{ name: string, type: string, data: any }> = new Subject<{ name: string, type: string, data: any }>();
+  private event$: Subject<{ name: string; type: string; data: any }> = new Subject<{ name: string; type: string; data: any }>();
 
   constructor(private componentService: DynamicFormComponentService, private validationService: DynamicFormValidationService) {
   }
@@ -55,11 +55,11 @@ export class DynamicFormService {
     };
   }
 
-  onEvent(name?: string | string[]): Observable<{ name: string, type: string, data: any }> {
-    return this.event$.pipe(filter((e: { name: string, type: string, data: any }) => name ? (Array.isArray(name) ? name : [name]).includes(e.name) : true)).pipe(share());
+  onEvent(name?: string | string[]): Observable<{ name: string; type: string; data: any }> {
+    return this.event$.pipe(filter((e: { name: string; type: string; data: any }) => name ? (Array.isArray(name) ? name : [name]).includes(e.name) : true)).pipe(share());
   }
 
-  triggerEvent(event: { name: string, type: string, data: any }): void {
+  triggerEvent(event: { name: string; type: string; data: any }): void {
     this.event$.next(event);
   }
 
@@ -83,7 +83,7 @@ export class DynamicFormService {
 
   createFormGroup(formModel: DynamicFormModel, options: AbstractControlOptions | null = null, parent: DynamicPathable | null = null): FormGroup {
 
-    const controls: { [controlId: string]: AbstractControl; } = {};
+    const controls: { [controlId: string]: AbstractControl } = {};
 
     formModel.forEach(model => {
 
@@ -242,7 +242,7 @@ export class DynamicFormService {
       formArrayModel.moveGroup(index, step);
 
     } else {
-      throw new Error(`form array group cannot be moved due to index or new index being out of bounds`);
+      throw new Error('form array group cannot be moved due to index or new index being out of bounds');
     }
   }
 
@@ -306,7 +306,7 @@ export class DynamicFormService {
     }
   }
 
-  fromJSON(json: string | object[]): DynamicFormModel | never {
+  fromJSON(json: string | any[]): DynamicFormModel | never {
 
     const formModelJSON = isString(json) ? JSON.parse(json, parseReviver) : json;
     const formModel: DynamicFormModel = [];

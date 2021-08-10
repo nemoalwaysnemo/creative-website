@@ -71,8 +71,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private updateHeaderTitle(): void {
     const subscription = this.menuService.onItemClick()
       .pipe(
-        filter((menu: { tag: string, item: NbMenuItem }) => menu.tag === 'sidebar'),
-        map((menu: { tag: string, item: NbMenuItem }) => menu.item),
+        filter((menu: { tag: string; item: NbMenuItem }) => menu.tag === 'sidebar'),
+        map((menu: { tag: string; item: NbMenuItem }) => menu.item),
       )
       .subscribe((item: NbMenuItem) => {
         this.goToPage(item.title);

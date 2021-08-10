@@ -5,8 +5,8 @@ import { DocumentModel } from '@core/api';
 @Component({
   selector: 'selectable-checkbox',
   template: `
-    <div [ngClass]="[selectClass]" [ngStyle]="selected ? {'display': 'block'} : {}">
-      <nb-checkbox [checked]="selected" [disabled]="disabled" [status]="status" (checkedChange)="onChecked($event)"></nb-checkbox>
+    <div [ngClass]="[selectClass]" [ngStyle]="active ? {'display': 'block'} : {}">
+      <nb-checkbox [checked]="active" [disabled]="disabled" [status]="status" (checkedChange)="onChecked($event)"></nb-checkbox>
     </div>
   `,
 })
@@ -14,7 +14,7 @@ export class SelectableItemComponent implements OnInit {
 
   @HostBinding('class.item-selected')
   get isSelected(): boolean {
-    return this.selected;
+    return this.active;
   }
 
   @Input() status: string = 'info';
@@ -23,13 +23,13 @@ export class SelectableItemComponent implements OnInit {
 
   @Input() disabled: boolean = false;
 
-  @Input() selected: boolean = false;
+  @Input() active: boolean = false;
 
   @Input() queueLimit: number = 100;
 
   @Input() document: DocumentModel;
 
-  @Output() onSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() select: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   selectClass: string = '';
 
@@ -41,13 +41,13 @@ export class SelectableItemComponent implements OnInit {
   }
 
   onChecked(checked: boolean): void {
-    this.selected = checked;
-    this.onSelected.emit(checked);
+    this.active = checked;
+    this.select.emit(checked);
     this.selectableItemService.change(new SelectableItemEvent({ doc: this.document, type: this.dataType, selected: checked, component: this }));
   }
 
   toggleChecked(): void {
-    this.onChecked(!this.selected);
+    this.onChecked(!this.active);
   }
 
   checkboxSelectStyle(style: string): void {

@@ -84,7 +84,7 @@ export class NbDynamicOverlayHandler {
     return this;
   }
 
-  context(context: {}): this {
+  context(context: any): this {
     this.changes.context = new NbDynamicOverlayChange(this._context, context);
     this._context = context;
     return this;

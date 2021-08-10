@@ -40,7 +40,7 @@ export class DocumentShowcaseDialogComponent extends DocumentDialogCustomTemplat
   addToShowcase(documents: DocumentModel[]): void {
     const subscription = this.updateDocuments(documents, { 'app_global:networkshare': true }).subscribe((models: DocumentModel[]) => {
       this.globalDocumentDialogService.close();
-      this.documentPageService.notify(`Added to Showcase successfully!`, 'Added to Showcase successfully!', 'success');
+      this.documentPageService.notify('Added to Showcase successfully!', 'Added to Showcase successfully!', 'success');
     });
     this.subscription.add(subscription);
   }
@@ -50,7 +50,7 @@ export class DocumentShowcaseDialogComponent extends DocumentDialogCustomTemplat
       this.globalDocumentDialogService.close();
       this.selectableItemService.clear();
       this.refresh(this.documentPageService.getCurrentUrl());
-      this.documentPageService.notify(`Removed from Showcase successfully!`, 'Removed from Showcase successfully!', 'success');
+      this.documentPageService.notify('Removed from Showcase successfully!', 'Removed from Showcase successfully!', 'success');
     });
     this.subscription.add(subscription);
   }
@@ -59,12 +59,12 @@ export class DocumentShowcaseDialogComponent extends DocumentDialogCustomTemplat
     return forkJoin(
       docs.map((doc: DocumentModel) => zip(doc.hasPermission(NuxeoPermission.Write)),
       )).pipe(
-        map((r: any[]) => {
-          const list = [];
-          r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(docs[i]); } });
-          return list;
-        }),
-      );
+      map((r: any[]) => {
+        const list = [];
+        r.forEach((b: boolean[], i: number) => { if (b.every((x: boolean) => x)) { list.push(docs[i]); } });
+        return list;
+      }),
+    );
   }
 
   private updateDocuments(documents: DocumentModel[], properties: any = {}): Observable<DocumentModel[]> {

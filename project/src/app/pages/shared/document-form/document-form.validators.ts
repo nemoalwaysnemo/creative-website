@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { AbstractControl, ValidationErrors, FormControl, AsyncValidatorFn } from '@angular/forms';
 import { DocumentPageService } from '../services/document-page.service';
 import { GlobalSearchParams, NuxeoPagination } from '@core/api';
@@ -10,7 +11,7 @@ export function dateFormatValidator(control: FormControl): ValidationErrors | nu
   return hasError ? { dateFormatValidator: true } : null;
 }
 
-export function uniqueDocumentValidator(data: { searchParams: any, documentPageService: DocumentPageService }): AsyncValidatorFn {
+export function uniqueDocumentValidator(data: { searchParams: any; documentPageService: DocumentPageService }): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
     const params: any = {
       title_eq: control.value,

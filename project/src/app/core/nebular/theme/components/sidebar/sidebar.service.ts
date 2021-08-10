@@ -22,7 +22,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class NbSidebarService {
   constructor(private deviceService: DeviceDetectorService) { }
-  private toggle$ = new Subject<{ compact: boolean, tag: string }>();
+  private toggle$ = new Subject<{ compact: boolean; tag: string }>();
   private expand$ = new Subject<{ tag: string }>();
   private collapse$ = new Subject<{ tag: string }>();
   private sidebarToggle$ = new Subject<{ tag: boolean }>();
@@ -92,7 +92,7 @@ export class NbSidebarService {
    *
    * @returns Observable<{ compact: boolean, tag: string }>
    */
-  onToggle(): Observable<{ compact: boolean, tag: string }> {
+  onToggle(): Observable<{ compact: boolean; tag: string }> {
     return this.toggle$.pipe(share());
   }
 

@@ -15,7 +15,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
 
   loading: boolean = true;
 
-  relatedDocs: { type: any, source: any, uid: any }[] = [];
+  relatedDocs: { type: any; source: any; uid: any }[] = [];
 
   relatedDocuments: DocumentModel[];
 
