@@ -36,8 +36,8 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
       doc.setProperty('The_Loupe_Main:agency', null);
       doc.setProperty('The_Loupe_Main:country', []);
     } else {
-      const agency = ctx.targetDocument.get('The_Loupe_Main:agency') ? ctx.targetDocument.get('The_Loupe_Main:agency') : null;
-      const country = ctx.targetDocument.get('The_Loupe_Main:country') ? ctx.targetDocument.get('The_Loupe_Main:country') : [];
+      const agency = ctx.formValue['The_Loupe_Main:agency'] ? ctx.formValue['The_Loupe_Main:agency'] : null;
+      const country = ctx.formValue['The_Loupe_Main:country'] ? ctx.formValue['The_Loupe_Main:country'] : [];
       doc.setProperty('The_Loupe_Main:agency', !isValueEmpty(doc.get('The_Loupe_Main:agency')) ? doc.get('The_Loupe_Main:agency') : agency);
       doc.setProperty('The_Loupe_Main:country', !isValueEmpty(doc.get('The_Loupe_Main:country')) ? doc.get('The_Loupe_Main:country') : country);
     }
