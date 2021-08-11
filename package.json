@@ -3,20 +3,16 @@
   "version": "4.5.0",
   "scripts": {
     "commit": "git-cz",
+    "clean": "rimraf project/dist",
     "build:replace": "bash ./build.sh",
-    "build:stg": "yarn clean && ng build --c=aws-stg && yarn build:replace",
-    "build:dev": "yarn clean && ng build --c=aws-dev && yarn build:replace",
-    "build:test": "yarn clean && ng build --c=local-dev",
-    "build:serve": "yarn clean && ng build --c=local-dev && yarn serve",
+    "build": "yarn clean && ng build --c=aws-stg && yarn build:replace",
+    "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "lint:styles": "stylelint ./project/src/**/*.scss --fix",
     "lint:ci": "yarn lint:fix && yarn lint:styles",
+    "lint:styles": "stylelint ./project/src/**/*.scss --fix",
     "release:changelog": "yarn conventional-changelog -p angular -i CHANGELOG.md -s",
     "release:version": "standard-version",
-    "postinstall": "ngcc",
-    "clean": "rimraf project/dist",
-    "serve": "lite-server --baseDir=./project/dist/LibraryWebUI",
-    "lint": "ng lint"
+    "postinstall": "ngcc"
   },
   "config": {
     "commitizen": {

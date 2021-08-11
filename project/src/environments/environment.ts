@@ -1,5 +1,5 @@
 // This file is used for local env
-export * from './meta-info';
+export * from './environment.properties';
 
 export const Environment = {
   baseTitle: 'Know\\edge',

@@ -2,9 +2,9 @@ import { Component, Input, TemplateRef, Type } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentPageService } from '../../services/document-page.service';
 import { GlobalDocumentDialogService, GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
-import { BaseSearchResultComponent } from '../base-search-result.component';
-import { NUXEO_DOC_TYPE } from '@environment/meta-info';
 import { DocumentModelForm } from '../../../shared/global-document-form/global-document-form.component';
+import { BaseSearchResultComponent } from '../base-search-result.component';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-document-asset-search-result',
