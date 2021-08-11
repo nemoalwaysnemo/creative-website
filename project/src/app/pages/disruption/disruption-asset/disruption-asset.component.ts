@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-asset',
@@ -36,14 +36,14 @@ export class DisruptionAssetComponent extends GlobalDocumentViewComponent {
     pageSize: 1,
     currentPageIndex: 0,
     ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
   };
 
   disruptionTheoryParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
   };
 
@@ -69,7 +69,7 @@ export class DisruptionAssetComponent extends GlobalDocumentViewComponent {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_mixinType_not_in: '', // override
-      ecm_path: NUXEO_PATH_INFO.KNOWEDGE_BASIC_PATH,
+      ecm_path: this.documentPageService.getConfig('path:KNOWEDGE_BASIC_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE,
     };
   }

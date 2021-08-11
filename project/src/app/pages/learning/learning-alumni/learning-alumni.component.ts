@@ -1,11 +1,12 @@
 import { Component, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { DocumentPageService } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
 import { TAB_CONFIG } from '../learning-tab-config';
 import { GlobalDocumentDialogService , GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../shared/global-document-dialog';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
+
 @Component({
   selector: 'learning-alumni',
   styleUrls: ['./learning-alumni.component.scss'],
@@ -27,7 +28,7 @@ export class LearningAlumniComponent extends BaseDocumentViewComponent {
     pageSize: 12,
     currentPageIndex: 0,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_TYPE,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'),
   };
 
   dialogMetadata: any = {

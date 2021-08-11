@@ -6,7 +6,7 @@ import { Observable, from, Subject, timer, BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, pairwise, share, tap, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params, NavigationExtras, ParamMap, NavigationEnd, RoutesRecognized } from '@angular/router';
 import { DocumentModel, AdvanceSearchService, GlobalSearchParams, NuxeoRequestOptions, NuxeoPagination, UserService, UserModel, NuxeoResponse, NuxeoAutomations, BatchUpload, DirectoryEntry } from '@core/api';
-import { CacheService, GoogleAnalyticsService } from '@core/services';
+import { AppEnvService, CacheService, GoogleAnalyticsService } from '@core/services';
 import { Environment } from '@environment/environment';
 
 export class GlobalEvent {
@@ -41,6 +41,7 @@ export class DocumentPageService {
     private cacheService: CacheService,
     private toastrService: NbToastrService,
     private activatedRoute: ActivatedRoute,
+    private appEnvService: AppEnvService,
     private advanceSearchService: AdvanceSearchService,
     private googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -57,6 +58,10 @@ export class DocumentPageService {
 
   triggerEvent(event: GlobalEvent): void {
     this.event$.next(event);
+  }
+
+  getConfig(path: string): any {
+    return this.appEnvService.getConfig(path);
   }
 
   googleAnalyticsTrackTitle(): void {

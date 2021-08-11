@@ -5,7 +5,7 @@ import { DocumentModel, NuxeoPermission, GlobalSearchParams, NuxeoSearchConstant
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../innovation-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder',
@@ -79,7 +79,7 @@ export class InnovationFolderComponent extends GlobalDocumentViewComponent {
   }
 
   protected getPath(): string {
-    return this.documentPageService.getCurrentUrl().includes('/NEXT') ? NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH : NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
+    return this.documentPageService.getCurrentUrl().includes('/NEXT') ? this.documentPageService.getConfig('path:INNOVATION_NEXT_FOLDER_PATH') : this.documentPageService.getConfig('path:INNOVATION_THINGS_TO_STEAL_FOLDER_PATH');
   }
 
   protected buildRedirectUrl(): string {

@@ -14,7 +14,7 @@ export class BackslashTriggerHeaderComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(protected documentPageService: DocumentPageService) {}
+  constructor(private documentPageService: DocumentPageService) { }
 
   ngOnInit(): void {
     this.getUser();

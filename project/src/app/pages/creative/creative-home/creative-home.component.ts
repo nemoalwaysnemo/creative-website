@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { GlobalSearchParams } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService, SearchFilterModel } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-home',
@@ -30,7 +30,7 @@ export class CreativeHomeComponent extends BaseDocumentViewComponent {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 

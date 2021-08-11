@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { BaseDocumentViewComponent, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { matchAssetUrl } from '@core/services/helpers';
 
 @Component({
@@ -19,7 +19,7 @@ export class LearningHomeSearchComponent extends BaseDocumentViewComponent {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: NUXEO_PATH_INFO.LEARNING_PROGRAM_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:LEARNING_PROGRAM_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_ASSET_TYPE,
   };
 

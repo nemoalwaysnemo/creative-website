@@ -4,7 +4,7 @@ import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, NuxeoPermission, NuxeoSearchConstants, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-edge-folder',
@@ -47,7 +47,7 @@ export class BackslashEdgeFolderComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_FOLDER_TYPE,
       ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     };
@@ -67,7 +67,7 @@ export class BackslashEdgeFolderComponent extends GlobalDocumentViewComponent {
   protected buildSubFolderParams(doc: DocumentModel): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_FOLDER_TYPE,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };
@@ -81,7 +81,7 @@ export class BackslashEdgeFolderComponent extends GlobalDocumentViewComponent {
     const params: any = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };

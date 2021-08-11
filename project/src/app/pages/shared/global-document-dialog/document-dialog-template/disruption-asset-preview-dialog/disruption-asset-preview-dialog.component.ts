@@ -6,7 +6,7 @@ import { GLOBAL_DOCUMENT_FORM } from '../../../global-document-form';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-asset-preview-dialog',
@@ -103,9 +103,9 @@ export class DisruptionAssetPreviewDialogComponent extends DocumentDialogPreview
       return this.documentPageService.getCurrentAppUrl('intelligence/asset/' + doc.uid);
     } else if (this.isDisruptionAsset(doc)) {
       let url: string;
-      if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH)) {
+      if (doc.path.includes(this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'))) {
         url = 'disruption/Disruption Days/day/:parentRef/asset/';
-      } else if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH)) {
+      } else if (doc.path.includes(this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'))) {
         url = 'disruption/Disruption How Tos/folder/:parentRef/asset/';
       } else {
         url = 'disruption/asset/';

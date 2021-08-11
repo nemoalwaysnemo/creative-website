@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { SearchResponse, NuxeoPagination, GlobalSearchParams } from '@core/api';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-document-asset-search',
@@ -25,7 +25,7 @@ export class CreativeDocumentAssetSearchComponent extends BaseDocumentViewCompon
   defaultParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 

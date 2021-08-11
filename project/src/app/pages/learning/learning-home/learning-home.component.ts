@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentPageService, GlobalDocumentViewComponent } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'learning-home',
@@ -30,7 +30,7 @@ export class LearningHomeComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.LEARNING_BASE_FOLDER_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:LEARNING_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_BASE_FOLDER_TYPE,
     };
   }

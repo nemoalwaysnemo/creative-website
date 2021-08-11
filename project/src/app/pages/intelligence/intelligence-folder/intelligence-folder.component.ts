@@ -4,7 +4,7 @@ import { Subject, timer, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, GlobalSearchSettings, SearchFilterModel } from '@pages/shared';
 import { DocumentModel, GlobalSearchParams, NuxeoRequestOptions, SearchResponse, NuxeoPagination } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'intelligence-folder',
@@ -79,7 +79,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ALL_FOLDERS,
     };
   }
@@ -132,7 +132,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   protected buildConsumerAndMarketingParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: searchTerm,
     };
@@ -145,7 +145,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   protected buildIndustryParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_INDUSTRY_TYPE,
-      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
       currentPageIndex: 0,
       pageSize: 100,
       ecm_fulltext: searchTerm,
@@ -159,7 +159,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   protected buildIndustryAssetParams(doc: DocumentModel, searchTerm: string = '', settings?: GlobalSearchSettings): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: searchTerm,
     };
@@ -172,7 +172,7 @@ export class IntelligenceFolderComponent extends GlobalDocumentViewComponent {
   protected buildIndustrySearchAssetParams(searchParams: GlobalSearchParams): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
       currentPageIndex: searchParams.getSettings('append') ? searchParams.providerParams.currentPageIndex : 0,
       pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_fulltext: searchParams.providerParams.ecm_fulltext,

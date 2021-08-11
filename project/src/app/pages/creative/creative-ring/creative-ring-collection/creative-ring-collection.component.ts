@@ -4,7 +4,7 @@ import { Subject, timer } from 'rxjs';
 import { DocumentModel, UserModel } from '@core/api';
 import { SelectableItemService } from '../../../shared/document-selectable';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-ring-collection',
@@ -21,7 +21,7 @@ export class CreativeRingCollectionComponent extends GlobalDocumentViewComponent
   featuredParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
   };
 
@@ -96,7 +96,7 @@ export class CreativeRingCollectionComponent extends GlobalDocumentViewComponent
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_FOLDER_TYPE,
     };
   }
@@ -106,7 +106,7 @@ export class CreativeRingCollectionComponent extends GlobalDocumentViewComponent
     const params: any = {
       currentPageIndex: 0,
       ecm_fulltext: '',
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
     };
     if (doc) {

@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { TAB_CONFIG } from '../innovation-tab-config';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams, NuxeoSearchConstants } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService, GlobalDocumentViewComponent, GlobalDocumentDialogService, SearchFilterModel } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-home',
@@ -41,7 +41,7 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
-    ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_SEARCH_TYPE,
   };
 
@@ -50,7 +50,7 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
-    ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
   };
 
@@ -80,7 +80,7 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_MODULE_TYPE,
     };
   }
@@ -127,9 +127,9 @@ export class InnovationHomeComponent extends GlobalDocumentViewComponent {
 
   documentMapFn(doc: DocumentModel): string {
     let url: string;
-    if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
+    if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'NEXT')) {
       url = '/p/innovation/NEXT/folder';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
+    } else if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'Things to Steal')) {
       url = '/p/innovation/Things to Steal/folder';
     }
     if (doc.type === 'App-Innovation-Asset') {

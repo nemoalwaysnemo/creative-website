@@ -3,7 +3,8 @@ import { DocumentModel, SearchResponse } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'document-related-agency',
@@ -32,7 +33,7 @@ export class DocumentRelatedAgencyComponent {
     pageSize: 4,
     app_global_networkshare: true,
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
     the_loupe_main_agency: '',
     ecm_uuid_not_eq: '',
   };
@@ -55,6 +56,7 @@ export class DocumentRelatedAgencyComponent {
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET] });
 
   constructor(
+    protected documentPageService: DocumentPageService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 

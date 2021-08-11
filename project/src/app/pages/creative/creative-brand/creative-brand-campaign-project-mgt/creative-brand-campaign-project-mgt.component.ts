@@ -7,7 +7,7 @@ import { ListSearchRowCustomDialogComponent } from '../../../shared/list-search-
 import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-form/list-search-form.interface';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem, SearchFilterModel, SearchConditionModel, SearchDateRangeModel } from '@pages/shared';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -260,7 +260,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
   protected getCurrentDocumentSearchParams(): any {
     return {
       pageSize: 1,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_BRAND_FOLDER_TYPE,
     };

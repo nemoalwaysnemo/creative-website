@@ -5,7 +5,7 @@ import { getDocumentTypes, matchAssetUrl } from '@core/services/helpers';
 import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-folder-info',
@@ -135,49 +135,49 @@ export class BackslashFolderInfoComponent {
     switch (type) {
       case 'App-Backslash-Resources-Assetfolder':
         return {
-          rootPath: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BACKSLASH_RESOURCES_FOLDER_PATH'),
           urlRootPath: '/p/backslash/resource/',
           urlParentPath: '/p/backslash/resource/folder/',
         };
       case 'App-Backslash-Resources-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BACKSLASH_RESOURCES_FOLDER_PATH'),
           urlRootPath: '/p/backslash/resource/',
           urlParentPath: '/p/backslash/resource/',
         };
       case 'App-Backslash-Case-Study-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
           urlRootPath: '/p/backslash/report/',
           urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Study-Category':
         return {
-          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
           urlRootPath: '/p/backslash/category/',
           urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Study-Region':
         return {
-          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
           urlRootPath: '/p/backslash/region/',
           urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Case-Studies-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
           urlRootPath: '/p/backslash/report/',
           urlParentPath: '/p/backslash/report/folder/',
         };
       case 'App-Backslash-Edges-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
           urlRootPath: '/p/backslash/edge/',
           urlParentPath: '/p/backslash/edge/',
         };
       case 'App-Backslash-Edges-Assetfolder':
         return {
-          rootPath: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
           urlRootPath: '/p/backslash/edge/',
           urlParentPath: '/p/backslash/edge/folder/',
         };

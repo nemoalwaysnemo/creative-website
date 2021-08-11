@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '../../shared';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-asset-view',
@@ -30,7 +30,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
   backslashEdgeFolderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_ALL_FOLDER_TYPE,
     ecm_mixinType_not_in: '',
   };
@@ -38,7 +38,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
   backslashResourceFolderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BACKSLASH_RESOURCES_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_ALL_FOLDER_TYPE,
     ecm_mixinType_not_in: '',
   };
@@ -46,7 +46,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
   backslashCaseStudyFolderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ALL_FOLDER_TYPE,
     ecm_mixinType_not_in: '',
   };
@@ -78,7 +78,7 @@ export class BackslashAssetViewComponent extends GlobalDocumentViewComponent {
       pageSize: 1,
       currentPageIndex: 0,
       ecm_mixinType_not_in: '',
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE,
     };
   }

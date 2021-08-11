@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
 import { TAB_CONFIG } from '../favorite-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'favorite-disruption',
@@ -35,7 +35,7 @@ export class FavoriteDisruptionComponent extends BaseFavoriteDocumentViewCompone
   protected buildAssetsParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_BASE_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };

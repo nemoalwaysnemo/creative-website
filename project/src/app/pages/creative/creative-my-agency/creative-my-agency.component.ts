@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { DocumentModel, GlobalSearchParams, UserModel } from '@core/api';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-my-agency',
@@ -56,7 +56,7 @@ export class CreativeMyAgencyComponent extends GlobalDocumentViewComponent {
       ecm_fulltext: '',
       currentPageIndex: 0,
       the_loupe_main_companycode: user.companycode, // 05001002
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     };

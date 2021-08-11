@@ -5,7 +5,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes, matchAssetUrl, vocabularyFormatter } from '@core/services/helpers';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-folder-view',
@@ -115,13 +115,13 @@ export class DisruptionFolderViewComponent {
     switch (type) {
       case 'App-Disruption-Theory-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+          rootPath: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
           urlRootPath: '/p/disruption/Disruption How Tos',
           urlParentPath: '/p/disruption/Disruption How Tos/folder/',
         };
       case 'App-Disruption-Day':
         return {
-          rootPath: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+          rootPath: this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'),
           urlRootPath: '/p/disruption/Disruption Days',
           urlParentPath: '/p/disruption/Disruption Days/day/',
         };

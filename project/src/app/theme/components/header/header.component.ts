@@ -4,7 +4,7 @@ import { filter, map } from 'rxjs/operators';
 import { NbMenuService, NbMenuItem } from '@core/nebular/theme';
 import { UserModel, DocumentModel, NuxeoPagination, GlobalSearchParams } from '@core/api';
 import { DocumentPageService } from '../../../pages/shared/services/document-page.service';
-import { Environment, NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { Environment, NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'library-ui-header',
@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       pageSize: 1,
       currentPageIndex: 0,
       title_eq: 'Help & Support',
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
     };
     const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(

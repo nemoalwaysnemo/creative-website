@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { NbTabComponent } from '@core/nebular/theme/components/tabset/tabset.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 
 export class TabInfo {
@@ -30,7 +30,7 @@ export class KnowledgeRelatedInfoComponent {
       params: {
         pageSize: 8,
         app_edges_active_article: true,
-        ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+        ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
       },
       paramsMapping: {
         tagsEdgesAny: 'app_Edges:Tags_edges',
@@ -42,7 +42,7 @@ export class KnowledgeRelatedInfoComponent {
       layout: 'disruption',
       params: {
         pageSize: 8,
-        ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
+        ecm_path: this.documentPageService.getConfig('path:DISRUPTION_BASE_FOLDER_PATH'),
       },
       paramsMapping: {
         brandAny: 'The_Loupe_Main:brand',
@@ -56,7 +56,7 @@ export class KnowledgeRelatedInfoComponent {
       layout: 'intelligence',
       params: {
         pageSize: 8,
-        ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+        ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
       },
       paramsMapping: {
         brandAny: 'The_Loupe_Main:brand',
@@ -75,7 +75,7 @@ export class KnowledgeRelatedInfoComponent {
           enableSearchInput: false,
           params: {
             pageSize: 4,
-            ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+            ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
             ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
           },
           provider: NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER,
@@ -89,7 +89,7 @@ export class KnowledgeRelatedInfoComponent {
             pageSize: 4,
             app_global_networkshare: true,
             ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-            ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+            ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
           },
           provider: NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER,
         },
@@ -105,7 +105,7 @@ export class KnowledgeRelatedInfoComponent {
 
   hideRelatedTitle: boolean = false;
 
-  constructor(protected documentPageService: DocumentPageService) {
+  constructor(private documentPageService: DocumentPageService) {
     this.currentTab = this.tabItems[0];
     this.documentPageService.onEventType('knowledge-inner-dialog').subscribe((e: GlobalEvent) => {
       if (e.name === 'Opened') {

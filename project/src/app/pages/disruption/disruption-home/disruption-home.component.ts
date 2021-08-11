@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { GlobalSearchParams } from '@core/api';
 import { GlobalSearchFormSettings, DocumentPageService, SearchFilterModel } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'disruption-home',
@@ -44,7 +43,7 @@ export class DisruptionHomeComponent extends BaseDocumentViewComponent {
     pageSize: 10,
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_BASE_FOLDER_PATH'),
   };
 
   constructor(protected documentPageService: DocumentPageService) {

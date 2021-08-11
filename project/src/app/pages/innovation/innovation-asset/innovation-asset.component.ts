@@ -4,7 +4,7 @@ import { DocumentModel, NuxeoPagination } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../innovation-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-asset',
@@ -33,7 +33,7 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
   folderParams: any = {
     pageSize: 1,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
     ecm_mixinType_not_in: '',
   };
@@ -61,7 +61,7 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
       pageSize: 1,
       currentPageIndex: 0,
       ecm_mixinType_not_in: '',
-      ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE,
     };
   }
@@ -81,11 +81,11 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
 
   private getDeleteRedirectUrl(doc: DocumentModel): string {
     let url;
-    if (doc.path === (NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
+    if (doc.path === (this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'NEXT')) {
       url = '/p/innovation/NEXT';
-    } else if (doc.path === (NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
+    } else if (doc.path === (this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'Things to Steal')) {
       url = '/p/innovation/Things to Steal';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH) || doc.path.includes(NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH)) {
+    } else if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_NEXT_FOLDER_PATH')) || doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_THINGS_TO_STEAL_FOLDER_PATH'))) {
       url = this.assetUrlMapping[doc.type].call(this, doc) + '/' + doc.uid;
     }
     return url;
@@ -93,9 +93,9 @@ export class InnovationAssetComponent extends GlobalDocumentViewComponent implem
 
   documentMap(doc: DocumentModel): string {
     let url;
-    if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
+    if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'NEXT')) {
       url = '/p/innovation/NEXT/folder';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
+    } else if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'Things to Steal')) {
       url = '/p/innovation/Things to Steal/folder';
     }
     if (doc.type === 'App-Innovation-Asset') {

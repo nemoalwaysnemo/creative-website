@@ -6,7 +6,7 @@ import { IndexedDBService } from '@core/services';
 import { from, Observable, zip } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 import { DocumentFormEvent } from '../../shared/document-form/document-form.interface';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { NuxeoDocumentUrl } from '@core/services/helpers';
 
 @Component({
@@ -135,7 +135,7 @@ export class BackslashTriggerComponent extends BaseDocumentManageComponent imple
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_TRIGGER_FOLDER_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:BACKSLASH_TRIGGER_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_TRIGGER_SUB_FOLDER_TYPE,
     };
   }

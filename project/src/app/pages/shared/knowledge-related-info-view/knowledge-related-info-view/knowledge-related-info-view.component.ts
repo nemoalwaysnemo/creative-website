@@ -9,7 +9,7 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog';
 import { TabInfo } from '../knowledge-related-info.component';
 import { Subject, Subscription, timer } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
+import { Environment } from '@environment/environment';
 
 @Component({
   selector: 'knowledge-related-info-view',
@@ -322,7 +322,7 @@ export class KnowledgeRelatedInfoViewComponent implements OnInit, OnDestroy {
         // app_edges_active_article: true,
         app_edges_tags_edges: edgesParams,
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
-        ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+        ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
       };
       this.edgeLoading = true;
       const subscription = this.globalSearchFormService.advanceRequest(params).subscribe((res: NuxeoPagination) => {

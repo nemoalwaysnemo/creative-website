@@ -15,7 +15,7 @@ export class BizDevCaseStudyAssetSearchResultComponent extends BaseSearchResultC
   @Input() showDialog: boolean = false;
 
   constructor(protected documentPageService: DocumentPageService,
-              private globalDocumentDialogService: GlobalDocumentDialogService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(documentPageService);
   }

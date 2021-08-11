@@ -14,8 +14,12 @@ import { DocumentPageService } from '../../../shared/services/document-page.serv
 
 export class KnowledgeDocumentAssetSearchResultComponent {
 
-  constructor(private globalDocumentDialogService: GlobalDocumentDialogService,
-              protected documentPageService: DocumentPageService) { }
+  constructor(
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+    protected documentPageService: DocumentPageService
+  ) {
+
+  }
 
   dialogMetadata: any = {
     moreInfo: true,

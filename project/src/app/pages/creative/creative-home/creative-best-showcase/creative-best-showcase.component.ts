@@ -4,7 +4,7 @@ import { DocumentPageService } from '../../../shared';
 import { DocumentThumbnailViewSettings } from '../../../shared/document-thumbnail-view';
 import { GlobalDocumentDialogService, GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { Subscription } from 'rxjs';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-best-showcase',
@@ -36,12 +36,12 @@ export class CreativeBestShowcaseComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 9,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_SHOWCASE_ASSET_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_SHOWCASE_ASSET_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
   };
 
   constructor(
-    protected documentPageService: DocumentPageService,
+    private documentPageService: DocumentPageService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
   }

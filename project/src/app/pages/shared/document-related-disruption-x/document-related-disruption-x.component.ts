@@ -4,7 +4,8 @@ import { Subject, timer } from 'rxjs';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService } from '../services/document-page.service';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-related-disruption-x',
@@ -37,7 +38,7 @@ export class DocumentRelatedDisruptionXComponent {
     pageSize: 8,
     currentPageIndex: 0,
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_TYPE,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'),
   };
 
   @Input()
@@ -65,6 +66,7 @@ export class DocumentRelatedDisruptionXComponent {
   });
 
   constructor(
+    protected documentPageService: DocumentPageService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
 

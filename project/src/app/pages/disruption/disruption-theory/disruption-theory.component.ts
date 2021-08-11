@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-theory',
@@ -67,7 +67,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
     };
   }
@@ -76,7 +76,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
     const params: any = {
       currentPageIndex: 0,
       ecm_fulltext: '',
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
     };
     if (doc) {
@@ -91,7 +91,7 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
       currentPageIndex: 0,
       ecm_fulltext: searchParams.providerParams.ecm_fulltext,
       ecm_mixinType_not_in: '["Folderish"]',
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_TYPE,
     };
     return searchParams.setParams(params);
@@ -101,14 +101,14 @@ export class DisruptionTheoryComponent extends GlobalDocumentViewComponent imple
     if (res.entries.length > 0) {
       const ids = res.entries.map((doc: DocumentModel) => {
         return doc.breadcrumb[doc.breadcrumb.length - 2];
-      }).filter((doc: DocumentModel) => `${doc.path}/` !== NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH).map((doc: DocumentModel) => doc.uid).filter((value, index, self) => { // uniq
+      }).filter((doc: DocumentModel) => `${doc.path}/` !== this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH')).map((doc: DocumentModel) => doc.uid).filter((value, index, self) => { // uniq
         return self.indexOf(value) === index;
       });
       const params: any = {
         currentPageIndex: 0,
         pageSize: ids.length,
         ecm_uuid: `["${ids.join('", "')}"]`,
-        ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+        ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
         ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
       };
       return this.documentPageService.advanceRequest(new GlobalSearchParams(params));

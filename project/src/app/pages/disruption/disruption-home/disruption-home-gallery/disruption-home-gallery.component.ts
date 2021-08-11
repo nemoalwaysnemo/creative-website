@@ -3,7 +3,7 @@ import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
 import { Subscription } from 'rxjs';
 import { filter, map, concatMap } from 'rxjs/operators';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-home-gallery',
@@ -21,13 +21,13 @@ export class DisruptionHomeGalleryComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 10,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_AWARD_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_AWARD_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_AWARD_ASSET_TYPE,
   };
 
   private gallerySwitch: any = {
     pageSize: 1,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_AWARD_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_AWARD_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_AWARD_FOLDER_TYPE,
   };
 

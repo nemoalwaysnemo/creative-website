@@ -4,7 +4,6 @@ import { DocumentModel, NuxeoPermission } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 import { matchAssetUrl } from '@core/services/helpers';
 
 @Component({
@@ -106,9 +105,9 @@ export class InnovationFolderViewComponent {
     const url: string = decodeURI(this.editRedirectUrl);
     let path: string;
     if (url.includes('/NEXT')) {
-      path = NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH;
+      path = this.documentPageService.getConfig('path:INNOVATION_NEXT_FOLDER_PATH');
     } else if (url.includes('/Things to Steal')) {
-      path = NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
+      path = this.documentPageService.getConfig('path:INNOVATION_THINGS_TO_STEAL_FOLDER_PATH');
     }
     return path;
   }

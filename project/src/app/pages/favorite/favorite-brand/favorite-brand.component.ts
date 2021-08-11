@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/api';
 import { GlobalDocumentDialogService, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { BaseFavoriteDocumentViewComponent } from '../base-favorite-document-view.component';
 import { TAB_CONFIG } from '../favorite-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'favorite-brand',
@@ -35,7 +35,7 @@ export class FavoriteBrandComponent extends BaseFavoriteDocumentViewComponent {
     const params: any = {
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_BRAND_FOLDER_TYPE,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };

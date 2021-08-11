@@ -6,7 +6,7 @@ import { DocumentPageService } from '../../../shared/services/document-page.serv
 import { SelectableItemSettings, SelectableItemService } from '../../../shared/document-selectable/';
 import { DocumentDialogEvent, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
 import { GlobalDocumentViewComponent, GlobalSearchFormSettings, SelectableActionBarSettings, SearchFilterModel } from '../../../shared';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { TAB_CONFIG } from '../creative-ring-tab-config';
 
 @Component({
@@ -72,7 +72,7 @@ export class CreativeRingBrandAssetComponent extends GlobalDocumentViewComponent
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
     };
   }
