@@ -5,7 +5,7 @@ import { DocumentModel, NuxeoPermission, NuxeoSearchConstants } from '@core/api'
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../business-development-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-case-study-folder',
@@ -48,7 +48,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_CASE_STUDIES_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
       ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     };
@@ -68,7 +68,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
   protected buildSubFolderParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_FOLDER_TYPE,
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_CASE_STUDIES_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };
@@ -82,7 +82,7 @@ export class BizDevCaseStudyFolderComponent extends GlobalDocumentViewComponent 
     const params: any = {
       ecm_mixinType_not_in: '', // override
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_CASE_STUDIES_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };

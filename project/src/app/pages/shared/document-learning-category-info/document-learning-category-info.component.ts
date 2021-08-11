@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
 
@@ -35,7 +35,7 @@ export class DocumentLearningCategoryInfoComponent implements OnDestroy {
     const params: any = {
       pageSize: 5,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.LEARNING_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:LEARNING_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_ASSET_TYPE,
     };
     if (doc) {

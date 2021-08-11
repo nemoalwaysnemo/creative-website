@@ -5,7 +5,7 @@ import { TAB_CONFIG } from '../business-development-tab-config';
 import { GlobalSearchFormSettings, DocumentPageService, SearchFilterModel } from '@pages/shared';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { BaseDocumentViewComponent } from '../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-home',
@@ -43,14 +43,14 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
-    ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_SEARCH_TYPE,
   };
 
   private subFolderParams: any = {
     pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_SUB_FOLDER_TYPES,
   };
 
@@ -58,7 +58,7 @@ export class BizDevHomeComponent extends BaseDocumentViewComponent {
     pageSize: 1,
     currentPageIndex: 0,
     app_global_ext_app_iframe: true,
-    ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_FOLDER_TYPE,
   };
 

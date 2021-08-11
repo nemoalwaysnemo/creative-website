@@ -5,7 +5,7 @@ import { parseTabRoute } from '@core/services/helpers';
 import { DocumentModel, GlobalSearchParams, NuxeoRequestOptions, NuxeoSearchConstants } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../innovation-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-list',
@@ -101,9 +101,9 @@ export class InnovationListComponent extends GlobalDocumentViewComponent impleme
     let path: string;
     const url = decodeURI(this.documentPageService.getCurrentUrl());
     if (url.includes('/NEXT')) {
-      path = NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH;
+      path = this.documentPageService.getConfig('path:INNOVATION_NEXT_FOLDER_PATH');
     } else if (url.includes('/Things to Steal')) {
-      path = NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH;
+      path = this.documentPageService.getConfig('path:INNOVATION_THINGS_TO_STEAL_FOLDER_PATH');
     }
     return path;
   }

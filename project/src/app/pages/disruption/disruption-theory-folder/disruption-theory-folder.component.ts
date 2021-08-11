@@ -4,7 +4,7 @@ import { Subject, Observable, of as observableOf, timer } from 'rxjs';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalDocumentDialogService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-theory-folder',
@@ -48,7 +48,7 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
     };
   }
@@ -67,7 +67,7 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
   protected buildSubFolderParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };
@@ -80,7 +80,7 @@ export class DisruptionTheoryFolderComponent extends GlobalDocumentViewComponent
   protected buildTheoryAssetParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_TYPE,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };

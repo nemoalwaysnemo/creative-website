@@ -10,7 +10,7 @@ import { DocumentListViewItem } from '../../../document-list-view/document-list-
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../../../../shared/services/document-page.service';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-creative-project-related-asset',
@@ -224,7 +224,7 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
   protected buildLinkAssetsBrandParams(doc: DocumentModel): any {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: '',
     };

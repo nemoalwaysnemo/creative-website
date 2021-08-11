@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GlobalSearchFormSettings, DocumentPageService, SearchFilterModel } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-document-asset-search',
@@ -11,7 +11,7 @@ export class BizDevDocumentAssetSearchComponent extends BaseDocumentViewComponen
 
   defaultParams: any = {
     ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_SEARCH_TYPE,
-    ecm_path: NUXEO_PATH_INFO.BIZ_DEV_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_BASE_FOLDER_PATH'),
     ecm_mixinType_not_in: '',
     currentPageIndex: 0,
     ecm_fulltext: '',

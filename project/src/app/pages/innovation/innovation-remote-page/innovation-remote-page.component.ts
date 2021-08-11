@@ -4,7 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DocumentModel } from '@core/api';
 import { DocumentPageService } from '@pages/shared';
 import { GlobalDocumentViewComponent } from '../../shared/abstract-classes/global-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'innovation-remote-page',
@@ -42,7 +42,7 @@ export class InnovationRemotePageComponent extends GlobalDocumentViewComponent {
       pageSize: 1,
       currentPageIndex: 0,
       app_global_ext_app_iframe: true,
-      ecm_path: NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.INNOVATION_FOLDER_TYPE,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',

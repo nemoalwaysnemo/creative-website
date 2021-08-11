@@ -3,8 +3,8 @@ import { DragScrollComponent } from 'ngx-drag-scroll';
 import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
 import { DocumentPageService } from '../services/document-page.service';
 import { Subscription } from 'rxjs';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'document-related-campaign',
@@ -69,7 +69,7 @@ export class DocumentRelatedCampaignComponent implements OnDestroy {
     } else {
       const params: any = {
         ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-        ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+        ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
         the_loupe_main_campaign: `["${campaign}"]`,
         ecm_uuid_not_eq: doc.uid,
         currentPageIndex: 0,

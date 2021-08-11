@@ -6,7 +6,6 @@ import { DocumentFormEvent, DocumentFormSettings } from '../document-form/docume
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-folder-form',
@@ -38,9 +37,9 @@ export class InnovationFolderFormComponent extends GlobalDocumentFormComponent {
 
   protected buildDocumentPath(doc: DocumentModel): void {
     if (doc) {
-      if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
+      if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'NEXT')) {
         this.documentPath = '/p/innovation/NEXT/folder';
-      } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
+      } else if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'Things to Steal')) {
         this.documentPath = '/p/innovation/Things to Steal/folder';
       }
     }

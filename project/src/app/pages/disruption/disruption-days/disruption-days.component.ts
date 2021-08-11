@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { DocumentModel, SearchResponse, GlobalSearchParams, NuxeoRequestOptions, NuxeoEnricher, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-days',
@@ -36,7 +36,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
   };
 
@@ -70,7 +70,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_FOLDER_TYPE,
     };
   }
@@ -81,7 +81,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
       pageSize: 1000,
       currentPageIndex: 0,
       ecm_fulltext: searchParams.providerParams.ecm_fulltext,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAY_ASSET_TYPES,
     };
     return searchParams.setParams(params);
@@ -97,7 +97,7 @@ export class DisruptionDaysComponent extends GlobalDocumentViewComponent impleme
         pageSize: ids.length,
         ecm_uuid: `["${ids.join('", "')}"]`,
         ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
-        ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+        ecm_path: this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'),
         ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
       };
       return this.documentPageService.advanceRequest(new GlobalSearchParams(params));

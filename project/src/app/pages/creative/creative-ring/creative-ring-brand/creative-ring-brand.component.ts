@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentModel, UserModel } from '@core/api';
 import { Subject } from 'rxjs';
 
@@ -22,7 +22,7 @@ export class CreativeRingBrandComponent extends GlobalDocumentViewComponent {
   defaultParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
     the_loupe_main_collection_type: NUXEO_DOC_TYPE.CREATIVE_RING_BRAND_COLLECTION_TYPE,
   };
@@ -66,7 +66,7 @@ export class CreativeRingBrandComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_FOLDER_TYPE,
     };
   }

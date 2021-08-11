@@ -4,7 +4,7 @@ import { DocumentModel, GlobalSearchParams, NuxeoRequestOptions } from '@core/ap
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '../../shared';
 import { Subject, timer } from 'rxjs';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-edge',
@@ -50,7 +50,7 @@ export class BackslashEdgeComponent extends GlobalDocumentViewComponent implemen
       pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_mixinType_not_in: '',
       ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_SUB_FOLDER_TYPE,
     };
     return searchParams.setParams(params);
@@ -67,7 +67,7 @@ export class BackslashEdgeComponent extends GlobalDocumentViewComponent implemen
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_BASE_FOLDER_TYPE,
     };
   }
@@ -77,7 +77,7 @@ export class BackslashEdgeComponent extends GlobalDocumentViewComponent implemen
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_EDGE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_EDGE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_EDGE_SUB_FOLDER_TYPE,
     };
     if (doc) {

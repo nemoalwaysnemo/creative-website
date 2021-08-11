@@ -6,7 +6,6 @@ import { DocumentPageService, GlobalEvent } from '../../../services/document-pag
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { GLOBAL_DOCUMENT_FORM } from '../../../../shared/global-document-form';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'disruption-x-preview-dialog',
@@ -88,7 +87,7 @@ export class DisruptionXPreviewDialogComponent extends DocumentDialogPreviewTemp
 
   private buildShareUrl(doc: DocumentModel): string {
     let url: string;
-    if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH)) {
+    if (doc.path.includes(this.documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'))) {
       url = 'disruption/asset/';
     }
     return this.documentPageService.getCurrentAppUrl(url.replace(':parentRef', doc.parentRef) + doc.uid);

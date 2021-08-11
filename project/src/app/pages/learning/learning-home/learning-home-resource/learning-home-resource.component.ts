@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
 import { BaseDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { TAB_CONFIG } from '../../learning-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'learning-home-resource',
@@ -20,7 +20,7 @@ export class LearningHomeResourceComponent extends BaseDocumentViewComponent {
   private params: any = {
     pageSize: 10,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.LEARNING_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:LEARNING_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_FOLDER_TYPE,
   };
 

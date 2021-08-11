@@ -1,8 +1,9 @@
 
 import { Injectable } from '@angular/core';
 import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
-import { AdvanceSearchService, DocumentModel } from '../api';
+import { DocumentModel } from '../api';
 import { Observable, of as observableOf, forkJoin, zip } from 'rxjs';
+import { DocumentPageService } from '../../pages/shared/services/document-page.service';
 import { map, switchMap, filter, tap } from 'rxjs/operators';
 import { UserModel } from '../api/nuxeo/lib/nuxeo.user-model';
 import { UserRole, UserPermission } from './acl.interface';
@@ -19,7 +20,7 @@ export class ACLService {
     private cacheService: CacheService,
     private rolesService: NgxRolesService,
     private permissionsService: NgxPermissionsService,
-    private advanceSearchService: AdvanceSearchService,
+    private documentPageService: DocumentPageService,
   ) {
 
   }
@@ -37,13 +38,13 @@ export class ACLService {
   }
 
   filterRouterTabs(tabs: any[], document?: DocumentModel): Observable<any[]> {
-    tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } if (!x.aclFn) { x.aclFn = (doc: DocumentModel, advanceSearchService: AdvanceSearchService): Observable<boolean> => observableOf(true); } });
+    tabs.forEach(x => { if (!x.acl) { x.acl = [UserPermission.View]; } if (!x.aclFn) { x.aclFn = (doc: DocumentModel, documentPageService: DocumentPageService): Observable<boolean> => observableOf(true); } });
     return this.permissionsService.permissions$.pipe(
       filter(_ => Object.keys(_).length !== 0),
       switchMap(_ => forkJoin([
         ...tabs.map((x: any) => zip(
           this.permissionsService.hasPermission(x.acl),
-          this.cacheService.get(`ACL.RouterTab-${x.title}`, x.aclFn.call(this, document, this.advanceSearchService)),
+          this.cacheService.get(`ACL.RouterTab-${x.title}`, x.aclFn.call(this, document, this.documentPageService)),
         )),
       ]).pipe(
         map((r: any[]) => {

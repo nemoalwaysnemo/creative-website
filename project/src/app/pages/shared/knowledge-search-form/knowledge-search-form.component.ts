@@ -8,7 +8,7 @@ import { DocumentPageService } from '../services/document-page.service';
 import { HomeSearchFormComponent } from '../home-search-form/home-search-form.component';
 import { GlobalSearchFormService } from '../global-search-form/global-search-form.service';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'knowledge-search-form',
@@ -77,17 +77,17 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
     } else if (NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE.includes(doc.type)) {
       url = '/p/intelligence/asset';
     } else if (NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
-      if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH)) {
+      if (doc.path.includes(this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'))) {
         url = '/p/disruption/Disruption Days/day/:parentRef/asset';
-      } else if (doc.path.includes(NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH)) {
+      } else if (doc.path.includes(this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'))) {
         url = '/p/disruption/Disruption How Tos/folder/:parentRef/asset';
       } else {
         url = '/p/disruption/asset';
       }
     } else if (NUXEO_DOC_TYPE.INNOVATION_ASSET_TYPE.includes(doc.type)) {
-      if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
+      if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'NEXT')) {
         url = '/p/innovation/NEXT/folder/:parentRef/asset';
-      } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
+      } else if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'Things to Steal')) {
         url = '/p/innovation/Things to Steal/folder/:parentRef/asset';
       }
     } else if (NUXEO_DOC_TYPE.BIZ_DEV_ASSET_TYPE.includes(doc.type)) {
@@ -121,7 +121,7 @@ export class KnowledgeSearchFormComponent extends HomeSearchFormComponent implem
       pageSize: 1,
       currentPageIndex: 0,
       title_eq: 'Help & Support',
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_FOLDER_TYPE,
     };
     const subscription = this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(

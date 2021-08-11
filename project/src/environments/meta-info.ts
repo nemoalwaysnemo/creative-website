@@ -1,4 +1,11 @@
 
+export enum Env {
+  prod = 'prod',
+  stag = 'stag',
+  dev = 'dev',
+  local = 'local',
+}
+
 export enum NUXEO_DOC_TYPE {
   CREATIVE_IMAGE_VIDEO_TYPES = '["App-Library-Image", "App-Library-Video"]',
   CREATIVE_IMAGE_VIDEO_AUDIO_TYPES = '["App-Library-Image", "App-Library-Video", "App-Library-Audio"]',

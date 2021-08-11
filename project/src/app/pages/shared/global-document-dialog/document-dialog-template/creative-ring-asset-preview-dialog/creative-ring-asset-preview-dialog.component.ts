@@ -7,7 +7,7 @@ import { DocumentPageService, GlobalEvent } from '../../../services/document-pag
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-ring-asset-preview-dialog',
@@ -50,7 +50,7 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
           params: {
             pageSize: 4,
             app_global_networkshare: true,
-            ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+            ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
             ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
           },
           provider: NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER,
@@ -62,7 +62,7 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
           params: {
             pageSize: 4,
             app_global_networkshare: true,
-            ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+            ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
             ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
           },
           provider: NUXEO_DOC_TYPE.BASE_SEARCH_PROVIDER,
@@ -153,7 +153,7 @@ export class CreativeRingAssetPreviewDialogComponent extends DocumentDialogPrevi
 
   protected buildBrandAssetParams(doc: DocumentModel): any {
     const params: any = {
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_RING_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_RING_PATH'),
       ecm_uuid_not_eq: doc.uid,
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
       the_loupe_main_brand_any: `["${doc.get('The_Loupe_Main:brand').join('", "')}"]`,

@@ -7,8 +7,8 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { SearchFilterModel } from '../../../global-search-filter/global-search-filter.interface';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
 import { SelectableItemSettings, SelectableItemService, SelectableItemEvent } from '../../../../shared/document-selectable/';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-collection-mgt-dialog',
@@ -123,7 +123,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
     const params: any = {
       currentPageIndex: 0,
       ecm_fulltext: '',
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
       the_loupe_main_collection_type: NUXEO_DOC_TYPE.CREATIVE_RING_ASSET_COLLECTION_TYPE,
     };

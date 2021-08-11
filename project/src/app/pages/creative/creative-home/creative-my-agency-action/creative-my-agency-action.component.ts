@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams, UserModel, NuxeoRequestOptions, NuxeoPermission } from '@core/api';
 import { DocumentPageService } from '@pages/shared';
 import { Subscription, combineLatest, Observable, of as observableOf, forkJoin, zip } from 'rxjs';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -20,7 +20,7 @@ export class CreativeMyAgencyActionComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(protected documentPageService: DocumentPageService) {
+  constructor(private documentPageService: DocumentPageService) {
   }
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class CreativeMyAgencyActionComponent implements OnInit, OnDestroy {
       ecm_fulltext: '',
       pageSize: 2,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     };

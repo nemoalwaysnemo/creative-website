@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalSearchParams, NuxeoRequestOptions } from '@core/api';
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-case-study',
@@ -23,7 +23,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_mixinType_not_in: '',
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER,
   };
 
@@ -56,7 +56,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
       pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_mixinType_not_in: '',
       ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_ASSET_TYPE,
     };
     return searchParams.setParams(params);
@@ -68,7 +68,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
       pageSize: searchParams.getSettings('append') ? searchParams.providerParams.pageSize : GlobalSearchParams.PageSize,
       ecm_mixinType_not_in: '',
       // ecm_fulltext: searchParams.providerParams.ecm_fulltext_wildcard,
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_FOLDER,
     };
     return searchParams.setParams(params);
@@ -78,7 +78,7 @@ export class BackslashCaseStudyComponent extends GlobalDocumentViewComponent imp
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_CASE_STUDIES_FOLDER_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:BACKSLASH_CASE_STUDIES_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_CASE_STUDIES_BASE_FOLDER_TYPE,
     };
   }

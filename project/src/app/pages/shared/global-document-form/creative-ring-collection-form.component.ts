@@ -7,7 +7,7 @@ import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
 import { ListSearchRowCustomViewComponent } from '../list-search-form-in-dialog';
 import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
@@ -63,7 +63,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
       currentPageIndex: 0,
       pageSize: 1,
       the_loupe_main_companycode: user.companycode,
-      ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_FOLDER_TYPE,
       the_loupe_main_folder_type: NUXEO_DOC_TYPE.CREATIVE_AGENCY_FOLDER_TYPE,
     };
@@ -131,7 +131,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
             uniqueDocumentValidator: {
               documentPageService: this.documentPageService,
               searchParams: {
-                ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+                ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
                 ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE,
               },
             },

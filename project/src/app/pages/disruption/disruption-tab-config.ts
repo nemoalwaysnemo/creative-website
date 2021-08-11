@@ -1,17 +1,18 @@
-import { AdvanceSearchService, DocumentModel, GlobalSearchParams, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
+import { DocumentModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
+import { DocumentPageService } from '../shared/services/document-page.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NUXEO_DOC_TYPE, NUXEO_PATH_INFO } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 export const TAB_CONFIG: any[] = [
   {
     title: 'DisruptionX',
     route: '/p/disruption/DisruptionX',
-    aclFn: (doc: DocumentModel, advanceSearchService: AdvanceSearchService): Observable<boolean> => {
-      return advanceSearchService.request(new GlobalSearchParams({
+    aclFn: (doc: DocumentModel, documentPageService: DocumentPageService): Observable<boolean> => {
+      return documentPageService.advanceRequest(new GlobalSearchParams({
         pageSize: 1,
         currentPageIndex: 0,
-        ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
+        ecm_path_eq: documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'),
         ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_FOLDER_TYPE,
       })).pipe(
         map((res: NuxeoPagination) => res.entries.shift()),

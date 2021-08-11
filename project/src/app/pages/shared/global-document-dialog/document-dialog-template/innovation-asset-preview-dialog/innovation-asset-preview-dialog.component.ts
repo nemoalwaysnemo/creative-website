@@ -4,7 +4,6 @@ import { vocabularyFormatter } from '@core/services/helpers';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'innovation-asset-preview-dialog',
@@ -54,9 +53,9 @@ export class InnovationAssetPreviewDialogComponent extends DocumentDialogPreview
 
   buildShareUrl(doc: DocumentModel): string {
     let url: string;
-    if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
+    if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'NEXT')) {
       url = 'innovation/NEXT/folder/';
-    } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
+    } else if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'Things to Steal')) {
       url = 'innovation/Things to Steal/folder/';
     }
     if (doc.type === 'App-Innovation-Asset') {

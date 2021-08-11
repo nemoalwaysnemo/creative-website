@@ -5,7 +5,7 @@ import { getDocumentTypes, matchAssetUrl } from '@core/services/helpers';
 import { GlobalDocumentDialogService, DocumentPageService, DocumentModelForm } from '../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../shared/global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings } from '../../shared/global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-folder-view',
@@ -129,25 +129,25 @@ export class BizDevFolderViewComponent {
     switch (type) {
       case 'App-BizDev-Thought-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH'),
           urlRootPath: '/p/business-development/Thought Leadership/',
           urlParentPath: '/p/business-development/Thought Leadership/folder/',
         };
       case 'App-BizDev-CaseStudy-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.BIZ_DEV_CASE_STUDIES_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BIZ_DEV_CASE_STUDIES_FOLDER_PATH'),
           urlRootPath: '/p/business-development/Case Studies/',
           urlParentPath: '/p/business-development/Case Studies/folder/',
         };
       case 'App-BizDev-ThoughtLeadership-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH'),
           urlRootPath: '/p/business-development/Thought Leadership/',
           urlParentPath: '/p/business-development/Thought Leadership/',
         };
       case 'App-BizDev-Case-Studies-Folder':
         return {
-          rootPath: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+          rootPath: this.documentPageService.getConfig('path:BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH'),
           urlRootPath: '/p/business-development/Case Studies/',
           urlParentPath: '/p/business-development/Case Studies/',
         };

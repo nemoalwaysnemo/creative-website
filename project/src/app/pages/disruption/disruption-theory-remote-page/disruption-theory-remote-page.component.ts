@@ -3,7 +3,7 @@ import { DocumentModel } from '@core/api';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DocumentPageService, GlobalDocumentViewComponent } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-theory-remote-page',
@@ -42,7 +42,7 @@ export class DisruptionTheoryRemotePageComponent extends GlobalDocumentViewCompo
       currentPageIndex: 0,
       ecm_fulltext: '',
       app_global_ext_app_iframe: true,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_THEORY_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_THEORY_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_THEORY_TYPE,
     };
   }

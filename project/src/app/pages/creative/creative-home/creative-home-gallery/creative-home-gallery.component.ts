@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel } from '@core/api';
 import { vocabularyFormatter } from '@core/services/helpers';
 import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-home-gallery',
@@ -31,7 +31,7 @@ export class CreativeHomeGalleryComponent implements OnInit, OnDestroy {
 
   private params: any = {
     pageSize: 10,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_AWARD_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_AWARD_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
   };
 

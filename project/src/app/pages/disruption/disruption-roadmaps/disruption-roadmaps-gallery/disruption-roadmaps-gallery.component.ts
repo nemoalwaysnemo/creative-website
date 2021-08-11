@@ -5,7 +5,7 @@ import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 import { GlobalDocumentDialogSettings } from '@pages/shared/global-document-dialog';
 import { DocumentPageService, PictureGallerySettings, GlobalDocumentDialogService } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-roadmaps-gallery',
@@ -39,7 +39,7 @@ export class DisruptionRoadmapsGalleryComponent implements OnInit, OnDestroy {
     pageSize: 5,
     ecm_fulltext: '',
     app_edges_featured_asset: true,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_ROADMAPS_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE,
   };
 

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoQuickFilters } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-roadmap',
@@ -31,7 +31,7 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
     currentPageIndex: 0,
     ecm_fulltext: '',
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_ROADMAPS_PATH'),
     quickFilters: NuxeoQuickFilters.Alphabetically,
   };
 
@@ -39,7 +39,7 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
     currentPageIndex: 0,
     ecm_fulltext: '',
     app_edges_featured_asset: true,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_ROADMAPS_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_TYPE,
   };
 
@@ -100,7 +100,7 @@ export class DisruptionRoadmapsComponent extends GlobalDocumentViewComponent imp
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_ROADMAPS_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_ROADMAPS_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_ROADMAP_FOLDER_TYPE,
     };
   }

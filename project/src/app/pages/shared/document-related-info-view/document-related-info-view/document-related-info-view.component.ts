@@ -7,8 +7,9 @@ import { GlobalSearchFormSettings } from '../../global-search-form/global-search
 import { GlobalSearchFormService } from '../../global-search-form/global-search-form.service';
 import { DocumentModelForm } from '../../global-document-form/global-document-form.component';
 import { SearchFilterModel } from '../../global-search-filter/global-search-filter.interface';
+import { DocumentPageService } from '../../services/document-page.service';
 import { TabInfo } from '../document-related-info.component';
-import { Environment, NUXEO_PATH_INFO } from '@environment/environment';
+import { Environment } from '@environment/environment';
 
 @Component({
   selector: 'document-related-info-view',
@@ -99,6 +100,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
+    protected documentPageService: DocumentPageService,
     private globalSearchFormService: GlobalSearchFormService,
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) { }
@@ -216,7 +218,7 @@ export class DocumentRelatedInfoViewComponent implements OnInit, OnDestroy {
         // app_edges_active_article: true,
         app_edges_tags_edges: edgesParams,
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
-        ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+        ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
       };
       this.edgeLoading = true;
       const subscription = this.globalSearchFormService.advanceRequest(params).subscribe((res: NuxeoPagination) => {

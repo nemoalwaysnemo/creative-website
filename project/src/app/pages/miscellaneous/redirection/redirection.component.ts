@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { Params } from '@angular/router';
 import { DocumentModel, GlobalSearchParams, NuxeoPagination, NuxeoRequestOptions } from '@core/api';
 import { isDocumentUID, matchAssetUrl } from '@core/services/helpers';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 import { DocumentPageService } from '@pages/shared';
 import { Observable, Subscription, of as observableOf } from 'rxjs';
 import { concatMap, filter, map } from 'rxjs/operators';
@@ -34,9 +33,9 @@ class ParamsInfo {
     'App-BizDev-Thought-Asset': '/p/business-development/Thought Leadership/folder/:parentRef/asset/:uid',
     'App-Innovation-Asset': (doc: DocumentModel) => {
       let url = '';
-      if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'NEXT')) {
+      if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'NEXT')) {
         url = '/p/innovation/NEXT/folder';
-      } else if (doc.path.includes(NUXEO_PATH_INFO.INNOVATION_BASE_FOLDER_PATH + 'Things to Steal')) {
+      } else if (doc.path.includes(this.documentPageService.getConfig('path:INNOVATION_BASE_FOLDER_PATH') + 'Things to Steal')) {
         url = '/p/innovation/Things to Steal/folder';
       }
       if (doc.type === 'App-Innovation-Asset') {

@@ -4,7 +4,6 @@ import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { GLOBAL_DOCUMENT_FORM } from '../global-document-form';
 import { DocumentPageService } from '../services/document-page.service';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 
 @Component({
   selector: 'document-backslash-info',
@@ -47,8 +46,10 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
     }
   }
 
-  constructor(protected globalDocumentDialogService: GlobalDocumentDialogService, private documentPageService: DocumentPageService) {
-  }
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) { }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -65,7 +66,7 @@ export class DocumentBackslashInfoComponent implements OnDestroy {
         // app_edges_active_article: true,
         app_edges_tags_edges: edgesParams,
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
-        ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+        ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
       };
 
       this.loading = true;

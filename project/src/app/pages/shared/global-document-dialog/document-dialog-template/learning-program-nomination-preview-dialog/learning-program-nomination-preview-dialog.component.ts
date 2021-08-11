@@ -3,7 +3,6 @@ import { GlobalDocumentDialogService } from '../../global-document-dialog.servic
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
 import { DocumentModel } from '@core/api';
-import { NUXEO_OUTER_LINK } from '@environment/environment';
 
 @Component({
   selector: 'learning-program-nomination-preview-dialog',
@@ -14,7 +13,7 @@ export class LearningProgramNominationPreviewDialogComponent extends DocumentDia
 
   static readonly NAME: string = 'learning-program-nomination-preview';
 
-  nominationUrl: string = NUXEO_OUTER_LINK.COLLECTIVE_NOMINATION_URL;
+  nominationUrl: string = this.documentPageService.getConfig('link:COLLECTIVE_NOMINATION_URL');
 
   dateList: string[] = [];
 

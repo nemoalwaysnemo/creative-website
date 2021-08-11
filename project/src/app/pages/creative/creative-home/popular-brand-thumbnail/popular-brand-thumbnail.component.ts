@@ -3,7 +3,7 @@ import { DocumentPageService } from '../../../shared';
 import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { DocumentThumbnailViewSettings } from '../../../shared/document-thumbnail-view';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'creative-popular-brand-thumbnail',
@@ -24,7 +24,7 @@ export class PopularBrandThumbnailComponent implements OnInit, OnDestroy {
 
   private params: GlobalSearchParams = new GlobalSearchParams({
     pageSize: 3,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_SELECTED_BRAND_TYPE,
   });
 

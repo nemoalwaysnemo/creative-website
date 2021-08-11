@@ -5,7 +5,7 @@ import { Subject, timer } from 'rxjs';
 import { TAB_CONFIG } from '../business-development-tab-config';
 import { DocumentModel, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'biz-dev-thought-leadership-folder',
@@ -45,7 +45,7 @@ export class BizDevThoughtLeadershipFolderComponent extends GlobalDocumentViewCo
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_TYPE,
       ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
     };
@@ -56,7 +56,7 @@ export class BizDevThoughtLeadershipFolderComponent extends GlobalDocumentViewCo
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
-      ecm_path: NUXEO_PATH_INFO.BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BIZ_DEV_THOUGHT_LEADERSHIP_SUB_FOLDER_TYPE,
     };
     if (doc) {

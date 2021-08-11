@@ -4,7 +4,7 @@ import { Observable, of as observableOf, forkJoin, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NuxeoPagination, GlobalSearchParams, DocumentModel } from '@core/api';
 import { GlobalDocumentDialogService, GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-home',
@@ -48,7 +48,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
 
   defaultParams: any = {
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
     ecm_fulltext: '',
   };
@@ -56,14 +56,14 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
   private folderParams: any = {
     pageSize: 3,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_FOLDER_TYPE,
   };
 
   private brandsParams: any = {
     pageSize: 15,
     currentPageIndex: 0,
-    ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_BRANDS_TYPE,
   };
 
@@ -107,7 +107,7 @@ export class IntelligenceHomeComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_BASE_FOLDER_TYPE,
     };
   }

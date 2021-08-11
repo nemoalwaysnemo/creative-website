@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 import { DocumentModel } from '@core/api';
 
 @Component({
@@ -32,7 +31,7 @@ export class InnovationAssetSearchResultComponent extends BaseSearchResultCompon
 
   isParentFolder(doc: DocumentModel): boolean {
     const path = doc.path + '/';
-    return doc && ((path === NUXEO_PATH_INFO.INNOVATION_NEXT_FOLDER_PATH) || (path === NUXEO_PATH_INFO.INNOVATION_THINGS_TO_STEAL_FOLDER_PATH));
+    return doc && ((path === this.documentPageService.getConfig('path:INNOVATION_NEXT_FOLDER_PATH')) || (path === this.documentPageService.getConfig('path:INNOVATION_THINGS_TO_STEAL_FOLDER_PATH')));
   }
 
   goToLink(doc: DocumentModel): void {

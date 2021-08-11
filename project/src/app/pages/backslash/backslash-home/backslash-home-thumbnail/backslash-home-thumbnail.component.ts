@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { DocumentModel, NuxeoPermission } from '@core/api';
-import { GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
+import { DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { Observable, of as observableOf } from 'rxjs';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE, Environment } from '@environment/environment';
+import { NUXEO_DOC_TYPE, Environment } from '@environment/environment';
 
 @Component({
   selector: 'backslash-home-thumbnail',
@@ -27,8 +27,6 @@ export class BackslashHomeThumbnailComponent {
     layout: 's-results my_agency dates full-width backslash_asset_search',
   };
 
-  protected enabledView: any = { liveView: true };
-
   oldBackslashUrl = Environment.backslashAppUrl;
 
   defaultParams: any = {
@@ -36,7 +34,7 @@ export class BackslashHomeThumbnailComponent {
     pageSize: 12,
     ecm_fulltext: '',
     app_edges_active_article: true,
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_POST_TYPES,
   };
 
@@ -44,7 +42,7 @@ export class BackslashHomeThumbnailComponent {
     currentPageIndex: 0,
     ecm_fulltext: '',
     app_edges_active_article: false,
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_POST_TYPES,
   };
 
@@ -67,12 +65,19 @@ export class BackslashHomeThumbnailComponent {
     new SearchFilterModel({ key: 'the_loupe_main_country_agg', placeholder: 'Agency Country', iteration: true }),
   ];
 
+  protected enabledView: any = { liveView: true };
+
   @Input()
   set document(doc: DocumentModel) {
     if (doc) {
       this.doc = doc;
       this.writePermission$ = doc.hasPermission(NuxeoPermission.Write);
     }
+  }
+
+  constructor(
+    private documentPageService: DocumentPageService,
+  ) {
   }
 
   onLoading(loading: boolean): void {

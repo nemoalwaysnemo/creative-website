@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPagination, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'disruption-day-asset',
@@ -35,7 +35,7 @@ export class DisruptionDayAssetComponent extends GlobalDocumentViewComponent imp
     pageSize: 1,
     currentPageIndex: 0,
     ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
   };
 
@@ -55,7 +55,7 @@ export class DisruptionDayAssetComponent extends GlobalDocumentViewComponent imp
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path: NUXEO_PATH_INFO.DISRUPTION_DAYS_PATH,
+      ecm_path: this.documentPageService.getConfig('path:DISRUPTION_DAYS_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAY_ASSET_TYPES,
     };
   }

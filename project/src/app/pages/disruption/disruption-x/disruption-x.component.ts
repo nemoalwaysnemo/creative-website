@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel, NuxeoPermission } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../disruption-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { Observable, of as observableOf } from 'rxjs';
 
 @Component({
@@ -25,7 +25,7 @@ export class DisruptionXComponent extends GlobalDocumentViewComponent implements
   defaultParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_TYPE,
   };
 
@@ -60,7 +60,7 @@ export class DisruptionXComponent extends GlobalDocumentViewComponent implements
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.DISRUPTION_X_FOLDER_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_FOLDER_TYPE,
     };
   }

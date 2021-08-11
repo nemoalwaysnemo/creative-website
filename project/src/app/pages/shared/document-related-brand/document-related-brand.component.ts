@@ -3,7 +3,8 @@ import { Subject, timer } from 'rxjs';
 import { DocumentModel, SearchResponse } from '@core/api';
 import { GlobalSearchFormSettings } from '../global-search-form/global-search-form.interface';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../global-document-dialog';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   selector: 'document-related-brand',
@@ -30,7 +31,7 @@ export class DocumentRelatedBrandComponent {
 
   private params: any = {
     pageSize: 4,
-    ecm_path: NUXEO_PATH_INFO.CREATIVE_TBWA_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:CREATIVE_TBWA_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_TYPES,
     the_loupe_main_brand_any: '',
     ecm_uuid_not_eq: '',
@@ -53,7 +54,10 @@ export class DocumentRelatedBrandComponent {
 
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.PREVIEW_CREATIVE_ASSET] });
 
-  constructor(private globalDocumentDialogService: GlobalDocumentDialogService) { }
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) { }
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);

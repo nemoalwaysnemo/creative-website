@@ -3,7 +3,7 @@ import { GlobalSearchParams } from '@core/api';
 import { Subject, timer } from 'rxjs';
 import { GlobalSearchFormSettings, DocumentPageService, GlobalSearchSettings, SearchFilterModel } from '@pages/shared';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'intelligence-document-asset-search',
@@ -57,7 +57,7 @@ export class IntelligenceDocumentAssetSearchComponent extends BaseDocumentViewCo
   private buildSearchParams(searchTerm: string = '', settings?: GlobalSearchSettings): GlobalSearchParams {
     const params: any = {
       ecm_primaryType: NUXEO_DOC_TYPE.INTELLIGENCE_ASSET_TYPE,
-      ecm_path: NUXEO_PATH_INFO.INTELLIGENCE_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:INTELLIGENCE_BASE_FOLDER_PATH'),
       currentPageIndex: 0,
       ecm_fulltext: searchTerm,
     };

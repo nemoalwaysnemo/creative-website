@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentModel } from '@core/api';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DocumentPageService, GlobalDocumentViewComponent } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'learning-remote-page',
@@ -42,7 +42,7 @@ export class LearningRemotePageComponent extends GlobalDocumentViewComponent {
       currentPageIndex: 0,
       ecm_fulltext: '',
       app_global_ext_app_iframe: true,
-      ecm_path: NUXEO_PATH_INFO.LEARNING_BASE_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:LEARNING_BASE_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.LEARNING_PROGRAM_FOLDER_TYPE,
     };
   }

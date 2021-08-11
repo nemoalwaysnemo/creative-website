@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NuxeoPagination, DocumentModel } from '@core/api';
 import { DocumentPageService, PictureGallerySettings } from '@pages/shared';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-home-gallery',
@@ -38,7 +38,7 @@ export class BackslashHomeGalleryComponent implements OnInit, OnDestroy {
   private params: any = {
     pageSize: 8,
     app_edges_active_article: true,
-    ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+    ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
     ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_ARTICLE_VIDEO_POST_TYPES,
   };
 

@@ -4,7 +4,7 @@ import { Subject, timer } from 'rxjs';
 import { DocumentModel, GlobalSearchParams } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { TAB_CONFIG } from '../backslash-tab-config';
-import { NUXEO_PATH_INFO, NUXEO_DOC_TYPE } from '@environment/environment';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   selector: 'backslash-resource',
@@ -47,7 +47,7 @@ export class BackslashResourceComponent extends GlobalDocumentViewComponent {
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+      ecm_path_eq: this.documentPageService.getConfig('path:BACKSLASH_RESOURCES_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_BASE_FOLDER_TYPE,
     };
   }
@@ -57,7 +57,7 @@ export class BackslashResourceComponent extends GlobalDocumentViewComponent {
       currentPageIndex: 0,
       ecm_fulltext: '',
       ecm_mixinType_not_in: '',
-      ecm_path: NUXEO_PATH_INFO.BACKSLASH_RESOURCES_FOLDER_PATH,
+      ecm_path: this.documentPageService.getConfig('path:BACKSLASH_RESOURCES_FOLDER_PATH'),
       ecm_primaryType: NUXEO_DOC_TYPE.BACKSLASH_RESOURCES_SUB_FOLDER_TYPE,
     };
     if (doc) {

@@ -3,7 +3,6 @@ import { DocumentModel, NuxeoQuickFilters, NuxeoPagination } from '@core/api';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { DocumentDialogPreviewTemplateComponent } from '../../document-dialog-preview-template.component';
-import { NUXEO_PATH_INFO } from '@environment/environment';
 import { matchAssetUrl } from '@core/services/helpers';
 
 @Component({
@@ -59,7 +58,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
         // app_edges_active_article: true,
         app_edges_tags_edges: edgesParams,
         quickFilters: NuxeoQuickFilters.BackslashEdgePage,
-        ecm_path: NUXEO_PATH_INFO.BACKSLASH_BASE_FOLDER_PATH,
+        ecm_path: this.documentPageService.getConfig('path:BACKSLASH_BASE_FOLDER_PATH'),
       };
       const subscription = this.documentPageService.advanceRequest(params).subscribe((res: NuxeoPagination) => {
         this.backslashEdges = res.entries;
