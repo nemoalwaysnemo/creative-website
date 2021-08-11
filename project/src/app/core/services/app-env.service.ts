@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Env, Environment } from '@environment/environment';
-import { NUXEO_PATH_INFO, NUXEO_OUTER_LINK, ENV_OVERRIDES } from '@environment/environment.config';
+import { NUXEO_PATH_INFO, NUXEO_OUTER_LINK, ENV_OVERRIDES } from '@environment/environment.overrides';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +45,7 @@ export class AppEnvService {
     if (!value) {
       value = this.getValue({ NUXEO_PATH_INFO, NUXEO_OUTER_LINK }, key, prop);
     }
+    // console.log(key, prop, value);
     return value;
   }
 

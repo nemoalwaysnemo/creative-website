@@ -1,4 +1,4 @@
-export * from './meta-info';
+export * from './environment.properties';
 
 export const Environment = {
   baseTitle: 'Know\\edge',

@@ -68,25 +68,7 @@
               "baseHref": "/nuxeo/site/LibraryWebUI/",
               "fileReplacements": [{
                 "replace": "project/src/environments/environment.ts",
-                "with": "project/src/environments/environment.aws-stg.ts"
-              }]
-            },
-            "aws-dev": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [{
-                "type": "anyComponentStyle"
-              }],
-              "deployUrl": "/nuxeo/LibraryWebUI/",
-              "baseHref": "/nuxeo/site/LibraryWebUI/",
-              "fileReplacements": [{
-                "replace": "project/src/environments/environment.ts",
-                "with": "project/src/environments/environment.aws-dev.ts"
+                "with": "project/src/environments/environment.aws.ts"
               }]
             }
           },
