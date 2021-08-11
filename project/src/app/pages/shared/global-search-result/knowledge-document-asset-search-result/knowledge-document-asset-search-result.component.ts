@@ -16,7 +16,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
 
   constructor(
     private globalDocumentDialogService: GlobalDocumentDialogService,
-    protected documentPageService: DocumentPageService
+    protected documentPageService: DocumentPageService,
   ) {
 
   }
