@@ -41,11 +41,11 @@ export class AppEnvService {
     const keys = path.split(':');
     const key = keys.shift();
     const prop = keys.shift();
-    if (ENV_OVERRIDES[this.env]) {
-      return this.getValue(ENV_OVERRIDES[this.env], key, prop);
-    } else {
-      return this.getValue({ NUXEO_PATH_INFO, NUXEO_OUTER_LINK }, key, prop);
+    let value = this.getValue(ENV_OVERRIDES[this.env] || { NUXEO_PATH_INFO, NUXEO_OUTER_LINK }, key, prop);
+    if (!value) {
+      value = this.getValue({ NUXEO_PATH_INFO, NUXEO_OUTER_LINK }, key, prop);
     }
+    return value;
   }
 
   private getValue(data: any = {}, name: string, prop: string): string {
@@ -61,9 +61,9 @@ export class AppEnvService {
   private checkServerHost(url: string): Env {
     if (/^.*localhost.*/.test(url)) {
       return Env.local;
-    } else if (/library-dev.tools/.test(url)) {
+    } else if (/library-dev.factory.tools/.test(url)) {
       return Env.dev;
-    } else if (/library-staging.tools/.test(url)) {
+    } else if (/library-staging.factory.tools/.test(url)) {
       return Env.stag;
     } else if ((/library.factory.tools/.test(url)) || /knowledge.tbwa.com/.test(url)) {
       return Env.prod;
