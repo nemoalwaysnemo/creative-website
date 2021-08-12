@@ -249,7 +249,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
             layout: 'direction-horizontal',
           },
           validators: { required: null },
-          errorMessages: { required: '' },
+          errorMessages: { required: '{{label}} is required' },
           visibleFn: (): boolean => options.formType === 'new',
         }),
         new DynamicSuggestionModel<string>({
@@ -264,7 +264,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
             layout: 'direction-horizontal',
           },
           validators: { required: null },
-          errorMessages: { required: '' },
+          errorMessages: { required: '{{label}} is required' },
           visibleFn: (): boolean => options.formType === 'new',
         }),
       ],
