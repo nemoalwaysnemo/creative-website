@@ -20,22 +20,6 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
 
   static readonly NAME: string = 'creative-project-import-asset-form';
 
-  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
-    return forkJoin([
-      this.search(({ ecm_uuid: `["${doc.getParent('brand').uid}"]`, pageSize: 1})), //brand
-      this.search(({ ecm_uuid: `["${doc.get('The_Loupe_Main:campaign')}"]`, pageSize: 1})), // campaign
-    ]).pipe(
-      map((docsList: DocumentModel[][]) => [].concat.apply([], docsList)),
-      concatMap((docs: DocumentModel[]) => observableOf(docs[0].setParent(doc, 'project').setParent(docs[1], 'campaign'))),
-    );
-  }
-
-  private search(params: any = {}): Observable<DocumentModel[]> {
-    return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
-      map((res: NuxeoPagination) => res.entries),
-    );
-  }
-
   enableUpload: boolean = false;
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -47,6 +31,22 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
     private ngFileService: NgFileService,
   ) {
     super(documentPageService);
+  }
+
+  protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
+    return forkJoin([
+      this.search(doc.getParent('brand') ? { ecm_uuid: `["${doc.getParent('brand').uid}"]`, pageSize: 1 } : {}), //brand
+      this.search(doc.get('The_Loupe_Main:campaign') ? { ecm_uuid: `["${doc.get('The_Loupe_Main:campaign')}"]`, pageSize: 1 } : {}), // campaign
+    ]).pipe(
+      map((docsList: DocumentModel[][]) => [].concat.apply([], docsList)),
+      concatMap((docs: DocumentModel[]) => observableOf(docs[0].setParent(doc, 'project').setParent(docs[1], 'campaign'))),
+    );
+  }
+
+  private search(params: any = {}): Observable<DocumentModel[]> {
+    return params && !isValueEmpty(params) ? this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
+      map((res: NuxeoPagination) => res.entries),
+    ) : observableOf([new DocumentModel()]);
   }
 
   protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
@@ -177,7 +177,10 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'GLOBAL_Countries',
           },
-          // defaultValueFn: (ctx: DocumentFormContext): any => ctx.currentDocument.getParent('campaign').title,
+          defaultValueFn: (ctx: DocumentFormContext): any => {
+            const campaing = ctx.currentDocument.getParent().getParent('campaign');
+            return campaing ? campaing.get('The_Loupe_Rights:asset_countries') : null;
+          },
         }),
       ],
       importModel: [
@@ -300,4 +303,3 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
   }
 
 }
-
