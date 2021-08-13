@@ -1,4 +1,4 @@
-<div class="{{viewerSettings.layout}} {{viewerSettings.styleName}}" [ngSwitch]="true">
+<div class="{{viewerSettings.layout}} {{viewerSettings.styleName}}" [ngSwitch]="true" [attr.doc-uid]="viewerSettings.document.uid" [attr.doc-type]="viewerSettings.document.type">
   <document-pdf-viewer *ngSwitchCase="getDocumentViewer() === 'pdf'" [settings]="viewerSettings"></document-pdf-viewer>
   <document-image-viewer *ngSwitchCase="getDocumentViewer() === 'picture'" [settings]="viewerSettings"></document-image-viewer>
   <document-video-viewer *ngSwitchCase="getDocumentViewer() === 'video'" [settings]="viewerSettings"></document-video-viewer>

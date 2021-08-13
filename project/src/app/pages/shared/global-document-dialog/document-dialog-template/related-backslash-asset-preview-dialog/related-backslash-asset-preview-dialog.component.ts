@@ -23,7 +23,7 @@ export class RelatedBackslashAssetDialogPreviewComponent extends DocumentDialogP
   };
 
   private assetUrlMapping: any = {
-    'App-Backslash-Edges-Asset': 'backslash/resource/edge/:parentRef/asset/',
+    'App-Backslash-Edges-Asset': 'backslash/edge/folder/:parentRef/asset/',
     'App-Backslash-Case-Study': 'backslash/report/folder/:parentRef/asset/',
     'App-Backslash-Resources-Asset': 'backslash/resource/folder/:parentRef/asset/',
     'App-Edges-Trigger': 'backslash/Trigger Pool/asset/',
