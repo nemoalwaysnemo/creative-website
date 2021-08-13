@@ -64,7 +64,7 @@ export class DocumentListViewComponent implements OnInit, OnDestroy {
     const subscription = combineLatest([
       this.rowSelect,
       this.settings$,
-    ]).subscribe(([rows, settings]) => {
+    ]).subscribe(([rows, settings]: [any, any]) => {
       this.documentListViewService.onRowSelect(rows, settings);
     });
     this.subscription.add(subscription);

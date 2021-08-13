@@ -20,7 +20,7 @@ export class DocumentListViewService {
 
   private rows$: Subject<RowSelectedMessage> = new Subject<RowSelectedMessage>();
 
-  onRowSelect(row, settings): void {
+  onRowSelect(row: any, settings: any): void {
     this.rows$.next(new RowSelectedMessage({ data: row.data, selected: row.selected, source: settings.source }));
   }
 
