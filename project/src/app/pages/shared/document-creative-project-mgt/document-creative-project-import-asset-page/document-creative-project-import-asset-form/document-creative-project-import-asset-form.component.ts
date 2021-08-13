@@ -43,8 +43,15 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
       ids.push(doc.get('The_Loupe_Main:campaign'));
     }
     return this.search({ ecm_uuid: `["${ids.join('", "')}"]`, pageSize: 2 }).pipe(
-      concatMap((docs: DocumentModel[]) => observableOf(docs[1].setParent(doc, 'project').setParent(docs[0], 'campaign'))),
+      concatMap((docs: DocumentModel[]) => observableOf(
+        this.getDocByType(docs, 'App-Library-Folder')
+          .setParent(doc, 'project')
+          .setParent(this.getDocByType(docs, 'App-Library-Campaign'), 'campaign'))),
     );
+  }
+
+  private getDocByType(docsList: DocumentModel[], docType: string): DocumentModel {
+    return docsList.filter(doc => doc.type === docType)? docsList.filter(doc => doc.type === docType)[0] : null;
   }
 
   private search(params: any = {}): Observable<DocumentModel[]> {
