@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, TemplateRef, OnInit, OnDestroy 
 import { isValueEmpty } from '@core/services/helpers';
 import { combineLatest, Subject, Subscription } from 'rxjs';
 import { DocumentListViewSettings, DocumentListViewItem } from './document-list-view.interface';
+import { DocumentListViewService } from './document-list-view.service';
 
 @Component({
   selector: 'document-list-view',
@@ -46,8 +47,9 @@ export class DocumentListViewComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor() {
+  constructor(private documentListViewService: DocumentListViewService) {
     this.onDocumentChanged();
+    this.onRowSelect();
   }
 
   ngOnInit(): void {
@@ -56,6 +58,16 @@ export class DocumentListViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  private onRowSelect() {
+    const subscription = combineLatest([
+      this.rowSelect,
+      this.settings$,
+    ]).subscribe(([rows, settings]) => {
+      this.documentListViewService.onRowSelect(rows, settings);
+    });
+    this.subscription.add(subscription);
   }
 
   private onDocumentChanged(): void {

@@ -18,6 +18,7 @@ import { map } from 'rxjs/operators';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentCreativeProjectAssetHomeMenuComponent } from './document-creative-project-asset-home-action/document-creative-project-asset-home-menu.component';
 import { DocumentCreativeProjectModifyAssetsComponent } from '../document-creative-project-modify-assets/document-creative-project-modify-assets.component';
+import { DocumentListViewService } from '../../../document-list-view/document-list-view.service';
 
 @Component({
   template: `
@@ -156,6 +157,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     selectMode: 'multi',
     hideSubHeader: true,
     showCheckbox: true,
+    source: 'document-creative-project-asset',
     columns: {
       action: {
         sort: false,
