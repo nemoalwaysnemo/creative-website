@@ -50,8 +50,8 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
     );
   }
 
-  private getDocByType(docsList: DocumentModel[], docType: string): DocumentModel {
-    return docsList.filter(doc => doc.type === docType)? docsList.filter(doc => doc.type === docType)[0] : null;
+  private getDocByType(docs: DocumentModel[], docType: string): DocumentModel {
+    return docs.find((doc: DocumentModel) => doc.type === docType);
   }
 
   private search(params: any = {}): Observable<DocumentModel[]> {
