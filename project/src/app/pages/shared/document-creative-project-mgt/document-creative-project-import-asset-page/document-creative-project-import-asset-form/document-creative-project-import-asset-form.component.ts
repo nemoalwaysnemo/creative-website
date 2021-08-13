@@ -43,7 +43,7 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
       ids.push(doc.get('The_Loupe_Main:campaign'));
     }
     return this.search({ ecm_uuid: `["${ids.join('", "')}"]`, pageSize: 2 }).pipe(
-      concatMap((docs: DocumentModel[]) => observableOf(docs[0].setParent(doc, 'project').setParent(docs[1], 'campaign'))),
+      concatMap((docs: DocumentModel[]) => observableOf(docs[1].setParent(doc, 'project').setParent(docs[0], 'campaign'))),
     );
   }
 
@@ -56,6 +56,7 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
   protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
     return new DocumentFormSettings({
       acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
+      showMessageBeforeSave: false,
       importSettings: {
         placeholder: 'Drag and Drop files here or click Add',
         getDocType: (item: NuxeoUploadResponse): string => {
@@ -81,7 +82,10 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
           },
           validators: { required: null },
           errorMessages: { required: '{{label}} is required' },
-          // defaultValueFn: (ctx: DocumentFormContext): any => ctx.currentDocument.getParent('project').title,
+          defaultValueFn: (ctx: DocumentFormContext): any => {
+            const project = ctx.currentDocument.getParent().getParent('project');
+            return project ? [project.uid] : null;
+          },
           // visibleFn: (ctx: DocumentFormContext): boolean => ctx.currentDocument.get('app_global:campaign_mgt'),
         }),
         new DynamicDatepickerDirectiveModel<string>({
@@ -182,8 +186,8 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
             providerName: 'GLOBAL_Countries',
           },
           defaultValueFn: (ctx: DocumentFormContext): any => {
-            const campaing = ctx.currentDocument.getParent().getParent('campaign');
-            return campaing ? campaing.get('The_Loupe_Rights:asset_countries') : null;
+            const campaign = ctx.currentDocument.getParent().getParent('campaign');
+            return campaign ? campaign.get('The_Loupe_Rights:asset_countries') : null;
           },
         }),
       ],
