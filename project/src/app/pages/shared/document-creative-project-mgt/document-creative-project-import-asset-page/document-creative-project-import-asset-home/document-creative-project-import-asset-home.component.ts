@@ -19,6 +19,10 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
 
   navSettings: ProjectMgtNavigationSettings;
 
+  metadata: any = {
+    formSettings: { formMode: 'create' },
+  };
+
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
@@ -70,5 +74,6 @@ export class DocumentCreativeProjectImportAssetHomeComponent extends DocumentCre
     });
     this.subscription.add(subscription);
   }
+
 
 }

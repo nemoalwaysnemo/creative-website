@@ -1,7 +1,7 @@
 <div class="document-creative-project-home-action">
   <div class="actions-title">Set Default Data</div>
 </div>
-<document-batch-operation [documentModel]="document" [settings]="batchOperationSettings" (callback)="onCallback($event)"
+<document-batch-operation [documentModel]="document" [settings]="formSettings" (callback)="onCallback($event)"
   [templateRef]="formTemplate"></document-batch-operation>
 <ng-template #formTemplate let-form="form" let-group="group">
   <div class="title">
