@@ -9,6 +9,8 @@ import { DocumentPageService } from '../../../services/document-page.service';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
+import { DocumentListViewService } from '@pages/shared/document-list-view/document-list-view.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'document-creative-project-modify-assets',
@@ -19,6 +21,8 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
 
 
   batchDocuments: DocumentModel[];
+
+  brand: DocumentModel;
 
   batchOperationSettings: DocumentFormSettings = new DocumentFormSettings({
     formMode: 'edit',
@@ -78,17 +82,32 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
+    private documentListViewService: DocumentListViewService,
   ) {
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
+  protected onInit(){
+    super.onInit();
+    this.documentListViewService.onRowSelected('document-creative-project-asset').pipe(
+      map(e => e.selected.map(i => i.action)),
+    ).subscribe(batchDocuments => {
+      this.setBatchDocuments(batchDocuments);
+    });
+  }
+
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
-    this.batchDocuments = formSettings.batchDocuments;
+    this.setBatchDocuments(formSettings.batchDocuments, formSettings.brand);
+    return observableOf(doc);
+  }
+
+  private setBatchDocuments(batchDocuments: DocumentModel[], brand?: DocumentModel): void{
+    this.brand = brand ? brand : this.brand;
+    this.batchDocuments = batchDocuments;
     this.batchDocuments.forEach((item) => {
-      item.setParent(formSettings.brand);
+      item.setParent(this.brand);
     },
     );
-    return observableOf(doc);
   }
 
   onCallback(event: DocumentFormEvent): void {
