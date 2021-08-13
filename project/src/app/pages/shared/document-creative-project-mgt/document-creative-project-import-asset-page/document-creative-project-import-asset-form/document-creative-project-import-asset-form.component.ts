@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { DocumentModel, NuxeoUploadResponse, UserModel, GlobalSearchParams, NuxeoPagination } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicDatepickerDirectiveModel, NgFileService } from '@core/custom';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
+import { isValueEmpty } from '@core/services/helpers';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
+import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
-import { isValueEmpty } from '@core/services/helpers';
-import { of as observableOf, Observable, Subscription, forkJoin } from 'rxjs';
+import { of as observableOf, Observable, Subscription } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
-import { GlobalDocumentFormComponent } from '../../../global-document-form/global-document-form.component';
+
 @Component({
   selector: 'document-creative-project-import-asset-form',
   styleUrls: ['../../document-creative-project-mgt.component.scss', './document-creative-project-import-asset-form.component.scss'],
@@ -34,19 +35,22 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
-    return forkJoin([
-      this.search(doc.getParent('brand') ? { ecm_uuid: `["${doc.getParent('brand').uid}"]`, pageSize: 1 } : {}), //brand
-      this.search(doc.get('The_Loupe_Main:campaign') ? { ecm_uuid: `["${doc.get('The_Loupe_Main:campaign')}"]`, pageSize: 1 } : {}), // campaign
-    ]).pipe(
-      map((docsList: DocumentModel[][]) => [].concat.apply([], docsList)),
+    const ids = [];
+    if (doc.getParent('brand')) {
+      ids.push(doc.getParent('brand').uid);
+    }
+    if (doc.get('The_Loupe_Main:campaign')) {
+      ids.push(doc.get('The_Loupe_Main:campaign'));
+    }
+    return this.search({ ecm_uuid: `["${ids.join('", "')}"]`, pageSize: 2 }).pipe(
       concatMap((docs: DocumentModel[]) => observableOf(docs[0].setParent(doc, 'project').setParent(docs[1], 'campaign'))),
     );
   }
 
   private search(params: any = {}): Observable<DocumentModel[]> {
-    return params && !isValueEmpty(params) ? this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
+    return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
       map((res: NuxeoPagination) => res.entries),
-    ) : observableOf([new DocumentModel()]);
+    );
   }
 
   protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
