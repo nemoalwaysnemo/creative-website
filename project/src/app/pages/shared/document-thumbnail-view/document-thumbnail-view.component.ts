@@ -1,11 +1,11 @@
-import { Component, Input, TemplateRef, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, Input, TemplateRef, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
 import { isValueEmpty } from '@core/services/helpers';
 import { SelectableItemSettings } from '../document-selectable';
 import { BehaviorSubject, combineLatest, Subject, Subscription } from 'rxjs';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { DocumentThumbnailViewSettings } from './document-thumbnail-view.interface';
-import { animate, style, transition, trigger, state, stagger, query } from '@angular/animations';
+import { animate, style, transition, trigger, stagger, query } from '@angular/animations';
 
 @Component({
   selector: 'document-thumbnail-view',
@@ -14,7 +14,7 @@ import { animate, style, transition, trigger, state, stagger, query } from '@ang
     trigger('stagger', [
       transition('* => true', [
         query(':enter', [
-          style({opacity: 0, transform: 'translateX(-500px)'}),
+          style({ opacity: 0, transform: 'translateX(-500px)' }),
           stagger(100, [
             animate('200ms cubic-bezier(0.35, 0, 0.25, 1)', style({ opacity: 1, transform: 'none' })),
           ]),
@@ -25,7 +25,7 @@ import { animate, style, transition, trigger, state, stagger, query } from '@ang
   template: `
     <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? viewSettings.loadingStyle : {}">
         <ng-container *ngIf="documentList && documentList.length !== 0">
-          <div [@stagger]="enableAnimation" class="s-results {{viewSettings.layout}}" [ngStyle]="hide ? {'display': 'none'} : {}">
+          <div [@stagger]="viewSettings.enableShuffle" class="s-results {{viewSettings.layout}}" [ngStyle]="hide ? {'display': 'none'} : {}">
             <div class="thumbnail-view-custom-item" *ngIf="viewSettings.enableCustomGrid">
               <div [ngClass]="['custom-grid', (viewSettings.disableCustomGrid ? 'disable' : '')]" title="{{viewSettings.customGridTitle}}" (click)="onCustomGridClick($event)">
                 <div class="custom-add"><h1>+</h1></div>
@@ -46,56 +46,7 @@ import { animate, style, transition, trigger, state, stagger, query } from '@ang
     </div>
   `,
 })
-export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterViewInit {
-
-  @Input()
-  set selectableSettings(settings: SelectableItemSettings) {
-    this.selectableItemSettings = (settings || new SelectableItemSettings());
-  }
-
-  @Input()
-  set documents(docs: DocumentModel[]) {
-    if (!isValueEmpty(docs)) {
-      this.documents$.next(docs);
-    }
-  }
-
-  @Input()
-  set settings(settings: DocumentThumbnailViewSettings) {
-    if (!isValueEmpty(settings)) {
-      this.viewSettings$.next(settings);
-    }
-  }
-
-  constructor(private documentPageService: DocumentPageService) {
-    this.subscribeEvents();
-  }
-
-  sliderClass: string = '';
-
-  documentList: DocumentModel[] = [];
-
-  selectClass: string = '';
-
-  selectableCheckboxStyle: string;
-
-  viewSettings: DocumentThumbnailViewSettings = new DocumentThumbnailViewSettings();
-
-  selectableItemSettings: SelectableItemSettings = new SelectableItemSettings();
-
-  @Input() templateRef: TemplateRef<any>;
-
-  @Input() loading: boolean = false;
-
-  @Input() hide: boolean = false;
-
-  private documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
-
-  private viewSettings$: Subject<DocumentThumbnailViewSettings> = new Subject<DocumentThumbnailViewSettings>();
-
-  private subscription: Subscription = new Subscription();
-
-  @Input() enableAnimation: boolean = false;
+export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keydown', ['$event'])
   keyDownEvent(event: KeyboardEvent): void {
@@ -123,6 +74,53 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
     }
   }
 
+  @Input() templateRef: TemplateRef<any>;
+
+  @Input() loading: boolean = false;
+
+  @Input() hide: boolean = false;
+
+  @Input()
+  set selectableSettings(settings: SelectableItemSettings) {
+    this.selectableItemSettings = (settings || new SelectableItemSettings());
+  }
+
+  @Input()
+  set documents(docs: DocumentModel[]) {
+    if (!isValueEmpty(docs)) {
+      this.documents$.next(docs);
+    }
+  }
+
+  @Input()
+  set settings(settings: DocumentThumbnailViewSettings) {
+    if (!isValueEmpty(settings)) {
+      this.viewSettings$.next(settings);
+    }
+  }
+
+  sliderClass: string = '';
+
+  documentList: DocumentModel[] = [];
+
+  selectClass: string = '';
+
+  selectableCheckboxStyle: string;
+
+  viewSettings: DocumentThumbnailViewSettings = new DocumentThumbnailViewSettings();
+
+  selectableItemSettings: SelectableItemSettings = new SelectableItemSettings();
+
+  private documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
+
+  private viewSettings$: Subject<DocumentThumbnailViewSettings> = new Subject<DocumentThumbnailViewSettings>();
+
+  private subscription: Subscription = new Subscription();
+
+  constructor(private documentPageService: DocumentPageService) {
+    this.subscribeEvents();
+  }
+
   ngOnInit(): void {
     this.selectableCheckboxShow();
   }
@@ -141,9 +139,6 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
         this.selectableCheckboxStyle = 'item-selectable-checkbox-hide';
       }
     }
-  }
-
-  ngAfterViewInit(): void {
   }
 
   onCustomGridClick(event: any): void {
