@@ -1,4 +1,4 @@
-<global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [enableScrolling]="enableScrolling"></global-search-result>
+<global-search-result [templateRef]="thumbnailView" [afterSearch]="afterSearch" [enableScrolling]="enableScrolling" [enableAnimation]="enableAnimation"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <ng-container [ngSwitch]="doc.type">
     <ng-container *ngSwitchCase="'App-Backslash-Case-Study-Folder'">
