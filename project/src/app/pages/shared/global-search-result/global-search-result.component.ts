@@ -19,6 +19,8 @@ export class GlobalSearchResultComponent extends BaseGlobalSearchResultComponent
 
   @Input() selectableSettings: SelectableItemSettings;
 
+  @Input() enableAnimation: boolean = false;
+
   constructor(
     protected documentPageService: DocumentPageService,
     protected globalSearchFormService: GlobalSearchFormService,

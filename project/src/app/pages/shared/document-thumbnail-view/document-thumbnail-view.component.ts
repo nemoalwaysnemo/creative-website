@@ -1,21 +1,31 @@
 import { Component, Input, TemplateRef, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { DocumentModel } from '@core/api/nuxeo/lib';
 import { isValueEmpty } from '@core/services/helpers';
-import Shuffle from 'shufflejs';
 import { SelectableItemSettings } from '../document-selectable';
 import { BehaviorSubject, combineLatest, Subject, Subscription } from 'rxjs';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { DocumentThumbnailViewSettings } from './document-thumbnail-view.interface';
+import { animate, style, transition, trigger, state, stagger, query } from '@angular/animations';
 
 @Component({
   selector: 'document-thumbnail-view',
   styleUrls: ['./document-thumbnail-view.component.scss'],
+  animations: [
+    trigger('stagger', [
+      transition('* => true', [
+        query(':enter', [
+          style({opacity: 0, transform: 'translateX(-500px)'}),
+          stagger(100, [
+            animate('200ms cubic-bezier(0.35, 0, 0.25, 1)', style({ opacity: 1, transform: 'none' })),
+          ]),
+        ], { optional: true }),
+      ]),
+    ]),
+  ],
   template: `
-   <!-- <button (click)="shuffle()">Shuffle</button>-->
     <div [nbSpinner]="loading" nbSpinnerStatus="disabled" tabIndex="-1" [ngStyle]="loading ? viewSettings.loadingStyle : {}">
-      <div #shuffleContainer class="shuffle-container">
         <ng-container *ngIf="documentList && documentList.length !== 0">
-          <div class="s-results {{viewSettings.layout}}" [ngStyle]="hide ? {'display': 'none'} : {}">
+          <div [@stagger]="enableAnimation" class="s-results {{viewSettings.layout}}" [ngStyle]="hide ? {'display': 'none'} : {}">
             <div class="thumbnail-view-custom-item" *ngIf="viewSettings.enableCustomGrid">
               <div [ngClass]="['custom-grid', (viewSettings.disableCustomGrid ? 'disable' : '')]" title="{{viewSettings.customGridTitle}}" (click)="onCustomGridClick($event)">
                 <div class="custom-add"><h1>+</h1></div>
@@ -28,8 +38,6 @@ import { DocumentThumbnailViewSettings } from './document-thumbnail-view.interfa
             <div class="clear"></div>
           </div>
         </ng-container>
-        <div #shuffleSizer class="sizer-element"></div>
-      </div>
       <ng-container *ngIf="!viewSettings.hideEmpty && !loading && documentList && documentList.length === 0">
         <div class="thumbnail-view empty text-center">
           <span class="empty-data">{{viewSettings.noResultText}}</span>
@@ -81,17 +89,13 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
 
   @Input() hide: boolean = false;
 
-  @ViewChild('shuffleContainer') private shuffleContainer: ElementRef;
-
-  @ViewChild('shuffleSizer') private shuffleSizer: ElementRef;
-
   private documents$: BehaviorSubject<DocumentModel[]> = new BehaviorSubject<DocumentModel[]>([]);
 
   private viewSettings$: Subject<DocumentThumbnailViewSettings> = new Subject<DocumentThumbnailViewSettings>();
 
-  private shuffleInstance: Shuffle;
-
   private subscription: Subscription = new Subscription();
+
+  @Input() enableAnimation: boolean = false;
 
   @HostListener('window:keydown', ['$event'])
   keyDownEvent(event: KeyboardEvent): void {
@@ -140,13 +144,6 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
   }
 
   ngAfterViewInit(): void {
-    if (this.viewSettings.enableShuffle) {
-      this.shuffle();
-    }
-  }
-
-  shuffle(): void {
-    this.getShuffleInstance().filter();
   }
 
   onCustomGridClick(event: any): void {
@@ -159,23 +156,10 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy, AfterV
     this.viewSettings = settings;
   }
 
-  private getShuffleInstance(): Shuffle {
-    if (!this.shuffleInstance) {
-      const options = Object.assign({}, this.viewSettings.shuffleOptions || {}, {
-        sizer: this.shuffleSizer.nativeElement,
-        itemSelector: '.thumbnail-view-item',
-      });
-      this.shuffleInstance = new Shuffle(this.shuffleContainer.nativeElement, options);
-    }
-    return this.shuffleInstance;
-  }
-
   private subscribeEvents(): void {
     const subscription1 = this.documentPageService.onEventType('document-thumbnail-view').subscribe((e: GlobalEvent) => {
       if (e.name === 'SliderValueChanged') {
         this.sliderClass = e.payload.value === 1 ? (e.payload.className || 'half-size') : (e.payload.className || '');
-      } else if (e.name === 'ShuffleDocumentItems') {
-        this.shuffle();
       }
     });
     this.subscription.add(subscription1);

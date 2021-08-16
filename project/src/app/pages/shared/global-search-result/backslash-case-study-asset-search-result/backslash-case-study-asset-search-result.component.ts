@@ -14,6 +14,8 @@ export class BackslashCaseStudyAssetSearchResultComponent extends BaseSearchResu
 
   @Input() enableScrolling: boolean = true;
 
+  enableAnimation = true;
+
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
