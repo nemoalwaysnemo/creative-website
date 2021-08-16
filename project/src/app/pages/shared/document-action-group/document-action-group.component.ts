@@ -79,6 +79,10 @@ export class DocumentActionGroupComponent {
     }
   }
 
+  isVideo(doc: DocumentModel): boolean {
+    return doc.isVideo();
+  }
+
   canDownloadCreativeAsset(doc: DocumentModel): Observable<boolean> {
     return combineLatest([
       doc.hasPermission(NuxeoPermission.ReadWrite),
