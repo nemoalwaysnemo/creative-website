@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   private isScrollToTop(e: NavigationEnd, previousUrl: string): boolean {
-    return e.url.includes('/asset/') || e.urlAfterRedirects.includes('/home');
+    return e.url.includes('/asset/') || e.urlAfterRedirects.includes('/home') || e.urlAfterRedirects.endsWith('/Disruption%20Roadmaps');
   }
 
   private performScrolling(): void {
