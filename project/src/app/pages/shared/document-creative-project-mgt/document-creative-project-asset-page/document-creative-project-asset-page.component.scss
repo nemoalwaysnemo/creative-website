@@ -124,10 +124,10 @@ h3 {
       width: 100%;
     }
     div.submitted-message {
-      min-width: 0;
-      width: auto;
-      margin: auto;
-      font-size: 17px;
+      min-width: 0 !important;
+      width: auto !important;
+      margin: auto !important;
+      font-size: 17px !important;
 
       p {
         padding-top: 7px;

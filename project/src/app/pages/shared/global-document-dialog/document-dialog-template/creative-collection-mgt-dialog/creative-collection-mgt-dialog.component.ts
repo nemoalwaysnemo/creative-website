@@ -107,7 +107,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
       selectedDocuments: this.documents,
       formType: 'add',
     };
-    const document = this.parentDocument ;
+    const document = this.parentDocument;
     this.selectView(name, null, { formSettings, document });
   }
 

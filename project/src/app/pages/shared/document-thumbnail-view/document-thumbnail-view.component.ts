@@ -62,7 +62,7 @@ export class DocumentThumbnailViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:up', ['$event'])
+  @HostListener('window:keyup', ['$event'])
   keyUpEvent(event: KeyboardEvent): void {
     if (this.selectableItemSettings.allowShiftMultiSelect) {
       if (event.key === 'Shift') {
