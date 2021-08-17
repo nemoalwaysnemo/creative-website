@@ -53,6 +53,20 @@
   }
 }
 
+::ng-deep .wide-dialog-container {
+  .submitted-message {
+    @include media-breakpoint-down(lg) { //1199
+      width: 940px !important;
+    }
+    @include media-breakpoint-between(lg, xxl) { //992px - 1599px
+      width: 1200px !important;
+    }
+    @include media-breakpoint-up(xxl) { //1400px
+      width: 1700px !important;
+    }
+  }
+}
+
 .btn-margin-bottom {
   margin-bottom: 75px;
 }

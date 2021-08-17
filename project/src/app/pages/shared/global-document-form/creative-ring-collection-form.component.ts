@@ -32,15 +32,10 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
   }
 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
-    if (doc.type === 'App-Library-CreativeRing-Collection') {
-      doc.setProperty('The_Loupe_Main:agency', null);
-      doc.setProperty('The_Loupe_Main:country', []);
-    } else {
-      const agency = ctx.formValue['The_Loupe_Main:agency'] ? ctx.formValue['The_Loupe_Main:agency'] : null;
-      const country = ctx.formValue['The_Loupe_Main:country'] ? ctx.formValue['The_Loupe_Main:country'] : [];
-      doc.setProperty('The_Loupe_Main:agency', !isValueEmpty(doc.get('The_Loupe_Main:agency')) ? doc.get('The_Loupe_Main:agency') : agency);
-      doc.setProperty('The_Loupe_Main:country', !isValueEmpty(doc.get('The_Loupe_Main:country')) ? doc.get('The_Loupe_Main:country') : country);
-    }
+    const agency = ctx.formValue['The_Loupe_Main:agency'] ? ctx.formValue['The_Loupe_Main:agency'] : null;
+    const country = ctx.formValue['The_Loupe_Main:country'] ? ctx.formValue['The_Loupe_Main:country'] : [];
+    doc.setProperty('The_Loupe_Main:agency', !isValueEmpty(doc.get('The_Loupe_Main:agency')) ? doc.get('The_Loupe_Main:agency') : agency);
+    doc.setProperty('The_Loupe_Main:country', !isValueEmpty(doc.get('The_Loupe_Main:country')) ? doc.get('The_Loupe_Main:country') : country);
     return observableOf(doc);
   };
 
