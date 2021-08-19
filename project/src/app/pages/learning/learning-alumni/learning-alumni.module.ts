@@ -8,7 +8,6 @@ import { GlobalDocumentDialogModule } from '@pages/shared';
 @NgModule({
   imports: [
     ThemeModule,
-    RouterModule,
     SharedModule,
     GlobalDocumentDialogModule,
   ],

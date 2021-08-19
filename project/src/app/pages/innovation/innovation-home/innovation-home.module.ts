@@ -8,7 +8,6 @@ import { InnovationHomeComponent } from './innovation-home.component';
 @NgModule({
   imports: [
     ThemeModule,
-    RouterModule,
     SharedModule,
     HomeSearchFormModule,
   ],

@@ -10,7 +10,6 @@ import { DisruptionHomeResourceModule } from './disruption-home-resource/disrupt
 @NgModule({
   imports: [
     ThemeModule,
-    RouterModule,
     SharedModule,
     DisruptionHomeXModule,
     DisruptionHomeGalleryModule,

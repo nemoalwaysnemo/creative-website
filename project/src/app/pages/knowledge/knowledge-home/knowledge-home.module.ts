@@ -8,7 +8,6 @@ import { KnowledgeHomeComponent } from './knowledge-home.component';
 @NgModule({
   imports: [
     ThemeModule,
-    RouterModule,
     SharedModule,
     HomeSearchFormModule,
   ],

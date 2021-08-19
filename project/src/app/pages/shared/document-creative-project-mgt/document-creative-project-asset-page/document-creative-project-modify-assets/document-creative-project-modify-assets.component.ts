@@ -4,12 +4,12 @@ import { DynamicSuggestionModel, DynamicDatepickerDirectiveModel } from '@core/c
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
 import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
+import { DocumentListViewService } from '../../../document-list-view/document-list-view.service';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
 import { DocumentPageService } from '../../../services/document-page.service';
 import { OptionModel } from '../../../option-select/option-select.interface';
 import { SuggestionSettings } from '../../../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
-import { DocumentListViewService } from '@pages/shared/document-list-view/document-list-view.service';
 import { map } from 'rxjs/operators';
 
 @Component({

@@ -2,8 +2,8 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { DocumentPageService } from '../../services/document-page.service';
 import { BaseSearchResultComponent } from '../base-search-result.component';
+import { GLOBAL_DOCUMENT_FORM } from '../../global-document-form';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService, GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
-import { GLOBAL_DOCUMENT_FORM } from '@pages/shared/global-document-form';
 
 @Component({
   selector: 'creative-ring-collection-folder-asset-search-result',

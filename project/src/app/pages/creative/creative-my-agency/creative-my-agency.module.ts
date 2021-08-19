@@ -8,7 +8,6 @@ import { CreativeMyAgencyComponent } from './creative-my-agency.component';
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
   ],
   declarations: [
     CreativeMyAgencyComponent,

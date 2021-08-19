@@ -9,7 +9,6 @@ import { IntelligenceFolderViewModule } from '../intelligence-shared/intelligenc
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
     IntelligenceFolderViewModule,
   ],
   declarations: [

@@ -18,7 +18,6 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     ThemeModule,
-    RouterModule,
     PaginationModule,
     InfiniteScrollModule,
     DocumentViewerModule,

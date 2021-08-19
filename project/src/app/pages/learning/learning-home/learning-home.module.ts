@@ -9,7 +9,6 @@ import { LearningHomeResourceModule } from './learning-home-resource/learning-ho
 @NgModule({
   imports: [
     ThemeModule,
-    RouterModule,
     SharedModule,
     LearningHomeSearchModule,
     LearningHomeResourceModule,

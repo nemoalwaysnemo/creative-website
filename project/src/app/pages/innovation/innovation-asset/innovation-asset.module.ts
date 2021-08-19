@@ -9,7 +9,6 @@ import { InnovationFolderViewModule } from '../innovation-folder-view/innovation
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
     InnovationFolderViewModule,
   ],
   declarations: [
