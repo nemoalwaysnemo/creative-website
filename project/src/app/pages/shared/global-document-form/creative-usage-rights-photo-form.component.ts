@@ -38,8 +38,8 @@ export class CreativeUsageRightsPhotoComponent extends GlobalDocumentFormCompone
   }
 
   goToUsageRights(): void {
-    const setting = new CreativeProjectMgtSettings();
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'usage-rights-home-view', type: 'view', setting }, type: 'creative-campaign-project-mgt' }));
+    const settings = new CreativeProjectMgtSettings();
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'usage-rights-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected getFormModels(): any[] {
